@@ -1,0 +1,1397 @@
+[
+  {
+    "id": 0,
+    "name": "None",
+    "type": 0,
+    "word4": 0,
+    "function8": 0,
+    "think": 390128,
+    "function24": 0
+  },
+  {
+    "id": 1,
+    "name": "Idle",
+    "type": 0,
+    "word4": 0,
+    "function8": 0,
+    "think": 4431136,
+    "function24": 0
+  },
+  {
+    "id": 2,
+    "name": "Skeleton",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4774304,
+    "function24": 0
+  },
+  {
+    "id": 3,
+    "name": "Zombie",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4774752,
+    "function24": 0
+  },
+  {
+    "id": 4,
+    "name": "Bighead",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4775280,
+    "function24": 0
+  },
+  {
+    "id": 5,
+    "name": "BloodHawk",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4776128,
+    "function24": 0
+  },
+  {
+    "id": 6,
+    "name": "Fallen",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4777072,
+    "function24": 0
+  },
+  {
+    "id": 7,
+    "name": "Brute",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4773664,
+    "function24": 0
+  },
+  {
+    "id": 8,
+    "name": "SandRaider",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4779424,
+    "function24": 0
+  },
+  {
+    "id": 9,
+    "name": "Wraith",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4780944,
+    "function24": 0
+  },
+  {
+    "id": 10,
+    "name": "CorruptRogue",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4781232,
+    "function24": 0
+  },
+  {
+    "id": 11,
+    "name": "Baboon",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4781872,
+    "function24": 0
+  },
+  {
+    "id": 12,
+    "name": "Goatman",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4784624,
+    "function24": 0
+  },
+  {
+    "id": 13,
+    "name": "FallenShaman",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4785584,
+    "function24": 0
+  },
+  {
+    "id": 14,
+    "name": "QuillRat",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4784144,
+    "function24": 0
+  },
+  {
+    "id": 15,
+    "name": "SandMaggot",
+    "type": 5,
+    "word4": 0,
+    "function8": 0,
+    "think": 4787056,
+    "function24": 4786720
+  },
+  {
+    "id": 16,
+    "name": "ClawViper",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4788352,
+    "function24": 0
+  },
+  {
+    "id": 17,
+    "name": "SandLeaper",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4790992,
+    "function24": 0
+  },
+  {
+    "id": 18,
+    "name": "PantherWoman",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4791744,
+    "function24": 0
+  },
+  {
+    "id": 19,
+    "name": "Swarm",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4784624,
+    "function24": 0
+  },
+  {
+    "id": 20,
+    "name": "Scarab",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4792512,
+    "function24": 0
+  },
+  {
+    "id": 21,
+    "name": "Mummy",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4793856,
+    "function24": 0
+  },
+  {
+    "id": 22,
+    "name": "GreaterMummy",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4795120,
+    "function24": 0
+  },
+  {
+    "id": 23,
+    "name": "Vulture",
+    "type": 3,
+    "word4": 0,
+    "function8": 0,
+    "think": 4798208,
+    "function24": 0
+  },
+  {
+    "id": 24,
+    "name": "Mosquito",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4801216,
+    "function24": 0
+  },
+  {
+    "id": 25,
+    "name": "WillOWisp",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4802256,
+    "function24": 0
+  },
+  {
+    "id": 26,
+    "name": "Arach",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4805968,
+    "function24": 0
+  },
+  {
+    "id": 27,
+    "name": "ThornHulk",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4807600,
+    "function24": 0
+  },
+  {
+    "id": 28,
+    "name": "Vampire",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4808560,
+    "function24": 0
+  },
+  {
+    "id": 29,
+    "name": "BatDemon",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4811552,
+    "function24": 4811280
+  },
+  {
+    "id": 30,
+    "name": "Fetish",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4813664,
+    "function24": 0
+  },
+  {
+    "id": 31,
+    "name": "NpcOutOfTown",
+    "type": 0,
+    "word4": 0,
+    "function8": 0,
+    "think": 4914256,
+    "function24": 0
+  },
+  {
+    "id": 32,
+    "name": "Npc",
+    "type": 0,
+    "word4": 0,
+    "function8": 0,
+    "think": 4909584,
+    "function24": 0
+  },
+  {
+    "id": 33,
+    "name": "HellMeteor",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4815040,
+    "function24": 0
+  },
+  {
+    "id": 34,
+    "name": "Andariel",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4815616,
+    "function24": 0
+  },
+  {
+    "id": 35,
+    "name": "CorruptArcher",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4816336,
+    "function24": 0
+  },
+  {
+    "id": 36,
+    "name": "CorruptLancer",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4817744,
+    "function24": 0
+  },
+  {
+    "id": 37,
+    "name": "SkeletonBow",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4818896,
+    "function24": 0
+  },
+  {
+    "id": 38,
+    "name": "MaggotLarva",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4819536,
+    "function24": 0
+  },
+  {
+    "id": 39,
+    "name": "PinHead",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4819920,
+    "function24": 0
+  },
+  {
+    "id": 40,
+    "name": "MaggotEgg",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4820560,
+    "function24": 0
+  },
+  {
+    "id": 41,
+    "name": "Towner",
+    "type": 0,
+    "word4": 0,
+    "function8": 0,
+    "think": 4912624,
+    "function24": 0
+  },
+  {
+    "id": 42,
+    "name": "Vendor",
+    "type": 0,
+    "word4": 0,
+    "function8": 0,
+    "think": 4721888,
+    "function24": 0
+  },
+  {
+    "id": 43,
+    "name": "FoulCrowNest",
+    "type": 1,
+    "word4": 0,
+    "function8": 4820960,
+    "think": 4820992,
+    "function24": 0
+  },
+  {
+    "id": 44,
+    "name": "Duriel",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4821632,
+    "function24": 0
+  },
+  {
+    "id": 45,
+    "name": "Sarcophagus",
+    "type": 1,
+    "word4": 0,
+    "function8": 4820960,
+    "think": 4822432,
+    "function24": 0
+  },
+  {
+    "id": 46,
+    "name": "ElementalBeast",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4823088,
+    "function24": 0
+  },
+  {
+    "id": 47,
+    "name": "FlyingScimitar",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4823584,
+    "function24": 0
+  },
+  {
+    "id": 48,
+    "name": "ZakarumZealot",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4824144,
+    "function24": 0
+  },
+  {
+    "id": 49,
+    "name": "ZakarumPriest",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4826384,
+    "function24": 0
+  },
+  {
+    "id": 50,
+    "name": "Mephisto",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4828880,
+    "function24": 0
+  },
+  {
+    "id": 51,
+    "name": "Diablo",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4714240,
+    "function24": 4707568
+  },
+  {
+    "id": 52,
+    "name": "FrogDemon",
+    "type": 6,
+    "word4": 0,
+    "function8": 0,
+    "think": 4835008,
+    "function24": 4834704
+  },
+  {
+    "id": 53,
+    "name": "Summoner",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4836576,
+    "function24": 0
+  },
+  {
+    "id": 54,
+    "name": "NpcStationary",
+    "type": 0,
+    "word4": 0,
+    "function8": 0,
+    "think": 4911664,
+    "function24": 0
+  },
+  {
+    "id": 55,
+    "name": "Izual",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4838304,
+    "function24": 0
+  },
+  {
+    "id": 56,
+    "name": "Tentacle",
+    "type": 2,
+    "word4": 0,
+    "function8": 0,
+    "think": 4840400,
+    "function24": 0
+  },
+  {
+    "id": 57,
+    "name": "TentacleHead",
+    "type": 2,
+    "word4": 0,
+    "function8": 0,
+    "think": 4841712,
+    "function24": 0
+  },
+  {
+    "id": 58,
+    "name": "Navi",
+    "type": 0,
+    "word4": 0,
+    "function8": 0,
+    "think": 4703808,
+    "function24": 0
+  },
+  {
+    "id": 59,
+    "name": "BloodRaven",
+    "type": 1,
+    "word4": 0,
+    "function8": 4903056,
+    "think": 4903072,
+    "function24": 0
+  },
+  {
+    "id": 60,
+    "name": "GoodNpcRanged",
+    "type": 0,
+    "word4": 0,
+    "function8": 0,
+    "think": 4915344,
+    "function24": 0
+  },
+  {
+    "id": 61,
+    "name": "Hireable",
+    "type": 0,
+    "word4": 0,
+    "function8": 0,
+    "think": 4896096,
+    "function24": 4844448
+  },
+  {
+    "id": 62,
+    "name": "TownRogue",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4703648,
+    "function24": 0
+  },
+  {
+    "id": 63,
+    "name": "GargoyleTrap",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4842656,
+    "function24": 0
+  },
+  {
+    "id": 64,
+    "name": "SkeletonMage",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4843376,
+    "function24": 0
+  },
+  {
+    "id": 65,
+    "name": "FetishShaman",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4845264,
+    "function24": 4844448
+  },
+  {
+    "id": 66,
+    "name": "SandMaggotQueen",
+    "type": 0,
+    "word4": 0,
+    "function8": 0,
+    "think": 4846576,
+    "function24": 0
+  },
+  {
+    "id": 67,
+    "name": "NecroPet",
+    "type": 0,
+    "word4": 0,
+    "function8": 0,
+    "think": 4892784,
+    "function24": 0
+  },
+  {
+    "id": 68,
+    "name": "VileMother",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4847696,
+    "function24": 0
+  },
+  {
+    "id": 69,
+    "name": "VileDog",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4848864,
+    "function24": 0
+  },
+  {
+    "id": 70,
+    "name": "FingerMage",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4849232,
+    "function24": 0
+  },
+  {
+    "id": 71,
+    "name": "Regurgitator",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4851152,
+    "function24": 0
+  },
+  {
+    "id": 72,
+    "name": "DoomKnight",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4853168,
+    "function24": 0
+  },
+  {
+    "id": 73,
+    "name": "AbyssKnight",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4853520,
+    "function24": 0
+  },
+  {
+    "id": 74,
+    "name": "OblivionKnight",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4854864,
+    "function24": 0
+  },
+  {
+    "id": 75,
+    "name": "QuillMother",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4856416,
+    "function24": 0
+  },
+  {
+    "id": 76,
+    "name": "EvilHole",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4856816,
+    "function24": 0
+  },
+  {
+    "id": 77,
+    "name": "Trap-Missile",
+    "type": 2,
+    "word4": 0,
+    "function8": 0,
+    "think": 4857872,
+    "function24": 0
+  },
+  {
+    "id": 78,
+    "name": "Trap-RightArrow",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4858512,
+    "function24": 0
+  },
+  {
+    "id": 79,
+    "name": "Trap-LeftArrow",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4859008,
+    "function24": 0
+  },
+  {
+    "id": 80,
+    "name": "Trap-Poison",
+    "type": 2,
+    "word4": 0,
+    "function8": 0,
+    "think": 4859552,
+    "function24": 0
+  },
+  {
+    "id": 81,
+    "name": "JarJar",
+    "type": 0,
+    "word4": 0,
+    "function8": 0,
+    "think": 4912736,
+    "function24": 0
+  },
+  {
+    "id": 82,
+    "name": "InvisoSpawner",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4860208,
+    "function24": 0
+  },
+  {
+    "id": 83,
+    "name": "MosquitoNest",
+    "type": 0,
+    "word4": 0,
+    "function8": 0,
+    "think": 4861104,
+    "function24": 0
+  },
+  {
+    "id": 84,
+    "name": "BoneWall",
+    "type": 0,
+    "word4": 0,
+    "function8": 4861632,
+    "think": 4861728,
+    "function24": 0
+  },
+  {
+    "id": 85,
+    "name": "HighPriest",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4862080,
+    "function24": 0
+  },
+  {
+    "id": 86,
+    "name": "Hydra",
+    "type": 2,
+    "word4": 0,
+    "function8": 0,
+    "think": 4722064,
+    "function24": 0
+  },
+  {
+    "id": 87,
+    "name": "Trap-Melee",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4859952,
+    "function24": 0
+  },
+  {
+    "id": 88,
+    "name": "7TIllusion",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4722912,
+    "function24": 0
+  },
+  {
+    "id": 89,
+    "name": "Megademon",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4865232,
+    "function24": 0
+  },
+  {
+    "id": 90,
+    "name": "Griswold",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4899216,
+    "function24": 0
+  },
+  {
+    "id": 91,
+    "name": "DarkWanderer",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4723184,
+    "function24": 0
+  },
+  {
+    "id": 92,
+    "name": "Trap-Nova",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4859552,
+    "function24": 0
+  },
+  {
+    "id": 93,
+    "name": "ArcaneTower",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4866432,
+    "function24": 0
+  },
+  {
+    "id": 94,
+    "name": "DesertTurret",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4864288,
+    "function24": 0
+  },
+  {
+    "id": 95,
+    "name": "PantherJavelin",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4866752,
+    "function24": 0
+  },
+  {
+    "id": 96,
+    "name": "FetishBlowgun",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4867552,
+    "function24": 0
+  },
+  {
+    "id": 97,
+    "name": "Spirit",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4883952,
+    "function24": 0
+  },
+  {
+    "id": 98,
+    "name": "Smith",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4884128,
+    "function24": 0
+  },
+  {
+    "id": 99,
+    "name": "TrappedSoul",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4722352,
+    "function24": 0
+  },
+  {
+    "id": 100,
+    "name": "Buffy",
+    "type": 0,
+    "word4": 0,
+    "function8": 0,
+    "think": 4431136,
+    "function24": 0
+  },
+  {
+    "id": 101,
+    "name": "AssassinSentry",
+    "type": 0,
+    "word4": 0,
+    "function8": 4724064,
+    "think": 4724784,
+    "function24": 0
+  },
+  {
+    "id": 102,
+    "name": "BladeCreeper",
+    "type": 0,
+    "word4": 0,
+    "function8": 4725504,
+    "think": 4725536,
+    "function24": 0
+  },
+  {
+    "id": 103,
+    "name": "InvisoPet",
+    "type": 0,
+    "word4": 0,
+    "function8": 0,
+    "think": 4726896,
+    "function24": 0
+  },
+  {
+    "id": 104,
+    "name": "DeathSentry",
+    "type": 0,
+    "word4": 0,
+    "function8": 4724064,
+    "think": 4727520,
+    "function24": 0
+  },
+  {
+    "id": 105,
+    "name": "ShadowWarrior",
+    "type": 2,
+    "word4": 0,
+    "function8": 4730112,
+    "think": 4730464,
+    "function24": 0
+  },
+  {
+    "id": 106,
+    "name": "ShadowMaster",
+    "type": 2,
+    "word4": 0,
+    "function8": 4732240,
+    "think": 4735280,
+    "function24": 0
+  },
+  {
+    "id": 107,
+    "name": "Raven",
+    "type": 2,
+    "word4": 0,
+    "function8": 4744432,
+    "think": 4744800,
+    "function24": 0
+  },
+  {
+    "id": 108,
+    "name": "DruidWolf",
+    "type": 0,
+    "word4": 0,
+    "function8": 0,
+    "think": 4750144,
+    "function24": 0
+  },
+  {
+    "id": 109,
+    "name": "Totem",
+    "type": 0,
+    "word4": 0,
+    "function8": 0,
+    "think": 4751312,
+    "function24": 0
+  },
+  {
+    "id": 110,
+    "name": "Vines",
+    "type": 2,
+    "word4": 0,
+    "function8": 4741952,
+    "think": 4741968,
+    "function24": 0
+  },
+  {
+    "id": 111,
+    "name": "CycleOfLife",
+    "type": 2,
+    "word4": 0,
+    "function8": 4741952,
+    "think": 4742816,
+    "function24": 0
+  },
+  {
+    "id": 112,
+    "name": "DruidBear",
+    "type": 0,
+    "word4": 0,
+    "function8": 0,
+    "think": 4750176,
+    "function24": 0
+  },
+  {
+    "id": 113,
+    "name": "SiegeTower",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4870608,
+    "function24": 0
+  },
+  {
+    "id": 114,
+    "name": "ReanimatedHorde",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4869040,
+    "function24": 0
+  },
+  {
+    "id": 115,
+    "name": "SiegeBeast",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4870928,
+    "function24": 0
+  },
+  {
+    "id": 116,
+    "name": "Minion",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4871776,
+    "function24": 0
+  },
+  {
+    "id": 117,
+    "name": "SuicideMinion",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4872528,
+    "function24": 0
+  },
+  {
+    "id": 118,
+    "name": "Succubus",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4872864,
+    "function24": 0
+  },
+  {
+    "id": 119,
+    "name": "SuccubusWitch",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4873952,
+    "function24": 0
+  },
+  {
+    "id": 120,
+    "name": "Overseer",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4876544,
+    "function24": 0
+  },
+  {
+    "id": 121,
+    "name": "MinionSpawner",
+    "type": 1,
+    "word4": 0,
+    "function8": 4820960,
+    "think": 4878464,
+    "function24": 0
+  },
+  {
+    "id": 122,
+    "name": "Imp",
+    "type": 1,
+    "word4": 0,
+    "function8": 4880240,
+    "think": 4880256,
+    "function24": 0
+  },
+  {
+    "id": 123,
+    "name": "Catapult",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4882256,
+    "function24": 0
+  },
+  {
+    "id": 124,
+    "name": "FrozenHorror",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4882464,
+    "function24": 0
+  },
+  {
+    "id": 125,
+    "name": "BloodLord",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4883472,
+    "function24": 0
+  },
+  {
+    "id": 126,
+    "name": "CatapultSpotter",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4753632,
+    "function24": 0
+  },
+  {
+    "id": 127,
+    "name": "NpcBarb",
+    "type": 2,
+    "word4": 0,
+    "function8": 390128,
+    "think": 4752416,
+    "function24": 0
+  },
+  {
+    "id": 128,
+    "name": "Nihlathak",
+    "type": 2,
+    "word4": 0,
+    "function8": 390128,
+    "think": 4756640,
+    "function24": 4844448
+  },
+  {
+    "id": 129,
+    "name": "GenericSpawner",
+    "type": 1,
+    "word4": 0,
+    "function8": 4902496,
+    "think": 4902544,
+    "function24": 0
+  },
+  {
+    "id": 130,
+    "name": "DeathMauler",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4754560,
+    "function24": 0
+  },
+  {
+    "id": 131,
+    "name": "Wussie",
+    "type": 2,
+    "word4": 0,
+    "function8": 0,
+    "think": 4755088,
+    "function24": 0
+  },
+  {
+    "id": 132,
+    "name": "AncientStatue",
+    "type": 0,
+    "word4": 0,
+    "function8": 0,
+    "think": 4759152,
+    "function24": 0
+  },
+  {
+    "id": 133,
+    "name": "Ancient",
+    "type": 2,
+    "word4": 0,
+    "function8": 0,
+    "think": 4762912,
+    "function24": 0
+  },
+  {
+    "id": 134,
+    "name": "BaalThrone",
+    "type": 2,
+    "word4": 0,
+    "function8": 390128,
+    "think": 4763456,
+    "function24": 0
+  },
+  {
+    "id": 135,
+    "name": "BaalCrab",
+    "type": 0,
+    "word4": 0,
+    "function8": 0,
+    "think": 4956384,
+    "function24": 4707568
+  },
+  {
+    "id": 136,
+    "name": "BaalTaunt",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4765984,
+    "function24": 0
+  },
+  {
+    "id": 137,
+    "name": "PutridDefiler",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4767632,
+    "function24": 0
+  },
+  {
+    "id": 138,
+    "name": "BaalToStairs",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4765136,
+    "function24": 0
+  },
+  {
+    "id": 139,
+    "name": "BaalTentacle",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4766416,
+    "function24": 0
+  },
+  {
+    "id": 140,
+    "name": "BaalCrabClone",
+    "type": 0,
+    "word4": 0,
+    "function8": 0,
+    "think": 4958832,
+    "function24": 4707568
+  },
+  {
+    "id": 141,
+    "name": "BaalMinion",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4767040,
+    "function24": 0
+  },
+  {
+    "id": 142,
+    "name": "ClawViperEx",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4789648,
+    "function24": 0
+  },
+  {
+    "id": 143,
+    "name": "ShadowMasterNoInit",
+    "type": 2,
+    "word4": 0,
+    "function8": 4733136,
+    "think": 4735280,
+    "function24": 0
+  },
+  {
+    "id": 144,
+    "name": "UberIzual",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4839296,
+    "function24": 0
+  },
+  {
+    "id": 145,
+    "name": "UberBaal",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4957584,
+    "function24": 4707568
+  },
+  {
+    "id": 146,
+    "name": "UberMephisto",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4832272,
+    "function24": 0
+  },
+  {
+    "id": 147,
+    "name": "UberDiablo",
+    "type": 1,
+    "word4": 0,
+    "function8": 0,
+    "think": 4719168,
+    "function24": 4707568
+  },
+  {
+    "id": 148,
+    "name": "GenericPet",
+    "type": 0,
+    "word4": 0,
+    "function8": 0,
+    "think": 4939968,
+    "function24": 0
+  },
+  {
+    "id": 149,
+    "name": "ColossalWhirlwind",
+    "type": 2,
+    "word4": 0,
+    "function8": 3971152,
+    "think": 3972256,
+    "function24": 0
+  },
+  {
+    "id": 150,
+    "name": "ColossalThrow",
+    "type": 2,
+    "word4": 0,
+    "function8": 3971152,
+    "think": 3974320,
+    "function24": 0
+  },
+  {
+    "id": 151,
+    "name": "ColossalLeap",
+    "type": 2,
+    "word4": 0,
+    "function8": 3971152,
+    "think": 3976944,
+    "function24": 0
+  },
+  {
+    "id": 152,
+    "name": "ColBarbWhirl",
+    "type": 2,
+    "word4": 0,
+    "function8": 3970560,
+    "think": 3978768,
+    "function24": 0
+  },
+  {
+    "id": 153,
+    "name": "ColBarbThrow",
+    "type": 2,
+    "word4": 0,
+    "function8": 3970560,
+    "think": 3980016,
+    "function24": 0
+  },
+  {
+    "id": 154,
+    "name": "ColBarbFrenzy",
+    "type": 2,
+    "word4": 0,
+    "function8": 3970560,
+    "think": 3980656,
+    "function24": 0
+  }
+]

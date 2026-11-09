@@ -1,0 +1,28 @@
+{
+  "referenceVersion": "3.3.93847",
+  "monsterRows": 751,
+  "normalDescriptors": 155,
+  "monsterStride": 508,
+  "aiOffset": 82,
+  "aiSigned": true,
+  "descriptorRva": "0x1d18810",
+  "descriptorStride": 32,
+  "genericPetIndex": 148,
+  "sourceBinaryRecoveredByHash": true,
+  "processMemoryRead": false,
+  "processInput": false,
+  "specialDescriptorsPublished": false,
+  "artifacts": {
+    ".local/class-skills/generic-pet-search-services/monstats.bin": "decdb2fc22ba3aa888278720395ac24fca8282f252291ca750ab22aac77f4765",
+    ".local/class-skills/generic-pet-search-services/monstats.txt": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+    ".local/class-skills/warlock-runtime-reference/generic-pet-candidate.json": "b43a32d2254d96fd26345609543840d858e3532ccf4066a2183127882ddb4413",
+    ".local/class-skills/warlock-runtime-reference/monai-extraction.json": "d2ea7c87ccc35746841a913cc258bb2af3f3b2a0b7ed3a5a9462d96a85ca46df",
+    ".local/class-skills/warlock-runtime-reference/monai.txt": "7c7c7b8866c46078356bcc6118789699351004f39edea92922425699d6aa86a8",
+    "data/Sanctuary/Balance/generic-pet-ai-descriptors.json": "f3a7aeb4b60817c1b03120d05453461b13083bfd4d54cb9fe35e1a4cbcab9ee1",
+    "data/Sanctuary/Balance/generic-pet-ai-monsters.json": "4d61ee0023f84fa0256df0718719550a246cfcfe7f8d5b90e121712e94f026e3",
+    "tools/build_pet_ai_tables.py": "426e22f5e06f6469828a3f885e814c1f8bd99dddefa1a8a4a2d82bbe8267f71d",
+    "tools/probe_warlock_runtime.py": "981a2b1152ffaf4b434fd6b63ef8fd61846f8ba030ab10d5a23c24629d5c994c",
+    "tools/reference/d2r-local-installation-evidence.json": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c",
+    "tools/reference/generic-pet-search-tables-data-evidence.json": "0190e7eaf59de19b5b0877ed538289dacaaeb9a801dec387edce471130a75229"
+  }
+}

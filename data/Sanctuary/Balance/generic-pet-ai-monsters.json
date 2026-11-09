@@ -1,0 +1,3757 @@
+[
+  {
+    "id": 0,
+    "name": "skeleton1",
+    "ai": 2
+  },
+  {
+    "id": 1,
+    "name": "skeleton2",
+    "ai": 2
+  },
+  {
+    "id": 2,
+    "name": "skeleton3",
+    "ai": 2
+  },
+  {
+    "id": 3,
+    "name": "skeleton4",
+    "ai": 2
+  },
+  {
+    "id": 4,
+    "name": "skeleton5",
+    "ai": 2
+  },
+  {
+    "id": 5,
+    "name": "zombie1",
+    "ai": 3
+  },
+  {
+    "id": 6,
+    "name": "zombie2",
+    "ai": 3
+  },
+  {
+    "id": 7,
+    "name": "zombie3",
+    "ai": 3
+  },
+  {
+    "id": 8,
+    "name": "zombie4",
+    "ai": 3
+  },
+  {
+    "id": 9,
+    "name": "zombie5",
+    "ai": 3
+  },
+  {
+    "id": 10,
+    "name": "bighead1",
+    "ai": 4
+  },
+  {
+    "id": 11,
+    "name": "bighead2",
+    "ai": 4
+  },
+  {
+    "id": 12,
+    "name": "bighead3",
+    "ai": 4
+  },
+  {
+    "id": 13,
+    "name": "bighead4",
+    "ai": 4
+  },
+  {
+    "id": 14,
+    "name": "bighead5",
+    "ai": 4
+  },
+  {
+    "id": 15,
+    "name": "foulcrow1",
+    "ai": 5
+  },
+  {
+    "id": 16,
+    "name": "foulcrow2",
+    "ai": 5
+  },
+  {
+    "id": 17,
+    "name": "foulcrow3",
+    "ai": 5
+  },
+  {
+    "id": 18,
+    "name": "foulcrow4",
+    "ai": 5
+  },
+  {
+    "id": 19,
+    "name": "fallen1",
+    "ai": 6
+  },
+  {
+    "id": 20,
+    "name": "fallen2",
+    "ai": 6
+  },
+  {
+    "id": 21,
+    "name": "fallen3",
+    "ai": 6
+  },
+  {
+    "id": 22,
+    "name": "fallen4",
+    "ai": 6
+  },
+  {
+    "id": 23,
+    "name": "fallen5",
+    "ai": 6
+  },
+  {
+    "id": 24,
+    "name": "brute2",
+    "ai": 7
+  },
+  {
+    "id": 25,
+    "name": "brute3",
+    "ai": 7
+  },
+  {
+    "id": 26,
+    "name": "brute4",
+    "ai": 7
+  },
+  {
+    "id": 27,
+    "name": "brute5",
+    "ai": 7
+  },
+  {
+    "id": 28,
+    "name": "brute1",
+    "ai": 7
+  },
+  {
+    "id": 29,
+    "name": "sandraider1",
+    "ai": 8
+  },
+  {
+    "id": 30,
+    "name": "sandraider2",
+    "ai": 8
+  },
+  {
+    "id": 31,
+    "name": "sandraider3",
+    "ai": 8
+  },
+  {
+    "id": 32,
+    "name": "sandraider4",
+    "ai": 8
+  },
+  {
+    "id": 33,
+    "name": "sandraider5",
+    "ai": 8
+  },
+  {
+    "id": 34,
+    "name": "gorgon1",
+    "ai": 1
+  },
+  {
+    "id": 35,
+    "name": "gorgon2",
+    "ai": 1
+  },
+  {
+    "id": 36,
+    "name": "gorgon3",
+    "ai": 1
+  },
+  {
+    "id": 37,
+    "name": "gorgon4",
+    "ai": 1
+  },
+  {
+    "id": 38,
+    "name": "wraith1",
+    "ai": 9
+  },
+  {
+    "id": 39,
+    "name": "wraith2",
+    "ai": 9
+  },
+  {
+    "id": 40,
+    "name": "wraith3",
+    "ai": 9
+  },
+  {
+    "id": 41,
+    "name": "wraith4",
+    "ai": 9
+  },
+  {
+    "id": 42,
+    "name": "wraith5",
+    "ai": 9
+  },
+  {
+    "id": 43,
+    "name": "corruptrogue1",
+    "ai": 10
+  },
+  {
+    "id": 44,
+    "name": "corruptrogue2",
+    "ai": 10
+  },
+  {
+    "id": 45,
+    "name": "corruptrogue3",
+    "ai": 10
+  },
+  {
+    "id": 46,
+    "name": "corruptrogue4",
+    "ai": 10
+  },
+  {
+    "id": 47,
+    "name": "corruptrogue5",
+    "ai": 10
+  },
+  {
+    "id": 48,
+    "name": "baboon1",
+    "ai": 11
+  },
+  {
+    "id": 49,
+    "name": "baboon2",
+    "ai": 11
+  },
+  {
+    "id": 50,
+    "name": "baboon3",
+    "ai": 11
+  },
+  {
+    "id": 51,
+    "name": "baboon4",
+    "ai": 11
+  },
+  {
+    "id": 52,
+    "name": "baboon5",
+    "ai": 11
+  },
+  {
+    "id": 53,
+    "name": "goatman1",
+    "ai": 12
+  },
+  {
+    "id": 54,
+    "name": "goatman2",
+    "ai": 12
+  },
+  {
+    "id": 55,
+    "name": "goatman3",
+    "ai": 12
+  },
+  {
+    "id": 56,
+    "name": "goatman4",
+    "ai": 12
+  },
+  {
+    "id": 57,
+    "name": "goatman5",
+    "ai": 12
+  },
+  {
+    "id": 58,
+    "name": "fallenshaman1",
+    "ai": 13
+  },
+  {
+    "id": 59,
+    "name": "fallenshaman2",
+    "ai": 13
+  },
+  {
+    "id": 60,
+    "name": "fallenshaman3",
+    "ai": 13
+  },
+  {
+    "id": 61,
+    "name": "fallenshaman4",
+    "ai": 13
+  },
+  {
+    "id": 62,
+    "name": "fallenshaman5",
+    "ai": 13
+  },
+  {
+    "id": 63,
+    "name": "quillrat1",
+    "ai": 14
+  },
+  {
+    "id": 64,
+    "name": "quillrat2",
+    "ai": 14
+  },
+  {
+    "id": 65,
+    "name": "quillrat3",
+    "ai": 14
+  },
+  {
+    "id": 66,
+    "name": "quillrat4",
+    "ai": 14
+  },
+  {
+    "id": 67,
+    "name": "quillrat5",
+    "ai": 14
+  },
+  {
+    "id": 68,
+    "name": "sandmaggot1",
+    "ai": 15
+  },
+  {
+    "id": 69,
+    "name": "sandmaggot2",
+    "ai": 15
+  },
+  {
+    "id": 70,
+    "name": "sandmaggot3",
+    "ai": 15
+  },
+  {
+    "id": 71,
+    "name": "sandmaggot4",
+    "ai": 15
+  },
+  {
+    "id": 72,
+    "name": "sandmaggot5",
+    "ai": 15
+  },
+  {
+    "id": 73,
+    "name": "clawviper1",
+    "ai": 16
+  },
+  {
+    "id": 74,
+    "name": "clawviper2",
+    "ai": 16
+  },
+  {
+    "id": 75,
+    "name": "clawviper3",
+    "ai": 16
+  },
+  {
+    "id": 76,
+    "name": "clawviper4",
+    "ai": 16
+  },
+  {
+    "id": 77,
+    "name": "clawviper5",
+    "ai": 16
+  },
+  {
+    "id": 78,
+    "name": "sandleaper1",
+    "ai": 17
+  },
+  {
+    "id": 79,
+    "name": "sandleaper2",
+    "ai": 17
+  },
+  {
+    "id": 80,
+    "name": "sandleaper3",
+    "ai": 17
+  },
+  {
+    "id": 81,
+    "name": "sandleaper4",
+    "ai": 17
+  },
+  {
+    "id": 82,
+    "name": "sandleaper5",
+    "ai": 17
+  },
+  {
+    "id": 83,
+    "name": "pantherwoman1",
+    "ai": 18
+  },
+  {
+    "id": 84,
+    "name": "pantherwoman2",
+    "ai": 18
+  },
+  {
+    "id": 85,
+    "name": "pantherwoman3",
+    "ai": 18
+  },
+  {
+    "id": 86,
+    "name": "pantherwoman4",
+    "ai": 18
+  },
+  {
+    "id": 87,
+    "name": "swarm1",
+    "ai": 19
+  },
+  {
+    "id": 88,
+    "name": "swarm2",
+    "ai": 19
+  },
+  {
+    "id": 89,
+    "name": "swarm3",
+    "ai": 19
+  },
+  {
+    "id": 90,
+    "name": "swarm4",
+    "ai": 19
+  },
+  {
+    "id": 91,
+    "name": "scarab1",
+    "ai": 20
+  },
+  {
+    "id": 92,
+    "name": "scarab2",
+    "ai": 20
+  },
+  {
+    "id": 93,
+    "name": "scarab3",
+    "ai": 20
+  },
+  {
+    "id": 94,
+    "name": "scarab4",
+    "ai": 20
+  },
+  {
+    "id": 95,
+    "name": "scarab5",
+    "ai": 20
+  },
+  {
+    "id": 96,
+    "name": "mummy1",
+    "ai": 21
+  },
+  {
+    "id": 97,
+    "name": "mummy2",
+    "ai": 21
+  },
+  {
+    "id": 98,
+    "name": "mummy3",
+    "ai": 21
+  },
+  {
+    "id": 99,
+    "name": "mummy4",
+    "ai": 21
+  },
+  {
+    "id": 100,
+    "name": "mummy5",
+    "ai": 21
+  },
+  {
+    "id": 101,
+    "name": "unraveler1",
+    "ai": 22
+  },
+  {
+    "id": 102,
+    "name": "unraveler2",
+    "ai": 22
+  },
+  {
+    "id": 103,
+    "name": "unraveler3",
+    "ai": 22
+  },
+  {
+    "id": 104,
+    "name": "unraveler4",
+    "ai": 22
+  },
+  {
+    "id": 105,
+    "name": "unraveler5",
+    "ai": 22
+  },
+  {
+    "id": 106,
+    "name": "chaoshorde1",
+    "ai": 1
+  },
+  {
+    "id": 107,
+    "name": "chaoshorde2",
+    "ai": 1
+  },
+  {
+    "id": 108,
+    "name": "chaoshorde3",
+    "ai": 1
+  },
+  {
+    "id": 109,
+    "name": "chaoshorde4",
+    "ai": 1
+  },
+  {
+    "id": 110,
+    "name": "vulture1",
+    "ai": 23
+  },
+  {
+    "id": 111,
+    "name": "vulture2",
+    "ai": 23
+  },
+  {
+    "id": 112,
+    "name": "vulture3",
+    "ai": 23
+  },
+  {
+    "id": 113,
+    "name": "vulture4",
+    "ai": 23
+  },
+  {
+    "id": 114,
+    "name": "mosquito1",
+    "ai": 24
+  },
+  {
+    "id": 115,
+    "name": "mosquito2",
+    "ai": 24
+  },
+  {
+    "id": 116,
+    "name": "mosquito3",
+    "ai": 24
+  },
+  {
+    "id": 117,
+    "name": "mosquito4",
+    "ai": 24
+  },
+  {
+    "id": 118,
+    "name": "willowisp1",
+    "ai": 25
+  },
+  {
+    "id": 119,
+    "name": "willowisp2",
+    "ai": 25
+  },
+  {
+    "id": 120,
+    "name": "willowisp3",
+    "ai": 25
+  },
+  {
+    "id": 121,
+    "name": "willowisp4",
+    "ai": 25
+  },
+  {
+    "id": 122,
+    "name": "arach1",
+    "ai": 26
+  },
+  {
+    "id": 123,
+    "name": "arach2",
+    "ai": 26
+  },
+  {
+    "id": 124,
+    "name": "arach3",
+    "ai": 26
+  },
+  {
+    "id": 125,
+    "name": "arach4",
+    "ai": 26
+  },
+  {
+    "id": 126,
+    "name": "arach5",
+    "ai": 26
+  },
+  {
+    "id": 127,
+    "name": "thornhulk1",
+    "ai": 27
+  },
+  {
+    "id": 128,
+    "name": "thornhulk2",
+    "ai": 27
+  },
+  {
+    "id": 129,
+    "name": "thornhulk3",
+    "ai": 27
+  },
+  {
+    "id": 130,
+    "name": "thornhulk4",
+    "ai": 27
+  },
+  {
+    "id": 131,
+    "name": "vampire1",
+    "ai": 28
+  },
+  {
+    "id": 132,
+    "name": "vampire2",
+    "ai": 28
+  },
+  {
+    "id": 133,
+    "name": "vampire3",
+    "ai": 28
+  },
+  {
+    "id": 134,
+    "name": "vampire4",
+    "ai": 28
+  },
+  {
+    "id": 135,
+    "name": "vampire5",
+    "ai": 28
+  },
+  {
+    "id": 136,
+    "name": "batdemon1",
+    "ai": 29
+  },
+  {
+    "id": 137,
+    "name": "batdemon2",
+    "ai": 29
+  },
+  {
+    "id": 138,
+    "name": "batdemon3",
+    "ai": 29
+  },
+  {
+    "id": 139,
+    "name": "batdemon4",
+    "ai": 29
+  },
+  {
+    "id": 140,
+    "name": "batdemon5",
+    "ai": 29
+  },
+  {
+    "id": 141,
+    "name": "fetish1",
+    "ai": 30
+  },
+  {
+    "id": 142,
+    "name": "fetish2",
+    "ai": 30
+  },
+  {
+    "id": 143,
+    "name": "fetish3",
+    "ai": 30
+  },
+  {
+    "id": 144,
+    "name": "fetish4",
+    "ai": 30
+  },
+  {
+    "id": 145,
+    "name": "fetish5",
+    "ai": 30
+  },
+  {
+    "id": 146,
+    "name": "cain1",
+    "ai": 31
+  },
+  {
+    "id": 147,
+    "name": "gheed",
+    "ai": 32
+  },
+  {
+    "id": 148,
+    "name": "akara",
+    "ai": 32
+  },
+  {
+    "id": 149,
+    "name": "chicken",
+    "ai": 1
+  },
+  {
+    "id": 150,
+    "name": "kashya",
+    "ai": 32
+  },
+  {
+    "id": 151,
+    "name": "rat",
+    "ai": 1
+  },
+  {
+    "id": 152,
+    "name": "rogue1",
+    "ai": 1
+  },
+  {
+    "id": 153,
+    "name": "hellmeteor",
+    "ai": 33
+  },
+  {
+    "id": 154,
+    "name": "charsi",
+    "ai": 32
+  },
+  {
+    "id": 155,
+    "name": "warriv1",
+    "ai": 32
+  },
+  {
+    "id": 156,
+    "name": "andariel",
+    "ai": 34
+  },
+  {
+    "id": 157,
+    "name": "bird1",
+    "ai": 1
+  },
+  {
+    "id": 158,
+    "name": "bird2",
+    "ai": 1
+  },
+  {
+    "id": 159,
+    "name": "bat",
+    "ai": 1
+  },
+  {
+    "id": 160,
+    "name": "cr_archer1",
+    "ai": 35
+  },
+  {
+    "id": 161,
+    "name": "cr_archer2",
+    "ai": 35
+  },
+  {
+    "id": 162,
+    "name": "cr_archer3",
+    "ai": 35
+  },
+  {
+    "id": 163,
+    "name": "cr_archer4",
+    "ai": 35
+  },
+  {
+    "id": 164,
+    "name": "cr_archer5",
+    "ai": 35
+  },
+  {
+    "id": 165,
+    "name": "cr_lancer1",
+    "ai": 36
+  },
+  {
+    "id": 166,
+    "name": "cr_lancer2",
+    "ai": 36
+  },
+  {
+    "id": 167,
+    "name": "cr_lancer3",
+    "ai": 36
+  },
+  {
+    "id": 168,
+    "name": "cr_lancer4",
+    "ai": 36
+  },
+  {
+    "id": 169,
+    "name": "cr_lancer5",
+    "ai": 36
+  },
+  {
+    "id": 170,
+    "name": "sk_archer1",
+    "ai": 37
+  },
+  {
+    "id": 171,
+    "name": "sk_archer2",
+    "ai": 37
+  },
+  {
+    "id": 172,
+    "name": "sk_archer3",
+    "ai": 37
+  },
+  {
+    "id": 173,
+    "name": "sk_archer4",
+    "ai": 37
+  },
+  {
+    "id": 174,
+    "name": "sk_archer5",
+    "ai": 37
+  },
+  {
+    "id": 175,
+    "name": "warriv2",
+    "ai": 32
+  },
+  {
+    "id": 176,
+    "name": "atma",
+    "ai": 32
+  },
+  {
+    "id": 177,
+    "name": "drognan",
+    "ai": 32
+  },
+  {
+    "id": 178,
+    "name": "fara",
+    "ai": 32
+  },
+  {
+    "id": 179,
+    "name": "cow",
+    "ai": 1
+  },
+  {
+    "id": 180,
+    "name": "maggotbaby1",
+    "ai": 38
+  },
+  {
+    "id": 181,
+    "name": "maggotbaby2",
+    "ai": 38
+  },
+  {
+    "id": 182,
+    "name": "maggotbaby3",
+    "ai": 38
+  },
+  {
+    "id": 183,
+    "name": "maggotbaby4",
+    "ai": 38
+  },
+  {
+    "id": 184,
+    "name": "maggotbaby5",
+    "ai": 38
+  },
+  {
+    "id": 185,
+    "name": "camel",
+    "ai": 1
+  },
+  {
+    "id": 186,
+    "name": "blunderbore1",
+    "ai": 39
+  },
+  {
+    "id": 187,
+    "name": "blunderbore2",
+    "ai": 39
+  },
+  {
+    "id": 188,
+    "name": "blunderbore3",
+    "ai": 39
+  },
+  {
+    "id": 189,
+    "name": "blunderbore4",
+    "ai": 39
+  },
+  {
+    "id": 190,
+    "name": "maggotegg1",
+    "ai": 40
+  },
+  {
+    "id": 191,
+    "name": "maggotegg2",
+    "ai": 40
+  },
+  {
+    "id": 192,
+    "name": "maggotegg3",
+    "ai": 40
+  },
+  {
+    "id": 193,
+    "name": "maggotegg4",
+    "ai": 40
+  },
+  {
+    "id": 194,
+    "name": "maggotegg5",
+    "ai": 40
+  },
+  {
+    "id": 195,
+    "name": "act2male",
+    "ai": 41
+  },
+  {
+    "id": 196,
+    "name": "act2female",
+    "ai": 41
+  },
+  {
+    "id": 197,
+    "name": "act2child",
+    "ai": 41
+  },
+  {
+    "id": 198,
+    "name": "greiz",
+    "ai": 32
+  },
+  {
+    "id": 199,
+    "name": "elzix",
+    "ai": 32
+  },
+  {
+    "id": 200,
+    "name": "geglash",
+    "ai": 32
+  },
+  {
+    "id": 201,
+    "name": "jerhyn",
+    "ai": 32
+  },
+  {
+    "id": 202,
+    "name": "lysander",
+    "ai": 32
+  },
+  {
+    "id": 203,
+    "name": "act2guard1",
+    "ai": 41
+  },
+  {
+    "id": 204,
+    "name": "act2vendor1",
+    "ai": 42
+  },
+  {
+    "id": 205,
+    "name": "act2vendor2",
+    "ai": 42
+  },
+  {
+    "id": 206,
+    "name": "crownest1",
+    "ai": 43
+  },
+  {
+    "id": 207,
+    "name": "crownest2",
+    "ai": 43
+  },
+  {
+    "id": 208,
+    "name": "crownest3",
+    "ai": 43
+  },
+  {
+    "id": 209,
+    "name": "crownest4",
+    "ai": 43
+  },
+  {
+    "id": 210,
+    "name": "meshif1",
+    "ai": 32
+  },
+  {
+    "id": 211,
+    "name": "duriel",
+    "ai": 44
+  },
+  {
+    "id": 212,
+    "name": "bonefetish1",
+    "ai": 30
+  },
+  {
+    "id": 213,
+    "name": "bonefetish2",
+    "ai": 30
+  },
+  {
+    "id": 214,
+    "name": "bonefetish3",
+    "ai": 30
+  },
+  {
+    "id": 215,
+    "name": "bonefetish4",
+    "ai": 30
+  },
+  {
+    "id": 216,
+    "name": "bonefetish5",
+    "ai": 30
+  },
+  {
+    "id": 217,
+    "name": "darkguard1",
+    "ai": 1
+  },
+  {
+    "id": 218,
+    "name": "darkguard2",
+    "ai": 1
+  },
+  {
+    "id": 219,
+    "name": "darkguard3",
+    "ai": 1
+  },
+  {
+    "id": 220,
+    "name": "darkguard4",
+    "ai": 1
+  },
+  {
+    "id": 221,
+    "name": "darkguard5",
+    "ai": 1
+  },
+  {
+    "id": 222,
+    "name": "bloodmage1",
+    "ai": 1
+  },
+  {
+    "id": 223,
+    "name": "bloodmage2",
+    "ai": 1
+  },
+  {
+    "id": 224,
+    "name": "bloodmage3",
+    "ai": 1
+  },
+  {
+    "id": 225,
+    "name": "bloodmage4",
+    "ai": 1
+  },
+  {
+    "id": 226,
+    "name": "bloodmage5",
+    "ai": 1
+  },
+  {
+    "id": 227,
+    "name": "maggot",
+    "ai": 1
+  },
+  {
+    "id": 228,
+    "name": "sarcophagus",
+    "ai": 45
+  },
+  {
+    "id": 229,
+    "name": "radament",
+    "ai": 22
+  },
+  {
+    "id": 230,
+    "name": "firebeast",
+    "ai": 46
+  },
+  {
+    "id": 231,
+    "name": "iceglobe",
+    "ai": 46
+  },
+  {
+    "id": 232,
+    "name": "lightningbeast",
+    "ai": 46
+  },
+  {
+    "id": 233,
+    "name": "poisonorb",
+    "ai": 46
+  },
+  {
+    "id": 234,
+    "name": "flyingscimitar",
+    "ai": 47
+  },
+  {
+    "id": 235,
+    "name": "zealot1",
+    "ai": 48
+  },
+  {
+    "id": 236,
+    "name": "zealot2",
+    "ai": 48
+  },
+  {
+    "id": 237,
+    "name": "zealot3",
+    "ai": 48
+  },
+  {
+    "id": 238,
+    "name": "cantor1",
+    "ai": 49
+  },
+  {
+    "id": 239,
+    "name": "cantor2",
+    "ai": 49
+  },
+  {
+    "id": 240,
+    "name": "cantor3",
+    "ai": 49
+  },
+  {
+    "id": 241,
+    "name": "cantor4",
+    "ai": 49
+  },
+  {
+    "id": 242,
+    "name": "mephisto",
+    "ai": 50
+  },
+  {
+    "id": 243,
+    "name": "diablo",
+    "ai": 51
+  },
+  {
+    "id": 244,
+    "name": "cain2",
+    "ai": 32
+  },
+  {
+    "id": 245,
+    "name": "cain3",
+    "ai": 32
+  },
+  {
+    "id": 246,
+    "name": "cain4",
+    "ai": 32
+  },
+  {
+    "id": 247,
+    "name": "frogdemon1",
+    "ai": 52
+  },
+  {
+    "id": 248,
+    "name": "frogdemon2",
+    "ai": 52
+  },
+  {
+    "id": 249,
+    "name": "frogdemon3",
+    "ai": 52
+  },
+  {
+    "id": 250,
+    "name": "summoner",
+    "ai": 53
+  },
+  {
+    "id": 251,
+    "name": "tyrael1",
+    "ai": 54
+  },
+  {
+    "id": 252,
+    "name": "asheara",
+    "ai": 32
+  },
+  {
+    "id": 253,
+    "name": "hratli",
+    "ai": 32
+  },
+  {
+    "id": 254,
+    "name": "alkor",
+    "ai": 32
+  },
+  {
+    "id": 255,
+    "name": "ormus",
+    "ai": 32
+  },
+  {
+    "id": 256,
+    "name": "izual",
+    "ai": 55
+  },
+  {
+    "id": 257,
+    "name": "halbu",
+    "ai": 32
+  },
+  {
+    "id": 258,
+    "name": "tentacle1",
+    "ai": 56
+  },
+  {
+    "id": 259,
+    "name": "tentacle2",
+    "ai": 56
+  },
+  {
+    "id": 260,
+    "name": "tentacle3",
+    "ai": 56
+  },
+  {
+    "id": 261,
+    "name": "tentaclehead1",
+    "ai": 57
+  },
+  {
+    "id": 262,
+    "name": "tentaclehead2",
+    "ai": 57
+  },
+  {
+    "id": 263,
+    "name": "tentaclehead3",
+    "ai": 57
+  },
+  {
+    "id": 264,
+    "name": "meshif2",
+    "ai": 32
+  },
+  {
+    "id": 265,
+    "name": "cain5",
+    "ai": 32
+  },
+  {
+    "id": 266,
+    "name": "navi",
+    "ai": 58
+  },
+  {
+    "id": 267,
+    "name": "bloodraven",
+    "ai": 59
+  },
+  {
+    "id": 268,
+    "name": "bug",
+    "ai": 1
+  },
+  {
+    "id": 269,
+    "name": "scorpion",
+    "ai": 1
+  },
+  {
+    "id": 270,
+    "name": "rogue2",
+    "ai": 60
+  },
+  {
+    "id": 271,
+    "name": "roguehire",
+    "ai": 61
+  },
+  {
+    "id": 272,
+    "name": "rogue3",
+    "ai": 62
+  },
+  {
+    "id": 273,
+    "name": "gargoyletrap",
+    "ai": 63
+  },
+  {
+    "id": 274,
+    "name": "skmage_pois1",
+    "ai": 64
+  },
+  {
+    "id": 275,
+    "name": "skmage_pois2",
+    "ai": 64
+  },
+  {
+    "id": 276,
+    "name": "skmage_pois3",
+    "ai": 64
+  },
+  {
+    "id": 277,
+    "name": "skmage_pois4",
+    "ai": 64
+  },
+  {
+    "id": 278,
+    "name": "fetishshaman1",
+    "ai": 65
+  },
+  {
+    "id": 279,
+    "name": "fetishshaman2",
+    "ai": 65
+  },
+  {
+    "id": 280,
+    "name": "fetishshaman3",
+    "ai": 65
+  },
+  {
+    "id": 281,
+    "name": "fetishshaman4",
+    "ai": 65
+  },
+  {
+    "id": 282,
+    "name": "fetishshaman5",
+    "ai": 65
+  },
+  {
+    "id": 283,
+    "name": "larva",
+    "ai": 1
+  },
+  {
+    "id": 284,
+    "name": "maggotqueen1",
+    "ai": 66
+  },
+  {
+    "id": 285,
+    "name": "maggotqueen2",
+    "ai": 66
+  },
+  {
+    "id": 286,
+    "name": "maggotqueen3",
+    "ai": 66
+  },
+  {
+    "id": 287,
+    "name": "maggotqueen4",
+    "ai": 66
+  },
+  {
+    "id": 288,
+    "name": "maggotqueen5",
+    "ai": 66
+  },
+  {
+    "id": 289,
+    "name": "claygolem",
+    "ai": 67
+  },
+  {
+    "id": 290,
+    "name": "bloodgolem",
+    "ai": 67
+  },
+  {
+    "id": 291,
+    "name": "irongolem",
+    "ai": 67
+  },
+  {
+    "id": 292,
+    "name": "firegolem",
+    "ai": 67
+  },
+  {
+    "id": 293,
+    "name": "familiar",
+    "ai": 1
+  },
+  {
+    "id": 294,
+    "name": "act3male",
+    "ai": 41
+  },
+  {
+    "id": 295,
+    "name": "baboon6",
+    "ai": 11
+  },
+  {
+    "id": 296,
+    "name": "act3female",
+    "ai": 41
+  },
+  {
+    "id": 297,
+    "name": "natalya",
+    "ai": 32
+  },
+  {
+    "id": 298,
+    "name": "vilemother1",
+    "ai": 68
+  },
+  {
+    "id": 299,
+    "name": "vilemother2",
+    "ai": 68
+  },
+  {
+    "id": 300,
+    "name": "vilemother3",
+    "ai": 68
+  },
+  {
+    "id": 301,
+    "name": "vilechild1",
+    "ai": 69
+  },
+  {
+    "id": 302,
+    "name": "vilechild2",
+    "ai": 69
+  },
+  {
+    "id": 303,
+    "name": "vilechild3",
+    "ai": 69
+  },
+  {
+    "id": 304,
+    "name": "fingermage1",
+    "ai": 70
+  },
+  {
+    "id": 305,
+    "name": "fingermage2",
+    "ai": 70
+  },
+  {
+    "id": 306,
+    "name": "fingermage3",
+    "ai": 70
+  },
+  {
+    "id": 307,
+    "name": "regurgitator1",
+    "ai": 71
+  },
+  {
+    "id": 308,
+    "name": "regurgitator2",
+    "ai": 71
+  },
+  {
+    "id": 309,
+    "name": "regurgitator3",
+    "ai": 71
+  },
+  {
+    "id": 310,
+    "name": "doomknight1",
+    "ai": 72
+  },
+  {
+    "id": 311,
+    "name": "doomknight2",
+    "ai": 73
+  },
+  {
+    "id": 312,
+    "name": "doomknight3",
+    "ai": 74
+  },
+  {
+    "id": 313,
+    "name": "quillbear1",
+    "ai": 75
+  },
+  {
+    "id": 314,
+    "name": "quillbear2",
+    "ai": 75
+  },
+  {
+    "id": 315,
+    "name": "quillbear3",
+    "ai": 75
+  },
+  {
+    "id": 316,
+    "name": "quillbear4",
+    "ai": 75
+  },
+  {
+    "id": 317,
+    "name": "quillbear5",
+    "ai": 75
+  },
+  {
+    "id": 318,
+    "name": "snake",
+    "ai": 1
+  },
+  {
+    "id": 319,
+    "name": "parrot",
+    "ai": 1
+  },
+  {
+    "id": 320,
+    "name": "fish",
+    "ai": 1
+  },
+  {
+    "id": 321,
+    "name": "evilhole1",
+    "ai": 76
+  },
+  {
+    "id": 322,
+    "name": "evilhole2",
+    "ai": 76
+  },
+  {
+    "id": 323,
+    "name": "evilhole3",
+    "ai": 76
+  },
+  {
+    "id": 324,
+    "name": "evilhole4",
+    "ai": 76
+  },
+  {
+    "id": 325,
+    "name": "evilhole5",
+    "ai": 76
+  },
+  {
+    "id": 326,
+    "name": "trap-firebolt",
+    "ai": 77
+  },
+  {
+    "id": 327,
+    "name": "trap-horzmissile",
+    "ai": 78
+  },
+  {
+    "id": 328,
+    "name": "trap-vertmissile",
+    "ai": 79
+  },
+  {
+    "id": 329,
+    "name": "trap-poisoncloud",
+    "ai": 80
+  },
+  {
+    "id": 330,
+    "name": "trap-lightning",
+    "ai": 77
+  },
+  {
+    "id": 331,
+    "name": "act2guard2",
+    "ai": 81
+  },
+  {
+    "id": 332,
+    "name": "invisospawner",
+    "ai": 82
+  },
+  {
+    "id": 333,
+    "name": "diabloclone",
+    "ai": 51
+  },
+  {
+    "id": 334,
+    "name": "suckernest1",
+    "ai": 83
+  },
+  {
+    "id": 335,
+    "name": "suckernest2",
+    "ai": 83
+  },
+  {
+    "id": 336,
+    "name": "suckernest3",
+    "ai": 83
+  },
+  {
+    "id": 337,
+    "name": "suckernest4",
+    "ai": 83
+  },
+  {
+    "id": 338,
+    "name": "act2hire",
+    "ai": 61
+  },
+  {
+    "id": 339,
+    "name": "minispider",
+    "ai": 1
+  },
+  {
+    "id": 340,
+    "name": "boneprison1",
+    "ai": 1
+  },
+  {
+    "id": 341,
+    "name": "boneprison2",
+    "ai": 1
+  },
+  {
+    "id": 342,
+    "name": "boneprison3",
+    "ai": 1
+  },
+  {
+    "id": 343,
+    "name": "boneprison4",
+    "ai": 1
+  },
+  {
+    "id": 344,
+    "name": "bonewall",
+    "ai": 84
+  },
+  {
+    "id": 345,
+    "name": "councilmember1",
+    "ai": 85
+  },
+  {
+    "id": 346,
+    "name": "councilmember2",
+    "ai": 85
+  },
+  {
+    "id": 347,
+    "name": "councilmember3",
+    "ai": 85
+  },
+  {
+    "id": 348,
+    "name": "turret1",
+    "ai": 94
+  },
+  {
+    "id": 349,
+    "name": "turret2",
+    "ai": 94
+  },
+  {
+    "id": 350,
+    "name": "turret3",
+    "ai": 94
+  },
+  {
+    "id": 351,
+    "name": "hydra1",
+    "ai": 86
+  },
+  {
+    "id": 352,
+    "name": "hydra2",
+    "ai": 86
+  },
+  {
+    "id": 353,
+    "name": "hydra3",
+    "ai": 86
+  },
+  {
+    "id": 354,
+    "name": "trap-melee",
+    "ai": 87
+  },
+  {
+    "id": 355,
+    "name": "seventombs",
+    "ai": 88
+  },
+  {
+    "id": 356,
+    "name": "dopplezon",
+    "ai": 1
+  },
+  {
+    "id": 357,
+    "name": "valkyrie",
+    "ai": 67
+  },
+  {
+    "id": 358,
+    "name": "act2guard3",
+    "ai": 1
+  },
+  {
+    "id": 359,
+    "name": "act3hire",
+    "ai": 61
+  },
+  {
+    "id": 360,
+    "name": "megademon1",
+    "ai": 89
+  },
+  {
+    "id": 361,
+    "name": "megademon2",
+    "ai": 89
+  },
+  {
+    "id": 362,
+    "name": "megademon3",
+    "ai": 89
+  },
+  {
+    "id": 363,
+    "name": "necroskeleton",
+    "ai": 67
+  },
+  {
+    "id": 364,
+    "name": "necromage",
+    "ai": 67
+  },
+  {
+    "id": 365,
+    "name": "griswold",
+    "ai": 90
+  },
+  {
+    "id": 366,
+    "name": "compellingorb",
+    "ai": 1
+  },
+  {
+    "id": 367,
+    "name": "tyrael2",
+    "ai": 54
+  },
+  {
+    "id": 368,
+    "name": "darkwanderer",
+    "ai": 91
+  },
+  {
+    "id": 369,
+    "name": "trap-nova",
+    "ai": 92
+  },
+  {
+    "id": 370,
+    "name": "spiritmummy",
+    "ai": 1
+  },
+  {
+    "id": 371,
+    "name": "lightningspire",
+    "ai": 93
+  },
+  {
+    "id": 372,
+    "name": "firetower",
+    "ai": 94
+  },
+  {
+    "id": 373,
+    "name": "slinger1",
+    "ai": 95
+  },
+  {
+    "id": 374,
+    "name": "slinger2",
+    "ai": 95
+  },
+  {
+    "id": 375,
+    "name": "slinger3",
+    "ai": 95
+  },
+  {
+    "id": 376,
+    "name": "slinger4",
+    "ai": 95
+  },
+  {
+    "id": 377,
+    "name": "act2guard4",
+    "ai": 1
+  },
+  {
+    "id": 378,
+    "name": "act2guard5",
+    "ai": 1
+  },
+  {
+    "id": 379,
+    "name": "skmage_cold1",
+    "ai": 64
+  },
+  {
+    "id": 380,
+    "name": "skmage_cold2",
+    "ai": 64
+  },
+  {
+    "id": 381,
+    "name": "skmage_cold3",
+    "ai": 64
+  },
+  {
+    "id": 382,
+    "name": "skmage_cold4",
+    "ai": 64
+  },
+  {
+    "id": 383,
+    "name": "skmage_fire1",
+    "ai": 64
+  },
+  {
+    "id": 384,
+    "name": "skmage_fire2",
+    "ai": 64
+  },
+  {
+    "id": 385,
+    "name": "skmage_fire3",
+    "ai": 64
+  },
+  {
+    "id": 386,
+    "name": "skmage_fire4",
+    "ai": 64
+  },
+  {
+    "id": 387,
+    "name": "skmage_ltng1",
+    "ai": 64
+  },
+  {
+    "id": 388,
+    "name": "skmage_ltng2",
+    "ai": 64
+  },
+  {
+    "id": 389,
+    "name": "skmage_ltng3",
+    "ai": 64
+  },
+  {
+    "id": 390,
+    "name": "skmage_ltng4",
+    "ai": 64
+  },
+  {
+    "id": 391,
+    "name": "hellbovine",
+    "ai": 2
+  },
+  {
+    "id": 392,
+    "name": "window1",
+    "ai": 1
+  },
+  {
+    "id": 393,
+    "name": "window2",
+    "ai": 1
+  },
+  {
+    "id": 394,
+    "name": "slinger5",
+    "ai": 95
+  },
+  {
+    "id": 395,
+    "name": "slinger6",
+    "ai": 95
+  },
+  {
+    "id": 396,
+    "name": "fetishblow1",
+    "ai": 96
+  },
+  {
+    "id": 397,
+    "name": "fetishblow2",
+    "ai": 96
+  },
+  {
+    "id": 398,
+    "name": "fetishblow3",
+    "ai": 96
+  },
+  {
+    "id": 399,
+    "name": "fetishblow4",
+    "ai": 96
+  },
+  {
+    "id": 400,
+    "name": "fetishblow5",
+    "ai": 96
+  },
+  {
+    "id": 401,
+    "name": "mephistospirit",
+    "ai": 97
+  },
+  {
+    "id": 402,
+    "name": "smith",
+    "ai": 98
+  },
+  {
+    "id": 403,
+    "name": "trappedsoul1",
+    "ai": 99
+  },
+  {
+    "id": 404,
+    "name": "trappedsoul2",
+    "ai": 99
+  },
+  {
+    "id": 405,
+    "name": "jamella",
+    "ai": 32
+  },
+  {
+    "id": 406,
+    "name": "izualghost",
+    "ai": 54
+  },
+  {
+    "id": 407,
+    "name": "fetish11",
+    "ai": 30
+  },
+  {
+    "id": 408,
+    "name": "malachai",
+    "ai": 100
+  },
+  {
+    "id": 409,
+    "name": "hephasto",
+    "ai": 98
+  },
+  {
+    "id": 410,
+    "name": "wakeofdestruction",
+    "ai": 101
+  },
+  {
+    "id": 411,
+    "name": "chargeboltsentry",
+    "ai": 101
+  },
+  {
+    "id": 412,
+    "name": "lightningsentry",
+    "ai": 101
+  },
+  {
+    "id": 413,
+    "name": "bladecreeper",
+    "ai": 102
+  },
+  {
+    "id": 414,
+    "name": "invisopet",
+    "ai": 103
+  },
+  {
+    "id": 415,
+    "name": "infernosentry",
+    "ai": 101
+  },
+  {
+    "id": 416,
+    "name": "deathsentry",
+    "ai": 104
+  },
+  {
+    "id": 417,
+    "name": "shadowwarrior",
+    "ai": 105
+  },
+  {
+    "id": 418,
+    "name": "shadowmaster",
+    "ai": 106
+  },
+  {
+    "id": 419,
+    "name": "druidhawk",
+    "ai": 107
+  },
+  {
+    "id": 420,
+    "name": "spiritwolf",
+    "ai": 108
+  },
+  {
+    "id": 421,
+    "name": "fenris",
+    "ai": 108
+  },
+  {
+    "id": 422,
+    "name": "spiritofbarbs",
+    "ai": 109
+  },
+  {
+    "id": 423,
+    "name": "heartofwolverine",
+    "ai": 109
+  },
+  {
+    "id": 424,
+    "name": "oaksage",
+    "ai": 109
+  },
+  {
+    "id": 425,
+    "name": "plaguepoppy",
+    "ai": 110
+  },
+  {
+    "id": 426,
+    "name": "cycleoflife",
+    "ai": 111
+  },
+  {
+    "id": 427,
+    "name": "vinecreature",
+    "ai": 111
+  },
+  {
+    "id": 428,
+    "name": "druidbear",
+    "ai": 112
+  },
+  {
+    "id": 429,
+    "name": "eagle",
+    "ai": 1
+  },
+  {
+    "id": 430,
+    "name": "wolf",
+    "ai": 67
+  },
+  {
+    "id": 431,
+    "name": "bear",
+    "ai": 67
+  },
+  {
+    "id": 432,
+    "name": "barricadedoor1",
+    "ai": 1
+  },
+  {
+    "id": 433,
+    "name": "barricadedoor2",
+    "ai": 1
+  },
+  {
+    "id": 434,
+    "name": "prisondoor",
+    "ai": 1
+  },
+  {
+    "id": 435,
+    "name": "barricadetower",
+    "ai": 113
+  },
+  {
+    "id": 436,
+    "name": "reanimatedhorde1",
+    "ai": 114
+  },
+  {
+    "id": 437,
+    "name": "reanimatedhorde2",
+    "ai": 114
+  },
+  {
+    "id": 438,
+    "name": "reanimatedhorde3",
+    "ai": 114
+  },
+  {
+    "id": 439,
+    "name": "reanimatedhorde4",
+    "ai": 114
+  },
+  {
+    "id": 440,
+    "name": "reanimatedhorde5",
+    "ai": 114
+  },
+  {
+    "id": 441,
+    "name": "siegebeast1",
+    "ai": 115
+  },
+  {
+    "id": 442,
+    "name": "siegebeast2",
+    "ai": 115
+  },
+  {
+    "id": 443,
+    "name": "siegebeast3",
+    "ai": 115
+  },
+  {
+    "id": 444,
+    "name": "siegebeast4",
+    "ai": 115
+  },
+  {
+    "id": 445,
+    "name": "siegebeast5",
+    "ai": 115
+  },
+  {
+    "id": 446,
+    "name": "snowyeti1",
+    "ai": 7
+  },
+  {
+    "id": 447,
+    "name": "snowyeti2",
+    "ai": 7
+  },
+  {
+    "id": 448,
+    "name": "snowyeti3",
+    "ai": 7
+  },
+  {
+    "id": 449,
+    "name": "snowyeti4",
+    "ai": 7
+  },
+  {
+    "id": 450,
+    "name": "wolfrider1",
+    "ai": 1
+  },
+  {
+    "id": 451,
+    "name": "wolfrider2",
+    "ai": 1
+  },
+  {
+    "id": 452,
+    "name": "wolfrider3",
+    "ai": 1
+  },
+  {
+    "id": 453,
+    "name": "minion1",
+    "ai": 116
+  },
+  {
+    "id": 454,
+    "name": "minion2",
+    "ai": 116
+  },
+  {
+    "id": 455,
+    "name": "minion3",
+    "ai": 116
+  },
+  {
+    "id": 456,
+    "name": "minion4",
+    "ai": 116
+  },
+  {
+    "id": 457,
+    "name": "minion5",
+    "ai": 116
+  },
+  {
+    "id": 458,
+    "name": "minion6",
+    "ai": 116
+  },
+  {
+    "id": 459,
+    "name": "minion7",
+    "ai": 116
+  },
+  {
+    "id": 460,
+    "name": "minion8",
+    "ai": 116
+  },
+  {
+    "id": 461,
+    "name": "suicideminion1",
+    "ai": 117
+  },
+  {
+    "id": 462,
+    "name": "suicideminion2",
+    "ai": 117
+  },
+  {
+    "id": 463,
+    "name": "suicideminion3",
+    "ai": 117
+  },
+  {
+    "id": 464,
+    "name": "suicideminion4",
+    "ai": 117
+  },
+  {
+    "id": 465,
+    "name": "suicideminion5",
+    "ai": 117
+  },
+  {
+    "id": 466,
+    "name": "suicideminion6",
+    "ai": 117
+  },
+  {
+    "id": 467,
+    "name": "suicideminion7",
+    "ai": 117
+  },
+  {
+    "id": 468,
+    "name": "suicideminion8",
+    "ai": 117
+  },
+  {
+    "id": 469,
+    "name": "succubus1",
+    "ai": 118
+  },
+  {
+    "id": 470,
+    "name": "succubus2",
+    "ai": 118
+  },
+  {
+    "id": 471,
+    "name": "succubus3",
+    "ai": 118
+  },
+  {
+    "id": 472,
+    "name": "succubus4",
+    "ai": 118
+  },
+  {
+    "id": 473,
+    "name": "succubus5",
+    "ai": 118
+  },
+  {
+    "id": 474,
+    "name": "succubuswitch1",
+    "ai": 119
+  },
+  {
+    "id": 475,
+    "name": "succubuswitch2",
+    "ai": 119
+  },
+  {
+    "id": 476,
+    "name": "succubuswitch3",
+    "ai": 119
+  },
+  {
+    "id": 477,
+    "name": "succubuswitch4",
+    "ai": 119
+  },
+  {
+    "id": 478,
+    "name": "succubuswitch5",
+    "ai": 119
+  },
+  {
+    "id": 479,
+    "name": "overseer1",
+    "ai": 120
+  },
+  {
+    "id": 480,
+    "name": "overseer2",
+    "ai": 120
+  },
+  {
+    "id": 481,
+    "name": "overseer3",
+    "ai": 120
+  },
+  {
+    "id": 482,
+    "name": "overseer4",
+    "ai": 120
+  },
+  {
+    "id": 483,
+    "name": "overseer5",
+    "ai": 120
+  },
+  {
+    "id": 484,
+    "name": "minionspawner1",
+    "ai": 121
+  },
+  {
+    "id": 485,
+    "name": "minionspawner2",
+    "ai": 121
+  },
+  {
+    "id": 486,
+    "name": "minionspawner3",
+    "ai": 121
+  },
+  {
+    "id": 487,
+    "name": "minionspawner4",
+    "ai": 121
+  },
+  {
+    "id": 488,
+    "name": "minionspawner5",
+    "ai": 121
+  },
+  {
+    "id": 489,
+    "name": "minionspawner6",
+    "ai": 121
+  },
+  {
+    "id": 490,
+    "name": "minionspawner7",
+    "ai": 121
+  },
+  {
+    "id": 491,
+    "name": "minionspawner8",
+    "ai": 121
+  },
+  {
+    "id": 492,
+    "name": "imp1",
+    "ai": 122
+  },
+  {
+    "id": 493,
+    "name": "imp2",
+    "ai": 122
+  },
+  {
+    "id": 494,
+    "name": "imp3",
+    "ai": 122
+  },
+  {
+    "id": 495,
+    "name": "imp4",
+    "ai": 122
+  },
+  {
+    "id": 496,
+    "name": "imp5",
+    "ai": 122
+  },
+  {
+    "id": 497,
+    "name": "catapult1",
+    "ai": 123
+  },
+  {
+    "id": 498,
+    "name": "catapult2",
+    "ai": 123
+  },
+  {
+    "id": 499,
+    "name": "catapult3",
+    "ai": 123
+  },
+  {
+    "id": 500,
+    "name": "catapult4",
+    "ai": 123
+  },
+  {
+    "id": 501,
+    "name": "frozenhorror1",
+    "ai": 124
+  },
+  {
+    "id": 502,
+    "name": "frozenhorror2",
+    "ai": 124
+  },
+  {
+    "id": 503,
+    "name": "frozenhorror3",
+    "ai": 124
+  },
+  {
+    "id": 504,
+    "name": "frozenhorror4",
+    "ai": 124
+  },
+  {
+    "id": 505,
+    "name": "frozenhorror5",
+    "ai": 124
+  },
+  {
+    "id": 506,
+    "name": "bloodlord1",
+    "ai": 125
+  },
+  {
+    "id": 507,
+    "name": "bloodlord2",
+    "ai": 125
+  },
+  {
+    "id": 508,
+    "name": "bloodlord3",
+    "ai": 125
+  },
+  {
+    "id": 509,
+    "name": "bloodlord4",
+    "ai": 125
+  },
+  {
+    "id": 510,
+    "name": "bloodlord5",
+    "ai": 125
+  },
+  {
+    "id": 511,
+    "name": "larzuk",
+    "ai": 32
+  },
+  {
+    "id": 512,
+    "name": "drehya",
+    "ai": 32
+  },
+  {
+    "id": 513,
+    "name": "malah",
+    "ai": 32
+  },
+  {
+    "id": 514,
+    "name": "nihlathak",
+    "ai": 32
+  },
+  {
+    "id": 515,
+    "name": "qual-kehk",
+    "ai": 32
+  },
+  {
+    "id": 516,
+    "name": "catapultspotter1",
+    "ai": 126
+  },
+  {
+    "id": 517,
+    "name": "catapultspotter2",
+    "ai": 126
+  },
+  {
+    "id": 518,
+    "name": "catapultspotter3",
+    "ai": 126
+  },
+  {
+    "id": 519,
+    "name": "catapultspotter4",
+    "ai": 126
+  },
+  {
+    "id": 520,
+    "name": "cain6",
+    "ai": 32
+  },
+  {
+    "id": 521,
+    "name": "tyrael3",
+    "ai": 54
+  },
+  {
+    "id": 522,
+    "name": "act5barb1",
+    "ai": 127
+  },
+  {
+    "id": 523,
+    "name": "act5barb2",
+    "ai": 127
+  },
+  {
+    "id": 524,
+    "name": "barricadewall1",
+    "ai": 1
+  },
+  {
+    "id": 525,
+    "name": "barricadewall2",
+    "ai": 1
+  },
+  {
+    "id": 526,
+    "name": "nihlathakboss",
+    "ai": 128
+  },
+  {
+    "id": 527,
+    "name": "drehyaiced",
+    "ai": 31
+  },
+  {
+    "id": 528,
+    "name": "evilhut",
+    "ai": 129
+  },
+  {
+    "id": 529,
+    "name": "deathmauler1",
+    "ai": 130
+  },
+  {
+    "id": 530,
+    "name": "deathmauler2",
+    "ai": 130
+  },
+  {
+    "id": 531,
+    "name": "deathmauler3",
+    "ai": 130
+  },
+  {
+    "id": 532,
+    "name": "deathmauler4",
+    "ai": 130
+  },
+  {
+    "id": 533,
+    "name": "deathmauler5",
+    "ai": 130
+  },
+  {
+    "id": 534,
+    "name": "act5pow",
+    "ai": 131
+  },
+  {
+    "id": 535,
+    "name": "act5barb3",
+    "ai": 32
+  },
+  {
+    "id": 536,
+    "name": "act5barb4",
+    "ai": 32
+  },
+  {
+    "id": 537,
+    "name": "ancientstatue1",
+    "ai": 132
+  },
+  {
+    "id": 538,
+    "name": "ancientstatue2",
+    "ai": 132
+  },
+  {
+    "id": 539,
+    "name": "ancientstatue3",
+    "ai": 132
+  },
+  {
+    "id": 540,
+    "name": "ancientbarb1",
+    "ai": 133
+  },
+  {
+    "id": 541,
+    "name": "ancientbarb2",
+    "ai": 133
+  },
+  {
+    "id": 542,
+    "name": "ancientbarb3",
+    "ai": 133
+  },
+  {
+    "id": 543,
+    "name": "baalthrone",
+    "ai": 134
+  },
+  {
+    "id": 544,
+    "name": "baalcrab",
+    "ai": 135
+  },
+  {
+    "id": 545,
+    "name": "baaltaunt",
+    "ai": 136
+  },
+  {
+    "id": 546,
+    "name": "putriddefiler1",
+    "ai": 137
+  },
+  {
+    "id": 547,
+    "name": "putriddefiler2",
+    "ai": 137
+  },
+  {
+    "id": 548,
+    "name": "putriddefiler3",
+    "ai": 137
+  },
+  {
+    "id": 549,
+    "name": "putriddefiler4",
+    "ai": 137
+  },
+  {
+    "id": 550,
+    "name": "putriddefiler5",
+    "ai": 137
+  },
+  {
+    "id": 551,
+    "name": "painworm1",
+    "ai": 69
+  },
+  {
+    "id": 552,
+    "name": "painworm2",
+    "ai": 69
+  },
+  {
+    "id": 553,
+    "name": "painworm3",
+    "ai": 69
+  },
+  {
+    "id": 554,
+    "name": "painworm4",
+    "ai": 69
+  },
+  {
+    "id": 555,
+    "name": "painworm5",
+    "ai": 69
+  },
+  {
+    "id": 556,
+    "name": "bunny",
+    "ai": 1
+  },
+  {
+    "id": 557,
+    "name": "baalhighpriest",
+    "ai": 85
+  },
+  {
+    "id": 558,
+    "name": "venomlord",
+    "ai": 89
+  },
+  {
+    "id": 559,
+    "name": "baalcrabstairs",
+    "ai": 138
+  },
+  {
+    "id": 560,
+    "name": "act5hire1",
+    "ai": 61
+  },
+  {
+    "id": 561,
+    "name": "act5hire2",
+    "ai": 61
+  },
+  {
+    "id": 562,
+    "name": "baaltentacle1",
+    "ai": 139
+  },
+  {
+    "id": 563,
+    "name": "baaltentacle2",
+    "ai": 139
+  },
+  {
+    "id": 564,
+    "name": "baaltentacle3",
+    "ai": 139
+  },
+  {
+    "id": 565,
+    "name": "baaltentacle4",
+    "ai": 139
+  },
+  {
+    "id": 566,
+    "name": "baaltentacle5",
+    "ai": 139
+  },
+  {
+    "id": 567,
+    "name": "injuredbarb1",
+    "ai": 1
+  },
+  {
+    "id": 568,
+    "name": "injuredbarb2",
+    "ai": 1
+  },
+  {
+    "id": 569,
+    "name": "injuredbarb3",
+    "ai": 1
+  },
+  {
+    "id": 570,
+    "name": "baalclone",
+    "ai": 140
+  },
+  {
+    "id": 571,
+    "name": "baalminion1",
+    "ai": 141
+  },
+  {
+    "id": 572,
+    "name": "baalminion2",
+    "ai": 141
+  },
+  {
+    "id": 573,
+    "name": "baalminion3",
+    "ai": 141
+  },
+  {
+    "id": 574,
+    "name": "worldstoneeffect",
+    "ai": 1
+  },
+  {
+    "id": 575,
+    "name": "sk_archer6",
+    "ai": 37
+  },
+  {
+    "id": 576,
+    "name": "sk_archer7",
+    "ai": 37
+  },
+  {
+    "id": 577,
+    "name": "sk_archer8",
+    "ai": 37
+  },
+  {
+    "id": 578,
+    "name": "sk_archer9",
+    "ai": 37
+  },
+  {
+    "id": 579,
+    "name": "sk_archer10",
+    "ai": 37
+  },
+  {
+    "id": 580,
+    "name": "bighead6",
+    "ai": 4
+  },
+  {
+    "id": 581,
+    "name": "bighead7",
+    "ai": 4
+  },
+  {
+    "id": 582,
+    "name": "bighead8",
+    "ai": 4
+  },
+  {
+    "id": 583,
+    "name": "bighead9",
+    "ai": 4
+  },
+  {
+    "id": 584,
+    "name": "bighead10",
+    "ai": 4
+  },
+  {
+    "id": 585,
+    "name": "goatman6",
+    "ai": 12
+  },
+  {
+    "id": 586,
+    "name": "goatman7",
+    "ai": 12
+  },
+  {
+    "id": 587,
+    "name": "goatman8",
+    "ai": 12
+  },
+  {
+    "id": 588,
+    "name": "goatman9",
+    "ai": 12
+  },
+  {
+    "id": 589,
+    "name": "goatman10",
+    "ai": 12
+  },
+  {
+    "id": 590,
+    "name": "foulcrow5",
+    "ai": 5
+  },
+  {
+    "id": 591,
+    "name": "foulcrow6",
+    "ai": 5
+  },
+  {
+    "id": 592,
+    "name": "foulcrow7",
+    "ai": 5
+  },
+  {
+    "id": 593,
+    "name": "foulcrow8",
+    "ai": 5
+  },
+  {
+    "id": 594,
+    "name": "clawviper6",
+    "ai": 142
+  },
+  {
+    "id": 595,
+    "name": "clawviper7",
+    "ai": 142
+  },
+  {
+    "id": 596,
+    "name": "clawviper8",
+    "ai": 142
+  },
+  {
+    "id": 597,
+    "name": "clawviper9",
+    "ai": 142
+  },
+  {
+    "id": 598,
+    "name": "clawviper10",
+    "ai": 142
+  },
+  {
+    "id": 599,
+    "name": "sandraider6",
+    "ai": 8
+  },
+  {
+    "id": 600,
+    "name": "sandraider7",
+    "ai": 8
+  },
+  {
+    "id": 601,
+    "name": "sandraider8",
+    "ai": 8
+  },
+  {
+    "id": 602,
+    "name": "sandraider9",
+    "ai": 8
+  },
+  {
+    "id": 603,
+    "name": "sandraider10",
+    "ai": 8
+  },
+  {
+    "id": 604,
+    "name": "deathmauler6",
+    "ai": 130
+  },
+  {
+    "id": 605,
+    "name": "quillrat6",
+    "ai": 14
+  },
+  {
+    "id": 606,
+    "name": "quillrat7",
+    "ai": 14
+  },
+  {
+    "id": 607,
+    "name": "quillrat8",
+    "ai": 14
+  },
+  {
+    "id": 608,
+    "name": "vulture5",
+    "ai": 23
+  },
+  {
+    "id": 609,
+    "name": "thornhulk5",
+    "ai": 27
+  },
+  {
+    "id": 610,
+    "name": "slinger7",
+    "ai": 95
+  },
+  {
+    "id": 611,
+    "name": "slinger8",
+    "ai": 95
+  },
+  {
+    "id": 612,
+    "name": "slinger9",
+    "ai": 95
+  },
+  {
+    "id": 613,
+    "name": "cr_archer6",
+    "ai": 35
+  },
+  {
+    "id": 614,
+    "name": "cr_archer7",
+    "ai": 35
+  },
+  {
+    "id": 615,
+    "name": "cr_lancer6",
+    "ai": 36
+  },
+  {
+    "id": 616,
+    "name": "cr_lancer7",
+    "ai": 36
+  },
+  {
+    "id": 617,
+    "name": "cr_lancer8",
+    "ai": 36
+  },
+  {
+    "id": 618,
+    "name": "blunderbore5",
+    "ai": 39
+  },
+  {
+    "id": 619,
+    "name": "blunderbore6",
+    "ai": 39
+  },
+  {
+    "id": 620,
+    "name": "skmage_fire5",
+    "ai": 64
+  },
+  {
+    "id": 621,
+    "name": "skmage_fire6",
+    "ai": 64
+  },
+  {
+    "id": 622,
+    "name": "skmage_ltng5",
+    "ai": 64
+  },
+  {
+    "id": 623,
+    "name": "skmage_ltng6",
+    "ai": 64
+  },
+  {
+    "id": 624,
+    "name": "skmage_cold5",
+    "ai": 64
+  },
+  {
+    "id": 625,
+    "name": "skmage_pois5",
+    "ai": 64
+  },
+  {
+    "id": 626,
+    "name": "skmage_pois6",
+    "ai": 64
+  },
+  {
+    "id": 627,
+    "name": "pantherwoman5",
+    "ai": 18
+  },
+  {
+    "id": 628,
+    "name": "pantherwoman6",
+    "ai": 18
+  },
+  {
+    "id": 629,
+    "name": "sandleaper6",
+    "ai": 17
+  },
+  {
+    "id": 630,
+    "name": "sandleaper7",
+    "ai": 17
+  },
+  {
+    "id": 631,
+    "name": "wraith6",
+    "ai": 9
+  },
+  {
+    "id": 632,
+    "name": "wraith7",
+    "ai": 9
+  },
+  {
+    "id": 633,
+    "name": "wraith8",
+    "ai": 9
+  },
+  {
+    "id": 634,
+    "name": "succubus6",
+    "ai": 118
+  },
+  {
+    "id": 635,
+    "name": "succubus7",
+    "ai": 118
+  },
+  {
+    "id": 636,
+    "name": "succubuswitch6",
+    "ai": 119
+  },
+  {
+    "id": 637,
+    "name": "succubuswitch7",
+    "ai": 119
+  },
+  {
+    "id": 638,
+    "name": "succubuswitch8",
+    "ai": 119
+  },
+  {
+    "id": 639,
+    "name": "willowisp5",
+    "ai": 25
+  },
+  {
+    "id": 640,
+    "name": "willowisp6",
+    "ai": 25
+  },
+  {
+    "id": 641,
+    "name": "willowisp7",
+    "ai": 25
+  },
+  {
+    "id": 642,
+    "name": "fallen6",
+    "ai": 6
+  },
+  {
+    "id": 643,
+    "name": "fallen7",
+    "ai": 6
+  },
+  {
+    "id": 644,
+    "name": "fallen8",
+    "ai": 6
+  },
+  {
+    "id": 645,
+    "name": "fallenshaman6",
+    "ai": 13
+  },
+  {
+    "id": 646,
+    "name": "fallenshaman7",
+    "ai": 13
+  },
+  {
+    "id": 647,
+    "name": "fallenshaman8",
+    "ai": 13
+  },
+  {
+    "id": 648,
+    "name": "skeleton6",
+    "ai": 2
+  },
+  {
+    "id": 649,
+    "name": "skeleton7",
+    "ai": 2
+  },
+  {
+    "id": 650,
+    "name": "batdemon6",
+    "ai": 29
+  },
+  {
+    "id": 651,
+    "name": "batdemon7",
+    "ai": 29
+  },
+  {
+    "id": 652,
+    "name": "bloodlord6",
+    "ai": 125
+  },
+  {
+    "id": 653,
+    "name": "bloodlord7",
+    "ai": 125
+  },
+  {
+    "id": 654,
+    "name": "scarab6",
+    "ai": 20
+  },
+  {
+    "id": 655,
+    "name": "scarab7",
+    "ai": 20
+  },
+  {
+    "id": 656,
+    "name": "fetish6",
+    "ai": 30
+  },
+  {
+    "id": 657,
+    "name": "fetish7",
+    "ai": 30
+  },
+  {
+    "id": 658,
+    "name": "fetish8",
+    "ai": 30
+  },
+  {
+    "id": 659,
+    "name": "fetishblow6",
+    "ai": 96
+  },
+  {
+    "id": 660,
+    "name": "fetishblow7",
+    "ai": 96
+  },
+  {
+    "id": 661,
+    "name": "fetishblow8",
+    "ai": 96
+  },
+  {
+    "id": 662,
+    "name": "fetishshaman6",
+    "ai": 65
+  },
+  {
+    "id": 663,
+    "name": "fetishshaman7",
+    "ai": 65
+  },
+  {
+    "id": 664,
+    "name": "fetishshaman8",
+    "ai": 65
+  },
+  {
+    "id": 665,
+    "name": "baboon7",
+    "ai": 11
+  },
+  {
+    "id": 666,
+    "name": "baboon8",
+    "ai": 11
+  },
+  {
+    "id": 667,
+    "name": "unraveler6",
+    "ai": 22
+  },
+  {
+    "id": 668,
+    "name": "unraveler7",
+    "ai": 22
+  },
+  {
+    "id": 669,
+    "name": "unraveler8",
+    "ai": 22
+  },
+  {
+    "id": 670,
+    "name": "unraveler9",
+    "ai": 22
+  },
+  {
+    "id": 671,
+    "name": "zealot4",
+    "ai": 48
+  },
+  {
+    "id": 672,
+    "name": "zealot5",
+    "ai": 48
+  },
+  {
+    "id": 673,
+    "name": "cantor5",
+    "ai": 49
+  },
+  {
+    "id": 674,
+    "name": "cantor6",
+    "ai": 49
+  },
+  {
+    "id": 675,
+    "name": "vilemother4",
+    "ai": 68
+  },
+  {
+    "id": 676,
+    "name": "vilemother5",
+    "ai": 68
+  },
+  {
+    "id": 677,
+    "name": "vilechild4",
+    "ai": 69
+  },
+  {
+    "id": 678,
+    "name": "vilechild5",
+    "ai": 69
+  },
+  {
+    "id": 679,
+    "name": "sandmaggot6",
+    "ai": 15
+  },
+  {
+    "id": 680,
+    "name": "maggotbaby6",
+    "ai": 38
+  },
+  {
+    "id": 681,
+    "name": "maggotegg6",
+    "ai": 40
+  },
+  {
+    "id": 682,
+    "name": "minion9",
+    "ai": 116
+  },
+  {
+    "id": 683,
+    "name": "minion10",
+    "ai": 116
+  },
+  {
+    "id": 684,
+    "name": "minion11",
+    "ai": 116
+  },
+  {
+    "id": 685,
+    "name": "arach6",
+    "ai": 26
+  },
+  {
+    "id": 686,
+    "name": "megademon4",
+    "ai": 89
+  },
+  {
+    "id": 687,
+    "name": "megademon5",
+    "ai": 89
+  },
+  {
+    "id": 688,
+    "name": "imp6",
+    "ai": 122
+  },
+  {
+    "id": 689,
+    "name": "imp7",
+    "ai": 122
+  },
+  {
+    "id": 690,
+    "name": "bonefetish6",
+    "ai": 30
+  },
+  {
+    "id": 691,
+    "name": "bonefetish7",
+    "ai": 30
+  },
+  {
+    "id": 692,
+    "name": "fingermage4",
+    "ai": 70
+  },
+  {
+    "id": 693,
+    "name": "fingermage5",
+    "ai": 70
+  },
+  {
+    "id": 694,
+    "name": "regurgitator4",
+    "ai": 71
+  },
+  {
+    "id": 695,
+    "name": "vampire6",
+    "ai": 28
+  },
+  {
+    "id": 696,
+    "name": "vampire7",
+    "ai": 28
+  },
+  {
+    "id": 697,
+    "name": "vampire8",
+    "ai": 28
+  },
+  {
+    "id": 698,
+    "name": "reanimatedhorde6",
+    "ai": 114
+  },
+  {
+    "id": 699,
+    "name": "dkfig1",
+    "ai": 72
+  },
+  {
+    "id": 700,
+    "name": "dkfig2",
+    "ai": 72
+  },
+  {
+    "id": 701,
+    "name": "dkmag1",
+    "ai": 74
+  },
+  {
+    "id": 702,
+    "name": "dkmag2",
+    "ai": 74
+  },
+  {
+    "id": 703,
+    "name": "mummy6",
+    "ai": 21
+  },
+  {
+    "id": 704,
+    "name": "ubermephisto",
+    "ai": 146
+  },
+  {
+    "id": 705,
+    "name": "uberdiablo",
+    "ai": 147
+  },
+  {
+    "id": 706,
+    "name": "uberizual",
+    "ai": 144
+  },
+  {
+    "id": 707,
+    "name": "uberandariel",
+    "ai": 34
+  },
+  {
+    "id": 708,
+    "name": "uberduriel",
+    "ai": 44
+  },
+  {
+    "id": 709,
+    "name": "uberbaal",
+    "ai": 145
+  },
+  {
+    "id": 710,
+    "name": "demonspawner",
+    "ai": 121
+  },
+  {
+    "id": 711,
+    "name": "demonhole",
+    "ai": 76
+  },
+  {
+    "id": 712,
+    "name": "megademon6",
+    "ai": 89
+  },
+  {
+    "id": 713,
+    "name": "dkmag3",
+    "ai": 74
+  },
+  {
+    "id": 714,
+    "name": "imp8",
+    "ai": 122
+  },
+  {
+    "id": 715,
+    "name": "swarm5",
+    "ai": 19
+  },
+  {
+    "id": 716,
+    "name": "sandmaggot7",
+    "ai": 15
+  },
+  {
+    "id": 717,
+    "name": "arach7",
+    "ai": 26
+  },
+  {
+    "id": 718,
+    "name": "scarab8",
+    "ai": 20
+  },
+  {
+    "id": 719,
+    "name": "succubus8",
+    "ai": 118
+  },
+  {
+    "id": 720,
+    "name": "succubuswitch9",
+    "ai": 119
+  },
+  {
+    "id": 721,
+    "name": "corruptrogue6",
+    "ai": 10
+  },
+  {
+    "id": 722,
+    "name": "cr_archer8",
+    "ai": 35
+  },
+  {
+    "id": 723,
+    "name": "cr_lancer9",
+    "ai": 36
+  },
+  {
+    "id": 724,
+    "name": "overseer6",
+    "ai": 120
+  },
+  {
+    "id": 725,
+    "name": "skeleton8",
+    "ai": 2
+  },
+  {
+    "id": 726,
+    "name": "sk_archer11",
+    "ai": 37
+  },
+  {
+    "id": 727,
+    "name": "skmage_fire7",
+    "ai": 64
+  },
+  {
+    "id": 728,
+    "name": "skmage_ltng7",
+    "ai": 64
+  },
+  {
+    "id": 729,
+    "name": "skmage_cold6",
+    "ai": 64
+  },
+  {
+    "id": 730,
+    "name": "skmage_pois7",
+    "ai": 64
+  },
+  {
+    "id": 731,
+    "name": "vampire9",
+    "ai": 28
+  },
+  {
+    "id": 732,
+    "name": "wraith9",
+    "ai": 9
+  },
+  {
+    "id": 733,
+    "name": "willowisp8",
+    "ai": 25
+  },
+  {
+    "id": 734,
+    "name": "horse",
+    "ai": 1
+  },
+  {
+    "id": 735,
+    "name": "cowking",
+    "ai": 2
+  },
+  {
+    "id": 736,
+    "name": "darkelder",
+    "ai": 3
+  },
+  {
+    "id": 737,
+    "name": "pig",
+    "ai": 1
+  },
+  {
+    "id": 738,
+    "name": "seagull",
+    "ai": 1
+  },
+  {
+    "id": 739,
+    "name": "suicideminion9",
+    "ai": 117
+  },
+  {
+    "id": 740,
+    "name": "suicideminion10",
+    "ai": 117
+  },
+  {
+    "id": 741,
+    "name": "suicideminion11",
+    "ai": 117
+  },
+  {
+    "id": 742,
+    "name": "wargoatman",
+    "ai": 148
+  },
+  {
+    "id": 743,
+    "name": "warbighead",
+    "ai": 148
+  },
+  {
+    "id": 744,
+    "name": "warputriddefiler",
+    "ai": 148
+  },
+  {
+    "id": 745,
+    "name": "colossal1",
+    "ai": 149
+  },
+  {
+    "id": 746,
+    "name": "colossal2",
+    "ai": 150
+  },
+  {
+    "id": 747,
+    "name": "colossal3",
+    "ai": 151
+  },
+  {
+    "id": 748,
+    "name": "colbarbwhirl",
+    "ai": 152
+  },
+  {
+    "id": 749,
+    "name": "colbarbthrow",
+    "ai": 153
+  },
+  {
+    "id": 750,
+    "name": "colbarbfrenzy",
+    "ai": 154
+  }
+]

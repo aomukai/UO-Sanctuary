@@ -1,0 +1,22 @@
+{
+  "referenceVersion": "3.3.93847",
+  "selectorBytes": 187,
+  "switchBytes": 499,
+  "sourceContexts": 66,
+  "processMemoryRead": false,
+  "targetProcessCodeExecuted": false,
+  "sourceCodeExecutedInOfflineEmulator": true,
+  "scope": "Complete selector and switch predicate execute together for states10..12;other states preserve raw special-address arithmetic. Metadata leaves and current status snapshots are explicit;native-world status projection and unqualified special descriptors are separate.",
+  "artifacts": {
+    ".local/class-skills/pet-ai-selection-source/cases.json": "c32430f6e282521469da0e511b37f4d93f18848883727f3362ec999a6c9b6572",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-ai-entry-core-20261109-439fe0-part0.bin": "4c76335b2b71de2717144b2a5b573529a5a9fce5f64cf44b9559f975bd5fb979",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-ai-entry-core-20261109-439fe0-part1.bin": "a10dd9fcc6af6a2933fbbf43267c69fd0bdd1432aaa9f4790300550163861f44",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-ai-entry-core-20261109-439fe0-part2.bin": "3aaa79d1764a0c5487332ebe2cbe0ba63858127b23c4ba6501cf7427783bca37",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-ai-entry-core-20261109.json": "6f8eb43004b1318b12db3e47f18f0d67a30cc5f89834901c11b83e16cb7be9aa",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-ai-switch-20261109-27d980-part0.bin": "9cf97cf2614c52dc711c85d9c6c7e97c46b1a4ffd735501061d99106f1fa38e4",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-ai-switch-20261109.json": "436fec58d21747c35dc7e70c5402687b7c16901d0f3f2c7405e71f7f020965ed",
+    ".local/class-skills/warlock-runtime-reference/venv/lib/python3.12/site-packages/unicorn/lib/libunicorn.so.2": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c",
+    "tools/probe_generic_pet_parameters.py": "9bee51855231387cb8f30e27e754f284debd926a5b6521ea5dc2e8c5bdd81ce9",
+    "tools/probe_pet_ai_selection.py": "c61cc6b87ba4ae7786fc88bd7cc6964a253e938805aecb7d321843004cfaaaf4"
+  }
+}

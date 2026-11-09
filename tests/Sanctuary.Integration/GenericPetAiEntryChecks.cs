@@ -80,7 +80,7 @@ public static class GenericPetAiEntryChecks
             (selector,classId)=>{Require(selector==1&&classId==sourceClass,"Original rowA lookup changed");return 1;},
             (selector,classId)=>{Require(selector==1&&classId==sourceClass,"Original rowB lookup changed");return 2;},
             _=>throw new InvalidOperationException("Fixture has no special override"),_=>false,(_,state)=>
-            {Require(state==0,"Original fixture state changed");return 0;},(_,_)=>throw new InvalidOperationException("GenericPet type0 should reuse its root targeting"),
+            {Require(state==0,"Original fixture state changed");return GenericPetAiSelectionChecks.Original(body,state);},(_,_)=>throw new InvalidOperationException("GenericPet type0 should reuse its root targeting"),
             _=>false,(_,_)=>throw new InvalidOperationException("Unexpected queued predicate"),(_,_,_)=>throw new InvalidOperationException("Unexpected queued action"),
             _=>throw new InvalidOperationException("Unexpected release"),(_,_,_)=>throw new InvalidOperationException("Unexpected special override"),(function,tick)=>
             {
