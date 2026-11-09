@@ -79,7 +79,7 @@ public static class GenericPetEventDispatchChecks
             _=>new(1,55,false,0,0,0,DeathMarkWorld.State(body).Mode),active=>
             {
                 Require(active.Type==2&&active.Handle==current&&(active.Flags&1)!=0&&events.Cursor==upcoming,"Original root callback entered wrong queue event");
-                calls++;GenericPetControlChecks.Root(body,owner,world,leaves,events);
+                calls++;GenericPetAiEntryChecks.Original(body,owner,world,leaves,events);
                 Require(events.Node(current).Flags==9,"Root did not defer removal of its own processing event");
             }));
         Require(calls==1&&events.Unit(actor).SequenceEqual(new[]{retained})&&events.Node(current).Flags==2&&events.Node(upcoming).Flags==2&&events.Cursor==0,"Original root did not finish self/upcoming cancellation through source cursor");

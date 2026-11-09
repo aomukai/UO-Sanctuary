@@ -1,0 +1,90 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 213,
+  "warlockHandlers": 4,
+  "completedClasses": [],
+  "learnedEnabled": false,
+  "automaticAiEnabled": false,
+  "aiEntryBytes": 1096,
+  "sourceContexts": 57,
+  "genericPetDescriptor": {
+    "index": 148,
+    "type": 0,
+    "functionRva": "0x4b60c0",
+    "sha256": "6309a6ea42df377b82598fadcbe6606a5ab3402f1b59d12ffa75bd79f0c7cd74",
+    "primaryMatchesCaptured": true
+  },
+  "newHelperCaptureBytesRead": 4476,
+  "capturedHelperBytes": 1958,
+  "oldLargeSourceMatricesRerun": 0,
+  "nativeMarkers": 15,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "pet-command-target-check": 1,
+    "pet-command-target-reload-check": 2,
+    "pet-ai-entry-check": 3
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 1,
+  "integrationBuild": 1,
+  "sourceSnapshot": 1,
+  "nativeRun": 1,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "5047fb6e70da09b149ca4ec0329bea6bddfa95cd06d9186716ed5831d2079ae0",
+    "Assemblies/Sanctuary.Integration.dll": "3ec7e60587a74daf67ecdd302d860c989d8b3f8ac0c7c2cbaa7444f06f47f528"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 43,
+    "installed": false
+  },
+  "verified": [
+    "Complete1096-byte entry matches57native comparisons with explicit helper and stable inline-functor services. Snapshot timing/unwritten tail,metadata order,all target policies,early exits,original/replaced overrides,queue FIFO/predicate/release/append and updated default function are covered. Missing-control/null-function boundaries refuse;the missing-control frame is not returned/compared.",
+    "Original3-speciesWarlock/Witch event tests now pass typed event->full prepared entry->registered root on same store. Processing/upcoming cancellation,non-AI retention,commands,births,wounds and six control updates per actor survive two actual reloads.",
+    "Five direct helpers captured completely for future binding. Inline28-byte jump data is validated as seven actual targets and excluded from instruction parsing. Existing root/controller/event producer/executor sources are text-identical to parent;automatic admission is unchanged."
+  ],
+  "limits": [
+    "Metadata/preprocessing/target/special/queued helper and world internals remain explicit dependencies. Raw functor heap/move/destructor ABI,exceptions,unstable-head mutation and reentrancy are not certified. Game snapshot unwritten byte remains an explicit input with no inferred gameplay meaning.",
+    "Native entry control/metadata are explicit fixtures;field14=2 is not an authentic birth claim. Actual helper/special-callback binding,AI-control producer,live roster,global event-chain/host clock,suspension/persistence and remaining world/actions still need completion.",
+    "No learned route,automatic timer,class certificate,deployment or new assets. Effects/audio and talent/hotkey icons remain separate."
+  ],
+  "diagnostics": [
+    "Initial oracle assumed queued helper takes tick context;source call actually passes AI control. Exact initial script/log archived;C#service signature corrected before builds/native checks. Accepted native1 has no failed build/run."
+  ],
+  "inputs": {
+    "tools/reference/pet-ai-entry-source-evidence.json": "ccc854aac7dbde5098950b58c99db445fd0be25e5d57ea8ed3e60484af79cf63",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-ai-entry-core-20261109.json": "6f8eb43004b1318b12db3e47f18f0d67a30cc5f89834901c11b83e16cb7be9aa",
+    ".local/class-skills/warlock-runtime-reference/generic-pet-candidate.json": "b43a32d2254d96fd26345609543840d858e3532ccf4066a2183127882ddb4413",
+    "tools/reference/d2r-local-installation-evidence.json": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c",
+    ".local/class-skills/pet-ai-entry/birth-inputs.json": "b4e5b26a834e85c86e41dba31b9acf6d5b89404405487b10d31cb25f389dfceb",
+    ".local/class-skills/pet-ai-entry/source-snapshot-1.json": "08468b67176cee39a62c786ada45155f466814accf912b8144c480f01495a87d",
+    ".local/class-skills/pet-ai-entry/content-build-1.log": "08546f0ab9ea45580a2ed4e835a2f668692f0b21528599c452ebc91af3b13071",
+    ".local/class-skills/pet-ai-entry/integration-build-1.log": "8b24feb50eef33b001d3c4cecc598378a0589a9821a1caab95e1153da02b737e",
+    ".local/class-skills/pet-ai-entry/birth-native-checks.log": "ec4625a0fb9473283f6119a8ae83e9aadcc1d8f4d241d9039a3c45cb34dd8286",
+    ".local/class-skills/pet-ai-entry/pet-command-target-fixtures.json": "c3301088afb605dd37244a1e2c9ec1e413c359d1a4e439d35c08e4aec27b603e",
+    ".local/class-skills/pet-ai-entry-source/probe-diagnostics-1/probe_pet_ai_entry.py": "a0e0ad29a38343682aac950ec546aa861d80ea5911f313dead5e9c72356c86d6",
+    ".local/class-skills/pet-ai-entry-source/probe-diagnostics-1/probe-run.log": "0d3d08e8a81dc6d16dda0d57e4187f513b5f3c1896d06b9aa7e0dc69dee888ca",
+    "tools/reference/creeper-frame-installation-evidence.json": "781fce73d72860589499e8363236fcead24a3ffc6cd7ae468cc4174b2c5d2cef",
+    ".local/class-skills/creeper-frame-installation.json": "b32107f7a075d37f74751677934f17f613cc10680e9e66537c0d900f26d11fd6",
+    "tools/reference/ring-cast-client-evidence.json": "d5cb69669b755e9a1033468980212891b06383bc6bd9832ccd8d6d92f6f855b4",
+    ".local/class-skills/ring-cast/client-inputs-2.json": "bb302029669340b638ee06e8418244b18151390d97324a6eaf5d61ae97ee8373",
+    "docs/pet-ai-entry-checkpoint.md": "5ba490ec232012da05a0019d1ba3047a579f2f7c6b8b73b5b3be76d457634d7e",
+    "docs/class-skills-resume-checkpoint.md": "ae27f4e8d280123b948148f0ed9b92c0bb88e25911d6a1b8f3fe019d778ddd42",
+    "docs/class-skill-roadmap.md": "11e48af8e8b75aa3b8e1e95657c109b19b02596bc329046f18035b13beb2b1cb",
+    "docs/class-skill-reuse-notes.md": "e0aed769e020205ca45988bad6e878f5dad1fe0842451b848db751fbc806a69d",
+    "docs/skill-mechanical-reference.md": "22f600c35d3e2986650ddc17052a4cb3bb0395037000fbce2bb32d8696982f22",
+    "tests/check_pet_ai_entry.py": "a825aa8c1802934bef39388f35142f7b94c6d59e6e913453ef4b895cebf376ce",
+    "tools/record_pet_ai_entry.py": "34cdf78d56ffe53a673eb092a9df201ea2e2e0a1780f8df84bce86defc6fa956"
+  }
+}

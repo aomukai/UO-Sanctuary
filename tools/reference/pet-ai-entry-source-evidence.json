@@ -1,0 +1,21 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourceBytes": 1096,
+  "sourceContexts": 57,
+  "processMemoryRead": false,
+  "targetProcessCodeExecuted": false,
+  "sourceCodeExecutedInOfflineEmulator": true,
+  "scope": "Complete entry against explicit metadata/preprocessing/target/special/queued services and declared stable inline-functor ABI. Game snapshot stack tail is supplied;raw heap allocator/closure exception behavior and helper/native-world internals are separate.",
+  "artifacts": {
+    ".local/class-skills/pet-ai-entry-source/cases.json": "d58bf002cc2d7cdf6a31e7e266900ee39ec62f8269bf4e5a081119d3c16e3108",
+    ".local/class-skills/warlock-runtime-reference/pet-ai-event-entry-20261109-43b0c0-part0.bin": "2cbe14870c8f4b12bbf662f4b694d84e158e984283e8862a58a925b6e60831b7",
+    ".local/class-skills/warlock-runtime-reference/pet-ai-event-entry-20261109-43b0c0-part1.bin": "ef36c0ef2fdf2c15d9fd20c09ab4299f2dfb61b5bcb9c6491d9462ca79e9bf6a",
+    ".local/class-skills/warlock-runtime-reference/pet-ai-event-entry-20261109-43b0c0-part2.bin": "0a8469ce489e4637077153727f6e6e19a1947dc60519c42bc94dda44e4d4e682",
+    ".local/class-skills/warlock-runtime-reference/pet-ai-event-entry-20261109-43b0c0-part3.bin": "e516e0eed793b1e61aa5a913ad66b6c303b67fc5632b0ddc8462c7d039b334a1",
+    ".local/class-skills/warlock-runtime-reference/pet-ai-event-entry-20261109-43b0c0-part4.bin": "c33bd48c7fbbac6fa75f56e42e1aaf3f263f7150c98456565834bbab613e53f9",
+    ".local/class-skills/warlock-runtime-reference/pet-ai-event-entry-20261109.json": "26203aaffb2d974393c76142447128bf6ac3efdd106691b561be6adbf38245eb",
+    ".local/class-skills/warlock-runtime-reference/venv/lib/python3.12/site-packages/unicorn/lib/libunicorn.so.2": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c",
+    "tools/probe_generic_pet_parameters.py": "9bee51855231387cb8f30e27e754f284debd926a5b6521ea5dc2e8c5bdd81ce9",
+    "tools/probe_pet_ai_entry.py": "c85385ae2d155029f7168a894a37f39fe271ea6a225cdf233b3b4125016baf94"
+  }
+}
