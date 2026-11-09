@@ -64,7 +64,7 @@ public static class GearEffects
     // Player source-rate consumers add haste/WSM before their final rate clamp.
     // Keep the bounded projection for native NPC delay divisors.
     internal static int AttackSlowTotal(Mobile mobile) => ChillPercent(mobile)
-        + TimedEffects.SlowAttack(mobile, TimedEffects.Now) + NecromancerEffects.Slow(mobile) + PaladinHolyFreeze.AttackSlow(mobile) + ImpaleSlow.Attack(mobile) - GrimWardCurseTransport.Attack(mobile)-SigilLethargy.Attack(mobile);
+        + TimedEffects.SlowAttack(mobile, TimedEffects.Now) + NecromancerEffects.Slow(mobile) + PaladinHolyFreeze.AttackSlow(mobile) + ImpaleSlow.Attack(mobile) - GrimWardCurseTransport.Attack(mobile)-SigilLethargy.Attack(mobile)-SigilRancorPrimary.AttackRate(mobile);
     public static int AttackSlow(Mobile mobile) => Math.Clamp(AttackSlowTotal(mobile), -100, 85);
     public static bool ApplyChill(Mobile target, long now, int durationMs = 2000, Mobile attacker = null)
     {

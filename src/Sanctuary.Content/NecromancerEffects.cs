@@ -23,7 +23,8 @@ public sealed record NecromancerState(NecromancerCurse Curse = null, int BoneArm
     [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] BlindAiState BlindAi=null,
     [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] MindAiState Mind=null,
     [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] NecromancerCurse EliteCurse=null,
-    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] TerrorAi ItemTerror=null);
+    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] TerrorAi ItemTerror=null,
+    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] RancorPrimaryState RancorPrimary=null);
 
 public sealed class NecromancerEffectProfiles : GenericPersistence
 {
@@ -34,6 +35,7 @@ public sealed class NecromancerEffectProfiles : GenericPersistence
         ? _states.GetValueOrDefault(actor.Serial) : null;
     public void Store(Mobile actor, NecromancerState state)
     {
+        if(state.RancorPrimary!=null){SigilRancorPrimary.Validate(state.RancorPrimary);}
         var before=_states.GetValueOrDefault(actor.Serial);
         // A new special-AI initializer supersedes a prior item initializer.
         // Updating that item's own clock does not replace the curse it shadows.
@@ -73,6 +75,7 @@ public sealed class NecromancerEffectProfiles : GenericPersistence
             if(state?.BlindAi is{} blind){SourceBlind.Validate(blind);}
             if(state?.Mind is{} mind){SourceMind.Validate(mind);}
             if(state?.ItemTerror is{} itemTerror){SourceTerror.ValidateItem(itemTerror);}
+            if(state?.RancorPrimary is{} rancor){SigilRancorPrimary.Validate(rancor);}
             if (!serial.IsMobile || state == null || state.BoneArmor < 0 || state.ManaFraction is < 0 or > 255
                 || state.EliteCurse is{} elite && (state.Curse!=null||!EliteAuras.ValidMetadata(elite))
                 || state.BoneArmorPool is{} pool && (pool.Rank is <1 or >255 || pool.Remaining256<=0
@@ -196,7 +199,7 @@ public static class NecromancerEffects
     }
     // STAT_DAMAGEPERCENT joins weapon ED before its -90 floor. It does not
     // scale arbitrary physical spell/retaliation packets at mitigation time.
-    public static int DamageStatPercent(Mobile actor) => HexSiphon.DamagePercent(actor)+(Curse(actor) is { } curse ? curse.Ability switch
+    public static int DamageStatPercent(Mobile actor) => HexSiphon.DamagePercent(actor)+SigilRancorPrimary.DamagePercent(actor)+(Curse(actor) is { } curse ? curse.Ability switch
     {
         CombatAbility.Weaken => Values(curse).Linear(5, 6),
         CombatAbility.Decrepify => Values(curse).Param(5),

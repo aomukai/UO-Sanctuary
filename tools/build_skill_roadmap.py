@@ -774,6 +774,9 @@ BLOCKERS['warlock.cleave']='Approved Sanctuary action uses captured SQ24/EIAS/ra
 NATIVE_PARTIAL.add('warlock.echoingstrike')
 BLOCKERS['warlock.echoingstrike']='Prepared table suppliers reuse the shared skill evaluator with corrected current clc1..9/clc0 aliases. Hard Mirrored Blades points determine1..5attacks and integer attack percentages;hard Mirrored/Blade Warp points supply damage synergy. Effective own rank supplies physical tiers,ED,AR and fractional mana. Real Warlock/Witch gear/resources persist through native reload controls. Current do166 and missile706do44/hit34/damage16 remain unrecovered:launch/mirror geometry,return flight,first-versus-duplicate scaling,weapon/item/poison/accuracy chronology,hit-delay identity and learned input/payment remain gated. No Mirrored Blades behavior is copied on resemblance. See echoing-strike-checkpoint.md;effects/icons remain separate.'
 
+NATIVE_PARTIAL.add('warlock.sigilrancor')
+BLOCKERS['warlock.sigilrancor']='Prepared primary-stat receiver captures pinned damagepercent/attackrate and reuses existing additive weapon ED and NPC attack-delay consumers. Optional existing-profile JSON metadata preserves old null schemas and independent curses/Lethargy,with explicit expiry and malformed-state refusal. This does not implement Confuse or infer recipient selection/reapplication/difficulty/pulse cadence. Current do61 remains protected;75percent AI chance,group8interactions and automatic pulse/learned input remain gated. See rancor-primary-checkpoint.md;effects/icons separate.'
+
 def build():
     skills=json.loads((BALANCE/'class-skills.json').read_text())
     protocol=(ROOT/'shared/ClassAbilities.cs').read_text()
