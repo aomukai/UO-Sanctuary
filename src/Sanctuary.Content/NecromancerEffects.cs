@@ -24,7 +24,8 @@ public sealed record NecromancerState(NecromancerCurse Curse = null, int BoneArm
     [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] MindAiState Mind=null,
     [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] NecromancerCurse EliteCurse=null,
     [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] TerrorAi ItemTerror=null,
-    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] RancorPrimaryState RancorPrimary=null);
+    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] RancorPrimaryState RancorPrimary=null,
+    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] MindAiState RancorMind=null);
 
 public sealed class NecromancerEffectProfiles : GenericPersistence
 {
@@ -36,6 +37,7 @@ public sealed class NecromancerEffectProfiles : GenericPersistence
     public void Store(Mobile actor, NecromancerState state)
     {
         if(state.RancorPrimary!=null){SigilRancorPrimary.Validate(state.RancorPrimary);}
+        if(state.RancorMind!=null){SigilRancorMind.Validate(state.RancorMind);}
         var before=_states.GetValueOrDefault(actor.Serial);
         // A new special-AI initializer supersedes a prior item initializer.
         // Updating that item's own clock does not replace the curse it shadows.
@@ -76,6 +78,7 @@ public sealed class NecromancerEffectProfiles : GenericPersistence
             if(state?.Mind is{} mind){SourceMind.Validate(mind);}
             if(state?.ItemTerror is{} itemTerror){SourceTerror.ValidateItem(itemTerror);}
             if(state?.RancorPrimary is{} rancor){SigilRancorPrimary.Validate(rancor);}
+            if(state?.RancorMind is{} rancorMind){SigilRancorMind.Validate(rancorMind);}
             if (!serial.IsMobile || state == null || state.BoneArmor < 0 || state.ManaFraction is < 0 or > 255
                 || state.EliteCurse is{} elite && (state.Curse!=null||!EliteAuras.ValidMetadata(elite))
                 || state.BoneArmorPool is{} pool && (pool.Rank is <1 or >255 || pool.Remaining256<=0

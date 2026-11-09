@@ -18,7 +18,16 @@ public static class SourceMind
     private static readonly HashSet<Serial> Tracked=new();
     private static readonly Dictionary<Serial,int> Selecting=new();
     internal static bool Neutral(Mobile actor)=>!PaladinConversion.Active(actor)
-        &&NecromancerEffects.Curse(actor)?.Ability is CombatAbility.Confuse or CombatAbility.Attract;
+        &&(NecromancerEffects.Curse(actor)?.Ability is CombatAbility.Confuse or CombatAbility.Attract||RancorSelected(actor));
+    private static bool RancorSelected(Mobile actor){_=Read(actor,out bool rancor);return rancor;}
+    private static MindAiState Read(Mobile actor,out bool rancor)
+    {
+        rancor=false;var state=NecromancerEffects.Profiles.Find(actor);
+        if(state?.Mind is{Mode:2 or 3} ordinary&&ordinary.UntilUtc>TimedEffects.Now){return ordinary;}
+        if(SigilRancorMind.Active(actor,state,TimedEffects.Now)){rancor=true;return state.RancorMind;}
+        return state?.Mind;
+    }
+    internal static MindAiState Current(Mobile actor)=>Read(actor,out _);
     private static int Alignment(Mobile actor)=>Neutral(actor)?1:actor is PlayerMobile
         ||PaladinConversion.Active(actor)||actor is BaseCreature c&&c.GetMaster() is PlayerMobile?2:0;
     private static bool Aligned(int a,int b)=>a==b&&a is 0 or 2;
@@ -38,7 +47,7 @@ public static class SourceMind
         // Conversion's ownership/friendship contract retains precedence.
         if(PaladinConversion.Active(actor)||PaladinConversion.Active(target)){return null;}
         if(Selecting.TryGetValue(actor.Serial,out int alignment)){return Candidate(actor,target)&&SourceTerror.Distance(actor,target)<=35&&!Aligned(alignment,Alignment(target));}
-        var mind=NecromancerEffects.Profiles.Find(actor)?.Mind;
+        var mind=Current(actor);
         if(mind is{Mode:2 or 3}&&mind.UntilUtc>TimedEffects.Now&&mind.Focus==target?.Serial.Value){return Candidate(actor,target);}
         return Neutral(actor)||Neutral(target)?Candidate(actor,target):null;
     }
@@ -48,7 +57,7 @@ public static class SourceMind
         if(actor==target){return true;}
         if(Selecting.TryGetValue(actor.Serial,out int alignment)&&Candidate(actor,target)){return Aligned(alignment,Alignment(target));}
         if(Neutral(actor)||Neutral(target)){return false;}
-        return NecromancerEffects.Profiles.Find(actor)?.Mind is{Mode:2 or 3} mind&&mind.UntilUtc>TimedEffects.Now&&mind.Focus==target?.Serial.Value?false:null;
+        return Current(actor) is{Mode:2 or 3} mind&&mind.UntilUtc>TimedEffects.Now&&mind.Focus==target?.Serial.Value?false:null;
     }
     internal static MindAiState Confuse(BaseCreature actor,NecromancerState state,int frames,DateTime at)
         =>new(state.Mind?.Seed??SourceRandom.InitLow(unchecked((int)Random.Shared.NextInt64(1L<<32))),actor.Map.MapID,at.AddMilliseconds(frames*40L));
@@ -65,7 +74,7 @@ public static class SourceMind
     }
     internal static void Changed(Mobile actor,NecromancerState state)
     {
-        if(state?.Mind is{Mode:2 or 3}||state?.Curse?.Ability is CombatAbility.Confuse or CombatAbility.Attract){Tracked.Add(actor.Serial);}
+        if(state?.Mind is{Mode:2 or 3}||state?.RancorMind is{Mode:3}||state?.Curse?.Ability is CombatAbility.Confuse or CombatAbility.Attract){Tracked.Add(actor.Serial);}
         else{Tracked.Remove(actor.Serial);}
     }
     internal static void AfterLoad(IEnumerable<KeyValuePair<Serial,NecromancerState>> states)
@@ -80,6 +89,8 @@ public static class SourceMind
             if(state.Curse is{Ability:CombatAbility.Confuse or CombatAbility.Attract} curse&&curse.UntilUtc<=TimedEffects.Now)
             {state=state with{Curse=null};changed=true;}
             if(state.Mind is{Mode:2 or 3} mind&&mind.UntilUtc<=TimedEffects.Now){state=Superseded(state);changed=true;}
+            if(state.RancorMind is{Mode:3} rancor&&rancor.UntilUtc<=TimedEffects.Now)
+            {state=state with{RancorMind=rancor with{Mode=0,Focus=0}};changed=true;}
             if(changed){NecromancerEffects.Profiles.Store(actor,state);if(actor is BaseCreature creature){creature.ForceReacquire();}}
         }
     }
@@ -94,12 +105,12 @@ public static class SourceMind
     }
     internal static void Think(BaseCreature actor)
     {
-        var state=NecromancerEffects.Profiles.Find(actor);var mind=state?.Mind;
+        var state=NecromancerEffects.Profiles.Find(actor);var mind=Read(actor,out bool rancor);
         if(mind is not{Mode:2 or 3}||mind.UntilUtc<=TimedEffects.Now||actor.AIObject is not{} ai||actor.Map==null||actor.Map==Map.Internal
             ||actor.Frozen||actor.Paralyzed||NamedControl.FrozenRemaining(actor)>0||FreezeStates.Waiting(actor)
             ||state.Curse?.Terror!=null||NecromancerEffects.Vision(state.Curse)){return;}
         if(actor.Map.MapID!=mind.Map||actor.Controlled||actor.Summoned||PaladinConversion.Active(actor))
-        {Log.Warning("Generic mind override world transition unsupported: {Target}",actor.Serial.Value);NecromancerEffects.Profiles.Store(actor,Superseded(state));return;}
+        {Log.Warning("Generic mind override world transition unsupported: {Target}",actor.Serial.Value);NecromancerEffects.Profiles.Store(actor,rancor?state with{RancorMind=mind with{Mode=0,Focus=0}}:Superseded(state));return;}
         if(mind.Mode==2)
         {
             if(AttractedTarget(actor) is{} attracted)
@@ -108,7 +119,7 @@ public static class SourceMind
         }
         // Use the existing native acquisition clock and scan/LOS/food/ordering
         // services. They remain world adapters, not source-node parity claims.
-        if(actor.NextReacquireTime>Core.TickCount){return;}
+        if(actor.NextReacquireTime>Core.TickCount||ai is LeashedMeleeAI leashed&&!leashed.CanScanAt(Core.TickCount)){return;}
         ulong seed=mind.Seed;int bit=(int)(SourceRandom.Roll(ref seed)&1);int alignment=Alignment(actor);
         if(alignment==1){alignment=bit!=0?2:0;}else if(bit!=0){alignment=alignment==0?2:0;}
         Selecting[actor.Serial]=alignment;
@@ -116,7 +127,7 @@ public static class SourceMind
         try{if(ai.AcquireFocusMob(18,actor.FightMode,false,false,true)){target=actor.FocusMob;}}
         finally{Selecting.Remove(actor.Serial);}
         var next=mind with{Seed=seed,Draws=checked(mind.Draws+1),Mode=target==null?0:3,Focus=target?.Serial.Value??0};
-        NecromancerEffects.Profiles.Store(actor,state with{Mind=next});
+        NecromancerEffects.Profiles.Store(actor,rancor?state with{RancorMind=next}:state with{Mind=next});
         if(target==null){return;} // Source clears mode3 when its scan finds none.
         actor.Combatant=target;actor.FocusMob=null;ai.Action=ActionType.Combat;
         // Continue ordinary species AI, including its own abilities and timing.

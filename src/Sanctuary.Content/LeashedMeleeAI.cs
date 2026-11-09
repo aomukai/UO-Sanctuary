@@ -125,6 +125,8 @@ public sealed class LeashedMeleeAI : MeleeAI
         return 0;
     }
 
+    internal bool CanScanAt(long now)=>!UsesSpecies||Mobile.BardProvoked||Mobile.BardPacified||now>=_scanAfter;
+
     public override bool AcquireFocusMob(int range, FightMode mode, bool playerOnly, bool friend, bool foe)
     {
         if (!UsesSpecies || Mobile.BardProvoked || Mobile.BardPacified)

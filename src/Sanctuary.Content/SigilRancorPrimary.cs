@@ -43,9 +43,12 @@ internal static class SigilRancorPrimary
             ||!ClassCreation.Profiles.TryGet(owner.Serial,out var p)||p.Class!=DiabloClass.Warlock){return false;}
         var v=Capture(values);var next=new RancorPrimaryState(owner.Serial.Value,v.Rank,v.DamagePercent,v.AttackRate,until);Validate(next);
         if(State(target)!=null){throw new NotSupportedException("Current Rancor reapplication policy remains unverified");}
-        NecromancerEffects.Profiles.Store(target,(NecromancerEffects.Profiles.Find(target)??new())with{RancorPrimary=next});
+        NecromancerEffects.Profiles.Store(target,(NecromancerEffects.Profiles.Find(target)??new())with{RancorPrimary=next,RancorMind=null});
         return true;
     }
     internal static void Clear(Mobile target)
-    {if(NecromancerEffects.Profiles.Find(target)is{} s){NecromancerEffects.Profiles.Store(target,s with{RancorPrimary=null});}}
+    {
+        if(NecromancerEffects.Profiles.Find(target)is{} s)
+        {NecromancerEffects.Profiles.Store(target,s with{RancorPrimary=null,RancorMind=s.RancorMind is{} mind?mind with{Mode=0,Focus=0}:null});if(target is BaseCreature npc){npc.ForceReacquire();}}
+    }
 }
