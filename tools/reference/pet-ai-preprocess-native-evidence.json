@@ -1,0 +1,88 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlers": 213,
+  "warlockHandlers": 4,
+  "completedClasses": [],
+  "automaticAiEnabled": false,
+  "learnedEnabled": false,
+  "preprocessBytes": 544,
+  "savedTargetBytes": 464,
+  "sourceContexts": 51,
+  "newCaptureBytesRead": 1488,
+  "oldLargeSourceMatricesRerun": 0,
+  "nativeMarkers": 15,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "pet-command-target-check": 1,
+    "pet-command-target-reload-check": 2,
+    "pet-ai-preprocess-check": 3
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 1,
+  "integrationBuild": 1,
+  "sourceSnapshot": 1,
+  "nativeRun": 2,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "36ac3d2fce74de9e0a2d250b4558a621c59488fb4545ba4d6077e2eb87ff4734",
+    "Assemblies/Sanctuary.Content.dll": "13381ce7cf0af49657f1ae3b0e7b705897c9425d7bf90b13d0c43069061b923e",
+    "Assemblies/Sanctuary.Integration.dll": "0a9180316e852bc43a5103a0dfa0a582c64284b4bca91a968fa3ea2f237011a9"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 43,
+    "installed": false
+  },
+  "verified": [
+    "Complete preprocessing and saved-target source match51native contexts for returns,writes,lookup order,stun/count/status boundaries,door collision/search/interaction,target validity,distance thresholds and movement arguments.",
+    "Existing coordinate decoder and movement state reused. Original three-species full-entry fixture reads actual compiled primary flags and invokes real preprocessing before registered root;commands/control6updates/births/fractionalwounds retain across two reloads."
+  ],
+  "diagnostics": {
+    "initialNativeRun": "Reference cookie stub incorrectly overwrote result register. Corrected preservation only;all51inputs,traces and other state writes unchanged. Native2 passes identical Content/Integration DLLs;exact first-run artifacts retained.",
+    "changedOracleReturns": 16,
+    "initialProbe": "Missing emulator cookie-data map corrected before native build;pre-correction probe retained."
+  },
+  "limits": [
+    "Native status,path/collision,registry/object/search,distance and movement execution are explicit leaves;automatic world admission is not established.",
+    "Control+3c/+40 birth defaults and persistence remain unknown;separate from the qualified persisted three words. Original no-status/no-door/no-saved-target input is explicitly a fixture.",
+    "Post-target/special callbacks/control producer/global chain/clock and remaining world/action bindings remain unfinished. No new learned route,class certificate,assets or deployment."
+  ],
+  "inputs": {
+    "tools/reference/pet-ai-preprocess-source-evidence.json": "69c64aab105c4502a45dce5abbcc1e843bafefb8e04203fd8c038c3d804eda1c",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-ai-preprocess-leaf-20261109.json": "0eab416eab85a30ac842e6386c0f421768fc9315da0127ba169d7d2833ea22d0",
+    ".local/class-skills/pet-ai-preprocess/birth-inputs.json": "5adde9acae4ab84dae7ca022f6cd3f4827e642de94e4140d4243f13dfb76d815",
+    ".local/class-skills/pet-ai-preprocess/source-snapshot-1.json": "86188b10aedf27ba26825c0d8197c0a364e21b9de9a76cde30d13279cbb0bb17",
+    ".local/class-skills/pet-ai-preprocess/content-build-1.log": "427144d8403bbee20c7ef0e726f1724f72bfc3594d3f4d3e371646919db83283",
+    ".local/class-skills/pet-ai-preprocess/integration-build-1.log": "a220bb192de42b9d76923c0bba945257cd4f1fd91bdd963a1844fa3d2dddcc6d",
+    ".local/class-skills/pet-ai-preprocess/birth-native-checks.log": "1c0182c21687d5dd189d96bf12ed9fd520f7e4ab454b654bd1b01f0b1ec21851",
+    ".local/class-skills/pet-ai-preprocess/native-run-2.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/pet-ai-preprocess/pet-command-target-fixtures.json": "7a84825a53395062063aa194d1b7026829bf970637834f604b9788bd8738e064",
+    ".local/class-skills/pet-ai-preprocess/oracle-cookie-review-1/birth-inputs.json": "726b25fd3bb8b966efbf95ca9543fe9f8dfc1c80f7a61ee311867f233a0d5ff3",
+    ".local/class-skills/pet-ai-preprocess/oracle-cookie-review-1/sources/probe_pet_ai_preprocess.py": "17d1bf5b48270e1030ef8be62b98e745dd19f7b0360cf249edf491f5d4e66d36",
+    ".local/class-skills/pet-ai-preprocess/oracle-cookie-review-1/cases.json": "7969f6fce745140b4442b7eae61fdfc770a2b9377f9acb61e9fb75423f5feeb0",
+    ".local/class-skills/pet-ai-preprocess/oracle-cookie-review-1/birth-native-checks.log": "7f6ad7ca04b6817c754ebf6f21241e07df6e9a14a574f0d48b5881b4e8428604",
+    ".local/class-skills/pet-ai-preprocess/oracle-cookie-review-1/native-run-1.log": "ab23254339993f499b4e095b2a241bcfd2201d581f5f7be9338dcadfea39514b",
+    ".local/class-skills/pet-ai-preprocess/oracle-cookie-review-1/sources/pet-ai-preprocess-source-evidence.json": "e8b9d2b047b8e5ebadadf1263ea014541277acaab05dd777ac658cd8b92181dd",
+    ".local/class-skills/pet-ai-preprocess/probe-diagnostics-1/probe-before-cookie-map.py": "6e42ccff91a668ef620a9d33dbc91cba10a815b1644fb0c95c07facff7d2883f",
+    "tools/reference/creeper-frame-installation-evidence.json": "781fce73d72860589499e8363236fcead24a3ffc6cd7ae468cc4174b2c5d2cef",
+    ".local/class-skills/creeper-frame-installation.json": "b32107f7a075d37f74751677934f17f613cc10680e9e66537c0d900f26d11fd6",
+    "tools/reference/ring-cast-client-evidence.json": "d5cb69669b755e9a1033468980212891b06383bc6bd9832ccd8d6d92f6f855b4",
+    ".local/class-skills/ring-cast/client-inputs-2.json": "bb302029669340b638ee06e8418244b18151390d97324a6eaf5d61ae97ee8373",
+    "docs/pet-ai-preprocess-checkpoint.md": "76c299e5d594c8250bf266d6d1ddb43a2ede59c5a16bd4787313b935782026d1",
+    "docs/class-skills-resume-checkpoint.md": "ec8bc04c6216dadb01d6e2a49844e488b5a6090c94b4f19c82ebb27f3e0396a1",
+    "docs/class-skill-roadmap.md": "0483638fa59da28bb2646577ad2f65e9ce63e447c6653892da64f000ff20bb23",
+    "docs/class-skill-reuse-notes.md": "33ad965d07f48c656405dded6b863872dd64df7a597cfc576e4541a3325d0b49",
+    "docs/skill-mechanical-reference.md": "1a60112e07ceea6cf0c417bb72d0d371f7f53e07199a54a6eea573926b30e812",
+    "tests/check_pet_ai_preprocess.py": "ac64924848ed6d5edc5bb52109316ae45fa998b971c05c220d977ef96ca0ca6a",
+    "tools/record_pet_ai_preprocess.py": "61c379c4e1b937307bd462962fc2c11441881577d2ee673fa63725e477e68465"
+  }
+}

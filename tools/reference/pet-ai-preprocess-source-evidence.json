@@ -1,0 +1,23 @@
+{
+  "referenceVersion": "3.3.93847",
+  "preprocessBytes": 544,
+  "savedTargetBytes": 464,
+  "sourceContexts": 51,
+  "sourceCodeExecutedInOfflineEmulator": true,
+  "processMemoryRead": false,
+  "targetProcessCodeExecuted": false,
+  "scope": "Complete preprocessing and saved-target handling execute together. Status/path/object/registry and movement calls are explicit leaves;source writes,lookup order,coordinate decoding and action arguments are compared. Missing required dereferences are refused;birth/persistence/world projections are separate.",
+  "artifacts": {
+    ".local/class-skills/pet-ai-preprocess-source/cases.json": "3bf2954d5019245a8efd3c4462b1601d056f8c73a7d56bfe022a20124742c2e7",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-ai-entry-core-20261109-43a6c0-part0.bin": "6af6e5da569108e6dd8823710a6fb1546e4f27e1bd0fd8394274a2df67c13e3e",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-ai-entry-core-20261109-43a6c0-part1.bin": "50bafdebab0e1081d92dc09f0a23700105a0c4c2656e479ff30fccb2205d9bc9",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-ai-entry-core-20261109-43a6c0-part2.bin": "10fb31e504d264e140eb44325b9f0ecad6bb99845b0c7f13465aad64156ababf",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-ai-entry-core-20261109-43a6c0-part3.bin": "f085d9d0a5cfb58a06a6303c4cc4f905b3fd219c3d6b0af2576f0b3ec5783901",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-ai-entry-core-20261109.json": "6f8eb43004b1318b12db3e47f18f0d67a30cc5f89834901c11b83e16cb7be9aa",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-ai-preprocess-leaf-20261109-43a4f0-part0.bin": "bfbcbe705f47adec15fae0af14bb2f4b52f6abd85ed3214643ed325622ca55bb",
+    ".local/class-skills/warlock-runtime-reference/callees-pet-ai-preprocess-leaf-20261109.json": "0eab416eab85a30ac842e6386c0f421768fc9315da0127ba169d7d2833ea22d0",
+    ".local/class-skills/warlock-runtime-reference/venv/lib/python3.12/site-packages/unicorn/lib/libunicorn.so.2": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c",
+    "tools/probe_generic_pet_parameters.py": "9bee51855231387cb8f30e27e754f284debd926a5b6521ea5dc2e8c5bdd81ce9",
+    "tools/probe_pet_ai_preprocess.py": "f09dcb38a3908b1b97daf7ba82f74f2130df41fa10a3b06ec1db5bbc91a60d9e"
+  }
+}
