@@ -151,6 +151,7 @@ public static class SkillCombat
             && NecromancerEffects.Curse(target) == null && target is not (NecromancerMinion or AmazonDecoy or ISourceLifeMaximum)
             && SorceressEffects.Shield(target) == null && SorceressEffects.Armor(target) == null
             && !PaladinResistance.Active(target) && !PaladinThorns.Active(target) && !PaladinConviction.Managed(target)
+            && !HexPurgeReactionProposal.ManagedPrepared(target)
             && (!weapon || SorceressEffects.Enchantment(source) == null && !PaladinElements.WeaponActive(source) && PaladinAuras.NativeWeaponMultiplier(source,true)==1)) { return null; }
         var ward=PsychicWardReactionProposal.Capture(source,target,NamedElements.To256(damage*physical/100.0),weapon&&!ranged,weapon);
         var parts = Mitigate(source, target, new(damage * physical / 100.0 * PaladinAuras.NativeWeaponMultiplier(source,weapon),
@@ -163,7 +164,7 @@ public static class SkillCombat
     // Leave all pre-existing unshielded damage routes untouched.
     internal static ClassSkillDamage? UnresistedDamage(Mobile target,Mobile source,int damage,int physical,bool weapon,bool ranged)
     {
-        if(PsychicWard.State(target)==null){return null;}
+        if(PsychicWard.State(target)==null&&!HexPurgeReactionProposal.ManagedPrepared(target)){return null;}
         if(damage<0||physical is <0 or >100){throw new NotSupportedException("Unsupported Ward native armor-ignore packet");}
         int raw=NamedElements.To256(damage*physical/100.0);
         var ward=PsychicWardReactionProposal.Capture(source,target,raw,weapon&&!ranged,weapon);

@@ -4,6 +4,7 @@ using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Server;
 using Server.Mobiles;
 namespace Sanctuary;
@@ -13,7 +14,13 @@ internal sealed record HexPurgeValues(int AttackPercent,int AttackRate,int BuffF
 // and charge consumption belong to the unsupported modern callbacks36/39.
 internal sealed record HexPurgePlan(int Rank,int Minimum256,int Maximum256,int DebuffFrames,int ChanceRaw,int InitialCharges,int RadiusRaw);
 internal sealed record HexPurgeBuff(uint Owner,int Rank,DateTime UntilUtc,HexPurgeValues Values);
-internal sealed record HexPurgeTarget(uint Target,uint Creator,DateTime UntilUtc,HexPurgePlan Plan);
+internal sealed record HexPurgeTarget(uint Target,uint Creator,DateTime UntilUtc,HexPurgePlan Plan)
+{
+    // Old prepared saves contain only a nonreactive plan. Do not silently
+    // turn those records into active charges while the proposal is unapproved.
+    [JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)]
+    public HexPurgeReaction Reaction{get;init;}
+}
 internal sealed record HexPurgeSnapshot(HexPurgeBuff[] Buffs,HexPurgeTarget[] Targets);
 public sealed class HexPurgeProfiles:GenericPersistence
 {
@@ -88,6 +95,16 @@ public static class HexPurge
         if(replaceGroup){WeaponHexGroups.ReplaceTarget(target,CombatAbility.HexPurge);}_targets=_targets.SetItem(next.Target,next);target.FixedEffect(0x375A,10,15,0x48E,0);return true; // Identified hexpurgedebuff placeholder.
     }
     internal static HexPurgeSnapshot Snapshot()=>new(_buffs.Values.OrderBy(x=>x.Owner).ToArray(),_targets.Values.OrderBy(x=>x.Target).ToArray());
+    internal static void StoreReactionPrepared(HexPurgeTarget next)
+    {Validate(next);_targets=_targets.SetItem(next.Target,next);}
+    internal static bool AdvanceReactionPrepared(HexPurgeTarget expected,HexPurgeTarget next)
+    {
+        if(!_targets.TryGetValue(expected.Target,out var actual)||actual!=expected){return false;}
+        if(next==null){_targets=_targets.Remove(expected.Target);return true;}
+        if(next.Target!=expected.Target||next.Creator!=expected.Creator||next.Plan!=expected.Plan||next.UntilUtc!=expected.UntilUtc)
+        {throw new InvalidDataException("Purge charge update changed attachment context");}
+        StoreReactionPrepared(next);return true;
+    }
     private static bool IsMobile(uint n)=>((Serial)n).IsMobile;
     private static bool Time(DateTime t)=>t.Kind==DateTimeKind.Utc&&t>DateTime.UnixEpoch;
     private static void Validate(HexPurgeBuff b)
@@ -101,7 +118,7 @@ public static class HexPurge
         {throw new InvalidDataException("Inconsistent Hex Purge damage plan");}
     }
     private static void Validate(HexPurgeTarget t)
-    {if(t==null||!IsMobile(t.Target)||!IsMobile(t.Creator)||!Time(t.UntilUtc)){throw new InvalidDataException("Invalid Hex Purge target");}Validate(t.Plan);}
+    {if(t==null||!IsMobile(t.Target)||!IsMobile(t.Creator)||!Time(t.UntilUtc)){throw new InvalidDataException("Invalid Hex Purge target");}Validate(t.Plan);if(t.Reaction!=null){HexPurgeReactionProposal.Validate(t.Plan,t.Reaction);}}
     internal static void Restore(HexPurgeSnapshot snapshot)
     {
         if(snapshot?.Buffs==null||snapshot.Targets==null||snapshot.Buffs.Length>1000000||snapshot.Targets.Length>1000000){throw new InvalidDataException("Missing Hex Purge snapshot");}
