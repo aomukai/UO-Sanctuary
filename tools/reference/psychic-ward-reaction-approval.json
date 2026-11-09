@@ -1,0 +1,14 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "approvalDate": "2026-11-09",
+  "approval": "Approve this Psychic Ward rule",
+  "proposal": "docs/psychic-ward-reaction-proposal.md",
+  "proposalAtApprovalSha256": "d33448099b39161bad60381a9227afc791b1e582fe752ff1aa1320b60ce9c299",
+  "candidateCommit": "a341733cfdaf6a044bf58861b38ef7db55127ec8",
+  "scope": "Saved proposal incoming eligibility,physical min-pool absorption,captured once-only fully-absorbed/depleting NPC melee reaction through shared return/stun order. Ordinary self SC/table payment/group semantics remain as proposed.",
+  "limits": [
+    "Explicit Sanctuary adaptation,current event37/40 parity remains unverified.",
+    "Approval does not qualify the not-yet-connected native/public input bridge,EnergyShield coexistence or PvP."
+  ]
+}

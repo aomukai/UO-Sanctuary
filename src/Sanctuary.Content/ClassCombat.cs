@@ -518,9 +518,9 @@ public static class ClassCombat
             _ => 26
         };
     }
-    private static bool MeleeReach(PlayerMobile from, Mobile target) => target != null
-        && from.InRange(target, CombatTiming.Range(from, CombatAbility.BasicAttack)) && from.InLOS(target)
-        && Math.Abs(from.Z - target.Z) < 16;
+    private static bool MeleeReach(PlayerMobile from, Mobile target) => target is BaseCreature creature&&PlayerMeleeGeometry.WarlockMelee(from)
+        ?PlayerMeleeGeometry.Within(from,creature,1)
+        :target != null&&from.InRange(target,PlayerMeleeGeometry.WarlockMelee(from)?CombatTiming.WeaponRange(CombatTiming.Equipped(from)):CombatTiming.Range(from,CombatAbility.BasicAttack))&&from.InLOS(target)&&Math.Abs(from.Z-target.Z)<16;
 
     // Input release ends repetition; an already-started action can still finish.
     // Stop/movement/incapacitation can cancel its effect without refunding its cycle.

@@ -1,0 +1,37 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourceContexts": 60,
+  "machineCodeBytes": 401,
+  "branch": "player",
+  "playerClass7": "Warlock",
+  "classes": [
+    "Amazon",
+    "Sorceress",
+    "Necromancer",
+    "Paladin",
+    "Barbarian",
+    "Druid",
+    "Assassin",
+    "Warlock"
+  ],
+  "processMemoryRead": false,
+  "targetProcessCodeExecuted": false,
+  "sourceCodeExecutedInOfflineEmulator": true,
+  "scope": "Current player reach class7bonus2 captured before supplied inventory search;failure0,null/nonitem selected retains bonus,byte item row adds to bonus. All eight classes and range endpoints compared. Native inventory search/broken/unarmed eligibility and other unit branches are not certified.",
+  "artifacts": {
+    ".local/class-skills/player-current-reach-source/cases.json": "fa098a32d564c17a757279f288af77cf62e13d96aebf1d05d885a7dde76e0200",
+    ".local/class-skills/warlock-hands-reference/charstats.bin": "c977ff83bd7761b13705abc10750949b72da3a181644f7b81fc09588c82dc2d5",
+    ".local/class-skills/warlock-hands-reference/charstats.txt": "4f9e9b670727634298ae562753966baab7eae701ceeb4edd159ba10e18e899c2",
+    ".local/class-skills/warlock-runtime-reference/cleave-services-20261109-27c360-part0.bin": "eaa82a065f2ba8a45d3fc420f3eb76f2a23cc4c78a54188dc90be01579e5b4f2",
+    ".local/class-skills/warlock-runtime-reference/cleave-services-20261109-27c360-part1.bin": "ae475de54538628561392e2cd227a1c9697cc1cc784f5ea48f145943d4e9973b",
+    ".local/class-skills/warlock-runtime-reference/cleave-services-20261109-27c360-part2.bin": "9d601839665530efd902eeec10faebc2024d031979114947fe7863554aa0a19d",
+    ".local/class-skills/warlock-runtime-reference/cleave-services-20261109-27c360-part3.bin": "fca4b9b4634f0651546d342d52f99f74660f262fc7614a9bbf31b5d7246e23b1",
+    ".local/class-skills/warlock-runtime-reference/cleave-services-20261109-27c360-part4.bin": "7fc00b727eb1cdf319f7a88d0be2c4ef99a9d8d30aa2534ccc077010469088c2",
+    ".local/class-skills/warlock-runtime-reference/cleave-services-20261109-27c360-part5.bin": "d4a7552d8c247a034484c44334325409a7b53edb5a372eb3647dd2be68b4cd72",
+    ".local/class-skills/warlock-runtime-reference/cleave-services-20261109.json": "8ec5b8a416c0739cf2b41cfc08b0eedca861811f7b9425661589766e3093a4d9",
+    ".local/class-skills/warlock-runtime-reference/venv/lib/python3.12/site-packages/unicorn/lib/libunicorn.so.2": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c",
+    "tools/probe_generic_pet_parameters.py": "9bee51855231387cb8f30e27e754f284debd926a5b6521ea5dc2e8c5bdd81ce9",
+    "tools/probe_player_current_reach.py": "69e79684e42c52c6b21fcb08870717164d0e4ea2621135132a10e5ac6092b37f",
+    "tools/reference/warlock-hands-reference-evidence.json": "a56704e677b304c81ce151b6bf41150afc918e4601517759561bf41cdf8fd51f"
+  }
+}

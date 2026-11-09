@@ -23,15 +23,18 @@ internal static class PlayerMeleeGeometry
         var weapon=CombatTiming.Equipped(owner);
         if(weapon==null||ClassGear.Broken(weapon)){return 0;}
         var code=ClassGear.Base(weapon)?.Code;
-        return ForCode(code);
+        int sourceClass=ClassCreation.Profiles.TryGet(owner.Serial,out var profile)?(int)profile.Class-101:-1;
+        return SourcePlayerMeleeReach.Read(sourceClass,()=>new(true,4,ForCode(code)));
     }
+    internal static bool WarlockMelee(PlayerMobile owner)=>ClassCreation.Profiles.TryGet(owner.Serial,out var profile)&&profile.Class==DiabloClass.Warlock
+        &&CombatTiming.Equipped(owner) is{} weapon&&!ClassGear.Broken(weapon)&&PaladinVengeance.WeaponAllowed(owner)&&ClassGear.Base(weapon) is{Code:not null} basis&&Ranges.Value.ContainsKey(basis.Code);
     // Coarse native input/search bound only. Exact attack/progressive/contact
     // predicates use the source footprint/distance/collision routine below.
     internal static int SearchRange(PlayerMobile owner)=>Math.Min(CombatProtocol.SightRange,(Reach(owner)+5)/2);
-    internal static bool Within(PlayerMobile owner,BaseCreature target,int bonus)
+    internal static bool Within(PlayerMobile owner,BaseCreature target,int bonus,int? preparedReach=null)
     {
         if(owner.Map==null||owner.Map==Map.Internal||owner.Map!=target.Map||Math.Abs(owner.Z-target.Z)>=16){return false;}
-        int reach=Reach(owner);
+        int reach=preparedReach??Reach(owner);
         if(PlayerWeaponContact.Metadata(target,true)==null)
         {
             // Provisional unclassified UO bridge: weapon reach projected to
