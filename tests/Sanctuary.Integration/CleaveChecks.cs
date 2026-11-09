@@ -24,7 +24,7 @@ public static class CleaveChecks
             var v=CleavePrepared.Capture(Values(rank,mirror,purge,blast));int slices=rank<20?rank+10:20;
             Require(v==new CleaveValues(rank,20+5*(rank-1)+10*(mirror+purge+blast),50+7*(rank-1),10+20*Math.Min(100,110*rank/(rank+6))/100,slices,slices*12,768),$"Cleave independent suppliers rank={rank} hards={mirror},{purge},{blast} actual={v}");count++;
         }
-        Require(count==6885&&!WarlockCombat.Implemented(CombatAbility.Cleave),"Incomplete Cleave learned handler enabled");
+        Require(count==6885&&WarlockCombat.Implemented(CombatAbility.Cleave)==CleaveActionProposal.Approved,"Incomplete Cleave learned handler enabled");
         string[] codes=["HTH","1HT","2HT","1HS","2HS","BOW","XBW","STF","1JS","1JT","1SS","1ST","HT1","HT2"];
         int[] points=[19,16,20,16,18,19,19,22,19,19,19,19,19,19],hits=[12,9,10,9,10,12,12,10,12,12,12,12,12,12];
         for(int i=0;i<14;i++)

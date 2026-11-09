@@ -769,6 +769,8 @@ BLOCKERS['warlock.hexpurge']=BLOCKERS['warlock.hexpurge'].replace(' and cross-he
 
 BLOCKERS['warlock.hexbane']='Learned selfSC/right/quick Bane uses approved cast-stage mastery before whole-point storage and shared weapon mastery at delivery. Approved groups6/7reuse Siphon;post-result melee hooks preserve current accuracy/block/dodge while applying on misses,withsuccessful ranged weapon and qualified hextrigger paths. Old zero-mastery JSON defaults remain valid;captured mastery is explicit optional metadata. Native/input/save acceptance is recorded separately;live mastery gear,current protected selector/callback parity,advanced producers,PvP/graphical/final assets remain unqualified.'
 
+BLOCKERS['warlock.cleave']='Approved Sanctuary action uses captured SQ24/EIAS/rank/aim and quantized arc,ordinary ordered weapon contacts,one3mana release and one basic attack when underfunded. Saved resources and transient/reentrant lifecycle have native checks. Current start68/math/recipient450780 remain explicit approved adaptations;full PvP,advanced item combinations and graphical/final assets are not certified. See cleave-cast-checkpoint.md.'
+
 def build():
     skills=json.loads((BALANCE/'class-skills.json').read_text())
     protocol=(ROOT/'shared/ClassAbilities.cs').read_text()

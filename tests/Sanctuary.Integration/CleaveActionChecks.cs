@@ -39,14 +39,14 @@ public static class CleaveActionChecks
         ClassGearHooks.CanRegenerateHits=p=>p.Name!="CleaveActionSaved"&&hp?.Invoke(p)!=false;
         ClassGearHooks.CanRegenerateMana=p=>p.Name!="CleaveActionSaved"&&mp?.Invoke(p)!=false;
     }
-    private static void Ready(PlayerMobile p){ClassCombat.Stop(p);var s=ClassCombat.For(p);s.NextAction=s.RecoveryUntil=Core.TickCount;p.Frozen=p.Paralyzed=false;NecromancerEffects.SetMana256(p,p.ManaMax*256);}
-    private static PlayerMobile Fresh(bool female=false)
+    internal static void Ready(PlayerMobile p){ClassCombat.Stop(p);var s=ClassCombat.For(p);s.NextAction=s.RecoveryUntil=Core.TickCount;p.Frozen=p.Paralyzed=false;NecromancerEffects.SetMana256(p,p.ManaMax*256);}
+    internal static PlayerMobile Fresh(bool female=false)
     {
         var p=new PlayerMobile{Player=true,Female=female,Body=female?0x191:0x190,Name="CleaveActionSaved"};p.AddItem(new Backpack());ClassCreation.Profiles.Assign(p,DiabloClass.Warlock);ClassCreation.Profiles.AdvanceLevel(p,99);ClassSkillChecks.Train(p,"warlock.cleave");
         while(p.RawStr<100){Require(ClassCreation.Profiles.TrySpendStat(p,CharacterStat.Strength),"Cleave Strength");}FixtureSpace.Corridor(p,6560,20,3500);
         var w=new Broadsword();p.AddToBackpack(w);Require(p.EquipItem(w),"Cleave sword");ClassGear.Refresh(p);Ready(p);return p;
     }
-    private static CleaveActionTarget Enemy(PlayerMobile p,int dx,int dy=0)
+    internal static CleaveActionTarget Enemy(PlayerMobile p,int dx,int dy=0)
     {
         var t=new CleaveActionTarget{Frozen=true,CantWalk=true,NoKillAwards=true};t.MoveToWorld(new(p.X+dx,p.Y+dy,p.Z),p.Map);t.AIObject.AITimer.Stop();t.SetHits(50000);SkillHealth.SetBalance256(t,t.HitsMax*256);t.SetResistance(ResistanceType.Physical,0);return t;
     }
@@ -111,7 +111,7 @@ public static class CleaveActionChecks
 
             foreach(var target in targets){target.Delete();}Ready(p);a=Start(p);mp=NecromancerEffects.ManaBalance256(p);Release(a);
             Require(a.Contacts==0&&a.ManaPaid256==3*256&&mp-NecromancerEffects.ManaBalance256(p)==3*256,"Empty released sweep unexpectedly free");End(a);
-            Require(!CleaveActionProposal.Approved&&!WarlockCombat.Implemented(CombatAbility.Cleave)&&!SkillBindings.Instance.Assign(p,false,CombatAbility.Cleave),"Unapproved Cleave learned input enabled");
+            Require(CleaveActionProposal.Approved&&WarlockCombat.Implemented(CombatAbility.Cleave)&&SkillBindings.Instance.Assign(p,false,CombatAbility.Cleave),"Approved Cleave learned input unavailable");
             Log.Information("Cleave action candidate:SQ24/EIAS captured clock,132/240/348degree fans,independent ordinary contacts,once payment/no replay,move/equipment/cancel/preflight,mana basic fallback,miss/dead-primary/empty sweep andrank snapshot pass.");
         }
         finally

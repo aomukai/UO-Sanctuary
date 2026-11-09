@@ -38,7 +38,7 @@ public static class CleaveSweepChecks
             Require(points.Count==expectedPoints.Length&&points.Where((p,n)=>!p.SequenceEqual(expectedPoints[n])).Any()==false,"Fixed-point source/target coordinates");
             Require(requests.Count==expected.Length&&requests.Where((r,n)=>!Request(r).SequenceEqual(expected[n])).Any()==false,"Current full Cleave arc/area context");count++;
         }
-        Require(count==26&&!WarlockCombat.Implemented(CombatAbility.Cleave),"Missing sweep contexts or unfinished admission enabled");
+        Require(count==26&&WarlockCombat.Implemented(CombatAbility.Cleave)==CleaveActionProposal.Approved,"Missing sweep contexts or unfinished admission enabled");
     }
     private static CleaveSweepRequest Primary(PlayerMobile owner)
     {

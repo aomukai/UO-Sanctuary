@@ -8,11 +8,11 @@ using Server.Mobiles;
 using Server.Spells;
 namespace Sanctuary;
 
-// Complete prepared Sanctuary action candidate. Public learned admission stays
-// gated;start68/math/membership/payment choices need their own explicit review.
+// Approved Sanctuary action;cleave-action-approval.json records the explicit
+// start68/math/membership/payment adaptation and its tested candidate commit.
 internal static class CleaveActionProposal
 {
-    internal static bool Approved=>false;
+    internal static bool Approved=>true;
     internal static Func<double> HitRoll=Utility.RandomDouble,ElementRoll=Utility.RandomDouble;
     internal static Func<int,int> PhysicalRoll=Utility.Random,PoisonRoll=Utility.Random;
     internal static Random Effects=Random.Shared;

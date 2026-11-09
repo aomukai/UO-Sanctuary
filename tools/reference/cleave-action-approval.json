@@ -1,0 +1,15 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "approvalDate": "2026-11-09",
+  "approval": "Approve the complete Cleave rule",
+  "candidateCommit": "1b5bcc80cd1837d7a45d9687b1cd1d80d080c31d",
+  "proposal": "docs/cleave-action-proposal.md",
+  "proposalAtApprovalSha256": "59bb03ae70c36f282c4c6383aee39da814a01846b06e6a2b889f7dbdd9bdfd27",
+  "scope": "Complete prepared action rule:SQ24/EIAS entry snapshot,fixed aim,float32 atan2/wrap/away-from-zero math,inclusive quantized fan,ordinary reach/ordered contacts,once3mana,entry/late basic fallback,cancellation and transient/reentrant lifecycle.",
+  "limits": [
+    "Explicit Sanctuary adaptation for unrecovered start68/math/recipient450780,not recovered current-binary parity.",
+    "Learned input and full PvP/advanced proc combinations require their own integration checks.",
+    "Purge typed ordered-health bridge remains separate."
+  ]
+}

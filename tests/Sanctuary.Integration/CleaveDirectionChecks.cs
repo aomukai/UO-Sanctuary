@@ -32,7 +32,7 @@ public static class CleaveDirectionChecks
             var o=row.GetProperty("output");Require(result==new SourceDirectionResult(o.GetProperty("x").GetInt32(),o.GetProperty("y").GetInt32(),o.GetProperty("heading").GetInt32()),"Current direction output case "+count);
             var expected=o.GetProperty("calls").EnumerateArray().ToArray();Require(calls.Count==expected.Length&&calls.Where((c,n)=>c.Name!=expected[n][0].GetString()||!c.Args.SequenceEqual(expected[n][1].EnumerateArray().Select(x=>x.GetUInt32()))).Any()==false,"Current direction float32 call bits/order case "+count);count++;
         }
-        Require(count==48&&!WarlockCombat.Implemented(CombatAbility.Cleave),"Missing direction cases or unfinished Cleave enabled");
+        Require(count==48&&WarlockCombat.Implemented(CombatAbility.Cleave)==CleaveActionProposal.Approved,"Missing direction cases or unfinished Cleave enabled");
     }
     // Explicit supplied math results,not a live approximation of protected calls.
     private static readonly SourceDirectionServices Supplied=new((_,_)=>0,(_,_,_)=>0,_=>32);
