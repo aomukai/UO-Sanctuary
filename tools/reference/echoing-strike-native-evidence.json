@@ -1,0 +1,157 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "registered calc aliases and prepared Echoing Strike suppliers",
+  "handlers": 218,
+  "warlockHandlers": 9,
+  "completedClasses": [],
+  "echoingLearnedEnabled": false,
+  "aliases": [
+    {
+      "alias": "clc1",
+      "field": 1
+    },
+    {
+      "alias": "clc2",
+      "field": 2
+    },
+    {
+      "alias": "clc3",
+      "field": 3
+    },
+    {
+      "alias": "clc4",
+      "field": 4
+    },
+    {
+      "alias": "clc5",
+      "field": 5
+    },
+    {
+      "alias": "clc6",
+      "field": 6
+    },
+    {
+      "alias": "clc7",
+      "field": 7
+    },
+    {
+      "alias": "clc8",
+      "field": 8
+    },
+    {
+      "alias": "clc9",
+      "field": 9
+    },
+    {
+      "alias": "clc0",
+      "field": 10
+    }
+  ],
+  "affectedExpressions": [
+    {
+      "skill": "Echoing Strike",
+      "field": "calc1",
+      "expression": "(ln12+clc0)"
+    },
+    {
+      "skill": "Echoing Strike",
+      "field": "calc6",
+      "expression": "(100/clc5)/2"
+    },
+    {
+      "skill": "Blade Warp",
+      "field": "calc6",
+      "expression": "skill('Mirrored Blades'.clc6)"
+    },
+    {
+      "skill": "Cleave",
+      "field": "cltcalc1",
+      "expression": "clc3"
+    },
+    {
+      "skill": "Mirrored Blades",
+      "field": "cltcalc1",
+      "expression": "clc3"
+    },
+    {
+      "skill": "Goatman Cleave",
+      "field": "cltcalc1",
+      "expression": "clc3"
+    }
+  ],
+  "aliasSourceExecutionClaim": false,
+  "nativeMarkers": 15,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "echoing-strike-check": 1,
+    "mirrored-blades-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "echoing-strike-reload-check": 2,
+    "mirrored-blades-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 2,
+  "integrationBuild": 2,
+  "sourceSnapshot": 2,
+  "nativeRun": 1,
+  "nativeRebuilt": false,
+  "clientRebuilt": false,
+  "newLiveReferenceReads": 0,
+  "newTimers": 0,
+  "newPersistenceIds": 0,
+  "serializationVersionChanged": false,
+  "optionalAudit": false,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "b24fcdf7c7e57108be338313a40696d28e6b341fdebeb68b5084705661c223b8",
+    "Assemblies/Sanctuary.Content.dll": "3d97e64af1e55c23b19a325c04cc4334637eee221e33ee1b2a929878fd75dffe",
+    "Assemblies/Sanctuary.Integration.dll": "bff440dc97f897ecb38362ed63dfe052b05533bad95f5b103a03755fb633b820"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 43,
+    "installed": false
+  },
+  "limits": [
+    "Echoing do166/missile706 do44/hit34/damage16 remain unrecovered;no flight or damage delivery implemented.",
+    "First-versus-duplicate scaling,geometry,weapon/item/poison chronology,hit-delay identity and learned input/payment remain unresolved.",
+    "Supplier and persistence checks do not certify full class mechanics or graphical acceptance."
+  ],
+  "inputs": {
+    "tools/reference/warlock-foundation-preflight.json": "f6246b9eb3de1dbdfbcbec4ef7e6d8d4f0f11a0130dc8a350fca53b807742e31",
+    ".local/class-skills/fire-golem-mode-source/skillcalc.txt": "4028d9985368b89fe5d84a93f60177ecc34957599a170a4f8496ddd169636a4f",
+    ".local/class-skills/echoing-strike/calc-aliases.json": "72f3982023d58343ddcae6d2b7b7100c0be37a4dfc10d11b950def1e9887746f",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    ".local/class-skills/echoing-strike/birth-inputs.json": "6395ae20fc4617d1e84c34cbfa790e4db5d9111e7bc44ba2eec6f99d3284a9c8",
+    ".local/class-skills/echoing-strike/source-snapshot-1.json": "33bedf36cf83c2e4fa0d1e36c8cd8ad3bbdf2c2f4570f26883d96fb5a61a080e",
+    ".local/class-skills/echoing-strike/source-snapshot-2.json": "621100998baff4a90f37cb4d8245ca5cd3fb10b82dccc6ee149458b924bc79df",
+    ".local/class-skills/echoing-strike/content-build-2.log": "19153e170f03b94dc5c96df22110246f0ec45a679477ca75bfe2caf09c11697d",
+    ".local/class-skills/echoing-strike/integration-build-2.log": "58134b44b0dc02929f829fda30d99595933ff92604b0b5ee6c4a71e73e59cd2f",
+    ".local/class-skills/echoing-strike/birth-native-checks.log": "92ae8be43b67865e25bfc7f661b33f6471892aa8cc9f852bcc838f25ed6281da",
+    ".local/class-skills/echoing-strike/native-run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/echoing-strike/echoing-strike-fixtures.json": "eb334244e200b3ea8ddd08c51f0babcb4588adf2d527bc137b57c556f7897fa5",
+    ".local/class-skills/echoing-strike/mirrored-blades-fixtures.json": "55ee0ab3427cf1e66ccec47b5c1502a2da4029f51e914e87b5614e3eba13a03c",
+    "tools/reference/ordered-damage-events-native-evidence.json": "690d03784c877462e0a710aabad0bd19724b3bb8093182991a13f75e8aabc74e",
+    "data/Sanctuary/Balance/class-skill-status.json": "07c7f6dca49607207cf746e27d0ac2cc600628ca42b2303f87a699076241b18a",
+    "src/Sanctuary.Content/SkillMechanics.cs": "c96493f5c6b1ce6be791e5f4c7cd297d4568d6a747ee8b6b2ffe9d22613ad956",
+    "src/Sanctuary.Content/EchoingStrikePrepared.cs": "3e5ccb8a4caed78c43f518c5e8d3f56a7498d7101019fb812ca63c13aa9f418d",
+    "tests/Sanctuary.Integration/EchoingStrikeChecks.cs": "814e7b61bf89440990dc50ef9afb1dd85101dfc71f4534bb6e11b8e61d5ca591",
+    "tests/check_echoing_strike.py": "e061090755583bc4a79b9449b89f75b5b0d9f775db78a355ef9ffb7131533129",
+    "tools/record_echoing_strike.py": "2dce548a5393e5ec052634f911d80ede65de71a2ddbec133133483eb9f49b624",
+    "tools/build_skill_roadmap.py": "68fed23aac01390e76ce1afd6371faedf56e589a850ada87848e61f16c8fb973",
+    "docs/echoing-strike-checkpoint.md": "476b5134281d94137df02fb3d9cc77e0925fbcd69b03147ae02cd1cf92ef9b93",
+    "docs/class-skill-roadmap.md": "0b2e8b49d7b6f5d04224ab7c0778bd110855132841c8ad34ee3802cc13fe8bc1",
+    "docs/class-skills-resume-checkpoint.md": "f035d85a057e9ee3874c5e6deecabce4d87014198e9447fc280277ce2b4de1b8",
+    "docs/class-skill-reuse-notes.md": "c21f3ec310b3d137d689734eb1e9c821e9eb4f03c5641e19729023875d51fc0a",
+    "data/Sanctuary/Balance/skill-effects.json": "4e3505e5199dfe8df9aed7130a8a71284d44fb3ac1a81f8181a8ffd6ea98eaf0",
+    "data/Sanctuary/Balance/skill-icons.json": "b5541cd3be5797b7e984f47284cfa686eb7d5bc51061520f75a8e927e9cd54e2"
+  }
+}

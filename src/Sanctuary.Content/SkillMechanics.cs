@@ -127,8 +127,19 @@ public sealed class SkillValues
             };
             return name[0] == 'l' ? Linear(pair.Item1, pair.Item2) : Diminishing(pair.Item1, pair.Item2);
         }
-        if (name.StartsWith("clc", StringComparison.Ordinal) && int.TryParse(name.AsSpan(3), out int calc))
-        { return new SkillValues(_skill, _rank, _baseRank, _level, _depth + 1).Eval("calc" + (calc + 1)); }
+        if (name.StartsWith("clc", StringComparison.Ordinal))
+        {
+            // Registered skillcalc.txt names are one-based; the single-digit
+            // alias clc0 denotes calc10, not calc1. Echoing Strike uses both
+            // clc0 and clc5, so shifting these would create self recursion.
+            int calc=name switch
+            {
+                "clc1"=>1,"clc2"=>2,"clc3"=>3,"clc4"=>4,"clc5"=>5,
+                "clc6"=>6,"clc7"=>7,"clc8"=>8,"clc9"=>9,"clc0"=>10,
+                _=>throw new NotSupportedException("Unregistered D2 skill calculation callback: "+name)
+            };
+            return new SkillValues(_skill, _rank, _baseRank, _level, _depth + 1).Eval("calc" + calc);
+        }
         return name switch
         {
             "toht" => _skill.Number("ToHit") + Math.Max(0,Rank-1)*_skill.Number("LevToHit"),

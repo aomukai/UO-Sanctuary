@@ -2473,10 +2473,10 @@
       "characterClass": "Warlock",
       "tree": "Eldritch",
       "sourceId": 388,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "blocked",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Prepared table suppliers reuse the shared skill evaluator with corrected current clc1..9/clc0 aliases. Hard Mirrored Blades points determine1..5attacks and integer attack percentages;hard Mirrored/Blade Warp points supply damage synergy. Effective own rank supplies physical tiers,ED,AR and fractional mana. Real Warlock/Witch gear/resources persist through native reload controls. Current do166 and missile706do44/hit34/damage16 remain unrecovered:launch/mirror geometry,return flight,first-versus-duplicate scaling,weapon/item/poison/accuracy chronology,hit-delay identity and learned input/payment remain gated. No Mirrored Blades behavior is copied on resemblance. See echoing-strike-checkpoint.md;effects/icons remain separate."
     },
     {
       "talentId": "warlock.hexpurge",

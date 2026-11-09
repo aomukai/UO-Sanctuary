@@ -771,6 +771,9 @@ BLOCKERS['warlock.hexbane']='Learned selfSC/right/quick Bane uses approved cast-
 
 BLOCKERS['warlock.cleave']='Approved Sanctuary action uses captured SQ24/EIAS/rank/aim and quantized arc,ordinary ordered weapon contacts,one3mana release and one basic attack when underfunded. Saved resources and transient/reentrant lifecycle have native checks. Current start68/math/recipient450780 remain explicit approved adaptations;full PvP,advanced item combinations and graphical/final assets are not certified. See cleave-cast-checkpoint.md.'
 
+NATIVE_PARTIAL.add('warlock.echoingstrike')
+BLOCKERS['warlock.echoingstrike']='Prepared table suppliers reuse the shared skill evaluator with corrected current clc1..9/clc0 aliases. Hard Mirrored Blades points determine1..5attacks and integer attack percentages;hard Mirrored/Blade Warp points supply damage synergy. Effective own rank supplies physical tiers,ED,AR and fractional mana. Real Warlock/Witch gear/resources persist through native reload controls. Current do166 and missile706do44/hit34/damage16 remain unrecovered:launch/mirror geometry,return flight,first-versus-duplicate scaling,weapon/item/poison/accuracy chronology,hit-delay identity and learned input/payment remain gated. No Mirrored Blades behavior is copied on resemblance. See echoing-strike-checkpoint.md;effects/icons remain separate.'
+
 def build():
     skills=json.loads((BALANCE/'class-skills.json').read_text())
     protocol=(ROOT/'shared/ClassAbilities.cs').read_text()
