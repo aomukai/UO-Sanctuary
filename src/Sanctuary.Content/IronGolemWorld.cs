@@ -339,8 +339,8 @@ internal static class IronGolemWorld
     }
     private static void Skip(SkeletonGuardian body,IronGolemWorldState s,DateTime at)
     {
-        long frames=(at-s.NextUtc).Ticks/TimeSpan.FromMilliseconds(40).Ticks+1;
-        var next=Park(s with{Frame=checked(s.Frame+(int)frames),NextUtc=s.NextUtc.AddMilliseconds(frames*40)});
+        var skipped=SourceFrameTimeline.Skip(new(s.Frame,s.NextUtc),at);
+        var next=Park(s with{Frame=skipped.Frame,NextUtc=skipped.NextUtc});
         if(body is INecromancerGroundPeriodic periodic){periodic.GroundSkipped(next.Frame);}Store(body,next);
     }
     internal static void Fault(SkeletonGuardian body,string reason)
