@@ -15,7 +15,7 @@ internal static class CleavePrepared
         var s=SkillMechanics.For(CombatAbility.Cleave);
         if(v.Ability!=CombatAbility.Cleave||v.Rank is <1 or >255||s.SourceId!=391||s.Number("srvstfunc")!=68||s.Number("srvdofunc")!=164||s.Number("seqnum")!=24
             ||s.Text("anim")!="SQ"||s.Number("UseAttackRate")!=1||s.Text("range")!="h2h"||s.Number("requiresweapon")!=1||s.Text("itypea1")!="mele"
-            ||s.Number("SrcDam")!=128||s.Number("HitShift")!=8||s.Text("EType")!="0"||v.Eval("calc2")!=0||v.Eval("calc4")!=0||v.Eval("calc7")!=0)
+            ||s.Number("SrcDam")!=128||s.Number("HitShift")!=8||s.Text("EType")!="0"||v.Eval("calc2")!=0||v.Eval("calc4")!=0||v.Eval("calc6")!=30||v.Eval("calc7")!=0)
         {throw new NotSupportedException("Unsupported Cleave route");}
         int slices=checked((int)v.Eval("calc5"));
         return new(v.Rank,checked((int)v.Eval("calc1")),checked((int)v.Formula("toht")),checked((int)v.Eval("calc3")),slices,checked(slices*s.Parameter(10)),v.Mana256);

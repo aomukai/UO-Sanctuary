@@ -99,8 +99,8 @@ public static class SkillCombat
     // Internal prepared components may exercise the same windup without
     // publishing a learned handler. Network callers retain Available above.
     internal static bool BeginPrepared(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now,
-        Func<PlayerMobile,CombatAbility,Serial,Point3D,bool> validTarget,Func<PlayerMobile,CombatAbility,bool> eligible,ActionTiming timing)
-        =>BeginCore(owner,ability,selected,point,now,validTarget,eligible,true,timing);
+        Func<PlayerMobile,CombatAbility,Serial,Point3D,bool> validTarget,Func<PlayerMobile,CombatAbility,bool> eligible,ActionTiming timing,bool requireMana=true)
+        =>BeginCore(owner,ability,selected,point,now,validTarget,eligible,requireMana,timing);
     private static bool BeginCore(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now,
         Func<PlayerMobile,CombatAbility,Serial,Point3D,bool> validTarget,Func<PlayerMobile,CombatAbility,bool> eligible,bool requireMana,ActionTiming? timing)
     {

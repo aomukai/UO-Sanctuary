@@ -3125,7 +3125,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Prepared qualified contact uses ordinary UO0x238weapon sound only; no new arc visual is simulated. Final levitated-weapon Cleave sweep/arc, impact, miss/block and cast/contact/recovery audio remain pending. Learned input remains gated; talent/left/right/quick icons are separately tracked."
+    "placeholder": "Prepared action candidate reuses the shared UO animation and ordinary ordered weapon hit flashes; no final levitated arc is simulated. The earlier qualified contact retains ordinary UO0x238weapon sound. Final levitated-weapon Cleave sweep/arc, impact, miss/block and cast/contact/recovery audio remain pending. Learned input remains gated pending the explicit action rule; talent/left/right/quick icons are separately tracked."
   },
   {
     "talentId": "warlock.echoingstrike",

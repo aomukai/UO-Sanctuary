@@ -16,15 +16,17 @@ internal static class CleaveSweep
     // Actual mapped player position/weapon/rank binding for prepared requests.
     // Target acquisition and the protected math contracts remain supplied;
     // this does not install start68,hit selection,payment or a learned action.
-    internal static CleaveSweepRequest PrimaryPrepared(Server.Mobiles.PlayerMobile owner,Server.Point3D aim,SourceDirectionServices direction)
+    internal static CleaveSweepRequest PrimaryPrepared(Server.Mobiles.PlayerMobile owner,Server.Point3D aim,SourceDirectionServices direction,CleaveValues captured=null)
     {
         if(owner is not{Alive:true,Deleted:false}||owner.Map==null||owner.Map==Server.Map.Internal||!PlayerMeleeGeometry.WarlockMelee(owner))
         {throw new NotSupportedException("Cleave world planner requires a live mapped Warlock melee context");}
         var values=SkillMechanics.Values(owner,CombatAbility.Cleave);_=CleavePrepared.Capture(values);
+        int FormulaValue(int field)=>captured==null?Formula(values,field):field switch
+        {0x1a0=>captured.RawSlices,0x1a4=>30,0x1a8=>0,_=>throw new NotSupportedException("Unknown captured Cleave formula")};
         var row=SkillMechanics.For(CombatAbility.Cleave);var center=PetOwnerRoutes.Cell(owner);CleaveSweepRequest request=null;
-        Run(new(true,0,true,center.X,center.Y,row.SourceId,values.Rank,0,checked((int)row.Number("aurafilter")),checked((int)row.Number("SrcDam"))),
+        Run(new(true,0,true,center.X,center.Y,row.SourceId,captured?.Rank??values.Rank,0,checked((int)row.Number("aurafilter")),checked((int)row.Number("SrcDam"))),
             new(()=>true,()=>(true,aim.X*2,aim.Y*2),_=>{},()=>false,
-                (a,b)=>SourceDirection64.Calculate(a,b,direction).Heading,f=>Formula(values,f),()=>PlayerMeleeGeometry.Reach(owner),()=>new(center.X,center.Y),r=>request=r));
+                (a,b)=>SourceDirection64.Calculate(a,b,direction).Heading,FormulaValue,()=>PlayerMeleeGeometry.Reach(owner),()=>new(center.X,center.Y),r=>request=r));
         return request;
     }
     internal static int Formula(SkillValues values,int field)

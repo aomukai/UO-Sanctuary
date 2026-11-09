@@ -49,6 +49,7 @@ public static class ClassCombat
         internal TigerStrikes.Pending TigerAttack;
         internal DragonTails.Prepared TailAttack;
         internal DragonTalons.Series Talon;
+        internal CleaveActionProposal.Action Cleave;
         internal DragonFlights.Flight Flight;
         internal DruidChargedAttacks.Pending DruidChargeAttack;
         internal PoisonDaggerCombat.Prepared PoisonDaggerAttack;
@@ -127,7 +128,7 @@ public static class ClassCombat
                 AmazonBow.EquipmentChanged(from);
                 AmazonJavelins.EquipmentChanged(from);
                 BladeFuryModes.EquipmentChanged(from);PlayerInfernoModes.EquipmentChanged(from);
-                TigerStrikes.EquipmentChanged(from);DragonTails.EquipmentChanged(from);DragonTalons.EquipmentChanged(from);DragonFlights.EquipmentChanged(from);
+                TigerStrikes.EquipmentChanged(from);DragonTails.EquipmentChanged(from);DragonTalons.EquipmentChanged(from);DragonFlights.EquipmentChanged(from);CleaveActionProposal.EquipmentChanged(from);
                 DruidChargedAttacks.EquipmentChanged(from);
                 PoisonDaggerCombat.EquipmentChanged(from);
                 PaladinSacrifice.EquipmentChanged(from);
@@ -253,6 +254,7 @@ public static class ClassCombat
         BarbarianConcentrate.Cancel(from);
         BarbarianDoubleThrow.Cancel(from);
         BarbarianPairedMelee.Cancel(from);
+        CleaveActionProposal.Cancel(from);
         AmazonJab.Cancel(from);
         AmazonImpale.Cancel(from);
         AmazonStrafe.Cancel(from);
@@ -539,6 +541,7 @@ public static class ClassCombat
         if(For(from).DoubleThrow!=null){return BarbarianDoubleThrow.Resolve(from,now);}
         var session = For(from);
         if(session.VineCast!=null){return DruidVineCasting.ResolvePrepared(from,now);}
+        if(session.Cleave!=null){return CleaveActionProposal.Advance(session.Cleave,now);}
         if(session.SlowMissilesCast!=null){return AmazonSlowMissilesCasting.ResolvePrepared(from,now);}
         if(session.Charge!=null){return PaladinCharge.Resolve(from,now);}
         if(session.Zeal!=null){return PaladinZeal.Resolve(from,now);}
