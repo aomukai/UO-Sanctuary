@@ -115,7 +115,10 @@ internal static class PlayerWeaponContact
         {NamedCombat.Crushing(source,target,false,scope.Prepared.Effects);return p;}
         internal override PreparedMonsterDamagePacket TookDamage(PreparedMonsterDamagePacket p)=>events.Dispatch("damagedinmelee",p);
         internal override void BeforeHealth(PreparedMonsterDamagePacket p)
-        {scope.Before=SkillHealth.Balance256(target);WeaponLeech.Apply(source,target,p.Physical256,scope.Prepared.Drain);}
+        {
+            if((p.ResultFlags&32)==0){WeaponLandedEvents.Notify(source,target,false);}
+            scope.Before=SkillHealth.Balance256(target);WeaponLeech.Apply(source,target,p.Physical256,scope.Prepared.Drain);
+        }
         internal override void BeforeHealthCommit(Mobile attacker,BaseCreature recipient,int after256)
         {PreparedMonsterNativeDamage.Notify(attacker,recipient,after256);scope.After=after256;scope.Loss=Math.Max(0,scope.EntryHits-(after256+255)/256);}
         internal override void DamageReaction(int nativeLifeDelta)=>scope.EntryHits+=nativeLifeDelta;

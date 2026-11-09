@@ -12,6 +12,7 @@ internal static class PreparedWeaponEvents
         int absorbedLife256=0,Action<int> leech=null,PsychicWardReactionProposal.Ticket ward=null)
     {
         NpcLightningReturn.RequireNativeIncoming(attacker,defender,ranged);
+        WeaponLandedEvents.Notify(attacker,defender,ranged);
         if(!ranged){NpcItemSlow.NativeClay(attacker,defender,TimedEffects.Now);}
         if(ranged){HexSiphonEvents.MissileDamage(attacker,defender);HexBaneEvents.MissileDamage(attacker,defender);}
         IronMaiden.MeleeDamage(attacker,defender,physical256,ranged);
