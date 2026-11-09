@@ -1,0 +1,38 @@
+{
+  "referenceVersion": "3.3.93847",
+  "executableSha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936",
+  "entryRva": "0x285590",
+  "sourceBytes": 346,
+  "cases": 48,
+  "currentMachineCodeExecutedOffline": true,
+  "newProcessReads": 0,
+  "protectedMathExecuted": false,
+  "mathServices": [
+    "157cc40:two supplied float arguments,result supplied",
+    "263c20:three supplied float arguments,result supplied",
+    "1570ecc:one supplied float argument,result supplied"
+  ],
+  "constants": {
+    "0x18132c4": "000080bf",
+    "0x18129ec": "00008037",
+    "0x181299c": "00007a05",
+    "0x1812d60": "0000803f",
+    "0x1813188": "00008045",
+    "0x1815fc0": "00000080000000800000008000000080",
+    "0x1812ec0": "e4cb1640",
+    "0x1812f08": "db0f4940",
+    "0x18132fc": "db0f49c0",
+    "0x1812fec": "83f92241",
+    "0x18130b4": "00008042"
+  },
+  "limits": [
+    "No actual angle/span/round contract is inferred.",
+    "Does not admit Cleave/start68/recipient450780 or claim live heading/arc membership."
+  ],
+  "artifacts": {
+    "tools/probe_cleave_direction.py": "0cb77b296531d70fa92594731fb63954d19544fc287f941228107d71a2ad956e",
+    ".local/class-skills/cleave-direction-source/cases.json": "2c1f7aaf0b39ce36ff6c42793f8b09c0a1a5c97a3b982e71c2599707dad30cc8",
+    ".local/class-skills/warlock-runtime-reference/cleave-services-20261109.json": "8ec5b8a416c0739cf2b41cfc08b0eedca861811f7b9425661589766e3093a4d9",
+    ".local/class-skills/warlock-runtime-reference/cleave-services-20261109-285590-part0.bin": "73eb3b85e7078c041b2d99557581802caeac17c1d531b4b4aafaa76d8acaf2b5"
+  }
+}

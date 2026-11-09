@@ -13,6 +13,20 @@ internal sealed record CleaveSweepServices(Func<bool> Row,Func<(bool Found,int X
 // protected450780 contact callback or start68 input/payment behavior.
 internal static class CleaveSweep
 {
+    // Actual mapped player position/weapon/rank binding for prepared requests.
+    // Target acquisition and the protected math contracts remain supplied;
+    // this does not install start68,hit selection,payment or a learned action.
+    internal static CleaveSweepRequest PrimaryPrepared(Server.Mobiles.PlayerMobile owner,Server.Point3D aim,SourceDirectionServices direction)
+    {
+        if(owner is not{Alive:true,Deleted:false}||owner.Map==null||owner.Map==Server.Map.Internal||!PlayerMeleeGeometry.WarlockMelee(owner))
+        {throw new NotSupportedException("Cleave world planner requires a live mapped Warlock melee context");}
+        var values=SkillMechanics.Values(owner,CombatAbility.Cleave);_=CleavePrepared.Capture(values);
+        var row=SkillMechanics.For(CombatAbility.Cleave);var center=PetOwnerRoutes.Cell(owner);CleaveSweepRequest request=null;
+        Run(new(true,0,true,center.X,center.Y,row.SourceId,values.Rank,0,checked((int)row.Number("aurafilter")),checked((int)row.Number("SrcDam"))),
+            new(()=>true,()=>(true,aim.X*2,aim.Y*2),_=>{},()=>false,
+                (a,b)=>SourceDirection64.Calculate(a,b,direction).Heading,f=>Formula(values,f),()=>PlayerMeleeGeometry.Reach(owner),()=>new(center.X,center.Y),r=>request=r));
+        return request;
+    }
     internal static int Formula(SkillValues values,int field)
     {
         _=CleavePrepared.Capture(values);
