@@ -1,0 +1,46 @@
+{
+  "referenceVersion": "3.3.93847",
+  "referenceManifest": "data/Sanctuary/skill-reference.json",
+  "primary": {
+    "repository": "https://github.com/blizzhackers/d2data",
+    "commit": "fa1286949266498b294c40c2942521a7c0d7207a",
+    "path": "json/monpet.json",
+    "blob": "3ceda4619056670e5be2344ecab826e80eb9cbe7",
+    "sha256": "ccf844447b4b4b4f189a3dfae68ffbab64fd38a45f633cefbf118956a0403bc6",
+    "bytes": 179944
+  },
+  "corroboration": {
+    "repository": "https://github.com/pinkufairy/D2R-Excel",
+    "commit": "1f16064e09b97e3e65abd6943662207cff00b07f",
+    "path": "monpet.txt",
+    "blob": "141c0734c780878edf4bb4edfe4aef4a3330f3ad",
+    "sha256": "531fd00fdf95abb144c4b42ce1289218551eb362f4c579de865313575b6a2e92",
+    "bytes": 116304,
+    "stored": "monpet.txt.gz",
+    "storedSha256": "cb2450d0cf91ce8dc77a6bd2bff687571325812a94e3f01f1d558cfc2d28a075",
+    "storedBytes": 3442
+  },
+  "license": "../d2r-named-equipment/LICENSE.txt",
+  "importedMonsters": [
+    "wargoatman",
+    "warbighead",
+    "warputriddefiler"
+  ],
+  "checkedFields": 21,
+  "differences": [],
+  "established": [
+    "Both exact immutable Git blobs authenticated. Every non-lineNumber field in all three selected rows matches the independently pinned TSV.",
+    "Three original monster indices match the existing pinned monstats. Original28-file source manifest remains unchanged.",
+    "Normal demon and Bind Demon pet types both name pool1 in pinned pettype data;future binding/Consume occupancy must not use separate pools."
+  ],
+  "limits": [
+    "Source data,not recovered start69/do159. sksrc caller,difficulty context/stat binding/slot/action/town/lifecycle need independent verification or explicit adaptation.",
+    "Other monpet rows retained for provenance/future binding;only these three rows are imported into runtime balance data. No bound-monster bonus dispatch is claimed."
+  ],
+  "inputs": {
+    "data/Sanctuary/skill-reference.json": "e673ec6bd02ecf8bdd6d6dacc29790d6a5183d3628961df78906808504edc795",
+    "tools/reference/d2r-named-equipment/json/monstats.json": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "tools/reference/d2r-named-equipment/json/pettype.json": "27da537883a5b7f196f7750cced1a86640a9a3d434fc1515d3138a0a33cf0c91",
+    "tools/build_consume_bonuses.py": "5347a4b2bc4bd28aa3e8e7453bfc859e69bfa9442ada0bda91ce769ae58b6211"
+  }
+}

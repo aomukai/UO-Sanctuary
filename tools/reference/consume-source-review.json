@@ -1,0 +1,62 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Consume common supplier and unavailable callback boundary",
+  "skill": 381,
+  "start": 69,
+  "do": 159,
+  "state": 208,
+  "group": 9,
+  "duration": "ln12",
+  "lifeStat": "item_maxhp_percent",
+  "lifeFormula": "ln34",
+  "velocityStat": "velocitypercent",
+  "velocityFormula": "dm56",
+  "inTown": 1,
+  "left": 0,
+  "right": 1,
+  "period": 25,
+  "periodicClear": 1,
+  "sourceCandidate": {
+    "rva": "0x44d690",
+    "fragments": 5,
+    "readableCodeBytes": 0
+  },
+  "newLiveReferenceReads": 0,
+  "importedSource": "tools/reference/d2r-consume/sources.json",
+  "numericContext": "Explicit supplied caster Consume effective rank,Death Mark hard rank and1/2/3difficulty. Scoped sksrc parser alias;not recovered do159 caller.",
+  "externalReferences": [
+    {
+      "url": "https://diabloforfans.com/skill/consume?lang=enUS",
+      "kind": "Author datamined reference",
+      "reportedVersion": "3.3.93847",
+      "observedOn": "2026-11-15",
+      "scope": "Corroborates common/typed bonuses and caps;not a current startup/stat writer."
+    },
+    {
+      "url": "https://upload3.inven.co.kr/upload/2026/03/02/bbs/WarlockSkillsNotesandFunctionality.pdf",
+      "kind": "Original Warren/Kabryxis tester notes",
+      "version": "Unspecified older upload",
+      "scope": "Reports additive life,effective run/walk and Consume occupying the shared demon pool;does not verify current native implementation."
+    }
+  ],
+  "established": [
+    "Existing28-file manifest stays intact;new immutable monpet JSON and independent TSV match21fields for the three original species.",
+    "Separate source pet types demon and binddemon both have pool1;the old separate-pool comment is incorrect,but Bind Demon itself remains unsupported.",
+    "Consume381 is right-only/TargetPet/InTown1,with common max-life and velocity fields plus periodic25/clearAura;state208isgroup9."
+  ],
+  "unresolved": [
+    "Current start69/do159,source caller/difficulty lookup,typed stat binding,life transition,periodic lifetime/removal,slot replacement and payment remain unverified. Numerical capture installs no gameplay effect.",
+    "Town InTown1must be reconciled with approved hidden/parked armies,using an explicit owned-roster targeting path rather than quietly treating Consume as outside-town only.",
+    "Bound-monster bonuses and source-underling exceptions remain for future Bind Demon integration;only the three original species are admitted by this numerical kernel."
+  ],
+  "inputs": {
+    "tools/reference/d2r-named-equipment/sources.json": "1ef57c5582c0d749f108ee6c760116fe736d68f5cf1edf9afb846b0ea2cc3f0c",
+    "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/states.json": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19",
+    "tools/reference/d2r-named-equipment/json/pettype.json": "27da537883a5b7f196f7750cced1a86640a9a3d434fc1515d3138a0a33cf0c91",
+    "tools/reference/d2r-named-equipment/json/monstats.json": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    ".local/class-skills/warlock-runtime-reference/warlock-do-159-20261108/capture.json": "79726992bf183c3882c8aebf636506cdc6943ceb7c8b15741d5da1aab122e0a3",
+    "tools/review_consume.py": "4be16f3c6ec66cf3ffd421779e067c25e699221ff55dda1866f0c25cc8e75637"
+  }
+}

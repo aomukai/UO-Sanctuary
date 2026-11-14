@@ -22,8 +22,9 @@ public static class WarlockGoatmanWorld
         .Where(b=>b is{Alive:true,Deleted:false}&&b.ControlMaster==owner&&b.Prepared?.LearnedCast==true).ToArray();
     internal static WarlockDefilerBody[] ForDefiler(PlayerMobile owner)=>(owner.AllFollowers??[]).OfType<WarlockDefilerBody>()
         .Where(b=>b is{Alive:true,Deleted:false}&&b.ControlMaster==owner&&b.Prepared?.LearnedCast==true).ToArray();
-    // The source pettype=demon pool is shared by these three species. Bind
-    // Demon has a distinct pettype and does not enter this replacement pool.
+    // These three implemented species share source pool1. Bind Demon has
+    // a distinct pettype,but the same pool1;its unfinished actor/Consume slot
+    // integration must eventually join this replacement pool.
     internal static SkeletonGuardian[] Demons(PlayerMobile owner)=>(owner.AllFollowers??[]).OfType<SkeletonGuardian>()
         .Where(b=>b is{Alive:true,Deleted:false}&&b.ControlMaster==owner&&WarlockDemonPlacement.Prepared(b))
         .OrderBy(BattleCommand.PetOrder).ThenBy(b=>b.Serial.Value).ToArray();

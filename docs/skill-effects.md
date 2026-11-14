@@ -1,5 +1,7 @@
 # Skill effects
 
+**Consume source/capture boundary — 2026-11-15 JST.** Capture-only code emits no effect. Final warlockconsume owner overlay,warlock_shadow_cast_2 cast/sacrifice feedback and Warlock_Skill_Consume_03 audio remain missing. Runtime consumption/buff/pool integration is not yet present;assets stay nonblocking and separate from skill icons. No artwork/imagegen. [Checkpoint](consume-suppliers-checkpoint.md).
+
 **Prepared Blood Boil effects — 2026-11-15 JST.** Uses identified shared explosion0x36BD and cast sound0x1E5 placeholders. Final bloodboilexplode/warlock_fire_cast_1 visuals plus Warlock_Skill_Blood_Boil_Cast_01 and necromancer_corpseexp_1 audio remain missing. All erupting centers emit an explosion, including a center captured before lethal pet cost. No imagegen/final artwork;learned gate is mechanical adaptation,not assets. [Checkpoint](blood-boil-world-checkpoint.md).
 
 **Prepared Engorge effects — 2026-11-15 JST.** Runtime now emits explicitly identified generic cast sound 0x1E5 and recipient heal/buff effect 0x376A. Final engorgecast/engorge/engorgecorpseeffect corpse transfer, recipient buff feedback and Warlock_Skill_Engorge_03 audio remain missing. No final art generated; learned activation waits on the mechanical adaptation decision, not assets. [Checkpoint](engorge-world-checkpoint.md).

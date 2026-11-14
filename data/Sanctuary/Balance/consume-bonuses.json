@@ -1,0 +1,29 @@
+[
+  {
+    "monster": "wargoatman",
+    "sourceIndex": 742,
+    "firstStat": "damagepercent",
+    "firstFormula": "(diff==3)?(sksrc('Consume'.lvl)*5+20):((diff==2)?(sksrc('Consume'.lvl)*3+20):((diff==1)?(sksrc('Consume'.lvl)+20):0))",
+    "secondStat": "item_crushingblow",
+    "secondFormula": "sksrc('Death Mark'.blvl)*1+5",
+    "underlingCount": 0
+  },
+  {
+    "monster": "warbighead",
+    "sourceIndex": 743,
+    "firstStat": "passive_fire_mastery",
+    "firstFormula": "\"min(sksrc('Consume'.lvl)+9,20)\"",
+    "secondStat": "passive_fire_pierce",
+    "secondFormula": "\"min(sksrc('Consume'.lvl)+4,15)\"",
+    "underlingCount": 0
+  },
+  {
+    "monster": "warputriddefiler",
+    "sourceIndex": 744,
+    "firstStat": "passive_mag_mastery",
+    "firstFormula": "\"min(sksrc('Consume'.lvl)+9,20)\"",
+    "secondStat": "passive_mag_pierce",
+    "secondFormula": "\"min(sksrc('Consume'.lvl)+4,10)\"",
+    "underlingCount": 0
+  }
+]

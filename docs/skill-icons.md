@@ -1,5 +1,7 @@
 # Skill icons
 
+**Consume icon boundary — 2026-11-15 JST.** Missing talent-tree and right/quick-hotkey icon. Pinned source is right-only(left0/right1);do not plan a left binding for learned verification. Numerical capture adds no binding or final artwork;any later generic icon must be identified as a placeholder. VFX/audio tracked separately. [Checkpoint](consume-suppliers-checkpoint.md).
+
 **Prepared Blood Boil icon boundary — 2026-11-15 JST.** Talent-tree/hotkey icons remain missing. The complete prepared action adds no learned binding or final icon;any generic binding artwork remains explicitly temporary. Explosion/cast/audio requirements stay separate in skill-effects.md. [Checkpoint](blood-boil-world-checkpoint.md).
 
 **Prepared Engorge icon boundary — 2026-11-15 JST.** Tree/hotkey icons are still missing and separate from the tested corpse/heal/buff mechanics. The complete prepared candidate grants no learned binding; generic icons remain explicitly temporary when that route is admitted. No icon or artwork was generated. [Checkpoint](engorge-world-checkpoint.md).
