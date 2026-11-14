@@ -153,10 +153,12 @@ public static class CorpseSkillRules
     // existing selectable requirement.
     internal static bool DireWolfUsableAt(PlayerMobile owner,Corpse corpse,Mobile actor,double radius)
         =>UsableAt(owner,corpse,actor,radius,false);
+    internal static bool BodyAvailable(Corpse corpse)=>corpse is{Deleted:false,Parent:null,OwnerWasBaseCreature:true,OwnerWasSummoned:false,
+        Carved:false,Animated:false,SanctuaryHarvested:false,SanctuaryConsumed:false,SanctuaryRestInPeace:false,IsBones:false};
+    internal static bool Available(Corpse corpse)=>BodyAvailable(corpse)&&Profiles.Find(corpse)is{Owned:false,Shattered:false,NoSelect:false,Selectable:true};
     private static bool UsableAt(PlayerMobile owner,Corpse corpse,Mobile actor,double radius,bool requireSelectable)
     {
-        if(owner is not {Alive:true,Deleted:false} || actor is not{Alive:true,Deleted:false} || corpse is not {Deleted:false,Parent:null,OwnerWasBaseCreature:true,OwnerWasSummoned:false,
-            Carved:false,Animated:false,SanctuaryHarvested:false,SanctuaryConsumed:false,SanctuaryRestInPeace:false,IsBones:false}
+        if(owner is not {Alive:true,Deleted:false} || actor is not{Alive:true,Deleted:false} || !BodyAvailable(corpse)
             || corpse.Map!=actor.Map || Math.Abs(corpse.Z-actor.Z)>=16){return false;}
         var row=Profiles.Find(corpse);
         if(row==null && corpse.Owner is BaseCreature {Alive:false} creature){Capture(creature,corpse);row=Profiles.Find(corpse);}

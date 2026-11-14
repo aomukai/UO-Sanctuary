@@ -14,10 +14,16 @@ namespace Sanctuary;
 
 internal sealed record SigilActor(uint Marker,uint Owner,int Map,Point3D Origin,int Rank,int Level,int Missile,string MissileKey,
     int Frames,DateTime BornUtc,int LastPulse=-1,bool Retiring=false,CombatAbility Ability=CombatAbility.SigilLethargy,
-    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] int? RancorPulse=null);
+    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] int? RancorPulse=null,
+    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] FirestormModifiers DeathModifiers=null,
+    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] int? DeathPulse=null);
 internal sealed record SigilStat(int Stat,int Layer,int Value);
 internal sealed record SigilOwnerState(uint Owner,DateTime EpochUtc,SigilStat[] Stats,float Expiry,uint Flags,DateTime EventUtc);
-internal sealed record SigilActorSave(SigilActor[] Actors,SigilOwnerState[] Owners);
+internal sealed record SigilActorSave(SigilActor[] Actors,SigilOwnerState[] Owners)
+{
+    [JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)]
+    public SigilDeathMark[] DeathMarks{get;init;}
+}
 internal sealed record SigilWorldData(int MissileCount,SummonSource[] Missiles);
 public sealed class SigilActorProfiles:GenericPersistence
 {
@@ -143,7 +149,7 @@ internal static class SigilActors
                 {throw new NotSupportedException("World Sigil factory request changed");}
                 var marker=new Static(0x1B7A){Name=SkillMechanics.For(values.Ability).Name+" (placeholder)",Movable=false};marker.MoveToWorld(ground,map);
                 if(payment!=null&&!payment()){marker.Delete();return null;}
-                created=new(marker.Serial.Value,owner.Serial.Value,map.MapID,ground,values.Rank,profile.Level,shape.Id,shape.Key,shape.Frames,born,Ability:values.Ability);
+                created=new(marker.Serial.Value,owner.Serial.Value,map.MapID,ground,values.Rank,profile.Level,shape.Id,shape.Key,shape.Frames,born,Ability:values.Ability,DeathModifiers:values.Ability==CombatAbility.SigilDeath?DruidFirestorm.Modifiers(owner):null);
                 _actors=_actors.Add(created.Marker,created);
                 // Current flags1 stationary factory initializes float14 to
                 // int Range*40 (then converts to float),captured at400cc8.
@@ -189,7 +195,13 @@ internal static class SigilActors
     private static void Remove(SigilActor s){_actors=_actors.Remove(s.Marker);World.FindItem((Serial)s.Marker)?.Delete();}
     internal static void Clear(PlayerMobile owner)
     {foreach(var s in _actors.Values){if(s.Owner==owner.Serial.Value){Remove(s);}}_owners=_owners.Remove(owner.Serial.Value);}
-    internal static SigilActorSave Snapshot()=>new(_actors.Values.OrderBy(s=>s.Marker).ToArray(),_owners.Values.OrderBy(s=>s.Owner).ToArray());
+    internal static SigilActorSave Snapshot()=>new(_actors.Values.OrderBy(s=>s.Marker).ToArray(),_owners.Values.OrderBy(s=>s.Owner).ToArray()){DeathMarks=SigilDeathProposal.Snapshot()};
+    internal static bool ClaimDeathPulse(SigilActor pulse)
+    {
+        if(pulse.Ability!=CombatAbility.SigilDeath||pulse.LastPulse<0||!_actors.TryGetValue(pulse.Marker,out var live)
+            ||live!=pulse||live.DeathPulse>=pulse.LastPulse){return false;}
+        _actors=_actors.SetItem(pulse.Marker,pulse with{DeathPulse=pulse.LastPulse});return true;
+    }
     internal static bool ClaimRancorPulse(SigilActor pulse)
     {
         if(pulse.Ability!=CombatAbility.SigilRancor||pulse.LastPulse<0||!_actors.TryGetValue(pulse.Marker,out var live)
@@ -210,6 +222,9 @@ internal static class SigilActors
             var body=Body(Values(s));if(s.Missile!=body.Id||s.MissileKey!=body.Key||s.Frames!=body.Frames){throw new InvalidDataException("Saved Sigil body disagrees with pinned profile");}
             if(s.RancorPulse is{} pulse&&(s.Ability!=CombatAbility.SigilRancor||pulse<0||pulse%6!=0||pulse>s.LastPulse))
             {throw new InvalidDataException("Invalid prepared Rancor pulse cursor");}
+            if(s.DeathModifiers!=null&&(s.Ability!=CombatAbility.SigilDeath||!SigilDeathProposal.ValidModifiers(s.DeathModifiers))
+                ||s.DeathPulse is{} death&&(s.Ability!=CombatAbility.SigilDeath||s.DeathModifiers==null||death<0||death%6!=0||death>s.LastPulse))
+            {throw new InvalidDataException("Invalid prepared Death pulse snapshot");}
             actors=actors.Add(s.Marker,s);
         }
         foreach(var s in saved.Owners)
@@ -224,6 +239,7 @@ internal static class SigilActors
             if(maximum is <0 or >8){throw new InvalidDataException("Invalid Sigil slot maximum");}
             owners=owners.Add(s.Owner,s);
         }
-        _actors=actors;_owners=owners;
+        var marks=SigilDeathProposal.ValidateSnapshot(saved.DeathMarks);
+        _actors=actors;_owners=owners;SigilDeathProposal.RestoreValidated(marks);
     }
 }
