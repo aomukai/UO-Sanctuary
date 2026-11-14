@@ -1,6 +1,6 @@
 # Goatman Frenzy and Cleave action proposal
 
-Status: prepared Sanctuary adaptation, awaiting approval. Reference: owned D2R Reign of the Warlock **3.3.93847**. This proposal covers the NPC action boundary; it does not claim recovered current startup67/68 behavior or a complete learned summon.
+Status: **approved Sanctuary adaptation** — “Approve this Goatman NPC action rule.” Decision: `tools/reference/goatman-npc-action-approval.json`. Reference: owned D2R Reign of the Warlock **3.3.93847**. This proposal covers the NPC action boundary; it does not claim recovered current startup67/68 behavior or a complete learned summon.
 
 The pinned Goatman learns its own Stun at effective summon rank2, Berserk at3, Frenzy at4 and Cleave at5. These are the monster rows416–419, not the player skills. Source evidence and focused acceptance are recorded in `tools/reference/goatman-npc-action-native-evidence.json`.
 
@@ -23,4 +23,4 @@ Effects/audio and icons remain in the separate existing Summon Goatman registers
 
 Content and integration builds pass with zero warnings/errors. Eighteen native markers pass across three disposable boots, two reloads and three saves. Each boot checks510 own-row packets,1530 schedules and255 charge caps, real shared HP commitment, fan ordering/deduplication, nested release/cancellation/freeze, misses, movement, inactivity and exact expiry. The existing24000 Stun/Berserk packet comparisons and15024 older Frenzy service comparisons also pass. Reloads preserve the baseline original-item/resource fixtures; the new candidate actions/buffs are deliberately transient and are recreated on each boot, so this does **not** certify their persistence.
 
-One failed first run is retained: the fixture initially sent a miss into the success-only HP commit entry. Correcting the fixture to call the existing attempt/finish path resolved it; no production damage fallback was added. A further interruption guard stops remaining Cleave recipients if a callback freezes the actor. Accepted artifacts: content build2, integration build3, source snapshot4, native run2.
+One failed first run is retained: the fixture initially sent a miss into the success-only HP commit entry. Correcting the fixture to call the existing attempt/finish path resolved it; no production damage fallback was added. A further interruption guard stops remaining Cleave recipients if a callback freezes the actor. Reviewed candidate artifacts: content build2, integration build3, source snapshot4, native run2. The approved flag and its assertion were then rebuilt as content3/integration4, source snapshot6, native run3; the production behavior differs from the reviewed candidate only by its approval gate.

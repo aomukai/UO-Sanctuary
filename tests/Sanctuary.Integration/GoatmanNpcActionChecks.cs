@@ -66,7 +66,7 @@ public static class GoatmanNpcActionChecks
     }
     private static void Check()
     {
-        Require(!GoatmanNpcActionProposal.Approved&&!WarlockCombat.Implemented(CombatAbility.SummonGoatman),"Prepared candidate enabled incomplete world summon");
+        Require(GoatmanNpcActionProposal.Approved&&!WarlockCombat.Implemented(CombatAbility.SummonGoatman),"Prepared candidate enabled incomplete world summon");
         int packets=0,schedules=0;
         for(int rank=1;rank<=255;rank++)
         {
@@ -128,6 +128,6 @@ public static class GoatmanNpcActionChecks
             Require(actor.Mana==initialMana,"NPC candidate spent or supplied mana");
         }
         finally{actor?.Delete();front?.Delete();side?.Delete();back?.Delete();owner.Delete();}
-        Log.Information("Goatman NPC candidate:510 own-row packets/1530 schedules/255 charge caps;actual shared HP,fan ordering,reentrancy,miss,expiry,cancellation;world-host/persistence and approval remain open");
+        Log.Information("Goatman NPC candidate:510 own-row packets/1530 schedules/255 charge caps;actual shared HP,fan ordering,reentrancy,miss,expiry,cancellation;world-host/persistence remain open");
     }
 }

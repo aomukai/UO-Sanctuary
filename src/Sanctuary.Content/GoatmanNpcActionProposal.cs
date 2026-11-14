@@ -11,7 +11,7 @@ internal sealed record GoatmanAnimation(string Code,int Frames,int Speed,int Act
 // No timer, learned route, world AI registration or mana writer is installed.
 internal static class GoatmanNpcActionProposal
 {
-    internal static bool Approved=>false;
+    internal static bool Approved=>true;
     private static readonly Lazy<GoatmanAnimation[]> Animations=new(()=>
     {
         var rows=BalanceCatalog.Read<GoatmanAnimation>("goatman-animation");

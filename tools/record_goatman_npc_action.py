@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Bind the NPC action candidate to owned data and focused native acceptance."""
-import argparse,json,struct
+import argparse,hashlib,json,struct,subprocess
 from collections import Counter
 import skill_checkpoint_evidence as e
 from snapshot_skill_build import check as snapshot
@@ -12,6 +12,20 @@ def record(check=False):
         inputs[str(p.relative_to(ROOT))]=e.sha(p)
         return json.loads(p.read_text()) if p.suffix=='.json' else None
     origin=pin('tools/reference/d2r-local-animation-evidence.json')
+    approval=pin('tools/reference/goatman-npc-action-approval.json')
+    assert approval['approved'] and approval['approval']=='Approve this Goatman NPC action rule'
+    def reviewed(name,digest):
+        raw=subprocess.check_output(['git','show',approval['candidateCommit']+':'+name],cwd=ROOT)
+        assert hashlib.sha256(raw).hexdigest()==digest
+        return raw
+    reviewed(approval['proposal'],approval['proposalAtApprovalSha256'])
+    candidate=json.loads(reviewed(approval['candidateEvidence'],approval['candidateEvidenceSha256']))
+    assert not candidate['approved'] and candidate['nativeMarkers']==18
+    for name,digest in candidate['inputs'].items():
+        if name.startswith('src/') and name.endswith('.cs'):
+            raw=reviewed(name,digest)
+            expected=raw.replace(b'Approved=>false',b'Approved=>true') if name.endswith('GoatmanNpcActionProposal.cs') else raw
+            assert (ROOT/name).read_bytes()==expected,name
     raw=STAGE.parent/'bone-barrier-retirement-source/AnimData.d2'
     assert e.sha(raw)==origin['sha256'];pin(raw)
     b=raw.read_bytes();cursor=0;records={};count=0
@@ -33,10 +47,11 @@ def record(check=False):
     assert source['417']['aurastate']=='monfrenzy' and source['417']['Param1']==200 and source['417']['Param2']==25
     assert source['417']['aurastatcalc1']==source['417']['aurastatcalc2']==source['417']['aurastatcalc3']=='dm34'
     assert source['419']['calc5']==11 and source['419']['calc6']==30 and source['419']['calc1']=='ln12'
-    pin('data/Sanctuary/Balance/warlock-npc-skills.json');pin('data/Sanctuary/Balance/generic-pet-states.json')
-    born=pin(STAGE/'birth-inputs.json');snapshot(STAGE/'source-snapshot-4.json',STAGE/'birth-inputs.json')
+    pin('data/Sanctuary/Balance/warlock-npc-skills.json')
+    states=pin('data/Sanctuary/Balance/generic-pet-states.json');assert any(s['id']==103 and s['name']=='monfrenzy' for s in states)
+    born=pin(STAGE/'birth-inputs.json');snapshot(STAGE/'source-snapshot-6.json',STAGE/'birth-inputs.json')
     for name,h in born['sourceInputs'].items():assert e.sha(ROOT/name)==h,name
-    for kind,num in [('content',2),('integration',3)]:
+    for kind,num in [('content',3),('integration',4)]:
         log=STAGE/f'{kind}-build-{num}.log';pin(log)
         assert all(s in log.read_text()for s in ('Build succeeded.','0 Warning(s)','0 Error(s)'))
         assert e.sha(STAGE/kind/f'Sanctuary.{kind.title()}.dll')==born['artifacts'][f'Assemblies/Sanctuary.{kind.title()}.dll']
@@ -46,10 +61,12 @@ def record(check=False):
     expected=Counter({'iron-golem-birth-check':3,'iron-golem-items-check':1,'iron-golem-items-reload-check':2,
                       'npc-resource-callbacks-check':1,'npc-resource-callbacks-reload-check':2,
                       'goatman-npc-action-check':3,'goatman-npc-melee-check':3,'frenzy-release-check':3})
-    e.cohort(STAGE,expected,18);pin(STAGE/'birth-native-checks.log');pin(STAGE/'native-run-2.log')
+    e.cohort(STAGE,expected,18);pin(STAGE/'birth-native-checks.log');pin(STAGE/'native-run-3.log')
     assert 'Goatman NPC candidate:510 own-row packets/1530 schedules/255 charge caps' in (STAGE/'birth-native-checks.log').read_text()
     for name in ('birth-inputs.json','birth-native-checks.log','native-run-1.log','GoatmanNpcActionChecks.cs','Sanctuary.Integration.dll','reason.txt'):pin(STAGE/'diagnostics-1'/name)
     assert 'successful cached packet' in (STAGE/'diagnostics-1/birth-native-checks.log').read_text()
+    for name in ('birth-inputs.json','birth-native-checks.log','native-run-2.log','candidate-evidence.json','Sanctuary.Content.dll','Sanctuary.Integration.dll'):
+        pin(STAGE/'candidate-176897ef'/name)
     for name in ('tools/reference/goatman-npc-melee-source-evidence.json','tools/reference/frenzy-release-source-evidence.json'):
         pin(name)
     for name in ('src/Sanctuary.Content/GoatmanNpcActionProposal.cs','src/Sanctuary.Content/GoatmanNpcMelee.cs',
@@ -58,25 +75,25 @@ def record(check=False):
                  'tools/record_goatman_npc_action.py','docs/goatman-npc-action-proposal.md',
                  'docs/class-skill-roadmap.md','docs/class-skills-resume-checkpoint.md','docs/class-skill-reuse-notes.md'):
         pin(name)
-    assert 'Approved=>false' in (ROOT/'src/Sanctuary.Content/GoatmanNpcActionProposal.cs').read_text()
+    assert 'Approved=>true' in (ROOT/'src/Sanctuary.Content/GoatmanNpcActionProposal.cs').read_text()
     protected=e.protection('tools/reference/hex-siphon-cast-client-evidence.json',43)
-    result=dict(referenceVersion='3.3.93847',component='prepared Goatman NPC Frenzy/Cleave actions',approved=False,
+    result=dict(referenceVersion='3.3.93847',component='approved Goatman NPC Frenzy/Cleave action component',approved=True,
         handlers=221,warlockHandlers=12,completedClasses=[],learnedDemonSummonsEnabled=False,automaticPetAiEnabled=False,
         animation=dict(rawSha256=origin['sha256'],archivePath=origin['archivePath'],parsedRecords=count,selected=list(records.values())),
-        nativeMarkers=18,markers=dict(expected),boots=3,reloads=2,saves=3,contentBuild=2,integrationBuild=3,
-        sourceSnapshot=4,nativeRun=2,nativeRebuilt=False,clientRebuilt=False,newLiveReferenceReads=0,newTimers=0,
+        nativeMarkers=18,markers=dict(expected),boots=3,reloads=2,saves=3,contentBuild=3,integrationBuild=4,
+        sourceSnapshot=6,nativeRun=3,nativeRebuilt=False,clientRebuilt=False,newLiveReferenceReads=0,newTimers=0,
         newPersistenceIds=0,serializationVersionChanged=False,artifacts=born['artifacts'],preservation={**protected,'installed':False},
         checks=['510 own-row Frenzy/Cleave packets,1530 owned animation schedules and255 shared-writer charge caps on each boot.',
                 'Actual shared FP256 HP with explicit empty fixture event leaves;misses finish without successful HP commit.',
                 'Fan membership/dedup/order,reentrant once-only release,late ticks,miss,expiry,movement,inactive host and nested cancellation/freeze.',
                 'Retained24000 Stun/Berserk packet and15024 complete legacy Frenzy service comparisons on each boot.'],
-        limits=['Prepared NPC action adaptation awaits approval;current startup67/68/latch/mode selection remain unverified.',
+        limits=['NPC action adaptation approved;current startup67/68/latch/mode selection remain unverified source behavior.',
                 'Fixture world/service leaves do not certify full production demon AI/path/clock/contact/event admission.',
                 'Actor-owned Frenzy state is transient here;durable host state and movement/attack/other-animation consumers remain required.',
                 'No learned summon route;no complete class certified;effects/audio and talent/hotkey icons remain separate.'],inputs=inputs)
     path=ROOT/'tools/reference/goatman-npc-action-native-evidence.json';encoded=json.dumps(result,indent=2)+'\n'
     if check:assert path.read_text()==encoded,'Goatman NPC action receipt stale'
     else:path.write_text(encoded)
-    print('Goatman NPC candidate:18markers/3boots/2reloads;shared actions/stat writer verified,approval/native host pending;installed files preserved.')
+    print('Goatman NPC action rule approved:18markers/3boots/2reloads;native host pending;installed files preserved.')
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--check',action='store_true');record(p.parse_args().check)
