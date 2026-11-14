@@ -66,6 +66,7 @@ internal static class DeathMarkWorld
         return new(unchecked((int)body.Serial.Value),actor.Map,actor.Selector,actor.Command.Data.Target48,actor.Command.Data.Type4c,actor.Mode,actor.Next){Control=actor.Control,Header=actor.Header?.Capture()};
     }
     internal static GenericPetCommitPath Path(SkeletonGuardian body)=>_worlds[_actors[checked((int)body.Serial.Value)].Map].Member(checked((int)body.Serial.Value)).Path;
+    internal static uint Flags128(SkeletonGuardian body)=>_worlds[_actors[checked((int)body.Serial.Value)].Map].Member(checked((int)body.Serial.Value)).Flags128;
     // Continuous native transport uses the same registered source position
     // and room/update lists as placement. The caller has already advanced the
     // qualified movement kernel;this does not choose a path or birth flags.
@@ -94,6 +95,35 @@ internal static class DeathMarkWorld
             member=>GenericPetRoomLinks.Remove(member,world.Links),(member,room)=>GenericPetRoomLinks.Add(member,room,world.Links),
             member=>GenericPetRoomLinks.Touch(member,world.Links),(_,_)=>throw new InvalidOperationException("Coordinate transport does not reset targets"),0);
         world.Begin(world.Revision);GenericPetPathCommit.Coordinates(path,x,y,0,services);body.MoveToWorld(point,body.Map);body.AIObject?.AITimer.Stop();
+    }
+    internal static int PlacePrepared(WarlockGoatmanBody body,Point2D target,bool skipSearch)
+    {
+        var actor=ControlledActor(body);var world=_worlds[actor.Map];int id=checked((int)body.Serial.Value);
+        var unit=world.Unit(id);var path=world.Member(id).Path;world.Require(body,unit,path);
+        return new GenericPetNativePlacement(body,unit,path,target,GenericPetPathTargets.Bind(actor.Selector),world).Place(skipSearch);
+    }
+    internal static int WarpPrepared(WarlockGoatmanBody body,GenericPetDecisionUnit owner,GenericPetWarpServices services)
+    {
+        var actor=ControlledActor(body);var world=_worlds[actor.Map];int id=checked((int)body.Serial.Value);
+        int result=GenericPetWarp.Execute(new(owner,world.Unit(id).Pet,actor.Selector),services);
+        world.Member(id).Flags128=world.Unit(id).Pet.Flags;return result;
+    }
+    // Explicit candidate host reactivation:the native roster has already
+    // restored a legal body position. Build replacement graphs before publish;
+    // retain its original header,commands,control words and combat/birth state.
+    internal static void RebindPrepared(WarlockGoatmanBody body,GenericPetBirthPath next)
+    {
+        var actor=ControlledActor(body);_=actor.Header?.Capture()??throw new NotSupportedException("Reactivation needs the original normal header");
+        GenericPetNativePlacement.RequireActor(body,next.Unit,next.Path);
+        if(next.Selector!=actor.Selector||next.Mode!=1||next.NextAiUtc.Kind!=DateTimeKind.Utc)
+        {throw new NotSupportedException("Reactivation requires a qualified neutral native path");}
+        int id=checked((int)body.Serial.Value),oldMap=actor.Map,newMap=body.Map.MapID;
+        var oldWorld=GenericPetPlacementWorld.Restore(_worlds[oldMap].Capture());next.Unit.Pet.Flags=oldWorld.Unit(id).Pet.Flags;oldWorld.Remove(id);
+        var newWorld=newMap==oldMap?oldWorld:_worlds.TryGetValue(newMap,out var existing)
+            ?GenericPetPlacementWorld.Restore(existing.Capture()):new GenericPetPlacementWorld(body.Map);
+        newWorld.Register(body,next.Unit,next.Path);
+        if(newMap!=oldMap){if(oldWorld.Count==0){_worlds.Remove(oldMap);}else{_worlds[oldMap]=oldWorld;}}
+        _worlds[newMap]=newWorld;actor.Map=newMap;actor.Next=next.NextAiUtc;ChangeMode(body,1);
     }
     // Read the registered original command,not a detached saved DTO or native
     // Combatant. Lookup stays separate from the survey's validity/path checks.

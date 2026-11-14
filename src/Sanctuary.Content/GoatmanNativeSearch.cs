@@ -125,6 +125,7 @@ internal sealed class GoatmanNativeSearch
     }
     private int Mode(Mobile m)=>!m.Alive?m is PlayerMobile?17:12:m is SkeletonGuardian guardian&&DeathMarkWorld.State(guardian)is{} actor?actor.Mode:1;
     private uint Flags(Mobile m)=>!m.Alive?0x10000u:m.CanBeDamaged()&&!m.Blessed?4u:0;
+    private uint Flags128(Mobile m)=>m is SkeletonGuardian g&&DeathMarkWorld.State(g)!=null?DeathMarkWorld.Flags128(g):0;
     private GenericPetPathTarget Path(int id)
     {
         if(Paths.TryGetValue(id,out var path)){return path;}
@@ -148,7 +149,7 @@ internal sealed class GoatmanNativeSearch
         if(SourceCorpseIdentity.Find(id)!=null){return new(1,12,id,0x10000,0,Path(id),true,null);}
         var m=Mobile(id);var master=(m as BaseCreature)?.GetMaster();
         var control=master==null?null:new GenericPetOwnerControl(Identity.Game,master is PlayerMobile?0:1,Id(master),0);
-        return new(m is PlayerMobile?0:1,Mode(m),id,Flags(m),0,Path(id),m is BaseCreature,control);
+        return new(m is PlayerMobile?0:1,Mode(m),id,Flags(m),Flags128(m),Path(id),m is BaseCreature,control);
     }
     private int NextUnit(int id)
     {
@@ -163,7 +164,7 @@ internal sealed class GoatmanNativeSearch
         {var position=Position(id);return new(new(position,12,0x10000,corpse.ClassId,1,false,false,corpse.Body.X*2*65536,corpse.Body.Y*2*65536),0,0);}
         var m=Mobile(id);var p=Position(id);var(x,y)=p.Coordinates();uint fx=(uint)x<<16,fy=(uint)y<<16;
         if(m is WarlockGoatmanBody goat&&DeathMarkWorld.State(goat)!=null){var path=DeathMarkWorld.Path(goat);fx=path.X;fy=path.Y;}
-        return new(new(p,Mode(m),Flags(m),Class(m),1,m is BaseCreature,false,unchecked((int)fx),unchecked((int)fy)),Path(id).Target,0);
+        return new(new(p,Mode(m),Flags(m),Class(m),1,m is BaseCreature,false,unchecked((int)fx),unchecked((int)fy)),Path(id).Target,Flags128(m));
     }
     private GenericPetSearchWorldUnit WorldUnit(int id)
     {
@@ -174,7 +175,7 @@ internal sealed class GoatmanNativeSearch
             EncounterCreature{Grade:EncounterGrade.Champion}=>4,_=>0};
         // The secondary source table/trait geometry is consulted via Size;
         // initialize the cache invalid,not as an invented known zero size.
-        return new(Position(id),Class(m),Mode(m),1,m.Map==Map?Room(id):0,0,m is BaseCreature,nativeFlags,t.Ai,0,0,null,new(-1,-1,0,0));
+        return new(Position(id),Class(m),Mode(m),1,m.Map==Map?Room(id):0,Flags128(m),m is BaseCreature,nativeFlags,t.Ai,0,0,null,new(-1,-1,0,0));
     }
     private int Collision(int a,int b,int mask)
     {

@@ -40,7 +40,7 @@ internal sealed class GenericPetFramePump(GenericPetTimedEvents events,SourceFra
     private bool _advancing;
     internal SourceFramePosition Position=>_position;
     private static SourceFramePosition Valid(SourceFramePosition value){SourceFrameTimeline.Validate(value);return value;}
-    internal void Advance(DateTime observed,Action<GenericPetTimedEvent,int,DateTime> route)
+    internal void Advance(DateTime observed,Action<GenericPetTimedEvent,int,DateTime> route,Action<int,DateTime> beforeEvents=null)
     {
         ArgumentNullException.ThrowIfNull(events);ArgumentNullException.ThrowIfNull(route);
         if(_advancing){throw new NotSupportedException("Nested pet frame delivery is not qualified");}
@@ -50,7 +50,7 @@ internal sealed class GenericPetFramePump(GenericPetTimedEvents events,SourceFra
             while(_position.Frame<end.Frame)
             {
                 DateTime at=_position.NextUtc;_position=SourceFrameTimeline.Step(_position);
-                int frame=_position.Frame;var bucket=events.Bucket(frame%64);
+                int frame=_position.Frame;beforeEvents?.Invoke(frame,at);var bucket=events.Bucket(frame%64);
                 if(bucket.Length!=0){events.Dispatch(bucket[^1],frame,true,node=>route(node,frame,at));}
             }
         }
