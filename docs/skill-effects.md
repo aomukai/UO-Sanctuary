@@ -1,5 +1,7 @@
 # Skill effects
 
+**Prepared Blood Boil effects — 2026-11-15 JST.** Uses identified shared explosion0x36BD and cast sound0x1E5 placeholders. Final bloodboilexplode/warlock_fire_cast_1 visuals plus Warlock_Skill_Blood_Boil_Cast_01 and necromancer_corpseexp_1 audio remain missing. All erupting centers emit an explosion, including a center captured before lethal pet cost. No imagegen/final artwork;learned gate is mechanical adaptation,not assets. [Checkpoint](blood-boil-world-checkpoint.md).
+
 **Prepared Engorge effects — 2026-11-15 JST.** Runtime now emits explicitly identified generic cast sound 0x1E5 and recipient heal/buff effect 0x376A. Final engorgecast/engorge/engorgecorpseeffect corpse transfer, recipient buff feedback and Warlock_Skill_Engorge_03 audio remain missing. No final art generated; learned activation waits on the mechanical adaptation decision, not assets. [Checkpoint](engorge-world-checkpoint.md).
 
 **Engorge asset boundary — 2026-11-15 JST.** Numerical capture only; it emits no effect. Still needed: corpse-feeding/transfer, recipient heal/buff feedback and cast audio corresponding to owned engorgecast / engorge / engorgecorpseeffect and Warlock_Skill_Engorge_03 references. Final effects are not generated and no mechanic is gated on them; later runtime placeholders must be identified explicitly. Corpse/recipient delivery itself remains mechanically unfinished. [Checkpoint](engorge-suppliers-checkpoint.md).

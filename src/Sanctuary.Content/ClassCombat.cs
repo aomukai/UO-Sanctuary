@@ -52,6 +52,7 @@ public static class ClassCombat
         internal CleaveActionProposal.Action Cleave;
         internal DeathMarkCasting.Pending DeathMark;
         internal EngorgeCasting.Pending Engorge;
+        internal BloodBoilCasting.Pending BloodBoil;
         internal DragonFlights.Flight Flight;
         internal DruidChargedAttacks.Pending DruidChargeAttack;
         internal PoisonDaggerCombat.Prepared PoisonDaggerAttack;
@@ -276,6 +277,7 @@ public static class ClassCombat
         AmazonSlowMissilesCasting.Cancel(from);
         DeathMarkCasting.Cancel(from);
         EngorgeCasting.Cancel(from);
+        BloodBoilCasting.Cancel(from);
         PaladinCharge.Cancel(from);
         For(from).Target = Serial.Zero;
         For(from).PendingAbility = CombatAbility.None;
@@ -549,6 +551,7 @@ public static class ClassCombat
         if(session.SlowMissilesCast!=null){return AmazonSlowMissilesCasting.ResolvePrepared(from,now);}
         if(session.DeathMark!=null){return DeathMarkCasting.ResolvePrepared(from,now);}
         if(session.Engorge!=null){return EngorgeCasting.ResolvePrepared(from,now);}
+        if(session.BloodBoil!=null){return BloodBoilCasting.ResolvePrepared(from,now);}
         if(session.Charge!=null){return PaladinCharge.Resolve(from,now);}
         if(session.Zeal!=null){return PaladinZeal.Resolve(from,now);}
         var ability = session.PendingAbility;
