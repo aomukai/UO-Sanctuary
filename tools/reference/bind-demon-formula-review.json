@@ -1,0 +1,930 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Bind Demon retained-compiler numeric analogues",
+  "numericAnalogues": 89,
+  "constants": 73,
+  "compilerRebuilt": false,
+  "gameFilesRead": false,
+  "processMemoryRead": false,
+  "sourceCodeExecutedInOfflineCompiler": true,
+  "gameBytecodeExecuted": false,
+  "ownedMonpetBytecodeCompared": false,
+  "currentRuntimeParity": false,
+  "cases": [
+    {
+      "kind": "progress-modulo",
+      "text": "((0%12)==0)",
+      "context": {
+        "phase": 0
+      },
+      "compiledHex": "070100",
+      "constant": 1
+    },
+    {
+      "kind": "progress-modulo",
+      "text": "((1%12)==0)",
+      "context": {
+        "phase": 1
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "progress-modulo",
+      "text": "((11%12)==0)",
+      "context": {
+        "phase": 11
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "progress-modulo",
+      "text": "((12%12)==0)",
+      "context": {
+        "phase": 12
+      },
+      "compiledHex": "070100",
+      "constant": 1
+    },
+    {
+      "kind": "progress-modulo",
+      "text": "((13%12)==0)",
+      "context": {
+        "phase": 13
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "progress-modulo",
+      "text": "((24%12)==0)",
+      "context": {
+        "phase": 24
+      },
+      "compiledHex": "070100",
+      "constant": 1
+    },
+    {
+      "kind": "quality-gate",
+      "text": "(0>=(((0==1)+(0 == 4))?15:((0== 2)?10:0)))",
+      "context": {
+        "quality": 0,
+        "hard": 0
+      },
+      "compiledHex": "070100",
+      "constant": 1
+    },
+    {
+      "kind": "quality-gate",
+      "text": "(9>=(((0==1)+(0 == 4))?15:((0== 2)?10:0)))",
+      "context": {
+        "quality": 0,
+        "hard": 9
+      },
+      "compiledHex": "070100",
+      "constant": 1
+    },
+    {
+      "kind": "quality-gate",
+      "text": "(10>=(((0==1)+(0 == 4))?15:((0== 2)?10:0)))",
+      "context": {
+        "quality": 0,
+        "hard": 10
+      },
+      "compiledHex": "070100",
+      "constant": 1
+    },
+    {
+      "kind": "quality-gate",
+      "text": "(14>=(((0==1)+(0 == 4))?15:((0== 2)?10:0)))",
+      "context": {
+        "quality": 0,
+        "hard": 14
+      },
+      "compiledHex": "070100",
+      "constant": 1
+    },
+    {
+      "kind": "quality-gate",
+      "text": "(15>=(((0==1)+(0 == 4))?15:((0== 2)?10:0)))",
+      "context": {
+        "quality": 0,
+        "hard": 15
+      },
+      "compiledHex": "070100",
+      "constant": 1
+    },
+    {
+      "kind": "quality-gate",
+      "text": "(20>=(((0==1)+(0 == 4))?15:((0== 2)?10:0)))",
+      "context": {
+        "quality": 0,
+        "hard": 20
+      },
+      "compiledHex": "070100",
+      "constant": 1
+    },
+    {
+      "kind": "health-term",
+      "text": "((100-50)/((0==1+0==4)?20:((0==2)?10:5)))",
+      "context": {
+        "quality": 0,
+        "health": 50
+      },
+      "compiledHex": "070a00",
+      "constant": 10
+    },
+    {
+      "kind": "health-term",
+      "text": "((100-95)/((0==1+0==4)?20:((0==2)?10:5)))",
+      "context": {
+        "quality": 0,
+        "health": 95
+      },
+      "compiledHex": "070100",
+      "constant": 1
+    },
+    {
+      "kind": "quality-gate",
+      "text": "(0>=(((1==1)+(1 == 4))?15:((1== 2)?10:0)))",
+      "context": {
+        "quality": 1,
+        "hard": 0
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "quality-gate",
+      "text": "(9>=(((1==1)+(1 == 4))?15:((1== 2)?10:0)))",
+      "context": {
+        "quality": 1,
+        "hard": 9
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "quality-gate",
+      "text": "(10>=(((1==1)+(1 == 4))?15:((1== 2)?10:0)))",
+      "context": {
+        "quality": 1,
+        "hard": 10
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "quality-gate",
+      "text": "(14>=(((1==1)+(1 == 4))?15:((1== 2)?10:0)))",
+      "context": {
+        "quality": 1,
+        "hard": 14
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "quality-gate",
+      "text": "(15>=(((1==1)+(1 == 4))?15:((1== 2)?10:0)))",
+      "context": {
+        "quality": 1,
+        "hard": 15
+      },
+      "compiledHex": "070100",
+      "constant": 1
+    },
+    {
+      "kind": "quality-gate",
+      "text": "(20>=(((1==1)+(1 == 4))?15:((1== 2)?10:0)))",
+      "context": {
+        "quality": 1,
+        "hard": 20
+      },
+      "compiledHex": "070100",
+      "constant": 1
+    },
+    {
+      "kind": "health-term",
+      "text": "((100-50)/((1==1+1==4)?20:((1==2)?10:5)))",
+      "context": {
+        "quality": 1,
+        "health": 50
+      },
+      "compiledHex": "070a00",
+      "constant": 10
+    },
+    {
+      "kind": "health-term",
+      "text": "((100-95)/((1==1+1==4)?20:((1==2)?10:5)))",
+      "context": {
+        "quality": 1,
+        "health": 95
+      },
+      "compiledHex": "070100",
+      "constant": 1
+    },
+    {
+      "kind": "quality-gate",
+      "text": "(0>=(((2==1)+(2 == 4))?15:((2== 2)?10:0)))",
+      "context": {
+        "quality": 2,
+        "hard": 0
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "quality-gate",
+      "text": "(9>=(((2==1)+(2 == 4))?15:((2== 2)?10:0)))",
+      "context": {
+        "quality": 2,
+        "hard": 9
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "quality-gate",
+      "text": "(10>=(((2==1)+(2 == 4))?15:((2== 2)?10:0)))",
+      "context": {
+        "quality": 2,
+        "hard": 10
+      },
+      "compiledHex": "070100",
+      "constant": 1
+    },
+    {
+      "kind": "quality-gate",
+      "text": "(14>=(((2==1)+(2 == 4))?15:((2== 2)?10:0)))",
+      "context": {
+        "quality": 2,
+        "hard": 14
+      },
+      "compiledHex": "070100",
+      "constant": 1
+    },
+    {
+      "kind": "quality-gate",
+      "text": "(15>=(((2==1)+(2 == 4))?15:((2== 2)?10:0)))",
+      "context": {
+        "quality": 2,
+        "hard": 15
+      },
+      "compiledHex": "070100",
+      "constant": 1
+    },
+    {
+      "kind": "quality-gate",
+      "text": "(20>=(((2==1)+(2 == 4))?15:((2== 2)?10:0)))",
+      "context": {
+        "quality": 2,
+        "hard": 20
+      },
+      "compiledHex": "070100",
+      "constant": 1
+    },
+    {
+      "kind": "health-term",
+      "text": "((100-50)/((2==1+2==4)?20:((2==2)?10:5)))",
+      "context": {
+        "quality": 2,
+        "health": 50
+      },
+      "compiledHex": "070500",
+      "constant": 5
+    },
+    {
+      "kind": "health-term",
+      "text": "((100-95)/((2==1+2==4)?20:((2==2)?10:5)))",
+      "context": {
+        "quality": 2,
+        "health": 95
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "quality-gate",
+      "text": "(0>=(((3==1)+(3 == 4))?15:((3== 2)?10:0)))",
+      "context": {
+        "quality": 3,
+        "hard": 0
+      },
+      "compiledHex": "070100",
+      "constant": 1
+    },
+    {
+      "kind": "quality-gate",
+      "text": "(9>=(((3==1)+(3 == 4))?15:((3== 2)?10:0)))",
+      "context": {
+        "quality": 3,
+        "hard": 9
+      },
+      "compiledHex": "070100",
+      "constant": 1
+    },
+    {
+      "kind": "quality-gate",
+      "text": "(10>=(((3==1)+(3 == 4))?15:((3== 2)?10:0)))",
+      "context": {
+        "quality": 3,
+        "hard": 10
+      },
+      "compiledHex": "070100",
+      "constant": 1
+    },
+    {
+      "kind": "quality-gate",
+      "text": "(14>=(((3==1)+(3 == 4))?15:((3== 2)?10:0)))",
+      "context": {
+        "quality": 3,
+        "hard": 14
+      },
+      "compiledHex": "070100",
+      "constant": 1
+    },
+    {
+      "kind": "quality-gate",
+      "text": "(15>=(((3==1)+(3 == 4))?15:((3== 2)?10:0)))",
+      "context": {
+        "quality": 3,
+        "hard": 15
+      },
+      "compiledHex": "070100",
+      "constant": 1
+    },
+    {
+      "kind": "quality-gate",
+      "text": "(20>=(((3==1)+(3 == 4))?15:((3== 2)?10:0)))",
+      "context": {
+        "quality": 3,
+        "hard": 20
+      },
+      "compiledHex": "070100",
+      "constant": 1
+    },
+    {
+      "kind": "health-term",
+      "text": "((100-50)/((3==1+3==4)?20:((3==2)?10:5)))",
+      "context": {
+        "quality": 3,
+        "health": 50
+      },
+      "compiledHex": "070a00",
+      "constant": 10
+    },
+    {
+      "kind": "health-term",
+      "text": "((100-95)/((3==1+3==4)?20:((3==2)?10:5)))",
+      "context": {
+        "quality": 3,
+        "health": 95
+      },
+      "compiledHex": "070100",
+      "constant": 1
+    },
+    {
+      "kind": "quality-gate",
+      "text": "(0>=(((4==1)+(4 == 4))?15:((4== 2)?10:0)))",
+      "context": {
+        "quality": 4,
+        "hard": 0
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "quality-gate",
+      "text": "(9>=(((4==1)+(4 == 4))?15:((4== 2)?10:0)))",
+      "context": {
+        "quality": 4,
+        "hard": 9
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "quality-gate",
+      "text": "(10>=(((4==1)+(4 == 4))?15:((4== 2)?10:0)))",
+      "context": {
+        "quality": 4,
+        "hard": 10
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "quality-gate",
+      "text": "(14>=(((4==1)+(4 == 4))?15:((4== 2)?10:0)))",
+      "context": {
+        "quality": 4,
+        "hard": 14
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "quality-gate",
+      "text": "(15>=(((4==1)+(4 == 4))?15:((4== 2)?10:0)))",
+      "context": {
+        "quality": 4,
+        "hard": 15
+      },
+      "compiledHex": "070100",
+      "constant": 1
+    },
+    {
+      "kind": "quality-gate",
+      "text": "(20>=(((4==1)+(4 == 4))?15:((4== 2)?10:0)))",
+      "context": {
+        "quality": 4,
+        "hard": 20
+      },
+      "compiledHex": "070100",
+      "constant": 1
+    },
+    {
+      "kind": "health-term",
+      "text": "((100-50)/((4==1+4==4)?20:((4==2)?10:5)))",
+      "context": {
+        "quality": 4,
+        "health": 50
+      },
+      "compiledHex": "070a00",
+      "constant": 10
+    },
+    {
+      "kind": "health-term",
+      "text": "((100-95)/((4==1+4==4)?20:((4==2)?10:5)))",
+      "context": {
+        "quality": 4,
+        "health": 95
+      },
+      "compiledHex": "070100",
+      "constant": 1
+    },
+    {
+      "kind": "chance-health-gate",
+      "text": "(1*1*(39<40))?(50+10):0",
+      "context": {
+        "threshold": 40,
+        "health": 39
+      },
+      "compiledHex": "073c00",
+      "constant": 60
+    },
+    {
+      "kind": "chance-health-gate",
+      "text": "(1*1*(40<40))?(50+10):0",
+      "context": {
+        "threshold": 40,
+        "health": 40
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "chance-health-gate",
+      "text": "(1*1*(41<40))?(50+10):0",
+      "context": {
+        "threshold": 40,
+        "health": 41
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "chance-health-gate",
+      "text": "(1*1*(44<45))?(50+10):0",
+      "context": {
+        "threshold": 45,
+        "health": 44
+      },
+      "compiledHex": "073c00",
+      "constant": 60
+    },
+    {
+      "kind": "chance-health-gate",
+      "text": "(1*1*(45<45))?(50+10):0",
+      "context": {
+        "threshold": 45,
+        "health": 45
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "chance-health-gate",
+      "text": "(1*1*(46<45))?(50+10):0",
+      "context": {
+        "threshold": 45,
+        "health": 46
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "chance-health-gate",
+      "text": "(1*1*(49<50))?(50+10):0",
+      "context": {
+        "threshold": 50,
+        "health": 49
+      },
+      "compiledHex": "073c00",
+      "constant": 60
+    },
+    {
+      "kind": "chance-health-gate",
+      "text": "(1*1*(50<50))?(50+10):0",
+      "context": {
+        "threshold": 50,
+        "health": 50
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "chance-health-gate",
+      "text": "(1*1*(51<50))?(50+10):0",
+      "context": {
+        "threshold": 50,
+        "health": 51
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "chance-health-gate",
+      "text": "(1*1*(59<60))?(50+10):0",
+      "context": {
+        "threshold": 60,
+        "health": 59
+      },
+      "compiledHex": "073c00",
+      "constant": 60
+    },
+    {
+      "kind": "chance-health-gate",
+      "text": "(1*1*(60<60))?(50+10):0",
+      "context": {
+        "threshold": 60,
+        "health": 60
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "chance-health-gate",
+      "text": "(1*1*(61<60))?(50+10):0",
+      "context": {
+        "threshold": 60,
+        "health": 61
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "chance-health-gate",
+      "text": "(1*1*(64<65))?(50+10):0",
+      "context": {
+        "threshold": 65,
+        "health": 64
+      },
+      "compiledHex": "073c00",
+      "constant": 60
+    },
+    {
+      "kind": "chance-health-gate",
+      "text": "(1*1*(65<65))?(50+10):0",
+      "context": {
+        "threshold": 65,
+        "health": 65
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "chance-health-gate",
+      "text": "(1*1*(66<65))?(50+10):0",
+      "context": {
+        "threshold": 65,
+        "health": 66
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "chance-health-gate",
+      "text": "(1*1*(74<75))?(50+10):0",
+      "context": {
+        "threshold": 75,
+        "health": 74
+      },
+      "compiledHex": "073c00",
+      "constant": 60
+    },
+    {
+      "kind": "chance-health-gate",
+      "text": "(1*1*(75<75))?(50+10):0",
+      "context": {
+        "threshold": 75,
+        "health": 75
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "chance-health-gate",
+      "text": "(1*1*(76<75))?(50+10):0",
+      "context": {
+        "threshold": 75,
+        "health": 76
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "chance-health-gate",
+      "text": "(1*1*(79<80))?(50+10):0",
+      "context": {
+        "threshold": 80,
+        "health": 79
+      },
+      "compiledHex": "073c00",
+      "constant": 60
+    },
+    {
+      "kind": "chance-health-gate",
+      "text": "(1*1*(80<80))?(50+10):0",
+      "context": {
+        "threshold": 80,
+        "health": 80
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "chance-health-gate",
+      "text": "(1*1*(81<80))?(50+10):0",
+      "context": {
+        "threshold": 80,
+        "health": 81
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "chance-health-gate",
+      "text": "(1*1*(84<85))?(50+10):0",
+      "context": {
+        "threshold": 85,
+        "health": 84
+      },
+      "compiledHex": "073c00",
+      "constant": 60
+    },
+    {
+      "kind": "chance-health-gate",
+      "text": "(1*1*(85<85))?(50+10):0",
+      "context": {
+        "threshold": 85,
+        "health": 85
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "chance-health-gate",
+      "text": "(1*1*(86<85))?(50+10):0",
+      "context": {
+        "threshold": 85,
+        "health": 86
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "chance-health-gate",
+      "text": "(1*1*(98<99))?(50+10):0",
+      "context": {
+        "threshold": 99,
+        "health": 98
+      },
+      "compiledHex": "073c00",
+      "constant": 60
+    },
+    {
+      "kind": "chance-health-gate",
+      "text": "(1*1*(99<99))?(50+10):0",
+      "context": {
+        "threshold": 99,
+        "health": 99
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "chance-health-gate",
+      "text": "(1*1*(100<99))?(50+10):0",
+      "context": {
+        "threshold": 99,
+        "health": 100
+      },
+      "compiledHex": "070000",
+      "constant": 0
+    },
+    {
+      "kind": "bound-life",
+      "text": "\"((11999>12000)?(min(11999,12000+(600*(1-1)))):11999)\"",
+      "context": {
+        "cap": 12000,
+        "players": 1,
+        "maximum": 11999
+      },
+      "compiledHex": "08df2e08e02e0b08df2e08e02e0858020701070111121001000208df2e1700",
+      "constant": null
+    },
+    {
+      "kind": "bound-life",
+      "text": "\"((14000>12000)?(min(14000,12000+(600*(1-1)))):14000)\"",
+      "context": {
+        "cap": 12000,
+        "players": 1,
+        "maximum": 14000
+      },
+      "compiledHex": "08b03608e02e0b08b03608e02e0858020701070111121001000208b0361700",
+      "constant": null
+    },
+    {
+      "kind": "bound-life",
+      "text": "\"((11999>12000)?(min(11999,12000+(600*(2-1)))):11999)\"",
+      "context": {
+        "cap": 12000,
+        "players": 2,
+        "maximum": 11999
+      },
+      "compiledHex": "08df2e08e02e0b08df2e08e02e0858020702070111121001000208df2e1700",
+      "constant": null
+    },
+    {
+      "kind": "bound-life",
+      "text": "\"((14000>12000)?(min(14000,12000+(600*(2-1)))):14000)\"",
+      "context": {
+        "cap": 12000,
+        "players": 2,
+        "maximum": 14000
+      },
+      "compiledHex": "08b03608e02e0b08b03608e02e0858020702070111121001000208b0361700",
+      "constant": null
+    },
+    {
+      "kind": "bound-life",
+      "text": "\"((13199>13200)?(min(13199,13200+(660*(1-1)))):13199)\"",
+      "context": {
+        "cap": 13200,
+        "players": 1,
+        "maximum": 13199
+      },
+      "compiledHex": "088f330890330b088f3308903308940207010701111210010002088f331700",
+      "constant": null
+    },
+    {
+      "kind": "bound-life",
+      "text": "\"((15200>13200)?(min(15200,13200+(660*(1-1)))):15200)\"",
+      "context": {
+        "cap": 13200,
+        "players": 1,
+        "maximum": 15200
+      },
+      "compiledHex": "08603b0890330b08603b0890330894020701070111121001000208603b1700",
+      "constant": null
+    },
+    {
+      "kind": "bound-life",
+      "text": "\"((13199>13200)?(min(13199,13200+(660*(2-1)))):13199)\"",
+      "context": {
+        "cap": 13200,
+        "players": 2,
+        "maximum": 13199
+      },
+      "compiledHex": "088f330890330b088f3308903308940207020701111210010002088f331700",
+      "constant": null
+    },
+    {
+      "kind": "bound-life",
+      "text": "\"((15200>13200)?(min(15200,13200+(660*(2-1)))):15200)\"",
+      "context": {
+        "cap": 13200,
+        "players": 2,
+        "maximum": 15200
+      },
+      "compiledHex": "08603b0890330b08603b0890330894020702070111121001000208603b1700",
+      "constant": null
+    },
+    {
+      "kind": "bound-life",
+      "text": "\"((13599>13600)?(min(13599,13600+(680*(1-1)))):13599)\"",
+      "context": {
+        "cap": 13600,
+        "players": 1,
+        "maximum": 13599
+      },
+      "compiledHex": "081f350820350b081f3508203508a80207010701111210010002081f351700",
+      "constant": null
+    },
+    {
+      "kind": "bound-life",
+      "text": "\"((15600>13600)?(min(15600,13600+(680*(1-1)))):15600)\"",
+      "context": {
+        "cap": 13600,
+        "players": 1,
+        "maximum": 15600
+      },
+      "compiledHex": "08f03c0820350b08f03c08203508a8020701070111121001000208f03c1700",
+      "constant": null
+    },
+    {
+      "kind": "bound-life",
+      "text": "\"((13599>13600)?(min(13599,13600+(680*(2-1)))):13599)\"",
+      "context": {
+        "cap": 13600,
+        "players": 2,
+        "maximum": 13599
+      },
+      "compiledHex": "081f350820350b081f3508203508a80207020701111210010002081f351700",
+      "constant": null
+    },
+    {
+      "kind": "bound-life",
+      "text": "\"((15600>13600)?(min(15600,13600+(680*(2-1)))):15600)\"",
+      "context": {
+        "cap": 13600,
+        "players": 2,
+        "maximum": 15600
+      },
+      "compiledHex": "08f03c0820350b08f03c08203508a8020702070111121001000208f03c1700",
+      "constant": null
+    },
+    {
+      "kind": "bound-life",
+      "text": "\"((19999>20000)?(min(19999,20000+(1000*(1-1)))):19999)\"",
+      "context": {
+        "cap": 20000,
+        "players": 1,
+        "maximum": 19999
+      },
+      "compiledHex": "081f4e08204e0b081f4e08204e08e80307010701111210010002081f4e1700",
+      "constant": null
+    },
+    {
+      "kind": "bound-life",
+      "text": "\"((22000>20000)?(min(22000,20000+(1000*(1-1)))):22000)\"",
+      "context": {
+        "cap": 20000,
+        "players": 1,
+        "maximum": 22000
+      },
+      "compiledHex": "08f05508204e0b08f05508204e08e8030701070111121001000208f0551700",
+      "constant": null
+    },
+    {
+      "kind": "bound-life",
+      "text": "\"((19999>20000)?(min(19999,20000+(1000*(2-1)))):19999)\"",
+      "context": {
+        "cap": 20000,
+        "players": 2,
+        "maximum": 19999
+      },
+      "compiledHex": "081f4e08204e0b081f4e08204e08e80307020701111210010002081f4e1700",
+      "constant": null
+    },
+    {
+      "kind": "bound-life",
+      "text": "\"((22000>20000)?(min(22000,20000+(1000*(2-1)))):22000)\"",
+      "context": {
+        "cap": 20000,
+        "players": 2,
+        "maximum": 22000
+      },
+      "compiledHex": "08f05508204e0b08f05508204e08e8030702070111121001000208f0551700",
+      "constant": null
+    }
+  ],
+  "limits": [
+    "Uses the unchanged retained modern compiler previously checked against owned skill passive bytes;constant-folded numeric analogues do not establish live monpet callback/variable semantics.",
+    "The installed client now identifies3.4.95032 rather than pinned3.3.93847. Extraction was stopped before reading CASC data;no new data is relabeled as93847.",
+    "No repaired equality,quality gate,progress counter,health projection,success roll or bound-life writer is installed. Exact runtime/owned-bytecode evidence or an explicit full adaptation is still required."
+  ],
+  "inputs": {
+    "tools/reference/modern-passive-compiler-evidence.json": "7b53f46b32775ca401231f8efc318f96d81f9db16693e7a19455c770bd6d7830",
+    ".local/class-skills/modern-passive-compiler/compile": "12da13fe6767401bd35461c81cea41559a4ebb1636cbdfea7716c6aff32b5d4b",
+    ".local/class-skills/modern-passive-compiler/seeds.tsv": "42d36593da03779170bf488b86ec7efb8093c54db150922c3b31299111f8322c",
+    "tools/reference/d2r-consume/monpet.json": "ccf844447b4b4b4f189a3dfae68ffbab64fd38a45f633cefbf118956a0403bc6",
+    "tools/probe_bind_demon_formulas.py": "345e0898d14502f6f4e9d972da8cd010cdb57e400b0375c989d84565f8c65379",
+    ".local/class-skills/bind-demon-formulas/expressions.tsv": "34585972f6c5508f85d867ec53130abeecf6fc29ac47eb886501e6e624a94d1f",
+    ".local/class-skills/bind-demon-formulas/compiled.tsv": "4ea6b141974910bb373c36b04dbdea658d370627d88aefc9a674d04836cbcb16",
+    ".local/class-skills/bind-demon-formulas/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

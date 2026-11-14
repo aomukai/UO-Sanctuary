@@ -1,0 +1,18 @@
+{
+  "observedUtc": "2026-11-14T23:28:32.135061+00:00",
+  "mechanicalReferenceRemains": "3.3.93847",
+  "installedVersions": [
+    "3.4.95032"
+  ],
+  "installationPath": "/home/aomukai/Games/battlenet/pfx/drive_c/Program Files (x86)/Diablo II Resurrected",
+  "executableSha256": "a04cfaeee9890ed0215c8ab68b6b9c0f8d5cfdef3bc81119b8ccdc3bb4d2f30d",
+  "buildInfoSha256": "0e2763be339e0167355203675c458d539bc128f677a66c4188bfbea9f37846a4",
+  "pinnedInstallationEvidence": "tools/reference/d2r-local-installation-evidence.json",
+  "pinnedInstallationEvidenceSha256": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c",
+  "matchesPinnedExecutable": false,
+  "matchesPinnedManifest": false,
+  "cascExtractionPerformed": false,
+  "processMemoryRead": false,
+  "gameFilesWritten": false,
+  "action": "Stopped before CASC extraction;retain3.3.93847 source and saved evidence. Do not silently repin to3.4.95032."
+}

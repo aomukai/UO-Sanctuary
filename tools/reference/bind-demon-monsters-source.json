@@ -1,0 +1,26 @@
+{
+  "referenceVersion": "3.3.93847",
+  "source": "tools/reference/d2r-consume/sources.json",
+  "primaryGitBlob": "3ceda4619056670e5be2344ecab826e80eb9cbe7",
+  "corroboratingGitBlob": "141c0734c780878edf4bb4edfe4aef4a3330f3ad",
+  "rows": 171,
+  "monsterClassRows": 149,
+  "namedEncounterRows": 22,
+  "checkedFields": 3248,
+  "differences": [],
+  "unbalancedFields": [],
+  "indexPolicy": "Preserve monster-class versus named-encounter namespace;do not treat a named encounter index as a monstats class ID.",
+  "limits": [
+    "Raw current source data,not a recovered runtime bind gate/chance/underling/HP writer or UO species mapping.",
+    "Delimiter balance is recorded independently from parser/runtime support. Repeated equality in calc4 remains verbatim;quality/sctk/hpct/pcl/stat producer semantics remain unverified.",
+    "The full Consume bonus fields are retained for future bound actors. Existing three-species Consume runtime dispatch remains unchanged."
+  ],
+  "inputs": {
+    "data/Sanctuary/skill-reference.json": "e673ec6bd02ecf8bdd6d6dacc29790d6a5183d3628961df78906808504edc795",
+    "tools/reference/d2r-consume/sources.json": "73fd025b40f5ffcaf21d27f96222428ac378fec8cc43344357e685d92e0f94e8",
+    "tools/reference/d2r-consume/monpet.json": "ccf844447b4b4b4f189a3dfae68ffbab64fd38a45f633cefbf118956a0403bc6",
+    "tools/reference/d2r-consume/monpet.txt.gz": "cb2450d0cf91ce8dc77a6bd2bff687571325812a94e3f01f1d558cfc2d28a075",
+    "tools/reference/d2r-named-equipment/json/monstats.json": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "tools/build_bind_demon_monsters.py": "dd9006b84946ed67f0958ebac6b2bccb7ee7d62a1800231f653a2a7fe438d2a1"
+  }
+}

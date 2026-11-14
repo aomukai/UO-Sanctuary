@@ -1,5 +1,7 @@
 # Skill effects
 
+**Bind Demon capture boundary — 2026-11-15 JST.** Imported monster data/stat snapshots emit no effect. Final binddemonchannelmaker/channel tether,warlock_shadow_cast_2 channel/success feedback,Warlock_Skill_Bind_Demon_03 and chain audio remain missing,plus bound-state feedback as its world rule is qualified. No VFX placeholder or final artwork is added by this component. Effects/audio stay separate from icons and do not gate numeric implementation. [Checkpoint](bind-demon-suppliers-checkpoint.md).
+
 **Prepared Consume effects — 2026-11-15 JST.** Runtime retirement/buff uses identified shared owner effect0x375A and sound0x1E5. Final warlockconsume overlay,warlock_shadow_cast_2 sacrifice/cast feedback and Warlock_Skill_Consume_03 audio remain missing. Slot/state/stat/save mechanics and town menu are implemented in the prepared candidate;learned gating concerns unverified protected mechanics,not artwork. VFX/audio remain separate from tree/hotkey icons;no imagegen. [Checkpoint](consume-world-checkpoint.md).
 
 **Consume source/capture boundary — 2026-11-15 JST.** Capture-only code emits no effect. Final warlockconsume owner overlay,warlock_shadow_cast_2 cast/sacrifice feedback and Warlock_Skill_Consume_03 audio remain missing. Runtime consumption/buff/pool integration is not yet present;assets stay nonblocking and separate from skill icons. No artwork/imagegen. [Checkpoint](consume-suppliers-checkpoint.md).

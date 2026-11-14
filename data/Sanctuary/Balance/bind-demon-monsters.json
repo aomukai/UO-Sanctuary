@@ -1,0 +1,6329 @@
+[
+  {
+    "monster": "Baal Subject 1",
+    "sourceIndex": 61,
+    "indexScope": "NamedEncounter",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=20)?1:0",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "(100-hpct)/37",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<50))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "maxfireresist",
+      "passive_fire_pierce",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+20",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "sksrc ('Consume'.lvl)+15",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "Baal Subject 4",
+    "sourceIndex": 64,
+    "indexScope": "NamedEncounter",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=20)?1:0",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "(100-hpct)/45",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<45))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "maxfireresist",
+      "passive_fire_pierce",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+20",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "sksrc ('Consume'.lvl)+15",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "Baal Subject 5",
+    "sourceIndex": 65,
+    "indexScope": "NamedEncounter",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=20)?1:0",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "(100-hpct)/50",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<40))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "damageresist",
+      "damagepercent",
+      "item_aura",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "Meditation",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "(diff==3)?25:((diff==2)?20:((diff==1)?15:0))",
+      "(diff==3)?(sksrc('Consume'.lvl)*5+150):((diff==2)?(sksrc('Consume'.lvl)*3+125):((diff==1)?(sksrc('Consume'.lvl)+100):0))",
+      "(diff==3)?15:((diff==2)?13:((diff==1)?11:0))",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "Bishibosh",
+    "sourceIndex": 0,
+    "indexScope": "NamedEncounter",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=20)?1:0",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "(100-hpct)/25",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<65))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "maxfireresist",
+      "passive_fire_pierce",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+20",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "sksrc ('Consume'.lvl)+7",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "Bremm Sparkfist",
+    "sourceIndex": 28,
+    "indexScope": "NamedEncounter",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=20)?1:0",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "(100-hpct)/37",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<50))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "lightresist",
+      "maxlightresist",
+      "passive_ltng_pierce",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+20",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "sksrc ('Consume'.lvl)+10",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "Coldcrow",
+    "sourceIndex": 2,
+    "indexScope": "NamedEncounter",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=20)?1:0",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "(100-hpct)/25",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<65))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "maxcoldresist",
+      "passive_mag_pierce",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+20",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "sksrc ('Consume'.lvl)+7",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "Dac Farren",
+    "sourceIndex": 48,
+    "indexScope": "NamedEncounter",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=20)?1:0",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "(100-hpct)/25",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<75))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "maxfireresist",
+      "passive_fire_pierce",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+20",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "sksrc ('Consume'.lvl)+10",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "Geleb Flamefinger",
+    "sourceIndex": 27,
+    "indexScope": "NamedEncounter",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=20)?1:0",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "(100-hpct)/37",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<50))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "maxfireresist",
+      "passive_fire_pierce",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+20",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "sksrc ('Consume'.lvl)+7",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "Infector of Souls",
+    "sourceIndex": 36,
+    "indexScope": "NamedEncounter",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=20)?1:0",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "(100-hpct)/45",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<50))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "maxfireresist",
+      "passive_fire_pierce",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+20",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "sksrc ('Consume'.lvl)+12",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "Ismail Vilehand",
+    "sourceIndex": 26,
+    "indexScope": "NamedEncounter",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=20)?1:0",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "(100-hpct)/37",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<50))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "poisonresist",
+      "maxpoisonresist",
+      "item_allskills",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+20",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "diff",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "Maffer Dragonhand",
+    "sourceIndex": 31,
+    "indexScope": "NamedEncounter",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=20)?1:0",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "(100-hpct)/37",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<50))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "maxfireresist",
+      "passive_fire_pierce",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+20",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "sksrc ('Consume'.lvl)+12",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "Pitspawn Fouldog",
+    "sourceIndex": 7,
+    "indexScope": "NamedEncounter",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=20)?1:0",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "(100-hpct)/25",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<65))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "lightresist",
+      "maxlightresist",
+      "passive_fire_pierce",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+20",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "sksrc ('Consume'.lvl)+10",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "Rakanishu",
+    "sourceIndex": 3,
+    "indexScope": "NamedEncounter",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=20)?1:0",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "(100-hpct)/25",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<65))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "lightresist",
+      "maxlightresist",
+      "item_allskills",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+20",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "diff",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "Sarina the Battlemaid",
+    "sourceIndex": 24,
+    "indexScope": "NamedEncounter",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=20)?1:0",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "(100-hpct)/25",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<65))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "maxcoldresist",
+      "passive_mag_pierce",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+20",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "sksrc ('Consume'.lvl)+10",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "Sharp Tooth Sayer",
+    "sourceIndex": 56,
+    "indexScope": "NamedEncounter",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=20)?1:0",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "(100-hpct)/25",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<60))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "maxcoldresist",
+      "passive_mag_pierce",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+20",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "sksrc ('Consume'.lvl)+12",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "Siege Boss",
+    "sourceIndex": 42,
+    "indexScope": "NamedEncounter",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=20)?1:0",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "(100-hpct)/33",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<60))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "maxcoldresist",
+      "passive_mag_pierce",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+20",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "sksrc ('Consume'.lvl)+7",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "The Feature Creep",
+    "sourceIndex": 41,
+    "indexScope": "NamedEncounter",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=20)?1:0",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "(100-hpct)/50",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<40))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "damageresist",
+      "item_allskills",
+      "item_aura",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "Holy Fire",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "(diff==3)?20:((diff==2)?15:((diff==1)?10:0))",
+      "diff+1",
+      "(diff==3)?25:((diff==2)?20:((diff==1)?17:0))",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "The Smith",
+    "sourceIndex": 20,
+    "indexScope": "NamedEncounter",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=20)?1:0",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "(100-hpct)/33",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<45))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "damageresist",
+      "damagepercent",
+      "item_aura",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "Holy Fire",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "(diff==3)?20:((diff==2)?15:((diff==1)?10:0))",
+      "(diff==3)?(sksrc('Consume'.lvl)*5+50):((diff==2)?(sksrc('Consume'.lvl)*3+50):((diff==1)?(sksrc('Consume'.lvl)+50):0))",
+      "(diff==3)?21:((diff==2)?18:((diff==1)?15:0))",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "Toorc Icefist",
+    "sourceIndex": 29,
+    "indexScope": "NamedEncounter",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=20)?1:0",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "(100-hpct)/37",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<50))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "maxcoldresist",
+      "passive_cold_pierce",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+20",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "sksrc ('Consume'.lvl)+10",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "Winged Death",
+    "sourceIndex": 32,
+    "indexScope": "NamedEncounter",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=20)?1:0",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "(100-hpct)/25",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<60))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "maxfireresist",
+      "passive_fire_pierce",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+20",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "sksrc ('Consume'.lvl)+7",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "Witch Doctor Endugu",
+    "sourceIndex": 22,
+    "indexScope": "NamedEncounter",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=20)?1:0",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "(100-hpct)/25",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<65))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "maxfireresist",
+      "passive_fire_pierce",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+20",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "sksrc ('Consume'.lvl)+15",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "Wyand Voidfinger",
+    "sourceIndex": 30,
+    "indexScope": "NamedEncounter",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=20)?1:0",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "(100-hpct)/37",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<50))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "magicresist",
+      "maxmagicresist",
+      "passive_mag_pierce",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "(sksrc('Consume'.lvl)*diff)/2+10",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "sksrc('Consume'.lvl)+10",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "baalminion1",
+    "sourceIndex": 571,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<50))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "damagepercent",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "(diff==3)?(sksrc('Consume'.lvl)*5+100):((diff==2)?(sksrc('Consume'.lvl)*3+100):((diff==1)?(sksrc('Consume'.lvl)+100):0))",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "baalminion2",
+    "sourceIndex": 572,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<50))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "damagepercent",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "(diff==3)?(sksrc('Consume'.lvl)*5+100):((diff==2)?(sksrc('Consume'.lvl)*3+100):((diff==1)?(sksrc('Consume'.lvl)+100):0))",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "baalminion3",
+    "sourceIndex": 573,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<50))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "damagepercent",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "(diff==3)?(sksrc('Consume'.lvl)*5+100):((diff==2)?(sksrc('Consume'.lvl)*3+100):((diff==1)?(sksrc('Consume'.lvl)+100):0))",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "bighead1",
+    "sourceIndex": 10,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "lightresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "bighead2",
+    "sourceIndex": 11,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "lightresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "bighead3",
+    "sourceIndex": 12,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "lightresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "bighead4",
+    "sourceIndex": 13,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "lightresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "bighead5",
+    "sourceIndex": 14,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "lightresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "bighead6",
+    "sourceIndex": 580,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "lightresist",
+      "maxlightresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "blunderbore1",
+    "sourceIndex": 186,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<80))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13600)?(min(pcl5,13600+(680*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "blunderbore2",
+    "sourceIndex": 187,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<80))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13600)?(min(pcl5,13600+(680*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "blunderbore3",
+    "sourceIndex": 188,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<80))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13600)?(min(pcl5,13600+(680*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "lightresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "blunderbore4",
+    "sourceIndex": 189,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<80))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13600)?(min(pcl5,13600+(680*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "damagepercent",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "(diff==3)?(sksrc('Consume'.lvl)*5+25):((diff==2)?(sksrc('Consume'.lvl)*3+25):((diff==1)?(sksrc('Consume'.lvl)+25):0))",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "blunderbore5",
+    "sourceIndex": 618,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<80))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13600)?(min(pcl5,13600+(680*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "damageresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "diff*5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "blunderbore6",
+    "sourceIndex": 619,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<80))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13600)?(min(pcl5,13600+(680*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "damageresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "diff*5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "corruptrogue1",
+    "sourceIndex": 43,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "corruptrogue2",
+    "sourceIndex": 44,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "corruptrogue3",
+    "sourceIndex": 45,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "corruptrogue4",
+    "sourceIndex": 46,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "corruptrogue5",
+    "sourceIndex": 47,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "corruptrogue6",
+    "sourceIndex": 721,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "maxcoldresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+10",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "councilmember1",
+    "sourceIndex": 345,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<75))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "councilmember2",
+    "sourceIndex": 346,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<75))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "lightresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "councilmember3",
+    "sourceIndex": 347,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<75))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "lightresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "cr_archer1",
+    "sourceIndex": 160,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "lightresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "cr_archer2",
+    "sourceIndex": 161,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "cr_archer3",
+    "sourceIndex": 162,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "lightresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "cr_archer4",
+    "sourceIndex": 163,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "lightresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "cr_archer5",
+    "sourceIndex": 164,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "cr_archer6",
+    "sourceIndex": 613,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "maxfireresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "cr_archer7",
+    "sourceIndex": 614,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "maxcoldresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "cr_archer8",
+    "sourceIndex": 722,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "maxcoldresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+10",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "cr_lancer1",
+    "sourceIndex": 165,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "lightresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "cr_lancer2",
+    "sourceIndex": 166,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "cr_lancer3",
+    "sourceIndex": 167,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "lightresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "cr_lancer5",
+    "sourceIndex": 169,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "cr_lancer6",
+    "sourceIndex": 615,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "lightresist",
+      "maxlightresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "cr_lancer7",
+    "sourceIndex": 616,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "lightresist",
+      "maxlightresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "cr_lancer8",
+    "sourceIndex": 617,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "lightresist",
+      "maxlightresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "cr_lancer9",
+    "sourceIndex": 723,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "lightresist",
+      "maxlightresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+10",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fallen1",
+    "sourceIndex": 19,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fallen2",
+    "sourceIndex": 20,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fallen3",
+    "sourceIndex": 21,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fallen4",
+    "sourceIndex": 22,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fallen5",
+    "sourceIndex": 23,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<65))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "",
+      "",
+      "item_allskills",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "",
+      "",
+      "diff",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fallen6",
+    "sourceIndex": 642,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "",
+      "",
+      "item_allskills",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "",
+      "",
+      "diff",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fallen7",
+    "sourceIndex": 643,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "",
+      "",
+      "item_allskills",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "",
+      "",
+      "diff",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fallen8",
+    "sourceIndex": 644,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "",
+      "",
+      "item_allskills",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "",
+      "",
+      "diff",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fallenshaman1",
+    "sourceIndex": 58,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 5,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fallenshaman2",
+    "sourceIndex": 59,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 5,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fallenshaman3",
+    "sourceIndex": 60,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 5,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fallenshaman4",
+    "sourceIndex": 61,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 5,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fallenshaman5",
+    "sourceIndex": 62,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 5,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fallenshaman6",
+    "sourceIndex": 645,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 5,
+    "consumeStats": [
+      "coldresist",
+      "maxcoldresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+10",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fallenshaman7",
+    "sourceIndex": 646,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 5,
+    "consumeStats": [
+      "coldresist",
+      "maxcoldresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+10",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fallenshaman8",
+    "sourceIndex": 647,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 5,
+    "consumeStats": [
+      "coldresist",
+      "maxcoldresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+10",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fetish1",
+    "sourceIndex": 141,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fetish2",
+    "sourceIndex": 142,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "lightresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fetish3",
+    "sourceIndex": 143,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fetish4",
+    "sourceIndex": 144,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "lightresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fetish6",
+    "sourceIndex": 656,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "maxfireresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+10",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fetish8",
+    "sourceIndex": 658,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "maxfireresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+10",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fetishblow2",
+    "sourceIndex": 397,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "lightresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fetishblow3",
+    "sourceIndex": 398,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fetishblow4",
+    "sourceIndex": 399,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "poisonresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fetishblow6",
+    "sourceIndex": 659,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "maxfireresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+10",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fetishblow7",
+    "sourceIndex": 660,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "maxfireresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+10",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fetishblow8",
+    "sourceIndex": 661,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "maxfireresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+10",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fetishshaman2",
+    "sourceIndex": 279,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 7,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fetishshaman3",
+    "sourceIndex": 280,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 7,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fetishshaman4",
+    "sourceIndex": 281,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 7,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fetishshaman6",
+    "sourceIndex": 662,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 7,
+    "consumeStats": [
+      "fireresist",
+      "maxfireresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+10",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "fetishshaman8",
+    "sourceIndex": 664,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 7,
+    "consumeStats": [
+      "fireresist",
+      "maxfireresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+10",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "goatman1",
+    "sourceIndex": 53,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "goatman10",
+    "sourceIndex": 589,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "maxcoldresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "goatman2",
+    "sourceIndex": 54,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "lightresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "goatman3",
+    "sourceIndex": 55,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "goatman4",
+    "sourceIndex": 56,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "goatman5",
+    "sourceIndex": 57,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "goatman7",
+    "sourceIndex": 586,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "maxcoldresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "goatman8",
+    "sourceIndex": 587,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "maxcoldresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "goatman9",
+    "sourceIndex": 588,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "maxfireresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "imp1",
+    "sourceIndex": 492,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "imp2",
+    "sourceIndex": 493,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "imp3",
+    "sourceIndex": 494,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "imp4",
+    "sourceIndex": 495,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "imp5",
+    "sourceIndex": 496,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "imp6",
+    "sourceIndex": 688,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "maxfireresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+10",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "imp7",
+    "sourceIndex": 689,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "maxfireresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+10",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "imp8",
+    "sourceIndex": 714,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "maxfireresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+10",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "megademon1",
+    "sourceIndex": 360,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<75))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "megademon2",
+    "sourceIndex": 361,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<75))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "megademon3",
+    "sourceIndex": 362,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<75))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "megademon4",
+    "sourceIndex": 686,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<75))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "maxfireresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+10",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "megademon5",
+    "sourceIndex": 687,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<75))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "maxfireresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+10",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "megademon6",
+    "sourceIndex": 712,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<45))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "",
+      "",
+      "item_aura",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "Salvation",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "",
+      "",
+      "15",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "minion10",
+    "sourceIndex": 683,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<80))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13600)?(min(pcl5,13600+(680*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "maxfireresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+10",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "minion11",
+    "sourceIndex": 684,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<80))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13600)?(min(pcl5,13600+(680*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "maxcoldresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+10",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "minion5",
+    "sourceIndex": 457,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "minion7",
+    "sourceIndex": 459,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "overseer1",
+    "sourceIndex": 479,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "overseer2",
+    "sourceIndex": 480,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "overseer3",
+    "sourceIndex": 481,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "overseer4",
+    "sourceIndex": 482,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "overseer5",
+    "sourceIndex": 483,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "overseer6",
+    "sourceIndex": 724,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<80))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13600)?(min(pcl5,13600+(680*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "maxcoldresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+10",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "painworm1",
+    "sourceIndex": 551,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "painworm2",
+    "sourceIndex": 552,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "lightresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "painworm3",
+    "sourceIndex": 553,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "painworm4",
+    "sourceIndex": 554,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "poisonresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "painworm5",
+    "sourceIndex": 555,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "putriddefiler1",
+    "sourceIndex": 546,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "poisonresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "putriddefiler2",
+    "sourceIndex": 547,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "poisonresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "putriddefiler3",
+    "sourceIndex": 548,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "poisonresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "putriddefiler4",
+    "sourceIndex": 549,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "poisonresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "putriddefiler5",
+    "sourceIndex": 550,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "poisonresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "regurgitator1",
+    "sourceIndex": 307,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<80))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13600)?(min(pcl5,13600+(680*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "poisonresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "regurgitator2",
+    "sourceIndex": 308,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<80))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13600)?(min(pcl5,13600+(680*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "poisonresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "regurgitator3",
+    "sourceIndex": 309,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<80))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13600)?(min(pcl5,13600+(680*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "poisonresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "regurgitator4",
+    "sourceIndex": 694,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<80))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13600)?(min(pcl5,13600+(680*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "poisonresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+10",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "succubus1",
+    "sourceIndex": 469,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "succubus2",
+    "sourceIndex": 470,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "poisonresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "succubus3",
+    "sourceIndex": 471,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "lightresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "succubus4",
+    "sourceIndex": 472,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "damageresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "diff*5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "succubus5",
+    "sourceIndex": 473,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "poisonresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "succubus6",
+    "sourceIndex": 634,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "",
+      "",
+      "item_allskills",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "",
+      "",
+      "diff",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "succubus7",
+    "sourceIndex": 635,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "",
+      "",
+      "item_allskills",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "",
+      "",
+      "diff",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "succubus8",
+    "sourceIndex": 719,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "",
+      "",
+      "item_allskills",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "",
+      "",
+      "diff",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "succubuswitch1",
+    "sourceIndex": 474,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "succubuswitch2",
+    "sourceIndex": 475,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "succubuswitch3",
+    "sourceIndex": 476,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "damageresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "diff*5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "succubuswitch4",
+    "sourceIndex": 477,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "succubuswitch5",
+    "sourceIndex": 478,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "succubuswitch6",
+    "sourceIndex": 636,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "maxcoldresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+10",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "succubuswitch7",
+    "sourceIndex": 637,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "maxcoldresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+10",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "succubuswitch8",
+    "sourceIndex": 638,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "maxcoldresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+10",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "succubuswitch9",
+    "sourceIndex": 720,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "maxcoldresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+10",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "venomlord",
+    "sourceIndex": 558,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<75))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>20000)?(min(pcl5,20000+(1000*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "poisonresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "vilechild1",
+    "sourceIndex": 301,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "vilechild2",
+    "sourceIndex": 302,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "vilechild3",
+    "sourceIndex": 303,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "vilechild4",
+    "sourceIndex": 677,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "maxcoldresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+10",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "vilechild5",
+    "sourceIndex": 678,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<99))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>12000)?(min(pcl5,12000+(600*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "coldresist",
+      "maxcoldresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+10",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "vilemother1",
+    "sourceIndex": 298,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<80))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13600)?(min(pcl5,13600+(680*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 5,
+    "consumeStats": [
+      "coldresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "vilemother2",
+    "sourceIndex": 299,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<80))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13600)?(min(pcl5,13600+(680*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 5,
+    "consumeStats": [
+      "coldresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "vilemother3",
+    "sourceIndex": 300,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<80))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13600)?(min(pcl5,13600+(680*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 5,
+    "consumeStats": [
+      "coldresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "vilemother4",
+    "sourceIndex": 675,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<80))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13600)?(min(pcl5,13600+(680*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 5,
+    "consumeStats": [
+      "coldresist",
+      "maxcoldresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+10",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "vilemother5",
+    "sourceIndex": 676,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<80))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13600)?(min(pcl5,13600+(680*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 5,
+    "consumeStats": [
+      "coldresist",
+      "maxcoldresist",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc ('Consume'.lvl)*diff+10",
+      "\"min(sksrc('Consume'.lvl)/2+2,10)\"",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "monster": "vulture3",
+    "sourceIndex": 112,
+    "indexScope": "MonsterClass",
+    "calcs": [
+      "((sksrc('Bind Demon'.sctk)%12)==0)",
+      "(sksrc('Bind Demon'.blvl)>=(((elte==1)+(elte == 4))?15:((elte== 2)?10:0)))",
+      "sksrc('Bind Demon'.dm34)+(sksrc('Death Mark'.blvl))",
+      "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "stat('maxhp'.accr)/256"
+    ],
+    "bindChance": "(pcl1*pcl2*(hpct<85))?(pcl3+pcl4):0",
+    "boundStat": "maxhp",
+    "boundFormula": "\"((pcl5>13200)?(min(pcl5,13200+(660*(stat('monster_playercount'.accr)-1)))):pcl5)\"",
+    "underlingCount": 0,
+    "consumeStats": [
+      "fireresist",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeParameters": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "consumeFormulas": [
+      "sksrc('Consume'.lvl)*diff+5",
+      "",
+      "",
+      "",
+      ""
+    ]
+  }
+]

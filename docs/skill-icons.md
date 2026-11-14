@@ -1,5 +1,7 @@
 # Skill icons
 
+**Bind Demon supplier boundary — 2026-11-15 JST.** Talent-tree and right/quick-hotkey icon remain missing. No left binding:the pinned row is right-only. Imported catalogues/frozen snapshots add no learned binding or final icon. Future generic artwork must remain identified as a placeholder;channel/success/bound VFX and audio are tracked separately. [Checkpoint](bind-demon-suppliers-checkpoint.md).
+
 **Prepared Consume icon boundary — 2026-11-15 JST.** Talent-tree and right/quick-hotkey artwork remain missing. Roster selection uses text and standard button placeholders;it supplies no final skill icon. No left binding:the pinned skill is right-only. Prepared action/stat/pool/save completion does not certify learned input. VFX/audio stay separate in skill-effects.md. [Checkpoint](consume-world-checkpoint.md).
 
 **Consume icon boundary — 2026-11-15 JST.** Missing talent-tree and right/quick-hotkey icon. Pinned source is right-only(left0/right1);do not plan a left binding for learned verification. Numerical capture adds no binding or final artwork;any later generic icon must be identified as a placeholder. VFX/audio tracked separately. [Checkpoint](consume-suppliers-checkpoint.md).
