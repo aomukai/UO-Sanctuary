@@ -39,7 +39,6 @@ public static class GenericPetRatingRoutingChecks
             string actual=JsonSerializer.Serialize(new object[]{Row(result),trace});Require(actual==entry[2].GetRawText(),"Captured current routing differs at "+count+":"+actual[..Math.Min(actual.Length,250)]);count++;
         }
         Require(count==14088,"Current rating routing matrix incomplete: "+count);
-        Require(!WarlockCombat.Implemented(CombatAbility.SummonGoatman)&&!WarlockCombat.Implemented(CombatAbility.SummonTainted)&&!WarlockCombat.Implemented(CombatAbility.SummonDefiler),"Prepared routing enabled incomplete demons");
         Log.Information("GenericPet rating routing:14088captured-current contexts;exact target prepass,priority,retries,temporary copies and wrapped bonuses pass;per-target scoring remains a mandatory unimplemented service;calls={Calls}",calls);
     }
 }

@@ -47,7 +47,6 @@ public static class GenericPetCombatChecks
             Require(actual==row[1].GetRawText(),"Current x64 combat orchestration differs at context"+count+":"+actual[..Math.Min(actual.Length,160)]);count++;
         }
         Require(count==8079&&fatal==3,"Current combat source controls incomplete");
-        Require(!WarlockCombat.Implemented(CombatAbility.SummonGoatman)&&!WarlockCombat.Implemented(CombatAbility.SummonTainted)&&!WarlockCombat.Implemented(CombatAbility.SummonDefiler),"Detached combat enabled incomplete summons");
         Log.Information("GenericPet combat:8079captured-current orchestration comparisons,3fatal-selector boundaries;real targeting/movement/rating/skill helpers remain gated");
     }
 }

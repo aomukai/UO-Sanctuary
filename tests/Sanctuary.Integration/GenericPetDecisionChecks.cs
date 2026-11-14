@@ -48,7 +48,6 @@ public static class GenericPetDecisionChecks
         Require(roots==12816&&follows==46936,"Current decision source matrix incomplete");
         Require(new GenericPetDecisionUnit(1,false,99,99).Coordinates()==(0,0)&&new GenericPetDecisionUnit(1,true,-1,65536).Coordinates()==(65535,0),"Dynamic coordinate fields must preserve unsigned16 representation");
         Require(new GenericPetDecisionUnit(2,true,-1,int.MinValue).Coordinates()==(-1,int.MinValue),"Static coordinate fields must preserve signed32 representation");
-        Require(!WarlockCombat.Implemented(CombatAbility.SummonGoatman)&&!WarlockCombat.Implemented(CombatAbility.SummonTainted)&&!WarlockCombat.Implemented(CombatAbility.SummonDefiler),"Detached decisions enabled incomplete summons");
         Log.Information("GenericPet decisions:12816captured-current root/46936follow comparisons;ordered services only,movement/combat/owner callbacks remain gated");
     }
 }

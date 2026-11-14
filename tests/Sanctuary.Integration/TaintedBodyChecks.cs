@@ -40,7 +40,8 @@ public static class TaintedBodyChecks
         Require(body.SourceRegeneration256 == (birth.BaseLife256 * 3 >> 12) && body.SkillWeaponDamage == (0, 0)
             && body.CombatProfile.MinDamage == 0 && body.CombatProfile.MaxDamage == 0 && !body.UsesNativeSummonTimer && !body.CanRegenHits
             && !body.CanRegenMana && !body.BleedImmune && body.PoisonImmune == null, "Native AI/offense/immunities/recovery leaked into Tainted");
-        try { body.BeginMelee(body.ControlMaster); throw new InvalidOperationException("Unfinished GenericPet combat silently used native AI"); } catch (NotSupportedException) { }
+        int life=SkillHealth.Balance256(body.ControlMaster);
+        Require(body.BeginMelee(body.ControlMaster)==TimeSpan.FromSeconds(1)&&SkillHealth.Balance256(body.ControlMaster)==life,"Native melee bypassed Tainted source controller");
     }
     private static Saved Scene(bool female)
     {
@@ -51,7 +52,7 @@ public static class TaintedBodyChecks
             body = WarlockTaintedBody.CreatePrepared(p, new(p.X + 1, p.Y, p.Z), at); Numeric(body);
             Require(body.ControlMaster == p && body.Permitted(p) && body.Summoned && body.ControlSlots == 0 && !body.Blessed
                 && body.Prepared.Snapshot == capture && NecromancerEffects.ManaBalance256(p) == mana
-                && !ClassCombat.Available(p, CombatAbility.SummonTainted), "Tainted creation/ownership/capture accidentally paid or enabled a learned cast");
+                && ClassCombat.Available(p, CombatAbility.SummonTainted), "Tainted creation/ownership/capture paid early or lost learned availability");
             SkillHealth.SetBalance256(body, body.MaximumLife256 - 257); body.AdvanceRecovery(at.AddMilliseconds(39), true);
             Require(SkillHealth.Balance256(body) == body.MaximumLife256 - 257, "Tainted recovered early"); body.AdvanceRecovery(at.AddMilliseconds(40), true);
             Require(SkillHealth.Balance256(body) == body.MaximumLife256 - 257 + body.SourceRegeneration256, "Shared explicit source-frame recovery");
@@ -125,7 +126,7 @@ public static class TaintedBodyChecks
             var p = World.FindMobile((Serial)saved.Owner) as PlayerMobile; var body = World.FindMobile((Serial)saved.Body) as WarlockTaintedBody; var helm = World.FindItem((Serial)saved.Helm);
             Require(p != null && body != null && body.ControlMaster == p && p.Female == saved.Female && helm?.Parent == p && body.SavedText == saved.State
                 && SkillHealth.Balance256(body) == saved.Life && body.MaximumLife256 == saved.Maximum && NecromancerEffects.ManaBalance256(p) == saved.Mana
-                && BattleCommand.PetOrder(body) == saved.Order && !ClassCombat.Available(p, CombatAbility.SummonTainted), "Original Tainted/owner/gear/wounds/resources/order/gate changed across reload");
+                && BattleCommand.PetOrder(body) == saved.Order && ClassCombat.Available(p, CombatAbility.SummonTainted), "Original Tainted/owner/gear/wounds/resources/order/gate changed across reload");
             Numeric(body); int before = SkillHealth.Balance256(body); body.AdvanceRecovery(TimedEffects.Now, false);
             Require(SkillHealth.Balance256(body) == before, "Retained future recovery deadline healed on reload");
         }

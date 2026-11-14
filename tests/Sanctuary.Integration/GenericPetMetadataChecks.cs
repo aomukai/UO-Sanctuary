@@ -69,7 +69,6 @@ public static class GenericPetMetadataChecks
             Require(actual==entry[3].GetRawText(),"Owned search/source composition differs:"+selector+"/"+id);count++;
         }
         Require(count==1287,"Incomplete owned metadata compositions:"+count);
-        Require(!WarlockCombat.Implemented(CombatAbility.SummonGoatman)&&!WarlockCombat.Implemented(CombatAbility.SummonTainted)&&!WarlockCombat.Implemented(CombatAbility.SummonDefiler),"Metadata enabled incomplete demons");
         Log.Information("GenericPet metadata:429skills/232states;1287buff+1287search current-code compositions,explicit selector/missing-row guards and Map362identity pass;world selector/search/actor remain gated");
     }
 }

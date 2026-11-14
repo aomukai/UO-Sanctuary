@@ -12,11 +12,13 @@ namespace Sanctuary;
 public static class WarlockGoatmanWorld
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(WarlockGoatmanWorld));
-    private static readonly HashSet<WarlockGoatmanBody> Bodies=new();
-    private static readonly Dictionary<WarlockGoatmanBody,GoatmanNativeHostCandidate> Hosts=new();
-    internal static void Track(WarlockGoatmanBody body){if(body?.Prepared?.Controller!=null){Bodies.Add(body);}}
-    internal static void Forget(WarlockGoatmanBody body){Bodies.Remove(body);Hosts.Remove(body);}
+    private static readonly HashSet<SkeletonGuardian> Bodies=new();
+    private static readonly Dictionary<SkeletonGuardian,GoatmanNativeHostCandidate> Hosts=new();
+    internal static void Track(SkeletonGuardian body){if(body!=null&&DemonNativeState.Controller(body)!=null){Bodies.Add(body);}}
+    internal static void Forget(SkeletonGuardian body){Bodies.Remove(body);if(Hosts.Remove(body,out var host)){host.Dispose();}}
     internal static WarlockGoatmanBody[] For(PlayerMobile owner)=>(owner.AllFollowers??[]).OfType<WarlockGoatmanBody>()
+        .Where(b=>b is{Alive:true,Deleted:false}&&b.ControlMaster==owner&&b.Prepared?.LearnedCast==true).ToArray();
+    internal static WarlockTaintedBody[] ForTainted(PlayerMobile owner)=>(owner.AllFollowers??[]).OfType<WarlockTaintedBody>()
         .Where(b=>b is{Alive:true,Deleted:false}&&b.ControlMaster==owner&&b.Prepared?.LearnedCast==true).ToArray();
     // The source pettype=demon pool is shared by these three species. Bind
     // Demon has a distinct pettype and does not enter this replacement pool.
@@ -31,39 +33,42 @@ public static class WarlockGoatmanWorld
         foreach(var b in bodies.Take(Math.Max(0,bodies.Length-limit))){DeathMarkWorld.Remove(b);b.Delete();}
     }
     internal static WarlockGoatmanBody Create(PlayerMobile owner,Point3D point,DateTime at)
+        =>(WarlockGoatmanBody)Create(owner,point,at,CombatAbility.SummonGoatman);
+    internal static SkeletonGuardian Create(PlayerMobile owner,Point3D point,DateTime at,CombatAbility ability)
     {
-        var body=GoatmanNativeHostCandidate.Create(owner,point,at);
+        SkeletonGuardian body=ability switch
+        {CombatAbility.SummonGoatman=>GoatmanNativeHostCandidate.Create(owner,point,at),CombatAbility.SummonTainted=>GoatmanNativeHostCandidate.CreateTainted(owner,point,at),_=>throw new NotSupportedException("No ground demon birth factory")};
         try
         {
             NpcEquipmentRandom.Set(body,SourceRandom.InitLow(NpcEquipmentRandom.SeedLow()));_=NpcEquipmentRandom.Require(body);
-            var host=new GoatmanNativeHostCandidate(body,at);body.RestorePrepared(body.Prepared with{Controller=host.Capture()});
+            var host=new GoatmanNativeHostCandidate(body,at);DemonNativeState.Controller(body,host.Capture());
             Hosts.Add(body,host);return body;
         }
         catch{Forget(body);DeathMarkWorld.Remove(body);body.Delete();throw;}
     }
-    internal static void Admit(WarlockGoatmanBody body)
-    {body.RestorePrepared(body.Prepared with{LearnedCast=true});Track(body);}
-    internal static void Suspend(WarlockGoatmanBody body)
+    internal static void Admit(SkeletonGuardian body)
+    {DemonNativeState.Admit(body);Track(body);}
+    internal static void Suspend(SkeletonGuardian body)
     {if(Hosts.TryGetValue(body,out var host)){host.Park();Store(body,host);}}
-    internal static void Interrupt(WarlockGoatmanBody body)
+    internal static void Interrupt(SkeletonGuardian body)
     {if(Hosts.TryGetValue(body,out var host)){host.Interrupt();Store(body,host);}}
-    private static void Store(WarlockGoatmanBody body,GoatmanNativeHostCandidate host)
-    {if(body is{Deleted:false}&&body.Prepared!=null){body.RestorePrepared(body.Prepared with{Controller=host.Capture()});}}
+    private static void Store(SkeletonGuardian body,GoatmanNativeHostCandidate host)
+    {if(body is{Deleted:false}){DemonNativeState.Controller(body,host.Capture());}}
     public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),()=>Tick(TimedEffects.Now));
-    private static void Fault(WarlockGoatmanBody body,Exception e)
+    private static void Fault(SkeletonGuardian body,Exception e)
     {
-        if(Hosts.Remove(body,out var host)){host.Park();}
-        if(body is{Deleted:false}&&body.Prepared?.Controller is{} clock)
-        {body.RestorePrepared(body.Prepared with{Controller=clock with{Fault=e.Message}});}
-        Log.Error(e,"Goatman native controller refused unsupported context for {Serial}",body.Serial);
+        if(Hosts.Remove(body,out var host)){host.Dispose();}
+        if(body is{Deleted:false}&&DemonNativeState.Controller(body)is{} clock)
+        {DemonNativeState.Controller(body,clock with{Fault=e.Message});}
+        Log.Error(e,"Ground demon native controller refused unsupported context for {Serial}",body.Serial);
     }
     internal static void Tick(DateTime at)
     {
-        var active=new List<WarlockGoatmanBody>();var owners=new HashSet<PlayerMobile>();
+        var active=new List<SkeletonGuardian>();var owners=new HashSet<PlayerMobile>();
         foreach(var body in Bodies.ToArray())
         {
             if(body is not{Alive:true,Deleted:false}){Forget(body);DeathMarkWorld.Remove(body);continue;}
-            if(body.Prepared.Controller is not{Fault:null} saved){continue;}
+            if(DemonNativeState.Controller(body)is not{Fault:null} saved){continue;}
             try
             {
                 bool loaded=!Hosts.TryGetValue(body,out var host);
@@ -81,10 +86,10 @@ public static class WarlockGoatmanWorld
         }
         // Deliver overdue active actors in frame/serial order;one demon must
         // not finish several attacks before another receives an earlier frame.
-        var stalled=new HashSet<WarlockGoatmanBody>();
+        var stalled=new HashSet<SkeletonGuardian>();
         while(true)
         {
-            var due=active.Where(b=>!b.Deleted&&!stalled.Contains(b)&&b.Prepared.Controller is{Fault:null}&&Hosts.ContainsKey(b)
+            var due=active.Where(b=>!b.Deleted&&!stalled.Contains(b)&&DemonNativeState.Controller(b)is{Fault:null}&&Hosts.ContainsKey(b)
                 &&Hosts[b].Capture().Clock.NextUtc<=at).OrderBy(b=>Hosts[b].Capture().Clock.NextUtc).ThenBy(b=>b.Serial.Value).FirstOrDefault();
             if(due==null){break;}var host=Hosts[due];var before=host.Capture().Clock.NextUtc;
             try{host.Advance(before);Store(due,host);if(!due.Deleted&&host.Capture().Clock.NextUtc==before){stalled.Add(due);}}

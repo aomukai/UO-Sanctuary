@@ -73,7 +73,6 @@ public static class GenericPetTargetScoringChecks
             Require(actual==entry[3].GetRawText(),"Captured current target score differs at "+count+" "+kind+":"+actual[..Math.Min(actual.Length,340)]);count++;
         }
         Require(count==25115&&calls==24111&&compositions==4176&&fatal==321&&unsupported==6,"Current target-scoring matrix incomplete: "+count+"/"+calls+"/"+fatal+"/"+unsupported);
-        Require(!WarlockCombat.Implemented(CombatAbility.SummonGoatman)&&!WarlockCombat.Implemented(CombatAbility.SummonTainted)&&!WarlockCombat.Implemented(CombatAbility.SummonDefiler),"Prepared scoring enabled incomplete demons");
         Log.Information("GenericPet target scoring:25115captured-current contexts,4176full routing/scorer compositions,24111scorer entries,321fatal and6unsupported-metadata boundaries;exact descriptors,metadata order and shared pet RNG pass;real world adapters remain gated");
     }
 }

@@ -75,7 +75,7 @@ public static class TaintedGroundMovementChecks
             Require(SkillHealth.Balance256(body)==life&&NpcEquipmentRandom.State(body)==seed&&body.Prepared.Snapshot==birth,"Warp recovered or recaptured the pet");
             var flying=new WarlockDefilerBody();refused=false;try{_=DemonGroundMovement.Size(flying);}catch(NotSupportedException){refused=true;}finally{flying.Delete();}
             Require(refused,"Flying Defiler silently entered ground movement");
-            Require(!WarlockCombat.Implemented(CombatAbility.SummonTainted),"Movement component incorrectly enabled unfinished Tainted summon");
+            Require(WarlockCombat.Implemented(CombatAbility.SummonTainted),"Learned Tainted route missing after shared host integration");
             if(keep)
             {
                 PersistentMinions.Suspend(owner);body.RestorePrepared(body.Prepared with{NextRecoveryUtc=at.AddDays(2)});

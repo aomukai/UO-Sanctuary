@@ -52,7 +52,6 @@ public static class GenericPetGatherChecks
             Require(actual==wanted,"Captured current gather differs at "+count+" "+kind+":"+actual[..Math.Min(actual.Length,240)]);count++;kinds[kind]=kinds.GetValueOrDefault(kind)+1;
         }
         Require(count==23348&&fatal==1476&&kinds["composed"]==4896&&kinds["mask"]==18452,"Current gather matrix incomplete");
-        Require(!WarlockCombat.Implemented(CombatAbility.SummonGoatman)&&!WarlockCombat.Implemented(CombatAbility.SummonTainted)&&!WarlockCombat.Implemented(CombatAbility.SummonDefiler),"Prepared gather enabled incomplete demons");
         Log.Information("GenericPet gather:23348captured-current cases,4896three-helper compositions,1476fatal boundaries;exact descriptors,state108,service order and search masks pass;real metadata and actor AI remain gated");
     }
 }

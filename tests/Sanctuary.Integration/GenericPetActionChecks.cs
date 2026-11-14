@@ -61,7 +61,6 @@ public static class GenericPetActionChecks
         }
         Require(count==18070&&fatal==108,"Current action source matrix incomplete: "+count+"/"+fatal);
         Require(kinds["disposition"]==5446&&kinds["act"]==10512&&kinds["weighted"]==1056&&kinds["composed"]==1056,"Current action component scope differs");
-        Require(!WarlockCombat.Implemented(CombatAbility.SummonGoatman)&&!WarlockCombat.Implemented(CombatAbility.SummonTainted)&&!WarlockCombat.Implemented(CombatAbility.SummonDefiler),"Prepared actions enabled incomplete demons");
         Log.Information("GenericPet actions:18070captured-current disposition/action/weighted/composed cases,108fatal-selector boundaries;exact memory,raw mode payloads,weights and pet RNG pass;real world/mode/skill services remain gated");
     }
 }

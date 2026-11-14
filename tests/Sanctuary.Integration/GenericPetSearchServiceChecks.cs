@@ -143,7 +143,6 @@ public static class GenericPetSearchServiceChecks
             Require(actual==entry[1].GetRawText(),"Search helper pipeline differs:"+pipeline+":"+actual[..Math.Min(actual.Length,1600)]);pipeline++;
         }
         Require(count==9392&&fatal==848&&pipeline==216&&pipelineFatal==0,"Incomplete source helper matrix:"+count+"/"+fatal+"/"+pipeline+"/"+pipelineFatal);
-        Require(!WarlockCombat.Implemented(CombatAbility.SummonGoatman)&&!WarlockCombat.Implemented(CombatAbility.SummonTainted)&&!WarlockCombat.Implemented(CombatAbility.SummonDefiler),"Search helpers enabled incomplete demons");
         Log.Information("GenericPet search services:9392current helper contexts,848explicit source boundaries and216full search compositions;actual room,owned tables,state bitmasks,priority,corpse,ancestry,collision cache and special scans pass;world/nested predicates/actor remain gated");
     }
 }

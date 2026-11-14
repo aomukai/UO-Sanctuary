@@ -51,7 +51,6 @@ public static class GenericPetSearchGroupChecks
             count++;
         }
         Require(count==819&&fatal==15&&linked>0,"Incomplete search-state source matrix:"+count+"/"+fatal+"/"+linked);
-        Require(!WarlockCombat.Implemented(CombatAbility.SummonGoatman)&&!WarlockCombat.Implemented(CombatAbility.SummonTainted)&&!WarlockCombat.Implemented(CombatAbility.SummonDefiler),"Preparation enabled incomplete demons");
         Log.Information("GenericPet search groups:{Count}captured-current contexts,{Fatal}fatal boundaries;A2,state expansion,prior clearing,live candidate slots and metadata order pass;post-cleanup callback/world actor remain gated",count,fatal);
     }
 }

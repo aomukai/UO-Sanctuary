@@ -113,8 +113,9 @@ internal static class DeathMarkWorld
     // Explicit candidate host reactivation:the native roster has already
     // restored a legal body position. Build replacement graphs before publish;
     // retain its original header,commands,control words and combat/birth state.
-    internal static void RebindPrepared(WarlockGoatmanBody body,GenericPetBirthPath next)
+    internal static void RebindPrepared(SkeletonGuardian body,GenericPetBirthPath next)
     {
+        _=DemonGroundMovement.Size(body);
         var actor=ControlledActor(body);_=actor.Header?.Capture()??throw new NotSupportedException("Reactivation needs the original normal header");
         GenericPetNativePlacement.RequireActor(body,next.Unit,next.Path);
         if(next.Selector!=actor.Selector||next.Mode!=1||next.NextAiUtc.Kind!=DateTimeKind.Utc)

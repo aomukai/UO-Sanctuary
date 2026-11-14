@@ -14,23 +14,23 @@ internal sealed record GoatmanHostSnapshot(SourceFramePosition Clock)
 }
 internal sealed record GoatmanHostSource(int ClassId,byte Flags241);
 
-// Executable native-host candidate,not registered as a timer or learned cast.
-// Its explicit world/path/clock choices require review;source AI,search,
+// Shared original ground-demon host. The Goatman caller is already admitted;
+// other species retain their explicit qualification. Source AI,search,
 // movement,follow,warp,animation and damage kernels are reused throughout.
-internal sealed class GoatmanNativeHostCandidate
+internal sealed class GoatmanNativeHostCandidate:IDisposable
 {
     private static readonly Lazy<GoatmanHostSource> Source=new(()=>BalanceCatalog.Read<GoatmanHostSource>("goatman-host-source").Single());
-    private readonly WarlockGoatmanBody Body;
+    private readonly SkeletonGuardian Body;
     private readonly PlayerMobile Owner;
     private readonly GenericPetTimedEvents Events=new();
     private GenericPetFramePump Pump;
     private GoatmanNativeMotion Motion;
-    private readonly GoatmanNativeCombat Combat;
+    private readonly DemonNativeCombat Combat;
     private bool Suspended,Blocked;
     private DateTime At;
     internal int Decisions,Contacts,Frames;
     internal GoatmanNativeMotion Movement=>Motion;
-    internal GoatmanNativeCombat Attacks=>Combat;
+    internal DemonNativeCombat Attacks=>Combat;
     internal bool NeedsObservation
     {
         get
@@ -41,28 +41,36 @@ internal sealed class GoatmanNativeHostCandidate
                 ||Combat.Current is{} action&&DeathMarkWorld.State(Body).Mode!=action.Mode;
         }
     }
-    internal GoatmanHostSnapshot Capture()=>new(Pump.Position);
+    internal GoatmanHostSnapshot Capture()=>new(Pump.Position){Profile=DemonNativeState.Profile(Body)};
+    private int SourceClass=>WarlockDemonPlacement.ClassId(Body);
+    private GoatmanHostSource Species=>Body is WarlockGoatmanBody?Source.Value:new(DemonGroundMovement.Tainted.ClassId,DemonGroundMovement.Tainted.Flags241);
+    public void Dispose(){Combat.Dispose();Motion.Stop();ClearEvents();}
     internal void Interrupt(){Combat.Cancel();Motion.Stop();ClearEvents();Idle(1);}
     internal void Park(){Combat.Cancel();Motion.Stop();ClearEvents();Suspended=true;}
     internal static GenericPetBirthPath BirthPath(SkeletonGuardian body)
     {
-        if(body is not WarlockGoatmanBody||body.Map==null||body.Map==Map.Internal){throw new NotSupportedException("Candidate birth path is Goatman ground only");}
+        if(body.Map==null||body.Map==Map.Internal){throw new NotSupportedException("Native birth path requires ground world space");}
+        int size=DemonGroundMovement.Size(body),cls=WarlockDemonPlacement.ClassId(body);
         var path=new GenericPetCommitPath{X=((uint)(body.X*2)<<16)|32768,Y=((uint)(body.Y*2)<<16)|32768,Flags=1,
-            Room=GenericPetNativePlacement.RoomHandle(body.Map,body.X*2,body.Y*2),Size5c=2,Mask60=0x100,Mask64=0x3401,Actor=new(checked((int)body.Serial.Value),1)};
-        return new(new(new(742,0),true,1,742,2,2,0),path,1,1,TimedEffects.Now);
+            Room=GenericPetNativePlacement.RoomHandle(body.Map,body.X*2,body.Y*2),Size5c=size,Mask60=0x100,Mask64=0x3401,Actor=new(checked((int)body.Serial.Value),1)};
+        return new(new(new(cls,0),true,1,cls,size,size,0),path,1,1,TimedEffects.Now);
     }
     internal static WarlockGoatmanBody Create(PlayerMobile owner,Point3D point,DateTime at)
         =>WarlockGoatmanBody.CreatePrepared(owner,point,at,new(1,BirthPath));
-    internal GoatmanNativeHostCandidate(WarlockGoatmanBody body,DateTime at,GoatmanHostSnapshot saved=null)
+    internal static WarlockTaintedBody CreateTainted(PlayerMobile owner,Point3D point,DateTime at)
+        =>WarlockTaintedBody.CreatePrepared(owner,point,at,new(1,BirthPath));
+    internal GoatmanNativeHostCandidate(SkeletonGuardian body,DateTime at,GoatmanHostSnapshot saved=null)
     {
         if(at.Kind!=DateTimeKind.Utc||body is not{Alive:true,Deleted:false,ControlMaster:PlayerMobile owner}||DeathMarkWorld.State(body)is not{Selector:1})
         {throw new NotSupportedException("Candidate host requires its original registered living Goatman");}
-        Body=body;Owner=owner;Combat=new(body,owner);At=at;
+        Body=body;Owner=owner;At=at;_=DemonGroundMovement.Size(body);
+        if(saved!=null&&saved.Profile!=DemonNativeState.Profile(body)){throw new NotSupportedException("Saved ground host species differs");}
         var position=saved?.Clock??new SourceFramePosition(0,at.AddTicks(SourceFrameTimeline.IntervalTicks));SourceFrameTimeline.Validate(position);
         Pump=new(Events,position);Suspended=saved!=null||body.Map==Map.Internal;
-        if(Source.Value.ClassId!=742){throw new NotSupportedException("Missing captured Goatman movement metadata");}
-        Motion=new(body,owner,Events,()=>Pump.Position.Frame,()=>At,EventClock,Idle,Source.Value.Flags241);
-        if(!Suspended){Idle(1);}
+        if(Species.ClassId!=SourceClass){throw new NotSupportedException("Missing captured ground demon movement metadata");}
+        Motion=new(body,owner,Events,()=>Pump.Position.Frame,()=>At,EventClock,Idle,Species.Flags241);
+        Combat=new(body,owner);
+        try{if(!Suspended){Idle(1);}}catch{Combat.Dispose();throw;}
     }
     private GenericPetEventClock EventClock()=>GenericPetNativeControlStates.Scheduling(Body,
         new(Pump.Position.Frame,DeathMarkWorld.State(Body)?.Mode??1,1,GenericPetMetadata.Table.StateCount,true,-1,0,4));
@@ -85,7 +93,7 @@ internal sealed class GoatmanNativeHostCandidate
         if(!Active())
         {
             Combat.Cancel();Motion.Stop();ClearEvents();Pump=new(Events,SourceFrameTimeline.Skip(Pump.Position,observed));
-            Body.RestorePrepared(Body.Prepared with{NextRecoveryUtc=Pump.Position.NextUtc});PersistentMinions.Suspend(Owner);Suspended=true;return;
+            DemonNativeState.Recovery(Body,Pump.Position.NextUtc);PersistentMinions.Suspend(Owner);Suspended=true;return;
         }
         var registered=DeathMarkWorld.Path(Body);
         if(Body.Map==Owner.Map&&DeathMarkWorld.State(Body)?.Map==Body.Map.MapID&&!Suspended
@@ -98,7 +106,7 @@ internal sealed class GoatmanNativeHostCandidate
             Combat.Cancel();ClearEvents();Motion.Reset();Pump=new(Events,SourceFrameTimeline.Skip(Pump.Position,observed));
             long remaining=Math.Max(0,(DeathMarkWorld.State(Body).NextAiUtc-Pump.Position.NextUtc).Ticks);
             Idle(checked((int)Math.Min(int.MaxValue,(remaining+SourceFrameTimeline.IntervalTicks-1)/SourceFrameTimeline.IntervalTicks+1)));
-            Body.RestorePrepared(Body.Prepared with{NextRecoveryUtc=Pump.Position.NextUtc});return;
+            DemonNativeState.Recovery(Body,Pump.Position.NextUtc);return;
         }
         if(Suspended||Body.Map!=Owner.Map||DeathMarkWorld.State(Body)?.Map!=Body.Map?.MapID
             ||Body.Map!=Map.Internal&&((int)(DeathMarkWorld.Path(Body).X>>16)+1)/2!=Body.X
@@ -113,7 +121,7 @@ internal sealed class GoatmanNativeHostCandidate
                 Body.MoveToWorld(Owner.Location,Owner.Map);Body.AIObject?.AITimer.Stop();
             }
             DeathMarkWorld.RebindPrepared(Body,BirthPath(Body));Motion.Reset();
-            Body.RestorePrepared(Body.Prepared with{NextRecoveryUtc=Pump.Position.NextUtc});Suspended=false;Blocked=false;Idle(1);return;
+            DemonNativeState.Recovery(Body,Pump.Position.NextUtc);Suspended=false;Blocked=false;Idle(1);return;
         }
         Pump.Advance(observed,(node,frame,at)=>
         {
@@ -123,7 +131,7 @@ internal sealed class GoatmanNativeHostCandidate
         {
             At=at;Frames++;
             // Recovery is one admitted active frame,never an offline catch-up.
-            Body.RestorePrepared(Body.Prepared with{NextRecoveryUtc=at});Body.AdvanceRecovery(at,true);
+            DemonNativeState.Recover(Body,at);
             uint status=GenericPetNativeControlStates.Read(Body);bool blocked=Body.Frozen||Body.Paralyzed||CreatureHitRecovery.Remaining(Body)>0||(status&2)!=0;
             if(blocked||(status&0x200000)!=0){Combat.Cancel();Motion.Stop();DeathMarkWorld.ChangeMode(Body,1);}
             if(blocked){ClearEvents();Blocked=true;return;}
@@ -148,7 +156,7 @@ internal sealed class GoatmanNativeHostCandidate
     private void Think()
     {
         var header=DeathMarkWorld.Header(Body);var current=header.Capture();int actor=checked((int)Body.Serial.Value);
-        var world=new GoatmanNativeSearch(Body,Owner);var primary=GenericPetSearchTables.Bind(1).Monster(1,742);
+        var world=new GoatmanNativeSearch(Body,Owner);var primary=GenericPetSearchTables.Bind(1).Monster(1,SourceClass);
         var path=DeathMarkWorld.Path(Body);var prePath=new GenericPetAiPrePath(path.Room,(int)(path.X>>16),(int)(path.Y>>16),path.Pattern58,
             (Motion.Motion.Flags&0x20)!=0?1:0,path.Collision68);
         var pre=new GenericPetAiPreServices(()=>1,id=>
@@ -156,11 +164,11 @@ internal sealed class GoatmanNativeHostCandidate
             if(id!=actor&&Server.World.FindItem((Serial)(uint)id)is BaseDoor door)
             {return new(new(2,true,door.X*2,door.Y*2),id,1,1,4,0,GenericPetMetadata.Table.StateCount,false,0,0,null,null);}
             if(id!=actor){throw new NotSupportedException("Candidate saved-follow target preprocessing is not admitted");}
-            return GenericPetNativeControlStates.Preprocess(Body,new(world.Position(actor),742,1,DeathMarkWorld.State(Body).Mode,4,0,
+            return GenericPetNativeControlStates.Preprocess(Body,new(world.Position(actor),SourceClass,1,DeathMarkWorld.State(Body).Mode,4,0,
                 GenericPetMetadata.Table.StateCount,true,-1,0,prePath,Motion.Unit));
         },control=>ReferenceEquals(control,header.Control)?header.Memory:throw new NotSupportedException("Wrong original AI control"),
-            row=>row==743?primary.Flags60:throw new NotSupportedException("Wrong source primary row token"),
-            (selector,cls)=>selector==1&&cls==742?(GenericPetSecondaryTables.Table.Bind(1).Row(1,742).Flags4&8)!=0:null,
+            row=>row==SourceClass+1?primary.Flags60:throw new NotSupportedException("Wrong source primary row token"),
+            (selector,cls)=>selector==1&&cls==SourceClass?(GenericPetSecondaryTables.Table.Bind(1).Row(1,SourceClass).Flags4&8)!=0:null,
             (kind,id)=>new GenericPetWorldIdentity(current.Game).Resolve(current.Game,kind,id),
             (_,_)=>throw new NotSupportedException("Candidate nonempty saved-follow distance needs its source producer"),
             (_,_,_,_,_,_)=>throw new NotSupportedException("Candidate nonempty saved-follow point is not admitted"),
@@ -170,8 +178,8 @@ internal sealed class GoatmanNativeHostCandidate
             (_,id)=>Server.World.FindItem((Serial)(uint)id)is BaseDoor,
             (_,id)=>Server.World.FindItem((Serial)(uint)id)is BaseDoor{Locked:false},
             (_,id)=>((BaseDoor)Server.World.FindItem((Serial)(uint)id)).Use(Body),(_,ticks)=>Idle(ticks));
-        var entry=new GenericPetAiEntryServices(()=>new(0,0,1,0),id=>id==actor?new(1,742,true,header.Control,0,0):throw new NotSupportedException("Candidate actor identity"),
-            (selector,cls)=>selector==1&&cls==742?743:0,(selector,cls)=>selector==1&&cls==742?743:0,GenericPetAiOverrideTables.At,
+        var entry=new GenericPetAiEntryServices(()=>new(0,0,1,0),id=>id==actor?new(1,SourceClass,true,header.Control,0,0):throw new NotSupportedException("Candidate actor identity"),
+            (selector,cls)=>selector==1&&cls==SourceClass?SourceClass+1:0,(selector,cls)=>selector==1&&cls==SourceClass?SourceClass+1:0,GenericPetAiOverrideTables.At,
             tick=>GenericPetAiPreprocess.Run(actor,tick,pre),(_,state)=>GenericPetAiTables.Original(Body,state,_=>false).Type,
             (_,_)=>throw new NotSupportedException("Normal Goatman descriptor has no target-stage callback"),
             tick=>tick.Target==0?false:throw new NotSupportedException("Normal Goatman target stage changed"),
@@ -184,10 +192,10 @@ internal sealed class GoatmanNativeHostCandidate
     private void RunRoot(GoatmanNativeSearch world)
     {
         int actor=checked((int)Body.Serial.Value);var random=new GenericPetActionRandom(NpcEquipmentRandom.Require(Body).Seed);Motion.Random=random;Motion.SyncEvents();
-        var source=Source.Value;
-        if(source.ClassId!=742){throw new NotSupportedException("Missing captured Goatman movement metadata");}
+        var source=Species;
+        if(source.ClassId!=SourceClass){throw new NotSupportedException("Missing captured Goatman movement metadata");}
         var actions=new GenericPetActionServices((_,_,_)=>throw new NotSupportedException("Goatman has no type6 skill"),world.Position,
-            (x,y)=>GenericPetSearch.Squared(world.Position(actor),x,y),(_,_)=>throw new NotSupportedException("Goatman has no ranged action"),
+            (x,y)=>GenericPetSearch.Squared(world.Position(actor),x,y),(id,mask)=>world.Search.Callback.Collision27c710(actor,id,mask)!=0,
             id=>Server.World.FindMobile((Serial)(uint)id)is BaseCreature target&&ReviveMeleeGeometry.Within(Body,target,0),
             ()=>{},(_,_,_,_,_)=>throw new InvalidOperationException(),()=>{},_=>source.Flags241,(_,_)=>throw new InvalidOperationException(),
             (_,_,_,_,_,_)=>throw new InvalidOperationException(),_=>throw new InvalidOperationException(),_=>throw new InvalidOperationException(),
@@ -197,7 +205,7 @@ internal sealed class GoatmanNativeHostCandidate
             ExecuteMode=request=>{Motion.Stop();return timed.ExecuteMode(request);}};
         var leaves=new GenericPetCombatServices(()=>throw new InvalidOperationException(),_=>0,_=>0,(_,_,_)=>throw new InvalidOperationException(),(_,_)=>throw new InvalidOperationException(),
             ()=>DeathMarkWorld.Path(Body).Size5c,()=>world.Room(actor),
-            (room,x,y,property,mask)=>mask==64&&property==2?AlliedOverlap.Blocked(Body):throw new NotSupportedException("Native standing-block mask is unbound"),
+            (room,x,y,property,mask)=>mask==64&&property==DemonGroundMovement.Size(Body)?AlliedOverlap.Blocked(Body):throw new NotSupportedException("Native standing-block mask is unbound"),
             ()=>GenericPetMovement.Prepare(Motion.Unit,0,0,0),(x,y,radius,hint,flags)=>actions.Move(x,y,checked((byte)radius),hint,flags),actions.MoveFinished,_=>throw new InvalidOperationException(),
             (_,_)=>throw new InvalidOperationException(),_=>throw new InvalidOperationException(),(_,_,_)=>throw new InvalidOperationException(),(_,_)=>throw new InvalidOperationException());
         var binding=world.Bind(random,leaves,Motion.Follow(world),Motion.FollowExecution(world),actions,

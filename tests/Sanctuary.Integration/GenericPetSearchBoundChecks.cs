@@ -101,7 +101,6 @@ public static class GenericPetSearchBoundChecks
             count++;
         }
         Require(count==1484&&fatal==66,"Incomplete bound search matrix:"+count+"/"+fatal);
-        Require(!WarlockCombat.Implemented(CombatAbility.SummonGoatman)&&!WarlockCombat.Implemented(CombatAbility.SummonTainted)&&!WarlockCombat.Implemented(CombatAbility.SummonDefiler),"Search wrapper enabled incomplete demons");
         Log.Information("GenericPet bound search:1484current-code contexts,66explicit source boundaries;full wrapper/callback/prep/grid with actual refresh/registry/traversal,shared mutable path caches and live links pass;real world helpers/graph/actor remain gated");
     }
 }

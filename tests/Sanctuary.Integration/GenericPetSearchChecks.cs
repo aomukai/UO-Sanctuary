@@ -65,7 +65,6 @@ public static class GenericPetSearchChecks
         try{GenericPetSearch.InlineGroups(tooMany);}catch(NotSupportedException){rejected=true;}Require(rejected,"Heap-backed caller group storage silently retained");
         tooMany.Groups.Clear();var large=new GenericPetStateGroup(0,0);large.States.AddRange(Enumerable.Range(0,11));tooMany.Groups.Add(large);rejected=false;
         try{GenericPetSearch.InlineGroups(tooMany);}catch(NotSupportedException){rejected=true;}Require(rejected,"Heap-backed caller state storage silently retained");
-        Require(!WarlockCombat.Implemented(CombatAbility.SummonGoatman)&&!WarlockCombat.Implemented(CombatAbility.SummonTainted)&&!WarlockCombat.Implemented(CombatAbility.SummonDefiler),"Search callback enabled incomplete demon actors");
         Log.Information("GenericPet search:5824captured-current callbacks,540explicit null-AI boundaries,36owned prep-cleanup compositions;targets,counters,grid,float32,swarm,state lists and exact service traces pass;world helper bindings/caller/actor remain gated");
     }
 }

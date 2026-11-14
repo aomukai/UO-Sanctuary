@@ -86,7 +86,6 @@ public static class GenericPetSearchProducerChecks
         }
         Require(count==9058&&fatal==28&&pipeline==216&&pipelineFatal==0,"Incomplete producer matrix:"+count+"/"+fatal+"/"+pipeline+"/"+pipelineFatal);
         AssassinTrapMovementChecks.Paths();
-        Require(!WarlockCombat.Implemented(CombatAbility.SummonGoatman)&&!WarlockCombat.Implemented(CombatAbility.SummonTainted)&&!WarlockCombat.Implemented(CombatAbility.SummonDefiler),"Producers enabled incomplete demons");
         Log.Information("GenericPet search producers:9058current producer contexts,28explicit boundaries and216full search compositions;current stat lookup/clamping,missile sizes and complete grid trace match;13200retained wall-follow paths share the stepper;actual mask/world/ordering/actor remain gated");
     }
 }

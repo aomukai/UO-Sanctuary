@@ -81,7 +81,6 @@ public static class GenericPetSearchWrapperChecks
             GenericPetSearchGrid.Heapify(indices,cells);Require(indices.SequenceEqual(Ints(entry[2])),"Grid heap permutation differs:"+heapCount);heapCount++;
         }
         Require(count==2026&&fatal==432&&heapCount==2637,"Incomplete search wrapper matrix:"+count+"/"+fatal+"/"+heapCount);
-        Require(!WarlockCombat.Implemented(CombatAbility.SummonGoatman)&&!WarlockCombat.Implemented(CombatAbility.SummonTainted)&&!WarlockCombat.Implemented(CombatAbility.SummonDefiler),"Search wrapper enabled incomplete demons");
         Log.Information("GenericPet search wrapper:2026current-code contexts,432tile-owner boundaries,2637exact heap permutations;real callback/prep/cleanup/grid,owner refresh,traversal,payload and borrowed slots pass;world helpers/actor remain gated");
     }
 }

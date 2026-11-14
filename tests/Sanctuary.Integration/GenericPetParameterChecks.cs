@@ -34,7 +34,6 @@ public static class GenericPetParameterChecks
         Require(GenericPetParameters.Decode(null) is{LeashSquared:784,WarpSquared:2500,ModeAttack:16,RangedMinSquared:25,RangedMaxSquared:625}&&GenericPetParameters.Decode(new short[24]).LeashSquared==0,"Missing monster record versus zero source fields");
         try{GenericPetParameters.Decode(new short[23]);throw new InvalidOperationException("Malformed source parameter row accepted");}catch(ArgumentException){}
         try{GenericPetProfiles.Raw(CombatAbility.BindDemon);throw new InvalidOperationException("Unverified bound-demon profile guessed");}catch(NotSupportedException){}
-        Require(!WarlockCombat.Implemented(CombatAbility.SummonGoatman)&&!WarlockCombat.Implemented(CombatAbility.SummonTainted)&&!WarlockCombat.Implemented(CombatAbility.SummonDefiler),"Parameter work enabled incomplete summons");
         Log.Information("GenericPet parameters:2016captured-current initializer cases,3owned demon profiles;raw decoder only,full AI/owner callbacks remain gated");
     }
 }

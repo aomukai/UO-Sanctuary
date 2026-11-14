@@ -91,7 +91,7 @@ public static class TaintedFoundationChecks
         { try { Suppliers(rank); throw new InvalidOperationException("Invalid summon rank accepted"); } catch (NotSupportedException) { } }
         try { Values(1).Formula(SkillMechanics.For(CombatAbility.SummonTainted).Text("passivecalc2")); throw new InvalidOperationException("General formula parser repaired malformed input"); }
         catch (InvalidDataException) { }
-        Require(!WarlockCombat.Implemented(CombatAbility.SummonTainted), "Unfinished Tainted learned cast enabled");
+        Require(WarlockCombat.Implemented(CombatAbility.SummonTainted), "Learned Tainted route missing after shared host integration");
         // The original four Goatman rows still reach their own existing loader.
         Require(GoatmanNpcSkills.Source(416).SourceKey == "Goatman Stun" && GoatmanNpcSkills.Source(419).SourceKey == "Goatman Cleave", "NPC catalogue extension changed Goatman rows");
         Log.Information("Tainted:3570Fog/6120NPC fire packets/3825shared base controls,30600rank contexts;no actor,aura,learned cast or modern AI claimed");

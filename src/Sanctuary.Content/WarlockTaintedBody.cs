@@ -10,7 +10,13 @@ using Server.Mobiles;
 namespace Sanctuary;
 
 internal sealed record TaintedBodyState(uint Owner, TaintedSnapshot Snapshot, MonsterDifficulty Difficulty, DateTime NextRecoveryUtc)
-{ public string Profile { get; init; } = "prepared-tainted-life-owner-v1"; }
+{
+    public string Profile { get; init; } = "prepared-tainted-life-owner-v1";
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public GoatmanHostSnapshot Controller{get;init;}
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    public bool LearnedCast{get;init;}
+}
 
 // Saved vulnerable body and explicit NPC fire-hit backend. Native UO AI,
 // attacks, spells, regeneration and inherited skeleton immunities are disabled.
@@ -53,10 +59,11 @@ public partial class WarlockTaintedBody : SkeletonGuardian, ISourceLifeMaximum
     }
     private void ApplyAppearance()
     { var appearance = WarlockDemonAppearance.For(CombatAbility.SummonTainted); Body = appearance.Body; BaseSoundID = appearance.Sound; }
-    public override TimeSpan BeginMelee(Mobile target) => throw new NotSupportedException("Prepared Tainted has no automatic GenericPet skill/combat controller");
+    public override TimeSpan BeginMelee(Mobile target) => TimeSpan.FromSeconds(1);
     public override void OnThink() { AIObject?.AITimer.Stop(); Combatant = null; FocusMob = null; Warmode = false; }
-    public override void SuspendActions() { TaintedFireBallCasting.Cancel(this); base.SuspendActions(); }
-    public override void OnAfterDelete() { TaintedResistFire.Forget(this); TaintedFireBallCasting.Cancel(this); NpcEquipmentRandom.Forget(this); base.OnAfterDelete(); }
+    public override void SuspendActions() { TaintedFireBallCasting.Cancel(this); base.SuspendActions(); WarlockGoatmanWorld.Suspend(this); }
+    internal override void InterruptForRecovery(){base.InterruptForRecovery();TaintedFireBallCasting.Cancel(this);WarlockGoatmanWorld.Interrupt(this);}
+    public override void OnAfterDelete() { TaintedResistFire.Forget(this); WarlockGoatmanWorld.Forget(this); TaintedFireBallCasting.ReleaseClock(this); NpcEquipmentRandom.Forget(this); DeathMarkWorld.Remove(this); base.OnAfterDelete(); }
     internal static void Validate(TaintedBodyState state)
     {
         try
@@ -66,6 +73,12 @@ public partial class WarlockTaintedBody : SkeletonGuardian, ISourceLifeMaximum
                 || state.NextRecoveryUtc.Kind != DateTimeKind.Utc || state.NextRecoveryUtc > DateTime.MaxValue.AddMilliseconds(-40)
                 || state.Profile != "prepared-tainted-life-owner-v1" || TaintedPrepared.Rescale(state.Snapshot, state.Difficulty) != state.Snapshot)
             { throw new InvalidDataException("Invalid prepared Tainted life/owner state"); }
+            if(state.LearnedCast&&state.Controller==null){throw new InvalidDataException("Learned Tainted needs its native host");}
+            if(state.Controller is{} host)
+            {
+                SourceFrameTimeline.Validate(host.Clock);
+                if(host.Profile!="native-tainted-host-v1"){throw new InvalidDataException("Unknown Tainted native host profile");}
+            }
         }
         catch (Exception e) when (e is ArgumentException or NotSupportedException or OverflowException)
         { throw new InvalidDataException("Unsupported prepared Tainted snapshot", e); }
@@ -115,5 +128,5 @@ public partial class WarlockTaintedBody : SkeletonGuardian, ISourceLifeMaximum
         { RestorePrepared(Prepared with { NextRecoveryUtc = next }); }
     }
     [AfterDeserialization] private void AfterTaintedLoad()
-    { AIObject?.AITimer.Stop(); _prepared = JsonSerializer.Deserialize<TaintedBodyState>(_saved); Validate(_prepared); ApplyAppearance(); TaintedResistFire.EnsureSelected(this,TimedEffects.Now); }
+    { AIObject?.AITimer.Stop(); _prepared = JsonSerializer.Deserialize<TaintedBodyState>(_saved); Validate(_prepared); ApplyAppearance(); TaintedResistFire.EnsureSelected(this,TimedEffects.Now); if(_prepared.Controller!=null){WarlockGoatmanWorld.Track(this);} }
 }

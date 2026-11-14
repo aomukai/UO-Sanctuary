@@ -2362,7 +2362,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Text label; final icon pending"
+    "placeholder": "Learned talent/right/quick text label; final icon pending"
   },
   {
     "talentId": "warlock.bloodboil",

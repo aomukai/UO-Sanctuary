@@ -61,7 +61,6 @@ public static class GenericPetTraversalChecks
             Require(actual==entry[1].GetRawText(),"Current traversal differs:"+count+":"+actual[..Math.Min(actual.Length,1200)]);count++;
         }
         Require(count==3348&&fatal==1776,"Incomplete traversal matrix:"+count+"/"+fatal);
-        Require(!WarlockCombat.Implemented(CombatAbility.SummonGoatman)&&!WarlockCombat.Implemented(CombatAbility.SummonTainted)&&!WarlockCombat.Implemented(CombatAbility.SummonDefiler),"Traversal enabled incomplete demons");
         Log.Information("GenericPet traversal:3348current-code contexts,1776explicit source boundaries;registry,stale path/proxy caches,all dispatch paths,owner closure,64bit exits and live link order pass;real world graph/helper/lifecycle bindings remain gated");
     }
 }

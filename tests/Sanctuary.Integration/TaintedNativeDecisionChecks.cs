@@ -82,7 +82,7 @@ public static class TaintedNativeDecisionChecks
             t.MoveToWorld(new(b.X+13,b.Y,b.Z),b.Map);double range=b.GetDistanceToSqrt(t);Choose(false);
             for(int i=0;i<40&&(motion.Motion.Flags&0x20)!=0;i++){motion.Advance();}
             Require(b.Location!=point&&b.GetDistanceToSqrt(t)<range&&TaintedFireBallCasting.State(b)==null&&NecromancerEffects.ManaBalance256(p)==mana,"Source ranged approach did not move original Tainted or cast before admission");motion.Stop();
-            Require(!WarlockCombat.Implemented(CombatAbility.SummonTainted),"Source-root component incorrectly enabled unfinished learned Tainted cast");
+            Require(WarlockCombat.Implemented(CombatAbility.SummonTainted),"Learned Tainted route missing after shared host integration");
             if(retain)
             {
                 SkillHealth.SetBalance256(b,b.MaximumLife256-257);PersistentMinions.Suspend(p);b.RestorePrepared(b.Prepared with{NextRecoveryUtc=TimedEffects.Now.AddDays(2)});

@@ -86,7 +86,6 @@ public static class GenericPetSearchNestedChecks
             Require(actual==entry[1].GetRawText(),"Nested search pipeline differs:"+pipeline+":"+actual[..Math.Min(actual.Length,1800)]);pipeline++;
         }
         Require(count==10423&&fatal==408&&pipeline==216&&pipelineFatal==0,"Incomplete nested matrix:"+count+"/"+fatal+"/"+pipeline+"/"+pipelineFatal);
-        Require(!WarlockCombat.Implemented(CombatAbility.SummonGoatman)&&!WarlockCombat.Implemented(CombatAbility.SummonTainted)&&!WarlockCombat.Implemented(CombatAbility.SummonDefiler),"Nested helpers enabled incomplete demons");
         Log.Information("GenericPet nested search:10423current helper/composition contexts,408explicit boundaries and216full search compositions;actual allegiance/stat nodes,relations,secondary metadata,mask loops,signed sizes,ray/point/index geometry pass;stat/mask/terminal world producers and actor remain gated");
     }
 }

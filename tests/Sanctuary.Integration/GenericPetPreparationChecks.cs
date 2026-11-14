@@ -41,7 +41,6 @@ public static class GenericPetPreparationChecks
             Require(actual==entry[2].GetRawText(),"Captured current preparation differs at "+count+":"+actual[..Math.Min(actual.Length,250)]);count++;
         }
         Require(count==4682&&fatal==200,"Current preparation matrix incomplete: "+count+"/"+fatal);
-        Require(!WarlockCombat.Implemented(CombatAbility.SummonGoatman)&&!WarlockCombat.Implemented(CombatAbility.SummonTainted)&&!WarlockCombat.Implemented(CombatAbility.SummonDefiler),"Prepared buff targeting enabled incomplete demons");
         Log.Information("GenericPet preparation:4682captured-current contexts,200fatal boundaries;exact descriptor targets,state groups,recipient callbacks and service order pass;real world iterators/state/geometry remain gated");
     }
 }

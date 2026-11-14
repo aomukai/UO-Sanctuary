@@ -22,6 +22,13 @@ internal static class TaintedFireBallCasting
 {
     private static readonly ILogger Log = LogFactory.GetLogger(typeof(TaintedFireBallCasting));
     private static readonly Dictionary<uint, TaintedFireBallAction> Actions = new();
+    private static readonly System.Collections.Generic.HashSet<uint> FrameOwned = new();
+    internal static bool HasFrameOwner(WarlockTaintedBody body)=>body!=null&&FrameOwned.Contains(body.Serial.Value);
+    internal static void ClaimClock(WarlockTaintedBody body)
+    {
+        if(State(body)!=null||!FrameOwned.Add(body.Serial.Value)){throw new NotSupportedException("Tainted A2 already has an action/clock owner");}
+    }
+    internal static void ReleaseClock(WarlockTaintedBody body){if(body!=null){Cancel(body);FrameOwned.Remove(body.Serial.Value);}}
     private static readonly Lazy<TaintedCastClock> Clock = new(() =>
     {
         var rows = BalanceCatalog.Read<TaintedCastClock>("tainted-fireball-cast");
@@ -97,11 +104,14 @@ internal static class TaintedFireBallCasting
             return accepted;
         } };
     }
-    internal static void Tick(DateTime at, bool? allowActions = null)
+    internal static void Tick(DateTime at, bool? allowActions = null, uint? onlyActor = null)
     {
         if (at.Kind != DateTimeKind.Utc) { throw new ArgumentException("Tainted A2 clock must be UTC"); }
         foreach (var state in Actions.Values.OrderBy(s => s.Released ? s.EndUtc : s.ActionUtc).ThenBy(s => s.Actor).ToArray())
         {
+            // A frame host delivers its own actor at the admitted source time.
+            // Ordinary prepared casts retain this timer's original behavior.
+            if(onlyActor.HasValue?state.Actor!=onlyActor.Value:FrameOwned.Contains(state.Actor)){continue;}
             if ((state.Released ? state.EndUtc : state.ActionUtc) > at) { continue; }
             var body = World.FindMobile((Serial)state.Actor) as WarlockTaintedBody;
             var owner = World.FindMobile((Serial)state.Owner) as PlayerMobile;
