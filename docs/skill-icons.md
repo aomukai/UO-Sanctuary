@@ -1,5 +1,7 @@
 # Skill icons
 
+**Defiler own S1 casting — 2026-11-15 JST.** [Checkpoint](defiler-link-casting-checkpoint.md). Health Link remains an innate NPC action and adds no player talent or hotkey icon. Summon Defiler talent/right/quick artwork remains pending with the identified text-label placeholder;the learned route is not enabled by the prepared S1 action. Effects/audio remain separate.
+
 **Defiler Health Link component — 2026-11-15 JST.** [Checkpoint](defiler-health-link-checkpoint.md). Summon Defiler still needs talent-tree and right/quick-hotkey artwork; the existing skill label is the placeholder. Health Link is an innate NPC skill and creates no player hotkey or extra talent icon. Effects/audio remain separately registered; no learned Defiler route is enabled.
 
 **Learned Sigil: Death (2026-11-14 JST).** [Checkpoint](death-cast-checkpoint.md). Left/right/quick binding and actual casts now pass with the identified text placeholder. Talent and hotkey artwork remain pending;marker/recipient/explosion/audio work stays in the effects register.

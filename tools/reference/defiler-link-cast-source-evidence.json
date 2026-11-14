@@ -1,0 +1,75 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "inputs": {
+    ".local/class-skills/d2moo-source-tree.json": "5f4e5eae5648ab16176939d390482b2009f7b5e156f2f517411b56b4ffcd6915",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/DataTbls/MonsterIds.h": "189a59fbd4a8c95a7786a63b5d35955a3c03a56bf6dfa3d0db6ca9864542c86b",
+    "tools/reference/d2r-local-sentry-model-evidence.json": "3e3f8576cf58e33b9270d5769eafd85aec39d899626b2010031a9763ae3ffe2d",
+    ".local/research/d2r-3.3.93847/monstats-sentries-verified.txt": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+    ".local/research/d2r-3.3.93847/monstats2-sentries-verified.txt": "a5d0f396d7916299f0925ebfbe13fbf61f1ded6d4b0577fa861cca81bac04c92",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/defiler-flying-motion-source-evidence.json": "0f748e133bd129777ebbe2e8a466aa9460db5da8e77e1e06dc72ef095db44070",
+    "tools/probe_spirit_wolf_rate_reference.py": "7ab6430f9be9fd02f5cc5823738e168e69ecd379f7841b6860c8bc7181691b7c",
+    "data/Sanctuary/Balance/defiler-link-cast.json": "56c29c96ca7e45533b8eea420f47686a3f43c595f6abcaa89e28cab372f075b2",
+    "tools/probe_defiler_link_cast_clock.py": "5f329c66f7bbbfa1e1a5af9e3b005887fbe9c6922a311a7543e7a513dd01479f"
+  },
+  "compiledUnchangedRoutineHashes": {
+    "gaPlayerModesAnimModulators": "506250c49e302d860e7152286215c3387f80898f103f327177d38ebf4c073346",
+    "gaMonModesAnimModulators": "d2c272e5589c6fff17185713b136325fde2a313fd7ac3014e7bb6776db2b9dc8",
+    "gaMonModesAnimModulatorsExpansion": "7afde9675eabb2d75b6d5e535b137ad1ac2ba32329d251aff95c1fdf9d82e0a6",
+    "UNITS_SetAnimationSpeed": "2ff7ce6cf74188b07279504ddfbb187831ecfb6d962acdb39b73d3cc4fb655c6",
+    "UNITS_IsSeqAnimSpeedModulatedByFCR": "3fb9c48bdee9d08a73a78f23a88327e5cb1b119077f32dae49a2b8f98d628028",
+    "UNITS_CanAnimModeUseVelocityModifier": "e82b95369e08773a3daab3d21e8159559107ee66785cc26664b767c326df35d2",
+    "UNITS_CanAnimModeUseAttackRate": "64e413851a05601c0ffcb269ece0f641c18769637daea236b7b4b5d7d6f622df",
+    "UNITS_AnimModeAllowsAnimSpeed": "499c5c402bdc2f5eb3dffdfc38cd5f79d790b9dc54e71db2b165299d27a19279",
+    "UNITS_UpdateOtherAnimRateAndVelocity": "cc7cdb9064f0d909f6fb1dedb7fa0b7f2506adef9379121a84411cfee8921b33",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1"
+  },
+  "cases": 401,
+  "clock": {
+    "Skill": 405,
+    "Mode": 8,
+    "Frames": 16,
+    "Speed": 128,
+    "Action": 12,
+    "Flag": 1
+  },
+  "baseline": [
+    100,
+    128,
+    [
+      [
+        1,
+        24,
+        1,
+        0
+      ],
+      [
+        2,
+        32,
+        0,
+        0
+      ]
+    ]
+  ],
+  "currentExecutableParity": false,
+  "newLiveReferenceReads": 0,
+  "established": [
+    "OwnedNPC405isactiveS1/UseAttackRate0;current45S1HTH16frames/speed128/action12kind1.",
+    "Complete unchanged source FCR/velocity/attack/allow-speed predicates select Other branch for normal active744S1.",
+    "Complete Other writer and initial event scheduler compare401 signed total rates with15..175clamping;no masteryIAS/ownerFCR invented."
+  ],
+  "limits": [
+    "Normal active used-skill flags0 and synthetic skill/monstats suppliers are explicit;not current executable/global clock equivalence.",
+    "Own actual casting/selection/lifecycle and Other-stat receiver coverage require native checks."
+  ],
+  "artifacts": {
+    ".local/class-skills/defiler-link-cast-source/probe.cpp": "7fc5c303e2f10ff39e58b193d239af7101ea52bd2e9ac9f83a4c5b85a70318a4",
+    ".local/class-skills/defiler-link-cast-source/probe": "5193c89965e4dda8d814f47e6485ab41d5812326beaa533fb0c9be82138121dc",
+    ".local/class-skills/defiler-link-cast-source/cases.json": "9163a8450a81d8b79e2aa1b9970086545a0ee6a0e806744d601cbd3af0dbb174",
+    ".local/class-skills/defiler-link-cast-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/defiler-link-cast-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

@@ -80,17 +80,21 @@ internal static class DefilerHealthLink
         Index.Clear();foreach(var pair in next){Index.Add(pair.Key,pair.Value);}
     }
     internal static DefilerLinkMark Mark(Mobile target,DateTime at){Tick(at);return target!=null&&Index.TryGetValue(target.Serial.Value,out var e)?e.Mark:null;}
-    internal static bool Cast(WarlockDefilerBody b,BaseCreature first,DateTime at)
+    private static DefilerLinkMark[] Select(WarlockDefilerBody b,BaseCreature first,DateTime at)
     {
-        Tick(at);if(!Recipient(b,first,true)){return false;}var n=DefilerLinkNumbers.Capture(b);
-        var old=b.Prepared.Links;int count=old?.Marks.Length??0,free=Math.Min(5,n.RawMaximumLinks)-count;
-        if(free<=0){return false;}
-        var candidates=SkillCombat.NearbySnapshot<BaseCreature>(b.Map,b.Location,13).Append(first).DistinctBy(m=>m.Serial)
+        Tick(at);if(!Recipient(b,first,true)){return [];}var n=DefilerLinkNumbers.Capture(b);
+        int count=b.Prepared.Links?.Marks.Length??0,free=Math.Min(5,n.RawMaximumLinks)-count;
+        if(free<=0){return [];}
+        return SkillCombat.NearbySnapshot<BaseCreature>(b.Map,b.Location,13).Append(first).DistinctBy(m=>m.Serial)
             .Where(m=>Recipient(b,m,true)&&!Index.ContainsKey(m.Serial.Value))
             .OrderBy(m=>m==first?0:1).ThenBy(m=>m.GetDistanceToSqrt(b)).ThenBy(m=>m.Serial.Value)
             .Take(Math.Min(free,n.PerCast)).Select(m=>new DefilerLinkMark(m.Serial.Value,n.Rank,n.SelfRank,Math.Min(60,n.RawSharedPercent),at.AddMilliseconds(n.DurationFrames*40))).ToArray();
-        if(candidates.Length==0){return false;}
-        Store(b,new(b.Prepared.Owner,(old?.Marks??[]).Concat(candidates).ToArray()));Tick(at);
+    }
+    internal static bool CanCast(WarlockDefilerBody b,BaseCreature first,DateTime at)=>Select(b,first,at).Length>0;
+    internal static bool Cast(WarlockDefilerBody b,BaseCreature first,DateTime at)
+    {
+        var candidates=Select(b,first,at);if(candidates.Length==0){return false;}
+        Store(b,new(b.Prepared.Owner,(b.Prepared.Links?.Marks??[]).Concat(candidates).ToArray()));Tick(at);
         foreach(var m in candidates){World.FindMobile((Serial)m.Target)?.FixedEffect(0x375A,10,15,0x489,0);} // Identified link placeholder.
         return true;
     }

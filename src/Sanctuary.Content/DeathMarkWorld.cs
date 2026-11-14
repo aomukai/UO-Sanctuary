@@ -190,6 +190,7 @@ internal static class DeathMarkWorld
         int previous=actor.Mode;if(previous==next){return;}actor.Mode=next;
         GoatmanBerserkEffects.ModeChanged(body,previous,next);
         if(body is WarlockTaintedBody tainted){TaintedFireBallCasting.Cancel(tainted);}
+        if(body is WarlockDefilerBody defiler){DefilerLinkCasting.Cancel(defiler);}
         if(next==1){body.Combatant=null;body.FocusMob=null;body.Warmode=false;}
     }
     internal static void FinishAction(SkeletonGuardian body,int expected)
@@ -250,10 +251,16 @@ internal static class DeathMarkWorld
     internal static void AfterLoad()
     {
         Prune();
-        // A2 windups are transient,as with the existing Tainted/player cast
+        // Intrinsic windups are transient,as with the existing player cast
         // hosts. Do not restore a saved cast mode without its action events.
         foreach(int id in _actors.Keys.ToArray())
-        {if(_actors[id].Mode==5&&World.FindMobile((Serial)(uint)id)is WarlockTaintedBody body){ChangeMode(body,1);}}
+        {
+            if(World.FindMobile((Serial)(uint)id)is SkeletonGuardian body
+                &&(body is WarlockTaintedBody&&_actors[id].Mode==5||body is WarlockDefilerBody&&_actors[id].Mode==8))
+            {ChangeMode(body,1);}
+            if(World.FindMobile((Serial)(uint)id)is WarlockDefilerBody{ControlMaster:Server.Mobiles.PlayerMobile{NetState:null}} offline)
+            {PersistentMinions.Suspend(offline);}
+        }
     }
     internal static DeathMarkWorldImage Capture()=>new(_worlds.Values.OrderBy(w=>w.Map.MapID).Select(w=>w.Capture()).ToArray(),
         _actors.OrderBy(p=>p.Key).Select(p=>new DeathMarkSavedActor(p.Key,p.Value.Map,p.Value.Selector,p.Value.Command.Data.Target48,p.Value.Command.Data.Type4c,p.Value.Mode,p.Value.Next){Control=p.Value.Control,Header=p.Value.Header?.Capture()}).ToArray());
