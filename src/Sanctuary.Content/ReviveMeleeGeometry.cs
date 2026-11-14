@@ -41,11 +41,11 @@ internal static class ReviveMeleeGeometry
         var row=Profile(source);
         if(requireRange&&row.RawRange==255){throw new NotSupportedException("Original composite weapon-class range is not captured");}
         var cell=PetOwnerRoutes.Cell(actor);
-        if(actor is WarlockGoatmanBody goat&&DeathMarkWorld.State(goat)is{} controller)
+        if(actor is SkeletonGuardian demon&&(demon is WarlockGoatmanBody or WarlockTaintedBody)&&DeathMarkWorld.State(demon)is{} controller)
         {
-            var path=DeathMarkWorld.Path(goat);int x=checked((int)(path.X>>16)),y=checked((int)(path.Y>>16));
-            if(goat.Map==null||goat.Map!=Map.Internal&&(controller.Map!=goat.Map.MapID||(x+1)/2!=goat.X||(y+1)/2!=goat.Y))
-            {throw new NotSupportedException("Registered Goatman geometry does not match its source/native position");}
+            var path=DeathMarkWorld.Path(demon);int x=checked((int)(path.X>>16)),y=checked((int)(path.Y>>16));
+            if(demon.Map==null||demon.Map!=Map.Internal&&(controller.Map!=demon.Map.MapID||(x+1)/2!=demon.X||(y+1)/2!=demon.Y))
+            {throw new NotSupportedException("Registered ground demon geometry does not match its source/native position");}
             cell=new(x,y);
         }
         return new(cell,row.Size,1,row.BaseId,row.RawRange,HasRoom:actor.Map!=null&&actor.Map!=Map.Internal);

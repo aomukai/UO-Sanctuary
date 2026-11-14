@@ -70,12 +70,12 @@ internal static class DeathMarkWorld
     // Continuous native transport uses the same registered source position
     // and room/update lists as placement. The caller has already advanced the
     // qualified movement kernel;this does not choose a path or birth flags.
-    internal static void WalkPrepared(WarlockGoatmanBody body,uint x,uint y)
+    internal static void WalkPrepared(SkeletonGuardian body,uint x,uint y)
     {
         var actor=ControlledActor(body);var world=_worlds[actor.Map];int id=checked((int)body.Serial.Value);
         var path=world.Member(id).Path;var unit=world.Unit(id);world.Require(body,unit,path);GenericPetNativePlacement.RequireActor(body,unit,path);
-        if(path.Size5c!=2||(path.Flags&1)==0||unit.Pet.ClassId!=742)
-        {throw new NotSupportedException("Walking needs a qualified active2x2ground Goatman path");}
+        if(path.Size5c!=DemonGroundMovement.Size(body)||(path.Flags&1)==0||unit.Pet.ClassId!=WarlockDemonPlacement.ClassId(body))
+        {throw new NotSupportedException("Walking needs its qualified active species ground path");}
         int cx=checked((int)(x>>16)),cy=checked((int)(y>>16));
         if(!PetGroundWorld.Point(body,new(cx,cy),out var point))
         {throw new NotSupportedException("Source walking destination has no supported native floor/space");}
@@ -96,14 +96,16 @@ internal static class DeathMarkWorld
             member=>GenericPetRoomLinks.Touch(member,world.Links),(_,_)=>throw new InvalidOperationException("Coordinate transport does not reset targets"),0);
         world.Begin(world.Revision);GenericPetPathCommit.Coordinates(path,x,y,0,services);body.MoveToWorld(point,body.Map);body.AIObject?.AITimer.Stop();
     }
-    internal static int PlacePrepared(WarlockGoatmanBody body,Point2D target,bool skipSearch)
+    internal static int PlacePrepared(SkeletonGuardian body,Point2D target,bool skipSearch)
     {
+        if(Path(body).Size5c!=DemonGroundMovement.Size(body)){throw new NotSupportedException("Placement footprint does not match its ground demon species");}
         var actor=ControlledActor(body);var world=_worlds[actor.Map];int id=checked((int)body.Serial.Value);
         var unit=world.Unit(id);var path=world.Member(id).Path;world.Require(body,unit,path);
         return new GenericPetNativePlacement(body,unit,path,target,GenericPetPathTargets.Bind(actor.Selector),world).Place(skipSearch);
     }
-    internal static int WarpPrepared(WarlockGoatmanBody body,GenericPetDecisionUnit owner,GenericPetWarpServices services)
+    internal static int WarpPrepared(SkeletonGuardian body,GenericPetDecisionUnit owner,GenericPetWarpServices services)
     {
+        if(Path(body).Size5c!=DemonGroundMovement.Size(body)){throw new NotSupportedException("Warp footprint does not match its ground demon species");}
         var actor=ControlledActor(body);var world=_worlds[actor.Map];int id=checked((int)body.Serial.Value);
         int result=GenericPetWarp.Execute(new(owner,world.Unit(id).Pet,actor.Selector),services);
         world.Member(id).Flags128=world.Unit(id).Pet.Flags;return result;

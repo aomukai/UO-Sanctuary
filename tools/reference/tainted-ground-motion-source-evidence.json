@@ -1,0 +1,39 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Tainted ground-motion species inputs",
+  "liveReferenceReads": 0,
+  "source": {
+    "ClassId": 743,
+    "Size": 3,
+    "Velocity": 6,
+    "WalkCode": "BHWLHTH",
+    "WalkFrames": 8,
+    "WalkSpeed": 176,
+    "Flags241": 0
+  },
+  "animation": {
+    "code": "BHWLHTH",
+    "frames": 8,
+    "speed": 176,
+    "events": []
+  },
+  "ground": true,
+  "opensDoors": true,
+  "runAnimation": false,
+  "reuse": "Existing SourceActorMotion,SourceActorPath,Goatman native walking/follow/warp and PetGroundWorld adapters;Tainted owns its capture and movement stat suppliers.",
+  "limits": [
+    "Does not certify D2 constructor/global clock or UO terrain/crowd projection.",
+    "No learned Tainted cast,automatic AI admission or Blood Boil is enabled by this species input.",
+    "Flying Defiler is excluded."
+  ],
+  "inputs": {
+    "tools/reference/d2r-local-sentry-model-evidence.json": "3e3f8576cf58e33b9270d5769eafd85aec39d899626b2010031a9763ae3ffe2d",
+    ".local/research/d2r-3.3.93847/monstats-sentries-verified.txt": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+    ".local/research/d2r-3.3.93847/monstats2-sentries-verified.txt": "a5d0f396d7916299f0925ebfbe13fbf61f1ded6d4b0577fa861cca81bac04c92",
+    "tools/reference/generic-pet-secondary-data-evidence.json": "5fa22214ef984bc72eaa716900798d94d39a822dd2802acbcb7b3585533e2747",
+    ".local/class-skills/generic-pet-search-services/monstats.bin": "decdb2fc22ba3aa888278720395ac24fca8282f252291ca750ab22aac77f4765",
+    ".local/research/d2r-3.3.93847/AnimData.d2": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5",
+    "data/Sanctuary/Balance/tainted-ground-motion.json": "edaaac91dd34d0255aa02d32c2f6b6502c207b3bbf5f909aca65d27de9249b30",
+    "tools/record_tainted_ground_source.py": "c208ef55a6c2c0de1e514bc09f1c14bc6e9d4d965abf957bf08af6fb2569695e"
+  }
+}

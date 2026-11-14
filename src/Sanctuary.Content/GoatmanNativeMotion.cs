@@ -9,7 +9,7 @@ namespace Sanctuary;
 // projection are explicit proposal choices,not current D2 constructor proof.
 internal sealed class GoatmanNativeMotion
 {
-    private readonly WarlockGoatmanBody Body;
+    private readonly SkeletonGuardian Body;
     private readonly PlayerMobile Owner;
     private readonly Func<int> Frame;
     private readonly Func<DateTime> Clock;
@@ -22,9 +22,10 @@ internal sealed class GoatmanNativeMotion
     internal readonly GenericPetMovementServices Services;
     internal ActorMotionState Motion{get;private set;}
     internal int Paths,Steps,Warps;
-    internal GoatmanNativeMotion(WarlockGoatmanBody body,PlayerMobile owner,GenericPetTimedEvents events,
+    internal GoatmanNativeMotion(SkeletonGuardian body,PlayerMobile owner,GenericPetTimedEvents events,
         Func<int> frame,Func<DateTime> clock,Func<GenericPetEventClock> eventClock,Action<int> idle,byte flags241)
     {
+        _=DemonGroundMovement.Size(body);
         Body=body;Owner=owner;Events=events;Frame=frame;Clock=clock;EventClock=eventClock;Idle=idle;Flags241=flags241;Reset();
         Services=new(_=>GenericPetMetadata.Table.StateCount,mode=>new(0,0,0,mode),Execute,
             id=>Events.Remove(id),(type,at,p0,p1,p2)=>Schedule(type,at,p0,p1,p2),
@@ -62,7 +63,7 @@ internal sealed class GoatmanNativeMotion
         if(target.X<=0||target.Y<=0||target.X>=Body.Map.Width*2||target.Y>=Body.Map.Height*2){return 0;}
         int type=Unit.Word20==0?13:Unit.Word20,budget=Unit.Byte28==0?5:Unit.Byte28;
         if(type is not(2 or 5 or 6 or 7 or 13 or 15)){throw new NotSupportedException("Native movement path type is not qualified");}
-        var speed=GoatmanNpcBodyActions.Movement(Body,Clock(),Unit.Word24);
+        var speed=DemonGroundMovement.Speed(Body,Clock(),Unit.Word24);
         var input=Motion with{PathType=type,Flags=type==13?0x100:type==15?0x800:0,Points=[],Index=0,Distance=budget,
             Velocity=speed.Velocity,MaximumVelocity=speed.Velocity,Acceleration=0,AccelerationCounter=0};
         // One native facet is the supplied planning surface;registered source
@@ -75,7 +76,7 @@ internal sealed class GoatmanNativeMotion
     internal bool Advance()
     {
         if((Motion.Flags&0x20)==0){return false;}
-        var speed=GoatmanNpcBodyActions.Movement(Body,Clock(),Unit.Word24);
+        var speed=DemonGroundMovement.Speed(Body,Clock(),Unit.Word24);
         Motion=SourceActorMotion.DirectionToNext(Motion with{Velocity=speed.Velocity,MaximumVelocity=speed.Velocity});
         var result=GoatmanNativeWalking.Advance(Body,Motion);Motion=result.State;Steps++;
         if(!result.Moving){Stop();Idle(1);}return result.Moving;
@@ -99,7 +100,7 @@ internal sealed class GoatmanNativeMotion
                 int found=GenericPetNearbySearch.Find(room,point,2,0x1c09,0,4,1,new(RoomAt,r=>PetGroundWorld.Collision(Body,r.X,r.Y)));
                 return new(found,point.X,point.Y);
             },RoomAt,(room,x,y,skip,_)=>DeathMarkWorld.PlacePrepared(Body,new(x,y),skip!=0),
-            ()=>unchecked((uint)(ushort)owner.X|((uint)(ushort)owner.Y<<16)),()=>2,
+            ()=>unchecked((uint)(ushort)owner.X|((uint)(ushort)owner.Y<<16)),()=>DemonGroundMovement.Size(Body),
             (room,x,y,size,mask)=>PetGroundWorld.Collision(Body,x,y),()=>{Reset();Warps++;},Idle));
         return result;
     }
@@ -112,8 +113,10 @@ internal sealed class GoatmanNativeMotion
         _=>ClassMovement.IsMoving(Owner,Core.TickCount),(u,x,y)=>new(RoomAt(0,x,y)!=0,true,RegionAt(x,y)),
         _=>throw new InvalidOperationException("Follow selection must bind its executor"));
     internal GenericPetFollowExecutionServices FollowExecution(GoatmanNativeSearch search)
+        =>FollowExecution(search.Position);
+    internal GenericPetFollowExecutionServices FollowExecution(Func<int,GenericPetDecisionUnit> position)
     {
-        var owner=PetOwnerRoutes.Cell(Owner);var p=search.Position(checked((int)Body.Serial.Value));
+        var owner=PetOwnerRoutes.Cell(Owner);var p=position(checked((int)Body.Serial.Value));
         var leaves=new GenericPetFollowExecutionServices(()=>(owner.X,owner.Y),()=>RoomAt(0,owner.X,owner.Y),RoomAt,
             (room,x,y)=>RegionAt(x*5,y*5),(x,y)=>SourceDirection64.Calculate(new(unchecked((p.X<<16)+32768),unchecked((p.Y<<16)+32768)),
                 new(unchecked((x<<16)+32768),unchecked((y<<16)+32768)),CleaveActionProposal.MathRule).Heading,
