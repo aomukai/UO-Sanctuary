@@ -20,7 +20,7 @@ public static class TaintedGroundMovementChecks
             ConsoleInputHandler.RegisterCommand(name,"Shared source ground path/walk/follow/warp with Tainted species inputs",_=>Core.LoopContext.Post(()=>
             {try{if(reload){Reload();}else{Scene(true);}Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));}
     }
-    private static GenericPetBirthPath PathFor(SkeletonGuardian body)
+    internal static GenericPetBirthPath PathFor(SkeletonGuardian body)
     {
         // Supplied acceptance context,not an enabled Tainted summon or a
         // claim that D2's native constructor chose these UO path defaults.

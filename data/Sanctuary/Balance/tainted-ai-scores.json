@@ -1,0 +1,32 @@
+[
+  {
+    "id": 422,
+    "flags37": 4,
+    "score": {
+      "flags36": 0,
+      "flags39": 192,
+      "quarter532": 1,
+      "bonus730": 0,
+      "element644": 1,
+      "state162": -1,
+      "class272": -1,
+      "ownerCompare274": -1,
+      "calc276": -1
+    }
+  },
+  {
+    "id": 420,
+    "flags37": 133,
+    "score": {
+      "flags36": 32,
+      "flags39": 128,
+      "quarter532": 1,
+      "bonus730": 0,
+      "element644": 0,
+      "state162": 3,
+      "class272": -1,
+      "ownerCompare274": -1,
+      "calc276": -1
+    }
+  }
+]

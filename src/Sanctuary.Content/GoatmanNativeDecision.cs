@@ -16,14 +16,16 @@ internal static class GoatmanNativeDecision
 {
     private static readonly Lazy<GoatmanAiScore[]> Scores=new(()=>
     {
-        var rows=BalanceCatalog.Read<GoatmanAiScore>("goatman-ai-scores");
-        if(rows.Length!=4||!rows.Select(r=>r.Id).SequenceEqual(new[]{416,418,417,419})
-            ||rows.Any(r=>r.Score is not{Flags36:0,State162:-1,Class272:-1,OwnerCompare274:-1,Calc276:-1}))
+        var goat=BalanceCatalog.Read<GoatmanAiScore>("goatman-ai-scores");
+        var tainted=BalanceCatalog.Read<GoatmanAiScore>("tainted-ai-scores");
+        var rows=goat.Concat(tainted).ToArray();
+        if(rows.Length!=6||!rows.Select(r=>r.Id).SequenceEqual(new[]{416,418,417,419,422,420})
+            ||rows.Where(r=>r.Id!=420).Any(r=>r.Score is not{Flags36:0,State162:-1,Class272:-1,OwnerCompare274:-1,Calc276:-1}))
         {throw new InvalidDataException("Unsupported captured Goatman AI score rows");}
         foreach(var r in rows)
         {
             var meta=GenericPetMetadata.Table.Skill(r.Id);
-            if(meta is not{AiType:4}||meta.Flags36!=r.Score.Flags36||meta.Flags39!=r.Score.Flags39)
+            if(meta==null||meta.AiType!=(r.Id==420?6:r.Id==422?11:4)||meta.Flags36!=r.Score.Flags36||meta.Flags39!=r.Score.Flags39)
             {throw new InvalidDataException("Goatman score/catalog identity disagrees");}
         }
         return rows;
@@ -32,30 +34,35 @@ internal static class GoatmanNativeDecision
         ??throw new NotSupportedException("No captured Goatman AI score for this skill");
     internal static byte Flags37(int skill)=>Scores.Value.FirstOrDefault(r=>r.Id==skill)?.Flags37
         ??throw new NotSupportedException("No captured Goatman action flags for this skill");
+    private static int[] Order(SkeletonGuardian body)=>body switch
+    {WarlockGoatmanBody=>[416,418,417,419],WarlockTaintedBody=>[422,420],_=>throw new NotSupportedException("Unbound ground demon skill order")};
+    private static int Mode(int skill)=>skill==420?8:skill is 417 or 422?5:4;
+    private static int Rank(SkeletonGuardian body,int skill,bool bonuses=true)=>body switch
+    {WarlockGoatmanBody goat=>GoatmanNpcContact.Rank(goat,skill),WarlockTaintedBody tainted=>TaintedNpcRanks.Level(tainted,skill,bonuses),_=>throw new NotSupportedException("Unbound ground demon skill rank")};
     private static int Id(Mobile m)=>checked((int)m.Serial.Value);
     private static Mobile Mobile(int id)=>World.FindMobile((Serial)(uint)id)is{Deleted:false} m?m
         :throw new NotSupportedException("Goatman decision unit is no longer present");
-    internal static List<GenericPetCombatCandidate> Gather(WarlockGoatmanBody body,GenericPetParameters parameters,GenericPetGatherState state,
+    internal static List<GenericPetCombatCandidate> Gather(SkeletonGuardian body,GenericPetParameters parameters,GenericPetGatherState state,
         GenericPetGatherServices services,Func<bool,int,ushort> scratch)
     {
-        int[] order=[416,418,417,419];var entries=order.Where(id=>GoatmanNpcContact.Rank(body,id)>0)
-            .Select(id=>new GenericPetGatherEntry(id,checked((short)id),id==417?5:4,-1,0)).ToArray();
+        int sourceClass=WarlockDemonPlacement.ClassId(body);int[] order=Order(body);var entries=order.Where(id=>Rank(body,id,parameters.AllowSkillBonuses)>0)
+            .Select(id=>new GenericPetGatherEntry(id,checked((short)id),Mode(id),-1,0)).ToArray();
         var source=services with
         {
-            SkillLevel=(entry,_)=>GoatmanNpcContact.Rank(body,entry.SkillId),
+            SkillLevel=(entry,bonuses)=>Rank(body,entry.SkillId,bonuses),
             SkillInfo=(selector,id)=>GenericPetMetadata.Table.Bind(1).SkillInfo(selector,id),
-            MonsterSkill=(selector,cls,slot)=>selector==1&&cls==742&&slot is>=0 and<8
+            MonsterSkill=(selector,cls,slot)=>selector==1&&cls==WarlockDemonPlacement.ClassId(body)&&slot is>=0 and<8
                 ?slot<order.Length?checked((short)order[slot]):(short)-1:throw new NotSupportedException("Unbound Goatman skill-row lookup"),
             SkillCount=selector=>selector==1?GenericPetMetadata.Table.SkillCount:throw new NotSupportedException("Unbound Goatman skill selector"),
             ScratchTail=scratch
         };
-        return GenericPetGather.Build(new(true,742,1,entries),parameters,state,source);
+        return GenericPetGather.Build(new(true,sourceClass,1,entries),parameters,state,source);
     }
 
     // Creates a root callback for the actual registered header and three saved
     // decision words. Execution leaves remain mandatory,including source path
     // position/traversal:they are not replaced with fixture/default values.
-    internal static GenericPetEventBinding Bind(WarlockGoatmanBody body,PlayerMobile owner,GenericPetActionRandom random,
+    internal static GenericPetEventBinding Bind(SkeletonGuardian body,PlayerMobile owner,GenericPetActionRandom random,
         Func<int,GenericPetDecisionUnit> position,GenericPetInitializationServices initialization,
         GenericPetSearchWrapperServices search,GenericPetCombatServices combatLeaves,GenericPetFollowServices follow,
         GenericPetFollowExecutionServices followExecution,GenericPetActionServices actions,Func<bool,int,ushort> scratch,
@@ -64,12 +71,14 @@ internal static class GoatmanNativeDecision
         ArgumentNullException.ThrowIfNull(random);ArgumentNullException.ThrowIfNull(position);ArgumentNullException.ThrowIfNull(initialization);
         ArgumentNullException.ThrowIfNull(search);ArgumentNullException.ThrowIfNull(combatLeaves);ArgumentNullException.ThrowIfNull(follow);
         ArgumentNullException.ThrowIfNull(followExecution);ArgumentNullException.ThrowIfNull(actions);ArgumentNullException.ThrowIfNull(scratch);ArgumentNullException.ThrowIfNull(level);ArgumentNullException.ThrowIfNull(idle);
-        if(body is not{Alive:true,Deleted:false,Prepared:not null}||body.ControlMaster!=owner||owner is not{Alive:true,Deleted:false})
+        if(body is not{Alive:true,Deleted:false}||body.ControlMaster!=owner||owner is not{Alive:true,Deleted:false})
         {throw new NotSupportedException("Source Goatman decision needs its living captured owner/body");}
         var saved=DeathMarkWorld.State(body);var header=DeathMarkWorld.Header(body);
         if(saved is not{Selector:1,Control:not null}||header.Control is not{State:0,Function:0x4b60c0,Executing:false}||header.Control.Queue.Count!=0)
         {throw new NotSupportedException("Native Goatman decision is not bound to a normal registered GenericPet header");}
-        if(GoatmanPrepared.RawAiParameters is not{SwarmRaw:0,ChooseType:1,ModeAttack:4,ModeAiType:4})
+        var parameters=GenericPetProfiles.Raw(body.SourceMonsterId);int basic=body is WarlockGoatmanBody?4:0;
+        _=DemonGroundMovement.Size(body);
+        if(parameters is not{SwarmRaw:0,ChooseType:1}||parameters.ModeAttack!=basic||parameters.ModeAiType!=basic)
         {throw new NotSupportedException("Goatman source profile needs a different host binding");}
         if(NpcEquipmentRandom.Require(body).Seed!=random.Seed)
         {throw new NotSupportedException("Goatman AI random view is stale");}
@@ -133,7 +142,7 @@ internal static class GoatmanNativeDecision
             var outer=combatLeaves with
             {
                 Gather=()=>Gather(body,frame.Parameters,current.Gather,gatherServices,scratch),BaseModeSkill=selector=>selector==1?0:throw new NotSupportedException("Goatman base skill selector"),
-                Range=rows=>GenericPetGather.SearchMask(new(true,742,1,null),frame.Parameters.Flags,rows,gatherServices with{SkillInfo=metadata.SkillInfo}),
+                Range=rows=>GenericPetGather.SearchMask(new(true,WarlockDemonPlacement.ClassId(body),1,null),frame.Parameters.Flags,rows,gatherServices with{SkillInfo=metadata.SkillInfo}),
                 Search=GenericPetSearchWrapper.Provider(wrapper,search),
                 RateRemembered=(row,selection)=>GenericPetTargetScoring.Rate(current.ScoreContext(1,0,actor,master),frame.Parameters,
                     selection.Word40,selection.Word48,row,random,scoring),Rate=Rate,
