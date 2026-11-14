@@ -13,11 +13,11 @@ internal static class GoatmanNativeWalking
         ArgumentNullException.ThrowIfNull(motion);
         if(body is not{Alive:true,Deleted:false}||DeathMarkWorld.State(body)is not{Selector:1})
         {throw new NotSupportedException("Native walking needs an original registered ground demon");}
-        int size=DemonGroundMovement.Size(body);
+        int size=DemonPathWorld.Size(body);
         var path=DeathMarkWorld.Path(body);
         if(path.X!=motion.X||path.Y!=motion.Y||path.Size5c!=size||(path.Flags&1)==0)
         {throw new NotSupportedException("Walking kernel does not match its qualified active source path");}
-        var result=SourceActorMotion.Advance(motion,(x,y)=>PetGroundWorld.Collision(body,x,y));
+        var result=SourceActorMotion.Advance(motion,(x,y)=>DemonPathWorld.Collision(body,x,y),DemonPathWorld.Mask(body));
         if(result.State.X!=motion.X||result.State.Y!=motion.Y)
         {DeathMarkWorld.WalkPrepared(body,result.State.X,result.State.Y);}
         return result;

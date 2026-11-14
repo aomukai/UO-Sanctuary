@@ -44,6 +44,17 @@ public static class Teleportation
     internal static bool Space(Map map, Point3D point, Mobile traveller = null, bool allowAllies = false)
     {
         if (!map.CanFit(point.X, point.Y, point.Z, 16, checkMobiles: traveller == null, requireSurface: true)) { return false; }
+        if(!MobileSpace(map,point,traveller,allowAllies)){return false;}
+        // Native spell fields block spawning, but arrivals must trigger their hazards.
+        foreach (var item in map.GetItemsInRange<Item>(point, 0))
+        {
+            if (item.BlocksFit && item is not (FireFieldItem or PoisonField or ParalyzeField)
+                && item.Z + item.ItemData.CalcHeight > point.Z && point.Z + 16 > item.Z) { return false; }
+        }
+        return true;
+    }
+    internal static bool MobileSpace(Map map,Point3D point,Mobile traveller,bool allowAllies)
+    {
         if (traveller != null)
         {
             foreach (var mobile in map.GetMobilesInRange<Mobile>(point, 0))
@@ -52,12 +63,6 @@ public static class Teleportation
                     && mobile.Z + 16 > point.Z && point.Z + 16 > mobile.Z
                     && (!allowAllies || !AlliedOverlap.PassThrough(traveller, mobile))) { return false; }
             }
-        }
-        // Native spell fields block spawning, but arrivals must trigger their hazards.
-        foreach (var item in map.GetItemsInRange<Item>(point, 0))
-        {
-            if (item.BlocksFit && item is not (FireFieldItem or PoisonField or ParalyzeField)
-                && item.Z + item.ItemData.CalcHeight > point.Z && point.Z + 16 > item.Z) { return false; }
         }
         return true;
     }

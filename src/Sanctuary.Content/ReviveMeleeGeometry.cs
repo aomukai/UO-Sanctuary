@@ -41,7 +41,8 @@ internal static class ReviveMeleeGeometry
         var row=Profile(source);
         if(requireRange&&row.RawRange==255){throw new NotSupportedException("Original composite weapon-class range is not captured");}
         var cell=PetOwnerRoutes.Cell(actor);
-        if(actor is SkeletonGuardian demon&&(demon is WarlockGoatmanBody or WarlockTaintedBody)&&DeathMarkWorld.State(demon)is{} controller)
+        if(actor is SkeletonGuardian demon&&DeathMarkWorld.State(demon)is{} controller
+            &&(demon is WarlockGoatmanBody or WarlockTaintedBody||DefilerFlyingWorld.Profile(demon,DeathMarkWorld.Path(demon))))
         {
             var path=DeathMarkWorld.Path(demon);int x=checked((int)(path.X>>16)),y=checked((int)(path.Y>>16));
             if(demon.Map==null||demon.Map!=Map.Internal&&(controller.Map!=demon.Map.MapID||(x+1)/2!=demon.X||(y+1)/2!=demon.Y))

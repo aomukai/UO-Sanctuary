@@ -25,7 +25,7 @@ internal sealed class GoatmanNativeMotion
     internal GoatmanNativeMotion(SkeletonGuardian body,PlayerMobile owner,GenericPetTimedEvents events,
         Func<int> frame,Func<DateTime> clock,Func<GenericPetEventClock> eventClock,Action<int> idle,byte flags241)
     {
-        _=DemonGroundMovement.Size(body);
+        _=DemonPathWorld.Size(body);
         Body=body;Owner=owner;Events=events;Frame=frame;Clock=clock;EventClock=eventClock;Idle=idle;Flags241=flags241;Reset();
         Services=new(_=>GenericPetMetadata.Table.StateCount,mode=>new(0,0,0,mode),Execute,
             id=>Events.Remove(id),(type,at,p0,p1,p2)=>Schedule(type,at,p0,p1,p2),
@@ -63,20 +63,20 @@ internal sealed class GoatmanNativeMotion
         if(target.X<=0||target.Y<=0||target.X>=Body.Map.Width*2||target.Y>=Body.Map.Height*2){return 0;}
         int type=Unit.Word20==0?13:Unit.Word20,budget=Unit.Byte28==0?5:Unit.Byte28;
         if(type is not(2 or 5 or 6 or 7 or 13 or 15)){throw new NotSupportedException("Native movement path type is not qualified");}
-        var speed=DemonGroundMovement.Speed(Body,Clock(),Unit.Word24);
+        var speed=DemonPathWorld.Speed(Body,Clock(),Unit.Word24);
         var input=Motion with{PathType=type,Flags=type==13?0x100:type==15?0x800:0,Points=[],Index=0,Distance=budget,
             Velocity=speed.Velocity,MaximumVelocity=speed.Velocity,Acceleration=0,AccelerationCounter=0};
         // One native facet is the supplied planning surface;registered source
         // room changes still commit through the qualified walking adapter.
         var plan=SourceActorPath.Initialize(new(input,target,input.FinalTarget),budget,new(1,1,Body.Map.Width*2-1,Body.Map.Height*2-1),
-            (x,y)=>PetGroundWorld.Collision(Body,x,y));
+            (x,y)=>DemonPathWorld.Collision(Body,x,y),DemonPathWorld.Mask(Body));
         if(plan.Motion.Points.Length==0||(plan.Motion.Flags&0x20)==0){return 0;}
         Motion=plan.Motion;DeathMarkWorld.ChangeMode(Body,mode);Body.Direction=Body.GetDirectionTo(new Point3D((target.X+1)/2,(target.Y+1)/2,Body.Z));Paths++;return 1;
     }
     internal bool Advance()
     {
         if((Motion.Flags&0x20)==0){return false;}
-        var speed=DemonGroundMovement.Speed(Body,Clock(),Unit.Word24);
+        var speed=DemonPathWorld.Speed(Body,Clock(),Unit.Word24);
         Motion=SourceActorMotion.DirectionToNext(Motion with{Velocity=speed.Velocity,MaximumVelocity=speed.Velocity});
         var result=GoatmanNativeWalking.Advance(Body,Motion);Motion=result.State;Steps++;
         if(!result.Moving){Stop();Idle(1);}return result.Moving;
@@ -97,11 +97,11 @@ internal sealed class GoatmanNativeMotion
             (room,region,cls)=>
             {
                 var point=new GenericPetNearbyPoint(owner.X,owner.Y);
-                int found=GenericPetNearbySearch.Find(room,point,2,0x1c09,0,4,1,new(RoomAt,r=>PetGroundWorld.Collision(Body,r.X,r.Y)));
+                int found=GenericPetNearbySearch.Find(room,point,2,0x1c09,0,4,1,new(RoomAt,r=>DemonPathWorld.PlacementCollision(Body,r.X,r.Y)));
                 return new(found,point.X,point.Y);
             },RoomAt,(room,x,y,skip,_)=>DeathMarkWorld.PlacePrepared(Body,new(x,y),skip!=0),
-            ()=>unchecked((uint)(ushort)owner.X|((uint)(ushort)owner.Y<<16)),()=>DemonGroundMovement.Size(Body),
-            (room,x,y,size,mask)=>PetGroundWorld.Collision(Body,x,y),()=>{Reset();Warps++;},Idle));
+            ()=>unchecked((uint)(ushort)owner.X|((uint)(ushort)owner.Y<<16)),()=>DemonPathWorld.Size(Body),
+            (room,x,y,size,mask)=>DemonPathWorld.PlacementCollision(Body,x,y),()=>{Reset();Warps++;},Idle));
         return result;
     }
     internal GenericPetActionServices BindActions(GenericPetActionServices actions)

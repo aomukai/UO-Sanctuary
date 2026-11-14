@@ -60,7 +60,7 @@ public partial class WarlockDefilerBody : SkeletonGuardian, ISourceLifeMaximum
     public override TimeSpan BeginMelee(Mobile target) => TimeSpan.FromSeconds(1);
     public override void OnThink() { AIObject?.AITimer.Stop(); Combatant = null; FocusMob = null; Warmode = false; }
     public override void SuspendActions() { base.SuspendActions(); }
-    public override void OnAfterDelete() { DefilerHealthLink.Forget(this); NpcEquipmentRandom.Forget(this); base.OnAfterDelete(); }
+    public override void OnAfterDelete() { DefilerHealthLink.Forget(this); NpcEquipmentRandom.Forget(this); DeathMarkWorld.Remove(this); base.OnAfterDelete(); }
     internal static void Validate(DefilerBodyState state)
     {
         try

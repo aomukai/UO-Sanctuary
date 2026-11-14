@@ -88,7 +88,7 @@ internal sealed class GenericPetNativePlacement
             {
                 int cx=grid.X+px,cy=grid.Y+py;var tile=new Point2D((cx+1)/2,(cy+1)/2);
                 if(!cache.TryGetValue(tile,out ushort mask))
-                {mask=unchecked((ushort)PetGroundWorld.Collision(body,cx,cy));cache.Add(tile,mask);}
+                {mask=unchecked((ushort)DemonPathWorld.RawPlacementCollision(body,path,cx,cy));cache.Add(tile,mask);}
                 cells[px+py*grid.Width]=mask;
             }
         }
@@ -137,7 +137,7 @@ internal sealed class GenericPetNativePlacement
         placement=placement with{UpdatePath=(room,packed)=>
         {
             int x=(ushort)packed,y=(ushort)(packed>>16);
-            if(!PetGroundWorld.Point(Body,new(x,y),out var point,true))
+            if(!DemonPathWorld.Point(Body,Path,new(x,y),out var point,true))
             {throw new NotSupportedException("Selected source landing has no supported native floor/height");}
             int result=GenericPetPathCommit.Commit(Path,room,packed,commit);
             Body.MoveToWorld(point,Map);return result;
