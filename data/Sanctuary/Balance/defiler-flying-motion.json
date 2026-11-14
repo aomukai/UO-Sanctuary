@@ -1,0 +1,12 @@
+[
+  {
+    "ClassId": 744,
+    "Size": 2,
+    "Velocity": 6,
+    "WalkCode": "45WLHTH",
+    "WalkFrames": 10,
+    "WalkSpeed": 256,
+    "Flags241": 0,
+    "Flying": true
+  }
+]

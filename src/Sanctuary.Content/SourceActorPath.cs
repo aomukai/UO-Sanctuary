@@ -17,7 +17,7 @@ internal readonly record struct ActorPathRoom(int X,int Y,int Width,int Height)
 // repair uses other path types and is deliberately not substituted here.
 internal static class SourceActorPath
 {
-    internal static ActorPathState Initialize(ActorPathState state,int distance,ActorPathRoom room,Func<int,int,int> collision)
+    internal static ActorPathState Initialize(ActorPathState state,int distance,ActorPathRoom room,Func<int,int,int> collision,int collisionMask=0x3c01)
     {
         ArgumentNullException.ThrowIfNull(state);ArgumentNullException.ThrowIfNull(collision);
         if(state.Motion==null || distance is <0 or >77 || room.X<0 || room.Y<0 || room.Width<=0 || room.Height<=0
@@ -25,7 +25,7 @@ internal static class SourceActorPath
             || state.Target.X is <0 or >65535 || state.Target.Y is <0 or >65535)
         {throw new ArgumentException("Unsupported source point-path input");}
         // Validate the supplied path without advancing it or selecting repair.
-        SourceActorMotion.Advance(state.Motion with{Flags=state.Motion.Flags&~0x20},(_,_)=>throw new InvalidOperationException());
+        SourceActorMotion.Advance(state.Motion with{Flags=state.Motion.Flags&~0x20},(_,_)=>throw new InvalidOperationException(),collisionMask);
         var motion=state.Motion with{CollidedMask=0};var origin=new Point2D((int)(motion.X>>16),(int)(motion.Y>>16));
         if(!room.Contains(origin)){throw new NotSupportedException("Source start room is not available");}
         ActorPathState Fail()=>state with{Motion=motion with{Points=[],Index=0,Flags=motion.Flags&~0x20}};
@@ -33,7 +33,7 @@ internal static class SourceActorPath
             || Math.Abs(origin.X-state.Target.X)>100 || Math.Abs(origin.Y-state.Target.Y)>100 || !room.Contains(state.Target))
         {return Fail();}
         motion=motion with{FinalTarget=state.Target};
-        bool Blocked(int x,int y)=>(collision(x,y)&0x3c01)!=0;
+        bool Blocked(int x,int y)=>(collision(x,y)&collisionMask)!=0;
         Point2D[] points;
         if(motion.PathType==15){points=distance==0?[]:SourceWallFollow.Find(origin,state.Target,distance,false,Blocked);}
         else if(motion.PathType==7)

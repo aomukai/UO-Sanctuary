@@ -1,0 +1,87 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Defiler flying-mask source inputs",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "cases": 192,
+  "frames": 3840,
+  "compiledRoutineHashes": {
+    "COLLISION_CheckCollisionMask": "9499ac00928c8290ab8b09cca5a4c467c4038c19c4ba6d6e1e1766fa7a939dc5",
+    "COLLISION_CheckMaskWithPattern": "207708fb2b457597e08abc8d790570716f9df2c7c12df23969579526e90b8383",
+    "COLLISION_SetMaskWithPattern": "08139b9168f05cc3d88eac9b6b98a0b18c2a703edd7a10ac5abeaf98f342fbec",
+    "COLLISION_ResetMaskWithPattern": "e9801cc87a31e5b70dc376f0bdb12468ea71cf280c7da587bcee3cae2cb4cfa6",
+    "COLLISION_TryTeleportUnitCollisionMask": "b26ca136f729a43792e4efe78a35f11facdd21ba8fd6bb86eab1a8af292c66d8",
+    "PATH_SetVelocity": "90e1d47ed19c106dc1b79989a01e3998c64674c2f9e7c8a4b24a76f80247bcd1",
+    "UNITS_SetAnimationSpeed": "2ff7ce6cf74188b07279504ddfbb187831ecfb6d962acdb39b73d3cc4fb655c6",
+    "UNITS_GetAnimStatBasePercentage": "10423c95fc725502dd335dae7a1d18a56db30c784d9ad7b3f48fb3ce53502162",
+    "UNITS_GetBaseAnimSpeed": "a889c63e03e882cf43fad46314a9cbb5670a5ec065a0ec581dfacb9d3cac5484",
+    "UNITS_GetBaseVelocity": "49fa853de5d4fb83a6a954cae42eb98348c89f84328e1b296ea7916e2c366fea",
+    "UNITS_UpdateRunWalkAnimRateAndVelocity": "ef3172eab804f35cbf15e3069e1e9a7f8d1f954cffade9003b2974baf05e98c5",
+    "PATH_GetDirectionVector": "5c2696a69365ea71a13684941cd8ec6cc727082a819b313d68005cb8c1fc8c34",
+    "PATH_ComputeVelocityAndDirectionVectorsToNextPoint": "80a72d98efa8f800bf6c5fa7ec6c3e0e7cb7275f86772d782c3d727e27eb8273",
+    "sub_6FD5CEB0": "becafa1650d520f6b2827c03f242e1ca950e7673a9e22ec36571a23927673176",
+    "sub_6FD5DB70": "4e9f923d7095955b45df7cc826c6707b283d1b67d31489e9922609b912ee5f95",
+    "sub_6FDAB810": "a1ace3679ab94dc699642651ee239acdea17857b8ff9540dcd0cb6e9dfa887c2",
+    "sub_6FDACEC0": "1ad83b1b113da8c3da3acbee61df332a72872ee52bcbf14b278a13ecbe75ab2a",
+    "PATH_RecacheRoomAtCoordIfNeeded": "81bd1010c7545828bdebe77d1075090e1dc64e59c9e3ee97ce22ea694aeef65f",
+    "PATH_ResetMovement": "bfaed12f8b87080b508ac11f4095acb938e2f1a773e5c727ac8b42a19eb75c8c",
+    "D2Common_10226": "e13a09c4ac8732bda661afe6da7fab20dce71c0b97628f6dcaab2574d1e18675"
+  },
+  "source": {
+    "ClassId": 744,
+    "Size": 2,
+    "Velocity": 6,
+    "WalkCode": "45WLHTH",
+    "WalkFrames": 10,
+    "WalkSpeed": 256,
+    "Flags241": 0,
+    "Flying": true
+  },
+  "animations": {
+    "45S1HTH": {
+      "frames": 16,
+      "speed": 128,
+      "events": [
+        [
+          12,
+          1
+        ]
+      ]
+    },
+    "45WLHTH": {
+      "frames": 10,
+      "speed": 256,
+      "events": []
+    }
+  },
+  "newLiveReferenceReads": 0,
+  "automaticDefilerEnabled": false,
+  "established": [
+    "All complete retained actor-motion routine bodies unchanged;only synthetic main/grid/path mask and base6/walk256 suppliers differ.",
+    "Explicit masks0x3c01/0x3401/0x1804 and isolated collision bits exercise FP16 motion,query ordering,stop/pass-through and saved crossings.",
+    "Owned current monstats/monstats2/AnimData establish744,flying2x2,velocity6,walk10frames/speed256,S1sixteenframes/speed128/action12flag1."
+  ],
+  "limits": [
+    "Pattern0 synthetic source grid does not establish size2 occupancy or native world terrain mapping.",
+    "Legacy mask selection is not proof of current fresh path constructor.",
+    "No automatic host,learned cast or native flying-world admission is enabled."
+  ],
+  "artifacts": {
+    ".local/class-skills/defiler-flying-source/probe.cpp": "bb22cc46186cfd0e7232a4bd7d70bcd1221553f26279e03489a36e8ee63233a9",
+    ".local/class-skills/defiler-flying-source/probe": "bc3c492963f0595aeebc0f1d88f1f3b9fd1b9496e64d135d5e1f64b8fafeae26",
+    ".local/class-skills/defiler-flying-source/cases.json": "9430b70cd7da1369e6b77e617603d586fd4cd944aa226d5b36786059b18a9736",
+    ".local/class-skills/defiler-flying-source/compiler.log": "bfb1bf7bd0649b6ec4093bb19e8e06426e24230128df2342e209463e80b7026a",
+    ".local/class-skills/defiler-flying-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "inputs": {
+    "tools/reference/actor-motion-engine-evidence.json": "ffbbbe98c6056cf453ee1136f86f59126f5d1176371b73b7ae957241c387fd6f",
+    ".local/class-skills/actor-motion-source-probe.cpp": "874370f5268a4f70b60cc5e10ed85b04472f487e8671ddfd81da8776b353f50a",
+    "tools/reference/d2r-local-sentry-model-evidence.json": "3e3f8576cf58e33b9270d5769eafd85aec39d899626b2010031a9763ae3ffe2d",
+    ".local/research/d2r-3.3.93847/monstats-sentries-verified.txt": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+    ".local/research/d2r-3.3.93847/monstats2-sentries-verified.txt": "a5d0f396d7916299f0925ebfbe13fbf61f1ded6d4b0577fa861cca81bac04c92",
+    "tools/reference/generic-pet-secondary-data-evidence.json": "5fa22214ef984bc72eaa716900798d94d39a822dd2802acbcb7b3585533e2747",
+    ".local/class-skills/generic-pet-search-services/monstats.bin": "decdb2fc22ba3aa888278720395ac24fca8282f252291ca750ab22aac77f4765",
+    ".local/research/d2r-3.3.93847/AnimData.d2": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5",
+    "data/Sanctuary/Balance/defiler-flying-motion.json": "f67f4b6de934eb73cb8626586854027f091071c52767d5b5ae74833a2ef00130",
+    "tools/probe_defiler_flying_motion.py": "d8853c82661ebab79a0b5351fe3a3b055a2b910cc7693b33a46ca6082d9fa173"
+  }
+}

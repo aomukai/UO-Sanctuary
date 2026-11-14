@@ -50,10 +50,15 @@ internal static class SourceActorMotion
         return state with{Index=index,Direction=direction,Vector=new(checked(direction.X*state.Velocity)>>8,checked(direction.Y*state.Velocity)>>8)};
     }
     private static ActorMotionState Reset(ActorMotionState s)=>s with{X=Fit(s.X),Y=Fit(s.Y),Flags=s.Flags&~0x20,Points=[],Index=0,Vector=new(0,0)};
-    internal static ActorMotionResult Advance(ActorMotionState state,Func<int,int,int> collision)
+    internal static ActorMotionResult Advance(ActorMotionState state,Func<int,int,int> collision,int collisionMask=0x3c01)
     {
         Validate(state);ArgumentNullException.ThrowIfNull(collision);
+        if(collisionMask is not(0x3c01 or 0x3401 or 0x1804)||state.PathType==14&&collisionMask!=0x3c01)
+        {throw new NotSupportedException("Unqualified actor collision-mask context");}
         bool missile=state.PathType==14;var s=state with{Flags=state.Flags&~8,CollidedMask=missile?0:state.CollidedMask};bool repath=false;
+        // Step.cpp checks doors even for an open-door planning mask. Planning
+        // retains0x3401;the movement update substitutes the full0x3c01 mask.
+        int stepMask=collisionMask==0x3401?0x3c01:collisionMask;
         if((s.Flags&0x20)==0 || s.Points.Length==0 || s.Velocity==0){return new(Reset(s),false,false);}
         if(s.Index>=s.Points.Length)
         {
@@ -95,7 +100,7 @@ internal static class SourceActorMotion
             s=s with{Distance=s.Distance>0?s.Distance-1:0,StepsCount=0};
             foreach(var cell in crossed)
             {
-                collided|=collision(cell.X,cell.Y)&(missile?0xffff:0x3c01);
+                collided|=collision(cell.X,cell.Y)&(missile?0xffff:stepMask);
                 if((collided&(missile?5:0xffff))!=0)
                 {
                     s=s with{X=Center(previous.X),Y=Center(previous.Y),Index=s.Points.Length,StepsCount=steps,
