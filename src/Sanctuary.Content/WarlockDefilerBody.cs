@@ -10,9 +10,13 @@ using Server.Mobiles;
 namespace Sanctuary;
 
 internal sealed record DefilerBodyState(uint Owner, DefilerSnapshot Snapshot, MonsterDifficulty Difficulty, DateTime NextRecoveryUtc)
-{ public string Profile { get; init; } = "prepared-defiler-life-owner-v1"; }
+{
+    public string Profile { get; init; } = "prepared-defiler-life-owner-v1";
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public DefilerLinkGroup Links{get;init;}
+}
 
-// Saved vulnerable vital/owner body only. Offense and Health Link are unavailable. Native UO AI,
+// Saved vulnerable vital/owner body and approved Health Link groups. Automatic linking/follow remain gated. Native UO AI,
 // attacks, spells, regeneration and inherited skeleton immunities are disabled.
 [SerializationGenerator(0)]
 public partial class WarlockDefilerBody : SkeletonGuardian, ISourceLifeMaximum
@@ -53,10 +57,10 @@ public partial class WarlockDefilerBody : SkeletonGuardian, ISourceLifeMaximum
     }
     private void ApplyAppearance()
     { var appearance = WarlockDemonAppearance.For(CombatAbility.SummonDefiler); Body = appearance.Body; BaseSoundID = appearance.Sound; }
-    public override TimeSpan BeginMelee(Mobile target) => throw new NotSupportedException("Prepared Defiler offense, Health Link and GenericPet controller remain unverified");
+    public override TimeSpan BeginMelee(Mobile target) => TimeSpan.FromSeconds(1);
     public override void OnThink() { AIObject?.AITimer.Stop(); Combatant = null; FocusMob = null; Warmode = false; }
     public override void SuspendActions() { base.SuspendActions(); }
-    public override void OnAfterDelete() { NpcEquipmentRandom.Forget(this); base.OnAfterDelete(); }
+    public override void OnAfterDelete() { DefilerHealthLink.Forget(this); NpcEquipmentRandom.Forget(this); base.OnAfterDelete(); }
     internal static void Validate(DefilerBodyState state)
     {
         try
@@ -66,6 +70,7 @@ public partial class WarlockDefilerBody : SkeletonGuardian, ISourceLifeMaximum
                 || state.NextRecoveryUtc.Kind != DateTimeKind.Utc || state.NextRecoveryUtc > DateTime.MaxValue.AddMilliseconds(-40)
                 || state.Profile != "prepared-defiler-life-owner-v1" || DefilerPrepared.Rescale(state.Snapshot, state.Difficulty) != state.Snapshot)
             { throw new InvalidDataException("Invalid prepared Defiler life/owner state"); }
+            DefilerHealthLink.Validate(state.Links,state.Owner);
         }
         catch (Exception e) when (e is ArgumentException or NotSupportedException or OverflowException)
         { throw new InvalidDataException("Unsupported prepared Defiler snapshot", e); }
@@ -115,5 +120,5 @@ public partial class WarlockDefilerBody : SkeletonGuardian, ISourceLifeMaximum
         { RestorePrepared(Prepared with { NextRecoveryUtc = next }); }
     }
     [AfterDeserialization] private void AfterDefilerLoad()
-    { AIObject?.AITimer.Stop(); _prepared = JsonSerializer.Deserialize<DefilerBodyState>(_saved); Validate(_prepared); ApplyAppearance(); }
+    { AIObject?.AITimer.Stop(); _prepared = JsonSerializer.Deserialize<DefilerBodyState>(_saved); Validate(_prepared); ApplyAppearance(); DefilerHealthLink.Track(this); }
 }

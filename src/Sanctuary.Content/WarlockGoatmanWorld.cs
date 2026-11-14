@@ -64,6 +64,7 @@ public static class WarlockGoatmanWorld
     }
     internal static void Tick(DateTime at)
     {
+        DefilerHealthLink.Tick(at);
         var active=new List<SkeletonGuardian>();var owners=new HashSet<PlayerMobile>();
         foreach(var body in Bodies.ToArray())
         {

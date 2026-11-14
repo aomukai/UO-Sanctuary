@@ -33,9 +33,9 @@ internal static class NpcEquipmentRandom
     internal static NpcEquipmentSeed State(BaseCreature actor)=>Seeds.GetValueOrDefault(actor.Serial.Value);
     internal static void Forget(BaseCreature actor)=>Forget(actor.Serial.Value);
     internal static void Forget(uint actor)=>Seeds.Remove(actor);
-    // V0's Unarmed flag denotes the zero-item binding. A prepared Tainted
-    // shares that actor stream without claiming an implemented melee packet.
-    private static bool WithoutItem(SkeletonGuardian actor)=>actor is ISourceUnarmedNpc or WarlockTaintedBody;
+    // V0's Unarmed flag denotes the zero-item binding. Prepared Tainted and
+    // Defiler bodies share that stream without admitting ordinary melee.
+    private static bool WithoutItem(SkeletonGuardian actor)=>actor is ISourceUnarmedNpc or WarlockTaintedBody or WarlockDefilerBody;
     private static (uint Owner,uint Item,bool Unarmed,uint Corpse,string Identity,string Valkyrie,string Shadow) Binding(BaseCreature actor)
     {
         if(actor is AssassinShadowBody shadow)

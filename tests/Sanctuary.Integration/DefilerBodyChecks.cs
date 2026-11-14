@@ -65,7 +65,7 @@ public static class DefilerBodyChecks
             enemy=FireBoltChecks.Target(p,8);int before=SkillHealth.Balance256(b);
             NpcFireSpellHit.Deliver(enemy,p,b,100*256,TimedEffects.Now,"Defiler qualified incoming");
             Require(before-SkillHealth.Balance256(b)==67*256&&NativeMonsterReturn.Session(b).Packets==1,"Defiler ordinary incoming fire/return path");
-            bool refused=false;try{b.BeginMelee(enemy);}catch(NotSupportedException){refused=true;}Require(refused,"Unverified Defiler offense was enabled");
+            int hp=SkillHealth.Balance256(enemy);Require(b.BeginMelee(enemy)==TimeSpan.FromSeconds(1)&&SkillHealth.Balance256(enemy)==hp,"Defiler native melee caused unsupported ordinary damage");
             var text=b.SavedText;int life=SkillHealth.Balance256(b);
             try{b.RestorePrepared(b.Prepared with{Snapshot=original with{Birth=original.Birth with{Suppliers=original.Birth.Suppliers with{PhysicalSunder4=1,PhysicalSunder7=1}}}});throw new InvalidOperationException("Unverified sunder accepted");}catch(InvalidDataException){}
             Require(b.SavedText==text&&SkillHealth.Balance256(b)==life,"Rejected Defiler state changed life/capture");

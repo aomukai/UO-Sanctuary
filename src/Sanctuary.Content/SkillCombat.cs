@@ -33,7 +33,7 @@ public static class SkillCombat
             double magic=SorceressEffects.Absorb(target,new(0,0,0,0,0,Magic:enhanced256/256.0)).Magic;
             value=NamedElements.Damage(source,target,magic,"mag",enhance:false);
         }
-        int loss=SkillHealth.Damage(source,target,(int)Math.Clamp(Math.Floor(value*256),0,int.MaxValue));
+        int amount=NamedElements.To256(value);int loss=SkillHealth.TypedDamage(source,target,amount,new(0,amount,0,0,0));
         if(target is BaseCreature creature){CreatureHitRecovery.Apply(creature,source,loss);}
         return loss;
     }
@@ -54,7 +54,7 @@ public static class SkillCombat
         source.DoHarmful(target, true);
         double lightning = SorceressEffects.Absorb(target, new(0, 0, 0, enhanced256 / 256.0, 0)).Lightning;
         lightning = NamedElements.Damage(source, target, lightning, "ltng", enhance: false);
-        int loss = SkillHealth.Damage(source, target, (int)Math.Clamp(Math.Floor(lightning * 256), 0, int.MaxValue));
+        int amount=NamedElements.To256(lightning);int loss = SkillHealth.TypedDamage(source,target,amount,new(0,0,0,0,amount));
         if (target is BaseCreature creature) { CreatureHitRecovery.Apply(creature, source, loss); }
         return loss;
     }
@@ -72,7 +72,7 @@ public static class SkillCombat
         // Native damage commits death synchronously. Apply source freeze first
         // so its current hide/shatter/udead state participates in that commit.
         if(freeze){FreezeStates.Apply(source,target,coldFrames,Core.TickCount);}
-        int loss = SkillHealth.Damage(source, target, (int)Math.Clamp(Math.Floor(cold * 256), 0, int.MaxValue));
+        int amount=NamedElements.To256(cold);int loss = SkillHealth.TypedDamage(source,target,amount,new(0,0,0,amount,0));
         if (target is BaseCreature creature) { CreatureHitRecovery.Apply(creature, source, loss); }
         if (!freeze && target is { Alive: true, Deleted: false })
         { GearEffects.ApplyChill(target, Core.TickCount, coldFrames * 40 / NecromancerEffects.DifficultyDivisor(target), source); }
@@ -91,7 +91,7 @@ public static class SkillCombat
         source.DoHarmful(target, true);
         double fire = SorceressEffects.Absorb(target, new(0, enhanced256 / 256.0, 0, 0, 0)).Fire;
         fire = NamedElements.Damage(source, target, fire, "fire", enhance: false, damageRate: damageRate, pierceOverride: pierceOverride);
-        return SkillHealth.Damage(source, target, (int)Math.Clamp(Math.Floor(fire * 256), 0, int.MaxValue),kind);
+        int amount=NamedElements.To256(fire);return SkillHealth.TypedDamage(source,target,amount,new(0,0,amount,0,0),kind);
     }
     public static bool Begin(PlayerMobile owner, CombatAbility ability, Serial selected, Point3D point, long now,
         Func<PlayerMobile, CombatAbility, Serial, Point3D, bool> validTarget,bool requireMana=true,ActionTiming? timing=null)
@@ -252,7 +252,7 @@ public static class SkillCombat
         if(weapon){PreparedWeaponEvents.BeforeReturn(source,target,NamedElements.To256(physical),ranged,ward:ward);}
         if(weapon&&damage.Cold>0&&sourceColdFrames>0){ColdStates.Apply(source,target,sourceColdFrames,Core.TickCount);}
         if(sourceFreezeFrames>0){FreezeStates.Apply(source,target,sourceFreezeFrames,Core.TickCount);}
-        if (total > 0) { SkillHealth.Damage(source,target,NamedElements.To256(total)); }
+        if (total > 0) { SkillHealth.TypedDamage(source,target,NamedElements.To256(total),DirectDamageParts.From(parts)); }
         int loss = Math.Max(0, before - target.Hits);
         if (recover && target is BaseCreature creature) { CreatureHitRecovery.Apply(creature, source, loss, weapon); }
         if (weapon) { NecromancerEffects.WeaponHit(source, target, Math.Min(loss, (int)physical), ranged,lifeTap:false,ironMaiden:false,frozenArmor:false); }

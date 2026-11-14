@@ -159,7 +159,7 @@ internal static class PreparedMonsterDamage
         if(packet.Total256>0)
         {
             int nativeBefore=target.Hits;
-            if((packet.ResultFlags&32)==0&&SkillDamageEvents.Notify(attacker,target,packet.Total256,services.DamageKind))
+            if((packet.ResultFlags&32)==0&&SkillDamageEvents.Notify(attacker,target,packet.Total256,services.DamageKind,DirectDamageParts.From(packet)))
             {
                 // A synchronous secondary hit/heal owns its own HP and death.
                 // Re-read instead of overwriting it with the pending balance.

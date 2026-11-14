@@ -4,7 +4,7 @@ using Server;
 namespace Sanctuary;
 
 public enum SkillDamageKind { Direct, Periodic, Return, SelfCost }
-internal readonly record struct SkillDamageContact(Mobile Source,Mobile Target,int Damage256);
+internal readonly record struct SkillDamageContact(Mobile Source,Mobile Target,int Damage256,DirectDamageParts? Parts=null);
 
 // Post-mitigation, pre-life-commit notification. Keep it separate from hit
 // recovery: fractional contacts and lethal hits need the original FP256 value.
@@ -13,12 +13,12 @@ internal readonly record struct SkillDamageContact(Mobile Source,Mobile Target,i
 internal static class SkillDamageEvents
 {
     internal static event Action<SkillDamageContact> BeforeDirectDamage;
-    internal static bool Notify(Mobile source,Mobile target,int damage256,SkillDamageKind kind)
+    internal static bool Notify(Mobile source,Mobile target,int damage256,SkillDamageKind kind,DirectDamageParts? parts=null)
     {
         var notify=BeforeDirectDamage;
         if(notify!=null&&kind==SkillDamageKind.Direct&&!SkillHealth.IsSelfCost(source,target)
             &&CombatItemEvents.Allowed(source,target))
-        {notify(new(source,target,damage256));return true;}
+        {notify(new(source,target,damage256,parts));return true;}
         return false;
     }
 }

@@ -1,5 +1,7 @@
 # Skill icons
 
+**Defiler Health Link component — 2026-11-15 JST.** [Checkpoint](defiler-health-link-checkpoint.md). Summon Defiler still needs talent-tree and right/quick-hotkey artwork; the existing skill label is the placeholder. Health Link is an innate NPC skill and creates no player hotkey or extra talent icon. Effects/audio remain separately registered; no learned Defiler route is enabled.
+
 **Learned Sigil: Death (2026-11-14 JST).** [Checkpoint](death-cast-checkpoint.md). Left/right/quick binding and actual casts now pass with the identified text placeholder. Talent and hotkey artwork remain pending;marker/recipient/explosion/audio work stays in the effects register.
 
 **Sigil: Death candidate (2026-11-14 JST).** [Proposal](sigil-death-rule-proposal.md). Talent,left/right and quick-hotkey artwork remain needed,using the existing identified text label placeholder. The prepared candidate enables no learned binding and generates no icons;its marker/recipient/explosion/audio requirements are tracked separately in the effects register.

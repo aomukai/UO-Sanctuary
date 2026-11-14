@@ -102,12 +102,16 @@ public static class SkillHealth
     public static int Damage(Mobile source, Mobile target, int damage256)
         =>Damage(source,target,damage256,SkillDamageKind.Direct);
     public static int Damage(Mobile source, Mobile target, int damage256, SkillDamageKind kind)
+        =>DamageCore(source,target,damage256,kind,null);
+    internal static int TypedDamage(Mobile source,Mobile target,int damage256,DirectDamageParts parts,SkillDamageKind kind=SkillDamageKind.Direct)
+        =>DamageCore(source,target,damage256,kind,parts);
+    private static int DamageCore(Mobile source,Mobile target,int damage256,SkillDamageKind kind,DirectDamageParts? parts)
     {
         if (damage256 <= 0 || target is not { Alive: true, Deleted: false } || !target.CanBeDamaged()) { return 0; }
         // A reaction may kill/remove the recipient or change its life. Read
         // the live fractional balance only after that reaction has completed.
         // With no reaction, preserve the original single admission check.
-        if(SkillDamageEvents.Notify(source,target,damage256,kind)
+        if(SkillDamageEvents.Notify(source,target,damage256,kind,parts)
             &&(target is not{Alive:true,Deleted:false}||!target.CanBeDamaged())){return 0;}
         if(target is Server.Mobiles.BaseCreature original&&ReviveEquipmentIncoming.Handles(original))
         {return ReviveEquipmentIncoming.Damage(source,original,damage256);}

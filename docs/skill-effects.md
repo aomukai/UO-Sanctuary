@@ -1,5 +1,7 @@
 # Skill effects
 
+**Defiler Health Link component — 2026-11-15 JST.** [Checkpoint](defiler-health-link-checkpoint.md). Native Gazer body22/sound377 is reused. Recipient flash0x375A/hue0x489 is an identified placeholder. Final summon, link/group membership, shared-damage feedback, expiry and audio remain needed; no imagegen work is included. Automatic linking/flying host/learned casting remain unfinished. Icons stay in their separate register.
+
 **Goatman body reuse clarification — 2026-11-14 JST.** The approved Gargoyle body and its native animations are already reused for prepared summons. A new Khazra body is not required. Remaining assets are the summon cast overlay/audio, Stun impact, Berserk/Frenzy state presentation and Cleave sweep/contact audio. Skill icons remain in the separate icon register. Historical placeholder-body entries below are superseded by this clarification.
 
 
