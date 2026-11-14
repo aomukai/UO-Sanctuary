@@ -48,7 +48,7 @@ internal static class GoatmanNpcBodyActions
     internal static GoatmanNpcActionProposal.Action OpenPrepared(WarlockGoatmanBody body,BaseCreature target,int skill,int frame,DateTime at)
     {
         if(!GoatmanNpcActionProposal.Approved){throw new NotSupportedException("NPC action rule is not approved");}
-        Clock(at);var state=Body(body);int rank=skill switch
+        Clock(at);GoatmanNpcActionProposal.ValidateFrame(frame);var state=Body(body);int rank=skill switch
         {417=>state.Snapshot.Birth.Suppliers.FrenzyRank,419=>state.Snapshot.Birth.Suppliers.CleaveRank,_=>throw new NotSupportedException("Use the qualified Stun/Berserk start adapter for other Goatman skills")};
         if(rank<1){throw new NotSupportedException("Captured Goatman has not unlocked this NPC skill");}
         // Anchor source frame0 to this action's actual observed UTC. A saved

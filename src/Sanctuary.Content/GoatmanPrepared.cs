@@ -51,6 +51,14 @@ internal static class GoatmanPrepared
         if(rows.Length!=3||!rows.Select(x=>x.Difficulty).SequenceEqual(new[]{"Normal","Nightmare","Hell"})||rows.Any(x=>x.Life<=0||x.MinimumDamage<0||x.MaximumDamage<x.MinimumDamage))
         {throw new System.IO.InvalidDataException("Invalid Goatman bases");}return rows;
     });
+    internal static NpcPhysicalStats Physical(GoatmanSnapshot snapshot,int additionalPercent=0)
+    {
+        ArgumentNullException.ThrowIfNull(snapshot);var b=Bases.Value[(int)snapshot.Birth.Difficulty];var s=snapshot.Birth.Suppliers;
+        // Reconstruct the ordinary unenhanced endpoints;the saved display
+        // endpoints already contain ED and must not receive it a second time.
+        return new(checked(b.MinimumDamage+s.FlatDamage),checked(b.MaximumDamage+s.FlatDamage),0,
+            checked(s.DamagePercent+additionalPercent),0,0,false);
+    }
     internal static GoatmanSuppliers Capture(SkillValues v,Func<string,int> accrued)
     {
         ArgumentNullException.ThrowIfNull(accrued);var s=SkillMechanics.For(CombatAbility.SummonGoatman);

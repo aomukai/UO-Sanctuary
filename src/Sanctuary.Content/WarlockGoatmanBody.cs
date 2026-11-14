@@ -19,12 +19,15 @@ internal sealed record GoatmanBodyState(uint Owner,GoatmanSnapshot Snapshot,Mons
 // Saved body/life/ownership backend. GenericPet movement,12-slot live event
 // transport and learned casting remain separate; native skeleton AI is disabled.
 [SerializationGenerator(0)]
-public partial class WarlockGoatmanBody:SkeletonGuardian,ISourceLifeMaximum
+public partial class WarlockGoatmanBody:SkeletonGuardian,ISourceLifeMaximum,ISourceUnarmedNpc
 {
     [SerializableField(0,setter:"private")] private string _saved="{}";
     private GoatmanBodyState _prepared;
     internal GoatmanBodyState Prepared=>_prepared??(_saved=="{}"?null:_prepared=JsonSerializer.Deserialize<GoatmanBodyState>(_saved));
     internal string SavedText=>_saved;
+    NpcPhysicalStats ISourceUnarmedNpc.UnarmedPhysical=>Prepared is{} s
+        ?GoatmanPrepared.Physical(s.Snapshot,checked(CombatAuras.DamagePercent(this)+NecromancerEffects.DamageStatPercent(this)))
+        :throw new NotSupportedException("Missing captured Goatman offense");
     public override DiabloClass SummonClass=>DiabloClass.Warlock;
     public override bool Permitted(PlayerMobile owner)=>ClassCreation.Profiles.Histories(owner.Serial)
         .Any(x=>x.Profile.Class==DiabloClass.Warlock&&x.Ranks.GetValueOrDefault("warlock.summongoatman")>0);

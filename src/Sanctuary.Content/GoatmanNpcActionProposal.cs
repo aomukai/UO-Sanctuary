@@ -12,6 +12,11 @@ internal sealed record GoatmanAnimation(string Code,int Frames,int Speed,int Act
 internal static class GoatmanNpcActionProposal
 {
     internal static bool Approved=>true;
+    internal static void ValidateFrame(int frame)
+    {
+        if(frame<0||frame>SourceFrameTimeline.MaximumFrame-65536)
+        {throw new NotSupportedException("NPC action source-frame timeline exhausted");}
+    }
     private static readonly Lazy<GoatmanAnimation[]> Animations=new(()=>
     {
         var rows=BalanceCatalog.Read<GoatmanAnimation>("goatman-animation");
@@ -108,10 +113,14 @@ internal static class GoatmanNpcActionProposal
             if(actor is not{Alive:true,Deleted:false}||target is not{Alive:true,Deleted:false}||actor.Map is null
                 ||actor.Map==Map.Internal||actor.Map!=target.Map||speed==null)
             {throw new ArgumentException("Prepared Goatman action requires living mapped actors and its own speed state");}
+            ValidateFrame(frame);
             Actor=actor;Target=target;Skill=skill;Rank=rank;Speed=speed;Map=actor.Map;Origin=actor.Location;Aim=target.Location;LastFrame=frame;
-            var plan=Schedule(skill,rank,checked(totalAttackRate+speed.Bonus(frame)),frame);
-            ReleaseFrame=plan.Events.Single(e=>e.Type==SourceAnimationEvents.ModeChange).Frame;
-            EndFrame=plan.Events.Single(e=>e.Type==SourceAnimationEvents.EndAnimation).Frame;
+            // The animation's fixed-point epoch is local to this action.
+            // Offset only its delivered events into the long-lived world
+            // clock; shifting a global frame by8would overflow after~4days.
+            var plan=Schedule(skill,rank,checked(totalAttackRate+speed.Bonus(frame)),0);
+            ReleaseFrame=checked(frame+plan.Events.Single(e=>e.Type==SourceAnimationEvents.ModeChange).Frame);
+            EndFrame=checked(frame+plan.Events.Single(e=>e.Type==SourceAnimationEvents.EndAnimation).Frame);
         }
     }
     internal static void Cancel(Action action){action.Cancelled=true;action.Finished=true;}

@@ -1,5 +1,8 @@
 # Class skills resume checkpoint
 
+**Goatman ordered NPC contact binding — 2026-11-14 JST.** [Checkpoint](goatman-npc-contact-checkpoint.md). Its captured unarmed offense, Stun/Berserk/Frenzy/Cleave, five-percent/hard Death Mark Crushing Blow and actor-owned saved RNG now connect to existing ordered NPC HP/events/returns. Animation events use a local epoch before entering the long-lived world clock. Twenty-one native markers pass across three authenticated sessions, three boots and two reloads, including actual HP/events, all four internal skills/basic attack, own saved RNG and a20million-frame action. Automatic source AI/path/event host and learned summon remain unfinished; coverage stays **221/240 handlers, Warlock12/30; no class certified**. Existing assets/build/config/saves remain separately protected.
+
+
 **Goatman persistent body/action binding — 2026-11-14 JST.** [Checkpoint](goatman-npc-body-action-checkpoint.md). Original birth ranks and Frenzy charges now bind successive prepared actions to the same saved demon; exact UTC deadlines and current attack/walk/qualified other-animation rates use existing source helpers. Eighteen native markers pass across three boots/two reloads, including original Warlock/Witch bodies, fractional wounds, exact expiry, consecutive charges, legacy JSON and approved action regressions. No new timer, persistence ID or save version. Native AI/path/event/contact host and learned summon remain unfinished; coverage stays **221/240 handlers, Warlock12/30; no class certified**. Gargoyle artwork is reused; final skill effects/audio and icons stay separate.
 
 

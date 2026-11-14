@@ -7,10 +7,15 @@ namespace Sanctuary;
 // existing FP256 CB commitment, without a second damage or recovery event.
 internal static class NpcCrushing
 {
-    internal static bool Potential(BaseCreature actor)=>actor is DruidGrizzlyBody;
-    internal static int Chance(BaseCreature actor)=>Math.Clamp(checked(GrizzlyUpgrades.Crushing(actor)+Math.Max(0,NpcEquipmentCombat.EventBonus(actor,"crush"))),0,100);
+    internal static bool Potential(BaseCreature actor)=>actor is DruidGrizzlyBody or WarlockGoatmanBody;
+    internal static int Chance(BaseCreature actor)=>Math.Clamp(checked(GrizzlyUpgrades.Crushing(actor)
+        +(actor is WarlockGoatmanBody{Prepared:{} goat}?goat.Snapshot.Birth.Suppliers.CrushingChance:0)
+        +Math.Max(0,NpcEquipmentCombat.EventBonus(actor,"crush"))),0,100);
     internal static int Apply(BaseCreature actor,BaseCreature target,bool ranged=false,Func<int,int> limited=null)
     {
+        // Goatman's captured auraevent is domeleedamage/function16 only.
+        // Reuse the numeric writer without granting an unlisted missile proc.
+        if(ranged&&actor is WarlockGoatmanBody){return 0;}
         if(target is not{Alive:true,Deleted:false}||!target.CanBeDamaged()){return 0;}
         int chance=Chance(actor);if(chance<=0){return 0;}
         if((limited?.Invoke(100)??NpcEquipmentRandom.Limited(actor,100))>=chance){return 0;}
