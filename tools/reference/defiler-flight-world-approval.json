@@ -1,0 +1,13 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "answer": "Approve the tested Defiler flight-world rule",
+  "approvedUtc": "2026-11-14T18:14:44.950832+00:00",
+  "proposal": "docs/defiler-flight-world-proposal.md",
+  "proposalAtApprovalSha256": "8087ee0f8d9c664281371e53ae4c3152f832f0101a3e6d1f21e44dddb5248ded",
+  "testedCandidateEvidence": "tools/reference/defiler-flying-world-native-evidence.json",
+  "testedCandidateEvidenceSha256": "64d77e1dcd1e90813cf4e0721b2267cd3b04f123917957e4553f32b688559182",
+  "candidateCommit": "ad88cc1395471fd0da96e29b0bbe0f59cf6fb22e",
+  "scope": "All seven proposed native flight-world rules:explicit flying path defaults,size2 terrain/height/occupancy and separate placement feasibility,shared source movement/follow/warp/room graph/restore and no recovery/reset. Explicit Sanctuary adaptation;not current D2R constructor equivalence.",
+  "implementation": "C4/I4/S6/N3 candidate verified87markers/12currentpetinputs/30connections/2reloads. Native flight-world mapping approved;ownNPC405S1/type2/automaticcontroller and learned Defiler remain unfinished. No new runtime build/deployment for this decision."
+}
