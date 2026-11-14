@@ -12,6 +12,8 @@ internal sealed record DeathMarkSavedActor(int Handle,int Map,byte Selector,int 
 {
     [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public GenericPetSavedControl Control{get;init;}
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public GenericPetHeaderImage Header{get;init;}
 }
 internal sealed record DeathMarkWorldImage(GenericPetPlacementImage[] Worlds,DeathMarkSavedActor[] Actors);
 public sealed class DeathMarkWorldProfiles:GenericPersistence
@@ -31,7 +33,7 @@ public sealed class DeathMarkWorldProfiles:GenericPersistence
 internal static class DeathMarkWorld
 {
     private sealed class Actor(int map,byte selector,GenericPetCommandUnit command,int mode,DateTime next)
-    {internal int Map=map,Mode=mode;internal readonly byte Selector=selector;internal readonly GenericPetCommandUnit Command=command;internal DateTime Next=next;internal GenericPetSavedControl Control;}
+    {internal int Map=map,Mode=mode;internal readonly byte Selector=selector;internal readonly GenericPetCommandUnit Command=command;internal DateTime Next=next;internal GenericPetSavedControl Control;internal GenericPetLiveHeader Header;}
     private static Dictionary<int,GenericPetPlacementWorld> _worlds=new();
     private static Dictionary<int,Actor> _actors=new();
     public static void Configure()=>_=new DeathMarkWorldProfiles();
@@ -44,10 +46,24 @@ internal static class DeathMarkWorld
         world.Register(body,unit,path);_worlds[map]=world;
         _actors.Add(path.Actor.Handle,new(map,selector,new(1,unit.Pet.ClassId,selector,command),mode,next));
     }
+    // Called only from the new-body factory after its actual path is supplied.
+    // Validate all startup data before touching the registered world/actor map.
+    internal static void RegisterNew(SkeletonGuardian body,GenericPetMonsterPlacementUnit unit,GenericPetCommitPath path,byte selector,int mode,DateTime next,GenericPetStartupDraft draft)
+    {
+        GenericPetStartupProposal.RequireApproval();
+        if(draft==null||draft.SourceClass!=WarlockDemonPlacement.ClassId(body)||draft.OwnerId!=checked((int)WarlockDemonPlacement.Owner(body))
+            ||draft!=GenericPetStartupProposal.Draft(draft.SourceClass,draft.OwnerGame,draft.OwnerId))
+        {throw new NotSupportedException("New demon startup differs from the approved birth tuple");}
+        var header=new GenericPetLiveHeader(GenericPetLiveHeader.Initial(draft));
+        Register(body,unit,path,selector,new(draft.CommandTarget,draft.CommandType),mode,next);
+        var actor=_actors[path.Actor.Handle];actor.Control=draft.Words;actor.Header=header;
+    }
+    internal static GenericPetLiveHeader Header(SkeletonGuardian body)=>ControlledActor(body).Header
+        ??throw new NotSupportedException("Legacy demon has no qualified live AI header");
     internal static DeathMarkSavedActor State(SkeletonGuardian body)
     {
         if(body==null||!_actors.TryGetValue(unchecked((int)body.Serial.Value),out var actor)){return null;}
-        return new(unchecked((int)body.Serial.Value),actor.Map,actor.Selector,actor.Command.Data.Target48,actor.Command.Data.Type4c,actor.Mode,actor.Next){Control=actor.Control};
+        return new(unchecked((int)body.Serial.Value),actor.Map,actor.Selector,actor.Command.Data.Target48,actor.Command.Data.Type4c,actor.Mode,actor.Next){Control=actor.Control,Header=actor.Header?.Capture()};
     }
     internal static GenericPetCommitPath Path(SkeletonGuardian body)=>_worlds[_actors[checked((int)body.Serial.Value)].Map].Member(checked((int)body.Serial.Value)).Path;
     // Read the registered original command,not a detached saved DTO or native
@@ -178,7 +194,7 @@ internal static class DeathMarkWorld
         {if(_actors[id].Mode==5&&World.FindMobile((Serial)(uint)id)is WarlockTaintedBody body){ChangeMode(body,1);}}
     }
     internal static DeathMarkWorldImage Capture()=>new(_worlds.Values.OrderBy(w=>w.Map.MapID).Select(w=>w.Capture()).ToArray(),
-        _actors.OrderBy(p=>p.Key).Select(p=>new DeathMarkSavedActor(p.Key,p.Value.Map,p.Value.Selector,p.Value.Command.Data.Target48,p.Value.Command.Data.Type4c,p.Value.Mode,p.Value.Next){Control=p.Value.Control}).ToArray());
+        _actors.OrderBy(p=>p.Key).Select(p=>new DeathMarkSavedActor(p.Key,p.Value.Map,p.Value.Selector,p.Value.Command.Data.Target48,p.Value.Command.Data.Type4c,p.Value.Mode,p.Value.Next){Control=p.Value.Control,Header=p.Value.Header?.Capture()}).ToArray());
     internal static void Restore(DeathMarkWorldImage image)
     {
         if(image?.Worlds==null||image.Actors==null){throw new InvalidDataException("Missing Death Mark world image");}
@@ -194,7 +210,16 @@ internal static class DeathMarkWorld
             if(saved==null||saved.Selector is <1 or >3||saved.Type4c>=5||saved.Mode is <0 or >255||saved.NextAiUtc.Kind!=DateTimeKind.Utc
                 ||!members.TryGetValue(saved.Handle,out int map)||map!=saved.Map||actors.ContainsKey(saved.Handle))
             {throw new InvalidDataException("Invalid saved demon controller context");}
-            var unit=worlds[map].Unit(saved.Handle);actors.Add(saved.Handle,new(map,saved.Selector,new(1,unit.Pet.ClassId,saved.Selector,new(saved.Target48,saved.Type4c)),saved.Mode,saved.NextAiUtc){Control=saved.Control});
+            var unit=worlds[map].Unit(saved.Handle);
+            GenericPetLiveHeader header=null;
+            if(saved.Header!=null)
+            {
+                GenericPetLiveHeader.Validate(saved.Header);
+                if(saved.Control==null||saved.Header.SourceClass!=unit.Pet.ClassId||saved.Header.OwnerId!=checked((int)worlds[map].Owner(saved.Handle)))
+                {throw new InvalidDataException("Saved demon AI header lost its original class/owner/control");}
+                header=new(saved.Header);
+            }
+            actors.Add(saved.Handle,new(map,saved.Selector,new(1,unit.Pet.ClassId,saved.Selector,new(saved.Target48,saved.Type4c)),saved.Mode,saved.NextAiUtc){Control=saved.Control,Header=header});
         }
         if(actors.Count!=members.Count){throw new InvalidDataException("Missing original demon command state");}
         _worlds=worlds;_actors=actors;

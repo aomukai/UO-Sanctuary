@@ -22,8 +22,8 @@ public static class GenericPetStartupProposalChecks
     {try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     private static void Contracts()
     {
-        Require(!GenericPetStartupProposal.Approved,"Pending proposal silently became approval");
-        Refused(GenericPetStartupProposal.RequireApproval,"Unapproved startup admitted");
+        Require(GenericPetStartupProposal.Approved,"Approved startup missing");
+        GenericPetStartupProposal.RequireApproval();
         foreach(int cls in new[]{-1,0,741,745,751}){Refused(()=>GenericPetStartupProposal.Draft(cls,71,77),"Unknown species acquired proposed defaults");}
         Refused(()=>GenericPetStartupProposal.Draft(742,0,77),"Implicit world invented");Refused(()=>GenericPetStartupProposal.Draft(742,71,0),"Implicit owner invented");
         foreach(int cls in new[]{742,743,744})
@@ -37,12 +37,12 @@ public static class GenericPetStartupProposalChecks
             Require(JsonSerializer.Deserialize<GenericPetStartupDraft>(JsonSerializer.Serialize(draft))==draft,"Review policy did not round trip");
         }
     }
-    private static void Run(SkeletonGuardian body,GenericPetStartupDraft draft)
+    internal static void Run(SkeletonGuardian body,GenericPetStartupDraft draft,bool registeredHeader=false)
     {
         var before=DeathMarkWorld.State(body);int id=Id(body),owner=Id(body.GetMaster());var identity=new GenericPetWorldIdentity(draft.OwnerGame);
         Require(draft.SourceClass==WarlockDemonPlacement.ClassId(body)&&draft.OwnerId==owner&&draft.OwnerKind==0,"Review birth identity changed");
         Require(identity.Resolve(draft.OwnerGame,draft.OwnerKind,draft.OwnerId)==owner,"Review owner did not resolve through native registry");
-        var control=draft.RuntimeForReview();int roots=0,combats=0;GenericPetInitializedFrame initialized=null;
+        var control=registeredHeader?DeathMarkWorld.Header(body).Control:draft.RuntimeForReview();int roots=0,combats=0;GenericPetInitializedFrame initialized=null;
         var survey=new GenericPetOwnerSurveyServices(_=>throw new InvalidOperationException("Unbound survey"),(_,_)=>throw new InvalidOperationException("Unbound survey row"),_=>throw new InvalidOperationException("Unbound survey target"),(_,_,_)=>throw new InvalidOperationException("Unbound survey validity"),_=>throw new InvalidOperationException("Unbound survey refresh"));
         var leaves=new GenericPetInitializationServices(identity.Resolve,_=>throw new InvalidOperationException("Native life getter not bound"),who=>World.FindMobile((Serial)(uint)who)is PlayerMobile?0:1,
             (_,visit)=>{visit(id);},survey);
@@ -85,7 +85,7 @@ public static class GenericPetStartupProposalChecks
             Require(before.Control==null&&!JsonSerializer.Serialize(before).Contains("\"Control\""),"Unknown legacy control got defaults");
             drafts[i]=GenericPetStartupProposal.Draft(WarlockDemonPlacement.ClassId(body),71,Id(body.GetMaster()));
             Require(DeathMarkWorld.State(body)==before,"Draft mutated unknown controller");
-            Refused(GenericPetStartupProposal.RequireApproval,"Draft silently authorized production");
+            GenericPetStartupProposal.RequireApproval();
             // Explicit disposable test installation only. No production birth
             // path or save migration invokes this pending proposal.
             var image=DeathMarkWorld.Capture();int handle=Id(body);

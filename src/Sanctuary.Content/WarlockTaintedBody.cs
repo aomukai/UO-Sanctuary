@@ -72,7 +72,7 @@ public partial class WarlockTaintedBody : SkeletonGuardian, ISourceLifeMaximum
     }
     internal void RestorePrepared(TaintedBodyState state)
     { Validate(state); string json = JsonSerializer.Serialize(state); _prepared = state; _saved = json; }
-    internal static WarlockTaintedBody CreatePrepared(PlayerMobile owner, Point3D point, DateTime at)
+    internal static WarlockTaintedBody CreatePrepared(PlayerMobile owner, Point3D point, DateTime at, GenericPetBirthBinding startup=null)
     {
         if (at.Kind != DateTimeKind.Utc || at > DateTime.MaxValue.AddMilliseconds(-40) || owner?.Map == null
             || owner.Map == Map.Internal || !owner.Map.CanSpawnMobile(point))
@@ -85,9 +85,9 @@ public partial class WarlockTaintedBody : SkeletonGuardian, ISourceLifeMaximum
             body.RestorePrepared(state); body.Initialize(owner, capture.Birth.Suppliers.Rank, 0); body.SetResistances();
             if (!body.SetControlMaster(owner)) { throw new InvalidOperationException("Tainted control master refused"); }
             BattleCommand.Track(body); PersistentMinions.Profiles.Track(body); body.MoveToWorld(point, owner.Map);
-            body.AIObject?.AITimer.Stop(); SkillHealth.SetBalance256(body, body.MaximumLife256); TaintedResistFire.Select(body,at); return body;
+            body.AIObject?.AITimer.Stop(); SkillHealth.SetBalance256(body, body.MaximumLife256); TaintedResistFire.Select(body,at); startup?.RegisterNew(body); return body;
         }
-        catch { body.Delete(); throw; }
+        catch { DeathMarkWorld.Remove(body); body.Delete(); throw; }
     }
     internal CreatureResistances SourceResistances(MonsterDifficulty? difficulty = null)
     {

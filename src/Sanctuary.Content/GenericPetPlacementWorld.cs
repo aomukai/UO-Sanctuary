@@ -36,6 +36,7 @@ internal sealed class GenericPetPlacementWorld
     internal readonly Map Map;
     internal long Revision{get;private set;}
     internal int Count=>Members.Count;
+    internal uint Owner(int handle)=>Members[handle].Owner;
     internal readonly GenericPetRoomLinkServices Links;
     internal GenericPetPlacementWorld(Map map)
     {

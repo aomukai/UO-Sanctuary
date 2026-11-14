@@ -2,9 +2,8 @@
 using System;
 namespace Sanctuary;
 
-// Review-only proposal. No production birth,save migration or automatic AI
-// calls this factory. Approval would establish a Sanctuary adaptation,not
-// recover the protected D2R constructor. Runtime instances never alias drafts.
+// Approved normal-demon birth values. Native geometry and automatic AI remain
+// separate qualified bindings; no load migration assigns these to old pets.
 internal sealed record GenericPetStartupDraft(int SourceClass,int OwnerGame,int OwnerId,int OwnerKind,
     int State,int Function,int Mode10,int Field14,int CommandTarget,int CommandType,ushort Flags38,int TargetId3c,int TargetKind40,int Ai90,
     GenericPetSavedControl Words)
@@ -16,7 +15,7 @@ internal sealed record GenericPetStartupDraft(int SourceClass,int OwnerGame,int 
 }
 internal static class GenericPetStartupProposal
 {
-    internal const bool Approved=false;
+    internal static bool Approved=>true;
     internal static GenericPetStartupDraft Draft(int sourceClass,int ownerGame,int ownerId)
     {
         if(ownerGame==0||ownerId<=0){throw new NotSupportedException("Startup draft requires an explicit owner/world");}
@@ -30,5 +29,5 @@ internal static class GenericPetStartupProposal
         return new(sourceClass,ownerGame,ownerId,0,0,descriptor.Think,0,2,0,0,0,-1,1,0,new(-1,0,0));
     }
     internal static void RequireApproval()
-    {if(!Approved){throw new NotSupportedException("Normal demon startup is a pending Sanctuary proposal");}}
+    {if(!Approved){throw new NotSupportedException("Normal demon startup adaptation is not approved");}}
 }
