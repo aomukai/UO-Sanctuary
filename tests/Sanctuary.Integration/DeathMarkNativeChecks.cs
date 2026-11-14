@@ -59,7 +59,7 @@ public static class DeathMarkNativeChecks
         target.MoveToWorld(new(owner.X+20,owner.Y,owner.Z),owner.Map);
         Require(DeathMarkNativeRelease.RunPrepared(owner,Context(owner),target.Serial,ground,TimedEffects.Now).Result==0&&DeathMarkDebuffs.State(target)==mark,"Native release bypassed captured38unit range");
         target.MoveToWorld(new(owner.X+11,owner.Y,owner.Z),owner.Map);
-        Require(NecromancerEffects.ManaBalance256(owner)==mana&&!WarlockCombat.Implemented(CombatAbility.DeathMark),"Unapproved prepared bridge paid mana/admitted learned skill");
+        Require(NecromancerEffects.ManaBalance256(owner)==mana&&WarlockCombat.Implemented(CombatAbility.DeathMark),"Unapproved prepared bridge paid mana/admitted learned skill");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,target.Serial.Value,pets.Select(Capture).ToArray(),mark,0)));
         Log.Information("Death Mark native proposal:real moved/stale/self/ground target resolution;actual follower roster/saved creation order;no demon and unregistered controller guards;actual original3species warp/commands/mark/range without payment/admission. Source selectors/counts/castid remain caller-qualified;native room policy is an explicit pending adaptation.");
     }

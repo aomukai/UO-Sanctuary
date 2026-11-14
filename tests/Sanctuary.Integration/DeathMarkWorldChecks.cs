@@ -84,7 +84,7 @@ public static class DeathMarkWorldChecks
         for(int i=0;i<bodies.Length;i++){Live(bodies[i],owner,target,i);}
         var image=DeathMarkWorld.Capture();Invalid(image with{Actors=image.Actors.Concat([image.Actors[0]]).ToArray()});
         Invalid(image with{Actors=image.Actors.Select((a,i)=>i==0?a with{Type4c=5}:a).ToArray()});Invalid(image with{Actors=[]});
-        Require(NecromancerEffects.ManaBalance256(owner)==mana&&!WarlockCombat.Implemented(CombatAbility.DeathMark),"Prepared world route paid owner or admitted unfinished cast");
+        Require(NecromancerEffects.ManaBalance256(owner)==mana&&WarlockCombat.Implemented(CombatAbility.DeathMark),"Prepared world route paid owner or admitted unfinished cast");
         var entries=bodies.Select(b=>new Entry(b.Serial.Value,Text(b),SkillHealth.Balance256(b),SkillHealth.Maximum256(b),b.Mana,BattleCommand.PetOrder(b),b.Location,DeathMarkWorld.State(b))).ToArray();
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,target.Serial.Value,entries,mana,0)));
         Log.Information("Death Mark world:three original demon species relocate through shared source room/path services;actual stun/freeze/chill managers clear only when requested,poison/fear/curse/wounds/mana/ownership/order unchanged. Commands/neutral AI request and source graph saved;automatic AI and learned cast remain gated.");

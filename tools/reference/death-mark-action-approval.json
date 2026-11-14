@@ -1,0 +1,12 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "answer": "Approve the complete Death Mark player-action rule (Recommended)",
+  "approvedUtc": "2026-11-14T19:38:48.479281+00:00",
+  "proposal": "docs/death-mark-action-proposal.md",
+  "proposalAtApprovalSha256": "40ebfd3eee2bc9b92efeda5b48f8bb7a15526212d4edfb3edae76d3eba573d3c",
+  "testedCandidateEvidence": "tools/reference/death-mark-action-native-evidence.json",
+  "testedCandidateEvidenceSha256": "76c99ca840c178e6797d7dff04645d419fa40754b30bdb0000330c1903cfe602",
+  "candidateCommit": "341a79b6bb5d6aa1c3df008a6e477b7b5fce14cc",
+  "scope": "Complete tested Death Mark player rule:required eligible original demon roster,shared SC clock,release-time rank/cost,once-only successful-do payment and20-frame delay,interruption/no replay,preserved partial pet warps on late failure,explicit native opaque metadata0 and original-host recovery. Explicit adaptation,not current startup/unit12c equivalence."
+}

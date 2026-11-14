@@ -56,6 +56,7 @@ public static class DeathMarkActionChecks
         try
         {
             Ready(p);var aim=new Point3D(p.X+10,p.Y,p.Z);int mana=NecromancerEffects.ManaBalance256(p);
+            Require(SkillBindings.Instance.Assign(p,true,Ability)&&SkillBindings.Instance.Assign(p,false,Ability)&&SkillBindings.Instance.AssignQuick(p,7,Ability),"Approved Death Mark bindings unavailable");
             Require(DeathMarkCasting.BeginPrepared(p,Serial.Zero,aim,Core.TickCount,0)==null&&NecromancerEffects.ManaBalance256(p)==mana,"No-demon startup paid/animated");
             SkeletonGuardian[] pets=[WarlockGoatmanWorld.Create(p,new(p.X+1,p.Y,p.Z),TimedEffects.Now,CombatAbility.SummonGoatman),
                 WarlockGoatmanWorld.Create(p,new(p.X+3,p.Y,p.Z),TimedEffects.Now,CombatAbility.SummonTainted),
@@ -108,11 +109,11 @@ public static class DeathMarkActionChecks
                 &&!pets.Select(b=>b.Location).SequenceEqual(before)&&DeathMarkDebuffs.State(target)is{Rank:255}&&FireGround.Ready(p,Ability),"Failed late allocation rolled back warps,paid or started delay");
             DeathMarkDebuffs.Clear(target);Ready(p);var qualified=Start(p,target.Serial,target.Location,0); // Explicit proposed native metadata value.
             Require(Release(p)&&qualified.ManaPaid256>0&&DeathMarkDebuffs.State(target)is{Rank:6,CastId:0},"Explicit native metadata0 did not survive actual recipient binding");
-            Require(!WarlockCombat.Implemented(Ability)&&!ClassCombat.Available(p,Ability),"Prepared rule silently enabled learned input");
+            Require(WarlockCombat.Implemented(Ability)&&ClassCombat.Available(p,Ability),"Approved learned Death Mark route unavailable");
             PersistentMinions.Suspend(p);
             var saved=pets.Select(b=>new Pet(b.Serial.Value,SkillHealth.Balance256(b),SkillHealth.Maximum256(b),Birth(b),NpcEquipmentRandom.State(b))).ToArray();
             File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,target.Serial.Value,saved,0)));kept=true;
-            Log.Information("Prepared Death Mark action:shared SC,required demon,start/release refusal,cancel/movement,once-only fractional success payment,20-frame cooldown,actual source-host interruption/command/recovery and no rollback after late allocation failure;learned route gated");
+            Log.Information("Prepared Death Mark action:shared SC,required demon,start/release refusal,cancel/movement,once-only fractional success payment,20-frame cooldown,actual source-host interruption/command/recovery and no rollback after late allocation failure;approved learned route available");
         }
         finally
         {
@@ -126,6 +127,8 @@ public static class DeathMarkActionChecks
         var p=(PlayerMobile)World.FindMobile((Serial)saved.Owner);var target=(BaseCreature)World.FindMobile((Serial)saved.Target);
         var pets=saved.Pets.Select(s=>(SkeletonGuardian)World.FindMobile((Serial)s.Serial)).ToArray();
         Require(ClassCombat.Existing(p)?.DeathMark==null,"Transient player action replayed on reload");
+        Require(SkillBindings.Instance.Get(p).Left==Ability&&SkillBindings.Instance.Get(p).Right==Ability
+            &&SkillBindings.Instance.GetQuick(p.Serial,DiabloClass.Warlock,7)==Ability,"Original learned Death Mark bindings changed on reload");
         for(int i=0;i<pets.Length;i++)
         {Require(Birth(pets[i])==saved.Pets[i].Birth&&SkillHealth.Balance256(pets[i])==saved.Pets[i].Life&&SkillHealth.Maximum256(pets[i])==saved.Pets[i].Maximum
             &&NpcEquipmentRandom.State(pets[i])==saved.Pets[i].Random&&DemonNativeState.Controller(pets[i])is{Fault:null},"Original saved demon birth/wounds/RNG/controller changed");}

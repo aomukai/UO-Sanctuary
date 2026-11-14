@@ -58,7 +58,7 @@ public static class DeathMarkPetChecks
                 &&nodes.Select(node=>node.Flags).SequenceEqual(Numbers("flags"))&&trace.Count==wantedTrace.Length&&!trace.Where((t,i)=>!t.SequenceEqual(wantedTrace[i])).Any(),"Current Death Mark pet callback differs at case "+n);n++;
         }
         Require(n==97,"Missing current pet callback cases");Commands(json.RootElement);CommandBinding();OwnedCommandMetadata();Placement();Compose(false,true);Compose(true,true);Compose(false,false);
-        Require(NpcWorldAllocation.Capture()==before&&!WarlockCombat.Implemented(CombatAbility.DeathMark),"Prepared callback allocated world actors or admitted learned skill");
+        Require(NpcWorldAllocation.Capture()==before&&WarlockCombat.Implemented(CombatAbility.DeathMark),"Prepared callback allocated world actors or admitted learned skill");
         File.WriteAllText(Manifest,generation.ToString());Require(generation<=2,"Unexpected callback comparison generation");
         Log.Information("Death Mark pet callback:97 callback/165 target-command current-code cases;exact placement/quota,overlay/target/idle,state21/1/11 first-chain precedence,root reloading and post-unlink/free flags. Existing monster placement binding and combined cast/pet success/failure quota/state-allocation controls pass;no world/learned admission.");
     }

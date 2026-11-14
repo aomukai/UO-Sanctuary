@@ -1,5 +1,7 @@
 # Skill icons
 
+**Learned Death Mark (2026-11-15 JST).** Verified left/right/quick learned bindings retain text-label placeholders. Talent-tree and all three binding presentations still need final artwork. Internal demon actions add no player icon;effects/audio remain separately registered.
+
 **Prepared Death Mark player action (2026-11-15 JST).** Talent-tree and left/right/quick artwork remain pending,with existing text labels as identified placeholders. This prepared action adds no internal NPC icon;learned input is still gated for the documented decision. Effects/audio remain in the separate register.
 
 **Learned Summon Defiler — 2026-11-15 JST.** [Checkpoint](defiler-cast-checkpoint.md). Right/quick binding now works through actual input;the existing text label remains the identified placeholder. Final talent/right/quick artwork is still needed. Innate NPC405 creates no extra player icon or hotkey. Effects/audio stay in their separate register.

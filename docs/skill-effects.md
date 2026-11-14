@@ -1,5 +1,7 @@
 # Skill effects
 
+**Learned Death Mark (2026-11-15 JST).** Actual SC/warp/command/recipient mechanics now work through learned inputs. Cast sound0x1E5,landing0x3728 and mark0x375A remain identified placeholders. Final Warlock cast overlay,pet warp/landing,target mark/expiry and audio are still needed independently of mechanical completion. Native flying fit adds no effect.
+
 **Prepared Death Mark player action (2026-11-15 JST).** Shared SC,cast sound0x1E5,pet landing0x3728 and target mark0x375A are identified placeholders. Actual original demon relocation/command/interruption works;final Warlock cast overlay,pet warp/landing,mark/expiry and audio remain pending. Flying-placement correction adds no new visual. See [checkpoint](death-mark-action-checkpoint.md).
 
 **Learned Summon Defiler — 2026-11-15 JST.** [Checkpoint](defiler-cast-checkpoint.md). Automatic NPC405S1/linking and real player casts use the native Gazer body22/sound377,identified link flash0x375A/hue0x489 and shared summon sound0x1E5. Final player summon overlay,NPC S1 gesture/windup/release,link/group/shared-damage/expiry presentation and custom audio remain pending. These placeholders do not block mechanics;icons remain separate.

@@ -54,7 +54,7 @@ public static class DeathMarkCastChecks
             Require(actual==expected.GetProperty("result").GetInt32()&&flags==expected.GetProperty("flags").GetUInt32()
                 &&trace.Count==wanted.Length&&!trace.Where((t,i)=>!t.SequenceEqual(wanted[i])).Any(),"Current Death Mark source return/flags/service/directive/state ordering differs at case "+n);n++;
         }
-        Require(n==122&&NpcWorldAllocation.Capture()==world&&!WarlockCombat.Implemented(CombatAbility.DeathMark),"Prepared do155 changed allocation or opened unfinished learned Death Mark");
+        Require(n==122&&NpcWorldAllocation.Capture()==world&&WarlockCombat.Implemented(CombatAbility.DeathMark),"Prepared do155 changed allocation or opened unfinished learned Death Mark");
         File.WriteAllText(Manifest,generation.ToString());Require(generation<=2,"Unexpected Death Mark comparison generation");
         Log.Information("Death Mark:122 complete current-code cases retain guards,two range evaluations and signed arithmetic,coordinate widths,town/level/collision paths,pet-type versus all-pet directive,remaining-count mark condition,state allocation failure and ordered bind/aura/stat writes. Actual pet callback/world state/payment remain explicit;no learned admission.");
     }

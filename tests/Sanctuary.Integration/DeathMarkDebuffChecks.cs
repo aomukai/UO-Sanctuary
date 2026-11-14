@@ -77,7 +77,7 @@ public static class DeathMarkDebuffChecks
         var expired=PoisonDaggerChecks.Target(owner);
         DeathMarkDebuffs.Restore(image.Append(state with{Target=expired.Serial.Value,UntilUtc=at.AddSeconds(-1)}).ToArray());DeathMarkDebuffs.Prune();
         Require(DeathMarkDebuffs.State(expired)==null&&!DeathMarkDebuffs.Snapshot().Any(x=>x.Target==expired.Serial.Value),"Expired state survived prune");expired.Delete();
-        Require(!WarlockCombat.Implemented(CombatAbility.DeathMark),"Prepared proposal admitted learned cast");
+        Require(WarlockCombat.Implemented(CombatAbility.DeathMark),"Prepared proposal admitted learned cast");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,target.Serial.Value,state,curse,0)));
         Log.Information("Death Mark proposal:255 pinned rank formulas;signed flat penalties before resistance,positive scaling controls,no absent components/poison changes;actual armor and damage hooks,independent curse,rank priority,atomic restore. Natural rank255 deadline saved without retention hold.");
     }

@@ -75,7 +75,7 @@ public static class DeathMarkWorldReleaseChecks
         for(int i=0;i<3;i++){Unchanged(pets[i],first[i]);Require(pets[i].Location!=first[i].Point,"Allocation refusal rolled back earlier pet relocation");}
         Require(Cast(owner,null,pets,255,7,3)==1&&DeathMarkDebuffs.State(target)==mark,"Ground warp incorrectly applied/changed target mark");
         Require(Cast(owner,target,pets,255,7,4,654321)==1&&DeathMarkDebuffs.State(target).CastId==654321,"Repeated enemy release did not update cast metadata");
-        Require(NecromancerEffects.ManaBalance256(owner)==mana&&!WarlockCombat.Implemented(CombatAbility.DeathMark),"Prepared transaction spent player mana or admitted learned route");
+        Require(NecromancerEffects.ManaBalance256(owner)==mana&&WarlockCombat.Implemented(CombatAbility.DeathMark),"Prepared transaction spent player mana or admitted learned route");
         var legacy=JsonSerializer.Deserialize<DeathMarkDebuff>("{\"Target\":1,\"Creator\":2,\"Rank\":1,\"UntilUtc\":\"2026-11-09T00:00:00Z\"}");
         Require(legacy.CastId==0,"Previous debuff JSON cannot load without cast metadata");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,target.Serial.Value,DeathMarkDebuffs.State(target),pets.Select(Capture).ToArray(),0)));
