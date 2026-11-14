@@ -1,5 +1,7 @@
 # Skill icons
 
+**Prepared Death Mark player action (2026-11-15 JST).** Talent-tree and left/right/quick artwork remain pending,with existing text labels as identified placeholders. This prepared action adds no internal NPC icon;learned input is still gated for the documented decision. Effects/audio remain in the separate register.
+
 **Learned Summon Defiler — 2026-11-15 JST.** [Checkpoint](defiler-cast-checkpoint.md). Right/quick binding now works through actual input;the existing text label remains the identified placeholder. Final talent/right/quick artwork is still needed. Innate NPC405 creates no extra player icon or hotkey. Effects/audio stay in their separate register.
 
 **Defiler own S1 casting — 2026-11-15 JST.** [Checkpoint](defiler-link-casting-checkpoint.md). Health Link remains an innate NPC action and adds no player talent or hotkey icon. Summon Defiler talent/right/quick artwork remains pending with the identified text-label placeholder;the learned route is not enabled by the prepared S1 action. Effects/audio remain separate.

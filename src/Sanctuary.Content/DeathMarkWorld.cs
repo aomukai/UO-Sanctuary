@@ -78,7 +78,7 @@ internal static class DeathMarkWorld
         {throw new NotSupportedException("Walking needs its qualified active species ground path");}
         int cx=checked((int)(x>>16)),cy=checked((int)(y>>16));
         if(!DemonPathWorld.Point(body,path,new(cx,cy),out var point))
-        {throw new NotSupportedException("Source walking destination has no supported native floor/space");}
+        {throw new NotSupportedException($"Source walking destination has no supported native floor/space:class{body.SourceMonsterId},source({cx},{cy}),native{body.Location},destination{point},collision{DemonPathWorld.Collision(body,cx,cy):x}");}
         int RoomAt(int _,int px,int py)
         {
             if(px<=0||py<=0||px>=body.Map.Width*2||py>=body.Map.Height*2){return 0;}

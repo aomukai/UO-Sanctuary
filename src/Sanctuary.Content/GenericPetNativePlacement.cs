@@ -133,7 +133,15 @@ internal sealed class GenericPetNativePlacement
             actor=>GenericPetRoomLinks.Touch(actor,Links),(selector,id)=>TargetMetadata==null
                 ?throw new NotSupportedException("Monster-target reset metadata is not bound"):TargetMetadata.Flags(selector,id),0),Footprints);
         placement=GenericPetMonsterPlacementHooks.Bind(placement,Path,Footprints);
-        placement=GenericPetNearbySearch.Bind(placement,GenericPetNearbySearch.WithFootprints(RoomAt,Footprints));
+        var sourceSearch=GenericPetNearbySearch.WithFootprints(RoomAt,Footprints);
+        // Source placement pattern2 checks a cross,whereas the approved
+        // native flying size2 movement samples the complete3x3box. Keep the
+        // original search/order and reject native landings whose diagonal
+        // occupancy would immediately invalidate that flyer's motion.
+        var search=Body is WarlockDefilerBody&&DefilerFlyingWorld.Profile(Body,Path)
+            ?sourceSearch with{Check=request=>sourceSearch.Check(request)|DemonPathWorld.PlacementCollision(Body,request.X,request.Y)}
+            :sourceSearch;
+        placement=GenericPetNearbySearch.Bind(placement,search);
         placement=placement with{UpdatePath=(room,packed)=>
         {
             int x=(ushort)packed,y=(ushort)(packed>>16);

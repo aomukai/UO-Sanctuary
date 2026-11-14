@@ -50,6 +50,7 @@ public static class ClassCombat
         internal DragonTails.Prepared TailAttack;
         internal DragonTalons.Series Talon;
         internal CleaveActionProposal.Action Cleave;
+        internal DeathMarkCasting.Pending DeathMark;
         internal DragonFlights.Flight Flight;
         internal DruidChargedAttacks.Pending DruidChargeAttack;
         internal PoisonDaggerCombat.Prepared PoisonDaggerAttack;
@@ -272,6 +273,7 @@ public static class ClassCombat
         BladeFuryModes.Interrupt(from);PlayerInfernoModes.Interrupt(from);
         DruidVineCasting.Cancel(from);
         AmazonSlowMissilesCasting.Cancel(from);
+        DeathMarkCasting.Cancel(from);
         PaladinCharge.Cancel(from);
         For(from).Target = Serial.Zero;
         For(from).PendingAbility = CombatAbility.None;
@@ -543,6 +545,7 @@ public static class ClassCombat
         if(session.VineCast!=null){return DruidVineCasting.ResolvePrepared(from,now);}
         if(session.Cleave!=null){return CleaveActionProposal.Advance(session.Cleave,now);}
         if(session.SlowMissilesCast!=null){return AmazonSlowMissilesCasting.ResolvePrepared(from,now);}
+        if(session.DeathMark!=null){return DeathMarkCasting.ResolvePrepared(from,now);}
         if(session.Charge!=null){return PaladinCharge.Resolve(from,now);}
         if(session.Zeal!=null){return PaladinZeal.Resolve(from,now);}
         var ability = session.PendingAbility;

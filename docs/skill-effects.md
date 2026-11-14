@@ -1,5 +1,7 @@
 # Skill effects
 
+**Prepared Death Mark player action (2026-11-15 JST).** Shared SC,cast sound0x1E5,pet landing0x3728 and target mark0x375A are identified placeholders. Actual original demon relocation/command/interruption works;final Warlock cast overlay,pet warp/landing,mark/expiry and audio remain pending. Flying-placement correction adds no new visual. See [checkpoint](death-mark-action-checkpoint.md).
+
 **Learned Summon Defiler — 2026-11-15 JST.** [Checkpoint](defiler-cast-checkpoint.md). Automatic NPC405S1/linking and real player casts use the native Gazer body22/sound377,identified link flash0x375A/hue0x489 and shared summon sound0x1E5. Final player summon overlay,NPC S1 gesture/windup/release,link/group/shared-damage/expiry presentation and custom audio remain pending. These placeholders do not block mechanics;icons remain separate.
 
 **Defiler own S1 casting — 2026-11-15 JST.** [Checkpoint](defiler-link-casting-checkpoint.md). Own S1 timing and link mechanics reuse the native Gazer and identified recipient flash0x375A/hue0x489. Final cast/windup/release gesture,link/group/shared-damage/expiry feedback and audio remain needed. Owned D2 animation45S1HTH supplies mechanical frames;it is not final Gazer artwork. Icons remain separate.
