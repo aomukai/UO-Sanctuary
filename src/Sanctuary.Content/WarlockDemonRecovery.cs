@@ -28,7 +28,7 @@ internal static class PermanentSummonRecovery
                 int rate=NpcEquipmentRegeneration.Delta(generated,NpcEquipmentRegeneration.ItemRate(body),0,false,false);
                 NpcEquipmentRegeneration.Apply(body,(int)Math.Clamp(Math.Min(frames,int.MaxValue)*(long)rate,int.MinValue,int.MaxValue));
             }
-            else{SkillHealth.Heal(body, (int)Math.Min(int.MaxValue, frames * BattleOrders.Regeneration256(body)));}
+            else{SkillHealth.Heal(body, (int)Math.Min(int.MaxValue, frames * BattleOrders.Regeneration256(body)+EngorgeEffects.Recovery256(body,nextUtc,frames)));}
         }
         body.AIObject?.AITimer.Stop(); return next;
     }

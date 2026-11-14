@@ -46,6 +46,7 @@ public static class NamedElements
             // Expand our displayed value back to its raw pool; preserve distinct native/explicit overrides.
             if(resistance==Math.Clamp(raw,-100,NamedCombat.ResistanceCap((PlayerMobile)target,type))){resistance=raw;}
         }
+        if(element=="physical"){resistance=checked(resistance+EngorgeEffects.PhysicalResistance(target));}
         int immunityBase=PaladinConviction.UnderlyingResistance(target,element,resistance);
         resistance=immunityBase;
         if(!playerResistance && element!="mag"){resistance+=PaladinResistance.Bonus(target,type);}

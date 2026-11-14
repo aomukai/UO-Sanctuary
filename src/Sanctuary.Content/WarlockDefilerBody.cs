@@ -18,6 +18,8 @@ internal sealed record DefilerBodyState(uint Owner, DefilerSnapshot Snapshot, Mo
     public GoatmanHostSnapshot Controller{get;init;}
     [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
     public bool LearnedCast{get;init;}
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public EngorgeEffect Engorge{get;init;}
 }
 
 // Saved vulnerable vital/owner body and approved Health Link groups. Automatic linking/follow remain gated. Native UO AI,
@@ -76,6 +78,7 @@ public partial class WarlockDefilerBody : SkeletonGuardian, ISourceLifeMaximum
                 || state.Profile != "prepared-defiler-life-owner-v1" || DefilerPrepared.Rescale(state.Snapshot, state.Difficulty) != state.Snapshot)
             { throw new InvalidDataException("Invalid prepared Defiler life/owner state"); }
             DefilerHealthLink.Validate(state.Links,state.Owner);
+            EngorgeEffects.Validate(state.Engorge,state.Owner);
             if(state.LearnedCast&&state.Controller==null){throw new InvalidDataException("Learned Defiler needs its native host");}
             if(state.Controller is{} host)
             {

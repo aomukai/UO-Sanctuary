@@ -1,5 +1,7 @@
 # Skill icons
 
+**Prepared Engorge icon boundary — 2026-11-15 JST.** Tree/hotkey icons are still missing and separate from the tested corpse/heal/buff mechanics. The complete prepared candidate grants no learned binding; generic icons remain explicitly temporary when that route is admitted. No icon or artwork was generated. [Checkpoint](engorge-world-checkpoint.md).
+
 **Engorge icon boundary — 2026-11-15 JST.** Talent-tree and hotkey icons remain missing. The verified numerical capture neither supplies artwork nor enables the learned route. Keep any future generic binding icon clearly labeled as a placeholder; track corpse/healing/buff visuals separately in skill-effects.md. [Checkpoint](engorge-suppliers-checkpoint.md).
 
 **Prepared Blood Oath reaction (2026-11-15 JST).** Passive talent-tree artwork remains pending with a text-label placeholder. There is no active mouse/quick skill or hotkey icon. Reaction approval and effects/audio remain separate concerns.

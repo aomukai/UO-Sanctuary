@@ -151,6 +151,7 @@ internal static class PreparedMonsterDamage
         services.BeforeHealth(packet);
         if(packet.FreezeFrames>0&&!services.SupportsFreeze){throw new NotSupportedException("Prepared freeze needs its qualified status receiver before HP/events");}
         NpcFlatDrains.Require(attacker,packet,services.OrdinaryNpcFlatDrains);
+        if(!missile){EngorgeEffects.Leech(attacker,target,packet,at,services.DamageKind);}
         if(NpcFlatDrains.Any(packet)){NpcFlatDrains.BeforeHealth((BaseCreature)attacker,target,packet);}
         if(packet.AbsorbedLife256>0&&!MonsterUninterruptibles.Delayed(target)){SkillHealth.Heal(target,packet.AbsorbedLife256);}
         if(target is not{Alive:true,Deleted:false}||SkillHealth.Balance256(target)<0)

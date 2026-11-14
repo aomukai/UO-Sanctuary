@@ -18,6 +18,8 @@ internal sealed record GoatmanBodyState(uint Owner,GoatmanSnapshot Snapshot,Mons
     public GoatmanHostSnapshot Controller{get;init;}
     [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
     public bool LearnedCast{get;init;}
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public EngorgeEffect Engorge{get;init;}
 }
 
 // Saved body/life/ownership backend. GenericPet movement,12-slot live event
@@ -81,6 +83,7 @@ public partial class WarlockGoatmanBody:SkeletonGuardian,ISourceLifeMaximum,ISou
                 ||state.Profile!="prepared-goatman-life-owner-v1"||GoatmanPrepared.Rescale(state.Snapshot,state.Difficulty)!=state.Snapshot)
             {throw new InvalidDataException("Invalid prepared Goatman life/owner state");}
             GoatmanNpcBodyActions.Validate(state.Frenzy,state.Snapshot.Birth.Suppliers.FrenzyRank);
+            EngorgeEffects.Validate(state.Engorge,state.Owner);
             if(state.LearnedCast&&state.Controller==null){throw new InvalidDataException("Learned Goatman needs its native host");}
             if(state.Controller is{} controller)
             {

@@ -16,7 +16,7 @@ internal static class SourceAttackRate
         int rate=(int)Math.Clamp((long)effective+attackRate,15,175);
         return Math.Clamp(checked(rate*(meleeOnlyBase==0?baseSpeed:meleeOnlyBase))/100,0,32767);
     }
-    internal static int WolfRate(Mobile actor)=>checked(100+PaladinOffense.AttackRate(actor)-GearEffects.ChillPercent(actor)
+    internal static int WolfRate(Mobile actor)=>checked(100+PaladinOffense.AttackRate(actor)+EngorgeEffects.AttackSpeed(actor)-GearEffects.ChillPercent(actor)
         -TimedEffects.SlowAttack(actor,TimedEffects.Now)-NecromancerEffects.Slow(actor)-PaladinHolyFreeze.AttackSlow(actor)-ImpaleSlow.Attack(actor)+SigilLethargy.Attack(actor)+SigilRancorPrimary.AttackRate(actor));
     // Summon equipment creation/IAS transport is not enabled by this adapter.
     // Owner IAS, weapon speed and player sequence penalties are not inherited.

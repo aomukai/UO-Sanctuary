@@ -312,7 +312,7 @@ public static class CreatureProfiles
         => Variant(creature, difficulty).Rewards is { Enabled: true, Experience: { } xp } ? xp : 0;
     public static int AttackRating(BaseCreature mob) => ReviveEquipmentCombat.AttackBasis(mob)??(For(mob) is { ApplyStats: true, Attack1.AttackRating: { } rating }
         ? rating : NativeAttack(mob));
-    public static int Defense(BaseCreature mob) => ReviveEquipmentCombat.DefenseBasis(mob)??(For(mob) is { ApplyStats: true, Defense: { } defense } ? defense : NativeDefense(mob));
+    public static int Defense(BaseCreature mob) => checked((ReviveEquipmentCombat.DefenseBasis(mob)??(For(mob) is { ApplyStats: true, Defense: { } defense } ? defense : NativeDefense(mob)))+EngorgeEffects.Armor(mob));
 
     // Explicit opt-in prevents an unreviewed mapping from silently rebalancing a native creature.
     internal static void Initialize(BaseCreature creature,bool preserveLoadedLife=false)

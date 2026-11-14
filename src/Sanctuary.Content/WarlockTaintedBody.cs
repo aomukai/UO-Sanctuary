@@ -16,6 +16,8 @@ internal sealed record TaintedBodyState(uint Owner, TaintedSnapshot Snapshot, Mo
     public GoatmanHostSnapshot Controller{get;init;}
     [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
     public bool LearnedCast{get;init;}
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public EngorgeEffect Engorge{get;init;}
 }
 
 // Saved vulnerable body and explicit NPC fire-hit backend. Native UO AI,
@@ -73,6 +75,7 @@ public partial class WarlockTaintedBody : SkeletonGuardian, ISourceLifeMaximum
                 || state.NextRecoveryUtc.Kind != DateTimeKind.Utc || state.NextRecoveryUtc > DateTime.MaxValue.AddMilliseconds(-40)
                 || state.Profile != "prepared-tainted-life-owner-v1" || TaintedPrepared.Rescale(state.Snapshot, state.Difficulty) != state.Snapshot)
             { throw new InvalidDataException("Invalid prepared Tainted life/owner state"); }
+            EngorgeEffects.Validate(state.Engorge,state.Owner);
             if(state.LearnedCast&&state.Controller==null){throw new InvalidDataException("Learned Tainted needs its native host");}
             if(state.Controller is{} host)
             {
