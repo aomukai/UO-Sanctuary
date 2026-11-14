@@ -1,0 +1,15 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "approval": "Approve the tested native-host mapping (Recommended)",
+  "candidateCommit": "0ffb160ae41f08e6a38ca42a1e48f556f3cac874",
+  "proposal": "docs/goatman-native-host-proposal.md",
+  "proposalAtApprovalSha256": "e121daf95dab3052a6e88fc6956b6048e042f31cff93a5ac888579164cb6c954",
+  "candidateEvidence": "tools/reference/goatman-native-host-native-evidence.json",
+  "candidateEvidenceSha256": "7ceafff2a658cec4e8a9888978689eca207bd1902771c7133ae626aa58e1dd07",
+  "approvedUtc": "2026-11-14T14:56:42.660343+00:00",
+  "includes": [
+    "docs/goatman-native-search-proposal.md"
+  ],
+  "scope": "Tested normal-Goatman native path/world/clock/follow/warp/door/parking/reload mapping,including prepared native room/search policy. NPC action and normal startup retain their earlier approvals. Production timer/body persistence/cap/cast/learned input wiring and other species remain separate implementation/verification work."
+}

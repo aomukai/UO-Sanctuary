@@ -1,6 +1,6 @@
 # Goatman native controller proposal
 
-Status: **tested candidate; adaptation approval pending**. Reference: owned D2R Reign of the Warlock **3.3.93847**. This proposal includes the [prepared native room/search mapping](goatman-native-search-proposal.md) and composes the existing source AI, movement, follow, warp, animation and ordered NPC damage kernels. It does not claim recovery of the unavailable D2R global world caller or fresh dynamic-path constructor.
+Status: **approved Sanctuary adaptation** — “Approve the tested native-host mapping (Recommended)”. Decision: `tools/reference/goatman-native-host-approval.json`. Reference: owned D2R Reign of the Warlock **3.3.93847**. This proposal includes the [prepared native room/search mapping](goatman-native-search-proposal.md) and composes the existing source AI, movement, follow, warp, animation and ordered NPC damage kernels. It does not claim recovery of the unavailable D2R global world caller or fresh dynamic-path constructor.
 
 ## Concrete native rules
 

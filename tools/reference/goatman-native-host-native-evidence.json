@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "component": "Executable complete native Goatman AI/path/follow/warp/combat/clock controller candidate",
-  "approval": "Pending explicit native-host adaptation decision",
+  "approval": "Approved explicit normal-Goatman native-host adaptation;production wiring remains",
   "handlers": 221,
   "warlockHandlers": 12,
   "completedClasses": [],
@@ -79,7 +79,7 @@
     "Captured current primary byte241 supplies run hints;native room/search/all-five-action regressions pass in the same cohort."
   ],
   "limits": [
-    "Fresh path masks/defaults,facet planning/native regions,source overlap64 mapping,near-owner search,UO doors,zero adapter bytes/scratch and native clock/lifecycle ordering are explicit proposed adaptations.",
+    "Fresh path masks/defaults,facet planning/native regions,source overlap64 mapping,near-owner search,UO doors,zero adapter bytes/scratch and native clock/lifecycle ordering are explicit approved Sanctuary adaptations.",
     "Normal original Goatman only;unqualified legacy/special/queued/saved-follow/uninterruptible-deferred and other-species contexts refuse.",
     "Clock snapshot is retained by disposable fixture;automatic timer,body persistence,cap/cast and learned input wiring remain uninstalled.",
     "No complete class certification or final effects/audio/icons;installed build/config/saves/native/client remain protected."
@@ -119,14 +119,15 @@
     "src/Sanctuary.Content/GoatmanNativeSearch.cs": "1168705560ba43e68dff5c4e4b1c2d7397890abbafbf5cb5f391f3f61ac2afe2",
     "tests/Sanctuary.Integration/GoatmanNativeHostChecks.cs": "934d3285ab61557e45f2dcaeb648ce3c21009d4f3d51df573a9768d049c83daf",
     "tests/check_goatman_native_host.py": "8a0c0deaee6531442374fb36e551fc56f63a3c50cc16694a724a55eed5cacea9",
-    "tools/record_goatman_native_host.py": "e6a97bc337dd9214ad1693410decc9afa6f25633b0c6899e6a92f8100cb6632f",
-    "docs/goatman-native-host-proposal.md": "e121daf95dab3052a6e88fc6956b6048e042f31cff93a5ac888579164cb6c954",
-    "docs/goatman-native-search-proposal.md": "eda42dcb56bf73a9b66d24caf915c796e1b371bd63fff3fea810364197f16068",
-    "docs/class-skill-roadmap.md": "aea6375a5a812ed54032afa25c7d1ab91c8d8a06908e2bac3520ea8de3e5db4e",
-    "docs/class-skills-resume-checkpoint.md": "590a4bf369ae93e6b0d61a54bcc1402fd085f876d3bd2bc19ce6a893391dc891",
-    "docs/class-skill-reuse-notes.md": "6375842c2cf7c459c1eb3c4b05b07385c16be9f37964aaf211edd0be29f6e515",
+    "tools/record_goatman_native_host.py": "df24bcf5304724160c2bbd5d0791332b6567d97552b56d404fef09ab7562a2a0",
+    "docs/goatman-native-host-proposal.md": "388f42095e6600d3967de24a0761ca67fb12aeaba3f4f187dcd3dd05ca306d67",
+    "docs/goatman-native-search-proposal.md": "fecb8ebf3396b84616a7e92524d8c97517e7c0b2012daf4143f284bd514a1ebc",
+    "docs/class-skill-roadmap.md": "091d8fd30fbe1f975725a2c9bf8fa9c8a40d4811b997ca71cfea7cc07ef124f6",
+    "docs/class-skills-resume-checkpoint.md": "de7f748bbb887d5f6e97fe9a58c49224088ab4f55e90e05092a92d17f304784f",
+    "docs/class-skill-reuse-notes.md": "fd7959326684ccf325d44cf9839886715f8f9e9006adbdbe9f22665da1f7bb8c",
     "data/Sanctuary/Balance/skill-effects.json": "91cbff091465ec4a2262a2a178df89a23f22e733f0cb4a8b6de2f51290c234af",
     "data/Sanctuary/Balance/skill-icons.json": "b5541cd3be5797b7e984f47284cfa686eb7d5bc51061520f75a8e927e9cd54e2",
-    "tools/reference/generic-pet-follow-executor-source-evidence.json": "aef9709ab6e5030d8f426fbd36dac81037f4ea9aebb96eafaa636cc4040a2960"
+    "tools/reference/generic-pet-follow-executor-source-evidence.json": "aef9709ab6e5030d8f426fbd36dac81037f4ea9aebb96eafaa636cc4040a2960",
+    "tools/reference/goatman-native-host-approval.json": "80dfd2b0c39fcb21c91b14c9233d4c1fa4735c2979c0db9e51a749bb25a2a786"
   }
 }

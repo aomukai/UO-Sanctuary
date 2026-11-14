@@ -48,9 +48,10 @@ def record(check=False):
         'src/Sanctuary.Content/SourceFrameTimeline.cs','src/Sanctuary.Content/GoatmanNativeSearch.cs','tests/Sanctuary.Integration/GoatmanNativeHostChecks.cs','tests/check_goatman_native_host.py','tools/record_goatman_native_host.py',
         'docs/goatman-native-host-proposal.md','docs/goatman-native-search-proposal.md','docs/class-skill-roadmap.md','docs/class-skills-resume-checkpoint.md','docs/class-skill-reuse-notes.md',
         'data/Sanctuary/Balance/skill-effects.json','data/Sanctuary/Balance/skill-icons.json','tools/reference/generic-pet-follow-executor-source-evidence.json'):pin(name)
+    approval=pin('tools/reference/goatman-native-host-approval.json');assert approval['approved']and approval['candidateCommit']=='0ffb160ae41f08e6a38ca42a1e48f556f3cac874'
     protected=e.protection('tools/reference/hex-siphon-cast-client-evidence.json',43)
     result=dict(referenceVersion='3.3.93847',component='Executable complete native Goatman AI/path/follow/warp/combat/clock controller candidate',
-        approval='Pending explicit native-host adaptation decision',handlers=221,warlockHandlers=12,completedClasses=[],
+        approval='Approved explicit normal-Goatman native-host adaptation;production wiring remains',handlers=221,warlockHandlers=12,completedClasses=[],
         learnedDemonSummonsEnabled=False,automaticPetAiEnabled=False,nativeMarkers=21,markers=dict(expected),authenticatedSessions=6,boots=3,reloads=2,saves=3,
         activityPerBoot=[dict(decisions=d,paths=p,sourceMoves=s,warps=w)for d,p,s,w in rows],
         contentBuild=3,integrationBuild=2,sourceSnapshot=4,nativeRun=2,nativeRebuilt=False,clientRebuilt=False,newLiveReferenceReads=0,
@@ -60,13 +61,13 @@ def record(check=False):
             'Actual native unlocked door use,stun pause,native freeze cancellation/thaw rearm and existing Death Mark placement authority.',
             'Four-hour offline phase skip and real roster return/atomic source-room rebind preserve wounds,Frenzy deadlines and randomness;two original-body/clock reloads replay no offline combat or healing.',
             'Captured current primary byte241 supplies run hints;native room/search/all-five-action regressions pass in the same cohort.'],
-        limits=['Fresh path masks/defaults,facet planning/native regions,source overlap64 mapping,near-owner search,UO doors,zero adapter bytes/scratch and native clock/lifecycle ordering are explicit proposed adaptations.',
+        limits=['Fresh path masks/defaults,facet planning/native regions,source overlap64 mapping,near-owner search,UO doors,zero adapter bytes/scratch and native clock/lifecycle ordering are explicit approved Sanctuary adaptations.',
             'Normal original Goatman only;unqualified legacy/special/queued/saved-follow/uninterruptible-deferred and other-species contexts refuse.',
             'Clock snapshot is retained by disposable fixture;automatic timer,body persistence,cap/cast and learned input wiring remain uninstalled.',
             'No complete class certification or final effects/audio/icons;installed build/config/saves/native/client remain protected.'],inputs=inputs)
     p=ROOT/'tools/reference/goatman-native-host-native-evidence.json';encoded=json.dumps(result,indent=2)+'\n'
     if check:assert p.read_text()==encoded,'Native host candidate evidence stale'
     else:p.write_text(encoded)
-    print('Goatman host candidate:21markers/6sessions/2reloads;complete AI/path/follow/warp/combat/lifecycle loop;adaptation approval and production wiring remain.')
+    print('Goatman host candidate:21markers/6sessions/2reloads;complete AI/path/follow/warp/combat/lifecycle loop;adaptation approved;production wiring remains.')
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--check',action='store_true');record(p.parse_args().check)
