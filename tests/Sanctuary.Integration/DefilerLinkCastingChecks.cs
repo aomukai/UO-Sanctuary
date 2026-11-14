@@ -91,9 +91,8 @@ public static class DefilerLinkCastingChecks
                 Require(Start(),"Logout cancellation setup");network.Mobile=null;p.NetState=null;DefilerLinkCasting.Advance(b,at.AddSeconds(2));
                 Require(combat.Current==null&&b.Prepared.Links==null,"Offline S1 released");network.Mobile=p;p.NetState=network;PersistentMinions.Resume(p);DeathMarkWorld.RebindPrepared(b,DefilerFlyingWorld.BirthPath(b));
                 var lost=Target(b,7);targets.Add(lost);var late=combat.Bind(Outer(),()=>0,()=>at);
-                Require(late.ExecuteSkill(8,405,checked((int)lost.Serial.Value),0,0,true),"Lost-target setup");var doomed=DefilerLinkCasting.State(b);lost.Delete();bool refused=false;
-                try{combat.Advance(24,doomed.ActionUtc);}catch(NotSupportedException){refused=true;}
-                Require(refused&&DefilerLinkCasting.State(b)is{Released:true,Fault:not null}&&b.Prepared.Links==null,"Lost original target invented a fallback or retried");Clear();
+                Require(late.ExecuteSkill(8,405,checked((int)lost.Serial.Value),0,0,true),"Lost-target setup");var doomed=DefilerLinkCasting.State(b);lost.Delete();combat.Advance(24,doomed.ActionUtc);
+                Require(DefilerLinkCasting.State(b)is{Released:true,Linked:false,Fault:null,Refusal:not null}&&b.Prepared.Links==null,"Lost original target invented a fallback or retried");Clear();
                 foreach(var t in targets.Skip(1)){t.Delete();}
                 Require(Start(),"Retained original S1 setup");action=DefilerLinkCasting.State(b);combat.Advance(24,action.ActionUtc);combat.Advance(32,action.EndUtc);
                 Require(b.Prepared.Links.Marks.Length==1&&b.Prepared.Links.Marks[0].Target==first.Serial.Value,"Retained one-target original link setup");
@@ -105,7 +104,7 @@ public static class DefilerLinkCastingChecks
                 b.RestorePrepared(b.Prepared with{Links=b.Prepared.Links with{Marks=b.Prepared.Links.Marks.Select(m=>m with{UntilUtc=at.AddHours(1)}).ToArray()},NextRecoveryUtc=at.AddDays(2)});
                 PersistentMinions.Suspend(p);File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(0,p.Serial.Value,b.Serial.Value,first.Serial.Value,0,at,b.SavedText,life,random,DeathMarkWorld.State(b),GenericPetSavedPath.Capture(DeathMarkWorld.Path(b)))));kept=true;
             }
-            Require(!WarlockCombat.Implemented(CombatAbility.SummonDefiler),"Own S1 enabled unfinished AI/learned Defiler");
+            Require(WarlockCombat.Implemented(CombatAbility.SummonDefiler),"Learned Defiler route missing after source host integration");
             Log.Information("Defiler S1:401source clocks,24/32baseline,own Other fields/live release ranks,no masteryIAS/full-cap cast/replay/mana/damage,RNG/wounds preserved;movement/freeze/mode/logout cancellation and explicit lost-target refusal");Log.Information("{Result}: passed",result);
         }
         catch(Exception e){Log.Error(e,"{Result}: failed",result);}

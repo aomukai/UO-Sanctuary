@@ -18,14 +18,14 @@ internal static class GoatmanNativeDecision
     {
         var goat=BalanceCatalog.Read<GoatmanAiScore>("goatman-ai-scores");
         var tainted=BalanceCatalog.Read<GoatmanAiScore>("tainted-ai-scores");
-        var rows=goat.Concat(tainted).ToArray();
-        if(rows.Length!=6||!rows.Select(r=>r.Id).SequenceEqual(new[]{416,418,417,419,422,420})
-            ||rows.Where(r=>r.Id!=420).Any(r=>r.Score is not{Flags36:0,State162:-1,Class272:-1,OwnerCompare274:-1,Calc276:-1}))
+        var rows=goat.Concat(tainted).Concat(BalanceCatalog.Read<GoatmanAiScore>("defiler-ai-scores")).ToArray();
+        if(rows.Length!=7||!rows.Select(r=>r.Id).SequenceEqual(new[]{416,418,417,419,422,420,405})
+            ||rows.Where(r=>r.Id is not(420 or 405)).Any(r=>r.Score is not{Flags36:0,State162:-1,Class272:-1,OwnerCompare274:-1,Calc276:-1}))
         {throw new InvalidDataException("Unsupported captured Goatman AI score rows");}
         foreach(var r in rows)
         {
             var meta=GenericPetMetadata.Table.Skill(r.Id);
-            if(meta==null||meta.AiType!=(r.Id==420?6:r.Id==422?11:4)||meta.Flags36!=r.Score.Flags36||meta.Flags39!=r.Score.Flags39)
+            if(meta==null||meta.AiType!=(r.Id==405?2:r.Id==420?6:r.Id==422?11:4)||meta.Flags36!=r.Score.Flags36||meta.Flags39!=r.Score.Flags39)
             {throw new InvalidDataException("Goatman score/catalog identity disagrees");}
         }
         return rows;
@@ -35,10 +35,10 @@ internal static class GoatmanNativeDecision
     internal static byte Flags37(int skill)=>Scores.Value.FirstOrDefault(r=>r.Id==skill)?.Flags37
         ??throw new NotSupportedException("No captured Goatman action flags for this skill");
     private static int[] Order(SkeletonGuardian body)=>body switch
-    {WarlockGoatmanBody=>[416,418,417,419],WarlockTaintedBody=>[422,420],_=>throw new NotSupportedException("Unbound ground demon skill order")};
-    private static int Mode(int skill)=>skill==420?8:skill is 417 or 422?5:4;
+    {WarlockGoatmanBody=>[416,418,417,419],WarlockTaintedBody=>[422,420],WarlockDefilerBody=>[405],_=>throw new NotSupportedException("Unbound ground demon skill order")};
+    private static int Mode(int skill)=>skill is 420 or 405?8:skill is 417 or 422?5:4;
     private static int Rank(SkeletonGuardian body,int skill,bool bonuses=true)=>body switch
-    {WarlockGoatmanBody goat=>GoatmanNpcContact.Rank(goat,skill),WarlockTaintedBody tainted=>TaintedNpcRanks.Level(tainted,skill,bonuses),_=>throw new NotSupportedException("Unbound ground demon skill rank")};
+    {WarlockGoatmanBody goat=>GoatmanNpcContact.Rank(goat,skill),WarlockTaintedBody tainted=>TaintedNpcRanks.Level(tainted,skill,bonuses),WarlockDefilerBody defiler when skill==405=>DefilerLinkNumbers.Capture(defiler.Prepared.Snapshot.Birth.Suppliers.HealthLinkRank,defiler.Prepared.Snapshot.Birth.Suppliers.SelfSkillRank,bonuses?BattleCommand.Bonus(defiler):0).Rank,_=>throw new NotSupportedException("Unbound ground demon skill rank")};
     private static int Id(Mobile m)=>checked((int)m.Serial.Value);
     private static Mobile Mobile(int id)=>World.FindMobile((Serial)(uint)id)is{Deleted:false} m?m
         :throw new NotSupportedException("Goatman decision unit is no longer present");
@@ -76,9 +76,9 @@ internal static class GoatmanNativeDecision
         var saved=DeathMarkWorld.State(body);var header=DeathMarkWorld.Header(body);
         if(saved is not{Selector:1,Control:not null}||header.Control is not{State:0,Function:0x4b60c0,Executing:false}||header.Control.Queue.Count!=0)
         {throw new NotSupportedException("Native Goatman decision is not bound to a normal registered GenericPet header");}
-        var parameters=GenericPetProfiles.Raw(body.SourceMonsterId);int basic=body is WarlockGoatmanBody?4:0;
-        _=DemonGroundMovement.Size(body);
-        if(parameters is not{SwarmRaw:0,ChooseType:1}||parameters.ModeAttack!=basic||parameters.ModeAiType!=basic)
+        var parameters=GenericPetProfiles.Raw(body.SourceMonsterId);int basic=body is WarlockGoatmanBody or WarlockDefilerBody?4:0;int basicType=body is WarlockDefilerBody?2:basic;
+        _=DemonPathWorld.Size(body);
+        if(parameters is not{SwarmRaw:0,ChooseType:1}||parameters.ModeAttack!=basic||parameters.ModeAiType!=basicType)
         {throw new NotSupportedException("Goatman source profile needs a different host binding");}
         if(NpcEquipmentRandom.Require(body).Seed!=random.Seed)
         {throw new NotSupportedException("Goatman AI random view is stale");}
@@ -128,7 +128,7 @@ internal static class GoatmanNativeDecision
             (_,_)=>throw new NotSupportedException("Goatman has no progressive skill"),Unit,(selector,stat)=>selector==1&&stat is 36 or 37 or 39 or 41 or 43 or 45,
             Stat,(id,x,y)=>GenericPetSearch.Squared(position(id),x,y),_=>GenericPetMetadata.Table.StateCount,
             (selector,state)=>metadata.StateGroup(selector,state) is short group?checked((ushort)group):null,
-            (_,_)=>throw new NotSupportedException("Attack-only Goatman scorer requested a buff state"),(_,_)=>throw new NotSupportedException("Goatman has no summon action"),
+            (id,state)=>body is WarlockDefilerBody?DefilerHealthLink.HasState(Mobile(id),state,TimedEffects.Now):throw new NotSupportedException("Attack-only ground demon scorer requested a buff state"),(_,_)=>throw new NotSupportedException("Goatman has no summon action"),
             _=>throw new NotSupportedException("Goatman has no summon cap scorer"),(_,_,_,_,_)=>throw new NotSupportedException("Goatman has no summon formula"),
             (_,_)=>throw new NotSupportedException("Goatman has no type12 descriptor"),_=>throw new NotSupportedException("Goatman has no type13 descriptor"));
         GenericPetCombatServices Combat(GenericPetDecisionFrame frame)

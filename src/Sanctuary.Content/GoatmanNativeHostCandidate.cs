@@ -43,14 +43,15 @@ internal sealed class GoatmanNativeHostCandidate:IDisposable
     }
     internal GoatmanHostSnapshot Capture()=>new(Pump.Position){Profile=DemonNativeState.Profile(Body)};
     private int SourceClass=>WarlockDemonPlacement.ClassId(Body);
-    private GoatmanHostSource Species=>Body is WarlockGoatmanBody?Source.Value:new(DemonGroundMovement.Tainted.ClassId,DemonGroundMovement.Tainted.Flags241);
+    private GoatmanHostSource Species=>Body switch{WarlockGoatmanBody=>Source.Value,WarlockTaintedBody=>new(DemonGroundMovement.Tainted.ClassId,DemonGroundMovement.Tainted.Flags241),WarlockDefilerBody=>new(DefilerFlyingMovement.Species.ClassId,DefilerFlyingMovement.Species.Flags241),_=>throw new NotSupportedException("No demon host species")};
     public void Dispose(){Combat.Dispose();Motion.Stop();ClearEvents();}
     internal void Interrupt(){Combat.Cancel();Motion.Stop();ClearEvents();Idle(1);}
     internal void Park(){Combat.Cancel();Motion.Stop();ClearEvents();Suspended=true;}
     internal static GenericPetBirthPath BirthPath(SkeletonGuardian body)
     {
+        if(body is WarlockDefilerBody){return DefilerFlyingWorld.BirthPath(body);}
         if(body.Map==null||body.Map==Map.Internal){throw new NotSupportedException("Native birth path requires ground world space");}
-        int size=DemonGroundMovement.Size(body),cls=WarlockDemonPlacement.ClassId(body);
+        int size=DemonPathWorld.Size(body),cls=WarlockDemonPlacement.ClassId(body);
         var path=new GenericPetCommitPath{X=((uint)(body.X*2)<<16)|32768,Y=((uint)(body.Y*2)<<16)|32768,Flags=1,
             Room=GenericPetNativePlacement.RoomHandle(body.Map,body.X*2,body.Y*2),Size5c=size,Mask60=0x100,Mask64=0x3401,Actor=new(checked((int)body.Serial.Value),1)};
         return new(new(new(cls,0),true,1,cls,size,size,0),path,1,1,TimedEffects.Now);
@@ -59,11 +60,13 @@ internal sealed class GoatmanNativeHostCandidate:IDisposable
         =>WarlockGoatmanBody.CreatePrepared(owner,point,at,new(1,BirthPath));
     internal static WarlockTaintedBody CreateTainted(PlayerMobile owner,Point3D point,DateTime at)
         =>WarlockTaintedBody.CreatePrepared(owner,point,at,new(1,BirthPath));
+    internal static WarlockDefilerBody CreateDefiler(PlayerMobile owner,Point3D point,DateTime at)
+        =>DefilerFlyingWorld.CreateCandidate(owner,point,at);
     internal GoatmanNativeHostCandidate(SkeletonGuardian body,DateTime at,GoatmanHostSnapshot saved=null)
     {
         if(at.Kind!=DateTimeKind.Utc||body is not{Alive:true,Deleted:false,ControlMaster:PlayerMobile owner}||DeathMarkWorld.State(body)is not{Selector:1})
         {throw new NotSupportedException("Candidate host requires its original registered living Goatman");}
-        Body=body;Owner=owner;At=at;_=DemonGroundMovement.Size(body);
+        Body=body;Owner=owner;At=at;_=DemonPathWorld.Size(body);
         if(saved!=null&&saved.Profile!=DemonNativeState.Profile(body)){throw new NotSupportedException("Saved ground host species differs");}
         var position=saved?.Clock??new SourceFramePosition(0,at.AddTicks(SourceFrameTimeline.IntervalTicks));SourceFrameTimeline.Validate(position);
         Pump=new(Events,position);Suspended=saved!=null||body.Map==Map.Internal;
@@ -173,7 +176,7 @@ internal sealed class GoatmanNativeHostCandidate:IDisposable
             (_,_)=>throw new NotSupportedException("Candidate nonempty saved-follow distance needs its source producer"),
             (_,_,_,_,_,_)=>throw new NotSupportedException("Candidate nonempty saved-follow point is not admitted"),
             (_,_,_,_)=>throw new NotSupportedException("Candidate nonempty saved-follow command is not admitted"),
-            (_,x,y,_,_)=>checked((ushort)(Door()!=null?0x800:PetGroundWorld.Collision(Body,x,y))),
+            (_,x,y,_,_)=>checked((ushort)(Door()!=null?0x800:DemonPathWorld.Collision(Body,x,y))),
             (_,limit)=>Door()is{} door?checked((int)door.Serial.Value):0,
             (_,id)=>Server.World.FindItem((Serial)(uint)id)is BaseDoor,
             (_,id)=>Server.World.FindItem((Serial)(uint)id)is BaseDoor{Locked:false},
@@ -205,7 +208,7 @@ internal sealed class GoatmanNativeHostCandidate:IDisposable
             ExecuteMode=request=>{Motion.Stop();return timed.ExecuteMode(request);}};
         var leaves=new GenericPetCombatServices(()=>throw new InvalidOperationException(),_=>0,_=>0,(_,_,_)=>throw new InvalidOperationException(),(_,_)=>throw new InvalidOperationException(),
             ()=>DeathMarkWorld.Path(Body).Size5c,()=>world.Room(actor),
-            (room,x,y,property,mask)=>mask==64&&property==DemonGroundMovement.Size(Body)?AlliedOverlap.Blocked(Body):throw new NotSupportedException("Native standing-block mask is unbound"),
+            (room,x,y,property,mask)=>mask==64&&property==DemonPathWorld.Size(Body)?AlliedOverlap.Blocked(Body):throw new NotSupportedException("Native standing-block mask is unbound"),
             ()=>GenericPetMovement.Prepare(Motion.Unit,0,0,0),(x,y,radius,hint,flags)=>actions.Move(x,y,checked((byte)radius),hint,flags),actions.MoveFinished,_=>throw new InvalidOperationException(),
             (_,_)=>throw new InvalidOperationException(),_=>throw new InvalidOperationException(),(_,_,_)=>throw new InvalidOperationException(),(_,_)=>throw new InvalidOperationException());
         var binding=world.Bind(random,leaves,Motion.Follow(world),Motion.FollowExecution(world),actions,

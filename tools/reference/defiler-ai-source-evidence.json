@@ -1,0 +1,41 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Owned Defiler NPC405 type2 AI metadata",
+  "sourceClass": 744,
+  "slots": [
+    405
+  ],
+  "modes": [
+    8
+  ],
+  "rows": [
+    {
+      "id": 405,
+      "flags37": 4,
+      "score": {
+        "flags36": 0,
+        "flags39": 128,
+        "quarter532": 1,
+        "bonus730": 0,
+        "element644": 0,
+        "state162": 210,
+        "class272": -1,
+        "ownerCompare274": -1,
+        "calc276": -1
+      }
+    }
+  ],
+  "newLiveReferenceReads": 0,
+  "inputs": {
+    "tools/reference/generic-pet-metadata-data-evidence.json": "9481bbaaf812e188fbba47ba197cffa2f2be1661607253ed0748fe419d86e728",
+    ".local/class-skills/defiler-compiled-formula/skills.bin": "46f88f32255aa522ad05044a60b480a895d48aff4b0a2ff9cb02cc34a2c2c48e",
+    "tools/reference/d2r-local-sentry-model-evidence.json": "3e3f8576cf58e33b9270d5769eafd85aec39d899626b2010031a9763ae3ffe2d",
+    ".local/research/d2r-3.3.93847/monstats-sentries-verified.txt": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+    "data/Sanctuary/Balance/defiler-ai-scores.json": "10ce5d90d2fa195ee5b7cb4c2fd606dda6b8cda1eaf998076303e67936da78d9",
+    "tools/build_defiler_ai.py": "336acb8d3baec66e5ba82503726d7961cb74f85052569fa3803e6b5444240c9e"
+  },
+  "limits": [
+    "Actual source root/search/state/capacity/action binding requires native verification.",
+    "Base mode4/type2 from the owned parameter row is retained;it is not an authorization for ordinary melee."
+  ]
+}

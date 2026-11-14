@@ -36,7 +36,7 @@ public static class DefilerLinkNumberChecks
         Require(DefilerLinkNumbers.Capture(1,25)is{Rank:1,SelfRank:25,PerCast:2,RawSharedPercent:55,RawMaximumLinks:5},"NPC skill rank and own self-skill reference were collapsed");
         Require(DefilerLinkNumbers.Capture(99,99)is{RawSharedPercent:61,RawMaximumLinks:6},"Unverified callback cap silently replaced the raw table formula");
         bool refused=false;try{_=DefilerLinkNumbers.Capture(0,1);}catch(NotSupportedException){refused=true;}Require(refused,"Missing NPC skill invented a Health Link rank");
-        Require(!WarlockCombat.Implemented(CombatAbility.SummonDefiler),"Numeric foundation enabled unfinished Defiler link/controller");
+        Require(WarlockCombat.Implemented(CombatAbility.SummonDefiler),"Learned Defiler route missing after source host integration");
         Log.Information("Defiler Health Link:{Count} source/getter contexts;198rawFogcomparisons;rank25=55percent/5links;high-rank callback caps explicitly unverified;no handler/event38",count);
     }
 }

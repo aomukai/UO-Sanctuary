@@ -90,7 +90,7 @@ public static class DefilerFlyingWorldChecks
                 PersistentMinions.Suspend(p);b.RestorePrepared(b.Prepared with{NextRecoveryUtc=at.AddDays(2)});
                 File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(0,p.Serial.Value,b.Serial.Value,b.SavedText,DeathMarkWorld.State(b),GenericPetSavedPath.Capture(DeathMarkWorld.Path(b)),life,seed)));kept=true;
             }
-            Require(!WarlockCombat.Implemented(CombatAbility.SummonDefiler),"Unapproved world candidate enabled learned Defiler");
+            Require(WarlockCombat.Implemented(CombatAbility.SummonDefiler),"Learned Defiler route missing after source host integration");
             Log.Information("Defiler flight world:real gap/wet/wall/door/occupancy,source2x2/mask1804/FP16 room transport,wrong-profile refusal,shared owner warp,original wounds/RNG;candidate only");Log.Information("{Result}: passed",result);
         }
         catch(Exception e){Log.Error(e,"{Result}: failed",result);}

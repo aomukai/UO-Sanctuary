@@ -7,7 +7,7 @@ using Server.Mobiles;
 namespace Sanctuary;
 
 internal sealed record DefilerLinkAction(uint Actor,uint Owner,uint Target,int Speed,DateTime StartedUtc,DateTime ActionUtc,DateTime EndUtc,
-    bool Released=false,bool Linked=false,int ReleasedRank=0,int ReleasedSelfRank=0,string Fault=null);
+    bool Released=false,bool Linked=false,int ReleasedRank=0,int ReleasedSelfRank=0,string Fault=null,string Refusal=null);
 
 // OwnNPC405S1,not playerSC or TaintedA2. Only an explicit caller/frame host
 // delivers it;there is no parallel timer or persistent pending-action replay.
@@ -70,9 +70,19 @@ internal static class DefilerLinkCasting
             try
             {
                 if(World.FindMobile((Serial)state.Target)is not BaseCreature{Alive:true,Deleted:false} target)
-                {throw new NotSupportedException("Lost Defiler S1 target;current path-point fallback remains unverified");}
-                var n=DefilerLinkNumbers.Capture(body);
-                Actions[body.Serial.Value]=state with{Linked=DefilerHealthLink.Cast(body,target,state.ActionUtc),ReleasedRank=n.Rank,ReleasedSelfRank=n.SelfRank};
+                {
+                    // Approved link eligibility requires a living first
+                    // target. Refuse this release,not every future AI action;
+                    // the unverified path-point fallback is still not run.
+                    const string reason="Lost Defiler S1 target;current path-point fallback remains unverified";
+                    Actions[body.Serial.Value]=state with{Refusal=reason};
+                    Log.Warning("Defiler S1 release refused unsupported context for {Actor}: {Reason}",body.Serial,reason);
+                }
+                else
+                {
+                    var n=DefilerLinkNumbers.Capture(body);
+                    Actions[body.Serial.Value]=state with{Linked=DefilerHealthLink.Cast(body,target,state.ActionUtc),ReleasedRank=n.Rank,ReleasedSelfRank=n.SelfRank};
+                }
             }
             catch(NotSupportedException e)
             {Actions[body.Serial.Value]=state with{Fault=e.Message};Log.Warning("Defiler S1 release refused unsupported context for {Actor}: {Reason}",body.Serial,e.Message);}

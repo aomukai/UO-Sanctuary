@@ -14,6 +14,10 @@ internal sealed record DefilerBodyState(uint Owner, DefilerSnapshot Snapshot, Mo
     public string Profile { get; init; } = "prepared-defiler-life-owner-v1";
     [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public DefilerLinkGroup Links{get;init;}
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public GoatmanHostSnapshot Controller{get;init;}
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    public bool LearnedCast{get;init;}
 }
 
 // Saved vulnerable vital/owner body and approved Health Link groups. Automatic linking/follow remain gated. Native UO AI,
@@ -59,8 +63,9 @@ public partial class WarlockDefilerBody : SkeletonGuardian, ISourceLifeMaximum
     { var appearance = WarlockDemonAppearance.For(CombatAbility.SummonDefiler); Body = appearance.Body; BaseSoundID = appearance.Sound; }
     public override TimeSpan BeginMelee(Mobile target) => TimeSpan.FromSeconds(1);
     public override void OnThink() { AIObject?.AITimer.Stop(); Combatant = null; FocusMob = null; Warmode = false; }
-    public override void SuspendActions() { DefilerLinkCasting.Cancel(this); base.SuspendActions(); }
-    public override void OnAfterDelete() { DefilerLinkCasting.ReleaseClock(this); DefilerHealthLink.Forget(this); NpcEquipmentRandom.Forget(this); DeathMarkWorld.Remove(this); base.OnAfterDelete(); }
+    public override void SuspendActions() { DefilerLinkCasting.Cancel(this); base.SuspendActions(); WarlockGoatmanWorld.Suspend(this); }
+    internal override void InterruptForRecovery(){base.InterruptForRecovery();DefilerLinkCasting.Cancel(this);WarlockGoatmanWorld.Interrupt(this);}
+    public override void OnAfterDelete() { WarlockGoatmanWorld.Forget(this); DefilerLinkCasting.ReleaseClock(this); DefilerHealthLink.Forget(this); NpcEquipmentRandom.Forget(this); DeathMarkWorld.Remove(this); base.OnAfterDelete(); }
     internal static void Validate(DefilerBodyState state)
     {
         try
@@ -71,6 +76,12 @@ public partial class WarlockDefilerBody : SkeletonGuardian, ISourceLifeMaximum
                 || state.Profile != "prepared-defiler-life-owner-v1" || DefilerPrepared.Rescale(state.Snapshot, state.Difficulty) != state.Snapshot)
             { throw new InvalidDataException("Invalid prepared Defiler life/owner state"); }
             DefilerHealthLink.Validate(state.Links,state.Owner);
+            if(state.LearnedCast&&state.Controller==null){throw new InvalidDataException("Learned Defiler needs its native host");}
+            if(state.Controller is{} host)
+            {
+                SourceFrameTimeline.Validate(host.Clock);
+                if(host.Profile!="native-defiler-host-v1"){throw new InvalidDataException("Unknown Defiler native host profile");}
+            }
         }
         catch (Exception e) when (e is ArgumentException or NotSupportedException or OverflowException)
         { throw new InvalidDataException("Unsupported prepared Defiler snapshot", e); }
@@ -120,5 +131,5 @@ public partial class WarlockDefilerBody : SkeletonGuardian, ISourceLifeMaximum
         { RestorePrepared(Prepared with { NextRecoveryUtc = next }); }
     }
     [AfterDeserialization] private void AfterDefilerLoad()
-    { AIObject?.AITimer.Stop(); _prepared = JsonSerializer.Deserialize<DefilerBodyState>(_saved); Validate(_prepared); ApplyAppearance(); DefilerHealthLink.Track(this); }
+    { AIObject?.AITimer.Stop(); _prepared = JsonSerializer.Deserialize<DefilerBodyState>(_saved); Validate(_prepared); ApplyAppearance(); DefilerHealthLink.Track(this); WarlockGoatmanWorld.Track(this); }
 }

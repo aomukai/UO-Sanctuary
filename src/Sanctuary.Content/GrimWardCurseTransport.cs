@@ -21,7 +21,7 @@ internal static class GrimWardCurseTransport
     internal static int Velocity(Mobile target)=>NecromancerEffects.Curse(target)?.Ward?.Velocity??0;
     internal static int Attack(Mobile target)=>NecromancerEffects.Curse(target)?.Ward?.Attack??0;
     // Retained separately. Native nonattack animation modes have no certified
-    // other_animrate consumer yet; storing it is not mechanical completion.
+    // blanket other-mode consumer;Defiler S1 now uses this exact stored field.
     internal static int Other(Mobile target)=>NecromancerEffects.Curse(target)?.Ward?.Other??0;
     internal static double? MovementDelay(Mobile target,double seconds)
     {

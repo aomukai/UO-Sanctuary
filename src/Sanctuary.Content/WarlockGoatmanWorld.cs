@@ -20,6 +20,8 @@ public static class WarlockGoatmanWorld
         .Where(b=>b is{Alive:true,Deleted:false}&&b.ControlMaster==owner&&b.Prepared?.LearnedCast==true).ToArray();
     internal static WarlockTaintedBody[] ForTainted(PlayerMobile owner)=>(owner.AllFollowers??[]).OfType<WarlockTaintedBody>()
         .Where(b=>b is{Alive:true,Deleted:false}&&b.ControlMaster==owner&&b.Prepared?.LearnedCast==true).ToArray();
+    internal static WarlockDefilerBody[] ForDefiler(PlayerMobile owner)=>(owner.AllFollowers??[]).OfType<WarlockDefilerBody>()
+        .Where(b=>b is{Alive:true,Deleted:false}&&b.ControlMaster==owner&&b.Prepared?.LearnedCast==true).ToArray();
     // The source pettype=demon pool is shared by these three species. Bind
     // Demon has a distinct pettype and does not enter this replacement pool.
     internal static SkeletonGuardian[] Demons(PlayerMobile owner)=>(owner.AllFollowers??[]).OfType<SkeletonGuardian>()
@@ -37,7 +39,7 @@ public static class WarlockGoatmanWorld
     internal static SkeletonGuardian Create(PlayerMobile owner,Point3D point,DateTime at,CombatAbility ability)
     {
         SkeletonGuardian body=ability switch
-        {CombatAbility.SummonGoatman=>GoatmanNativeHostCandidate.Create(owner,point,at),CombatAbility.SummonTainted=>GoatmanNativeHostCandidate.CreateTainted(owner,point,at),_=>throw new NotSupportedException("No ground demon birth factory")};
+        {CombatAbility.SummonGoatman=>GoatmanNativeHostCandidate.Create(owner,point,at),CombatAbility.SummonTainted=>GoatmanNativeHostCandidate.CreateTainted(owner,point,at),CombatAbility.SummonDefiler=>GoatmanNativeHostCandidate.CreateDefiler(owner,point,at),_=>throw new NotSupportedException("No ground demon birth factory")};
         try
         {
             NpcEquipmentRandom.Set(body,SourceRandom.InitLow(NpcEquipmentRandom.SeedLow()));_=NpcEquipmentRandom.Require(body);

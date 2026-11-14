@@ -1,5 +1,7 @@
 # Skill icons
 
+**Learned Summon Defiler — 2026-11-15 JST.** [Checkpoint](defiler-cast-checkpoint.md). Right/quick binding now works through actual input;the existing text label remains the identified placeholder. Final talent/right/quick artwork is still needed. Innate NPC405 creates no extra player icon or hotkey. Effects/audio stay in their separate register.
+
 **Defiler own S1 casting — 2026-11-15 JST.** [Checkpoint](defiler-link-casting-checkpoint.md). Health Link remains an innate NPC action and adds no player talent or hotkey icon. Summon Defiler talent/right/quick artwork remains pending with the identified text-label placeholder;the learned route is not enabled by the prepared S1 action. Effects/audio remain separate.
 
 **Defiler Health Link component — 2026-11-15 JST.** [Checkpoint](defiler-health-link-checkpoint.md). Summon Defiler still needs talent-tree and right/quick-hotkey artwork; the existing skill label is the placeholder. Health Link is an innate NPC skill and creates no player hotkey or extra talent icon. Effects/audio remain separately registered; no learned Defiler route is enabled.

@@ -34,7 +34,7 @@ internal sealed class GoatmanNativeSearch
         if(body is not{Alive:true,Deleted:false}||body.ControlMaster!=owner||owner is not{Alive:true,Deleted:false}
             ||body.Map==null||body.Map==Server.Map.Internal||body.Map!=owner.Map||DeathMarkWorld.State(body)is not{Selector:1})
         {throw new NotSupportedException("Native Goatman search needs its registered living owner/body on one facet");}
-        _=DemonGroundMovement.Size(body);
+        _=DemonPathWorld.Size(body);
         Body=body;Owner=owner;Map=body.Map;Identity=new(DeathMarkWorld.Header(body).Capture().Game);
         _=ReviveMeleeGeometry.Unit(body);var cell=Position(Id(body));var(px,py)=cell.Coordinates();
         int gx=px/32,gy=py/32;var adjacent=new List<int>();
@@ -77,7 +77,7 @@ internal sealed class GoatmanNativeSearch
             // This adapter has no complete source stat-node producer. The
             // offensive ground demon never asks for buff/corpse states;do not
             // silently report every unsupported native state absent.
-            HasState=(_,_)=>throw new NotSupportedException("Offensive ground demon search has no buff-state producer")
+            HasState=(id,state)=>body is WarlockDefilerBody?DefilerHealthLink.HasState(Mobile(id),state,TimedEffects.Now):throw new NotSupportedException("Offensive ground demon search has no buff-state producer")
         };
         var wrapper=new GenericPetSearchWrapperServices(Wrapper,_=>throw new InvalidOperationException(),GenericPetMetadata.Table.Bind(1).SearchServices(),callback,
             (_,_,_,_)=>throw new InvalidOperationException());
@@ -97,7 +97,7 @@ internal sealed class GoatmanNativeSearch
         {return new(1,corpse.Body.Map!=null&&corpse.Body.Map!=Server.Map.Internal,corpse.Body.X*2,corpse.Body.Y*2);}
         var m=Mobile(id);if(m is not(PlayerMobile or BaseCreature)){throw new NotSupportedException("Native search has no item/object/missile/tile position producer");}
         int x=m.X*2,y=m.Y*2;
-        if(m is SkeletonGuardian goat&&(goat is WarlockGoatmanBody or WarlockTaintedBody)&&DeathMarkWorld.State(goat)!=null)
+        if(m is SkeletonGuardian goat&&(goat is WarlockGoatmanBody or WarlockTaintedBody or WarlockDefilerBody)&&DeathMarkWorld.State(goat)!=null)
         {var geometry=ReviveMeleeGeometry.Unit(goat);x=geometry.Cell.X;y=geometry.Cell.Y;}
         // UO accepted movement has a committed tile endpoint,no unread future
         // D2 path. This is the actual native endpoint,not predicted next input.
@@ -164,7 +164,7 @@ internal sealed class GoatmanNativeSearch
         if(SourceCorpseIdentity.Find(id)is{} corpse)
         {var position=Position(id);return new(new(position,12,0x10000,corpse.ClassId,1,false,false,corpse.Body.X*2*65536,corpse.Body.Y*2*65536),0,0);}
         var m=Mobile(id);var p=Position(id);var(x,y)=p.Coordinates();uint fx=(uint)x<<16,fy=(uint)y<<16;
-        if(m is SkeletonGuardian goat&&(goat is WarlockGoatmanBody or WarlockTaintedBody)&&DeathMarkWorld.State(goat)!=null){var path=DeathMarkWorld.Path(goat);fx=path.X;fy=path.Y;}
+        if(m is SkeletonGuardian goat&&(goat is WarlockGoatmanBody or WarlockTaintedBody or WarlockDefilerBody)&&DeathMarkWorld.State(goat)!=null){var path=DeathMarkWorld.Path(goat);fx=path.X;fy=path.Y;}
         return new(new(p,Mode(m),Flags(m),Class(m),1,m is BaseCreature,false,unchecked((int)fx),unchecked((int)fy)),Path(id).Target,Flags128(m));
     }
     private GenericPetSearchWorldUnit WorldUnit(int id)

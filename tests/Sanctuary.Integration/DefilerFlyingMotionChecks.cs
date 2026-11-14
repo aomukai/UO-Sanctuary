@@ -51,7 +51,7 @@ public static class DefilerFlyingMotionChecks
         // Record equality compares array identity; compare serialized DTO for
         // empty arrays rather than claiming a saved native flight controller.
         File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Generation=saved.Generation+(reload?1:0)}));
-        Require(!WarlockCombat.Implemented(CombatAbility.SummonDefiler),"Unfinished native flying host enabled learned Defiler");
+        Require(WarlockCombat.Implemented(CombatAbility.SummonDefiler),"Learned Defiler route missing after source host integration");
         Log.Information("Defiler flying motion:192sourcecontexts/3840exactframes,explicit-mask path controls,current2x2/6/256suppliers and original parked bodies;native terrain/automatic host remain gated");
     }
 }

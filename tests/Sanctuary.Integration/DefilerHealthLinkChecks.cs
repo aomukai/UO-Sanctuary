@@ -93,7 +93,7 @@ public static class DefilerHealthLinkChecks
                 b.RestorePrepared(b.Prepared with{NextRecoveryUtc=at.AddHours(2)});
                 File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(0,p.Serial.Value,b.Serial.Value,targets.Select(t=>t.Serial.Value).ToArray(),b.SavedText,SkillHealth.Balance256(b),NpcEquipmentRandom.State(b))));kept=true;
             }
-            Require(!WarlockCombat.Implemented(CombatAbility.SummonDefiler),"Groups component enabled unfinished flying host/cast");
+            Require(WarlockCombat.Implemented(CombatAbility.SummonDefiler),"Learned Defiler route missing after source host integration");
             Log.Information("Defiler links:own target/cap/expiry,no refresh,typed FP8 sharing/recipient defenses/no recursion,NPC owner credit,actual fire route,range retention,offline suppression and atomic malformed ownership pass");Log.Information("{Result}: passed",result);
         }
         catch(Exception e){Log.Error(e,"{Result}: failed",result);}

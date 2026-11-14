@@ -80,6 +80,16 @@ internal static class DefilerHealthLink
         Index.Clear();foreach(var pair in next){Index.Add(pair.Key,pair.Value);}
     }
     internal static DefilerLinkMark Mark(Mobile target,DateTime at){Tick(at);return target!=null&&Index.TryGetValue(target.Serial.Value,out var e)?e.Mark:null;}
+    internal static bool HasState(Mobile target,int state,DateTime at)
+    {
+        Tick(at);
+        return state switch
+        {
+            210=>target!=null&&Index.ContainsKey(target.Serial.Value),
+            213=>target is WarlockDefilerBody{Prepared.Links.Marks.Length:>0},
+            _=>throw new NotSupportedException("No qualified Defiler state producer for state"+state)
+        };
+    }
     private static DefilerLinkMark[] Select(WarlockDefilerBody b,BaseCreature first,DateTime at)
     {
         Tick(at);if(!Recipient(b,first,true)){return [];}var n=DefilerLinkNumbers.Capture(b);

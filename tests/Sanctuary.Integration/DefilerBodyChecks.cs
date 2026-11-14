@@ -41,7 +41,7 @@ public static class DefilerBodyChecks
         }
         Require(contexts==2040&&bases==18360,"Missing Defiler vital matrix");
         try{Values(1,17,6,16).Eval("passivecalc2");throw new InvalidOperationException("Unverified raw damage expression was repaired");}catch(InvalidDataException){}
-        Require(!WarlockCombat.Implemented(CombatAbility.SummonDefiler),"Unfinished Defiler learned cast enabled");
+        Require(WarlockCombat.Implemented(CombatAbility.SummonDefiler),"Learned Defiler route missing after source host integration");
         Log.Information("Defiler:2040independent supplier/18360noRatio vital contexts;raw damage/Health Link remain disabled");
     }
     private static void Numeric(WarlockDefilerBody b)
