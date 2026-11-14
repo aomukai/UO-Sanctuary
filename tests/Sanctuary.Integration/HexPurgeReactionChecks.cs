@@ -19,7 +19,7 @@ public static class HexPurgeReactionChecks
     public static void Configure()
     {
         void Register(string name,bool reload)=>ConsoleInputHandler.RegisterCommand(name,"Prepared Purge charge/explosion rule",_=>Core.LoopContext.Post(()=>
-        {try{Check(reload);Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
+        {try{WeaponLandedEvents.BeforeDamage-=HexPurgeEvents.Landed;SkillDamageEvents.BeforeDirectDamage-=HexPurgeEvents.Damage;try{Check(reload);}finally{WeaponLandedEvents.BeforeDamage+=HexPurgeEvents.Landed;SkillDamageEvents.BeforeDirectDamage+=HexPurgeEvents.Damage;}Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
         Register("purge-reaction-check",false);Register("purge-reaction-reload-check",true);
     }
     private static SkillValues Values(int rank,int bane=0,int blast=0,int sigil=0)=>new(SkillMechanics.For(CombatAbility.HexPurge),k=>k=="Hex Purge"?rank:0,k=>k=="Hex Bane"?bane:k=="Eldritch Blast"?blast:k=="Sigil Death"?sigil:0,99);
@@ -55,7 +55,7 @@ public static class HexPurgeReactionChecks
             var plan=HexPurge.Plan(Values(rank,20,20,20));var r=HexPurgeReactionProposal.Capture(plan,mastery,Zero,Seed(0));
             Require(r.RemainingCharges==Math.Min(1+rank/10,3)&&HexPurgeReactionProposal.Enhanced(plan.Minimum256,mastery)==plan.Minimum256+(long)plan.Minimum256*mastery/100,"Purge capture rank/mastery boundary");
         }
-        Require(!HexPurgeReactionProposal.Approved&&!WarlockCombat.Implemented(CombatAbility.HexPurge),"Prepared Purge enabled learned input");
+        Require(HexPurgeReactionProposal.Approved&&WarlockCombat.Implemented(CombatAbility.HexPurge),"Prepared Purge enabled learned input");
     }
     private static void Exercise(PlayerMobile owner)
     {

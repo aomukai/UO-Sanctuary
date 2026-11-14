@@ -11,13 +11,13 @@ namespace Sanctuary;
 
 internal sealed record HexPurgeValues(int AttackPercent,int AttackRate,int BuffFrames,int Mana256);
 // Raw unmastered source suppliers. Capture timing, geometry, chance resolution
-// and charge consumption belong to the unsupported modern callbacks36/39.
+// and charge consumption use the approved callback36/39 adaptation.
 internal sealed record HexPurgePlan(int Rank,int Minimum256,int Maximum256,int DebuffFrames,int ChanceRaw,int InitialCharges,int RadiusRaw);
 internal sealed record HexPurgeBuff(uint Owner,int Rank,DateTime UntilUtc,HexPurgeValues Values);
 internal sealed record HexPurgeTarget(uint Target,uint Creator,DateTime UntilUtc,HexPurgePlan Plan)
 {
     // Old prepared saves contain only a nonreactive plan. Do not silently
-    // turn those records into active charges while the proposal is unapproved.
+    // turn those legacy records into active charges without a new attachment.
     [JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)]
     public HexPurgeReaction Reaction{get;init;}
 }

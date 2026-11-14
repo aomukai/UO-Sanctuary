@@ -100,7 +100,7 @@ internal static class OrderedDamageEventChecks
             CleaveActionProposal.Advance(a,a.EffectAt);Require(a.Fault==null&&a.Successful==1&&seen==1&&SkillHealth.Balance256(t)<life-129,"Actual Cleave bypassed bridge or overwrote secondary HP");
             CleaveActionChecks.Ready(p);nested=1;a=CleaveActionProposal.BeginPrepared(p,t.Serial,t.Location,Core.TickCount);Require(a!=null,"Second actual Cleave did not begin");
             CleaveActionProposal.Advance(a,a.EffectAt);Require(a.Fault==null&&!t.Alive&&seen==2,"Actual Cleave reaction death faulted or replayed");
-            Require(!WarlockCombat.Implemented(CombatAbility.HexPurge),"Shared infrastructure enabled unapproved Purge");
+            Require(HexPurgeReactionProposal.Approved&&WarlockCombat.Implemented(CombatAbility.HexPurge),"Shared infrastructure enabled unapproved Purge");
         }
         finally{SkillDamageEvents.BeforeDirectDamage-=CleaveReaction;CleaveActionProposal.HitRoll=hit;SourceBlocking.BlockRoll=block;ClassCombat.Stop(p);t.Delete();p.Delete();SkillHealth.Clear(t);}
         Log.Information("Ordered damage bridge:nested fractional damage/healing,owned-loss accounting,exclusions,new invulnerability,once terminal cleanup and actual Cleave survival/death pass;Purge remains gated.");

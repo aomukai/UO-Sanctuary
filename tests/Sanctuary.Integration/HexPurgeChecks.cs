@@ -29,7 +29,7 @@ public static class HexPurgeChecks
         }
         Require(count==6885,"Purge source matrix");foreach(var (rank,chance,charges,rate) in new[]{(1,69,1,10),(2,69,1,11),(3,70,1,12),(10,73,2,19),(20,78,3,29),(21,79,3,30),(255,196,3,30)})
         {Require(HexPurge.Plan(Values(rank)) is{} p&&p.ChanceRaw==chance&&p.InitialCharges==charges&&HexPurge.Capture(Values(rank)).AttackRate==rate,"Purge rank boundary");}
-        Require(HexPurge.Plan(Values(255,sigil:20)).ChanceRaw==216&&!WarlockCombat.Implemented(CombatAbility.HexPurge),"Raw chance was silently capped or incomplete handler enabled");
+        Require(HexPurge.Plan(Values(255,sigil:20)).ChanceRaw==216&&HexPurgeReactionProposal.Approved&&WarlockCombat.Implemented(CombatAbility.HexPurge),"Raw chance was silently capped or incomplete handler enabled");
         using var doc=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"hex-purge-source-probe.json")));int cases=0;
         foreach(var row in doc.RootElement.EnumerateArray()){if(row[4].GetInt32()==1){var v=HexPurge.Capture(Values(row[1].GetInt32()));Require(row[7].GetInt32()==v.AttackRate&&row[8].GetInt32()==v.AttackRate&&row[9].GetInt32()==v.AttackPercent,"Native passive/source writer values");}cases++;}Require(cases==192,"Purge source contexts missing");
         Log.Information("Hex Purge:6885current supplier controls,192source buff contexts;raw chance/charges/radius remain separate from modern event36/39");

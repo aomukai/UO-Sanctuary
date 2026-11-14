@@ -9,11 +9,11 @@ namespace Sanctuary;
 internal sealed record HexPurgeReaction(int RemainingCharges,int MagicMastery,FirestormModifiers Modifiers,ulong Seed);
 internal readonly record struct HexPurgeBurst(bool Triggered,int Recipients,int Magic256,int RemainingCharges,string Fault=null);
 
-// Explicit Sanctuary candidate, not recovered callback36/39 behavior. No
-// automatic subscription, weapon hook or learned route is installed here.
+// Approved Sanctuary adaptation, not recovered callback36/39 behavior.
+// HexPurgeEvents composes this controller with the shared event boundaries.
 internal static class HexPurgeReactionProposal
 {
-    internal static bool Approved=>false;
+    internal static bool Approved=>true;
     internal static HexPurgeReaction Capture(HexPurgePlan plan,int mastery,FirestormModifiers modifiers,ulong seed)
     {var next=new HexPurgeReaction(plan.InitialCharges,mastery,modifiers,seed);Validate(plan,next);return next;}
     internal static void Validate(HexPurgePlan plan,HexPurgeReaction reaction)

@@ -9,7 +9,7 @@ internal readonly record struct WeaponLandedContact(PlayerMobile Source,BaseCrea
 // Callers have already resolved accuracy/block/dodge. Zero life damage is a
 // valid landed contact. This boundary only attaches/captures state; secondary
 // damage belongs to SkillDamageEvents, after mitigation and before life loss.
-// No production consumer is installed while Purge's rule remains undecided.
+// Approved Purge installs its capture-only attachment consumer here.
 internal static class WeaponLandedEvents
 {
     internal static event Action<WeaponLandedContact> BeforeDamage;

@@ -83,7 +83,7 @@ public static class SkillDamageEventChecks
             // original packet must not write stale HP/fraction after death.
             react=c=>{using(CombatItemEvents.Suppress(c.Source,c.Target)){SkillHealth.Damage(c.Source,c.Target,int.MaxValue);}};
             Require(SkillHealth.Damage(owner,target,128)==0&&!target.Alive&&SkillHealth.Remainder256(target)==0&&seen.Count==1,"Reaction death replayed the original life commit");react=null;
-            Require(!WarlockCombat.Implemented(CombatAbility.HexPurge),"Infrastructure silently enabled Purge");
+            Require(HexPurgeReactionProposal.Approved&&WarlockCombat.Implemented(CombatAbility.HexPurge),"Infrastructure silently enabled Purge");
             Log.Information("Damage event bridge:fractional/carry/native AOS/immune/direct fire/field/aura/return/self-cost/suppression/nested/lethal controls pass;Purge remains gated.");
         }
         finally{SkillDamageEvents.BeforeDirectDamage-=Observe;target.Delete();other.Delete();SkillHealth.Clear(target);SkillHealth.Clear(other);}

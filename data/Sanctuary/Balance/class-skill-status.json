@@ -2484,7 +2484,7 @@
       "characterClass": "Warlock",
       "tree": "Eldritch",
       "sourceId": 389,
-      "implementation": "blocked",
+      "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
       "remaining": "Prepared weapon-conditioned skill attackrate/AR, buff persistence and explicit raw target plans have source/native controls. The shared speed pool preserves EIAS versus itemIAS/FCR. Modern event36/39 application, explosion geometry/damage/roll/charge/reapplication remain gated; explicit plans do not detonate. Current-file pointer leads are unverified and the shared ordinary SC clock is qualified separately. See hex-purge-native-evidence.json; final effects/icons remain separate. Shared Hex group6/7replacement is approved;Purge-specific events/explosion/charges remain incomplete."

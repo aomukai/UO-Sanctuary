@@ -2,8 +2,8 @@
 namespace Sanctuary;
 public static class WarlockCombat
 {
-    public static bool Implemented(CombatAbility ability) => ability is CombatAbility.LevitationMastery or CombatAbility.SigilLethargy or CombatAbility.SigilRancor or CombatAbility.Apocalypse or CombatAbility.RingOfFire or CombatAbility.PsychicWard or CombatAbility.BladeWarp or CombatAbility.HexSiphon or CombatAbility.HexBane or CombatAbility.Cleave;
-    public static bool Handles(CombatAbility ability)=>ability is CombatAbility.SigilLethargy or CombatAbility.SigilRancor or CombatAbility.Apocalypse or CombatAbility.RingOfFire or CombatAbility.PsychicWard or CombatAbility.BladeWarp or CombatAbility.HexSiphon or CombatAbility.HexBane or CombatAbility.Cleave;
+    public static bool Implemented(CombatAbility ability) => ability is CombatAbility.LevitationMastery or CombatAbility.SigilLethargy or CombatAbility.SigilRancor or CombatAbility.Apocalypse or CombatAbility.RingOfFire or CombatAbility.PsychicWard or CombatAbility.BladeWarp or CombatAbility.HexSiphon or CombatAbility.HexBane or CombatAbility.HexPurge or CombatAbility.Cleave;
+    public static bool Handles(CombatAbility ability)=>ability is CombatAbility.SigilLethargy or CombatAbility.SigilRancor or CombatAbility.Apocalypse or CombatAbility.RingOfFire or CombatAbility.PsychicWard or CombatAbility.BladeWarp or CombatAbility.HexSiphon or CombatAbility.HexBane or CombatAbility.HexPurge or CombatAbility.Cleave;
     public static bool Available(Server.Mobiles.PlayerMobile owner,CombatAbility ability)=>Handles(ability)
         &&ClassCreation.Profiles.TryGet(owner.Serial,out var profile)&&profile.Class==DiabloClass.Warlock&&SkillMechanics.Rank(owner,ability)>0;
     private static bool Point(Server.Mobiles.PlayerMobile owner,Server.Serial selected,Server.Point3D requested,out Server.Point3D point)
@@ -17,7 +17,7 @@ public static class WarlockCombat
     public static bool Begin(Server.Mobiles.PlayerMobile owner,CombatAbility ability,Server.Serial selected,Server.Point3D point,long now)
         =>ability==CombatAbility.Cleave
             ?CleaveActionProposal.BeginPrepared(owner,selected,point,now)!=null
-            :ability is CombatAbility.HexSiphon or CombatAbility.HexBane
+            :ability is CombatAbility.HexSiphon or CombatAbility.HexBane or CombatAbility.HexPurge
             ?WeaponHexes.CanCast(owner)&&SkillCombat.Begin(owner,ability,Server.Serial.Zero,owner.Location,now,(p,a,id,at)=>WeaponHexes.CanCast(p))
             :ability==CombatAbility.BladeWarp
             ?BladeWarp.Begin(owner,selected,point,now)
@@ -31,6 +31,7 @@ public static class WarlockCombat
     {
         if(!Available(owner,ability)){return false;}
         if(ability==CombatAbility.Cleave){return false;} // Its transient sequence owns release/end dispatch.
+        if(ability==CombatAbility.HexPurge){return HexPurge.CastPrepared(owner,replaceGroup:WeaponHexGroups.Approved);}
         if(ability==CombatAbility.HexBane){return HexBane.CastPrepared(owner,replaceGroup:WeaponHexGroups.Approved);}
         if(ability==CombatAbility.HexSiphon){return HexSiphon.CastPrepared(owner,replaceGroup:WeaponHexGroups.Approved);}
         if(ability==CombatAbility.BladeWarp){return BladeWarp.Release(owner,selected,ClassCombat.For(owner).PendingPoint);}

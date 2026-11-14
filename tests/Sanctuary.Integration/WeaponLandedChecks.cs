@@ -17,7 +17,7 @@ public static class WeaponLandedChecks
     public static void Configure()
     {
         void Register(string name,bool reload)=>ConsoleInputHandler.RegisterCommand(name,"Landed weapon and prepared Purge composition",_=>Core.LoopContext.Post(()=>
-        {try{Check(reload);Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
+        {try{WeaponLandedEvents.BeforeDamage-=HexPurgeEvents.Landed;SkillDamageEvents.BeforeDirectDamage-=HexPurgeEvents.Damage;try{Check(reload);}finally{WeaponLandedEvents.BeforeDamage+=HexPurgeEvents.Landed;SkillDamageEvents.BeforeDirectDamage+=HexPurgeEvents.Damage;}Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
         Register("weapon-landed-check",false);Register("weapon-landed-reload-check",true);
     }
     private static CleaveActionTarget Enemy(PlayerMobile owner,int dx=1)
@@ -111,7 +111,7 @@ public static class WeaponLandedChecks
         CleaveActionChecks.Ready(p);Exercise(p);
         // Exercise clears the owner's registration, not the distinct saved
         // recipient's existing snapshot. Do not refill its spent charge.
-        Require(!WarlockCombat.Implemented(CombatAbility.HexPurge)&&!HexPurgeReactionProposal.Approved,"Prepared composition enabled unapproved Purge");
+        Require(WarlockCombat.Implemented(CombatAbility.HexPurge)&&HexPurgeReactionProposal.Approved,"Prepared composition enabled unapproved Purge");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(generation,p.Serial.Value,target.Serial.Value,p.X,p.Y,SkillHealth.Balance256(target),HexPurge.Debuff(target))));
         Log.Information("Landed weapon bridge:actual Cleave/ranged transport mark-before-damage,once reaction,miss/block/dodge/zero/suppression/spell controls pass;Purge remains gated.");
     }
