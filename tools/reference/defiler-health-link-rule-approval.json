@@ -1,0 +1,10 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "answer": "Approve the complete Health Link rule",
+  "approvedUtc": "2026-11-14T17:01:32.930049+00:00",
+  "proposal": "docs/defiler-health-link-rule-proposal.md",
+  "proposalAtApprovalSha256": "d2f3937c91bd0393709db02a1f7c1ce3bb7c910125fc1898f3dd9cc7873e8280",
+  "scope": "All ten proposed Health Link rules:separate nonattacking Defiler groups,selection/cap/expiry,lifecycle,snapshot/direct typed sharing/DoT exclusion/recipient defenses/no recursion or procs,Defiler credit and save/refusal behavior. Explicit Sanctuary adaptation;not current do162/event38 equivalence.",
+  "implementation": "Numeric C1/I2/S2/N2 verified198Fog/510native getter contexts perboot;69markers/12currentpetinputs/2reloads. State/typed sharing/flying controller/learned cast remain implementation work. Approved;do not reask."
+}

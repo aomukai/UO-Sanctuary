@@ -1,0 +1,38 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Exact NPC405 Health Link table expressions",
+  "fogCases": 198,
+  "rawExpressions": [
+    "((110 *  (skill('Summon Defiler'.lvl))) * (par2 - par1)) / (100 * ((skill('Summon Defiler'.lvl))+ 6)) + par1",
+    "((110 *skill('Summon Defiler'.lvl) * (par4 - par3)) / (100 * (skill('Summon Defiler'.lvl) + 6)) + par3"
+  ],
+  "runtimeCallbackVerified": false,
+  "productionHandlerEnabled": false,
+  "established": [
+    "Unchanged pinned Fog compiler/evaluator accepts both exact raw expressions,including calc2 EOF imbalance,without source repair;ASan/UBSan clean.",
+    "Ranks1..99 retain original multiply/divide order;rank25 gives55percent/5rawlinks,corroborating user tooltip.",
+    "Uncapped raw expressions reach61percent/6rawlinks at99;actual do162/event38 caps remain unverified. Do not substitute an assumed capped diminishing curve."
+  ],
+  "inputs": {
+    "tools/reference/d2r-named-equipment/sources.json": "1ef57c5582c0d749f108ee6c760116fe736d68f5cf1edf9afb846b0ea2cc3f0c",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/goatman-source-evidence.json": "8efc955ea59dd12bfd5f22a80ea11d9302f049fd61e75ef46905d8ce73741cfe",
+    ".local/class-skills/tainted-foundation-source/Calc.cpp": "104b90ecf5934f7e0135eacb29991222905ea6c702ed3f285fbb45db9c966b44",
+    ".local/class-skills/tainted-foundation-source/Calc.h": "d5ea8cde64ac63176aa990a92ed0e683b087fbceaa2f9560864c03f3f558abb7",
+    ".local/class-skills/tainted-foundation-source/D2BasicTypes.h": "01051a4ec449c41ee049eb642633bf44691499bc62fb4bcdae90bdccf1cf2d52",
+    ".local/class-skills/tainted-foundation-source/Fog.h": "90a2d4f788ce5aa63d931e97a9bb0712b08e33807728a0cac8b2b184e3be2a73",
+    ".local/class-skills/warlock-foundation/skillcalc.txt": "4028d9985368b89fe5d84a93f60177ecc34957599a170a4f8496ddd169636a4f",
+    "tools/probe_defiler_link_numbers.py": "0075369ede6c956492bf831799117fbdd276b449492b5a309a82d40ffc6baced"
+  },
+  "artifacts": {
+    ".local/class-skills/defiler-link-source/formula.cpp": "57234e3b1f108bcbb406bd2aeaaef2592bf6e67907936fbebf25773e2ff84353",
+    ".local/class-skills/defiler-link-source/formula": "11a68c0841515d2cc5d5937eb01298dcbbf16065b646d02a5f8312d7b24444a7",
+    ".local/class-skills/defiler-link-source/compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/defiler-link-source/sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/defiler-link-source/formula.json": "ae7a06fd488116451ad538548a3d70435952583565446918832108b1028020ce",
+    ".local/class-skills/defiler-link-source/Calc.cpp": "104b90ecf5934f7e0135eacb29991222905ea6c702ed3f285fbb45db9c966b44",
+    ".local/class-skills/defiler-link-source/Calc.h": "d5ea8cde64ac63176aa990a92ed0e683b087fbceaa2f9560864c03f3f558abb7",
+    ".local/class-skills/defiler-link-source/D2BasicTypes.h": "01051a4ec449c41ee049eb642633bf44691499bc62fb4bcdae90bdccf1cf2d52",
+    ".local/class-skills/defiler-link-source/Fog.h": "90a2d4f788ce5aa63d931e97a9bb0712b08e33807728a0cac8b2b184e3be2a73"
+  }
+}
