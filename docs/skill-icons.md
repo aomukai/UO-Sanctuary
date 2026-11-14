@@ -1,5 +1,7 @@
 # Skill icons
 
+**Engorge icon boundary — 2026-11-15 JST.** Talent-tree and hotkey icons remain missing. The verified numerical capture neither supplies artwork nor enables the learned route. Keep any future generic binding icon clearly labeled as a placeholder; track corpse/healing/buff visuals separately in skill-effects.md. [Checkpoint](engorge-suppliers-checkpoint.md).
+
 **Prepared Blood Oath reaction (2026-11-15 JST).** Passive talent-tree artwork remains pending with a text-label placeholder. There is no active mouse/quick skill or hotkey icon. Reaction approval and effects/audio remain separate concerns.
 
 **Demonic Mastery (2026-11-15 JST).** Passive talent-tree artwork remains pending with its text-label placeholder. Mouse/quick bindings correctly refuse;no active hotkey icon is needed.

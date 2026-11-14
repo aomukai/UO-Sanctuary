@@ -1,5 +1,7 @@
 # Skill effects
 
+**Engorge asset boundary — 2026-11-15 JST.** Numerical capture only; it emits no effect. Still needed: corpse-feeding/transfer, recipient heal/buff feedback and cast audio corresponding to owned engorgecast / engorge / engorgecorpseeffect and Warlock_Skill_Engorge_03 references. Final effects are not generated and no mechanic is gated on them; later runtime placeholders must be identified explicitly. Corpse/recipient delivery itself remains mechanically unfinished. [Checkpoint](engorge-suppliers-checkpoint.md).
+
 **Prepared Blood Oath reaction (2026-11-15 JST).** No transfer beam,cast animation or standalone aura is invented. Native pet life loss/death presentation is reused. Any final passive/transfer/audio cue,including the pinned sound's unverified trigger timing,remains pending separately;mechanics use no final art.
 
 **Demonic Mastery (2026-11-15 JST).** Passive numerical bonuses have no independent cast/event visual. Reuse each summon's separately recorded movement/attack presentation;do not invent a new aura or cast overlay. No asset blocks its existing mechanical consumers.

@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Engorge suppliers — 2026-11-15 JST.** Reuses SkillValues, hard-rank lookup, source snapshots, FP8 arithmetic, real named gear and the existing disposable save fixture. Owned skilldesc proves ln34 is healing percent. Keep raw lifedrain/hpregen fields distinct from player leech or percentage regeneration. Future delivery must reuse corpse selection/consumption, NPC flat-drain receiver, source-frame recovery, source attackrate and flat-defense/resistance consumers after their exact contract is verified or adapted. Capture adds no timer/state writer or learned handler. [Checkpoint](engorge-suppliers-checkpoint.md).
+
 **Blood Oath incoming candidate (2026-11-15 JST).** Reused SkillHealth post-mitigation commitment,native fixed-damage/armor-ignore bridge,actual demon roster/creation order,fractional persistence and original attacker native death credit. Return-kind shares bypass a second defense pass and direct-hit events;no new writer,timer,ID or version. C1/I2/S2/N2 passes15markers/2reloads. Start66/event35 unavailable;tested complete adaptation must be approved before automatic learned protection.
 
 **Demonic Mastery (2026-11-15 JST).** Existing summon-owned SkillValues/snapshots already supply its bonuses. Reused actual Goatman unarmed/AR, Tainted packet/A2clock,all three movement and hard-only shared cap consumers;no parallel passive writer. Only the implementation-list entry changes. C1/I1/S1/N1 passes15markers/10scripted summons/6original bodies/2reloads;old formula and27socket-input evidence reused with distinct scope.
