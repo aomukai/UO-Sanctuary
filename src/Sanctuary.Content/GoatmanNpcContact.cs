@@ -74,11 +74,11 @@ internal static class GoatmanNpcContact
         if(skill is 416 or 418){GoatmanNpcMelee.RefreshForRelease(body,skill,rank,at);}
         return IronGolemContact.Release(body,owner,target,prepared,b=>ReviveMeleeGeometry.Within(body,target,b),at);
     }
-    internal sealed class World(WarlockGoatmanBody body,PlayerMobile owner,Func<DateTime> clock):GoatmanNpcActionProposal.Services
+    internal sealed class World(WarlockGoatmanBody body,PlayerMobile owner,Func<DateTime> clock,Func<bool> actionActive=null):GoatmanNpcActionProposal.Services
     {
         internal override bool Active(BaseCreature actor)=>ReferenceEquals(actor,body)&&body is{Alive:true,Deleted:false}
-            &&owner is{Alive:true,Deleted:false,NetState:not null}&&body.ControlMaster==owner&&body.Map==owner.Map&&body.Map!=Map.Internal
-            &&PersistentMinions.Active(owner,body)&&body.Permitted(owner)&&!MinionSafeAreas.Contains(owner);
+            &&owner is{Alive:true,Deleted:false,NetState:{Running:true}}&&body.ControlMaster==owner&&body.Map==owner.Map&&body.Map!=Map.Internal
+            &&PersistentMinions.Active(owner,body)&&body.Permitted(owner)&&!MinionSafeAreas.Contains(owner)&&(actionActive?.Invoke()??true);
         internal override bool Eligible(BaseCreature actor,BaseCreature target)=>ReferenceEquals(actor,body)&&target is{Alive:true,Deleted:false}
             &&target.Map==body.Map&&ClassCombat.IsHostile(owner,target)&&!SpellHelper.IsTown(target.Location,owner)&&ReviveMeleeGeometry.Within(body,target,0);
         internal override int Reach(BaseCreature actor)=>ReviveMeleeGeometry.Unit(body).RawRange;

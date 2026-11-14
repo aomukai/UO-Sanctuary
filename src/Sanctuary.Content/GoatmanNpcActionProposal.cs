@@ -26,6 +26,17 @@ internal static class GoatmanNpcActionProposal
         return rows;
     });
     internal static GoatmanAnimation WalkAnimation=>Animations.Value[2];
+    internal static SourceAnimationState PrimarySchedule(int totalAttackRate)
+    {
+        var row=Animations.Value[0];int[] events=new int[144];events[row.ActionFrame]=1;
+        return SourceAnimationEvents.Initial(new(0,SourceAttackRate.Speed(row.Speed,0,totalAttackRate),row.Frames*256,events,[]),0);
+    }
+    // Native tiles round half-cell positions. Keep the registered FP16 pose
+    // for interrupted actions and its source cell for the shared Cleave fan.
+    internal static (uint X,uint Y) Position(BaseCreature actor)
+        =>actor is WarlockGoatmanBody goat&&DeathMarkWorld.State(goat)!=null
+            ?(DeathMarkWorld.Path(goat).X,DeathMarkWorld.Path(goat).Y)
+            :((uint)(actor.X*2)<<16,(uint)(actor.Y*2)<<16);
     internal static SourceAnimationState Schedule(int skill,int rank,int totalAttackRate,int frame)
     {
         if(skill is not(417 or 419)){throw new NotSupportedException("Only NPC Frenzy/Cleave use this proposal");}
@@ -104,6 +115,7 @@ internal static class GoatmanNpcActionProposal
         internal readonly BaseCreature Actor,Target;
         internal readonly Map Map;
         internal readonly Point3D Origin,Aim;
+        internal readonly (uint X,uint Y) SourceOrigin,SourceAim;
         internal readonly int Skill,Rank,ReleaseFrame,EndFrame;
         internal readonly Frenzy Speed;
         internal int LastFrame,Contacts;
@@ -115,6 +127,7 @@ internal static class GoatmanNpcActionProposal
             {throw new ArgumentException("Prepared Goatman action requires living mapped actors and its own speed state");}
             ValidateFrame(frame);
             Actor=actor;Target=target;Skill=skill;Rank=rank;Speed=speed;Map=actor.Map;Origin=actor.Location;Aim=target.Location;LastFrame=frame;
+            SourceOrigin=Position(actor);SourceAim=Position(target);
             // The animation's fixed-point epoch is local to this action.
             // Offset only its delivered events into the long-lived world
             // clock; shifting a global frame by8would overflow after~4days.
@@ -128,11 +141,12 @@ internal static class GoatmanNpcActionProposal
     {
         if(a.Skill!=419||reach<0){throw new ArgumentException("NPC Cleave sweep context");}
         var row=GoatmanNpcSkills.Source(419);var v=GoatmanNpcSkills.Values(419,a.Rank);CleaveSweepRequest request=null;
-        CleaveSweep.Run(new(true,1,true,a.Origin.X*2,a.Origin.Y*2,419,a.Rank,0,checked((int)row.Number("aurafilter")),128),
-            new(()=>true,()=>(true,a.Aim.X*2,a.Aim.Y*2),_=>{},()=>false,
+        int x=(int)(a.SourceOrigin.X>>16),y=(int)(a.SourceOrigin.Y>>16);
+        CleaveSweep.Run(new(true,1,true,x,y,419,a.Rank,0,checked((int)row.Number("aurafilter")),128),
+            new(()=>true,()=>(true,(int)(a.SourceAim.X>>16),(int)(a.SourceAim.Y>>16)),_=>{},()=>false,
                 (x,y)=>SourceDirection64.Calculate(x,y,CleaveActionProposal.MathRule).Heading,
                 field=>checked((int)v.Eval(field switch{0x1a0=>"calc5",0x1a4=>"calc6",0x1a8=>"calc7",_=>throw new NotSupportedException()})),
-                ()=>reach,()=>new(a.Origin.X*2,a.Origin.Y*2),r=>request=r));
+                ()=>reach,()=>new(x,y),r=>request=r));
         return request;
     }
     internal static bool Advance(Action a,int frame,Services s)
@@ -141,7 +155,7 @@ internal static class GoatmanNpcActionProposal
         if(frame<a.LastFrame){throw new ArgumentException("NPC action clock went backwards");}
         a.LastFrame=frame;
         if(a.Finished||a.Delivering){return false;}
-        if(a.Actor is not{Alive:true,Deleted:false,Frozen:false,Paralyzed:false}||a.Actor.Map!=a.Map||a.Actor.Location!=a.Origin
+        if(a.Actor is not{Alive:true,Deleted:false,Frozen:false,Paralyzed:false}||a.Actor.Map!=a.Map||a.Actor.Location!=a.Origin||Position(a.Actor)!=a.SourceOrigin
             ||a.Target is not{Alive:true,Deleted:false}||a.Target.Map!=a.Map||!s.Active(a.Actor))
         {Cancel(a);return false;}
         if(!a.Released&&frame>=a.ReleaseFrame)
@@ -151,12 +165,13 @@ internal static class GoatmanNpcActionProposal
             {
                 var sweep=a.Skill==419?Sweep(a,s.Reach(a.Actor)):null;
                 var targets=sweep==null?[a.Target]:(s.Nearby(a.Actor,sweep.Radius)??throw new NotSupportedException("Missing NPC Cleave recipients"))
-                    .Where(t=>t!=null&&t!=a.Actor&&t.Map==a.Map&&CleaveActionProposal.InArc(sweep,t.X*2,t.Y*2))
-                    .DistinctBy(t=>t.Serial).OrderBy(t=>(long)(t.X-a.Origin.X)*(t.X-a.Origin.X)+(long)(t.Y-a.Origin.Y)*(t.Y-a.Origin.Y))
+                    .Where(t=>t!=null&&t!=a.Actor&&t.Map==a.Map&&CleaveActionProposal.InArc(sweep,(int)(Position(t).X>>16),(int)(Position(t).Y>>16)))
+                    .DistinctBy(t=>t.Serial).OrderBy(t=>
+                    {var p=Position(t);long x=(int)(p.X>>16)-(int)(a.SourceOrigin.X>>16),y=(int)(p.Y>>16)-(int)(a.SourceOrigin.Y>>16);return x*x+y*y;})
                     .ThenBy(t=>t.Serial.Value).ToArray();
                 foreach(var target in targets)
                 {
-                    if(a.Cancelled||a.Actor is not{Alive:true,Deleted:false,Frozen:false,Paralyzed:false}||a.Actor.Map!=a.Map||a.Actor.Location!=a.Origin||!s.Active(a.Actor)){Cancel(a);break;}
+                    if(a.Cancelled||a.Actor is not{Alive:true,Deleted:false,Frozen:false,Paralyzed:false}||a.Actor.Map!=a.Map||a.Actor.Location!=a.Origin||Position(a.Actor)!=a.SourceOrigin||!s.Active(a.Actor)){Cancel(a);break;}
                     if(target is not{Alive:true,Deleted:false}||target.Map!=a.Map||!s.Eligible(a.Actor,target)){continue;}
                     a.Contacts++;
                     bool success=s.Contact(a.Actor,target,a.Skill,a.Rank);
