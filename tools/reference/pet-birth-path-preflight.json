@@ -1,0 +1,74 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "demon birth-path source preflight",
+  "runtimeBehaviorChanged": false,
+  "handlers": 220,
+  "warlockHandlers": 11,
+  "completedClasses": [],
+  "newReferenceClientReads": 0,
+  "newBuilds": 0,
+  "species": [
+    {
+      "sourceClass": 742,
+      "name": "wargoatman",
+      "secondary": "wargoatman",
+      "sizeX": 2,
+      "sizeY": 2,
+      "flying": false,
+      "opensDoors": true,
+      "legacyAllocatorMoveMask": "0x3401",
+      "maskParityWithCurrentConstructor": false
+    },
+    {
+      "sourceClass": 743,
+      "name": "warbighead",
+      "secondary": "warbighead",
+      "sizeX": 3,
+      "sizeY": 3,
+      "flying": false,
+      "opensDoors": true,
+      "legacyAllocatorMoveMask": "0x3401",
+      "maskParityWithCurrentConstructor": false
+    },
+    {
+      "sourceClass": 744,
+      "name": "warputriddefiler",
+      "secondary": "warputriddefiler",
+      "sizeX": 2,
+      "sizeY": 2,
+      "flying": true,
+      "opensDoors": true,
+      "legacyAllocatorMoveMask": "0x1804",
+      "maskParityWithCurrentConstructor": false
+    }
+  ],
+  "established": [
+    "Owned current monstats/monstats2 distinguish Defiler flying and Tainted3x3 versus Goatman/Defiler2x2 source dimensions. Appearance mappings do not supply these movement properties.",
+    "Retained older common path allocator centers source cells at FP16+0x8000 and branches flying before open-door ground movement. Older source masks are0x1804/0x3401;these are not established current-constructor outputs.",
+    "Current qualified reset clears0x20 and both path counters and sets Raw96to0. That is reset behavior,not proof of all fresh path constructor values.",
+    "Current qualified monster placement uses its own0x1c09 nearby-search masks. Do not overwrite these with a legacy path movement mask;the operations are distinct."
+  ],
+  "unresolved": [
+    "Current common path constructor/caller mapping,including optional bSetFlag,field layout,source unit size versus collision-pattern semantics and initial native path type/flags remain unqualified.",
+    "Existing native body/path acceptance validates identity/position/mask bounds,but does not certify species-derived birth footprints or flying terrain behavior. Fixture Size5c1 and mask0x1c09 are not production defaults.",
+    "Sigil:Death still needs event33/34 identity/bookkeeping and do153 explosion rules;shared Sigil launch alone is insufficient.",
+    "Slow Missiles still needs native ordinary ranged launch/travel/impact and relevant spell/breath/child scopes. Native BaseRanged.OnSwing resolves CheckHit/OnHit immediately after OnFired."
+  ],
+  "next": "Qualify the shared constructor or prepare an explicit complete native world adaptation from these distinct species/collision requirements;reuse existing path commit/placement/AI policies. Do not enable learned summons or Slow Missiles from cast-only evidence.",
+  "inputs": {
+    "tools/reference/d2r-named-equipment/json/monstats.json": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "tools/reference/d2r-named-equipment/json/monstats2.json": "cce0fa2b19a6ea18905937ead1de2a6f0e62dde79940767d940162d6cf2d9ca2",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Path/Path.cpp": "19bdbfbf13b7528828aa4b8d3755882b81775a07dd77505fbec37041be577bb4",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Collision.h": "7a2f8d220a5ead4a3dad69c073b1cef6ac98cbfb1906e0ac6980e4ba65c5aac5",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/Path/Path.h": "e356c61d491908d81b98b8ab5c2e3891f0b360d23d57091050c4b5548f09c6b8",
+    "src/Sanctuary.Content/GenericPetPathCommit.cs": "51d8a149d247e6bdfc8729bcab9b405cf0544b1a6bced2da02e9a225378d4582",
+    "tools/reference/generic-pet-path-commit-source-evidence.json": "00324d8fc36763fb65cd71bc891ce3a8c619cb2cd86e1ac075b5c4abeff7fe68",
+    "src/Sanctuary.Content/GenericPetMonsterPlacement.cs": "d9ee0661d1b5ca3c4cd81681a72cdd7e49f7d5cf69c63c21623a0d862fd8490e",
+    "src/Sanctuary.Content/GenericPetNativePlacement.cs": "c6326a65da26e0dac0ca1ed62042f8f2ab38c8b3894fcf92769319d5f7c0d9ab",
+    "src/Sanctuary.Content/GenericPetBirthStartup.cs": "0a408dfc9dc22d1c13b284686693b8931023866cc0b2c16a758ebb9dc8fe1f33",
+    "tools/reference/pet-birth-startup-native-evidence.json": "20661311315cd50d29993de0936884244f25383598681f27c1bff26cf9d36999",
+    "tools/reference/sigil-death-reference-gap.json": "ee72cefd0a042f3e0f220f03d04d565071b1d91fcdacaa823d6cd76f21fe5687",
+    "tools/reference/slow-missiles-preflight.json": "8b888936229cf1471fa4c7dc59bd749147e2b6359234df26712533858bcd4bbd",
+    "tools/record_pet_birth_path_preflight.py": "399990d9113fb6905729c38509fa68c6f3dced485e8955ae014ceca7538407ef"
+  }
+}
