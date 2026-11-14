@@ -36,7 +36,7 @@ public static class SigilLaunchChecks
             Require(actual==expected.GetProperty("result").GetInt32()&&flags==expected.GetProperty("flags").GetUInt32()&&trace.Count==wanted.Length&&!trace.Where((t,i)=>!t.SequenceEqual(wanted[i])).Any(),"Current Sigil guard/service/flag/tracking order or result differs");
             Require(requests.Count==wantedRequests.Length&&!requests.Where((r,i)=>!r.SequenceEqual(wantedRequests[i])).Any(),"Sigil factory request differs");n++;
         }
-        Require(n==126&&NpcWorldAllocation.Capture()==world&&new[]{CombatAbility.SigilRancor,CombatAbility.SigilDeath}.All(a=>!WarlockCombat.Implemented(a)),"Pure launch changed world allocation or admitted unfinished other Sigil status");
+        Require(n==126&&NpcWorldAllocation.Capture()==world&&WarlockCombat.Implemented(CombatAbility.SigilRancor)&&!WarlockCombat.Implemented(CombatAbility.SigilDeath),"Pure launch changed world allocation or admitted unfinished other Sigil status");
         File.WriteAllText(Manifest,generation.ToString());Require(generation<=2,"Unexpected fixture generation");
         Log.Information("Sigil launch:126current do157contexts;all three skills,rank/selector guards,mark/placement/coordinates/distance,factory failure,limit/state tracking,finite current rounding,expiry overflow and event ordering match. Recipient effects,tracking cleanup and learned casts remain separate.");
     }

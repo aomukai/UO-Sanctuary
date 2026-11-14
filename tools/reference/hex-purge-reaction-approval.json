@@ -1,0 +1,14 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "approvalDate": "2026-11-14",
+  "approval": "Approve all three proposals (Recommended)",
+  "candidateCommit": "c5e729c95cc14aa8ed082b3de40fbeaaa2cad993",
+  "proposal": "docs/hex-purge-reaction-proposal.md",
+  "proposalAtApprovalSha256": "c1501fa422ff2d455e658eae728ef7db457c6a575091a6e73c02f907258c3af7",
+  "scope": "Complete prepared reaction rule; production attachment and reaction subscriptions require integration verification.",
+  "limits": [
+    "Explicit Sanctuary adaptation; unavailable current D2R behavior is not claimed as verified.",
+    "Approval does not certify a complete class or authorize save migration."
+  ]
+}

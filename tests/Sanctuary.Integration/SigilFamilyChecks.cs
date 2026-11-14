@@ -68,8 +68,8 @@ public static class SigilFamilyChecks
                 previous=actor;
             }
             Require(NecromancerEffects.ManaBalance256(p)==mana&&p.Hits==hp,"Prepared family changed resources");
-            Require(!WarlockCombat.Handles(CombatAbility.SigilRancor)&&!WarlockCombat.Handles(CombatAbility.SigilDeath)
-                &&!WarlockCombat.Implemented(CombatAbility.SigilRancor)&&!WarlockCombat.Implemented(CombatAbility.SigilDeath),"Unfinished Sigil learned route opened");
+            Require(WarlockCombat.Handles(CombatAbility.SigilRancor)&&!WarlockCombat.Handles(CombatAbility.SigilDeath)
+                &&WarlockCombat.Implemented(CombatAbility.SigilRancor)&&!WarlockCombat.Implemented(CombatAbility.SigilDeath),"Approved Rancor or gated Death admission changed");
             var beforeSave=SigilActors.Snapshot();bool rejected=false;
             try{SigilActors.Restore(beforeSave with{Actors=beforeSave.Actors.Select(a=>a.Marker==previous.Marker?a with{Ability=CombatAbility.SigilRancor}:a).ToArray()});}
             catch(InvalidDataException){rejected=true;}
@@ -113,6 +113,8 @@ public static class SigilFamilyChecks
             try{var now=TimedEffects.Now;var nextPulse=actor.BornUtc.AddMilliseconds((Math.Max(0,actor.LastPulse)+6)*40L);if(now<nextPulse){now=nextPulse;}SigilActors.Tick(now);int first=pulses;Require(first==1,"Original family marker did not resume its pulse");SigilActors.Tick(now);Require(pulses==first,"Family reload replayed a pulse");}
             finally{SigilActors.Pulse-=Pulse;network.Mobile=null;owner.NetState=null;}
         }
-        File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Generation=saved.Generation+1}));
+        // A successful resumed Rancor pulse advances its saved application cursor.
+        // Preserve that exact post-pulse actor for the next reload comparison.
+        File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Generation=saved.Generation+1,Entries=saved.Entries.Select(e=>e with{Actor=Actor(e.Actor.Marker)}).ToArray()}));
     }
 }

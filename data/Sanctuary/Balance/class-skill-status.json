@@ -2583,7 +2583,7 @@
       "characterClass": "Warlock",
       "tree": "Chaos",
       "sourceId": 396,
-      "implementation": "blocked",
+      "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
       "remaining": "Prepared primary-stat receiver captures pinned damagepercent/attackrate and reuses existing additive weapon ED and NPC attack-delay consumers. Optional existing-profile JSON metadata preserves old null schemas and independent curses/Lethargy,with explicit expiry and malformed-state refusal. This does not implement Confuse or infer recipient selection/reapplication/difficulty/pulse cadence. Current do61 remains protected;75percent AI chance,group8interactions and automatic pulse/learned input remain gated. See rancor-primary-checkpoint.md;effects/icons separate."

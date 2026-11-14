@@ -1,0 +1,14 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "approvalDate": "2026-11-14",
+  "approval": "Approve all three proposals (Recommended)",
+  "candidateCommit": "38055be5d3bc969fef730d314b4fbfc7c34ac5ff",
+  "proposal": "docs/pet-startup-proposal.md",
+  "proposalAtApprovalSha256": "5442ca0d5b10ac3b94d585c1eaf7116d8a40943cb244805fd020cee69a8601a9",
+  "scope": "New normal Goatman/Tainted/Defiler initial control values only; no migration or implied approval of remaining AI policies.",
+  "limits": [
+    "Explicit Sanctuary adaptation; unavailable current D2R behavior is not claimed as verified.",
+    "Approval does not certify a complete class or authorize save migration."
+  ]
+}

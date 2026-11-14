@@ -21,7 +21,7 @@ public static class RancorPulseChecks
             string name=reload?"rancor-pulse-reload-check":"rancor-pulse-check";bool again=reload;
             ConsoleInputHandler.RegisterCommand(name,"Complete prepared Rancor pulse candidate",_=>Core.LoopContext.Post(()=>
             {Log.Information("{Name}: passed",name);FixtureNetwork.Connected(name+"-result",network=>
-            {try{Check(network,again);Log.Information("{Name}: passed",name+"-result");}catch(Exception e){Log.Error(e,"{Name}: failed",name+"-result");}});}));
+            {try{SigilActors.Pulse-=SigilRancorPulseProposal.Pulse;try{Check(network,again);}finally{SigilActors.Pulse+=SigilRancorPulseProposal.Pulse;}Log.Information("{Name}: passed",name+"-result");}catch(Exception e){Log.Error(e,"{Name}: failed",name+"-result");}});}));
         }
     }
     private static SkillValues Values(int rank)=>new(SkillMechanics.For(CombatAbility.SigilRancor),_=>rank,_=>0,99);
@@ -87,11 +87,11 @@ public static class RancorPulseChecks
             Require(SigilRancorPulseProposal.ExpirePrepared(a,at.AddMilliseconds(480))&&NecromancerEffects.Curse(a)==curse&&NecromancerEffects.Profiles.Find(a).Mind==ordinary,"Expiry removed protected ordinary AI");
             Require(!SigilRancorPulseProposal.ExpirePrepared(a,at.AddMilliseconds(480)),"Expiry cleanup replayed");
             p.Kill();SigilActors.Tick(at.AddMilliseconds(520));Require(!SigilActors.Snapshot().Actors.Any(s=>s.Owner==p.Serial.Value),"Owner death retained marker");
-            Require(!SigilRancorPulseProposal.Approved&&!WarlockCombat.Implemented(CombatAbility.SigilRancor),"Candidate enabled automatic learned Rancor");
+            Require(SigilRancorPulseProposal.Approved&&WarlockCombat.Implemented(CombatAbility.SigilRancor),"Approved Rancor route missing");
         }
         finally
         {SigilActors.Pulse-=Pulse;Detach(network,p);SigilActors.Clear(p);foreach(var t in new[]{a,b,outside,high,plain,ally}){NecromancerEffects.Profiles.Clear(t);t.Delete();}p.Delete();}
-        Log.Information("Rancor pulse candidate:claimed once,74/75boundary,primary on failure,rank/radius refresh,shared roster,offline/facet/death and independent expiry pass;automatic input gated.");
+        Log.Information("Rancor pulse candidate:claimed once,74/75boundary,primary on failure,rank/radius refresh,shared roster,offline/facet/death and independent expiry pass;approved production subscription checked separately by learned input.");
     }
     private static void Check(NetState network,bool reload)
     {

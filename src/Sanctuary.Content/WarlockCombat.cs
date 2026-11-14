@@ -2,8 +2,8 @@
 namespace Sanctuary;
 public static class WarlockCombat
 {
-    public static bool Implemented(CombatAbility ability) => ability is CombatAbility.LevitationMastery or CombatAbility.SigilLethargy or CombatAbility.Apocalypse or CombatAbility.RingOfFire or CombatAbility.PsychicWard or CombatAbility.BladeWarp or CombatAbility.HexSiphon or CombatAbility.HexBane or CombatAbility.Cleave;
-    public static bool Handles(CombatAbility ability)=>ability is CombatAbility.SigilLethargy or CombatAbility.Apocalypse or CombatAbility.RingOfFire or CombatAbility.PsychicWard or CombatAbility.BladeWarp or CombatAbility.HexSiphon or CombatAbility.HexBane or CombatAbility.Cleave;
+    public static bool Implemented(CombatAbility ability) => ability is CombatAbility.LevitationMastery or CombatAbility.SigilLethargy or CombatAbility.SigilRancor or CombatAbility.Apocalypse or CombatAbility.RingOfFire or CombatAbility.PsychicWard or CombatAbility.BladeWarp or CombatAbility.HexSiphon or CombatAbility.HexBane or CombatAbility.Cleave;
+    public static bool Handles(CombatAbility ability)=>ability is CombatAbility.SigilLethargy or CombatAbility.SigilRancor or CombatAbility.Apocalypse or CombatAbility.RingOfFire or CombatAbility.PsychicWard or CombatAbility.BladeWarp or CombatAbility.HexSiphon or CombatAbility.HexBane or CombatAbility.Cleave;
     public static bool Available(Server.Mobiles.PlayerMobile owner,CombatAbility ability)=>Handles(ability)
         &&ClassCreation.Profiles.TryGet(owner.Serial,out var profile)&&profile.Class==DiabloClass.Warlock&&SkillMechanics.Rank(owner,ability)>0;
     private static bool Point(Server.Mobiles.PlayerMobile owner,Server.Serial selected,Server.Point3D requested,out Server.Point3D point)

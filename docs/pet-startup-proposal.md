@@ -1,3 +1,5 @@
+**Approved 2026-11-14:** user approved all three reviewed proposals. Bound candidate and scope: [approval record](../tools/reference/pet-startup-approval.json). The proposal below is retained as reviewed; rollout status is tracked in the class roadmap.
+
 # Proposed normal-demon AI startup
 
 **Status: awaiting user approval.** Prepared and tested on 2026-11-09 JST. Mechanical reference: **D2R Reign of the Warlock 3.3.93847**. This is an explicit Sanctuary design proposal, not a claim that the current D2R constructor has been recovered. Coverage remains **213/240 handlers, Warlock 4/30; no class certified**.

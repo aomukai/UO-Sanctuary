@@ -1,3 +1,5 @@
+**Approved 2026-11-14:** user approved all three reviewed proposals. Bound candidate and scope: [approval record](../tools/reference/hex-purge-reaction-approval.json). The proposal below is retained as reviewed; rollout status is tracked in the class roadmap.
+
 # Hex: Purge reaction proposal
 
 This is an **unapproved Sanctuary adaptation** for the unavailable recipient/attachment callbacks in **D2R Reign of the Warlock 3.3.93847**. The pinned skill389 table supplies damage, synergies, attack bonuses, duration, chance, radius and charge count. It does not establish the current event ordering, reapplication behavior, mastery placement or complete incoming-event coverage. Learned Purge and automatic weapon/recipient hooks remain disabled.

@@ -72,7 +72,7 @@ public static class RancorMindChecks
             Require(!SourceMind.Neutral(playerTarget)&&NecromancerEffects.Profiles.Find(playerTarget).RancorMind is{Mode:0,Focus:0},"Cleared primary kept active secondary AI");
             Primary(p,playerTarget);Require(NecromancerEffects.Profiles.Find(playerTarget).RancorMind==null&&!SourceMind.Neutral(playerTarget),"Fresh primary resurrected an old AI lease");
             Require(!JsonSerializer.Serialize(new NecromancerState()).Contains("RancorMind"),"Legacy null JSON changed");
-            Require(!WarlockCombat.Implemented(CombatAbility.SigilRancor),"Prepared selector enabled learned Rancor");
+            Require(SigilRancorPulseProposal.Approved&&WarlockCombat.Implemented(CombatAbility.SigilRancor),"Prepared selector enabled learned Rancor");
         }
         finally{NecromancerEffects.Profiles.Clear(t);if(playerTarget!=null){NecromancerEffects.Profiles.Clear(playerTarget);playerTarget.Delete();}t.Delete();other.Delete();}
         Log.Information("Rancor mind:shared Confuse monster/player targeting and RNG,neutral/MindBlast exclusion,independent Weaken/Attract,refresh refusal/expiry/clear/legacy JSON pass;automatic Rancor remains gated.");
@@ -83,7 +83,7 @@ public static class RancorMindChecks
         if(reload)
         {
             var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));generation=s.Generation+1;p=World.FindMobile((Serial)s.Owner)as PlayerMobile;target=World.FindMobile((Serial)s.Target)as CleaveActionTarget;other=World.FindMobile((Serial)s.Other)as CleaveActionTarget;
-            Require(p!=null&&target!=null&&other!=null&&NecromancerEffects.Profiles.Find(target)==s.State&&SkillHealth.Balance256(target)==s.Life256,"Original saved secondary stream/focus/curse/wounds changed");
+            Require(p!=null&&target!=null&&other!=null&&NecromancerEffects.Profiles.Find(target)==s.State&&SkillHealth.Balance256(target)==s.Life256,$"Original saved secondary stream/focus/curse/wounds changed: state={JsonSerializer.Serialize(NecromancerEffects.Profiles.Find(target))} expected={JsonSerializer.Serialize(s.State)} life={SkillHealth.Balance256(target)}/{s.Life256}");
             FixtureSpace.Place(p,new(s.X,s.Y,0),Map.Trammel);target.MoveToWorld(new(p.X+6,p.Y,p.Z),p.Map);other.MoveToWorld(new(p.X+7,p.Y,p.Z),p.Map);
             target.AIObject.AITimer.Stop();other.AIObject.AITimer.Stop();
         }
@@ -96,6 +96,9 @@ public static class RancorMindChecks
         }
         Exercise(p);var before=NecromancerEffects.Profiles.Find(target);ulong expected=before.RancorMind.Seed;SourceRandom.Roll(ref expected);Select(target);var after=NecromancerEffects.Profiles.Find(target);
         Require(after.RancorMind.Seed==expected&&after.RancorMind.Draws==before.RancorMind.Draws+1&&after.Mind==null&&after.Curse==before.Curse,"Original AI did not continue the next saved draw independently");
+        // Park this persistence control outside the live input arena. Its original
+        // saved controller and wounds must not be rewritten by other fixtures.
+        target.Combatant=null;other.Combatant=null;target.MoveToWorld(target.Location,Map.Internal);other.MoveToWorld(other.Location,Map.Internal);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(generation,p.Serial.Value,target.Serial.Value,other.Serial.Value,p.X,p.Y,after,SkillHealth.Balance256(target))));
     }
 }

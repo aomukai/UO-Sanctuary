@@ -59,7 +59,7 @@ public static class RancorPrimaryChecks
             Require(refused&&NecromancerEffects.Profiles.Find(t)==state,"Malformed primary values changed existing state");
             NecromancerEffects.Profiles.Store(t,state with{RancorPrimary=state.RancorPrimary with{UntilUtc=TimedEffects.Now.AddTicks(-1)}});
             Require(SigilRancorPrimary.State(t)==null&&WeaponHit(t,victim)==100*256&&GearEffects.AttackSlowTotal(t)==0&&SourceAttackRate.WolfRate(t)==100,"Expired primary stats still affect damage/rate");
-            Require(!WarlockCombat.Implemented(CombatAbility.SigilRancor),"Primary receiver enabled unverified learned Sigil");
+            Require(SigilRancorPulseProposal.Approved&&WarlockCombat.Implemented(CombatAbility.SigilRancor),"Primary receiver enabled unverified learned Sigil");
         }
         finally{NecromancerEffects.Profiles.Clear(t);SigilLethargy.Clear(t);t.Delete();victim.Delete();marker.Delete();}
         Log.Information("Rancor primary:rank tiers,actual100->150weapon damage/native attack delay,additive Weaken/Lethargy,Attract independence,legacy JSON/refusal/expiry pass;AI and learned route remain gated.");

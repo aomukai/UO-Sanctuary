@@ -1,0 +1,14 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "approvalDate": "2026-11-14",
+  "approval": "Approve all three proposals (Recommended)",
+  "candidateCommit": "a1099215e4e61c3c563d12a6dddcf289e08ae23a",
+  "proposal": "docs/rancor-pulse-proposal.md",
+  "proposalAtApprovalSha256": "54a8dd8d1958bec75b42994c558dd7f62c1a47b53db6894bbe7dd0be6c20a8fd",
+  "scope": "Complete tested pulse, recipient, RNG, refresh, expiry and lifecycle rule; learned route requires integration verification.",
+  "limits": [
+    "Explicit Sanctuary adaptation; unavailable current D2R behavior is not claimed as verified.",
+    "Approval does not certify a complete class or authorize save migration."
+  ]
+}

@@ -1,3 +1,5 @@
+**Approved 2026-11-14:** user approved all three reviewed proposals. Bound candidate and scope: [approval record](../tools/reference/rancor-pulse-approval.json). The proposal below is retained as reviewed; rollout status is tracked in the class roadmap.
+
 # Complete Rancor rule proposal
 
 This is an **unapproved Sanctuary adaptation** for the protected Sigil: Rancor do61 recipient callback in **D2R Reign of the Warlock 3.3.93847**. Its known primary values and existing Confuse selector are implemented. The current callback does not establish chance cadence, stream ownership, refresh, group8 precedence or exact expiry. This proposal makes those choices explicit; automatic pulses and learned Rancor remain disabled.

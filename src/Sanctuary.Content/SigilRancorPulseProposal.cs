@@ -7,11 +7,13 @@ namespace Sanctuary;
 
 internal readonly record struct RancorPulseResult(bool Claimed,int Recipients,int Successes);
 
-// Complete prepared candidate for protected do61, not a parity claim. The
-// existing Sigil driver calls this only when an explicit fixture subscribes.
+// Approved Sanctuary adaptation for protected do61; see the bound approval.
+// Reuse the existing Sigil driver and saved once-per-frame claim.
 internal static class SigilRancorPulseProposal
 {
-    internal static bool Approved=>false;
+    internal static bool Approved=>true;
+    public static void Configure(){if(Approved){SigilActors.Pulse+=Pulse;}}
+    internal static void Pulse(SigilActor actor,PlayerMobile owner,DateTime at)=>PulsePrepared(actor,owner,at);
     private static bool Recipient(PlayerMobile owner,Item marker,BaseCreature target,int radius)=>
         target is{Alive:true,Deleted:false}&&target.Map==marker.Map&&target.CanBeDamaged()
         &&ClassCombat.IsHostile(owner,target)&&SourceAuraTargets.Eligible(target)&&NecromancerEffects.AiCurse(target)
