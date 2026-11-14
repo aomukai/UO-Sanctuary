@@ -79,7 +79,7 @@ public static class NamedCombat
     public static void Crushing(PlayerMobile player, Mobile target, bool ranged, Random random)
     {
         if(target is not{Alive:true,Deleted:false} || !target.CanBeDamaged()){return;}
-        int chance = Math.Clamp(ClassGear.Bonus(player, "crush"), 0, 100);
+        int chance = Math.Clamp(checked(ClassGear.Bonus(player, "crush")+ConsumeEffects.Crushing(player)), 0, 100);
         if (chance <= 0 || random.Next(100) >= chance) { return; }
         ApplyCrushing(target,ranged);
     }

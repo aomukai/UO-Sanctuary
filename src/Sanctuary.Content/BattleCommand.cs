@@ -74,6 +74,8 @@ public static class BattleCommand
     // this ledger get a deterministic serial fallback; their original FIFO is unknown.
     internal static void Track(BaseCreature pet)=>_pets[pet.Serial.Value]=++_nextPet;
     internal static long PetOrder(BaseCreature pet)=>_pets.GetValueOrDefault(pet.Serial.Value);
+    internal static void ReservePetOrder(long order)
+    {if(order<=0){throw new ArgumentOutOfRangeException(nameof(order));}_nextPet=Math.Max(_nextPet,order);}
     private static void EnforcePets(PlayerMobile owner)
     {
         if(!ClassCreation.Profiles.TryGet(owner.Serial,out var profile) || profile.Class!=DiabloClass.Necromancer){return;}

@@ -32,8 +32,7 @@ public static class WarlockGoatmanWorld
     internal static void Enforce(PlayerMobile owner)
     {
         var bodies=Demons(owner);int limit=Limit(owner);
-        if(limit is<1 or>3){throw new NotSupportedException("Unexpected source demon limit");}
-        foreach(var b in bodies.Take(Math.Max(0,bodies.Length-limit))){DeathMarkWorld.Remove(b);b.Delete();}
+        ConsumeEffects.Enforce(owner,bodies,limit);
     }
     internal static WarlockGoatmanBody Create(PlayerMobile owner,Point3D point,DateTime at)
         =>(WarlockGoatmanBody)Create(owner,point,at,CombatAbility.SummonGoatman);

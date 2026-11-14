@@ -53,6 +53,7 @@ public static class ClassCombat
         internal DeathMarkCasting.Pending DeathMark;
         internal EngorgeCasting.Pending Engorge;
         internal BloodBoilCasting.Pending BloodBoil;
+        internal ConsumeCasting.Pending Consume;
         internal DragonFlights.Flight Flight;
         internal DruidChargedAttacks.Pending DruidChargeAttack;
         internal PoisonDaggerCombat.Prepared PoisonDaggerAttack;
@@ -118,8 +119,8 @@ public static class ClassCombat
         ClassCombatHooks.MovementAllowed = from => ChargeMotion.Active(from)
             || !HitRecovery.Active(from,Core.TickCount) && !AmazonStrafe.Locked(from,Core.TickCount) && !AmazonFend.Locked(from,Core.TickCount) && !AmazonImpale.Locked(from,Core.TickCount) && !AmazonJab.Locked(from,Core.TickCount) && !PaladinZeal.Locked(from,Core.TickCount) && !PaladinCharge.Locked(from,Core.TickCount) && !BarbarianConcentrate.Locked(from,Core.TickCount) && !BarbarianLeap.Locked(from) && !BarbarianWhirlwind.Locked(from);
         ClassCombatHooks.RunningDelay = (from, delay) => ClassCombat.Enabled(from)
-            ? EquipmentBalance.RunDelay(delay, EquipmentBalance.RunPenalty(from), CombatPotions.RunBonus(from) + FireGround.Speed(from) + PaladinVigor.VelocityPercent(from)+BarbarianCombat.Passive(from,CombatAbility.IncreasedSpeed)+AssassinBuffs.Velocity(from)+DruidAttackCharges.Velocity(from)+BarbarianFrenzyEffects.Velocity(from)) : delay;
-        ClassCombatHooks.WalkingDelay = (from, delay) => ClassCombat.Enabled(from) ? EquipmentBalance.RunDelay(delay, 0, FireGround.Speed(from) + PaladinVigor.VelocityPercent(from)+BarbarianCombat.Passive(from,CombatAbility.IncreasedSpeed)+AssassinBuffs.Velocity(from)+DruidAttackCharges.Velocity(from)+BarbarianFrenzyEffects.Velocity(from)) : delay;
+            ? EquipmentBalance.RunDelay(delay, EquipmentBalance.RunPenalty(from), CombatPotions.RunBonus(from) + FireGround.Speed(from) + PaladinVigor.VelocityPercent(from)+BarbarianCombat.Passive(from,CombatAbility.IncreasedSpeed)+AssassinBuffs.Velocity(from)+DruidAttackCharges.Velocity(from)+BarbarianFrenzyEffects.Velocity(from)+ConsumeEffects.Velocity(from)) : delay;
+        ClassCombatHooks.WalkingDelay = (from, delay) => ClassCombat.Enabled(from) ? EquipmentBalance.RunDelay(delay, 0, FireGround.Speed(from) + PaladinVigor.VelocityPercent(from)+BarbarianCombat.Passive(from,CombatAbility.IncreasedSpeed)+AssassinBuffs.Velocity(from)+DruidAttackCharges.Velocity(from)+BarbarianFrenzyEffects.Velocity(from)+ConsumeEffects.Velocity(from)) : delay;
         ClassCombatHooks.EquipmentChanged = from =>
         {
             if (ClassCombat.Enabled(from))
@@ -278,6 +279,7 @@ public static class ClassCombat
         DeathMarkCasting.Cancel(from);
         EngorgeCasting.Cancel(from);
         BloodBoilCasting.Cancel(from);
+        ConsumeCasting.Cancel(from);
         PaladinCharge.Cancel(from);
         For(from).Target = Serial.Zero;
         For(from).PendingAbility = CombatAbility.None;
@@ -552,6 +554,7 @@ public static class ClassCombat
         if(session.DeathMark!=null){return DeathMarkCasting.ResolvePrepared(from,now);}
         if(session.Engorge!=null){return EngorgeCasting.ResolvePrepared(from,now);}
         if(session.BloodBoil!=null){return BloodBoilCasting.ResolvePrepared(from,now);}
+        if(session.Consume!=null){return ConsumeCasting.ResolvePrepared(from,now);}
         if(session.Charge!=null){return PaladinCharge.Resolve(from,now);}
         if(session.Zeal!=null){return PaladinZeal.Resolve(from,now);}
         var ability = session.PendingAbility;

@@ -10,7 +10,7 @@ internal readonly record struct ElementReduction(int Damage256,int Absorbed256);
 public static class NamedElements
 {
     private static int Bonus(Mobile owner, string code) => owner is PlayerMobile player && ClassCombat.Enabled(player)
-        ? ClassGear.Bonus(player, code) : owner is BladeSentinelBody blade ? code switch
+        ? checked(ClassGear.Bonus(player, code)+ConsumeEffects.ElementBonus(player,code)) : owner is BladeSentinelBody blade ? code switch
         {
             "pierce-fire"=>blade.Passive("passive_fire_pierce"),"pierce-cold"=>blade.Passive("passive_cold_pierce"),
             "pierce-ltng"=>blade.Passive("passive_ltng_pierce"),"pierce-pois"=>blade.Passive("passive_pois_pierce"),

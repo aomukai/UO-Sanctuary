@@ -11,7 +11,7 @@ public static class WarlockGoatmanCasting
     private static void LocationChanged(Mobile mobile)
     {
         if(World.Loading||mobile is not PlayerMobile owner){return;}var s=ClassCombat.For(owner);
-        if((s.PendingAbility is CombatAbility.SummonGoatman or CombatAbility.SummonTainted or CombatAbility.SummonDefiler or CombatAbility.DeathMark or CombatAbility.Engorge or CombatAbility.BloodBoil)&&(owner.Map!=s.ActionMap||owner.Location!=s.ActionOrigin)){ClassCombat.Stop(owner);}
+        if((s.PendingAbility is CombatAbility.SummonGoatman or CombatAbility.SummonTainted or CombatAbility.SummonDefiler or CombatAbility.DeathMark or CombatAbility.Engorge or CombatAbility.BloodBoil or CombatAbility.Consume)&&(owner.Map!=s.ActionMap||owner.Location!=s.ActionOrigin)){ClassCombat.Stop(owner);}
     }
     internal static bool Destination(PlayerMobile owner,Serial selected,Point3D aim,bool release,out Point3D point)
     {
