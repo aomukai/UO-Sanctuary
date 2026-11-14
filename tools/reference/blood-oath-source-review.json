@@ -1,0 +1,59 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Blood Oath source boundary and proposed adaptation inputs",
+  "skill": 378,
+  "start": 66,
+  "event": 35,
+  "eventName": "absorbresisteddamage",
+  "redirectFormula": "dm12",
+  "rawCalc2": 3,
+  "sourceCandidate": {
+    "rva": "0x44c330",
+    "bytes": 920,
+    "identityVerified": false,
+    "readableCodeBytes": 0
+  },
+  "newLiveReferenceReads": 0,
+  "curvePolicy": "Proposed:use effective-rank pinned dm12;not the older hard-point-only observed bug.",
+  "externalReferences": [
+    {
+      "url": "https://diabloforfans.com/skill/blood-oath?lang=enUS",
+      "kind": "Author datamined reference",
+      "reportedVersion": "3.3.93847",
+      "observedOn": "2026-11-15",
+      "scope": "Current version/table corroboration and resistance notes;no executable reaction ordering."
+    },
+    {
+      "url": "https://docs.google.com/document/d/1gtM3sQ1gzo8kpmTmiJ8CQAiqp7LLu0SeaWE6fUdVg6Y/edit?tab=t.0",
+      "kind": "User-provided original tester notes",
+      "scope": "Google view required JavaScript;PDF copy inspected instead."
+    },
+    {
+      "url": "https://upload3.inven.co.kr/upload/2026/03/02/bbs/WarlockSkillsNotesandFunctionality.pdf",
+      "kind": "Original Warren/Kabryxis tested notes,PDFcopy",
+      "version": "Unspecified;older upload",
+      "scope": "Reports post-resistance forwarding that bypasses demon resistances,and a conflicting hard-point-only redirection bug. Not pinned-current executable evidence."
+    },
+    {
+      "url": "https://news.blizzard.com/en-us/article/24271875/reign-of-the-warlock-3-1-2-patch-notes",
+      "kind": "Blizzard primary patch notes",
+      "scope": "Confirms a historical lost-skill-point Blood Oath retention fix;does not establish current transfer formula or splitting."
+    }
+  ],
+  "established": [
+    "Owned row supplies diminishing dm12,three-valued calc2,passive summon resistance and existing life/physical-resistance parameters.",
+    "The saved candidate35capture has no readable code and no verified dispatcher identity. No fresh closed-client/protected-page read is justified.",
+    "Existing summon life/resistance snapshots,post-mitigation SkillHealth and native fixed-damage bridge can be reused;UO BloodOathSpell is unrelated."
+  ],
+  "unresolved": [
+    "Current callback formula/rank getter,meaning of calc2,recipient selection/splitting,low-life handling,damage stages/periodic/proc/lifecycle behavior. A tested explicit proposal must be approved before learned reaction is enabled.",
+    "Older notes and pinned table conflict;neither is silently substituted for the other. Future Bind Demon receiver needs its own qualified saved actor."
+  ],
+  "inputs": {
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/sources.json": "1ef57c5582c0d749f108ee6c760116fe736d68f5cf1edf9afb846b0ea2cc3f0c",
+    "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
+    ".local/class-skills/warlock-blood-oath-event-current-1/event-bodies-35.json": "6433cad20a17be54f92656109629e476023a646e3415e15ce152bdddc830ea7b",
+    "tools/review_blood_oath.py": "3b595eadb8f8c9643d73cbb07c89229ea56f25d767dcf1962dca04fb8dfb15f6"
+  }
+}

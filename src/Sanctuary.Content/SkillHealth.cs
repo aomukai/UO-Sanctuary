@@ -113,6 +113,11 @@ public static class SkillHealth
         // With no reaction, preserve the original single admission check.
         if(SkillDamageEvents.Notify(source,target,damage256,kind,parts)
             &&(target is not{Alive:true,Deleted:false}||!target.CanBeDamaged())){return 0;}
+        if(BloodOathDamageProposal.ManagedPrepared(target))
+        {
+            damage256=BloodOathDamageProposal.ReducePrepared(source,(Server.Mobiles.PlayerMobile)target,damage256,kind).Remaining256;
+            if(damage256<=0||target is not{Alive:true,Deleted:false}||!target.CanBeDamaged()){return 0;}
+        }
         if(target is Server.Mobiles.BaseCreature original&&ReviveEquipmentIncoming.Handles(original))
         {return ReviveEquipmentIncoming.Damage(source,original,damage256);}
         var old = Profiles.Remainders.GetValueOrDefault(target.Serial);

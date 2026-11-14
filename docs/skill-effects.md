@@ -1,5 +1,7 @@
 # Skill effects
 
+**Prepared Blood Oath reaction (2026-11-15 JST).** No transfer beam,cast animation or standalone aura is invented. Native pet life loss/death presentation is reused. Any final passive/transfer/audio cue,including the pinned sound's unverified trigger timing,remains pending separately;mechanics use no final art.
+
 **Demonic Mastery (2026-11-15 JST).** Passive numerical bonuses have no independent cast/event visual. Reuse each summon's separately recorded movement/attack presentation;do not invent a new aura or cast overlay. No asset blocks its existing mechanical consumers.
 
 **Learned Death Mark (2026-11-15 JST).** Actual SC/warp/command/recipient mechanics now work through learned inputs. Cast sound0x1E5,landing0x3728 and mark0x375A remain identified placeholders. Final Warlock cast overlay,pet warp/landing,target mark/expiry and audio are still needed independently of mechanical completion. Native flying fit adds no effect.

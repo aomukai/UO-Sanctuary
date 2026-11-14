@@ -164,7 +164,7 @@ public static class SkillCombat
     // Leave all pre-existing unshielded damage routes untouched.
     internal static ClassSkillDamage? UnresistedDamage(Mobile target,Mobile source,int damage,int physical,bool weapon,bool ranged)
     {
-        if(PsychicWard.State(target)==null&&!HexPurgeReactionProposal.ManagedPrepared(target)){return null;}
+        if(PsychicWard.State(target)==null&&!HexPurgeReactionProposal.ManagedPrepared(target)&&!BloodOathDamageProposal.ManagedPrepared(target)){return null;}
         if(damage<0||physical is <0 or >100){throw new NotSupportedException("Unsupported Ward native armor-ignore packet");}
         int raw=NamedElements.To256(damage*physical/100.0);
         var ward=PsychicWardReactionProposal.Capture(source,target,raw,weapon&&!ranged,weapon);

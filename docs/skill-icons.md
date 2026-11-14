@@ -1,5 +1,7 @@
 # Skill icons
 
+**Prepared Blood Oath reaction (2026-11-15 JST).** Passive talent-tree artwork remains pending with a text-label placeholder. There is no active mouse/quick skill or hotkey icon. Reaction approval and effects/audio remain separate concerns.
+
 **Demonic Mastery (2026-11-15 JST).** Passive talent-tree artwork remains pending with its text-label placeholder. Mouse/quick bindings correctly refuse;no active hotkey icon is needed.
 
 **Learned Death Mark (2026-11-15 JST).** Verified left/right/quick learned bindings retain text-label placeholders. Talent-tree and all three binding presentations still need final artwork. Internal demon actions add no player icon;effects/audio remain separately registered.

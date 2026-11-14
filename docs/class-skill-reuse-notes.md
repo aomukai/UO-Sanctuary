@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Blood Oath incoming candidate (2026-11-15 JST).** Reused SkillHealth post-mitigation commitment,native fixed-damage/armor-ignore bridge,actual demon roster/creation order,fractional persistence and original attacker native death credit. Return-kind shares bypass a second defense pass and direct-hit events;no new writer,timer,ID or version. C1/I2/S2/N2 passes15markers/2reloads. Start66/event35 unavailable;tested complete adaptation must be approved before automatic learned protection.
+
 **Demonic Mastery (2026-11-15 JST).** Existing summon-owned SkillValues/snapshots already supply its bonuses. Reused actual Goatman unarmed/AR, Tainted packet/A2clock,all three movement and hard-only shared cap consumers;no parallel passive writer. Only the implementation-list entry changes. C1/I1/S1/N1 passes15markers/10scripted summons/6original bodies/2reloads;old formula and27socket-input evidence reused with distinct scope.
 
 **Learned Death Mark (2026-11-15 JST).** User approved the complete prepared action. Reused its SC/session/roster/do155/world/recipient/payment/cooldown and all three source hosts directly;new learned integration uses metadata0. C1/I4/S5/N2 passes138markers/27realinputs/2reloads,including9new target/ground/Witch mouse/quick casts. Ordinary source-frame regeneration is allowed during actual windup;the separate synchronous release checks exact no-heal across teleport. No duplicated source matrix,live capture,timer,ID or serialization version.
