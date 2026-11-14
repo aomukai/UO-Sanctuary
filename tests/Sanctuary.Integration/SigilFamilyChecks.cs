@@ -68,8 +68,8 @@ public static class SigilFamilyChecks
                 previous=actor;
             }
             Require(NecromancerEffects.ManaBalance256(p)==mana&&p.Hits==hp,"Prepared family changed resources");
-            Require(WarlockCombat.Handles(CombatAbility.SigilRancor)&&!WarlockCombat.Handles(CombatAbility.SigilDeath)
-                &&WarlockCombat.Implemented(CombatAbility.SigilRancor)&&!WarlockCombat.Implemented(CombatAbility.SigilDeath),"Approved Rancor or gated Death admission changed");
+            Require(WarlockCombat.Handles(CombatAbility.SigilRancor)&&WarlockCombat.Handles(CombatAbility.SigilDeath)
+                &&WarlockCombat.Implemented(CombatAbility.SigilRancor)&&WarlockCombat.Implemented(CombatAbility.SigilDeath),"Approved Sigil admission changed");
             var beforeSave=SigilActors.Snapshot();bool rejected=false;
             try{SigilActors.Restore(beforeSave with{Actors=beforeSave.Actors.Select(a=>a.Marker==previous.Marker?a with{Ability=CombatAbility.SigilRancor}:a).ToArray()});}
             catch(InvalidDataException){rejected=true;}
@@ -95,7 +95,7 @@ public static class SigilFamilyChecks
         SigilActors.Restore(JsonSerializer.Deserialize<SigilActorSave>(json.ToJsonString()));
         Require(Actor(entries[0].Actor.Marker)==entries[0].Actor&&JsonSerializer.Serialize(SigilActors.Snapshot())==JsonSerializer.Serialize(original),"Version0Lethargy migration changed original context");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(entries,0)));
-        Log.Information("Sigil families:all9owned bodies,shared cross-skill replacement,do14recipient identity,no accidental Lethargy effects,free prepared resources,closed unfinished handlers,atomic family mismatch refusal and old JSON migration pass;3normal204second original markers saved without artificial lifetime holds.");
+        Log.Information("Sigil families:all9owned bodies,shared cross-skill replacement,do14recipient identity,no accidental Lethargy effects,free prepared resources,approved learned admission,atomic family mismatch refusal and old JSON migration pass;3normal204second original markers saved without artificial lifetime holds.");
     }
     private static void Reload(NetState network)
     {

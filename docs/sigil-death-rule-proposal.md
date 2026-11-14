@@ -1,3 +1,5 @@
+**Approved 2026-11-14:** user explicitly approved the complete Sigil: Death rule. [Bound decision](../tools/reference/sigil-death-rule-approval.json). The reviewed proposal below is retained; rollout status is tracked in the class roadmap.
+
 # Complete Sigil: Death rule proposal
 
 **Awaiting approval.** Prepared 2026-11-14 JST against **D2R Reign of the Warlock 3.3.93847**. This is an explicit Sanctuary adaptation for unavailable event33/34 bookkeeping and hidden explosion do153. The skill remains unavailable: **220/240 handlers, Warlock11/30; no class certified**.

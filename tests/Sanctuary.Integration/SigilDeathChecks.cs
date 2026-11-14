@@ -42,7 +42,7 @@ public static class SigilDeathChecks
         Require(plain.Total==20&&enhanced.Total==110,"Death potion/mastery reuse changed unmastered base packet");
         Require(JsonSerializer.Deserialize<SigilActorSave>("{\"Actors\":[],\"Owners\":[]}").DeathMarks==null
             &&!JsonSerializer.Serialize(new SigilActorSave([],[])).Contains("DeathMarks"),"Legacy Sigil mark omission changed");
-        Require(!SigilDeathProposal.Approved&&!WarlockCombat.Implemented(CombatAbility.SigilDeath),"Unapproved Death candidate enabled learned input");
+        Require(SigilDeathProposal.Approved&&WarlockCombat.Implemented(CombatAbility.SigilDeath),"Approved Death learned route missing");
     }
     private static void Exercise(NetState network,Action done,Action<Exception> failed)
     {
@@ -131,7 +131,9 @@ public static class SigilDeathChecks
     }
     private static void Check(NetState network,bool reload,string result)
     {
-        try{Model();}catch(Exception e){Log.Error(e,"{Name}: failed",result);return;}
+        SigilActors.Pulse-=SigilDeathEvents.Pulse;ClassLootHooks.CreatureDied-=SigilDeathEvents.Death;
+        void Restore(){SigilActors.Pulse+=SigilDeathEvents.Pulse;ClassLootHooks.CreatureDied+=SigilDeathEvents.Death;}
+        try{Model();}catch(Exception e){Restore();Log.Error(e,"{Name}: failed",result);return;}
         Exercise(network,()=>
         {
             try
@@ -156,10 +158,10 @@ public static class SigilDeathChecks
                 try{SigilActors.Restore(good with{DeathMarks=[held with{Seed=0}]});}catch(InvalidDataException){refused=true;}
                 Require(refused&&JsonSerializer.Serialize(SigilActors.Snapshot())==before,"Malformed Death mark restore changed shared actor state");
                 File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved((old?.Generation??-1)+1,p.Serial.Value,t.Serial.Value,SkillHealth.Balance256(t),Actor(actor.Marker),held)));
-                Log.Information("Death candidate:shared paid marker/pulse,base corpse snapshot,full-circle split,loot retention,post-death FIFO chain,expiry/refresh/atomic old schema and original cursor/stream/wounds pass;automatic learned route gated.");
+                Log.Information("Death candidate:shared paid marker/pulse,base corpse snapshot,full-circle split,loot retention,post-death FIFO chain,expiry/refresh/atomic old schema and original cursor/stream/wounds pass;prepared-model scope;learned route acceptance is checked separately.");
                 Log.Information("{Name}: passed",result);
             }
-            catch(Exception e){Log.Error(e,"{Name}: failed",result);}
-        },e=>Log.Error(e,"{Name}: failed",result));
+            catch(Exception e){Log.Error(e,"{Name}: failed",result);}finally{Restore();}
+        },e=>{Restore();Log.Error(e,"{Name}: failed",result);});
     }
 }

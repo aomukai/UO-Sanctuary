@@ -1,0 +1,14 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "approvalDate": "2026-11-14",
+  "approval": "Approve the complete Sigil: Death rule",
+  "candidateCommit": "b2de2170a60d4ec0422ef453b6b38f36bc8c3767",
+  "proposal": "docs/sigil-death-rule-proposal.md",
+  "proposalAtApprovalSha256": "aba976777abdceaae338f2b5c85323cf679f62c3b3f993af0929059e8bd10912",
+  "scope": "Complete reviewed mark/pulse/captured-modifier/refresh/any-killer/loot-preserving corpse/base-HP/full-radius split/post-death FIFO chain/owner-lifecycle rule.",
+  "limits": [
+    "Explicit Sanctuary adaptation for unqualified event33/34 and do153,not recovered current D2R callback parity.",
+    "Learned production routing and authenticated input acceptance follow this decision;no complete-class certification."
+  ]
+}

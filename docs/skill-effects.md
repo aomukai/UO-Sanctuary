@@ -1,5 +1,7 @@
 # Skill effects
 
+**Learned Sigil: Death (2026-11-14 JST).** [Checkpoint](death-cast-checkpoint.md). SC/shared Sigil marker art,recipient0x375A/hue0x48E,explosion0x36BD and shared cast sound remain identified placeholders. Final small/medium/large cast/marker,recipient,death-trigger explosion/chain/expiry and audio remain needed. Nine real-input casts verify mechanics without final art;icons remain separate.
+
 **Sigil: Death candidate (2026-11-14 JST).** [Proposal](sigil-death-rule-proposal.md). Existing shared Sigil marker art,recipient flash0x375A/hue0x48E and explosion0x36BD are identified placeholders. Final small/medium/large marker casts,curse_hit/Warlock_Skill_Seal_Death_Hit recipient state,death-trigger explosion/chain presentation and cast/contact/expiry audio remain needed. No final art was generated. Mechanical pulse/queue/damage work does not wait for these assets;talent/hotkey icons remain separate.
 
 **Learned Ring presentation (2026-11-09 JST).** [Checkpoint](ring-cast-checkpoint.md). Selfcast uses existing humanSC and shared0x1E5sound;travel0x36D4 and firstexplosion0x36BD are identified placeholders. Final cast/expanding ring,first damaging contact,later knockback-only tail,terminal/expiry and audio remain needed. Approved mechanics and hotkey use do not wait for final art;icons remain separate.

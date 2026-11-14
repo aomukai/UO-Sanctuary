@@ -15,11 +15,12 @@ internal sealed record SigilDeathData(string ReferenceVersion,int Skill,int Expl
 internal readonly record struct SigilDeathPacket(int Physical256,int Fire256);
 internal readonly record struct SigilDeathBurst(uint Target,bool Exploded,int Recipients,SigilDeathPacket Packet,string Fault=null);
 
-// Complete prepared Sanctuary candidate, not recovered event33/34 or do153.
-// No production subscriptions, learned admission or legacy event-ID extension.
+// Approved Sanctuary adaptation, not recovered event33/34 or do153.
+// Production hooks reuse the shared driver and native corpse boundary.
 internal static class SigilDeathProposal
 {
-    internal static bool Approved=>false;
+    internal static bool Approved=>true;
+    private static readonly Server.Logging.ILogger Log=Server.Logging.LogFactory.GetLogger(typeof(SigilDeathProposal));
     private static ImmutableDictionary<uint,SigilDeathMark> _marks=ImmutableDictionary<uint,SigilDeathMark>.Empty;
     private sealed record Job(SigilDeathMark Mark,uint Corpse,DateTime DiedUtc);
     private static readonly Queue<Job> Jobs=new();
@@ -90,7 +91,7 @@ internal static class SigilDeathProposal
     internal static SigilDeathBurst[] DrainPrepared(bool? actions=null)
     {
         if(_draining){return [];}_scheduled=false;_draining=true;var results=new List<SigilDeathBurst>();
-        try{while(Jobs.TryDequeue(out var job)){results.Add(Explode(job,actions));}}finally{_draining=false;}
+        try{while(Jobs.TryDequeue(out var job)){var result=Explode(job,actions);results.Add(result);if(result.Fault!=null){Log.Warning("Sigil Death unsupported for {Target}: {Reason}",result.Target,result.Fault);}}}finally{_draining=false;}
         return results.ToArray();
     }
     private static SigilDeathBurst Explode(Job job,bool? actions)
