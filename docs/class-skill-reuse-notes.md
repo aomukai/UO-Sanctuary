@@ -1,5 +1,8 @@
 # Class skill reuse notes
 
+**Goatman native walking transport — 2026-11-14 JST.** [Checkpoint](goatman-native-walking-checkpoint.md). The existing source motion kernel now commits live FP16 movement to registered path/room/update lists and native ground positions. Registered Goatman melee geometry reads the source cell, preserving movement smaller than one native tile. Eighteen native markers pass across three boots/two reloads, including an actual room crossing, fractional-cell melee geometry, occupied-ground refusal and unchanged wounds/randomness. Route/birth/mode/clock/timed-action host bindings remain unfinished; coverage **221/240 handlers, Warlock12/30; no class certified**. No new timer/save version; installed files and separate assets remain protected.
+
+
 **Goatman source decision-root binding — 2026-11-14 JST.** [Checkpoint](goatman-native-decision-checkpoint.md). Actual saved controller words, birth ranks, native stats and owned compiled AI fields now compose the existing gather/search/scoring/weighted-action/follow policies. AI and combat share the saved actor stream. Eighteen native markers pass across three boots/two reloads, including all five selected actions through real contacts, repeated-target retention, shared randomness, type2event removal and follow census. A discovered accepted-target routing error is corrected. AI entry, room traversal, movement and timed execution still require full native host bindings. Coverage **221/240 handlers, Warlock12/30; no class certified**. No new timer/save version; installed files and separate assets remain protected.
 
 

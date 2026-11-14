@@ -40,7 +40,15 @@ internal static class ReviveMeleeGeometry
         }
         var row=Profile(source);
         if(requireRange&&row.RawRange==255){throw new NotSupportedException("Original composite weapon-class range is not captured");}
-        return new(PetOwnerRoutes.Cell(actor),row.Size,1,row.BaseId,row.RawRange,HasRoom:actor.Map!=null&&actor.Map!=Map.Internal);
+        var cell=PetOwnerRoutes.Cell(actor);
+        if(actor is WarlockGoatmanBody goat&&DeathMarkWorld.State(goat)is{} controller)
+        {
+            var path=DeathMarkWorld.Path(goat);int x=checked((int)(path.X>>16)),y=checked((int)(path.Y>>16));
+            if(goat.Map==null||goat.Map!=Map.Internal&&(controller.Map!=goat.Map.MapID||(x+1)/2!=goat.X||(y+1)/2!=goat.Y))
+            {throw new NotSupportedException("Registered Goatman geometry does not match its source/native position");}
+            cell=new(x,y);
+        }
+        return new(cell,row.Size,1,row.BaseId,row.RawRange,HasRoom:actor.Map!=null&&actor.Map!=Map.Internal);
     }
     internal static bool Within(BaseCreature source,BaseCreature target,int bonus)
     {

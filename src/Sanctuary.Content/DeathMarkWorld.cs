@@ -66,6 +66,35 @@ internal static class DeathMarkWorld
         return new(unchecked((int)body.Serial.Value),actor.Map,actor.Selector,actor.Command.Data.Target48,actor.Command.Data.Type4c,actor.Mode,actor.Next){Control=actor.Control,Header=actor.Header?.Capture()};
     }
     internal static GenericPetCommitPath Path(SkeletonGuardian body)=>_worlds[_actors[checked((int)body.Serial.Value)].Map].Member(checked((int)body.Serial.Value)).Path;
+    // Continuous native transport uses the same registered source position
+    // and room/update lists as placement. The caller has already advanced the
+    // qualified movement kernel;this does not choose a path or birth flags.
+    internal static void WalkPrepared(WarlockGoatmanBody body,uint x,uint y)
+    {
+        var actor=ControlledActor(body);var world=_worlds[actor.Map];int id=checked((int)body.Serial.Value);
+        var path=world.Member(id).Path;var unit=world.Unit(id);world.Require(body,unit,path);GenericPetNativePlacement.RequireActor(body,unit,path);
+        if(path.Size5c!=2||(path.Flags&1)==0||unit.Pet.ClassId!=742)
+        {throw new NotSupportedException("Walking needs a qualified active2x2ground Goatman path");}
+        int cx=checked((int)(x>>16)),cy=checked((int)(y>>16));
+        if(!PetGroundWorld.Point(body,new(cx,cy),out var point))
+        {throw new NotSupportedException("Source walking destination has no supported native floor/space");}
+        int RoomAt(int _,int px,int py)
+        {
+            if(px<=0||py<=0||px>=body.Map.Width*2||py>=body.Map.Height*2){return 0;}
+            int handle=GenericPetNativePlacement.RoomHandle(body.Map,px,py);int gx=px/32*32,gy=py/32*32;
+            world.EnsureRoom(handle,new(gx,gy,Math.Min(32,body.Map.Width*2-gx),Math.Min(32,body.Map.Height*2-gy)));return handle;
+        }
+        _=RoomAt(0,cx,cy);
+        var services=new GenericPetPathCommitServices(RoomAt,room=>world.Room(room).Bounds,
+            _=>throw new InvalidOperationException("Coordinate transport does not remove collision patterns"),
+            _=>throw new InvalidOperationException("Coordinate transport does not query collision patterns"),
+            _=>throw new InvalidOperationException("Coordinate transport does not add collision patterns"),
+            _=>throw new InvalidOperationException("Coordinate transport does not remove collision sizes"),
+            _=>throw new InvalidOperationException("Coordinate transport does not add collision sizes"),
+            member=>GenericPetRoomLinks.Remove(member,world.Links),(member,room)=>GenericPetRoomLinks.Add(member,room,world.Links),
+            member=>GenericPetRoomLinks.Touch(member,world.Links),(_,_)=>throw new InvalidOperationException("Coordinate transport does not reset targets"),0);
+        world.Begin(world.Revision);GenericPetPathCommit.Coordinates(path,x,y,0,services);body.MoveToWorld(point,body.Map);body.AIObject?.AITimer.Stop();
+    }
     // Read the registered original command,not a detached saved DTO or native
     // Combatant. Lookup stays separate from the survey's validity/path checks.
     internal static GenericPetOwnerSurveyServices BindTargets(GenericPetOwnerSurveyServices services,GenericPetWorldIdentity identity)
