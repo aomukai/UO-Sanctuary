@@ -66,7 +66,7 @@ public static class GoatmanNpcActionChecks
     }
     private static void Check()
     {
-        Require(GoatmanNpcActionProposal.Approved&&!WarlockCombat.Implemented(CombatAbility.SummonGoatman),"Prepared candidate enabled incomplete world summon");
+        Require(GoatmanNpcActionProposal.Approved&&WarlockCombat.Implemented(CombatAbility.SummonGoatman),"Learned Goatman route missing after approved host integration");
         int packets=0,schedules=0;
         for(int rank=1;rank<=255;rank++)
         {

@@ -6,7 +6,12 @@ using Server.Items;
 using Server.Mobiles;
 namespace Sanctuary;
 
-internal sealed record GoatmanHostSnapshot(SourceFramePosition Clock);
+internal sealed record GoatmanHostSnapshot(SourceFramePosition Clock)
+{
+    public string Profile{get;init;}="native-goatman-host-v1";
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public string Fault{get;init;}
+}
 internal sealed record GoatmanHostSource(int ClassId,byte Flags241);
 
 // Executable native-host candidate,not registered as a timer or learned cast.
@@ -26,7 +31,19 @@ internal sealed class GoatmanNativeHostCandidate
     internal int Decisions,Contacts,Frames;
     internal GoatmanNativeMotion Movement=>Motion;
     internal GoatmanNativeCombat Attacks=>Combat;
+    internal bool NeedsObservation
+    {
+        get
+        {
+            if(Suspended||Body.Map!=Owner.Map||DeathMarkWorld.State(Body)?.Map!=Body.Map?.MapID){return true;}
+            var p=DeathMarkWorld.Path(Body);
+            return ((int)(p.X>>16)+1)/2!=Body.X||((int)(p.Y>>16)+1)/2!=Body.Y||p.X!=Motion.Motion.X||p.Y!=Motion.Motion.Y
+                ||Combat.Current is{} action&&DeathMarkWorld.State(Body).Mode!=action.Mode;
+        }
+    }
     internal GoatmanHostSnapshot Capture()=>new(Pump.Position);
+    internal void Interrupt(){Combat.Cancel();Motion.Stop();ClearEvents();Idle(1);}
+    internal void Park(){Combat.Cancel();Motion.Stop();ClearEvents();Suspended=true;}
     internal static GenericPetBirthPath BirthPath(SkeletonGuardian body)
     {
         if(body is not WarlockGoatmanBody||body.Map==null||body.Map==Map.Internal){throw new NotSupportedException("Candidate birth path is Goatman ground only");}

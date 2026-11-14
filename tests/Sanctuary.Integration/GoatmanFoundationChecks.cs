@@ -35,7 +35,7 @@ public static class GoatmanFoundationChecks
             }
             count++;
         }
-        Require(count==30600&&!WarlockCombat.Implemented(CombatAbility.SummonGoatman),"Incomplete learned Goatman enabled");
+        Require(count==30600&&WarlockCombat.Implemented(CombatAbility.SummonGoatman),"Learned Goatman route missing after approved host integration");
         try{Values(4,17).Formula(SkillMechanics.For(CombatAbility.SummonGoatman).Text("passivecalc3"));throw new InvalidOperationException("Generic parser auto-closed a source expression");}catch(InvalidDataException){}
         using(var doc=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"goatman-formula-source-probe.json"))))
         {int cases=0;foreach(var r in doc.RootElement.EnumerateArray()){Require(GoatmanPrepared.Capture(Values(r[1].GetInt32(),r[2].GetInt32()),_=>0).DamagePercent==r[4].GetInt32()&&r[5].GetInt32()==1,"Complete exact Fog compiler/native damage supplier");cases++;}Require(cases==3570,"Goatman formula source cases");}

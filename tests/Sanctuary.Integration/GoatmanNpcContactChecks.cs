@@ -96,7 +96,7 @@ public static class GoatmanNpcContactChecks
             string state=b.SavedText;ulong seedBefore=NpcEquipmentRandom.State(b).Seed;bool refused=false;
             try{GoatmanNpcBodyActions.OpenPrepared(b,t,417,SourceFrameTimeline.MaximumFrame,at);}catch(NotSupportedException){refused=true;}
             Require(refused&&b.SavedText==state&&NpcEquipmentRandom.State(b).Seed==seedBefore,"Exhausted clock mutated body/RNG");
-            Require(!WarlockCombat.Implemented(CombatAbility.SummonGoatman),"Contact binding enabled incomplete AI host");
+            Require(WarlockCombat.Implemented(CombatAbility.SummonGoatman),"Learned Goatman route missing after approved host integration");
             if(retain)
             {
                 SkillHealth.SetBalance256(b,b.MaximumLife256-257);PersistentMinions.Suspend(p);b.RestorePrepared(b.Prepared with{NextRecoveryUtc=TimedEffects.Now.AddDays(2)});

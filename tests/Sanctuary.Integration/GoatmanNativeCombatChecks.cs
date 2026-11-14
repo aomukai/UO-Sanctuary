@@ -100,7 +100,7 @@ public static class GoatmanNativeCombatChecks
             frame+=2;var offline=host.Open(t,418,frame,Time(frame));network.Mobile=null;p.NetState=null;
             host.Advance(frame+1,Time(frame+1));Require(offline.Cancelled&&offline.Packet.Consumed&&SkillHealth.Balance256(t)==hp,"Offline attack delivered or leaked its prepared contact");
             network.Mobile=p;p.NetState=network;
-            Require(!WarlockCombat.Implemented(CombatAbility.SummonGoatman),"Timed combat enabled incomplete summon AI");
+            Require(WarlockCombat.Implemented(CombatAbility.SummonGoatman),"Learned Goatman route missing after approved host integration");
             if(retain)
             {
                 SkillHealth.SetBalance256(b,b.MaximumLife256-257);PersistentMinions.Suspend(p);b.RestorePrepared(b.Prepared with{NextRecoveryUtc=TimedEffects.Now.AddDays(2)});

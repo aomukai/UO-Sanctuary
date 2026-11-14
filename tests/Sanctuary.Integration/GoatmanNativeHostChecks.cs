@@ -72,7 +72,7 @@ public static class GoatmanNativeHostChecks
             network.Mobile=p;p.NetState=network;now=now.AddTicks(SourceFrameTimeline.IntervalTicks);host.Advance(now);
             Require(b.Map==p.Map&&SkillHealth.Balance256(b)==life&&b.Prepared.Frenzy==frenzy&&NpcEquipmentRandom.State(b)==seed
                 &&DeathMarkWorld.State(b).Map==p.Map.MapID&&ReviveMeleeGeometry.Unit(b).HasRoom,"Actual roster return/source-room rebind changed combat state or failed geometry");
-            Require(!WarlockCombat.Implemented(CombatAbility.SummonGoatman),"Unapproved host candidate enabled learned summon");
+            Require(WarlockCombat.Implemented(CombatAbility.SummonGoatman),"Learned Goatman route missing after approved host integration");
             if(retain)
             {
                 PersistentMinions.Suspend(p);b.RestorePrepared(b.Prepared with{NextRecoveryUtc=host.Capture().Clock.NextUtc});

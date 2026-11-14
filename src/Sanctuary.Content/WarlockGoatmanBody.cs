@@ -14,6 +14,10 @@ internal sealed record GoatmanBodyState(uint Owner,GoatmanSnapshot Snapshot,Mons
     public string Profile{get;init;}="prepared-goatman-life-owner-v1";
     [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public GoatmanFrenzyState Frenzy{get;init;}
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public GoatmanHostSnapshot Controller{get;init;}
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    public bool LearnedCast{get;init;}
 }
 
 // Saved body/life/ownership backend. GenericPet movement,12-slot live event
@@ -62,7 +66,10 @@ public partial class WarlockGoatmanBody:SkeletonGuardian,ISourceLifeMaximum,ISou
         Body=appearance.Body;BaseSoundID=appearance.Sound;
         if(Name=="Summoned Goatman [placeholder]"){Name="Summoned Goatman";}
     }
-    public override TimeSpan BeginMelee(Mobile target)=>throw new NotSupportedException("Prepared Goatman body has no automatic GenericPet combat controller");
+    // Native Fists may still request a swing after a harmful callback. The
+    // source-frame host owns all contacts;reuse the other source pets' delay-
+    // only hook so this request never creates a second native attack.
+    public override TimeSpan BeginMelee(Mobile target)=>TimeSpan.FromSeconds(1);
     public override void OnThink(){AIObject?.AITimer.Stop();Combatant=null;FocusMob=null;Warmode=false;}
     internal static void Validate(GoatmanBodyState state)
     {
@@ -74,6 +81,12 @@ public partial class WarlockGoatmanBody:SkeletonGuardian,ISourceLifeMaximum,ISou
                 ||state.Profile!="prepared-goatman-life-owner-v1"||GoatmanPrepared.Rescale(state.Snapshot,state.Difficulty)!=state.Snapshot)
             {throw new InvalidDataException("Invalid prepared Goatman life/owner state");}
             GoatmanNpcBodyActions.Validate(state.Frenzy,state.Snapshot.Birth.Suppliers.FrenzyRank);
+            if(state.LearnedCast&&state.Controller==null){throw new InvalidDataException("Learned Goatman needs its native host");}
+            if(state.Controller is{} controller)
+            {
+                SourceFrameTimeline.Validate(controller.Clock);
+                if(controller.Profile!="native-goatman-host-v1"){throw new InvalidDataException("Unknown Goatman host profile");}
+            }
         }
         catch(Exception e)when(e is ArgumentException or NotSupportedException or OverflowException)
         {throw new InvalidDataException("Unsupported prepared Goatman snapshot",e);}
@@ -124,5 +137,10 @@ public partial class WarlockGoatmanBody:SkeletonGuardian,ISourceLifeMaximum,ISou
         {RestorePrepared(Prepared with{NextRecoveryUtc=next});}
     }
     [AfterDeserialization]private void AfterGoatmanLoad()
-    {AIObject?.AITimer.Stop();_prepared=JsonSerializer.Deserialize<GoatmanBodyState>(_saved);Validate(_prepared);ApplyAppearance();}
+    {AIObject?.AITimer.Stop();_prepared=JsonSerializer.Deserialize<GoatmanBodyState>(_saved);Validate(_prepared);ApplyAppearance();if(_prepared.Controller!=null){WarlockGoatmanWorld.Track(this);}}
+    public override void SuspendActions()
+    {base.SuspendActions();WarlockGoatmanWorld.Suspend(this);}
+    internal override void InterruptForRecovery()
+    {base.InterruptForRecovery();WarlockGoatmanWorld.Interrupt(this);}
+    public override void OnAfterDelete(){WarlockGoatmanWorld.Forget(this);NpcEquipmentRandom.Forget(this);DeathMarkWorld.Remove(this);base.OnAfterDelete();}
 }

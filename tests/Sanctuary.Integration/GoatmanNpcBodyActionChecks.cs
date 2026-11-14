@@ -79,7 +79,7 @@ public static class GoatmanNpcBodyActionChecks
     private static void Start()
     {
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(0,[Scene(false),Scene(true)])));
-        Require(!WarlockCombat.Implemented(CombatAbility.SummonGoatman),"State binding enabled unfinished summon host");
+        Require(WarlockCombat.Implemented(CombatAbility.SummonGoatman),"Learned Goatman route missing after approved host integration");
         Log.Information("Goatman body actions:actual Warlock/Witch snapshots,contacts,successive charges,source attack/motion rates,exact subframe expiry,miss,parking and atomic invalid-state refusal");
     }
     private static void Reload()

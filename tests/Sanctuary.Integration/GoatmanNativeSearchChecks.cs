@@ -104,7 +104,7 @@ public static class GoatmanNativeSearchChecks
             var stale=Target(p,new(b.X+2,b.Y+1,b.Z));p.Combatant=stale;ClassCombat.For(p).Target=stale.Serial;world=new(b,p);
             _=world.Search.Unit(checked((int)p.Serial.Value));stale.Delete();world.Search.Refresh371b10(checked((int)p.Serial.Value));
             Require(p.Combatant==null&&ClassCombat.For(p).Target==Serial.Zero&&world.Search.Unit(checked((int)p.Serial.Value)).PathTarget==0,"Native stale owner path target was resurrected");
-            Require(!WarlockCombat.Implemented(CombatAbility.SummonGoatman),"Native search enabled an incomplete summon host");
+            Require(WarlockCombat.Implemented(CombatAbility.SummonGoatman),"Learned Goatman route missing after approved host integration");
             if(retain)
             {
                 SkillHealth.SetBalance256(b,b.MaximumLife256-257);PersistentMinions.Suspend(p);b.RestorePrepared(b.Prepared with{NextRecoveryUtc=TimedEffects.Now.AddDays(2)});

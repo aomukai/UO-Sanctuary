@@ -37,7 +37,8 @@ public static class GoatmanBodyChecks
             &&NamedElements.MagicResistance(b)==0,"Actual Goatman fractional maximum/resistances");
         Require(b.SourceRegeneration256==(birth.BaseLife256*3>>12)&&b.CombatProfile.MinDamage==0&&b.CombatProfile.MaxDamage==0
             &&b.SkillWeaponDamage==(0,0)&&!b.UsesNativeSummonTimer&&!b.CanRegenHits&&!b.CanRegenMana&&!b.BleedImmune&&b.PoisonImmune==null&&!b.Blessed,"Body borrowed skeleton offense/immunities/recovery");
-        bool refused=false;try{b.BeginMelee(b.ControlMaster);}catch(NotSupportedException){refused=true;}Require(refused,"Unfinished combat silently substituted skeleton melee");
+        int life=SkillHealth.Balance256(b.ControlMaster);
+        Require(b.BeginMelee(b.ControlMaster)==TimeSpan.FromSeconds(1)&&SkillHealth.Balance256(b.ControlMaster)==life,"Native melee bypassed source controller");
     }
     private static Actor Scene(bool female)
     {
@@ -46,7 +47,7 @@ public static class GoatmanBodyChecks
         {
             var before=GoatmanPrepared.Capture(p);int mana=NecromancerEffects.ManaBalance256(p);DateTime at=TimedEffects.Now.AddDays(2);
             b=WarlockGoatmanBody.CreatePrepared(p,new(p.X+1,p.Y,p.Z),at);Require(b.ControlMaster==p&&b.Permitted(p)&&b.SummonClass==DiabloClass.Warlock&&b.ControlSlots==0&&b.Summoned&&b.Prepared.Snapshot==before
-                &&SkillHealth.Full(b)&&NecromancerEffects.ManaBalance256(p)==mana&&!ClassCombat.Available(p,CombatAbility.SummonGoatman),"Body ownership/fill/capture or accidental learned cast/payment");Numeric(b);
+                &&SkillHealth.Full(b)&&NecromancerEffects.ManaBalance256(p)==mana&&ClassCombat.Available(p,CombatAbility.SummonGoatman),"Body ownership/fill/capture or learned availability/payment");Numeric(b);
             int maximum=b.MaximumLife256;SkillHealth.SetBalance256(b,maximum-257);b.AdvanceRecovery(at.AddMilliseconds(39),true);Require(SkillHealth.Balance256(b)==maximum-257,"Early recovery");
             b.AdvanceRecovery(at.AddMilliseconds(40),true);Require(SkillHealth.Balance256(b)==maximum-257+b.SourceRegeneration256,"Source40ms base-life recovery");
             int life=SkillHealth.Balance256(b);b.AdvanceRecovery(at.AddMilliseconds(80),false);Require(SkillHealth.Balance256(b)==life&&b.Map==Map.Internal,"Offline frame healed or retained world body");
@@ -93,7 +94,7 @@ public static class GoatmanBodyChecks
         {
             var p=World.FindMobile((Serial)s.Owner) as PlayerMobile;var b=World.FindMobile((Serial)s.Body) as WarlockGoatmanBody;var helm=World.FindItem((Serial)s.Helm);
             Require(p!=null&&b!=null&&b.ControlMaster==p&&p.Female==s.Female&&helm?.Parent==p&&b.SavedText==s.State&&SkillHealth.Balance256(b)==s.Life
-                &&SkillHealth.Maximum256(b)==s.Maximum&&NecromancerEffects.ManaBalance256(p)==s.Mana&&BattleCommand.PetOrder(b)==s.Order&&!ClassCombat.Available(p,CombatAbility.SummonGoatman),"Original Goatman/owner/gear/wounds/snapshot/order/public gate changed");
+                &&SkillHealth.Maximum256(b)==s.Maximum&&NecromancerEffects.ManaBalance256(p)==s.Mana&&BattleCommand.PetOrder(b)==s.Order&&ClassCombat.Available(p,CombatAbility.SummonGoatman),"Original Goatman/owner/gear/wounds/snapshot/order/learned availability changed");
             Numeric(b);int before=SkillHealth.Balance256(b);b.AdvanceRecovery(TimedEffects.Now,false);Require(SkillHealth.Balance256(b)==before,"Reload healed before retained future deadline");
         }
     }

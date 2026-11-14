@@ -2329,7 +2329,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Text label; final icon pending"
+    "placeholder": "Text label for the learned talent and hotkey;final icons pending independently of summon mechanics."
   },
   {
     "talentId": "warlock.bloodoath",
