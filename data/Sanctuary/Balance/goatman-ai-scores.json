@@ -1,0 +1,62 @@
+[
+  {
+    "id": 416,
+    "flags37": 4,
+    "score": {
+      "flags36": 0,
+      "flags39": 208,
+      "quarter532": 1,
+      "bonus730": 0,
+      "element644": 9,
+      "state162": -1,
+      "class272": -1,
+      "ownerCompare274": -1,
+      "calc276": -1
+    }
+  },
+  {
+    "id": 418,
+    "flags37": 4,
+    "score": {
+      "flags36": 0,
+      "flags39": 208,
+      "quarter532": 1,
+      "bonus730": 0,
+      "element644": 3,
+      "state162": -1,
+      "class272": -1,
+      "ownerCompare274": -1,
+      "calc276": -1
+    }
+  },
+  {
+    "id": 417,
+    "flags37": 4,
+    "score": {
+      "flags36": 0,
+      "flags39": 128,
+      "quarter532": 1,
+      "bonus730": 10,
+      "element644": 0,
+      "state162": -1,
+      "class272": -1,
+      "ownerCompare274": -1,
+      "calc276": -1
+    }
+  },
+  {
+    "id": 419,
+    "flags37": 4,
+    "score": {
+      "flags36": 0,
+      "flags39": 80,
+      "quarter532": 1,
+      "bonus730": 20,
+      "element644": 0,
+      "state162": -1,
+      "class272": -1,
+      "ownerCompare274": -1,
+      "calc276": -1
+    }
+  }
+]
