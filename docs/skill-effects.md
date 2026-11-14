@@ -1,5 +1,7 @@
 # Skill effects
 
+**Demonic Mastery (2026-11-15 JST).** Passive numerical bonuses have no independent cast/event visual. Reuse each summon's separately recorded movement/attack presentation;do not invent a new aura or cast overlay. No asset blocks its existing mechanical consumers.
+
 **Learned Death Mark (2026-11-15 JST).** Actual SC/warp/command/recipient mechanics now work through learned inputs. Cast sound0x1E5,landing0x3728 and mark0x375A remain identified placeholders. Final Warlock cast overlay,pet warp/landing,target mark/expiry and audio are still needed independently of mechanical completion. Native flying fit adds no effect.
 
 **Prepared Death Mark player action (2026-11-15 JST).** Shared SC,cast sound0x1E5,pet landing0x3728 and target mark0x375A are identified placeholders. Actual original demon relocation/command/interruption works;final Warlock cast overlay,pet warp/landing,mark/expiry and audio remain pending. Flying-placement correction adds no new visual. See [checkpoint](death-mark-action-checkpoint.md).

@@ -2330,10 +2330,10 @@
       "characterClass": "Warlock",
       "tree": "Demon",
       "sourceId": 374,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned passive reuses existing captured summon suppliers:effective ranks supply attack speed,movement,Goatman flat AR/physical ED and Tainted fire mastery;hard5/10points alone set the shared1/2/3demon limit. There is no separate player attack/cast/stat writer in the owned374row. Actual trained ranks/gear/cap thresholds,three-species learned summons,original combat/movement consumers,snapshots and original saves are scoped in demonic-mastery-checkpoint.md. Bind Demon numeric references retain but its own binding/channel/world route remains unfinished. Blood Oath reaction35 is independent. Current engine/global caller/full recipient/property/client certification remains open;no class certificate. Only the passive talent-tree icon is needed;no active hotkey or independent effect is invented."
     },
     {
       "talentId": "warlock.summongoatman",
