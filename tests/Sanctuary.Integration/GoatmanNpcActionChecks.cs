@@ -33,7 +33,7 @@ public static class GoatmanNpcActionChecks
         internal override void Return(ref PreparedMonsterDamagePacket p,System.Action death){if((p.ResultFlags&2)!=0){death();}}
         internal override void FreePacket()=>Frees++;
     }
-    private sealed class World:GoatmanNpcActionProposal.Services
+    internal sealed class World:GoatmanNpcActionProposal.Services
     {
         internal bool Enabled=true,Hit=true;
         internal BaseCreature[] Targets=[];

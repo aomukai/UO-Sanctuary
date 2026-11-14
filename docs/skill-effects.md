@@ -1,5 +1,8 @@
 # Skill effects
 
+**Goatman body reuse clarification — 2026-11-14 JST.** The approved Gargoyle body and its native animations are already reused for prepared summons. A new Khazra body is not required. Remaining assets are the summon cast overlay/audio, Stun impact, Berserk/Frenzy state presentation and Cleave sweep/contact audio. Skill icons remain in the separate icon register. Historical placeholder-body entries below are superseded by this clarification.
+
+
 **Learned Sigil: Death (2026-11-14 JST).** [Checkpoint](death-cast-checkpoint.md). SC/shared Sigil marker art,recipient0x375A/hue0x48E,explosion0x36BD and shared cast sound remain identified placeholders. Final small/medium/large cast/marker,recipient,death-trigger explosion/chain/expiry and audio remain needed. Nine real-input casts verify mechanics without final art;icons remain separate.
 
 **Sigil: Death candidate (2026-11-14 JST).** [Proposal](sigil-death-rule-proposal.md). Existing shared Sigil marker art,recipient flash0x375A/hue0x48E and explosion0x36BD are identified placeholders. Final small/medium/large marker casts,curse_hit/Warlock_Skill_Seal_Death_Hit recipient state,death-trigger explosion/chain presentation and cast/contact/expiry audio remain needed. No final art was generated. Mechanical pulse/queue/damage work does not wait for these assets;talent/hotkey icons remain separate.

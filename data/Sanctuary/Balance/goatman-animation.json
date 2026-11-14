@@ -10,5 +10,11 @@
     "frames": 16,
     "speed": 256,
     "actionFrame": 8
+  },
+  {
+    "code": "GMWL2HS",
+    "frames": 8,
+    "speed": 256,
+    "actionFrame": -1
   }
 ]

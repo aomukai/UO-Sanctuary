@@ -1,0 +1,122 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Goatman persistent NPC action/speed body binding",
+  "approvedNpcAction": true,
+  "handlers": 221,
+  "warlockHandlers": 12,
+  "completedClasses": [],
+  "learnedDemonSummonsEnabled": false,
+  "automaticPetAiEnabled": false,
+  "nativeMarkers": 18,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "goatman-npc-body-action-check": 1,
+    "goatman-npc-body-action-reload-check": 2,
+    "goatman-body-check": 1,
+    "goatman-body-reload-check": 2,
+    "goatman-npc-action-check": 3
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 2,
+  "integrationBuild": 3,
+  "sourceSnapshot": 3,
+  "nativeRun": 2,
+  "nativeRebuilt": false,
+  "clientRebuilt": false,
+  "newLiveReferenceReads": 0,
+  "newTimers": 0,
+  "newPersistenceIds": 0,
+  "serializationVersionChanged": false,
+  "optionalNullOmittedMetadata": "GoatmanBodyState.Frenzy",
+  "animationRecords": [
+    {
+      "code": "GMWL2HS",
+      "frames": 8,
+      "speed": 256,
+      "actionFrame": -1
+    },
+    {
+      "code": "GMA12HS",
+      "frames": 20,
+      "speed": 256,
+      "actionFrame": 12
+    },
+    {
+      "code": "GMA22HS",
+      "frames": 16,
+      "speed": 256,
+      "actionFrame": 8
+    }
+  ],
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "b24fcdf7c7e57108be338313a40696d28e6b341fdebeb68b5084705661c223b8",
+    "Assemblies/Sanctuary.Content.dll": "8e6e295afced4e8ec93a582a76a9326d9a85112fec015ad8e36c4c882f82153b",
+    "Assemblies/Sanctuary.Integration.dll": "84ed279a59a8e4b462592366e7a18c074856ccf0ce0e82f592c62a58c17567f1"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 43,
+    "installed": false
+  },
+  "established": [
+    "Actual Warlock/Witch bodies share consecutive action charges without live gear/rank recapture.",
+    "Captured birth/common attack/Frenzy rates aggregate once;source walk motion and caller-qualified other-animation rates consume own-body bonuses.",
+    "Exact fractional UTC expiry,miss/no refresh,new charge after expiry,parking/no heal and atomic malformed-state refusal.",
+    "Original wounded bodies retain exact JSON/deadlines/ownership/resources across2reloads;legacy absent-field bodies remain readable and byte-equivalent.",
+    "Approved action controls plus legacy body/difficulty/recovery and baseline original-item/resource checks pass."
+  ],
+  "limits": [
+    "GenericPet production path/clock/AI/ordered contact/events and learned summon are still unfinished.",
+    "Movement kernel uses declared collision leaves;this does not admit an automatic world movement transaction or running-mode fallback.",
+    "The host must qualify the source mode flag before choosing the other-animation branch.",
+    "Final skill effects/audio and talent/hotkey icons remain separately pending;approved Gargoyle body is reused."
+  ],
+  "inputs": {
+    "tools/reference/goatman-npc-action-native-evidence.json": "39d4ab1596a21cd5a0e5ac039ba2d3c78b27cf35fd967bd5355ee2d6a6cc2c9b",
+    "tools/reference/goatman-npc-action-approval.json": "c8ebf2b943b7f9311dfae061640458f912b88bf6a85188c6e0d28f76f63d4603",
+    "tools/reference/d2r-local-animation-evidence.json": "9e6fe8138709f15e9acf20a9bfb34aaa61a46bad0e32c790906b4c9ba676c637",
+    ".local/class-skills/bone-barrier-retirement-source/AnimData.d2": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5",
+    "data/Sanctuary/Balance/goatman-animation.json": "9b3d741929723b59148d274bf30a7ed9fef0ddd2803286710a0523d0ff42be33",
+    "tools/reference/d2r-named-equipment/json/monstats.json": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    ".local/class-skills/goatman-npc-body-action/birth-inputs.json": "4ec18564bba9936a2f71d1a199af1a7761ccf8402c5ef771dbea7091cea02330",
+    ".local/class-skills/goatman-npc-body-action/source-snapshot-1.json": "9726d8e678dc6db9885dc614620900a40fe7bffed962ae8ad282d0720c8cddc8",
+    ".local/class-skills/goatman-npc-body-action/source-snapshot-3.json": "e52eb8ee476dbb4d851eb5dafa1e164043951ef96e32e03f4ad83ed7a0642eb8",
+    ".local/class-skills/goatman-npc-body-action/content-build-2.log": "c5e7c8274454353b7486510463afef4e6da8f21ce84ac280b23c77309cb56706",
+    ".local/class-skills/goatman-npc-body-action/integration-build-3.log": "4f15e4eb30709c2cc41781e69374fcf6e333faf96757cc66e976444116e65c30",
+    ".local/class-skills/goatman-npc-body-action/birth-native-checks.log": "4af393ac83a36e54081b92293357bf0a070dbba4622cb13f4256fa940d3490fa",
+    ".local/class-skills/goatman-npc-body-action/native-run-2.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/goatman-npc-body-action/goatman-npc-body-action-fixtures.json": "b5e0cff7cf40593134641e86ea46ed3922680d8e3b45704a096894693b27df5a",
+    ".local/class-skills/goatman-npc-body-action/goatman-body-fixtures.json": "7158d680511547067a877073c3895d8123d58fedf23d53eccf3b0e503a59f518",
+    ".local/class-skills/goatman-npc-body-action/diagnostics-1/birth-inputs.json": "8a73a6e7c6874f3d832bd8e0c22c945baf61b15ebe6ee4462613a3ba819d3116",
+    ".local/class-skills/goatman-npc-body-action/diagnostics-1/birth-native-checks.log": "b9318bb90ee99b7f0af88993ebf64b106a227302cf0285844a390902f2f165b2",
+    ".local/class-skills/goatman-npc-body-action/diagnostics-1/native-run-1.log": "f9137cb2fc94c2d4cd9fbc297ed117ae814c681119d5270e7dd7f1ea49d60c44",
+    ".local/class-skills/goatman-npc-body-action/diagnostics-1/GoatmanNpcBodyActionChecks.cs": "0a8ace9553776ad010ec3e2ac90fa15677592469798f9a1861939b82bc7b23ba",
+    ".local/class-skills/goatman-npc-body-action/diagnostics-1/Sanctuary.Content.dll": "8e6e295afced4e8ec93a582a76a9326d9a85112fec015ad8e36c4c882f82153b",
+    ".local/class-skills/goatman-npc-body-action/diagnostics-1/Sanctuary.Integration.dll": "ade6d4a9f6475824b25048d199dccd7a9713fe7eea53d5f01ca5e0bac8ee263b",
+    ".local/class-skills/goatman-npc-body-action/diagnostics-1/reason.txt": "cbac54cad6405555c7d3ee82cb2e62b859bfc7359819fa45e7b1648b15b8483a",
+    "src/Sanctuary.Content/WarlockGoatmanBody.cs": "0a0ec5777e26365abee83625b438b5cb5d9ca03e1f8522dc2598f841dc6fd60e",
+    "src/Sanctuary.Content/GoatmanNpcActionProposal.cs": "b64ce0d6065879a4fdb4998699751dc44fe7fccd5b1108bee91d07937990d092",
+    "src/Sanctuary.Content/GoatmanNpcBodyActions.cs": "dadfc5b2bb13f718eff74a4d694f50ae0bc83cd07cb26364289eea33b80abfe9",
+    "tests/Sanctuary.Integration/GoatmanNpcBodyActionChecks.cs": "20a46170ef4e5d3cd36791699321e0a5942380d744b66af76151bdbaa86e3c01",
+    "tests/Sanctuary.Integration/GoatmanNpcActionChecks.cs": "e9d73b5b55e194910a340cd02aaa3aeadf726c38fd0b4efdf44b5d8af749215f",
+    "tests/check_goatman_npc_body_action.py": "5284585656253a3cfc31b372165f213b87bdf7b1256ced84a34561eb933e1df9",
+    "tools/record_goatman_npc_body_action.py": "f59499dcd7f243508d67c7525d396ee5a6d009c88bc582213f8e21e465c25bf1",
+    "data/Sanctuary/Balance/skill-effects.json": "91cbff091465ec4a2262a2a178df89a23f22e733f0cb4a8b6de2f51290c234af",
+    "data/Sanctuary/Balance/skill-icons.json": "b5541cd3be5797b7e984f47284cfa686eb7d5bc51061520f75a8e927e9cd54e2",
+    "docs/goatman-npc-body-action-checkpoint.md": "759cc4b9c01292347a758c07be260b8934c9e02238c609f243eaaaa25613ba5e",
+    "docs/class-skill-roadmap.md": "1bf03fcce8502cdec981fe2a7aa711f39a7edbfd2a7cf4776f486f15b7c1670f",
+    "docs/class-skills-resume-checkpoint.md": "87dcef5d5bab8911254b6db2fb70d819e09671f912fee87f5046ded22d1a3e74",
+    "docs/class-skill-reuse-notes.md": "3a2ae30d1197f6d4b554210978efd4efdb6ed308c002ed33cd53dd45e3d2ead3",
+    "docs/skill-effects.md": "1dd5961718bca87a68851fc154ba330b30eaf39a9d3976b07a74080c0a999c28"
+  }
+}

@@ -12,6 +12,8 @@ namespace Sanctuary;
 internal sealed record GoatmanBodyState(uint Owner,GoatmanSnapshot Snapshot,MonsterDifficulty Difficulty,DateTime NextRecoveryUtc)
 {
     public string Profile{get;init;}="prepared-goatman-life-owner-v1";
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public GoatmanFrenzyState Frenzy{get;init;}
 }
 
 // Saved body/life/ownership backend. GenericPet movement,12-slot live event
@@ -68,6 +70,7 @@ public partial class WarlockGoatmanBody:SkeletonGuardian,ISourceLifeMaximum
                 ||state.NextRecoveryUtc.Kind!=DateTimeKind.Utc||state.NextRecoveryUtc>DateTime.MaxValue.AddMilliseconds(-40)
                 ||state.Profile!="prepared-goatman-life-owner-v1"||GoatmanPrepared.Rescale(state.Snapshot,state.Difficulty)!=state.Snapshot)
             {throw new InvalidDataException("Invalid prepared Goatman life/owner state");}
+            GoatmanNpcBodyActions.Validate(state.Frenzy,state.Snapshot.Birth.Suppliers.FrenzyRank);
         }
         catch(Exception e)when(e is ArgumentException or NotSupportedException or OverflowException)
         {throw new InvalidDataException("Unsupported prepared Goatman snapshot",e);}

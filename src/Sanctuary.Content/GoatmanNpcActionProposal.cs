@@ -15,11 +15,12 @@ internal static class GoatmanNpcActionProposal
     private static readonly Lazy<GoatmanAnimation[]> Animations=new(()=>
     {
         var rows=BalanceCatalog.Read<GoatmanAnimation>("goatman-animation");
-        if(rows.Length!=2||rows[0]!=new GoatmanAnimation("GMA12HS",20,256,12)
-            ||rows[1]!=new GoatmanAnimation("GMA22HS",16,256,8))
+        if(rows.Length!=3||rows[0]!=new GoatmanAnimation("GMA12HS",20,256,12)
+            ||rows[1]!=new GoatmanAnimation("GMA22HS",16,256,8)||rows[2]!=new GoatmanAnimation("GMWL2HS",8,256,-1))
         {throw new System.IO.InvalidDataException("Unsupported owned Goatman animation metadata");}
         return rows;
     });
+    internal static GoatmanAnimation WalkAnimation=>Animations.Value[2];
     internal static SourceAnimationState Schedule(int skill,int rank,int totalAttackRate,int frame)
     {
         if(skill is not(417 or 419)){throw new NotSupportedException("Only NPC Frenzy/Cleave use this proposal");}
@@ -32,9 +33,17 @@ internal static class GoatmanNpcActionProposal
     // This actor-owned, explicit-clock state reuses the complete shared stat
     // writer. The host must retain it between actions; expiry does not refresh
     // on reads, parking or failed attacks. Persistence binding is still open.
-    internal sealed class Frenzy
+    internal sealed class Frenzy(System.Action<int,int,FrenzyReleaseList> changed=null)
     {
         internal FrenzyReleaseList State{get;private set;}
+        internal static Frenzy Restore(int rank,int charges,int expiry,System.Action<int,int,FrenzyReleaseList> changed=null)
+        {
+            if(rank is <1 or >255||charges<1||charges>rank||expiry<=0){throw new ArgumentException("Invalid saved NPC Frenzy projection");}
+            var result=new Frenzy(changed);
+            var list=new FrenzyReleaseList(charges,expiry){State=103,Posted=true,RemoveCallback=true};result.State=list;
+            new Stats(result,0).WriteAura(list,new(103,0,0,0,0,128),417,charges);
+            return result;
+        }
         internal int Bonus(int frame)
         {
             if(frame<0){throw new ArgumentOutOfRangeException(nameof(frame));}
@@ -45,6 +54,7 @@ internal static class GoatmanNpcActionProposal
         {
             _=Bonus(frame);if(!successful){return;}
             BarbarianFrenzyRelease.ApplyStats(417,rank,new Stats(this,frame));
+            changed?.Invoke(rank,frame,State);
         }
         private sealed class Stats(Frenzy owner,int frame):FrenzyStatServices
         {
