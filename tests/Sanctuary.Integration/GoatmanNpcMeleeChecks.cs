@@ -50,7 +50,7 @@ public static class GoatmanNpcMeleeChecks
             Require(berserk.Eval("calc1")==104+rank&&berserk.Eval("calc4")==100&&berserk.Eval("calc2")==75-Math.Min(110*rank/(rank+6)*50/100,50),"NPC Berserk uses player ED/synergy or wrong duration");
             Require(GoatmanNpcSkills.Values(417,rank).Eval("calc1")==0&&GoatmanNpcSkills.Values(419,rank).Eval("calc5")==11,"Raw Frenzy/Cleave source suppliers missing");
         }
-        try{GoatmanNpcMelee.Prepare(417,1,1,100,null,null,null,null);throw new InvalidOperationException("Unverified new Frenzy start was enabled");}catch(NotSupportedException){}
+        try{GoatmanNpcMelee.Prepare(420,1,1,100,null,null,null,null);throw new InvalidOperationException("Unknown Goatman packet row was enabled");}catch(NotSupportedException){}
         Require(!WarlockCombat.Implemented(CombatAbility.SummonGoatman),"NPC preparation enabled unfinished Goatman actor");
         Log.Information("Goatman NPC melee:24000complete-source packets/216Berserk state phases;shared rolls/conversion/critical reused,current callbacks/release/world actor remain gated");
     }

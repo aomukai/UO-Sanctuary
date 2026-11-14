@@ -17,10 +17,9 @@ internal sealed class FrenzyReleaseList(int charges,int expiry)
     internal bool RemoveCallback,Posted;
     internal int Velocity,AttackRate,OtherAnimationRate;
 }
-internal abstract class FrenzyReleaseServices
+internal abstract class FrenzyStatServices
 {
     internal abstract FrenzyReleaseRow Row(int skill);
-    internal abstract SourceGuidTarget Target();
     internal abstract FrenzyUsedSkill UsedSkill();
     internal abstract int StateCount{get;}
     internal abstract int GameFrame{get;}
@@ -37,6 +36,10 @@ internal abstract class FrenzyReleaseServices
     internal abstract void ScheduleRemoval(int frame,int zero,int zero2);
     internal abstract void ToggleGraphic(int state,int flag);
     internal abstract void WriteAura(FrenzyReleaseList list,FrenzyReleaseRow row,int skill,int level);
+}
+internal abstract class FrenzyReleaseServices:FrenzyStatServices
+{
+    internal abstract SourceGuidTarget Target();
     internal abstract void SetTarget(SourceGuidTarget target);
     internal abstract int ToHit(int skill,int rank);
     internal abstract int ResultFlags(SourceGuidTarget target,int toHit,int zero);
@@ -55,7 +58,7 @@ internal abstract class FrenzyReleaseServices
 // this does not invent the initial success latch or a mana payment interval.
 internal static class BarbarianFrenzyRelease
 {
-    internal static void ApplyStats(int skill,int rank,FrenzyReleaseServices s)
+    internal static void ApplyStats(int skill,int rank,FrenzyStatServices s)
     {
         var row=s.Row(skill);if(row==null){return;}
         var used=s.UsedSkill();if(used==null||used.Param1==0||row.AuraState<0||row.AuraState>=s.StateCount){return;}

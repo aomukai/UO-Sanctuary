@@ -1,0 +1,14 @@
+[
+  {
+    "code": "GMA12HS",
+    "frames": 20,
+    "speed": 256,
+    "actionFrame": 12
+  },
+  {
+    "code": "GMA22HS",
+    "frames": 16,
+    "speed": 256,
+    "actionFrame": 8
+  }
+]

@@ -15,11 +15,13 @@ internal static class GoatmanNpcMelee
     internal static GoatmanNpcPrepared Prepare(int sourceId,int rank,int resultFlags,int targetLife256,GoatmanNpcWeapon weapon,
         Func<GoatmanNpcDamage,GoatmanNpcDamage> mitigate,Func<int,int> limited,Func<uint> raw)
     {
-        if(sourceId is not(416 or 418)){throw new NotSupportedException("Goatman Frenzy/Cleave callbacks remain unverified");}
+        // This is packet construction only. Frenzy/Cleave startup and world
+        // scheduling require their separately identified NPC action rule.
+        if(sourceId is not(416 or 417 or 418 or 419)){throw new NotSupportedException("Unknown Goatman melee row");}
         ArgumentNullException.ThrowIfNull(weapon);ArgumentNullException.ThrowIfNull(mitigate);ArgumentNullException.ThrowIfNull(limited);ArgumentNullException.ThrowIfNull(raw);
         if(targetLife256<0||(resultFlags&~0xffff)!=0){throw new ArgumentOutOfRangeException();}
         var values=GoatmanNpcSkills.Values(sourceId,rank);bool hit=(resultFlags&1)!=0;int hitClass=0,stun=0;
-        if(hit)
+        if(hit&&sourceId is 416 or 418)
         {
             // Both rows have zero-width skill-element damage. Stun supplies
             // length through elemental assignment before ordinary fill.
@@ -56,6 +58,7 @@ internal static class GoatmanNpcMelee
     internal static GoatmanNpcPrepared BeginFor(BaseCreature actor,int sourceId,int rank,int resultFlags,int targetLife256,
         GoatmanNpcWeapon weapon,Func<GoatmanNpcDamage,GoatmanNpcDamage> mitigate,Func<int,int> limited,Func<uint> raw,DateTime at)
     {
+        if(sourceId is not(416 or 418)){throw new NotSupportedException("Frenzy/Cleave need their separate NPC action rule");}
         if(actor is not{Alive:true,Deleted:false}||at.Kind!=DateTimeKind.Utc){throw new ArgumentException("NPC melee start needs a living actor and UTC clock");}
         var packet=Prepare(sourceId,rank,resultFlags,targetLife256,weapon,mitigate,limited,raw);
         if(sourceId==418){GoatmanBerserkEffects.Begin(actor,rank,at);}
