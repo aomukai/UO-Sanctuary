@@ -1,5 +1,7 @@
 # Skill effects
 
+**Echoing input/missile ownership — 2026-11-15 JST.** Immutable collection emits no VFX or sound. Final server706 Echoing blade,visual-only720 `echoingstrike_detonate`,`warlock_psychic_cast_1`,outbound/return/contact feedback and `Warlock_Skill_Soaring_Strike_Cast_03`/`Warlock_Skill_Echoing_Strike_01`/`Warlock_Skill_Soaring_Strike_Impact_06` audio remain needed. Visual720 must not become a second damage actor. No new placeholder or final artwork is created. [Checkpoint](echoing-strike-inputs-checkpoint.md).
+
 **Approved Eldritch learned input — 2026-11-15 JST.** Learned cast and automatic periodic mechanics now work under the approved rule;existing cast/aura/contact/cosmetic-nova/sound markers remain placeholders. Final VFX/audio listed for state221/missile721 and cast/recovery/expiry remain needed. No new artwork or imagegen. [Checkpoint](eldritch-blast-cast-checkpoint.md).
 
 **Prepared Eldritch Blast world — 2026-11-15 JST.** The pending [rule](eldritch-blast-world-rule-proposal.md) identifies0x375A cast/aura/contact,0x37CC cosmetic nova and0x1E5 audio as placeholders. Final state221,missile721,cast/Hex-explosion/expiry/recovery effects and associated audio remain missing; no final asset or imagegen is introduced. The cosmetic marker cannot cause another hit. [Checkpoint](eldritch-blast-world-checkpoint.md).

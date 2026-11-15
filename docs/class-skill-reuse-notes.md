@@ -712,3 +712,7 @@ Reuses SkillValues/raw pinned suppliers, shared source-circle/LOS/target preflig
 ## Approved learned Eldritch Blast — 2026-11-15
 
 Reuses ordinary self-SC/FCR dispatch and fractional release,all left/right/quick bindings,the existing40ms TimedEffects clock and existing death/respec/history cleanup. Packet fixtures use the established target-input harness and wait for a real automatic pulse. The isolated client reuses all44accepted patches and source paths;only shared SelfTarget membership changes,so the prior full patch roundtrip is reused. Scope-specific fixtures replace obsolete global gating assertions. Full prepared world/resource/save controls retain;four other proposals stay frozen. [Checkpoint](eldritch-blast-cast-checkpoint.md).
+
+## Echoing Strike immutable inputs — 2026-11-15
+
+Reuses actual ClassStats weapon collection,BowLaunch weapon elements/raw poison/supplements,source skill suppliers,passive/deadly/mastery chance readers and Slow Missiles capture. Keeps generic Damage+ in a separate ledger rather than changing all weapon skills or silently inheriting a reported Echoing exclusion. Distinct skill/weapon ED and raw poison rate/length/count stay unscaled until the complete packet rule is resolved. Owns unchanged706/visual720 source rows;no redundant alias compiler matrix,new timer,profile,client/kernel build or protected-read retry. The Redeemer availability and Caduceus dexterity are fixture/source constraints,not production-policy exceptions. [Checkpoint](echoing-strike-inputs-checkpoint.md).

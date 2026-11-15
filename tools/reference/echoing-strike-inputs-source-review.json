@@ -1,0 +1,36 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Echoing immutable inputs and raw missile ownership",
+  "currentDo166": {
+    "capture": ".local/class-skills/warlock-runtime-reference/warlock-do-166-20261108/capture.json",
+    "captureSha256": "9e672f547d21ef89a5ba724ae19d0566b0d0b64baeb08e6e181000e4e5c38c52",
+    "fragments": 6,
+    "bodyBytesCaptured": 0,
+    "bodyBytesTotal": 757,
+    "allProtected": true
+  },
+  "rawMissiles": [
+    706,
+    720
+  ],
+  "damagePolicyChosen": false,
+  "newProcessReads": 0,
+  "newerVersionSubstituted": false,
+  "inputComposition": [
+    "Existing Echoing suppliers retain skill flat/ED/count/scalar/SrcDam116 separately.",
+    "ClassStats.WeaponBaseDamage remains unchanged;separate same-scope normal-damage ledger distinguishes the dmg property mapping from ordinary dmg-min/max affixes.",
+    "Existing BowLaunch captures prepared elements and raw poison rates/length/count/drain;no source116/128/echo scalar is applied.",
+    "Critical and attack suppliers are values,chances only,no accuracy/critical/damage roll;capture timing/final consumers remain unresolved."
+  ],
+  "unresolved": [
+    "Current do166 and missile do44/hit34/damage16,packet order/count scaling/normal-damage exclusion/capture timing.",
+    "Raw ToHit1 versus original research auto-hit;raw NextHit1/NextDelay20 versus reported no effective hit delay;separate per-missile cast identity remains unverified.",
+    "Return/fan geometry,source projectile/factory init steps,collisions/block/avoidance,durability/leech/poison/Hex/item event/lifecycle/input rules."
+  ],
+  "research": {
+    "url": "https://upload3.inven.co.kr/upload/2026/03/02/bbs/WarlockSkillsNotesandFunctionality.pdf",
+    "authors": "Warren/Kabryxis",
+    "version": "Older independent testing;not a pinned-current callback proof",
+    "scope": "Damage+ exclusion,automatic hits and hit-delay reports motivate distinct raw inputs instead of blindly copying a generic weapon packet. No research claim is silently adopted as current-code equivalence."
+  }
+}

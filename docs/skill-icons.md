@@ -1,5 +1,7 @@
 # Skill icons
 
+**Echoing input preparation — 2026-11-15 JST.** Talent-tree and left/right/quick icons remain needed;source-stat capture does not open binding or create an icon. Missing artwork stays separate from mechanical data. [Checkpoint](echoing-strike-inputs-checkpoint.md).
+
 **Approved Eldritch learned input — 2026-11-15 JST.** Left/right/quick bindings are mechanically admitted;talent-tree and all hotkey icons still need final artwork. No new icon or client art is generated. [Checkpoint](eldritch-blast-cast-checkpoint.md).
 
 **Prepared Eldritch Blast world — 2026-11-15 JST.** Talent-tree and left/right/quick icons remain needed and separate from periodic/aura/nova VFX. The pending world candidate adds no icon or final artwork; learned binding remains gated. [Checkpoint](eldritch-blast-world-checkpoint.md).
