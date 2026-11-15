@@ -123,6 +123,7 @@ public static class SummonDifficulties
         }
         ReviveFacets.Sync(owner);
         BoundDemonHosts.Sync(owner);
+        RaisedMinions.Sync(owner);
         BoneBarrierBody.RescaleFor(owner,difficulty);
     }
 }

@@ -28,6 +28,7 @@ public sealed class MinionWardrobeProfiles : GenericPersistence
     internal void Store(BaseCreature pet, ClassMinionState state) => _pets[pet.Serial] = state;
     internal void Sweep(DateTime now)
     {
+        RaisedMinions.Sweep();
         var removed = new List<Serial>();
         foreach (var (serial, state) in _pets)
         {

@@ -12,7 +12,7 @@ Existing corpse records are not backfilled from current creature stats. Earlier 
 
 ## Explicit unfinished work
 
-Native Lich **Revive remains refused**, with a specific explanation before the D2 identity path. Native eligibility/original-actor activation still needs an adapter. In addition, source inspection shows `GraveyardUndead.ResolveRaise` creates helpers without binding a player owner. Enabling a revived Lich with that path unchanged could produce wild helpers. This is a technical ownership/lifecycle gap, not a blanket spell or ability whitelist. Eligible already-supported Revives still keep their living abilities under the user's approved policy; global UO-to-D2 spell conversion remains separate.
+Native Lich **Revive remains refused**, with a specific explanation before the D2 identity path. Native eligibility/original-actor activation still needs an adapter. The subsequent [raised-helper checkpoint](raised-minions-checkpoint.md) qualifies player/caster ownership, parking, cleanup, difficulty and saved wounds through the existing Lich raise path. That prerequisite does not yet admit native Lich Revive; its remaining activation, combat and facet integration stay explicit. This is a technical ownership/lifecycle gap, not a blanket spell or ability whitelist. Eligible already-supported Revives still keep their living abilities under the user's approved policy; global UO-to-D2 spell conversion remains separate.
 
 The Lich's soft/flesh classification is deliberately unassigned. Find Potion/Grim Ward contexts that require it are not newly enabled. Neither unknown flesh metadata nor an unsupported Revive path is presented as a D2 observation. More native types need explicit authored rows, base inputs and consumer coverage before admission.
 

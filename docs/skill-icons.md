@@ -1,5 +1,7 @@
 # Skill icons
 
+**Raised helpers — 2026-11-16 JST.** [Ownership checkpoint](raised-minions-checkpoint.md) adds no talent or hotkey button. Existing summon/Revive icon requirements remain; helper effects/audio stay separately tracked.
+
 **Native corpse consumers — 2026-11-16 JST.** [Native Lich corpse support](native-corpse-checkpoint.md) adds no skill or button. Existing Raise Skeleton/Mage, Corpse Explosion and Poison Explosion talent/hotkey icon requirements and identified placeholders remain unchanged; effects/audio stay in their separate register.
 
 **Chain learned — 2026-11-15 JST.** Talent-tree and left/right/quick-hotkey icons remain separately missing after mechanical admission. Existing identified UI placeholders remain. Enhanced Entropy art and unfinished consumers stay separate. [Checkpoint](miasma-chain-cast-checkpoint.md).

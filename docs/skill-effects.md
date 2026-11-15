@@ -1,5 +1,7 @@
 # Skill effects
 
+**Raised helpers — 2026-11-16 JST.** [Ownership checkpoint](raised-minions-checkpoint.md) reuses the existing Lich raise and undead summon placeholders. Final effects/audio remain in the existing register; this ownership graph requires no distinct new artwork.
+
 **Native corpse consumers — 2026-11-16 JST.** [Native Lich corpse support](native-corpse-checkpoint.md) reuses identified existing corpse/explosion/summon placeholders. Existing final CE/Poison Explosion and summon effects/audio requirements remain; this classification adds no distinct visual asset. Icons remain separately tracked.
 
 **Approved barrier-collapse placeholder — 2026-11-16 JST.** Normal learned Wall/Prison collapse now uses the identified native action4 marker for600ms. Final cast, growth, hit, collapse/removal animations and audio remain needed; collision already releases mechanically at death entry. [Learned checkpoint](bone-barrier-world-cast-checkpoint.md). Talent/hotkey icon requirements remain separately recorded in [icons](skill-icons.md).

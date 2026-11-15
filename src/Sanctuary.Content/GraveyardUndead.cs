@@ -94,8 +94,9 @@ public abstract partial class GraveyardUndead : BaseCreature
     public override bool BleedImmune => true;
     public override Poison PoisonImmune => Poison.Lethal;
     public override OppositionGroup OppositionGroup => OppositionGroup.FeyAndUndead;
-    public override bool IsEnemy(Mobile mobile) => !ReturningHome && (ClassCombatHooks.CreatureEnemy?.Invoke(this,mobile) ?? ((mobile is PlayerMobile
-        || mobile is BaseCreature { Controlled: true } or BaseCreature { Summoned: true }) && base.IsEnemy(mobile)));
+    public override bool IsEnemy(Mobile mobile) => !ReturningHome && (ClassCombatHooks.CreatureEnemy?.Invoke(this,mobile)
+        ?? (ControlMaster is PlayerMobile owner&&PersistentMinions.Behavior(this)!=null?ClassCombat.IsHostile(owner,mobile)
+            :(mobile is PlayerMobile||mobile is BaseCreature { Controlled: true } or BaseCreature { Summoned: true })&&base.IsEnemy(mobile)));
     public override void GetSpeeds(out double activeSpeed, out double passiveSpeed)
     {
         activeSpeed = 0.1;
@@ -207,6 +208,7 @@ public abstract partial class GraveyardUndead : BaseCreature
     }
     public override void OnThink()
     {
+        if(RaisedMinions.State(this)!=null&&!PersistentMinions.CanThink(this)){return;}
         RecoverLife(Core.TickCount);
         if (AIObject is LeashedMeleeAI ai && ai.UpdateLeash(Core.TickCount))
         {
@@ -280,10 +282,10 @@ public abstract partial class GraveyardUndead : BaseCreature
         // impact timer or wait-for-arrival gate on the next attack cycle.
         WeaponMissiles.LaunchHostileFirebolt(this,target.Location,minimum*256,maximum*256);
     }
-    public virtual bool CanRaise(Corpse corpse) => Caster && corpse is { Deleted: false, OwnerWasBaseCreature: true, Parent: null,
+    public virtual bool CanRaise(Corpse corpse) => Caster && RaisedMinions.CanRaise(this) && corpse is { Deleted: false, OwnerWasBaseCreature: true, Parent: null,
         Carved: false, Animated: false, SanctuaryHarvested: false, SanctuaryConsumed: false, SanctuaryRestInPeace: false, IsBones: false, OwnerWasSummoned: false }
         && !CorpseSkillRules.NoSelect(corpse) && corpse.SanctuaryUndeadKind is 1 or 2 && corpse.Map == Map && InRange(corpse, 8)
-        && Math.Abs(corpse.Z - Z) < 16 && InLOS(corpse) && CanSee(corpse);
+        && Math.Abs(corpse.Z - Z) < 16 && InLOS(corpse) && CanSee(corpse) && RaisedMinions.CorpseAllowed(this,corpse);
     private Corpse FindRaiseTarget()
     {
         Corpse result = null;
@@ -338,9 +340,11 @@ public abstract partial class GraveyardUndead : BaseCreature
         }
         GraveyardUndead raised = corpse.SanctuaryUndeadKind == 1 ? new GraveyardSkeleton() : new GraveyardZombie();
         if (MonsterVariants.Difficulty(this) is not MonsterDifficulty.Normal and var difficulty) { MonsterVariants.Assign(raised, difficulty); }
-        raised.MarkRaised(corpse.SanctuaryNoRewards);
+        if(!RaisedMinions.Attach(this,raised)){raised.Delete();_actionMap=null;return;}
+        raised.MarkRaised(Controlled||Summoned||corpse.SanctuaryNoRewards);
         raised.MoveToWorld(corpse.Location, corpse.Map);
         raised.Combatant = Combatant;
+        if(RaisedMinions.State(raised)!=null){raised.IssueOrder(OrderType.Guard,null);}
         raised.FixedParticles(0x376A, 9, 20, 5024, EffectLayer.Waist);
         raised.PlaySound(0x1FB);
         corpse.Animated = true;
@@ -358,6 +362,7 @@ public abstract partial class GraveyardUndead : BaseCreature
     }
     public override void OnDeath(Container corpse)
     {
+        RaisedMinions.RemoveFor(this);
         if (corpse is Corpse body)
         {
             body.SanctuaryUndeadKind = RaiseKind;
@@ -380,6 +385,7 @@ public abstract partial class GraveyardUndead : BaseCreature
     }
     public override void OnDelete()
     {
+        RaisedMinions.RemoveFor(this);
         StopCombatActions();
         base.OnDelete();
     }
