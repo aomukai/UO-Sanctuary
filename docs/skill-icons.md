@@ -1,5 +1,7 @@
 # Skill icons
 
+**Mirrored learned — 2026-11-15 JST.** Talent-tree and left/right/quick-hotkey icons remain separately missing after mechanical admission. Existing identified placeholders remain until the asset pass. [Checkpoint](mirrored-cast-checkpoint.md).
+
 **Prepared Mirrored world — 2026-11-15 JST.** The complete prepared action does not close the talent-tree or left/right/quick-hotkey icon requirements. Learned binding remains gated;identified existing placeholders remain until the asset pass. [Checkpoint](mirrored-world-checkpoint.md).
 
 **Echoing Strike learned — 2026-11-15 JST.** Talent-tree and left/right/quick-hotkey artwork remains missing despite approved mechanical admission. Reuse existing identified placeholder presentation until the asset pass. [Checkpoint](echoing-strike-cast-checkpoint.md).

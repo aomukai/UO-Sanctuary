@@ -1,0 +1,13 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "answer": "Approve the complete Mirrored Blades rule (Recommended)",
+  "approvedUtc": "2026-11-15T11:23:39.129822+00:00",
+  "questionItemId": "[\"request_user_input_async\",\"call_215e6a0eb609419cb06e46de887256b7\",0]",
+  "proposal": "docs/mirrored-world-rule-proposal.md",
+  "proposalAtApprovalSha256": "dc78129c73b69eff2f8f71ea4db0aa5931648e22dfc172b0c68e1e23f355018f",
+  "candidateCommit": "1711d84b1c2d21200d950c7ad4641c4d8d214ef2",
+  "testedCandidateEvidence": "tools/reference/mirrored-world-native-evidence.json",
+  "testedCandidateEvidenceSha256": "bcba4ce4661e8f82d97b4c6262987c51974d6fe4d118003f85fa147012d94484",
+  "scope": "Complete defined four-kind Mirrored SQ25/action/capture/packet/ordinary hit-copy CB and supported item effects/ammunition/basic fallback/lifecycle/persistence/assets rule,with explicit current-callback and broader proc-property limitations. Learned left/right/quick admission and native verification authorized. Four other proposals remain pending;no full-class certificate."
+}

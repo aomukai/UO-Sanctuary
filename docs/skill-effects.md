@@ -1,5 +1,7 @@
 # Skill effects
 
+**Mirrored learned — 2026-11-15 JST.** Mechanical admission does not complete the mirror rig/weapon-copy,trails,projectile/contact effects or audio. Existing native weapon poses,0xF42projectiles and0x238audio remain explicit placeholders. [Checkpoint](mirrored-cast-checkpoint.md).
+
 **Prepared Mirrored world — 2026-11-15 JST.** Primary UO weapon pose,shared0xF42projectile presentation and0x238sound are placeholders. Final floating weapon/mirror rig,copy attack/trail/impact and matched audio remain needed for melee,bow,crossbow and throw. No damaging visual-only duplicates or imagegen assets are added. [Checkpoint](mirrored-world-checkpoint.md).
 
 **Echoing Strike learned — 2026-11-15 JST.** The approved cast/fan/outward-return/hit services are admitted;0x36E4 moving blades,0x375A contact and0x23B throw audio remain identified placeholders. Final706/720effects/audio are still needed;learned admission does not close this asset entry. [Checkpoint](echoing-strike-cast-checkpoint.md).

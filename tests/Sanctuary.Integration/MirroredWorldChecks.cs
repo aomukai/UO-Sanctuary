@@ -43,7 +43,7 @@ public static class MirroredWorldChecks
         t.MoveToWorld(new(p.X+x,p.Y,p.Z),p.Map);t.AIObject?.AITimer.Stop();
         foreach(var r in new[]{ResistanceType.Physical,ResistanceType.Fire,ResistanceType.Cold,ResistanceType.Energy}){t.SetResistance(r,0);}t.SetResistance(ResistanceType.Poison,100);return t;
     }
-    private static PlayerMobile Fresh(int kind)
+    internal static PlayerMobile Fresh(int kind)
     {
         var p=CleaveActionChecks.Fresh(kind%2!=0);p.Name="MirroredWorldFixture";
         while(p.RawStr<200){Require(ClassCreation.Profiles.TrySpendStat(p,CharacterStat.Strength),"World strength");}
@@ -177,7 +177,7 @@ public static class MirroredWorldChecks
                 Require(p.EquipItem(equipped)&&p.EquipItem(boots),"Restore original equipment after fixture death");Ready(p);
                 Log.Information("Mirrored world:actual expired/facet/offline/class-history/death controls retire released throws without replay;original equipment restored");
             }
-            Require(!WarlockCombat.Implemented(CombatAbility.MirroredBlades)&&!SkillBindings.Instance.Assign(p,true,CombatAbility.MirroredBlades),"Prepared world admitted learned route");
+            Require(WarlockCombat.Implemented(CombatAbility.MirroredBlades)&&SkillBindings.Instance.Assign(p,true,CombatAbility.MirroredBlades),"Prepared world admitted learned route");
         }
         finally{WeaponMissiles.CancelMirrored(p);ClassCombat.Stop(p);target.Delete();}
     }
@@ -212,7 +212,7 @@ public static class MirroredWorldChecks
             catch(InvalidDataException){refused=true;}
             Require(refused&&JsonSerializer.Serialize(WeaponMissiles.Snapshot())==JsonSerializer.Serialize(full),"Invalid new metadata partly replaced existing flights");
             File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(0,rows.ToArray())));
-            Log.Information("Mirrored world:all four original weapon kinds pass SQ25/one payment/independent primary-copy contacts and Crushing Blow,melee Open Wounds,one quiver-or-throw debit,basic fallback,cancel/move/safe-area retirement;learned route gated");
+            Log.Information("Mirrored world:all four original weapon kinds pass SQ25/one payment/independent primary-copy contacts and Crushing Blow,melee Open Wounds,one quiver-or-throw debit,basic fallback,cancel/move/safe-area retirement;learned route follows recorded approval");
         }
         finally{MirroredBladesContacts.HitRoll=hit;MirroredBladesContacts.Effects=random;MirroredBladesAction.SeedLow=seed;}
     }

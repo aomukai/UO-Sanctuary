@@ -116,9 +116,9 @@ public static class MirroredPacketChecks
             rows[i]=new(p.Serial.Value,weapon.Serial.Value,helm.Serial.Value,poisons.Select(x=>x.Serial.Value).ToArray(),arrow.Serial.Value,bolt.Serial.Value,
                 quantity,durability,SkillHealth.Balance256(p),NecromancerEffects.ManaBalance256(p),captured,current,packets);
         }
-        Require(!MirroredBladesPackets.Approved&&!WarlockCombat.Implemented(CombatAbility.MirroredBlades),"Packet candidate enabled learned action");
+        Require(MirroredBladesPackets.Approved&&WarlockCombat.Implemented(CombatAbility.MirroredBlades),"Packet candidate enabled learned action");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(0,rows,controls)));
-        Log.Information("Mirrored packets:{Controls}independent channel/count/critical controls;actual Stone Crusher/bow/crossbow/Gimmershred retain Damage+,Hex,raw poison,ammo/quantity/durability and immutable captures;whole action remains gated",controls);
+        Log.Information("Mirrored packets:{Controls}independent channel/count/critical controls;actual Stone Crusher/bow/crossbow/Gimmershred retain Damage+,Hex,raw poison,ammo/quantity/durability and immutable captures;whole action follows recorded approval",controls);
     }
     private static void Reload()
     {

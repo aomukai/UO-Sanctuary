@@ -33,7 +33,7 @@ public static class MirroredBladesChecks
             }
             count++;
         }
-        Require(count==2295&&plans==11232&&!WarlockCombat.Implemented(CombatAbility.MirroredBlades),"Mirror supplier count or learned route");
+        Require(count==2295&&plans==11232&&WarlockCombat.Implemented(CombatAbility.MirroredBlades)==MirroredBladesAction.Approved,"Mirror supplier count or learned route");
         foreach(var (rank,total,percent) in new[]{(1,2,60),(4,2,80),(5,3,85),(10,4,97),(12,4,101),(14,4,103),(15,5,104),(16,5,106),(20,5,108),(21,5,109),(255,5,120)})
         {var v=MirroredBladesPrepared.Capture(Values(rank));Require(v.TotalAttacks==total&&v.DuplicatePercent==percent,"Mirror cap/effective-rank damage boundary");}
         foreach(int divisor in new[]{8,12,16,20,24,30,32,40,50})foreach(int life in new[]{0,257,40959,1000001})foreach(int res in new[]{-50,0,33,100})foreach(int bonus in new[]{0,100,350})

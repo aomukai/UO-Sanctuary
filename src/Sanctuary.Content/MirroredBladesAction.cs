@@ -11,7 +11,7 @@ namespace Sanctuary;
 // one SQ25 event releases primary then copies,not invented extra SQ markers.
 internal static class MirroredBladesAction
 {
-    internal static bool Approved=>false;
+    internal static bool Approved=>true;
     internal static Func<int> SeedLow=()=>SorceressSpellMissiles.SeedLow();
     internal sealed class Pending(uint weapon,Map map,Point3D origin,Point3D aim,Serial selected,bool basic,long effect,long until,ActionTiming timing)
     {
@@ -41,6 +41,12 @@ internal static class MirroredBladesAction
         int advance=CombatTiming.FrameAdvance(timing,CombatTiming.Ias(p),GearEffects.AttackSlowTotal(p),CombatTiming.SkillAttackRate(p)+values.SpeedPercent);
         var plan=MirroredBladesPrepared.Schedule(WeaponAnimationClasses.Equipped(p),advance,0,0);
         return new(plan.Events.Single(x=>x.Type==SourceAnimationEvents.EndAnimation).Frame,plan.Events.Single(x=>x.Type==SourceAnimationEvents.ModeChange).Frame);
+    }
+    internal static bool BeginLearned(PlayerMobile p,Serial selected,Point3D point,long now)
+    {
+        if(!Approved||!WarlockCombat.Available(p,CombatAbility.MirroredBlades)){return false;}
+        try{return Begin(p,selected,point,now)!=null;}
+        catch(NotSupportedException ex){p.SendMessage(0x22,"Mirrored Blades: "+ex.Message);return false;}
     }
     internal static Pending Begin(PlayerMobile p,Serial selected,Point3D point,long now)
     {

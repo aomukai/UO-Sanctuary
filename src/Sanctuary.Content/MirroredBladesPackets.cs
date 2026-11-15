@@ -18,7 +18,7 @@ internal readonly record struct MirroredWeaponRoll(GearDamage Damage,int PoisonR
 // source counts and drain percentages. Admission awaits the whole action rule.
 internal static class MirroredBladesPackets
 {
-    internal static bool Approved=>false;
+    internal static bool Approved=>MirroredBladesAction.Approved;
     internal static MirroredWeaponKind Kind(PlayerMobile owner,BaseWeapon weapon)
     {
         if(weapon==null||!ClassGear.Active(owner,weapon)||ClassGear.Base(weapon)is not{} basis

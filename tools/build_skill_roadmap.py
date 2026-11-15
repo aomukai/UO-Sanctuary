@@ -796,6 +796,8 @@ BLOCKERS['warlock.eldritchblast'] = 'Approved Sanctuary self-cast snapshots pinn
 
 BLOCKERS['warlock.echoingstrike'] = 'Approved Sanctuary SC/FCR cast captures original weapon/skill/element/poison/critical/slow inputs at release,pays once,and emits shared source fans with twenty-update outward and distance-limited return flight. Automatic accuracy retains native avoidance/block;independent twenty-frame per-echo leases and shared Hex/leech/typed damage events apply. Saved packets/IDs/seeds/motion/clocks/leases retain;unsupported native/PvP contexts refuse. Learned left/right/quick/automatic-clock checks are recorded in echoing-strike-cast-checkpoint.md. Protected current callbacks,global RNG/InitSteps parity,graphical/class certification and final assets remain open. Approval:echoing-strike-world-rule-approval.json.'
 
+BLOCKERS['warlock.mirroredblades'] = 'Approved complete Sanctuary SQ25single-event primary/copy series supports melee,bow,crossbow and throw with release snapshots,independent ordinary hits/critical,source128/Damage+,copy scalar and raw Crushing Blow mapping,supported shared weapon/Hex events,one mana/ammo debit and basic fallback. Original-flight optional metadata/persistence and lifecycle reuse the shared engine;old defaults retain. Learned left/right/quick and automatic-clock proof is in mirrored-cast-checkpoint.md. Protected start68/do166/factory/global RNG and broader proc/SlowMissiles/special/PvP/class-property/graphical acceptance remain open. Approval:mirrored-world-rule-approval.json.'
+
 def build():
     skills=json.loads((BALANCE/'class-skills.json').read_text())
     protocol=(ROOT/'shared/ClassAbilities.cs').read_text()

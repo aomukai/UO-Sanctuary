@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Mirrored learned admission — 2026-11-15 JST.** Existing Warlock dispatch,shared non-self input/bindings and original SQ25/world clocks admit the approved action without another timer/client patch. BeginLearned adds availability and unsupported-context reporting;transient sequence still owns release. All four weapon kinds use the same public route. [Checkpoint](mirrored-cast-checkpoint.md).
+
 **Mirrored complete world reuse — 2026-11-15 JST.** PlayerWeaponContact gains optional captured allocation/drain/cold/raw-CB/wear parameters;normal paths keep defaults. WeaponMissiles gains optional validated mirror metadata and a scoped impact adapter while retaining original travel,pierce,clock and profile147/version0. NamedCombat accepts an optional already-selected divisor;default item/NPC callers are unchanged. Existing Cleave and Magic Arrow cohorts cover those shared paths. Whole candidate remains gated;[checkpoint](mirrored-world-checkpoint.md).
 
 **Mirrored packets — 2026-11-15 JST.** Reuse BowLaunch weapon element/poison/physical-supplement collectors,ClassStats original endpoints,WeaponMissileDamage rolling and the existing unsigned critical helper. Keep the primary100/duplicate calc6transform separate from Echoing source116/ledger exclusion/return policy. Original melee,bow,crossbow and throw are covered together;live event/ammunition/lifecycle adapters remain future consumers. [Checkpoint](mirrored-packets-checkpoint.md).
