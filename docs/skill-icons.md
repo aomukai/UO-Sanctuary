@@ -1,5 +1,7 @@
 # Skill icons
 
+**Prepared complete Chain world — 2026-11-15 JST.** Talent-tree and left/right/quick-hotkey icons remain separately needed. The complete prepared graph enables no learned binding or final art;identified existing UI placeholders remain. Enhanced Entropy talent art and unfinished consumers stay separate. [Checkpoint](miasma-chain-world-checkpoint.md).
+
 **Miasma learned — 2026-11-15 JST.** Miasma Bolt talent-tree and left/right/quick-hotkey icons remain separately missing after admission. Existing identified UI placeholders remain;Enhanced Entropy talent art and its incomplete mechanics stay separate. [Checkpoint](miasma-cast-checkpoint.md).
 
 **Prepared Miasma Bolt world — 2026-11-15 JST.** Miasma Bolt talent-tree and left/right/quick-hotkey icons remain separately needed. Enhanced Entropy still needs its passive talent icon;Bolt-consumer verification does not finish that passive. Prepared world work enables no binding or final art. [Checkpoint](miasma-bolt-world-checkpoint.md).

@@ -1,0 +1,50 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Complete prepared Miasma Chain world",
+  "newLiveReferenceReads": 0,
+  "newerSourceSubstituted": false,
+  "provenData": [
+    "Owned711/712/713/696graph and current do167request producer.",
+    "Chain-specific magic/mana/125frame aura duration/cap/40source linklength and distinct Entropy inputs.",
+    "Registered len callback54reads auralencalc;not elemental duration."
+  ],
+  "releasedPrimaryPatch": "https://news.blizzard.com/en-us/article/24261478/diablo-ii-resurrected-ladder-season-14-has-concluded",
+  "retainedPrimaryFacts": [
+    "No casting delay;5to10live chains.",
+    "Half-second cloud stamps;one-second next-hit delay shared within each chain,independent across chains.",
+    "Extra-cloud and Blade Warp break fixes."
+  ],
+  "explicitProposedAdaptations": [
+    "Human SC/FCR choice despite UseAttackRate;legacy normal-SC caller supports FCR but current startup remains unavailable.",
+    "40ms711/713stages,velocity35head,live/fixed/last-valid attachment,first stamp at link creation,half-second deadline phase and no historical stamp fields.",
+    "Effective-radius capsule is sole damaging width;hard-only SrvCalc1 retained/validated without an invented additional modifier.",
+    "Initial40source range and postmovement clipping,wall cut,paid oldest-first cap with independently lingering emitted clouds.",
+    "Captured mastery/potion/slow,live pierce,typed spell events and cloud GetHit;per-chain claimed delay before damage.",
+    "Inactive links/fields park with UTC expiry;new-class/death cleanup;optional shared profile254v0arrays and atomic all-pool restore."
+  ],
+  "nativeMapping": [
+    "Reuse standard source vectors/steps/footprints for the head,without copying BasicMissileUpdate as do45.",
+    "Reuse accepted Miasma scanner/typed damage/leases/snapshot/ownership for fixed link stamps.",
+    "Blade Sentinel follow/ownership architecture is reviewed;its weapon fraction,AI,reverse motion and lifetime are not imported.",
+    "D2 request flag0x40has no separate native unit-flag consumer;the existing SC action owns completion and the captured request retains its source semantics."
+  ],
+  "limitations": [
+    "No recovered current do43/45/hit41/do41or full modern factory/global RNG parity.",
+    "Ordinary supported NPC scope;unmapped/special/PvP/class-pet/graphical and broader item property acceptance remain separate.",
+    "Prepared only;automatic clock and learned input not enabled. Full Enhanced Entropy still needs remaining consumers."
+  ],
+  "inputs": {
+    "src/Sanctuary.Content/MiasmaChainWorld.cs": "b9980c3b8e339a79689690c3b3e2a15ff872846c5004b1d6e655f864ea68ee8e",
+    "src/Sanctuary.Content/MiasmaChainCasting.cs": "96c80ee916d61f4980cb066c0e940411e20c57b59fb768b068947f57a893a453",
+    "src/Sanctuary.Content/MiasmaWorld.cs": "97ed4e2a2c7a1aa589f06b58d63f9e7ed8870195f23c13cf7662080db122e0fe",
+    "src/Sanctuary.Content/MiasmaChainBirth.cs": "dbc1d6f1880b72b4896e4288e32fa97a6c05ebd38cafe79e8eeb6a72b2d70441",
+    "src/Sanctuary.Content/MiasmaChainLaunch.cs": "e41a79ab117301da44ca566711f0a51dcda385a260a4c9020d0bb5a923a40373",
+    "src/Sanctuary.Content/SourceMissileSteps.cs": "34cbbd2c014c63e91626d8e38a8ab0eb6a1ff5bdf7f746686be3f53e7d385bdb",
+    "src/Sanctuary.Content/AmazonSlowMissiles.cs": "e7f7914c36017db7877d7c546d0942394cbe20a5152ae7afea1573535825ef07",
+    "src/Sanctuary.Content/DruidWeather.cs": "54fcf5ef5b702a72aa67507b8e9c15486d01f96de0f5b7b26f346f27c2080bb5",
+    "src/Sanctuary.Content/BladeSentinelMissiles.cs": "b7b396f6d21a1421a278d681c495309e904f8f5fc7a7805253c17d7f85e0dc52",
+    "data/Sanctuary/Balance/miasma-chain-route.json": "ec08b04ac34102f93e7c61f3c5b0a9780ca58e88cbf7de69de272d0bb050bdfb",
+    "tools/reference/miasma-chain-birth-source-review.json": "90777f51aaecf6c7e7ff712e88552ca8da6b5875cc840a416f3931de4329c396",
+    "tools/reference/miasma-chain-launch-current-evidence.json": "e4d92a5f193bdb3ef6c4a5e9d02fb64f713582e5c2a62a14e7d711e13622ff1e"
+  }
+}
