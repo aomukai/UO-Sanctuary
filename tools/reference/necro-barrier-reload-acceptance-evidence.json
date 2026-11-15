@@ -1,0 +1,52 @@
+{
+  "component": "Bone barrier reload acceptance observes actual retirement deadline",
+  "referenceVersion": "3.3.93847",
+  "scope": "Test-only fixture correction; full combined class acceptance remains pending",
+  "contentBuild": 1,
+  "integrationBuild": 4,
+  "sourceSnapshot": 4,
+  "focusedNativeRun": 2,
+  "nativeMarkers": 18,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "bone-barrier-clock-check": 1,
+    "bone-barrier-clock-result": 1,
+    "bone-barrier-clock-save": 3,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "bone-barrier-clock-reload-check": 2,
+    "bone-barrier-clock-reload-result": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "gameplaySourceChanged": false,
+  "gameplayAssemblyUnchanged": true,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "5df3992322b515ae6e525927b8b9ddb57420eddd63d9886f019ffd6974b2cd49",
+    "Assemblies/Sanctuary.Content.dll": "508e93ea5f7458c9de14a13d70500aaba9f6f39c76ba3313adaa3966b1d34e14",
+    "Assemblies/Sanctuary.Integration.dll": "4007156a81f5fa2cdc83e48c1237f5a739cd1f6490679c31a99d94b14abd7303"
+  },
+  "failureObserved": "System.InvalidOperationException: Resumed AI death/removal or legacy retention failed id=8559 type=BoneWallRetiringBody thinking=True present=True alive=False deleted=False hp=5579/5579 now=2026-11-15T21:02:55.1634772Z until=2026-11-15T21:03:11.2760431Z retirement=BarrierRetirementState { Formation = 8559, EnteredUtc = 11/15/2026 21:02:55, CompletesUtc = 11/15/2026 21:02:55, Cause = source-ai } clock=BarrierThinkState { BornUtc = 11/15/2026 21:02:47, Deadline = 600, Next = 610, Last = 610, Thinks = 40, DeathRequested = True }",
+  "correction": "Observe saved original body references, source-ai retirement state, immediate collision release and deletion after actual CompletesUtc, bounded by five seconds. Legacy bodies must stay alive with exact HP.",
+  "inputs": {
+    ".local/class-skills/necromancer-clock-reload-repro/birth-inputs.json": "8081a4bbddfbda00255815482a0c72683550f138d724314ddc7f2d98eb63cc43",
+    ".local/class-skills/necromancer-clock-reload-repro/birth-native-checks.log": "6e874186776460166f009ded1e2c2cb530ff06fbd2b01ef71c5a6529dd62839f",
+    ".local/class-skills/necromancer-clock-reload-repro/native-run-2.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/necromancer-planned-acceptance/source-snapshot-4.json": "95b7e0564d7fd1462e75070484e60574c253c426b629aa3aa7d98f026d632f7c",
+    ".local/class-skills/necromancer-planned-acceptance/integration-build-4.log": "bf9ecdd1610fe64aa1342e8a31d7f516694a812633fd809a0b23a76ba21d55f1",
+    ".local/class-skills/necromancer-planned-acceptance/failed-run-3/birth-native-checks.log": "fb27add00a6df95e6b15a6d0fbea19a6693442c2b712abfcc89ead5d7ba44c2c",
+    "tests/Sanctuary.Integration/BoneBarrierClockChecks.cs": "2e432e606c51cdaf57deb2d0e1af9c04a6ba4845234a50ef720a915b265d6683"
+  },
+  "installed": false,
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 44
+  }
+}

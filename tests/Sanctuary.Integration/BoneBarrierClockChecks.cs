@@ -120,18 +120,37 @@ public static class BoneBarrierClockChecks
             else{Require(b.UsesNativeSummonTimer&&r.Clock==null,"Legacy timer ownership changed");}
         }
         foreach(var (clock,state) in resume){Require(BoneBarrierThinkClock.Expired(clock,state.BornUtc.AddMilliseconds(610*40)),"Saved clock did not resume its next event");}
-        Timer.StartTimer(TimeSpan.FromMilliseconds(BoneBarrierRetirement.Approved?800:160),()=>Core.LoopContext.Post(()=>
+        // Timer dispatch can be delayed by other restored actors. Observe the
+        // actual retirement deadline, rather than assuming its 600ms started
+        // when the console command requested the next AI event.
+        var bodies=records.ToDictionary(r=>r.Body,r=>(BoneBarrierSegment)World.FindMobile((Serial)r.Body));
+        var deadline=DateTime.UtcNow.AddSeconds(5);
+        void Inspect()
         {
             try
             {
+                bool pending=false;
                 foreach(var r in records)
                 {
-                    var b=World.FindMobile((Serial)r.Body) as BoneBarrierSegment;
-                    Require(r.Clock!=null?b==null||b.Deleted:b is{Alive:true,Deleted:false}&&SkillHealth.Balance256(b)==r.Life,"Resumed AI death/removal or legacy retention failed");
+                    var b=bodies[r.Body];
+                    string detail=$"id={r.Body} type={r.Type} thinking={r.Clock!=null} alive={b.Alive} deleted={b.Deleted} hp={SkillHealth.Balance256(b)}/{r.Life} now={TimedEffects.Now:o} until={r.Until:o} retirement={(b as IBarrierRetirement)?.Retirement} clock={(b as IBarrierThinkClock)?.Clock}";
+                    if(r.Clock==null)
+                    {Require(b is{Alive:true,Deleted:false}&&SkillHealth.Balance256(b)==r.Life,"Legacy retention failed "+detail);continue;}
+                    if(b is IBarrierRetirement retiring&&retiring.Retirement is{} state)
+                    {
+                        Require(state.Cause=="source-ai"&&state.CompletesUtc==state.EnteredUtc.AddMilliseconds(BoneBarrierRetirement.DurationMs),"Resumed AI retirement changed "+detail);
+                        Require(b.Tiles.Count==0&&!b.Alive,"Retiring barrier kept collision/alive state "+detail);
+                        if(b.Deleted){Require(TimedEffects.Now>=state.CompletesUtc,"Resumed AI removal preceded retirement deadline "+detail);}
+                    }
+                    else{Require(!b.Deleted||b is not IBarrierRetirement,"Resumed AI removal skipped retirement "+detail);}
+                    if(!b.Deleted)
+                    {Require(DateTime.UtcNow<deadline,"Resumed AI removal timed out "+detail);pending=true;}
                 }
+                if(pending){Timer.StartTimer(TimeSpan.FromMilliseconds(10),()=>Core.LoopContext.Post(Inspect));return;}
                 Log.Information("bone-barrier-clock-reload-result: passed");
             }
             catch(Exception e){Log.Error(e,"bone-barrier-clock-reload-result: failed");}
-        }));
+        }
+        Timer.StartTimer(TimeSpan.FromMilliseconds(20),()=>Core.LoopContext.Post(Inspect));
     }
 }
