@@ -46,7 +46,8 @@ public static class NativeLichReviveChecks
         int life=SkillHealth.Maximum256(actor)-257;SkillHealth.SetBalance256(actor,life);
         ReviveRegeneration.Recover(actor,true,Core.TickCount);ReviveRegeneration.Recover(actor,true,Core.TickCount+10000);
         Require(SkillHealth.Balance256(actor)==life&&actor.Map==Map.Internal,"Native no-regen/offline parking reset wounds");
-        var inactive=NativeCorpseChecks.Corpse(p,7);var row=CorpseSkillRules.Profiles.Find(inactive);
+        NativeCorpseChecks.KeepForReload(corpse);
+        var inactive=NativeCorpseChecks.KeepForReload(NativeCorpseChecks.Corpse(p,7));var row=CorpseSkillRules.Profiles.Find(inactive);
         Require(ReviveOriginals.Find(inactive) is GraveyardLich{Alive:false,Deleted:false},"Saved dead native original missing");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(0,p.Serial.Value,actor.Serial.Value,corpse.Serial.Value,row,life,ReviveNativeActivation.State(actor))));
     }

@@ -59,6 +59,13 @@ public static class NativeCorpseChecks
     }
     internal static void Clean(PlayerMobile p)
     {NecromancerSpellMissiles.Cancel(p);foreach(var pet in p.AllFollowers?.ToArray()??Array.Empty<BaseCreature>()){pet.Delete();}p.Delete();}
+    internal static Corpse KeepForReload(Corpse corpse)
+    {
+        // The combined class suite exceeds native monster-corpse decay (7m).
+        // Only inspected saved bodies get the existing shared retention hold;
+        // actual casting/consumption and ordinary world decay stay untouched.
+        corpse.BeginDecay(FixtureSpace.Retention);return corpse;
+    }
     internal static GraveyardSkeleton Target(PlayerMobile p)
     {
         var target=PoisonDaggerChecks.Target(p);
@@ -98,7 +105,7 @@ public static class NativeCorpseChecks
                 if(ability==CombatAbility.CorpseExplosion){Require(SkillHealth.Balance256(target)<hp,"Native corpse base failed actual explosion damage");}
                 target.Delete();corpse.Delete();NecromancerSpellMissiles.Cancel(p);foreach(var pet in p.AllFollowers?.ToArray()??Array.Empty<BaseCreature>()){pet.Delete();}
             }
-            var savedBody=Corpse(p,8);int before=NecromancerEffects.ManaBalance256(p);
+            var savedBody=KeepForReload(Corpse(p,8));int before=NecromancerEffects.ManaBalance256(p);
             bool planned=ReviveCasts.Plan(p,savedBody,out _,out _,out string issue);
             Require(planned==NativeReviveRules.Approved&&(planned||issue==NativeCorpseSources.ForSource(CorpseSkillRules.Profiles.Find(savedBody).Source).ReviveIssue)
                 &&!CorpseSkillRules.NoSelect(savedBody)&&NecromancerEffects.ManaBalance256(p)==before,"Unqualified native Revive was invented or consumed its corpse");
@@ -113,7 +120,7 @@ public static class NativeCorpseChecks
         var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)saved.Owner);var corpse=World.FindItem((Serial)saved.Corpse) as Corpse;
         // Offline players load on the internal map. Restore this fixture's
         // saved world position before checking live range/visibility guards.
-        Require(p is{Deleted:false,Alive:true}&&corpse is{Deleted:false},"Saved native corpse or fixture owner missing");
+        Require(p is{Deleted:false,Alive:true}&&corpse is{Deleted:false},$"Saved native corpse or fixture owner missing:owner={saved.Owner}/{p?.Alive}/{p?.Deleted},corpse={saved.Corpse}/{corpse?.Deleted},gold={World.FindItem((Serial)saved.Gold)?.Parent}");
         if(p.Map==Map.Internal){p.MoveToWorld(p.Location,corpse.Map);}
         Require(corpse is{Deleted:false}&&CorpseSkillRules.Profiles.Find(corpse)==saved.Metadata&&World.FindItem((Serial)saved.Gold)is Gold{Amount:17}gold&&gold.Parent==corpse
             &&CorpseSkillRules.Usable(p,corpse,SkeletonPets.Range)&&CorpseExplosionCasts.Supported(corpse),$"Saved native corpse:player={p?.Location}/{p?.Map},alive={p?.Alive},corpse={corpse?.Location}/{corpse?.Map},deleted={corpse?.Deleted},metadata={JsonSerializer.Serialize(CorpseSkillRules.Profiles.Find(corpse))},saved={JsonSerializer.Serialize(saved.Metadata)},gold={World.FindItem((Serial)saved.Gold)?.Amount}/{World.FindItem((Serial)saved.Gold)?.Parent},body={CorpseSkillRules.BodyAvailable(corpse)},usable={CorpseSkillRules.Usable(p,corpse,SkeletonPets.Range)},supported={CorpseExplosionCasts.Supported(corpse)},see={p?.CanSee(corpse)},los={p?.InLOS(corpse)},loot={corpse?.CanLoot(p,null)},criminal={corpse?.IsCriminalAction(p)},flags={corpse?.OwnerWasBaseCreature}/{corpse?.OwnerWasSummoned}/{corpse?.Carved}/{corpse?.Animated}/{corpse?.SanctuaryHarvested}/{corpse?.SanctuaryConsumed}/{corpse?.SanctuaryRestInPeace}/{corpse?.IsBones}");

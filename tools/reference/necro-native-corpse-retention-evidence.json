@@ -1,0 +1,60 @@
+{
+  "component": "Retained native corpse fixture inspection lifetime",
+  "referenceVersion": "3.3.93847",
+  "scope": "Focused save fixture correction; full combined class acceptance pending",
+  "contentBuild": 1,
+  "integrationBuild": 5,
+  "sourceSnapshot": 5,
+  "focusedNativeRun": 1,
+  "nativeMarkers": 18,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "native-corpse-check": 1,
+    "native-corpse-difficulties-check": 1,
+    "native-lich-revive-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "native-corpse-reload-check": 2,
+    "native-corpse-difficulties-reload-check": 2,
+    "native-lich-revive-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "gameplaySourceChanged": false,
+  "gameplayAssemblyUnchanged": true,
+  "runtimeDataUnchanged": true,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "5df3992322b515ae6e525927b8b9ddb57420eddd63d9886f019ffd6974b2cd49",
+    "Assemblies/Sanctuary.Content.dll": "508e93ea5f7458c9de14a13d70500aaba9f6f39c76ba3313adaa3966b1d34e14",
+    "Assemblies/Sanctuary.Integration.dll": "23400e1d00ffacc8b90be16fcc21bb2fa58061d250f2f15e197f2266bd95a960"
+  },
+  "nativeDecaySourceSha256": "3f7ad6f92bd7e72eb18b92e56199e09458f6931cb6b28b88e95409c382f1b614",
+  "nativeDecayMinutes": 7,
+  "retainedInspectionMilliseconds": 3600000,
+  "correction": "Use existing FixtureSpace.Retention only for saved unused or consumed native corpses; normal live casts and gameplay decay are unchanged.",
+  "historicalFailure": "Full N4 first boot exceeded8minutes. Its old assertion did not distinguish missing owner versus corpse; the enabled seven-minute corpse timer is a confirmed fixture defect,not proof of every historical missing-entity cause.",
+  "priorBarrierCombinedReloadPassed": true,
+  "inputs": {
+    ".local/class-skills/necromancer-corpse-retention-repro/birth-inputs.json": "fb27c90427b2fd5e64ecca26b36b6ee270b93fba23b34f4d7bcf782cb4234d0e",
+    ".local/class-skills/necromancer-corpse-retention-repro/birth-native-checks.log": "a0ecc3fb71421eef85bcfd4b4519cb0d1caef8951a5fa41ea4cb3d6bbaadafe9",
+    ".local/class-skills/necromancer-planned-acceptance/source-snapshot-5.json": "d9510cab6f38982b922eaf48fc5230aab5918e9601014a3d935f033dc5812f1a",
+    ".local/class-skills/necromancer-planned-acceptance/integration-build-5.log": "615f2b92f0f5cb8d406c9952b9d0d33692e8e4b1fae60af2b9dd56f03a307e41",
+    ".local/class-skills/necromancer-planned-acceptance/failed-run-4/birth-inputs.json": "93b200f087175a234864156c40f9dbb9616b39e7a4dc29f69424bda55e1b84b6",
+    ".local/class-skills/necromancer-planned-acceptance/failed-run-4/birth-native-checks.log": "0cb8da4d1fb9fc733b9cb1aabcbe29cad68a867d9ef6cec6f74d43894fc6a3ce",
+    "tests/Sanctuary.Integration/NativeCorpseChecks.cs": "a2563e1f225194b0edb14eca414182769e83e4497ed12b4b1da1f4210d74c2d0",
+    "tests/Sanctuary.Integration/NativeCorpseDifficultyChecks.cs": "ef746f6a7df1ec1ab739ca6602b509d49d26ce5ad53c2b2144498e72c1a2e086",
+    "tests/Sanctuary.Integration/NativeLichReviveChecks.cs": "a0371e41f66ffca13b004e708feca821566df99c19fd18da54210fd7bb51fa71"
+  },
+  "installed": false,
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 44
+  }
+}

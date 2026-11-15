@@ -44,7 +44,7 @@ public static class NativeCorpseDifficultyChecks
                 }
             }
             var rows=Enum.GetValues<MonsterDifficulty>().Select((difficulty,index)=>
-                CorpseSkillRules.Profiles.Find(NativeCorpseChecks.Corpse(p,5+index,difficulty))).ToArray();
+                CorpseSkillRules.Profiles.Find(NativeCorpseChecks.KeepForReload(NativeCorpseChecks.Corpse(p,5+index,difficulty)))).ToArray();
             Require(rows.Length==3&&rows.All(row=>row.BaseLife.Seed.HasValue),"Incomplete native difficulty fixtures");
             File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(0,p.Serial.Value,rows)));kept=true;
         }
