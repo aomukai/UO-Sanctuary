@@ -1,0 +1,78 @@
+{
+  "component": "Raised helper moving-recipient observer",
+  "referenceVersion": "3.3.93847",
+  "scope": "Focused fixture correction; full class acceptance pending",
+  "contentBuild": 1,
+  "integrationBuild": 9,
+  "sourceSnapshot": 9,
+  "focusedNativeRun": 3,
+  "nativeMarkers": 24,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "raised-minions-live-check": 3,
+    "raised-minions-live-result": 6,
+    "raised-minions-delayed-live-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "raised-minions-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "raised-minions-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "ordinaryLiveRaises": 3,
+  "delayedLiveRaises": 3,
+  "observerDelayMilliseconds": 2500,
+  "gameplaySourceChanged": false,
+  "gameplayAssemblyUnchanged": true,
+  "runtimeDataUnchanged": true,
+  "changedSources": [
+    "tests/Sanctuary.Integration/RaisedMinionChecks.cs"
+  ],
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "5df3992322b515ae6e525927b8b9ddb57420eddd63d9886f019ffd6974b2cd49",
+    "Assemblies/Sanctuary.Content.dll": "508e93ea5f7458c9de14a13d70500aaba9f6f39c76ba3313adaa3966b1d34e14",
+    "Assemblies/Sanctuary.Integration.dll": "7f46e13cc1382b17942f8c83c878a71ab47d0acd2e8677839425b0a75a249c1e"
+  },
+  "negativeControl": "System.InvalidOperationException: Actual Lich raise timeout:started=True,canRaise=False,ownerGate=True,bodyGate=False,owner=True/Trammel/True,casterId=0x00000234,caster=True/(6747, 2500, 0)/Trammel/False/False/True,named=True,corpse=(6750, 2500, 0)/Trammel/False/1/True/False,select=False,see=True/True,spawn=True,wildCorpse=True/False,wild=0x00000236/True/False,nearbyWild=0x00000234:GraveyardLich:(6747, 2500, 0):owned=True:alive=True:raised=False;0x00000236:GraveyardLich:(6759, 2500, 0):owned=False:alive=True:raised=False;0x00000238:GraveyardSkeleton:(6759, 2499, 0):owned=False:alive=True:raised=True;0x00000239:GraveyardSkeleton:(6758, 2500, 0):owned=True:alive=True:raised=True,recent=0x00000238:GraveyardSkeleton:(6759, 2499, 0):Trammel:alive=True:owned=:hp=11;0x00000239:GraveyardSkeleton:(6758, 2500, 0):Trammel:alive=True:owned=0x00000233:hp=3,rows=[{\"Actor\":569,\"Caster\":564,\"Owner\":563,\"Class\":103,\"Difficulty\":0,\"SavedLife256\":null}]",
+  "correction": "Observe only newly created, living, uncontrolled/non-summoned wild helpers within18tiles, excluding every preexisting actor. Keep wild and owned fixture scenes apart to avoid incidental combat while retaining allegiance/loot/owner/state checks.",
+  "focusedConfiguration": {
+    "extra_families": [
+      "raised-minions"
+    ],
+    "extra_checks": [
+      "raised-minions-live-check",
+      "raised-minions-delayed-live-check"
+    ],
+    "extra_connected_checks": [
+      "raised-minions-live-check",
+      "raised-minions-delayed-live-check"
+    ],
+    "extra_wait_results": {
+      "raised-minions-live-check": "raised-minions-live-result",
+      "raised-minions-delayed-live-check": "raised-minions-live-result"
+    }
+  },
+  "historicalFailureQualification": "Deliberately delayed focused failure confirms a live wild helper moving off the exact corpse tile. It does not prove the exclusive cause of every previous class-run timeout.",
+  "inputs": {
+    ".local/class-skills/raised-helper-observer-repro/birth-inputs.json": "92259ff29c9cbaaa65941e9316846f3720b78a9b9ee02c7f6374e10043d9543e",
+    ".local/class-skills/raised-helper-observer-repro/birth-native-checks.log": "da00074d2df81f54d0b53f3b42127602e819c325679b309f3af72b29f22e57b4",
+    ".local/class-skills/raised-helper-observer-repro/native-run-3.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/necromancer-planned-acceptance/source-snapshot-9.json": "b6c8932883ea725f84b262ca371a7e34c57f491954b11f793171a4b301e0e6e1",
+    ".local/class-skills/necromancer-planned-acceptance/integration-build-9.log": "c0ea3bb2646ea3dbc7ebaa11b35b6a5e896942eadf437af11594c4fb631804fe",
+    ".local/class-skills/raised-helper-observer-repro/failed-run-2/birth-native-checks.log": "4d10494d5ab27df3ea97a5b39adf1eef37544a041fbe1f76f7421b97f7020769",
+    ".local/class-skills/necromancer-planned-acceptance/failed-run-5/birth-native-checks.log": "61478d14826c955ccad4e74b31f7574bc090aa3e754a533c6c7736831da18160",
+    "tests/Sanctuary.Integration/RaisedMinionChecks.cs": "ad97a8fda23b24c4d5145db1df9f8387a8d3c870ef69c27a3edf991dad40f29e"
+  },
+  "installed": false,
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 44
+  }
+}

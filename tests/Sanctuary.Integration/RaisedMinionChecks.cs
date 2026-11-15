@@ -33,14 +33,18 @@ public static class RaisedMinionChecks
             ConsoleInputHandler.RegisterCommand(label,"Raised helper ownership and saved wounds",_=>Core.LoopContext.Post(()=>
             {try{if(reload){Reload();}else{Check();}Log.Information("{Label}: passed",label);}catch(Exception e){Log.Error(e,"{Label}: failed",label);}}));
         }
-        ConsoleInputHandler.RegisterCommand("raised-minions-live-check","Actual Lich raise timer with player allegiance",_=>Core.LoopContext.Post(()=>
-        {FixtureNetwork.Connected("raised-minions-live-result",Live);Log.Information("raised-minions-live-check: passed");}));
+        foreach(int delay in new[]{0,2500})
+        {
+            string command=delay==0?"raised-minions-live-check":"raised-minions-delayed-live-check";
+            ConsoleInputHandler.RegisterCommand(command,"Actual Lich raise timer with player allegiance",_=>Core.LoopContext.Post(()=>
+            {FixtureNetwork.Connected("raised-minions-live-result",n=>Live(n,delay));Log.Information("{Command}: passed",command);}));
+        }
     }
     private static PlayerMobile Owner()
     {
         var p=new PlayerMobile{Name="RaisedMinionFixtureOwner",Body=0x190,Player=true};p.AddItem(new Backpack());
         ClassCreation.Profiles.Assign(p,DiabloClass.Necromancer);ClassCreation.Profiles.AdvanceLevel(p,50);ClassSkillChecks.Train(p,"necromancer.revive");
-        FixtureSpace.Corridor(p,6745,30,2500);return p;
+        FixtureSpace.Corridor(p,6745,48,2500);return p;
     }
     private static GraveyardLich Caster(PlayerMobile p,int offset=2)
     {
@@ -77,25 +81,46 @@ public static class RaisedMinionChecks
         var victim=new GraveyardSkeleton{Frozen=true,CantWalk=true,NoKillAwards=true};victim.MoveToWorld(new(p.X+offset,p.Y,p.Z),p.Map);victim.AIObject.AITimer.Stop();
         SkillCombat.HitParts(p,victim,new(10000,0,0,0,0),recover:false);var corpse=(Corpse)victim.Corpse;corpse.DropItem(new Gold(17));return corpse;
     }
-    private static void Live(NetState network)
+    private static string WildDiagnostic(GraveyardLich wild,Corpse corpse)
+    {
+        var rows=new System.Collections.Generic.List<string>();
+        foreach(var m in wild.Map.GetMobilesInRange<GraveyardUndead>(corpse.Location,18))
+        {rows.Add($"{m.Serial}:{m.GetType().Name}:{m.Location}:owned={m.Controlled}:alive={m.Alive}:raised={m.Raised}");}
+        return string.Join(";",rows);
+    }
+    private static void Live(NetState network,int observerDelay)
     {
         var p=Owner();var account=FixtureNetwork.Authenticate(network,p,"raised-minions-wire-");var caster=Caster(p);var corpse=Body(p,5);
-        var wild=new GraveyardLich{NoKillAwards=true};wild.MoveToWorld(new(p.X+14,p.Y,p.Z),p.Map);wild.AIObject.AITimer.Stop();var wildCorpse=Body(p,18);
+        var wild=new GraveyardLich{NoKillAwards=true};wild.MoveToWorld(new(p.X+28,p.Y,p.Z),p.Map);wild.AIObject.AITimer.Stop();var wildCorpse=Body(p,32);
+        var priorActors=World.Mobiles.Values.OfType<GraveyardUndead>().Select(m=>m.Serial.Value).ToHashSet();
         long deadline=Core.TickCount+12000;bool started=false,done=false;uint[] before=RaisedMinions.Snapshot().Select(row=>row.Actor).ToArray();
         void Cleanup(){wild.Delete();corpse.Delete();wildCorpse.Delete();Clean(p);account.Delete();}
         void Inspect()
         {
             try
             {
-                if(done){return;}Require(Core.TickCount<deadline,$"Actual Lich raise timeout:started={started},canRaise={caster.CanRaise(corpse)},ownerGate={RaisedMinions.CanRaise(caster)},bodyGate={RaisedMinions.CorpseAllowed(caster,corpse)},owner={p.Alive}/{p.Map}/{p.NetState!=null},caster={caster.Alive}/{caster.Location}/{caster.Map}/{caster.Frozen}/{caster.Paralyzed}/{caster.ControlMaster==p},named={NamedControl.SpecialAllowed(caster)},corpse={corpse.Location}/{corpse.Map}/{CorpseSkillRules.BodyAvailable(corpse)}/{corpse.SanctuaryUndeadKind}/{corpse.CanLoot(p,null)}/{corpse.IsCriminalAction(p)},select={CorpseSkillRules.Available(corpse)},see={caster.CanSee(corpse)}/{caster.InLOS(corpse)},spawn={p.Map.CanSpawnMobile(corpse.Location)},rows={JsonSerializer.Serialize(RaisedMinions.Snapshot())}");
-                if(!started&&caster.BeginRaise(corpse)){Require(wild.BeginRaise(wildCorpse),"Wild control did not start");started=true;Log.Information("raised-minions-live: raise animations started at {Caster}/{Corpse}",caster.Location,corpse.Location);}
+                if(done){return;}Require(Core.TickCount<deadline,$"Actual Lich raise timeout:started={started},canRaise={caster.CanRaise(corpse)},ownerGate={RaisedMinions.CanRaise(caster)},bodyGate={RaisedMinions.CorpseAllowed(caster,corpse)},owner={p.Alive}/{p.Map}/{p.NetState!=null},casterId={caster.Serial},caster={caster.Alive}/{caster.Location}/{caster.Map}/{caster.Frozen}/{caster.Paralyzed}/{caster.ControlMaster==p},named={NamedControl.SpecialAllowed(caster)},corpse={corpse.Location}/{corpse.Map}/{CorpseSkillRules.BodyAvailable(corpse)}/{corpse.SanctuaryUndeadKind}/{corpse.CanLoot(p,null)}/{corpse.IsCriminalAction(p)},select={CorpseSkillRules.Available(corpse)},see={caster.CanSee(corpse)}/{caster.InLOS(corpse)},spawn={p.Map.CanSpawnMobile(corpse.Location)},wildCorpse={wildCorpse.SanctuaryConsumed}/{wildCorpse.Deleted},wild={wild.Serial}/{wild.Alive}/{wild.Deleted},nearbyWild={WildDiagnostic(wild,wildCorpse)},recent={string.Join(";",World.Mobiles.Values.OfType<GraveyardUndead>().Where(m=>!priorActors.Contains(m.Serial.Value)).Select(m=>$"{m.Serial}:{m.GetType().Name}:{m.Location}:{m.Map}:alive={m.Alive}:owned={m.ControlMaster?.Serial}:hp={m.Hits}"))},rows={JsonSerializer.Serialize(RaisedMinions.Snapshot())}");
+                if(!started&&caster.BeginRaise(corpse))
+                {
+                    Require(wild.BeginRaise(wildCorpse),"Wild control did not start");started=true;Log.Information("raised-minions-live: raise animations started at {Caster}/{Corpse}",caster.Location,corpse.Location);
+                    if(observerDelay>0){Timer.StartTimer(TimeSpan.FromMilliseconds(observerDelay),()=>Core.LoopContext.Post(Inspect));return;}
+                }
                 var child=RaisedMinions.Snapshot().Where(row=>row.Caster==caster.Serial.Value).Select(row=>World.FindMobile((Serial)row.Actor)).OfType<GraveyardUndead>().SingleOrDefault();
                 if(child!=null)
                 {
                     Require(started&&child.ControlMaster==p&&child.Controlled&&!child.Summoned&&child.Raised&&child.NoKillAwards&&child.ControlSlots==0
                         &&ClassCombat.Friendly(child,p)&&!child.CanBeHarmful(p,false)&&corpse.SanctuaryConsumed&&corpse.Items.OfType<Gold>().Single().Amount==17,"Actual raise lost allegiance,loot or owner");
-                    GraveyardUndead wildChild=null;foreach(var body in wild.Map.GetMobilesInRange<GraveyardUndead>(wildCorpse.Location,0))
-                    {if(body!=wild&&body.Alive){Require(wildChild==null,"Wild control produced duplicate helpers");wildChild=body;}}
+                    // Observe a newly created wild helper, not a fleeting
+                    // occupancy of its corpse tile. Keep the wild scene away
+                    // from the owned scene so observation delay cannot turn
+                    // this ownership check into an accidental combat test.
+                    GraveyardUndead wildChild=null;
+                    foreach(var body in World.Mobiles.Values.OfType<GraveyardUndead>())
+                    {
+                        if(!priorActors.Contains(body.Serial.Value)&&body is{Alive:true,Deleted:false,Controlled:false,Summoned:false}
+                            &&body.Map==wild.Map&&body.InRange(wildCorpse.Location,18))
+                        {Require(wildChild==null,"Wild control produced duplicate helpers");wildChild=body;}
+                    }
                     if(wildChild==null){Timer.StartTimer(TimeSpan.FromMilliseconds(20),()=>Core.LoopContext.Post(Inspect));return;}
                     Require(!wildChild.Controlled&&RaisedMinions.State(wildChild)==null&&wildCorpse.SanctuaryConsumed,"Wild raise behavior changed");wildChild.Delete();
                     Require(child.IsEnemy(wild)&&!child.IsEnemy(p)&&child.CanBeHarmful(wild,false),"Owned helper retained wild allegiance");
