@@ -21,12 +21,7 @@ internal static class EngorgeCasting
         &&p.Map!=Map.Internal&&!MinionSafeAreas.Contains(p)&&!SpellHelper.IsTown(p.Location,p)
         &&ClassCreation.Profiles.TryGet(p.Serial,out var profile)&&profile.Class==DiabloClass.Warlock
         &&SkillMechanics.Rank(p,CombatAbility.Engorge)>0;
-    internal static bool Recipient(PlayerMobile owner,SkeletonGuardian body)=>owner is{Alive:true,Deleted:false,NetState:{Running:true}}
-        &&body is{Alive:true,Deleted:false,Blessed:false}&&body.ControlMaster==owner&&body.Map==owner.Map&&body.Map!=Map.Internal
-        &&body.GetDistanceToSqrt(owner)<=19&&body.Permitted(owner)&&PersistentMinions.Active(owner,body)&&!MinionSafeAreas.Parked(body)
-        &&!MinionSafeAreas.Contains(owner)&&!SpellHelper.IsTown(body.Location,owner)
-        &&DemonNativeState.Learned(body)&&DemonNativeState.Controller(body)is{Fault:null}&&DeathMarkWorld.State(body)is{Selector:1}
-        &&NpcEquipmentCombat.Context(body)==null;
+    internal static bool Recipient(PlayerMobile owner,SkeletonGuardian body)=>WarlockDemonRecipients.InRange(owner,body,19);
     internal static bool Usable(PlayerMobile p,Corpse corpse)=>Actor(p)&&CorpseSkillRules.Usable(p,corpse,19)
         &&!SpellHelper.IsTown(corpse.Location,p);
     private static SkeletonGuardian[] Roster(PlayerMobile p)=>WarlockGoatmanWorld.Demons(p).Where(b=>Recipient(p,b)).ToArray();

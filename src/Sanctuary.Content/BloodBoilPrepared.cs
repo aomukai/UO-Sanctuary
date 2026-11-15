@@ -32,13 +32,13 @@ internal static class BloodBoilPrepared
     }
     internal static int CostPercent(BloodBoilNumbers numbers,int demons)=>demons switch
     {1=>numbers.CostOne,2=>numbers.CostTwo,3=>numbers.CostThree,_=>throw new NotSupportedException("Blood Boil has only three qualified demon-count formulas")};
-    // Reuse Engorge's original active-demon eligibility;it does not require
-    // Engorge ranks or an Engorge buff,only the existing learned native host.
-    internal static SkeletonGuardian[] Roster(PlayerMobile owner)=>WarlockGoatmanWorld.Demons(owner).Where(b=>EngorgeCasting.Recipient(owner,b)).ToArray();
-    internal static bool HasLife(SkeletonGuardian body)=>body is{Alive:true,Deleted:false}
+    // Same active/range rule as Engorge;original native bound NPCs keep their
+    // own identity/AI rather than pretending to have a summon controller.
+    internal static BaseCreature[] Roster(PlayerMobile owner)=>WarlockDemonRecipients.Roster(owner).Where(b=>WarlockDemonRecipients.InRange(owner,b,19)).ToArray();
+    internal static bool HasLife(BaseCreature body)=>body is{Alive:true,Deleted:false}
         &&(long)SkillHealth.Balance256(body)*100>(long)SkillHealth.Maximum256(body)*5;
     internal static bool Ready(PlayerMobile owner,uint target,DateTime at)=>!Delays.TryGetValue((owner.Serial.Value,target),out var until)||until<=at;
-    internal static int PayLife(SkeletonGuardian body,int requested256)
+    internal static int PayLife(BaseCreature body,int requested256)
     {
         if(body is not{Alive:true,Deleted:false}||requested256<0){throw new ArgumentException("Invalid Blood Boil life cost");}
         int before=SkillHealth.Balance256(body),after=Math.Max(0,before-requested256);if(after<256){after=0;}
@@ -71,7 +71,7 @@ internal static class BloodBoilPrepared
             foreach(var body in roster)
             {
                 if(!BloodBoilCasting.Actor(owner)||owner.Map!=castMap){throw new NotSupportedException("Blood Boil owner retired or changed facet during committed explosions");}
-                if(!EngorgeCasting.Recipient(owner,body)||!HasLife(body)){continue;}
+                if(!WarlockDemonRecipients.InRange(owner,body,19)||!HasLife(body)){continue;}
                 var center=body.Location;var map=body.Map;int cost=checked((int)((long)SkillHealth.Maximum256(body)*percent/100));
                 int physical=SorceressSpellMissiles.Roll(numbers.PhysicalMinimum256,numbers.PhysicalMaximum256,seed,out var next);seed=next;
                 int fire=SorceressSpellMissiles.Roll(numbers.FireMinimum256,numbers.FireMaximum256,seed,out next);seed=next;

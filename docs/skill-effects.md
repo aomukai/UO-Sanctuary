@@ -1,5 +1,7 @@
 # Skill effects
 
+**Bound recipient/Blood Boil boundary — 2026-11-15 JST.** Shared eligibility adds no effect. Actual bound Blood Boil reuses identified shared explosion0x36BD and sound0x1E5 placeholders. Final Blood Boil explosion/cast/audio and Bind channel/tether/success/bound feedback remain missing and nonblocking. Original native bodies/abilities retain their visuals;no imagegen/new artwork. Icons stay separate. [Checkpoint](bind-demon-recipients-checkpoint.md).
+
 **Bound native typed damage boundary — 2026-11-15 JST.** Mechanical damage/recovery integration adds no new VFX/audio. Original Imp/native abilities retain existing visuals. Final Bind channel/tether,success/bound feedback and audio remain missing and nonblocking;no imagegen. Full skill admission remains a separate mechanical task. Icons stay in their own register. [Checkpoint](bind-demon-typed-checkpoint.md).
 
 **Prepared bound-host boundary — 2026-11-15 JST.** Original living NPCs retain native body/AI/ability visuals. This host adds no cast/owner-link/bound-state VFX or audio;final Bind Demon channel,success and bound feedback remain missing. No mechanic is gated on new artwork and no imagegen/final effect was created. Source capture/channel and full bind delivery are independently unfinished. Icons remain separately tracked. [Checkpoint](bind-demon-host-checkpoint.md).

@@ -1,5 +1,7 @@
 # Skill icons
 
+**Bound recipient/Blood Boil icon boundary — 2026-11-15 JST.** No new learned binding or artwork. Final Bind/Blood Boil talent-tree and right/quick-hotkey icons remain missing;use identified placeholders when admitted. Shared native recipient support does not provide a final icon or effect. Full Bind and pending Blood Boil admission remain separate. [Checkpoint](bind-demon-recipients-checkpoint.md).
+
 **Bound native typed damage icon boundary — 2026-11-15 JST.** No new binding or artwork. Final Bind talent-tree and right/quick-hotkey icons remain missing;left is unavailable in the pinned row. Use identified placeholders at learned admission. Damage/recovery verification supplies no final icon or effect. [Checkpoint](bind-demon-typed-checkpoint.md).
 
 **Prepared bound-host icon boundary — 2026-11-15 JST.** Actual saved original NPC hosting adds no new player binding or final artwork. Bind Demon still needs its talent-tree and right/quick-hotkey icon;left remains unavailable in the pinned row. Use clearly identified placeholders when the learned route is eventually admitted. Host/body reuse does not supply channel/success VFX or audio. [Checkpoint](bind-demon-host-checkpoint.md).
