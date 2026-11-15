@@ -60,18 +60,22 @@ internal static class ConsumeEffects
     internal static bool Clear(PlayerMobile owner)
     {
         if(owner==null||!States.ContainsKey(owner.Serial.Value)){return false;}
+        var previous=States[owner.Serial.Value];
         var before=owner is{Alive:true,Deleted:false}?BattleOrders.Capture(owner):(BattleOrders.Pools?)null;
         States=States.Remove(owner.Serial.Value);
         if(before is{} pools){BattleOrders.Change(owner,pools);}else if(!owner.Deleted){ClassStats.Refresh(owner);}
         if(!owner.Deleted){owner.UpdateResistances();}
+        ConsumeAuras.Changed(owner,previous,null);
         return true;
     }
     internal static void ApplyPrepared(PlayerMobile owner,ConsumeEffect state)
     {
         Validate(state);if(!Owner(owner)||owner.Serial.Value!=state.Owner){throw new NotSupportedException("Consume state lost its original living Warlock");}
+        var previous=State(owner);
         var before=BattleOrders.Capture(owner);States=States.SetItem(state.Owner,state);BattleCommand.ReservePetOrder(state.Order);
         BattleOrders.Change(owner,before);
         owner.UpdateResistances();
+        ConsumeAuras.Changed(owner,previous,state);
     }
     private static void Moved(Mobile mobile)
     {if(!World.Loading&&mobile is PlayerMobile p){Sync(p,TimedEffects.Now);}}
@@ -92,8 +96,8 @@ internal static class ConsumeEffects
         if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Consume clock must be UTC");}
         foreach(var state in States.Values.ToArray())
         {
-            if(World.FindMobile((Serial)state.Owner)is PlayerMobile owner){Sync(owner,at);}
-            else{States=States.Remove(state.Owner);}
+            if(World.FindMobile((Serial)state.Owner)is PlayerMobile owner){Sync(owner,at);ConsumeAuras.Tick(owner,State(owner),at);}
+            else{ConsumeAuras.Forget(state.Owner);States=States.Remove(state.Owner);}
         }
     }
     internal static void Enforce(PlayerMobile owner,BaseCreature[] bodies,int limit)

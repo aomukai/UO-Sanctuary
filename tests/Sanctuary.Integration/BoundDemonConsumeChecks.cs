@@ -36,7 +36,7 @@ public static class BoundDemonConsumeChecks
     {
         int rows=0,auras=0;
         foreach(var row in BindDemonPrepared.Catalog())foreach(var diff in new[]{MonsterDifficulty.Normal,MonsterDifficulty.Nightmare,MonsterDifficulty.Hell})
-        {var value=Numbers(row.Monster,20,diff);ConsumePrepared.Validate(value);rows++;if(value.Bonus.AuraRank>0){auras++;Require(!ConsumePrepared.RuntimeSupported(value),"Unfinished item aura became available");}}
+        {var value=Numbers(row.Monster,20,diff);ConsumePrepared.Validate(value);rows++;if(value.Bonus.AuraRank>0){auras++;Require(ConsumePrepared.RuntimeSupported(value),"Captured item aura lacks its provider");}}
         Require(rows==513&&auras>0,"Incomplete pinned bound Consume catalog capture");
         (string Monster,ConsumeBonusValues Bonus)[] literal=[
             ("blunderbore2",new(ColdResist:65)),("baalminion1",new(DamagePercent:200)),("blunderbore5",new(PhysicalResist:15)),
@@ -51,7 +51,7 @@ public static class BoundDemonConsumeChecks
         var old=Numbers("wargoatman");var node=JsonSerializer.SerializeToNode(old);var bonus=node["Bonus"].AsObject();
         foreach(string key in bonus.Select(p=>p.Key).Where(k=>k is not("DamagePercent"or"CrushingChance"or"FireMastery"or"FirePierce"or"MagicMastery"or"MagicPierce")).ToArray()){bonus.Remove(key);}
         Require(node.Deserialize<ConsumeSuppliers>()==old,"Old six-field bonus JSON failed optional defaults");
-        Log.Information("Bound Consume:513captures across171source rows/three difficulties;16independent literal contexts cover17numeric stats;outer quotes/whitespace/caps/old six-field JSON verified;item aura metadata retained and explicitly gated");
+        Log.Information("Bound Consume:513captures across171source rows/three difficulties;16independent literal contexts cover17numeric stats;outer quotes/whitespace/caps/old six-field JSON verified;item aura metadata retained with qualified provider");
     }
     private static void Writers(PlayerMobile p,Mobile enemy)
     {
@@ -72,8 +72,8 @@ public static class BoundDemonConsumeChecks
             SkillCombat.HitParts(p,enemy,parts,true,spell:true);Require(before-SkillHealth.Balance256(enemy)==(100+c.Item3)*256,"Actual elemental pierce writer failed: "+c.Item1);
         }
         var beforeState=ConsumeEffects.State(p);bool refused=false;var aura=Numbers("megademon6");var now=TimedEffects.Now;
-        try{ConsumeEffects.ApplyPrepared(p,new(p.Serial.Value,serial,order,now,now.AddMilliseconds(aura.DurationFrames*40L),aura));}catch(NotSupportedException){refused=true;}
-        Require(refused&&ConsumeEffects.State(p)==beforeState,"Unfinished aura replaced live Consume state");ConsumeEffects.Clear(p);
+        try{ConsumeEffects.ApplyPrepared(p,new(p.Serial.Value,serial,order,now,now.AddMilliseconds(aura.DurationFrames*40L),aura with{Bonus=aura.Bonus with{AuraSkill="Unqualified"}}));}catch(InvalidDataException){refused=true;}
+        Require(refused&&ConsumeEffects.State(p)==beforeState,"Invalid aura replaced live Consume state");ConsumeEffects.Clear(p);
         Require(ClassGear.Bonus(p,"res-fire")==0&&p.FireResistance==0&&SkillMechanics.Rank(p,CombatAbility.Consume)==20,"Clearing numeric Consume left stale stats");
         Log.Information("Bound Consume:actual native resistance/cache/caps including magic85,learned-only allskills and four real typed pierce hits pass;unsupported aura application refuses atomically;clear removes bonuses");
     }

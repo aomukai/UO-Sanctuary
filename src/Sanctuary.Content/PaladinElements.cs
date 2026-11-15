@@ -45,12 +45,14 @@ public static class PaladinElements
     public static double Proximity(double distance,double radius)=>radius<=1?2:1+Math.Clamp((radius-distance)/(radius-1),0,1);
     internal static void Pulse(PlayerMobile owner,CombatAbility ability,SkillValues values,DateTime now)
         =>Pulse(owner,owner,ability,values,now,Roll);
-    internal static void Pulse(Mobile owner,PlayerMobile allegiance,CombatAbility ability,SkillValues values,DateTime now,Func<int,int> roll)
+    internal static void Pulse(Mobile owner,PlayerMobile allegiance,CombatAbility ability,SkillValues values,DateTime now,Func<int,int> roll,DateTime? deadline=null,long providerOrder=0)
     {
         if(owner is not PlayerMobile&&owner is not NecromancerMinion{Kind:CombatAbility.FireGolem}||owner is NecromancerMinion&&(ability!=CombatAbility.HolyFire||owner.Map==null||owner.Map==Map.Internal||owner.Map!=allegiance.Map))
         {throw new NotSupportedException("Unmapped elemental aura emitter");}
         int frames=Math.Max(5,(int)values.Eval("perdelay"));var range=WeaponRange(owner,ability,values);
-        PaladinAuras.ElementalWeapon(new(owner.Serial.Value,owner.Serial.Value,ability,values.Rank,0,now.AddMilliseconds((frames+1)*40),WeaponMin:range.Min,WeaponMax:range.Max));
+        var until=now.AddMilliseconds((frames+1)*40);if(deadline is{} limit&&until>limit){until=limit;}
+        PaladinAuras.ElementalWeapon(new(owner.Serial.Value,owner.Serial.Value,ability,values.Rank,0,until,WeaponMin:range.Min,WeaponMax:range.Max,
+            ProviderOwner:providerOrder>0?owner.Serial.Value:0,ProviderOrder:providerOrder));
         if(SpellHelper.IsTown(owner.Location,owner)){return;}
         string element=Element(ability);int min=Enhanced(owner,values.Damage256(false),element),max=Enhanced(owner,values.Damage256(true),element);
         // The legacy routine rolls once before enumerating recipients; the upper endpoint is exclusive.

@@ -90,9 +90,10 @@ internal static class ConsumePrepared
         return new(rank,hardDeathMark,monster,difficulty,values.Mana256,checked((int)values.Eval("auralencalc")),
             checked((int)values.Eval("aurastatcalc1")),checked((int)values.Eval("aurastatcalc2")),bonus);
     }
-    internal static bool RuntimeSupported(ConsumeSuppliers value)=>value.Bonus.AuraRank==0;
+    internal static bool RuntimeSupported(ConsumeSuppliers value)=>value.Bonus.AuraRank==0
+        ||value.Bonus.AuraRank is>=1 and<=99&&ConsumeAuras.Ability(value.Bonus.AuraSkill)!=CombatAbility.None;
     internal static void RequireRuntime(ConsumeSuppliers value)
-    {if(!RuntimeSupported(value)){throw new NotSupportedException("Consume item-aura delivery remains unfinished: "+value.Bonus.AuraSkill);}}
+    {if(!RuntimeSupported(value)){throw new NotSupportedException("Unqualified Consume item-aura context: "+value.Bonus.AuraSkill);}}
     internal static string Description(ConsumeSuppliers value)
     {
         var b=value.Bonus;var parts=new System.Collections.Generic.List<string>();
