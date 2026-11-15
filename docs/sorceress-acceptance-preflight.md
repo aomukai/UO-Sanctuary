@@ -1,5 +1,7 @@
 # Sorceress acceptance reuse plan
 
+**Current follow-up — 2026-11-16 JST.** The [planned-content combined checkpoint](sorceress-planned-acceptance-checkpoint.md) now composes all 30 Sorceress handlers, approved held Inferno and SC/FCR checks. The 29-handler/deferred-Inferno wording below is historical planning context. Current combined results remain pending.
+
 Reference: **D2R Reign of the Warlock 3.3.93847**, with approved Sanctuary deviations first. This prepares the next class without changing the active Necromancer candidate or enabling a skill. Sorceress currently has29registered handlers; Inferno remains individually deferred. Neither the handler count nor this inventory certifies the class.
 
 ## Existing coverage to retain

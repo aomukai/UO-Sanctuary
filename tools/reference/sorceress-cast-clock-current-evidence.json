@@ -1,0 +1,65 @@
+{
+  "component": "Sorceress cast-clock fixture follows approved Inferno availability",
+  "referenceVersion": "3.3.93847",
+  "scope": "Focused fixture correction; combined Sorceress acceptance pending",
+  "contentBuildReused": 1,
+  "integrationBuild": 1,
+  "sourceSnapshot": 2,
+  "focusedNativeRun": 1,
+  "nativeMarkers": 50,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "sorceress-cast-clock-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "player-teleport-check": 1,
+    "sorceress-cast-clock-right-check": 3,
+    "sorceress-cast-clock-right-result": 3,
+    "sorceress-cast-clock-quick-check": 3,
+    "sorceress-cast-clock-quick-result": 3,
+    "player-teleport-left-check": 3,
+    "player-teleport-left-result": 3,
+    "player-teleport-right-check": 3,
+    "player-teleport-right-result": 3,
+    "player-teleport-quick-check": 3,
+    "player-teleport-quick-result": 3,
+    "player-teleport-save": 3,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "player-teleport-reload-check": 2,
+    "player-teleport-reload-result": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "actualInputs": 15,
+  "gameplaySourceChanged": false,
+  "gameplayAssemblyUnchanged": true,
+  "runtimeDataUnchanged": true,
+  "changedSources": [
+    "tests/Sanctuary.Integration/SorceressCastClockChecks.cs"
+  ],
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "5df3992322b515ae6e525927b8b9ddb57420eddd63d9886f019ffd6974b2cd49",
+    "Assemblies/Sanctuary.Content.dll": "508e93ea5f7458c9de14a13d70500aaba9f6f39c76ba3313adaa3966b1d34e14",
+    "Assemblies/Sanctuary.Integration.dll": "e595635ea1b37c283be7709f85ab7d283e8e147ca02a68688a65218bba7e3ff4"
+  },
+  "correction": "Require approved Inferno availability while preserving its explicit ordinary-SC exclusion. Retain independent weapon/FCR,2072source,5957static and46owner-route/start/cancel checks perboot.",
+  "inputs": {
+    ".local/class-skills/sorceress-cast-clock-current/birth-inputs.json": "f92f978eb28658b4f82b18f4daa6d54d7b0f13ce1029417f8c2323027860764f",
+    ".local/class-skills/sorceress-cast-clock-current/birth-native-checks.log": "0f867d49d2d40cc8ae1b7ac9dda7aee86025018d2a3b3b6354614f369dfc276d",
+    ".local/class-skills/sorceress-planned-acceptance/source-snapshot-2.json": "10739f4d136701990ffc9ea1d0852e6a096922977070debc1127f7257d55e2c1",
+    ".local/class-skills/sorceress-planned-acceptance/integration-build-1.log": "06aa37398c082e3c7ac0fc8ce9353fa9ef4b6322cd8b994a86e6ee34893a0066",
+    ".local/class-skills/sorceress-planned-acceptance/failed-run-1/birth-native-checks.log": "3fa071087f2ca13a7b7078ee59f8531b3d435c588b978163d252e98e8b1d7ae3",
+    "tests/Sanctuary.Integration/SorceressCastClockChecks.cs": "a11e543819c94171ab27c8f93c09617218e96e0023150121ddfd5d4293387995"
+  },
+  "installed": false,
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 44
+  }
+}

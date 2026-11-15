@@ -68,7 +68,11 @@ public static class SorceressCastClockChecks
             try
             {
                 var weaponClock=CombatTiming.For(p,CombatAbility.BasicAttack);if(boosted){Magefist(p);}var expected=SorceressCastClock.Calculate(boosted?20:0);
-                Require(CombatTiming.Fcr(p)==(boosted?20:0)&&CombatTiming.For(p,CombatAbility.BasicAttack)==weaponClock&&!ClassCombat.Available(p,CombatAbility.Inferno),"Actual FCR/weapon clock/Inferno gate");
+                Require(CombatTiming.Fcr(p)==(boosted?20:0)&&CombatTiming.For(p,CombatAbility.BasicAttack)==weaponClock,"Actual FCR/weapon clock");
+                // Inferno now has its separately approved held-input route;
+                // its exclusion from ordinary SC is checked above. Availability
+                // must not be mistaken for ordinary-cast timing admission.
+                Require(ClassCombat.Available(p,CombatAbility.Inferno),"Approved held Inferno route unavailable");
                 foreach(var ability in new[]{CombatAbility.Lightning,CombatAbility.ChainLightning})
                 {Require(CombatTiming.For(p,ability)==(boosted?new ActionTiming(17,6):new ActionTiming(19,7)),"Separate SQ12 clock changed");}
                 foreach(var skill in skills)

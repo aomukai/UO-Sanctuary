@@ -1,0 +1,19 @@
+# Current Sorceress combined acceptance
+
+Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Charms and runewords are excluded. All 30 Sorceress handlers are present, including the [approved Inferno input route](inferno-held-input-checkpoint.md). Earlier 29-handler/Inferno-deferred plans describe historical stages.
+
+`tests/check_sorceress_planned_acceptance.py` composes the existing complete Sorceress binding/spell suite, approved held Inferno and shared SC/FCR checks. Its reviewed configuration contains 54 fixture families, 11 shared checks, nine live commands, 68 right/left/quick input commands and 51 cached reference files. These are execution scopes, not passing-result counts. Existing Inferno wire tests also exercise press, aim, heartbeat and release.
+
+The Inferno connected-save staging command prepares its held press; the existing Teleport save command then stages its unpaid action and performs one world save. No new save service or gameplay code is added. Original emitted effects, resources, gear and bindings keep their existing reload assertions; held intent must not replay. Normal expiry remains separate from the inspected retention fixtures.
+
+The initial stage reuses the accepted Necromancer C1/I9 assemblies and native distribution. All C# sources and runtime data match that accepted build; `.local/class-skills/sorceress-planned-acceptance/artifact-reuse.json` records this explicitly. There was no initial compiler run or installed-build change; the later fixture rebuild is recorded below. The source snapshots and native input inventories bind each composed attempt.
+
+No new D2R process/CASC inspection or old reference compiler is needed. The available installation is newer than the mechanical reference and is not used to substitute a new version.
+
+The first combined run stopped at an old SC fixture assertion that required Inferno to remain unavailable. Its exact inputs, sources, DLLs and logs are archived. The fixture now requires the approved held route to be available while retaining Inferno’s exclusion from ordinary SC timing, weapon-clock independence and all FCR/start/cancellation controls. Only Integration was rebuilt (I1, source snapshot 2), with zero warnings/errors; gameplay C1 and runtime data are unchanged. The [focused receipt](../tools/reference/sorceress-cast-clock-current-evidence.json) passes 50 results, 15 actual inputs and two reloads, including original Teleport resource/scroll persistence.
+
+**Combined native acceptance is pending.** Run the configuration review with `python3 tests/check_sorceress_planned_acceptance.py --plan`; run the disposable cohort without an option. No class is certified by the configuration review or handler count.
+
+The [Fire Ball checkpoint](sorceress-fire-ball-checkpoint.md) records a concrete terrain adapter gap: collision can place an explosion beyond a native wall. Fire Ball, Glacial Spike and other explosive producers need a shared, explicitly defined terrain-impact rule; current pinned evidence does not prove the correct UO tile centre. This remains a nonblocking reference/world question, not a silently invented fix. Energy Shield's native armor-ignore/drain producers and other documented world/recipient limits also remain separately bounded. Passing this cohort will not resolve them.
+
+Final effects/audio and talent/hotkey icons stay in their separate registers with identified placeholders. The previously observed wardrobe save-pruning warnings remain an independent save-cleanup concern. Installed artifacts, configuration and existing saves are protected.
