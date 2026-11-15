@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Learned Bind reuse — 2026-11-15 JST.** Admit the existing approved held-input and native-body controller through ordinary Warlock availability and right/quick bindings. Reuse source/channel/health/affix/aura/pool/lifecycle services rather than a second cast or recreated NPC. Legacy Begin/Release/Perform paths refuse; fixed HUD timing and tooltip reflect the approved rule. Prior component fixtures now assert scoped side effects or approved availability. Real socket cases reuse the existing protocol and save harness. [Checkpoint](bind-demon-learned-checkpoint.md).
+
 **Bind native quality reuse — 2026-11-15 JST.** Extract Revive's existing unclassified-Paragon message into NamedCombat.NativeQualityIssue and reuse it in original-body Bind qualification. Reuse current profile and Slayer predicates for a constructor-free native type inventory; keep source compatibility distinct from live eligibility. Audit NamedGear availability rather than assuming every Sunder variant uses the old charm bases. No new stat reducer, elite model, timer, profile or asset. [Checkpoint](bind-demon-host-audit-checkpoint.md).
 
 **Bind client control reuse — 2026-11-15 JST.** Add Bind to the existing ClassicUO channel predicate. The established right-button/quick-slot controls, heartbeat/release state and packet layout remain intact. Only one source line changes; linked shared sources and server inputs do not change. Compile and verify the isolated patch chain without repeating unchanged native suites. [Checkpoint](bind-demon-client-checkpoint.md).

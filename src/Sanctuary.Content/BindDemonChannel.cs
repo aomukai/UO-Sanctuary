@@ -12,10 +12,9 @@ internal sealed record BindDemonChannelState(long Id,uint Owner,uint Target,int 
 {internal bool InputBound{get;init;}}
 internal sealed record BindDemonChannelStep(bool Active,bool Attempted,bool Bound,string Issue,int Chance=0);
 
-// Prepared complete original-body attempt controller. One-second checks and
-// nine-mana payments are an explicit proposed adaptation,not start64 parity.
-// Input-bound preparation uses the existing combat timer. Learned admission
-// remains gated;held intent is never serialized.
+// Approved Sanctuary original-body attempt controller. One-second checks and
+// nine-mana payments are an explicit adaptation,not start64 parity.
+// Input-bound actions use the existing combat timer;held intent is never saved.
 internal static class BindDemonChannel
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(BindDemonChannel));

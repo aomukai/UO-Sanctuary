@@ -75,7 +75,7 @@ public static class BoundDemonLifeChecks
         Daemon b=null;DruidOakBody oak=null;bool kept=false;
         try
         {
-            Require(!WarlockCombat.Implemented(CombatAbility.BindDemon),"Prepared life test opened learned Bind");Refusals(p,supplier);
+            Require(WarlockCombat.Available(p,CombatAbility.BindDemon),"Approved Bind route unavailable");Refusals(p,supplier);
             foreach(int mode in new[]{0,1,2})
             {
                 b=Body(p);if(mode!=0){MonsterVariantBaselines.RememberNormal(b);}

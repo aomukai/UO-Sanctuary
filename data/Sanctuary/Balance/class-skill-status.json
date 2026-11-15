@@ -2429,10 +2429,10 @@
       "characterClass": "Warlock",
       "tree": "Demon",
       "sourceId": 382,
-      "implementation": "blocked",
+      "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Prepared current do158 orchestration matches69source/native contexts over709bytes. It reuses typed ownership/path/game views and preserves target refresh,AI-stop branches,cached encounter counter,event-list cleanup,owner resolution,current caster context and flags. Failed eligibility or binding still returns1 after its preceding effects;this is not a verified mana/channel rule. Direct target gate44b240(356bytes)and binding44b3b0(1943bytes)are protected in one bounded observation;no unchanged retry or invented conversion. Start64/channel missile/action,payment,real bind/passive/cap/lifecycle and learned input remain unfinished. See bind-demon-cast-checkpoint.md;effects/audio and talent/hotkey icons remain separate."
+      "remaining": "Approved Sanctuary held Bind uses actual trained right/quick bindings,locked target,one-second/fixed-nine-mana attempts,explicit grouped pinned chance context and the persistent original native body. Existing stat/affix/aura/resource/shared-pool/parking/facet/save services are reused;no legacy one-shot bypass. Native Paragon/explicit elite,named/underling/unmapped species and nonzeroSunder contexts refuse explicitly. Isolated44patch client reuses ordinary hold packets. Actual learned socket/reload verification is recorded in bind-demon-learned-checkpoint.md;full native mappings,current D2R callback parity/PvP/graphical/class certification and final assets remain open. Approval:bind-demon-world-rule-approval.json."
     },
     {
       "talentId": "warlock.levitationmastery",

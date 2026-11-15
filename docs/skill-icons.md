@@ -1,5 +1,7 @@
 # Skill icons
 
+**Learned Bind icon boundary — 2026-11-15 JST.** Bind is mechanically admitted through right-button and quick-slot controls. Its talent-tree, right-button and quick-slot icons remain separately missing; no artwork or imagegen. Existing placeholders do not gate the action. Effects and graphical acceptance remain separate. [Checkpoint](bind-demon-learned-checkpoint.md).
+
 **Prepared Bind client icon boundary — 2026-11-15 JST.** The compiled held-control candidate creates no icon. Bind tree, right-button and quick-slot icons remain separately missing; mechanics and final effects have their own checkpoints. No imagegen. [Checkpoint](bind-demon-client-checkpoint.md).
 
 **Prepared Bind input icon boundary — 2026-11-15 JST.** Bind tree, right-button and quick-slot icons remain separately missing. Saved input authorization and world updates create no artwork; the existing cast pose is tracked in the effects register. Client/learned admission remains mechanical work. No imagegen. [Checkpoint](bind-demon-input-checkpoint.md).

@@ -1,0 +1,13 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "answer": "Approve this rule",
+  "approvedUtc": "2026-11-15T07:00:47.312580+00:00",
+  "questionItemId": "[\"request_user_input_async\",\"call_44bd0ea8a5a74fa481d68807cc0ede33\",0]",
+  "proposal": "docs/bind-demon-world-rule-proposal.md",
+  "proposalAtApprovalSha256": "3cfb45587cba393c0ed3de01f24213bb4ef66dbb44ba2105b58c53db1279211b",
+  "candidateCommit": "f4b91c6739b7352454c5f324bfecf41cc0ef5d5c",
+  "testedCandidateEvidence": "tools/reference/bind-demon-host-audit-native-evidence.json",
+  "testedCandidateEvidenceSha256": "249c4202353d95595406490dc6c3e940ea5f681d354cfc87399570c8fce8d652",
+  "scope": "Adopt defined qualified original-body Bind action/world rule:actual right/quick held input,locked target,one-second attempts/fixednine mana atallranks,explicit grouped chance/current capture,original native body/stats/affixes/aura/resources/lifecycle/sharedpool;unclassified elite/species/underling/named/nonzeroSunder contexts remain explicitly refused. Learned admission and actual socket verification authorized;no full-class certificate or approval of four other proposals."
+}

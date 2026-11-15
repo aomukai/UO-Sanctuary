@@ -107,6 +107,7 @@ public sealed class TalentGump : DynamicGump
         var skill = System.Linq.Enumerable.FirstOrDefault(SkillMechanics.All, row => row.TalentId == selected.Id);
         bool implemented = skill != null && (NecromancerCombat.Implemented(skill.Ability) || SorceressCombat.Implemented(skill.Ability) || PaladinCombat.Implemented(skill.Ability) || BarbarianCombat.Implemented(skill.Ability) || AmazonCombat.Implemented(skill.Ability) || AssassinCombat.Implemented(skill.Ability) || DruidCombat.Implemented(skill.Ability) || WarlockCombat.Implemented(skill.Ability));
         string detail = !implemented ? "Not yet available." : skill.Passive ? "Passive effect. No hotkey needed."
+            : skill.Ability==CombatAbility.BindDemon ? "Hold to bind: 9 mana per second. First attempt after 1 second; release stops."
             : PaladinCombat.IsAura(skill.Ability) ? skill.Ability==CombatAbility.Prayer ? "Right-slot aura. Mana is spent on healing pulses. Icon and effects use placeholders." : "Active in the right mouse slot. No mana cost. Icon and aura effects use placeholders."
             : effective > 0 && World.FindMobile(_owner) is PlayerMobile caster
                 ? $"Mana {SkillMechanics.Values(caster, skill.Ability).Mana256 / 256.0:0.##}. Skill icon and effects use placeholders."

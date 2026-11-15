@@ -76,7 +76,7 @@ public static class BindDemonChannelChecks
         Daemon b=null,other=null;bool kept=false;int rolls=0;var at=TimedEffects.Now.AddMinutes(1);
         try
         {
-            Require(!WarlockCombat.Implemented(CombatAbility.BindDemon),"Prepared test opened learned Bind");ClassSkillChecks.Train(p,"warlock.binddemon",20);Mana(p);
+            Require(WarlockCombat.Available(p,CombatAbility.BindDemon),"Approved Bind route unavailable");ClassSkillChecks.Train(p,"warlock.binddemon",20);Mana(p);
             b=Body(p);var baselines=MonsterVariantBaselines.Snapshot();int life=SkillHealth.Balance256(b),mana=NecromancerEffects.ManaBalance256(p);
             Require(BoundDemonHosts.Qualify(p,b,out var plan,out _)&&MonsterVariantBaselines.Snapshot().SequenceEqual(baselines)&&auraDraws==0&&!b.Controlled,"Preflight allocated baseline,aura RNG or ownership");
             Begin(p,b,at);Require(!BindDemonChannel.BeginPrepared(p,b,at,out _)&&NecromancerEffects.ManaBalance256(p)==mana,"Duplicate press charged/restarted");

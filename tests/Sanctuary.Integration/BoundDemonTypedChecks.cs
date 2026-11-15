@@ -102,7 +102,7 @@ public static class BoundDemonTypedChecks
                 &&body.Skills[SkillName.Magery].Base==magery&&weapon.Parent==body,"Binding rewrote native split/endpoints/abilities/items");
             var state=BoundDemonHosts.State(body);target=Target(p);Damage(body,p,target);
             p.AddToBackpack(helm);ClassGear.Refresh(p);Require(BoundDemonHosts.State(body).Birth==state.Birth,"Gear removal rewrote captured typed bonuses");
-            Packet(body,target,0,50,50,100480,74880);Require(!WarlockCombat.Implemented(CombatAbility.BindDemon),"Typed adapter admitted unapproved full Bind");
+            Packet(body,target,0,50,50,100480,74880);Require(BindDemonChannel.State(p)==null,"Typed adapter unexpectedly started a Bind channel");
             SkillHealth.SetBalance256(body,SkillHealth.Maximum256(body)/2-17);body.Mana=Math.Max(0,body.ManaMax-3);body.Stam=Math.Max(0,body.StamMax-5);PersistentMinions.Suspend(p);
             File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(0,p.Serial.Value,body.Serial.Value,weapon.Serial.Value,BoundDemonHosts.State(body),SkillHealth.Balance256(body),body.Mana,body.Stam,minimum,maximum,magery)));kept=true;
         }

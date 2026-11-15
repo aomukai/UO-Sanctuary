@@ -50,7 +50,7 @@ public static class BindDemonCastChecks
                 &&freed.SequenceEqual(expected.GetProperty("freed").EnumerateArray().Select(v=>v.GetInt32()))
                 &&trace.Count==wanted.Length&&!trace.Where((v,i)=>!v.SequenceEqual(wanted[i])).Any(),$"Current Bind Demon return/flags/mutations/order differ at{cases}");cases++;
         }
-        Require(cases==69&&NpcWorldAllocation.Capture()==allocated&&!WarlockCombat.Implemented(CombatAbility.BindDemon),"Incomplete Bind Demon allocated actors or opened learned route");
+        Require(cases==69&&NpcWorldAllocation.Capture()==allocated,"Supplied do158 component allocated world actors");
         Log.Information("Bind Demon:69current contexts/709bytes;target refresh,guards,AI stop branches,cached counter,event-next capture,owner resolution,current caster context and pre-bind mutations match. Failed eligibility or bind still returns1;no payment rule is inferred. Mandatory protected helpers remain explicit,no learned admission.");
     }
 }

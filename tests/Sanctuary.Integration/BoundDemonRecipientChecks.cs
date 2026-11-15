@@ -85,7 +85,7 @@ public static class BoundDemonRecipientChecks
             Require(BoundDemonHosts.BindPrepared(p,body,out var why),"Bound recipient setup: "+why);body.AIObject?.AITimer.Stop();
             var tainted=WarlockGoatmanWorld.Create(p,new(p.X+4,p.Y,p.Z),TimedEffects.Now,CombatAbility.SummonTainted);WarlockGoatmanWorld.Admit(tainted);summons=[goat,tainted];
             Eligibility(p,body,summons);target=Target(p,summons[0]);Explosion(p,body,summons,target,TimedEffects.Now);
-            Require(!BloodBoilPrepared.Approved&&!WarlockCombat.Implemented(CombatAbility.BloodBoil)&&!WarlockCombat.Implemented(CombatAbility.BindDemon),"Shared prepared recipients admitted unapproved learned skills");
+            Require(!BloodBoilPrepared.Approved&&!WarlockCombat.Implemented(CombatAbility.BloodBoil),"Shared prepared recipients admitted unapproved learned skills");
             foreach(var b in new BaseCreature[]{goat,body,tainted}){SkillHealth.SetBalance256(b,SkillHealth.Maximum256(b)/2-17);}
             body.Mana=Math.Max(0,body.ManaMax-3);body.Stam=Math.Max(0,body.StamMax-5);PersistentMinions.Suspend(p);
             File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(0,p.Serial.Value,body.Serial.Value,weapon.Serial.Value,BoundDemonHosts.State(body),SkillHealth.Balance256(body),body.Mana,body.Stam,summons.Select(Save).ToArray())));kept=true;

@@ -144,6 +144,7 @@ public static class CombatTiming
     internal static int WeaponSequenceAdvance(PlayerMobile owner,CombatAbility ability=CombatAbility.BasicAttack)=>FrameAdvance(Weapon(Equipped(owner)),Ias(owner),GearEffects.AttackSlowTotal(owner),CombatTiming.SkillAttackRate(owner),SequenceRateAdjustment(ability));
     public static ActionTiming Calculate(DiabloClass characterClass, CombatAbility ability, WeaponTiming weapon, int ias = 0, int fcr = 0, int chill = 0, int skillAttackRate = 0)
     {
+        if(characterClass==DiabloClass.Warlock&&ability==CombatAbility.BindDemon){return new(25,25);} // Approved fixed one-second attempt,including HUD timing.
         if(characterClass==DiabloClass.Assassin&&ability==CombatAbility.DragonFlight)
         {return DragonFlightPreparation.Timing();}
         if(characterClass==DiabloClass.Warlock&&WarlockCastClock.Handles(ability))

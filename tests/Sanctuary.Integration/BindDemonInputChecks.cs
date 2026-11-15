@@ -67,9 +67,9 @@ public static class BindDemonInputChecks
     private static void Checks(PlayerMobile p,Daemon first,Daemon other)
     {
         var at=TimedEffects.Now.AddMinutes(1);int mana=NecromancerEffects.ManaBalance256(p);
-        Require(!WarlockCombat.Implemented(CombatAbility.BindDemon)&&!ClassCombat.Available(p,CombatAbility.BindDemon)
-            &&!SkillBindings.Instance.Assign(p,false,CombatAbility.BindDemon)&&!SkillBindings.Instance.AssignQuick(p,7,CombatAbility.BindDemon),"Preparation opened ordinary learning/assignment");
-        Require(!PlayerInfernoInput.Apply(p,CombatRequest.ChannelStart,1,CombatAbility.BindDemon,first.Serial,first.Location,at)&&BindDemonChannel.State(p)==null,"Gated production dispatch admitted Bind");
+        Require(WarlockCombat.Implemented(CombatAbility.BindDemon)&&ClassCombat.Available(p,CombatAbility.BindDemon)
+            &&SkillBindings.Instance.Assign(p,false,CombatAbility.BindDemon)&&SkillBindings.Instance.AssignQuick(p,7,CombatAbility.BindDemon),"Approved ordinary Bind availability/assignment failed");
+        Require(PlayerInfernoInput.Apply(p,CombatRequest.ChannelStart,1,CombatAbility.BindDemon,first.Serial,first.Location,at)&&BindDemonChannel.State(p)is{InputBound:true},"Approved production dispatch refused Bind");PlayerInfernoInput.EndHeld(p,1);
         Require(!Input(p,CombatRequest.ChannelAim,1,first,at)&&!Input(p,CombatRequest.ChannelStart,0,first,at)
             &&!Input(p,CombatRequest.ChannelStart,14,first,at)&&!BindDemonInput.BoundPrepared(p,-1),"Heartbeat/left/invalid-source admitted input");
         Press(p,1,first,at);var state=BindDemonChannel.State(p);
@@ -78,7 +78,7 @@ public static class BindDemonInputChecks
         Require(Input(p,CombatRequest.ChannelAim,1,other,at.AddMilliseconds(200))&&BindDemonChannel.State(p).Target==first.Serial.Value,"Cursor heartbeat replaced locked original target");
         PlayerInfernoInput.EndHeld(p,9);Require(BindDemonChannel.State(p)!=null,"Wrong-source release ended input");PlayerInfernoInput.EndHeld(p,1);
         Require(!Input(p,CombatRequest.ChannelAim,1,other,at.AddMilliseconds(300))&&BindDemonChannel.State(p)==null&&NecromancerEffects.ManaBalance256(p)==mana,"Released heartbeat restarted/debited");
-        Log.Information("Bind input:historical saved right/quick bind retained with forbidden left normalized;ordinary assignment/production dispatch stay gated;explicit source/duplicate/heartbeat/locked target/release controls are free");
+        Log.Information("Bind input:historical saved right/quick bind retained with forbidden left normalized;approved ordinary assignment/production dispatch work;explicit source/duplicate/heartbeat/locked target/release controls are free");
         Press(p,9,first,at);ClassMovement.Moved(p,Direction.East);Require(BindDemonChannel.State(p)==null,"Accepted movement hook failed immediate cancellation");
         Press(p,1,first,at);var dagger=new Dagger();Require(p.EquipItem(dagger),"Equip real interruption weapon");Require(BindDemonChannel.State(p)==null,"Real weapon equip failed immediate cancellation");dagger.Delete();
         Press(p,1,first,at);Require(SkillBindings.Instance.Assign(p,false,CombatAbility.DeathMark)&&BindDemonChannel.State(p)==null,"Ordinary mouse rebinding failed shared Stop");SavedBindings(p);

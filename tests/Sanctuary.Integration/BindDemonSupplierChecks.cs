@@ -66,7 +66,7 @@ public static class BindDemonSupplierChecks
             ClassSkillChecks.Train(p,"warlock.demonicmastery",5);ClassSkillChecks.Train(p,"warlock.deathmark",5);var trained=BindDemonPrepared.Capture(p);
             Require(trained is{MasteryRank:6,HardMastery:5,SharedMaximum:2,ChanceSkillTerm:60}&&frozen.SharedMaximum==1&&frozen.ChanceSkillTerm==59,"Hard points failed new snapshot or rewrote old one");
             p.AddToBackpack(helm);ClassGear.Refresh(p);var current=BindDemonPrepared.Capture(p);Require(current is{Rank:19,HardRank:19,MasteryRank:5,OathRank:2,HardDeathMark:5,SharedMaximum:2,FlatDamage:500},"Gear removal snapshot");
-            Require(!WarlockCombat.Implemented(CombatAbility.BindDemon)&&ConsumeEffects.State(p)==null,"Suppliers opened a world route");
+            Require(BoundDemonHosts.For(p).Length==0&&BindDemonChannel.State(p)==null&&ConsumeEffects.State(p)==null,"Supplier capture created a world effect");
             File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(0,p.Serial.Value,helm.Serial.Value,frozen,current)));kept=true;
             Log.Information("Bind Demon suppliers:actual Witch/Tarnhelm soft ranks versus hard Mastery5pool and hard DeathMark chance;old capture remains frozen after training/gear changes;no payment,bind or world mutation");
         }
@@ -81,7 +81,7 @@ public static class BindDemonSupplierChecks
             BindDemonPrepared.Validate(saved.Frozen);BindDemonPrepared.Validate(saved.Current);
             Require(p.Female&&BindDemonPrepared.Capture(p)==saved.Current&&saved.Frozen is{Rank:20,HardMastery:4,SharedMaximum:1}
                 &&p.FindItemOnLayer(Layer.Helm)==null&&p.Backpack.Items.Any(i=>i.Serial.Value==saved.Helm),"Original Witch/gear/ranks or frozen supplier records changed");
-            Require(!WarlockCombat.Implemented(CombatAbility.BindDemon),"Reload opened Bind Demon");
+            Require(BoundDemonHosts.For(p).Length==0&&BindDemonChannel.State(p)==null,"Supplier reload created a Bind effect");
             File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Generation=saved.Generation+1}));
             Log.Information("Bind Demon suppliers:original Witch,backpacked real helm,hard/soft ranks and frozen/current captures retain through reload;no bound actor or production persistence added");
         }

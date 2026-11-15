@@ -1,6 +1,6 @@
 # Bind Demon action and world rule — proposed Sanctuary adaptation
 
-**Status: awaiting a design decision. Learned Bind remains gated.** This defines the complete player-action rule for the currently qualified native-body path. It does not certify every native species or finish the class roadmap. Reference remains **D2R Reign of the Warlock 3.3.93847**; approved Sanctuary rules take precedence.
+**Approved by the user — 2026-11-15 JST.** [Decision record](../tools/reference/bind-demon-world-rule-approval.json). Learned admission and socket verification are now authorized; the target limits below remain explicit. This defines the complete player-action rule for the currently qualified native-body path. It does not certify every native species or finish the class roadmap. Reference remains **D2R Reign of the Warlock 3.3.93847**; approved Sanctuary rules take precedence.
 
 The pinned startup, eligibility and binding callbacks remain unavailable. The installed newer D2R version cannot substitute for that pin. The existing 709-byte do158 observation supplies orchestration evidence, but does not prove current payment, channel progress, raw chance-variable context or native UO mapping. The following decisions are explicit adaptations for review.
 

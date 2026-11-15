@@ -2,10 +2,11 @@
 namespace Sanctuary;
 public static class WarlockCombat
 {
-    public static bool Implemented(CombatAbility ability) => ability is CombatAbility.DemonicMastery or CombatAbility.DeathMark or CombatAbility.SummonDefiler or CombatAbility.SummonTainted or CombatAbility.SummonGoatman or CombatAbility.LevitationMastery or CombatAbility.SigilLethargy or CombatAbility.SigilRancor or CombatAbility.SigilDeath or CombatAbility.Apocalypse or CombatAbility.RingOfFire or CombatAbility.PsychicWard or CombatAbility.BladeWarp or CombatAbility.HexSiphon or CombatAbility.HexBane or CombatAbility.HexPurge or CombatAbility.Cleave;
-    public static bool Handles(CombatAbility ability)=>ability is CombatAbility.DeathMark or CombatAbility.SummonDefiler or CombatAbility.SummonTainted or CombatAbility.SummonGoatman or CombatAbility.SigilLethargy or CombatAbility.SigilRancor or CombatAbility.SigilDeath or CombatAbility.Apocalypse or CombatAbility.RingOfFire or CombatAbility.PsychicWard or CombatAbility.BladeWarp or CombatAbility.HexSiphon or CombatAbility.HexBane or CombatAbility.HexPurge or CombatAbility.Cleave;
+    public static bool Implemented(CombatAbility ability) => ability is CombatAbility.DemonicMastery or CombatAbility.DeathMark or CombatAbility.SummonDefiler or CombatAbility.SummonTainted or CombatAbility.SummonGoatman or CombatAbility.LevitationMastery or CombatAbility.SigilLethargy or CombatAbility.SigilRancor or CombatAbility.SigilDeath or CombatAbility.Apocalypse or CombatAbility.RingOfFire or CombatAbility.PsychicWard or CombatAbility.BladeWarp or CombatAbility.HexSiphon or CombatAbility.HexBane or CombatAbility.HexPurge or CombatAbility.Cleave or CombatAbility.BindDemon;
+    public static bool Handles(CombatAbility ability)=>ability is CombatAbility.DeathMark or CombatAbility.SummonDefiler or CombatAbility.SummonTainted or CombatAbility.SummonGoatman or CombatAbility.SigilLethargy or CombatAbility.SigilRancor or CombatAbility.SigilDeath or CombatAbility.Apocalypse or CombatAbility.RingOfFire or CombatAbility.PsychicWard or CombatAbility.BladeWarp or CombatAbility.HexSiphon or CombatAbility.HexBane or CombatAbility.HexPurge or CombatAbility.Cleave or CombatAbility.BindDemon;
     public static bool Available(Server.Mobiles.PlayerMobile owner,CombatAbility ability)=>Handles(ability)
-        &&ClassCreation.Profiles.TryGet(owner.Serial,out var profile)&&profile.Class==DiabloClass.Warlock&&SkillMechanics.Rank(owner,ability)>0;
+        &&ClassCreation.Profiles.TryGet(owner.Serial,out var profile)&&profile.Class==DiabloClass.Warlock&&SkillMechanics.Rank(owner,ability)>0
+        &&(ability!=CombatAbility.BindDemon||ClassCreation.Profiles.GetRank(owner.Serial,"warlock.binddemon")>0);
     private static bool Point(Server.Mobiles.PlayerMobile owner,Server.Serial selected,Server.Point3D requested,out Server.Point3D point)
     {
         point=requested;var entity=Server.World.FindEntity(selected);
@@ -15,7 +16,8 @@ public static class WarlockCombat
     private static bool BuffSelf(Server.Mobiles.PlayerMobile owner)=>owner is{Alive:true,Deleted:false}&&owner.Map!=null&&owner.Map!=Server.Map.Internal&&SorceressEffects.Shield(owner)==null;
     private static bool Self(Server.Mobiles.PlayerMobile owner)=>owner is{Alive:true,Deleted:false}&&owner.Map!=null&&owner.Map!=Server.Map.Internal&&!MinionSafeAreas.Contains(owner);
     public static bool Begin(Server.Mobiles.PlayerMobile owner,CombatAbility ability,Server.Serial selected,Server.Point3D point,long now)
-        =>ability is CombatAbility.SummonGoatman or CombatAbility.SummonTainted or CombatAbility.SummonDefiler
+        =>ability==CombatAbility.BindDemon?false // Explicit press/aim/release owns this action.
+            :ability is CombatAbility.SummonGoatman or CombatAbility.SummonTainted or CombatAbility.SummonDefiler
             ?WarlockGoatmanCasting.Begin(owner,ability,selected,point,now)
             :ability==CombatAbility.DeathMark
             ?DeathMarkCasting.BeginPrepared(owner,selected,point,now,0)!=null
@@ -35,7 +37,7 @@ public static class WarlockCombat
     {
         if(!Available(owner,ability)){return false;}
         if(ability is CombatAbility.SummonGoatman or CombatAbility.SummonTainted or CombatAbility.SummonDefiler){return WarlockGoatmanCasting.Release(owner,ability);}
-        if(ability is CombatAbility.Cleave or CombatAbility.DeathMark){return false;} // Its transient sequence owns release/end dispatch.
+        if(ability is CombatAbility.Cleave or CombatAbility.DeathMark or CombatAbility.BindDemon){return false;} // Its transient sequence owns release/end dispatch.
         if(ability==CombatAbility.HexPurge){return HexPurge.CastPrepared(owner,replaceGroup:WeaponHexGroups.Approved);}
         if(ability==CombatAbility.HexBane){return HexBane.CastPrepared(owner,replaceGroup:WeaponHexGroups.Approved);}
         if(ability==CombatAbility.HexSiphon){return HexSiphon.CastPrepared(owner,replaceGroup:WeaponHexGroups.Approved);}

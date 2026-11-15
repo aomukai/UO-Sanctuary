@@ -69,7 +69,7 @@ public static class BoundDemonHostChecks
         PlayerMobile orders=null;BaseCreature first=null,body=null;GraveyardZombie enemy=null;BaseCreature refused=null;
         try
         {
-            PoisonDaggerChecks.Named(p,"Tarnhelm");ClassGear.Refresh(p);Require(p.AccessLevel==AccessLevel.Player&&!WarlockCombat.Implemented(CombatAbility.BindDemon),"Prepared fixture opened learned route/GM bypass");
+            PoisonDaggerChecks.Named(p,"Tarnhelm");ClassGear.Refresh(p);Require(p.AccessLevel==AccessLevel.Player&&WarlockCombat.Available(p,CombatAbility.BindDemon),"Approved Bind availability or ordinary player context missing");
             orders=ClassSkillChecks.Player(DiabloClass.Barbarian);
             LegacyBaseline(p);
             refused=Body<Zombie>(p,12);var refusePoint=refused.Location;

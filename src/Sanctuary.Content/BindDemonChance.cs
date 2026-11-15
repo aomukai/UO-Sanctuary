@@ -4,9 +4,9 @@ namespace Sanctuary;
 
 internal sealed record BindDemonChanceResult(int Percent,int HealthPercent,long[] Calcs);
 
-// Prepared explicit interpretation,not recovered gate44b240. The sole
-// ambiguous chained comparison is deliberately normalized here and must be
-// included in the complete Bind adaptation before learned admission.
+// Approved explicit interpretation,not recovered gate44b240. The sole
+// ambiguous chained comparison is deliberately grouped by the documented
+// Sanctuary Bind decision rather than silently claiming source equivalence.
 internal static class BindDemonChance
 {
     internal const string Ambiguous="((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))";

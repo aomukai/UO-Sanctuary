@@ -95,7 +95,7 @@ public static class BoundDemonEngorgeChecks
             Require(SkillHealth.Balance256(body)==before&&EngorgeEffects.NativeLeech(body,target,256,false,effect.UntilUtc)==0
                 &&EngorgeEffects.NativeLeech(body,goat,256,false,TimedEffects.Now)==0,"Ranged/nonweapon/immune/expired/friendly native contact leeched");
             target.Delete();target=Target(p,body);Contact(p,body,target,clipped:true);target=null;Recovery(p,body);
-            Require(!EngorgeEffects.Approved&&!WarlockCombat.Implemented(CombatAbility.Engorge)&&!WarlockCombat.Implemented(CombatAbility.BindDemon),"Bound Engorge enabled unapproved learned input");
+            Require(!EngorgeEffects.Approved&&!WarlockCombat.Implemented(CombatAbility.Engorge),"Bound Engorge enabled unapproved learned input");
             SkillHealth.SetBalance256(body,SkillHealth.Maximum256(body)/2-17);body.Mana=Math.Max(0,body.ManaMax-3);body.Stam=Math.Max(0,body.StamMax-5);PersistentMinions.Suspend(p);
             File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(0,p.Serial.Value,body.Serial.Value,dagger.Serial.Value,BoundDemonHosts.State(body),SkillHealth.Balance256(body),body.Mana,body.Stam,goat.Serial.Value,JsonSerializer.Serialize(goat.Prepared.Snapshot),SkillHealth.Balance256(goat),EngorgeEffects.Saved(goat))));kept=true;
             Log.Information("Bound Engorge:real mixed corpse heal/payment/protected loot,captured refresh/gear/birth,actual armor/resistance/native attack delay,optional old JSON/atomic invalid-effect refusal pass;actual Dagger leeches fractional clipped physical once with no owner/ranged/spell/immune/expired healing;35raw frame recovery/parking/no catch-up/expiry pass");
