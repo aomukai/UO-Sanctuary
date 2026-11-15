@@ -14,7 +14,12 @@ internal sealed record HexBaneBuff(uint Owner,int Rank,DateTime UntilUtc,HexBane
 {
     [JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingDefault)]public int CastMastery{get;init;}
 }
-internal sealed record HexBaneDebuff(uint Target,uint Creator,int Rank,DateTime UntilUtc,int DefensePercent,int AttackPercent);
+internal sealed record HexBaneDebuff(uint Target,uint Creator,int Rank,DateTime UntilUtc,int DefensePercent,int AttackPercent)
+{
+    // Optional: old saves retain their original expiry without guessing the
+    // historical caster's hard points. New attachments can be refreshed.
+    [JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)]public int? RefreshFrames{get;init;}
+}
 internal sealed record HexBaneSnapshot(HexBaneBuff[] Buffs,HexBaneDebuff[] Debuffs);
 public sealed class HexBaneProfiles:GenericPersistence
 {
@@ -95,8 +100,14 @@ public static class HexBane
         if(old!=null&&old.Rank>registered.Rank){return false;}
         var until=at.AddMilliseconds(registered.Values.DebuffFrames*40L);
         var next=old!=null&&old.Rank==registered.Rank?old with{UntilUtc=until}:new(target.Serial.Value,p.Serial.Value,registered.Rank,until,registered.Values.DefensePercent,registered.Values.TargetAttackPercent);
+        next=next with{RefreshFrames=registered.Values.DebuffFrames};
         Validate(next);if(replaceGroup){WeaponHexGroups.ReplaceTarget(target,CombatAbility.HexBane);}_debuffs=_debuffs.SetItem(next.Target,next);target.FixedEffect(0x375A,10,15,0x48D,0); // Identified hexbanedebuff placeholder.
         return true;
+    }
+    internal static bool RefreshPrepared(HexBaneDebuff expected,DateTime at)
+    {
+        if(expected?.RefreshFrames is not{} frames||expected.UntilUtc<=at||!_debuffs.TryGetValue(expected.Target,out var actual)||actual!=expected){return false;}
+        var until=at.AddMilliseconds(frames*40L);_debuffs=_debuffs.SetItem(expected.Target,expected with{UntilUtc=until>expected.UntilUtc?until:expected.UntilUtc});return true;
     }
     internal static HexBaneSnapshot Snapshot()=>new(_buffs.Values.OrderBy(x=>x.Owner).ToArray(),_debuffs.Values.OrderBy(x=>x.Target).ToArray());
     private static bool IsMobile(uint n)=>((Server.Serial)n).IsMobile;
@@ -111,7 +122,8 @@ public static class HexBane
     }
     private static void Validate(HexBaneDebuff d)
     {
-        if(d==null||!IsMobile(d.Target)||!IsMobile(d.Creator)||d.Rank is <1 or >255||!Time(d.UntilUtc)||d.DefensePercent!=-Math.Min(30+d.Rank-1,50)||d.AttackPercent!=-25)
+        if(d==null||!IsMobile(d.Target)||!IsMobile(d.Creator)||d.Rank is <1 or >255||!Time(d.UntilUtc)||d.DefensePercent!=-Math.Min(30+d.Rank-1,50)||d.AttackPercent!=-25
+            ||d.RefreshFrames is{} frames&&(frames is <150 or >250||frames%5!=0))
         {throw new InvalidDataException("Invalid Hex Bane debuff");}
     }
     internal static void Restore(HexBaneSnapshot snapshot)

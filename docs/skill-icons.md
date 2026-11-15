@@ -1,5 +1,7 @@
 # Skill icons
 
+**Prepared Eldritch Blast world — 2026-11-15 JST.** Talent-tree and left/right/quick icons remain needed and separate from periodic/aura/nova VFX. The pending world candidate adds no icon or final artwork; learned binding remains gated. [Checkpoint](eldritch-blast-world-checkpoint.md).
+
 **Learned Bind icon boundary — 2026-11-15 JST.** Bind is mechanically admitted through right-button and quick-slot controls. Its talent-tree, right-button and quick-slot icons remain separately missing; no artwork or imagegen. Existing placeholders do not gate the action. Effects and graphical acceptance remain separate. [Checkpoint](bind-demon-learned-checkpoint.md).
 
 **Prepared Bind client icon boundary — 2026-11-15 JST.** The compiled held-control candidate creates no icon. Bind tree, right-button and quick-slot icons remain separately missing; mechanics and final effects have their own checkpoints. No imagegen. [Checkpoint](bind-demon-client-checkpoint.md).

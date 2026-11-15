@@ -4,13 +4,17 @@ using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Server;
 using Server.Mobiles;
 namespace Sanctuary;
 
 internal sealed record HexSiphonValues(int AttackPercent,int LifeAfterKill,int ManaAfterKill,int BuffFrames,int DebuffFrames,int DamagePercent,int Mana256);
 internal sealed record HexSiphonBuff(uint Owner,int Rank,DateTime UntilUtc,HexSiphonValues Values);
-internal sealed record HexSiphonDebuff(uint Target,uint Creator,int Rank,DateTime UntilUtc,int DamagePercent);
+internal sealed record HexSiphonDebuff(uint Target,uint Creator,int Rank,DateTime UntilUtc,int DamagePercent)
+{
+    [JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)]public int? RefreshFrames{get;init;}
+}
 internal sealed record HexSiphonSnapshot(HexSiphonBuff[] Buffs,HexSiphonDebuff[] Debuffs);
 public sealed class HexSiphonProfiles:GenericPersistence
 {
@@ -78,8 +82,14 @@ public static class HexSiphon
         if(old!=null&&old.Rank>registered.Rank){return false;}
         var until=at.AddMilliseconds(registered.Values.DebuffFrames*40L);
         var next=old!=null&&old.Rank==registered.Rank?old with{UntilUtc=until}:new(target.Serial.Value,p.Serial.Value,registered.Rank,until,registered.Values.DamagePercent);
+        next=next with{RefreshFrames=registered.Values.DebuffFrames};
         Validate(next);if(replaceGroup){WeaponHexGroups.ReplaceTarget(target,CombatAbility.HexSiphon);}_debuffs=_debuffs.SetItem(next.Target,next);target.FixedEffect(0x375A,10,15,0x48C,0); // Identified hexsyphondebuff placeholder.
         return true;
+    }
+    internal static bool RefreshPrepared(HexSiphonDebuff expected,DateTime at)
+    {
+        if(expected?.RefreshFrames is not{} frames||expected.UntilUtc<=at||!_debuffs.TryGetValue(expected.Target,out var actual)||actual!=expected){return false;}
+        var until=at.AddMilliseconds(frames*40L);_debuffs=_debuffs.SetItem(expected.Target,expected with{UntilUtc=until>expected.UntilUtc?until:expected.UntilUtc});return true;
     }
     internal static HexSiphonSnapshot Snapshot()=>new(_buffs.Values.OrderBy(x=>x.Owner).ToArray(),_debuffs.Values.OrderBy(x=>x.Target).ToArray());
     private static bool IsMobile(uint n)=>((Serial)n).IsMobile;
@@ -91,7 +101,8 @@ public static class HexSiphon
         {throw new InvalidDataException("Invalid Hex Siphon buff");}
     }
     private static void Validate(HexSiphonDebuff d)
-    {if(d==null||!IsMobile(d.Target)||!IsMobile(d.Creator)||d.Rank is <1 or >255||!Time(d.UntilUtc)||d.DamagePercent!=-33){throw new InvalidDataException("Invalid Hex Siphon debuff");}}
+    {if(d==null||!IsMobile(d.Target)||!IsMobile(d.Creator)||d.Rank is <1 or >255||!Time(d.UntilUtc)||d.DamagePercent!=-33
+        ||d.RefreshFrames is{} frames&&(frames is <150 or >250||frames%5!=0)){throw new InvalidDataException("Invalid Hex Siphon debuff");}}
     internal static void Restore(HexSiphonSnapshot snapshot)
     {
         if(snapshot?.Buffs==null||snapshot.Debuffs==null||snapshot.Buffs.Length>1000000||snapshot.Debuffs.Length>1000000){throw new InvalidDataException("Missing Hex Siphon snapshot");}

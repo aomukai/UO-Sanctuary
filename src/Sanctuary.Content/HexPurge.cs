@@ -97,6 +97,12 @@ public static class HexPurge
     internal static HexPurgeSnapshot Snapshot()=>new(_buffs.Values.OrderBy(x=>x.Owner).ToArray(),_targets.Values.OrderBy(x=>x.Target).ToArray());
     internal static void StoreReactionPrepared(HexPurgeTarget next)
     {Validate(next);_targets=_targets.SetItem(next.Target,next);}
+    internal static bool RefreshPrepared(HexPurgeTarget expected,DateTime at)
+    {
+        if(expected==null||expected.UntilUtc<=at||!_targets.TryGetValue(expected.Target,out var actual)||actual!=expected){return false;}
+        var until=at.AddMilliseconds(expected.Plan.DebuffFrames*40L);
+        StoreReactionPrepared(expected with{UntilUtc=until>expected.UntilUtc?until:expected.UntilUtc});return true;
+    }
     internal static bool AdvanceReactionPrepared(HexPurgeTarget expected,HexPurgeTarget next)
     {
         if(!_targets.TryGetValue(expected.Target,out var actual)||actual!=expected){return false;}
