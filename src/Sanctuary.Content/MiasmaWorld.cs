@@ -17,14 +17,14 @@ internal sealed record EntropyCloudPacket(CombatAbility Ability,int Rank,int Min
     int MagicMastery,FirestormModifiers Modifiers,EntropyCloudLink Link=null,SlowMissilePayload? Slow=null);
 internal sealed record MiasmaNode(long Id,long Cast,uint Owner,int Map,int Z,MiasmaNodeKind Kind,double X,double Y,double Vx,double Vy,
     int Remaining,MiasmaBoltBirth Birth,EntropyCloudPacket Cloud,ulong Seed,SourceStepTrace Trace,DateTime CreatedUtc,DateTime NextUtc,DateTime UntilUtc);
-internal sealed record MiasmaWorldSave(MiasmaNode[] Nodes,WeaponFlightLease[] Leases,long NextId,MiasmaChainState[] Chains=null,MiasmaChainStamp[] ChainMakers=null);
+internal sealed record MiasmaWorldSave(MiasmaNode[] Nodes,WeaponFlightLease[] Leases,long NextId,MiasmaChainState[] Chains=null,MiasmaChainStamp[] ChainMakers=null,AbyssState[] Abysses=null);
 internal readonly record struct MiasmaAdvance(int DirectDamaged,int CloudContacts,int CreatedClouds,int Damage256,string Fault=null);
 public sealed class MiasmaWorldProfiles:GenericPersistence
 {
     public MiasmaWorldProfiles():base("SanctuaryMiasmaWorld",254){}
     public override void Serialize(IGenericWriter w){w.Write(0);w.Write(JsonSerializer.Serialize(MiasmaWorld.Snapshot()));}
     public override void Deserialize(IGenericReader r)
-    {if(r.ReadInt()!=0){throw new InvalidDataException("Unknown Miasma world version");}MiasmaWorld.Restore(JsonSerializer.Deserialize<MiasmaWorldSave>(r.ReadString()));}
+    {if(r.ReadInt()!=0){throw new InvalidDataException("Unknown Miasma world version");}MiasmaWorld.Restore(JsonSerializer.Deserialize<MiasmaWorldSave>(r.ReadString()),true);}
 }
 
 // Approved697->736->705world projection. Hit41/do41are explicitly adapted,
@@ -52,7 +52,7 @@ internal static class MiasmaWorld
     private static void Prune()
     {var casts=Nodes.Values.Select(n=>n.Cast).ToHashSet();foreach(var k in Leases.Keys.Where(k=>!casts.Contains(k.Item1)).ToArray()){Leases=Leases.Remove(k);}}
     internal static void Clear(Mobile p)
-    {if(p==null){return;}MiasmaChainWorld.Clear(p);foreach(var n in For(p)){Remove(n.Id);}Prune();}
+    {if(p==null){return;}MiasmaChainWorld.Clear(p);AbyssWorld.Clear(p);foreach(var n in For(p)){Remove(n.Id);}Prune();}
     internal static bool Ready(long cast,uint target,DateTime at)=>!Leases.TryGetValue((cast,target),out var l)||l.UntilUtc<=at;
     private static Point3D Point(double x,double y,int z)=>new((int)Math.Round(x),(int)Math.Round(y),z);
     private static ulong Child(ref ulong seed)=>SourceRandom.InitLow(unchecked((int)SourceRandom.Roll(ref seed)));
@@ -219,7 +219,7 @@ internal static class MiasmaWorld
         }
         Prune();return new(direct,clouds,created,damage);
     }
-    internal static MiasmaWorldSave Snapshot()=>new(Nodes.Values.OrderBy(n=>n.Id).ToArray(),Leases.Values.OrderBy(l=>l.Cast).ThenBy(l=>l.Target).ToArray(),_next,MiasmaChainWorld.Snapshot(),MiasmaChainWorld.Stamps());
+    internal static MiasmaWorldSave Snapshot()=>new(Nodes.Values.OrderBy(n=>n.Id).ToArray(),Leases.Values.OrderBy(l=>l.Cast).ThenBy(l=>l.Target).ToArray(),_next,MiasmaChainWorld.Snapshot(),MiasmaChainWorld.Stamps(),AbyssWorld.Snapshot());
     internal static void Validate(MiasmaNode n)
     {
         if(n==null||n.Id<=0||n.Cast<=0||n.Cast>n.Id||!((Serial)n.Owner).IsMobile||n.Map<0||n.Map>=Map.Maps.Length||Map.Maps[n.Map]==null||Map.Maps[n.Map]==Map.Internal
@@ -246,7 +246,7 @@ internal static class MiasmaWorld
         else
         {MiasmaBoltBirths.Validate(n.Birth);if(n.Cloud!=null||n.Remaining<1||n.Remaining>(n.Kind==MiasmaNodeKind.Bolt?50:3)){throw new InvalidDataException("Invalid Miasma flight/maker");}}
     }
-    internal static void Restore(MiasmaWorldSave saved)
+    internal static void Restore(MiasmaWorldSave saved,bool loaded=false)
     {
         if(saved?.Nodes==null||saved.Leases==null||saved.NextId<0){throw new InvalidDataException("Missing Miasma snapshot");}
         var nodes=ImmutableDictionary<long,MiasmaNode>.Empty;var leases=ImmutableDictionary<(long,uint),WeaponFlightLease>.Empty;
@@ -255,11 +255,13 @@ internal static class MiasmaWorld
         {if(!nodes.Values.Any(n=>n.Cast==l.Cast)||!((Serial)l.Target).IsMobile||l.RetainWithoutFlight||l.UntilUtc.Kind!=DateTimeKind.Utc||leases.ContainsKey((l.Cast,l.Target))){throw new InvalidDataException("Invalid Miasma lease");}leases=leases.Add((l.Cast,l.Target),l);}
         var chains=saved.Chains??[];var makers=saved.ChainMakers??[];
         MiasmaChainWorld.ValidateSnapshot(chains,makers,saved.NextId,nodes.Keys);
+        var abysses=saved.Abysses??[];AbyssWorld.ValidateSnapshot(abysses,saved.NextId,nodes.Keys.Concat(chains.Select(n=>n.Id)).Concat(makers.Select(n=>n.Id)));
         var casts=nodes.Values.Select(n=>(Cast:n.Cast,n.Owner,n.Map,Ability:n.Cloud?.Ability??CombatAbility.MiasmaBolt))
             .Concat(chains.Select(n=>(Cast:n.Id,n.Owner,n.Map,Ability:CombatAbility.MiasmaChain)))
-            .Concat(makers.Select(n=>(Cast:n.Cast,n.Owner,n.Map,Ability:CombatAbility.MiasmaChain)));
+            .Concat(makers.Select(n=>(Cast:n.Cast,n.Owner,n.Map,Ability:CombatAbility.MiasmaChain)))
+            .Concat(abysses.Select(n=>(Cast:n.Id,n.Owner,n.Map,Ability:CombatAbility.Abyss)));
         if(casts.GroupBy(n=>n.Cast).Any(g=>g.Select(n=>(n.Owner,n.Map,n.Ability)).Distinct().Count()!=1))
         {throw new InvalidDataException("Inconsistent Miasma cast ownership/producer");}
-        Nodes=nodes;Leases=leases;_next=saved.NextId;MiasmaChainWorld.RestoreValidated(chains,makers);
+        Nodes=nodes;Leases=leases;_next=saved.NextId;MiasmaChainWorld.RestoreValidated(chains,makers);AbyssWorld.RestoreValidated(abysses,loaded);
     }
 }

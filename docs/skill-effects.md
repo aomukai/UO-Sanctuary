@@ -1,5 +1,7 @@
 # Skill effects
 
+Abyss uses identified UO tear/pulse0x374A and collapse0x37B9 magic markers,plus cast sound0x1E5. Final source709center,visual714tear,715collapse and cast/audio are pending independently of mechanics. No694shard effect is invented for this graph. Talent/hotkey artwork remains in the separate icon register.
+
 Flame Wave needs final revealing-wall708,rolling-front690,short-tail695,static-fire716/240,termination29 and cast/audio assets. Current UO flames and sound are identified placeholders;mechanical lifetimes are independent of final art.
 
 **Chain learned — 2026-11-15 JST.** Mechanical admission retains identified cast0x1E5,endpoint0x37C4 and purple cloud/contact native placeholders. Final travelling head/tether/stamp/contact/expiry effects and matched audio remain required;the endpoint marker is not finished tether art. No imagegen performed. [Checkpoint](miasma-chain-cast-checkpoint.md).

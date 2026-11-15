@@ -2650,9 +2650,9 @@
       "tree": "Chaos",
       "sourceId": 402,
       "implementation": "blocked",
-      "verification": "not-started",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Shared start14/do28 target/room/town/placement and generic factory launch have source/native controls. Current center709and terminal715use new missile do39;pull path,periodic damage,terminal burst,NextHit/LastCollide,creator/mastery/pierce and owner lifecycle remain unsupported. Raw Radius uses sksrc,whose source-skill lookup semantics are not inferred from skill(). The shared launch alone does not enable a cast. See warlock-ground-launch-native-evidence.json; final open/pulse/pull/close effects/audio and talent/hotkey icons remain separate."
+      "remaining": "Complete prepared start14/do28 SC ground cast and709center\u2192715terminal candidate reuse source area recipients,forced movement,magic packets and the existing entropy root/clock. Scoped effective Entropy sksrc radius binding,12-frame pulse/pull cadence,distinct missile terminal damage,30-frame table cooldown versus conflicting tooltip,overlap,late/parked skip and optional atomic Abysses save array are explicit pending Sanctuary adaptations. Learned/automatic input stays gated pending the whole rule in abyss-world-rule-proposal.md;acceptance and still-untested scope are in abyss-world-checkpoint.md. No newer reference substitution or extra timer/profile/version;effects/audio/icons remain separate."
     }
   ]
 }

@@ -254,6 +254,7 @@ public static class TimedEffects
         EchoingStrikeWorld.Tick(now);
         MiasmaChainWorld.Tick(now);
         MiasmaWorld.Tick(now);
+        AbyssWorld.Tick(now);
         FlameWaveWorld.Tick(now);
         _keys.Clear(); foreach (var key in _actors.Keys) { _keys.Add(key); }
         foreach (var key in _keys)

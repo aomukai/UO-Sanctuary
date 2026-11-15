@@ -1,0 +1,48 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Complete prepared Abyss world/action",
+  "newReferenceReads": 0,
+  "newerSourceSubstituted": false,
+  "status": "complete-explicit-adaptation-pending",
+  "proposal": "docs/abyss-world-rule-proposal.md",
+  "pinnedFacts": [
+    "Skill402:start14/do28,ordinarySC,23+rank-1mana,localdelay30. Owned local skills.txt and cached JSON agree.",
+    "Graph709center(do39/hit11,Range50,Param1/NextDelay12)\u2192715terminal(do39,Range1);714is visual only.694abyssalshattershards is not a graph child.",
+    "Center and terminal share min(7+floor(sksrc Enhanced Entropy.lvl/5),11);passive description corroborates increase up to4source units.",
+    "Center raw20\u201340;terminal raw10\u201315,distinct bases/shared tier increments;both10%hard Bolt+Chains synergy.",
+    "Older complete hit11 creates positive HitSubMissiles with owner/origin/skill/rank and only requests immediate damage at positiveHitPar1;709HitPar1=0."
+  ],
+  "discrepancies": [
+    "Skilldesc advertises50frame cooldown while skill row/local cache is30;candidate chooses table30.",
+    "Skilldesc extra damage line reads skill40220\u201340while terminal715ownpacket10\u201315;candidate explicitly chooses715ownpacket.",
+    "Skillcalc1=6and passive damage/duration labels are not used by the owned radius/duration expressions;no extra hidden modifier is invented."
+  ],
+  "explicitAdaptations": [
+    "Abyss-only sksrc token captures effective Entropy rank;general evaluator remains strict.",
+    "First pulse12then24/36/48,one native force-step toward center before independently mitigated damage;elites/frozen/blocked movement excluded,not magic immunity.",
+    "Center expiry50creates one-frame terminal at51,separate damage,per-cast pulse identity and independent paid overlaps.",
+    "Source size3ground footprint/native geometry/LOS,SC action/payment,snapshot/seed,late/no-replay/parking/death/class and atomic optional root saves."
+  ],
+  "reuse": [
+    "Shared start14/do28 launcher is already source/native qualified;no matrix/compiler/protected-read rerun.",
+    "Existing SourceDamageAreas recipients/allegiance/LOS,CombatDisplacement native movement,Miasma typed magic receiver and resource/cooldown services.",
+    "Existing Miasma identity allocator and254/V0root;Abysses optional array validates before root commit. Existing40ms world hook;no timer/profile/version added."
+  ],
+  "inputs": {
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/missiles.json": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+    "tools/reference/d2r-named-equipment/json/skilldesc.json": "5e9a367afd79892823352f34ca82c8157d9d9aa3f5ee3f1653ec9ce110449e57",
+    "tools/reference/d2r-named-equipment/json/allstrings-eng.json": "27f09255a8c77d43153845b0f85c9a85848df2b315a012cbf234b09e1e319ddc",
+    ".local/research/d2r-3.3.93847/skills.txt": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f",
+    "src/Sanctuary.Content/AbyssBirth.cs": "bc42ab8e8962230be7e84a64b48fcfb8ad8e85a5183fe5b87ee2b0d1f6ffb97f",
+    "src/Sanctuary.Content/AbyssWorld.cs": "ad6a1e20dc7e8fb8df7e7ad80704c070a4a8ce30cebad7ffe081869b85d61f33",
+    "src/Sanctuary.Content/AbyssCasting.cs": "66c492f4502912260d5ddfd30768ac747e8c3f077d0b0c06e6955c0bef88c749",
+    "src/Sanctuary.Content/MiasmaWorld.cs": "4b69a43c52b4939cc31e19b77224f65245597263ea8aca7e345310f17c642e7a",
+    "src/Sanctuary.Content/GroundMissileLaunch.cs": "ad679af4033fdf5c3a27dfcae6f9992a94cde66faa54ca6bb243ce8804546a18",
+    "src/Sanctuary.Content/CombatDisplacement.cs": "4a771a4aadb29d83d51b92397b321abb446560b1ba1276dc369127469c3fe540",
+    "src/Sanctuary.Content/DruidWeather.cs": "54fcf5ef5b702a72aa67507b8e9c15486d01f96de0f5b7b26f346f27c2080bb5",
+    "data/Sanctuary/Balance/abyss-route.json": "6c823249f73d320ba6ba4b2c538d419bc54a8cb8aaad8a605f5abf18d5911e18",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "tools/reference/warlock-ground-launch-source-evidence.json": "448acd15d2256c16e04394bfd76de8ed8a512cb1a545ffbf98651bc6af9b26c1"
+  }
+}

@@ -807,6 +807,9 @@ CAVEATS["warlock.miasmachain"] = "Approved complete711→712→713→696graph us
 NATIVE_PARTIAL.add("warlock.flamewave")
 BLOCKERS["warlock.flamewave"] = "Approved complete708reveal→690travelling wall→695/716makers→240burning fields use shared SC/FCR,fractional release/cooldown,typed direct/periodic fire and the existing40ms clock. A15-frame front lease is shared percast;overlapping ground stages burn once perrecipient/update and separate casts remain independent. Captured packets/aim,terrain stops,parking/expiry,owner cleanup and atomic graph persistence follow the approved Sanctuary rule. Learned left/right/quick-unarmed and two-reload scope is recorded in flame-wave-cast-checkpoint.md. Modern156/42/38composition remains explicitly adapted,not recovered;special/PvP/proc/graphical/class certification and final effects/icons remain separate. Approval:flame-wave-world-rule-approval.json."
 
+NATIVE_PARTIAL.add("warlock.abyss")
+BLOCKERS["warlock.abyss"] = "Complete prepared start14/do28 SC ground cast and709center→715terminal candidate reuse source area recipients,forced movement,magic packets and the existing entropy root/clock. Scoped effective Entropy sksrc radius binding,12-frame pulse/pull cadence,distinct missile terminal damage,30-frame table cooldown versus conflicting tooltip,overlap,late/parked skip and optional atomic Abysses save array are explicit pending Sanctuary adaptations. Learned/automatic input stays gated pending the whole rule in abyss-world-rule-proposal.md;acceptance and still-untested scope are in abyss-world-checkpoint.md. No newer reference substitution or extra timer/profile/version;effects/audio/icons remain separate."
+
 def build():
     skills=json.loads((BALANCE/'class-skills.json').read_text())
     protocol=(ROOT/'shared/ClassAbilities.cs').read_text()
