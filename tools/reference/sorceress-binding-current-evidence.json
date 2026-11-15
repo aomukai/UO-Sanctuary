@@ -1,0 +1,90 @@
+{
+  "component": "Sorceress binding fixture follows approved Inferno and combined save boundary",
+  "referenceVersion": "3.3.93847",
+  "scope": "Focused checks,not full combined class acceptance",
+  "contentBuildReused": 1,
+  "integrationBuild": 2,
+  "sourceSnapshot": 3,
+  "gameplaySourceChanged": false,
+  "gameplayAssemblyUnchanged": true,
+  "runtimeDataUnchanged": true,
+  "changedSources": [
+    "tests/Sanctuary.Integration/SorceressBindingChecks.cs"
+  ],
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "5df3992322b515ae6e525927b8b9ddb57420eddd63d9886f019ffd6974b2cd49",
+    "Assemblies/Sanctuary.Content.dll": "508e93ea5f7458c9de14a13d70500aaba9f6f39c76ba3313adaa3966b1d34e14",
+    "Assemblies/Sanctuary.Integration.dll": "2f59d339d1b871e663d95b50f4d68d2791c2e357603fbec66b7f90fefdd45cd3"
+  },
+  "cohorts": [
+    {
+      "stage": ".local/class-skills/sorceress-binding-current",
+      "nativeMarkers": 24,
+      "markers": {
+        "iron-golem-birth-check": 3,
+        "iron-golem-items-check": 1,
+        "npc-resource-callbacks-check": 1,
+        "sorceress-binding-check": 1,
+        "inferno-held-input-check": 1,
+        "inferno-held-wire-0-result": 3,
+        "inferno-held-wire-1-result": 3,
+        "inferno-held-wire-9-result": 3,
+        "iron-golem-items-reload-check": 2,
+        "npc-resource-callbacks-reload-check": 2,
+        "sorceress-binding-reload-check": 2,
+        "inferno-held-input-reload-check": 2
+      },
+      "boots": 3,
+      "reloads": 2,
+      "saves": 3,
+      "heldWireCases": 9
+    },
+    {
+      "stage": ".local/class-skills/sorceress-combined-save-current",
+      "nativeMarkers": 35,
+      "markers": {
+        "iron-golem-birth-check": 3,
+        "iron-golem-items-check": 1,
+        "npc-resource-callbacks-check": 1,
+        "sorceress-binding-check": 1,
+        "player-teleport-check": 1,
+        "inferno-held-input-check": 1,
+        "inferno-held-wire-0-result": 3,
+        "inferno-held-wire-1-result": 3,
+        "inferno-held-wire-9-result": 3,
+        "inferno-held-input-save-stage-check": 3,
+        "player-teleport-save": 3,
+        "iron-golem-items-reload-check": 2,
+        "npc-resource-callbacks-reload-check": 2,
+        "sorceress-binding-reload-check": 2,
+        "player-teleport-reload-check": 2,
+        "player-teleport-reload-result": 2,
+        "inferno-held-input-reload-check": 2
+      },
+      "boots": 3,
+      "reloads": 2,
+      "saves": 3,
+      "heldWireCases": 9
+    }
+  ],
+  "correction": "All trained active Sorceress talents are available. Preserve Teleport left/Hydra right+quick,add Inferno quick6 persistence,keep passive/forbidden-left refusal and legacy migration. Existing Inferno staging then Teleport save coexists without held-intent or unpaid-action replay.",
+  "inputs": {
+    ".local/class-skills/sorceress-binding-current/birth-inputs.json": "a0191de7079158a3feb141fe84a36b0c9917bfebf96e2e6c3f409900bbd293ad",
+    ".local/class-skills/sorceress-binding-current/birth-native-checks.log": "68c94e89594b032a532552b62eea0cff676f7fe16466300b2080e02bb5663cb7",
+    ".local/class-skills/sorceress-combined-save-current/birth-inputs.json": "a0191de7079158a3feb141fe84a36b0c9917bfebf96e2e6c3f409900bbd293ad",
+    ".local/class-skills/sorceress-combined-save-current/birth-native-checks.log": "d988fd1ef2a2a096a555d78efdaf89bb3fcf36ee20d54400267025265a02d7a7",
+    ".local/class-skills/sorceress-planned-acceptance/source-snapshot-3.json": "50e129acbffa2e7e2e652fa039f60e9c7a3a0ee1cbf4d033644f043761af3d59",
+    ".local/class-skills/sorceress-planned-acceptance/integration-build-2.log": "769635fc370979b7f3a46a16ff0d19b803f1d201ff8b566e3128740b09a0d1ad",
+    ".local/class-skills/sorceress-planned-acceptance/failed-run-2/birth-native-checks.log": "3228eda939652c1689c91c70e23f0ac054dd57409476c05ab7d3387780f2fb2c",
+    "tests/Sanctuary.Integration/SorceressBindingChecks.cs": "553dd1ffacf815e1d83f40eb97aef18c1e2813e1a349406c2ee0c679fd0c0d5c"
+  },
+  "installed": false,
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 44
+  }
+}

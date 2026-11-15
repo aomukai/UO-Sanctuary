@@ -27,7 +27,7 @@ public static class SorceressBindingChecks
             bool sourceLeft=entry.GetProperty("sourceLeft").GetBoolean(),right=entry.GetProperty("sourceRight").GetBoolean(),left=entry.GetProperty("left").GetBoolean();
             Require(row.CharacterClass==DiabloClass.Sorceress&&row.Left==sourceLeft&&row.Right==right,"Pinned Sorceress flags differ: "+row.Name);
             Require(SkillBindings.MouseAllowed(DiabloClass.Sorceress,true,row.Ability)==left&&SkillBindings.MouseAllowed(DiabloClass.Sorceress,false,row.Ability)==right,"Sorceress mouse policy differs: "+row.Name);
-            bool available=!row.Passive&&row.Ability!=CombatAbility.Inferno;Require(ClassCombat.Available(p,row.Ability)==available,"Sorceress learned availability differs: "+row.Name);
+            bool available=!row.Passive;Require(ClassCombat.Available(p,row.Ability)==available,"Sorceress learned availability differs: "+row.Name);
             foreach(bool isLeft in new[]{false,true})
             {
                 var before=SkillBindings.Instance.Get(p);var session=ClassCombat.For(p);long next=session.NextAction;int mana=NecromancerEffects.ManaBalance256(p);bool expected=available&&(isLeft?left:right);
@@ -60,17 +60,19 @@ public static class SorceressBindingChecks
         Require(count==18,"Incomplete migration scope");
     }
     private static void Bind(PlayerMobile p)
-    {Require(SkillBindings.Instance.Assign(p,true,CombatAbility.Teleport)&&SkillBindings.Instance.Assign(p,false,CombatAbility.Hydra)&&SkillBindings.Instance.AssignQuick(p,7,CombatAbility.Hydra),"Approved Teleport/valid right and quick selection");}
+    {Require(SkillBindings.Instance.Assign(p,true,CombatAbility.Teleport)&&SkillBindings.Instance.Assign(p,false,CombatAbility.Hydra)
+        &&SkillBindings.Instance.AssignQuick(p,7,CombatAbility.Hydra)&&SkillBindings.Instance.AssignQuick(p,6,CombatAbility.Inferno),"Approved Teleport/Inferno and valid right/quick selection");}
     private static void Check()
     {
         var p=FireBoltChecks.Owner(CombatAbility.FireBolt,6875);p.Name="SorceressBindingFixture";Reference(p);Migration(p);Bind(p);p.Internalize();File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,0)));
-        Log.Information("Sorceress bindings:30pinned rows,60mouse checks,direct/passive/quick availability,18legacy migrations/idempotence;approved Teleport left and valid Hydra right/quick retained;Inferno stays disabled");
+        Log.Information("Sorceress bindings:30pinned rows,60mouse checks,direct/passive/quick availability,18legacy migrations/idempotence;approved Teleport left,Hydra right/quick and Inferno quick retained");
     }
     private static void Reload()
     {
         var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)s.Owner);
         Require(s.Generation<2&&SkillBindings.Instance.Get(p)==(CombatAbility.Teleport,CombatAbility.Hydra)&&SkillBindings.Instance.GetQuick(p.Serial,DiabloClass.Sorceress,7)==CombatAbility.Hydra,"Original saved Sorceress bindings changed");
-        Require(!SkillBindings.Instance.Assign(p,true,CombatAbility.Hydra)&&!ClassCombat.Available(p,CombatAbility.Inferno),"Reload admitted forbidden left or disabled Inferno");
+        Require(!SkillBindings.Instance.Assign(p,true,CombatAbility.Hydra)&&ClassCombat.Available(p,CombatAbility.Inferno)
+            &&SkillBindings.Instance.GetQuick(p.Serial,DiabloClass.Sorceress,6)==CombatAbility.Inferno,"Reload admitted forbidden left or lost approved Inferno");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(s with{Generation=s.Generation+1}));
     }
 }
