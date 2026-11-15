@@ -1,5 +1,7 @@
 # Skill effects
 
+**Zero-direct Spectral effect boundary — 2026-11-15 JST.** Shared native chill/poison placeholders now accompany the mechanically retained zero-direct affix statuses. No new presentation/artwork/imagegen;final contact/status/audio and Bind channel/success/bound effects remain missing and nonblocking. Icons remain separate. [Checkpoint](bind-demon-spectral-zero-checkpoint.md).
+
 **Bound modifier effect boundary — 2026-11-15 JST.** Strong/Fast add no new artwork. Spectral reuses existing native typed contact/chill/poison placeholders and original body presentation;final elemental contact/audio and Bind channel/success/bound feedback remain missing and nonblocking. Aura30delivery is mechanically unfinished,independent of final aura artwork. No imagegen/new assets;icons separate. [Checkpoint](bind-demon-affix-checkpoint.md).
 
 **Bound Death Mark effect boundary — 2026-11-15 JST.** Native relocation reuses the identified shared landing0x3728 plus existing cast/target placeholders. Original creature presentation remains. Final warp/command/mark/expiry/audio and Bind channel/success/bound feedback are missing and nonblocking;no new artwork/imagegen. Icons remain separate. [Checkpoint](bind-demon-death-mark-checkpoint.md).

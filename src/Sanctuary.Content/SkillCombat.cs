@@ -159,7 +159,7 @@ public static class SkillCombat
         var packet=SpectralHit.Direct(new(physicalBase * PaladinAuras.NativeWeaponMultiplier(source,weapon),
             damage * fire / 100.0 + (weapon ? SorceressEffects.EnchantFire(source, Utility.RandomDouble()) + PaladinElements.WeaponForHit(source,"fire",Utility.RandomDouble(),source.Weapon is BaseRanged) : 0),
             damage * cold / 100.0 + (weapon?PaladinElements.WeaponForHit(source,"cold",Utility.RandomDouble(),source.Weapon is BaseRanged):0), damage * lightning / 100.0 + (weapon?PaladinElements.WeaponForHit(source,"ltng",Utility.RandomDouble(),source.Weapon is BaseRanged):0), damage * poison / 100.0, Magic: weapon?HexBane.WeaponMagic(source):0),spectral?.Roll);
-        var parts=Mitigate(source,target,packet,spell);BoundDemonUpgrades.RequireDelivery(spectral,parts);
+        var parts=Mitigate(source,target,packet,spell);BoundDemonUpgrades.PrepareDelivery(spectral,parts);
         return new ClassSkillDamage((int)Math.Max(0, parts.Total), (int)Math.Max(0, parts.Physical))
             {Total256=NamedElements.To256(parts.Total),Physical256=NamedElements.To256(parts.Physical),WeaponContext=ward};
     }
@@ -177,7 +177,7 @@ public static class SkillCombat
         var spectral=BoundDemonUpgrades.Capture(source,target,weapon,ranged,damage);
         var added=SpectralHit.Direct(default,spectral?.Roll);
         int total=(int)Math.Clamp((long)NamedElements.To256(damage)-originalPhysical+remaining+NamedElements.To256(added.Total),0,int.MaxValue);
-        BoundDemonUpgrades.RequireDelivery(spectral,new(total/256.0,0,0,0,0));
+        BoundDemonUpgrades.PrepareDelivery(spectral,new(total/256.0,0,0,0,0));
         return new(total/256,remaining/256){Total256=total,Physical256=remaining,WeaponContext=ward};
     }
     private static GearDamage Mitigate(Mobile source, Mobile target, GearDamage damage, bool spell,bool enhanceBase=true)

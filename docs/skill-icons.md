@@ -1,5 +1,7 @@
 # Skill icons
 
+**Zero-direct Spectral icon boundary — 2026-11-15 JST.** No new skill/hotkey/icon is granted by this bridge. Final Bind talent-tree/right/quick artwork remains missing;use identified placeholders at admission. Effects/audio stay separate. [Checkpoint](bind-demon-spectral-zero-checkpoint.md).
+
 **Bound modifier icon boundary — 2026-11-15 JST.** No new selectable skill/hotkey is granted by Strong/Fast/Spectral. Bind talent-tree/right/quick artwork remain missing;use identified placeholders at admission. Captured Aura30metadata supplies no final aura icon or delivery. Effects/audio remain separate;no new artwork. [Checkpoint](bind-demon-affix-checkpoint.md).
 
 **Bound Death Mark icon boundary — 2026-11-15 JST.** Recipient support adds no skill or icon. Death Mark and Bind talent-tree/hotkey artwork remain missing;existing text and assigned placeholder controls stay identified. No new learned Bind binding or final artwork. Effects/audio stay separate. [Checkpoint](bind-demon-death-mark-checkpoint.md).

@@ -357,11 +357,12 @@ public static class NecromancerEffects
         return healed;
     }
     internal static void PreparedNativeWeaponHit(Mobile attacker,Mobile target,int physical256,bool ranged)
-    {PreparedWeaponEvents.BeforeReturn(attacker,target,physical256,ranged);}
+    {PreparedWeaponEvents.BeforeReturn(attacker,target,physical256,ranged);BoundDemonUpgrades.CompleteZero(attacker,target,physical256,ranged);}
     internal static void PreparedNativeWeaponHitContext(Mobile attacker,Mobile target,int physical256,bool ranged,object context)
     {
         if(context is not PsychicWardReactionProposal.Ticket ward){throw new NotSupportedException("Unknown native weapon-hit context");}
         PreparedWeaponEvents.BeforeReturn(attacker,target,physical256,ranged,ward:ward);
+        BoundDemonUpgrades.CompleteZero(attacker,target,physical256,ranged);
     }
     public static void WeaponHit(Mobile attacker, Mobile target, int physicalLoss, bool ranged,bool lifeTap=true,bool ironMaiden=true,bool frozenArmor=true)
     {

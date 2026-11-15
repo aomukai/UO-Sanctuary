@@ -1,5 +1,7 @@
 # Bound demon modifier integration
 
+**Zero-direct follow-up:** the [later checkpoint](bind-demon-spectral-zero-checkpoint.md) closes the fully absorbed cold/poison refusal described below. Unscoped manual native weapon packets and Aura30 remain separate limits;the original evidence below is historical.
+
 Mechanical reference: **D2R Reign of the Warlock 3.3.93847**. This prepared component delivers the first three captured Bind Demon modifiers on an original native body. Full Bind remains gated; **226/240 handlers, Warlock 17/30; no class certified**.
 
 The retained, fingerprinted `monumod.txt` assigns 5 to Strong, 6 to Fast, 27 to Spectral Hit and 30 to Aura Enchanted. The pinned skill grants them at effective ranks 5/10/15/20. These are now identified source modifiers, rather than unexplained integers. The source review also records Blizzard’s final Patch 3.2 bound-aura replacement table and soft-point policy. Those notes corroborate design intent; they are not a new reference pin or proof of the 3.3.93847 aura producer. No updated game files or process memory were read. [Source review](../tools/reference/bound-demon-affix-source-review.json), [Blizzard notes](https://news.blizzard.com/en-gb/article/24261478/diablo-ii-resurrected-ladder-season-14-has-concluded).

@@ -43,7 +43,7 @@ public static class BoundDemonAffixChecks
         Require(ClassGearHooks.AttackDelay(body,TimeSpan.FromSeconds(1)).Ticks==TimeSpan.TicksPerSecond*100/Math.Clamp(100+s.Birth.AttackSpeed,15,175),"Existing movement-only Extra Fast changed attack delay");
     }
     private static void Clean(BaseCreature target)
-    {TimedEffects.CleansePoison(target,0,TimedEffects.Now);ColdStates.Remove(target,TimedEffects.Now);SkillHealth.SetBalance256(target,SkillHealth.Maximum256(target));}
+    {TimedEffects.CleansePoison(target,0,TimedEffects.Now);TimedEffects.Clear(target);SkillHealth.SetBalance256(target,SkillHealth.Maximum256(target));}
     private static int Packet(Daemon body,BaseCreature target,int channel,bool ignore=false,bool ranged=false,int physical=100,int fire=0)
     {
         var old=BoundDemonUpgrades.Roll;int draws=0;BoundDemonUpgrades.Roll=n=>++draws==1?n-1:channel;
@@ -69,10 +69,10 @@ public static class BoundDemonAffixChecks
         finally{BoundDemonUpgrades.Roll=old;}
         Clean(target);bool refused=false;try{AOS.Damage(target,body,100,false,100,0,0,0,0,weaponDamage:true);}catch(NotSupportedException){refused=true;}
         Require(refused&&SkillHealth.Balance256(target)==SkillHealth.Maximum256(target),"Unscoped native spectral silently guessed post-hit context");
-        Clean(target);target.SetResistance(ResistanceType.Physical,100);refused=false;
-        try{Packet(body,target,4);}catch(NotSupportedException){refused=true;}finally{target.SetResistance(ResistanceType.Physical,0);}
-        Require(refused&&SkillHealth.Balance256(target)==SkillHealth.Maximum256(target)&&(!TimedEffects.TryActor(target,out var immune)||immune.PoisonMs==0),"Fully absorbed Spectral poison silently applied or changed health");
-        Clean(target);Require(Packet(body,target,0)==2550*256,"Refused Spectral context leaked into next native attack");
+        Clean(target);target.SetResistance(ResistanceType.Physical,100);
+        try{Require(Packet(body,target,4)==0&&TimedEffects.TryActor(target,out var immune)&&immune.PoisonMs>0,"Zero physical Spectral lost survivor poison");}
+        finally{target.SetResistance(ResistanceType.Physical,0);}
+        Clean(target);Require(Packet(body,target,0)==2550*256,"Zero Spectral context leaked into next native attack");
         // A real native weapon call owns its attempt scope,not a fixture adapter.
         var hook=ClassCombatHooks.SkillResistedDamage;ClassSkillDamage? captured=null;int rolled=0;BoundDemonUpgrades.Roll=n=>n==5?0:n-1;
         ClassCombatHooks.SkillResistedDamage=(to,from,damage,phys,fire,cold,poison,lightning,spell,weapon,ranged)=>
@@ -80,6 +80,55 @@ public static class BoundDemonAffixChecks
         try{Clean(target);((Dagger)body.FindItemOnLayer(Layer.OneHanded)).OnHit(body,target);Require(rolled>0&&captured is{} hit&&hit.Total256==NamedElements.To256((rolled+400)*4.9+100),"Real Dagger OnHit missed shared Spectral capture");}
         finally{ClassCombatHooks.SkillResistedDamage=hook;BoundDemonUpgrades.Roll=old;}
         Log.Information("Bound affixes:all five deterministic Spectral channels/max raw basis,post-direct surviving cold/credited poison,real Dagger OnHit,ranged and armor-ignore paths pass;flat physical/ED applied once,elemental spell unchanged;unscoped native weapon context explicitly refuses");
+    }
+    private static void Zero(PlayerMobile owner,Daemon body,BaseCreature target)
+    {
+        int posts=0,events=0;var hit=ClassGearHooks.WeaponHit;var before=ClassCombatHooks.PreparedWeaponDamage;var roll=BoundDemonUpgrades.Roll;
+        ClassGearHooks.WeaponHit=(from,to,loss,ranged)=>{if(from==body&&to==target){posts++;}hit?.Invoke(from,to,loss,ranged);};
+        void Damage(SkillDamageContact c){if(c.Source==body&&c.Target==target){events++;}}
+        SkillDamageEvents.BeforeDirectDamage+=Damage;
+        try
+        {
+            Clean(target);target.SetResistance(ResistanceType.Physical,100);int hp=SkillHealth.Balance256(target);
+            Require(Packet(body,target,4)==0&&posts==0&&events==0&&TimedEffects.TryActor(target,out var poison)
+                &&poison.PoisonMs==1600&&Math.Abs(poison.PoisonRate-100/1600.0)<1e-12&&poison.PoisonSource==owner.Serial.Value&&poison.PoisonClock==null,
+                "Zero native hit lost aggregate poison/credit or fabricated direct damage/post-hit callback");
+            Clean(target);ClassCombatHooks.PreparedWeaponDamage(body,target,0,false);
+            Require(!TimedEffects.TryActor(target,out poison)||poison.PoisonMs==0,"Zero capture replayed after its attempt ended");
+            target.SetResistance(ResistanceType.Poison,100);Require(Packet(body,target,4)==0&&(!TimedEffects.TryActor(target,out poison)||poison.PoisonMs==0),"Zero contact pierced poison immunity");
+            target.SetResistance(ResistanceType.Poison,0);Clean(target);body.SetDamage(1,1);int draws=0;BoundDemonUpgrades.Roll=n=>++draws==1?0:3;
+            ((Dagger)body.FindItemOnLayer(Layer.OneHanded)).OnHit(body,target);
+            Require(draws==2&&SkillHealth.Balance256(target)==hp&&GearEffects.ChillPercent(target)>0&&posts==0&&events==0,"Actual zero-amount cold affix lost survivor chill or invented HP damage");
+            Clean(target);target.SetResistance(ResistanceType.Cold,100);draws=0;((Dagger)body.FindItemOnLayer(Layer.OneHanded)).OnHit(body,target);
+            Require(draws==2&&SkillHealth.Balance256(target)==hp&&GearEffects.ChillPercent(target)==0,"Zero cold contact bypassed cold immunity");
+            target.SetResistance(ResistanceType.Cold,0);body.SetDamage(100,100);BoundDemonUpgrades.Roll=roll;
+            Clean(target);Require(Packet(body,target,4,ranged:true)==0&&TimedEffects.TryActor(target,out poison)&&poison.PoisonMs==1600&&posts==0,"Ranged zero contact lost poison or fabricated post-hit");
+            Clean(target);target.Blessed=true;draws=0;BoundDemonUpgrades.Roll=n=>++draws==1?n-1:4;
+            try{using var attempt=ClassCombatHooks.MeleeAttempt(body,target,false);AOS.Damage(target,body,100,false,100,0,0,0,0,weaponDamage:true);}
+            finally{target.Blessed=false;BoundDemonUpgrades.Roll=roll;}
+            Require(draws==2&&SkillHealth.Balance256(target)==hp&&(!TimedEffects.TryActor(target,out poison)||poison.PoisonMs==0),"Blessed native contact lost its draws or changed HP/poison status");
+            // A nested positive packet shares this actual attempt's stack.
+            // Its post-hit must consume its own capture before the outer
+            // zero callback completes the surviving poison capture.
+            bool nested=false;
+            ClassCombatHooks.PreparedWeaponDamage=(from,to,physical,ranged)=>
+            {
+                if(from==body&&to==target&&!nested)
+                {
+                    nested=true;target.SetResistance(ResistanceType.Physical,0);var outerRoll=BoundDemonUpgrades.Roll;BoundDemonUpgrades.Roll=n=>n==5?0:n-1;
+                    try{AOS.Damage(target,body,100,false,100,0,0,0,0,weaponDamage:true);}
+                    finally{BoundDemonUpgrades.Roll=outerRoll;target.SetResistance(ResistanceType.Physical,100);}
+                }
+                before?.Invoke(from,to,physical,ranged);
+            };
+            Clean(target);Require(Packet(body,target,4)==2550*256&&nested&&posts==1&&events==1&&TimedEffects.TryActor(target,out poison)&&poison.PoisonMs==1600&&poison.PoisonSource==owner.Serial.Value,
+                "Nested native packet consumed outer zero context or duplicated damage/status delivery");
+            ClassCombatHooks.PreparedWeaponDamage=before;Clean(target);target.SetResistance(ResistanceType.Physical,0);
+            Require(Packet(body,target,0)==2550*256&&posts==2&&events==2&&(!TimedEffects.TryActor(target,out poison)||poison.PoisonMs==0),"Completed zero/nested capture leaked into later attack");
+            Log.Information("Bound Spectral zero:physical-immune poison keeps1600ms aggregate/owner credit without HP or native post-hit;real Dagger zero-amount cold/ranged/immunity/blessed-poison guards pass;nested same-attempt positive packet keeps its own capture and later attacks do not replay zero work");
+        }
+        finally
+        {ClassGearHooks.WeaponHit=hit;ClassCombatHooks.PreparedWeaponDamage=before;BoundDemonUpgrades.Roll=roll;SkillDamageEvents.BeforeDirectDamage-=Damage;body.SetDamage(100,100);target.SetResistance(ResistanceType.Physical,0);target.SetResistance(ResistanceType.Poison,0);target.SetResistance(ResistanceType.Cold,0);Clean(target);}
     }
     private static void Scene(NetState network)
     {
@@ -90,7 +139,7 @@ public static class BoundDemonAffixChecks
         {
             var helm=PoisonDaggerChecks.Named(p,"Tarnhelm");body=Bind(p,4);Require(BoundDemonHosts.State(body).Birth.Rank==5&&BoundDemonUpgrades.Has(body,EliteModifier.ExtraStrong)&&!BoundDemonUpgrades.Has(body,EliteModifier.ExtraFast),"Soft rank5 threshold failed");Common(body);
             var prior=body;body=Bind(p,9);Require(prior.Deleted&&BoundDemonHosts.State(body).Birth.Rank==10&&BoundDemonUpgrades.Has(body,EliteModifier.ExtraFast)&&!BoundDemonUpgrades.Has(body,EliteModifier.SpectralHit),"Soft rank10 threshold or replacement failed");Common(body);
-            prior=body;body=Bind(p,14);Require(prior.Deleted&&BoundDemonUpgrades.Has(body,EliteModifier.SpectralHit)&&!BoundDemonUpgrades.Has(body,EliteModifier.AuraEnchanted)&&body.FireResistance==40&&body.ColdResistance==40&&body.EnergyResistance==40,"Soft rank15/resistance writers failed");Common(body);Elements(p,body,target);
+            prior=body;body=Bind(p,14);Require(prior.Deleted&&BoundDemonUpgrades.Has(body,EliteModifier.SpectralHit)&&!BoundDemonUpgrades.Has(body,EliteModifier.AuraEnchanted)&&body.FireResistance==40&&body.ColdResistance==40&&body.EnergyResistance==40,"Soft rank15/resistance writers failed");Common(body);Elements(p,body,target);Zero(p,body,target);
             var state=BoundDemonHosts.State(body);p.AddToBackpack(helm);ClassSkillChecks.Train(p,"warlock.binddemon",20);Require(BoundDemonHosts.State(body)==state&&!BoundDemonUpgrades.Has(body,EliteModifier.AuraEnchanted),"Gear/training rewrote born modifiers");
             SkillHealth.SetBalance256(body,SkillHealth.Maximum256(body)/2-17);var facets=SummonDifficulties.Facets();try
             {

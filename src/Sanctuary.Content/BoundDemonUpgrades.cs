@@ -44,14 +44,27 @@ internal static class BoundDemonUpgrades
         if(!weapon||damage<=0||!Has(source,EliteModifier.SpectralHit)){return null;}
         var scope=Find(source,target,ranged)??throw new NotSupportedException("Bound Spectral Hit needs its native weapon-attempt scope");
         var body=(BaseCreature)source;
-        var payload=NpcSpectralHit.CapturePrepared(body,body.DamageMin,body.DamageMax,Roll);scope.Pending.Push(payload);return payload;
+        var payload=NpcSpectralHit.CapturePrepared(body,body.DamageMin,body.DamageMax,Roll);scope.Pending.Push(new(payload));return payload;
     }
-    internal static void RequireDelivery(NpcSpectralPayload payload,GearDamage parts)
+    internal static void PrepareDelivery(NpcSpectralPayload payload,GearDamage parts)
     {
-        // Native AOS returns before its post-hit hook on an entirely absorbed
-        // packet. Do not silently invent a different poison/chill event order.
-        if(payload?.Roll is{Channel:3 or 4}&&NamedElements.To256(parts.Total)<=0)
-        {throw new NotSupportedException("Fully absorbed bound Spectral chill/poison needs a qualified native post-hit bridge");}
+        if(payload==null){return;}
+        for(var scope=Current;scope!=null;scope=scope.Previous)
+        {
+            if(scope.Pending.TryPeek(out var delivery)&&ReferenceEquals(delivery.Payload,payload))
+            {scope.Pending.Pop();scope.Pending.Push(delivery with{Ready=true,Zero=NamedElements.To256(parts.Total)<=0});return;}
+        }
+        throw new NotSupportedException("Bound Spectral preparation lost its original capture scope");
+    }
+    internal static bool CompleteZero(Mobile source,Mobile target,int physical256,bool ranged)
+    {
+        var scope=Find(source,target,ranged);
+        if(scope==null||!scope.Pending.TryPeek(out var delivery)||!delivery.Ready||!delivery.Zero){return false;}
+        if(physical256!=0){throw new NotSupportedException("Zero Spectral completion has positive physical damage");}
+        // AOS has already dispatched ordinary weapon reactions and will now
+        // return without an HP commit/post-hit hook. Claim this exact capture
+        // before invoking the existing survivor-only status services.
+        scope.Pending.Pop();NpcSpectralHit.After((BaseCreature)source,target,delivery.Payload,TimedEffects.Now);return true;
     }
     internal static void ApplyNative(BaseCreature body,BindDemonSuppliers birth)
     {
@@ -60,15 +73,16 @@ internal static class BoundDemonUpgrades
         var values=EncounterProfiles.Resistances(basis,null,[EliteModifier.SpectralHit]);
         body.SetResistance(ResistanceType.Fire,values[2]);body.SetResistance(ResistanceType.Energy,values[3]);body.SetResistance(ResistanceType.Cold,values[4]);
     }
+    private sealed record Delivery(NpcSpectralPayload Payload,bool Ready=false,bool Zero=false);
     private sealed class Attempt(BaseCreature source,Mobile target,bool ranged,IDisposable inner,Attempt previous):IDisposable
     {
         internal readonly BaseCreature Source=source;
         internal readonly Mobile Target=target;
         internal readonly bool Ranged=ranged;
         internal readonly Attempt Previous=previous;
-        internal readonly Stack<NpcSpectralPayload> Pending=new();
+        internal readonly Stack<Delivery> Pending=new();
         private bool Done;
-        internal NpcSpectralPayload Take()=>Pending.TryPop(out var p)?p:null;
+        internal NpcSpectralPayload Take()=>Pending.TryPop(out var p)?p.Ready?p.Payload:throw new NotSupportedException("Unprepared Spectral post-hit"):null;
         public void Dispose()
         {if(Done){return;}Done=true;try{inner?.Dispose();}finally{Current=Previous;Pending.Clear();}}
     }
