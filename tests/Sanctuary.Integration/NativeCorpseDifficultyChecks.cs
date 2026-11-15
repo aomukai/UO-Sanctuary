@@ -62,7 +62,8 @@ public static class NativeCorpseDifficultyChecks
                 &&corpse.Items.OfType<Gold>().Single().Amount==17&&CorpseBaseSnapshots.Bounds(history.Source,history.BaseLife).Base256==history.BaseLife.Base256,
                 "Saved difficulty corpse metadata/base/seed/loot/availability changed");
             int mana=NecromancerEffects.ManaBalance256(p);
-            Require(!ReviveCasts.Plan(p,corpse,out _,out _,out string issue)&&issue==NativeCorpseSources.ForSource(history.Source).ReviveIssue
+            bool planned=ReviveCasts.Plan(p,corpse,out _,out _,out string issue);
+            Require(planned==NativeReviveRules.Approved&&(planned||issue==NativeCorpseSources.ForSource(history.Source).ReviveIssue)
                 &&NecromancerEffects.ManaBalance256(p)==mana&&!CorpseSkillRules.NoSelect(corpse),"Difficulty support accidentally admitted native Revive");
         }
         File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Generation=saved.Generation+1}));

@@ -32,7 +32,7 @@ public static class NativeLichReviveChecks
         var unit=SourceCorpseIdentity.For(corpse);Require(unit.Snapshot.Source=="sanctuary.native.graveyard-lich.v1"&&unit.ClassId==GenericPetSearchTables.SourceId("unraveler1")
             &&GenericPetSearchTables.SourceId(unit.Snapshot.Source)==null,"Native source identity was replaced by its proposed AI analogue");
         int mana=NecromancerEffects.ManaBalance256(p),cost=SkillMechanics.Values(p,CombatAbility.Revive).Mana256;
-        Require(!ReviveCasts.Plan(p,corpse,out _,out _,out _)&&NecromancerEffects.ManaBalance256(p)==mana,"Unapproved native learned route was admitted");
+        Require(ReviveCasts.Plan(p,corpse,out _,out _,out _)==NativeReviveRules.Approved&&NecromancerEffects.ManaBalance256(p)==mana,"Native admission does not match its approval gate");
         Require(ReviveCasts.Plan(p,corpse,out var setup,out _,out string issue,true),"Prepared native plan:"+issue);
         Require(setup.RegenerationRate==0&&setup.LifePlan.Source==unit.Snapshot.Source,"Native resources invented a D2 regeneration rate or source");
         Require(ReviveCasts.Release(p,corpse,true)&&NecromancerEffects.ManaBalance256(p)==mana-cost,"Prepared native release/payment");

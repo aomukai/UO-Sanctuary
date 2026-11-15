@@ -99,7 +99,8 @@ public static class NativeCorpseChecks
                 target.Delete();corpse.Delete();NecromancerSpellMissiles.Cancel(p);foreach(var pet in p.AllFollowers?.ToArray()??Array.Empty<BaseCreature>()){pet.Delete();}
             }
             var savedBody=Corpse(p,8);int before=NecromancerEffects.ManaBalance256(p);
-            Require(!ReviveCasts.Plan(p,savedBody,out _,out _,out string issue)&&issue==NativeCorpseSources.ForSource(CorpseSkillRules.Profiles.Find(savedBody).Source).ReviveIssue
+            bool planned=ReviveCasts.Plan(p,savedBody,out _,out _,out string issue);
+            Require(planned==NativeReviveRules.Approved&&(planned||issue==NativeCorpseSources.ForSource(CorpseSkillRules.Profiles.Find(savedBody).Source).ReviveIssue)
                 &&!CorpseSkillRules.NoSelect(savedBody)&&NecromancerEffects.ManaBalance256(p)==before,"Unqualified native Revive was invented or consumed its corpse");
             Require(NativeCorpseSources.ForSource(CorpseSkillRules.Profiles.Find(savedBody).Source).Soft==null&&!CorpseSkillRules.Soft(savedBody),"Unassigned native flesh classification was invented");
             var gold=savedBody.Items.OfType<Gold>().Single();File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(0,p.Serial.Value,savedBody.Serial.Value,gold.Serial.Value,CorpseSkillRules.Profiles.Find(savedBody))));kept=true;

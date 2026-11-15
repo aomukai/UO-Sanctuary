@@ -6,7 +6,7 @@ namespace Sanctuary;
 // Adoption belongs to the complete native Lich world rule, not capture alone.
 internal static class NativeReviveRules
 {
-    internal static bool Approved=>false;
+    internal static bool Approved=>true;
     internal static int? ClassId(string source)=>GenericPetSearchTables.SourceId(source)
         ??(NativeCorpseSources.ForSource(source)?.ReviveAiSource is{} role?GenericPetSearchTables.SourceId(role):null);
     internal static string Source(BaseCreature actor)=>CreatureProfiles.Definition(actor).Reference

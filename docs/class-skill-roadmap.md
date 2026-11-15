@@ -1,5 +1,7 @@
 # Class skill roadmap
 
+**Approved learned native Lich Revive — 2026-11-16 JST.** [Checkpoint](native-lich-revive-cast-checkpoint.md), [exact approval](../tools/reference/native-lich-revive-world-rule-approval.json). Ordinary corpse targeting now activates the original Lich under the approved native mapping. C1/I1/S1/N1 passes 87 markers, 30 connections, 12 native Revive plus 12 retained explosion inputs and two reloads, retaining actual abilities/travel/helper controls. Other native species, unsupported item/Sunder and remaining class limits stay explicit. 236/240 handlers; no class certified.
+
 **Complete native Lich Revive candidate — 2026-11-16 JST.** [Proposal](native-lich-revive-world-rule-proposal.md), [checkpoint](native-lich-revive-world-checkpoint.md). Original native capture/activation, living firebolt/raise, blinded native weapon fallback, real facet travel, helper transfer and saved wounds pass C2/I4/S5/N4: 63 markers, 18 connections, two reloads, retaining 12 explosion inputs. One complete native mapping decision remains; ordinary native Revive stays gated. 236/240 handlers; no class certified.
 
 **Native Lich corpse difficulties — 2026-11-16 JST.** [Checkpoint](native-corpse-difficulties-checkpoint.md) corrects missing Nightmare/Hell capture using existing authored level/base values (36/1,102 and 69/9,118). C1/I2/S2/N2 passes 54 markers, 12 actual explosion inputs and two reloads. An earlier retained Normal input timeout remains unexplained. Native Lich Revive stays refused; 236/240 handlers, no class certified.

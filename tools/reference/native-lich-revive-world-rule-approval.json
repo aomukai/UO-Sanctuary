@@ -1,0 +1,13 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "answer": "Approve the complete native Lich rule (Recommended)",
+  "questionItemId": "[\"request_user_input_async\",\"call_ce2abc8961904b2ebf799f174d06f78c\",0]",
+  "approvedUtc": "2026-11-15T19:51:58.671585+00:00",
+  "candidateCommit": "8c64dd335ff6370b0afc47209611d13ae03ed6ef",
+  "proposal": "docs/native-lich-revive-world-rule-proposal.md",
+  "proposalAtApprovalSha256": "555735be311dcfaf1defb9fae01f0f37b1f978be303c5055dfea766ec445d33d",
+  "testedCandidateEvidence": "tools/reference/native-lich-revive-world-native-evidence.json",
+  "testedCandidateEvidenceSha256": "86b471be5bcf3130972602d0a221fa629800cdd5e861d3a01f7125606ba68736",
+  "scope": "Complete original native Lich mapping:explicit Hollow One AI eligibility analogue,native identity/no-regen/living abilities/native weapon and cooldown host behavior,source snapshot/facet projection,dependent helpers,parking,persistence and loot;normal learned input verification follows. Four older Warlock proposals remain frozen."
+}
