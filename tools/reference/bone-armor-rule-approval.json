@@ -1,0 +1,13 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "answer": "Approve this Bone Armor rule (Recommended)",
+  "questionItemId": "[\"request_user_input_async\",\"call_541b88c9ed154b53b1d60e03d6744789\",0]",
+  "approvedUtc": "2026-11-15T17:47:29.752162+00:00",
+  "candidateCommit": "ac3948d287a88c0dd3f80308bed265957ad69a2a",
+  "proposal": "docs/bone-armor-rule-proposal.md",
+  "proposalAtApprovalSha256": "9abbc9842fb223301cac4a38b066094dd45eca0bbcf3698e80c59de0aec13ab9",
+  "testedCandidateEvidence": "tools/reference/bone-armor-rule-native-evidence.json",
+  "testedCandidateEvidenceSha256": "58073a8c5a0cb6bd36985269633ec5dcdc5045f13392eca3e0cdde73d769f2e0",
+  "scope": "Conventional min-pool FP256 breaking-hit overflow; supported typed EnergyShield-before-BoneArmor-before-resistance order; native armor-ignore consumes physical armor; existing snapshot/group/lifecycle/saves retained. Unqualified native elemental producer contexts remain flagged. Exact tested current code adopted without another runtime edit."
+}

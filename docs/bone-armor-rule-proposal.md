@@ -1,6 +1,6 @@
 # Bone Armor absorption rule
 
-Reference: **D2R Reign of the Warlock3.3.93847**, with approved Sanctuary deviations first. **Pending explicit adoption.** Bone Armor already remains playable with the conventional overflow policy described below. The pinned modern event22 callback could not be read; the older complete source has a different exhausting-hit branch. Neither is silently substituted for a current observation. This proposal resolves the supported incoming absorption contract without claiming the whole current event engine is recovered.
+Reference: **D2R Reign of the Warlock3.3.93847**, with approved Sanctuary deviations first. **Approved by the user on 2026-11-16 JST.** [Exact decision](../tools/reference/bone-armor-rule-approval.json). The body below is the tested proposal; its current-code adoption is recorded separately. Bone Armor already remains playable with the conventional overflow policy described below. The pinned modern event22 callback could not be read; the older complete source has a different exhausting-hit branch. Neither is silently substituted for a current observation. This proposal resolves the supported incoming absorption contract without claiming the whole current event engine is recovered.
 
 ## Finite physical pool
 
