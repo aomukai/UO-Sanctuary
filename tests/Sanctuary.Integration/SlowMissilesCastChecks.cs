@@ -60,7 +60,7 @@ public static class SlowMissilesCastChecks
     private static void Check()
     {
         var p=Owner();var target=Enemy(p,3);var outside=Enemy(p,14);DateTime at=TimedEffects.Now;
-        Require(!ClassCombat.Available(p,CombatAbility.SlowMissiles),"Prepared cast enabled incomplete talent");
+        Require(ClassCombat.Available(p,CombatAbility.SlowMissiles)==SlowMissilesRules.Approved,"Prepared cast enabled incomplete talent");
         Require(AmazonSlowMissilesCast.SourceAllowed(true,false)&&!AmazonSlowMissilesCast.SourceAllowed(true,true)
             &&!AmazonSlowMissilesCast.SourceAllowed(false,false),"Species-boss filter contract");
         target.MoveToWorld(new(p.X+13,p.Y+3,p.Z),p.Map);Require(AmazonSlowMissilesCast.Target(p,target,27),"Inside source circle excluded");
@@ -95,7 +95,7 @@ public static class SlowMissilesCastChecks
     private static void Reload()
     {
         var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)s.Owner);var target=World.FindMobile((Serial)s.Target);
-        Require(s.Generation<2&&AmazonSlowMissiles.State(target)==s.State&&NecromancerEffects.ManaBalance256(p)==s.Mana&&!ClassCombat.Available(p,CombatAbility.SlowMissiles),"Original release state/resources or unavailable gate changed after reload: owner="+(p!=null)+",target="+(target!=null)+",state="+AmazonSlowMissiles.State(target)+",expected="+s.State+",mana="+(p==null?-1:NecromancerEffects.ManaBalance256(p))+",expectedMana="+s.Mana);
+        Require(s.Generation<2&&AmazonSlowMissiles.State(target)==s.State&&NecromancerEffects.ManaBalance256(p)==s.Mana&&ClassCombat.Available(p,CombatAbility.SlowMissiles)==SlowMissilesRules.Approved,"Original release state/resources or unavailable gate changed after reload: owner="+(p!=null)+",target="+(target!=null)+",state="+AmazonSlowMissiles.State(target)+",expected="+s.State+",mana="+(p==null?-1:NecromancerEffects.ManaBalance256(p))+",expectedMana="+s.Mana);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(s with{Generation=s.Generation+1}));
     }
 }

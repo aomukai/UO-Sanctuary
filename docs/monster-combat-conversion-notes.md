@@ -2,7 +2,7 @@
 
 The user has explicitly separated assigning D2 spells to UO monsters from the class-skill project. Revived creatures may retain their living abilities until that later conversion;ordinary heal/cure spells should be removed with that work,while deliberate special support monsters may keep authored abilities such as resurrection/healing others. Native species without a D2 equivalent require an explicit relative-strength classification,not an invented identity.
 
-**Pending scope decision:** the Slow Missiles proposal asks whether legacy UO instantaneous ranged attacks may join that same later track. The spell-conversion instruction alone is not treated as approval to defer ordinary ranged hits. See [the complete proposal](slow-missiles-rule-proposal.md);do not claim these legacy attacks already consume Slow Missiles.
+**Approved scope boundary — 2026-11-16 JST:** the user approved the complete Slow Missiles rule, including keeping legacy UO instantaneous ranged attacks on this later conversion track. See [the exact approval](../tools/reference/slow-missiles-rule-approval.json) and [complete rule](slow-missiles-rule-proposal.md). These legacy attacks do not yet consume Slow Missiles.
 
 Future acceptance needs to cover:
 

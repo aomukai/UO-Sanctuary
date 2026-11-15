@@ -1,0 +1,30 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Slow Missiles shared self-target client classification",
+  "inputManifest": {
+    "path": ".local/class-skills/slow-missiles-learned/client-inputs-1.json",
+    "sha256": "ce4843b6d2b304ae7f5bc99e49bd7ebd84e42ee37b33778a1c2b4070e0431f9d"
+  },
+  "patches": 44,
+  "changedClientPaths": [],
+  "addedPatches": [],
+  "intentionalSharedChanges": [
+    "shared/ClassAbilities.cs"
+  ],
+  "buildErrors": 0,
+  "baselineWarningsIdentical": false,
+  "baselineSourceWarningsIdentical": true,
+  "packageAuditMessagesIdentical": true,
+  "baselineInheritedWarnings": 44,
+  "inheritedWarningMessages": 20,
+  "graphicalInputVerified": false,
+  "installed": false,
+  "scope": "All accepted client paths/44patches unchanged;only shared SelfTarget adds Slow Missiles. Source warnings and audit-message sets are identical;--no-restore emits fewer project-context audit duplicates (20total versus44baseline). No patch roundtrip replay or installation.",
+  "files": {
+    ".local/class-skills/slow-missiles-learned/client-inputs-1.json": "ce4843b6d2b304ae7f5bc99e49bd7ebd84e42ee37b33778a1c2b4070e0431f9d",
+    ".local/class-skills/slow-missiles-learned/client-build-1.log": "5ac131db1402ae3973f35e327f7030b18aa2aa5ba527f9580c591494a1637a95",
+    ".local/class-skills/slow-missiles-learned/client/cuo.dll": "bd167e3bcdc931e9eca31d064905a6e277420656fe389835c423031316f83083",
+    "tools/prepare_slow_missiles_client.py": "8321907cbaa41b514424b14d461f4936847a9c9b5755f5bcd8e3aacd01465b09",
+    "tools/review_slow_missiles_client.py": "3e3dc3f4d5678b9d4e7d228c307f86614fa914fcbb5f9c3509c237223a1cd584"
+  }
+}

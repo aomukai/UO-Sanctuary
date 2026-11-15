@@ -1,6 +1,6 @@
 # Slow Missiles: complete proposed Sanctuary rule
 
-Reference: **D2R Reign of the Warlock 3.3.93847**, with approved Sanctuary deviations first. The current do6/second-stat and precise damage/factory ordering remain unavailable. **Pending approval; public learned input stays gated.** Existing legacy-source comparisons and firsthand edited-game observations support the components but do not establish current executable parity.
+Reference: **D2R Reign of the Warlock 3.3.93847**, with approved Sanctuary deviations first. The current do6/second-stat and precise damage/factory ordering remain unavailable. **Approved by the user on 2026-11-16 JST.** [Exact decision](../tools/reference/slow-missiles-rule-approval.json). The body below is the approved proposal; learned-input acceptance is recorded separately. Existing legacy-source comparisons and firsthand edited-game observations support the components but do not establish current executable parity.
 
 ## Action, state and targets
 

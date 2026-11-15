@@ -94,7 +94,7 @@ public static class SlowMissilesComponentChecks
     }
     private static void Cases(PlayerMobile owner)
     {
-        Train(owner,"amazon.slowmissiles");Require(!ClassCombat.Available(owner,CombatAbility.SlowMissiles) && !AmazonCombat.Implemented(CombatAbility.SlowMissiles),"Incomplete skill enabled");
+        Train(owner,"amazon.slowmissiles");Require(ClassCombat.Available(owner,CombatAbility.SlowMissiles)==SlowMissilesRules.Approved && AmazonCombat.Implemented(CombatAbility.SlowMissiles)==SlowMissilesRules.Approved,"Incomplete skill enabled");
         var target=Target(owner);var other=Fresh();var helm=NamedGear.Create(NamedGear.Catalog.Items.Single(x=>x.SourceKey=="Tarnhelm").Id,99,new Random(173),true);
         try
         {
@@ -148,6 +148,6 @@ public static class SlowMissilesComponentChecks
             && NecromancerEffects.ManaBalance256(owner)==saved.Mana && AmazonSlowMissiles.Capture(target,true)==saved.Payload && saved.Payload==new SlowMissilePayload(62,90),"Saved gear removal/resource/captured effective rank");
         owner.MoveToWorld(saved.Origin,Map.Trammel);target.Frozen=target.CantWalk=true;target.AIObject.AITimer.Stop();expired.Frozen=expired.CantWalk=true;expired.AIObject.AITimer.Stop();
         Require(!AmazonSlowMissiles.Apply(owner,target,1,TimedEffects.Now) && AmazonSlowMissiles.State(target)==saved.State,"Weaker reapply after reload");
-        Require(!ClassCombat.Available(owner,CombatAbility.SlowMissiles),"Reload enabled incomplete skill");
+        Require(ClassCombat.Available(owner,CombatAbility.SlowMissiles)==SlowMissilesRules.Approved,"Reload enabled incomplete skill");
     }
 }

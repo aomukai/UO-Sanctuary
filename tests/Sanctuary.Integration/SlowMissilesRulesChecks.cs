@@ -23,6 +23,8 @@ public static class SlowMissilesRulesChecks
     }
     public static void Configure()
     {
+        // Reapply test-only idle controls before ordinary post-load AI can attack saved actors.
+        EventSink.WorldLoad+=()=>{if(File.Exists(Manifest)){var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));foreach(uint id in new[]{saved.Lich,saved.Encounter}){if(World.FindMobile((Serial)id)is BaseCreature t){t.Frozen=t.CantWalk=true;t.Combatant=null;t.AIObject?.AITimer.Stop();}}}};
         foreach(bool again in new[]{false,true})
         {
             bool reload=again;string name=reload?"slow-missiles-rules-reload-check":"slow-missiles-rules-check";
@@ -41,13 +43,16 @@ public static class SlowMissilesRulesChecks
     }
     private static void Scene(NetState network)
     {
-        var p=ClassSkillChecks.Player(DiabloClass.Amazon);p.Name="SlowRulesFixture";p.Body=0x191;p.Female=true;p.AddItem(new Backpack());ClassSkillChecks.Train(p,"amazon.slowmissiles",20);FixtureSpace.Corridor(p,6200,30,3550);
+        // This delivery check must not randomly Avoid its single incoming bolt.
+        // The shared all-skills helper trains Avoid; create only this skill and its prerequisites.
+        var p=new PlayerMobile{Name="SlowRulesFixture",Player=true,Body=0x191,Female=true};p.AddItem(new Backpack());ClassCreation.Profiles.Assign(p,DiabloClass.Amazon);ClassCreation.Profiles.AdvanceLevel(p,99);ClassSkillChecks.Train(p,"amazon.slowmissiles",20);
+        Require(AmazonAvoidance.AvoidChance(p)==0,"Delivery fixture unexpectedly learned Avoid");FixtureSpace.Corridor(p,6200,30,3550);
         var lich=new GraveyardLich{Name="SlowRulesLich",Frozen=true,CantWalk=true,NoKillAwards=true};lich.MoveToWorld(new(p.X+4,p.Y,p.Z),p.Map);lich.AIObject?.AITimer.Stop();
         var enemy=new EncounterCreature{Name="SlowRulesEncounter",Frozen=true,CantWalk=true,NoKillAwards=true};enemy.MoveToWorld(new(p.X+4,p.Y+2,p.Z),p.Map);enemy.AIObject?.AITimer.Stop();
         var account=FixtureNetwork.Authenticate(network,p,"slow-rules-");bool kept=false;
         try
         {
-            Require(!AmazonSlowMissilesCast.Target(p,lich,27)&&AmazonSlowMissilesCast.Target(p,lich,27,true),"Native adapter silently changed strict target policy");
+            Require(AmazonSlowMissilesCast.Target(p,lich,27)==SlowMissilesRules.Approved&&AmazonSlowMissilesCast.Target(p,lich,27,true),"Native adapter silently changed strict target policy");
             Require(PaladinConversion.SourceRule(lich)==null,"Native Lich acquired an invented D2 species");
             Ready(p);int mana=NecromancerEffects.ManaBalance256(p);Require(AmazonSlowMissilesCasting.BeginCandidate(p,Core.TickCount),"Cancellation start");long effect=ClassCombat.For(p).EffectAt;ClassCombat.Stop(p);
             Require(!ClassCombat.ResolveAction(p,effect)&&AmazonSlowMissiles.State(lich)==null&&NecromancerEffects.ManaBalance256(p)==mana,"Cancelled native cast changed state/payment");
@@ -62,8 +67,8 @@ public static class SlowMissilesRulesChecks
             SkillHealth.SetBalance256(p,SkillHealth.Maximum256(p)-513);NecromancerEffects.SetMana256(p,80*256+17);
             Ready(p);Require(AmazonSlowMissilesCasting.BeginCandidate(p,Core.TickCount),"Held unpaid candidate save");var pending=ClassCombat.For(p);pending.EffectAt+=FixtureSpace.RetentionMilliseconds;pending.NextAction+=FixtureSpace.RetentionMilliseconds;
             File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(0,p.Serial.Value,lich.Serial.Value,enemy.Serial.Value,p.Location,NecromancerEffects.ManaBalance256(p),SkillHealth.Balance256(p),state.Where(n=>n.Target==lich.Serial.Value||n.Target==enemy.Serial.Value).ToArray())));kept=true;
-            Require(!SlowMissilesRules.Approved&&!ClassCombat.Available(p,CombatAbility.SlowMissiles),"Unapproved Slow Missiles learned route enabled");
-            Log.Information("Slow Missiles rule:explicit native classification without D2 identity,SC/payment/cancel,strong state priority,real Lich/encounter projectile capture,independent speed/damage and atomic UTC state pass;learned gated");
+            Require(SlowMissilesRules.Approved&&ClassCombat.Available(p,CombatAbility.SlowMissiles),"Approved Slow Missiles admission missing");
+            Log.Information("Slow Missiles rule:explicit native classification without D2 identity,SC/payment/cancel,strong state priority,real Lich/encounter projectile capture,independent speed/damage and atomic UTC state pass;complete rule approved");
         }
         finally{network.Mobile=null;p.NetState=null;account[0]=null;network.Account=null;account.Delete();if(!kept){WeaponMissiles.Cancel(lich);EliteBolts.Cancel(enemy);AmazonSlowMissiles.Clear(lich);AmazonSlowMissiles.Clear(enemy);lich.Delete();enemy.Delete();p.Delete();}}
     }

@@ -86,8 +86,7 @@ public static class SlowMissilesWindupChecks
             Log.Information("Slow Missiles windup:generation{Generation},same paid recipient/resources;unpaid context transient",s.Generation+1);return;
         }
         var owner=Owner();var enemy=Enemy(owner);
-        Require(!ClassCombat.Available(owner,CombatAbility.SlowMissiles)&&!SkillBindings.Instance.Assign(owner,false,CombatAbility.SlowMissiles)
-            &&!ClassCombat.Perform(owner,CombatAbility.SlowMissiles,null,owner.Location,Core.TickCount),"Prepared start bypassed public unavailable gate");
+        Require(SlowMissilesRules.Approved&&ClassCombat.Available(owner,CombatAbility.SlowMissiles)&&SkillBindings.Instance.Assign(owner,false,CombatAbility.SlowMissiles)&&!SkillBindings.Instance.Assign(owner,true,CombatAbility.SlowMissiles)&&ClassAbilities.SelfTarget(CombatAbility.SlowMissiles),"Approved right/self admission missing");
         int mana=NecromancerEffects.ManaBalance256(owner);long now=Core.TickCount;
         Require(AmazonSlowMissilesCasting.BeginPrepared(owner,now),"Prepared SC start");var action=ClassCombat.For(owner);
         Require(action.Timing==new ActionTiming(20,11)&&action.PendingPoint==owner.Location&&action.PendingTarget==Serial.Zero
@@ -113,6 +112,6 @@ public static class SlowMissilesWindupChecks
         AmazonSlowMissiles.Restore(AmazonSlowMissiles.Snapshot().Where(x=>x.Target!=enemy.Serial.Value).Append(state).ToArray());
         enemy.Internalize();Ready(owner);Stage(owner);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,enemy.Serial.Value,NecromancerEffects.ManaBalance256(owner),state,owner.Location,owner.Map.MapID,0)));
-        Log.Information("Slow Missiles windup:source SC/self target,unpaid start,once-only live-rank release,stop/move/mana/frozen/weapon cancellation,8captured bolts and saved transient pass;public talent remains gated");
+        Log.Information("Slow Missiles windup:source SC/self target,unpaid start,once-only live-rank release,stop/move/mana/frozen/weapon cancellation,8captured bolts and saved transient pass;whole rule/public admission approved");
     }
 }

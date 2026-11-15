@@ -1,0 +1,13 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "answer": "Approve complete rule (Recommended)",
+  "approvedUtc": "2026-11-15T16:19:30.002975+00:00",
+  "questionItemId": "[\"request_user_input_async\",\"call_85022e694c8143f1a4ce280db6600369\",0]",
+  "proposal": "docs/slow-missiles-rule-proposal.md",
+  "proposalAtApprovalSha256": "a41479124ad3ed923a23c0825be272d3801a43eaffc59f353bf2c85aa0d3d914",
+  "candidateCommit": "c3eff2688f0394f59d84039fe0277d2621c362bd",
+  "testedCandidateEvidence": "tools/reference/slow-missiles-rules-native-evidence.json",
+  "testedCandidateEvidenceSha256": "eb98730b9aee1cec89c0a246540f1347a647e4c21f9a6c1244a875a709b2d59e",
+  "scope": "Complete SC/do6/state/native-target/current-D2-producer/snapshot/order/lifecycle rule. Explicitly approves retaining legacy UO instantaneous ranged hits and native spell/breath timers on the later monster-conversion track without claiming they are slowed. Learned right/quick verification authorized;four older Warlock proposals remain pending."
+}

@@ -11,7 +11,7 @@ internal sealed record SlowMissilesNativeTarget(string Type,bool Boss,bool Npc,b
 // admission. Existing prepared callers retain their original strict filters.
 internal static class SlowMissilesRules
 {
-    internal static bool Approved=>false;
+    internal static bool Approved=>true;
     private static readonly Dictionary<string,SlowMissilesNativeTarget> Native=new(StringComparer.Ordinal);
     private static readonly HashSet<string> Warned=new(StringComparer.Ordinal);
     private static readonly Server.Logging.ILogger Log=Server.Logging.LogFactory.GetLogger(typeof(SlowMissilesRules));

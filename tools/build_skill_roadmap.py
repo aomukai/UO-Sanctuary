@@ -815,6 +815,8 @@ BLOCKERS["warlock.abyss"] = "Approved complete709center→715terminal rule uses 
 BLOCKERS.pop("warlock.enhancedentropy",None)
 CAVEATS["warlock.enhancedentropy"] = "All three approved Bolt/Chain/Abyss consumers use captured effective rank for their respective radius/duration formulas,while Chain retains its separate hard-point datum. Actual original-gear thresholds,no invented passive damage or Abyss duration scaling,rank caps,passive binding refusal and saved Warlock/Witch/fractional resources are checked with the learned Abyss cohort. Full-class/special/PvP/property/graphical certification and final passive icon remain separate;no active cast/effect is invented. See abyss-cast-checkpoint.md."
 
+BLOCKERS["amazon.slowmissiles"] = "Approved complete Sanctuary right/quick caster-centered SC/FCR rule uses the existing do6paid search,independent velocity/damage rank curves,rank priority and captured projectile packets. Explicit native Lich classification invents no D2identity;source species-boss and unknown-target rules remain distinct. Existing currentD2encounter and Graveyard projectile travel/damage,UTC saves and public input acceptance are recorded in slow-missiles-learned-checkpoint.md. The user-approved legacy UO instant-ranged/spell/breath conversion boundary remains explicit in monster-combat-conversion-notes.md;those paths are not claimed as slowed. Modern exact ordering,unqualified children/burn/special/PvP/property/graphical and class certification remain open;effects/audio/right/quick/talent icons separate. Approval:slow-missiles-rule-approval.json."
+
 def build():
     skills=json.loads((BALANCE/'class-skills.json').read_text())
     protocol=(ROOT/'shared/ClassAbilities.cs').read_text()

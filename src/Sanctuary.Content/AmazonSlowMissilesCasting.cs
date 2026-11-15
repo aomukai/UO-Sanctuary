@@ -16,6 +16,7 @@ internal static class AmazonSlowMissilesCasting
         if(World.Loading||actor is not PlayerMobile owner||ClassCombat.Existing(owner) is not{SlowMissilesCast:not null} action){return;}
         if(owner.Map!=action.ActionMap||owner.Location!=action.ActionOrigin){ClassCombat.Stop(owner);}
     }
+    internal static bool BeginLearned(PlayerMobile owner,long now)=>SlowMissilesRules.Approved&&AmazonCombat.Available(owner,CombatAbility.SlowMissiles)&&BeginCore(owner,now,true);
     internal static bool BeginPrepared(PlayerMobile owner,long now)
         =>BeginCore(owner,now,false);
     internal static bool BeginCandidate(PlayerMobile owner,long now)=>BeginCore(owner,now,true);
