@@ -11,7 +11,7 @@ namespace Sanctuary.Integration;
 public static class EntropyCloudChecks
 {
     private static readonly Server.Logging.ILogger Log=Server.Logging.LogFactory.GetLogger(typeof(EntropyCloudChecks));
-    private sealed record Saved(uint Owner,uint Helm,bool Female,int Hard,int Life,int Mana,EntropyCloudShape Bolt,EntropyCloudShape Chain);
+    private sealed record Saved(uint Owner,uint Helm,bool Female,int Hard,int Life,int Mana,EntropyCloudShape Bolt,EntropyCloudShape Chain,AbyssNumbers Abyss=null);
     private static string Manifest=>Path.Join(Core.BaseDirectory,"entropy-cloud-fixtures.json");
     private static void Require(bool ok,string why){if(!ok){throw new InvalidOperationException(why);}}
     private static void Train(PlayerMobile p,string id,int rank=1)
@@ -21,6 +21,11 @@ public static class EntropyCloudChecks
         while(ClassCreation.Profiles.GetRank(p.Serial,id)<rank){Require(ClassCreation.Profiles.TryTrain(p.Serial,id,out _),"Train "+id);}
     }
     private static EntropyCloudShape Shape(PlayerMobile p,bool chain)=>WarlockEntropyClouds.Capture(SkillMechanics.Values(p,chain?CombatAbility.MiasmaChain:CombatAbility.MiasmaBolt));
+    private static int[] Damage(PlayerMobile p)
+    {
+        var b=MiasmaPackets.Capture(SkillMechanics.Values(p,CombatAbility.MiasmaBolt,1));var c=MiasmaChainBirths.Numbers(SkillMechanics.Values(p,CombatAbility.MiasmaChain,1));var a=AbyssBirths.Numbers(SkillMechanics.Values(p,CombatAbility.Abyss,1));
+        return[b.BoltMinimum256,b.BoltMaximum256,b.CloudMinimum256,b.CloudMaximum256,c.DirectMinimum256,c.DirectMaximum256,c.CloudMinimum256,c.CloudMaximum256,a.Minimum256,a.Maximum256,a.BurstMinimum256,a.BurstMaximum256];
+    }
     private static void Model()
     {
         // Threshold goldens distinguish source hard-point and effective-rank
@@ -39,7 +44,7 @@ public static class EntropyCloudChecks
             bool refused=false;try{WarlockEntropyClouds.Capture(new(SkillMechanics.For(CombatAbility.MiasmaBolt),_=>rank,_=>0,99));}catch(NotSupportedException){refused=true;}
             Require(refused,"Unmapped spell rank accepted");
         }
-        Require(!WarlockCombat.Implemented(CombatAbility.EnhancedEntropy)&&WarlockCombat.Implemented(CombatAbility.MiasmaChain),"Prepared cloud outputs enabled incomplete do41/Abyss routes");
+        Require(WarlockCombat.Implemented(CombatAbility.EnhancedEntropy)&&WarlockCombat.Implemented(CombatAbility.MiasmaChain)&&AbyssWorld.Approved&&WarlockCombat.Implemented(CombatAbility.Abyss),"Passive admission lacks an approved complete consumer");
     }
     private static void Check()
     {
@@ -49,17 +54,17 @@ public static class EntropyCloudChecks
             bool female=hard==9;var p=new PlayerMobile{Name="PoisonDaggerFixtureEntropyCloud",Player=true,Female=female,Body=female?0x191:0x190};p.AddItem(new Backpack());
             ClassCreation.Profiles.Assign(p,DiabloClass.Warlock);ClassCreation.Profiles.AdvanceLevel(p,99);FixtureSpace.Place(p,new(6100,1660+index*4,0),Map.Trammel);
             while(p.RawStr<50){Require(ClassCreation.Profiles.TrySpendStat(p,CharacterStat.Strength),"Fixture Strength");}
-            Train(p,"warlock.enhancedentropy",hard);var boltValues=SkillMechanics.Values(p,CombatAbility.MiasmaBolt);var chainValues=SkillMechanics.Values(p,CombatAbility.MiasmaChain);
+            Train(p,"warlock.enhancedentropy",hard);Train(p,"warlock.abyss");var beforeAbyss=AbyssBirths.Capture(p);var damage=Damage(p);var boltValues=SkillMechanics.Values(p,CombatAbility.MiasmaBolt);var chainValues=SkillMechanics.Values(p,CombatAbility.MiasmaChain);
             var beforeBolt=WarlockEntropyClouds.Capture(boltValues);var beforeChain=WarlockEntropyClouds.Capture(chainValues);
             var helm=NamedGear.Create(NamedGear.Catalog.Items.Single(x=>x.SourceKey=="Tarnhelm").Id,99,new Random(173),true);p.AddToBackpack(helm);Require(p.EquipItem(helm),"Original Tarnhelm equip");ClassGear.Refresh(p);
-            var bolt=Shape(p,false);var chain=Shape(p,true);
+            var bolt=Shape(p,false);var chain=Shape(p,true);var abyss=AbyssBirths.Capture(p);Require(abyss.EffectiveEntropy==hard+1&&abyss.HardEntropy==hard&&abyss.Numbers.Radius==beforeAbyss.Numbers.Radius+1&&damage.SequenceEqual(Damage(p)),"Actual Entropy bonus/radius or invented three-consumer damage");
             Require(bolt.EffectiveRank==hard+1&&bolt.HardRank==hard&&chain.HardRank==hard&&chain.ServerCalculation==beforeChain.ServerCalculation,"Item bonus changed hard-only server calculation");
             Require((hard==4?bolt.Radius==3:hard==9?bolt.Radius==4:bolt.LifetimeFrames==150)&&WarlockEntropyClouds.Capture(boltValues)==beforeBolt&&WarlockEntropyClouds.Capture(chainValues)==beforeChain,"Cloud capture rewrote older packets or missed gear breakpoint");
-            p.AddToBackpack(helm);ClassGear.Refresh(p);Require(Shape(p,false)==beforeBolt&&Shape(p,true)==beforeChain,"Unequipped bonus persisted");Require(p.EquipItem(helm),"Helm restore");ClassGear.Refresh(p);
+            p.AddToBackpack(helm);ClassGear.Refresh(p);Require(Shape(p,false)==beforeBolt&&Shape(p,true)==beforeChain&&AbyssBirths.Capture(p)==beforeAbyss,"Unequipped bonus persisted");Require(p.EquipItem(helm),"Helm restore");ClassGear.Refresh(p);
             if(hard==19){Train(p,"warlock.enhancedentropy",20);bolt=Shape(p,false);chain=Shape(p,true);Require(chain.EffectiveRank==21&&chain.ServerCalculation==4&&beforeChain.ServerCalculation==3,"Hard20server threshold or prior capture changed");}
             SkillHealth.SetBalance256(p,SkillHealth.Maximum256(p)-1237);TimedEffects.PreventHealing(p,TimedEffects.Now);NecromancerEffects.SetMana256(p,NecromancerEffects.ManaMaximum256(p)-777);
             Require(!SkillBindings.Instance.Assign(p,false,CombatAbility.EnhancedEntropy)&&!SkillBindings.Instance.AssignQuick(p,0,CombatAbility.EnhancedEntropy),"Passive accepted an active binding");
-            saved[index++]=new(p.Serial.Value,helm.Serial.Value,female,hard==19?20:hard,SkillHealth.Balance256(p),NecromancerEffects.ManaBalance256(p),bolt,chain);p.Internalize();
+            saved[index++]=new(p.Serial.Value,helm.Serial.Value,female,hard==19?20:hard,SkillHealth.Balance256(p),NecromancerEffects.ManaBalance256(p),bolt,chain,AbyssBirths.Capture(p).Numbers);p.Internalize();
         }
         File.WriteAllText(Manifest,JsonSerializer.Serialize(saved));Report();
     }
@@ -68,12 +73,12 @@ public static class EntropyCloudChecks
         Model();foreach(var s in JsonSerializer.Deserialize<Saved[]>(File.ReadAllText(Manifest)))
         {
             var p=(PlayerMobile)World.FindMobile((Serial)s.Owner);var helm=World.FindItem((Serial)s.Helm);ClassGear.Refresh(p);
-            Require(p.Female==s.Female&&helm.Parent==p&&ClassCreation.Profiles.GetRank(p.Serial,"warlock.enhancedentropy")==s.Hard&&Shape(p,false)==s.Bolt&&Shape(p,true)==s.Chain,"Saved original Warlock/Witch/cloud rank channels changed");
+            Require(p.Female==s.Female&&helm.Parent==p&&ClassCreation.Profiles.GetRank(p.Serial,"warlock.enhancedentropy")==s.Hard&&Shape(p,false)==s.Bolt&&Shape(p,true)==s.Chain&&AbyssBirths.Capture(p).Numbers==s.Abyss,"Saved original Warlock/Witch/cloud/Abyss rank channels changed");
             Require(SkillHealth.Balance256(p)==s.Life&&NecromancerEffects.ManaBalance256(p)==s.Mana,"Passive capture changed saved fractional wounds/resources");
         }
         Report();
     }
-    private static void Report()=>Log.Information("Entropy clouds:distinct effective Range/Radius and hard-only Chain SrvCalc1;14threshold controls,real original gear/captured packet retention and saved Warlock/Witch resources;do41 geometry and Abyss sksrc remain unresolved");
+    private static void Report()=>Log.Information("Entropy clouds:distinct effective Range/Radius and hard-only Chain SrvCalc1;14threshold controls,real original gear/captured packet retention and saved Warlock/Witch resources;approved Bolt/Chain/Abyss consumers retain distinct radius/duration/hard channels and no invented damage;graphical/class scope separate");
     public static void Configure()
     {
         foreach(string name in new[]{"entropy-cloud-check","entropy-cloud-reload-check"})ConsoleInputHandler.RegisterCommand(name,"Captured Entropy cloud channels",_=>Core.LoopContext.Post(()=>

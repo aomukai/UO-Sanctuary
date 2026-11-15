@@ -9,12 +9,12 @@ namespace Sanctuary;
 
 internal sealed record AbyssState(long Id,uint Owner,int Map,Point3D Point,AbyssBirth Birth,ulong Seed,bool Terminal,DateTime CreatedUtc,DateTime NextUtc,DateTime UntilUtc);
 internal readonly record struct AbyssAdvance(int Pulses,int Pulled,int Contacts,int Damage256,int Terminals,string Fault=null);
-// Complete candidate for unavailable do39. Shared ground launch, entropy-root
+// Approved Sanctuary mapping for unavailable do39. Shared ground launch, entropy-root
 // identity/persistence, area recipients, forced movement and magic receiver are
-// reused. The complete proposal must be approved before learned admission.
+// reused;modern callback parity remains explicitly adapted.
 internal static class AbyssWorld
 {
-    internal static bool Approved=>false;
+    internal static bool Approved=>true;
     private static readonly Server.Logging.ILogger Log=Server.Logging.LogFactory.GetLogger(typeof(AbyssWorld));
     private static Dictionary<long,AbyssState> Fields=new();
     private static HashSet<long> Loaded=new();

@@ -2627,10 +2627,10 @@
       "characterClass": "Warlock",
       "tree": "Chaos",
       "sourceId": 397,
-      "implementation": "pending",
+      "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Prepared shared cloud shape preserves effective Entropy Range/Radius separately from Chain hard-only SrvCalc1. Owned missile705/696 fields match local3.3.93847CASC and cached/runtime data;the numeric supplier reuses MissileValues and does not guess do41 layer geometry. Existing Bolt packets reuse the shared shape without changing damage. Original gear,hard/effective thresholds,captured contexts and Warlock/Witch resource persistence have dedicated scoped checks in entropy-clouds-checkpoint.md. Current do41 geometry,hit windows,first/last contacts,Chain casting and Abyss sksrc context remain unresolved;no learned cast or complete passive is enabled."
+      "remaining": "All three approved Bolt/Chain/Abyss consumers use captured effective rank for their respective radius/duration formulas,while Chain retains its separate hard-point datum. Actual original-gear thresholds,no invented passive damage or Abyss duration scaling,rank caps,passive binding refusal and saved Warlock/Witch/fractional resources are checked with the learned Abyss cohort. Full-class/special/PvP/property/graphical certification and final passive icon remain separate;no active cast/effect is invented. See abyss-cast-checkpoint.md."
     },
     {
       "talentId": "warlock.apocalypse",
@@ -2649,10 +2649,10 @@
       "characterClass": "Warlock",
       "tree": "Chaos",
       "sourceId": 402,
-      "implementation": "blocked",
+      "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Complete prepared start14/do28 SC ground cast and709center\u2192715terminal candidate reuse source area recipients,forced movement,magic packets and the existing entropy root/clock. Scoped effective Entropy sksrc radius binding,12-frame pulse/pull cadence,distinct missile terminal damage,30-frame table cooldown versus conflicting tooltip,overlap,late/parked skip and optional atomic Abysses save array are explicit pending Sanctuary adaptations. Learned/automatic input stays gated pending the whole rule in abyss-world-rule-proposal.md;acceptance and still-untested scope are in abyss-world-checkpoint.md. No newer reference substitution or extra timer/profile/version;effects/audio/icons remain separate."
+      "remaining": "Approved complete709center\u2192715terminal rule uses shared SC/FCR,qualified start14/do28ground launch,12frame magic pulses/native pull,one-frame collapse,independent casts and the existing entropy world clock/root. Effective captured Entropy sksrc radius,30frame table cooldown versus50tooltip,and terminal715own damage versus skill tooltip are explicit approved choices. Snapshot/gear/respec,terrain/allegiance/elite/frozen exclusions,parking/no replay and optional atomic saves retain. Learned inputs and limits are in abyss-cast-checkpoint.md;modern do39/global RNG/special/PvP/property/graphical/class certification and final assets remain separate. Approval:abyss-world-rule-approval.json."
     }
   ]
 }

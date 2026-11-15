@@ -78,8 +78,8 @@ public static class AbyssWorldChecks
             Pump(p,at.AddMilliseconds(2039));r=Pump(p,at.AddMilliseconds(2040));Require(r is{Terminals:1,Contacts:1,Pulled:0}&&AbyssWorld.For(p).Length==0&&SkillHealth.Balance256(t)<hp&&Pump(p,at.AddMilliseconds(2040))==default,"Terminal hit/lifetime/replay");
             PullAndTerrain(p,t,point);OverlapAndLifecycle(p,t,point);Immunity(p,t,point);
             if(w.Parent!=p){p.AddToBackpack(w);Require(p.EquipItem(w),"Restore dagger after owner death");}p.AddToBackpack(helm);Require(p.EquipItem(helm),"Restore soft-rank helm");ClassGear.Refresh(p);
-            Save(p,t,point,w,helm);kept=true;Require(!AbyssWorld.Approved&&!WarlockCombat.Implemented(CombatAbility.Abyss),"Unapproved Abyss admitted learned input");
-            Log.Information("Abyss world:numeric/isolated sksrc/real gear threshold,SC interrupt/late mana/one debit,ground launch,12frame pulses,pull/terrain,terminal,overlap,immunity,parking/death and atomic graph pass;learned gated");
+            Save(p,t,point,w,helm);kept=true;Require(AbyssWorld.Approved&&WarlockCombat.Implemented(CombatAbility.Abyss),"Approved Abyss missing admission");
+            Log.Information("Abyss world:numeric/isolated sksrc/real gear threshold,SC interrupt/late mana/one debit,ground launch,12frame pulses,pull/terrain,terminal,overlap,immunity,parking/death and atomic graph pass;world rule approved");
         }
         finally{ClassCombat.Stop(p);network.Mobile=null;p.NetState=null;account[0]=null;network.Account=null;account.Delete();if(!kept){t.Delete();MiasmaWorld.Clear(p);p.Delete();}}
     }
@@ -141,7 +141,7 @@ public static class AbyssWorldChecks
             var r=Pump(p,next);Require(r.Terminals==1&&r.Contacts==1&&SkillHealth.Balance256(t)<saved.TargetLife&&AbyssWorld.For(p)is[{Terminal:false}],"Saved one-frame terminal failed to resume once");
             MiasmaWorld.Restore(state,true);SkillHealth.SetBalance256(t,saved.TargetLife);r=Pump(p,next.AddMilliseconds(10));Require(r.Contacts==0&&AbyssWorld.For(p)is[{Terminal:false}]&&SkillHealth.Balance256(t)==saved.TargetLife,"Overdue loaded terminal replayed offline damage");
             MiasmaWorld.Restore(state);SkillHealth.SetBalance256(t,saved.TargetLife);File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Generation=saved.Generation+1}));
-            Require(ClassCombat.For(p).Abyss==null&&!WarlockCombat.Implemented(CombatAbility.Abyss),"Transient replay or unapproved learned admission");Log.Information("Abyss world:original simultaneous center/terminal,captured rank/radius/seed/clocks,gear/Witch/fractional wounds+mana retain through actual reload;terminal resumes once and overdue load skips");
+            Require(ClassCombat.For(p).Abyss==null&&WarlockCombat.Implemented(CombatAbility.Abyss),"Transient replay or lost approved admission");Log.Information("Abyss world:original simultaneous center/terminal,captured rank/radius/seed/clocks,gear/Witch/fractional wounds+mana retain through actual reload;terminal resumes once and overdue load skips");
         }
         finally{ClassCombat.Stop(p);network.Mobile=null;p.NetState=null;account[0]=null;network.Account=null;account.Delete();}
     }

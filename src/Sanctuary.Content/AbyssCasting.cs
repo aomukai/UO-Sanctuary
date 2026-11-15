@@ -4,7 +4,7 @@ using Server;
 using Server.Mobiles;
 namespace Sanctuary;
 
-// Prepared ordinary-SC action;complete Abyss world rule is still pending.
+// Approved ordinary-SC action;shared action owns interruption and one release.
 internal static class AbyssCasting
 {
     internal sealed class Pending

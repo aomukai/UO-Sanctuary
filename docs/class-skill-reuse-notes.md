@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Abyss learned/full Entropy reuse — 2026-11-16 JST.** Learned admission connects the approved action and existing entropy clock/root without a new clock/profile/client patch. Extend the existing EntropyCloudChecks original-item and saved-resource fixtures to the third consumer instead of creating another passive controller. Fixed-parent-rank comparisons separate real effective-radius/duration changes from parent spell +skill damage changes;the separate hard-only Chain output is preserved. [Checkpoint](abyss-cast-checkpoint.md).
+
 **Abyss world reuse — 2026-11-16 JST.** Reuses qualified GroundMissileLaunch start14/do28,Warlock SC/FCR/action/resource/cooldown services,SourceDamageAreas shared allegiance/LOS,CombatDisplacement for actual pulls and Miasma magic delivery. Its optional state pool joins the existing entropy root/global IDs and clock,with atomic cross-pool restore;no duplicate timer/profile/version. Modern do39pull/cadence/terminal choices and sksrc context remain one explicit proposed adaptation. [Checkpoint](abyss-world-checkpoint.md).
 
 **Flame Wave learned reuse — 2026-11-15 JST.** The existing ordinary-SC Warlock metadata already handles Flame Wave and its HUD timing. Learned dispatch therefore only connects the approved action and existing world hook;no duplicate clock,client patch,timer or profile is added. Actual socket inputs and retained consumers qualify the wiring;candidate graph/damage services remain shared. [Checkpoint](flame-wave-cast-checkpoint.md).

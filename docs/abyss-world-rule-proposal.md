@@ -1,6 +1,6 @@
 # Abyss: complete Sanctuary world/action candidate
 
-Reference: **D2R Reign of the Warlock 3.3.93847**, owned skill402 and missile709/714/715 graph. Sanctuary approvals take precedence. Current missile do39 behavior remains unavailable. **Pending approval; learned input and automatic world execution stay gated.** This is one complete adaptation proposal, not a claim of recovered modern callbacks.
+Reference: **D2R Reign of the Warlock 3.3.93847**, owned skill402 and missile709/714/715 graph. Sanctuary approvals take precedence. Current missile do39 behavior remains unavailable. **Approved by the user on 2026-11-16 JST.** [Exact decision](../tools/reference/abyss-world-rule-approval.json). The body below is the approved proposal; [current learned acceptance](abyss-cast-checkpoint.md) is recorded separately. This is one complete adaptation proposal, not a claim of recovered modern callbacks.
 
 ## Pinned facts and explicit choices
 

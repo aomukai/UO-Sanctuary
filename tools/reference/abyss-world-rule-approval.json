@@ -1,0 +1,13 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "answer": "Approve the complete Abyss rule (Recommended)",
+  "approvedUtc": "2026-11-15T15:27:09.836806+00:00",
+  "questionItemId": "[\"request_user_input_async\",\"call_891209ac7329498e87b95fdd53242d25\",0]",
+  "proposal": "docs/abyss-world-rule-proposal.md",
+  "proposalAtApprovalSha256": "58a76602f6825bdc7bc19b3a51ec7572b141b697c5a247ef2023851a2b0e777e",
+  "candidateCommit": "81ec8f9d6e8989eaabb9910174bc3a3554c0d5c2",
+  "testedCandidateEvidence": "tools/reference/abyss-world-native-evidence.json",
+  "testedCandidateEvidenceSha256": "9506434e343869bc11b6fccef6af37f588788a8b99acd83614c48ec802417847",
+  "scope": "Complete Abyss scoped effective Entropy radius,SC/action/ground placement,pulse/pull/terminal/overlap/snapshot/lifecycle/save rule,including explicit30frame table cooldown and715terminal own-damage choices. Learned/automatic verification authorized;four older proposals stay pending."
+}

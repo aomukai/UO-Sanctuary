@@ -75,7 +75,7 @@ public static class MiasmaWorldChecks
         var account=FixtureNetwork.Authenticate(network,p,"miasma-world-");var target=Target(p,4);bool kept=false;var oldSeed=MiasmaWorld.SeedLow;MiasmaWorld.SeedLow=()=>73;
         try
         {
-            Require(MiasmaWorld.Approved&&WarlockCombat.Implemented(CombatAbility.MiasmaBolt)&&!WarlockCombat.Implemented(CombatAbility.EnhancedEntropy)
+            Require(MiasmaWorld.Approved&&WarlockCombat.Implemented(CombatAbility.MiasmaBolt)&&WarlockCombat.Implemented(CombatAbility.EnhancedEntropy)&&AbyssWorld.Approved
                 &&SkillBindings.Instance.Assign(p,true,CombatAbility.MiasmaBolt),"Approved world admission missing");Suppliers(p);
             Ready(p);var action=MiasmaBoltCasting.BeginPrepared(p,target.Serial,target.Location,Core.TickCount);Require(action!=null,"Prepared SC startup");var s=ClassCombat.For(p);long effect=s.EffectAt;int mana=NecromancerEffects.ManaBalance256(p);
             Require(!ClassCombat.ResolveAction(p,effect-1)&&MiasmaWorld.For(p).Length==0&&NecromancerEffects.ManaBalance256(p)==mana,"Early SC debit");ClassCombat.Stop(p);
