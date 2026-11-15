@@ -1,0 +1,57 @@
+{
+  "component": "Holy Shield legacy fixture uses shared independent world space",
+  "referenceVersion": "3.3.93847",
+  "scope": "Focused fixture placement correction; combined Paladin acceptance pending",
+  "contentBuildReused": 1,
+  "integrationBuild": 2,
+  "sourceSnapshot": 3,
+  "focusedNativeRun": 2,
+  "nativeMarkers": 15,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "holy-shield-check": 1,
+    "holy-shield-result": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "holy-shield-reload-check": 2,
+    "holy-shield-reload-result": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "gameplaySourceChanged": false,
+  "gameplayAssemblyUnchanged": true,
+  "runtimeDataUnchanged": true,
+  "changedSources": [
+    "tests/Sanctuary.Integration/HolyShieldChecks.cs"
+  ],
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "5df3992322b515ae6e525927b8b9ddb57420eddd63d9886f019ffd6974b2cd49",
+    "Assemblies/Sanctuary.Content.dll": "508e93ea5f7458c9de14a13d70500aaba9f6f39c76ba3313adaa3966b1d34e14",
+    "Assemblies/Sanctuary.Integration.dll": "b5524cf002e73a55cc0a37de879833590109eb3a7bf92145e286d40727a457fb"
+  },
+  "correction": "Use existing FixtureSpace.Corridor instead of fixed50x50natural-terrain search. Preserve rank/equipment,block/defense,paid/refused/cancelled casts,lifecycle and original shield/owner reload assertions.",
+  "causeQualification": "Old C1/I1 fixture passed in isolation but failed the full cohort at the bounded corridor search. The exact exclusive cause is not established; isolated old proof is preserved.",
+  "inputs": {
+    ".local/class-skills/paladin-holy-shield-current/birth-inputs.json": "ca0d580ec437c5f3f33fd78c9b776125922a4859b264ff40c90975f619791d25",
+    ".local/class-skills/paladin-holy-shield-current/birth-native-checks.log": "78eb604691d0ba4a4f2fbb7caa66c39eeab18c7cbcd473c35b5f2fc58190e0eb",
+    ".local/class-skills/paladin-holy-shield-current/native-run-2.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/paladin-holy-shield-current/legacy-isolated-run-1/birth-inputs.json": "45b0e12370702af97475f2722d7bd9c8e321969ddc9db1f5a981afe3de50266e",
+    ".local/class-skills/paladin-holy-shield-current/legacy-isolated-run-1/birth-native-checks.log": "322c4682c652368875f51ad69c05ae46a97492a34e359567c972a93f8fb7a929",
+    ".local/class-skills/paladin-planned-acceptance/source-snapshot-3.json": "ab085ba4e3ec6a2e52ad2aaf310b03881e6fda4a440599794226497aee8894f5",
+    ".local/class-skills/paladin-planned-acceptance/integration-build-2.log": "d06f0b2c1f84b791bea96db8d27bdb25db0b5a5d85b4ea5eb7acb35932752d74",
+    ".local/class-skills/paladin-planned-acceptance/failed-run-2/birth-native-checks.log": "b4b7def99125f5006a151c65e9d4b3092c6b855eefcecd22b5f7e81dfa73e347",
+    "tests/Sanctuary.Integration/HolyShieldChecks.cs": "9c2e98992afc54977518ce1448da96394cd0820c3ac9ef7a56c827101aa511c6"
+  },
+  "installed": false,
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 44
+  }
+}

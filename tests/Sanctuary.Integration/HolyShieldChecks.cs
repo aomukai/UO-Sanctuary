@@ -29,7 +29,7 @@ public static class HolyShieldChecks
     private static PlayerMobile Owner()
     {
         var owner=ClassSkillChecks.Player(DiabloClass.Paladin);owner.AddItem(new Backpack());owner.RawStr=1000;owner.RawDex=75;
-        owner.MoveToWorld(ClassSkillChecks.Corridor(owner,5720,1800),owner.Map);TimedEffects.Poison(owner,owner,.000001,60000,TimedEffects.Now);return owner;
+        FixtureSpace.Corridor(owner,6400,20,3000);TimedEffects.Poison(owner,owner,.000001,60000,TimedEffects.Now);return owner;
     }
     private static void Replace(HolyShieldState state)=>HolyShields.Restore(HolyShields.Snapshot().Where(x=>x.Owner!=state.Owner).Append(state).ToArray());
     private static void Cast(PlayerMobile owner,bool success=true)
