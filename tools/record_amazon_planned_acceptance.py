@@ -46,10 +46,10 @@ def expected_markers():
 
 
 def record(check=False):
-    run = STAGE / 'native-run-5.log'
+    run = STAGE / 'native-run-6.log'
     assert 'pass across3boots/2reloads' in run.read_text(), 'Native run has not completed successfully'
     born = e.load(STAGE / 'birth-inputs.json')
-    snapshot(STAGE / 'source-snapshot-4.json', STAGE / 'birth-inputs.json')
+    snapshot(STAGE / 'source-snapshot-6.json', STAGE / 'birth-inputs.json')
     for name, digest in born['sourceInputs'].items():
         assert e.sha(ROOT / name) == digest, name
     for name, digest in born['copiedData'].items():
@@ -63,14 +63,16 @@ def record(check=False):
             assert digest == reuse['artifacts'][name], name
     for name in ('ModernUO.dll', 'Server.dll', 'Assemblies/UOContent.dll'):
         assert e.sha(STAGE / 'native/Distribution' / name) == born['artifacts'][name]
-    build = (STAGE / 'integration-build-3.log').read_text()
+    build = (STAGE / 'integration-build-5.log').read_text()
     assert all(text in build for text in ('Build succeeded.', '0 Warning(s)', '0 Error(s)'))
     original = e.load(STAGE / 'failed-run-1/birth-inputs.json')
     changed = {name for name, digest in original['sourceInputs'].items()
                if name.endswith('.cs') and born['sourceInputs'][name] != digest}
     assert changed == {'tests/Sanctuary.Integration/SlowMissilesCastChecks.cs',
                        'tests/Sanctuary.Integration/ChargedStrikeVelocityChecks.cs',
-                       'tests/Sanctuary.Integration/AmazonCastClockChecks.cs'}
+                       'tests/Sanctuary.Integration/AmazonCastClockChecks.cs',
+                       'tests/Sanctuary.Integration/AmazonEvadeChecks.cs',
+                       'tests/Sanctuary.Integration/DecoyChecks.cs'}
     assert original['copiedData'] == born['copiedData'] == reuse['copiedData']
     focused = e.load(ROOT / 'tools/reference/amazon-slow-missiles-current-native-evidence.json')
     assert focused['nativeMarkers'] == 15
@@ -87,8 +89,15 @@ def record(check=False):
     for name, digest in motion['files'].items():
         assert e.sha(ROOT / name) == digest, name
     clock = e.load(ROOT / 'tools/reference/amazon-clock-current-native-evidence.json')
-    assert clock['artifacts'] == born['artifacts'] and clock['nativeMarkers'] == 24
+    assert clock['nativeMarkers'] == 24
+    for name, digest in clock['artifacts'].items():
+        if name != 'Assemblies/Sanctuary.Integration.dll':
+            assert digest == born['artifacts'][name]
     for name, digest in clock['files'].items():
+        assert e.sha(ROOT / name) == digest, name
+    connected = e.load(ROOT / 'tools/reference/amazon-connected-current-native-evidence.json')
+    assert connected['artifacts'] == born['artifacts'] and connected['nativeMarkers'] == 30
+    for name, digest in connected['files'].items():
         assert e.sha(ROOT / name) == digest, name
     log = e.cohort(STAGE, expected_markers(), 334)
     config = configuration()
@@ -101,23 +110,24 @@ def record(check=False):
     files = [ROOT / 'tools/record_amazon_planned_acceptance.py',
              ROOT / 'tests/check_amazon_planned_acceptance.py',
              STAGE / 'birth-inputs.json', STAGE / 'birth-native-checks.log', run,
-             STAGE / 'artifact-reuse.json', STAGE / 'source-snapshot-4.json',
-             STAGE / 'integration-build-3.log', STAGE / 'failed-run-1/birth-inputs.json',
+             STAGE / 'artifact-reuse.json', STAGE / 'source-snapshot-6.json',
+             STAGE / 'integration-build-5.log', STAGE / 'failed-run-1/birth-inputs.json',
              STAGE / 'failed-run-1/birth-native-checks.log']
     files += [STAGE / f'decoy-boot-{boot}.json' for boot in range(3)]
-    files += [STAGE / f'failed-run-{attempt}' / name for attempt in (2, 3, 4)
+    files += [STAGE / f'failed-run-{attempt}' / name for attempt in (2, 3, 4, 5)
               for name in ('birth-inputs.json', 'birth-native-checks.log', 'sources/tests/check_amazon_planned_acceptance.py')]
     files += [ROOT / 'tools/reference' / name for name in (
         'item-content-scope-decision.json', 'amazon-slow-missiles-current-native-evidence.json',
         'lightning-strike-sanctuary-decision.json', 'slow-missiles-rule-approval.json',
         'valkyrie-cast-native-evidence.json', 'amazon-fend-composition-native-evidence.json',
-        'amazon-charged-velocity-current-native-evidence.json', 'amazon-clock-current-native-evidence.json')]
+        'amazon-charged-velocity-current-native-evidence.json', 'amazon-clock-current-native-evidence.json',
+        'amazon-connected-current-native-evidence.json')]
     files += [ROOT / 'docs' / name for name in (
         'amazon-planned-acceptance-checkpoint.md', 'amazon-coverage-matrix.md',
         'skill-effects.md', 'skill-icons.md')]
     result = dict(component='Current planned-content Amazon combined acceptance',
-                  referenceVersion='3.3.93847', contentBuildReused=1, integrationBuild=3,
-                  sourceSnapshot=4, nativeRun=5, nativeMarkers=334,
+                  referenceVersion='3.3.93847', contentBuildReused=1, integrationBuild=5,
+                  sourceSnapshot=6, nativeRun=6, nativeMarkers=334,
                   markers=dict(sorted(expected_markers().items())), fixtureFamilies=42,
                   sharedChecks=4, spellInputs=27, retainedCastInputs=42, decoyCastInputs=3,
                   snapshotCallbacks=3, connections=log.count('Client: 127.0.0.1: Connected.'),

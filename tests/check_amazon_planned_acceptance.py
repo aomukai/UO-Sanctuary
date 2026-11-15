@@ -45,10 +45,24 @@ def old_cast(session, client, name, timeout=15):
 
 def wire_checks(session, port, boot):
     count = 0
+    # Respect the native 10-attempt/10-second window while grouping the older
+    # Cast controls; this pacing happens before any skill fixture is created.
+    next_connect = time.monotonic() + 1.1
     for name in LEGACY_INPUTS:
+        remaining = next_connect - time.monotonic()
+        if remaining > 0:
+            time.sleep(remaining)
+        next_connect = time.monotonic() + 1.1
         with fixture_connection(session, port) as client:
             time.sleep(.15)
             count += old_cast(session, client, name)
+    count += decoy_checks(session, port, boot)
+    session.send('plague-javelin-snapshot-check')
+    assert session.expect(r'plague-javelin-snapshot-check: (passed|failed)').group(1) == 'passed'
+    return count + 1
+
+
+def decoy_checks(session, port, boot, stage=STAGE):
     # Decoy's established fixture includes the real Cast and expiry before
     # persisting a replacement; its socket-loss check runs after disconnect.
     command = 'decoy-check' if boot == 0 else 'decoy-reload-check'
@@ -61,13 +75,10 @@ def wire_checks(session, port, boot):
         client.sendall(struct.pack('>BHHBBIBIHHb', 0xBF, 21, 0xF2, 7, 3, 1, ability, 0, x, y, z))
         assert session.expect(r'decoy-result: (passed|failed)', timeout=30).group(1) == 'passed'
         folder = Path(f'/proc/{session.process.pid}/cwd')
-        shutil.copy2(folder / 'decoy-checks.json', STAGE / f'decoy-boot-{boot}.json')
+        shutil.copy2(folder / 'decoy-checks.json', stage / f'decoy-boot-{boot}.json')
     session.send('decoy-disconnect-check')
     assert session.expect(r'decoy-disconnect-check: (passed|failed)').group(1) == 'passed'
-    count += 3
-    session.send('plague-javelin-snapshot-check')
-    assert session.expect(r'plague-javelin-snapshot-check: (passed|failed)').group(1) == 'passed'
-    return count + 1
+    return 3
 
 
 def configuration():
@@ -125,8 +136,7 @@ def configuration():
            for suffix in ('-check', '-reload-check')},
     })
     config['extra_connected_checks'] = (
-        'fend-loop-check', 'amazon-avoid-check', 'amazon-avoid-reload-check',
-        'amazon-evade-check', 'amazon-evade-reload-check',
+        'fend-loop-check', 'amazon-evade-check', 'amazon-evade-reload-check',
         'slow-missiles-rules-check', 'slow-missiles-rules-reload-check',
         'slow-missiles-learned-check', 'slow-missiles-learned-reload-check',
     )

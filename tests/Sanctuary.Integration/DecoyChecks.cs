@@ -142,7 +142,7 @@ public static class DecoyChecks
     }
     private static void Attach(PlayerMobile owner)
     {
-        var network=NetState.Instances.Single(x=>x.Mobile==null && IPAddress.IsLoopback(x.Address));network.Seeded=true;network.CompressionEnabled=false;network.Mobile=owner;owner.NetState=network;
+        var network=NetState.Instances.Single(x=>x.Mobile==null && IPAddress.IsLoopback(x.Address));network.Seeded=network.SentFirstPacket=true;network.CompressionEnabled=false;network.Mobile=owner;owner.NetState=network;
         var state=typeof(NetState).GetField("_protocolState",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);Require(state!=null,"Protocol fixture bootstrap changed");state.SetValue(network,Enum.Parse(state.FieldType,"GameServer_LoggedIn"));network.ResetMovementState();network.SendMobileUpdate(owner);_connected=owner;
     }
     private static void Persist()

@@ -190,7 +190,7 @@ public static class AmazonEvadeChecks
         _parked=World.Mobiles.Values.OfType<BaseCreature>().Where(x=>!x.Deleted && !x.Frozen).ToArray();
         foreach(var creature in _parked){creature.Frozen=true;}
         _network=network;
-        _network.Seeded=true;_network.CompressionEnabled=false;_network.Mobile=owner;owner.NetState=_network;
+        _network.Seeded=_network.SentFirstPacket=true;_network.CompressionEnabled=false;_network.Mobile=owner;owner.NetState=_network;
         var protocol=typeof(NetState).GetField("_protocolState",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);
         Require(protocol!=null,"Connected fixture protocol");protocol.SetValue(_network,Enum.Parse(protocol.FieldType,"GameServer_LoggedIn"));_network.ResetMovementState();_network.SendMobileUpdate(owner);
         AmazonAvoidance.Roll=max=>{Require(max==100,"Natural Evade RNG bound");_calls++;_walkingAtDraw=ClassMovement.IsMoving(owner,Core.TickCount) && !ClassMovement.IsRunning(owner,Core.TickCount);Log.Information("Evade natural draw phase={Phase} now={Now} until={Until} location={Location} step={Step} run={Run}",_phase,Core.TickCount,ClassCombat.For(owner).RunningUntil,owner.Location,ClassCombat.For(owner).StepPosition,ClassCombat.For(owner).RunningStep);if(_calls>1){Log.Information("Extra Evade draw: source={Source} frozen={Frozen}, stack={Stack}",_source?.Serial,_source?.Frozen,new System.Diagnostics.StackTrace());}return _draw;};Next();

@@ -1,0 +1,74 @@
+{
+  "component": "Amazon connected fixture login state and expiry",
+  "referenceVersion": "3.3.93847",
+  "contentBuildReused": 1,
+  "integrationBuild": 5,
+  "sourceSnapshot": 6,
+  "nativeRun": 1,
+  "nativeMarkers": 30,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "amazon-avoid-check": 1,
+    "amazon-avoid-reload-check": 2,
+    "amazon-avoid-result": 3,
+    "amazon-evade-check": 1,
+    "amazon-evade-reload-check": 2,
+    "amazon-evade-result": 3,
+    "decoy-check": 1,
+    "decoy-reload-check": 2,
+    "decoy-result": 3,
+    "decoy-disconnect-check": 3
+  },
+  "connections": 6,
+  "decoyCastInputs": 3,
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "changedSources": [
+    "tests/Sanctuary.Integration/AmazonEvadeChecks.cs",
+    "tests/Sanctuary.Integration/DecoyChecks.cs"
+  ],
+  "gameplayChanged": false,
+  "runtimeDataChanged": false,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "5df3992322b515ae6e525927b8b9ddb57420eddd63d9886f019ffd6974b2cd49",
+    "Assemblies/Sanctuary.Content.dll": "508e93ea5f7458c9de14a13d70500aaba9f6f39c76ba3313adaa3966b1d34e14",
+    "Assemblies/Sanctuary.Integration.dll": "9eb4e46e0c7e8bff68845fcc6a2ae8b0b326d6f289e80f7fb4bff3d75a3fc332"
+  },
+  "productionSecurityChanged": false,
+  "securitySettings": {
+    "/media/aomukai/FILES/Sanctuary/.local/server/Configuration/bans.json": "f8c1cd5cad1e8f3c17571cc1281d3261613a499940528a82a1ac5475de6137ea",
+    "/media/aomukai/FILES/Sanctuary/.local/server/Configuration/auto-denylist.json": "1faf97cdeffb968ac2d0ab1f3119b333da30b8fff6f7f75d8b3b9a02a9799238"
+  },
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 44
+  },
+  "classCertified": false,
+  "limits": "Avoid uses no socket; long-lived Evade/Decoy simulated login marks SentFirstPacket with Seeded. Native filters remain enabled; no denial in focused log. Legacy-group pacing and complete Amazon composition still await N6. No full class certification.",
+  "files": {
+    ".local/class-skills/amazon-connected-current/birth-inputs.json": "d62f1b657bdaf508b7596e447c17542ce0a54c07f2878e1212d298c0e34feb94",
+    ".local/class-skills/amazon-connected-current/birth-native-checks.log": "99094ac6f7188a02aeaaa4af70df65648cc2cc2fdec95284caa1a3a505b4d2f4",
+    ".local/class-skills/amazon-connected-current/decoy-boot-0.json": "31e3a5d95d60f55934b1141f518a588afbfd02775a48a36c670d3786291e954a",
+    ".local/class-skills/amazon-connected-current/decoy-boot-1.json": "76849dc8b559b8d726d6e61be0a507eed08c6ba92da5b84e664b5a79baa246ea",
+    ".local/class-skills/amazon-connected-current/decoy-boot-2.json": "83aeee632b1e4a8bb8c5898da0ab165ab370a0cb2c933156caa12cd5aaf1a01c",
+    ".local/class-skills/amazon-connected-current/plan.json": "e0e87487978753d5e80d40b89909cd5baa094a8330381f9945cc1ca1950844db",
+    ".local/class-skills/amazon-planned-acceptance/connected-focused-run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/amazon-planned-acceptance/failed-run-5/birth-inputs.json": "d8ee5674e5d177b525723204e3406e1fec3dc28916f0d45919469145ddcdab8f",
+    ".local/class-skills/amazon-planned-acceptance/failed-run-5/birth-native-checks.log": "bcbe0ebdbe6b752d1eadbeffa77efb6d8fa7e1dd69d7ac5d10acdf3f0080161d",
+    ".local/class-skills/amazon-planned-acceptance/integration-build-5.log": "be77be57ac2fb6be28f1699be032624083ea33bf39751459801cecb273c4793a",
+    ".local/class-skills/amazon-planned-acceptance/source-snapshot-6.json": "68e8e1c29d50173ae31429b477ccd4c8b87665213a62ac0d0a0dd44a740789a8",
+    ".local/class-skills/bind-demon-typed/native/Projects/Server/Network/NetState/NetState.Network.cs": "f12890de55119509c67068b25e955f79e9e8904c83d99f73bda948462f53f3a7",
+    "tests/Sanctuary.Integration/AmazonEvadeChecks.cs": "a1c0ac068f31d0db9ab1006c9a28dc6b37fa3ebab945ed6ea582b320e11733fa",
+    "tests/Sanctuary.Integration/DecoyChecks.cs": "671cfbac85b92bbd2bbbe024e48a220d278df0c2a0aaf5d04cc13102e6c88c7d",
+    "tests/check_amazon_planned_acceptance.py": "1a61bb7e68a03829f5f397394db93725599186b3cd73666bec0f08e8c6a600a3"
+  }
+}
