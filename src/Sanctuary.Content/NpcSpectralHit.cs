@@ -14,7 +14,12 @@ internal static class NpcSpectralHit
         // Like the encounter's raw Basis,ignore Extra Strong/auras/item-local
         // weapon ED when choosing this independent affix amount.
         var basis=actor.SourceWeaponBase;
-        var roll=SpectralHit.Roll(basis.Min,basis.Max,(low,high)=>checked(low+limited(checked(high-low+1))),limited);
+        return CapturePrepared(actor,basis.Min,basis.Max,limited);
+    }
+    internal static NpcSpectralPayload CapturePrepared(BaseCreature actor,int minimum,int maximum,Func<int,int> limited)
+    {
+        if(actor.ControlMaster is not PlayerMobile{Deleted:false} owner){throw new NotSupportedException("Spectral pet has no owner");}
+        var roll=SpectralHit.Roll(minimum,maximum,(low,high)=>checked(low+limited(checked(high-low+1))),limited);
         return new(actor.Serial.Value,owner.Serial.Value,roll,NamedElements.PoisonPierce(actor));
     }
     internal static void After(BaseCreature source,Mobile target,NpcSpectralPayload payload,DateTime at)

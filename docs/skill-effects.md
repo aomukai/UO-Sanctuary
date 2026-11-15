@@ -1,5 +1,7 @@
 # Skill effects
 
+**Bound modifier effect boundary — 2026-11-15 JST.** Strong/Fast add no new artwork. Spectral reuses existing native typed contact/chill/poison placeholders and original body presentation;final elemental contact/audio and Bind channel/success/bound feedback remain missing and nonblocking. Aura30delivery is mechanically unfinished,independent of final aura artwork. No imagegen/new assets;icons separate. [Checkpoint](bind-demon-affix-checkpoint.md).
+
 **Bound Death Mark effect boundary — 2026-11-15 JST.** Native relocation reuses the identified shared landing0x3728 plus existing cast/target placeholders. Original creature presentation remains. Final warp/command/mark/expiry/audio and Bind channel/success/bound feedback are missing and nonblocking;no new artwork/imagegen. Icons remain separate. [Checkpoint](bind-demon-death-mark-checkpoint.md).
 
 **Consume aura effect boundary — 2026-11-15 JST.** Four aura recipes are now mechanically delivered through existing identified Paladin pulse/ring placeholders and Consume owner/cast placeholders. Final HolyFire/Meditation/Salvation presentation/audio and Consume/Bind visuals remain missing and nonblocking;no imagegen/new artwork. Provider lifecycle/rank/weapon/mana verification does not certify final effects. Icons remain separate. [Checkpoint](consume-aura-checkpoint.md).

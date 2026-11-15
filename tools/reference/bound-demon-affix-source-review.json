@@ -1,0 +1,71 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Pinned Bind Demon modifier identities and existing-affix reuse",
+  "sourceTableRows": 45,
+  "modifiers": [
+    {
+      "effectiveRank": 5,
+      "sourceId": 5,
+      "sourceName": "strong",
+      "nativeName": "ExtraStrong",
+      "enabled": true
+    },
+    {
+      "effectiveRank": 10,
+      "sourceId": 6,
+      "sourceName": "fast",
+      "nativeName": "ExtraFast",
+      "enabled": true
+    },
+    {
+      "effectiveRank": 15,
+      "sourceId": 27,
+      "sourceName": "spectralhit",
+      "nativeName": "SpectralHit",
+      "enabled": true
+    },
+    {
+      "effectiveRank": 20,
+      "sourceId": 30,
+      "sourceName": "aura",
+      "nativeName": "AuraEnchanted",
+      "enabled": true
+    }
+  ],
+  "currentD2RModifierCallbackParity": false,
+  "newGameFilesRead": false,
+  "newProcessMemoryRead": false,
+  "existingAffixPolicy": "Use existing Sanctuary direct Extra Strong, movement-only Extra Fast and Spectral Hit services. Current initializer/stat-order/RNG equivalence is not established.",
+  "officialCrossCheck": {
+    "url": "https://news.blizzard.com/en-gb/article/24261478/diablo-ii-resurrected-ladder-season-14-has-concluded",
+    "checkedUtc": "2026-11-15",
+    "publishedScope": "Patch 3.2 final notes;corroboration only,not a repin or3.3.93847binary certificate",
+    "softPointsGrantModifiers": true,
+    "replacements": {
+      "Might": "Concentration",
+      "Holy Fire": "Vigor",
+      "Blessed Aim": "Thorns",
+      "Holy Freeze": "Holy Freeze",
+      "Conviction": "Fanaticism",
+      "Fanaticism": "Fanaticism",
+      "Holy Shock": "Vigor"
+    },
+    "bindingNotes": [
+      "Hard points gate Champion10,Unique15,SuperUnique20.",
+      "Binding costs nine mana per second and checks about once per second.",
+      "Aura selection/rank/seed and underling contexts are not specified."
+    ]
+  },
+  "unresolved": [
+    "Bound aura30selection/rank/RNG/native delivery remains unfinished;replacement table is qualified independently from its unavailable producer.",
+    "Official cadence/cost guidance does not define SQ6progress or convert the raw shifted per-update cost into a proven channel clock. Raw chained equality remains unchanged.",
+    "Source modifier IDs are identities,not proof that current D2R callbacks match native Sanctuary affixes. Full Bind still requires a tested composite adaptation before learned admission."
+  ],
+  "inputs": {
+    "tools/review_bound_demon_affixes.py": "71ae211dc8ed93e9da59a923e1293db5c3de76d74179eb096cc5efa0e133b4f7",
+    "tools/reference/bone-barrier-hidedead-reference-evidence.json": "98c35a8f89f80899eae1320085ce97b38c4bf7d8586016dc393a41bb05ff5631",
+    ".local/class-skills/bone-barrier-death-phase-source/monumod.txt": "3a192913d0f45fcd6fa3660b080040027586c5224af0d6a749fae7ae912fd0ad",
+    "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
+    "tools/reference/iron-affix-reuse-review.json": "62ac952cccf87606fcd6bd37b34be486e7aa3c6af1215b3fe661829486c4722f"
+  }
+}

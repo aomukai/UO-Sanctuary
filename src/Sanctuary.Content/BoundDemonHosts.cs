@@ -49,10 +49,10 @@ internal static class BoundDemonHosts
     private static BindDemonSuppliers Stats(Mobile actor)=>actor is BaseCreature body?State(body)?.Birth:null;
     internal static int Armor(Mobile actor)=>Stats(actor)?.Armor??0;
     internal static int Attack(Mobile actor)=>Stats(actor)?.AttackBonus??0;
-    internal static int DamagePercent(Mobile actor)=>Stats(actor)?.DamagePercent??0;
+    internal static int DamagePercent(Mobile actor)=>checked((Stats(actor)?.DamagePercent??0)+BoundDemonUpgrades.DamagePercent(actor));
     internal static int FlatDamage(Mobile actor)=>Stats(actor)?.FlatDamage??0;
     internal static int AttackSpeed(Mobile actor)=>Stats(actor)?.AttackSpeed??0;
-    internal static int Velocity(Mobile actor)=>Stats(actor)?.VelocityPercent??0;
+    internal static int Velocity(Mobile actor)=>checked((Stats(actor)?.VelocityPercent??0)+BoundDemonUpgrades.Velocity(actor));
     internal static int Resistance(Mobile actor,string element)=>element=="physical"?Stats(actor)?.PhysicalResist??0
         :element is"fire"or"cold"or"ltng"or"pois"?Stats(actor)?.SummonResist??0:0;
     internal static MonsterDifficulty? Difficulty(BaseCreature actor)=>State(actor)?.Difficulty;
@@ -102,6 +102,7 @@ internal static class BoundDemonHosts
     {
         var profile=Profile(state.RuntimeType,state.Monster,state.Difficulty);
         MonsterVariantBaselines.Apply(body,state.Normal,profile);
+        BoundDemonUpgrades.ApplyNative(body,state.Birth);
         if(body.DamageMin<0||body.DamageMax<body.DamageMin){throw new NotSupportedException("Bound body has no native damage endpoints");}
         // Keep the original typed base roll intact. Native positive weapon
         // packets add the captured flat amount to physical exactly once.
