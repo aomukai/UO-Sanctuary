@@ -1,0 +1,41 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Complete proposed Echoing packet/action/native flight",
+  "approved": false,
+  "learnedEnabled": false,
+  "proposal": "docs/echoing-strike-world-rule-proposal.md",
+  "sourceInputReview": "tools/reference/echoing-strike-inputs-source-review.json",
+  "sourceInputsEvidence": "tools/reference/echoing-strike-inputs-native-evidence.json",
+  "known": {
+    "skill": 388,
+    "missile": 706,
+    "visualOnly": 720,
+    "weaponSource128": 116,
+    "hardMirroredCount": "1+hard/5",
+    "scalar": "(100/count)/2",
+    "scaleFirst": true,
+    "separateCastId": true,
+    "nextDelayFrames": 20,
+    "velocity": 24,
+    "rawRange": 20,
+    "rawInitSteps": 5
+  },
+  "selectedAdaptations": [
+    "SC/FCR/entry-locked aim/current release capture and once-only mana;no low-mana ranged fallback.",
+    "Damage+ledger exclusion;source116 weapon/element/rate scaling;separate skill/owner ED and all-echo scalar/slow order;length/count/drain preserved.",
+    "Unsigned critical per echo;independent saved per-echo damage stream.",
+    "Shared source fan;20outward updates;bounded live-owner return;40mechanical steps/1640ms absolute expiry;no five-step creation teleport.",
+    "Automatic accuracy with shared native avoidance/block;per-echo20frame contact lease;live qualified Hex triggers/direct-damage reactions;no ordinary attack procs.",
+    "Existing weapon leech/LifeTap/noheal/cold/poison/kill pipeline;no ammo or weapon durability;retire on unsupported lifecycle/world context."
+  ],
+  "unrecovered": [
+    "Current do166body0/757bytes;missile do44/hit34/damage16.",
+    "Capture/scaling/critical/RNG/event order,InitSteps5,factory fan/return geometry/native room and hit-delay identity.",
+    "Research auto-hit/noeffective-delay reports differ from rawToHit1/NextHit1/Delay20;proposal explicitly selects policy."
+  ],
+  "newPersistenceProfile": 253,
+  "newPersistenceVersion": 0,
+  "newTimers": 0,
+  "newLiveReferenceReads": 0,
+  "newerReferenceSubstitution": false
+}

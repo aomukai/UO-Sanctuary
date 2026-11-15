@@ -1,5 +1,7 @@
 # Skill effects
 
+**Prepared Echoing world — 2026-11-15 JST.** Native prepared movement/contact uses identified0x36E4blade,0x375Acontact and0x23Bthrow-sound placeholders. Final706outward/return weapon images,visual-only720detonation,cast/hit/recovery/expiry feedback and original audio remain needed.720never creates a second damage actor. No imagegen or final art. [Checkpoint](echoing-strike-world-checkpoint.md).
+
 **Echoing input/missile ownership — 2026-11-15 JST.** Immutable collection emits no VFX or sound. Final server706 Echoing blade,visual-only720 `echoingstrike_detonate`,`warlock_psychic_cast_1`,outbound/return/contact feedback and `Warlock_Skill_Soaring_Strike_Cast_03`/`Warlock_Skill_Echoing_Strike_01`/`Warlock_Skill_Soaring_Strike_Impact_06` audio remain needed. Visual720 must not become a second damage actor. No new placeholder or final artwork is created. [Checkpoint](echoing-strike-inputs-checkpoint.md).
 
 **Approved Eldritch learned input — 2026-11-15 JST.** Learned cast and automatic periodic mechanics now work under the approved rule;existing cast/aura/contact/cosmetic-nova/sound markers remain placeholders. Final VFX/audio listed for state221/missile721 and cast/recovery/expiry remain needed. No new artwork or imagegen. [Checkpoint](eldritch-blast-cast-checkpoint.md).

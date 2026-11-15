@@ -53,6 +53,7 @@ public static class ClassCombat
         internal DeathMarkCasting.Pending DeathMark;
         internal EngorgeCasting.Pending Engorge;
         internal BloodBoilCasting.Pending BloodBoil;
+        internal EchoingStrikeCasting.Pending Echoing;
         internal ConsumeCasting.Pending Consume;
         internal DragonFlights.Flight Flight;
         internal DruidChargedAttacks.Pending DruidChargeAttack;
@@ -279,6 +280,7 @@ public static class ClassCombat
         DeathMarkCasting.Cancel(from);
         EngorgeCasting.Cancel(from);
         BloodBoilCasting.Cancel(from);
+        EchoingStrikeCasting.Cancel(from);
         ConsumeCasting.Cancel(from);
         PaladinCharge.Cancel(from);
         For(from).Target = Serial.Zero;
@@ -555,6 +557,7 @@ public static class ClassCombat
         if(session.DeathMark!=null){return DeathMarkCasting.ResolvePrepared(from,now);}
         if(session.Engorge!=null){return EngorgeCasting.ResolvePrepared(from,now);}
         if(session.BloodBoil!=null){return BloodBoilCasting.ResolvePrepared(from,now);}
+        if(session.Echoing!=null){return EchoingStrikeCasting.ResolvePrepared(from,now);}
         if(session.Consume!=null){return ConsumeCasting.ResolvePrepared(from,now);}
         if(session.Charge!=null){return PaladinCharge.Resolve(from,now);}
         if(session.Zeal!=null){return PaladinZeal.Resolve(from,now);}
