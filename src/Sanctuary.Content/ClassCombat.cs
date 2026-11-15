@@ -131,7 +131,7 @@ public static class ClassCombat
                 ClassGear.Changed(from);
                 AmazonBow.EquipmentChanged(from);
                 AmazonJavelins.EquipmentChanged(from);
-                BladeFuryModes.EquipmentChanged(from);PlayerInfernoModes.EquipmentChanged(from);
+                BladeFuryModes.EquipmentChanged(from);PlayerInfernoModes.EquipmentChanged(from);BindDemonChannel.EquipmentChanged(from);
                 TigerStrikes.EquipmentChanged(from);DragonTails.EquipmentChanged(from);DragonTalons.EquipmentChanged(from);DragonFlights.EquipmentChanged(from);CleaveActionProposal.EquipmentChanged(from);
                 DruidChargedAttacks.EquipmentChanged(from);
                 PoisonDaggerCombat.EquipmentChanged(from);
@@ -273,7 +273,7 @@ public static class ClassCombat
         AssassinClaws.Cancel(from);
         BarbarianBerserk.CancelMode(from);
         BladeShields.Cancel(from);
-        BladeFuryModes.Interrupt(from);PlayerInfernoModes.Interrupt(from);
+        BladeFuryModes.Interrupt(from);PlayerInfernoModes.Interrupt(from);BindDemonChannel.Cancel(from);
         DruidVineCasting.Cancel(from);
         AmazonSlowMissilesCasting.Cancel(from);
         DeathMarkCasting.Cancel(from);
@@ -313,7 +313,7 @@ public static class ClassCombat
 
     private static bool ContinueHold(PlayerMobile from, CombatAbility ability, Mobile target, Point3D point, long now, bool attack)
     {
-        if(ability is CombatAbility.Inferno or CombatAbility.ArcticBlast or CombatAbility.BladeFury){return false;} // Requires explicit channel press/aim/release.
+        if(ability is CombatAbility.Inferno or CombatAbility.ArcticBlast or CombatAbility.BladeFury or CombatAbility.BindDemon){return false;} // Requires explicit channel press/aim/release.
         if(ability==CombatAbility.CloakOfShadows){CloakShadows.Face(from,point);target=null;point=from.Location;}
         if(ClassAbilities.SelfTarget(ability)){target=null;point=from.Location;}
         if (!attack && PaladinCombat.IsAura(ability)) { return ability==For(from).Right && PaladinCombat.Begin(from,ability); }
@@ -423,6 +423,7 @@ public static class ClassCombat
 
     private static bool Perform(PlayerMobile from, CombatAbility ability, Mobile target, Point3D point, long now, bool attackInPlace)
     {
+        if(ability==CombatAbility.BindDemon){return false;} // Requires explicit channel press/aim/release.
         if(!ShapeRestrictions.Allowed(from,ability)){return false;}
         var previous=For(from);
         if(previous.Zeal is{Remaining:<=0} && now-previous.NextAction>=0){previous.Zeal=null;}
@@ -884,6 +885,7 @@ public static class ClassCombat
     }
     private static void Tick()
     {
+        BindDemonChannel.Tick(TimedEffects.Now);
         _expired.Clear();
         foreach (var (serial, session) in _sessions)
         {

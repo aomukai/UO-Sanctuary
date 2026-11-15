@@ -1,5 +1,7 @@
 # Skill icons
 
+**Prepared Bind input icon boundary — 2026-11-15 JST.** Bind tree, right-button and quick-slot icons remain separately missing. Saved input authorization and world updates create no artwork; the existing cast pose is tracked in the effects register. Client/learned admission remains mechanical work. No imagegen. [Checkpoint](bind-demon-input-checkpoint.md).
+
 **Prepared Bind channel icon boundary — 2026-11-15 JST.** Bind Demon tree, right-button and quick-slot icons remain separately missing. Chance/channel preparation creates no icon or artwork; no imagegen. Input, world and action admission remain mechanical work, independent of the asset lists. [Checkpoint](bind-demon-channel-checkpoint.md).
 
 **Bound life-buff icon boundary — 2026-11-15 JST.** Existing-buff capture adds no skill or icon. Bind Demon tree/hotkey icons remain separately missing;no artwork/imagegen. Effects and the unresolved complete Bind mechanics remain separate. [Checkpoint](bind-demon-life-checkpoint.md).

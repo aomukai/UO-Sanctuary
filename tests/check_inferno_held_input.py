@@ -11,8 +11,8 @@ from check_iron_golem_birth import ROOT,check
 from check_inferno_held_candidate import configuration as prior
 
 
-def wires(session,port,boot):
-    for source in (0,1,9):
+def wires(session,port,boot,sources=(0,1,9)):
+    for source in sources:
         label=f'inferno-held-wire-{source}'
         with socket.create_connection(('127.0.0.1',port),timeout=5) as client:
             def drain():
@@ -40,7 +40,7 @@ def wires(session,port,boot):
             send(11,input_source=(source+1)%14);send(10)
             send(11);send(10) # Release, then a stale heartbeat cannot restart.
             assert session.expect(label+r'-result: (passed|failed)',timeout=10).group(1)=='passed'
-    return 3
+    return len(sources)
 
 
 def configuration(retained=False):

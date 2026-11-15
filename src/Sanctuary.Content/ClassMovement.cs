@@ -17,7 +17,7 @@ public static class ClassMovement
         FireGround.Moved(player);
         var session = ClassCombat.For(player);
         session.FormAction=null;
-        BladeFuryModes.Interrupt(player);PlayerInfernoModes.Interrupt(player);
+        BladeFuryModes.Interrupt(player);PlayerInfernoModes.Interrupt(player);BindDemonChannel.Cancel(player);
         if(AssassinCombat.Handles(session.PendingAbility) || DruidCombat.Handles(session.PendingAbility)){session.PendingAbility=CombatAbility.None;}
         // Any accepted external step changes the attack mode; voluntary Concentrate steps are gated.
         BarbarianConcentrate.Cancel(player);

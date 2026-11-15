@@ -17,13 +17,14 @@ internal static class PlayerInfernoInput
         var pair=SkillBindings.Instance.Get(owner);
         return (source==0?pair.Left:source==1?pair.Right:SkillBindings.Instance.GetQuick(owner.Serial,SkillMechanics.For(ability).CharacterClass,source-2))==ability;
     }
+    internal static bool PointAllowed(PlayerMobile owner,Point3D point)=>owner?.Map!=null&&point.X>0&&point.Y>0&&point.X<owner.Map.Width&&point.Y<owner.Map.Height
+        &&Math.Abs((long)point.X-owner.X)<50&&Math.Abs((long)point.Y-owner.Y)<50;
     internal static void EndHeld(PlayerMobile owner,int source)
-    {PlayerInfernoModes.EndHeld(owner,source);BladeFuryModes.EndHeld(owner,source);}
+    {PlayerInfernoModes.EndHeld(owner,source);BladeFuryModes.EndHeld(owner,source);BindDemonChannel.EndHeld(owner,source);}
     internal static bool Apply(PlayerMobile owner,CombatRequest action,int source,CombatAbility ability,Serial target,Point3D point,DateTime at)
     {
-        if(at.Kind!=DateTimeKind.Utc||!Bound(owner,source,ability)
-            ||owner.Map==null||point.X<=0||point.Y<=0||point.X>=owner.Map.Width||point.Y>=owner.Map.Height
-            ||Math.Abs((long)point.X-owner.X)>=50||Math.Abs((long)point.Y-owner.Y)>=50
+        if(ability==CombatAbility.BindDemon){return BindDemonInput.Apply(owner,action,source,target,point,at);}
+        if(at.Kind!=DateTimeKind.Utc||!Bound(owner,source,ability)||!PointAllowed(owner,point)
             ||AmazonSlowMissiles.Capture(owner,ability!=CombatAbility.ArcticBlast).DamagePercent!=100)
         {EndHeld(owner,source);return false;}
         if(action==CombatRequest.ChannelAim){return ability==CombatAbility.BladeFury?BladeFuryModes.RenewHeld(owner,source,target,point,at):PlayerInfernoModes.RenewHeld(owner,source,target,point,at);}
@@ -31,6 +32,7 @@ internal static class PlayerInfernoInput
         // Repeated start delivery for an active gesture cannot charge twice.
         if(PlayerInfernoModes.State(owner) is{HeldSource:>=0} active&&active.HeldSource==source){return false;}
         if(BladeFuryModes.State(owner) is{HeldSource:>=0} fury&&fury.HeldSource==source){return false;}
+        if(BindDemonChannel.State(owner)is{InputBound:true} bind&&bind.Source==source){return false;}
         var session=ClassCombat.For(owner);
         if(Core.TickCount<session.NextAction||session.PendingAbility!=CombatAbility.None){return false;}
         ClassCombat.Stop(owner);
