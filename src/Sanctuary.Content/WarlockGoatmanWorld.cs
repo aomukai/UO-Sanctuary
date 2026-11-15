@@ -31,7 +31,7 @@ public static class WarlockGoatmanWorld
     internal static int Limit(PlayerMobile owner)=>checked((int)SkillMechanics.Values(owner,CombatAbility.SummonGoatman).Eval("petmax"));
     internal static void Enforce(PlayerMobile owner)
     {
-        var bodies=Demons(owner);int limit=Limit(owner);
+        var bodies=Demons(owner).Cast<BaseCreature>().Concat(BoundDemonHosts.For(owner)).ToArray();int limit=Limit(owner);
         ConsumeEffects.Enforce(owner,bodies,limit);
     }
     internal static WarlockGoatmanBody Create(PlayerMobile owner,Point3D point,DateTime at)

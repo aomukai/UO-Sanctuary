@@ -85,14 +85,14 @@ internal static class ConsumeEffects
             else{States=States.Remove(state.Owner);}
         }
     }
-    internal static void Enforce(PlayerMobile owner,SkeletonGuardian[] bodies,int limit)
+    internal static void Enforce(PlayerMobile owner,BaseCreature[] bodies,int limit)
     {
         if(limit is<1 or>3){throw new NotSupportedException("Unexpected source demon-pool limit");}
         Sync(owner,TimedEffects.Now);
         var entries=bodies.Select(b=>(Order:BattleCommand.PetOrder(b),Tie:b.Serial.Value,Body:b)).ToList();
         if(State(owner)is{} state){entries.Add((state.Order,state.OriginalPet,null));}
         foreach(var entry in entries.OrderBy(x=>x.Order).ThenBy(x=>x.Tie).Take(Math.Max(0,entries.Count-limit)))
-        {if(entry.Body is{} body){DeathMarkWorld.Remove(body);body.Delete();}else{Clear(owner);}}
+        {if(entry.Body is{} body){if(body is SkeletonGuardian original){DeathMarkWorld.Remove(original);}body.Delete();}else{Clear(owner);}}
     }
     internal static ConsumeEffect[] Snapshot()=>States.Values.OrderBy(s=>s.Owner).ToArray();
     internal static void Restore(ConsumeEffect[] saved)

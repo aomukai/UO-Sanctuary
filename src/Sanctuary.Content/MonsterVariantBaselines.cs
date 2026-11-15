@@ -11,7 +11,8 @@ namespace Sanctuary;
 // Preserve actual native Normal values before a wild difficulty assignment.
 // Revive can later return to Normal without constructing a substitute actor.
 public sealed record MonsterNativeCombat(uint Actor,int Minimum,int Maximum,int Physical,int Fire,int Cold,int Poison,int Lightning,
-    int PhysicalDamage,int FireDamage,int ColdDamage,int PoisonDamage,int LightningDamage,double Walk,double Idle);
+    int PhysicalDamage,int FireDamage,int ColdDamage,int PoisonDamage,int LightningDamage,double Walk,double Idle,
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] int? Life256=null);
 public sealed class MonsterVariantBaselineProfiles:GenericPersistence
 {
     public MonsterVariantBaselineProfiles():base("SanctuaryMonsterVariantBaselines",-1){}
@@ -31,16 +32,18 @@ public static class MonsterVariantBaselines
     public static void Configure()=>Profiles=new();
     internal static MonsterNativeCombat Capture(BaseCreature actor)=>new(actor.Serial.Value,actor.DamageMin,actor.DamageMax,
         actor.BasePhysicalResistance,actor.BaseFireResistance,actor.BaseColdResistance,actor.BasePoisonResistance,actor.BaseEnergyResistance,
-        actor.PhysicalDamage,actor.FireDamage,actor.ColdDamage,actor.PoisonDamage,actor.EnergyDamage,actor.ActiveMoveSpeed,actor.PassiveMoveSpeed);
+        actor.PhysicalDamage,actor.FireDamage,actor.ColdDamage,actor.PoisonDamage,actor.EnergyDamage,actor.ActiveMoveSpeed,actor.PassiveMoveSpeed,SkillHealth.Maximum256(actor));
     internal static MonsterNativeCombat Find(BaseCreature actor)=>States.GetValueOrDefault(actor.Serial.Value);
     internal static void RememberNormal(BaseCreature actor)
     {
         if(!States.ContainsKey(actor.Serial.Value)&&MonsterVariants.SpawnDifficulty(actor)==MonsterDifficulty.Normal)
         {var row=Capture(actor);Validate(row);States.Add(row.Actor,row);}
+        else if(MonsterVariants.SpawnDifficulty(actor)==MonsterDifficulty.Normal&&States.GetValueOrDefault(actor.Serial.Value)is{Life256:null} old)
+        {States[actor.Serial.Value]=old with{Life256=SkillHealth.Maximum256(actor)};}
     }
     private static void Validate(MonsterNativeCombat row)
     {
-        if(row==null||row.Actor==0||!((Serial)row.Actor).IsMobile||row.Minimum< -1||row.Maximum<row.Minimum
+        if(row==null||row.Actor==0||!((Serial)row.Actor).IsMobile||row.Minimum< -1||row.Maximum<row.Minimum||row.Life256 is<=0
             ||!double.IsFinite(row.Walk)||!double.IsFinite(row.Idle)||row.Walk<0||row.Idle<0
             ||new[]{row.PhysicalDamage,row.FireDamage,row.ColdDamage,row.PoisonDamage,row.LightningDamage}.Any(x=>x is <0 or >100))
         {throw new InvalidDataException("Invalid monster native combat baseline");}

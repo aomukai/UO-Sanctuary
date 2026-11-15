@@ -66,7 +66,7 @@ public static class SkillHealth
     public static void Clear(Mobile target) => Profiles.Remainders.Remove(target.Serial);
     internal static int? SourceMaximum256(Mobile target)=>target is Server.Mobiles.BaseCreature && target is NecromancerMinion{IsMage:true} mage
         ?NpcEquipmentResources.LifeForRegeneration(mage):target is ISourceLifeMaximum source?source.MaximumLife256
-        :target is Server.Mobiles.BaseCreature creature?ReviveLife.Maximum256(creature)??NpcEquipmentResources.Maximum256(creature,0):null;
+        :target is Server.Mobiles.BaseCreature creature?BoundDemonHosts.Maximum256(creature)??ReviveLife.Maximum256(creature)??NpcEquipmentResources.Maximum256(creature,0):null;
     internal static int Maximum256(Mobile target)=>PaladinConversion.Maximum256(target)??(target is AmazonDecoy decoy?decoy.Maximum256:SourceMaximum256(target)??target.HitsMax*256);
     internal static bool Full(Mobile target)=>Balance256(target)>=Maximum256(target);
     internal static int Balance256(Mobile target)

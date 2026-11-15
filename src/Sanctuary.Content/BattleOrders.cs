@@ -40,6 +40,7 @@ public static class BattleOrders
     {
         // Original NPCs acquire source life through their saved Revive plan,
         // not a replacement subclass. Resolve it before the loading fallback.
+        if(resource==0&&BoundDemonHosts.Maximum256(actor) is{} bound){return (bound+255)/256;}
         if(resource==0&&ReviveLife.Maximum256(actor) is{} revived){return (revived+255)/256;}
         if(World.Loading){return 65000;}
         if(NpcEquipmentResources.Maximum256(actor,resource) is{} equipped){return (equipped+255)/256;}

@@ -1,5 +1,7 @@
 # Skill effects
 
+**Prepared bound-host boundary — 2026-11-15 JST.** Original living NPCs retain native body/AI/ability visuals. This host adds no cast/owner-link/bound-state VFX or audio;final Bind Demon channel,success and bound feedback remain missing. No mechanic is gated on new artwork and no imagegen/final effect was created. Source capture/channel and full bind delivery are independently unfinished. Icons remain separately tracked. [Checkpoint](bind-demon-host-checkpoint.md).
+
 **Bind Demon capture boundary — 2026-11-15 JST.** Imported monster data/stat snapshots emit no effect. Final binddemonchannelmaker/channel tether,warlock_shadow_cast_2 channel/success feedback,Warlock_Skill_Bind_Demon_03 and chain audio remain missing,plus bound-state feedback as its world rule is qualified. No VFX placeholder or final artwork is added by this component. Effects/audio stay separate from icons and do not gate numeric implementation. [Checkpoint](bind-demon-suppliers-checkpoint.md).
 
 **Prepared Consume effects — 2026-11-15 JST.** Runtime retirement/buff uses identified shared owner effect0x375A and sound0x1E5. Final warlockconsume overlay,warlock_shadow_cast_2 sacrifice/cast feedback and Warlock_Skill_Consume_03 audio remain missing. Slot/state/stat/save mechanics and town menu are implemented in the prepared candidate;learned gating concerns unverified protected mechanics,not artwork. VFX/audio remain separate from tree/hotkey icons;no imagegen. [Checkpoint](consume-world-checkpoint.md).

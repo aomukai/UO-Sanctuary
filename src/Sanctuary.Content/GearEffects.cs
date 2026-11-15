@@ -24,7 +24,7 @@ public static class GearEffects
     {
         ClassGearHooks.MovementDelay = (mobile, seconds) => SigilLethargy.MovementDelay(mobile,seconds)??GrimWardCurseTransport.MovementDelay(mobile,seconds)
             ?? SourceTerror.MovementDelay(mobile,PaladinVigor.MovementDelay(mobile,seconds)) * 100 / (100 - MovementSlow(mobile));
-        ClassGearHooks.AttackDelay = (mobile, delay) => TimeSpan.FromTicks(delay.Ticks * 100 / Math.Clamp(100 + (mobile is BaseCreature?PaladinOffense.AttackRate(mobile):0) - AttackSlow(mobile),15,175));
+        ClassGearHooks.AttackDelay = (mobile, delay) => TimeSpan.FromTicks(delay.Ticks * 100 / Math.Clamp(100 + (mobile is BaseCreature?PaladinOffense.AttackRate(mobile):0)+BoundDemonHosts.AttackSpeed(mobile) - AttackSlow(mobile),15,175));
     }
     [CallPriority(100)]
     public static void Initialize()

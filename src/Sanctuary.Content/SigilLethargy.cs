@@ -52,7 +52,7 @@ internal static class SigilLethargy
         if(State(target)==null){return null;}
         int existing=target is NecromancerMinion minion?minion.VelocityPercent:0;
         int running=SourceTerror.State(target)is{Goal:not null,Combat:false} ai?ai.VelocityPercent:0;
-        int rate=Math.Max(25,100+existing+running+PaladinVigor.VelocityPercent(target)+ReviveCombat.VelocityPercent(target)-GearEffects.MovementSlowTotal(target));
+        int rate=Math.Max(25,100+existing+running+PaladinVigor.VelocityPercent(target)+ReviveCombat.VelocityPercent(target)+BoundDemonHosts.Velocity(target)-GearEffects.MovementSlowTotal(target));
         return seconds*(100+existing)/rate;
     }
     internal static bool Apply(PlayerMobile owner,Item marker,BaseCreature target,int rank,DateTime at)

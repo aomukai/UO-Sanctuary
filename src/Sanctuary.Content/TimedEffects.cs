@@ -249,6 +249,7 @@ public static class TimedEffects
     public static void Tick(DateTime now)
     {
         ConsumeEffects.Prune(now);
+        BoundDemonHosts.Tick();
         _keys.Clear(); foreach (var key in _actors.Keys) { _keys.Add(key); }
         foreach (var key in _keys)
         {
