@@ -88,6 +88,8 @@ public sealed record WeaponFlight(long Id,long Cast,uint Owner,int Map,CombatAbi
     // Optional version0 properties preserve existing player-flight saves.
     [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public NpcFuryMissileSource Npc{get;init;}
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public MirroredMissileSource Mirrored{get;init;}
     public int SkillRank{get;init;}
     public GuidedFlight Guided{get;init;}
     public bool HostileSpell{get;init;}
@@ -142,7 +144,7 @@ public static class WeaponMissiles
     internal static long NewCast()=>++_nextCast;
     internal static WeaponFlight State(long id)=>_flights.GetValueOrDefault(id);
     internal static int CurrentPierce(PlayerMobile owner)=>NamedProjectiles.PierceChance(owner);
-    internal static long Launch(PlayerMobile owner,CombatAbility ability,FanRay ray,WeaponMissileDamage damage,long cast,int pierces=0,int velocity=24,int frames=50,int nextDelay=4,string missile=null,int skillRank=0,GuidedFlight guided=null,SlowMissilePayload? slow=null,string mechanicalProfile=null,DateTime? bladeFuryPhase=null)
+    internal static long Launch(PlayerMobile owner,CombatAbility ability,FanRay ray,WeaponMissileDamage damage,long cast,int pierces=0,int velocity=24,int frames=50,int nextDelay=4,string missile=null,int skillRank=0,GuidedFlight guided=null,SlowMissilePayload? slow=null,string mechanicalProfile=null,DateTime? bladeFuryPhase=null,MirroredMissileSource mirrored=null,DateTime? mirroredAt=null)
     {
         if(owner is not{Alive:true,Deleted:false} || owner.Map==null || owner.Map==Map.Internal || !ClassCombat.Enabled(owner)
             || SpellHelper.IsTown(owner.Location,owner) || cast<=0 || frames is <1 or >250 || velocity is <1 or >64 || ray.ActivationFrame<0 || nextDelay<0
@@ -154,12 +156,14 @@ public static class WeaponMissiles
             || ability!=CombatAbility.LightningBolt && damage?.LightningJavelinPercent!=null
             || ability==CombatAbility.BladeFury && (velocity!=22 || !BladeFuryMissiles.Valid(skillRank,frames,ray.ActivationFrame,nextDelay,pierces,ray.Flags,missile,damage,slow,mechanicalProfile))
             || ability!=CombatAbility.BladeFury && (slow!=null || mechanicalProfile!=null)
-            || damage?.Elements==null || !damage.ValidConversion || damage.SkillAttackPercent<0 || ability is not(CombatAbility.Strafe or CombatAbility.BladeFury) && damage.SkillAttackPercent!=0 || damage.Elements.LifeDrain<0 || damage.Elements.ManaDrain<0
+            || damage?.Elements==null || !damage.ValidConversion || damage.SkillAttackPercent<0 || ability is not(CombatAbility.Strafe or CombatAbility.BladeFury or CombatAbility.MirroredBlades) && damage.SkillAttackPercent!=0 || damage.Elements.LifeDrain<0 || damage.Elements.ManaDrain<0
             || damage.Elements.BurnMin!=0 || damage.Elements.BurnMax!=0 || damage.Elements.BurnFrames!=0
+            ||(ability==CombatAbility.MirroredBlades)!=(mirrored!=null)||mirroredAt.HasValue&&(mirrored==null||mirroredAt.Value.Kind!=DateTimeKind.Utc)
             ||bladeFuryPhase.HasValue&&(ability!=CombatAbility.BladeFury||bladeFuryPhase.Value.Kind!=DateTimeKind.Utc)){return 0;}
         var v=ability==CombatAbility.BladeFury?BladeFuryMissiles.Velocity(ray,skillRank,slow.Value):FanGeometry.Velocity(ray,velocity);long id=++_nextId;
-        _flights.Add(id,new(id,cast,owner.Serial.Value,owner.Map.MapID,ability,owner.X,owner.Y,owner.Z,v.X,v.Y,0,frames,
-            ray.ActivationFrame,nextDelay,Math.Clamp(pierces,0,4),0,ray.Flags,damage,bladeFuryPhase??TimedEffects.Now){Missile=missile,SkillRank=skillRank,Guided=guided,Slow=slow,MechanicalProfile=mechanicalProfile,SourceSteps=ability is CombatAbility.LightningBolt or CombatAbility.LightningFury or CombatAbility.BladeFury?new([new(owner.X*2,owner.Y*2)]):null});return id;
+        var created=new WeaponFlight(id,cast,owner.Serial.Value,owner.Map.MapID,ability,owner.X,owner.Y,owner.Z,v.X,v.Y,0,frames,
+            ray.ActivationFrame,nextDelay,Math.Clamp(pierces,0,4),0,ray.Flags,damage,mirroredAt??bladeFuryPhase??TimedEffects.Now){Mirrored=mirrored,Missile=missile,SkillRank=skillRank,Guided=guided,Slow=slow,MechanicalProfile=mechanicalProfile,SourceSteps=ability is CombatAbility.LightningBolt or CombatAbility.LightningFury or CombatAbility.BladeFury?new([new(owner.X*2,owner.Y*2)]):null};
+        if(mirrored!=null&&!MirroredBladesContacts.Valid(created)){return 0;}_flights.Add(id,created);return id;
     }
     internal static long LaunchNpcFury(AssassinShadowBody body,NpcFuryMissileSource source,Point3D aim,int rank,WeaponMissileDamage damage,SlowMissilePayload slow,DateTime at)
     {
@@ -209,6 +213,9 @@ public static class WeaponMissiles
         var ids=new List<long>();foreach(var (id,flight) in _flights){if(flight.Owner==owner.Serial.Value){ids.Add(id);}}
         foreach(long id in ids){_flights.Remove(id);}BowExplosions.Cancel(owner);PoisonJavelins.ClearClouds(owner);PlagueJavelins.Clear(owner);Prune();
     }
+    internal static void RemovePrepared(long id){_flights.Remove(id);Prune();}
+    internal static void CancelMirrored(Mobile owner)
+    {foreach(long id in new List<long>(_flights.Keys)){if(_flights[id].Owner==owner.Serial.Value&&_flights[id].Mirrored!=null){_flights.Remove(id);}}Prune();}
     internal static void CancelPoison(Mobile owner)
     {foreach(long id in new List<long>(_flights.Keys)){if(_flights[id].Owner==owner.Serial.Value && _flights[id].Ability==CombatAbility.PoisonJavelin){_flights.Remove(id);}}PoisonJavelins.ClearClouds(owner);Prune();}
     internal static void CancelJavelins(Mobile owner)
@@ -221,6 +228,9 @@ public static class WeaponMissiles
         foreach(long id in _keys)
         {
             if(!_flights.TryGetValue(id,out var flight)||onlyOwner.HasValue&&flight.Owner!=onlyOwner.Value){continue;}
+            if(flight.Mirrored!=null&&flight.NextUtc<=at&&(World.FindMobile((Serial)flight.Owner)is not PlayerMobile mirrorOwner
+                ||!MirroredBladesAction.FlightOwner(mirrorOwner,flight.Map)||at>=flight.NextUtc.AddMilliseconds((flight.Frames-flight.Frame)*40L)))
+            {_flights.Remove(id);continue;}
             var owner=Owner(flight);if(owner==null){_flights.Remove(id);continue;}
             if(flight.Npc!=null&&!ShadowFuryMissiles.Active((AssassinShadowBody)owner,flight,npcActions))
             {
@@ -233,7 +243,7 @@ public static class WeaponMissiles
                 if(at>=flight.NextUtc.AddMilliseconds((flight.Frames-flight.Frame)*40L)){_flights.Remove(id);}continue;
             }
             // Process overdue source frames before lifetime completion; lag must not skip impacts.
-            while(_flights.TryGetValue(id,out flight) && flight.NextUtc<=at){BowExplosions.Tick(flight.NextUtc);PoisonJavelins.Tick(flight.NextUtc);PlagueJavelins.Tick(flight.NextUtc);Step(owner,flight);}
+            while(_flights.TryGetValue(id,out flight) && flight.NextUtc<=at){if(flight.Mirrored!=null&&(owner is not PlayerMobile mirror||!MirroredBladesAction.FlightOwner(mirror,flight.Map))){_flights.Remove(id);break;}BowExplosions.Tick(flight.NextUtc);PoisonJavelins.Tick(flight.NextUtc);PlagueJavelins.Tick(flight.NextUtc);Step(owner,flight);}
         }
         BowExplosions.Tick(at);PoisonJavelins.Tick(at);PlagueJavelins.Tick(at);Prune();
     }
@@ -319,6 +329,18 @@ public static class WeaponMissiles
         bool furyChild=AmazonLightningFury.IsChild(flight);
         bool pierce=furyChild || CurrentPierce(player)>0 && flight.Pierces>0;
         if(pierce && !furyChild){next=next with{Pierces=flight.Pierces-1};_flights[flight.Id]=next;}
+        if(flight.Mirrored!=null)
+        {
+            try
+            {
+                if(selected is not BaseCreature mirrorTarget){throw new NotSupportedException("Mirrored projectiles support mapped ordinary NPC recipients only");}
+                var updated=MirroredBladesContacts.Missile(player,mirrorTarget,flight);
+                if(_flights.TryGetValue(flight.Id,out var live)){_flights[flight.Id]=live with{Mirrored=updated};}
+            }
+            catch(NotSupportedException ex)
+            {Server.Logging.LogFactory.GetLogger(typeof(WeaponMissiles)).Warning("Mirrored projectile stopped for {Owner}: {Reason}",owner.Serial.Value,ex.Message);_flights.Remove(flight.Id);return;}
+            if(!pierce){_flights.Remove(flight.Id);}return;
+        }
         bool hit=flight.Ability is CombatAbility.LightningBolt or CombatAbility.LightningFury || next.Guided!=null
             || (flight.Ability==CombatAbility.BladeFury?BladeFuryMissiles.Hit(player,selected,flight.Damage.SkillAttackPercent,HitRoll)
                 :ClassStats.CheckHit(owner,selected,flight.Damage.SkillAttackPercent,HitRoll,projectile:true))==true;
@@ -391,10 +413,14 @@ public static class WeaponMissiles
     internal static WeaponFlightSave Snapshot()=>new(new List<WeaponFlight>(_flights.Values).ToArray(),new List<WeaponFlightLease>(_leases.Values).ToArray(),_nextId,_nextCast){Explosions=BowExplosions.Snapshot(),PoisonClouds=PoisonJavelins.Snapshot(),PlagueClouds=PlagueJavelins.Snapshot()};
     internal static void Restore(WeaponFlightSave saved)
     {
+        // Validate new optional metadata before mutating the existing store.
+        foreach(var flight in saved?.Flights??[])
+        {if((flight.Ability==CombatAbility.MirroredBlades)!=(flight.Mirrored!=null)||flight.Mirrored!=null&&!MirroredBladesContacts.Valid(flight)){throw new InvalidDataException("Invalid saved Mirrored metadata");}}
         _flights.Clear();_leases.Clear();_nextId=saved?.NextId??0;_nextCast=saved?.NextCast??0;
         foreach(var flight in saved?.Flights??[])
         {
-            if(flight.Id<=0 || flight.Cast<=0 || flight.Ability is CombatAbility.LightningFury or CombatAbility.PlagueJavelin or CombatAbility.PoisonJavelin or CombatAbility.ExplodingArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow && flight.SkillRank<1 || flight.Frame<0 || flight.Frame>=flight.Frames || flight.Frames>250 || flight.Damage?.Elements==null || !flight.Damage.ValidConversion || flight.Damage.SkillAttackPercent<0 || flight.Ability is not(CombatAbility.Strafe or CombatAbility.BladeFury) && flight.Damage.SkillAttackPercent!=0
+            if((flight.Ability==CombatAbility.MirroredBlades)!=(flight.Mirrored!=null)||flight.Mirrored!=null&&!MirroredBladesContacts.Valid(flight)
+                ||flight.Id<=0 || flight.Cast<=0 || flight.Ability is CombatAbility.LightningFury or CombatAbility.PlagueJavelin or CombatAbility.PoisonJavelin or CombatAbility.ExplodingArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow && flight.SkillRank<1 || flight.Frame<0 || flight.Frame>=flight.Frames || flight.Frames>250 || flight.Damage?.Elements==null || !flight.Damage.ValidConversion || flight.Damage.SkillAttackPercent<0 || flight.Ability is not(CombatAbility.Strafe or CombatAbility.BladeFury or CombatAbility.MirroredBlades) && flight.Damage.SkillAttackPercent!=0
                 || flight.Ability==CombatAbility.BladeFury && !(flight.Npc!=null?ShadowFuryMissiles.Valid(flight):BladeFuryMissiles.Valid(flight))
                 || flight.Ability!=CombatAbility.BladeFury && (flight.MechanicalProfile!=null||flight.Npc!=null)
                 || flight.Ability==CombatAbility.LightningBolt && (flight.Missile!="lightningjavelin" || flight.SkillRank is <1 or >255 || flight.Activation!=0 || flight.NextDelay!=0 || flight.Damage.LightningJavelinPercent!=100 || flight.SourceSteps?.Cells is not{Length:>=1 and <=10})

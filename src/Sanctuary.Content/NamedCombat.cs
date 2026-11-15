@@ -78,17 +78,17 @@ public static class NamedCombat
         return CrushingLoss256(SkillHealth.Balance256(target),divisor,target.PhysicalResistance,ranged:ranged);
     }
     public static int CrushingLoss(Mobile target, bool ranged)=>CrushingLoss256(target,ranged)/256;
-    public static void Crushing(PlayerMobile player, Mobile target, bool ranged, Random random)
+    public static void Crushing(PlayerMobile player, Mobile target, bool ranged, Random random,int? rawDivisor=null)
     {
         if(target is not{Alive:true,Deleted:false} || !target.CanBeDamaged()){return;}
         int chance = Math.Clamp(checked(ClassGear.Bonus(player, "crush")+ConsumeEffects.Crushing(player)), 0, 100);
         if (chance <= 0 || random.Next(100) >= chance) { return; }
-        ApplyCrushing(target,ranged);
+        ApplyCrushing(target,ranged,rawDivisor);
     }
     // Shared item/NPC callback commitment; callers own eligibility/chance and RNG.
-    internal static int ApplyCrushing(Mobile target,bool ranged)
+    internal static int ApplyCrushing(Mobile target,bool ranged,int? rawDivisor=null)
     {
-        int damage=CrushingLoss256(target,ranged);
+        int damage=rawDivisor is{} divisor?CrushingLoss256(SkillHealth.Balance256(target),divisor,target.PhysicalResistance):CrushingLoss256(target,ranged);
         if(damage>0)
         {
             // The source callback writes life directly before the ordinary packet;

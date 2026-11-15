@@ -41,6 +41,7 @@ public static class ClassDeath
         PsychicWard.Clear(player);
         EldritchBlastWorld.Clear(player);
         EchoingStrikeWorld.Clear(player);
+        WeaponMissiles.CancelMirrored(player);
         HexBane.Clear(player);
         HexSiphon.Clear(player);
         HexPurge.Clear(player);

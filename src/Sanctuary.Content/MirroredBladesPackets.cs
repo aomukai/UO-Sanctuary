@@ -86,12 +86,16 @@ internal static class MirroredBladesPackets
     {
         if(packet==null||packet!=Prepare(packet.Input,packet.Attack.Ordinal,packet.Damage.Critical))
         {throw new InvalidDataException("Invalid Mirrored weapon packet");}
-        ulong local=seed;var rolled=packet.Damage.Roll(target,n=>(int)SourceRandom.Limited(ref local,n),out int poison);seed=local;
-        int Scale(int n)=>MirroredBladesPrepared.ScaleSuppliedDirect256(n,packet.Attack);
+        return RollDamage(packet.Damage,packet.Attack,target,ref seed);
+    }
+    internal static MirroredWeaponRoll RollDamage(WeaponMissileDamage source,MirroredBladeAttack attack,Mobile target,ref ulong seed)
+    {
+        ulong local=seed;var rolled=source.Roll(target,n=>(int)SourceRandom.Limited(ref local,n),out int poison);seed=local;
+        int Scale(int n)=>MirroredBladesPrepared.ScaleSuppliedDirect256(n,attack);
         double Channel(double n)=>Scale(NamedElements.To256(n))/256.0;
         var damage=rolled with{Physical=Channel(rolled.Physical),Fire=Channel(rolled.Fire),Cold=Channel(rolled.Cold),
             Lightning=Channel(rolled.Lightning),Magic=Channel(rolled.Magic),Poison=0};
         // No packet length/count/drain scaling and no spell-only potion lane.
-        return new(damage,Scale(poison),packet.Damage.Elements.PoisonImpactFrames,packet.Damage.Elements.ColdFrames);
+        return new(damage,Scale(poison),source.Elements.PoisonImpactFrames,source.Elements.ColdFrames);
     }
 }

@@ -10,7 +10,7 @@ namespace Sanctuary;
 // A player actor consumer of the existing ordered source-to-NPC pipeline.
 // Item processors and native encounter reactions remain explicit adapters.
 internal sealed record PlayerWeaponContactPrepared(int Flags,PreparedWeaponImpact Impact,PlayerWeaponDrain Drain,int ColdFrames,int BaseHitClass,Random Effects,int HitClass=0,
-    bool Smite=false,Func<int,int> StunRoll=null,int? MeleeRange=null,bool SkillKnockback=false,Func<int,bool> RangeCheck=null,int FreezeFrames=0,uint HitFlags=0);
+    bool Smite=false,Func<int,int> StunRoll=null,int? MeleeRange=null,bool SkillKnockback=false,Func<int,bool> RangeCheck=null,int FreezeFrames=0,uint HitFlags=0,int? CrushingDivisor=null,bool SuppressWear=false);
 
 internal static class PlayerWeaponContact
 {
@@ -58,7 +58,7 @@ internal static class PlayerWeaponContact
     // For skills which let AllocCombat fill ordinary weapon lanes. A consumer
     // chooses its allocation phase; Zeal allocates anew at every do13 event.
     internal static PlayerWeaponContactPrepared PrepareOrdinary(PlayerMobile source,BaseCreature target,int attackPercent,int skillPhysicalPercent,
-        Func<bool> inRange,Func<double> hitRoll,Func<double> elementRoll,Func<int,int> physicalRoll,Func<int,int> poisonRoll,Random effects,bool allowNative=false,int physicalToMagicPercent=0)
+        Func<bool> inRange,Func<double> hitRoll,Func<double> elementRoll,Func<int,int> physicalRoll,Func<int,int> poisonRoll,Random effects,bool allowNative=false,int physicalToMagicPercent=0,Func<PreparedWeaponImpact> captured=null,int capturedColdFrames=0,PlayerWeaponDrain? capturedDrain=null,int? crushingDivisor=null,bool suppressWear=false)
     {
         RequireOrdinary(source,target,allowNative);
         int flags=SourceMeleeResult.Resolve(new OrdinaryResult(source,target,inRange,hitRoll,Metadata(target,allowNative)==null),attackPercent);
@@ -66,7 +66,11 @@ internal static class PlayerWeaponContact
         PreparedWeaponImpact impact=default;int frames=0;
         if((flags&SourceMeleeResult.Successful)!=0)
         {
-            WeaponStartEffects.PrepareDamage(source,target);double roll=elementRoll();
+            WeaponStartEffects.PrepareDamage(source,target);
+            if(captured!=null){impact=captured();frames=capturedColdFrames;}
+            else
+            {
+            double roll=elementRoll();
             var damage=GearEffects.Damage(source,roll,target,skillPhysicalPercent,physicalRoll,poisonRoll,
                 ()=>WeaponPoisonPackets.Melee(WeaponPoisonPackets.AddVenom(BowLaunch.RawPoison(source,CombatTiming.Equipped(source)),Venoms.State(source)),
                     NamedElements.MasteryPercent(source,"pois"),128,poisonRoll,overrideFrames:Venoms.State(source)?.Frames??0));
@@ -79,8 +83,9 @@ internal static class PlayerWeaponContact
                 frames=ColdStates.LengthFrames(damage.ColdMs/40,NamedElements.Resistance(source,target,"cold",target.ColdResistance),
                     ItemDurationDefenses.CannotFreeze(target),ItemDurationDefenses.HalfFreeze(target));
             }
+            }
         }
-        return new(flags,impact,WeaponLeech.Capture(source),frames,CreatureHitRecovery.PlayerHitClass(source),effects);
+        return new(flags,impact,capturedDrain??WeaponLeech.Capture(source),frames,CreatureHitRecovery.PlayerHitClass(source),effects,CrushingDivisor:crushingDivisor,SuppressWear:suppressWear);
     }
     private sealed class Scope(PlayerWeaponContactPrepared prepared,PreparedMonsterDamagePacket packet)
     {
@@ -112,7 +117,7 @@ internal static class PlayerWeaponContact
         private bool Freed;
         internal override void StoreLastAttacker()=>source.DoHarmful(target,true);
         internal override PreparedMonsterDamagePacket DealtDamage(PreparedMonsterDamagePacket p)
-        {NamedCombat.Crushing(source,target,false,scope.Prepared.Effects);return p;}
+        {NamedCombat.Crushing(source,target,false,scope.Prepared.Effects,scope.Prepared.CrushingDivisor);return p;}
         internal override PreparedMonsterDamagePacket TookDamage(PreparedMonsterDamagePacket p)=>events.Dispatch("damagedinmelee",p);
         internal override void BeforeHealth(PreparedMonsterDamagePacket p)
         {
@@ -148,7 +153,7 @@ internal static class PlayerWeaponContact
         internal override int BaseHitClass()=>scope.Prepared.BaseHitClass;
         internal override void AfterHitPresentation(PreparedMonsterDamagePacket packet)
         {
-            if(CombatTiming.Equipped(source) is{} weapon&&NamedAmmunition.Maximum(weapon)==0){weapon.WearOnHit(source,target);}
+            if(!scope.Prepared.SuppressWear&&CombatTiming.Equipped(source) is{} weapon&&NamedAmmunition.Maximum(weapon)==0){weapon.WearOnHit(source,target);}
             if(scope.Loss>0&&scope.Map!=null&&scope.Map!=Map.Internal&&ClassGear.Bonus(source,"bloody")>0)
             {new Blood().MoveToWorld(scope.Point,scope.Map);}
         }

@@ -1,0 +1,37 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Complete prepared Mirrored SQ25/melee/projectile world candidate",
+  "approved": false,
+  "learnedEnabled": false,
+  "proposal": "docs/mirrored-world-rule-proposal.md",
+  "packetEvidence": "tools/reference/mirrored-packets-native-evidence.json",
+  "sharedConsumers": [
+    "PlayerWeaponSequences SQ25",
+    "PlayerWeaponContact captured allocation",
+    "NamedCombat raw optional Crushing Blow divisor",
+    "WeaponMissiles original travel/pierce/profile147/version0",
+    "PreparedWeaponEvents",
+    "WeaponLandedEvents",
+    "SkillDamageEvents",
+    "ClassCombat transient dispatch"
+  ],
+  "selectedAdaptations": [
+    "One SQ25event emits ordered primary/copies;entry attack clock,current release snapshot/count/mana;normal basic fallback.",
+    "Source128/primary100/duplicate final-channel scaling;independent unsigned critical;original typed damage and poison metadata.",
+    "Melee retains selected enemy;ground melee click radius2plus actual reach;ranged one release aim,straight independent missiles.",
+    "Normal native hit/block/proc helpers;copy Crushing Blow raw divisor and elite mapping;only primary melee wear;one quiver/throw debit.",
+    "Existing50frame/velocity24/flags32ballistics/last collision/pierce and optional original-flight metadata;shared death/class/offline/facet/safe-area retirement."
+  ],
+  "unrecovered": [
+    "Current start68/do166/emission/factory/native recipient and global RNG/event chronology.",
+    "Player chance-to-cast item registration/executor remains the shared global unavailable-property gap;not fabricated by this skill.",
+    "Slow Missiles with standard arrows,unmapped/special/PvP/class-pet contexts,graphical/full-class acceptance."
+  ],
+  "newTimers": 0,
+  "newPersistenceProfiles": [],
+  "existingPersistenceProfile": 147,
+  "existingPersistenceVersion": 0,
+  "optionalSavedField": "Mirrored",
+  "newLiveReferenceReads": 0,
+  "newerReferenceSubstitution": false
+}
