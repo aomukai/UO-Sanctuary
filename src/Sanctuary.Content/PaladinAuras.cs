@@ -76,7 +76,7 @@ public static class PaladinAuras
         }
         if (wasSuppressed!=ManaSuppressed(owner)) { owner.CheckStatTimers(); }
     }
-    private static bool Apply(Mobile target, PlayerMobile owner, CombatAbility ability, int rank, int value, int healing256, DateTime now, DateTime until,int maximumResistance=0,int staminaPercent=0,int velocityPercent=0,int damagePercent=0,int attackPercent=0,int uninterruptChance=0,long providerOrder=0)
+    private static bool Apply(Mobile target, Mobile owner, CombatAbility ability, int rank, int value, int healing256, DateTime now, DateTime until,int maximumResistance=0,int staminaPercent=0,int velocityPercent=0,int damagePercent=0,int attackPercent=0,int uninterruptChance=0,long providerOrder=0)
     {
         var key=(target.Serial.Value,ability);
         _leases.TryGetValue(key,out var old);
@@ -144,18 +144,8 @@ public static class PaladinAuras
             return;
         }
         bool canPay=NecromancerEffects.CanPay(owner,cost),wasSuppressed=ManaSuppressed(owner);
-        int value=canPay?(int)values.Eval("aurastatcalc1"):0;
-        int healing=canPay ? ability==CombatAbility.Prayer?value:ability is CombatAbility.Cleansing or CombatAbility.Meditation?(int)values.Eval("aurastatcalc2"):0 :0;
-        int stamina=ability==CombatAbility.Vigor?(int)values.Eval("aurastatcalc2"):0;
-        int velocity=ability==CombatAbility.Vigor?(int)values.Eval("aurastatcalc3"):0;
-        int damage=ability==CombatAbility.Fanaticism?(int)values.Eval("aurastatcalc3"):ability==CombatAbility.Thorns?(int)values.Eval("aurastatcalc2"):0;
-        int selfDamage=ability==CombatAbility.Fanaticism && NecromancerEffects.ManaBalance256(owner)>cost?(int)values.Eval("passivecalc1"):damage;
-        int attack=ability==CombatAbility.Fanaticism?(int)values.Eval("aurastatcalc2"):0;
-        int uninterrupt=ability==CombatAbility.Concentration?(int)values.Eval("aurastatcalc2"):0;
-        int maximum=canPay && PaladinResistance.Single(ability)?(int)values.Eval("aurastatcalc2"):0;
-        var until=now.AddMilliseconds((frames+1)*40);
-        if(deadline is{} limit&&until>limit){until=limit;}
-        bool changed=Apply(owner,owner,ability,values.Rank,value,healing,now,until,maximum,stamina,velocity,selfDamage,attack,uninterrupt,providerOrder);
+        var stats=StandardValues(ability,values,frames,canPay,NecromancerEffects.ManaBalance256(owner)>cost,now,deadline);
+        bool changed=ApplyStats(owner,owner,ability,values.Rank,stats,true,now,providerOrder);
         // Settling a pending poison tick during Cleansing can kill the caster before allied applications.
         if (owner is not { Alive:true,Deleted:false }) { return; }
         if(ability==CombatAbility.Redemption)
@@ -164,18 +154,7 @@ public static class PaladinAuras
             _emitters[owner.Serial.Value]=new(owner.Serial.Value,ability,now.AddMilliseconds(frames*40));
             return;
         }
-        double radius=SkillGeometry.Tiles(values.Eval("aurarangecalc"));int filter=definition.Number("aurafilter");
-        using var targets=Server.Collections.PooledRefList<Mobile>.Create();
-        foreach (var target in owner.Map.GetMobilesInRange<Mobile>(owner.Location,(int)Math.Ceiling(radius)))
-        {
-            double dx=target.X-owner.X,dy=target.Y-owner.Y;
-            if (target!=owner && target is { Alive:true,Deleted:false } && target is not BaseVendor
-                && (target is PlayerMobile || (filter&2)!=0) && Math.Abs(target.Z-owner.Z)<16 && dx*dx+dy*dy<=radius*radius
-                && ClassCombat.Friendly(owner,target) && CorpseSkillRules.AllowsAura(target) && ((filter&0x2000)==0 || !SpellHelper.IsTown(target.Location,target)))
-            { targets.Add(target); }
-        }
-        foreach (var target in targets)
-        { if (target is { Alive:true,Deleted:false }) { changed=Apply(target,owner,ability,values.Rank,value,healing,now,until,maximum,stamina,velocity,damage,attack,uninterrupt,providerOrder) || changed; } }
+        changed=StandardAllies(owner,owner,ability,values,stats,now,providerOrder)||changed;
         bool suppress=cost>0 && changed;
         if (suppress) { NecromancerEffects.Pay(owner,cost); } // One payment for the useful pulse, not per recipient.
         int flat=wasSuppressed && suppress && _emitters.TryGetValue(owner.Serial.Value,out var oldEmitter)?oldEmitter.FlatManaNumerator:0;
@@ -183,18 +162,71 @@ public static class PaladinAuras
         if (!provided&&wasSuppressed!=suppress) { owner.CheckStatTimers(); }
         owner.FixedEffect(0x375A,10,10,0x481,0); // Placeholder aura; final rings/overlays tracked separately.
     }
+    private sealed record AuraStats(int Value,int Healing,int Stamina,int Velocity,int Damage,int SelfDamage,int Attack,int Uninterrupt,int Maximum,DateTime Until);
+    private static AuraStats StandardValues(CombatAbility ability,SkillValues values,int frames,bool canPay,bool fullSelfDamage,DateTime now,DateTime? deadline)
+    {
+        int value=canPay?(int)values.Eval("aurastatcalc1"):0;
+        int healing=canPay ? ability==CombatAbility.Prayer?value:ability is CombatAbility.Cleansing or CombatAbility.Meditation?(int)values.Eval("aurastatcalc2"):0 :0;
+        int stamina=ability==CombatAbility.Vigor?(int)values.Eval("aurastatcalc2"):0;
+        int velocity=ability==CombatAbility.Vigor?(int)values.Eval("aurastatcalc3"):0;
+        int damage=ability==CombatAbility.Fanaticism?(int)values.Eval("aurastatcalc3"):ability==CombatAbility.Thorns?(int)values.Eval("aurastatcalc2"):0;
+        int selfDamage=ability==CombatAbility.Fanaticism && fullSelfDamage?(int)values.Eval("passivecalc1"):damage;
+        int attack=ability==CombatAbility.Fanaticism?(int)values.Eval("aurastatcalc2"):0;
+        int uninterrupt=ability==CombatAbility.Concentration?(int)values.Eval("aurastatcalc2"):0;
+        int maximum=canPay && PaladinResistance.Single(ability)?(int)values.Eval("aurastatcalc2"):0;
+        var until=now.AddMilliseconds((frames+1)*40);
+        if(deadline is{} limit&&until>limit){until=limit;}
+        return new(value,healing,stamina,velocity,damage,selfDamage,attack,uninterrupt,maximum,until);
+    }
+    private static bool ApplyStats(Mobile target,Mobile source,CombatAbility ability,int rank,AuraStats s,bool self,DateTime now,long order)
+        =>Apply(target,source,ability,rank,s.Value,s.Healing,now,s.Until,s.Maximum,s.Stamina,s.Velocity,self?s.SelfDamage:s.Damage,s.Attack,s.Uninterrupt,order);
+    private static bool StandardAllies(Mobile owner,PlayerMobile allegiance,CombatAbility ability,SkillValues values,AuraStats stats,DateTime now,long providerOrder)
+    {
+        bool changed=false;var definition=SkillMechanics.For(ability);
+        double radius=SkillGeometry.Tiles(values.Eval("aurarangecalc"));int filter=definition.Number("aurafilter");
+        using var targets=Server.Collections.PooledRefList<Mobile>.Create();
+        foreach (var target in owner.Map.GetMobilesInRange<Mobile>(owner.Location,(int)Math.Ceiling(radius)))
+        {
+            double dx=target.X-owner.X,dy=target.Y-owner.Y;
+            if (target!=owner && target is { Alive:true,Deleted:false } && target is not BaseVendor
+                && (target is PlayerMobile || (filter&2)!=0) && Math.Abs(target.Z-owner.Z)<16 && dx*dx+dy*dy<=radius*radius
+                && ClassCombat.Friendly(allegiance,target) && CorpseSkillRules.AllowsAura(target) && ((filter&0x2000)==0 || !SpellHelper.IsTown(target.Location,target)))
+            { targets.Add(target); }
+        }
+        foreach (var target in targets)
+        { if (target is { Alive:true,Deleted:false }) { changed=ApplyStats(target,owner,ability,values.Rank,stats,false,now,providerOrder) || changed; } }
+        return changed;
+    }
+    internal static bool BoundAura(CombatAbility ability)=>ability is CombatAbility.Concentration or CombatAbility.Vigor or CombatAbility.Thorns or CombatAbility.HolyFreeze or CombatAbility.Fanaticism;
+    internal static void PulseBoundNpc(BaseCreature source,PlayerMobile allegiance,SkillValues values,DateTime now,long order)
+    {
+        if(!BoundDemonAuras.Qualified(source,allegiance,values)||!BoundAura(values.Ability)||now.Kind!=DateTimeKind.Utc||order!=BattleCommand.PetOrder(source))
+        {throw new NotSupportedException("Unqualified bound native aura provider");}
+        var ability=values.Ability;
+        if(ability==CombatAbility.HolyFreeze)
+        {
+            var old=Effect(source,ability);
+            if(old!=null&&old.Rank>values.Rank&&(old.ProviderOwner!=source.Serial.Value||old.ProviderOrder!=order)){return;}
+            PaladinElements.Pulse(source,allegiance,ability,values,now,PaladinElements.Roll,providerOrder:order);return;
+        }
+        int frames=Math.Max(5,(int)values.Eval("perdelay"));
+        var stats=StandardValues(ability,values,frames,true,true,now,null);
+        ApplyStats(source,source,ability,values.Rank,stats,true,now,order);
+        if(source is{Alive:true,Deleted:false}){StandardAllies(source,allegiance,ability,values,stats,now,order);}
+        source.FixedEffect(0x375A,10,10,0x481,0); // Identified shared aura placeholder.
+    }
     internal static void ElementalWeapon(PaladinAuraLease lease)
     {
         if(lease.Ability==CombatAbility.Thorns&&World.FindMobile((Serial)lease.Target) is IronGolemBody iron){iron.ReplaceIntrinsicThorns();}
         _leases[(lease.Target,lease.Ability)]=lease;
     }
-    internal static void ClearProvidedSelf(PlayerMobile owner,long order)
+    internal static void ClearProvidedSelf(Mobile owner,long order)
     {
         bool changed=false;
-        foreach(var ability in new[]{CombatAbility.HolyFire,CombatAbility.Meditation,CombatAbility.Salvation})
+        foreach(var ability in new[]{CombatAbility.HolyFire,CombatAbility.Meditation,CombatAbility.Salvation,CombatAbility.Concentration,CombatAbility.Vigor,CombatAbility.Thorns,CombatAbility.HolyFreeze,CombatAbility.Fanaticism})
         {
             var key=(owner.Serial.Value,ability);
-            if(_leases.TryGetValue(key,out var lease)&&lease.ProviderOwner==owner.Serial.Value&&lease.ProviderOrder==order){changed|=_leases.Remove(key);}
+            if(_leases.TryGetValue(key,out var lease)&&lease.ProviderOwner==owner.Serial.Value&&lease.ProviderOrder==order){changed|=_leases.Remove(key);if(ability==CombatAbility.Vigor&&!owner.Deleted){PaladinVigor.Refresh(owner);}}
         }
         if(changed&&!owner.Deleted){owner.CheckStatTimers();owner.UpdateResistances();}
     }
@@ -246,7 +278,7 @@ public static class PaladinAuras
         foreach (var lease in saved.Leases)
         { if (lease==null || !PaladinCombat.IsAura(lease.Ability) || lease.Rank<1 || lease.Percent<0 || lease.MaximumResistance<0 || lease.StaminaPercent<0 || lease.VelocityPercent<0 || lease.DamagePercent<0 || lease.AttackPercent<0 || lease.UninterruptChance is <0 or >100
             ||lease.ProviderOrder<0||(lease.ProviderOwner==0)!=(lease.ProviderOrder==0)
-            ||lease.ProviderOrder>0&&(!((Serial)lease.ProviderOwner).IsMobile||lease.Ability is not(CombatAbility.HolyFire or CombatAbility.Meditation or CombatAbility.Salvation)||lease.SourceSkill!=0)
+            ||lease.ProviderOrder>0&&(!((Serial)lease.ProviderOwner).IsMobile||lease.Ability is not(CombatAbility.HolyFire or CombatAbility.Meditation or CombatAbility.Salvation)&&!BoundAura(lease.Ability)||lease.SourceSkill!=0)
             ||lease.SourceSkill!=0&&lease.SourceSkill!=SkillMechanics.For(lease.Ability).SourceId&&!(lease.Ability==CombatAbility.ResistFire&&lease.SourceSkill==420)
             ||lease.SourceSkill==420&&(lease.MaximumResistance!=0||lease.Rank>99)
             || !leases.TryAdd((lease.Target,lease.Ability),lease)) { throw new InvalidDataException("Invalid Paladin aura lease"); } }

@@ -55,7 +55,7 @@ public static class PaladinHolyFreeze
         coldEffect=MonsterVariants.Difficulty(creature) switch{MonsterDifficulty.Nightmare=>rule.Nightmare,MonsterDifficulty.Hell=>rule.Hell,_=>rule.Normal};
         return coldEffect<0; // Cold immunity and Cannot Be Frozen are separate from this source gate.
     }
-    internal static void Slow(PlayerMobile owner,Mobile target,SkillValues values,DateTime now)
+    internal static void Slow(Mobile owner,Mobile target,SkillValues values,DateTime now)
     {
         if(!Eligible(target,out int coldEffect)){return;}
         int frames=Math.Max(5,(int)values.Eval("perdelay"));

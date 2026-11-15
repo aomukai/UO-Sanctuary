@@ -13,6 +13,8 @@ internal sealed record BoundDemonState(uint Actor,uint Owner,string RuntimeType,
 {
     [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public EngorgeEffect Engorge{get;init;}
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public BoundDemonAuraGrant Aura{get;init;}
 }
 public sealed class BoundDemonProfiles:GenericPersistence
 {
@@ -70,7 +72,7 @@ internal static class BoundDemonHosts
         public DiabloClass SummonClass=>DiabloClass.Warlock;
         public bool Permitted(PlayerMobile owner)=>State(actor)is{} row&&row.Owner==owner.Serial.Value&&Trained(owner);
         public void SuspendActions()
-        {EngorgeEffects.ForgetNative(actor.Serial.Value);actor.AIObject?.AITimer.Stop();if(actor.Spell is Server.Spells.Spell spell){spell.Disturb(Server.Spells.DisturbType.Kill);}actor.Blessed=true;}
+        {BoundDemonAuras.Stop(actor,State(actor)?.Order??BattleCommand.PetOrder(actor));EngorgeEffects.ForgetNative(actor.Serial.Value);actor.AIObject?.AITimer.Stop();if(actor.Spell is Server.Spells.Spell spell){spell.Disturb(Server.Spells.DisturbType.Kill);}actor.Blessed=true;}
         public void ResumeActions(){if(CanAct(actor)){actor.Blessed=false;actor.AIObject?.AITimer.Start();}}
     }
     private static IPersistentMinion Behavior(BaseCreature actor)=>State(actor)!=null?new NativeBehavior(actor):null;
@@ -115,7 +117,7 @@ internal static class BoundDemonHosts
             ||string.IsNullOrWhiteSpace(state.RuntimeType)||!Enum.IsDefined(state.Difficulty)||state.SavedLife256 is<0)
         {throw new InvalidDataException("Invalid original bound demon identity/baseline");}
         BindDemonPrepared.Validate(state.Birth);
-        EngorgeEffects.Validate(state.Engorge,state.Owner);
+        EngorgeEffects.Validate(state.Engorge,state.Owner);BoundDemonAuras.Validate(state.Aura,state.Birth);
         if(state.Birth.InheritedPhysical5!=0||state.Birth.InheritedPhysical7!=0)
         {throw new NotSupportedException("Bound inherited physical sunder writer remains unqualified");}
         if(state.BaseMaximum256!=BaseMaximum(state.RuntimeType,state.Monster,state.Normal,state.Difficulty))
@@ -134,7 +136,7 @@ internal static class BoundDemonHosts
         int[] channels=[body.PhysicalDamage,body.FireDamage,body.ColdDamage,body.PoisonDamage,body.EnergyDamage];
         if(body.ChaosDamage!=0||body.DirectDamage!=0||channels.Any(n=>n is<0 or>100)||channels.Sum()!=100)
         {issue="Unsupported native damage channels require their own binding adapter.";return false;}
-        BindDemonSuppliers birth;MonsterNativeCombat normal;string monster;
+        BindDemonSuppliers birth;MonsterNativeCombat normal;string monster;BoundDemonAuraGrant aura;
         try
         {
             birth=BindDemonPrepared.Capture(owner);monster=CreatureProfiles.For(body).Rewards.Reference;
@@ -146,6 +148,7 @@ internal static class BoundDemonHosts
             if(normal.Minimum<0||normal.Maximum<normal.Minimum)
             {throw new NotSupportedException("Original body damage endpoints need a qualified weapon adapter");}
             foreach(var d in Enum.GetValues<MonsterDifficulty>()){_=BaseMaximum(body.GetType().FullName,monster,normal,d);}
+            aura=BoundDemonAuras.CapturePrepared(body,birth,TimedEffects.Now);
         }
         catch(Exception e)when(e is NotSupportedException or InvalidDataException or InvalidOperationException or ArgumentException)
         {issue=e.Message;return false;}
@@ -154,12 +157,13 @@ internal static class BoundDemonHosts
         if(!body.SetControlMaster(owner)){body.ControlSlots=slots;body.AIObject?.AITimer.Start();issue="Native owner assignment failed.";return false;}
         BattleCommand.Track(body);var difficulty=SummonDifficulties.For(owner.Map);
         var state=new BoundDemonState(body.Serial.Value,owner.Serial.Value,body.GetType().FullName,monster,birth,BattleCommand.PetOrder(body),difficulty,normal,
-            BaseMaximum(body.GetType().FullName,monster,normal,difficulty));Validate(state);
+            BaseMaximum(body.GetType().FullName,monster,normal,difficulty)){Aura=aura};Validate(state);
         States=States.Add(state.Actor,state);Behavior(body).SuspendActions();spawner?.Remove(body);body.Spawner=null;body.NoKillAwards=true;body.Tamable=false;
         body.Combatant=body.FocusMob=body.ControlTarget=null;body.Home=body.Location;body.HomeMap=body.Map;body.CurrentWayPoint=null;
         ApplyBody(body,state);BattleOrders.Change(body,resources,preserveSummonLifeRatio:true);PersistentMinions.Profiles.Track(body);
-        foreach(var prior in For(owner).Where(b=>b!=body)){prior.Delete();States=States.Remove(prior.Serial.Value);}
-        WarlockGoatmanWorld.Enforce(owner);body.IssueOrder(OrderType.Guard,null);Behavior(body)?.ResumeActions();issue=null;return true;
+        foreach(var prior in For(owner).Where(b=>b!=body))
+        {BoundDemonAuras.Stop(prior,State(prior).Order);prior.Delete();States=States.Remove(prior.Serial.Value);EngorgeEffects.ForgetNative(prior.Serial.Value);}
+        WarlockGoatmanWorld.Enforce(owner);body.IssueOrder(OrderType.Guard,null);Behavior(body)?.ResumeActions();BoundDemonAuras.Tick(body,TimedEffects.Now);issue=null;return true;
     }
     internal static void Sync(PlayerMobile owner)
     {
@@ -188,13 +192,13 @@ internal static class BoundDemonHosts
         foreach(var old in States.Values.ToArray())
         {
             var body=World.FindMobile((Serial)old.Actor)as BaseCreature;
-            if(body is not{Alive:true,Deleted:false}){EngorgeEffects.ForgetNative(old.Actor);States=States.Remove(old.Actor);continue;}
+            if(body is not{Alive:true,Deleted:false}){EngorgeEffects.ForgetNative(old.Actor);BoundDemonAuras.Forget(old.Actor);States=States.Remove(old.Actor);continue;}
             if(State(body)==null)
-            {if(body.GetType().FullName==old.RuntimeType&&BattleCommand.PetOrder(body)==old.Order){body.Delete();}EngorgeEffects.ForgetNative(old.Actor);States=States.Remove(old.Actor);continue;}
-            if(body.ControlMaster is not PlayerMobile{Alive:true,Deleted:false} owner){body.Delete();EngorgeEffects.ForgetNative(old.Actor);States=States.Remove(old.Actor);continue;}
+            {if(body.GetType().FullName==old.RuntimeType&&BattleCommand.PetOrder(body)==old.Order){body.Delete();}EngorgeEffects.ForgetNative(old.Actor);BoundDemonAuras.Forget(old.Actor);States=States.Remove(old.Actor);continue;}
+            if(body.ControlMaster is not PlayerMobile{Alive:true,Deleted:false} owner){body.Delete();EngorgeEffects.ForgetNative(old.Actor);BoundDemonAuras.Forget(old.Actor);States=States.Remove(old.Actor);continue;}
             Sync(owner);
             if(!CanAct(body)&&body.Map!=Map.Internal){PersistentMinions.Suspend(body);}
-            EngorgeEffects.RecoverNative(body,TimedEffects.Now);
+            EngorgeEffects.RecoverNative(body,TimedEffects.Now);BoundDemonAuras.Tick(body,TimedEffects.Now);
         }
     }
     internal static BoundDemonState[] SaveSnapshot()=>States.Values.Where(s=>World.FindMobile((Serial)s.Actor)is BaseCreature{Alive:true,Deleted:false} body&&State(body)==s)
@@ -204,7 +208,7 @@ internal static class BoundDemonHosts
         if(saved==null){throw new InvalidDataException("Missing bound demon hosts");}
         var next=ImmutableDictionary<uint,BoundDemonState>.Empty;var owners=new System.Collections.Generic.HashSet<uint>();var orders=new System.Collections.Generic.HashSet<long>();
         foreach(var state in saved){Validate(state);if(next.ContainsKey(state.Actor)||!owners.Add(state.Owner)||!orders.Add(state.Order)){throw new InvalidDataException("Duplicate bound actor/owner/order");}next=next.Add(state.Actor,state);}
-        foreach(uint actor in States.Keys){EngorgeEffects.ForgetNative(actor);}States=next;
+        foreach(var old in States.Values){EngorgeEffects.ForgetNative(old.Actor);if(World.FindMobile((Serial)old.Actor)is BaseCreature body){BoundDemonAuras.Stop(body,old.Order);}else{BoundDemonAuras.Forget(old.Actor);}}States=next;
     }
     internal static void AfterLoad()
     {

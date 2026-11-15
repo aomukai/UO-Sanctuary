@@ -40,7 +40,8 @@ public static class EliteAuras
         _keys.Clear(); _keys.AddRange(_debuffs.Keys);
         foreach (var serial in _keys) { if (_debuffs.TryGetValue(serial, out var state)) { Refresh(state.Owner); } }
     }
-    internal static int SkillLevel(EncounterCreature source) => Math.Max(1, CreatureProfiles.Level(source) / (source.Aura switch
+    internal static int SkillLevel(EncounterCreature source)=>SkillLevel(source.Aura,CreatureProfiles.Level(source));
+    internal static int SkillLevel(EliteAura aura,int level) => Math.Max(1, level / (aura switch
     { EliteAura.Might or EliteAura.HolyFire => 6, EliteAura.BlessedAim => 5, EliteAura.HolyFreeze => 7, _ => 8 }));
     internal static int OwnConvictionRank(Mobile actor)=>actor is EncounterCreature{Alive:true,Deleted:false,Aura:EliteAura.Conviction} source
         && _emitters.Contains(source)?SkillLevel(source):0;

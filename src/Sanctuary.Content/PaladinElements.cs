@@ -47,7 +47,8 @@ public static class PaladinElements
         =>Pulse(owner,owner,ability,values,now,Roll);
     internal static void Pulse(Mobile owner,PlayerMobile allegiance,CombatAbility ability,SkillValues values,DateTime now,Func<int,int> roll,DateTime? deadline=null,long providerOrder=0)
     {
-        if(owner is not PlayerMobile&&owner is not NecromancerMinion{Kind:CombatAbility.FireGolem}||owner is NecromancerMinion&&(ability!=CombatAbility.HolyFire||owner.Map==null||owner.Map==Map.Internal||owner.Map!=allegiance.Map))
+        bool bound=owner is BaseCreature native&&ability==CombatAbility.HolyFreeze&&BoundDemonAuras.Qualified(native,allegiance,values);
+        if(owner is not PlayerMobile&&owner is not NecromancerMinion{Kind:CombatAbility.FireGolem}&&!bound||owner is NecromancerMinion&&(ability!=CombatAbility.HolyFire||owner.Map==null||owner.Map==Map.Internal||owner.Map!=allegiance.Map))
         {throw new NotSupportedException("Unmapped elemental aura emitter");}
         int frames=Math.Max(5,(int)values.Eval("perdelay"));var range=WeaponRange(owner,ability,values);
         var until=now.AddMilliseconds((frames+1)*40);if(deadline is{} limit&&until>limit){until=limit;}
@@ -70,7 +71,7 @@ public static class PaladinElements
             if(owner is not {Alive:true,Deleted:false}){break;}
             if(target is not {Alive:true,Deleted:false}){continue;}
             double dx=target.X-owner.X,dy=target.Y-owner.Y;
-            if(ability==CombatAbility.HolyFreeze){PaladinHolyFreeze.Slow((PlayerMobile)owner,target,values,now);}
+            if(ability==CombatAbility.HolyFreeze){PaladinHolyFreeze.Slow(owner,target,values,now);}
             SkillCombat.AuraElement(owner,target,(int)Math.Clamp(Math.Floor(damage*Proximity(Math.Sqrt(dx*dx+dy*dy),radius)),0,int.MaxValue),element);
             // The legacy callback executes damage before rerolling the target shatter marker.
             if(ability==CombatAbility.HolyFreeze){PaladinHolyFreeze.RollShatter(target);}
