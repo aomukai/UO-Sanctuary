@@ -1,6 +1,6 @@
 # Paladin mechanical acceptance map
 
-Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Charms and runewords are excluded. This identifies actual checks in `tests/check_paladin_planned_acceptance.py` and the existing dedicated evidence; the current [combined checkpoint](paladin-planned-acceptance-checkpoint.md) remains pending. Handler presence and declared coverage do not certify the class.
+Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Charms and runewords are excluded. This identifies actual checks in `tests/check_paladin_planned_acceptance.py` and the existing dedicated evidence; the current [combined checkpoint](paladin-planned-acceptance-checkpoint.md) passes 601 exact results across three boots and two reloads. Handler presence and declared coverage do not certify the class.
 
 | Talent | Mechanical scope | Included native families |
 | --- | --- | --- |
