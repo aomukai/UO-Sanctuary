@@ -21,10 +21,10 @@ internal static class EngorgeCasting
         &&p.Map!=Map.Internal&&!MinionSafeAreas.Contains(p)&&!SpellHelper.IsTown(p.Location,p)
         &&ClassCreation.Profiles.TryGet(p.Serial,out var profile)&&profile.Class==DiabloClass.Warlock
         &&SkillMechanics.Rank(p,CombatAbility.Engorge)>0;
-    internal static bool Recipient(PlayerMobile owner,SkeletonGuardian body)=>WarlockDemonRecipients.InRange(owner,body,19);
+    internal static bool Recipient(PlayerMobile owner,BaseCreature body)=>WarlockDemonRecipients.InRange(owner,body,19);
     internal static bool Usable(PlayerMobile p,Corpse corpse)=>Actor(p)&&CorpseSkillRules.Usable(p,corpse,19)
         &&!SpellHelper.IsTown(corpse.Location,p);
-    private static SkeletonGuardian[] Roster(PlayerMobile p)=>WarlockGoatmanWorld.Demons(p).Where(b=>Recipient(p,b)).ToArray();
+    private static BaseCreature[] Roster(PlayerMobile p)=>WarlockDemonRecipients.Roster(p).Where(b=>Recipient(p,b)).ToArray();
     internal static Corpse Acquire(PlayerMobile owner,Point3D point)=>Actor(owner)
         ?NearClickTargets.AcquireCorpse(owner,point,CorpseCastTargets.NearClickTiles,c=>Usable(owner,c),stableTies:true):null;
     internal static Pending BeginPrepared(PlayerMobile p,Serial selected,Point3D aim,long now)

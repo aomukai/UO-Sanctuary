@@ -29,6 +29,7 @@ internal static class PreparedWeaponEvents
         ColdArmors.PhysicalMelee(attacker,defender,physical256,ranged);
         NecromancerEffects.LifeTap(attacker,defender,physical256);
         int eligible=(int)Math.Min(Math.Max(0,physical256),Math.Max(0,SkillHealth.Balance256(defender)));
+        EngorgeEffects.NativeLeech(attacker,defender,eligible,ranged,TimedEffects.Now);
         leech?.Invoke(eligible);
         // dwAbsLife is committed after the source physical clip and leech.
         // Preserve that clip when subsequent return reads the healed defender.

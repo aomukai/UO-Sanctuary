@@ -9,7 +9,11 @@ using Server.Mobiles;
 namespace Sanctuary;
 
 internal sealed record BoundDemonState(uint Actor,uint Owner,string RuntimeType,string Monster,BindDemonSuppliers Birth,long Order,
-    MonsterDifficulty Difficulty,MonsterNativeCombat Normal,int BaseMaximum256,int? SavedLife256=null);
+    MonsterDifficulty Difficulty,MonsterNativeCombat Normal,int BaseMaximum256,int? SavedLife256=null)
+{
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public EngorgeEffect Engorge{get;init;}
+}
 public sealed class BoundDemonProfiles:GenericPersistence
 {
     private BoundDemonState[] _snapshot;
@@ -66,7 +70,7 @@ internal static class BoundDemonHosts
         public DiabloClass SummonClass=>DiabloClass.Warlock;
         public bool Permitted(PlayerMobile owner)=>State(actor)is{} row&&row.Owner==owner.Serial.Value&&Trained(owner);
         public void SuspendActions()
-        {actor.AIObject?.AITimer.Stop();if(actor.Spell is Server.Spells.Spell spell){spell.Disturb(Server.Spells.DisturbType.Kill);}actor.Blessed=true;}
+        {EngorgeEffects.ForgetNative(actor.Serial.Value);actor.AIObject?.AITimer.Stop();if(actor.Spell is Server.Spells.Spell spell){spell.Disturb(Server.Spells.DisturbType.Kill);}actor.Blessed=true;}
         public void ResumeActions(){if(CanAct(actor)){actor.Blessed=false;actor.AIObject?.AITimer.Start();}}
     }
     private static IPersistentMinion Behavior(BaseCreature actor)=>State(actor)!=null?new NativeBehavior(actor):null;
@@ -110,6 +114,7 @@ internal static class BoundDemonHosts
             ||string.IsNullOrWhiteSpace(state.RuntimeType)||!Enum.IsDefined(state.Difficulty)||state.SavedLife256 is<0)
         {throw new InvalidDataException("Invalid original bound demon identity/baseline");}
         BindDemonPrepared.Validate(state.Birth);
+        EngorgeEffects.Validate(state.Engorge,state.Owner);
         if(state.Birth.InheritedPhysical5!=0||state.Birth.InheritedPhysical7!=0)
         {throw new NotSupportedException("Bound inherited physical sunder writer remains unqualified");}
         if(state.BaseMaximum256!=BaseMaximum(state.RuntimeType,state.Monster,state.Normal,state.Difficulty))
@@ -167,17 +172,23 @@ internal static class BoundDemonHosts
             Validate(state);States=States.SetItem(state.Actor,state);ApplyBody(body,state);BattleOrders.Change(body,resources,preserveSummonLifeRatio:true);
         }
     }
+    internal static void StoreEngorge(BaseCreature body,EngorgeEffect effect)
+    {
+        var state=State(body)??throw new NotSupportedException("No original bound Engorge host");
+        EngorgeEffects.Validate(effect,state.Owner);States=States.SetItem(state.Actor,state with{Engorge=effect});
+    }
     internal static void Tick()
     {
         foreach(var old in States.Values.ToArray())
         {
             var body=World.FindMobile((Serial)old.Actor)as BaseCreature;
-            if(body is not{Alive:true,Deleted:false}){States=States.Remove(old.Actor);continue;}
+            if(body is not{Alive:true,Deleted:false}){EngorgeEffects.ForgetNative(old.Actor);States=States.Remove(old.Actor);continue;}
             if(State(body)==null)
-            {if(body.GetType().FullName==old.RuntimeType&&BattleCommand.PetOrder(body)==old.Order){body.Delete();}States=States.Remove(old.Actor);continue;}
-            if(body.ControlMaster is not PlayerMobile{Alive:true,Deleted:false} owner){body.Delete();States=States.Remove(old.Actor);continue;}
+            {if(body.GetType().FullName==old.RuntimeType&&BattleCommand.PetOrder(body)==old.Order){body.Delete();}EngorgeEffects.ForgetNative(old.Actor);States=States.Remove(old.Actor);continue;}
+            if(body.ControlMaster is not PlayerMobile{Alive:true,Deleted:false} owner){body.Delete();EngorgeEffects.ForgetNative(old.Actor);States=States.Remove(old.Actor);continue;}
             Sync(owner);
             if(!CanAct(body)&&body.Map!=Map.Internal){PersistentMinions.Suspend(body);}
+            EngorgeEffects.RecoverNative(body,TimedEffects.Now);
         }
     }
     internal static BoundDemonState[] SaveSnapshot()=>States.Values.Where(s=>World.FindMobile((Serial)s.Actor)is BaseCreature{Alive:true,Deleted:false} body&&State(body)==s)
@@ -187,7 +198,7 @@ internal static class BoundDemonHosts
         if(saved==null){throw new InvalidDataException("Missing bound demon hosts");}
         var next=ImmutableDictionary<uint,BoundDemonState>.Empty;var owners=new System.Collections.Generic.HashSet<uint>();var orders=new System.Collections.Generic.HashSet<long>();
         foreach(var state in saved){Validate(state);if(next.ContainsKey(state.Actor)||!owners.Add(state.Owner)||!orders.Add(state.Order)){throw new InvalidDataException("Duplicate bound actor/owner/order");}next=next.Add(state.Actor,state);}
-        States=next;
+        foreach(uint actor in States.Keys){EngorgeEffects.ForgetNative(actor);}States=next;
     }
     internal static void AfterLoad()
     {

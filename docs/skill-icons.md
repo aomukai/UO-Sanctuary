@@ -1,5 +1,7 @@
 # Skill icons
 
+**Bound Engorge icon boundary — 2026-11-15 JST.** No new learned input or artwork. Final Engorge/Bind talent-tree and right/quick-hotkey icons remain missing;use clearly identified placeholders at admission. Saved bound buffs/native contact/recovery do not supply final icons or effects. [Checkpoint](bind-demon-engorge-checkpoint.md).
+
 **Bound recipient/Blood Boil icon boundary — 2026-11-15 JST.** No new learned binding or artwork. Final Bind/Blood Boil talent-tree and right/quick-hotkey icons remain missing;use identified placeholders when admitted. Shared native recipient support does not provide a final icon or effect. Full Bind and pending Blood Boil admission remain separate. [Checkpoint](bind-demon-recipients-checkpoint.md).
 
 **Bound native typed damage icon boundary — 2026-11-15 JST.** No new binding or artwork. Final Bind talent-tree and right/quick-hotkey icons remain missing;left is unavailable in the pinned row. Use identified placeholders at learned admission. Damage/recovery verification supplies no final icon or effect. [Checkpoint](bind-demon-typed-checkpoint.md).

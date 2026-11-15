@@ -1,5 +1,7 @@
 # Skill effects
 
+**Bound Engorge effect boundary — 2026-11-15 JST.** Actual bound corpse healing/buff uses existing identified shared0x376A heal/buff and0x1E5cast sound placeholders. Final warlockengorge overlay/cast/audio and Bind channel/tether/success/bound feedback remain missing,nonblocking and separate from icons. Original native bodies/abilities retain existing visuals;no imagegen/artwork. [Checkpoint](bind-demon-engorge-checkpoint.md).
+
 **Bound recipient/Blood Boil boundary — 2026-11-15 JST.** Shared eligibility adds no effect. Actual bound Blood Boil reuses identified shared explosion0x36BD and sound0x1E5 placeholders. Final Blood Boil explosion/cast/audio and Bind channel/tether/success/bound feedback remain missing and nonblocking. Original native bodies/abilities retain their visuals;no imagegen/new artwork. Icons stay separate. [Checkpoint](bind-demon-recipients-checkpoint.md).
 
 **Bound native typed damage boundary — 2026-11-15 JST.** Mechanical damage/recovery integration adds no new VFX/audio. Original Imp/native abilities retain existing visuals. Final Bind channel/tether,success/bound feedback and audio remain missing and nonblocking;no imagegen. Full skill admission remains a separate mechanical task. Icons stay in their own register. [Checkpoint](bind-demon-typed-checkpoint.md).
