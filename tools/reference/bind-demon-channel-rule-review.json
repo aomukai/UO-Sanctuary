@@ -1,0 +1,46 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Prepared explicit interpretation;not approved complete Bind rule or recovered protected code",
+  "sourceRows": 171,
+  "context": "Chance source lookups use the explicitly captured current Warlock;general skill parser does not gain sksrc semantics.",
+  "chance": {
+    "progress": "At each proposed one-second attempt supply progress12 to the retained modulo12 condition. No recovered SQ6/sctk producer is claimed.",
+    "quality": "Raw monster-class hard gate remains10forquality2,15forquality1/4;named rows require20. Source quality numbers are not assigned to arbitrary native UO mobs.",
+    "health": "Floor100*exact current life/exact maximum;retain each raw strict hpct threshold.",
+    "normalization": {
+      "raw": "((100-hpct)/((elte==1+elte==4)?20:((elte==2)?10:5)))",
+      "proposed": "((100-hpct)/(((elte==1)+(elte==4))?20:((elte==2)?10:5)))",
+      "meaning": "Quality1/4divisor20,quality2divisor10,others5;intended grouping is an explicit adaptation,not the raw compiler result."
+    },
+    "result": "Retained raw skill term plus species health term;clamp0..100;uniform roll0..99only for positive chance."
+  },
+  "channel": {
+    "start": "Trained living connected Warlock,normal interruption/safe-area checks,qualified live original target,nine mana threshold. Press is free.",
+    "target": "Initial native body retained;no implicit retarget. Current same-facet/range19/LOS/host guards apply;original enemy AI is not suppressed while channeling.",
+    "clock": "First attempt at one second;each later attempt scheduled from actual observed execution time,no lag catch-up. Same-frame and duplicate press do not repeat.",
+    "payment": "Fixed nine mana per released attempt at all ranks,before its roll;no refund for failed roll or late cancellation. This is proposed,not inferred from raw200/256rank1and276/256rank20shifted costs or a recovered current payment callback.",
+    "birth": "Read captured caster chance context at each attempt;successful host snapshots current summon suppliers. No future gear/facet/load rewrite of birth.",
+    "interruptions": "Caster movement,weapon change,control/spell/hit recovery,death/disconnect/class/target/range/LOS loss or expired held lease stop further work. Transport renews750ms lease and never independently pays.",
+    "lateCallbacks": "IDand attempt generation prevent an old callback from binding or removing a new channel/newer attempt. Successful host still requalifies target.",
+    "scope": "Prepared supplied intents/manual Advance only;no timer or learned input/automatic world admission."
+  },
+  "reuse": [
+    "SkillFormula remainder with multiplicative precedence/inactive-branch safety",
+    "Captured BindDemonPrepared suppliers and pinned monpet catalog",
+    "BattleOrders exact life/mana services and read-only MonsterVariantBaselines preview",
+    "BoundDemonHosts identity/original AI,source stats,life caps,affixes/aura,shared pool,persistence/parking/facet/death services",
+    "Existing CombatProtocol source/heartbeat lease constants and interruption predicates"
+  ],
+  "remaining": [
+    "Full SQ6/held input/world scheduling and complete proposal approval",
+    "Native UO champion/unique/named species mapping and special original-host contexts",
+    "Underling producer/ownership/child lifecycle and separate inherited physical-sunder fields",
+    "End-to-end socket/client admission and full lifecycle/class/PvP/global-world audit"
+  ],
+  "inputs": {
+    "data/Sanctuary/Balance/bind-demon-monsters.json": "db0b1d8e9fd0a07b9d3062169c2baacf866e3a0770287328f9d76d6ea6b92fe8",
+    "tools/reference/bind-demon-monsters-source.json": "66acb4c2070e382af3e2030efcd55deb4c793352dac481937b9a679283b702b2",
+    "tools/reference/bind-demon-formula-review.json": "d9787197dc322ab7373f32c2a57119680196682af17222ca091e360499f737ff",
+    "tools/reference/bound-demon-affix-source-review.json": "744d96fb2fa2d1655ffcfd9b48b46c1da8d2d192070f45bc67c257f689159b65"
+  }
+}

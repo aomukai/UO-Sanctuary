@@ -243,6 +243,7 @@ public static class SkillFormula
             {
                 if (Eat("*")) { a *= Atom(active); }
                 else if (Eat("/")) { long b = Atom(active); a = active ? a / b : 0; }
+                else if (Eat("%")) { long b = Atom(active); a = active ? a % b : 0; }
                 else { return a; }
             }
         }

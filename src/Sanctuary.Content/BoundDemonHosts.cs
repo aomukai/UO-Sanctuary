@@ -8,6 +8,7 @@ using Server;
 using Server.Mobiles;
 namespace Sanctuary;
 
+internal sealed record BoundDemonPlan(BindDemonSuppliers Birth,string Monster,MonsterNativeCombat Normal);
 internal sealed record BoundDemonState(uint Actor,uint Owner,string RuntimeType,string Monster,BindDemonSuppliers Birth,long Order,
     MonsterDifficulty Difficulty,MonsterNativeCombat Normal,int BaseMaximum256,int? SavedLife256=null)
 {
@@ -123,9 +124,9 @@ internal static class BoundDemonHosts
         if(state.BaseMaximum256!=BaseMaximum(state.RuntimeType,state.Monster,state.Normal,state.Difficulty))
         {throw new InvalidDataException("Bound life projection differs from its original context");}
     }
-    internal static bool BindPrepared(PlayerMobile owner,BaseCreature body,out string issue)
+    internal static bool Qualify(PlayerMobile owner,BaseCreature body,out BoundDemonPlan plan,out string issue)
     {
-        issue="The living creature is not an eligible original demon.";
+        plan=null;issue="The living creature is not an eligible original demon.";
         if(owner is not{Alive:true,Deleted:false,NetState:{Running:true},Map:not null}||owner.Map==Map.Internal||!Trained(owner)||MinionSafeAreas.Contains(owner)
             ||body is not{Alive:true,Deleted:false,Controlled:false,Summoned:false,Blessed:false}||body is BaseVendor or SkeletonGuardian or EncounterCreature
             ||body.ControlMaster!=null||body.SummonMaster!=null||PersistentMinions.Behavior(body)!=null||body.Guild!=null
@@ -136,24 +137,37 @@ internal static class BoundDemonHosts
         int[] channels=[body.PhysicalDamage,body.FireDamage,body.ColdDamage,body.PoisonDamage,body.EnergyDamage];
         if(body.ChaosDamage!=0||body.DirectDamage!=0||channels.Any(n=>n is<0 or>100)||channels.Sum()!=100)
         {issue="Unsupported native damage channels require their own binding adapter.";return false;}
-        BindDemonSuppliers birth;MonsterNativeCombat normal;string monster;BoundDemonAuraGrant aura;
+        BindDemonSuppliers birth;MonsterNativeCombat normal;string monster;
         try
         {
             birth=BindDemonPrepared.Capture(owner);monster=CreatureProfiles.For(body).Rewards.Reference;
             if(birth.InheritedPhysical5!=0||birth.InheritedPhysical7!=0)
             {throw new NotSupportedException("Original inherited sunder needs a qualified binding adapter");}
-            if(BindDemonPrepared.Monster(monster).IndexScope!="MonsterClass"){throw new NotSupportedException("Named encounter binding needs its own original-host adapter");}
+            var row=BindDemonPrepared.Monster(monster);
+            if(row.IndexScope!="MonsterClass"){throw new NotSupportedException("Named encounter binding needs its own original-host adapter");}
+            if(row.UnderlingCount!=0){throw new NotSupportedException("Bound underling ownership needs its own original-host adapter");}
             int? unbuffed=BattleOrders.LifePercent(body)!=0&&MonsterVariants.SpawnDifficulty(body)==MonsterDifficulty.Normal
                 ?BattleOrders.NativeLifeBase256(body):null;
-            MonsterVariantBaselines.RememberNormal(body,unbuffed);normal=MonsterVariantBaselines.Find(body)
+            normal=MonsterVariantBaselines.PreviewNormal(body,unbuffed)
                 ??throw new NotSupportedException("Original Normal combat baseline is unavailable");
             if(normal.Minimum<0||normal.Maximum<normal.Minimum)
             {throw new NotSupportedException("Original body damage endpoints need a qualified weapon adapter");}
             foreach(var d in Enum.GetValues<MonsterDifficulty>()){_=BaseMaximum(body.GetType().FullName,monster,normal,d);}
-            aura=BoundDemonAuras.CapturePrepared(body,birth,TimedEffects.Now);
+            plan=new(birth,monster,normal);
         }
         catch(Exception e)when(e is NotSupportedException or InvalidDataException or InvalidOperationException or ArgumentException)
         {issue=e.Message;return false;}
+        issue=null;return true;
+    }
+    internal static bool BindPrepared(PlayerMobile owner,BaseCreature body,out string issue)
+    {
+        if(!Qualify(owner,body,out var plan,out issue)){return false;}
+        var birth=plan.Birth;var monster=plan.Monster;var normal=plan.Normal;BoundDemonAuraGrant aura;
+        try{aura=BoundDemonAuras.CapturePrepared(body,birth,TimedEffects.Now);}
+        catch(Exception e)when(e is NotSupportedException or InvalidDataException or InvalidOperationException or ArgumentException)
+        {issue=e.Message;return false;}
+        MonsterVariantBaselines.RememberNormal(body,normal.Life256);
+        var spawner=body.Spawner;
         var resources=BattleOrders.Capture(body);int slots=body.ControlSlots;
         body.AIObject?.AITimer.Stop();body.ControlSlots=0;
         if(!body.SetControlMaster(owner)){body.ControlSlots=slots;body.AIObject?.AITimer.Start();issue="Native owner assignment failed.";return false;}

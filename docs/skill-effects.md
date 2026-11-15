@@ -1,5 +1,7 @@
 # Skill effects
 
+**Prepared Bind channel effect boundary — 2026-11-15 JST.** Chance and supplied-intent preparation add no final channel, tether, progress, success or bound-state artwork/audio. Successful binding retains the native body and identified shared aura placeholders. Learned action remains mechanically unfinished. Final effects are separately missing and nonblocking; no imagegen. Icons stay in their own register. [Checkpoint](bind-demon-channel-checkpoint.md).
+
 **Bound life-buff effect boundary — 2026-11-15 JST.** Capturing an existing BO/Oak base adds no cast or effect;existing buff presentation remains. Final Bind channel/tether/success/bound feedback and audio remain missing and nonblocking. Underling ownership is a mechanical gap,not an asset gap. No artwork/imagegen;icons remain separate. [Checkpoint](bind-demon-life-checkpoint.md).
 
 **Bound aura effect boundary — 2026-11-15 JST.** Five native providers reuse identified shared0x375A aura/pulse/contact placeholders and existing cold/slow presentation. Final native-source rings,affected-ally feedback,Thorns/Concentration/Fanaticism/Vigor/HolyFreeze audio and Bind channel/success/bound effects remain missing and nonblocking. No artwork/imagegen;mechanical delivery is separate from presentation. Icons remain separate. [Checkpoint](bind-demon-aura-checkpoint.md).

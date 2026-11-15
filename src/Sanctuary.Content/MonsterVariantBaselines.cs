@@ -34,15 +34,22 @@ public static class MonsterVariantBaselines
         actor.BasePhysicalResistance,actor.BaseFireResistance,actor.BaseColdResistance,actor.BasePoisonResistance,actor.BaseEnergyResistance,
         actor.PhysicalDamage,actor.FireDamage,actor.ColdDamage,actor.PoisonDamage,actor.EnergyDamage,actor.ActiveMoveSpeed,actor.PassiveMoveSpeed,SkillHealth.Maximum256(actor));
     internal static MonsterNativeCombat Find(BaseCreature actor)=>States.GetValueOrDefault(actor.Serial.Value);
+    internal static MonsterNativeCombat PreviewNormal(BaseCreature actor,int? life256Override=null)
+    {
+        var old=Find(actor);if(MonsterVariants.SpawnDifficulty(actor)!=MonsterDifficulty.Normal){return old;}
+        if(old is{Life256:not null})
+        {
+            if(life256Override is{} expected&&old.Life256!=expected)
+            {throw new NotSupportedException("Saved Normal life baseline disagrees with the native unbuffed maximum");}
+            return old;
+        }
+        var row=(old??Capture(actor))with{Life256=life256Override??SkillHealth.Maximum256(actor)};
+        Validate(row);return row;
+    }
     internal static void RememberNormal(BaseCreature actor,int? life256Override=null)
     {
-        if(!States.ContainsKey(actor.Serial.Value)&&MonsterVariants.SpawnDifficulty(actor)==MonsterDifficulty.Normal)
-        {var row=Capture(actor);if(life256Override is{} life){row=row with{Life256=life};}Validate(row);States.Add(row.Actor,row);}
-        else if(MonsterVariants.SpawnDifficulty(actor)==MonsterDifficulty.Normal&&States.GetValueOrDefault(actor.Serial.Value)is{Life256:null} old)
-        {var row=old with{Life256=life256Override??SkillHealth.Maximum256(actor)};Validate(row);States[actor.Serial.Value]=row;}
-        else if(life256Override is{} expected&&MonsterVariants.SpawnDifficulty(actor)==MonsterDifficulty.Normal
-            &&States.GetValueOrDefault(actor.Serial.Value)is{} existing&&existing.Life256!=expected)
-        {throw new NotSupportedException("Saved Normal life baseline disagrees with the native unbuffed maximum");}
+        var row=PreviewNormal(actor,life256Override);
+        if(row!=null&&MonsterVariants.SpawnDifficulty(actor)==MonsterDifficulty.Normal){States[row.Actor]=row;}
     }
     private static void Validate(MonsterNativeCombat row)
     {
