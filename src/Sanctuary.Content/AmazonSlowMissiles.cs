@@ -106,6 +106,7 @@ public static class AmazonSlowMissiles
         {
             if(state==null || !((Serial)state.Target).IsMobile || state.Target==0 || !((Serial)state.Creator).IsMobile || state.Creator==0
                 || state.Rank is <1 or >255 || state.VelocityPercent is <0 or >100 || state.DamagePercent is <0 or >100
+                || state.UntilUtc.Kind!=DateTimeKind.Utc
                 || !candidate.TryAdd(state.Target,state)){throw new InvalidDataException("Invalid Slow Missiles state");}
         }
         _states.Clear();foreach(var pair in candidate){_states.Add(pair.Key,pair.Value);}

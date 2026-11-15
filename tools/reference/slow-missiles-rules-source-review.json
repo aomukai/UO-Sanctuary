@@ -1,0 +1,38 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Complete proposed Slow Missiles rule",
+  "newLiveReferenceReads": 0,
+  "newerSourceSubstituted": false,
+  "proposal": "docs/slow-missiles-rule-proposal.md",
+  "established": [
+    "Owned radius27,do6/filter0xC583,5mana,duration300+150*(rank-1),independent speed/damage rank curves.",
+    "Existing qualified SC/FCR and typed encounter/Graveyard factories already capture slow payloads;legacy current scalar dispatcher/order remains unverified.",
+    "Source boss-species exclusion is distinct from elite grade;native Lich has no qualified D2 source identity."
+  ],
+  "adaptations": [
+    "Explicit native ordinary/nonboss Lich adapter with native Boss override,without changing shared aura targeting or assigning D2 species.",
+    "Existing FP256 integer endpoint/final-packet boundaries become the proposed deterministic current rule;capture once,no live mutation,CanSlowvelocity versus independent damage,preserved lengths/count/drain coefficients.",
+    "Source SC/release/recovery/owner-state lifecycle,UTC atomic restoration and unsupported classification reporting."
+  ],
+  "scopeDecision": [
+    "Current D2 encounter/Graveyard paths are qualified;source-relative slowing retains declared native baseline geometry.",
+    "User separately scheduled native monster spell replacement. Deferring native instantaneous ranged hits on the same track remains a specific pending choice;do not infer approval or claim unsupported UO producers work.",
+    "Unqualified special,child,burn,PvP/property/graphical contexts remain listed;not all existing Capture callers are certified by static lookup."
+  ],
+  "inputs": {
+    "src/Sanctuary.Content/SlowMissilesRules.cs": "e635b1f2d456bd1b93acb86aa86b8071e40d9c4e94d978ea96c84b26f9be80e9",
+    "src/Sanctuary.Content/AmazonSlowMissiles.cs": "07d8f341313d9ec8c9ed34b3d97594486bfbc4a654e3605de64e18b1e617fed7",
+    "src/Sanctuary.Content/AmazonSlowMissilesCast.cs": "0e17ae2da13b330eae4d3a234c351969a82ec0db32c550b00cad82114fe7a414",
+    "src/Sanctuary.Content/AmazonSlowMissilesCasting.cs": "6e24190a2ef0874608fea31270efd7dbeca0cc2613d529524cbf809e878cb272",
+    "src/Sanctuary.Content/EliteBolts.cs": "f918f08609bb40e369ec8d1436aa170289337ccee896bfecf63117c850e6dd1b",
+    "src/Sanctuary.Content/EliteCombat.cs": "3338a9ec82f894ae80d239b9d9aa52a87fbd0f87b3d73ddada210fefbe18a570",
+    "src/Sanctuary.Content/WeaponMissiles.cs": "9e9d3bcfcf1431cb58854da79aa4da8091cfd64bd147d580ef478399909814aa",
+    "src/Sanctuary.Content/GraveyardUndead.cs": "cff475f82565d3efd3edfb2df5395a22ae58c5bea69f8e76a037643904ec15a4",
+    "src/Sanctuary.Content/MissileDamageScale.cs": "8e6211b7229918046484a76a30d593fc99ca95bbc8aded550dd7eadc335a7e02",
+    "data/Sanctuary/Balance/slow-missiles-native-targets.json": "f5e70f7ef7577bd0f1bcf6573961d07702c124ca23a3131b1b3092f00c70f152",
+    "tools/reference/slow-missiles-preflight.json": "8b888936229cf1471fa4c7dc59bd749147e2b6359234df26712533858bcd4bbd",
+    "tools/reference/slow-missiles-engine-evidence.json": "b0a6d4d158ecb2de14652080b3f13bbf7bcd3ca438ed30e07a38e1cb6c95669d",
+    "tools/reference/slow-missiles-observation-evidence.json": "7989b3b6e666c960fcccd0950b83fcbf34203e9637e0abd04835b113dd3468d3",
+    "tools/reference/cast-frame-role-review.json": "caae0cae952010fa92ec2803e03ace950368bf0afd1e7ee5ec04441e9107d431"
+  }
+}

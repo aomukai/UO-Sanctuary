@@ -12,15 +12,16 @@ namespace Sanctuary;
 internal static class AmazonSlowMissilesCast
 {
     internal static bool SourceAllowed(bool eligible,bool speciesBoss)=>eligible&&!speciesBoss;
-    internal static bool Target(PlayerMobile owner,BaseCreature target,int radius)
+    internal static bool Target(PlayerMobile owner,BaseCreature target,int radius,bool candidate=false)
     {
         if(owner==null || target==null || target.Map!=owner.Map
-            || !ClassCombat.IsHostile(owner,target) || !SourceAuraTargets.Eligible(target)) { return false; }
+            || !ClassCombat.IsHostile(owner,target)) { return false; }
         // Reuse the existing source species table, never elite/champion grade.
         // EncounterCreature retains its explicit native archetype adapter;
         // an unclassified native species does not acquire a guessed D2 identity.
         var source=PaladinConversion.SourceRule(target);
-        if(target is not EncounterCreature && source==null) { return false; }
+        if(!SourceAuraTargets.Eligible(target)||target is not EncounterCreature&&source==null)
+        {if(!(candidate||SlowMissilesRules.Approved)||source!=null||!SlowMissilesRules.NativeEligible(target)){return false;}}
         return SourceAllowed(true,source?.Boss==true)
             && AmazonInnerSight.InRadius(target.X-owner.X,target.Y-owner.Y,radius)
             && Math.Abs(target.Z-owner.Z)<16 && !SpellHelper.IsTown(target.Location,target);
@@ -33,7 +34,7 @@ internal static class AmazonSlowMissilesCast
             || !ClassCreation.Profiles.TryGet(owner.Serial,out var profile) || profile.Class!=DiabloClass.Amazon
             || ClassCreation.Profiles.GetRank(owner.Serial,"amazon.slowmissiles")<1
             || SkillMechanics.Rank(owner,CombatAbility.SlowMissiles) is <1 or >255);
-    internal static bool Commit(PlayerMobile owner,DateTime at)
+    internal static bool Commit(PlayerMobile owner,DateTime at,bool candidate=false)
     {
         if(at.Kind!=DateTimeKind.Utc||!Eligible(owner)){return false;}
         var row=SkillMechanics.For(CombatAbility.SlowMissiles);
@@ -44,7 +45,7 @@ internal static class AmazonSlowMissilesCast
         if(!NecromancerEffects.Pay(owner,values.Mana256)) { return false; }
         int radius=(int)values.Eval("aurarangecalc");var targets=new List<BaseCreature>();
         foreach(var target in owner.Map.GetMobilesInRange<BaseCreature>(owner.Location,(int)Math.Ceiling(SkillGeometry.Tiles(radius))))
-        { if(Target(owner,target,radius)) { targets.Add(target); } }
+        { if(Target(owner,target,radius,candidate)) { targets.Add(target); } }
         targets.Sort((a,b)=>a.Serial.CompareTo(b.Serial));
         foreach(var target in targets) { AmazonSlowMissiles.Apply(owner,target,values.Rank,at); }
         owner.FixedEffect(0x375A,10,10,0x481,0); // Identified cast_slowmissiles placeholder.

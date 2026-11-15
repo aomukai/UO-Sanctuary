@@ -1,0 +1,9 @@
+[
+  {
+    "Type": "Sanctuary.GraveyardLich",
+    "Boss": false,
+    "Npc": false,
+    "NoAura": false,
+    "Attackable": true
+  }
+]
