@@ -15,6 +15,7 @@ internal sealed record MiasmaChainResult(int Result,int Flags);
 internal static class MiasmaChainLaunch
 {
     private static readonly Lazy<MiasmaChainRoute> Data=new(()=>BalanceCatalog.ReadObject<MiasmaChainRoute>("miasma-chain-route"));
+    internal static MissileValues Missile(string key,SkillValues values)=>new(Data.Value.Missiles.Single(m=>m.Key==key).Fields,values);
     internal static int PinnedMaker(SkillValues values)
     {
         var row=SkillMechanics.For(CombatAbility.MiasmaChain);var data=Data.Value;

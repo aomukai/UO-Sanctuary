@@ -1,0 +1,49 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Chain captured suppliers and registered len callback",
+  "graph": [
+    711,
+    712,
+    713,
+    696
+  ],
+  "currentProcessReads": 0,
+  "newerSourceSubstituted": false,
+  "officialReleasedPatch": "https://news.blizzard.com/en-us/article/24261478/diablo-ii-resurrected-ladder-season-14-has-concluded",
+  "officialFacts": [
+    "Active chains cap5to10;no casting delay.",
+    "Cloud stamps every half-second;one-second recipient delay shared per chain,independent across chains.",
+    "Extra-cloud and Blade Warp break bugs fixed."
+  ],
+  "pinnedFacts": [
+    "Skill399direct magic6to9at rank1;cloud696magic5to10. Distinct10/20percent hard Bolt/Abyss synergies.",
+    "Link Range references skill len. Owned cached skillcalc maps len to54/auralencalc;retained D2Skills.cpp case54 evaluates aura duration. Pinned399auralencalc125gives125frames,not poison/elemental duration.",
+    "Chain cap formula min(5+lvl/4,10),maker source anchor/link length40,and source-shape effective Range/Radius versus hard-only SrvCalc1 remain separate.",
+    "Maker/link/cloud fields come from isolated owned route;do not expand active footprint registry."
+  ],
+  "legacyTimingEvidence": {
+    "file": ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Units/Units.cpp",
+    "functions": [
+      "UNITS_IsSeqAnimSpeedModulatedByFCR",
+      "UNITS_CanAnimModeUseAttackRate",
+      "UNITS_UpdateAnimRateAndVelocity"
+    ],
+    "finding": "Normal player CAST chooses FCR before attack-rate selection;an SC row with UseAttackRate1 does not alone prove IAS. Current Warlock startup remains unverified,so this supports a proposed shared SC/FCR choice rather than a modern caller certificate."
+  },
+  "unresolved": [
+    "Modern do43anchor/factory and do45attachment/travel/terrain mechanics.",
+    "Current hit41/do41link-area layout,first/last stamp,opaque hard-only SrvCalc1 meaning,direct-link contact and magic/pierce/event timing.",
+    "Native world/cap replacement/input/payment/lifecycle/ownership/atomic saved link+cloud composition.",
+    "Do not replace Chain by ordinary Bolt or copy Blade Sentinel weapon/AI/reversal semantics. One complete tested proposal is needed before learned admission."
+  ],
+  "inputs": {
+    "src/Sanctuary.Content/MiasmaChainBirth.cs": "dbc1d6f1880b72b4896e4288e32fa97a6c05ebd38cafe79e8eeb6a72b2d70441",
+    "src/Sanctuary.Content/MiasmaChainLaunch.cs": "e41a79ab117301da44ca566711f0a51dcda385a260a4c9020d0bb5a923a40373",
+    "src/Sanctuary.Content/SkillMechanics.cs": "c609cf5bc21194f4a356794070f44601b648783b28d119c8bba77d72809750a4",
+    "data/Sanctuary/Balance/miasma-chain-route.json": "ec08b04ac34102f93e7c61f3c5b0a9780ca58e88cbf7de69de272d0bb050bdfb",
+    ".local/class-skills/venom-skillcalc.json": "ad91df31bab1a57beda330ac1184d3dbddab0207a88b3e0d90a92093c06af6fd",
+    ".local/class-skills/fire-golem-mode-source/skillcalc.txt": "4028d9985368b89fe5d84a93f60177ecc34957599a170a4f8496ddd169636a4f",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea"
+  }
+}

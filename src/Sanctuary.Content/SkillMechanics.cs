@@ -147,6 +147,8 @@ public sealed class SkillValues
             // Formula callback 52 is unshifted elemental minimum including mastery. Prayer has no element/mastery.
             "edns" when _skill.Ability == CombatAbility.Prayer => Rank > 0 ? Damage256(false) : 0,
             "edln" or "edma" => DurationFrames,
+            // Registered callback54 reads aura duration,not elemental length.
+            "len" => Eval("auralencalc"),
             _ => throw new NotSupportedException($"Unsupported D2 skill formula symbol: {name}({argument}).{property}")
         };
     }
