@@ -26,11 +26,12 @@ public sealed class MiasmaWorldProfiles:GenericPersistence
     {if(r.ReadInt()!=0){throw new InvalidDataException("Unknown Miasma world version");}MiasmaWorld.Restore(JsonSerializer.Deserialize<MiasmaWorldSave>(r.ReadString()));}
 }
 
-// Complete prepared697->736->705projection. Hit41/do41are not claimed as
-// recovered callbacks. No automatic clock/learned binding before whole-rule approval.
+// Approved697->736->705world projection. Hit41/do41are explicitly adapted,
+// not claimed recovered;the shared forty-ms world clock owns progression.
 internal static class MiasmaWorld
 {
-    internal static bool Approved=>false;
+    internal static bool Approved=>true;
+    private static readonly Server.Logging.ILogger Log=Server.Logging.LogFactory.GetLogger(typeof(MiasmaWorld));
     private static ImmutableDictionary<long,MiasmaNode> Nodes=ImmutableDictionary<long,MiasmaNode>.Empty;
     private static ImmutableDictionary<(long,uint),WeaponFlightLease> Leases=ImmutableDictionary<(long,uint),WeaponFlightLease>.Empty;
     private static long _next;
@@ -145,6 +146,15 @@ internal static class MiasmaWorld
             damage=(int)Math.Min(int.MaxValue,(long)damage+Deliver(p,t,DruidMoltenBoulder.Potion(c.Modifiers,new(0,0,0,0,0,Magic:raw/256.0)),false,at));
         }
         Effects.SendLocationEffect(center,p.Map,0x374A,2,10,0x48D,0);return(contacts,damage); // Explicit magic-cloud placeholder,not poison damage.
+    }
+    internal static void Tick(DateTime at)
+    {
+        if(World.Loading||!Approved){return;}
+        foreach(uint owner in Nodes.Values.Select(n=>n.Owner).Distinct().OrderBy(n=>n).ToArray())
+        {
+            var result=TickPrepared(at,onlyOwner:owner);
+            if(result.Fault!=null){Log.Warning("Miasma Bolt stopped an unsupported node for {Owner}: {Reason}",owner,result.Fault);}
+        }
     }
     internal static MiasmaAdvance TickPrepared(DateTime at,bool? actions=null,uint? onlyOwner=null)
     {

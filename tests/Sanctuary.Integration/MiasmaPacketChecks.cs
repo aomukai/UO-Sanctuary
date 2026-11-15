@@ -43,7 +43,7 @@ public static class MiasmaPacketChecks
         }
         try{MiasmaPackets.Capture(Values(0,0,0));throw new InvalidOperationException("Rank0packet accepted");}catch(NotSupportedException){}
         try{MiasmaPackets.Capture(Values(256,0,0));throw new InvalidOperationException("Rank256packet accepted");}catch(NotSupportedException){}
-        Require(!WarlockCombat.Implemented(CombatAbility.MiasmaBolt),"Prepared packet enabled incomplete learned skill");
+        Require(WarlockCombat.Implemented(CombatAbility.MiasmaBolt),"Approved packet lost learned skill");
         Log.Information("Miasma packets:9180full-source comparisons, magic-only distinct synergy rounding, own parameters, entropy thresholds/cap and fractional mana pass; learned cast gated");
     }
     private static void Train(PlayerMobile p,string id,int rank=1)
@@ -64,7 +64,7 @@ public static class MiasmaPacketChecks
             var helm=NamedGear.Create(NamedGear.Catalog.Items.Single(x=>x.SourceKey=="Tarnhelm").Id,99,new Random(173),true);p.AddToBackpack(helm);Require(p.EquipItem(helm),"Real +skill helm");ClassGear.Refresh(p);
             var v=SkillMechanics.Values(p,CombatAbility.MiasmaBolt);var d=MiasmaPackets.Capture(p);
             Require(d==MiasmaPackets.Capture(Values(21,20,20,2))&&d.CloudFrames==60&&before.CloudFrames==55,"Actual hard synergies/effective rank/entropy supplier");
-            Require(!SkillBindings.Instance.Assign(p,true,CombatAbility.MiasmaBolt)&&!SkillBindings.Instance.AssignQuick(p,0,CombatAbility.MiasmaBolt),"Unfinished Miasma input accepted");
+            Require(SkillBindings.Instance.Assign(p,true,CombatAbility.MiasmaBolt)&&SkillBindings.Instance.AssignQuick(p,0,CombatAbility.MiasmaBolt),"Approved Miasma input unavailable");
             p.AddToBackpack(helm);ClassGear.Refresh(p);Require(MiasmaPackets.Capture(p)==before&&MiasmaPackets.Capture(v)==d&&p.Mana==mana,"Captured context mutated/live rank failed or numeric supplier charged mana");
             Require(p.EquipItem(helm),"Helm restore");ClassGear.Refresh(p);saved[i++]=new(p.Serial.Value,helm.Serial.Value,female,d);
         }
@@ -76,7 +76,7 @@ public static class MiasmaPacketChecks
         {
             var p=(PlayerMobile)World.FindMobile((Serial)s.Owner);var helm=World.FindItem((Serial)s.Helm);ClassGear.Refresh(p);
             Require(p.Female==s.Female&&helm.Parent==p&&SkillMechanics.Rank(p,CombatAbility.MiasmaBolt)==21&&MiasmaPackets.Capture(p)==s.Damage,"Saved Warlock/Witch/gear/numeric payload");
-            Require(!SkillBindings.Instance.Assign(p,false,CombatAbility.MiasmaBolt),"Reload enabled unfinished Miasma");
+            Require(SkillBindings.Instance.Assign(p,false,CombatAbility.MiasmaBolt),"Reload lost approved Miasma");
         }
     }
 }

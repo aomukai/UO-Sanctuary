@@ -1,0 +1,13 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "answer": "Approve the complete Miasma Bolt rule (Recommended)",
+  "approvedUtc": "2026-11-15T12:23:08.492974+00:00",
+  "questionItemId": "[\"request_user_input_async\",\"call_47510ce059d04003ac807757176c2a91\",0]",
+  "proposal": "docs/miasma-bolt-world-rule-proposal.md",
+  "proposalAtApprovalSha256": "fae864fea6effd5cc2dcef05a71ff50f4066752097b89ca44dbe6701ef007bd7",
+  "candidateCommit": "9799e350ccafa3d308a6b6b6e39816c519e022a6",
+  "testedCandidateEvidence": "tools/reference/miasma-bolt-world-native-evidence.json",
+  "testedCandidateEvidenceSha256": "25be78c3264370032062dd465ed3d194876524c2b834bc9eed901a1244705ee8",
+  "scope": "Complete defined Miasma Bolt SC/payment/snapshot,697\u2192736\u2192705graph,magic/potion,per-cast recipient delay,world/lifecycle/save/placeholder rule. Learned input and existing-clock admission authorized. Four older proposals remain pending;full Entropy and class acceptance remain separate."
+}

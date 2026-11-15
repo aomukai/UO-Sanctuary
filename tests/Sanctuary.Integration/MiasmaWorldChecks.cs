@@ -75,8 +75,8 @@ public static class MiasmaWorldChecks
         var account=FixtureNetwork.Authenticate(network,p,"miasma-world-");var target=Target(p,4);bool kept=false;var oldSeed=MiasmaWorld.SeedLow;MiasmaWorld.SeedLow=()=>73;
         try
         {
-            Require(!MiasmaWorld.Approved&&!WarlockCombat.Implemented(CombatAbility.MiasmaBolt)&&!WarlockCombat.Implemented(CombatAbility.EnhancedEntropy)
-                &&!SkillBindings.Instance.Assign(p,true,CombatAbility.MiasmaBolt),"Unapproved world admitted learned input");Suppliers(p);
+            Require(MiasmaWorld.Approved&&WarlockCombat.Implemented(CombatAbility.MiasmaBolt)&&!WarlockCombat.Implemented(CombatAbility.EnhancedEntropy)
+                &&SkillBindings.Instance.Assign(p,true,CombatAbility.MiasmaBolt),"Approved world admission missing");Suppliers(p);
             Ready(p);var action=MiasmaBoltCasting.BeginPrepared(p,target.Serial,target.Location,Core.TickCount);Require(action!=null,"Prepared SC startup");var s=ClassCombat.For(p);long effect=s.EffectAt;int mana=NecromancerEffects.ManaBalance256(p);
             Require(!ClassCombat.ResolveAction(p,effect-1)&&MiasmaWorld.For(p).Length==0&&NecromancerEffects.ManaBalance256(p)==mana,"Early SC debit");ClassCombat.Stop(p);
             Require(action.Cancelled&&!ClassCombat.ResolveAction(p,effect),"Cancelled SC emitted");
@@ -164,13 +164,16 @@ public static class MiasmaWorldChecks
         var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)saved.Owner);var account=FixtureNetwork.Authenticate(network,p,"miasma-world-reload-");
         try
         {
-            var live=MiasmaWorld.Snapshot();Require(JsonSerializer.Serialize(live)==JsonSerializer.Serialize(saved.State)&&p.Female&&p.Body==0x191
+            var live=MiasmaWorld.Snapshot();var casts=saved.State.Nodes.Select(n=>n.Cast).ToHashSet();
+            Require(live.NextId>=saved.State.NextId
+                &&JsonSerializer.Serialize(live.Nodes.Where(n=>n.Owner==p.Serial.Value))==JsonSerializer.Serialize(saved.State.Nodes)
+                &&JsonSerializer.Serialize(live.Leases.Where(l=>casts.Contains(l.Cast)))==JsonSerializer.Serialize(saved.State.Leases)&&p.Female&&p.Body==0x191
                 &&World.FindItem((Serial)saved.Helm)?.Parent==p&&World.FindItem((Serial)saved.Weapon)?.Parent==p&&NecromancerEffects.ManaBalance256(p)==saved.Mana&&SkillHealth.Balance256(p)==saved.Life,"Saved graph/Witch/gear/fractional resources changed");
             var target=(BaseCreature)World.FindMobile((Serial)saved.Target);target.AIObject?.AITimer.Stop();Require(SkillHealth.Balance256(target)==saved.TargetLife,"Saved target changed");FixtureSpace.Place(p,saved.Origin,Map.Trammel);
             var next=live.Nodes.Min(n=>n.NextUtc);var before=State();MiasmaWorld.TickPrepared(next.AddTicks(-1),true,p.Serial.Value);Require(State()==before,"Early reload replayed");
             var r=MiasmaWorld.TickPrepared(next,true,p.Serial.Value);Require(r is{Fault:null,CreatedClouds:2,CloudContacts:1}&&SkillHealth.Balance256(target)<saved.TargetLife,"Original maker/cloud clocks,independent cast lease or saved damage failed to resume");
             MiasmaWorld.Restore(live);SkillHealth.SetBalance256(target,saved.TargetLife);File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Generation=saved.Generation+1}));
-            Require(ClassCombat.For(p).Miasma==null&&!WarlockCombat.Implemented(CombatAbility.MiasmaBolt),"Reload admitted transient/learned candidate");
+            Require(ClassCombat.For(p).Miasma==null&&WarlockCombat.Implemented(CombatAbility.MiasmaBolt),"Reload replayed transient or lost learned admission");
             Log.Information("Miasma world:original simultaneous bolt/makers/clouds,positive lease,RNG/birth/shape/clocks,Witch/gear/FP256wounds+mana retained and continued through actual reload;future inspection clock only");
         }
         finally{ClassCombat.Stop(p);network.Mobile=null;p.NetState=null;account[0]=null;network.Account=null;account.Delete();}

@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Miasma learned admission — 2026-11-15 JST.** Existing public Warlock dispatch,SC/FCR,non-self protocol bindings and shared TimedEffects world clock admit the approved graph. Existing ClassDeath/class-history hooks clear it;respec retains released snapshots. No new timer,client patch or persistence version. Retained prepared-world and actual Mirrored socket consumers cover the shared path. [Checkpoint](miasma-cast-checkpoint.md).
+
 **Miasma Bolt world reuse — 2026-11-15 JST.** Reuse MiasmaPackets/MiasmaLaunch/WarlockEntropyClouds,PoisonCloudGeometry/BasicMissileUpdate,source cell/vectors,typed damage/potion,SC/FCR,area eligibility and saved recipient leases. EntropyCloudPacket separates common cloud payload from Bolt flight/makers for future Chain reuse;Chain-specific emission/delay and Abyss stay distinct. A scoped new saved graph has no independent timer. Endpoint tile checks prevent half-subtile rounding from creating clouds inside walls. [Checkpoint](miasma-bolt-world-checkpoint.md).
 
 **Mirrored learned admission — 2026-11-15 JST.** Existing Warlock dispatch,shared non-self input/bindings and original SQ25/world clocks admit the approved action without another timer/client patch. BeginLearned adds availability and unsupported-context reporting;transient sequence still owns release. All four weapon kinds use the same public route. [Checkpoint](mirrored-cast-checkpoint.md).

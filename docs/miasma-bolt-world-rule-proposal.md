@@ -1,6 +1,8 @@
 # Miasma Bolt complete world rule
 
-**Pending approval.** This is one complete Sanctuary adaptation for the unavailable current hit41/cloud-do41 callbacks and their world/input composition. It does not claim those bodies were recovered. D2R Reign of the Warlock **3.3.93847** remains the mechanical reference; no newer installation or process data is substituted. Learned Miasma Bolt stays gated until approval and separate learned-input verification.
+**Approved by the user on2026-11-15 JST.** [Exact decision](../tools/reference/miasma-bolt-world-rule-approval.json). The body below is the original approved proposal;implementation/acceptance status is recorded separately.
+
+**Original proposal.** This is one complete Sanctuary adaptation for the unavailable current hit41/cloud-do41 callbacks and their world/input composition. It does not claim those bodies were recovered. D2R Reign of the Warlock **3.3.93847** remains the mechanical reference; no newer installation or process data is substituted. Learned Miasma Bolt stays gated until approval and separate learned-input verification.
 
 ## Retained source data and shared mechanics
 

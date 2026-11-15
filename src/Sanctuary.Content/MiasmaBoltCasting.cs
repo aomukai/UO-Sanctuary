@@ -4,7 +4,7 @@ using Server;
 using Server.Mobiles;
 namespace Sanctuary;
 
-// Ordinary shared SC/FCR preparation;network availability remains gated.
+// Approved ordinary SC/FCR input;the transient action exclusively owns release.
 internal static class MiasmaBoltCasting
 {
     internal sealed class Pending
@@ -16,6 +16,12 @@ internal static class MiasmaBoltCasting
     }
     private static bool Actor(PlayerMobile p)=>p is{Map:not null}&&MiasmaWorld.Fighting(p,p.Map.MapID)
         &&ClassCreation.Profiles.TryGet(p.Serial,out var c)&&c.Class==DiabloClass.Warlock&&SkillMechanics.Rank(p,CombatAbility.MiasmaBolt)>0;
+    internal static bool BeginLearned(PlayerMobile p,Serial selected,Point3D point,long now)
+    {
+        if(!MiasmaWorld.Approved||!WarlockCombat.Available(p,CombatAbility.MiasmaBolt)){return false;}
+        try{return BeginPrepared(p,selected,point,now)!=null;}
+        catch(NotSupportedException ex){p.SendMessage(0x22,"Miasma Bolt: "+ex.Message);return false;}
+    }
     internal static Pending BeginPrepared(PlayerMobile p,Serial selected,Point3D point,long now)
     {
         if(!Actor(p)||!MiasmaWorld.Aim(p,selected,ref point)

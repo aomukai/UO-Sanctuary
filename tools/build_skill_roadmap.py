@@ -798,6 +798,9 @@ BLOCKERS['warlock.echoingstrike'] = 'Approved Sanctuary SC/FCR cast captures ori
 
 BLOCKERS['warlock.mirroredblades'] = 'Approved complete Sanctuary SQ25single-event primary/copy series supports melee,bow,crossbow and throw with release snapshots,independent ordinary hits/critical,source128/Damage+,copy scalar and raw Crushing Blow mapping,supported shared weapon/Hex events,one mana/ammo debit and basic fallback. Original-flight optional metadata/persistence and lifecycle reuse the shared engine;old defaults retain. Learned left/right/quick and automatic-clock proof is in mirrored-cast-checkpoint.md. Protected start68/do166/factory/global RNG and broader proc/SlowMissiles/special/PvP/class-property/graphical acceptance remain open. Approval:mirrored-world-rule-approval.json.'
 
+CAVEATS["warlock.miasmabolt"] = "Approved complete697→736→705world rule now uses learned shared SC/FCR,left/right/quick input and the existing40ms clock. One release snapshot/debit,real bolt/two makers/two magic clouds,per-cast one-second leases and separate-cast stacking retain released damage/expiry fixes. Current hit41/do41 layout,primary direct-plus-cloud,mastery/pierce/events/lifecycle are explicit Sanctuary adaptations,not recovered source. Source/world/native/learned verification is recorded in miasma-cast-checkpoint.md;unmapped/special/PvP/class-pet/graphical acceptance remains separate. Shared Entropy Bolt consumer does not finish Chain/Abyss or the full passive. Final effects/audio and talent/hotkey icons remain missing;no class certified."
+
+
 def build():
     skills=json.loads((BALANCE/'class-skills.json').read_text())
     protocol=(ROOT/'shared/ClassAbilities.cs').read_text()

@@ -58,7 +58,7 @@ public static class MiasmaLaunchChecks
                 _=>{finds++;return target!=0?42u:0u;},(id,ending)=>{hits++;end=ending?1:0;Require(ending?id==0:id==42,"Hit callback target changed");return 7;}));
             Require(new[]{p.Result,p.Remaining,moves,finds,hits,end,writes}.SequenceEqual(row.EnumerateArray().Skip(8).Select(x=>x.GetInt32()))&&written==p.Remaining&&p.WroteFrame==(writes==1),"Full generic do1 control flow differs");count++;
         }
-        Require(count==5120&&!WarlockCombat.Implemented(CombatAbility.MiasmaBolt),"Missing update cases or premature learned handler");
+        Require(count==5120&&WarlockCombat.Implemented(CombatAbility.MiasmaBolt),"Missing update cases or missing approved handler");
         Log.Information("Miasma launch:3600complete wrapper/factory/owner and5120complete update comparisons pass;15active footprints retained,2reference rows remain unsupported");
     }
     private static void OrderedServices()
