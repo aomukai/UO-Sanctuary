@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Flame Wave supplier reuse — 2026-11-15 JST.** Reuse the existing isolated route DTO,MissileValues,skill-tier/synergy and DruidFirestorm endpoint/Slow helpers. Head and field synergies remain distinct;the mandatory Ring point reconciles published display endpoints. Wake of Fire paths,shared SourceFireFields and complete do6trail requests are next consumers;new156/38/42composition remains explicit. [Checkpoint](flame-wave-birth-checkpoint.md).
+
 **Chain learned admission — 2026-11-15 JST.** Public Warlock dispatch,existing SC action,shared world tick and original bindings admit the approved graph. Explicit CombatTiming ChainFCR matches the HUD without changing ordinary-SC22scope. Chain runs before the common cloud scan;no new timer or save version. Existing class/death/respec semantics and shared Bolt/Mirrored consumers retain. [Checkpoint](miasma-chain-cast-checkpoint.md).
 
 **Chain complete world reuse — 2026-11-15 JST.** MiasmaWorld now accepts optional frozen link geometry and Slow payload on EntropyCloudPacket,while Bolt defaults retain. Shared scanner/typed magic/leases and profile254v0store optional link/713maker pools with one global ID stream and atomic all-pool validation. Current Bolt clock excludes prepared Chain fields. ClassCombat adds only transient sequence hooks;no duplicate timer or NPC AI. Source paths serve the moving head;Blade Sentinel weapon/reversal/lifetime rules are not copied. [Checkpoint](miasma-chain-world-checkpoint.md).

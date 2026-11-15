@@ -1,0 +1,48 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Flame Wave captured graph/numeric inputs",
+  "currentProcessReads": 0,
+  "newerSourceSubstituted": false,
+  "graph": {
+    "unveiling": 708,
+    "wave": 690,
+    "tailMaker": 695,
+    "lingerMaker": 716,
+    "genericFireChild": 240,
+    "visualOnlyExplosion": 29
+  },
+  "pinnedFacts": [
+    "Skill398do156creates708do42;708names690do38;690names695/716do6;both name240do5.29has no server callback.",
+    "Skill width calc1=dm12(4to7);calc2=17travel-delay input;localdelay15;7mana at rank1 with half-mana growth.",
+    "Wave velocity24/Range40/NextDelay15/Size1/CanSlow1/GetHit1.",
+    "Both fire-maker rows have7frames and identical own fire endpoints/synergy. Skilldesc duration explicitly adds flamewavefire.Range7and flamewave.Param2=68,giving75frames/3seconds.",
+    "Head skill synergy uses15percent per hard Ring/Apocalypse point;field rows use10percent and truncate synergy before HitShift."
+  ],
+  "displayedDamageInference": "Raw head13to17at rank1 becomes displayed14to19with required hard Ring1;rawrank20 233to264becomes267to303with that same point. This arithmetic reconciles the released3.2note;do not replace owned table endpoints with display numbers.",
+  "primaryReleasedPatch": "https://news.blizzard.com/en-us/article/24261478/diablo-ii-resurrected-ladder-season-14-has-concluded",
+  "reuse": [
+    "DruidFirestorm.Endpoints handles captured fire mastery/Slow;missile fields remain CanSlow0.",
+    "MoltenBoulderPackets.Trail translates legacy do6:changed-path flag8emits a flags33same-position child before ordinary collision. D2Common_10234returns that flag.",
+    "SourceFireFields/InstantSpellNpcDamage implement existing typed periodic fire with DamageRate41;AssassinWakeFire supplies distinct wave/perpendicular/cell/lease patterns."
+  ],
+  "unresolved": [
+    "Current do156/do38/do42startup,unveiling width/emission/17frame travel gate and child parameter/context bindings.",
+    "Tail/static lifetime override composition and generic240damage inheritance;do not silently apply unrelated Sorceress Inferno synergy or double count child/fire-maker damage.",
+    "Current collision/NextHit scope/front versus ground fields,first/last burn,overlap,mastery/potion/pierce timing,terrain/lifecycle/RNG and saved world/input.",
+    "No world actor,damage delivery,automatic clock or learned Flame Wave is implemented by these suppliers. Prepare one complete tested rule;no partial approval question."
+  ],
+  "inputs": {
+    "src/Sanctuary.Content/FlameWaveBirth.cs": "690f6108ff712f65e58a1cb91f0e2b51e2efa859023b312e76f46e044c761f90",
+    "data/Sanctuary/Balance/flame-wave-route.json": "ad324dc6067dac20c558efac742f875dfb1e0dc095c6d8487dc2cdd039eed6c2",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/skilldesc.json": "5e9a367afd79892823352f34ca82c8157d9d9aa3f5ee3f1653ec9ce110449e57",
+    "tools/reference/warlock-skill-do-current-evidence.json": "01f5a20e973a6f7a60c9ea52b403a62e47764ada8f3a28bd1185581984816b6f",
+    "src/Sanctuary.Content/SourceFireFields.cs": "fe10ec1479ef56a2c9f8a5718611172b612e717fce4883fffd3b23f7021e2307",
+    "src/Sanctuary.Content/MoltenBoulderPackets.cs": "256915c50c944d6a0e1afedc06393b0911f28ddca408bb554bf6bd5577c1a58d",
+    "src/Sanctuary.Content/AssassinWakeFireMissiles.cs": "35dbfd2306320e4c10eb01563ab42d4a0894f72af4d4ab67cb7b7408e6ecba23",
+    "src/Sanctuary.Content/DruidFirestorm.cs": "f29f48dcfb33515786bdf8217dafa726528a869969caf46fa21afc7ebe242098",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Path/Step.cpp": "2627bfccce5b55bbfef983b255856ac37265c56625922cf18e56e3474ddd64d0"
+  },
+  "proposedSupplierInterpretation": "Tail duration is captured as7+Param1=8frames;actual new do38override binding remains unverified. The75frame lingering duration has independent skilldesc support."
+}

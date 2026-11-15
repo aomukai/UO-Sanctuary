@@ -1,0 +1,13 @@
+# Flame Wave captured-input checkpoint
+
+**2026-11-15 JST — scoped preparation,not a playable Flame Wave.** [Source review](../tools/reference/flame-wave-birth-source-review.json),[native evidence](../tools/reference/flame-wave-birth-native-evidence.json). Coverage stays **232/240 handlers,Warlock23/30;no class certified**. Last learned runtime remains Chain `4305ba4b6a3469611308a112c7b2e3133aa62fe1`.
+
+`FlameWaveBirths` captures the isolated owned708unveiler→690wave→695/716fire-maker→240generic-fire graph,with29kept visual-only. It supplies distinct head versus field endpoints/synergies,mana,width curve,17-frame delay input,40-frame wave input,15-frame local cooldown and the tooltip's75-frame lingering-fire duration. An8-frame tail-duration candidate interprets7+Param1additively;the actual do38binding remains unverified. No active collision registry is expanded.
+
+Raw skill398damage is13–17at rank1and233–264at20. Adding the required hard Ring point yields displayed14–19and267–303,which reconciles the released patch numbers without replacing the raw table. Field rows have a distinct10percent synergy and truncate before HitShift. Fire mastery uses the existing DruidFirestorm endpoint helper;the captured head Slow payload does not scale CanSlow0ground damage.
+
+**C1/I1/S1/N1 passes105markers,45connections,three saved boots and two actual reloads.** Independent goldens cover raw/requisite-synergy endpoints,width breakpoints,fractional mana,tail/linger inputs and actual original Tarnhelm effective-rank versus hard-synergy capture. The existing Chain/Bolt/Mirrored cohorts retain30real socket casts and saved graph/binding/resource continuation. There is no Flame Wave socket,world actor,burning damage or persistence claim yet.
+
+Next:build the full revealing/travelling/ground-fire candidate. Reuse shared vectors/cells/leases,Wake of Fire's wave patterns,MoltenBoulderPackets.Trail's complete do6request composition and SourceFireFields periodic delivery. The current do156/do38/do42callbacks remain unavailable;do not retry protected/current3.4source. Keep unveiling/spread,travel delay,tail/static bindings,240damage inheritance,overlap/NextHit,first/last tick,lifecycle and input explicit in one complete tested proposal. Do not silently add Sorceress Inferno synergy to Warlock fields or double-count makers and child damage. No partial approval question is pending.
+
+No timer/profile/version,client/kernel rebuild,live-reference read,installed deployment or artwork. Installed build/config/saves and four older pending proposals/evidence pairs remain protected. Final Flame Wave effects/audio and talent/hotkey icons remain in their separate existing registers.
