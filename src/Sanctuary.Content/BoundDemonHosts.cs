@@ -177,6 +177,11 @@ internal static class BoundDemonHosts
         var state=State(body)??throw new NotSupportedException("No original bound Engorge host");
         EngorgeEffects.Validate(effect,state.Owner);States=States.SetItem(state.Actor,state with{Engorge=effect});
     }
+    internal static void RetirePrepared(BaseCreature body)
+    {
+        var state=State(body)??throw new NotSupportedException("No original bound body to retire");
+        Behavior(body).SuspendActions();body.Delete();States=States.Remove(state.Actor);EngorgeEffects.ForgetNative(state.Actor);
+    }
     internal static void Tick()
     {
         foreach(var old in States.Values.ToArray())

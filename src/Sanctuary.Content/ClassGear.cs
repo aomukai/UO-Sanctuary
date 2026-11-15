@@ -160,7 +160,7 @@ public static class ClassGear
                 value += Bonus(item, code);
             }
         }
-        return value;
+        return checked(value+ConsumeEffects.StatBonus(player,code));
     }
     private static int Enhanced(Item item, string code, int recipientLevel)
     {

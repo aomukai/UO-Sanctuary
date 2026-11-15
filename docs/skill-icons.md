@@ -1,5 +1,7 @@
 # Skill icons
 
+**Bound Consume numeric icon boundary — 2026-11-15 JST.** No new learned binding/final artwork. Standard roster buttons/text are identified placeholders;Consume and Bind still need talent-tree/right/quick icons,pinned left unavailable. Four item-aura recipe gates concern unfinished mechanics,not icon availability. Effects/audio stay separate. [Checkpoint](bind-demon-consume-checkpoint.md).
+
 **Bound Blood Oath icon boundary — 2026-11-15 JST.** Final passive talent-tree icon remains missing;existing text-label placeholder is explicit. No active Blood Oath hotkey is added. Full Bind still needs its separate tree/right/quick icons;native recipient support supplies no final artwork or effect. [Checkpoint](bind-demon-oath-checkpoint.md).
 
 **Bound Engorge icon boundary — 2026-11-15 JST.** No new learned input or artwork. Final Engorge/Bind talent-tree and right/quick-hotkey icons remain missing;use clearly identified placeholders at admission. Saved bound buffs/native contact/recovery do not supply final icons or effects. [Checkpoint](bind-demon-engorge-checkpoint.md).

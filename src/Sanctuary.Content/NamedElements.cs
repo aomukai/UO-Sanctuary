@@ -24,7 +24,7 @@ public static class NamedElements
             ?((code.StartsWith("abs-",StringComparison.Ordinal)?ReviveEquipmentDefenses.Bonus(creature,code):null)??NpcEquipmentCombat.Bonus(creature,code)):0;
     internal static int PoisonPierce(Mobile source)=>Math.Max(0,Bonus(source,"pierce-pois"));
     public static int MagicResistance(Mobile target) => target is PlayerMobile
-        ? Math.Clamp(Bonus(target, "res-mag"), -100, 75)
+        ? Math.Clamp(Bonus(target, "res-mag"), -100, Math.Clamp(75+Bonus(target,"res-mag-max"),0,95))
         : target is BaseCreature creature ? checked((creature is NecromancerMinion summon ? summon.SummonMagicResistance : CreatureProfiles.For(creature).Resistances.Magic ?? 0)
             +NpcEquipmentCombat.DefensiveBonus(creature,"res-mag")) : 0;
     public static bool Attack(Mobile owner) => owner is PlayerMobile player

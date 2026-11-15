@@ -36,12 +36,21 @@ internal static class ConsumeEffects
     internal static int Velocity(PlayerMobile p)=>State(p)?.Suppliers.VelocityPercent??0;
     internal static int DamagePercent(PlayerMobile p)=>State(p)?.Suppliers.Bonus.DamagePercent??0;
     internal static int Crushing(PlayerMobile p)=>State(p)?.Suppliers.Bonus.CrushingChance??0;
+    internal static int AllSkills(PlayerMobile p)=>State(p)?.Suppliers.Bonus.AllSkills??0;
+    internal static int StatBonus(PlayerMobile p,string code)=>State(p)is{} s?code switch
+    {
+        "res-fire"=>s.Suppliers.Bonus.FireResist,"res-cold"=>s.Suppliers.Bonus.ColdResist,"res-ltng"=>s.Suppliers.Bonus.LightningResist,
+        "res-pois"=>s.Suppliers.Bonus.PoisonResist,"res-mag"=>s.Suppliers.Bonus.MagicResist,"res-physical"=>s.Suppliers.Bonus.PhysicalResist,
+        "res-fire-max"=>s.Suppliers.Bonus.MaxFireResist,"res-cold-max"=>s.Suppliers.Bonus.MaxColdResist,"res-ltng-max"=>s.Suppliers.Bonus.MaxLightningResist,
+        "res-pois-max"=>s.Suppliers.Bonus.MaxPoisonResist,"res-mag-max"=>s.Suppliers.Bonus.MaxMagicResist,_=>0
+    }:0;
     internal static int ElementBonus(PlayerMobile p,string code)=>State(p)is{} state?code switch
     {"extra-fire"=>state.Suppliers.Bonus.FireMastery,"pierce-fire"=>state.Suppliers.Bonus.FirePierce,
-        "extra-mag"=>state.Suppliers.Bonus.MagicMastery,"pierce-mag"=>state.Suppliers.Bonus.MagicPierce,_=>0}:0;
+        "extra-mag"=>state.Suppliers.Bonus.MagicMastery,"pierce-mag"=>state.Suppliers.Bonus.MagicPierce,
+        "pierce-cold"=>state.Suppliers.Bonus.ColdPierce,"pierce-ltng"=>state.Suppliers.Bonus.LightningPierce,_=>0}:0;
     internal static void Validate(ConsumeEffect state)
     {
-        if(state==null){throw new InvalidDataException("Missing Consume state");}ConsumePrepared.Validate(state.Suppliers);
+        if(state==null){throw new InvalidDataException("Missing Consume state");}ConsumePrepared.Validate(state.Suppliers);ConsumePrepared.RequireRuntime(state.Suppliers);
         if(!((Serial)state.Owner).IsMobile||!((Serial)state.OriginalPet).IsMobile||state.Owner==state.OriginalPet||state.Order<=0
             ||state.AppliedUtc.Kind!=DateTimeKind.Utc||state.UntilUtc.Kind!=DateTimeKind.Utc
             ||state.AppliedUtc>DateTime.MaxValue.AddMilliseconds(-40L*state.Suppliers.DurationFrames)
@@ -54,6 +63,7 @@ internal static class ConsumeEffects
         var before=owner is{Alive:true,Deleted:false}?BattleOrders.Capture(owner):(BattleOrders.Pools?)null;
         States=States.Remove(owner.Serial.Value);
         if(before is{} pools){BattleOrders.Change(owner,pools);}else if(!owner.Deleted){ClassStats.Refresh(owner);}
+        if(!owner.Deleted){owner.UpdateResistances();}
         return true;
     }
     internal static void ApplyPrepared(PlayerMobile owner,ConsumeEffect state)
@@ -61,6 +71,7 @@ internal static class ConsumeEffects
         Validate(state);if(!Owner(owner)||owner.Serial.Value!=state.Owner){throw new NotSupportedException("Consume state lost its original living Warlock");}
         var before=BattleOrders.Capture(owner);States=States.SetItem(state.Owner,state);BattleCommand.ReservePetOrder(state.Order);
         BattleOrders.Change(owner,before);
+        owner.UpdateResistances();
     }
     private static void Moved(Mobile mobile)
     {if(!World.Loading&&mobile is PlayerMobile p){Sync(p,TimedEffects.Now);}}
@@ -106,5 +117,5 @@ internal static class ConsumeEffects
         States=next;
     }
     internal static void AfterLoad()
-    {Prune(TimedEffects.Now);foreach(var state in States.Values){BattleCommand.ReservePetOrder(state.Order);}}
+    {Prune(TimedEffects.Now);foreach(var state in States.Values){BattleCommand.ReservePetOrder(state.Order);if(World.FindMobile((Serial)state.Owner)is PlayerMobile p){p.UpdateResistances();}}}
 }
