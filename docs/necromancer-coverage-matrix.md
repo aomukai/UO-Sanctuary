@@ -1,6 +1,6 @@
 # Necromancer acceptance map
 
-**Current planned-content acceptance — 2026-11-16 JST.** The active combined driver is `tests/check_necromancer_planned_acceptance.py`; its [checkpoint](necromancer-planned-acceptance-checkpoint.md) distinguishes focused passes from the unfinished whole-class run. Charms and runewords are excluded by the [scope decision](../tools/reference/item-content-scope-decision.json). The [approved learned native Lich checkpoint](native-lich-revive-cast-checkpoint.md) covers original activation, living abilities, helper ownership, difficulty/facet travel, parking, loot and wounded active/inactive persistence. The older prerequisite-only statements below are historical. Bone Armor and Bone Wall/Prison use their approved adaptations. All 30 talents have scoped checks; no class certificate is claimed.
+**Accepted combined cohort — 2026-11-16 JST.** C1/I9/S9/N6 passes **929 exact native results**, 120 fixture families, 23 shared checks, 111 declared live actions and 162 actual right/quick input actions across 278 connections, three boots/saves and two reloads. Both builds have zero warnings/errors. The [receipt](../tools/reference/necromancer-planned-acceptance-native-evidence.json) verifies frozen source/data/DLL identities and unchanged 106 installed artifacts, 38 save files, 20 configurations and 44 client patches. All 30 Necromancer talents retain scoped coverage under the no-charms/no-runewords decision. This accepts the combined cohort, **not full class certification**: dedicated newer scopes, unsupported mechanics and exact-engine uncertainties remain separately attributed. Effects/audio and icons remain separate placeholders.
 
 **Raised helpers — 2026-11-16 JST.** [Focused evidence](raised-minions-checkpoint.md) covers the ownership prerequisite for a revived native Lich keeping its living raise ability. It adds no Revive handler or native Lich eligibility. Actual raises, allegiance, loot, parking, caster cleanup, difficulty and saved wounds pass; original activation and combat/facet admission remain next.
 
@@ -31,7 +31,7 @@ Mechanical reference: **D2R Reign of the Warlock 3.3.93847**. Sanctuary's approv
 
 `NecromancerCombat` supplies the learned begin/release routes, with `ClassCombat` dispatching them before its historical fallback. The three passive talents feed summon creation rather than appearing as active casts. Existing shared flight, poison, curse, prepared-contact and pet controllers remain the implementations of those mechanics.
 
-The current planned-content driver composes `check_necromancer_current_acceptance.py` with the additional families listed below. Family names identify actual native checks; newer dedicated scopes remain separately attributed. The active combined run is not yet accepted.
+The current planned-content driver composes `check_necromancer_current_acceptance.py` with the additional families listed below. Family names identify actual native checks; newer dedicated scopes remain separately attributed. The current combined cohort is accepted within its declared scope; this does not certify every dedicated or unavailable mechanic.
 
 | Talent | Mechanical execution | Included native families / checks |
 | --- | --- | --- |
