@@ -42,7 +42,8 @@ public sealed class SkillHealthProfiles : GenericPersistence
             // context for issued missiles. Death does not round their wounds.
             // This preserves state only; damage/healing still require Alive.
             bool retained=mobile is AssassinSentryBody{Deleted:false} sentry
-                &&(sentry.Prepared?.Retirement!=null||sentry.Prepared?.Corpse!=null);
+                &&(sentry.Prepared?.Retirement!=null||sentry.Prepared?.Corpse!=null)
+                ||mobile is BoneBarrierSegment{Deleted:false} and IBarrierRetirement{Retirement:not null};
             if(mobile is not{Alive:true,Deleted:false}&&!retained){remove.Add(serial);}
         }
         foreach (var serial in remove) { Remainders.Remove(serial); }

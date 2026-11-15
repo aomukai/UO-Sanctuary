@@ -126,11 +126,18 @@ public partial class BoneBarrierSegment : BaseCreature
         AIObject?.AITimer.Stop();
     }
     internal static BoneBarrierSegment Spawn(PlayerMobile owner, CombatAbility ability, Point3D point, SkillValues values, BoneBarrierSegment root)
+        =>SpawnCore(owner,ability,point,values,root,BoneBarrierRetirement.Approved||root is IBarrierRetirement);
+    internal static BoneBarrierSegment SpawnRetiring(PlayerMobile owner,CombatAbility ability,Point3D point,SkillValues values,BoneBarrierSegment root)
+        =>SpawnCore(owner,ability,point,values,root,true);
+    private static BoneBarrierSegment SpawnCore(PlayerMobile owner, CombatAbility ability, Point3D point, SkillValues values, BoneBarrierSegment root,bool retirement)
     {
         var prepared=root is BoneBarrierBody parent?parent.Prepared:root==null?BoneBarrierBirth.Capture(values,SummonDifficulties.For(owner.Map)):null;
         int life = root?.Life ?? (prepared!=null?(prepared.Numbers.Life256+255)/256:Math.Max(1, (int)((long)NecromancerSummons.Source("bonewall", "minHP") * (100 + values.Eval("calc1")) / 100)));
         bool thinking=prepared!=null&&(root==null||root is IBarrierThinkClock);
+        if(retirement&&(!thinking||root!=null&&root is not IBarrierRetirement))
+        {throw new NotSupportedException("Retiring barriers require their own prepared formation");}
         BoneBarrierSegment segment=prepared==null?new BoneBarrierSegment():!thinking?new BoneBarrierBody()
+            :retirement?root==null&&ability==CombatAbility.BoneWall?new BoneWallRetiringBody():new BoneBarrierRetiringBody()
             :root==null&&ability==CombatAbility.BoneWall?new BoneWallThinkingBody():new BoneBarrierThinkingBody();
         segment._ability=ability;segment._root=root;segment._child=root!=null;segment._life=life;
         segment._sourceLevel=root?.SourceLevel??prepared?.Numbers.Level??ClassStats.Level(owner);
@@ -173,11 +180,18 @@ public partial class BoneBarrierSegment : BaseCreature
     private void Tick()
     {
         if (Deleted) { _timer.Cancel(); return; }
-        if (!Alive || LifetimeExpired(TimedEffects.Now) || _child && _root is not { Alive: true, Deleted: false }
+        var at=TimedEffects.Now;
+        if(AdvanceRetirement(at)){return;}
+        if(!Alive||LifetimeExpired(at)){RequestRetirement(at);return;}
+        if (_child && _root is not { Alive: true, Deleted: false }
             || SummonMaster is not PlayerMobile { Deleted: false } || Map == null || Map == Map.Internal) { Delete(); return; }
         RecoverLife(Core.TickCount);
         AdvanceGrowth();
     }
+    protected virtual bool AdvanceRetirement(DateTime at)=>false;
+    protected virtual void RequestRetirement(DateTime at)=>Delete();
+    internal void ReleaseCollision()
+    {foreach(var tile in _tiles){tile?.Delete();}_tiles.Clear();}
     protected virtual bool LifetimeExpired(DateTime at)=>at>=_expiresUtc;
     protected virtual void AdvanceGrowth()
     {
@@ -211,8 +225,7 @@ public partial class BoneBarrierSegment : BaseCreature
     public override void OnDelete()
     {
         _timer.Cancel();
-        foreach (var tile in _tiles) { tile?.Delete(); }
-        _tiles.Clear();
+        ReleaseCollision();
         if (!_child && Map is { } map && map != Map.Internal)
         {
             var children = new List<BoneBarrierSegment>();

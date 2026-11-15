@@ -1,5 +1,7 @@
 # Necromancer acceptance map
 
+**Prepared Bone Wall/Prison world adaptation — 2026-11-16 JST.** [Complete proposal](bone-barrier-world-rule-proposal.md), [checkpoint](bone-barrier-retirement-checkpoint.md). C3/I3/S4/N4 passes 39 checks, six candidate public-input casts and two reloads: whole-formation collapse, immediate movement/placement/projectile release, shared DT15/600ms completion, explicit distant-child cleanup, original pending resources and actual in-progress saves with overdue removal. Existing sentry timing/resource-retention services are reused. **Approval is pending; ordinary learned barriers retain their previous behavior.** Handler coverage stays236/240 and no class is certified. No client/kernel rebuild, new timer/profile, source-version substitution, installation or artwork. The four older Warlock proposals stay frozen.
+
 **Deterministic live-combat acceptance (2026-11-06 JST):** The [Entropy cloud checkpoint](entropy-clouds-checkpoint.md) includes newer Attract input/reload controls. Per-actor ordinary decision/accuracy suppliers retain default game RNG; the fixture forces a first miss then a hit through autonomous AI, and preserves the independent mind seed. A failed eight-second broad damage observation and a passing unchanged-build isolation are archived; the failure alone does not establish its root cause. This is scoped acceptance, not a new class certificate.
 
 
