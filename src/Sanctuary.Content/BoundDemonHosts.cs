@@ -46,6 +46,7 @@ internal static class BoundDemonHosts
     internal static int Armor(Mobile actor)=>Stats(actor)?.Armor??0;
     internal static int Attack(Mobile actor)=>Stats(actor)?.AttackBonus??0;
     internal static int DamagePercent(Mobile actor)=>Stats(actor)?.DamagePercent??0;
+    internal static int FlatDamage(Mobile actor)=>Stats(actor)?.FlatDamage??0;
     internal static int AttackSpeed(Mobile actor)=>Stats(actor)?.AttackSpeed??0;
     internal static int Velocity(Mobile actor)=>Stats(actor)?.VelocityPercent??0;
     internal static int Resistance(Mobile actor,string element)=>element=="physical"?Stats(actor)?.PhysicalResist??0
@@ -98,7 +99,8 @@ internal static class BoundDemonHosts
         var profile=Profile(state.RuntimeType,state.Monster,state.Difficulty);
         MonsterVariantBaselines.Apply(body,state.Normal,profile);
         if(body.DamageMin<0||body.DamageMax<body.DamageMin){throw new NotSupportedException("Bound body has no native damage endpoints");}
-        body.SetDamage(checked(body.DamageMin+state.Birth.FlatDamage),checked(body.DamageMax+state.Birth.FlatDamage));
+        // Keep the original typed base roll intact. Native positive weapon
+        // packets add the captured flat amount to physical exactly once.
         body.HitsMaxSeed=(state.BaseMaximum256+255)/256;
     }
     private static void Validate(BoundDemonState state)
@@ -123,8 +125,9 @@ internal static class BoundDemonHosts
         {return false;}
         var spawner=body.Spawner;
         if(ReviveWorldControllers.Issue(spawner)is{} controller){issue=controller;return false;}
-        if(body.PhysicalDamage!=100||body.FireDamage!=0||body.ColdDamage!=0||body.EnergyDamage!=0||body.PoisonDamage!=0||body.ChaosDamage!=0||body.DirectDamage!=0)
-        {issue="Original elemental melee needs its typed flat-damage adapter before binding.";return false;}
+        int[] channels=[body.PhysicalDamage,body.FireDamage,body.ColdDamage,body.PoisonDamage,body.EnergyDamage];
+        if(body.ChaosDamage!=0||body.DirectDamage!=0||channels.Any(n=>n is<0 or>100)||channels.Sum()!=100)
+        {issue="Unsupported native damage channels require their own binding adapter.";return false;}
         BindDemonSuppliers birth;MonsterNativeCombat normal;string monster;
         try
         {

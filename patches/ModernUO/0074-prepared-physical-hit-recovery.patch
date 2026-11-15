@@ -1,0 +1,11 @@
+--- a/Projects/UOContent/Misc/AOS.cs
++++ b/Projects/UOContent/Misc/AOS.cs
+@@ -302,6 +302,8 @@
+             {
+                 SpellHelper.DoLeech(totalDamage, from, m);
+             }
++
++            canRecover |= skillResistance is { Physical256: > 0 } or { Physical: > 0 };
+ 
+             var beforeDamage = m.Hits;
+             if (fixedTotal256 is { } fixedTotal && ClassCombatHooks.ApplyDamage256 is { } applyFixed)

@@ -153,8 +153,9 @@ public static class SkillCombat
             && !PaladinResistance.Active(target) && !PaladinThorns.Active(target) && !PaladinConviction.Managed(target)
             && !HexPurgeReactionProposal.ManagedPrepared(target)
             && (!weapon || SorceressEffects.Enchantment(source) == null && !PaladinElements.WeaponActive(source) && PaladinAuras.NativeWeaponMultiplier(source,true)==1)) { return null; }
-        var ward=PsychicWardReactionProposal.Capture(source,target,NamedElements.To256(damage*physical/100.0),weapon&&!ranged,weapon);
-        var parts = Mitigate(source, target, new(damage * physical / 100.0 * PaladinAuras.NativeWeaponMultiplier(source,weapon),
+        double physicalBase=damage*physical/100.0+(weapon&&damage>0?BoundDemonHosts.FlatDamage(source):0);
+        var ward=PsychicWardReactionProposal.Capture(source,target,NamedElements.To256(physicalBase),weapon&&!ranged,weapon);
+        var parts = Mitigate(source, target, new(physicalBase * PaladinAuras.NativeWeaponMultiplier(source,weapon),
             damage * fire / 100.0 + (weapon ? SorceressEffects.EnchantFire(source, Utility.RandomDouble()) + PaladinElements.WeaponForHit(source,"fire",Utility.RandomDouble(),source.Weapon is BaseRanged) : 0),
             damage * cold / 100.0 + (weapon?PaladinElements.WeaponForHit(source,"cold",Utility.RandomDouble(),source.Weapon is BaseRanged):0), damage * lightning / 100.0 + (weapon?PaladinElements.WeaponForHit(source,"ltng",Utility.RandomDouble(),source.Weapon is BaseRanged):0), damage * poison / 100.0, Magic: weapon?HexBane.WeaponMagic(source):0), spell);
         return new ClassSkillDamage((int)Math.Max(0, parts.Total), (int)Math.Max(0, parts.Physical))
@@ -164,12 +165,14 @@ public static class SkillCombat
     // Leave all pre-existing unshielded damage routes untouched.
     internal static ClassSkillDamage? UnresistedDamage(Mobile target,Mobile source,int damage,int physical,bool weapon,bool ranged)
     {
-        if(PsychicWard.State(target)==null&&!HexPurgeReactionProposal.ManagedPrepared(target)&&!BloodOathDamageProposal.ManagedPrepared(target)){return null;}
+        bool boundWeapon=weapon&&damage>0&&BoundDemonHosts.Active(source);
+        if(!boundWeapon&&PsychicWard.State(target)==null&&!HexPurgeReactionProposal.ManagedPrepared(target)&&!BloodOathDamageProposal.ManagedPrepared(target)){return null;}
         if(damage<0||physical is <0 or >100){throw new NotSupportedException("Unsupported Ward native armor-ignore packet");}
-        int raw=NamedElements.To256(damage*physical/100.0);
+        double physicalBase=damage*physical/100.0;int originalPhysical=NamedElements.To256(physicalBase);
+        int raw=boundWeapon?NamedElements.To256((physicalBase+BoundDemonHosts.FlatDamage(source))*PaladinAuras.NativeWeaponMultiplier(source,true)):originalPhysical;
         var ward=PsychicWardReactionProposal.Capture(source,target,raw,weapon&&!ranged,weapon);
         int remaining=NamedElements.To256(PsychicWard.AbsorbPhysical(target,raw/256.0));
-        int total=Math.Max(0,NamedElements.To256(damage)-(raw-remaining));
+        int total=(int)Math.Clamp((long)NamedElements.To256(damage)-originalPhysical+remaining,0,int.MaxValue);
         return new(total/256,remaining/256){Total256=total,Physical256=remaining,WeaponContext=ward};
     }
     private static GearDamage Mitigate(Mobile source, Mobile target, GearDamage damage, bool spell,bool enhanceBase=true)

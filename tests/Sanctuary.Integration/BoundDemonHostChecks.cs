@@ -74,7 +74,7 @@ public static class BoundDemonHostChecks
             LegacyBaseline(p);
             refused=Body<Zombie>(p,12);var refusePoint=refused.Location;
             Require(!BoundDemonHosts.BindPrepared(p,refused,out _)&&!refused.Controlled&&refused.Location==refusePoint,"Non-demon preflight mutated native body");refused.Delete();
-            refused=Body<Imp>(p,12);int nativeMinimum=refused.DamageMin;Require(!BoundDemonHosts.BindPrepared(p,refused,out var typedIssue)&&typedIssue.Contains("elemental melee")&&!refused.Controlled&&refused.DamageMin==nativeMinimum,"Unqualified typed native melee was silently changed");refused.Delete();
+            refused=Body<Imp>(p,12);refused.ChaosDamage=5;int nativeMinimum=refused.DamageMin;Require(!BoundDemonHosts.BindPrepared(p,refused,out var typedIssue)&&typedIssue.Contains("Unsupported native damage channels")&&!refused.Controlled&&refused.DamageMin==nativeMinimum,"Unqualified native chaos damage was silently changed");refused.Delete();
             refused=Body<Gargoyle>(p,12);Require(!BoundDemonHosts.BindPrepared(p,refused,out var mapIssue)&&mapIssue.Contains("No pinned Bind Demon")&&!refused.Controlled,"Nonbinding reward analogue was silently remapped");refused.Delete();
             var goat=WarlockGoatmanWorld.Create(p,new(p.X+3,p.Y,p.Z),TimedEffects.Now,CombatAbility.SummonGoatman);WarlockGoatmanWorld.Admit(goat);
             var tainted=WarlockGoatmanWorld.Create(p,new(p.X+6,p.Y,p.Z),TimedEffects.Now,CombatAbility.SummonTainted);WarlockGoatmanWorld.Admit(tainted);
@@ -84,7 +84,7 @@ public static class BoundDemonHostChecks
                 &&Math.Abs(ClassGearHooks.MovementDelay(first,1)-1/1.33)<.000001,"Actual native movement/attack hook did not consume captured skill speed");
             Require(CreatureProfiles.AttackRating(first)==CreatureProfiles.NativeAttack(first)+625&&CreatureProfiles.Defense(first)==CreatureProfiles.NativeDefense(first)+105,"Actual native AR/defense consumers");
             enemy=new GraveyardZombie{Frozen=true,CantWalk=true,NoKillAwards=true};enemy.SetHits(50000);enemy.Hits=enemy.HitsMax;enemy.MoveToWorld(new(p.X+14,p.Y,p.Z),p.Map);enemy.AIObject?.AITimer.Stop();enemy.SetResistance(ResistanceType.Physical,0);
-            phase="native combat";var packet=SkillCombat.ResistedDamage(enemy,first,100,100,0,0,0,0,false,true)??throw new InvalidOperationException("Bound original packet was not admitted");
+            phase="native combat";var packet=SkillCombat.ResistedDamage(enemy,first,25,100,0,0,0,0,false,true)??throw new InvalidOperationException("Bound original packet was not admitted");
             int before=SkillHealth.Balance256(enemy);SkillHealth.Damage(first,enemy,packet.Total256??throw new InvalidOperationException("Missing exact native damage"));
             Require(packet.Total256==390*256&&before-SkillHealth.Balance256(enemy)==packet.Total256,"Actual native physical multiplier/health commitment");
             Require(NamedElements.Resistance(enemy,first,"fire",first.FireResistance)==first.FireResistance+67
@@ -120,6 +120,10 @@ public static class BoundDemonHostChecks
             p.Location=new(p.X-20,p.Y,p.Z);Require(body.Map==p.Map&&!body.Blessed&&BoundDemonHosts.CanAct(body)&&SkillHealth.Balance256(body)==life,"Leaving town failed original resume/wounds");town.Unregister();town=null;
             SkillHealth.SetBalance256(body,SkillHealth.Maximum256(body)/2-17);body.Mana=Math.Max(0,body.ManaMax-3);body.Stam=Math.Max(0,body.StamMax-5);PersistentMinions.Suspend(p);
             Require(body.Map==Map.Internal&&!BoundDemonHosts.CanAct(body)&&!ClassGearHooks.CanRegenerateHits(body),"Offline original combat/recovery remained active");
+            // The preceding physical-only prototype stored this derived flat
+            // bonus in native endpoints. Reload must discard those old fields
+            // and rebuild the original base before adding packet damage once.
+            var legacy=BoundDemonHosts.State(body);body.SetDamage(legacy.Normal.Minimum+legacy.Birth.FlatDamage,legacy.Normal.Maximum+legacy.Birth.FlatDamage);
             phase="save";File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(0,p.Serial.Value,body.Serial.Value,weapon.Serial.Value,loot.Serial.Value,BoundDemonHosts.State(body),SkillHealth.Balance256(body),SkillHealth.Maximum256(body),body.Mana,body.Stam,ai,magery)));kept=true;
             Log.Information("Bound host:original Daemon identity and actual native guard acquisition/stop/resume,real gear snapshot/native AR/armor/damage/speed/resist consumers,health commitment,one-bound/shared FIFO,source life cap,facet wound ratios,town/offline parking and atomic restore pass;channel/chance/modifier/underling delivery remain gated");
         }
@@ -137,6 +141,7 @@ public static class BoundDemonHostChecks
         var p=(PlayerMobile)World.FindMobile((Serial)saved.Owner);var b=World.FindMobile((Serial)saved.Actor)as Daemon;
         Require(b is{Alive:true,Deleted:false,Map:not null}&&b.Map==Map.Internal&&b.ControlMaster==p&&!b.Commandable&&BoundDemonHosts.State(b)==saved.State
             &&SkillHealth.Balance256(b)==saved.Life&&SkillHealth.Maximum256(b)==saved.Maximum&&b.Mana==saved.Mana&&b.Stam==saved.Stamina
+            &&b.DamageMin==saved.State.Normal.Minimum&&b.DamageMax==saved.State.Normal.Maximum
             &&(int)b.AI==saved.Ai&&b.Skills[SkillName.Magery].Base==saved.Magery&&World.FindItem((Serial)saved.Weapon)?.Parent==b
             &&World.FindItem((Serial)saved.Loot)?.Parent==b.Backpack,"Original bound body,items,AI/skills,wounds/resources or captured state changed on reload");
         var account=FixtureNetwork.Authenticate(network,p,"bound-demon-host-reload-");
