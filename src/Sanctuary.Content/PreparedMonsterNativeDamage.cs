@@ -23,7 +23,7 @@ internal static class PreparedMonsterNativeDamage
         {throw new NotSupportedException("Friendly demon recipient rejected before ordered damage");}
         RequireBaseModifiers(source,target,demonGuard);
     }
-    internal static void RequireBaseModifiers(Mobile source,BaseCreature target,bool demonGuard=false)
+    internal static void RequireBaseModifiers(Mobile source,BaseCreature target,bool demonGuard=false,bool controlledIdentity=false)
     {
         var method=target.GetType().GetMethod(nameof(BaseCreature.Damage))?.DeclaringType;
         // Ordinary contact performs hostility qualification before HP. Its
@@ -32,8 +32,12 @@ internal static class PreparedMonsterNativeDamage
         demonGuard|=NpcOriginalItemProcs.Active(target)&&method==typeof(SkeletonGuardian);
         bool incoming=ReviveEquipmentIncoming.Handles(target);
         if(incoming){ReviveEquipmentIncoming.RequireBody(target);}
+        // Only an explicitly qualified original bound NPC may retain the
+        // native controlled-pet branch with an identity multiplier. Its RNG
+        // branch remains native;this is not permission to skip a real scalar.
+        bool boundIdentity=controlledIdentity&&BoundDemonHosts.Active(target)&&target.BonusPetDamageScalar==1.0;
         if(target.GetSkillMod("EvilOmen")!=null||source!=null&&BloodOathSpell.GetBloodOath(source)==target
-            ||target.Controlled&&!target.Summoned&&!incoming
+            ||target.Controlled&&!target.Summoned&&!incoming&&!boundIdentity
             ||target.SubdueBeforeTame||method!=typeof(BaseCreature)&&!demonGuard)
         {throw new NotSupportedException("This recipient's native incoming damage modifier needs an ordered adapter.");}
         if(target.IsParagon){throw new NotSupportedException("Paragon damage/recovery needs its ordered actor adapter.");}

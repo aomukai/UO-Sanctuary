@@ -37,15 +37,27 @@ internal static class BloodOathDamageProposal
         if(percent is<0 or>100){throw new NotSupportedException("Unqualified Blood Oath redirect percentage");}
         return(percent,row.Number("calc2"));
     }
-    private static bool Recipient(PlayerMobile owner,SkeletonGuardian body)=>body is{Alive:true,Deleted:false,Blessed:false}
-        &&body.ControlMaster==owner&&body.Map==owner.Map&&body.Map!=Map.Internal&&body.Permitted(owner)&&PersistentMinions.Active(owner,body)
+    private static bool Recipient(PlayerMobile owner,BaseCreature body)=>body is{Alive:true,Deleted:false,Blessed:false}
+        &&body.ControlMaster==owner&&body.Map==owner.Map&&body.Map!=Map.Internal&&PersistentMinions.Permitted(owner,body,DiabloClass.Warlock)&&PersistentMinions.Active(owner,body)
         &&!MinionSafeAreas.Parked(body)&&body.CanBeDamaged()&&SkillHealth.Balance256(body)>0;
-    private static void Qualified(PlayerMobile owner,SkeletonGuardian body,Mobile source)
+    private static void Qualified(PlayerMobile owner,BaseCreature body,Mobile source)
     {
-        if(!DemonNativeState.Learned(body)||DemonNativeState.Controller(body)is not{Fault:null}||DeathMarkWorld.State(body)is not{Selector:1})
-        {throw new NotSupportedException("Blood Oath needs the original learned demon's qualified source host");}
+        if(!WarlockDemonRecipients.Owned(owner,body))
+        {throw new NotSupportedException("Blood Oath needs its original qualified demon host");}
         if(NpcEquipmentCombat.Context(body)!=null){throw new NotSupportedException("Blood Oath equipment modifiers need their own settled receiver");}
-        PreparedMonsterNativeDamage.RequireIncoming(owner,body,source);
+        if(BoundDemonHosts.Active(body))
+        {
+            // Reuse the stateless standard Damage/OnDamage override check;
+            // this does not install a Revive identity or incoming writer.
+            ReviveEquipmentIncoming.RequireBody(body);
+            PreparedMonsterNativeDamage.RequireBaseModifiers(source,body,controlledIdentity:true);
+        }
+        else
+        {
+            if(body is not SkeletonGuardian original||DeathMarkWorld.State(original)is not{Selector:1})
+            {throw new NotSupportedException("Blood Oath needs the original learned demon's qualified world");}
+            PreparedMonsterNativeDamage.RequireIncoming(owner,body,source);
+        }
     }
     internal static BloodOathRedirect ReducePrepared(Mobile source,PlayerMobile owner,int damage256,SkillDamageKind kind)
     {
@@ -59,7 +71,9 @@ internal static class BloodOathDamageProposal
         try
         {
             var n=Numbers(rank);percent=n.Percent;
-            var pets=WarlockGoatmanWorld.Demons(owner).Where(b=>Recipient(owner,b)).Take(n.Maximum).ToArray();
+            // Membership precedes qualification so an unsupported legacy or
+            // faulted member still refuses instead of silently granting cover.
+            var pets=WarlockDemonRecipients.Members(owner).Where(b=>Recipient(owner,b)).Take(n.Maximum).ToArray();
             if(pets.Length==0||percent==0){return empty with{Rank=rank,Percent=percent};}
             int budget=checked((int)((long)damage256*percent/100));
             if(budget==0){return empty with{Rank=rank,Percent=percent};}

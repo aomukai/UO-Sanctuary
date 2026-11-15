@@ -20,8 +20,9 @@ internal static class WarlockDemonRecipients
         {var original=(SkeletonGuardian)body;return DemonNativeState.Learned(original)&&DemonNativeState.Controller(original)is{Fault:null};}
         return BoundDemonHosts.State(body)!=null;
     }
-    internal static BaseCreature[] Roster(PlayerMobile owner)=>owner==null?[]:WarlockGoatmanWorld.Demons(owner).Cast<BaseCreature>()
-        .Concat(BoundDemonHosts.For(owner)).Where(b=>Owned(owner,b)).OrderBy(BattleCommand.PetOrder).ThenBy(b=>b.Serial.Value).ToArray();
+    internal static BaseCreature[] Members(PlayerMobile owner)=>owner==null?[]:WarlockGoatmanWorld.Demons(owner).Cast<BaseCreature>()
+        .Concat(BoundDemonHosts.For(owner)).OrderBy(BattleCommand.PetOrder).ThenBy(b=>b.Serial.Value).ToArray();
+    internal static BaseCreature[] Roster(PlayerMobile owner)=>Members(owner).Where(b=>Owned(owner,b)).ToArray();
     internal static bool Active(PlayerMobile owner,BaseCreature body)
     {
         if(!Owned(owner,body)||owner.NetState is not{Running:true}||owner.Map==null||owner.Map==Map.Internal

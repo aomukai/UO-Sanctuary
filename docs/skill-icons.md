@@ -1,5 +1,7 @@
 # Skill icons
 
+**Bound Blood Oath icon boundary — 2026-11-15 JST.** Final passive talent-tree icon remains missing;existing text-label placeholder is explicit. No active Blood Oath hotkey is added. Full Bind still needs its separate tree/right/quick icons;native recipient support supplies no final artwork or effect. [Checkpoint](bind-demon-oath-checkpoint.md).
+
 **Bound Engorge icon boundary — 2026-11-15 JST.** No new learned input or artwork. Final Engorge/Bind talent-tree and right/quick-hotkey icons remain missing;use clearly identified placeholders at admission. Saved bound buffs/native contact/recovery do not supply final icons or effects. [Checkpoint](bind-demon-engorge-checkpoint.md).
 
 **Bound recipient/Blood Boil icon boundary — 2026-11-15 JST.** No new learned binding or artwork. Final Bind/Blood Boil talent-tree and right/quick-hotkey icons remain missing;use identified placeholders when admitted. Shared native recipient support does not provide a final icon or effect. Full Bind and pending Blood Boil admission remain separate. [Checkpoint](bind-demon-recipients-checkpoint.md).
