@@ -163,17 +163,17 @@ public static class SkillCombat
         return new ClassSkillDamage((int)Math.Max(0, parts.Total), (int)Math.Max(0, parts.Physical))
             {Total256=NamedElements.To256(parts.Total),Physical256=NamedElements.To256(parts.Physical),WeaponContext=ward};
     }
-    // Native armor-ignore bypasses resistance,not the Ward physical pool.
+    // Native armor-ignore bypasses resistance,not finite physical shields.
     // Leave all pre-existing unshielded damage routes untouched.
     internal static ClassSkillDamage? UnresistedDamage(Mobile target,Mobile source,int damage,int physical,bool weapon,bool ranged)
     {
         bool boundWeapon=weapon&&damage>0&&BoundDemonHosts.Active(source);
-        if(!boundWeapon&&PsychicWard.State(target)==null&&!HexPurgeReactionProposal.ManagedPrepared(target)&&!BloodOathDamageProposal.ManagedPrepared(target)){return null;}
+        if(!boundWeapon&&NecromancerEffects.Armor(target)==0&&PsychicWard.State(target)==null&&!HexPurgeReactionProposal.ManagedPrepared(target)&&!BloodOathDamageProposal.ManagedPrepared(target)){return null;}
         if(damage<0||physical is <0 or >100){throw new NotSupportedException("Unsupported Ward native armor-ignore packet");}
         double physicalBase=damage*physical/100.0;int originalPhysical=NamedElements.To256(physicalBase);
         int raw=boundWeapon?NamedElements.To256((physicalBase+BoundDemonHosts.FlatDamage(source))*PaladinAuras.NativeWeaponMultiplier(source,true)):originalPhysical;
         var ward=PsychicWardReactionProposal.Capture(source,target,raw,weapon&&!ranged,weapon);
-        int remaining=NamedElements.To256(PsychicWard.AbsorbPhysical(target,raw/256.0));
+        int remaining=NamedElements.To256(PsychicWard.AbsorbPhysical(target,NecromancerEffects.AbsorbPhysical(target,raw/256.0)));
         var spectral=BoundDemonUpgrades.Capture(source,target,weapon,ranged,damage);
         var added=SpectralHit.Direct(default,spectral?.Roll);
         int total=(int)Math.Clamp((long)NamedElements.To256(damage)-originalPhysical+remaining+NamedElements.To256(added.Total),0,int.MaxValue);

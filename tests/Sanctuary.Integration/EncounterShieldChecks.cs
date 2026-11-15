@@ -76,7 +76,7 @@ public static class EncounterShieldChecks
             Require(EliteCombat.Damage(c,p,physical:5)==0&&SkillHealth.Balance256(p)==hp&&PsychicWard.State(p).Remaining256==10*256,"Encounter bypassed prepared Ward");
             Require(EliteCombat.Damage(c,p,fire:4)==4&&SkillHealth.Balance256(p)==hp-4*256&&PsychicWard.State(p).Remaining256==10*256,"Encounter element consumed Ward");
             Require(EliteCombat.Damage(c,p,physical:15)==5&&SkillHealth.Balance256(p)==hp-9*256&&PsychicWard.State(p)==null,"Encounter Ward overflow/removal");
-            Require(!WarlockCombat.Implemented(CombatAbility.PsychicWard),"Prepared incoming fix enabled incomplete Ward casting");
+            Require(WarlockCombat.Implemented(CombatAbility.PsychicWard),"Previously approved Ward learned route missing");
         }
         finally{c.Delete();p.Delete();PsychicWard.Prune();}
     }

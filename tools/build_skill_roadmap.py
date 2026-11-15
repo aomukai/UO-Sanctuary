@@ -817,6 +817,11 @@ CAVEATS["warlock.enhancedentropy"] = "All three approved Bolt/Chain/Abyss consum
 
 BLOCKERS["amazon.slowmissiles"] = "Approved complete Sanctuary right/quick caster-centered SC/FCR rule uses the existing do6paid search,independent velocity/damage rank curves,rank priority and captured projectile packets. Explicit native Lich classification invents no D2identity;source species-boss and unknown-target rules remain distinct. Existing currentD2encounter and Graveyard projectile travel/damage,UTC saves and public input acceptance are recorded in slow-missiles-learned-checkpoint.md. The user-approved legacy UO instant-ranged/spell/breath conversion boundary remains explicit in monster-combat-conversion-notes.md;those paths are not claimed as slowed. Modern exact ordering,unqualified children/burn/special/PvP/property/graphical and class certification remain open;effects/audio/right/quick/talent icons separate. Approval:slow-missiles-rule-approval.json."
 
+
+# Approved barrier-world acceptance supersedes the historical source-gap text.
+for _barrier in ("necromancer.bonewall","necromancer.boneprison"):
+    CAVEATS[_barrier] = "Approved native placement/geometry and linked-death mapping retains source-derived birth/resources, Wall makers and Prison cursor acquisition/raster connectors. Normal learned casts collapse the whole formation on any segment destruction or first AI death event, release movement/placement/projectile collision immediately, and remove original entities after the shared DT15/600ms deadline. Explicit links include distant children; historical roots keep historical children and old save layouts. Actual weapon damage, default right/quick input, original pending resources, in-progress saves and overdue cleanup pass in bone-barrier-world-cast-checkpoint.md. Exact modern room/owner/hidedead parity is an approved adaptation, not recovered executable behavior. Broader recipients/PvP/class, old-binary/unheld snapshots and graphical acceptance remain separate;final effects/audio and talent/hotkey icons needed. Approval:bone-barrier-world-rule-approval.json."
+
 def build():
     skills=json.loads((BALANCE/'class-skills.json').read_text())
     protocol=(ROOT/'shared/ClassAbilities.cs').read_text()
