@@ -131,16 +131,22 @@ public static class BoneBarrierBirthChecks
                 var body=parts.Single(b=>b.Root==null);if(selectedWall){Require(parts.All(b=>b.Location!=target.Location),"Occupied Wall aim was overlapped rather than retried");}var expected=BoneBarrierBirth.Capture(SkillMechanics.Values(p,ability),MonsterDifficulty.Normal);
                 Require(began&&parts.All(b=>b.Prepared==expected&&SkillHealth.Balance256(b)==expected.Numbers.Life256)&&NecromancerEffects.ManaBalance256(p)==mana-cost,"Actual input recipe/resource/once payment");ClassCombat.Stop(p);
                 Require((body.ExpiresUtc-TimedEffects.Now).TotalMilliseconds is >23900 and <=24000,"Barrier nominal600frame deadline");var until=body.ExpiresUtc;
+                var observed=parts.ToDictionary(part=>part.Serial.Value);
                 void Expired()
                 {
                     if(finished){return;}
                     try
                     {
                         Require(Core.TickCount<timeout,"Barrier AI expiry timeout");
-                        if(Bodies(p).Length!=0){Timer.StartTimer(TimeSpan.FromMilliseconds(20),()=>Core.LoopContext.Post(Expired));return;}
-                        Require(!Tiles(p.Map,at)&&body is IBarrierThinkClock clock&&clock.Clock.DeathRequested&&clock.Clock.Last>600
-                            &&TimedEffects.Now>until,"Barrier did not retire through strict AI expiry or left collision");
-                        var state=((IBarrierThinkClock)body).Clock;Log.Information("{Label}: death request frame={Frame} thinks={Thinks}",label,state.Last,state.Thinks);
+                        var remaining=Bodies(p);foreach(var part in remaining){observed[part.Serial.Value]=part;}
+                        if(remaining.Length!=0){Timer.StartTimer(TimeSpan.FromMilliseconds(20),()=>Core.LoopContext.Post(Expired));return;}
+                        var requests=observed.Values.OfType<IBarrierThinkClock>().Select(part=>part.Clock).Where(clock=>clock.DeathRequested&&clock.Last>600).ToArray();
+                        bool linked=body is IBarrierRetirement;
+                        bool retirement=linked?observed.Values.All(part=>part is IBarrierRetirement r&&r.Retirement is{Cause:"source-ai"} state&&state.Formation==body.Serial.Value)
+                            :body is IBarrierThinkClock clock&&clock.Clock.DeathRequested;
+                        Require(!Tiles(p.Map,at)&&requests.Length>0&&retirement&&TimedEffects.Now>until,
+                            $"Barrier expiry:tiles={Tiles(p.Map,at)},linked={linked},retirement={retirement},requests={requests.Length},root={JsonSerializer.Serialize(((IBarrierThinkClock)body).Clock)},parts={observed.Count}");
+                        var state=requests[0];Log.Information("{Label}: death request frame={Frame} thinks={Thinks} rootRequested={Root} formation={Linked}",label,state.Last,state.Thinks,((IBarrierThinkClock)body).Clock.DeathRequested,linked);
                         finished=true;End();Log.Information("{Label}-result: passed",label);
                     }
                     catch(Exception e){Fail(e);}
