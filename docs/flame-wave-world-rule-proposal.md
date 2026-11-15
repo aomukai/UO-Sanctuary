@@ -1,6 +1,6 @@
 # Flame Wave: complete Sanctuary candidate
 
-Mechanical reference: **D2R Reign of the Warlock 3.3.93847**, skill 398 and owned missile rows 708/690/695/716/240/29. Sanctuary decisions take precedence. The newer installed client is not a substitute reference. Current do156/42/38 callbacks remain unavailable; this document proposes their world composition explicitly. **Pending approval; learned input and automatic progression stay gated.**
+Mechanical reference: **D2R Reign of the Warlock 3.3.93847**, skill 398 and owned missile rows 708/690/695/716/240/29. Sanctuary decisions take precedence. The newer installed client is not a substitute reference. Current do156/42/38 callbacks remain unavailable; this document proposes their world composition explicitly. **Approved by the user on 2026-11-15 JST.** [Exact decision](../tools/reference/flame-wave-world-rule-approval.json). The body below records the approved proposal; current learned acceptance is in [the checkpoint](flame-wave-cast-checkpoint.md).
 
 The candidate uses the existing Warlock SC/FCR action clock, fractional mana service, source projectile geometry, typed fire damage, temporary-effect clock, safe-area detection and death/class cleanup. It adds one saved graph profile, with no new timer, client patch or deployment. Verification results will be recorded in the accompanying checkpoint before requesting approval.
 

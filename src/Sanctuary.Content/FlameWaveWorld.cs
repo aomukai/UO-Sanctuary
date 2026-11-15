@@ -24,12 +24,11 @@ public sealed class FlameWaveProfiles:GenericPersistence
     {if(r.ReadInt()!=0){throw new InvalidDataException("Unknown Flame Wave version");}FlameWaveWorld.Restore(JsonSerializer.Deserialize<FlameWaveSave>(r.ReadString()),true);}
 }
 
-// Candidate mapping of unavailable modern156/42/38. Never called from learned
-// input until the complete world proposal is approved. Uses the existing clock,
+// Approved Sanctuary mapping of unavailable modern156/42/38. Uses the existing clock,
 // source geometry, fire mitigation, cooldown and fractional resource services.
 internal static class FlameWaveWorld
 {
-    internal static bool Approved=>false;
+    internal static bool Approved=>true;
     private static readonly Server.Logging.ILogger Log=Server.Logging.LogFactory.GetLogger(typeof(FlameWaveWorld));
     private static Dictionary<long,FlameWaveCast> Casts=new();
     private static Dictionary<(long,uint),WeaponFlightLease> Leases=new();

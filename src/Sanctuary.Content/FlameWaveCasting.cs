@@ -4,8 +4,7 @@ using Server;
 using Server.Mobiles;
 namespace Sanctuary;
 
-// Candidate normal SC/FCR action. Learned input remains gated with the complete
-// world proposal; the shared action owns entry, interruption and one release.
+// Approved normal SC/FCR action; shared action owns entry, interruption and one release.
 internal static class FlameWaveCasting
 {
     internal sealed class Pending
@@ -43,6 +42,7 @@ internal static class FlameWaveCasting
         if(World.FindMobile(selected)is not BaseCreature t||!MiasmaWorld.Enemy(p,t,p.Z)){selected=Serial.Zero;}
         try
         {
+            if(!FlameWaveWorld.Aim(p,selected,ref point)){return false;}
             int cost=SkillMechanics.Values(p,CombatAbility.FlameWave).Mana256;
             a.Wave=FlameWaveWorld.ReleasePrepared(p,point,TimedEffects.Now);if(a.Wave!=0){a.ManaPaid256=cost;}return a.Wave!=0;
         }

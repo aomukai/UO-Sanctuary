@@ -2605,10 +2605,10 @@
       "characterClass": "Warlock",
       "tree": "Chaos",
       "sourceId": 398,
-      "implementation": "blocked",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Current do156 is dispatcher-linked at44cfd0,but all648bytes across3unwind fragments remain protected in the2026-11-09reference check. Owned graph708unveiling/do42->690wave/do38->695/716fire/do6is data only;actual wall extension,offset tails,ground-fire lifetimes,hit-delay identity,packet/mastery/pierce and learned input/payment remain unsupported. Do not substitute an ordinary cone or travelling bolt. See pet-owner-loss-checkpoint.md;effects/audio/icons remain separate."
+      "remaining": "Approved complete708reveal\u2192690travelling wall\u2192695/716makers\u2192240burning fields use shared SC/FCR,fractional release/cooldown,typed direct/periodic fire and the existing40ms clock. A15-frame front lease is shared percast;overlapping ground stages burn once perrecipient/update and separate casts remain independent. Captured packets/aim,terrain stops,parking/expiry,owner cleanup and atomic graph persistence follow the approved Sanctuary rule. Learned left/right/quick-unarmed and two-reload scope is recorded in flame-wave-cast-checkpoint.md. Modern156/42/38composition remains explicitly adapted,not recovered;special/PvP/proc/graphical/class certification and final effects/icons remain separate. Approval:flame-wave-world-rule-approval.json."
     },
     {
       "talentId": "warlock.sigildeath",

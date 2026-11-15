@@ -31,6 +31,6 @@ public static class FlameWaveBirthChecks
             Require(head==(0,0)&&ground.Min>0&&ground.Max>=ground.Min,"CanSlow head versus unslowed ground source domains");
         }
         finally{item.Delete();p.Delete();}
-        Require(!WarlockCombat.Implemented(CombatAbility.FlameWave),"Suppliers admitted incomplete Flame Wave");
+        Require(WarlockCombat.Implemented(CombatAbility.FlameWave)==FlameWaveWorld.Approved,"Flame Wave admission differs from complete approval");
     }
 }

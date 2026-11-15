@@ -804,6 +804,9 @@ CAVEATS["warlock.miasmabolt"] = "Approved complete697→736→705world rule now 
 CAVEATS["warlock.miasmachain"] = "Approved complete711→712→713→696graph uses ordinarySC/FCR and the shared world clock,live/ground/frozen endpoints,half-second fixed corridor stamps,per-chain one-second leases and independent chains. One captured release/debit,5→10paid FIFO live-link cap,lingering emitted clouds,parking/remaining-life resume and atomic optional shared save arrays retain approved behavior. Effective-radius width is explicit;opaque hard-only SrvCalc1is retained without an invented extra modifier. Current startup/do43/45/hit41/do41parity remains adapted,not recovered. Learned/socket/persistence scope is recorded in miasma-chain-cast-checkpoint.md;broader recipients/properties/graphical acceptance and final effects/icons remain separate. Full Enhanced Entropy needs remaining consumers;no class certified."
 
 
+NATIVE_PARTIAL.add("warlock.flamewave")
+BLOCKERS["warlock.flamewave"] = "Approved complete708reveal→690travelling wall→695/716makers→240burning fields use shared SC/FCR,fractional release/cooldown,typed direct/periodic fire and the existing40ms clock. A15-frame front lease is shared percast;overlapping ground stages burn once perrecipient/update and separate casts remain independent. Captured packets/aim,terrain stops,parking/expiry,owner cleanup and atomic graph persistence follow the approved Sanctuary rule. Learned left/right/quick-unarmed and two-reload scope is recorded in flame-wave-cast-checkpoint.md. Modern156/42/38composition remains explicitly adapted,not recovered;special/PvP/proc/graphical/class certification and final effects/icons remain separate. Approval:flame-wave-world-rule-approval.json."
+
 def build():
     skills=json.loads((BALANCE/'class-skills.json').read_text())
     protocol=(ROOT/'shared/ClassAbilities.cs').read_text()

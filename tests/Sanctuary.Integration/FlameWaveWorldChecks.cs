@@ -97,8 +97,8 @@ public static class FlameWaveWorldChecks
             FlameWaveWorld.Restore(JsonSerializer.Deserialize<FlameWaveSave>(before));
             SkillHealth.SetBalance256(p,SkillHealth.Maximum256(p)-513);NecromancerEffects.SetMana256(p,p.ManaMax*256-17);
             File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(0,p.Serial.Value,helm.Serial.Value,weapon.Serial.Value,target.Serial.Value,SkillHealth.Balance256(target),p.Location,NecromancerEffects.ManaBalance256(p),SkillHealth.Balance256(p),state)));kept=true;
-            Require(!WarlockCombat.Implemented(CombatAbility.FlameWave)&&!FlameWaveWorld.Approved,"Unapproved candidate learned route enabled");
-            Log.Information("Flame Wave world:SC/FCR interruption/late mana/one fractional payment,cooldown,708→690→695/716→240,head/fire damage,overlap,terrain,immunity,parking and atomic persistence pass;learned remains gated");
+            Require(WarlockCombat.Implemented(CombatAbility.FlameWave)&&FlameWaveWorld.Approved,"Approved Flame Wave admission missing");
+            Log.Information("Flame Wave world:SC/FCR interruption/late mana/one fractional payment,cooldown,708→690→695/716→240,head/fire damage,overlap,terrain,immunity,parking and atomic persistence pass;complete world rule approved");
         }
         finally{ClassCombat.Stop(p);network.Mobile=null;p.NetState=null;account[0]=null;network.Account=null;account.Delete();if(!kept){target.Delete();FlameWaveWorld.Clear(p);p.Delete();}}
     }
@@ -154,7 +154,7 @@ public static class FlameWaveWorldChecks
             FlameWaveWorld.Restore(state,true);var r=Pump(p,n.NextUtc.AddMilliseconds(80));Require(r.Updates==0&&r.Burns==0&&SkillHealth.Balance256(target)==saved.TargetLife&&FlameWaveWorld.For(p).Single().NextUtc==n.NextUtc.AddMilliseconds(120),"Overdue loaded graph replayed offline frames");
             FlameWaveWorld.Restore(state);r=Pump(p,n.NextUtc);Require(r.Burns==1&&SkillHealth.Balance256(target)<saved.TargetLife&&FlameWaveWorld.For(p).Single().Frame==n.Frame+1,"Original saved fire failed to resume");
             FlameWaveWorld.Restore(state);SkillHealth.SetBalance256(target,saved.TargetLife);File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Generation=saved.Generation+1}));
-            Require(ClassCombat.For(p).FlameWave==null&&!WarlockCombat.Implemented(CombatAbility.FlameWave),"Reload admitted unapproved input/transient");
+            Require(ClassCombat.For(p).FlameWave==null&&WarlockCombat.Implemented(CombatAbility.FlameWave),"Reload lost approved input or retained transient");
             Log.Information("Flame Wave world:saved moving lanes,paired maker/240fields,leases,RNG,clocks,original gear/Witch/wounds and mana retain through actual reload;next deadline resumes damage once");
         }
         finally{ClassCombat.Stop(p);network.Mobile=null;p.NetState=null;account[0]=null;network.Account=null;account.Delete();}

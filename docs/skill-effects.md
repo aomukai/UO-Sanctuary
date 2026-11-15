@@ -1,5 +1,7 @@
 # Skill effects
 
+Flame Wave needs final revealing-wall708,rolling-front690,short-tail695,static-fire716/240,termination29 and cast/audio assets. Current UO flames and sound are identified placeholders;mechanical lifetimes are independent of final art.
+
 **Chain learned — 2026-11-15 JST.** Mechanical admission retains identified cast0x1E5,endpoint0x37C4 and purple cloud/contact native placeholders. Final travelling head/tether/stamp/contact/expiry effects and matched audio remain required;the endpoint marker is not finished tether art. No imagegen performed. [Checkpoint](miasma-chain-cast-checkpoint.md).
 
 **Prepared complete Chain world — 2026-11-15 JST.** Native cast0x1E5,linked-end0x37C4,cloud0x374A/contact0x375A with purple0x48D are identified placeholders. The endpoint marker is not final tether artwork. Final cast/head/tether/stamp/impact/expiry effects and audio remain required;no imagegen or damaging visual duplicates. [Checkpoint](miasma-chain-world-checkpoint.md).
@@ -1099,7 +1101,7 @@ Inherited NPC item absorption now changes life mechanically. Final Iron Golem ab
 | Warlock | Sigil: Lethargy | needed | sigillethargysmall, sigillethargymedium, sigillethargylarge, sigil, warlock_shadow_cast_1, sigillethargysmall, sigillethargymedium, sigillethargylarge |
 | Warlock | Sigil: Rancor | needed | sigilrancorsmall, sigilrancormedium, sigilrancorlarge, sigil, warlock_fire_cast_1, sigilrancorsmall, sigilrancormedium, sigilrancorlarge |
 | Warlock | Miasma Chain | needed | miasmachainsmaker, warlock_shadow_cast_1 |
-| Warlock | Flame Wave | needed | Revealing wall708, rolling front690, short tail695, static fire716/240, termination29 and cast/audio. Current UO flames and sound are identified placeholders; no final assets. |
+| Warlock | Flame Wave | needed | flamewaveunveiling, warlock_fire_cast_1, flamewaveunveiling, warlock_fire_cast_1 |
 | Warlock | Sigil: Death | needed | sigildeathsmall, sigildeathmedium, sigildeathlarge, sigil, warlock_shadow_cast_1, sigildeathsmall, sigildeathmedium, sigildeathlarge |
 | Warlock | Enhanced Entropy | not-applicable | shadow_mastery |
 | Warlock | Apocalypse | needed | apocalypse, apocalypse, warlock_fire_cast_1, apocalypse |

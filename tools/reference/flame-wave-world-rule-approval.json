@@ -1,0 +1,13 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "answer": "Approve the complete Flame Wave rule (Recommended)",
+  "approvedUtc": "2026-11-15T14:48:29.498024+00:00",
+  "questionItemId": "[\"request_user_input_async\",\"call_b2bed4a4057b4abf8405aa2ec98415f6\",0]",
+  "proposal": "docs/flame-wave-world-rule-proposal.md",
+  "proposalAtApprovalSha256": "440db967e4900231781555765163c28db7974975dc304760789a779cb13c2caa",
+  "candidateCommit": "14806efd73cd5dfcf3172e1f398e8902d78c80d0",
+  "testedCandidateEvidence": "tools/reference/flame-wave-world-native-evidence.json",
+  "testedCandidateEvidenceSha256": "5eb27f288bedf52b74acd6379a1d26043bd943f6811b637e6a7855616be97c25",
+  "scope": "Complete defined SC/FCR/fractional release/cooldown,708reveal/690wall/695+716makers+240inherited fire,overlap/head delay,world/lifecycle/saves/placeholder rule. Learned and automatic-clock verification authorized;four older proposals stay pending."
+}

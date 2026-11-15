@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Flame Wave learned reuse — 2026-11-15 JST.** The existing ordinary-SC Warlock metadata already handles Flame Wave and its HUD timing. Learned dispatch therefore only connects the approved action and existing world hook;no duplicate clock,client patch,timer or profile is added. Actual socket inputs and retained consumers qualify the wiring;candidate graph/damage services remain shared. [Checkpoint](flame-wave-cast-checkpoint.md).
+
 **Flame Wave world reuse — 2026-11-15 JST.** Reuses WarlockCastClock/SkillCombat for SC and interruption,FireGround cooldowns/fractional mana,source vectors/crossings/hitboxes/barriers,the complete old do6changed-path condition,and SourceFireFields/SorceressSpellMissiles typed fire. The existing TimedEffects clock drives the gated consumer;only its saved cast graph needs a new profile. Modern reveal/wall/child composition is explicitly proposed,not borrowed as an unsupported claim from another skill. [Checkpoint](flame-wave-world-checkpoint.md).
 
 **Flame Wave supplier reuse — 2026-11-15 JST.** Reuse the existing isolated route DTO,MissileValues,skill-tier/synergy and DruidFirestorm endpoint/Slow helpers. Head and field synergies remain distinct;the mandatory Ring point reconciles published display endpoints. Wake of Fire paths,shared SourceFireFields and complete do6trail requests are next consumers;new156/38/42composition remains explicit. [Checkpoint](flame-wave-birth-checkpoint.md).

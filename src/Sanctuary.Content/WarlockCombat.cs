@@ -2,8 +2,8 @@
 namespace Sanctuary;
 public static class WarlockCombat
 {
-    public static bool Implemented(CombatAbility ability) => ability is CombatAbility.DemonicMastery or CombatAbility.DeathMark or CombatAbility.SummonDefiler or CombatAbility.SummonTainted or CombatAbility.SummonGoatman or CombatAbility.LevitationMastery or CombatAbility.SigilLethargy or CombatAbility.SigilRancor or CombatAbility.SigilDeath or CombatAbility.Apocalypse or CombatAbility.RingOfFire or CombatAbility.PsychicWard or CombatAbility.BladeWarp or CombatAbility.HexSiphon or CombatAbility.HexBane or CombatAbility.HexPurge or CombatAbility.Cleave or CombatAbility.BindDemon or CombatAbility.EldritchBlast or CombatAbility.EchoingStrike or CombatAbility.MirroredBlades or CombatAbility.MiasmaBolt or CombatAbility.MiasmaChain;
-    public static bool Handles(CombatAbility ability)=>ability is CombatAbility.DeathMark or CombatAbility.SummonDefiler or CombatAbility.SummonTainted or CombatAbility.SummonGoatman or CombatAbility.SigilLethargy or CombatAbility.SigilRancor or CombatAbility.SigilDeath or CombatAbility.Apocalypse or CombatAbility.RingOfFire or CombatAbility.PsychicWard or CombatAbility.BladeWarp or CombatAbility.HexSiphon or CombatAbility.HexBane or CombatAbility.HexPurge or CombatAbility.Cleave or CombatAbility.BindDemon or CombatAbility.EldritchBlast or CombatAbility.EchoingStrike or CombatAbility.MirroredBlades or CombatAbility.MiasmaBolt or CombatAbility.MiasmaChain;
+    public static bool Implemented(CombatAbility ability) => ability is CombatAbility.DemonicMastery or CombatAbility.DeathMark or CombatAbility.SummonDefiler or CombatAbility.SummonTainted or CombatAbility.SummonGoatman or CombatAbility.LevitationMastery or CombatAbility.SigilLethargy or CombatAbility.SigilRancor or CombatAbility.SigilDeath or CombatAbility.Apocalypse or CombatAbility.RingOfFire or CombatAbility.PsychicWard or CombatAbility.BladeWarp or CombatAbility.HexSiphon or CombatAbility.HexBane or CombatAbility.HexPurge or CombatAbility.Cleave or CombatAbility.BindDemon or CombatAbility.EldritchBlast or CombatAbility.EchoingStrike or CombatAbility.MirroredBlades or CombatAbility.MiasmaBolt or CombatAbility.MiasmaChain or CombatAbility.FlameWave;
+    public static bool Handles(CombatAbility ability)=>ability is CombatAbility.DeathMark or CombatAbility.SummonDefiler or CombatAbility.SummonTainted or CombatAbility.SummonGoatman or CombatAbility.SigilLethargy or CombatAbility.SigilRancor or CombatAbility.SigilDeath or CombatAbility.Apocalypse or CombatAbility.RingOfFire or CombatAbility.PsychicWard or CombatAbility.BladeWarp or CombatAbility.HexSiphon or CombatAbility.HexBane or CombatAbility.HexPurge or CombatAbility.Cleave or CombatAbility.BindDemon or CombatAbility.EldritchBlast or CombatAbility.EchoingStrike or CombatAbility.MirroredBlades or CombatAbility.MiasmaBolt or CombatAbility.MiasmaChain or CombatAbility.FlameWave;
     public static bool Available(Server.Mobiles.PlayerMobile owner,CombatAbility ability)=>Handles(ability)
         &&ClassCreation.Profiles.TryGet(owner.Serial,out var profile)&&profile.Class==DiabloClass.Warlock&&SkillMechanics.Rank(owner,ability)>0
         &&(ability!=CombatAbility.BindDemon||ClassCreation.Profiles.GetRank(owner.Serial,"warlock.binddemon")>0);
@@ -21,6 +21,8 @@ public static class WarlockCombat
             ?WarlockGoatmanCasting.Begin(owner,ability,selected,point,now)
             :ability==CombatAbility.MirroredBlades
             ?MirroredBladesAction.BeginLearned(owner,selected,point,now)
+            :ability==CombatAbility.FlameWave
+            ?FlameWaveCasting.BeginLearned(owner,selected,point,now)
             :ability==CombatAbility.MiasmaChain
             ?MiasmaChainCasting.BeginLearned(owner,selected,point,now)
             :ability==CombatAbility.MiasmaBolt
@@ -45,7 +47,7 @@ public static class WarlockCombat
     {
         if(!Available(owner,ability)){return false;}
         if(ability is CombatAbility.SummonGoatman or CombatAbility.SummonTainted or CombatAbility.SummonDefiler){return WarlockGoatmanCasting.Release(owner,ability);}
-        if(ability is CombatAbility.Cleave or CombatAbility.DeathMark or CombatAbility.BindDemon or CombatAbility.EchoingStrike or CombatAbility.MirroredBlades or CombatAbility.MiasmaBolt or CombatAbility.MiasmaChain){return false;} // Its transient sequence owns release/end dispatch.
+        if(ability is CombatAbility.Cleave or CombatAbility.DeathMark or CombatAbility.BindDemon or CombatAbility.EchoingStrike or CombatAbility.MirroredBlades or CombatAbility.MiasmaBolt or CombatAbility.MiasmaChain or CombatAbility.FlameWave){return false;} // Its transient sequence owns release/end dispatch.
         if(ability==CombatAbility.EldritchBlast){return EldritchBlastWorld.ReleasePrepared(owner,TimedEffects.Now)!=null;}
         if(ability==CombatAbility.HexPurge){return HexPurge.CastPrepared(owner,replaceGroup:WeaponHexGroups.Approved);}
         if(ability==CombatAbility.HexBane){return HexBane.CastPrepared(owner,replaceGroup:WeaponHexGroups.Approved);}
