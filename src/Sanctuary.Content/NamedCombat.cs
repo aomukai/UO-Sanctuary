@@ -24,6 +24,8 @@ public static class NamedCombat
         if (protectedTarget) { reduction /= 2; }
         return Math.Max(0, defense * (100 - reduction) / 100);
     }
+    internal static string NativeQualityIssue(BaseCreature actor,string action)=>actor.IsParagon
+        ?$"Paragon {action} classification is not configured.":null;
     public static bool Elite(Mobile target) => target is BaseCreature creature &&
         (CreatureProfiles.For(creature).Traits.Boss == true || creature is EncounterCreature { Grade: EncounterGrade.Champion or EncounterGrade.Unique or EncounterGrade.SuperUnique });
     public static double Deadly(PlayerMobile player, Random random)

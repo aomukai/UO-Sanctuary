@@ -12,11 +12,10 @@ internal static class ReviveCasts
 {
     internal static ReviveAiStatus NativeStatus(BaseCreature actor,out string issue)
     {
-        issue=actor.IsParagon?"Paragon Revive classification is not configured."
-            :actor is BaseHire?"Hirelings cannot be revived."
+        issue=NamedCombat.NativeQualityIssue(actor,"Revive")??(actor is BaseHire?"Hirelings cannot be revived."
             :actor is EncounterCreature{Grade:EncounterGrade.Champion}?"Champion Revive eligibility is not corroborated."
             :PaladinConversion.SourceRule(actor)?.Base=="imp1"?"Attached-Imp eligibility has no native adapter."
-            :null;
+            :null);
         // These are native actor facts, not inferred from body, hue or age.
         // Unclassified native elite/attachment systems refuse above.
         return new(actor.CanBeDamaged(),MonsterUninterruptibles.Active(actor),

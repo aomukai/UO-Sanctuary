@@ -132,6 +132,8 @@ internal static class BoundDemonHosts
             ||body.ControlMaster!=null||body.SummonMaster!=null||PersistentMinions.Behavior(body)!=null||body.Guild!=null
             ||body.Map!=owner.Map||!owner.InRange(body,19)||!owner.InLOS(body)||!ClassCombat.IsHostile(owner,body)||!NamedCombat.Demon(body))
         {return false;}
+        if(NamedCombat.NativeQualityIssue(body,"Bind Demon")is{} quality){issue=quality;return false;}
+        if(NamedCombat.Elite(body)){issue="Native elite binding needs a qualified quality/stat adapter.";return false;}
         var spawner=body.Spawner;
         if(ReviveWorldControllers.Issue(spawner)is{} controller){issue=controller;return false;}
         int[] channels=[body.PhysicalDamage,body.FireDamage,body.ColdDamage,body.PoisonDamage,body.EnergyDamage];

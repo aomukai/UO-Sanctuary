@@ -1,0 +1,512 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Native Bind host quality and acquisition audit",
+  "handlers": 226,
+  "warlockHandlers": 17,
+  "completedClasses": [],
+  "learnedBindDemonEnabled": false,
+  "nativeMarkers": 18,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "revive-facet-check": 1,
+    "revive-facet-reload-check": 2,
+    "bind-demon-host-audit-check": 1,
+    "bind-demon-host-audit-check-result": 1,
+    "bind-demon-host-audit-reload-check": 2,
+    "bind-demon-host-audit-reload-check-result": 2
+  },
+  "actualInputs": 0,
+  "authenticatedSessions": 3,
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "contentBuild": 1,
+  "integrationBuild": 2,
+  "sourceSnapshot": 3,
+  "nativeRun": 2,
+  "nativeRebuilt": false,
+  "clientRebuilt": false,
+  "newTimers": 0,
+  "newPersistenceProfiles": [],
+  "existingSerializationVersionsChanged": false,
+  "newLiveReferenceReads": 0,
+  "nativeHostInventory": {
+    "Demons": [
+      {
+        "Type": "Server.Mobiles.AbysmalHorror",
+        "Reference": "doomknight3",
+        "ExplicitDemon": null,
+        "SlayerDemon": true,
+        "Boss": false,
+        "Issue": "No pinned Bind species row"
+      },
+      {
+        "Type": "Server.Mobiles.AncientWyrm",
+        "Reference": "megademon3",
+        "ExplicitDemon": true,
+        "SlayerDemon": false,
+        "Boss": false,
+        "Issue": null
+      },
+      {
+        "Type": "Server.Mobiles.ArcaneDaemon",
+        "Reference": "megademon1",
+        "ExplicitDemon": null,
+        "SlayerDemon": true,
+        "Boss": false,
+        "Issue": null
+      },
+      {
+        "Type": "Server.Mobiles.Balron",
+        "Reference": "megademon3",
+        "ExplicitDemon": null,
+        "SlayerDemon": true,
+        "Boss": false,
+        "Issue": null
+      },
+      {
+        "Type": "Server.Mobiles.BoneDemon",
+        "Reference": "doomknight2",
+        "ExplicitDemon": null,
+        "SlayerDemon": true,
+        "Boss": false,
+        "Issue": "No pinned Bind species row"
+      },
+      {
+        "Type": "Server.Mobiles.CapturedHordeMinion",
+        "Reference": null,
+        "ExplicitDemon": null,
+        "SlayerDemon": true,
+        "Boss": false,
+        "Issue": "No pinned Bind species row"
+      },
+      {
+        "Type": "Server.Mobiles.ChaosDaemon",
+        "Reference": "megademon1",
+        "ExplicitDemon": null,
+        "SlayerDemon": true,
+        "Boss": false,
+        "Issue": null
+      },
+      {
+        "Type": "Server.Mobiles.Daemon",
+        "Reference": "megademon1",
+        "ExplicitDemon": null,
+        "SlayerDemon": true,
+        "Boss": false,
+        "Issue": null
+      },
+      {
+        "Type": "Server.Mobiles.DemonKnight",
+        "Reference": "doomknight3",
+        "ExplicitDemon": null,
+        "SlayerDemon": true,
+        "Boss": false,
+        "Issue": "No pinned Bind species row"
+      },
+      {
+        "Type": "Server.Mobiles.Devourer",
+        "Reference": "regurgitator2",
+        "ExplicitDemon": null,
+        "SlayerDemon": true,
+        "Boss": false,
+        "Issue": null
+      },
+      {
+        "Type": "Server.Mobiles.Dragon",
+        "Reference": "megademon3",
+        "ExplicitDemon": true,
+        "SlayerDemon": false,
+        "Boss": false,
+        "Issue": null
+      },
+      {
+        "Type": "Server.Mobiles.Drake",
+        "Reference": "megademon1",
+        "ExplicitDemon": true,
+        "SlayerDemon": false,
+        "Boss": false,
+        "Issue": null
+      },
+      {
+        "Type": "Server.Mobiles.EnslavedGargoyle",
+        "Reference": "clawviper2",
+        "ExplicitDemon": null,
+        "SlayerDemon": true,
+        "Boss": false,
+        "Issue": "No pinned Bind species row"
+      },
+      {
+        "Type": "Server.Mobiles.FanDancer",
+        "Reference": "succubus1",
+        "ExplicitDemon": null,
+        "SlayerDemon": true,
+        "Boss": false,
+        "Issue": null
+      },
+      {
+        "Type": "Server.Mobiles.FireGargoyle",
+        "Reference": "megademon1",
+        "ExplicitDemon": null,
+        "SlayerDemon": true,
+        "Boss": false,
+        "Issue": null
+      },
+      {
+        "Type": "Server.Mobiles.Gargoyle",
+        "Reference": "clawviper2",
+        "ExplicitDemon": null,
+        "SlayerDemon": true,
+        "Boss": false,
+        "Issue": "No pinned Bind species row"
+      },
+      {
+        "Type": "Server.Mobiles.GargoyleDestroyer",
+        "Reference": "blunderbore3",
+        "ExplicitDemon": null,
+        "SlayerDemon": true,
+        "Boss": false,
+        "Issue": null
+      },
+      {
+        "Type": "Server.Mobiles.GargoyleEnforcer",
+        "Reference": "blunderbore3",
+        "ExplicitDemon": null,
+        "SlayerDemon": true,
+        "Boss": false,
+        "Issue": null
+      },
+      {
+        "Type": "Server.Mobiles.Gibberling",
+        "Reference": "fallen1",
+        "ExplicitDemon": null,
+        "SlayerDemon": true,
+        "Boss": false,
+        "Issue": null
+      },
+      {
+        "Type": "Server.Mobiles.GreaterDragon",
+        "Reference": "megademon3",
+        "ExplicitDemon": true,
+        "SlayerDemon": false,
+        "Boss": false,
+        "Issue": null
+      },
+      {
+        "Type": "Server.Mobiles.HordeMinion",
+        "Reference": "fallen1",
+        "ExplicitDemon": null,
+        "SlayerDemon": true,
+        "Boss": false,
+        "Issue": null
+      },
+      {
+        "Type": "Server.Mobiles.IceFiend",
+        "Reference": "frozenhorror3",
+        "ExplicitDemon": null,
+        "SlayerDemon": true,
+        "Boss": false,
+        "Issue": "No pinned Bind species row"
+      },
+      {
+        "Type": "Server.Mobiles.Imp",
+        "Reference": "fallen4",
+        "ExplicitDemon": null,
+        "SlayerDemon": true,
+        "Boss": false,
+        "Issue": null
+      },
+      {
+        "Type": "Server.Mobiles.Impaler",
+        "Reference": "bloodlord2",
+        "ExplicitDemon": null,
+        "SlayerDemon": true,
+        "Boss": false,
+        "Issue": "No pinned Bind species row"
+      },
+      {
+        "Type": "Server.Mobiles.Moloch",
+        "Reference": "blunderbore2",
+        "ExplicitDemon": null,
+        "SlayerDemon": true,
+        "Boss": false,
+        "Issue": null
+      },
+      {
+        "Type": "Server.Mobiles.Oni",
+        "Reference": "blunderbore3",
+        "ExplicitDemon": null,
+        "SlayerDemon": true,
+        "Boss": false,
+        "Issue": null
+      },
+      {
+        "Type": "Server.Mobiles.Putrefier",
+        "Reference": "megademon3",
+        "ExplicitDemon": null,
+        "SlayerDemon": true,
+        "Boss": false,
+        "Issue": null
+      },
+      {
+        "Type": "Server.Mobiles.Ravager",
+        "Reference": "bloodlord4",
+        "ExplicitDemon": null,
+        "SlayerDemon": true,
+        "Boss": false,
+        "Issue": "No pinned Bind species row"
+      },
+      {
+        "Type": "Server.Mobiles.Semidar",
+        "Reference": null,
+        "ExplicitDemon": null,
+        "SlayerDemon": true,
+        "Boss": false,
+        "Issue": "No pinned Bind species row"
+      },
+      {
+        "Type": "Server.Mobiles.SerpentineDragon",
+        "Reference": "megademon3",
+        "ExplicitDemon": true,
+        "SlayerDemon": false,
+        "Boss": false,
+        "Issue": null
+      },
+      {
+        "Type": "Server.Mobiles.StoneGargoyle",
+        "Reference": "clawviper2",
+        "ExplicitDemon": null,
+        "SlayerDemon": true,
+        "Boss": false,
+        "Issue": "No pinned Bind species row"
+      },
+      {
+        "Type": "Server.Mobiles.Succubus",
+        "Reference": "succubus3",
+        "ExplicitDemon": null,
+        "SlayerDemon": true,
+        "Boss": false,
+        "Issue": null
+      },
+      {
+        "Type": "Server.Mobiles.SummonedDaemon",
+        "Reference": null,
+        "ExplicitDemon": null,
+        "SlayerDemon": true,
+        "Boss": false,
+        "Issue": "No pinned Bind species row"
+      },
+      {
+        "Type": "Server.Mobiles.Szavetra",
+        "Reference": "succubus3",
+        "ExplicitDemon": null,
+        "SlayerDemon": true,
+        "Boss": false,
+        "Issue": null
+      },
+      {
+        "Type": "Server.Mobiles.TsukiWolf",
+        "Reference": "bloodlord1",
+        "ExplicitDemon": null,
+        "SlayerDemon": true,
+        "Boss": false,
+        "Issue": "No pinned Bind species row"
+      }
+    ],
+    "SunderSources": [
+      {
+        "Id": "unique/401",
+        "Base": "cm3",
+        "RandomSpawnable": false,
+        "Available": false
+      },
+      {
+        "Id": "unique/402",
+        "Base": "cm3",
+        "RandomSpawnable": false,
+        "Available": false
+      },
+      {
+        "Id": "unique/403",
+        "Base": "cm3",
+        "RandomSpawnable": false,
+        "Available": false
+      },
+      {
+        "Id": "unique/404",
+        "Base": "cm3",
+        "RandomSpawnable": false,
+        "Available": false
+      },
+      {
+        "Id": "unique/405",
+        "Base": "cm3",
+        "RandomSpawnable": false,
+        "Available": false
+      },
+      {
+        "Id": "unique/406",
+        "Base": "cm3",
+        "RandomSpawnable": false,
+        "Available": false
+      },
+      {
+        "Id": "unique/426",
+        "Base": "cm3",
+        "RandomSpawnable": true,
+        "Available": false
+      },
+      {
+        "Id": "unique/427",
+        "Base": "cs2",
+        "RandomSpawnable": false,
+        "Available": false
+      },
+      {
+        "Id": "unique/428",
+        "Base": "cm3",
+        "RandomSpawnable": true,
+        "Available": false
+      },
+      {
+        "Id": "unique/429",
+        "Base": "cm3",
+        "RandomSpawnable": true,
+        "Available": false
+      },
+      {
+        "Id": "unique/430",
+        "Base": "cm3",
+        "RandomSpawnable": true,
+        "Available": false
+      },
+      {
+        "Id": "unique/431",
+        "Base": "cm3",
+        "RandomSpawnable": true,
+        "Available": false
+      },
+      {
+        "Id": "unique/432",
+        "Base": "cm3",
+        "RandomSpawnable": true,
+        "Available": false
+      },
+      {
+        "Id": "unique/433",
+        "Base": "cs2",
+        "RandomSpawnable": false,
+        "Available": false
+      },
+      {
+        "Id": "unique/434",
+        "Base": "cs2",
+        "RandomSpawnable": false,
+        "Available": false
+      },
+      {
+        "Id": "unique/435",
+        "Base": "cs2",
+        "RandomSpawnable": false,
+        "Available": false
+      },
+      {
+        "Id": "unique/436",
+        "Base": "cs2",
+        "RandomSpawnable": false,
+        "Available": false
+      },
+      {
+        "Id": "unique/437",
+        "Base": "cs2",
+        "RandomSpawnable": false,
+        "Available": false
+      }
+    ],
+    "CreatureDefinitions": 730
+  },
+  "sourceCompatibilityIsLiveEligibility": false,
+  "combinedBindProposal": "docs/bind-demon-world-rule-proposal.md",
+  "combinedBindProposalApproved": false,
+  "frozenPendingProposalFiles": [
+    "docs/blood-oath-damage-proposal.md",
+    "tools/reference/blood-oath-damage-native-evidence.json",
+    "docs/engorge-world-rule-proposal.md",
+    "tools/reference/engorge-world-native-evidence.json",
+    "docs/blood-boil-rule-proposal.md",
+    "tools/reference/blood-boil-world-native-evidence.json",
+    "docs/consume-world-rule-proposal.md",
+    "tools/reference/consume-world-native-evidence.json"
+  ],
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "5df3992322b515ae6e525927b8b9ddb57420eddd63d9886f019ffd6974b2cd49",
+    "Assemblies/Sanctuary.Content.dll": "fd9a54146bdc9ef81a76654698975c7bb2784faf4ab11a2d8b5fbde2ff8e8cbb",
+    "Assemblies/Sanctuary.Integration.dll": "db8286765218d673088a2c26d6e1797ee6f53d1ab77030de8b64b9464c030ebe"
+  },
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 43,
+    "installed": false
+  },
+  "established": [
+    "Shared existing NativeQualityIssue preserves Revive Paragon message while Bind refuses its unclassified quality/stat context and guards explicit native elites. Real native Paragon transform refuses host/channel before ownership/payment/baseline mutation and keeps prior ordinary bound demon.",
+    "730definitions inspected without constructing roster;exact current profile/Slayer predicate finds35native demon type candidates,22source-compatible and13missing pinned Bind species rows. This doesnot certify all22live actor contexts;explicit boss/summon/controller/gear guards remain.",
+    "All18named Sunder variants unavailable:twelvecm3and sixrecipe-onlycs2. The renewed base is not covered by oldcm1/cm2/cm3exclusion;source-recipe acquisition is distinct. No reducer/value300interpretation or acquisition enablement added.",
+    "Current encounter class explicitly undead/non-demon. Native ordinary bound identity/wounds/mana and wild Paragon flag survive2reloads;rejection keeps existingpet. OriginalRevive facet/item/NPC resource controls retain. Wild regeneration not falsely treated as parking.",
+    "C1unchanged;N1audit wrongly assumed everycharm oldbase;I2corrects bases and capturesavailability. ExactN1sources/DLL/logs retained. Isolated44patch client/shared inputs unchanged;no new client/native build/profile/timer/artwork."
+  ],
+  "limits": [
+    "Combined defined normal/native Bind action/world proposal now ready but pending design decision. Cost/timing/grouped chance/native host policies remain adaptations,not recovered current startup. No new actualBind socket/graphical/class certificate.",
+    "Paragon/native elite quality/stat adapters,13unmapped native source categories,named hosts/underlings/nonzero Sunder and other flagged contexts remain open;do not invent clones or silent source remaps.",
+    "Four earlier proposals remain pending/frozen. 226handlers/Warlock17/no class certified. Installed newerD2Rdoesnot replace3.3.93847;separate effects/icons remain missing and nonblocking."
+  ],
+  "inputs": {
+    ".local/class-skills/bind-demon-host-audit/birth-inputs.json": "04e16f86a1d3e8b7f264baa5f6aadd05f3cece4c1e33a733d71704a8fd438eb3",
+    "tools/reference/bind-demon-input-native-evidence.json": "3777510c540e5e64e155b34446045ac1c90eaaa45cced0c5f8abff6d0f4c3a83",
+    ".local/class-skills/bind-demon-input/birth-inputs.json": "15925d0945b1c79e4916661eb9c3d0d3801b4961de614ba9666d867dc39f69bd",
+    ".local/class-skills/bind-demon-host-audit/source-snapshot-1.json": "9eefe84f08b214a478c000ea352d0f6cb2f2b95e06848e7ae0b5ab8ec3f78963",
+    ".local/class-skills/bind-demon-host-audit/content-build-1.log": "276cb0c699b77f458f52000aed87d04fd2e4f6439521c1427188c6eb7367f038",
+    ".local/class-skills/bind-demon-host-audit/integration-build-2.log": "79b9c673f6ae6b1e8815d658dc0c2028cf39f7bc57793a91bf2e7fb426e82bdc",
+    ".local/class-skills/bind-demon-host-audit/birth-native-checks.log": "a27ead3d739419c28e34d8a870469de370ff4a5b32566017f65ce16be5abd22a",
+    ".local/class-skills/bind-demon-host-audit/native-run-2.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/bind-demon-host-audit/bind-demon-host-audit-fixtures.json": "67d584cf23e271436b3c79c6db3faa77c10aa06ebff6bc6a6bea2b84a58ba375",
+    ".local/class-skills/bind-demon-host-audit/native-1/birth-inputs.json": "428e1b2688041e6c91ba3de917c0c622a59ee116b118c98a1d0e9f5733637bd8",
+    ".local/class-skills/bind-demon-host-audit/native-1/birth-native-checks.log": "886665a07f85a884d55e9f83fb84dca256a1de17d83a1d088ae21a5949284c02",
+    ".local/class-skills/bind-demon-host-audit/native-1/native-run-1.log": "b581ebfbcc998d3a455e3599950ea16a2a073746efa4b5aeba30fe89202d663c",
+    ".local/class-skills/bind-demon-host-audit/source-snapshot-2.json": "43f47fa75df86935de264801aec53f8f3f10f5a9695aac5de3ef81d01e74766b",
+    ".local/class-skills/bind-demon-host-audit/source-snapshot-3.json": "c293f2a158ed2a83f9fcc9b1f0b788c6100883afacd53b9e9bca06e36e7af7c2",
+    ".local/class-skills/bind-demon-host-audit/integration-build-1.log": "2c624478f66fc7d12a6e5f33f5a87541e89e160a90f960b1d6f4e6d472e2f244",
+    "tools/reference/bind-demon-client-evidence.json": "5597d4b1df2de24ca889d60f939f9932e3beddfdd91bbf5ce9eeabe170c4bda6",
+    ".local/class-skills/bind-demon-client/client-inputs-1.json": "f876b2f4b92de721657f563bfb5faa56b3f22822cab90ef3cb468aeaaa97332d",
+    "docs/blood-oath-damage-proposal.md": "708eae5c96de89b680b975df6ff937f4d7ee6038877a026e440768519906746d",
+    "tools/reference/blood-oath-damage-native-evidence.json": "dfc5816fb82504889b955dd9b62935834bdcbb73a4a648d92fa0ca204428d152",
+    "docs/engorge-world-rule-proposal.md": "e7d1a57aa309bc29a2278e5d0588a818e1addd169151b78f3f5543ac62c6c878",
+    "tools/reference/engorge-world-native-evidence.json": "4e4f8c3762f014c0272c71c7939e30b371bc7daa129bd54e4aebde1681ca74bb",
+    "docs/blood-boil-rule-proposal.md": "9b530871555c6a3c3c269123addbedea0a020bac10a29c02b8a505e6c572dbe7",
+    "tools/reference/blood-boil-world-native-evidence.json": "fa719c0aa2718152bfe1cbc503473f44e75eb6863e87cd66e13f63e6ddad6c4b",
+    "docs/consume-world-rule-proposal.md": "e4a2cc5b07c1b897f307382406561cae340cf43abf6b0bb94a3ff2f6b024a5d6",
+    "tools/reference/consume-world-native-evidence.json": "3413c44f06158d6ae0c5e21fcc0784583b68055ad3824c72eec3e8f7dae517b5",
+    "src/Sanctuary.Content/BoundDemonHosts.cs": "801425c7caba957120cc30a4258ba35d2b71f3ad2cb1a95e7033130c79778977",
+    "src/Sanctuary.Content/NamedCombat.cs": "93e0cb80178a99445c7a3dd1811a4d677516f42b8bd56f950d0e7266e2c4e858",
+    "src/Sanctuary.Content/ReviveCasts.cs": "a649ca0ff535778e2912360dc3b75dcedd4d84be36e3dd7a11b8597be4592b2d",
+    "tests/Sanctuary.Integration/BindDemonHostAuditChecks.cs": "1a4017f757f349ca6fb528b89a0e6bc3e0465da2f1cbb752b8fff6f787f7e379",
+    "tests/check_bind_demon_host_audit.py": "9e214181667e9d535a3bfcb27d6ea9d237b572be9c069db1b430db1beaea7182",
+    "tools/record_bind_demon_host_audit.py": "a8173f37823872477ef606dfe47b27d2c44b5c3758eb4a5c4f93acacd7cf266b",
+    "docs/bind-demon-host-audit-checkpoint.md": "1c3312406600a06b67719ed214c9b1bea6f3b05e798c893df1994ebc233e618f",
+    "docs/bind-demon-world-rule-proposal.md": "3cfb45587cba393c0ed3de01f24213bb4ef66dbb44ba2105b58c53db1279211b",
+    "docs/class-skill-roadmap.md": "e48abc731c5939b8325fa78ee6ccfb17577a3a69c96b54b4c0610fe9efd9edfc",
+    "docs/class-skills-resume-checkpoint.md": "0eb7ca0b5741f1d6456a92f714ca2fa1e7cfcefe9f16ff102c36bd0f2b2a274a",
+    "docs/class-skill-reuse-notes.md": "51ccf7ecd1a1b65e32d1b58d514e10e32a7d46aa2f2a365e50312ef1df7257bf",
+    "docs/skill-effects.md": "8dddb6910167c2b3e3addfb507d285f3b0b89fceef887fe96a4f4b0dbdeea232",
+    "docs/skill-icons.md": "f20597f30f2ad3bc826b6c2e86751534e1bda8d9e00e3defc5b28cdbbcfd9253",
+    "tools/reference/necro-sunder-preflight.json": "0865b88fc8fa8e777e8383950feceed8997f9ee8ece6c77ed0c4c86cdd934d95"
+  }
+}
