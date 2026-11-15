@@ -15,9 +15,9 @@ internal sealed record DeathMarkNativeResult(int Result,bool ServerDoRan,int Eli
 // flags/list ordering only under the separately documented adaptation.
 internal static class DeathMarkNativeRelease
 {
-    internal static SkeletonGuardian[] Roster(PlayerMobile owner)
+    internal static BaseCreature[] Roster(PlayerMobile owner)
     {
-        var pets=new List<SkeletonGuardian>();var seen=new HashSet<uint>();
+        var pets=new List<BaseCreature>();var seen=new HashSet<uint>();
         foreach(var follower in owner.AllFollowers??[])
         {
             if(follower is not SkeletonGuardian{Alive:true,Deleted:false} body||body is not(WarlockGoatmanBody or WarlockTaintedBody or WarlockDefilerBody)
@@ -26,6 +26,13 @@ internal static class DeathMarkNativeRelease
             if(!WarlockDemonPlacement.Prepared(body)||WarlockDemonPlacement.Owner(body)!=owner.Serial.Value||!body.Permitted(owner)
                 ||DeathMarkWorld.State(body)==null)
             {throw new NotSupportedException("Live original demon has no qualified saved controller registration");}
+            pets.Add(body);
+        }
+        foreach(var body in BoundDemonHosts.For(owner))
+        {
+            if(body.Map!=owner.Map||MinionSafeAreas.Parked(body)){continue;}
+            DeathMarkBoundWorld.Require(owner,body);
+            if(!seen.Add(body.Serial.Value)){throw new NotSupportedException("Duplicate bound demon follower");}
             pets.Add(body);
         }
         return pets.OrderBy(p=>BattleCommand.PetOrder(p)>0?BattleCommand.PetOrder(p):long.MaxValue).ThenBy(p=>p.Serial.Value).ToArray();

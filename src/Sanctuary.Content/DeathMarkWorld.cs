@@ -197,26 +197,13 @@ internal static class DeathMarkWorld
     {
         if(body!=null&&_actors.TryGetValue(unchecked((int)body.Serial.Value),out var actor)&&actor.Mode==expected){ChangeMode(body,1);}
     }
-    private static DeathMarkControlRoot Controls(SkeletonGuardian body,DateTime at)
-    {
-        var lists=new List<DeathMarkControlList>();
-        if(CombatStuns.Remaining(body)>0){lists.Add(new(21,21,-1));}
-        if(TimedEffects.TryActor(body,out var actor))
-        {
-            if(actor.Control is{Freeze:{Removed:false}} control&&control.FreezeUntil>at){lists.Add(new(1,1,-1));}
-            if(actor.Cold!=null&&actor.ChillUntil>at){lists.Add(new(11,11,-1));}
-        }
-        for(int i=1;i<lists.Count;i++){lists[i-1].Next=lists[i];}
-        return new(-1,lists.FirstOrDefault());
-    }
     internal static bool ApplyPrepared(SkeletonGuardian body,DeathMarkDirective directive,DateTime at)
     {
         if(at.Kind!=DateTimeKind.Utc||directive==null){throw new ArgumentException("Death Mark needs a UTC directive");}
         int id=checked((int)body.Serial.Value);
         if(!_actors.TryGetValue(id,out var actor)||!_worlds.TryGetValue(actor.Map,out var world)){throw new NotSupportedException("Demon controller path is not registered");}
         var unit=world.Unit(id);var path=world.Member(id).Path;world.Require(body,unit,path);GenericPetNativePlacement.RequireActor(body,unit,path);
-        if(directive.ClearControl&&NamedControl.State(body)is{Freeze:null} legacy&&legacy.FreezeUntil>at)
-        {throw new NotSupportedException("Legacy untagged freeze has no qualified source list");}
+        DeathMarkControlStates.Require(body,directive,at);
         var view=GenericPetPathTargets.Bind(actor.Selector);int before=directive.Remaining;
         var services=new DeathMarkPetServices(point=>new GenericPetNativePlacement(body,unit,path,point,view,world).Place(),_=>
             body.FixedEffect(0x3728,10,15), // Identified Death Mark pet/landing placeholder.
@@ -224,13 +211,10 @@ internal static class DeathMarkWorld
             {
                 ChangeMode(body,1);
                 actor.Next=at.AddMilliseconds(Math.Max(1,ticks)*40L);body.AIObject?.AITimer.Stop();
-            },()=>Controls(body,at),(selector,list)=>
+            },()=>DeathMarkControlStates.Root(body,at),(selector,list)=>
             {
                 if(selector!=actor.Selector){throw new NotSupportedException("Demon stat selector changed");}
-                switch(list.State)
-                {case 21:CombatStuns.Clear(body);break;case 1:FreezeStates.Remove(body,at);break;case 11:ColdStates.Remove(body,at);break;
-                    default:throw new NotSupportedException("Death Mark attempted an unrelated control state");}
-                list.Flags=0; // Managed projection:the selected manager owns removal;no raw allocator is emulated.
+                DeathMarkControlStates.Remove(body,list,at);
             },(_,_)=>{});
         DeathMarkPets.Run(new(true,0,actor.Selector,actor.Selector),directive,GenericPetTargetCommand.Bind(services,actor.Command,view.CommandFlags));
         return directive.Remaining<before;

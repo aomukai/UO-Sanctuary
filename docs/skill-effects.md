@@ -1,5 +1,7 @@
 # Skill effects
 
+**Bound Death Mark effect boundary — 2026-11-15 JST.** Native relocation reuses the identified shared landing0x3728 plus existing cast/target placeholders. Original creature presentation remains. Final warp/command/mark/expiry/audio and Bind channel/success/bound feedback are missing and nonblocking;no new artwork/imagegen. Icons remain separate. [Checkpoint](bind-demon-death-mark-checkpoint.md).
+
 **Consume aura effect boundary — 2026-11-15 JST.** Four aura recipes are now mechanically delivered through existing identified Paladin pulse/ring placeholders and Consume owner/cast placeholders. Final HolyFire/Meditation/Salvation presentation/audio and Consume/Bind visuals remain missing and nonblocking;no imagegen/new artwork. Provider lifecycle/rank/weapon/mana verification does not certify final effects. Icons remain separate. [Checkpoint](consume-aura-checkpoint.md).
 
 **Bound Consume numeric effect boundary — 2026-11-15 JST.** Actual native retirement/buff reuses identified shared owner0x375A and sound0x1E5 placeholders. Final Consume overlay/cast/sacrifice/audio and Bind channel/success/bound feedback remain missing and nonblocking. Four item-aura recipes still lack mechanical delivery,independent of final aura artwork;do not enable them merely by adding visuals. Icons remain separate;no imagegen. [Checkpoint](bind-demon-consume-checkpoint.md).

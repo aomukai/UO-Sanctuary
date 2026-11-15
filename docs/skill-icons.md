@@ -1,5 +1,7 @@
 # Skill icons
 
+**Bound Death Mark icon boundary — 2026-11-15 JST.** Recipient support adds no skill or icon. Death Mark and Bind talent-tree/hotkey artwork remain missing;existing text and assigned placeholder controls stay identified. No new learned Bind binding or final artwork. Effects/audio stay separate. [Checkpoint](bind-demon-death-mark-checkpoint.md).
+
 **Consume aura icon boundary — 2026-11-15 JST.** No new selectable Paladin skill/hotkey is granted by an item aura. Consume/Bind talent-tree/right/quick artwork remain missing;standard text/roster buttons stay explicit placeholders. Passive provider contribution supplies no final icon or effect. [Checkpoint](consume-aura-checkpoint.md).
 
 **Bound Consume numeric icon boundary — 2026-11-15 JST.** No new learned binding/final artwork. Standard roster buttons/text are identified placeholders;Consume and Bind still need talent-tree/right/quick icons,pinned left unavailable. Four item-aura recipe gates concern unfinished mechanics,not icon availability. Effects/audio stay separate. [Checkpoint](bind-demon-consume-checkpoint.md).

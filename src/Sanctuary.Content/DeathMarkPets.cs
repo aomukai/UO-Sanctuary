@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Server;
 namespace Sanctuary;
 
@@ -45,4 +47,34 @@ internal static class DeathMarkPets
     }
     internal static DeathMarkPetServices BindPlacement(DeathMarkPetServices services,GenericPetMonsterPlacementUnit unit,GenericPetMonsterPlacementServices placement)
         =>services with{Place=point=>GenericPetMonsterPlacement.Place(unit,0,point.X,point.Y,0,placement)};
+}
+
+// Shared manager-backed state lists for original and bound native bodies.
+// Do not clear unrelated fear, blindness, poison or untagged UO controls.
+internal static class DeathMarkControlStates
+{
+    internal static void Require(Mobile body,DeathMarkDirective directive,DateTime at)
+    {
+        if(directive.ClearControl&&NamedControl.State(body)is{Freeze:null} legacy&&legacy.FreezeUntil>at)
+        {throw new NotSupportedException("Legacy untagged freeze has no qualified source list");}
+    }
+    internal static DeathMarkControlRoot Root(Mobile body,DateTime at)
+    {
+        var lists=new List<DeathMarkControlList>();
+        if(CombatStuns.Remaining(body)>0){lists.Add(new(21,21,-1));}
+        if(TimedEffects.TryActor(body,out var actor))
+        {
+            if(actor.Control is{Freeze:{Removed:false}} control&&control.FreezeUntil>at){lists.Add(new(1,1,-1));}
+            if(actor.Cold!=null&&actor.ChillUntil>at){lists.Add(new(11,11,-1));}
+        }
+        for(int i=1;i<lists.Count;i++){lists[i-1].Next=lists[i];}
+        return new(-1,lists.FirstOrDefault());
+    }
+    internal static void Remove(Mobile body,DeathMarkControlList list,DateTime at)
+    {
+        switch(list.State)
+        {case 21:CombatStuns.Clear(body);break;case 1:FreezeStates.Remove(body,at);break;case 11:ColdStates.Remove(body,at);break;
+            default:throw new NotSupportedException("Death Mark attempted an unrelated control state");}
+        list.Flags=0; // Selected manager owns removal;no raw allocator is emulated.
+    }
 }

@@ -11,7 +11,7 @@ namespace Sanctuary;
 internal static class DeathMarkWorldRelease
 {
     internal static int RunPrepared(PlayerMobile owner,DeathMarkCastContext context,DeathMarkCastServices environment,
-        IReadOnlyList<SkeletonGuardian> orderedPets,DateTime at)
+        IReadOnlyList<BaseCreature> orderedPets,DateTime at)
     {
         ArgumentNullException.ThrowIfNull(context);ArgumentNullException.ThrowIfNull(environment);ArgumentNullException.ThrowIfNull(orderedPets);
         if(at.Kind!=DateTimeKind.Utc||owner is not{Alive:true,Deleted:false}||owner.Map==null||owner.Map==Map.Internal
@@ -21,13 +21,16 @@ internal static class DeathMarkWorldRelease
             ||context.State!=212||context.StateCount<=212||context.Selector is <1 or >3)
         {throw new NotSupportedException("Unqualified original Death Mark release context");}
         // Validate the complete supplied roster before any source/world effect.
-        var seen=new HashSet<uint>();var pets=new SkeletonGuardian[orderedPets.Count];
+        var seen=new HashSet<uint>();var pets=new BaseCreature[orderedPets.Count];
         for(int i=0;i<pets.Length;i++)
         {
             var body=orderedPets[i];
-            if(body is not{Alive:true,Deleted:false}||!seen.Add(body.Serial.Value)||!WarlockDemonPlacement.Prepared(body)
-                ||WarlockDemonPlacement.Owner(body)!=owner.Serial.Value||body.ControlMaster!=owner||body.Map!=owner.Map
-                ||DeathMarkWorld.State(body)is not{} saved||saved.Selector!=context.Selector||saved.Map!=owner.Map.MapID)
+            if(body is not{Alive:true,Deleted:false}||!seen.Add(body.Serial.Value))
+            {throw new NotSupportedException("Death Mark roster needs distinct living demons");}
+            if(BoundDemonHosts.State(body)!=null){DeathMarkBoundWorld.Require(owner,body);}
+            else if(body is not SkeletonGuardian original||!WarlockDemonPlacement.Prepared(original)
+                ||WarlockDemonPlacement.Owner(original)!=owner.Serial.Value||body.ControlMaster!=owner||body.Map!=owner.Map
+                ||DeathMarkWorld.State(original)is not{} saved||saved.Selector!=context.Selector||saved.Map!=owner.Map.MapID)
             {throw new NotSupportedException("Death Mark roster needs distinct original owned demons with registered controller paths");}
             pets[i]=body;
         }
@@ -44,7 +47,11 @@ internal static class DeathMarkWorldRelease
             VisitPets=(type,directive)=>
             {
                 if(type!=20){throw new NotSupportedException("Prepared world release only admits the qualified demon roster");}
-                foreach(var body in pets){DeathMarkWorld.ApplyPrepared(body,directive,at);}
+                foreach(var body in pets)
+                {
+                    if(BoundDemonHosts.State(body)!=null){DeathMarkBoundWorld.ApplyPrepared(owner,body,directive,at);}
+                    else{DeathMarkWorld.ApplyPrepared((SkeletonGuardian)body,directive,at);}
+                }
             },
             AllocateState=request=>
             {
