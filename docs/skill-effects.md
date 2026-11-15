@@ -1,5 +1,7 @@
 # Skill effects
 
+**Approved barrier-collapse placeholder — 2026-11-16 JST.** Normal learned Wall/Prison collapse now uses the identified native action4 marker for600ms. Final cast, growth, hit, collapse/removal animations and audio remain needed; collision already releases mechanically at death entry. [Learned checkpoint](bone-barrier-world-cast-checkpoint.md). Talent/hotkey icon requirements remain separately recorded in [icons](skill-icons.md).
+
 **Prepared barrier-collapse placeholder — 2026-11-16 JST.** The pending Wall/Prison world rule uses native action4 for a600ms collapse marker. Final BW death/collapse/removal animation and audio are still needed; collision release is mechanical and does not wait for final artwork. See [candidate](bone-barrier-retirement-checkpoint.md). Talent/hotkey icon requirements remain separately recorded in [icons](skill-icons.md).
 
 Abyss uses identified UO tear/pulse0x374A and collapse0x37B9 magic markers,plus cast sound0x1E5. Final source709center,visual714tear,715collapse and cast/audio are pending independently of mechanics. No694shard effect is invented for this graph. Talent/hotkey artwork remains in the separate icon register.

@@ -1,6 +1,6 @@
 # Bone Wall and Bone Prison: complete barrier-world adaptation
 
-Reference: **D2R Reign of the Warlock 3.3.93847**, with approved Sanctuary deviations first. **Pending approval; ordinary learned allocation remains unchanged.** This proposal defines the unresolved native world, linked-death and removal behavior together. It does not claim to recover protected current D2R owner flags or modifier44.
+Reference: **D2R Reign of the Warlock 3.3.93847**, with approved Sanctuary deviations first. **Approved by the user on 2026-11-16 JST.** [Exact decision](../tools/reference/bone-barrier-world-rule-approval.json). The body below is the approved proposal; learned acceptance is recorded separately. This proposal defines the unresolved native world, linked-death and removal behavior together. It does not claim to recover protected current D2R owner flags or modifier44.
 
 ## Keep the existing action and birth contracts
 

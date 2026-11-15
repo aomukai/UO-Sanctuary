@@ -15,11 +15,11 @@ internal interface IBarrierRetirement
     void StoreRetirement(BarrierRetirementState state);
 }
 
-// Prepared Sanctuary composition, not a recovered modern hidedead/owner graph.
+// Approved Sanctuary composition, not a recovered modern hidedead/owner graph.
 // Reuse the sentry's scheduler calculation and the barrier's existing 40ms timer.
 internal static class BoneBarrierRetirement
 {
-    internal static bool Approved=>false;
+    internal static bool Approved=>true;
     private static readonly HashSet<BoneBarrierSegment> Tracked=new();
     internal static Action<BoneBarrierSegment,BarrierRetirementState> Restored;
     internal static int DurationMs=>AssassinSentryRetirement.EndDelay(15,256)*40;

@@ -120,7 +120,7 @@ public static class BoneBarrierClockChecks
             else{Require(b.UsesNativeSummonTimer&&r.Clock==null,"Legacy timer ownership changed");}
         }
         foreach(var (clock,state) in resume){Require(BoneBarrierThinkClock.Expired(clock,state.BornUtc.AddMilliseconds(610*40)),"Saved clock did not resume its next event");}
-        Timer.StartTimer(TimeSpan.FromMilliseconds(160),()=>Core.LoopContext.Post(()=>
+        Timer.StartTimer(TimeSpan.FromMilliseconds(BoneBarrierRetirement.Approved?800:160),()=>Core.LoopContext.Post(()=>
         {
             try
             {

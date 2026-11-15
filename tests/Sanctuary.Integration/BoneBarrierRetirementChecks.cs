@@ -72,12 +72,15 @@ public static class BoneBarrierRetirementChecks
     }
     private static void Scene()
     {
-        Require(!BoneBarrierRetirement.Approved&&BoneBarrierRetirement.DurationMs==600,"Unapproved barrier rule enabled or DT15 clock changed");
+        Require(BoneBarrierRetirement.Approved&&BoneBarrierRetirement.DurationMs==600,"Approved barrier rule unavailable or DT15 clock changed");
         var p=Fresh();var groups=new List<BoneBarrierSegment[]>();bool kept=false;
         try
         {
             var original=BoneBarrierSegment.Spawn(p,CombatAbility.BoneWall,new(p.X+2,p.Y,p.Z),SkillMechanics.Values(p,CombatAbility.BoneWall),null);
-            Require(original is BoneWallThinkingBody and not IBarrierRetirement,"Prepared rule changed ordinary learned allocation");original.Delete();
+            Require(original is BoneWallRetiringBody,"Approved default allocator missed retirement subtype");original.Delete();
+            var historical=BoneBarrierSegment.SpawnHistorical(p,CombatAbility.BoneWall,new(p.X+2,p.Y,p.Z),SkillMechanics.Values(p,CombatAbility.BoneWall),null);
+            var oldChild=BoneBarrierSegment.Spawn(p,CombatAbility.BoneWall,new(p.X+3,p.Y,p.Z),null,historical);
+            Require(historical is BoneWallThinkingBody and not IBarrierRetirement&&oldChild is not IBarrierRetirement&&oldChild.Root==historical,"Historical root mixed new policy into its growing children");historical.Delete();Require(oldChild.Deleted,"Historical root cleanup regressed");
             foreach(var ability in new[]{CombatAbility.BoneWall,CombatAbility.BonePrison})
             {
                 var group=Group(p,ability,5);groups.Add(group);var root=group[0];var child=group[1];var at=TimedEffects.Now;
@@ -88,7 +91,7 @@ public static class BoneBarrierRetirementChecks
                 Fire(caster,p);Require(SkillHealth.Balance256(p)==hp&&group.Where((b,i)=>SkillHealth.Balance256(b)<lives[i]).Any(),"Live candidate formation failed to intercept real hostile damage");
                 var tiles=group.SelectMany(b=>b.Tiles).ToArray();
                 Require(!Server.Movement.Movement.CheckMovement(p,p.Map,new(root.X-1,root.Y,root.Z),Direction.East,out _),"Living barrier did not block actual movement");
-                child.Kill();var state=((IBarrierRetirement)child).Retirement;Require(state!=null,"Actual child Kill did not enter prepared death");Retired(group,state.EnteredUtc,"damage");
+                AOS.Damage(child,caster,child.HitsMax*2,false,100,0,0,0,0,weaponDamage:true);var state=((IBarrierRetirement)child).Retirement;Require(state!=null,"Actual lethal weapon damage did not enter death");Retired(group,state.EnteredUtc,"damage");
                 BoneBarrierRetirement.Begin(root,state.EnteredUtc.AddMilliseconds(100),"source-ai");Retired(group,state.EnteredUtc,"damage");
                 Require(tiles.All(t=>t.Deleted),"Retirement retained actual collision items");
                 Require(group.All(b=>p.Map.CanFit(b.Location,16,true,true,false))&&Server.Movement.Movement.CheckMovement(p,p.Map,new(root.X-1,root.Y,root.Z),Direction.East,out _),"Collapse did not immediately release native movement/placement");
@@ -107,7 +110,7 @@ public static class BoneBarrierRetirementChecks
                 actors.AddRange(group.Select(b=>new Actor(b.Serial.Value,b.GetType().Name,b.Root?.Serial.Value??0,SkillHealth.Balance256(b),((IBarrierThinkClock)b).Clock,((IBarrierRetirement)b).Retirement)));
             }
             File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(0,p.Serial.Value,actors.ToArray())));kept=true;
-            Log.Information("Barrier retirement:default gate retained,DT15uses shared scheduler,actual child death collapses whole root/near/far formation,immediate collision release,idempotent deadline,strict completion and UTC refusal pass;save payloads are inspected future fixtures");
+            Log.Information("Barrier retirement:approved default admission and historical child policy,shared DT15 scheduler,whole root/near/far collapse,immediate collision release,idempotent deadline,strict completion and UTC refusal pass;save payloads are inspected future fixtures");
         }
         finally{if(!kept){foreach(var group in groups)foreach(var b in group){b.Delete();}p.Delete();}}
     }
@@ -129,7 +132,7 @@ public static class BoneBarrierRetirementChecks
     {
         // Prepare retained fixtures first, then save actual newly entered
         //600ms collapse. No future timestamp or extended deadline here.
-        BoneWallMakerChecks.StageSave();BoneBarrierBirthChecks.PrepareSave();
+        BoneBarrierClockChecks.StageSave();BoneWallMakerChecks.StageSave();BoneBarrierBirthChecks.PrepareSave();
         var p=Fresh();var actors=new List<Actor>();
         foreach(var ability in new[]{CombatAbility.BoneWall,CombatAbility.BonePrison})
         {
@@ -147,10 +150,9 @@ public static class BoneBarrierRetirementChecks
         Require(SkillBindings.Instance.Assign(p,false,ability)&&SkillBindings.Instance.AssignQuick(p,7,ability),"Barrier binding");
         var target=new GraveyardSkeleton{Name="BarrierRetirementTarget",Frozen=true,CantWalk=true,NoKillAwards=true};target.MoveToWorld(new(p.X+10,p.Y,p.Z),p.Map);target.AIObject?.AITimer.Stop();
         ClassCombat.Stop(p);ClassCombat.For(p).NextAction=ClassCombat.For(p).RecoveryUntil=Core.TickCount;NecromancerEffects.SetMana256(p,200*256+17);
-        var allocation=BoneBarriers.Allocate;BoneBarriers.Allocate=(owner,a,point,values,root)=>owner==p?BoneBarrierSegment.SpawnRetiring(owner,a,point,values,root):allocation(owner,a,point,values,root);
         int mana=NecromancerEffects.ManaBalance256(p),cost=SkillMechanics.Values(p,ability).Mana256;string label="barrier-retirement-"+mode;
         bool began=false,released=false,done=false;BoneBarrierSegment[] parts=null;BarrierRetirementState death=null;long deadline=Core.TickCount+35000;
-        void Cleanup(){BoneBarriers.Allocate=allocation;ClassCombat.Stop(p);if(parts!=null)foreach(var b in parts){b.Delete();}target.Delete();p.Delete();account.Delete();}
+        void Cleanup(){ClassCombat.Stop(p);if(parts!=null)foreach(var b in parts){b.Delete();}target.Delete();p.Delete();account.Delete();}
         void Inspect()
         {
             if(done){return;}
@@ -161,8 +163,8 @@ public static class BoneBarrierRetirementChecks
                 if(!released&&Parts(p).Length>0)
                 {
                     parts=Parts(p);
-                    Require(began&&parts.All(b=>b is IBarrierRetirement)&&NecromancerEffects.ManaBalance256(p)==mana-cost,"Candidate release/payment");released=true;BoneBarriers.Allocate=allocation;
-                    if(!wall){parts.First(b=>b.Root!=null).Kill();}
+                    Require(began&&parts.All(b=>b is IBarrierRetirement)&&NecromancerEffects.ManaBalance256(p)==mana-cost,"Learned release/payment");released=true;
+                    if(!wall){var child=parts.First(b=>b.Root!=null);AOS.Damage(child,target,child.HitsMax*2,false,100,0,0,0,0,weaponDamage:true);}
                 }
                 if(released&&death==null)
                 {

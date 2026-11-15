@@ -1,0 +1,13 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "answer": "Approve the complete barrier-world rule (Recommended)",
+  "questionItemId": "[\"request_user_input_async\",\"call_0fcfa3489a944202871a3b9b31f5c2d2\",0]",
+  "approvedUtc": "2026-11-15T17:19:44.536541+00:00",
+  "candidateCommit": "e596fd4532cf2ad31b9b99a0960d235fd9e7e138",
+  "proposal": "docs/bone-barrier-world-rule-proposal.md",
+  "proposalAtApprovalSha256": "390fa477c898dae366fef21424d200da5ae8ef2cc4b92a9abc2868b67bc97da6",
+  "testedCandidateEvidence": "tools/reference/bone-barrier-retirement-native-evidence.json",
+  "testedCandidateEvidenceSha256": "6d9ada95f96de97d7e56a0759c17312fcfa09fa449a70b73baee85d6a66e1bf8",
+  "scope": "Complete native placement/geometry,linked collapse on any segment death,immediate collision release,DT15/600ms removal,explicit cleanup,persistence and compatibility rule. Enables new learned barrier allocation after default-route verification;four older Warlock proposals remain pending."
+}

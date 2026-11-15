@@ -1,5 +1,7 @@
 # Bone Wall/Prison: prepared world and retirement checkpoint
 
+**Historical prepared snapshot.** The complete rule is now [approved](../tools/reference/bone-barrier-world-rule-approval.json) and its [normal learned route is accepted](bone-barrier-world-cast-checkpoint.md). The pending/gated statements below describe the earlier candidate at e596fd45.
+
 Reference: **D2R Reign of the Warlock 3.3.93847**, approved deviations first. [Complete proposed rule](bone-barrier-world-rule-proposal.md); [native receipt](../tools/reference/bone-barrier-retirement-native-evidence.json). **Pending approval. Ordinary learned allocation retains its previous behavior.** No class is certified and handler coverage remains236/240.
 
 ## Implemented candidate

@@ -94,8 +94,8 @@ public static class BoneBarrierChecks
                         "Owner walked through a bone wall");
                     var child = parts.Single(s => s.Y == center.Y + 1);
                     AOS.Damage(child, enemy, 100, false, 100, 0, 0, 0, 0, weaponDamage: true);
-                    Require(child.Deleted && !root.Deleted && child.Corpse == null
-                        && !HasTile(owner.Map, child.Location, 0), "Destroying a child failed to open its own gap");
+                    Require((BoneBarrierRetirement.Approved?!child.Deleted&&!root.Deleted&&!child.Alive&&!root.Alive:child.Deleted&&!root.Deleted)
+                        &&child.Corpse==null&&!HasTile(owner.Map,child.Location,0),"Destroying a child failed approved collapse/collision rules");
                     owner.Mana = owner.ManaMax;
                     Require(NecromancerCombat.Release(owner, CombatAbility.BonePrison, enemy.Serial, enemy.Location), "Bone Prison release");
                     var prison = Segments(owner, center).Where(s => s.Ability == CombatAbility.BonePrison).ToArray();
@@ -103,7 +103,7 @@ public static class BoneBarrierChecks
                     Require(!Server.Movement.Movement.CheckMovement(enemy, enemy.Map, new Point3D(enemy.X + 1, enemy.Y, enemy.Z), Direction.East, out _),
                         "Prison left a traversable gap at a raster edge");
                     var expiry = prison.Max(s => s.ExpiresUtc);
-                    Timer.StartTimer(TimeSpan.FromMilliseconds(Math.Max(0, (expiry - TimedEffects.Now).TotalMilliseconds) + 1000), () =>
+                    Timer.StartTimer(TimeSpan.FromMilliseconds(Math.Max(0, (expiry - TimedEffects.Now).TotalMilliseconds) + (BoneBarrierRetirement.Approved?2000:1000)), () =>
                     {
                         try
                         {

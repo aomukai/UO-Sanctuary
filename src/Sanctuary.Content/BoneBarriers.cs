@@ -126,7 +126,9 @@ public partial class BoneBarrierSegment : BaseCreature
         AIObject?.AITimer.Stop();
     }
     internal static BoneBarrierSegment Spawn(PlayerMobile owner, CombatAbility ability, Point3D point, SkillValues values, BoneBarrierSegment root)
-        =>SpawnCore(owner,ability,point,values,root,BoneBarrierRetirement.Approved||root is IBarrierRetirement);
+        =>SpawnCore(owner,ability,point,values,root,root==null?BoneBarrierRetirement.Approved:root is IBarrierRetirement);
+    internal static BoneBarrierSegment SpawnHistorical(PlayerMobile owner,CombatAbility ability,Point3D point,SkillValues values,BoneBarrierSegment root)
+        =>SpawnCore(owner,ability,point,values,root,false);
     internal static BoneBarrierSegment SpawnRetiring(PlayerMobile owner,CombatAbility ability,Point3D point,SkillValues values,BoneBarrierSegment root)
         =>SpawnCore(owner,ability,point,values,root,true);
     private static BoneBarrierSegment SpawnCore(PlayerMobile owner, CombatAbility ability, Point3D point, SkillValues values, BoneBarrierSegment root,bool retirement)
