@@ -1099,7 +1099,7 @@ Inherited NPC item absorption now changes life mechanically. Final Iron Golem ab
 | Warlock | Sigil: Lethargy | needed | sigillethargysmall, sigillethargymedium, sigillethargylarge, sigil, warlock_shadow_cast_1, sigillethargysmall, sigillethargymedium, sigillethargylarge |
 | Warlock | Sigil: Rancor | needed | sigilrancorsmall, sigilrancormedium, sigilrancorlarge, sigil, warlock_fire_cast_1, sigilrancorsmall, sigilrancormedium, sigilrancorlarge |
 | Warlock | Miasma Chain | needed | miasmachainsmaker, warlock_shadow_cast_1 |
-| Warlock | Flame Wave | needed | flamewaveunveiling, warlock_fire_cast_1, flamewaveunveiling, warlock_fire_cast_1 |
+| Warlock | Flame Wave | needed | Revealing wall708, rolling front690, short tail695, static fire716/240, termination29 and cast/audio. Current UO flames and sound are identified placeholders; no final assets. |
 | Warlock | Sigil: Death | needed | sigildeathsmall, sigildeathmedium, sigildeathlarge, sigil, warlock_shadow_cast_1, sigildeathsmall, sigildeathmedium, sigildeathlarge |
 | Warlock | Enhanced Entropy | not-applicable | shadow_mastery |
 | Warlock | Apocalypse | needed | apocalypse, apocalypse, warlock_fire_cast_1, apocalypse |

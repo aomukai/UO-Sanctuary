@@ -1,0 +1,36 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Flame Wave complete world candidate",
+  "status": "explicit-adaptation-pending",
+  "proposal": "docs/flame-wave-world-rule-proposal.md",
+  "newReferenceReads": 0,
+  "sourceFacts": [
+    "Pinned isolated skill398/missiles708,690,695,716,240,29 graph, numeric curves and separate head/field synergies.",
+    "Skilldesc independently binds lingering duration to 7+68=75 frames.",
+    "Complete older do6 changed-path child creation is reused; modern156/42/38 composition is unavailable."
+  ],
+  "adaptations": [
+    "Non-damaging revealing controller extends two lanes per side/update;launch at17,40moving updates,shared15-frame head lease.",
+    "Changed source cells emit 8-frame tail and75-frame static makers with inherited240 damage/expiry;one burn/recipient/cast/update;no Meteor/Inferno damage substitution.",
+    "Fixed aim,live player-fire potion context,resource/interrupt,world collision,parking/skip,independent child expiry and atomic saved graph."
+  ],
+  "reuse": [
+    "WarlockCastClock/SkillCombat/ClassCombat for SC/FCR and interruption.",
+    "NecromancerEffects/FireGround for fractional mana/cooldown.",
+    "MissileVectors/SourceMissileSteps/CombatHitboxes/LobProjectiles for source stepping/terrain.",
+    "SourceFireFields/SorceressSpellMissiles for typed fire/mitigation/recovery.",
+    "MiasmaWorld.Fighting/Enemy and existing TimedEffects clock/safe-area helpers."
+  ],
+  "inputs": {
+    "src/Sanctuary.Content/FlameWaveBirth.cs": "690f6108ff712f65e58a1cb91f0e2b51e2efa859023b312e76f46e044c761f90",
+    "src/Sanctuary.Content/FlameWaveWorld.cs": "659a5caabb64599de2452e1d3f9f1f255b35b9bcd41ba37309e1d3b2a09d6788",
+    "src/Sanctuary.Content/FlameWaveCasting.cs": "84d80af3225debee59f264d24437ed6beb0946a8a7242704f03c591da897f3a3",
+    "src/Sanctuary.Content/SourceFireFields.cs": "fe10ec1479ef56a2c9f8a5718611172b612e717fce4883fffd3b23f7021e2307",
+    "src/Sanctuary.Content/MoltenBoulderPackets.cs": "256915c50c944d6a0e1afedc06393b0911f28ddca408bb554bf6bd5577c1a58d",
+    "src/Sanctuary.Content/WarlockCastClock.cs": "303ae3fc26c89c8f555837ad257a4bb66bc4e30ac06a87a11db60b8f045b87f5",
+    "src/Sanctuary.Content/SourceMissileSteps.cs": "34cbbd2c014c63e91626d8e38a8ab0eb6a1ff5bdf7f746686be3f53e7d385bdb",
+    "src/Sanctuary.Content/MissileVectors.cs": "5de0e821f486168082b8b3495ec90df3aa8a431dc0a92971a3ef3e69a0e04e5f",
+    "data/Sanctuary/Balance/flame-wave-route.json": "ad324dc6067dac20c558efac742f875dfb1e0dc095c6d8487dc2cdd039eed6c2",
+    "tools/reference/flame-wave-birth-source-review.json": "d27299e4124b83f7fa7710a212a66b44c27433c8ff30907445e4a22c17083587"
+  }
+}

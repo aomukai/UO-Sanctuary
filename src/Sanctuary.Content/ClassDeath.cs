@@ -42,6 +42,7 @@ public static class ClassDeath
         EldritchBlastWorld.Clear(player);
         EchoingStrikeWorld.Clear(player);
         MiasmaWorld.Clear(player);
+        FlameWaveWorld.Clear(player);
         WeaponMissiles.CancelMirrored(player);
         HexBane.Clear(player);
         HexSiphon.Clear(player);

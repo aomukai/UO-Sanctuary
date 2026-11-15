@@ -57,6 +57,7 @@ public static class ClassCombat
         internal MirroredBladesAction.Pending Mirrored;
         internal MiasmaBoltCasting.Pending Miasma;
         internal MiasmaChainCasting.Pending MiasmaChain;
+        internal FlameWaveCasting.Pending FlameWave;
         internal ConsumeCasting.Pending Consume;
         internal DragonFlights.Flight Flight;
         internal DruidChargedAttacks.Pending DruidChargeAttack;
@@ -287,6 +288,7 @@ public static class ClassCombat
         MirroredBladesAction.Cancel(from);
         MiasmaBoltCasting.Cancel(from);
         MiasmaChainCasting.Cancel(from);
+        FlameWaveCasting.Cancel(from);
         ConsumeCasting.Cancel(from);
         PaladinCharge.Cancel(from);
         For(from).Target = Serial.Zero;
@@ -564,6 +566,7 @@ public static class ClassCombat
         if(session.Engorge!=null){return EngorgeCasting.ResolvePrepared(from,now);}
         if(session.BloodBoil!=null){return BloodBoilCasting.ResolvePrepared(from,now);}
         if(session.MiasmaChain!=null){return MiasmaChainCasting.ResolvePrepared(from,now);}
+        if(session.FlameWave!=null){return FlameWaveCasting.ResolvePrepared(from,now);}
         if(session.Miasma!=null){return MiasmaBoltCasting.ResolvePrepared(from,now);}
         if(session.Mirrored!=null){return MirroredBladesAction.Resolve(from,now);}
         if(session.Echoing!=null){return EchoingStrikeCasting.ResolvePrepared(from,now);}
