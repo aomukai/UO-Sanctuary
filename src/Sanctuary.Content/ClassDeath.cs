@@ -40,6 +40,7 @@ public static class ClassDeath
         DruidCycloneArmor.Clear(player);
         PsychicWard.Clear(player);
         EldritchBlastWorld.Clear(player);
+        EchoingStrikeWorld.Clear(player);
         HexBane.Clear(player);
         HexSiphon.Clear(player);
         HexPurge.Clear(player);

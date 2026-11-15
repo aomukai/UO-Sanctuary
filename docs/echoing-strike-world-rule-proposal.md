@@ -1,6 +1,8 @@
 # Echoing Strike: proposed complete Sanctuary action/world rule
 
-**Pending approval.** Reference remains **D2R Reign of the Warlock3.3.93847**, approved Sanctuary deviations first. This proposal defines the complete prepared skill rather than treating unrecovered do166/missile44/hit34/damage16 as verified code. The saved current do166 body remains0/757readable bytes across six protected fragments; no new read or3.4substitution is made. Handler coverage stays228/240,Warlock19/30 until learned admission and its actual input verification.
+**Approved by the user on2026-11-15 JST.** [Exact decision](../tools/reference/echoing-strike-world-rule-approval.json). The body below is the original approved proposal; implementation/acceptance status is recorded separately.
+
+**Original proposal.** Reference remains **D2R Reign of the Warlock3.3.93847**, approved Sanctuary deviations first. This proposal defines the complete prepared skill rather than treating unrecovered do166/missile44/hit34/damage16 as verified code. The saved current do166 body remains0/757readable bytes across six protected fragments; no new read or3.4substitution is made. Handler coverage stays228/240,Warlock19/30 until learned admission and its actual input verification.
 
 Owned skill388/missile706/visual720 and the [accepted source inputs](echoing-strike-inputs-checkpoint.md) supply rank/hard-point numbers and original weapon stats. The user's [original compiled/tested research](https://upload3.inven.co.kr/upload/2026/03/02/bbs/WarlockSkillsNotesandFunctionality.pdf) reports multiplicative skill ED,Damage+exclusion,automatic hits and returning blades. Some reports conflict with raw ToHit1/NextHit1/NextDelay20. The choices below resolve those remaining gaps as explicit Sanctuary adaptations; none is a recovered callback claim.
 

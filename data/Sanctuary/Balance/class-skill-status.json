@@ -2473,10 +2473,10 @@
       "characterClass": "Warlock",
       "tree": "Eldritch",
       "sourceId": 388,
-      "implementation": "blocked",
+      "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Prepared table suppliers reuse the shared skill evaluator with corrected current clc1..9/clc0 aliases. Hard Mirrored Blades points determine1..5attacks and integer attack percentages;hard Mirrored/Blade Warp points supply damage synergy. Effective own rank supplies physical tiers,ED,AR and fractional mana. Real Warlock/Witch gear/resources persist through native reload controls. Current do166 and missile706do44/hit34/damage16 remain unrecovered:launch/mirror geometry,return flight,first-versus-duplicate scaling,weapon/item/poison/accuracy chronology,hit-delay identity and learned input/payment remain gated. No Mirrored Blades behavior is copied on resemblance. See echoing-strike-checkpoint.md;effects/icons remain separate."
+      "remaining": "Approved Sanctuary SC/FCR cast captures original weapon/skill/element/poison/critical/slow inputs at release,pays once,and emits shared source fans with twenty-update outward and distance-limited return flight. Automatic accuracy retains native avoidance/block;independent twenty-frame per-echo leases and shared Hex/leech/typed damage events apply. Saved packets/IDs/seeds/motion/clocks/leases retain;unsupported native/PvP contexts refuse. Learned left/right/quick/automatic-clock checks are recorded in echoing-strike-cast-checkpoint.md. Protected current callbacks,global RNG/InitSteps parity,graphical/class certification and final assets remain open. Approval:echoing-strike-world-rule-approval.json."
     },
     {
       "talentId": "warlock.hexpurge",

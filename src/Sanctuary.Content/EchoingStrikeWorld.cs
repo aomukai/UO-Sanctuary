@@ -22,11 +22,12 @@ public sealed class EchoingStrikeWorldProfiles:GenericPersistence
     {if(r.ReadInt()!=0){throw new InvalidDataException("Unknown Echoing Strike version");}EchoingStrikeWorld.Restore(JsonSerializer.Deserialize<EchoingWorldSave>(r.ReadString()));}
 }
 
-// Complete proposed native-world projection. No automatic clock or learned
-// route until the whole documented action/world rule is approved.
+// Approved complete native-world rule;protected D2R callbacks remain
+// explicitly adapted in the recorded whole-rule decision.
 internal static class EchoingStrikeWorld
 {
-    internal static bool Approved=>false;
+    internal static bool Approved=>true;
+    private static readonly Server.Logging.ILogger Log=Server.Logging.LogFactory.GetLogger(typeof(EchoingStrikeWorld));
     private static ImmutableDictionary<long,EchoingFlight> Flights=ImmutableDictionary<long,EchoingFlight>.Empty;
     private static ImmutableDictionary<(long,uint),WeaponFlightLease> Leases=ImmutableDictionary<(long,uint),WeaponFlightLease>.Empty;
     private static long _next;
@@ -195,6 +196,17 @@ internal static class EchoingStrikeWorld
             else{Effects.SendLocationEffect(Point(remaining.X,remaining.Y,s.Origin.Z),p.Map,0x36E4,2,10,0x48D,0);} // Identified moving-blade placeholder;visual720 adds no damage actor.
         }
         return new(true,contacts,damage);
+    }
+    internal static void Tick(DateTime at)
+    {
+        if(World.Loading||!Approved){return;}
+        // Isolate unsupported contexts by owner so one diagnostic cannot
+        // delay unrelated casts. The existing forty-ms world clock owns us.
+        foreach(uint owner in Flights.Values.Select(s=>s.Owner).Distinct().OrderBy(n=>n).ToArray())
+        {
+            var result=TickPrepared(at,owner:owner);
+            if(result.Fault!=null){Log.Warning("Echoing Strike stopped an unsupported echo for {Owner}: {Reason}",owner,result.Fault);}
+        }
     }
     internal static EchoingAdvance TickPrepared(DateTime at,bool? actions=null,uint? owner=null)
     {

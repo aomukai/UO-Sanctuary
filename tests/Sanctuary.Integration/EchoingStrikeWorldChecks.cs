@@ -18,6 +18,11 @@ public static class EchoingStrikeWorldChecks
     private static void Rates()
     {
         var hp=Mobile.HitsRegenRateHandler;var mp=Mobile.ManaRegenRateHandler;
+        // A regeneration timer may already be scheduled before fixture naming.
+        // Gate its first callback too;changing the next interval is insufficient.
+        var canHp=ClassGearHooks.CanRegenerateHits;var canMp=ClassGearHooks.CanRegenerateMana;
+        ClassGearHooks.CanRegenerateHits=m=>!(m.Name=="EchoingWorldFixture")&&canHp?.Invoke(m)!=false;
+        ClassGearHooks.CanRegenerateMana=m=>!(m.Name=="EchoingWorldFixture")&&canMp?.Invoke(m)!=false;
         Mobile.HitsRegenRateHandler=m=>m.Name=="EchoingWorldFixture"?TimeSpan.FromHours(1):hp?.Invoke(m)??Mobile.DefaultHitsRate;
         Mobile.ManaRegenRateHandler=m=>m.Name=="EchoingWorldFixture"?TimeSpan.FromHours(1):mp?.Invoke(m)??Mobile.DefaultManaRate;
     }
@@ -76,7 +81,7 @@ public static class EchoingStrikeWorldChecks
         EchoingStrikeWorld.SeedLow=()=>73;SourceBlocking.BlockRoll=_=>99;bool kept=false;
         try
         {
-            Require(!EchoingStrikeWorld.Approved&&!WarlockCombat.Implemented(CombatAbility.EchoingStrike)&&!SkillBindings.Instance.Assign(p,true,CombatAbility.EchoingStrike),"Unapproved learned route admitted");Packets(p,target);
+            Require(EchoingStrikeWorld.Approved&&WarlockCombat.Implemented(CombatAbility.EchoingStrike)&&SkillBindings.Instance.Assign(p,true,CombatAbility.EchoingStrike),"Approved learned route unavailable");Packets(p,target);
             Ready(p);Require(HexBane.CastPrepared(p,true),"Actual live Hex buff");Ready(p);int mana=NecromancerEffects.ManaBalance256(p),durability=weapon.HitPoints;
             var pending=EchoingStrikeCasting.BeginPrepared(p,target.Serial,target.Location,Core.TickCount);Require(pending!=null,"Prepared SC startup");var session=ClassCombat.For(p);long effect=session.EffectAt;
             Require(!ClassCombat.ResolveAction(p,effect-1)&&EchoingStrikeWorld.For(p).Length==0&&NecromancerEffects.ManaBalance256(p)==mana,"Early SC debit/emission");
@@ -164,7 +169,10 @@ public static class EchoingStrikeWorldChecks
         var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)saved.Owner);var account=FixtureNetwork.Authenticate(network,p,"echo-world-reload-");
         try
         {
-            Require(JsonSerializer.Serialize(EchoingStrikeWorld.Snapshot())==JsonSerializer.Serialize(saved.State)
+            var live=EchoingStrikeWorld.Snapshot();var ids=saved.State.Flights.Select(f=>f.Id).ToHashSet();
+            Require(live.NextId>=saved.State.NextId
+                &&JsonSerializer.Serialize(live.Flights.Where(f=>f.Owner==p.Serial.Value))==JsonSerializer.Serialize(saved.State.Flights)
+                &&JsonSerializer.Serialize(live.Leases.Where(l=>ids.Contains(l.Cast)))==JsonSerializer.Serialize(saved.State.Leases)
                 &&World.FindItem((Serial)saved.Weapon)?.Parent==p&&NecromancerEffects.ManaBalance256(p)==saved.Mana&&SkillHealth.Balance256(p)==saved.Life,"Saved original flight/weapon/resources changed");
             var target=(BaseCreature)World.FindMobile((Serial)saved.Target);target.AIObject?.AITimer.Stop();
             Require(SkillHealth.Balance256(target)==saved.TargetLife&&saved.State.Leases.Count(l=>l.Target==saved.Target)==2,"Original saved target/positive leases");
@@ -177,8 +185,8 @@ public static class EchoingStrikeWorldChecks
             EchoingStrikeWorld.TickPrepared(next,true,p.Serial.Value);Require(EchoingStrikeWorld.For(p).All(s=>s.NextUtc==next.AddMilliseconds(40)),"Saved flight did not resume");
             Require(SkillHealth.Balance256(target)==saved.TargetLife&&saved.State.Leases.All(l=>!EchoingStrikeWorld.Ready(l.Cast,l.Target,next)),"Reload duplicated a leased contact");
             target.MoveToWorld(targetOrigin,p.Map);
-            EchoingStrikeWorld.Restore(saved.State);File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Generation=saved.Generation+1}));
-            Require(!WarlockCombat.Implemented(CombatAbility.EchoingStrike)&&ClassCombat.For(p).Echoing==null,"Reload admitted learned/transient action");
+            EchoingStrikeWorld.Restore(live);File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Generation=saved.Generation+1}));
+            Require(WarlockCombat.Implemented(CombatAbility.EchoingStrike)&&ClassCombat.For(p).Echoing==null,"Reload admitted learned/transient action");
             Log.Information("Echoing world:original saved flight IDs/packets/critical/RNG/source stats/clock/return budget/weapon/fractional wounds+mana retain and resume through actual reload;future inspection clock only");
         }
         finally{ClassCombat.Stop(p);network.Mobile=null;p.NetState=null;account[0]=null;network.Account=null;account.Delete();}

@@ -59,7 +59,7 @@ public static class EchoingStrikeChecks
         Require(warpValues.Eval("calc6")==MirroredBladesPrepared.Capture(new(SkillMechanics.For(CombatAbility.MirroredBlades),k=>k=="Mirrored Blades"?20:1,_=>0,99)).DuplicatePercent,"Blade Warp cross-skill calc6 lookup");
         foreach(var ability in new[]{CombatAbility.Cleave,CombatAbility.MirroredBlades})
         {var v=new SkillValues(SkillMechanics.For(ability),_=>20,_=>0,99);Require(v.Eval("cltcalc1")==v.Eval("calc3"),"Client attack-speed alias differed from the skill supplier");}
-        Require(!WarlockCombat.Implemented(CombatAbility.EchoingStrike),"Suppliers enabled unrecovered Echoing launch/hit behavior");
+        Require(WarlockCombat.Implemented(CombatAbility.EchoingStrike)==EchoingStrikeWorld.Approved,"Suppliers enabled unrecovered Echoing launch/hit behavior");
         Log.Information("Echoing suppliers:10pinned aliases/176rank-hard-synergy controls,cross-skill/client lookup and real-cycle refusal pass;learned route remains gated.");
     }
     private static void Check(bool reload)

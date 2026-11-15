@@ -18,6 +18,11 @@ public static class EchoingStrikeInputChecks
     private static void Rates()
     {
         var hp=Mobile.HitsRegenRateHandler;var mp=Mobile.ManaRegenRateHandler;
+        // A regeneration timer may already be scheduled before fixture naming.
+        // Gate its first callback too;changing the next interval is insufficient.
+        var canHp=ClassGearHooks.CanRegenerateHits;var canMp=ClassGearHooks.CanRegenerateMana;
+        ClassGearHooks.CanRegenerateHits=m=>!(m.Name=="EchoingInputsSaved")&&canHp?.Invoke(m)!=false;
+        ClassGearHooks.CanRegenerateMana=m=>!(m.Name=="EchoingInputsSaved")&&canMp?.Invoke(m)!=false;
         Mobile.HitsRegenRateHandler=m=>m.Name=="EchoingInputsSaved"?TimeSpan.FromHours(1):hp?.Invoke(m)??Mobile.DefaultHitsRate;
         Mobile.ManaRegenRateHandler=m=>m.Name=="EchoingInputsSaved"?TimeSpan.FromHours(1):mp?.Invoke(m)??Mobile.DefaultManaRate;
     }
@@ -70,12 +75,12 @@ public static class EchoingStrikeInputChecks
             Require(changed.Skill.Rank==7&&changed.Skill.TotalAttacks==2&&changed.WeaponInputs.Elements.MagicMin<captured.WeaponInputs.Elements.MagicMin
                 &&JsonSerializer.Serialize(captured)==frozen,"Captured source was a live view of gear/points/Hex");
             p.AddToBackpack(weapon);bool refused=false;try{EchoingStrikeInputs.Capture(p);}catch(NotSupportedException){refused=true;}
-            Require(refused&&!WarlockCombat.Implemented(CombatAbility.EchoingStrike),"Unarmed capture or unqualified learned route admitted");
+            Require(refused&&WarlockCombat.Implemented(CombatAbility.EchoingStrike)==EchoingStrikeWorld.Approved,"Unarmed capture or unqualified learned route admitted");
             Require(p.EquipItem(weapon)&&p.EquipItem(helm),"Original source gear restore");ClassGear.Refresh(p);
             NecromancerEffects.SetMana256(p,p.ManaMax*256);Require(HexBane.CastPrepared(p,true),"Restore source Hex");
             SkillHealth.SetBalance256(p,SkillHealth.Maximum256(p)-513);NecromancerEffects.SetMana256(p,p.ManaMax*256-17);
             rows[index++]=new(p.Serial.Value,weapon.Serial.Value,helm.Serial.Value,poisonItems.Select(x=>x.Serial.Value).ToArray(),female,EchoingStrikeInputs.Capture(p),SkillHealth.Balance256(p),NecromancerEffects.ManaBalance256(p),weapon.HitPoints);
-            Require(!SkillBindings.Instance.Assign(p,true,CombatAbility.EchoingStrike)&&!SkillBindings.Instance.AssignQuick(p,7,CombatAbility.EchoingStrike),"Input collector enabled learned binding");
+            Require(SkillBindings.Instance.Assign(p,true,CombatAbility.EchoingStrike)==EchoingStrikeWorld.Approved&&SkillBindings.Instance.AssignQuick(p,7,CombatAbility.EchoingStrike)==EchoingStrikeWorld.Approved,"Input collector enabled learned binding");
         }
         File.WriteAllText(FileName,JsonSerializer.Serialize(new Manifest(0,rows,NamedGear.Unavailable[unavailable.Id])));
         Log.Information("Echoing inputs:actual StoneCrusher/Ironward base+ED+flat ledger,blunt species/item+Hex magic,critical chances/raw poison+slow,real soft gear/hard5threshold,immutable inputs and no resource/durability/roll side effects pass;Reedeemer skill-property policy unchanged;final scaling/flight gated");
@@ -88,8 +93,8 @@ public static class EchoingStrikeInputChecks
             var p=(PlayerMobile)World.FindMobile((Serial)row.Owner);var w=(BaseWeapon)World.FindItem((Serial)row.Weapon);ClassGear.Refresh(p);
             Require(p.Female==row.Female&&w.Parent==p&&World.FindItem((Serial)row.Helm)?.Parent==p&&w.HitPoints==row.Durability,"Original saved unique/helmet/durability");
             Require(row.PoisonItems.Length==2&&row.PoisonItems.All(n=>World.FindItem((Serial)n)?.Parent==p),"Original saved poison equipment");
-            Require(EchoingStrikeInputs.Capture(p)==row.Input&&SkillHealth.Balance256(p)==row.Life&&NecromancerEffects.ManaBalance256(p)==row.Mana,"Saved source inputs/Hex/items/ranks/fractional resources");
-            Require(!WarlockCombat.Implemented(CombatAbility.EchoingStrike),"Reload admitted missing consumer");
+            var actual=EchoingStrikeInputs.Capture(p);Require(actual==row.Input&&SkillHealth.Balance256(p)==row.Life&&NecromancerEffects.ManaBalance256(p)==row.Mana,$"Saved source inputs/Hex/items/ranks/fractional resources: life={SkillHealth.Balance256(p)}/{row.Life},mana={NecromancerEffects.ManaBalance256(p)}/{row.Mana},actual={JsonSerializer.Serialize(actual)},expected={JsonSerializer.Serialize(row.Input)}");
+            Require(WarlockCombat.Implemented(CombatAbility.EchoingStrike)==EchoingStrikeWorld.Approved,"Reload admitted missing consumer");
         }
         File.WriteAllText(FileName,JsonSerializer.Serialize(old with{Generation=old.Generation+1}));
         Log.Information("Echoing inputs:original Warlock/Witch unique weapons,helm,Hex-derived immutable input values,hard/soft ranks,fractional wounds+mana and durability retain without final packet/flight");

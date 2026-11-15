@@ -251,6 +251,7 @@ public static class TimedEffects
         ConsumeEffects.Prune(now);
         BoundDemonHosts.Tick();
         EldritchBlastWorld.Tick(now);
+        EchoingStrikeWorld.Tick(now);
         _keys.Clear(); foreach (var key in _actors.Keys) { _keys.Add(key); }
         foreach (var key in _keys)
         {

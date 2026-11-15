@@ -1,0 +1,13 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "answer": "Approve the complete Echoing Strike rule (Recommended)",
+  "approvedUtc": "2026-11-15T10:00:53.934630+00:00",
+  "questionItemId": "[\"request_user_input_async\",\"call_ca50dc50c6ca4fc1a75cfa8375509419\",0]",
+  "proposal": "docs/echoing-strike-world-rule-proposal.md",
+  "proposalAtApprovalSha256": "810384afab9839583e328c2e2451f2f2875a18971ff76681a0888d76e44a1b7f",
+  "candidateCommit": "d250f61343c0c6c93e6e62b7d567290f89c6b27b",
+  "testedCandidateEvidence": "tools/reference/echoing-strike-world-native-evidence.json",
+  "testedCandidateEvidenceSha256": "8ea456aa7bf4db4501033c10a55e30322c7ca9609b9e3104260e6a8651dcd702",
+  "scope": "Complete defined Echoing packet/action/fan/outward-return/contacts/events/mana/lifecycle/persistence/assets rule;learned left/right/quick input and shared-clock admission authorized. Four other proposals remain pending;no full-class/current-callback certification."
+}

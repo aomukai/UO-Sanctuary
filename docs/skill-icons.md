@@ -1,5 +1,7 @@
 # Skill icons
 
+**Echoing Strike learned — 2026-11-15 JST.** Talent-tree and left/right/quick-hotkey artwork remains missing despite approved mechanical admission. Reuse existing identified placeholder presentation until the asset pass. [Checkpoint](echoing-strike-cast-checkpoint.md).
+
 **Prepared Echoing world — 2026-11-15 JST.** Talent-tree and left/right/quick icons remain needed;the complete candidate still awaits policy approval and learned admission. No new icon/artwork. [Checkpoint](echoing-strike-world-checkpoint.md).
 
 **Echoing input preparation — 2026-11-15 JST.** Talent-tree and left/right/quick icons remain needed;source-stat capture does not open binding or create an icon. Missing artwork stays separate from mechanical data. [Checkpoint](echoing-strike-inputs-checkpoint.md).

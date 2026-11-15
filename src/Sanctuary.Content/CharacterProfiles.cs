@@ -353,6 +353,7 @@ public sealed class CharacterProfiles : GenericPersistence
         DruidCycloneArmor.Clear(player);
         PsychicWard.Clear(player);
         EldritchBlastWorld.Clear(player);
+        EchoingStrikeWorld.Clear(player);
         HexBane.Clear(player);
         HexSiphon.Clear(player);
         HexPurge.Clear(player);
