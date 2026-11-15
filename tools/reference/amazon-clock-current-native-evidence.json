@@ -1,0 +1,51 @@
+{
+  "component": "Amazon SC current approved Slow Missiles availability fixture",
+  "referenceVersion": "3.3.93847",
+  "contentBuildReused": 1,
+  "integrationBuild": 3,
+  "sourceSnapshot": 4,
+  "nativeRun": 1,
+  "nativeMarkers": 24,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "amazon-cast-clock-check": 1,
+    "amazon-cast-clock-reload-check": 2,
+    "amazon-cast-clock-right-check": 3,
+    "amazon-cast-clock-right-result": 3,
+    "amazon-cast-clock-quick-check": 3,
+    "amazon-cast-clock-quick-result": 3
+  },
+  "spellInputs": 6,
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "changedSources": [
+    "tests/Sanctuary.Integration/AmazonCastClockChecks.cs"
+  ],
+  "gameplayChanged": false,
+  "runtimeDataChanged": false,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "5df3992322b515ae6e525927b8b9ddb57420eddd63d9886f019ffd6974b2cd49",
+    "Assemblies/Sanctuary.Content.dll": "508e93ea5f7458c9de14a13d70500aaba9f6f39c76ba3313adaa3966b1d34e14",
+    "Assemblies/Sanctuary.Integration.dll": "5e35f46260617e913fb50b74e6286e94a3bf9e2bb3bf776385fa2288c4bed4c8"
+  },
+  "classCertified": false,
+  "limits": "Obsolete disabled-Slow-Missiles assertion now requires explicitly approved availability; unknown weapon, source SC/FCR differential, right/quick input, cancelled pending cast and reload checks retain. Combined N5 pending; no full class certification.",
+  "files": {
+    ".local/class-skills/amazon-clock-current/birth-inputs.json": "6bc68de060ec93481fd9d2125229468a35b8ef20a539a359c420f5b72d20a49f",
+    ".local/class-skills/amazon-clock-current/birth-native-checks.log": "90e2c562ea34eac8e9b8787490381a2213389e1c9d0cd6c5c1cd4796e0b4119f",
+    ".local/class-skills/amazon-planned-acceptance/clock-focused-run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/amazon-planned-acceptance/failed-run-4/birth-inputs.json": "6ae986c9e6366a53537acb86b84b473d528d96609fd3c6e628e7b63e0dd96d98",
+    ".local/class-skills/amazon-planned-acceptance/failed-run-4/birth-native-checks.log": "0f31f602af6d90b69b925388d0ef5afaf53b2acbfec1a3fbc38ca859721ee1c6",
+    ".local/class-skills/amazon-planned-acceptance/integration-build-3.log": "2472ec7d793951c91605c467bd844f52743655075b0773814ec7db31c42f1d42",
+    ".local/class-skills/amazon-planned-acceptance/source-snapshot-4.json": "e65536df18e90c50a05eb112d32a5ba0b9e8ddc4bee12845c41b41771f88997b",
+    "tests/Sanctuary.Integration/AmazonCastClockChecks.cs": "6551057c6cb1e1971b588c23b82cc6f3d891e533ec1b122247c8c3f800572bcc",
+    "tools/reference/slow-missiles-rule-approval.json": "000fd417dc79ac1e97eb353c71bd0ab952ba3afc55f34988684c5fa2455928a8"
+  }
+}

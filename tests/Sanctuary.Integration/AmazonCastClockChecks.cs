@@ -80,7 +80,7 @@ public static class AmazonCastClockChecks
         Require(count==2072&&AmazonCastClock.Calculate("HTH",0)==new ActionTiming(20,11)
             &&AmazonCastClock.Calculate("BOW",20)==new ActionTiming(18,9),"Missing source clock cases/boundaries");
         bool refused=false;try{AmazonCastClock.Calculate("unmapped",0);}catch(NotSupportedException){refused=true;}
-        Require(refused&&!AmazonCombat.Implemented(CombatAbility.SlowMissiles),"Unknown weapon accepted or incomplete Slow Missiles enabled");
+        Require(refused&&AmazonCombat.Implemented(CombatAbility.SlowMissiles),"Unknown weapon accepted or approved Slow Missiles unavailable");
     }
     private static void Cast(PlayerMobile p,BaseCreature enemy,CombatAbility ability,string key,int fcr)
     {
