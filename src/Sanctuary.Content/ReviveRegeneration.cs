@@ -23,7 +23,7 @@ internal static class ReviveRegeneration
         }
         if(Rates.Count!=751){throw new InvalidDataException("Incomplete Revive regeneration catalogue");}
     }
-    internal static int Rate(string source)=>Rates.TryGetValue(source,out int rate)?rate:
+    internal static int Rate(string source)=>NativeCorpseSources.ForSource(source)?.ReviveRegeneration is{} native?native:Rates.TryGetValue(source,out int rate)?rate:
         throw new NotSupportedException("This monster has no pinned regeneration rate.");
     internal static bool Handles(Mobile actor)=>actor is BaseCreature creature
         &&ReviveNativeActivation.State(creature)?.Setup.RegenerationRate!=null;

@@ -16,9 +16,10 @@ internal static class ReviveFacets
     internal static MonsterDifficulty? Difficulty(BaseCreature actor)=>ReviveNativeActivation.State(actor) is{FacetPlan:not null} row?row.Difficulty:null;
     private static (CreatureVariant Profile,int Level) Target(string definition,string source,MonsterDifficulty difficulty)
     {
+        var native=NativeCorpseSources.ForSource(source);
         if(!CreatureProfiles.TryVariant(definition,difficulty,out var row)||!row.Enabled
             ||difficulty!=MonsterDifficulty.Normal&&!row.ApplyStats
-            ||row.Rewards.Reference!=source)
+            ||row.Rewards.Reference!=(native?.ReviveAiSource??source)||native!=null&&native.RuntimeType!=definition)
         {throw new NotSupportedException("No approved combat variant for this Revive in "+difficulty+".");}
         int? level=row.ApplyStats?row.Level:null;level??=row.Rewards.Enabled?row.Rewards.Level:null;
         if(level is not >0){throw new NotSupportedException("The Revive target variant has no supported level.");}

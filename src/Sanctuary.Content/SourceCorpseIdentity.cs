@@ -22,8 +22,12 @@ internal static class SourceCorpseIdentity
         var row=CorpseSkillRules.Profiles.Find(corpse);
         if(row is{UnitReactivated:true}){throw new NotSupportedException("This loot container no longer represents the original dead unit");}
         if(row?.BaseLife is not{} life||!((Serial)life.OriginalMonsterSerial).IsMobile||life.OriginalMonsterSerial==0
-            ||GenericPetSearchTables.SourceId(row.Source) is not{} cls)
+            ||NativeReviveRules.ClassId(row.Source) is not{} cls)
         {throw new NotSupportedException("Historical monster identity/species is missing or unmapped");}
+        // For native roles ClassId is solely the explicitly configured AI
+        // eligibility analogue. Snapshot.Source remains the native key.
+        if(NativeCorpseSources.ForSource(row.Source)is{} native&&row.ReviveCreature?.RuntimeType!=native.RuntimeType)
+        {throw new NotSupportedException("This older native corpse has no captured original creature descriptor");}
         if(corpse.Owner is{} owner&&owner.Serial.Value!=life.OriginalMonsterSerial)
         {throw new NotSupportedException("Native corpse owner conflicts with historical identity");}
         var original=World.FindMobile((Serial)life.OriginalMonsterSerial);

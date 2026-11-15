@@ -104,8 +104,7 @@ public static class ReviveOriginals
         {return false;}
         var row=CorpseSkillRules.Profiles.Find(corpse);
         if(row is not{Owned:false,Shattered:false,NoSelect:false,Selectable:true}||row.BaseLife?.OriginalMonsterSerial!=actor.Serial.Value
-            ||row.ReviveCreature?.RuntimeType!=actor.GetType().FullName||GenericPetSearchTables.SourceId(row.Source) is not{} cls
-            ||ReviveSpecies.ForClass(cls)!=true||!SourceAiEligibility.CanSwitch(cls,SourceAiEligibility.CurrentMonster))
+            ||row.ReviveCreature?.RuntimeType!=actor.GetType().FullName||!NativeReviveRules.CanCapture(actor,row.Source))
         {return false;}
         if(ReviveWorldControllers.Issue(actor.Spawner) is{} controllerIssue)
         {Log.Warning("{Issue}",controllerIssue);return false;}

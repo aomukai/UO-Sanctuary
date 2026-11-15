@@ -101,7 +101,8 @@ public static class CorpseSkillRules
         // context. Repeated death/access callbacks must not revive an attempt.
         if(old!=null){return;}
         int level=CreatureProfiles.Level(creature);
-        string issue=native?.ReviveIssue;var revive=known&&_selectable[key]&&issue==null?ReviveCreatureSnapshots.TryCapture(creature,key,out issue):null;
+        string issue=native is{ReviveAiSource:null}?native.ReviveIssue:null;
+        var revive=known&&_selectable[key]&&issue==null?ReviveCreatureSnapshots.TryCapture(creature,key,out issue):null;
         Profiles.Store(new(corpse.Serial.Value,known?key:null,known && _selectable[key],creature.Controlled || creature.Summoned || creature is BaseVendor,PaladinHolyFreeze.Shattered(creature) || FreezeStates.Shattered(creature),false,Treasure(creature),
             known && _selectable[key]?CorpseBaseSnapshots.Capture(creature,key):null,level>0?level:null,
             revive,issue));

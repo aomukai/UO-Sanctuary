@@ -1,5 +1,7 @@
 # Class skill roadmap
 
+**Complete native Lich Revive candidate — 2026-11-16 JST.** [Proposal](native-lich-revive-world-rule-proposal.md), [checkpoint](native-lich-revive-world-checkpoint.md). Original native capture/activation, living firebolt/raise, blinded native weapon fallback, real facet travel, helper transfer and saved wounds pass C2/I4/S5/N4: 63 markers, 18 connections, two reloads, retaining 12 explosion inputs. One complete native mapping decision remains; ordinary native Revive stays gated. 236/240 handlers; no class certified.
+
 **Native Lich corpse difficulties — 2026-11-16 JST.** [Checkpoint](native-corpse-difficulties-checkpoint.md) corrects missing Nightmare/Hell capture using existing authored level/base values (36/1,102 and 69/9,118). C1/I2/S2/N2 passes 54 markers, 12 actual explosion inputs and two reloads. An earlier retained Normal input timeout remains unexplained. Native Lich Revive stays refused; 236/240 handlers, no class certified.
 
 **Raised-helper ownership prerequisite — 2026-11-16 JST.** [Checkpoint](raised-minions-checkpoint.md): persistent owned Liches now create allied, caster-dependent helpers through the existing raise animation and pet services. Difficulty/wounds, parking and two reloads pass in a 39-marker cohort, retaining six explosion inputs. Wild Lich control passes. **Native Lich Revive admission remains unfinished; 236/240 handlers and no class certified.**

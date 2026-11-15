@@ -20,7 +20,8 @@ public static class GraveyardProfiles
         Skeleton = Profile(MonsterBalance.For(MonsterArchetype.Melee, 2));
         Zombie = Profile(MonsterBalance.For(MonsterArchetype.Tank, 1));
         ClassCombatHooks.CreatureSwing = (attacker, target) =>
-            attacker is GraveyardUndead undead ? undead.BeginMelee(target)
+            attacker is GraveyardUndead undead ? undead.NormalStats==null&&(NamedControl.Blind(undead)||SourceTerror.InCombat(undead))
+                ?null:undead.BeginMelee(target)
                 : attacker is SkeletonGuardian pet ? pet.BeginMelee(target) : null;
     }
     private static MonsterProfile Profile(MonsterLevel row) => new(row.Level, row.Life.Min, row.AttackRating.Min,

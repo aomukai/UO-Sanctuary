@@ -113,13 +113,16 @@ public static class RaisedMinions
     }
     internal static void Sync(PlayerMobile owner)
     {
-        var difficulty=SummonDifficulties.For(owner.Map);
-        foreach(var old in Snapshot().Where(row=>row.Owner==owner.Serial.Value&&row.Difficulty!=difficulty))
+        var difficulty=SummonDifficulties.For(owner.Map);bool resume=false;
+        foreach(var old in Snapshot().Where(row=>row.Owner==owner.Serial.Value))
         {
             if(World.FindMobile((Serial)old.Actor)is not GraveyardUndead{Alive:true,Deleted:false} body||body.ControlMaster!=owner){continue;}
+            if(body.Map!=Map.Internal&&body.Map!=owner.Map){PersistentMinions.Suspend(body);resume=true;}
+            if(old.Difficulty==difficulty){continue;}
             int life=SkillHealth.Balance256(body),maximum=SkillHealth.Maximum256(body);
             var next=old with{Difficulty=difficulty,SavedLife256=null};States[old.Actor]=next;ApplyDifficulty(body,next);
             SkillHealth.SetBalance256(body,SummonDifficulties.Life256(life,maximum,SkillHealth.Maximum256(body)));
         }
+        if(resume&&owner.NetState!=null){PersistentMinions.Resume(owner);}
     }
 }

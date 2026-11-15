@@ -6,7 +6,9 @@
     "minimumLife": 90,
     "maximumLife": 90,
     "soft": null,
-    "reviveIssue": "This native Lich needs native Revive eligibility and ownership for its raised monsters before it can be revived.",
+    "reviveIssue": "The complete native Lich Revive world mapping is prepared but awaits approval.",
+    "reviveAiSource": "unraveler1",
+    "reviveRegeneration": 0,
     "basis": "Existing GraveyardProfiles.Lich Normal level 5/base 90; existing creature-difficulties graveyard-lich Nightmare level 36/base 1102 and Hell level 69/base 9118. Native corpse use only; no D2 species ID. Flesh classification is unassigned.",
     "difficultyBases": [
       { "difficulty": "Nightmare", "level": 36, "minimumLife": 1102, "maximumLife": 1102 },

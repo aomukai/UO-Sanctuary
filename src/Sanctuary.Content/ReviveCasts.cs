@@ -22,12 +22,12 @@ internal static class ReviveCasts
             actor is EncounterCreature{Grade:EncounterGrade.Unique},
             actor is EncounterCreature{Grade:EncounterGrade.SuperUnique},false,true);
     }
-    internal static bool Plan(PlayerMobile owner,Corpse corpse,out ReviveNativeSetup setup,out ReviveAiStatus status,out string issue)
+    internal static bool Plan(PlayerMobile owner,Corpse corpse,out ReviveNativeSetup setup,out ReviveAiStatus status,out string issue,bool preparedNative=false)
     {
         setup=null;status=default;issue="That corpse is unavailable for Revive.";
         if(!CorpseSkillRules.Usable(owner,corpse,SkeletonPets.Range)){return false;}
         if(NativeCorpseSources.ForSource(CorpseSkillRules.Profiles.Find(corpse)?.Source)is{} native)
-        {issue=native.ReviveIssue;return false;}
+        {if(native.ReviveAiSource==null||!NativeReviveRules.Approved&&!preparedNative){issue=native.ReviveIssue;return false;}}
         try
         {
             var unit=SourceCorpseIdentity.For(corpse);
@@ -62,9 +62,9 @@ internal static class ReviveCasts
         catch(Exception e)when(e is NotSupportedException or InvalidDataException or OverflowException or ArgumentException)
         {setup=null;issue=e.Message;return false;}
     }
-    internal static bool Release(PlayerMobile owner,Corpse corpse)
+    internal static bool Release(PlayerMobile owner,Corpse corpse,bool preparedNative=false)
     {
-        if(!Plan(owner,corpse,out var setup,out var status,out var issue))
+        if(!Plan(owner,corpse,out var setup,out var status,out var issue,preparedNative))
         {owner.SendMessage(0x22,issue);return false;}
         int mana=SkillMechanics.Values(owner,CombatAbility.Revive).Mana256;
         if(!NecromancerEffects.CanPay(owner,mana)){return false;}

@@ -7,7 +7,7 @@ namespace Sanctuary;
 
 internal sealed record NativeCorpseDifficulty(MonsterDifficulty Difficulty,int Level,int MinimumLife,int MaximumLife);
 internal sealed record NativeCorpseSource(string RuntimeType,string Source,int Level,int MinimumLife,int MaximumLife,bool? Soft,string ReviveIssue,string Basis,
-    NativeCorpseDifficulty[] DifficultyBases=null);
+    NativeCorpseDifficulty[] DifficultyBases=null,string ReviveAiSource=null,int? ReviveRegeneration=null);
 
 // Explicit Sanctuary corpse classifications, separate from pinned D2 species.
 // No unclassified type or subclass silently acquires a reference identity.
@@ -25,6 +25,8 @@ internal static class NativeCorpseSources
             if(row==null||string.IsNullOrWhiteSpace(row.RuntimeType)||string.IsNullOrWhiteSpace(row.Source)||!row.Source.StartsWith("sanctuary.native.",StringComparison.Ordinal)
                 ||row.Level is <1 or >99||row.MinimumLife<1||row.MaximumLife<row.MinimumLife||row.MaximumLife>int.MaxValue/256
                 ||string.IsNullOrWhiteSpace(row.ReviveIssue)||string.IsNullOrWhiteSpace(row.Basis)
+                ||row.ReviveAiSource==null&&row.ReviveRegeneration!=null
+                ||row.ReviveAiSource!=null&&(string.IsNullOrWhiteSpace(row.ReviveAiSource)||row.ReviveRegeneration is not(>=0 and <=255))
                 ||!types.TryAdd(row.RuntimeType,row)||!sources.TryAdd(row.Source,row))
             {throw new InvalidDataException("Invalid native corpse classification");}
             var seen=new HashSet<MonsterDifficulty>();

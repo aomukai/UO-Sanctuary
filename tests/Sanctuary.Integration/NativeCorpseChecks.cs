@@ -52,13 +52,28 @@ public static class NativeCorpseChecks
         uint identity=actor.Serial.Value;Require(CreatureProfiles.Definition(actor).Reference==null&&CreatureProfiles.Level(actor)==expected.Level&&actor.HitsMax==expected.Life,"Native classification no longer matches authored Lich facts");
         SkillCombat.HitParts(p,actor,new(100000,0,0,0,0),recover:false);var corpse=actor.Corpse as Corpse;Require(corpse is{Deleted:false},"Actual native death produced no corpse");corpse.DropItem(new Gold(17));
         var row=CorpseSkillRules.Profiles.Find(corpse);
-        Require(row is{Selectable:true,Owned:false,ReviveCreature:null,ReviveSnapshotIssue:not null}&&row.Source=="sanctuary.native.graveyard-lich.v1"
+        Require(row is{Selectable:true,Owned:false,ReviveCreature:not null,ReviveSnapshotIssue:null}&&row.Source=="sanctuary.native.graveyard-lich.v1"
             &&row.BaseLife is{Seed:not null}&&row.BaseLife.Level==expected.Level&&row.BaseLife.Base256==expected.Life*256&&row.BaseLife.Difficulty==difficulty
             &&row.BaseLife.OriginalMonsterSerial==identity&&GenericPetSearchTables.SourceId(row.Source)==null,"Native corpse acquired incorrect identity/base or fake D2 species");
         CorpseSkillRules.Capture(actor,corpse);Require(CorpseSkillRules.Profiles.Find(corpse)==row,"Repeated capture rerolled native base/seed");return corpse;
     }
     internal static void Clean(PlayerMobile p)
     {NecromancerSpellMissiles.Cancel(p);foreach(var pet in p.AllFollowers?.ToArray()??Array.Empty<BaseCreature>()){pet.Delete();}p.Delete();}
+    internal static GraveyardSkeleton Target(PlayerMobile p)
+    {
+        var target=PoisonDaggerChecks.Target(p);
+        // The source NPC recovery loop is separate from UO's regen-rate
+        // handler. Keep one-shot damage observable without changing combat.
+        TimedEffects.PreventHealing(target,TimedEffects.Now);return target;
+    }
+    private static void RecoveryControl(PlayerMobile p)
+    {
+        var target=PoisonDaggerChecks.Target(p);long now=Core.TickCount;int full=SkillHealth.Balance256(target);
+        target.RecoverLife(now);SkillCombat.HitParts(p,target,new(20,0,0,0,0),false);Require(SkillHealth.Balance256(target)<full,"Recovery control did not take damage");
+        target.RecoverLife(now+1000);Require(SkillHealth.Balance256(target)==full,"Control no longer demonstrates independent source recovery");
+        TimedEffects.PreventHealing(target,TimedEffects.Now);SkillCombat.HitParts(p,target,new(20,0,0,0,0),false);int wounded=SkillHealth.Balance256(target);
+        target.RecoverLife(now+2000);Require(wounded<full&&SkillHealth.Balance256(target)==wounded,"Fixture healing block failed to preserve observed damage");target.Delete();
+    }
     internal static void Cast(PlayerMobile p,CombatAbility ability,Corpse corpse)
     {
         Ready(p);int mana=NecromancerEffects.ManaBalance256(p),cost=SkillMechanics.Values(p,ability).Mana256;
@@ -74,9 +89,10 @@ public static class NativeCorpseChecks
         var p=Fresh();bool kept=false;
         try
         {
+            RecoveryControl(p);
             foreach(var ability in new[]{CombatAbility.RaiseSkeleton,CombatAbility.RaiseSkeletalMage,CombatAbility.CorpseExplosion,CombatAbility.PoisonExplosion})
             {
-                var corpse=Corpse(p);var target=PoisonDaggerChecks.Target(p);target.MoveToWorld(new(corpse.X+1,corpse.Y,corpse.Z),p.Map);int hp=SkillHealth.Balance256(target);
+                var corpse=Corpse(p);var target=Target(p);target.MoveToWorld(new(corpse.X+1,corpse.Y,corpse.Z),p.Map);int hp=SkillHealth.Balance256(target);
                 int followers=p.AllFollowers?.Count??0;Cast(p,ability,corpse);
                 if(ability is CombatAbility.RaiseSkeleton or CombatAbility.RaiseSkeletalMage){Require((p.AllFollowers?.Count??0)>followers,"Native corpse did not create the expected owned summon");}
                 if(ability==CombatAbility.CorpseExplosion){Require(SkillHealth.Balance256(target)<hp,"Native corpse base failed actual explosion damage");}
@@ -105,9 +121,10 @@ public static class NativeCorpseChecks
     private static void Input(NetState network,string mode)
     {
         var difficulty=mode.StartsWith("nightmare-",StringComparison.Ordinal)?MonsterDifficulty.Nightmare:mode.StartsWith("hell-",StringComparison.Ordinal)?MonsterDifficulty.Hell:MonsterDifficulty.Normal;
-        var p=Fresh();var corpse=Corpse(p,difficulty:difficulty);var target=PoisonDaggerChecks.Target(p);target.MoveToWorld(new(corpse.X+1,corpse.Y,corpse.Z),p.Map);
+        var p=Fresh();var corpse=Corpse(p,difficulty:difficulty);var target=Target(p);target.MoveToWorld(new(corpse.X+1,corpse.Y,corpse.Z),p.Map);
         var ability=mode.EndsWith("ce-right",StringComparison.Ordinal)?CombatAbility.CorpseExplosion:CombatAbility.PoisonExplosion;string label="native-corpse-"+mode;
         Require(SkillBindings.Instance.Assign(p,false,ability)&&SkillBindings.Instance.AssignQuick(p,7,ability),"Native corpse bindings");var account=FixtureNetwork.Authenticate(network,p,"native-corpse-wire-");Ready(p);
+        Require(SkillCombat.Targets(p,corpse.Location,1).Contains(target),$"Native corpse fixture recipient:hostile={ClassCombat.IsHostile(p,target)},enemy={target.IsEnemy(p)},see={p.CanSee(target)},harm={p.CanBeHarmful(target,false)},blessed={target.Blessed},returning={target.ReturningHome},centerLos={p.Map.LineOfSight(new Point3D(corpse.X,corpse.Y,corpse.Z+12),new Point3D(target.X,target.Y,target.Z+12))},positions={p.Location}/{corpse.Location}/{target.Location}");
         int mana=NecromancerEffects.ManaBalance256(p),hp=SkillHealth.Balance256(target),cost=SkillMechanics.Values(p,ability).Mana256;bool began=false,done=false;long deadline=Core.TickCount+12000;
         void Cleanup(){target.Delete();corpse.Delete();Clean(p);account.Delete();}
         void Inspect()

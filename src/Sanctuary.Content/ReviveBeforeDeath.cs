@@ -27,8 +27,8 @@ internal static class ReviveBeforeDeath
     {
         if(actor is not{Deleted:false,Controlled:false,Summoned:false}||actor is BaseVendor or GraveyardUndead{Raised:true}
             ||!ReviveOriginals.SupportedDeathPath(actor.GetType())){return;}
-        string source=CreatureProfiles.Definition(actor).Reference;
-        if(GenericPetSearchTables.SourceId(source) is not{} cls||ReviveSpecies.ForClass(cls)!=true||!SourceAiEligibility.CanSwitch(cls,SourceAiEligibility.CurrentMonster)){return;}
+        string source=NativeReviveRules.Source(actor);
+        if(!NativeReviveRules.CanCapture(actor,source)){return;}
         try{CaptureCore(actor,source);}
         catch(Exception e)when(e is InvalidDataException or NotSupportedException or JsonException or OverflowException or ArgumentException)
         {Pending[actor.Serial.Value]=(null,"Accepted-death snapshot unavailable: "+e.Message);}
