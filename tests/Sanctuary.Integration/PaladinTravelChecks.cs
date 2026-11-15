@@ -23,9 +23,9 @@ public static class PaladinTravelChecks
     {try{action();}catch(Exception e){_log.Error(e,"{Name}: failed",name);}});
     private static void Select(PlayerMobile actor,CombatAbility ability)=>Require(SkillBindings.Instance.Assign(actor,false,ability),"Travel aura selection");
     private static void FreezeHealing(PlayerMobile actor)=>TimedEffects.Poison(actor,actor,.000001,60000,TimedEffects.Now);
-    private static Corpse Body(PlayerMobile owner,int offset=3,bool unknown=false)
+    private static Corpse Body(PlayerMobile owner,int offset=3,BaseCreature specimen=null)
     {
-        BaseCreature victim=unknown?new GraveyardLich():new GraveyardSkeleton();victim.Frozen=true;victim.CantWalk=true;
+        BaseCreature victim=specimen??new GraveyardSkeleton();victim.Frozen=true;victim.CantWalk=true;
         victim.MoveToWorld(new(owner.X+offset,owner.Y,owner.Z),owner.Map);victim.AIObject.AITimer.Stop();
         Corpse corpse=null;var previous=ClassLootHooks.CreatureDied;
         ClassLootHooks.CreatureDied=(actor,container)=>
@@ -98,7 +98,15 @@ public static class PaladinTravelChecks
         ReviveOriginals.Prune();
         Require(original.Deleted&&ReviveOriginals.Find(body)==null&&!body.Deleted&&ClassLoot.HasContents(body),
             "Redemption did not retire the inactive original independently of corpse loot");
-        var unknown=Body(redeemer,4,true);Require(!PaladinRedemption.Redeem(redeemer,unknown,values,0) && CorpseSkillRules.Profiles.Find(unknown).Source==null,"Unmapped species was invented");unknown.Delete();body.Delete();
+        // Native Lich now has an approved corpse classification. Retain an
+        // actual unmapped native negative rather than removing this guard.
+        var unknown=Body(redeemer,4,new Ogre());Require(!PaladinRedemption.Redeem(redeemer,unknown,values,0) && CorpseSkillRules.Profiles.Find(unknown).Source==null,"Unmapped species was invented");unknown.Delete();body.Delete();
+        var native=Body(redeemer,4,new GraveyardLich());
+        Require(CorpseSkillRules.Profiles.Find(native)is{Source:"sanctuary.native.graveyard-lich.v1",Selectable:true,Owned:false},"Approved native corpse classification missing");
+        redeemer.Hits=redeemer.HitsMax-100;NecromancerEffects.SetMana256(redeemer,0);hp=redeemer.Hits;
+        Require(PaladinRedemption.Redeem(redeemer,native,values,0)&&redeemer.Hits==hp+25&&NecromancerEffects.ManaBalance256(redeemer)==25*256
+            &&native.SanctuaryConsumed&&!native.Deleted&&ClassLoot.HasContents(native)&&!PaladinRedemption.Redeem(redeemer,native,values,0),"Approved native Redemption recovery/loot/single consumption changed");
+        native.Delete();
         var rip=Body(redeemer);rip.SanctuaryRestInPeace=true;Require(!PaladinRedemption.Redeem(redeemer,rip,values,0),"Rest in Peace corpse consumed");rip.Delete();
         var full=Body(redeemer);redeemer.Hits=redeemer.HitsMax;redeemer.Mana=redeemer.ManaMax;
         Require(PaladinRedemption.Redeem(redeemer,full,values,0) && full.SanctuaryConsumed,"Full resources incorrectly protected corpse");full.Delete();

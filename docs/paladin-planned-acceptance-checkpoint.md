@@ -1,0 +1,17 @@
+# Current Paladin combined acceptance
+
+Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Charms and runewords are excluded. All 30 Paladin handlers are present; handler presence and earlier component passes do not certify the class.
+
+`tests/check_paladin_planned_acceptance.py` retains the existing Paladin-only aura-persistence/melee/projectile cohort and adds the complete binding family, legacy Holy Shield family and existing Paladin SC/FCR checks. The reviewed configuration has 31 fixture families, 15 shared checks, 65 input commands and 54 cached reference files. These are execution scopes, not passing-result counts. It does not repeat the accepted Sorceress cohort.
+
+The existing Holy Shield cast save coordinator retains its original Teleport pending-action fixture, input modes and reload checks. All aura, knockback, original projectile, resource and binding assertions keep their declared scope. No new timer, save schema or gameplay service is added.
+
+The initial candidate copied the accepted Sorceress gameplay C1/Integration I2 assemblies into an isolated stage. Initial C# sources and runtime data matched the accepted parent; `artifact-reuse.json` and source snapshot 1 record this without implying a fresh compiler run. A later fixture rebuild is recorded below. Installed build, configuration, client and existing saves remain protected.
+
+The first combined run reached the travel-aura checks and found a historical test that still used Graveyard Lich as an unmapped-corpse negative. Lich now has its approved native classification. The fixture keeps the negative using an unmapped Ogre and adds a real native Lich positive covering 25-life/25-mana recovery, exactly-once consumption and retained loot. Only `PaladinTravelChecks` changes; gameplay C1/data are unchanged. Integration I1/source snapshot 2 builds with zero warnings/errors. The [focused receipt](../tools/reference/paladin-travel-current-evidence.json) passes 15 results across three boots/saves and two reloads, retaining Vigor and original aura/corpse controls. Exact failed inputs, source, binaries and logs are archived.
+
+Review configuration with `python3 tests/check_paladin_planned_acceptance.py --plan`; run the disposable cohort without an option. **Current combined native acceptance is pending.** No older source compiler or newer D2R process/CASC read is needed.
+
+Known boundaries remain explicit: exact modern projectile/candidate/world/event ordering, unsupported recipient and item projections, Sanctuary's broader undead-bypass consumers and Holy Freeze's exceptional modes. Fanaticism currently uses its party damage bonus for its caster at exactly zero mana because the older supplied callback requires mana strictly greater than its cost for the full personal bonus; current D2R equivalence is unverified. This is a concrete pending mechanic, not silently treated as resolved by the user's observation that ordinary auras spend no mana. The confirmed zero-mana Sanctuary push and Prayer-only healing cost remain their existing rules.
+
+Effects/audio and talent/hotkey icons remain in separate ledgers with identified placeholders. The previously observed wardrobe save-pruning warnings remain a separate save-cleanup concern. A passing combined cohort will not remove these mechanical uncertainties or establish graphical/exact-engine parity.

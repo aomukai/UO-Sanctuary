@@ -1,0 +1,54 @@
+{
+  "component": "Paladin Redemption fixture respects approved native Lich classification",
+  "referenceVersion": "3.3.93847",
+  "scope": "Focused travel-aura fixture correction; combined Paladin acceptance pending",
+  "contentBuildReused": 1,
+  "integrationBuild": 1,
+  "sourceSnapshot": 2,
+  "focusedNativeRun": 1,
+  "nativeMarkers": 15,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "npc-resource-callbacks-check": 1,
+    "paladin-travel-check": 1,
+    "paladin-travel-result": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-reload-check": 2,
+    "paladin-travel-reload-check": 2,
+    "paladin-travel-reload-result": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "gameplaySourceChanged": false,
+  "gameplayAssemblyUnchanged": true,
+  "runtimeDataUnchanged": true,
+  "changedSources": [
+    "tests/Sanctuary.Integration/PaladinTravelChecks.cs"
+  ],
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "5df3992322b515ae6e525927b8b9ddb57420eddd63d9886f019ffd6974b2cd49",
+    "Assemblies/Sanctuary.Content.dll": "508e93ea5f7458c9de14a13d70500aaba9f6f39c76ba3313adaa3966b1d34e14",
+    "Assemblies/Sanctuary.Integration.dll": "fc7f83f87963d1790ee137f25ff3bacefcbe9700596f196a81fa381adc8dcf50"
+  },
+  "correction": "Use actual unmapped Ogre as the preserved negative. Add actual mapped Lich positive:25life/25mana,once-only consumption and retained corpse loot. Existing Vigor/resource/corpse and original aura reload controls remain.",
+  "inputs": {
+    ".local/class-skills/paladin-travel-current/birth-inputs.json": "45b0e12370702af97475f2722d7bd9c8e321969ddc9db1f5a981afe3de50266e",
+    ".local/class-skills/paladin-travel-current/birth-native-checks.log": "cfafbba0d8300150d1d5d2efb9237e940e32339a5a4944a99a45f423b1345c80",
+    ".local/class-skills/paladin-planned-acceptance/source-snapshot-2.json": "8e5c542fc9b6125bcfeb2afba7c74e893e7d2bf417d93d3f41011bcacb6d1362",
+    ".local/class-skills/paladin-planned-acceptance/integration-build-1.log": "078ecfcd23eb62e1b0b7c5ea918c6da38336a31b2332fe5d3e8ea4cf00dac7bd",
+    ".local/class-skills/paladin-planned-acceptance/failed-run-1/birth-native-checks.log": "71c27290e8df1deab91bf31ffc06ea8c4c3a659684087a6a7b7145cb8f53f4ac",
+    "tests/Sanctuary.Integration/PaladinTravelChecks.cs": "4d41372d469eb0e6c39d22b5364322f2fddea744d1f13f22e1b17647ede6ed98",
+    "tools/reference/native-lich-revive-world-rule-approval.json": "470193417ac224c0f94a376e17edf3a6f90082ba260dee13ce8d841bbf8a75f8"
+  },
+  "installed": false,
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 44
+  }
+}
