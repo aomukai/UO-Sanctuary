@@ -2,7 +2,7 @@
 
 Mechanical reference: **D2R Reign of the Warlock 3.3.93847**. Approved Sanctuary rules take precedence. All thirty talents have handlers, but handler presence and a combined native run do not certify exact modern behavior or class completion. Detailed per-skill limits remain in [the status ledger](../data/Sanctuary/Balance/class-skill-status.json).
 
-The current-class driver is [check_barbarian_current.py](../tests/check_barbarian_current.py). It exercises the following existing fixture families together on the accepted Leap Attack build, including natural loops and original saved state. No fixture grants a completed-class status. The final accepted command inventory, source hashes and build identity belong to the accompanying checkpoint receipt, rather than to this mapping alone.
+The current planned-content driver is [check_barbarian_planned_acceptance.py](../tests/check_barbarian_planned_acceptance.py), composing the earlier current-class driver with selected-weapon-hand, SC/FCR input and natural Find Potion release checks. It exercises existing fixture families together on reused gameplay C1, including natural loops and original saved state. Charms and runewords are excluded. No fixture grants a completed-class status. The final accepted command inventory, source hashes and build identity belong to the accompanying checkpoint receipt, rather than to this mapping alone.
 
 | Talent | Mechanical scope exercised | Fixture family |
 | --- | --- | --- |
@@ -37,7 +37,9 @@ The current-class driver is [check_barbarian_current.py](../tests/check_barbaria
 | Whirlwind | Paid saved walking spin, paired cadence, target cycling, reservations and lifecycle | `whirlwind` |
 | Berserk | Paid physical-to-magic hit, timed zero-defense override and temporary mode | `berserk` |
 
-Mouse/quick/history migration and per-skill availability use `barbarian-binding`; the ten SC routes use `barbarian-cast-clock`. Real Double Swing, Frenzy, Grim Ward and Leap Attack mouse/quick packets retain separate dedicated checks. Other families exercise their existing controlled casts and natural connected loops; this is not a claim that all twenty active talents received every input mode or graphical-client acceptance.
+The current combined checkpoint passes 245 exact results, including 39 spell inputs, three checked natural Find Potion releases and six corpse-snapshot callbacks, across three saves and two reloads. [Receipt](../tools/reference/barbarian-planned-acceptance-native-evidence.json). This is scoped acceptance, not a completed-class certificate.
+
+Mouse/quick/history migration and per-skill availability use `barbarian-binding`; the ten SC routes use `barbarian-cast-clock`, including its current right/quick packet checks. `weapon-hands` verifies shared hand selection; `find-potion-live` verifies the actual timer releases an already-paid cast after mana is removed. Real Double Swing, Frenzy, Grim Ward and Leap Attack mouse/quick packets retain separate dedicated checks. Other families exercise their existing controlled casts and natural connected loops; this is not a claim that all twenty active talents received every input mode or graphical-client acceptance.
 
 ## Approved deviations retained
 
@@ -53,6 +55,7 @@ These decisions are in the linked individual checkpoints and exact decision reco
 - Current executable timing, IAS/WSM, animation/event ownership, snapshot and RNG ordering remain bounded per skill. Supplied-rate older source comparisons establish only their named contracts.
 - Bash's old post-allocation flat physical-event addition leaves its stored health total unchanged. That legacy behavior is implemented and tested, but its current D2R counterpart remains unverified.
 - Find Item's current chance conflict and special/quest/boss/elite/changed-level treasure contexts remain gated. Native corpse footprint and auto-approach are separate input limits.
+- War Cry follows the existing shared Unique-only roll; native Unique leaders additionally retain the encounter boss-immunity mapping. This characterization does not establish full D2R equivalence.
 - Unknown control species, native terrain/room/footprint/subtile mapping, dynamic landing, zero-distance Leap Attack, delayed-dead landing damage, unsupported gear/recipient combinations, one-broken-hand spin continuation and full dual-throw snapshots remain explicit limits.
 - Original save/resource checks, controlled natural loops and actual wire inputs have their exact scopes; they do not replace PvP/multiplayer and rendered-client acceptance.
 - Final [effects/audio](skill-effects.md) and [talent/hotkey icons](skill-icons.md) remain separately tracked, with identified native placeholders.

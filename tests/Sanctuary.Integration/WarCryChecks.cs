@@ -110,7 +110,26 @@ public static class WarCryChecks
             var zombie=new GraveyardZombie{Name="WarCryFixtureZombie",NoKillAwards=true};zombie.MoveToWorld(new(owner.X+2,owner.Y,owner.Z),owner.Map);Stop(zombie,true);Require(SourceBlocking.TryRate(zombie,out chance,out _) && chance==0,"Zombie ToBlock without shield");zombie.Delete();
             var unknown=new Ogre();unknown.MoveToWorld(new(owner.X+2,owner.Y,owner.Z),owner.Map);Require(!BarbarianWarCry.Hit(owner,unknown,Ray(owner)),"Unmapped target invented");unknown.Delete();
             var native=new EncounterCreature{Name="WarCryFixtureNative",NoKillAwards=true};var profile=EncounterProfiles.Profile("crypt-sentinel-90");native.Assign(profile,profile.MinimumLevel,MonsterDifficulty.Normal,EncounterGrade.Champion,ChampionKind.Champion,[],EliteAura.None,null,new Random(173));native.MoveToWorld(new(owner.X+2,owner.Y,owner.Z),owner.Map);Stop(native,true);
-            var oldStun=CombatStuns.Roll;try{Require(SourceBlocking.TryRate(native,out chance,out _) && chance==0 && CombatStuns.Rules(native,out bool boss,out int velocity) && !boss && velocity!=0,"Explicit native encounter block/movement eligibility");CombatStuns.Roll=_=>89;Require(!CombatStuns.Apply(native,25),"Champion should resist low stun roll");CombatStuns.Roll=_=>90;Require(CombatStuns.Apply(native,25),"Champion source ten-percent stun branch");}finally{CombatStuns.Roll=oldStun;native.Delete();}
+            var oldStun=CombatStuns.Roll;
+            try
+            {
+                Require(SourceBlocking.TryRate(native,out chance,out _) && chance==0 && CombatStuns.Rules(native,out bool boss,out int velocity) && !boss && velocity!=0,"Explicit native encounter block/movement eligibility");
+                // The shared ExecuteEvents path tests Unique bit8, not
+                // Champion bit4. Smite's separate Champion rule is unchanged.
+                Require(!PreparedMonsterStun.IsUnique(native),"Champion acquired source Unique classification");
+                CombatStuns.Roll=_=>throw new InvalidOperationException("Champion consumed a Unique-only stun roll");
+                Require(CombatStuns.Apply(native,25),"Eligible Champion failed shared stun");CombatStuns.Clear(native);
+                native.Delete();native=new EncounterCreature{Name="WarCryFixtureUnique",NoKillAwards=true};
+                native.Assign(profile,profile.MinimumLevel,MonsterDifficulty.Normal,EncounterGrade.Unique,ChampionKind.Champion,[],EliteAura.None,null,new Random(173));
+                native.MoveToWorld(new(owner.X+2,owner.Y,owner.Z),owner.Map);Stop(native,true);
+                Require(PreparedMonsterStun.IsUnique(native)&&CombatStuns.Rules(native,out boss,out velocity)&&boss&&velocity!=0,"Unique source-stun fixture classification");
+                int draws=0;CombatStuns.Roll=n=>{Require(n==100,"Unique stun roll bound");draws++;return 89;};
+                Require(!CombatStuns.Apply(native,25)&&draws==1&&CombatStuns.Remaining(native)==0,"Unique should resist low stun roll");
+                CombatStuns.Roll=n=>{Require(n==100,"Unique stun roll bound");draws++;return 90;};
+                Require(!CombatStuns.Apply(native,25)&&draws==2&&CombatStuns.Remaining(native)==0,"Native Unique boss immunity after successful Unique roll");
+                Require(CombatStuns.Frames(25,true,true,false,1,false,89)==0&&CombatStuns.Frames(25,true,true,false,1,false,90)==25,"Nonboss Unique supplied-metadata ten-percent branch");
+            }
+            finally{CombatStuns.Roll=oldStun;CombatStuns.Clear(native);native.Delete();}
         }
         finally{SourceBlocking.BlockRoll=oldRoll;BarbarianWarCry.Roll=oldDamage;SourceBlocking.ChoiceRoll=Utility.Random;Delete(target);}
     }

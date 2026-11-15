@@ -1,0 +1,58 @@
+{
+  "component": "War Cry current shared stun fixture correction",
+  "referenceVersion": "3.3.93847",
+  "contentBuildReused": 1,
+  "integrationBuild": 3,
+  "sourceSnapshot": 4,
+  "nativeRun": 3,
+  "nativeMarkers": 15,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "warcry-check": 1,
+    "warcry-reload-check": 2,
+    "warcry-result": 3
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "changedSources": [
+    "tests/Sanctuary.Integration/WarCryChecks.cs"
+  ],
+  "gameplayChanged": false,
+  "runtimeDataChanged": false,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "5df3992322b515ae6e525927b8b9ddb57420eddd63d9886f019ffd6974b2cd49",
+    "Assemblies/Sanctuary.Content.dll": "508e93ea5f7458c9de14a13d70500aaba9f6f39c76ba3313adaa3966b1d34e14",
+    "Assemblies/Sanctuary.Integration.dll": "299e250965844d0ffdc77e12dbd64fbea68e8f4db6bad3407ec123236d834ede"
+  },
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 44
+  },
+  "classCertified": false,
+  "limits": "Champion uses no Unique draw; native Unique boss mapping retains immunity even on successful roll. Nonboss Unique threshold tested only with supplied metadata. Current modern D2R equivalence remains unverified; full Barbarian candidate pending.",
+  "files": {
+    ".local/class-skills/barbarian-planned-acceptance/failed-run-1/birth-inputs.json": "e04d992cc4b549841f31bb6f28157f85e70071b5b30141684976bb0e87ef7ffd",
+    ".local/class-skills/barbarian-planned-acceptance/failed-run-1/birth-native-checks.log": "20a7d164e1a766552d622a9f7f95a4ce772208527eccc83055dde5ecf5341a4e",
+    ".local/class-skills/barbarian-planned-acceptance/integration-build-3.log": "09f007c23ad06dd4097c7a5769579f31d2cbec94a7d4ea45109c235133cca628",
+    ".local/class-skills/barbarian-planned-acceptance/source-snapshot-4.json": "8e7e5200acefca7d89c73d368c323fb5827af5f66744bfc4bc02c9e436caf5e8",
+    ".local/class-skills/barbarian-planned-acceptance/warcry-focused-run-3.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/barbarian-warcry-current/failed-run-1/birth-inputs.json": "82440d755ae017fab2a0cdd82f1e4857cbaceef61325d3897c02360ed106399f",
+    ".local/class-skills/barbarian-warcry-current/failed-run-1/birth-native-checks.log": "9d201ade435f92c755bedf72ff3c949ea2aa6d85d6184b1f4a20b98daf92ab9c",
+    ".local/class-skills/barbarian-warcry-current-2/failed-run-1/birth-inputs.json": "8885fb21e1026a395e0220f1fd1fda6de2612bacd1a7c9746af2b7485efc71ce",
+    ".local/class-skills/barbarian-warcry-current-2/failed-run-1/birth-native-checks.log": "6a2aada78fe702199d2143ce6fafda78fb0e33df2521044c12a6800012c4c744",
+    ".local/class-skills/barbarian-warcry-current-3/birth-inputs.json": "449e9e78aff911f9be89519c474664b0f4f93eb83423a9e72ca91d8f20f93c7c",
+    ".local/class-skills/barbarian-warcry-current-3/birth-native-checks.log": "f8470486ce0fa36b06fe5dc92b63eaa961bb19bee1579c534c628ad4ebc12d99",
+    "tests/Sanctuary.Integration/WarCryChecks.cs": "da8b447add65d201f30bb9db375e5e20afb176612f5b40665eabb5881e3252f3",
+    "tools/reference/shadow-unique-native-evidence.json": "93658d1305faf7a2fbfa7ab060132bda36a5601314443996a3d517c1da3388a6",
+    "tools/reference/warcry-engine-evidence.json": "4327f424e7aa31c4655562cb137ea454def85149e81a2643afd922f4c527ae1d"
+  }
+}
