@@ -1,0 +1,124 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+using System;
+using System.IO;
+using System.Linq;
+using System.Text.Json;
+using Server;
+using Server.Items;
+using Server.Mobiles;
+using Server.Network;
+namespace Sanctuary.Integration;
+
+public static class NativeCorpseChecks
+{
+    private static readonly Server.Logging.ILogger Log=Server.Logging.LogFactory.GetLogger(typeof(NativeCorpseChecks));
+    private sealed record Saved(int Generation,uint Owner,uint Corpse,uint Gold,CorpseSkillRecord Metadata);
+    private static string Manifest=>Path.Join(Core.BaseDirectory,"native-corpse-fixtures.json");
+    private static void Require(bool ok,string why){if(!ok){throw new InvalidOperationException(why);}}
+    [CallPriority(int.MaxValue)]public static void Initialize()
+    {
+        var hp=ClassGearHooks.CanRegenerateHits;var mp=ClassGearHooks.CanRegenerateMana;
+        ClassGearHooks.CanRegenerateHits=m=>m.Name!="NativeCorpseFixture"&&hp?.Invoke(m)!=false;
+        ClassGearHooks.CanRegenerateMana=m=>m.Name!="NativeCorpseFixture"&&mp?.Invoke(m)!=false;
+    }
+    public static void Configure()
+    {
+        foreach(bool again in new[]{false,true})
+        {
+            bool reload=again;string name=reload?"native-corpse-reload-check":"native-corpse-check";
+            ConsoleInputHandler.RegisterCommand(name,"Explicit native corpse identity/base life and Necromancer consumers",_=>Core.LoopContext.Post(()=>
+            {try{if(reload){Reload();}else{Check();}Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
+        }
+        foreach(string choice in new[]{"ce-right","poison-quick"})
+        {
+            string mode=choice,label="native-corpse-"+choice;
+            ConsoleInputHandler.RegisterCommand(label+"-check","Actual corpse-target input using native classification",_=>Core.LoopContext.Post(()=>
+            {FixtureNetwork.Connected(label+"-result",n=>Input(n,mode));Log.Information("{Name}: passed",label+"-check");}));
+        }
+    }
+    private static PlayerMobile Fresh()
+    {
+        var p=new PlayerMobile{Name="NativeCorpseFixture",Player=true,Body=0x190};p.AddItem(new Backpack());ClassCreation.Profiles.Assign(p,DiabloClass.Necromancer);ClassCreation.Profiles.AdvanceLevel(p,99);
+        foreach(string id in new[]{"necromancer.raiseskeleton","necromancer.skeletalmage","necromancer.corpseexplosion","necromancer.poisonexplosion","necromancer.revive"}){ClassSkillChecks.Train(p,id);}
+        FixtureSpace.Corridor(p,6700,36,2500);Ready(p);return p;
+    }
+    private static void Ready(PlayerMobile p)
+    {ClassCombat.Stop(p);ClassCombat.For(p).NextAction=ClassCombat.For(p).RecoveryUntil=Core.TickCount;NecromancerEffects.SetMana256(p,p.ManaMax*256);}
+    private static Corpse Corpse(PlayerMobile p,int offset=5)
+    {
+        var actor=new GraveyardLich{Name="NativeCorpseLich",NoKillAwards=true,Frozen=true,CantWalk=true};actor.MoveToWorld(new(p.X+offset,p.Y,p.Z),p.Map);actor.AIObject?.AITimer.Stop();
+        uint identity=actor.Serial.Value;Require(CreatureProfiles.Definition(actor).Reference==null&&CreatureProfiles.Level(actor)==5&&actor.HitsMax==90,"Native classification no longer matches authored Lich facts");
+        SkillCombat.HitParts(p,actor,new(200,0,0,0,0),recover:false);var corpse=actor.Corpse as Corpse;Require(corpse is{Deleted:false},"Actual native death produced no corpse");corpse.DropItem(new Gold(17));
+        var row=CorpseSkillRules.Profiles.Find(corpse);
+        Require(row is{Selectable:true,Owned:false,ReviveCreature:null,ReviveSnapshotIssue:not null}&&row.Source=="sanctuary.native.graveyard-lich.v1"
+            &&row.BaseLife is{Level:5,Base256:23040,Seed:not null}&&row.BaseLife.OriginalMonsterSerial==identity&&GenericPetSearchTables.SourceId(row.Source)==null,"Native corpse acquired incorrect identity/base or fake D2 species");
+        CorpseSkillRules.Capture(actor,corpse);Require(CorpseSkillRules.Profiles.Find(corpse)==row,"Repeated capture rerolled native base/seed");return corpse;
+    }
+    private static void Clean(PlayerMobile p)
+    {NecromancerSpellMissiles.Cancel(p);foreach(var pet in p.AllFollowers?.ToArray()??Array.Empty<BaseCreature>()){pet.Delete();}p.Delete();}
+    private static void Cast(PlayerMobile p,CombatAbility ability,Corpse corpse)
+    {
+        Ready(p);int mana=NecromancerEffects.ManaBalance256(p),cost=SkillMechanics.Values(p,ability).Mana256;
+        bool started=ability==CombatAbility.RaiseSkeleton?ClassCombat.CastSummon(p,corpse.Serial,Core.TickCount):ClassCombat.BeginCorpse(p,ability,corpse.Serial,corpse.Location,Core.TickCount);
+        Require(started,$"Native corpse public start:{ability},region={NecromancerCastRegions.CorpseAllowed(p,ability,corpse)},enabled={ClassCombat.Enabled(p)},overlap={AlliedOverlap.Allowed(p)},alive={p.Alive},frozen={p.Frozen},paralyzed={p.Paralyzed},spell={p.Spell},recovery={HitRecovery.Active(p,Core.TickCount)},rank={SkeletonPets.Rank(p)},mana={p.Mana},usable={SkeletonPets.Usable(p,corpse)},canRaise={SkeletonPets.CanRaise(p,corpse)},space={p.Map.CanSpawnMobile(corpse.X,corpse.Y,corpse.Z)},loot={corpse.CanLoot(p,null)},criminal={corpse.IsCriminalAction(p)},owner={corpse.Owner?.GetType().Name},ownerAlive={corpse.Owner?.Alive},position={p.Location}/{corpse.Location},pending={ClassCombat.For(p).PendingAbility},body={corpse.OwnerWasBaseCreature}/{corpse.OwnerWasSummoned}/{corpse.IsBones},consumed={corpse.SanctuaryConsumed},row={JsonSerializer.Serialize(CorpseSkillRules.Profiles.Find(corpse))}");var s=ClassCombat.For(p);
+        Require(NecromancerEffects.ManaBalance256(p)==mana&&!ClassCombat.ResolveAction(p,s.EffectAt-1),"Native corpse paid early");
+        bool released=ClassCombat.ResolveAction(p,s.EffectAt);int after=NecromancerEffects.ManaBalance256(p);bool replay=ClassCombat.ResolveAction(p,s.EffectAt);
+        Require(released&&!replay&&after==mana-cost,$"Native corpse release:{ability},released={released},replay={replay},mana={after}/{mana-cost},corpseAvailable={CorpseSkillRules.Available(corpse)},space={p.Map.CanSpawnMobile(corpse.X,corpse.Y,corpse.Z)},pendingPoint={s.PendingPoint}");
+        Require(!corpse.Deleted&&corpse.SanctuaryConsumed&&corpse.Animated&&!CorpseSkillRules.BodyAvailable(corpse)&&corpse.Items.OfType<Gold>().Single().Amount==17,"Native corpse reused or protected loot lost");
+    }
+    private static void Check()
+    {
+        var p=Fresh();bool kept=false;
+        try
+        {
+            foreach(var ability in new[]{CombatAbility.RaiseSkeleton,CombatAbility.RaiseSkeletalMage,CombatAbility.CorpseExplosion,CombatAbility.PoisonExplosion})
+            {
+                var corpse=Corpse(p);var target=PoisonDaggerChecks.Target(p);target.MoveToWorld(new(corpse.X+1,corpse.Y,corpse.Z),p.Map);int hp=SkillHealth.Balance256(target);
+                int followers=p.AllFollowers?.Count??0;Cast(p,ability,corpse);
+                if(ability is CombatAbility.RaiseSkeleton or CombatAbility.RaiseSkeletalMage){Require((p.AllFollowers?.Count??0)>followers,"Native corpse did not create the expected owned summon");}
+                if(ability==CombatAbility.CorpseExplosion){Require(SkillHealth.Balance256(target)<hp,"Native corpse base failed actual explosion damage");}
+                target.Delete();corpse.Delete();NecromancerSpellMissiles.Cancel(p);foreach(var pet in p.AllFollowers?.ToArray()??Array.Empty<BaseCreature>()){pet.Delete();}
+            }
+            var savedBody=Corpse(p,8);int before=NecromancerEffects.ManaBalance256(p);
+            Require(!ReviveCasts.Plan(p,savedBody,out _,out _,out string issue)&&issue==NativeCorpseSources.ForSource(CorpseSkillRules.Profiles.Find(savedBody).Source).ReviveIssue
+                &&!CorpseSkillRules.NoSelect(savedBody)&&NecromancerEffects.ManaBalance256(p)==before,"Unqualified native Revive was invented or consumed its corpse");
+            Require(NativeCorpseSources.ForSource(CorpseSkillRules.Profiles.Find(savedBody).Source).Soft==null&&!CorpseSkillRules.Soft(savedBody),"Unassigned native flesh classification was invented");
+            var gold=savedBody.Items.OfType<Gold>().Single();File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(0,p.Serial.Value,savedBody.Serial.Value,gold.Serial.Value,CorpseSkillRules.Profiles.Find(savedBody))));kept=true;
+            Log.Information("Native corpse:actual Lich death,authored level5/base90,no fake D2identity,once-only public Raise/Mage/CE/Poison consumption+loot and explicit Revive/flesh gaps pass");
+        }
+        finally{if(!kept){Clean(p);}}
+    }
+    private static void Reload()
+    {
+        var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)saved.Owner);var corpse=World.FindItem((Serial)saved.Corpse) as Corpse;
+        // Offline players load on the internal map. Restore this fixture's
+        // saved world position before checking live range/visibility guards.
+        Require(p is{Deleted:false,Alive:true}&&corpse is{Deleted:false},"Saved native corpse or fixture owner missing");
+        if(p.Map==Map.Internal){p.MoveToWorld(p.Location,corpse.Map);}
+        Require(corpse is{Deleted:false}&&CorpseSkillRules.Profiles.Find(corpse)==saved.Metadata&&World.FindItem((Serial)saved.Gold)is Gold{Amount:17}gold&&gold.Parent==corpse
+            &&CorpseSkillRules.Usable(p,corpse,SkeletonPets.Range)&&CorpseExplosionCasts.Supported(corpse),$"Saved native corpse:player={p?.Location}/{p?.Map},alive={p?.Alive},corpse={corpse?.Location}/{corpse?.Map},deleted={corpse?.Deleted},metadata={JsonSerializer.Serialize(CorpseSkillRules.Profiles.Find(corpse))},saved={JsonSerializer.Serialize(saved.Metadata)},gold={World.FindItem((Serial)saved.Gold)?.Amount}/{World.FindItem((Serial)saved.Gold)?.Parent},body={CorpseSkillRules.BodyAvailable(corpse)},usable={CorpseSkillRules.Usable(p,corpse,SkeletonPets.Range)},supported={CorpseExplosionCasts.Supported(corpse)},see={p?.CanSee(corpse)},los={p?.InLOS(corpse)},loot={corpse?.CanLoot(p,null)},criminal={corpse?.IsCriminalAction(p)},flags={corpse?.OwnerWasBaseCreature}/{corpse?.OwnerWasSummoned}/{corpse?.Carved}/{corpse?.Animated}/{corpse?.SanctuaryHarvested}/{corpse?.SanctuaryConsumed}/{corpse?.SanctuaryRestInPeace}/{corpse?.IsBones}");
+        File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Generation=saved.Generation+1}));
+    }
+    private static void Input(NetState network,string mode)
+    {
+        var p=Fresh();var corpse=Corpse(p);var target=PoisonDaggerChecks.Target(p);target.MoveToWorld(new(corpse.X+1,corpse.Y,corpse.Z),p.Map);
+        var ability=mode=="ce-right"?CombatAbility.CorpseExplosion:CombatAbility.PoisonExplosion;string label="native-corpse-"+mode;
+        Require(SkillBindings.Instance.Assign(p,false,ability)&&SkillBindings.Instance.AssignQuick(p,7,ability),"Native corpse bindings");var account=FixtureNetwork.Authenticate(network,p,"native-corpse-wire-");Ready(p);
+        int mana=NecromancerEffects.ManaBalance256(p),hp=SkillHealth.Balance256(target),cost=SkillMechanics.Values(p,ability).Mana256;bool began=false,done=false;long deadline=Core.TickCount+12000;
+        void Cleanup(){target.Delete();corpse.Delete();Clean(p);account.Delete();}
+        void Inspect()
+        {
+            if(done){return;}
+            try
+            {
+                Require(Core.TickCount<deadline,"Native corpse automatic damage timeout");var s=ClassCombat.For(p);
+                if(!began&&s.PendingAbility==ability){Require(!CorpseSkillRules.NoSelect(corpse)&&NecromancerEffects.ManaBalance256(p)==mana,"Native corpse input paid/consumed during windup");began=true;Log.Information("{Label}: windup",label);}
+                if(began&&CorpseSkillRules.NoSelect(corpse)&&SkillHealth.Balance256(target)<hp)
+                {Require(NecromancerEffects.ManaBalance256(p)==mana-cost&&corpse.Items.OfType<Gold>().Single().Amount==17,"Native corpse automatic damage/payment/loot mismatch");done=true;Cleanup();Log.Information("{Label}-result: passed",label);return;}
+                Timer.StartTimer(TimeSpan.FromMilliseconds(10),()=>Core.LoopContext.Post(Inspect));
+            }
+            catch(Exception e){done=true;Cleanup();Log.Error(e,"{Label}-result: failed",label);}
+        }
+        Timer.StartTimer(TimeSpan.FromMilliseconds(30),()=>Core.LoopContext.Post(()=>{Log.Information("{Label}: ready ability={Ability} class={Class} target={Target} x={X} y={Y} z={Z}",label,(int)ability,(int)DiabloClass.Necromancer,corpse.Serial.Value,corpse.X,corpse.Y,corpse.Z);Inspect();}));
+    }
+}

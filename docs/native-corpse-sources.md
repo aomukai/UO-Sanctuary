@@ -1,0 +1,19 @@
+# Native corpse classifications
+
+The user approved classifying native UO monsters by relative strength when they have no D2 equivalent. The explicit catalogue in [native-corpse-sources.json](../data/Sanctuary/Balance/native-corpse-sources.json) supplies corpse identity and base-life inputs independently of the pinned D2R3.3.93847 species tables. Skill formulas continue using the pinned reference and approved deviations.
+
+The first entry is **Sanctuary.GraveyardLich**. Its existing `GraveyardProfiles.Lich` defines level5 and fixed90base life. The native corpse key records those authored facts. It changes no living monster stats and assigns no D2 species ID. Matching is by exact runtime type; an existing D2 reference takes precedence. Unlisted native types and subclasses remain unclassified.
+
+New deaths capture the native key, original monster serial, authored level/difficulty/base life and existing source-style seed. Corpse Explosion can then use actual native base life, and Poison Explosion can use the selectable corpse. Existing Raise Skeleton/Mage paths are regression checked on the same corpses. Reservation/consumption, town, ownership, summoned/player corpse, shatter, rest-in-peace and ordinary loot-right guards remain in their shared consumers. Capturing the same corpse again does not refresh or reroll its metadata.
+
+The source uses its authored fixed90base life across current difficulty contexts, matching the existing unscaled native role. This is a Sanctuary balance input, not a D2 Lich analogue or a substitution of current maximum life after buffs. Any later native-role balance revision needs a corresponding explicit corpse classification; unknown levels remain unsupported rather than receiving a guessed life curve.
+
+Existing corpse records are not backfilled from current creature stats. Earlier native corpses with missing historical classification/base life remain unsupported for the affected consumers. Existing D2 source rows, bounds and old serializer layouts retain their path. The new native bounds remain a separate lookup, so the pinned D2 catalogue does not gain synthetic species rows.
+
+## Explicit unfinished work
+
+Native Lich **Revive remains refused**, with a specific explanation before the D2 identity path. Native eligibility/original-actor activation still needs an adapter. In addition, source inspection shows `GraveyardUndead.ResolveRaise` creates helpers without binding a player owner. Enabling a revived Lich with that path unchanged could produce wild helpers. This is a technical ownership/lifecycle gap, not a blanket spell or ability whitelist. Eligible already-supported Revives still keep their living abilities under the user's approved policy; global UO-to-D2 spell conversion remains separate.
+
+The Lich's soft/flesh classification is deliberately unassigned. Find Potion/Grim Ward contexts that require it are not newly enabled. Neither unknown flesh metadata nor an unsupported Revive path is presented as a D2 observation. More native types need explicit authored rows, base inputs and consumer coverage before admission.
+
+The [current checkpoint](native-corpse-checkpoint.md) records native deaths, actual public input, protected loot, historical metadata and saved-state coverage. Existing Lich/corpse and skill visuals are reused as identified placeholders; final skill effects/audio and talent/hotkey icons remain in their separate registers. No image generation or new skill/button is needed for this classification.

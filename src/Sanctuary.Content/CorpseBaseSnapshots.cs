@@ -14,17 +14,21 @@ internal static class CorpseBaseSnapshots
     // Explicit native allocation adapter, shared with the established missile
     // seed convention. This is not the D2R executable's monster spawn stream.
     internal static Func<int> SeedLow=()=>unchecked((int)Random.Shared.NextInt64(1L<<32));
-    internal static void Load()=>_catalogue=new(
-        BalanceCatalog.Read<CorpseBaseMonster>("corpse-base-monsters"),
-        BalanceCatalog.Read<CorpseBaseLevel>("corpse-base-levels"));
+    internal static void Load()
+    {
+        _catalogue=new(BalanceCatalog.Read<CorpseBaseMonster>("corpse-base-monsters"),BalanceCatalog.Read<CorpseBaseLevel>("corpse-base-levels"));
+        NativeCorpseSources.Load();
+    }
     internal static int Base256(string source,MonsterDifficulty difficulty,int level)
     {
+        if(NativeCorpseSources.TryCalculate(source,difficulty,level,out var native)){return native.Base256;}
         if(_catalogue==null||!_catalogue.TryCalculate(source,true,(int)difficulty,level,out var result))
         {throw new NotSupportedException("No pinned corpse base-life bounds for this source/level");}
         return result.Base256;
     }
     internal static CorpseBaseLifeResult Bounds(string source,CorpseBaseSnapshot snapshot)
     {
+        if(snapshot!=null&&NativeCorpseSources.TryCalculate(source,snapshot.Difficulty,snapshot.Level,out var native)&&native.Base256==snapshot.Base256){return native;}
         if(snapshot==null||!Enum.IsDefined(snapshot.Difficulty)||snapshot.Level<1||_catalogue==null
             ||!_catalogue.TryCalculate(source,true,(int)snapshot.Difficulty,snapshot.Level,out var result)||result.Base256!=snapshot.Base256)
         {throw new NotSupportedException("Saved corpse base life does not match its pinned bounds");}
@@ -35,6 +39,11 @@ internal static class CorpseBaseSnapshots
     {
         int level=CreatureProfiles.Level(creature);
         var difficulty=MonsterVariants.Difficulty(creature);
+        if(NativeCorpseSources.ForSource(source)is{} row)
+        {
+            if(row.RuntimeType!=creature.GetType().FullName||!NativeCorpseSources.TryCalculate(source,difficulty,level,out var native)){return null;}
+            return new(creature.Serial.Value,level,difficulty,native.Base256,SourceRandom.InitLow(SeedLow()));
+        }
         // Sanctuary uses the pinned D2R expansion HP columns. Unknown source
         // mappings and invalid native levels remain explicitly unsupported.
         if(level<1 || _catalogue==null || !_catalogue.TryCalculate(source,true,(int)difficulty,level,out var result))

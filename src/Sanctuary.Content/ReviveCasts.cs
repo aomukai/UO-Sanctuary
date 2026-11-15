@@ -26,6 +26,8 @@ internal static class ReviveCasts
     {
         setup=null;status=default;issue="That corpse is unavailable for Revive.";
         if(!CorpseSkillRules.Usable(owner,corpse,SkeletonPets.Range)){return false;}
+        if(NativeCorpseSources.ForSource(CorpseSkillRules.Profiles.Find(corpse)?.Source)is{} native)
+        {issue=native.ReviveIssue;return false;}
         try
         {
             var unit=SourceCorpseIdentity.For(corpse);

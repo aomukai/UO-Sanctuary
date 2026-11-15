@@ -1,5 +1,7 @@
 # Skill icons
 
+**Native corpse consumers — 2026-11-16 JST.** [Native Lich corpse support](native-corpse-checkpoint.md) adds no skill or button. Existing Raise Skeleton/Mage, Corpse Explosion and Poison Explosion talent/hotkey icon requirements and identified placeholders remain unchanged; effects/audio stay in their separate register.
+
 **Chain learned — 2026-11-15 JST.** Talent-tree and left/right/quick-hotkey icons remain separately missing after mechanical admission. Existing identified UI placeholders remain. Enhanced Entropy art and unfinished consumers stay separate. [Checkpoint](miasma-chain-cast-checkpoint.md).
 
 **Prepared complete Chain world — 2026-11-15 JST.** Talent-tree and left/right/quick-hotkey icons remain separately needed. The complete prepared graph enables no learned binding or final art;identified existing UI placeholders remain. Enhanced Entropy talent art and unfinished consumers stay separate. [Checkpoint](miasma-chain-world-checkpoint.md).

@@ -1,0 +1,12 @@
+[
+  {
+    "runtimeType": "Sanctuary.GraveyardLich",
+    "source": "sanctuary.native.graveyard-lich.v1",
+    "level": 5,
+    "minimumLife": 90,
+    "maximumLife": 90,
+    "soft": null,
+    "reviveIssue": "This native Lich needs native Revive eligibility and ownership for its raised monsters before it can be revived.",
+    "basis": "Existing GraveyardProfiles.Lich: authored level 5 and fixed 90 base life. Native corpse use only; no D2 species ID. Flesh classification is unassigned."
+  }
+]

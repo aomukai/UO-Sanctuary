@@ -71,7 +71,11 @@ public static class CorpseSkillRules
         CorpseRecoveryHooks.Deleted=corpse=>{Profiles.Remove(corpse);previous?.Invoke(corpse);};
     }
     public static void Load()
-    { CorpseBaseSnapshots.Load();ReviveRegeneration.Load();_selectable.Clear();_noAura.Clear();_soft.Clear();foreach(var row in BalanceCatalog.Read<CorpseSourceRule>("corpse-source-rules")){_selectable.Add(row.Source,row.Selectable);if(row.NoAura){_noAura.Add(row.Source);}if(row.Soft){_soft.Add(row.Source);}} }
+    {
+        CorpseBaseSnapshots.Load();ReviveRegeneration.Load();_selectable.Clear();_noAura.Clear();_soft.Clear();
+        foreach(var row in BalanceCatalog.Read<CorpseSourceRule>("corpse-source-rules")){_selectable.Add(row.Source,row.Selectable);if(row.NoAura){_noAura.Add(row.Source);}if(row.Soft){_soft.Add(row.Source);}}
+        foreach(var row in NativeCorpseSources.All){_selectable.Add(row.Source,true);if(row.Soft==true){_soft.Add(row.Source);}}
+    }
     public static bool AllowsAura(Mobile target)
     {
         string key=target switch
@@ -90,13 +94,14 @@ public static class CorpseSkillRules
         NpcRestInPeace.CaptureDeath(creature,corpse);
         HeavenFists.CaptureDeath(creature,corpse);
         string key=CreatureProfiles.Definition(creature).Reference;
+        var native=key==null?NativeCorpseSources.For(creature):null;key??=native?.Source;
         bool known=key!=null && _selectable.TryGetValue(key,out bool selectable);
         var old=Profiles.Find(corpse);
         // Capture once, including when there is deliberately no supported drop
         // context. Repeated death/access callbacks must not revive an attempt.
         if(old!=null){return;}
         int level=CreatureProfiles.Level(creature);
-        string issue=null;var revive=known&&_selectable[key]?ReviveCreatureSnapshots.TryCapture(creature,key,out issue):null;
+        string issue=native?.ReviveIssue;var revive=known&&_selectable[key]&&issue==null?ReviveCreatureSnapshots.TryCapture(creature,key,out issue):null;
         Profiles.Store(new(corpse.Serial.Value,known?key:null,known && _selectable[key],creature.Controlled || creature.Summoned || creature is BaseVendor,PaladinHolyFreeze.Shattered(creature) || FreezeStates.Shattered(creature),false,Treasure(creature),
             known && _selectable[key]?CorpseBaseSnapshots.Capture(creature,key):null,level>0?level:null,
             revive,issue));
