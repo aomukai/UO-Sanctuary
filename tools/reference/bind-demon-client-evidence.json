@@ -1,0 +1,88 @@
+{
+  "referenceVersion": "3.3.93847",
+  "nativeCommit": "ee79d7ebc1cc0e53ff84fe6cae17d389e2737f93",
+  "component": "Prepared isolated Bind Demon client held-channel whitelist",
+  "inputManifest": {
+    "path": ".local/class-skills/bind-demon-client/client-inputs-1.json",
+    "sha256": "f876b2f4b92de721657f563bfb5faa56b3f22822cab90ef3cb468aeaaa97332d"
+  },
+  "handlers": 226,
+  "warlockHandlers": 17,
+  "completedClasses": [],
+  "patches": 44,
+  "affectedPaths": 42,
+  "changedClientPaths": [
+    "src/ClassicUO.Client/Game/ClassCombatChannelClient.cs"
+  ],
+  "addedPatches": [
+    "patches/ClassicUO/0044-bind-demon-held-input.patch"
+  ],
+  "buildWarnings": 44,
+  "buildErrors": 0,
+  "baselineWarningsIdentical": true,
+  "graphicalInputVerified": false,
+  "actualBindSocketInputs": 0,
+  "learnedBindDemonEnabled": false,
+  "intentionalSharedChanges": [],
+  "nativeRebuilt": false,
+  "contentRebuilt": false,
+  "newNativeRun": false,
+  "newLiveReferenceReads": 0,
+  "installed": false,
+  "preservation": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 43
+  },
+  "frozenPendingProposalFiles": [
+    "docs/blood-oath-damage-proposal.md",
+    "tools/reference/blood-oath-damage-native-evidence.json",
+    "docs/engorge-world-rule-proposal.md",
+    "tools/reference/engorge-world-native-evidence.json",
+    "docs/blood-boil-rule-proposal.md",
+    "tools/reference/blood-boil-world-native-evidence.json",
+    "docs/consume-world-rule-proposal.md",
+    "tools/reference/consume-world-native-evidence.json"
+  ],
+  "retainedServer": {
+    "receipt": "tools/reference/bind-demon-input-native-evidence.json",
+    "contentBuild": 2,
+    "integrationBuild": 3,
+    "sourceSnapshot": 4,
+    "nativeRun": 3,
+    "nativeMarkers": 30,
+    "reloads": 2,
+    "actualBindSocketInputs": 0
+  },
+  "scope": "One-line whitelist addition reuses existing right/quick press,heartbeat,release and packet layout. All44patches reverse to exact pinned source and forward to identical built inputs. Shared sources and prior43patches unchanged;isolated client compiles with identical inherited warnings.",
+  "limits": [
+    "Build/source/patch verification only;no graphical interaction,actual Bind socket admission,installed-client deployment or gameplay certification.",
+    "Prepared channel cost/timing/grouped chance remains unapproved. Full Bind SQ6/native quality/named species/sunder/underling composite and proposal remain unfinished;four earlier proposals pending/frozen.",
+    "No new server/native build or repeated historical server suite;accepted server source inputs remain identical. 226handlers/Warlock17/no class certified.",
+    "Reference3.3.93847 unchanged despite newer installed D2R;no process/CASC capture/artwork. Final effects and icons tracked separately."
+  ],
+  "files": {
+    "tools/review_bind_demon_client.py": "d40696ee95c8aa11b8cea4ea7ea8cd525552c02437ee9eea9d4b7ad24a1829ab",
+    "tools/prepare_bind_demon_client.py": "ac90d121b3b87d5265bcb27f6a05b808ac4f945c3112c4a81809d0910d46e4e0",
+    "patches/ClassicUO/0044-bind-demon-held-input.patch": "bdc6addcf445ae2adfdaab416cc94a92a5f30aee11184893eb835628dc78b8f2",
+    ".local/class-skills/bind-demon-client/client-inputs-1.json": "f876b2f4b92de721657f563bfb5faa56b3f22822cab90ef3cb468aeaaa97332d",
+    ".local/class-skills/bind-demon-client/client-build-1.log": "c927e4011ae04d14888d12f9eb77e2e30c37a224130e3bdea884292ba3b46053",
+    ".local/class-skills/bind-demon-client/client/cuo.dll": "54bf9b620192355018ca3d82217e2e43f74c4fab99086ebd0ee6f1c5ca7b4309",
+    "tools/reference/bind-demon-input-native-evidence.json": "3777510c540e5e64e155b34446045ac1c90eaaa45cced0c5f8abff6d0f4c3a83",
+    "docs/bind-demon-client-checkpoint.md": "2481d694768196df405edaaaffa7fb7922a37855eb8bbb6ccf462810b0f4afc1",
+    "docs/class-skill-roadmap.md": "d977601488ba95d390deffe3917ed1f7aaa25346e9dfde4738941da976bdef22",
+    "docs/class-skills-resume-checkpoint.md": "c746296450d8280694ce32c2c2ac765ab5b9b024413a18d1c02e159b70de5d30",
+    "docs/class-skill-reuse-notes.md": "260ef6ddaae57961a863596506d0ad30a824aae3f27f749232c5ae73dba5945d",
+    "docs/skill-effects.md": "8dddb6910167c2b3e3addfb507d285f3b0b89fceef887fe96a4f4b0dbdeea232",
+    "docs/skill-icons.md": "f20597f30f2ad3bc826b6c2e86751534e1bda8d9e00e3defc5b28cdbbcfd9253",
+    "docs/blood-oath-damage-proposal.md": "708eae5c96de89b680b975df6ff937f4d7ee6038877a026e440768519906746d",
+    "tools/reference/blood-oath-damage-native-evidence.json": "dfc5816fb82504889b955dd9b62935834bdcbb73a4a648d92fa0ca204428d152",
+    "docs/engorge-world-rule-proposal.md": "e7d1a57aa309bc29a2278e5d0588a818e1addd169151b78f3f5543ac62c6c878",
+    "tools/reference/engorge-world-native-evidence.json": "4e4f8c3762f014c0272c71c7939e30b371bc7daa129bd54e4aebde1681ca74bb",
+    "docs/blood-boil-rule-proposal.md": "9b530871555c6a3c3c269123addbedea0a020bac10a29c02b8a505e6c572dbe7",
+    "tools/reference/blood-boil-world-native-evidence.json": "fa719c0aa2718152bfe1cbc503473f44e75eb6863e87cd66e13f63e6ddad6c4b",
+    "docs/consume-world-rule-proposal.md": "e4a2cc5b07c1b897f307382406561cae340cf43abf6b0bb94a3ff2f6b024a5d6",
+    "tools/reference/consume-world-native-evidence.json": "3413c44f06158d6ae0c5e21fcc0784583b68055ad3824c72eec3e8f7dae517b5"
+  }
+}

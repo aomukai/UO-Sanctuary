@@ -1,5 +1,7 @@
 # Skill effects
 
+**Prepared Bind client effect boundary — 2026-11-15 JST.** The held-skill whitelist adds no new artwork, animation or audio. Human cast pose 17 remains an identified server placeholder; final channel/tether/progress/success/bound feedback is missing and nonblocking. No imagegen or graphical acceptance is claimed. Icons stay separate. [Checkpoint](bind-demon-client-checkpoint.md).
+
 **Prepared Bind input effect boundary — 2026-11-15 JST.** Input and attempts now use identified existing human cast pose 17 plus the shared animation packet. This is a placeholder, not D2R SQ6 timing or final art. Channel tether, progress, success/bound effects and audio remain missing and nonblocking. Original native body and shared aura placeholders remain. No artwork/imagegen; icons stay separate. [Checkpoint](bind-demon-input-checkpoint.md).
 
 **Prepared Bind channel effect boundary — 2026-11-15 JST.** Chance and supplied-intent preparation add no final channel, tether, progress, success or bound-state artwork/audio. Successful binding retains the native body and identified shared aura placeholders. Learned action remains mechanically unfinished. Final effects are separately missing and nonblocking; no imagegen. Icons stay in their own register. [Checkpoint](bind-demon-channel-checkpoint.md).
