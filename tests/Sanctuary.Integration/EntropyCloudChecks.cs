@@ -39,7 +39,7 @@ public static class EntropyCloudChecks
             bool refused=false;try{WarlockEntropyClouds.Capture(new(SkillMechanics.For(CombatAbility.MiasmaBolt),_=>rank,_=>0,99));}catch(NotSupportedException){refused=true;}
             Require(refused,"Unmapped spell rank accepted");
         }
-        Require(!WarlockCombat.Implemented(CombatAbility.EnhancedEntropy)&&!WarlockCombat.Implemented(CombatAbility.MiasmaChain),"Prepared cloud outputs enabled incomplete do41/Abyss routes");
+        Require(!WarlockCombat.Implemented(CombatAbility.EnhancedEntropy)&&WarlockCombat.Implemented(CombatAbility.MiasmaChain),"Prepared cloud outputs enabled incomplete do41/Abyss routes");
     }
     private static void Check()
     {

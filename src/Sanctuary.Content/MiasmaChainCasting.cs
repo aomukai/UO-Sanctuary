@@ -4,15 +4,21 @@ using Server;
 using Server.Mobiles;
 namespace Sanctuary;
 
-// Prepared normal-SC/FCR choice is part of the complete pending Chain rule.
+// Approved normal-SC/FCR adaptation;the current startup remains unverified.
 // The legacy CAST mode caller prioritizes FCR despite UseAttackRate;current
-// Warlock startup has not been recovered. No public learned dispatch yet.
+// Warlock startup has not been recovered;the shared action owns release.
 internal static class MiasmaChainCasting
 {
     internal sealed class Pending
     {internal bool Released,Cancelled;internal long Chain;internal int ManaPaid256;internal string Fault;}
     private static bool Actor(PlayerMobile p)=>p is{Map:not null}&&MiasmaWorld.Fighting(p,p.Map.MapID)
         &&ClassCreation.Profiles.TryGet(p.Serial,out var c)&&c.Class==DiabloClass.Warlock&&SkillMechanics.Rank(p,CombatAbility.MiasmaChain)>0;
+    internal static bool BeginLearned(PlayerMobile p,Serial selected,Point3D point,long now)
+    {
+        if(!MiasmaChainWorld.Approved||!WarlockCombat.Available(p,CombatAbility.MiasmaChain)){return false;}
+        try{return BeginPrepared(p,selected,point,now)!=null;}
+        catch(NotSupportedException ex){p.SendMessage(0x22,"Miasma Chain: "+ex.Message);return false;}
+    }
     internal static Pending BeginPrepared(PlayerMobile p,Serial selected,Point3D point,long now)
     {
         if(!Actor(p)||!MiasmaChainWorld.Aim(p,selected,ref point)

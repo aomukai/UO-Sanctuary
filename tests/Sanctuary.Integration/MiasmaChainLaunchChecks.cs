@@ -33,7 +33,7 @@ public static class MiasmaChainLaunchChecks
             var want=expected.GetProperty("requests").EnumerateArray().Select(r=>r.EnumerateArray().Select(n=>n.GetInt32()).ToArray()).ToArray();
             Require(requests.Count==want.Length&&requests.Where((r,n)=>!r.SequenceEqual(want[n])).Any()==false,"Current Miasma Chain factory request mismatch");count++;
         }
-        Require(count==20&&!WarlockCombat.Implemented(CombatAbility.MiasmaChain),"Missing current contexts or unfinished Chain enabled");
+        Require(count==20&&WarlockCombat.Implemented(CombatAbility.MiasmaChain),"Missing current contexts or approved Chain unavailable");
     }
     private static MiasmaChainRequest Primary(PlayerMobile owner)
     {

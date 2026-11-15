@@ -1,6 +1,8 @@
 # Complete Miasma Chain world rule
 
-**Pending approval.** This is one complete Sanctuary adaptation for the current unavailable do43/do45/hit41/do41 world callbacks and startup. It preserves the pinned **D2R Reign of the Warlock3.3.93847** data and approved common mechanics;it does not claim those callbacks were recovered. No newer3.4process or CASC data is substituted. Learned Chain remains gated until approval and separate real-input verification.
+**Approved by the user on2026-11-15 JST.** [Exact decision](../tools/reference/miasma-chain-world-rule-approval.json). The body below is the original approved proposal;implementation/acceptance status is recorded separately.
+
+**Original proposal.** This is one complete Sanctuary adaptation for the current unavailable do43/do45/hit41/do41 world callbacks and startup. It preserves the pinned **D2R Reign of the Warlock3.3.93847** data and approved common mechanics;it does not claim those callbacks were recovered. No newer3.4process or CASC data is substituted. Learned Chain remains gated until approval and separate real-input verification.
 
 ## Reference and reuse
 

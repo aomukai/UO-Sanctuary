@@ -2594,7 +2594,7 @@
       "characterClass": "Warlock",
       "tree": "Chaos",
       "sourceId": 399,
-      "implementation": "blocked",
+      "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
       "remaining": "Prepared current do167 launches maker711 with flags33,source path/target/skill/rank and zero remaining factory fields;factory failure returns0 after retaining the action flag. Full graph is711maker43\u2192712chain45/hit41\u2192713cloudmaker43\u2192696cloud41. Shared Entropy shape keeps effective Range/Radius separate from hard-only SrvCalc1. Actual maker/motion/cloud emission,hit windows,magic mastery/pierce,placement/RNG/ownership/lifecycle and learned input remain unsupported. Candidate missile-do41/45bodies are protected and dispatcher linkage remains unverified;do not substitute an ordinary bolt or BasicMissileUpdate. See miasma-chain-launch-checkpoint.md;effects/icons separate."

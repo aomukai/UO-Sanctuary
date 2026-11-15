@@ -14,12 +14,13 @@ internal sealed record MiasmaChainStamp(long Id,long Cast,uint Owner,int Map,int
     MiasmaChainBirth Birth,ulong Seed,DateTime CreatedUtc,DateTime NextUtc);
 internal readonly record struct MiasmaChainAdvance(int Updates,int DirectDamaged,int Stamps,int Clouds,int Damage256,string Fault=null);
 
-// Full prepared711maker/712head+link/713stamp maker. Cloud696reuses the
-// saved Miasma scanner/lease/damage service. These modern world rules are
-// explicit candidates,not recovered do43/45/hit41bodies. No automatic caller.
+// Approved711maker/712head+link/713stamp mapping. Cloud696reuses the
+// saved Miasma scanner/lease/damage service on the existing world clock.
+// Modern do43/45/hit41bodies remain explicitly adapted,not recovered.
 internal static class MiasmaChainWorld
 {
-    internal static bool Approved=>false;
+    internal static bool Approved=>true;
+    private static readonly Server.Logging.ILogger Log=Server.Logging.LogFactory.GetLogger(typeof(MiasmaChainWorld));
     private static ImmutableDictionary<long,MiasmaChainState> Links=ImmutableDictionary<long,MiasmaChainState>.Empty;
     private static ImmutableDictionary<long,MiasmaChainStamp> Makers=ImmutableDictionary<long,MiasmaChainStamp>.Empty;
     internal static Func<int> SeedLow=()=>SorceressSpellMissiles.SeedLow();
@@ -101,6 +102,15 @@ internal static class MiasmaChainWorld
     {
         double x=n.HeadX,y=n.HeadY,length=MiasmaWorld.LinkLength(p.X,p.Y,x,y);
         if(length>n.Birth.Numbers.LinkLength){double fraction=n.Birth.Numbers.LinkLength/length;x=p.X+(x-p.X)*fraction;y=p.Y+(y-p.Y)*fraction;}return(x,y);
+    }
+    internal static void Tick(DateTime at)
+    {
+        if(World.Loading||!Approved){return;}
+        foreach(uint owner in Links.Values.Select(n=>n.Owner).Concat(Makers.Values.Select(n=>n.Owner)).Distinct().OrderBy(n=>n).ToArray())
+        {
+            var result=TickPrepared(at,onlyOwner:owner);
+            if(result.Fault!=null){Log.Warning("Miasma Chain stopped an unsupported link for {Owner}: {Reason}",owner,result.Fault);}
+        }
     }
     internal static MiasmaChainAdvance TickPrepared(DateTime at,bool? actions=null,uint? onlyOwner=null)
     {

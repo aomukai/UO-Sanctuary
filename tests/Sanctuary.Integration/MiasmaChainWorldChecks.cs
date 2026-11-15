@@ -59,7 +59,7 @@ public static class MiasmaChainWorldChecks
         var account=FixtureNetwork.Authenticate(network,p,"chain-world-");var target=Target(p,8);var seed=MiasmaChainWorld.SeedLow;MiasmaChainWorld.SeedLow=()=>73;bool kept=false;
         try
         {
-            Require(!MiasmaChainWorld.Approved&&!WarlockCombat.Implemented(CombatAbility.MiasmaChain)&&!SkillBindings.Instance.Assign(p,true,CombatAbility.MiasmaChain),"Prepared Chain admitted public route");
+            Require(MiasmaChainWorld.Approved&&WarlockCombat.Implemented(CombatAbility.MiasmaChain)&&SkillBindings.Instance.Assign(p,true,CombatAbility.MiasmaChain),"Approved Chain route missing");
             Ready(p);int mana=NecromancerEffects.ManaBalance256(p);var a=MiasmaChainCasting.BeginPrepared(p,target.Serial,target.Location,Core.TickCount);Require(a!=null,"Chain SC preparation");
             var session=ClassCombat.For(p);long effect=session.EffectAt;Require(session.Timing==WarlockCastClock.Calculate(CombatTiming.Fcr(p)),"Prepared explicit SC/FCR choice");
             Require(!ClassCombat.ResolveAction(p,effect-1)&&NecromancerEffects.ManaBalance256(p)==mana&&MiasmaChainWorld.For(p).Length==0,"Early SC release");ClassCombat.Stop(p);
@@ -211,7 +211,7 @@ public static class MiasmaChainWorldChecks
             var expiry=live.Leases.Single(l=>casts.Contains(l.Cast)&&l.Target==target.Serial.Value).UntilUtc;r=Pump(p,expiry);
             Require(r.Field.CloudContacts==1&&SkillHealth.Balance256(target)<saved.TargetLife,"Saved one-second lease failed to reopen for one shared contact");
             MiasmaWorld.Restore(live);SkillHealth.SetBalance256(target,saved.TargetLife);File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Generation=saved.Generation+1}));
-            Require(ClassCombat.For(p).MiasmaChain==null&&!WarlockCombat.Implemented(CombatAbility.MiasmaChain),"Reload admitted learned/transient Chain");
+            Require(ClassCombat.For(p).MiasmaChain==null&&WarlockCombat.Implemented(CombatAbility.MiasmaChain),"Reload replayed transient or lost learned Chain");
             Log.Information("Chain world:original saved link/713maker/fixed clouds/positive lease/RNG/clocks/Witch/gear/FP256wounds+mana retain and resume through actual reload;legacy optional graph loads atomically;future inspection clock only");
         }
         finally{ClassCombat.Stop(p);network.Mobile=null;p.NetState=null;account[0]=null;network.Account=null;account.Delete();}

@@ -1,5 +1,7 @@
 # Skill effects
 
+**Chain learned — 2026-11-15 JST.** Mechanical admission retains identified cast0x1E5,endpoint0x37C4 and purple cloud/contact native placeholders. Final travelling head/tether/stamp/contact/expiry effects and matched audio remain required;the endpoint marker is not finished tether art. No imagegen performed. [Checkpoint](miasma-chain-cast-checkpoint.md).
+
 **Prepared complete Chain world — 2026-11-15 JST.** Native cast0x1E5,linked-end0x37C4,cloud0x374A/contact0x375A with purple0x48D are identified placeholders. The endpoint marker is not final tether artwork. Final cast/head/tether/stamp/impact/expiry effects and audio remain required;no imagegen or damaging visual duplicates. [Checkpoint](miasma-chain-world-checkpoint.md).
 
 **Miasma learned — 2026-11-15 JST.** Mechanical admission retains identified cast0x1E5,bolt0x36E4,cloud0x374A/contact0x375A purple-hue native placeholders. Final cast/flight/maker/cloud/contact/expiry effects and audio remain required;no imagegen performed. [Checkpoint](miasma-cast-checkpoint.md).

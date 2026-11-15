@@ -1,0 +1,13 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "answer": "Approve the complete Miasma Chain rule (Recommended)",
+  "approvedUtc": "2026-11-15T13:53:12.947098+00:00",
+  "questionItemId": "[\"request_user_input_async\",\"call_d1ba1caa062e4193bfe4d42f1fdad378\",0]",
+  "proposal": "docs/miasma-chain-world-rule-proposal.md",
+  "proposalAtApprovalSha256": "832204f78ab3fbb2e774072c141b94a41ada3a590f5636486d9de138739c53a1",
+  "candidateCommit": "4fe6071256efdae60acb59769d489dbf143493b9",
+  "testedCandidateEvidence": "tools/reference/miasma-chain-world-native-evidence.json",
+  "testedCandidateEvidenceSha256": "a32cdb8ac5491da41fed3e28e2f282e4afa23692c31ae68dea2a57e0e37a99fb",
+  "scope": "Complete defined Chain action/FCR/magic/snapshot/711\u2192712\u2192713\u2192696graph,half-second stamps,effective-radius corridor/opaque hard-slot treatment,per-chain delay,paid live-link cap/independent lingering fields,parking/lifecycle/save/placeholder rule. Learned/public/automatic-clock verification authorized. Four older proposals remain pending."
+}

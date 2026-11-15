@@ -147,6 +147,8 @@ public static class CombatTiming
         if(characterClass==DiabloClass.Warlock&&ability==CombatAbility.BindDemon){return new(25,25);} // Approved fixed one-second attempt,including HUD timing.
         if(characterClass==DiabloClass.Assassin&&ability==CombatAbility.DragonFlight)
         {return DragonFlightPreparation.Timing();}
+        if(characterClass==DiabloClass.Warlock&&ability==CombatAbility.MiasmaChain&&MiasmaChainWorld.Approved)
+        {return WarlockCastClock.Calculate(fcr);} // Approved SC/FCR rule also drives HUD timing.
         if(characterClass==DiabloClass.Warlock&&WarlockCastClock.Handles(ability))
         {return WarlockCastClock.Calculate(fcr);}
         if(characterClass==DiabloClass.Druid&&DruidHumanCastClock.Handles(ability))

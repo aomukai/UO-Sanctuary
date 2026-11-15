@@ -252,6 +252,7 @@ public static class TimedEffects
         BoundDemonHosts.Tick();
         EldritchBlastWorld.Tick(now);
         EchoingStrikeWorld.Tick(now);
+        MiasmaChainWorld.Tick(now);
         MiasmaWorld.Tick(now);
         _keys.Clear(); foreach (var key in _actors.Keys) { _keys.Add(key); }
         foreach (var key in _keys)

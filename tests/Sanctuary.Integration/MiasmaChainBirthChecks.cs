@@ -35,6 +35,6 @@ public static class MiasmaChainBirthChecks
                 &&saved.Numbers.Shape.HardRank==current.Numbers.Shape.HardRank&&saved.HardBolt==current.HardBolt&&saved.HardAbyss==current.HardAbyss,"Actual source/effective/hard capture");MiasmaChainBirths.Validate(saved);
         }
         finally{item.Delete();p.Delete();}
-        Require(!WarlockCombat.Implemented(CombatAbility.MiasmaChain),"Birth suppliers admitted incomplete Chain");
+        Require(WarlockCombat.Implemented(CombatAbility.MiasmaChain),"Approved Chain admission missing");
     }
 }

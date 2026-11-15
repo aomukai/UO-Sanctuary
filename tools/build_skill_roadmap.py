@@ -801,6 +801,9 @@ BLOCKERS['warlock.mirroredblades'] = 'Approved complete Sanctuary SQ25single-eve
 CAVEATS["warlock.miasmabolt"] = "Approved complete697→736→705world rule now uses learned shared SC/FCR,left/right/quick input and the existing40ms clock. One release snapshot/debit,real bolt/two makers/two magic clouds,per-cast one-second leases and separate-cast stacking retain released damage/expiry fixes. Current hit41/do41 layout,primary direct-plus-cloud,mastery/pierce/events/lifecycle are explicit Sanctuary adaptations,not recovered source. Source/world/native/learned verification is recorded in miasma-cast-checkpoint.md;unmapped/special/PvP/class-pet/graphical acceptance remains separate. Shared Entropy Bolt consumer does not finish Chain/Abyss or the full passive. Final effects/audio and talent/hotkey icons remain missing;no class certified."
 
 
+CAVEATS["warlock.miasmachain"] = "Approved complete711→712→713→696graph uses ordinarySC/FCR and the shared world clock,live/ground/frozen endpoints,half-second fixed corridor stamps,per-chain one-second leases and independent chains. One captured release/debit,5→10paid FIFO live-link cap,lingering emitted clouds,parking/remaining-life resume and atomic optional shared save arrays retain approved behavior. Effective-radius width is explicit;opaque hard-only SrvCalc1is retained without an invented extra modifier. Current startup/do43/45/hit41/do41parity remains adapted,not recovered. Learned/socket/persistence scope is recorded in miasma-chain-cast-checkpoint.md;broader recipients/properties/graphical acceptance and final effects/icons remain separate. Full Enhanced Entropy needs remaining consumers;no class certified."
+
+
 def build():
     skills=json.loads((BALANCE/'class-skills.json').read_text())
     protocol=(ROOT/'shared/ClassAbilities.cs').read_text()
