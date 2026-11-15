@@ -1,5 +1,7 @@
 # Prepared Eldritch Blast world checkpoint
 
+**Superseded admission status:** the user approved this candidate;[learned Eldritch Blast](eldritch-blast-cast-checkpoint.md) now has actual socket/automatic pulse acceptance. This page records the original prepared candidate and its inspection/test limits.
+
 2026-11-15 JST. Reference **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. **227/240 handlers, Warlock18/30; no class certified.** Bind Demon remains approved and playable under its recorded rule. Eldritch Blast's [complete proposed rule](eldritch-blast-world-rule-proposal.md) is pending; no learned binding, automatic ticking or installed deployment is enabled.
 
 `EldritchBlastWorld` composes the existing numeric suppliers, source-area/LOS/native-recipient checks, fractional health/mana, spell-potion packet, typed mitigation and leech calculation. The candidate pays once and captures skill/mastery/potion values; its first pulse is1.2seconds later, with a saved grid, immutable expiry and one shared damage roll. Actual per-target magic life loss supplies recovery; other potion elements do not grant magic leech. Periodic events deliberately omit direct-hit reactions, as specified for approval. Native recipient/source parity beyond the stated projection remains unverified.

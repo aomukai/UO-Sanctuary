@@ -41,7 +41,7 @@ public static class EldritchBlastSupplierChecks
         foreach(int rank in new[]{0,256})
         {bool refused=false;try{EldritchBlastSuppliers.Capture(Values(rank,0,0,0));}catch(NotSupportedException){refused=true;}Require(refused,"Out-of-domain rank accepted");}
         bool wrong=false;try{EldritchBlastSuppliers.Capture(new SkillValues(SkillMechanics.For(CombatAbility.Nova),_=>1,_=>0,99));}catch(NotSupportedException){wrong=true;}
-        Require(wrong&&!WarlockCombat.Implemented(CombatAbility.EldritchBlast),"Wrong skill or premature learned admission");
+        Require(wrong&&WarlockCombat.Implemented(CombatAbility.EldritchBlast),"Wrong skill or approved admission missing");
     }
     private static void Train(PlayerMobile owner,string id,int rank)
     {
@@ -69,7 +69,7 @@ public static class EldritchBlastSupplierChecks
             Require(EldritchBlastSuppliers.Capture(captured)==numbers&&EldritchBlastSuppliers.Capture(owner).DurationFrames==1250,"Captured context mutated after gear/training");
             Require(NecromancerEffects.ManaBalance256(owner)==mana,"Numeric capture spent mana");
             Require(owner.EquipItem(helm),"Restore saved gear");ClassGear.Refresh(owner);numbers=EldritchBlastSuppliers.Capture(owner);
-            Require(!SkillBindings.Instance.Assign(owner,true,CombatAbility.EldritchBlast)&&!SkillBindings.Instance.AssignQuick(owner,0,CombatAbility.EldritchBlast),"Incomplete periodic route bound");
+            Require(SkillBindings.Instance.Assign(owner,true,CombatAbility.EldritchBlast)&&SkillBindings.Instance.AssignQuick(owner,0,CombatAbility.EldritchBlast),"Approved periodic route not bound");
             saved[i++]=new(owner.Serial.Value,helm.Serial.Value,female,numbers,mana);
         }
         File.WriteAllText(Manifest,JsonSerializer.Serialize(saved));
@@ -82,7 +82,7 @@ public static class EldritchBlastSupplierChecks
             var owner=(PlayerMobile)World.FindMobile((Serial)saved.Owner);ClassGear.Refresh(owner);
             Require(owner.Female==saved.Female&&World.FindItem((Serial)saved.Helm)?.Parent==owner,"Saved owner/original helm");
             Require(EldritchBlastSuppliers.Capture(owner)==saved.Numbers&&NecromancerEffects.ManaBalance256(owner)==saved.Mana256,"Saved hard/effective skills or resources changed");
-            Require(!SkillBindings.Instance.Assign(owner,false,CombatAbility.EldritchBlast),"Reload enabled unqualified periodic route");
+            Require(SkillBindings.Instance.Assign(owner,false,CombatAbility.EldritchBlast),"Reload lost approved periodic route");
         }
     }
 }

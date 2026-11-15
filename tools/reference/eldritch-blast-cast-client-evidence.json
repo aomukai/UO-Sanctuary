@@ -1,0 +1,27 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Eldritch shared self-target client classification",
+  "inputManifest": {
+    "path": ".local/class-skills/eldritch-blast-cast/client-inputs-1.json",
+    "sha256": "69aa62aef1ac42d9705b5812bb95db0e9f3297527db71d9b24bcc353b39be42e"
+  },
+  "patches": 44,
+  "changedClientPaths": [],
+  "addedPatches": [],
+  "intentionalSharedChanges": [
+    "shared/ClassAbilities.cs"
+  ],
+  "buildErrors": 0,
+  "baselineWarningsIdentical": true,
+  "inheritedWarningMessages": 44,
+  "graphicalInputVerified": false,
+  "installed": false,
+  "scope": "All accepted client paths and44patch hashes identical;only shared SelfTarget adds Eldritch Blast. This reuses exact prior patch-source proof rather than replaying it.",
+  "files": {
+    ".local/class-skills/eldritch-blast-cast/client-inputs-1.json": "69aa62aef1ac42d9705b5812bb95db0e9f3297527db71d9b24bcc353b39be42e",
+    ".local/class-skills/eldritch-blast-cast/client-build-1.log": "951ccd616bac6fc1bd98ccd4ab40fbbf717a1688bb4c13c3bc3e7d415c922c85",
+    ".local/class-skills/eldritch-blast-cast/client/cuo.dll": "becd3b7a5fde25322e0ca0aead80221a63efa796e32625c99ea167f4f58391aa",
+    "tools/prepare_eldritch_blast_client.py": "55ed8af2f5a333aed925ccec87f606b2cf3c3a15dc54e69543158e8f5ba5141a",
+    "tools/review_eldritch_blast_client.py": "d6130f660bb45ccac65f0f9494c015afbcfc1885d32a9e04396bb911b2379b59"
+  }
+}

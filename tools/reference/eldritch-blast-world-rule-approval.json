@@ -1,0 +1,13 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "answer": "Approve the complete Eldritch Blast rule (Recommended)",
+  "approvedUtc": "2026-11-15T08:17:29.723399+00:00",
+  "questionItemId": "[\"request_user_input_async\",\"call_620b658f05fa4a6ab62296c95004319b\",0]",
+  "proposal": "docs/eldritch-blast-world-rule-proposal.md",
+  "proposalAtApprovalSha256": "45fb150f3185f4a60cedddde253f4e057c98c40cedb6f05a6189c5063322d44d",
+  "candidateCommit": "6a1e4f459cd2379bd43411f1b3cc6c356e91fe33",
+  "testedCandidateEvidence": "tools/reference/eldritch-blast-world-native-evidence.json",
+  "testedCandidateEvidenceSha256": "ef1ad03bfbd89f7087dd00d22a039b0b19b5653ed46d5807a694f74023f216d6",
+  "scope": "Complete defined Eldritch self-cast,pulse/grid/snapshot,existing-Hex refresh,magic/potion damage,periodic events/recovery/world/native limitations,persistence and assets rule. Learned input/clock/lifecycle integration and native acceptance authorized. Four other proposals remain pending;no full-class/current-code parity certificate."
+}

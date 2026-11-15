@@ -86,8 +86,7 @@ public static class EldritchBlastWorldChecks
         var seed=EldritchBlastWorld.SeedLow;int seeds=0;EldritchBlastWorld.SeedLow=()=>{seeds++;return 31337;};bool kept=false;
         try
         {
-            Require(!EldritchBlastWorld.Approved&&!WarlockCombat.Implemented(CombatAbility.EldritchBlast)
-                &&!SkillBindings.Instance.Assign(p,true,CombatAbility.EldritchBlast)&&!SkillBindings.Instance.AssignQuick(p,0,CombatAbility.EldritchBlast),"Unapproved candidate admitted");
+            Require(EldritchBlastWorld.Approved&&WarlockCombat.Implemented(CombatAbility.EldritchBlast),"Approved world admission missing");
             var at=TimedEffects.Now;
             Attach(p,targets[0],CombatAbility.HexBane,at);Attach(p,targets[1],CombatAbility.HexSiphon,at);Attach(p,targets[2],CombatAbility.HexPurge,at);Attach(p,targets[4],CombatAbility.HexBane,at);
             NecromancerEffects.SetMana256(p,0);Require(EldritchBlastWorld.ReleasePrepared(p,at)==null&&seeds==0,"Underfunded cast drew seed or stored state");
@@ -136,7 +135,7 @@ public static class EldritchBlastWorldChecks
             NecromancerEffects.SetMana256(p,100*256+17);state=EldritchBlastWorld.ReleasePrepared(p,inspect);int savedLife=SkillHealth.Balance256(p),savedMana=NecromancerEffects.ManaBalance256(p);
             File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(0,p.Serial.Value,helm.Serial.Value,targets.Select(t=>t.Serial.Value).ToArray(),state,savedLife,savedMana,
                 JsonSerializer.Serialize(HexBane.Debuff(targets[0])),JsonSerializer.Serialize(HexSiphon.Debuff(targets[1])),JsonSerializer.Serialize(HexPurge.Debuff(targets[2])))));kept=true;
-            Log.Information("Eldritch world:real +skills capture/fractional payment,three existing Hex types,shared magic roll,actual FP8 recovery,periodic event suppression,unhexed/range rejection,offline/late/expiry and legacy/atomic controls pass;prepared admission remains gated");
+            Log.Information("Eldritch world:real +skills capture/fractional payment,three existing Hex types,shared magic roll,actual FP8 recovery,periodic event suppression,unhexed/range rejection,offline/late/expiry and legacy/atomic controls pass;approved world component retained");
         }
         finally
         {
@@ -214,7 +213,7 @@ public static class EldritchBlastWorldChecks
             Require(JsonSerializer.Serialize(HexBane.Debuff(World.FindMobile((Serial)saved.Targets[0])))==saved.Bane
                 &&JsonSerializer.Serialize(HexSiphon.Debuff(World.FindMobile((Serial)saved.Targets[1])))==saved.Siphon
                 &&JsonSerializer.Serialize(HexPurge.Debuff(World.FindMobile((Serial)saved.Targets[2])))==saved.Purge,"Saved Hex duration/owner/charge state changed");
-            Require(!EldritchBlastWorld.TickPrepared(p,saved.State.StartedUtc,true).Due&&!WarlockCombat.Implemented(CombatAbility.EldritchBlast),"Reload replayed or admitted candidate");
+            Require(!EldritchBlastWorld.TickPrepared(p,saved.State.StartedUtc,true).Due&&WarlockCombat.Implemented(CombatAbility.EldritchBlast),"Reload replayed or lost approved admission");
             File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Generation=saved.Generation+1}));
             Log.Information("Eldritch world:original capture/absolute clocks/seed/fractional wounds and mana/original helm/three Hex attachments persist without replay;inspection clock only");
         }

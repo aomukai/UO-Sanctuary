@@ -2517,10 +2517,10 @@
       "characterClass": "Warlock",
       "tree": "Eldritch",
       "sourceId": 384,
-      "implementation": "blocked",
+      "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Prepared pinned384 suppliers reuse SkillValues for magic endpoints,hard BladeWarp/HexPurge50percent synergies,hard PsychicWard duration,constant5life/mana recovery fields,raw range5,period30 and fractional mana. Nova721 is copied unchanged into an isolated profile,not emitted. Native tier/real gear/captured-context/reload checks qualify the suppliers only. Current do165 has only its92byte prefix readable;periodic state221 installation,perdelay timing,range geometry,nova emission,damage/recovery recipient order,magic mastery/pierce,RNG and startup/payment/input remain gated. Do not treat the skill as an ordinary travelling magic bolt or infer Param2/9 effects. See eldritch-blast-suppliers-checkpoint.md;effects/icons separate."
+      "remaining": "Approved Sanctuary self-cast snapshots pinned magic/hard synergies/duration,mastery/potion and fractional mana;existing shared clock pulses after30frames with existing-Hex maintenance,periodic typed damage and magic-only recovery. Optional historical Hex duration stays unknown/refused,not guessed. Source-circle/LOS/native admission and lifecycle/persistence services are shared. Learned SC/left/right/quick/automatic-tick acceptance is recorded in eldritch-blast-cast-checkpoint.md;unmapped native sources,special recipients/PvP,current callback parity,graphical/class certification and final assets remain open. Approval:eldritch-blast-world-rule-approval.json."
     },
     {
       "talentId": "warlock.hexsiphon",

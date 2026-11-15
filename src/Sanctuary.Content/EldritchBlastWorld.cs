@@ -20,13 +20,14 @@ public sealed class EldritchBlastProfiles:GenericPersistence
     {if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown Eldritch Blast version");}EldritchBlastWorld.Restore(JsonSerializer.Deserialize<EldritchBlastState[]>(reader.ReadString()));}
 }
 
-// Prepared complete world candidate. No learned route, automatic tick or
-// input admission until the documented Sanctuary rule is approved. Table
-// identity is pinned; the unrecovered do165 ordering is not asserted.
+// Approved complete Sanctuary world rule. Table identity is pinned; the
+// unrecovered current do165 ordering is not asserted. The existing shared
+// clock drives this state;no new timer is allocated.
 internal static class EldritchBlastWorld
 {
-    internal static bool Approved=>false;
+    internal static bool Approved=>true;
     private static ImmutableDictionary<uint,EldritchBlastState> _states=ImmutableDictionary<uint,EldritchBlastState>.Empty;
+    private static readonly Server.Logging.ILogger Log=Server.Logging.LogFactory.GetLogger(typeof(EldritchBlastWorld));
     internal static Func<int> SeedLow=()=>SorceressSpellMissiles.SeedLow();
     public static void Configure()=>_=new EldritchBlastProfiles();
     private static bool Owner(PlayerMobile p)=>p is{Alive:true,Deleted:false}
@@ -78,6 +79,21 @@ internal static class EldritchBlastWorld
         var next=ImmutableDictionary<uint,EldritchBlastState>.Empty;
         foreach(var s in rows){Validate(s);if(next.ContainsKey(s.Owner)){throw new InvalidDataException("Duplicate Eldritch Blast owner");}next=next.Add(s.Owner,s);}
         _states=next;
+    }
+    internal static void Tick(DateTime at)
+    {
+        if(World.Loading||!Approved){return;}
+        foreach(var saved in _states.Values.OrderBy(s=>s.Owner).ToArray())
+        {
+            if(World.FindMobile((Serial)saved.Owner)is not PlayerMobile owner){_states=_states.Remove(saved.Owner);continue;}
+            try
+            {
+                var result=TickPrepared(owner,at);
+                if(result.Fault!=null){Log.Warning("Eldritch Blast unsupported for {Owner}: {Reason}",owner.Serial.Value,result.Fault);}
+            }
+            catch(NotSupportedException ex)
+            {Clear(owner);Log.Warning("Eldritch Blast stopped for {Owner}: {Reason}",owner.Serial.Value,ex.Message);}
+        }
     }
     private static bool Recipient(PlayerMobile owner,BaseCreature target,int radius)
         =>target is{Alive:true,Deleted:false,Blessed:false}&&WeaponHexRefresh.HasHex(target)

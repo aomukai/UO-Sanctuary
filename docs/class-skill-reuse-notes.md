@@ -708,3 +708,7 @@ The next Sorceress [Inferno preflight](sorceress-inferno-preflight.md) identifie
 ## Prepared Eldritch Blast — 2026-11-15
 
 Reuses SkillValues/raw pinned suppliers, shared source-circle/LOS/target preflight, SourceSpellPacketRoll, captured spell-potion additions, typed mitigation, FP256 health/mana and WeaponLeech.Calculate. WeaponHexRefresh updates existing attachment expiries rather than recasting weapon buffs; optional duration data preserves legacy save shape. Purge snapshot/remaining charges are retained. Periodic event semantics and nova-only cosmetics are explicit pending adaptations. The actual Hell Lich Lord exposes the existing mismatch between numeric reward profiles and null source identity for aura/Hex targeting; no global monster mapping is silently changed to make a fixture pass. See the [checkpoint](eldritch-blast-world-checkpoint.md).
+
+## Approved learned Eldritch Blast — 2026-11-15
+
+Reuses ordinary self-SC/FCR dispatch and fractional release,all left/right/quick bindings,the existing40ms TimedEffects clock and existing death/respec/history cleanup. Packet fixtures use the established target-input harness and wait for a real automatic pulse. The isolated client reuses all44accepted patches and source paths;only shared SelfTarget membership changes,so the prior full patch roundtrip is reused. Scope-specific fixtures replace obsolete global gating assertions. Full prepared world/resource/save controls retain;four other proposals stay frozen. [Checkpoint](eldritch-blast-cast-checkpoint.md).

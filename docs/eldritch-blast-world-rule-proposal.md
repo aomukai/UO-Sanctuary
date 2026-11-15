@@ -1,6 +1,8 @@
 # Eldritch Blast: proposed complete Sanctuary rule
 
-**Pending approval.** Mechanical reference remains **D2R Reign of the Warlock 3.3.93847**. This is a prepared world implementation, not a learned handler or a claim that protected current code has been recovered. The earlier complete Bind Demon approval is independent and remains in force.
+**Approved by the user on2026-11-15 JST.** [Exact decision](../tools/reference/eldritch-blast-world-rule-approval.json). The body below is the original approved proposal; implementation/acceptance status is recorded separately.
+
+**Original proposal.** Mechanical reference remains **D2R Reign of the Warlock 3.3.93847**. This is a prepared world implementation, not a learned handler or a claim that protected current code has been recovered. The earlier complete Bind Demon approval is independent and remains in force.
 
 The owned skill384/state221/missile721 tables establish magic damage, 50% per hard Blade Warp/Hex Purge point, a duration of `1000 + 50 × hard Psychic Ward` frames, raw range5, period30, flat5 life/mana return and fractional mana `(10 + effective rank) / 2`. Unused growth parameters do not override formulas. The retained current do165 capture still contains only92 readable bytes out of1198; this work performs no new game/process reads and does not substitute installed3.4 data.
 

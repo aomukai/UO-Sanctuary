@@ -1,5 +1,7 @@
 # Skill effects
 
+**Approved Eldritch learned input — 2026-11-15 JST.** Learned cast and automatic periodic mechanics now work under the approved rule;existing cast/aura/contact/cosmetic-nova/sound markers remain placeholders. Final VFX/audio listed for state221/missile721 and cast/recovery/expiry remain needed. No new artwork or imagegen. [Checkpoint](eldritch-blast-cast-checkpoint.md).
+
 **Prepared Eldritch Blast world — 2026-11-15 JST.** The pending [rule](eldritch-blast-world-rule-proposal.md) identifies0x375A cast/aura/contact,0x37CC cosmetic nova and0x1E5 audio as placeholders. Final state221,missile721,cast/Hex-explosion/expiry/recovery effects and associated audio remain missing; no final asset or imagegen is introduced. The cosmetic marker cannot cause another hit. [Checkpoint](eldritch-blast-world-checkpoint.md).
 
 **Learned Bind effect boundary — 2026-11-15 JST.** Ordinary held Bind reuses identified human cast pose 17, shared animation packets and existing native/aura presentation. Final tether, progress, success/bound feedback and audio remain missing and nonblocking; no final artwork or imagegen. Native packet tests do not certify graphical rendering. Icons stay separate. [Checkpoint](bind-demon-learned-checkpoint.md).
