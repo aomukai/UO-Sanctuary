@@ -1,0 +1,15 @@
+{
+  "referenceVersion": "3.3.93847",
+  "explicitUserDecision": true,
+  "recordedUtc": "2026-11-15T20:14:10.651948+00:00",
+  "userStatements": [
+    "But we won't have charms",
+    "Neither charms, not runewords are planned"
+  ],
+  "plannedContent": {
+    "charms": false,
+    "runewords": false
+  },
+  "scope": "Exclude charm acquisition and runeword acquisition/creation from planned Sanctuary content and class-skill completion requirements. Charm-only Sunder inheritance is not a class blocker. Preserve pinned reference data and shared mechanics used by supported content;no inference about standalone runes or gems.",
+  "runtime": "Existing NamedGear charm exclusion remains;no runeword runtime is introduced. Existing nonzero Sunder guards remain for unsupported injected/future inputs;this decision does not implement Sunder or invent a non-charm source."
+}

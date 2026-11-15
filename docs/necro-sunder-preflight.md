@@ -1,5 +1,7 @@
 # Necromancer Sunder review
 
+**Superseded as planned work — 2026-11-16 JST.** The user explicitly confirmed that neither charms nor runewords are planned. [Decision](../tools/reference/item-content-scope-decision.json). This historical source review stays as reference evidence; it no longer schedules Sunder consumer or charm work or blocks class completion. No alternate Sunder item is inferred. Other supported item properties and standalone rune/gem policy are separate.
+
 The mechanical pin remains **D2R Reign of the Warlock 3.3.93847**. The approved Sanctuary policy captures summon inputs when summoned. Nonzero Sunder delivery remains unsupported; this review does not enable it or reinterpret its numeric value as ordinary resistance piercing.
 
 Current owned tables put `300` on each elemental, physical and magic Sunder charm. The corresponding stat IDs are cold187, fire189, lightning190, poison191, physical192 and magic193. Revive's six passive formulas copy those owner stats directly. Other Necromancer summon rows copy their relevant channels. Existing birth adapters explicitly reject nonzero values; Iron Golem also has a live-owner rejection in contact preflight. That live read needs review against the approved summon snapshot rule when a supported nonzero source exists.

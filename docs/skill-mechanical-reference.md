@@ -1,5 +1,7 @@
 # Skill mechanical reference and precedence
 
+**Planned content exclusions — 2026-11-16 JST.** The user explicitly excludes both charms and runewords from Sanctuary. [Exact decision](../tools/reference/item-content-scope-decision.json). Their acquisition/creation and charm-only Sunder inheritance are outside class-skill completion requirements. Preserve pinned reference tables and shared non-charm/non-runeword mechanics. Existing unsupported nonzero guards remain; no invented alternate Sunder source is planned. This says nothing about standalone runes or gems.
+
 **Native raised-helper mapping — 2026-11-16 JST.** [Checkpoint](raised-minions-checkpoint.md) retains the existing native Lich raise ability and wild behavior while adding the ownership required by player pets. This is native world integration under the approved retain-living-abilities policy, not recovered D2R behavior. Native Lich eligibility/original activation stays unavailable; no newer client/process data is substituted.
 
 **Native corpse reference boundary — 2026-11-16 JST.** [Native Lich classification](native-corpse-sources.md) uses existing Sanctuary level 5/base 90 under the approved relative-strength policy. It supplies no invented D2 analogue and does not modify pinned 3.3.93847 data. Unknown flesh and native Revive activation/ownership stay explicit. [Checkpoint](native-corpse-checkpoint.md).

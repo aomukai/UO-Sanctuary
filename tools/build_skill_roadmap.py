@@ -822,7 +822,29 @@ BLOCKERS["amazon.slowmissiles"] = "Approved complete Sanctuary right/quick caste
 for _barrier in ("necromancer.bonewall","necromancer.boneprison"):
     CAVEATS[_barrier] = "Approved native placement/geometry and linked-death mapping retains source-derived birth/resources, Wall makers and Prison cursor acquisition/raster connectors. Normal learned casts collapse the whole formation on any segment destruction or first AI death event, release movement/placement/projectile collision immediately, and remove original entities after the shared DT15/600ms deadline. Explicit links include distant children; historical roots keep historical children and old save layouts. Actual weapon damage, default right/quick input, original pending resources, in-progress saves and overdue cleanup pass in bone-barrier-world-cast-checkpoint.md. Exact modern room/owner/hidedead parity is an approved adaptation, not recovered executable behavior. Broader recipients/PvP/class, old-binary/unheld snapshots and graphical acceptance remain separate;final effects/audio and talent/hotkey icons needed. Approval:bone-barrier-world-rule-approval.json."
 
+def planned_content_remaining(text):
+    """Keep excluded charm-only mechanics out of active talent blockers."""
+    if not re.search('sunder',text,re.I):return text
+    for sentence in (
+        'Shared sunder delivery remains unsupported and nonzero captured sunder refuses before payment.',
+        'Captured fire sunder is refused before payment until its NPC consumer exists.',
+        'Sunder300 remains explicitly gated;necro-sunder-preflight.md distinguishes current inherited table inputs,missing consumer and existing charm exclusion.',
+    ):
+        text=text.replace(sentence,'')
+    text=re.sub(r'\b(?:(?:nonzero|inherited|unsupported|malformed|modern|physical|cold|fire|captured)[ -]*)*sunder(?:300)?\b','',text,flags=re.I)
+    text=re.sub(r'/\s*/','/',text)
+    text=re.sub(r'/\s*([,;])',r'\1',text)
+    text=re.sub(r'([,;])\s*/',r'\1',text)
+    text=re.sub(r',\s*,',',',text)
+    text=re.sub(r'\band\s+remain\b','remain',text)
+    text=re.sub(r'(?<=[.;])\s*and\s+',' ',text)
+    text=re.sub(r'^\s*and\s+','',text)
+    return re.sub(r' {2,}',' ',text).strip()
+
+
 def build():
+    scope=json.loads((ROOT/'tools/reference/item-content-scope-decision.json').read_text())
+    assert scope['explicitUserDecision']and scope['plannedContent']==dict(charms=False,runewords=False)
     skills=json.loads((BALANCE/'class-skills.json').read_text())
     protocol=(ROOT/'shared/ClassAbilities.cs').read_text()
     symbols=dict(re.findall(r'new\(CombatAbility\.(\w+), "([^"]+)"',protocol))
@@ -837,12 +859,17 @@ def build():
     result=[]
     for row in skills:
         talent=row['talentId']; present=talent in implemented
-        result.append(dict(talentId=talent,name=row['name'],characterClass=row['characterClass'],tree=row['tree'],sourceId=row['sourceId'],
+        remaining=BLOCKERS.get(talent,CAVEATS.get(talent,PENDING.get(talent,'Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks.')))
+        excluded=['charm-only Sunder inheritance']if re.search('sunder',remaining,re.I)else[]
+        entry=dict(talentId=talent,name=row['name'],characterClass=row['characterClass'],tree=row['tree'],sourceId=row['sourceId'],
             implementation='handler-present' if present else 'blocked' if talent in BLOCKERS else 'pending',
             verification='partial-native-coverage' if talent in NATIVE_PARTIAL else 'legacy-checks; rerun-needed' if talent in LEGACY else 'build-only' if present else 'not-started',
-            complete=False,remaining=BLOCKERS.get(talent,CAVEATS.get(talent,PENDING.get(talent,'Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks.')))))
+            complete=False,remaining=planned_content_remaining(remaining))
+        if excluded:entry['excludedDependencies']=excluded
+        result.append(entry)
     return dict(schemaVersion=1,referenceVersion='3.3.93847',classOrder=ORDER,
-        completionRule='A source catalogue or handler is not class completion. All talents need dedicated mechanics/lifecycle checks; approved Sanctuary deviations override source. Missing final art is tracked separately.',
+        completionRule='A source catalogue or handler is not class completion. All talents need dedicated mechanics/lifecycle checks; approved Sanctuary deviations override source. Missing final art is tracked separately. Charms and runewords are excluded from planned content;charm-only Sunder inheritance is not a class blocker.',
+        contentScope=dict(charms=False,runewords=False,decision='tools/reference/item-content-scope-decision.json'),
         completedClasses=[],skills=result)
 
 
