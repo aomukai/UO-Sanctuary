@@ -1,5 +1,7 @@
 # Skill effects
 
+**Prepared Miasma Bolt world — 2026-11-15 JST.** Cast sound0x1E5,travelling bolt0x36E4,cloud0x374A and contact0x375A with hue0x48D are explicitly identified native placeholders. Final cast/flight/maker/cloud/contact/expiry effects and sound remain needed;magic clouds must not be presented as poison damage. No imagegen performed. [Checkpoint](miasma-bolt-world-checkpoint.md).
+
 **Mirrored learned — 2026-11-15 JST.** Mechanical admission does not complete the mirror rig/weapon-copy,trails,projectile/contact effects or audio. Existing native weapon poses,0xF42projectiles and0x238audio remain explicit placeholders. [Checkpoint](mirrored-cast-checkpoint.md).
 
 **Prepared Mirrored world — 2026-11-15 JST.** Primary UO weapon pose,shared0xF42projectile presentation and0x238sound are placeholders. Final floating weapon/mirror rig,copy attack/trail/impact and matched audio remain needed for melee,bow,crossbow and throw. No damaging visual-only duplicates or imagegen assets are added. [Checkpoint](mirrored-world-checkpoint.md).

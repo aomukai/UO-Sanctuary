@@ -1,0 +1,65 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Miasma Bolt prepared complete action/world",
+  "primaryReleasedPatch": "https://news.blizzard.com/en-us/article/24261478/diablo-ii-resurrected-ladder-season-14-has-concluded",
+  "graph": [
+    {
+      "id": 697,
+      "role": "Bolt",
+      "serverDo": 1,
+      "serverHit": 41,
+      "velocity": 20,
+      "range": 50
+    },
+    {
+      "id": 736,
+      "role": "Maker",
+      "serverDo": 37,
+      "range": "Param1+2=3",
+      "emission": "remaining1 before ordinary update"
+    },
+    {
+      "id": 705,
+      "role": "Magic cloud",
+      "serverDo": 41,
+      "range": "50+min(effective Entropy*5,100)",
+      "radius": "2/3/4 at effective0/5/10",
+      "nextDelay": 25,
+      "explosion": 1,
+      "getHit": 0,
+      "canSlow": 0
+    }
+  ],
+  "recovered": [
+    "Owned pinned numeric rows and existing compiled numeric/launch/update supplier evidence are retained,not rerun as a new whole-skill parity claim.",
+    "Shared legacy cloud direction/do37/basic-update services compose two rays with one emission after three prepared updates."
+  ],
+  "proposed": [
+    "Current hit41/cloud-do41 linkage,layer geometry/native circle,first/last tick and per-Bolt delay identity.",
+    "Monster/wall/max-range maker creation,primary direct plus cloud contact,current mastery/pierce timing and direct-event cloud reactions.",
+    "SC input/payment/target refresh,40ms scheduling/current-world catchup,offline/facet/safety suppression,lifecycle and saved native-world mapping."
+  ],
+  "referenceLimits": [
+    "No current protected callback retry,no newer3.4process/CASC substitution.",
+    "Released fixes override older PDF double-tick/expiry descriptions. No poison-state substitution,one-second startup delay or unused passive damage bonus.",
+    "Chain-specific official hit-delay statement does not establish Bolt identity.",
+    "Full Enhanced Entropy passive remains incomplete pending Chain/Abyss consumers."
+  ],
+  "inputs": {
+    "src/Sanctuary.Content/MiasmaBoltBirth.cs": "ee3eb20d06ba9084431ae22cde40cb5678b0e889f2f2360e35b7a89c533a29bc",
+    "src/Sanctuary.Content/MiasmaBoltCasting.cs": "34ef19e9c79ecea9f2ba611cf0a95aa001eaf4885a581e2927b7365e81da6fa8",
+    "src/Sanctuary.Content/MiasmaWorld.cs": "7564b29c6dd31cb1f57a1b90f6ea224f6b7763815438511bd9780db634a63d8f",
+    "src/Sanctuary.Content/MiasmaPackets.cs": "626e7b161825ca550aa30c440384a8ff475f1d844daf8f3d68996629fad759dd",
+    "src/Sanctuary.Content/MiasmaLaunch.cs": "171b17f60e7d4882182b9f452022344c7afece81dfd4304bde78652ea6d88e38",
+    "src/Sanctuary.Content/WarlockEntropyClouds.cs": "a3deb66556daa322b9cf1ce05d41c8229dbc376ec37be35e021cf448e6806841",
+    "src/Sanctuary.Content/PoisonCloudGeometry.cs": "b3e93d1a724e92606fb6f91866054e701d0c11d0859f3738da72705fdba13e56",
+    "src/Sanctuary.Content/BasicMissileUpdate.cs": "e4a9646715853aad9685d8df10ece84dc6b2133a2e57f3819944bd9709938705",
+    "src/Sanctuary.Content/SourceMissileSteps.cs": "34cbbd2c014c63e91626d8e38a8ab0eb6a1ff5bdf7f746686be3f53e7d385bdb",
+    "src/Sanctuary.Content/SkillCombat.cs": "eed923cc60ee6737939b2ae9a8955c60ef0c7e621654af3bb86e7d69e71a6a68",
+    "data/Sanctuary/Balance/miasma-bolt-profile.json": "1932115b32cee52932af07416b4c4ac000b130d710dc2586137cdc228a4b48fa",
+    "tools/reference/miasma-reference-notes.json": "cf882d0d45c82994d311bef40aa2fdfdf6af93e88889eafb12cd12444349f249",
+    "tools/reference/miasma-packets-source-evidence.json": "bf4969b155424945198f8ffcca3de319f1c9d494e40bcff41c2abdf3ca7a85e8",
+    "tools/reference/miasma-launch-native-evidence.json": "e2fd23fad1f3c747088cbfaf2df75ae08e08d5f66df4d5bdf4f5eb740d936aa2",
+    "tools/reference/entropy-clouds-native-evidence.json": "84baaeef60355babe2c23fdd577a1d199dd63698ad6587057ea15cf2247fb27e"
+  }
+}

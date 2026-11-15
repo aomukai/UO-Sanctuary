@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Miasma Bolt world reuse — 2026-11-15 JST.** Reuse MiasmaPackets/MiasmaLaunch/WarlockEntropyClouds,PoisonCloudGeometry/BasicMissileUpdate,source cell/vectors,typed damage/potion,SC/FCR,area eligibility and saved recipient leases. EntropyCloudPacket separates common cloud payload from Bolt flight/makers for future Chain reuse;Chain-specific emission/delay and Abyss stay distinct. A scoped new saved graph has no independent timer. Endpoint tile checks prevent half-subtile rounding from creating clouds inside walls. [Checkpoint](miasma-bolt-world-checkpoint.md).
+
 **Mirrored learned admission — 2026-11-15 JST.** Existing Warlock dispatch,shared non-self input/bindings and original SQ25/world clocks admit the approved action without another timer/client patch. BeginLearned adds availability and unsupported-context reporting;transient sequence still owns release. All four weapon kinds use the same public route. [Checkpoint](mirrored-cast-checkpoint.md).
 
 **Mirrored complete world reuse — 2026-11-15 JST.** PlayerWeaponContact gains optional captured allocation/drain/cold/raw-CB/wear parameters;normal paths keep defaults. WeaponMissiles gains optional validated mirror metadata and a scoped impact adapter while retaining original travel,pierce,clock and profile147/version0. NamedCombat accepts an optional already-selected divisor;default item/NPC callers are unchanged. Existing Cleave and Magic Arrow cohorts cover those shared paths. Whole candidate remains gated;[checkpoint](mirrored-world-checkpoint.md).

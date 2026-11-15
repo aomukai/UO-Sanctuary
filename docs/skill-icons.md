@@ -1,5 +1,7 @@
 # Skill icons
 
+**Prepared Miasma Bolt world — 2026-11-15 JST.** Miasma Bolt talent-tree and left/right/quick-hotkey icons remain separately needed. Enhanced Entropy still needs its passive talent icon;Bolt-consumer verification does not finish that passive. Prepared world work enables no binding or final art. [Checkpoint](miasma-bolt-world-checkpoint.md).
+
 **Mirrored learned — 2026-11-15 JST.** Talent-tree and left/right/quick-hotkey icons remain separately missing after mechanical admission. Existing identified placeholders remain until the asset pass. [Checkpoint](mirrored-cast-checkpoint.md).
 
 **Prepared Mirrored world — 2026-11-15 JST.** The complete prepared action does not close the talent-tree or left/right/quick-hotkey icon requirements. Learned binding remains gated;identified existing placeholders remain until the asset pass. [Checkpoint](mirrored-world-checkpoint.md).
