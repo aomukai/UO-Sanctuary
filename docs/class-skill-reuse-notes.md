@@ -1,5 +1,7 @@
 # Class skill reuse notes
 
+**Mirrored packets — 2026-11-15 JST.** Reuse BowLaunch weapon element/poison/physical-supplement collectors,ClassStats original endpoints,WeaponMissileDamage rolling and the existing unsigned critical helper. Keep the primary100/duplicate calc6transform separate from Echoing source116/ledger exclusion/return policy. Original melee,bow,crossbow and throw are covered together;live event/ammunition/lifecycle adapters remain future consumers. [Checkpoint](mirrored-packets-checkpoint.md).
+
 **Echoing learned admission — 2026-11-15 JST.** Ordinary non-self target metadata already covers left/right/quick input;no new client patch or build. Warlock Begin reuses the prepared SC action,transient Resolve owns once-only payment/fan allocation,and shared TimedEffects owns flight updates. Death/class-history hooks clear flights;respec keeps captured released values per approval. See [checkpoint](echoing-strike-cast-checkpoint.md).
 
 **Learned Bind reuse — 2026-11-15 JST.** Admit the existing approved held-input and native-body controller through ordinary Warlock availability and right/quick bindings. Reuse source/channel/health/affix/aura/pool/lifecycle services rather than a second cast or recreated NPC. Legacy Begin/Release/Perform paths refuse; fixed HUD timing and tooltip reflect the approved rule. Prior component fixtures now assert scoped side effects or approved availability. Real socket cases reuse the existing protocol and save harness. [Checkpoint](bind-demon-learned-checkpoint.md).

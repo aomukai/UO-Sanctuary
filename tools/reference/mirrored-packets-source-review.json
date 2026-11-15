@@ -1,0 +1,50 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Prepared Mirrored original weapon inputs and complete damage packets",
+  "approved": false,
+  "learnedEnabled": false,
+  "existingSuppliers": "tools/reference/mirrored-blades-source-evidence.json",
+  "sharedConsumers": [
+    "MirroredBladesPrepared",
+    "ClassStats.WeaponBaseDamage",
+    "BowLaunch.WeaponElements",
+    "BowLaunch.PhysicalSupplement",
+    "WeaponMissileDamage.Roll",
+    "NpcMissileCritical.Unsigned"
+  ],
+  "sourceFacts": [
+    "Skill392,source128,Param11primary exemption,count=min(2+effectiveRank/5,5),calc6duplicate percentage;independent raw Crushing Blow divisor suppliers.",
+    "Current calc1/2/4are0;absentParam8makesdeclared damage synergy0. No Echoing damage adjustments copied.",
+    "Owned SQ25hasoneattackevent ineach14weaponprofile;doesnotestablishoneeventperduplicate."
+  ],
+  "candidateChoices": [
+    "Snapshot original weapon/current effective skill and offensive channels on caller request;capture time remains a future caller decision.",
+    "Apply duplicate scalar after raw shared roll/owner-species ED/physical critical;scale damage rates only,preserve metadata.",
+    "Use shared unsigned critical ordering independently per requested attack."
+  ],
+  "unrecovered": [
+    "Current start68/do166 and physical/missile damage callback ordering.",
+    "Live emission/target/hit/proc/Crushing Blow target mapping,capture timing,melee-ranged poison differences,payment/ammo/durability/lifecycle/input."
+  ],
+  "externalCorroboration": [
+    {
+      "url": "https://diabloforfans.com/skill/mirrored-blades",
+      "accessed": "2026-11-15",
+      "declaredVersion": "3.3.93847",
+      "scope": "Total attack and ordinary per-mirror item-event notes;not current executable proof."
+    },
+    {
+      "url": "https://upload3.inven.co.kr/upload/2026/03/02/bbs/WarlockSkillsNotesandFunctionality.pdf",
+      "accessed": "2026-11-15",
+      "scope": "Older compiled/tested notes;independent hit checks;old potion/count conflicts retained."
+    }
+  ],
+  "missingHistoricalEphemeralCopies": [
+    ".local/research/warlock-community/mirrored-blades.html",
+    ".local/research/warlock-community/warlock-skills-notes.txt"
+  ],
+  "newLiveReferenceReads": 0,
+  "newerReferenceSubstitution": false,
+  "newTimers": 0,
+  "newPersistenceProfiles": []
+}
