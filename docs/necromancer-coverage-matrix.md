@@ -1,5 +1,7 @@
 # Necromancer acceptance map
 
+**Current planned-content acceptance — 2026-11-16 JST.** The active combined driver is `tests/check_necromancer_planned_acceptance.py`; its [checkpoint](necromancer-planned-acceptance-checkpoint.md) distinguishes focused passes from the unfinished whole-class run. Charms and runewords are excluded by the [scope decision](../tools/reference/item-content-scope-decision.json). The [approved learned native Lich checkpoint](native-lich-revive-cast-checkpoint.md) covers original activation, living abilities, helper ownership, difficulty/facet travel, parking, loot and wounded active/inactive persistence. The older prerequisite-only statements below are historical. Bone Armor and Bone Wall/Prison use their approved adaptations. All 30 talents have scoped checks; no class certificate is claimed.
+
 **Raised helpers — 2026-11-16 JST.** [Focused evidence](raised-minions-checkpoint.md) covers the ownership prerequisite for a revived native Lich keeping its living raise ability. It adds no Revive handler or native Lich eligibility. Actual raises, allegiance, loot, parking, caster cleanup, difficulty and saved wounds pass; original activation and combat/facet admission remain next.
 
 **Native corpse coverage — 2026-11-16 JST.** The [native Lich checkpoint](native-corpse-checkpoint.md) adds actual native deaths, four public corpse consumers, six CE/Poison Explosion socket casts and two reloads. Raise/Mage are retained paths; CE/Poison selectability is new. Native Lich Revive and flesh-dependent consumers remain outside proven scope. No new skill handler or class certificate.
@@ -29,7 +31,7 @@ Mechanical reference: **D2R Reign of the Warlock 3.3.93847**. Sanctuary's approv
 
 `NecromancerCombat` supplies the learned begin/release routes, with `ClassCombat` dispatching them before its historical fallback. The three passive talents feed summon creation rather than appearing as active casts. Existing shared flight, poison, curse, prepared-contact and pet controllers remain the implementations of those mechanics.
 
-The current combined driver is `tests/check_necromancer_current_acceptance.py`. Family names below identify its native checks; separately accepted newer scopes are explicitly distinguished afterward.
+The current planned-content driver composes `check_necromancer_current_acceptance.py` with the additional families listed below. Family names identify actual native checks; newer dedicated scopes remain separately attributed. The active combined run is not yet accepted.
 
 | Talent | Mechanical execution | Included native families / checks |
 | --- | --- | --- |
@@ -42,13 +44,13 @@ The current combined driver is `tests/check_necromancer_current_acceptance.py`. 
 | Summon Resist | Captured passive resistance supplier | `summon-resist`, golem and Skeleton/Mage birth checks |
 | Iron Golem | Original item admission, paid birth, saved item graph, world AI and ordered contact | `iron-golem-cast`, `iron-golem-birth-graph`, `iron-golem-body`, `iron-golem-world`, `iron-golem-damage`, `iron-golem-retaliation`, `iron-golem-strong`, `iron-golem-spectral`, shared item/contact checks |
 | Fire Golem | Paid summon, world melee, Holy Fire, absorption and retirement | `fire-golem-birth`, `fire-golem-world`, `fire-golem-combat`, `fire-golem-absorption`, `fire-golem-aura`, `fire-golem-death`, `fire-upgrades` |
-| Revive | Original corpse actor activation, captured combat effects, persistent roster | `revive-cast`, `revive-native-activation`, `revive-facet`, `necromancer-army` |
+| Revive | Original corpse actor activation, captured combat effects, persistent roster | `revive-cast`, `revive-native-activation`, `revive-facet`, `necromancer-army`, `native-lich-revive`, `raised-minions`, `native-corpse-difficulties` |
 | Teeth | Shared integer fan into saved source-flight missiles | `teeth` |
-| Bone Armor | Captured fractional physical pool and incoming shield consumer | `bone-armor`, `damage-rounding`, `class-skills` |
+| Bone Armor | Captured fractional physical pool and incoming shield consumer | `bone-armor`, `bone-armor-rule`, `damage-rounding`, `class-skills` |
 | Poison Dagger | Prepared weapon start, ordered contact and combined poison | `weapon-start`, `poison-dagger-attack`, `poison-dagger`, shared prepared/contact checks |
-| Corpse Explosion | Paid corpse release into physical/fire damage | `corpse-cast`; newer ground/town acceptance is separate |
+| Corpse Explosion | Paid corpse release into physical/fire damage | `corpse-cast`, `native-corpse`, `native-corpse-difficulties`; dedicated ground/town acceptance stays separate |
 | Bone Wall | Paid barrier creation, independent makers, resources and expiry clock | `bone-barrier-cast`, `bone-wall-maker`, `bone-barrier-birth`, `bone-barrier-clock`, `bone-barriers` |
-| Poison Explosion | Paid corpse release into eight saved moving clouds | `poison-explosion`, `spell-poison-ticks`; newer ground/town acceptance is separate |
+| Poison Explosion | Paid corpse release into eight saved moving clouds | `poison-explosion`, `spell-poison-ticks`, `native-corpse`, `native-corpse-difficulties`; dedicated ground/town acceptance stays separate |
 | Bone Spear | Saved piercing magic source-flight missiles | `bone-spear` |
 | Bone Prison | Paid barrier allocation and saved anchors/links/expiry | Shared barrier families; newer ground acquisition acceptance is separate |
 | Poison Nova | Saved ring flights and strongest-poison tick consumer | `poison-nova`, `spell-poison-ticks` |
@@ -66,13 +68,13 @@ The current combined driver is `tests/check_necromancer_current_acceptance.py`. 
 
 ## Newer evidence outside the original combined cohort
 
-The combined driver adds the approved army-limit and original Revive activation families to the original 113-family cohort. It does **not** silently claim to rerun every later checkpoint. Dedicated current receipts cover learned Golem Mastery, explosion ground targeting and corpse-location town rejection, Raise Skeleton/Mage corpse-town rejection, Bone Prison targeting, elite Amplify/Lower Resist integration, the expanded ordinary blind/fear AI catalogue, and the later full NPC damage/status/item callbacks. See their named entries in the status ledger and resume checkpoint. Their historical binary identities and limits stay attached to those receipts.
+The current planned-content driver retains the approved army-limit and original Revive activation coverage and adds Bone Armor policy, raised helpers, native corpses/difficulties and native Lich Revive families to the earlier class cohort. It does **not** silently claim to rerun every later checkpoint. Dedicated current receipts cover learned Golem Mastery, explosion ground targeting and corpse-location town rejection, Raise Skeleton/Mage corpse-town rejection, Bone Prison targeting, elite Amplify/Lower Resist integration, the expanded ordinary blind/fear AI catalogue, and the later full NPC damage/status/item callbacks. See their named entries in the status ledger and resume checkpoint. Their historical binary identities and limits stay attached to those receipts.
 
 ## Remaining mechanical acceptance
 
 - Bone Wall/Prison now use the explicitly approved native world/linked-death mapping: whole-formation collapse, immediate movement/placement/projectile release, shared DT15/600ms completion and persistent finite expiry. Default learned input, source-derived AI clocks, old saved types and actual in-progress saves pass the [learned checkpoint](bone-barrier-world-cast-checkpoint.md). Exact modern footprint/owner/hidedead parity remains unverified rather than silently inferred; the approved adaptation resolves the playable contract. Historical byte upgrades, unheld concurrent snapshots and graphical acceptance remain separate.
 - Iron Golem and Revive admit supported item/stat/event projections. Explicit unsupported projections remain refusals before consumption; wider original-monster AI/species, abilities and current-engine events still need acceptance. UO caster conversion to D2 spells is a separate world task.
-- Full modern geometry, room/candidate ordering, RNG/event ordering, PvP/special recipients and some breaking-hit shield/poison details remain bounded individually. The combined cohort validates its actual native adapters; it does not establish every current executable path.
+- Full modern geometry, room/candidate ordering, RNG/event ordering, PvP/special recipients and other shield/poison details remain bounded individually. The [approved Bone Armor policy](bone-armor-rule-checkpoint.md) settles its playable overflow and supported typed order; unavailable modern callbacks remain reference uncertainty. The combined cohort validates its actual native adapters; it does not establish every current executable path.
 - Actual graphical-client combat and final assets remain separate. [Effects/audio](skill-effects.md) and [talent/hotkey icons](skill-icons.md) retain identified placeholders rather than blocking mechanical work.
 
 Continue source-backed, unaffected skills when one of these is blocked. Do not retry inaccessible reference pages without an external change or silently convert uncertainty into an approved rule.
