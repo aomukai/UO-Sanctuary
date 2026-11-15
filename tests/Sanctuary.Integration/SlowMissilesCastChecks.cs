@@ -67,8 +67,10 @@ public static class SlowMissilesCastChecks
         target.MoveToWorld(new(p.X+13,p.Y+4,p.Z),p.Map);Require(!AmazonSlowMissilesCast.Target(p,target,27),"Outside source circle included");
         target.MoveToWorld(new(p.X+3,p.Y,p.Z+16),p.Map);Require(!AmazonSlowMissilesCast.Target(p,target,27),"Other floor included");
         target.MoveToWorld(new(p.X+3,p.Y,p.Z),p.Map);
-        var unknown=new GraveyardLich{CantWalk=true,Frozen=true,NoKillAwards=true};unknown.AIObject.AITimer.Stop();unknown.MoveToWorld(new(p.X+4,p.Y,p.Z),p.Map);
+        var unknown=new Ogre{CantWalk=true,Frozen=true};unknown.AIObject.AITimer.Stop();unknown.MoveToWorld(new(p.X+4,p.Y,p.Z),p.Map);
         Require(!AmazonSlowMissilesCast.Target(p,unknown,27),"Unknown source species acquired a guessed boss flag");unknown.Delete();
+        var lich=new GraveyardLich{CantWalk=true,Frozen=true,NoKillAwards=true};lich.AIObject.AITimer.Stop();lich.MoveToWorld(new(p.X+4,p.Y,p.Z),p.Map);
+        Require(AmazonSlowMissilesCast.Target(p,lich,27),"Explicit ordinary native Lich classification was refused");lich.Delete();
         NecromancerEffects.SetMana256(p,1279);Require(!AmazonSlowMissilesCast.Commit(p,at)&&NecromancerEffects.ManaBalance256(p)==1279&&AmazonSlowMissiles.State(target)==null,"Low-mana cast mutated state/payment");
         NecromancerEffects.SetMana256(p,1280);Require(AmazonSlowMissilesCast.Commit(p,at)&&NecromancerEffects.ManaBalance256(p)==0,"Exact cast payment");
         var first=AmazonSlowMissiles.State(target);

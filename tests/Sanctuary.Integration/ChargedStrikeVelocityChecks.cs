@@ -51,6 +51,9 @@ public static class ChargedStrikeVelocityChecks
     private static void Check()
     {
         Source();var owner=ChargedStrikeChecks.Fresh();ChargedStrikeChecks.Train(owner,"amazon.chargedstrike");
+        // Measure motion in an independent flat corridor. Other retained melee
+        // fixtures share Fresh's anchor and may legitimately consume a bolt.
+        FixtureSpace.Corridor(owner,6600,40,3200);
         var weapon=ChargedStrikeChecks.Equip(owner,new Spear());var target=ChargedStrikeChecks.Enemy(owner);
         int mana=NecromancerEffects.ManaBalance256(owner),durability=weapon.HitPoints;
         var roll=AmazonMelee.HitRoll;

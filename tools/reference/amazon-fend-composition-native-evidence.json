@@ -1,0 +1,60 @@
+{
+  "component": "Unchanged Fend isolation and Impale/Fend controls",
+  "referenceVersion": "3.3.93847",
+  "sourceSnapshot": 2,
+  "integrationBuild": 1,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "5df3992322b515ae6e525927b8b9ddb57420eddd63d9886f019ffd6974b2cd49",
+    "Assemblies/Sanctuary.Content.dll": "508e93ea5f7458c9de14a13d70500aaba9f6f39c76ba3313adaa3966b1d34e14",
+    "Assemblies/Sanctuary.Integration.dll": "b40a709d6461f841f795a3d68edd6414e5778540165470b57e0554367bd5c9b6"
+  },
+  "scopes": {
+    "isolated": {
+      "nativeMarkers": 12,
+      "markers": {
+        "iron-golem-birth-check": 3,
+        "iron-golem-items-check": 1,
+        "iron-golem-items-reload-check": 2,
+        "npc-resource-callbacks-check": 1,
+        "npc-resource-callbacks-reload-check": 2,
+        "fend-check": 1,
+        "fend-reload-check": 2
+      },
+      "boots": 3,
+      "reloads": 2
+    },
+    "impale-reproduction": {
+      "nativeMarkers": 16,
+      "markers": {
+        "iron-golem-birth-check": 3,
+        "iron-golem-items-check": 1,
+        "iron-golem-items-reload-check": 2,
+        "npc-resource-callbacks-check": 1,
+        "npc-resource-callbacks-reload-check": 2,
+        "impale-check": 1,
+        "impale-reload-check": 2,
+        "impale-slow-expiry": 1,
+        "fend-check": 1,
+        "fend-reload-check": 2
+      },
+      "boots": 3,
+      "reloads": 2
+    }
+  },
+  "gameplayChanged": false,
+  "runtimeDataChanged": false,
+  "classCertified": false,
+  "limits": "Both controls pass on the exact N2 binaries. Impale before Fend alone does not reproduce the combined compound count/roll/health/payment failure; exclusive cause remains unassigned. N3 restores the established original melee fixture ordering without weakening assertions.",
+  "files": {
+    ".local/class-skills/amazon-fend-impale-reproduction/birth-inputs.json": "b44e09a148102008f5ff78d028c1b737c5e3e5a659b42dcc9093299b17c16405",
+    ".local/class-skills/amazon-fend-impale-reproduction/birth-native-checks.log": "5cda8f44e352a25c9027a9bc932781369537f53937875fffdf7a7806c0d155ba",
+    ".local/class-skills/amazon-fend-isolated/birth-inputs.json": "7a3af8c785b277dfdc8922dd6c7e8c479b2faa2ccd99157fa1a9d5f928ee9253",
+    ".local/class-skills/amazon-fend-isolated/birth-native-checks.log": "96344b09f2c6fd81f6e1de165b4064242f7673d1e73fe5d2f39d0b815dc95064",
+    ".local/class-skills/amazon-planned-acceptance/failed-run-2/birth-inputs.json": "7cc3888603c1f7f58e895fd3b85e6f3f7ba356e6c8a97cec7b9f56e9306af9df",
+    ".local/class-skills/amazon-planned-acceptance/failed-run-2/birth-native-checks.log": "f4b285a6f6766b44650578bdba7782f43e88d59393be7836b877b252ee521bd9",
+    ".local/class-skills/amazon-planned-acceptance/failed-run-2/sources/tests/check_amazon_planned_acceptance.py": "7f63278e63fb2fc7d482d4150754d84da990698884fef99d9705d572b98f3b17",
+    ".local/class-skills/amazon-planned-acceptance/source-snapshot-2.json": "469d6af0fe36e563f411aacf6238a72eb27534be752fb58267bcbb3756e26706"
+  }
+}

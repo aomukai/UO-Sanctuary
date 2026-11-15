@@ -1,0 +1,45 @@
+{
+  "component": "Charged Strike speed control in independent native corridor",
+  "referenceVersion": "3.3.93847",
+  "contentBuildReused": 1,
+  "integrationBuild": 2,
+  "sourceSnapshot": 3,
+  "nativeRun": 1,
+  "nativeMarkers": 12,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "charged-strike-velocity-check": 1,
+    "charged-strike-velocity-reload-check": 2
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "changedSources": [
+    "tests/Sanctuary.Integration/ChargedStrikeVelocityChecks.cs"
+  ],
+  "gameplayChanged": false,
+  "runtimeDataChanged": false,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "5df3992322b515ae6e525927b8b9ddb57420eddd63d9886f019ffd6974b2cd49",
+    "Assemblies/Sanctuary.Content.dll": "508e93ea5f7458c9de14a13d70500aaba9f6f39c76ba3313adaa3966b1d34e14",
+    "Assemblies/Sanctuary.Integration.dll": "fc6c8d3783af90451d5ce2ff9fadbb200fcbde2c545a21434b0bce8a30b64b0b"
+  },
+  "classCertified": false,
+  "limits": "Independent flat motion corridor only; actual source speed snapshots, zero-speed expiry, legacy/new flight metadata, mixed reload continuation and resources retained. Specific removal cause of N3 missing probe remains unassigned; combined N4 pending.",
+  "files": {
+    ".local/class-skills/amazon-charged-velocity-current/birth-inputs.json": "846c114d4a174642c54937930dee2c29ae0ef96f3c11beebd50e6abb58b717f2",
+    ".local/class-skills/amazon-charged-velocity-current/birth-native-checks.log": "534968fae2404e7f29bf264b187451f6587c76649309f3555cbc7ea47d1543b9",
+    ".local/class-skills/amazon-planned-acceptance/failed-run-3/birth-inputs.json": "bdfd2af0f9ca5973140114cef5b4cd1a2a87bcfce4306c8678f4f913894cf2e4",
+    ".local/class-skills/amazon-planned-acceptance/failed-run-3/birth-native-checks.log": "2e43bbf31007a0a31c7acbe613bc597a02867d769211b229595fea0f1ecd12e6",
+    ".local/class-skills/amazon-planned-acceptance/integration-build-2.log": "11b030b1ccd9d18a76250885d48af59718c6a073f0b57f3acedf64d836979b2c",
+    ".local/class-skills/amazon-planned-acceptance/source-snapshot-3.json": "c526a0a07eecd9a9a2e1305d33e672eaaec24d640b37f85e306b0fe9ac960bc8",
+    ".local/class-skills/amazon-planned-acceptance/velocity-focused-run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    "tests/Sanctuary.Integration/ChargedStrikeVelocityChecks.cs": "bf2db0654f5c8994482b360baa4e1416b44e46b95da462f0e387c1ad6aca3539"
+  }
+}
