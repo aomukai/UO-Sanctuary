@@ -36,8 +36,29 @@ public static class BattleOrders
         Profiles=new();
         ClassCombatHooks.CreatureResourceMaximum=CreatureMaximum;
     }
+    private sealed class NativeLifeQuery(BaseCreature actor)
+    {internal readonly BaseCreature Actor=actor;internal int? Basis;}
+    private static NativeLifeQuery _nativeLifeQuery;
+    // Observe the native getter's input, rather than reverse a rounded/capped
+    // buffed maximum or temporarily remove live resource effects.
+    internal static int NativeLifeBase256(BaseCreature actor)
+    {
+        if(World.Loading||SkillHealth.SourceMaximum256(actor)!=null||PaladinConversion.Maximum256(actor)!=null
+            ||actor.GetStatOffset(StatType.Str)!=0)
+        {throw new NotSupportedException("Existing native life context needs a qualified unbuffed baseline");}
+        var previous=_nativeLifeQuery;var query=new NativeLifeQuery(actor);int maximum;
+        try{_nativeLifeQuery=query;maximum=actor.HitsMax;}finally{_nativeLifeQuery=previous;}
+        if(query.Basis is not >0)
+        {throw new NotSupportedException("Native life getter did not expose its unbuffed baseline");}
+        long basis=(long)query.Basis.Value*256;
+        long expected=Math.Clamp((basis+ClassResources.Percentage(basis,LifePercent(actor)))/256,0,65000);
+        if(maximum!=expected||basis>int.MaxValue)
+        {throw new NotSupportedException("Native life getter has an unsupported maximum modifier");}
+        return(int)basis;
+    }
     private static int? CreatureMaximum(BaseCreature actor,int resource,int basis)
     {
+        if(resource==0&&_nativeLifeQuery?.Actor==actor){_nativeLifeQuery.Basis=basis;}
         // Original NPCs acquire source life through their saved Revive plan,
         // not a replacement subclass. Resolve it before the loading fallback.
         if(resource==0&&BoundDemonHosts.Maximum256(actor) is{} bound){return (bound+255)/256;}

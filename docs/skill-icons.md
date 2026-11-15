@@ -1,5 +1,7 @@
 # Skill icons
 
+**Bound life-buff icon boundary — 2026-11-15 JST.** Existing-buff capture adds no skill or icon. Bind Demon tree/hotkey icons remain separately missing;no artwork/imagegen. Effects and the unresolved complete Bind mechanics remain separate. [Checkpoint](bind-demon-life-checkpoint.md).
+
 **Bound aura icon boundary — 2026-11-15 JST.** Aura30adds no selectable Paladin talent/hotkey to the Warlock. Final Bind talent-tree/right/quick artwork remains missing;existing text/controls are identified placeholders. NPC status presentation is separate from player skill icons. No new icon/artwork/imagegen. [Checkpoint](bind-demon-aura-checkpoint.md).
 
 **Zero-direct Spectral icon boundary — 2026-11-15 JST.** No new skill/hotkey/icon is granted by this bridge. Final Bind talent-tree/right/quick artwork remains missing;use identified placeholders at admission. Effects/audio stay separate. [Checkpoint](bind-demon-spectral-zero-checkpoint.md).

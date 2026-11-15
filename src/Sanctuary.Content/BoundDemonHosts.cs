@@ -140,10 +140,12 @@ internal static class BoundDemonHosts
         try
         {
             birth=BindDemonPrepared.Capture(owner);monster=CreatureProfiles.For(body).Rewards.Reference;
-            if(birth.InheritedPhysical5!=0||birth.InheritedPhysical7!=0||BattleOrders.Percent(body)!=0)
-            {throw new NotSupportedException("Original inherited sunder or existing max-life buff needs a qualified binding adapter");}
+            if(birth.InheritedPhysical5!=0||birth.InheritedPhysical7!=0)
+            {throw new NotSupportedException("Original inherited sunder needs a qualified binding adapter");}
             if(BindDemonPrepared.Monster(monster).IndexScope!="MonsterClass"){throw new NotSupportedException("Named encounter binding needs its own original-host adapter");}
-            MonsterVariantBaselines.RememberNormal(body);normal=MonsterVariantBaselines.Find(body)
+            int? unbuffed=BattleOrders.LifePercent(body)!=0&&MonsterVariants.SpawnDifficulty(body)==MonsterDifficulty.Normal
+                ?BattleOrders.NativeLifeBase256(body):null;
+            MonsterVariantBaselines.RememberNormal(body,unbuffed);normal=MonsterVariantBaselines.Find(body)
                 ??throw new NotSupportedException("Original Normal combat baseline is unavailable");
             if(normal.Minimum<0||normal.Maximum<normal.Minimum)
             {throw new NotSupportedException("Original body damage endpoints need a qualified weapon adapter");}
