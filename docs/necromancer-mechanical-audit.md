@@ -1,5 +1,7 @@
 # Necromancer mechanical acceptance audit
 
+**Native corpse difficulty increment — 2026-11-16 JST.** [Checkpoint](native-corpse-difficulties-checkpoint.md) covers real Lich deaths, public CE/Poison dispatch and saved unused corpses across all three authored difficulties. Twelve real inputs include Nightmare CE and Hell Poison; 54 markers/two reloads pass, retaining owned/wild helper controls. The first cohort’s Normal input timeout remains unexplained. No native Revive admission or class certificate.
+
 **Native raised-helper prerequisite — 2026-11-16 JST.** [Checkpoint](raised-minions-checkpoint.md) qualifies actual owned Lich raises, unchanged wild controls, original player/caster/child identities, protected corpse loot, difficulty rescaling, parking, dependent cleanup and two reloads. The fixture uses a test-only persistent parent behavior; it does not certify or admit native Lich Revive. C2/I3/S4/N2: 39 markers, nine connections, six retained explosion inputs. First native timeout remains unassigned.
 
 **Native corpse consumer increment — 2026-11-16 JST.** [Checkpoint](native-corpse-checkpoint.md): exact native Graveyard Lich deaths now supply captured base life/selectability for CE and Poison Explosion. Public Raise/Mage regression, six real explosion inputs, protected loot and two reloads pass (30 markers). Native Lich Revive remains explicitly unavailable pending original-actor eligibility/ownership; unassigned flesh metadata stays unassigned. This is scoped consumer acceptance, not a class certificate.

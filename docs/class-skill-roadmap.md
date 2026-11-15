@@ -1,5 +1,7 @@
 # Class skill roadmap
 
+**Native Lich corpse difficulties — 2026-11-16 JST.** [Checkpoint](native-corpse-difficulties-checkpoint.md) corrects missing Nightmare/Hell capture using existing authored level/base values (36/1,102 and 69/9,118). C1/I2/S2/N2 passes 54 markers, 12 actual explosion inputs and two reloads. An earlier retained Normal input timeout remains unexplained. Native Lich Revive stays refused; 236/240 handlers, no class certified.
+
 **Raised-helper ownership prerequisite — 2026-11-16 JST.** [Checkpoint](raised-minions-checkpoint.md): persistent owned Liches now create allied, caster-dependent helpers through the existing raise animation and pet services. Difficulty/wounds, parking and two reloads pass in a 39-marker cohort, retaining six explosion inputs. Wild Lich control passes. **Native Lich Revive admission remains unfinished; 236/240 handlers and no class certified.**
 
 **Native Lich corpse support — 2026-11-16 JST.** Corpse Explosion and Poison Explosion now accept newly classified Graveyard Lich corpses using their authored level 5/base 90; Raise Skeleton/Mage retain their existing native-body behavior. [Checkpoint](native-corpse-checkpoint.md): 30 markers, six real input casts and two reloads. Native Lich Revive still needs an ownership/activation adapter; flesh classification remains open. **236/240 handlers; no class certified.**
