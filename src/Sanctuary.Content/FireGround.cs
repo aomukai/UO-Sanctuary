@@ -288,8 +288,9 @@ public static partial class FireGround
                 int damage=WeaponMissileDamage.RollValue(patch.Min256,patch.Max256,0,WeaponMissiles.DamageRoll);
                 // Only ImmolationFire has srvdmg3's19/128 SOFTHIT draw.
                 // Fists/Phoenix have no damage callback and no extra draw.
-                if(patch.Ability==CombatAbility.ImmolationArrow){ImmolationArrows.SoftHitRoll(128);}
-                SkillCombat.FireFrame(owner,target,damage,patch.DamageRate);
+                if(patch.Ability==CombatAbility.ImmolationArrow)
+                {ImmolationArrows.FireFrame(owner,target,patch,damage,ImmolationArrows.SoftHitRoll(128)<NecromancerSummons.Source("immolationfire","dParam1"));}
+                else{SkillCombat.FireFrame(owner,target,damage,patch.DamageRate);}
             }
             if((patch.NextUtc.Ticks/TimeSpan.TicksPerMillisecond/40)%5==0)
             {Effects.SendLocationEffect(point,owner.Map,0x398C,3,10,0x489,0);} // Identified flame placeholder.

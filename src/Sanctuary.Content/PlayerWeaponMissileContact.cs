@@ -25,6 +25,10 @@ internal static class PlayerWeaponMissileContact
     }
     // Element-only HitFlags2 area packets share HP/status/credit/return,not weapon events.
     internal static bool TryElemental(PlayerMobile owner,BaseCreature target,int damage256,bool freeze,int rawFrames,DateTime at,out string reason)
+        =>TryElementalCore(owner,target,damage256,freeze,rawFrames,at,5,2,0,0,SkillDamageKind.Direct,out reason);
+    internal static bool TryFireFrame(PlayerMobile owner,BaseCreature target,int damage256,int damageRate,bool soft,DateTime at,out string reason)
+        =>TryElementalCore(owner,target,damage256,false,0,at,1|(soft?16384:0),0,32,damageRate,SkillDamageKind.Periodic,out reason);
+    private static bool TryElementalCore(PlayerMobile owner,BaseCreature target,int damage256,bool freeze,int rawFrames,DateTime at,int flags,uint hitFlags,int hitClass,int damageRate,SkillDamageKind kind,out string reason)
     {
         reason=null;
         if(target is not{Alive:true,Deleted:false}||!target.CanBeDamaged()||target.Map!=owner.Map||ClassCombat.Friendly(owner,target)){return true;}
@@ -37,11 +41,11 @@ internal static class PlayerWeaponMissileContact
         catch(NotSupportedException e){reason=e.Message;return false;}
         if(ClassAvoidance.Missile(target)){return true;}
         var damage=freeze?new GearDamage(0,0,damage256/256.0,0,0):new GearDamage(0,damage256/256.0,0,0,0);
-        var parts=SkillCombat.MitigatePrepared(owner,target,damage,out int absorbed);int cold=0,frozen=0;
+        var parts=SkillCombat.MitigatePrepared(owner,target,damage,out int absorbed,damageRate);int cold=0,frozen=0;
         if(freeze){(cold,frozen)=DragonTails.ColdLengths(owner,target,0,rawFrames);}
         var impact=new PreparedWeaponImpact(damage,parts,absorbed)with{LifeDamage256=NamedElements.To256(parts.Total)};
-        var packet=new PlayerWeaponContactPrepared(SourceMeleeResult.Successful|SourceMeleeResult.GetHit,impact,new(0,0),cold,0,WeaponMissiles.ItemEffects,
-            FreezeFrames:frozen,HitFlags:2,SuppressWear:true);
+        var packet=new PlayerWeaponContactPrepared(flags,impact,new(0,0),cold,0,WeaponMissiles.ItemEffects,
+            HitClass:hitClass,FreezeFrames:frozen,HitFlags:hitFlags,SuppressWear:true,DamageKind:kind);
         PlayerWeaponContact.ReleaseMissile(owner,target,packet,at,true);
         if(target.Alive&&(cold>0||frozen>0)){target.FixedEffect(0x374A,10,15,0x480,0);} // Identified shared cold/freeze placeholder.
         return true;

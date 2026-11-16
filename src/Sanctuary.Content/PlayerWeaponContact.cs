@@ -11,7 +11,7 @@ namespace Sanctuary;
 // Item processors and native encounter reactions remain explicit adapters.
 internal sealed record PlayerWeaponContactPrepared(int Flags,PreparedWeaponImpact Impact,PlayerWeaponDrain Drain,int ColdFrames,int BaseHitClass,Random Effects,int HitClass=0,
     bool Smite=false,Func<int,int> StunRoll=null,int? MeleeRange=null,bool SkillKnockback=false,Func<int,bool> RangeCheck=null,int FreezeFrames=0,uint HitFlags=0,int? CrushingDivisor=null,bool SuppressWear=false,bool AttemptScoped=false,
-    Action<PlayerMobile,BaseCreature,DateTime> CapturedPoison=null,bool ControlStun=false,Func<bool> UninterruptibleItemCasts=null,Func<bool> ActiveSourceMode=null,Action WeaponWear=null);
+    Action<PlayerMobile,BaseCreature,DateTime> CapturedPoison=null,bool ControlStun=false,Func<bool> UninterruptibleItemCasts=null,Func<bool> ActiveSourceMode=null,Action WeaponWear=null,SkillDamageKind DamageKind=SkillDamageKind.Direct);
 
 internal static class PlayerWeaponContact
 {
@@ -117,6 +117,7 @@ internal static class PlayerWeaponContact
     private sealed class Damage(PlayerMobile source,BaseCreature target,MonsterReturnMetadata metadata,NpcCombatEvents events,Scope scope,DateTime at,bool missile=false):PreparedMonsterDamageServices
     {
         private bool Freed;
+        internal override SkillDamageKind DamageKind=>scope.Prepared.DamageKind;
         internal override void StoreLastAttacker()=>source.DoHarmful(target,true);
         internal override PreparedMonsterDamagePacket DealtDamage(PreparedMonsterDamagePacket p)
         {

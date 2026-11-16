@@ -354,6 +354,9 @@ public static class WeaponMissiles
         bool hit=flight.Ability is CombatAbility.LightningBolt or CombatAbility.LightningFury || next.Guided!=null
             || (flight.Ability==CombatAbility.DoubleThrow?DoubleThrowMissiles.Hit(player,selected,flight.Damage.SkillAttackPercent,BarbarianDoubleThrow.HitRoll):flight.Ability==CombatAbility.BladeFury?BladeFuryMissiles.Hit(player,selected,flight.Damage.SkillAttackPercent,HitRoll)
                 :ClassStats.CheckHit(owner,selected,flight.Damage.SkillAttackPercent,HitRoll,projectile:true))==true;
+        // Accuracy-side PMH precedes hit09's immediate area; Guided has no AR path.
+        if(hit&&(flight.Throwing!=null||BowMissileContact.Handles(flight)&&flight.Guided==null)&&selected is BaseCreature hitTarget)
+        {WeaponStartEffects.SuccessfulHitRoll(player,hitTarget);}
         if(flight.Ability==CombatAbility.ImmolationArrow)
         {
             // hit09 clears missile cold length before the direct hit.
@@ -363,8 +366,8 @@ public static class WeaponMissiles
         }
         BowExplosions.Create(player,next,flight.NextUtc);PlagueJavelins.Burst(player,next,selected,flight.NextUtc);AmazonLightningFury.Burst(player,next,flight.NextUtc); // AlwaysExplode survives a parent attack miss.
         if(!hit){_flights.Remove(flight.Id);return;}
-        // Guided ToHit0 bypasses the source accuracy routine and its PMH setup.
-        if((flight.Throwing!=null||BowMissileContact.Handles(flight)&&flight.Guided==null)&&selected is BaseCreature hitTarget){WeaponStartEffects.SuccessfulHitRoll(player,hitTarget);}
+        if(flight.Ability==CombatAbility.ImmolationArrow&&selected is not{Alive:true,Deleted:false})
+        {if(!pierce){_flights.Remove(flight.Id);}return;}
         var damage=flight.Damage.Roll(selected,DamageRoll,out int poisonRate256);
         if(flight.Throwing!=null&&selected is PlayerMobile)
         {

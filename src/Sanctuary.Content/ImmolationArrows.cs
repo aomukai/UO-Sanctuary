@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
+using System.Collections.Generic;
 using Server;
 using Server.Mobiles;
 using Server.Spells;
@@ -11,6 +12,15 @@ namespace Sanctuary;
 public static class ImmolationArrows
 {
     internal static Func<int,int> SoftHitRoll=Utility.Random;
+    private static readonly HashSet<string> Unsupported=[];
+    private static void Report(string reason)
+    {if(Unsupported.Add(reason)){Server.Logging.LogFactory.GetLogger(typeof(ImmolationArrows)).Warning("Immolation unsupported context: {Reason}",reason);}}
+    internal static void FireFrame(PlayerMobile owner,Mobile target,FirePatch patch,int damage,bool soft)
+    {
+        if(target is BaseCreature creature)
+        {if(!PlayerWeaponMissileContact.TryFireFrame(owner,creature,damage,patch.DamageRate,soft,patch.NextUtc,out string reason)){Report(reason);}}
+        else{SkillCombat.FireFrame(owner,target,damage,patch.DamageRate);}
+    }
     internal static bool Touches(int size,int dx,int dy)
         =>CombatHitboxes.SourceTouches(1,size,dx,dy);
     internal static int FieldDamage256(SkillValues values,bool maximum)
@@ -51,11 +61,20 @@ public static class ImmolationArrows
         int fire=WeaponMissileDamage.RollValue(parent.Damage.Elements.FireMin,parent.Damage.Elements.FireMax,0,WeaponMissiles.DamageRoll);
         int area=(int)values.Eval("calc2");var center=new Point3D((int)Math.Round(x/2.0),(int)Math.Round(y/2.0),parent.Z);
         Effects.SendLocationEffect(center,owner.Map,0x36BD,3); // Identified explosion placeholder.
+        var targets=new List<Mobile>();
         foreach(var target in owner.Map.GetMobilesInRange<Mobile>(center,(int)Math.Ceiling(SkillGeometry.Tiles(area)+1)))
         {
             int dx=target.X*2-x,dy=target.Y*2-y;
             if(dx*dx+dy*dy<=area*area && Math.Abs(target.Z-parent.Z)<16 && ClassCombat.IsHostile(owner,target)
-                && !SpellHelper.IsTown(target.Location,owner)){SkillCombat.FireImpact(owner,target,fire);}
+                && !SpellHelper.IsTown(target.Location,owner)){targets.Add(target);}
+        }
+        // HP/death can mutate sector membership. Keep the existing projected
+        // room order but finish collecting before releasing copied damage.
+        foreach(var target in targets)
+        {
+            if(target is BaseCreature creature)
+            {if(!PlayerWeaponMissileContact.TryElemental(owner,creature,fire,false,0,at,out string reason)){Report(reason);}}
+            else{SkillCombat.FireImpact(owner,target,fire);}
         }
     }
 }

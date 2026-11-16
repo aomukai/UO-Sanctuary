@@ -1,0 +1,92 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "functions": {
+    "MISSMODE_SrvHit09_ImmolationArrow": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "a8e52d6bd727be94b9171357e35199a5011834e2daba03086d6d8aa236d3a47f"
+    },
+    "MISSMODE_GetDamageValue": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "4fd344aff656a049a4a6a2ad63e803ca370618ad0525b7256f181fd14d2d1624"
+    },
+    "MISSMODE_SetDamageFlags": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "e45650c089a89c9f2db72a953ea9f09b8ea823f0a2bcf7b65dfd130c6b476280"
+    },
+    "MISSMODE_SrvDmg03_Blaze_FireWall_ImmolationFire_MeteorFire": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "87a67081760cddb9be38bb8ca9980ac6c3f6bcc03b7cdb7d2e5c2422a5f607b4"
+    },
+    "MISSMODE_SrvDmgHitHandler": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "ea4d1c52db64fe810d2404b578ab7aa3ba4a375e9fc6f0bb20b559ccb308f329"
+    },
+    "MISSMODE_SrvDo05_FireWall_ImmolationFire_MeteorFire_MoltenBoulderFirePath": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "268c29a3489bac97845ea63fac10efd077d48822fde5f6ae823c592110666647"
+    },
+    "sub_6FD10200": {
+      "path": "source/D2Game/src/SKILLS/Skills.cpp",
+      "sha256": "1c9a3f3aee7a9730e17f3ba1371eb7764a7a026944c6129adae11d8af8029327"
+    },
+    "sub_6FD10140": {
+      "path": "source/D2Game/src/SKILLS/Skills.cpp",
+      "sha256": "03f077dacedb03233ecb7bc08f4bf97ce8034819a0d8f887b9b0c9c4f219c768"
+    },
+    "SUNITDMG_IsHitSuccessful": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "sha256": "26a6da2610750e203fb8bad4fdc9287a75209905e5633c4b50a374424b84a758"
+    },
+    "SUNITDMG_ExecuteEvents": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "sha256": "29d79fe1ff916cce3da9b78493564f9438ea99718e99d208f4412a07c3898c55"
+    }
+  },
+  "currentMissilesSha256": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+  "missileFields": {
+    "immolationarrow": {
+      "pSrvDoFunc": 1,
+      "pSrvHitFunc": 9,
+      "pSrvDmgFunc": 0,
+      "ToHit": 1,
+      "AlwaysExplode": 1,
+      "GetHit": 1,
+      "HitFlags": 2,
+      "ResultFlags": 5,
+      "HitClass": 10,
+      "Range": 40
+    },
+    "immolationfire": {
+      "pSrvDoFunc": 5,
+      "pSrvHitFunc": 0,
+      "pSrvDmgFunc": 3,
+      "ToHit": 0,
+      "GetHit": 0,
+      "HitFlags": 0,
+      "ResultFlags": 0,
+      "HitClass": 32,
+      "DamageRate": 41,
+      "dParam1": 19,
+      "Range": 100
+    }
+  },
+  "retainedSourceEvidence": {
+    "tools/reference/immolation-arrow-engine-evidence.json": "10ab0554d8494f43f6a8a720f9cec1f3bb231ab719bc8128f763c707eb3c06a0",
+    "tools/reference/immolation-routing-engine-evidence.json": "84be409c348f7060909259d80b9bac7a66403a43b88ca41bbb88dcb3459ee4f8",
+    "tools/reference/immolation-damage-engine-evidence.json": "788b4130a67e5ccbd97293a220a82e6310ac06b8ac02c66f0e24fed5150fb322",
+    "tools/reference/immolation-field-engine-evidence.json": "1fb1cf81bb158d69ec79e6c5c3556890de086eb5684abe2ab6d3deef9502678b",
+    "tools/reference/immolation-item-event-engine-evidence.json": "343637f2a6a3996fb6f431c03c0da4e30f7370398d47b12a522302c7a3768765"
+  },
+  "established": [
+    "hit09 clears missile cold/freezing,creates the disc and copies one captured fire-only HitFlags2/ResultFlags5 area before the separate full weapon hit. Source accuracy PMH precedes hit09;area remains on miss/block/wall/expiry. A dead primary has no later weapon contact.",
+    "Weapon source uses full captured physical/element/poison/drain with pre-HP item hit events and post-handler armor. Attacker item freeze is independent of cleared missile cold length.",
+    "Field source0 rows have no weapon bit32,ToHit,GetHit or shield check. do3 draws once per collided cell and ORs SOFTHIT for19/128 outcomes;SetDamageFlags adds Successful1 and HitClass32. DamageRate41 affects mitigation,not a second damage multiplier.",
+    "Retain source field endpoints,one collider per cell,99updates,terrain/expiry and independent saves. Element-only shared packet delivery uses periodic damage kind for fields,without direct-damage notifications or weapon proc tickets."
+  ],
+  "remaining": [
+    "Archived current rows plus complete older bodies establish this scoped bridge,not exact modern global catch-up/stat/seed/provider/owner/room-order/geometry.",
+    "Existing avoidance adapters and co-op world rules remain;exceptional/uninterruptible/death-delay/hireling/PvP contexts stay explicitly unqualified.",
+    "Full named acquisition,other missile callers,complete class/client and separate effect/audio/icon assets remain open."
+  ]
+}
