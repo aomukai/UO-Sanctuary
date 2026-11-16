@@ -1,6 +1,6 @@
 # Current Druid combined acceptance
 
-Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. **Charms and runewords are excluded.** All 30 Druid handlers exist. No combined class acceptance, full class certificate or goal completion is claimed yet.
+Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. **Charms and runewords are excluded.** All 30 Druid talents are mapped to the accepted combined cohort below. Full current-executable parity and the overall goal are not claimed complete.
 
 ## Verified focused checkpoints
 
@@ -36,11 +36,13 @@ Exact failed inputs/logs, binaries, every C# fixture and both Python harnesses a
 
 The initial six C# fixture corrections changed: `DruidHumanCastClockChecks`, the three `DruidRabies*Checks`, `ArcticStreamChecks` and `ArcticHeldInputChecks`. The later retained-form correction below brings the total to fifteen fixture files. No gameplay fix is inferred from these fixture failures.
 
-## Combined run next
+## Accepted combined run
 
 The [driver](../tests/check_druid_planned_acceptance.py) declares 57 existing families, 23 shared checks, 43 current input commands, four natural live commands, 146 cached reference files and sixteen pre-save snapshot/expiry controls. Each boot retains nine elemental Cast sequences, three held-Arctic sequences and an independently connected paid Fury save stage. Socket pacing preserves native security. Optional pre-save callbacks and interboot delay default inactive for older cohorts.
 
-**Combined N7 is next on C1/I15/source 17.** The [strict recorder](../tools/record_druid_planned_acceptance.py) expects 675 exact markers and 201 connections across three saves/two reloads; those are expectations until the actual run succeeds. [Thirty-talent map](druid-coverage-matrix.md). Poll its exact handle before C#/runtime/harness edits and freeze failed evidence before repairs.
+**Combined N7 passes on C1/I15/source 17: 675 exact markers, 57 families, 23 shared checks, 201 connections, three boots/saves and two reloads.** It retains 129 current input attempts, 27 legacy elemental sequences, nine held-Arctic sequences, twelve natural live controls and three connected paid-Fury save stages. The terminal native job exits zero. [Strict receipt](../tools/reference/druid-planned-acceptance-native-evidence.json), [recorder](../tools/record_druid_planned_acceptance.py), [thirty-talent map](druid-coverage-matrix.md). The installed artifact/save/configuration/client protection checks pass.
+
+Five existing `WardrobeSet` deletion-during-save warnings remain a shared save-cleanup concern. This cohort has no unsupported-context warnings or connection-filter denials. The warnings were not silently repaired or treated as proof of a clean production save path; installed saves remain unchanged. Individual source/parity limits and final assets remain explicit. **Next class: Warlock/Witch**, retaining its four frozen pending proposals while verifying unaffected routes.
 
 Explicit current-engine timing/RNG/event/geometry/recipient/owner/PvP and exceptional world cases, graphical-client acceptance and effects/audio versus talent/hotkey icons remain separate. Four older Warlock proposals stay frozen pending, without inferred approval or a repeated question.
 
@@ -60,7 +62,7 @@ The integration-only `DruidFormWorldChecks.RetainForInspection` shifts both UTC 
 
 The first isolated prototype passes 27 markers and is preserved before the shared helper. The larger focused setup initially omitted the existing connected Shock Wave pool checkpoint; that failed context is frozen under `failed-form-retained-focus-2`. Adding the unchanged control reproduces the full cohort's declared sequence. **I14/source 16/focused run 3 passes 165 exact markers, six connections, three saves and two reloads.** [Receipt](../tools/reference/druid-form-retained-native-evidence.json), [strict recorder](../tools/record_druid_form_retained.py). No assertion was removed. The ten files changed since N5 are all integration fixtures; total changes since the accepted Assassin baseline are fifteen integration fixtures. Gameplay C1, data, native kernel, client and installed save/configuration protection remain unchanged.
 
-N7 will run the same complete 675-marker/201-connection scope on the current fixture build. Previous accepted focused receipts remain historical, with any changed fixture input authenticated against matching exact frozen N4/N6 sources; the new candidate binds its own current source snapshot. Do not regenerate old focused receipts merely because later fixtures changed.
+N7 subsequently passed the complete 675-marker/201-connection scope on the current fixture build. Previous accepted focused receipts remain historical, with any changed fixture input authenticated against matching exact frozen N4/N6 sources; the new candidate binds its own current source snapshot. Do not regenerate old focused receipts merely because later fixtures changed.
 
 
 ## Maul expiry-control support form
@@ -69,4 +71,4 @@ N6 passed both component reloads and the third input pass. The final saved world
 
 Only one additional helper call in `DruidMaulChecks.Check` holds the expiry-control actor's captured form before recording it. Its original two-second charge deadline and each pre-save restaging remain unchanged. No rank, duration, wound/resource, paid-action or no-replay assertion changes. C1/I15/source17/focused run1 passes **24 exact results, three saves and two reloads**, including natural charge expiry and form-preserving offline charge expiry. [Receipt](../tools/reference/druid-maul-expiry-form-native-evidence.json), [strict recorder](../tools/record_druid_maul_expiry_form.py). Build I15 has zero warnings/errors, and installed artifact/save/config/client protection passes. No gameplay/data/kernel/client/install change or new reference compiler run occurred. The total changed integration fixture count remains fifteen.
 
-Other pre-save expiry controls create fresh actors; retained fields use inspection timestamps. N7 retains the complete driver and exact 675-result/201-connection expectation. Old accepted focused receipts stay unchanged; historical input hashes resolve only to matching frozen source copies, while N7 directly binds the current build and source snapshot.
+Other pre-save expiry controls create fresh actors; retained fields use inspection timestamps. N7 passed the complete driver with its exact 675-result/201-connection inventory. Old accepted focused receipts stay unchanged; historical input hashes resolve only to matching frozen source copies, while N7 directly binds the current build and source snapshot.

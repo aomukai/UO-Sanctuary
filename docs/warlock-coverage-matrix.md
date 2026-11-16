@@ -1,6 +1,6 @@
 # Warlock/Witch acceptance inventory
 
-Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. **Charms and runewords are excluded.** This is the next-class inventory while Druid combined acceptance is still running; it enables no skill, performs no new native run and grants no class certificate.
+Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. **Charms and runewords are excluded.** Druid combined acceptance has passed; this is the next-class inventory and it enables no skill, performs no new native run and grants no class certificate.
 
 Current status has **26 handlers and four pending talents**. Existing component/learned fixtures are listed below for reuse. A fixture filename is an evidence entry point, not a claim that every modern mechanic or the combined class has passed.
 

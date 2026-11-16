@@ -1,6 +1,6 @@
 # Druid acceptance map
 
-Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Charms and runewords are excluded. All 30 talents have handlers; the current combined run is pending. A handler or passing subset does not certify complete modern D2R parity.
+Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Charms and runewords are excluded. All 30 talents have handlers; the combined cohort passes 675 exact results across three saves/two reloads. A handler or passing subset does not certify complete modern D2R parity.
 
 | Talent | Mechanical scope | Existing fixture |
 | --- | --- | --- |
@@ -48,3 +48,5 @@ Poison Creeper targets 2,000 average base damage over four seconds at rank 20 be
 Exact current executable animation/input/RNG/stat/event/world/PvP equivalence and exceptional item/recipient/terrain cases remain explicit per talent. Prepared/injected-clock and historical-profile tests retain their bounded claims; they are not substituted for every current naturally scheduled context. Broader graphical-client acceptance is still separate. See the [skill ledger](../data/Sanctuary/Balance/class-skill-status.json) and individual source/native receipts. Four older Warlock proposals remain frozen pending.
 
 Final [effects/audio](skill-effects.md) and [talent/hotkey icons](skill-icons.md) remain separately tracked with identified placeholders. This checkpoint includes no artwork, charm/runeword replacement or deployment. Installed build, saves, configuration and client protection remain required.
+
+Accepted candidate: **C1/I15/source 17/native 7**, 57 families, 23 shared checks, 201 connections, three saves and two reloads. [Receipt](../tools/reference/druid-planned-acceptance-native-evidence.json), [checkpoint](druid-planned-acceptance-checkpoint.md). Five known WardrobeSet save warnings remain explicit; no unsupported-context warnings or connection denials occurred. Production gameplay/data/kernel and installed saves/configuration/client remain unchanged. Next class: Warlock/Witch; its four frozen proposals remain pending.
