@@ -114,8 +114,13 @@ public static class HexBaneCastChecks
             foreach(var row in old.Rows)
             {
                 var p=(PlayerMobile)World.FindMobile((Serial)row.Owner);var t=(ShockWaveTarget)World.FindMobile((Serial)row.Target);
-                Require(p.Female==row.Female&&CombatTiming.Equipped(p)?.Serial.Value==row.Weapon&&HexBane.Buff(p)==row.Buff&&HexBane.Debuff(t)==row.Debuff&&row.Buff.CastMastery==50
-                    &&SkillHealth.Balance256(p)==row.Life&&NecromancerEffects.ManaBalance256(p)==row.Mana,"Bane original saved mastered state/resources/gear");
+                Require(p.Female==row.Female,"Bane saved gender changed");
+                Require(CombatTiming.Equipped(p)?.Serial.Value==row.Weapon,"Bane original weapon changed");
+                Require(HexBane.Buff(p)==row.Buff,"Bane saved buff changed: expected="+JsonSerializer.Serialize(row.Buff)+" actual="+JsonSerializer.Serialize(HexBane.Buff(p)));
+                Require(HexBane.Debuff(t)==row.Debuff,"Bane saved debuff changed: expected="+JsonSerializer.Serialize(row.Debuff)+" actual="+JsonSerializer.Serialize(HexBane.Debuff(t)));
+                Require(row.Buff.CastMastery==50,"Bane saved cast mastery changed");
+                Require(SkillHealth.Balance256(p)==row.Life,"Bane saved life changed: expected="+row.Life+" actual="+SkillHealth.Balance256(p));
+                Require(NecromancerEffects.ManaBalance256(p)==row.Mana,"Bane saved mana changed: expected="+row.Mana+" actual="+NecromancerEffects.ManaBalance256(p));
                 FixtureSpace.Corridor(p,row.Female?6480:6400,24,3500);t.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);Events(p,t);var s=HexBane.Snapshot();
                 HexBane.Restore(new(s.Buffs.Select(b=>b.Owner==row.Owner?row.Buff:b).ToArray(),s.Debuffs.Select(d=>d.Target==row.Target?row.Debuff:d).ToArray()));SkillHealth.SetBalance256(p,row.Life);NecromancerEffects.SetMana256(p,row.Mana);Ready(p);
             }

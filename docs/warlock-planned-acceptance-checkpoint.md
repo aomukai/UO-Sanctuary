@@ -36,3 +36,6 @@ Next is the nine-route weapon/Hex/Ward group, followed by the ten-route Sigil/Ch
 ## Current second group
 
 The [weapon/Hex/Ward checkpoint](warlock-weapons-acceptance-checkpoint.md) and [driver](../tests/check_warlock_weapons_acceptance.py) declare nine more routes with 21 existing families, 24 current input commands, seven connected asynchronous families and the existing shared Magic Arrow regression. Candidate artifacts remain the accepted C1/I15 without recompilation. Expected totals are 240 markers and 93 connections over three saves/two reloads; no second-group acceptance is claimed yet. Ten Chaos/Sigil routes and four frozen proposals remain separate.
+
+
+Weapon-group preflight corrections are documented in its checkpoint: a stale learned-Purge guard, isolated single-contact Purge scene and field-specific Bane diagnostics. Focused C1/I4/source5/run4 passes66 results/18input attempts/two reloads with unchanged gameplay. One earlier Bane failure remains explicitly unassigned. Full nine-route N2 is next; the accepted seven-route demon group remains historical C1/I15.

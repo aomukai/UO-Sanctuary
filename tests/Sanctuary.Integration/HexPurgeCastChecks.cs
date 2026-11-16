@@ -32,12 +32,24 @@ public static class HexPurgeCastChecks
         foreach(string choice in new[]{"right","quick"}){string mode=choice;Register("purge-cast-"+mode+"-check",()=>FixtureNetwork.Connected("purge-cast-"+mode+"-result",n=>Input(n,mode)));}
     }
     private static void Ready(PlayerMobile p){ClassCombat.Stop(p);var s=ClassCombat.For(p);s.NextAction=s.RecoveryUntil=Core.TickCount;}
+    private static void PlaceScene(PlayerMobile p,int column)
+    {
+        for(int row=3500;row<3800;)
+        {
+            FixtureSpace.Corridor(p,column,24,row);bool clear=true;
+            foreach(var other in p.Map.GetMobilesInRange<Mobile>(p.Location,14))
+            {if(other!=p){clear=false;break;}}
+            if(clear){return;}
+            row=p.Y+32;
+        }
+        throw new InvalidOperationException("No isolated Purge single-contact corridor");
+    }
     private static PlayerMobile Fresh(bool female,int column=6560)
     {
         var p=ClassSkillChecks.Player(DiabloClass.Warlock);p.Female=female;p.Name="PurgeCastFixture";p.AddItem(new Backpack());ClassCreation.Profiles.AdvanceLevel(p,99);
         ClassSkillChecks.Train(p,"warlock.hexpurge",20);ClassSkillChecks.Train(p,"warlock.cleave");ClassSkillChecks.Train(p,"warlock.hexsiphon");
         while(p.RawStr<100){Require(ClassCreation.Profiles.TrySpendStat(p,CharacterStat.Strength),"Purge strength");}
-        FixtureSpace.Corridor(p,column,24,3500);var w=new Broadsword();p.AddToBackpack(w);Require(p.EquipItem(w),"Purge sword");ClassGear.Refresh(p);NecromancerEffects.SetMana256(p,p.ManaMax*256);Ready(p);return p;
+        PlaceScene(p,column);var w=new Broadsword();p.AddToBackpack(w);Require(p.EquipItem(w),"Purge sword");ClassGear.Refresh(p);NecromancerEffects.SetMana256(p,p.ManaMax*256);Ready(p);return p;
     }
     private static CleaveActionTarget Enemy(PlayerMobile p,int dx)
     {
@@ -76,7 +88,8 @@ public static class HexPurgeCastChecks
             HexPurge.ClearDebuff(target);int hp=SkillHealth.Balance256(target),other=SkillHealth.Balance256(near);Ready(p);
             var a=CleaveActionProposal.BeginPrepared(p,target.Serial,target.Location,Core.TickCount);Require(a!=null,"Purge Cleave start");CleaveActionProposal.Advance(a,a.EffectAt);ClassCombat.Stop(p);
             Require(a.Fault==null&&a.Successful==1&&packets==1&&packet256>0&&hp-SkillHealth.Balance256(target)>packet256&&SkillHealth.Balance256(near)<other
-                &&HexPurge.Debuff(target)?.Reaction.RemainingCharges==2&&seedCalls==1,"Automatic Cleave applying-hit reaction/order/one charge");
+                &&HexPurge.Debuff(target)?.Reaction.RemainingCharges==2&&seedCalls==1,
+                $"Automatic Cleave applying-hit reaction/order/one charge: fault={a.Fault}, hits={a.Successful}, packets={packets}, packet={packet256}, loss={hp-SkillHealth.Balance256(target)}, near={other-SkillHealth.Balance256(near)}, charges={HexPurge.Debuff(target)?.Reaction.RemainingCharges}, seeds={seedCalls}");
             var mark=HexPurge.Debuff(target);Require(mark.Plan.Rank==HexPurge.Buff(p).Rank&&mark.Reaction.Modifiers==DruidFirestorm.Modifiers(p)&&mark.Reaction.MagicMastery==NamedElements.MasteryPercent(p,"mag"),"Purge attachment capture");
             // Zero-life weapon contact refreshes without refilling or drawing a seed.
             Require(WeaponLandedEvents.Notify(p,target,false)&&HexPurge.Debuff(target).Reaction==mark.Reaction&&seedCalls==1,"Purge refresh changed snapshot/stream/charges");
@@ -113,7 +126,7 @@ public static class HexPurgeCastChecks
             {
                 Require(p.Female==old.Female&&CombatTiming.Equipped(p)?.Serial.Value==old.Weapon&&HexPurge.Buff(p)==old.Buff&&HexPurge.Debuff(target)==old.Mark
                     &&SkillHealth.Balance256(p)==old.Life&&NecromancerEffects.ManaBalance256(p)==old.Mana&&SkillHealth.Balance256(target)==old.TargetLife,"Original Purge snapshot/stream/spent charges/resources changed");
-                FixtureSpace.Place(p,new(old.X,old.Y,0),Map.Trammel);target.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);target.AIObject.AITimer.Stop();
+                PlaceScene(p,i==0?6400:6480);target.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);target.AIObject.AITimer.Stop();
             }
             FixtureNetwork.Authenticate(network,p,"PurgeSaved");
             if(reload)
