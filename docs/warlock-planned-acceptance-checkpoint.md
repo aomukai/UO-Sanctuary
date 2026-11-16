@@ -42,3 +42,6 @@ Weapon-group preflight corrections are documented in its checkpoint: a stale lea
 
 
 Weapon full N2 reached Mirrored packet checks and exhausted the small shared Cleave fixture strip. One shared fixture starting row now permits more empty terrain-valid rows; isolated original Cleave/Magic Arrow/Mirrored controls pass18 results/two reloads on C1/I5/source6. Full N3 remains the same240-marker scope. Prior Hex66 proof stays historical; Bane's earlier intermittent failure remains unassigned.
+
+
+**Accepted Warlock weapon/Hex/Ward group — 2026-11-16 JST.** [Checkpoint](warlock-weapons-acceptance-checkpoint.md), [receipt](../tools/reference/warlock-weapons-acceptance-native-evidence.json). C1/I9/source10/run7 passes240 exact results:21families,72actual input attempts,93connections,three saves/two reloads. Nine routes accepted, adding to seven demon/foundation routes. Six integration fixture corrections; gameplay/data/kernel/install unchanged. No connection denials, save-deletion or unsupported warnings; installed protection passes. Bane's prior three-life loss remains unattributed; exact saved-life checks and target isolation remain. Ten Chaos/Sigil routes are next; four proposals frozen pending. No whole-class/goal completion, charms/runewords, new reference compilation or deployment.

@@ -17,15 +17,15 @@ Current status has **26 handlers and four pending talents**. Existing component/
 | Consume | **Prepared only; frozen pending decision** | [ConsumeWorldChecks.cs](../tests/Sanctuary.Integration/ConsumeWorldChecks.cs) |
 | Bind Demon | Demon/foundation group accepted (180 results) | [BindDemonLearnedChecks.cs](../tests/Sanctuary.Integration/BindDemonLearnedChecks.cs) |
 | Levitation Mastery | Demon/foundation group accepted (180 results) | [LevitationChecks.cs](../tests/Sanctuary.Integration/LevitationChecks.cs) |
-| Hex: Bane | Handler present; combined acceptance pending | [HexBaneCastChecks.cs](../tests/Sanctuary.Integration/HexBaneCastChecks.cs) |
-| Cleave | Handler present; combined acceptance pending | [CleaveCastChecks.cs](../tests/Sanctuary.Integration/CleaveCastChecks.cs) |
-| Echoing Strike | Handler present; combined acceptance pending | [EchoingStrikeCastChecks.cs](../tests/Sanctuary.Integration/EchoingStrikeCastChecks.cs) |
-| Hex: Purge | Handler present; combined acceptance pending | [HexPurgeCastChecks.cs](../tests/Sanctuary.Integration/HexPurgeCastChecks.cs) |
-| Blade Warp | Handler present; combined acceptance pending | [BladeWarpChecks.cs](../tests/Sanctuary.Integration/BladeWarpChecks.cs) |
-| Psychic Ward | Handler present; combined acceptance pending | [PsychicWardCastChecks.cs](../tests/Sanctuary.Integration/PsychicWardCastChecks.cs) |
-| Eldritch Blast | Handler present; combined acceptance pending | [EldritchBlastCastChecks.cs](../tests/Sanctuary.Integration/EldritchBlastCastChecks.cs) |
-| Hex: Siphon | Handler present; combined acceptance pending | [HexSiphonCastChecks.cs](../tests/Sanctuary.Integration/HexSiphonCastChecks.cs) |
-| Mirrored Blades | Handler present; combined acceptance pending | [MirroredCastChecks.cs](../tests/Sanctuary.Integration/MirroredCastChecks.cs) |
+| Hex: Bane | Weapon/Hex/Ward group accepted (240 results) | [HexBaneCastChecks.cs](../tests/Sanctuary.Integration/HexBaneCastChecks.cs) |
+| Cleave | Weapon/Hex/Ward group accepted (240 results) | [CleaveCastChecks.cs](../tests/Sanctuary.Integration/CleaveCastChecks.cs) |
+| Echoing Strike | Weapon/Hex/Ward group accepted (240 results) | [EchoingStrikeCastChecks.cs](../tests/Sanctuary.Integration/EchoingStrikeCastChecks.cs) |
+| Hex: Purge | Weapon/Hex/Ward group accepted (240 results) | [HexPurgeCastChecks.cs](../tests/Sanctuary.Integration/HexPurgeCastChecks.cs) |
+| Blade Warp | Weapon/Hex/Ward group accepted (240 results) | [BladeWarpChecks.cs](../tests/Sanctuary.Integration/BladeWarpChecks.cs) |
+| Psychic Ward | Weapon/Hex/Ward group accepted (240 results) | [PsychicWardCastChecks.cs](../tests/Sanctuary.Integration/PsychicWardCastChecks.cs) |
+| Eldritch Blast | Weapon/Hex/Ward group accepted (240 results) | [EldritchBlastCastChecks.cs](../tests/Sanctuary.Integration/EldritchBlastCastChecks.cs) |
+| Hex: Siphon | Weapon/Hex/Ward group accepted (240 results) | [HexSiphonCastChecks.cs](../tests/Sanctuary.Integration/HexSiphonCastChecks.cs) |
+| Mirrored Blades | Weapon/Hex/Ward group accepted (240 results) | [MirroredCastChecks.cs](../tests/Sanctuary.Integration/MirroredCastChecks.cs) |
 | Miasma Bolt | Handler present; combined acceptance pending | [MiasmaCastChecks.cs](../tests/Sanctuary.Integration/MiasmaCastChecks.cs) |
 | Ring of Fire | Handler present; combined acceptance pending | [RingCastChecks.cs](../tests/Sanctuary.Integration/RingCastChecks.cs) |
 | Sigil: Lethargy | Handler present; combined acceptance pending | [SigilCastChecks.cs](../tests/Sanctuary.Integration/SigilCastChecks.cs) |

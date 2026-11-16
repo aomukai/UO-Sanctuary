@@ -32,7 +32,7 @@ def expected_markers():
 
 
 def record(check=False):
-    run = STAGE / 'native-run-6.log'
+    run = STAGE / 'native-run-7.log'
     assert 'pass across3boots/2reloads' in run.read_text(), 'Weapon group has not succeeded'
     born = e.load(STAGE / 'birth-inputs.json')
     snapshot(STAGE / 'source-snapshot-10.json', STAGE / 'birth-inputs.json')
