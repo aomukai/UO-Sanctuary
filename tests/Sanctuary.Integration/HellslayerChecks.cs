@@ -31,7 +31,7 @@ public static class HellslayerChecks
         {string label="hellslayer-"+mode;ConsoleInputHandler.RegisterCommand(label+"-check","Complete original named equipment/item-target input",_=>Core.LoopContext.Post(()=>
             {try{FixtureNetwork.Connected(label+"-result",n=>{if(mode.StartsWith("golem",StringComparison.Ordinal)){IronGolemCastChecks.Input(n,mode.EndsWith("quick",StringComparison.Ordinal),label,Original,(p,b,item)=>{Canonical(item);Require(NpcItemProcs.Get(b)?.Capture().Items.Single().Item==item.Serial.Value,"Learned input did not automatically enroll its original");GolemAttack(p,b);});}else{Input(n,label);}});Log.Information("{Label}-check: passed",label);}catch(Exception e){Log.Error(e,"{Label}-check: failed",label);}}));}
     }
-    private static PlayerMobile Owner(DiabloClass type,int row)
+    internal static PlayerMobile Owner(DiabloClass type,int row)
     {
         var p=new PlayerMobile{Body=0x190,Player=true,Name="PlayerItemFireBallFixture"};p.AddItem(new Backpack());ClassCreation.Profiles.Assign(p,type);ClassCreation.Profiles.AdvanceLevel(p,99);
         foreach(var stat in new[]{CharacterStat.Strength,CharacterStat.Dexterity,CharacterStat.Energy})
@@ -39,7 +39,7 @@ public static class HellslayerChecks
         if(type==DiabloClass.Necromancer){ClassSkillChecks.Train(p,"necromancer.irongolem");Require(SkillBindings.Instance.Assign(p,false,CombatAbility.IronGolem)&&SkillBindings.Instance.AssignQuick(p,7,CombatAbility.IronGolem),"Learned original item bindings");}
         FixtureSpace.Corridor(p,6240,30,row);NecromancerEffects.SetMana256(p,p.ManaMax*256);return p;
     }
-    private static Item Original(PlayerMobile p)
+    internal static Item Original(PlayerMobile p)
     {
         var item=NamedGear.Generate("7bt",GearRarity.Unique,99,new Random(173),true);Require(item!=null,"Normal unique selection did not acquire Hellslayer");Canonical(item);
         item.MoveToWorld(new(p.X+2,p.Y,p.Z),p.Map);return item;
@@ -58,16 +58,16 @@ public static class HellslayerChecks
     }
     private static PlayerProcSave Own(PlayerMobile p,PlayerMobile q,Item item)
     {var all=PlayerItemProcs.Capture();return all with{Items=all.Items.Where(i=>i.Item==item.Serial.Value).ToArray(),Owners=all.Owners.Where(o=>o.Actor==p.Serial.Value||o.Actor==q.Serial.Value).ToArray()};}
-    private static IronGolemFireBallChecks.Recipient Target(Mobile from,int dx=1)
+    internal static IronGolemFireBallChecks.Recipient Target(Mobile from,int dx=1)
     {var t=new IronGolemFireBallChecks.Recipient();t.SetHits(60000);t.MoveToWorld(new(from.X+dx,from.Y,from.Z),from.Map);t.AIObject.AITimer.Stop();foreach(var r in Enum.GetValues<ResistanceType>()){t.SetResistance(r,0);}TimedEffects.PreventHealing(t,TimedEffects.Now);return t;}
     private static SorceressSpellFlight[] Flights(uint actor,bool npc)=>SorceressSpellMissiles.Snapshot().Flights.Where(f=>npc?f.Npc?.Actor==actor:f.Owner==actor&&f.PlayerItemClass!=null).ToArray();
-    private static void Finish(PlayerMobile p,Mobile actual,IronGolemFireBallChecks.Recipient target,SorceressSpellFlight f)
+    internal static void Finish(PlayerMobile p,Mobile actual,IronGolemFireBallChecks.Recipient target,SorceressSpellFlight f)
     {
         int before=SkillHealth.Balance256(target),mana=NecromancerEffects.ManaBalance256(p);Require(f.Rank==20&&f.Minimum256==51072&&f.Maximum256==57984,"Complete-original proc rank/damage borrowed weapon elements or owner skills");
         for(int i=0;i<80&&FireBoltChecks.State(f.Id)is{} live;i++){SorceressSpellMissiles.Tick(live.NextUtc,true,live.Id);}
         Require(FireBoltChecks.State(f.Id)==null&&SkillHealth.Balance256(target)<before&&target.Source==actual.Serial.Value&&NecromancerEffects.ManaBalance256(p)==mana,"Complete original spell failed native damage,ownership or free resources");
     }
-    private static void PlayerAttack(PlayerMobile p,Item item)
+    internal static void PlayerAttack(PlayerMobile p,Item item)
     {
         var t=Target(p);var hit=PlayerBasicContact.HitRoll;var element=PlayerBasicContact.ElementRoll;var block=SourceBlocking.BlockRoll;var observed=PlayerItemProcWorld.Observed;
         try
