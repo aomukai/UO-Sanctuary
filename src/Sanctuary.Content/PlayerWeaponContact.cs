@@ -10,7 +10,8 @@ namespace Sanctuary;
 // A player actor consumer of the existing ordered source-to-NPC pipeline.
 // Item processors and native encounter reactions remain explicit adapters.
 internal sealed record PlayerWeaponContactPrepared(int Flags,PreparedWeaponImpact Impact,PlayerWeaponDrain Drain,int ColdFrames,int BaseHitClass,Random Effects,int HitClass=0,
-    bool Smite=false,Func<int,int> StunRoll=null,int? MeleeRange=null,bool SkillKnockback=false,Func<int,bool> RangeCheck=null,int FreezeFrames=0,uint HitFlags=0,int? CrushingDivisor=null,bool SuppressWear=false,bool AttemptScoped=false);
+    bool Smite=false,Func<int,int> StunRoll=null,int? MeleeRange=null,bool SkillKnockback=false,Func<int,bool> RangeCheck=null,int FreezeFrames=0,uint HitFlags=0,int? CrushingDivisor=null,bool SuppressWear=false,bool AttemptScoped=false,
+    Action<PlayerMobile,BaseCreature,DateTime> CapturedPoison=null);
 
 internal static class PlayerWeaponContact
 {
@@ -133,6 +134,7 @@ internal static class PlayerWeaponContact
             if(frames>0){ColdStates.Commit(source,target,frames,true,ColdStates.Effect(target),NecromancerEffects.DifficultyDivisor(target),TimedEffects.TickAt(at));}
             if(scope.Prepared.FreezeFrames>0){FreezeStates.Commit(source,target,scope.Prepared.FreezeFrames,true,NecromancerEffects.DifficultyDivisor(target),TimedEffects.TickAt(at));}
             scope.Prepared.Impact.AllocatedPoison?.Commit(source,target,at);
+            scope.Prepared.CapturedPoison?.Invoke(source,target,at);
         }
         internal override void SurvivedDamage()
         {

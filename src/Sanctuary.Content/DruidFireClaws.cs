@@ -7,7 +7,8 @@ namespace Sanctuary;
 internal static class DruidFireClaws
 {
     internal sealed record Pending(Serial Target,DruidPlayerForm Form,bool Hit,bool Blocked,bool BlockAnimation,
-        PreparedWeaponImpact Impact,PlayerWeaponDrain Drain,double Roll,int Fire256,long EffectAt);
+        PreparedWeaponImpact Impact,PlayerWeaponDrain Drain,double Roll,int Fire256,long EffectAt)
+    {internal PlayerWeaponContactPrepared Contact{get;init;}}
     internal static Func<double> HitRoll=Utility.RandomDouble;
     internal static Func<double> ElementRoll=Utility.RandomDouble;
     internal static Func<int,int> PhysicalRoll=Utility.Random;
@@ -52,8 +53,9 @@ internal static class DruidFireClaws
             impact=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,raw,skillElementsFactory:()=>
             {fire=Fire(owner,values);return new(0,fire/256.0,0,0,0,ColdMs:0);});
         }
+        var contact=DruidWeaponContact.Capture(owner,target,hit,blocked,impact,drain,Effects);
         if(!NecromancerEffects.Pay(owner,values.Mana256)){session.PendingAbility=CombatAbility.None;return false;}
-        session.FireClawAttack=new(selected,form,hit,blocked,blockAnimation,impact,drain,roll,fire,session.EffectAt);return true;
+        session.FireClawAttack=new(selected,form,hit,blocked,blockAnimation,impact,drain,roll,fire,session.EffectAt){Contact=contact};return true;
     }
     internal static bool Release(PlayerMobile owner,long now)
     {
@@ -63,10 +65,8 @@ internal static class DruidFireClaws
             ||!DruidCombat.Available(owner,CombatAbility.FireClaws)||!DruidFormAttacks.ValidTarget(owner,pending.Target)){return false;}
         var target=(BaseCreature)World.FindMobile(pending.Target);owner.DoHarmful(target,true);owner.PlaySound(0x238); // Identified contact/audio placeholder.
         using var melee=CombatTiming.Equipped(owner) is{} weapon?WeaponHands.UseMelee(owner,weapon):null;
-        using var attempt=PaladinThorns.Attempt(owner,target,false);
-        if(pending.Blocked){SourceBlocking.Present(target,pending.BlockAnimation);}if(!pending.Hit){return true;}
-        target.FixedEffect(0x374A,10,5,0x489,0); // Identified fire_hit placeholder, preceding do2combat drain.
-        GearEffects.Strike(owner,target,pending.Roll,Effects,preparedImpact:pending.Impact,sourceDrain:pending.Drain);
+        if(pending.Hit){target.FixedEffect(0x374A,10,5,0x489,0);} // Identified fire_hit placeholder, preceding do2combat drain.
+        DruidWeaponContact.Release(owner,target,pending.Contact,TimedEffects.Now);
         // Fire Claws has no charge state: preserve existing Maul/Feral count and deadline.
         return true;
     }

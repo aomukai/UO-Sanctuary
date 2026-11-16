@@ -29,7 +29,7 @@ public static class DruidBasicProcChecks
         {string label="druid-basic-proc-"+mode;ConsoleInputHandler.RegisterCommand(label+"-check","Authenticated transformed common Attack with complete original",_=>Core.LoopContext.Post(()=>
             {try{FixtureNetwork.Connected(label+"-result",n=>Input(n,label,mode.StartsWith("wolf",StringComparison.Ordinal)?CombatAbility.Werewolf:CombatAbility.Werebear));Log.Information("{Label}-check: passed",label);}catch(Exception e){Log.Error(e,"{Label}-check: failed",label);}}));}
     }
-    private static PlayerMobile Owner(CombatAbility form,int row,out Item item)
+    internal static PlayerMobile Owner(CombatAbility form,int row,out Item item)
     {
         var p=HellslayerChecks.Owner(DiabloClass.Druid,row);
         ClassSkillChecks.Train(p,"druid.werewolf");ClassSkillChecks.Train(p,"druid.werebear");

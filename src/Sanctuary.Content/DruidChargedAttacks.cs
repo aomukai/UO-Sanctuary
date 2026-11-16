@@ -7,7 +7,8 @@ namespace Sanctuary;
 internal static class DruidChargedAttacks
 {
     internal sealed record Pending(CombatAbility Ability,Serial Target,DruidPlayerForm Form,bool Hit,bool Blocked,bool BlockAnimation,PreparedWeaponImpact Impact,
-        PlayerWeaponDrain Drain,double Roll,long EffectAt);
+        PlayerWeaponDrain Drain,double Roll,long EffectAt)
+    {internal PlayerWeaponContactPrepared Contact{get;init;}}
     internal static Func<double> HitRoll=Utility.RandomDouble;
     internal static Func<double> ElementRoll=Utility.RandomDouble;
     internal static Func<int,int> PhysicalRoll=Utility.Random;
@@ -38,8 +39,9 @@ internal static class DruidChargedAttacks
         if(hit)
         {roll=ElementRoll();packet=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,GearEffects.Damage(owner,roll,target,(int)values.Eval("calc1"),PhysicalRoll));}
         var drain=WeaponLeech.Capture(owner);
+        var contact=DruidWeaponContact.Capture(owner,target,hit,blocked,packet,drain,Effects);
         if(!NecromancerEffects.Pay(owner,values.Mana256)){session.PendingAbility=CombatAbility.None;return false;}
-        session.DruidChargeAttack=new(ability,selected,form,hit,blocked,blockAnimation,packet,drain,roll,session.EffectAt);return true;
+        session.DruidChargeAttack=new(ability,selected,form,hit,blocked,blockAnimation,packet,drain,roll,session.EffectAt){Contact=contact};return true;
     }
     internal static bool Release(PlayerMobile owner,CombatAbility ability,long now)
     {
@@ -49,10 +51,8 @@ internal static class DruidChargedAttacks
             ||!DruidCombat.Available(owner,ability)||!ValidTarget(owner,ability,pending.Target)){return false;}
         var target=World.FindMobile(pending.Target);owner.DoHarmful(target,true);owner.PlaySound(0x238); // Identified contact/audio placeholder.
         using var melee=CombatTiming.Equipped(owner) is{} weapon?WeaponHands.UseMelee(owner,weapon):null;
-        using var attempt=PaladinThorns.Attempt(owner,target,false);
-        if(pending.Blocked){SourceBlocking.Present((BaseCreature)target,pending.BlockAnimation);}
-        if(!pending.Hit){return true;}
-        GearEffects.Strike(owner,target,pending.Roll,Effects,preparedImpact:pending.Impact,sourceDrain:pending.Drain);
+        var result=DruidWeaponContact.Release(owner,(BaseCreature)target,pending.Contact,TimedEffects.Now);
+        if(result.Commit==null||(result.Packet.ResultFlags&SourceMeleeResult.Successful)==0){return true;}
         // do120 drains combat/durability before aura gain. Reentrant death or
         // form removal cannot resurrect a stale group's state after that commit.
         if(ReferenceEquals(pending.Form,DruidPlayerForms.State(owner)))
