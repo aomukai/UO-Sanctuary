@@ -1,5 +1,7 @@
 # Sorceress Fire Ball checkpoint
 
+**Current terrain update — 2026-11-16 JST.** The user approved the shared player Fire Ball/Glacial last-clear Wall/NoShoot/LOS adapter. Its [adopted checkpoint](explosive-terrain-adopted-checkpoint.md) passes70 checks,24 actual casts and two reloads on the enabled rule. The far-side player wall-center gap is closed under this explicit adaptation; exact D2R coordinates and other explosive controllers remain separate. The original cohort narrative and receipts below describe their preserved historical builds and are not regenerated.
+
 Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Fire Ball now uses the existing saved player spell controller and shares copied-area services with Glacial Spike. No class is certified complete; Sorceress has 29 registered handlers and Inferno remains individually deferred.
 
 Pinned skill 47 and missile 62 use do1/hit1/damage0, velocity20, 50frames, ResultFlags5 and HitFlags2. The exact `fireball` missile row is appended through the catalogue generator. The complete older `MISSMODE_SrvHit01_Fireball_ExplodingArrow_FreezingArrowExplosion` obtains one missile damage packet, adds row flags, evaluates skill calc1 at retained rank when the row radius is nonpositive, clamps that source radius to at least1 and dispatches copied area damage. Fire Ball's source radius4 maps to the existing native radius2 adapter. There is no extra direct damage before the explosion and no damaging server child bolt.

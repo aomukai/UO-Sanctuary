@@ -1,5 +1,7 @@
 # Sorceress Glacial Spike checkpoint
 
+**Current terrain update — 2026-11-16 JST.** The user approved the shared player Fire Ball/Glacial last-clear Wall/NoShoot/LOS adapter. Its [adopted checkpoint](explosive-terrain-adopted-checkpoint.md) passes70 checks,24 actual casts and two reloads on the enabled rule. The far-side player wall-center gap is closed under this explicit adaptation; exact D2R coordinates and other explosive controllers remain separate. The original cohort narrative and receipts below describe their preserved historical builds and are not regenerated.
+
 Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Glacial Spike now uses the existing saved player spell flight and shared Glacial area/recipient services. No class is certified complete; Sorceress retains 29 registered handlers, with Inferno individually deferred.
 
 Pinned skill 55 and retained missile 96 use velocity 16, 40 frames, do1, hit13, damage callback0, ResultFlags5 and HitFlags2. The missile's element is `frze`, while its skill supplies cold damage. The complete older `MISSMODE_SrvHit13_GlacialSpike_HellMeteorDown` prepares one raw missile damage packet, evaluates range/length on the current owner at retained skill/rank, sets freeze length and dispatches copied area damage. The generic router triggers the primary hit-by-missile event before hit13; splash recipients use the copied-area defense context. The review is against pinned D2MOO commit `0c0bbd1e6bef9181a3da1c046523af622a925416`, not a newly traced modern executable.

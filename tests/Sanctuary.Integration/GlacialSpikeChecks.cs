@@ -106,13 +106,14 @@ public static class GlacialSpikeChecks
             Finish(id);Require(SkillHealth.Balance256(t)<life&&Frozen(t).Freeze.Source==p.Serial.Value,"Active natural Glacial expiry did not explode/freeze");
         }
         finally{FireBoltChecks.Clean(p,t);}
-        p=Owner();t=Enemy(p,4,1);Item wall=null;try
+        p=Owner();t=Enemy(p,3,1);var hidden=Enemy(p,5);Item wall=null;try
         {
-            wall=new Static(0x80);wall.MoveToWorld(new(p.X+4,p.Y,p.Z),p.Map);int life=SkillHealth.Balance256(t);long id=Create(p);int frame=0;
+            wall=new Static(0x80);wall.MoveToWorld(new(p.X+4,p.Y,p.Z),p.Map);int life=SkillHealth.Balance256(t),behind=SkillHealth.Balance256(hidden);long id=Create(p);int frame=0;
             while(State(id) is{} s&&frame<40){frame=s.Frame+1;SorceressSpellMissiles.Tick(s.NextUtc,true);}
-            Require(State(id)==null&&frame<20&&SkillHealth.Balance256(t)==life&&NamedControl.State(t)?.Freeze==null,"Glacial wall removal/inside-wall native area occlusion");
+            Require(State(id)==null&&frame<20&&SkillHealth.Balance256(t)<life&&NamedControl.State(t)?.Freeze is{Removed:false}
+                &&SkillHealth.Balance256(hidden)==behind&&NamedControl.State(hidden)?.Freeze==null,"Approved Glacial last-clear wall center/damage/freeze/occlusion");
         }
-        finally{wall?.Delete();FireBoltChecks.Clean(p,t);}
+        finally{wall?.Delete();FireBoltChecks.Clean(p,t,hidden);}
     }
     private static void Mixed()
     {

@@ -98,10 +98,8 @@ public static class FireBallChecks
         {
             wall=new Static(0x80);wall.MoveToWorld(new(p.X+4,p.Y,p.Z),p.Map);int life=SkillHealth.Balance256(t),behind=SkillHealth.Balance256(hidden);long id=Create(p);int frame=0;
             while(State(id) is{} s&&frame<50){frame=s.Frame+1;SorceressSpellMissiles.Tick(s.NextUtc,true);}
-            // With this faster native projection the wall stops the missile
-            // in front of the solid tile,unlike Glacial's inside-wall case.
-            Require(State(id)==null&&frame==10&&SkillHealth.Balance256(t)==life&&SkillHealth.Balance256(hidden)<behind,
-                "Fire Ball native wall adapter (rounded far-side center; D2 parity unresolved): frame="+frame+" visibleLoss="+(life-SkillHealth.Balance256(t))+" hiddenLoss="+(behind-SkillHealth.Balance256(hidden)));NoCold(t);NoCold(hidden);
+            Require(State(id)==null&&frame<10&&SkillHealth.Balance256(t)<life&&SkillHealth.Balance256(hidden)==behind,
+                "Approved Fire Ball last-clear wall center: frame="+frame+" visibleLoss="+(life-SkillHealth.Balance256(t))+" hiddenLoss="+(behind-SkillHealth.Balance256(hidden)));NoCold(t);NoCold(hidden);
         }
         finally{wall?.Delete();FireBoltChecks.Clean(p,t,hidden);}
     }

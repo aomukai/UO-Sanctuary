@@ -62,9 +62,9 @@ internal static class SorceressSpellMissiles
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(SorceressSpellMissiles));
     internal static Func<int> SeedLow=()=>unchecked((int)Random.Shared.NextInt64(1L<<32));
     internal static Func<bool> AllocateInferno=()=>true;
-    // Prepared native-world proposal only; ordinary learned routes retain
-    // their existing terrain rule until the explicit mapping is adopted.
-    internal static bool PreparedExplosiveTerrain;
+    // Approved Sanctuary native-world mapping; see
+    // explosive-terrain-rule-approval.json. NPC controllers retain their rules.
+    internal static bool ExplosiveTerrainApproved=>true;
     public static void Configure()=>_ = new SorceressSpellProfiles();
     public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),()=>Tick(TimedEffects.Now));
 
@@ -433,7 +433,7 @@ internal static class SorceressSpellMissiles
                 next=next with{X=moved.X,Y=moved.Y,Charged=charged with{Next=moved.Next},Steps=SourceMissileSteps.Advance(flight.X,flight.Y,moved.X-flight.X,moved.Y-flight.Y,flight.Steps)};
                 if(moved.Next>=charged.Path.Length){return 2;}
             }
-            else if(PreparedExplosiveTerrain&&flight.Npc==null&&flight.Ability is CombatAbility.Fireball or CombatAbility.GlacialSpike)
+            else if(ExplosiveTerrainApproved&&flight.Npc==null&&flight.Ability is CombatAbility.Fireball or CombatAbility.GlacialSpike)
             {
                 var moved=LobProjectiles.Advance(map,flight.X,flight.Y,flight.Z,next.Vx,next.Vy,int.MaxValue);
                 next=next with{X=moved.X,Y=moved.Y,Steps=SourceMissileSteps.Advance(flight.X,flight.Y,moved.X-flight.X,moved.Y-flight.Y,flight.Steps)};

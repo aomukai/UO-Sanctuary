@@ -6,6 +6,7 @@ using System.Text.Json;
 using Server;
 using Server.Items;
 using Server.Mobiles;
+using Server.Network;
 
 namespace Sanctuary.Integration;
 
@@ -20,8 +21,15 @@ public static class ExplosiveTerrainChecks
         foreach(bool again in new[]{false,true})
         {
             bool reload=again;string name=reload?"explosive-terrain-reload-check":"explosive-terrain-check";
-            ConsoleInputHandler.RegisterCommand(name,"Prepared shared Fire Ball/Glacial terrain adapter",_=>Core.LoopContext.Post(()=>
+            ConsoleInputHandler.RegisterCommand(name,"Approved shared Fire Ball/Glacial terrain adapter",_=>Core.LoopContext.Post(()=>
             {try{Check(reload);Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
+        }
+        foreach(var ability in new[]{CombatAbility.Fireball,CombatAbility.GlacialSpike})
+        foreach(bool quick in new[]{false,true})
+        {
+            var selected=ability;bool q=quick;string label="explosive-terrain-"+(ability==CombatAbility.Fireball?"fireball":"glacial")+(quick?"-quick":"-right");
+            ConsoleInputHandler.RegisterCommand(label+"-check","Actual approved explosive ground input and native wall",_=>Core.LoopContext.Post(()=>
+            {try{FixtureNetwork.Connected(label+"-result",n=>Input(n,selected,q,label));Log.Information("{Name}: passed",label+"-check");}catch(Exception e){Log.Error(e,"{Name}: failed",label+"-check");}}));
         }
     }
     private static PlayerMobile Owner(CombatAbility ability)
@@ -79,6 +87,21 @@ public static class ExplosiveTerrainChecks
         }
         finally{FireBoltChecks.Clean(p,near,peer);}
     }
+    private static void Door(CombatAbility ability,bool closes)
+    {
+        var p=Owner(ability);var near=Enemy(p,3,1);var behind=Enemy(p,6,0);var door=new MetalDoor(DoorFacing.NorthCW);
+        try
+        {
+            var point=new Point3D(p.X+4,p.Y,p.Z);door.MoveToWorld(point,p.Map);
+            Require(!door.Open&&LobProjectiles.Barrier(p.Map,point),"Native closed-door barrier metadata");
+            door.Open=closes;long id=SorceressSpellMissiles.Commit(Flight(p,ability));FireBoltChecks.Through(id,3);
+            Require(FireBoltChecks.State(id)!=null,"Flight ended before dynamic door transition");
+            int a=SkillHealth.Balance256(near),b=SkillHealth.Balance256(behind);door.Open=!closes;Finish(id);
+            Require(closes?SkillHealth.Balance256(near)<a&&SkillHealth.Balance256(behind)==b:SkillHealth.Balance256(behind)<b,
+                "Approved terrain ignored current door state: "+ability+" closes="+closes);
+        }
+        finally{door.Delete();FireBoltChecks.Clean(p,near,behind);}
+    }
     private static Saved Save(CombatAbility ability)
     {
         var p=Owner(ability);var near=Enemy(p,3,1);var behind=Enemy(p,5,0);var wall=new Static(0x80);wall.MoveToWorld(new(p.X+4,p.Y,p.Z),p.Map);
@@ -107,24 +130,53 @@ public static class ExplosiveTerrainChecks
     }
     private static void Check(bool reload)
     {
-        Require(!SorceressSpellMissiles.PreparedExplosiveTerrain,"Prepared terrain proposal leaked into normal routes");
-        SorceressSpellMissiles.PreparedExplosiveTerrain=true;
-        try
+        Require(SorceressSpellMissiles.ExplosiveTerrainApproved,"Approved terrain mapping is disabled");
+        Saved[] saved;
+        if(reload){saved=JsonSerializer.Deserialize<Saved[]>(File.ReadAllText(Manifest)).Select(Reload).ToArray();}
+        else
         {
-            Saved[] saved;
-            if(reload){saved=JsonSerializer.Deserialize<Saved[]>(File.ReadAllText(Manifest)).Select(Reload).ToArray();}
-            else
+            foreach(var ability in new[]{CombatAbility.Fireball,CombatAbility.GlacialSpike})
             {
-                foreach(var ability in new[]{CombatAbility.Fireball,CombatAbility.GlacialSpike})
-                {
-                    foreach(var direction in new[]{(1,0),(-1,0),(0,1),(0,-1),(1,1),(1,-1),(-1,1),(-1,-1)}){Wall(ability,direction.Item1,direction.Item2);}
-                    Open(ability,false);Open(ability,true);
-                }
-                saved=[Save(CombatAbility.Fireball),Save(CombatAbility.GlacialSpike)];
+                foreach(var direction in new[]{(1,0),(-1,0),(0,1),(0,-1),(1,1),(1,-1),(-1,1),(-1,-1)}){Wall(ability,direction.Item1,direction.Item2);}
+                Open(ability,false);Open(ability,true);Door(ability,false);Door(ability,true);
             }
-            File.WriteAllText(Manifest,JsonSerializer.Serialize(saved));
-            Log.Information("Prepared explosive terrain:shared lob wall/LOS/last-clear adapter;16 directional walls,open copied contacts/expiry,Fire Ball versus Glacial freeze,original held flights/resources and resumed copies;default routes remain unchanged");
+            saved=[Save(CombatAbility.Fireball),Save(CombatAbility.GlacialSpike)];
         }
-        finally{SorceressSpellMissiles.PreparedExplosiveTerrain=false;}
+        File.WriteAllText(Manifest,JsonSerializer.Serialize(saved));
+        Log.Information("Approved explosive terrain:shared lob wall/LOS/last-clear adapter;16 directional walls,4dynamic door transitions,open copied contacts/expiry,Fire Ball versus Glacial freeze,original held flights/resources and resumed copies;ordinary routes use the approved mapping");
+    }
+    private static void Input(NetState network,CombatAbility ability,bool quick,string label)
+    {
+        var p=Owner(ability);p.Female=quick;p.Body=quick?0x191:0x190;
+        Require(SkillBindings.Instance.Assign(p,false,ability)&&SkillBindings.Instance.AssignQuick(p,7,ability),"Approved terrain input bindings");
+        var near=Enemy(p,3,1);var behind=Enemy(p,5,0);var wall=new Static(0x80);wall.MoveToWorld(new(p.X+4,p.Y,p.Z),p.Map);
+        var account=FixtureNetwork.Authenticate(network,p,"explosive-terrain-wire-");
+        ClassCombat.Stop(p);ClassCombat.For(p).NextAction=ClassCombat.For(p).RecoveryUntil=Core.TickCount;
+        NecromancerEffects.SetMana256(p,p.ManaMax*256);
+        int mana=NecromancerEffects.ManaBalance256(p),cost=SkillMechanics.Values(p,ability).Mana256;
+        int a=SkillHealth.Balance256(near),b=SkillHealth.Balance256(behind);bool began=false,done=false;long deadline=Core.TickCount+8000;
+        void Cleanup(){wall.Delete();ClassCombat.Stop(p);FireBoltChecks.Clean(p,near,behind);account.Delete();}
+        void Inspect()
+        {
+            if(done){return;}
+            try
+            {
+                Require(Core.TickCount<deadline,"Approved terrain input timeout: "+label);
+                if(!began&&ClassCombat.For(p).PendingAbility==ability)
+                {Require(NecromancerEffects.ManaBalance256(p)==mana,"Terrain wire paid before release");began=true;Log.Information("{Label}: windup",label);}
+                if(SkillHealth.Balance256(near)<a)
+                {
+                    Require(began&&SkillHealth.Balance256(behind)==b&&NecromancerEffects.ManaBalance256(p)==mana-cost
+                        &&!SorceressSpellMissiles.Snapshot().Flights.Any(f=>f.Owner==p.Serial.Value),"Terrain wire lost wall occlusion,once-only debit or termination");
+                    Require(ability==CombatAbility.GlacialSpike?NamedControl.State(near)?.Freeze is{Removed:false}:NamedControl.State(near)?.Freeze==null,"Terrain wire changed freeze semantics");
+                    Require(NamedControl.State(behind)?.Freeze==null,"Terrain wire froze occluded enemy");
+                    done=true;Cleanup();Log.Information("{Label}-result: passed",label);return;
+                }
+                Timer.StartTimer(TimeSpan.FromMilliseconds(10),()=>Core.LoopContext.Post(Inspect));
+            }
+            catch(Exception e){done=true;Cleanup();Log.Error(e,"{Label}-result: failed",label);}
+        }
+        Timer.StartTimer(TimeSpan.FromMilliseconds(20),()=>Core.LoopContext.Post(()=>
+        {Log.Information("{Label}: ready ability={Ability} class={Class} target=0 x={X} y={Y} z={Z}",label,(int)ability,(int)DiabloClass.Sorceress,p.X+3,p.Y,p.Z);Inspect();}));
     }
 }

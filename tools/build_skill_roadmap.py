@@ -359,7 +359,11 @@ CAVEATS['sorceress.glacialspike'] = (
     'capture stays separate from hit13 live owner hard-Blizzard length at retained rank. '
     'Dedicated rank/gear/mana,terminal/LOS,typed immunity/potion,freeze/corpse/lifecycle, '
     'actual right/quick and two-reload scopes retain player/Mage regressions; see '
-    'sorceress-glacial-spike-checkpoint.md. Native room/filter/geometry/order, exact '
+    'sorceress-glacial-spike-checkpoint.md. Approved player terrain mapping reuses '
+    'the existing lob Wall/NoShoot/LOS adapter and last-clear tile; damage/freeze, '
+    'payment and saved-flight contracts retain;see explosive-terrain-adopted-checkpoint.md. '
+    'Exact D2R-to-UO wall coordinates remain adapted;NPC/mage controllers stay separate. '
+    'Native room/filter/geometry/order, exact '
     'modern hit13/router/seed/events/pierce/owner timing,special/PvP recipients,old-DLL '
     'upgrade and final graphical/assets acceptance remain open; no class certificate.')
 
@@ -368,9 +372,10 @@ CAVEATS['sorceress.fireball'] = (
     'one captured raw packet copied across recipients and impact-time potion. Dedicated '
     'rank/gear/mana,typed immunity,active expiry,lifecycle,ordinary corpses,actual '
     'right/quick and two-reload scopes retain player/Mage area regressions;see '
-    'sorceress-fire-ball-checkpoint.md. KNOWN native wall-center gap:half-cell LOS '
-    'collision plus rounded next-position can explode on the far side of a wall; '
-    'the fixture characterizes this adapter,not D2 wall parity. Common aim admission, '
+    'sorceress-fire-ball-checkpoint.md. Approved player terrain mapping reuses the '
+    'existing lob Wall/NoShoot/LOS adapter and last-clear tile,with terrain termination '
+    'preceding recipient search for that move;see explosive-terrain-adopted-checkpoint.md. '
+    'Exact D2R-to-UO wall coordinates remain adapted;NPC/mage controllers stay separate. Common aim admission, '
     'native room/radius/filter/order,modern hit1/router/seed/events/pierce/owner/PvP, '
     'old-DLL upgrade and final graphical/assets acceptance remain open;no class certificate.')
 

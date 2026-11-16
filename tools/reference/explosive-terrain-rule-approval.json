@@ -1,0 +1,13 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "answer": "Adopt the tested wall rule (Recommended)",
+  "approvedUtc": "2026-11-16T04:49:34.356298+00:00",
+  "questionItemId": "[\"request_user_input_async\",\"call_7c5390f0dd0e467fa9f05deb2aaad55e\",0]",
+  "proposal": "docs/explosive-terrain-rule-proposal.md",
+  "proposalAtApprovalSha256": "bd9014a241e22a68003161d1e8900843e84d44f89444739220835d24ee9acccb",
+  "candidateCommit": "2f96d3e2000831bff39b7a8f19a3faa322dea3f1",
+  "testedCandidateEvidence": "tools/reference/explosive-terrain-prepared-native-evidence.json",
+  "testedCandidateEvidenceSha256": "3b4fa1b6d88030a3030af666223cb6131fa0ffa318fb3ea7d2593d2bcde43f5b",
+  "scope": "Sorceress Fire Ball/Glacial Spike reuse existing lob Wall/NoShoot/LOS checks and last-clear native tile, terrain termination preceding recipient search for that move. Damage/freeze/payment/lifetime/saves retain their contracts; learned-input qualification authorized. NPC/mage and other explosive controllers remain unchanged. Four Warlock proposals stay frozen pending."
+}
