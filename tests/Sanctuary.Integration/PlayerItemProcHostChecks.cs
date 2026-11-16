@@ -33,9 +33,16 @@ public static class PlayerItemProcHostChecks
     {
         ClassGear.Profiles.Convert(item,99,GearRarity.Normal,new Random(173));p.AddToBackpack(item);var values=new EquipmentStatValues(_=>body,_=>null,_=>null,(_,_,_,_,_)=>{});
         var graph=new ItemPropertyCreationContext(item,values,default,false,false,false,SourceRandom.InitLow(1),[]);
-        if(attack>0){graph.ApplySkill(EquipmentPropertyWriter.Plan("att-skill"),new(attack,20,47),ItemSkillProperties.ForLevel(99));}
-        if(incoming>0){graph.ApplySkill(EquipmentPropertyWriter.Plan("gethit-skill"),new(incoming,20,47),ItemSkillProperties.ForLevel(99));}
-        PlayerItemProcs.Register(item,body,graph.Capture());Require(p.EquipItem(item),"Equip actual proc carrier");ClassGear.Refresh(p);return item;
+        var retained=new System.Collections.Generic.List<(NamedProperty Property,NamedPropertyRoll Roll)>();
+        foreach(var entry in new[]{(Code:"att-skill",Chance:attack),(Code:"gethit-skill",Chance:incoming)})
+        {
+            if(entry.Chance<=0){continue;}
+            var property=new NamedProperty(entry.Code,entry.Code,entry.Code,true,JsonSerializer.SerializeToElement("Fire Ball"),entry.Chance,20);
+            retained.Add((property,NamedPropertyRuntime.Roll(entry.Code,property,new Random(173))));
+        }
+        Require(EquipmentRawProperties.ProjectRecorded(item,graph.Unit,values,default,false,false,false,retained).Length==0,"Saved proc provider projection omitted fields");
+        var projected=graph.Capture() with{HasProperties=graph.Unit.Stats.Last!=null,Properties=graph.Unit.Stats.Last?.BaseValues.ToArray()??[]};
+        PlayerItemProcs.Register(item,body,projected);Require(p.EquipItem(item),"Equip actual proc carrier");ClassGear.Refresh(p);return item;
     }
     private static IronGolemFireBallChecks.Recipient Target(PlayerMobile p)
     {var t=new IronGolemFireBallChecks.Recipient();t.SetHits(50000);t.MoveToWorld(new(p.X+6,p.Y,p.Z),p.Map);t.AIObject.AITimer.Stop();foreach(var r in Enum.GetValues<ResistanceType>()){t.SetResistance(r,0);}return t;}

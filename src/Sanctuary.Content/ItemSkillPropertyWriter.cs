@@ -19,6 +19,22 @@ internal static class ItemSkillProperties
         return c;
     });
     internal static ItemPropertySkill Skill(int id)=>id>=0&&id<Catalog.Value.Skills.Length?Catalog.Value.Skills[id]:null;
+    internal static int Parameter(NamedProperty property)
+    {
+        if(property.Parameter is{} parameter)
+        {
+            int id;
+            if(parameter.ValueKind==System.Text.Json.JsonValueKind.Number&&parameter.TryGetInt32(out id)
+                ||parameter.ValueKind==System.Text.Json.JsonValueKind.String&&int.TryParse(parameter.GetString(),out id))
+            {if(Skill(id)!=null){return id;}}
+            else if(parameter.ValueKind==System.Text.Json.JsonValueKind.String)
+            {
+                var matches=Catalog.Value.Skills.Where(s=>s.Name.Length>0&&string.Equals(s.Name,parameter.GetString(),StringComparison.OrdinalIgnoreCase)).ToArray();
+                if(matches.Length==1){return matches[0].Id;}
+            }
+        }
+        throw new System.NotSupportedException("Item proc property has an unresolved source skill: "+property.Parameter);
+    }
     internal static ItemSkillPropertyServices ForLevel(int level)=>new(level,Catalog.Value.ChargedLevelBits,Skill);
 }
 

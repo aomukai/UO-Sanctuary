@@ -194,11 +194,25 @@ internal static class EquipmentRawProperties
     internal static EquipmentPropertyOmission[] Project(Server.Item original,EquipmentStatUnit unit,EquipmentStatValues values,
         EquipmentPropertyBase basis,bool weapon,bool armor,bool throwable)
     {
+        var omissions=ProjectRecorded(original,unit,values,basis,weapon,armor,throwable,EquipmentIntrinsicProperties.For(original)).ToList();
+        var state=ClassGear.State(original);
+        if(state.Quality!=0){omissions.Add(new("quality","","Quality-base initialization is not integrated"));}
+        if(state.MaterialRolls.Length>0||state.CraftedEquipment||state.DurabilityPercent!=0){omissions.Add(new("materials","","Crafted/material stat projection is not integrated"));}
+        if(state.Runes.Length>0||state.Gems.Length>0){omissions.Add(new("socket-contents","","Installed rune/gem projection is not integrated"));}
+        if(state.NamedItemId!=null&&NamedGear.Catalog.Item(state.NamedItemId).AdditionalProperties.Any(p=>p.SourceEnabled))
+        {omissions.Add(new("set-additional","","Conditional named-piece stats are not integrated"));}
+        return omissions.ToArray();
+    }
+    // Shared retained-property projection boundary. Callers supplying source
+    // pairs explicitly must not claim those pairs are a complete GearState.
+    // Item-level formulas always use the original's saved roll,not its owner.
+    internal static EquipmentPropertyOmission[] ProjectRecorded(Server.Item original,EquipmentStatUnit unit,EquipmentStatValues values,
+        EquipmentPropertyBase basis,bool weapon,bool armor,bool throwable,IEnumerable<(NamedProperty Property,NamedPropertyRoll Roll)> properties)
+    {
         if(unit is null||unit.Entity!=original||unit.Kind!=4||unit.Stats is not{OwnerKind:4,Parent:null}||unit.Stats.Owner!=unit
             ||ClassGear.State(original) is not{Identified:true} state||ClassGear.Broken(original))
         {throw new NotSupportedException("Numeric projection requires an intact identified original and an unattached item graph");}
         var target=new Target(unit,values,basis,weapon,armor,throwable);var omissions=new List<EquipmentPropertyOmission>();
-        var properties=EquipmentIntrinsicProperties.For(original);
         int mode=state.NamedItemId==null?0:state.Roll.Rarity==GearRarity.Unique?3:4;
         foreach(var (property,roll) in properties)
         {
@@ -208,13 +222,15 @@ internal static class EquipmentRawProperties
             bool layered=plan is{Steps.Length:>0}&&plan.Steps.All(s=>s.Function==21);
             bool tree=CurrentTreePropertyWriter.Supports(plan);
             bool single=ItemSingleSkillProperty.Supports(plan);
+            bool proc=NamedPropertyRuntime.ProcArguments(property);
             bool ethereal=SavedItemEthereality.Supports(plan);
             bool indestruct=plan is{Code:"indestruct",Steps.Length:1}&&plan.Steps[0] is{Function:20};
             bool socket=plan is{Code:"sock",Steps.Length:1}&&plan.Steps[0] is{Function:14,Stat:194,Set:false};
-            if(plan is not{Supported:true}&&!layered&&!tree&&!single&&!ethereal&&!indestruct&&!socket){omissions.Add(new(property.Code,property.Slot,"Numeric writer is not integrated"));continue;}
+            if(plan is not{Supported:true}&&!layered&&!tree&&!single&&!ethereal&&!indestruct&&!socket&&!proc){omissions.Add(new(property.Code,property.Slot,"Numeric writer is not integrated"));continue;}
             if(roll.Value==0&&property.SourceMin!=property.SourceMax&&plan.Steps.Skip(1).Any(s=>s.Function is 3 or 4 or 8))
             {omissions.Add(new(property.Code,property.Slot,"A zero first roll can reroll later stats; those separate rolls are not represented"));continue;}
-            int parameter=single?ItemSingleSkillProperty.Parameter(property):NamedPropertyRuntime.Parameter(property);
+            int parameter=proc?ItemSkillProperties.Parameter(property):single?ItemSingleSkillProperty.Parameter(property):NamedPropertyRuntime.Parameter(property);
+            if(proc){NamedPropertyRuntime.Validate(property,roll);}
             if(plan.Steps.Any(s=>s.Function==17)&&parameter==0&&property.Code.EndsWith("/lvl",StringComparison.Ordinal))
             {omissions.Add(new(property.Code,property.Slot,"The original zero-parameter fallback roll is not represented"));continue;}
             bool recordedCold=NamedPropertyRuntime.IndependentColdDuration(property)&&roll.ColdDurationFrames.HasValue;
@@ -229,6 +245,7 @@ internal static class EquipmentRawProperties
                 int count=EquipmentSocketProperty.Apply(EquipmentSocketProperty.Geometry(state.BaseCode,state.Roll.ItemLevel),input,0,target,()=>{});
                 if(count!=roll.Value){omissions.Add(new(property.Code,property.Slot,"Saved socket roll differs from source dimension/type/level cap"));}
             }
+            else if(proc){ItemSkillPropertyWriter.Apply(plan,input,ItemSkillProperties.ForLevel(state.Roll.ItemLevel),target);}
             else if(tree){CurrentTreePropertyWriter.Apply(plan,input,target);}
             else if(single){ItemSingleSkillProperty.Apply(plan,input,target);}
             else if(ethereal){SavedItemEthereality.Apply(true,true,unit.Kind,target.Ethereal,target.HasDurability,target);}
@@ -236,11 +253,7 @@ internal static class EquipmentRawProperties
             else{EquipmentPropertyWriter.Apply(plan,input,mode,target);}
             target.FinishParameterRoll();
         }
-        if(state.Quality!=0){omissions.Add(new("quality","","Quality-base initialization is not integrated"));}
-        if(state.MaterialRolls.Length>0||state.CraftedEquipment||state.DurabilityPercent!=0){omissions.Add(new("materials","","Crafted/material stat projection is not integrated"));}
-        if(state.Runes.Length>0||state.Gems.Length>0){omissions.Add(new("socket-contents","","Installed rune/gem projection is not integrated"));}
-        if(state.NamedItemId!=null&&NamedGear.Catalog.Item(state.NamedItemId).AdditionalProperties.Any(p=>p.SourceEnabled))
-        {omissions.Add(new("set-additional","","Conditional named-piece stats are not integrated"));}
         return omissions.ToArray();
     }
+
 }

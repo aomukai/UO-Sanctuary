@@ -55,6 +55,12 @@ public static class NamedPropertyRuntime
         || property.Code == "state" && property.Parameter?.ToString() == "fullsetgeneric"
         || _scalar.Contains(property.Code) || _range.Contains(property.Code) || _scaled.ContainsKey(property.Code);
 
+    // Retaining raw property11 arguments is separate from admitting an item's
+    // complete event/cast route. SourceMin is chance,SourceMax is rank input;
+    // reversed,zero and negative arguments are not scalar roll bounds.
+    internal static bool ProcArguments(NamedProperty property)=>EquipmentPropertyWriter.Plan(property.Code) is{Steps.Length:>0} plan
+        &&plan.Steps.All(s=>s.Function==11);
+
     public static int Parameter(NamedProperty property) => property.Parameter is { } value
         && value.ValueKind == System.Text.Json.JsonValueKind.Number && value.TryGetInt32(out int number) ? number : 0;
 
@@ -64,7 +70,12 @@ public static class NamedPropertyRuntime
 
     public static NamedPropertyRoll Roll(string key, NamedProperty template, Random random)
     {
-        if (!Supported(template) || !template.SourceEnabled) { throw new InvalidOperationException("An implemented named property is required."); }
+        if ((!Supported(template)&&!ProcArguments(template)) || !template.SourceEnabled) { throw new InvalidOperationException("A representable named property is required."); }
+        if(ProcArguments(template))
+        {
+            _=ItemSkillProperties.Parameter(template);
+            return new(key,template.SourceMin??0,template.SourceMax??0);
+        }
         if (_scaled.ContainsKey(template.Code))
         {
             int parameter=Parameter(template);
@@ -94,8 +105,15 @@ public static class NamedPropertyRuntime
 
     public static void Validate(NamedProperty template, NamedPropertyRoll roll)
     {
-        if (!Supported(template) || !template.SourceEnabled) { throw new InvalidDataException("Unsupported saved named property."); }
+        if ((!Supported(template)&&!ProcArguments(template)) || !template.SourceEnabled) { throw new InvalidDataException("Unsupported saved named property."); }
         int min = template.SourceMin ?? 0, max = template.SourceMax ?? min;
+        if(ProcArguments(template))
+        {
+            _=ItemSkillProperties.Parameter(template);
+            if(roll.Value!=min||roll.Maximum!=(template.SourceMax??0)||roll.ColdDurationFrames!=null)
+            {throw new InvalidDataException("Saved proc arguments escaped their source definition");}
+            return;
+        }
         if(roll.ColdDurationFrames is{} frames&&(!IndependentColdDuration(template)||frames<0||frames<Math.Min(min,max)||frames>Math.Max(min,max)))
         {throw new InvalidDataException("Saved independent cold duration escaped its property");}
         bool scaledFallback=_scaled.ContainsKey(template.Code)&&Parameter(template)==0;
