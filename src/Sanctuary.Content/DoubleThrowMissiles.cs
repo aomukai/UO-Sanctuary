@@ -29,16 +29,7 @@ internal static class DoubleThrowMissiles
     });
     internal static int HitClass(string missile)=>Catalog.Value.Missiles.TryGetValue(missile,out var row)&&row.TryGetValue("HitClass",out int value)&&value>0?value:throw new NotSupportedException("Missing pinned throwing missile hit class");
     internal static void Contact(PlayerMobile owner,BaseCreature target,WeaponFlight flight,GearDamage damage,int rate256)
-    {
-        var parts=SkillCombat.MitigatePrepared(owner,target,damage with{Poison=0},out int absorbed);
-        var poison=PoisonJavelins.PreparePoison(owner,target,rate256,flight.Damage.Elements.PoisonImpactFrames);
-        var impact=new PreparedWeaponImpact(damage,parts,absorbed) with{LifeDamage256=checked(NamedElements.To256(parts.Total)+poison.Rate256),AllocatedPoison=poison};
-        int cold=damage.Cold>0?ColdStates.LengthFrames(flight.Damage.Elements.ColdFrames,NamedElements.Resistance(owner,target,"cold",target.ColdResistance),ItemDurationDefenses.CannotFreeze(target),ItemDurationDefenses.HalfFreeze(target)):0;
-        var contact=new PlayerWeaponContactPrepared(SourceMeleeResult.Successful|SourceMeleeResult.GetHit,impact,
-            new(flight.Damage.Elements.LifeDrain,flight.Damage.Elements.ManaDrain),cold,0,WeaponMissiles.ItemEffects,HitClass:HitClass(flight.Missile),HitFlags:32,SuppressWear:true,
-            UninterruptibleItemCasts:()=>BarbarianWhirlwind.Locked(owner));
-        PlayerWeaponContact.ReleaseMissile(owner,target,contact,flight.NextUtc,true);
-    }
+        =>PlayerWeaponMissileContact.Release(owner,target,flight,damage,rate256,HitClass(flight.Missile));
     internal static string Missile(BaseWeapon weapon)=>ClassGear.Base(weapon) is{} basis&&Catalog.Value.Weapons.TryGetValue(basis.Code,out string missile)
         ?missile:throw new NotSupportedException("This throwable has no pinned ordinary missile mapping");
     internal static void Require(PlayerMobile owner)

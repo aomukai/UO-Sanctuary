@@ -17,13 +17,15 @@ public sealed record WeaponMissileDamage(int Min256,int Max256,int Percent,int D
     // Optional saved field: old player/NPC flights retain zero conversion.
     // Magic Arrow captures its DmgCalc at launch; retain this saved field.
     public int PhysicalToMagicPercent{get;init;}
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    public int ArmorDelta{get;init;}
     public int SkillAttackPercent{get;init;}
     // Null retains the original saved Magic Arrow field and old packet meaning.
     public WeaponElementConversion Conversion{get;init;}
     public bool FreezeColdLength{get;init;}
     public bool SourcePoisonFrames{get;init;}
     public int? LightningJavelinPercent{get;init;}
-    internal bool ValidConversion=>(LightningJavelinPercent==null || Conversion==null && PhysicalToMagicPercent==0 && !FreezeColdLength) && (!FreezeColdLength || Conversion==null && PhysicalToMagicPercent==0) && (Conversion==null || PhysicalToMagicPercent==0 && Conversion.Element is "fire" or "cold" or "mag");
+    internal bool ValidConversion=>ArmorDelta<=0&&ArmorDelta!=int.MinValue&&(LightningJavelinPercent==null || Conversion==null && PhysicalToMagicPercent==0 && !FreezeColdLength) && (!FreezeColdLength || Conversion==null && PhysicalToMagicPercent==0) && (Conversion==null || PhysicalToMagicPercent==0 && Conversion.Element is "fire" or "cold" or "mag");
     // Existing Sanctuary material/potion physical additions are separate from
     // the source weapon endpoints, so victim-specific ED cannot multiply them.
     public WeaponPhysicalSupplement PhysicalSupplement{get;init;}
@@ -344,7 +346,7 @@ public static class WeaponMissiles
             {Server.Logging.LogFactory.GetLogger(typeof(WeaponMissiles)).Warning("Mirrored projectile stopped for {Owner}: {Reason}",owner.Serial.Value,ex.Message);_flights.Remove(flight.Id);return;}
             if(!pierce){_flights.Remove(flight.Id);}return;
         }
-        if(flight.Throwing!=null&&selected is BaseCreature throwTarget)
+        if((flight.Throwing!=null||MagicArrowContact.Handles(flight))&&selected is BaseCreature throwTarget)
         {
             try{PlayerWeaponContact.Require(player,throwTarget,true,weaponSetup:false);}
             catch(NotSupportedException e){player.SendMessage(0x22,e.Message);_flights.Remove(flight.Id);return;}
@@ -361,7 +363,7 @@ public static class WeaponMissiles
         }
         BowExplosions.Create(player,next,flight.NextUtc);PlagueJavelins.Burst(player,next,selected,flight.NextUtc);AmazonLightningFury.Burst(player,next,flight.NextUtc); // AlwaysExplode survives a parent attack miss.
         if(!hit){_flights.Remove(flight.Id);return;}
-        if(flight.Throwing!=null&&selected is BaseCreature hitTarget){WeaponStartEffects.SuccessfulHitRoll(player,hitTarget);}
+        if((flight.Throwing!=null||MagicArrowContact.Handles(flight))&&selected is BaseCreature hitTarget){WeaponStartEffects.SuccessfulHitRoll(player,hitTarget);}
         var damage=flight.Damage.Roll(selected,DamageRoll,out int poisonRate256);
         if(flight.Throwing!=null&&selected is PlayerMobile)
         {
@@ -374,8 +376,15 @@ public static class WeaponMissiles
         if(selected is not BaseCreature creature)
         {_flights.Remove(flight.Id);return;}
         bool blocked;
-        if(!(flight.Throwing!=null?DoubleThrowMissiles.Block(creature,damage.Physical>0,out blocked):SourceBlocking.TryBlock(creature,damage.Physical>0,out blocked)))
+        if(!((flight.Throwing!=null||MagicArrowContact.Handles(flight))?DoubleThrowMissiles.Block(creature,damage.Physical>0,out blocked):SourceBlocking.TryBlock(creature,damage.Physical>0,out blocked)))
         {_flights.Remove(flight.Id);return;}
+        if(MagicArrowContact.Handles(flight))
+        {
+            if(!blocked){MagicArrowContact.Contact(player,creature,flight,damage,poisonRate256);}
+            if(creature is{Alive:true,Deleted:false}&&creature is not BaseHire&&flight.Damage.ArmorDelta!=0)
+            {WeaponStartEffects.ApplyArmorDelta(creature,flight.Damage.ArmorDelta,flight.NextUtc);}
+            if(!pierce){_flights.Remove(flight.Id);}return;
+        }
         if(flight.Throwing is{} thrownSource)
         {
             if(!blocked){DoubleThrowMissiles.Contact(player,creature,flight,damage,poisonRate256);}
@@ -447,7 +456,7 @@ public static class WeaponMissiles
     {
         // Validate new optional metadata before mutating the existing store.
         foreach(var flight in saved?.Flights??[])
-        {if((flight.Ability==CombatAbility.DoubleThrow)!=(flight.Throwing!=null)||flight.Throwing!=null&&!DoubleThrowMissiles.Valid(flight)||(flight.Ability==CombatAbility.MirroredBlades)!=(flight.Mirrored!=null)||flight.Mirrored!=null&&!MirroredBladesContacts.Valid(flight)){throw new InvalidDataException("Invalid saved weapon missile metadata");}}
+        {if(flight.Damage is{} packet&&(packet.ArmorDelta>0||packet.ArmorDelta==int.MinValue)){throw new InvalidDataException("Invalid saved missile armor delta");}if((flight.Ability==CombatAbility.DoubleThrow)!=(flight.Throwing!=null)||flight.Throwing!=null&&!DoubleThrowMissiles.Valid(flight)||(flight.Ability==CombatAbility.MirroredBlades)!=(flight.Mirrored!=null)||flight.Mirrored!=null&&!MirroredBladesContacts.Valid(flight)){throw new InvalidDataException("Invalid saved weapon missile metadata");}}
         _flights.Clear();_leases.Clear();_nextId=saved?.NextId??0;_nextCast=saved?.NextCast??0;
         foreach(var flight in saved?.Flights??[])
         {

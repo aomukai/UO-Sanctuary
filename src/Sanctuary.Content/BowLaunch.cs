@@ -160,6 +160,7 @@ public static class BowLaunch
         damage=damage with{PhysicalSupplement=PhysicalSupplement(owner,weapon,sourceDamage,skillPercent)};
         if(ability is CombatAbility.Strafe or CombatAbility.DoubleThrow){damage=damage with{SkillAttackPercent=(int)values.Formula("toht")};}
         if(ability==CombatAbility.DoubleThrow||Venoms.State(owner)!=null){damage=damage with{SourcePoisonFrames=true};}
+        if(ability==CombatAbility.MagicArrow){WeaponStartEffects.Require(owner);damage=damage with{ArmorDelta=ClassGear.Bonus(owner,"dmg-ac")};}
         return damage;
     }
 }

@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "999015ae07cd7970040a33761cd51ec587d9e426ccbf6ddb8d565b6f3a4004a5",
+  "ContentAssemblySha256": "527c11b6b8f15fcb51ddfe2491ffef7d192a8a1a7756c4e06166f01ddf06ad4d",
   "NativeAssemblySha256": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
   "InputHashes": {
     "data/Sanctuary/Balance/abyss-route.json": "6c823249f73d320ba6ba4b2c538d419bc54a8cb8aaad8a605f5abf18d5911e18",
@@ -14,7 +14,7 @@
     "data/Sanctuary/Balance/blind-ai-rules.json": "744926507cc56ee2192a184deeaa7b7632a355503af43c74cb2438b9805ed876",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "3abe268f909ac99abba5b57ee4e34d7d13df6b3487bbdd56ac6b96ea27537adf",
+    "data/Sanctuary/Balance/class-skill-status.json": "1627e8e2f4db96e1487574fbfee4ffcd2dcbb357cd57135a0b385d2caa37df1f",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "77dc2142ca806a9d6e6ed39f274ecdac247dcd5c60388512c17f5bc3e4c79c49",
@@ -343,7 +343,7 @@
     "src/Sanctuary.Content/AlchemyRestoratives.cs": "47b987dac4173c72beb247503ee19cc0bf425cbcf6b9a60e56c496d102d49fb1",
     "src/Sanctuary.Content/AlliedOverlap.cs": "fcde8c4aec19129534e7157c556fadb613dc39221b8bfd7a972843652d1714c7",
     "src/Sanctuary.Content/AmazonAvoidance.cs": "ea1264bbd46b5a7854a2f367e6465756015d274b76d239cfb779b55b9dcc0ed8",
-    "src/Sanctuary.Content/AmazonBow.cs": "8550e4539eae4fad10739a72a9078d1af926c935c92dfdde956eb62364d210a8",
+    "src/Sanctuary.Content/AmazonBow.cs": "557991e6d1cba54aef2aa2152f5184f65bb5fd3bfe406b6521052703014220b9",
     "src/Sanctuary.Content/AmazonCastClock.cs": "b284fafe2aa8125611896871ad164418bd0216b723f97fb8c679b3e87721aa56",
     "src/Sanctuary.Content/AmazonCombat.cs": "79c8f3b67c11690ecd1519df959133e9f805837e775da777c3bc52953c040a48",
     "src/Sanctuary.Content/AmazonDecoys.cs": "12438fe44225c2210d51960181d0860e60a2c9821325e1717d812cf83b1d0fb7",
@@ -485,7 +485,7 @@
     "src/Sanctuary.Content/BoundDemonUpgrades.cs": "fe5e3c408d6bad5a859f7df8c5f5b3467601f9d2e4e36600cd978dc19e13e01f",
     "src/Sanctuary.Content/BowAmmunition.cs": "51b3a7edfed99f9c802411dabc9c236ff245a0a0c8f669273b44133a2f923a42",
     "src/Sanctuary.Content/BowExplosions.cs": "1ffd0af3775b9455da2c49adb42e77339aec2bc3ca0227202c1cef0f585f125a",
-    "src/Sanctuary.Content/BowLaunch.cs": "56c2e55b5c39c332dad8f8d562d7b93b723ebebc0e55bda1d3ad92e01f8b4dff",
+    "src/Sanctuary.Content/BowLaunch.cs": "754540c14fe9b3d4d71726e794352c3674d0386d32fdadc9b97cebe8df2b5d83",
     "src/Sanctuary.Content/BritainBaseline.cs": "b89f0511bc447a28bef383a3acde07facde23c2ede78beaa282657bd65d57f62",
     "src/Sanctuary.Content/CarpentryCrafting.cs": "3db990690064d43a852bfb55514d30a0c784cbb2b94ff6dfc18b8e5c37dee6eb",
     "src/Sanctuary.Content/CarpentryGump.cs": "12a1f8e678a70da584f74654d916d68011465565e046308253440519e4e88471",
@@ -578,7 +578,7 @@
     "src/Sanctuary.Content/DemonPathWorld.cs": "278b66217b2f7200286ed56b81e3cbe741cd60810b46174daf6cbc66d09b66e3",
     "src/Sanctuary.Content/DireWolfUpgrades.cs": "7d19edce431d94bce93cb287e7cddfc1032c1111705d56790bf37344208a4064",
     "src/Sanctuary.Content/DirectDamageParts.cs": "79458d5f9d22ce534e94c33cd430c740f6280e8c5e7a24aa51a7094f8f5c3b0c",
-    "src/Sanctuary.Content/DoubleThrowMissiles.cs": "a2dbe1c33bc5e343737e5b570eae4e7b170dc2cc9c6e2a10c01d71f9f0c0881c",
+    "src/Sanctuary.Content/DoubleThrowMissiles.cs": "c5e04cccf1b73806f121778b17c0f20cb63252c34f6279320dc41b0c261be644",
     "src/Sanctuary.Content/DragonClawPreparation.cs": "6b1426ed146a64f4f03cc4ef59a5123e877c9cf0caa4e6a075cc81d2b61af231",
     "src/Sanctuary.Content/DragonClaws.cs": "e6762f0894144aba674688db2607c1cd4a3e4066cd616342067816d5685b93e7",
     "src/Sanctuary.Content/DragonFlightLanding.cs": "4ddfb0160bb15ac8ddf4f154dbdeb7664f55e77c181c9fef078f4b2ea2bd6fdc",
@@ -924,6 +924,7 @@
     "src/Sanctuary.Content/MagePetBuffs.cs": "38c6d2c5b07d0340933feb5ef2db45870fcc3a3e99e5fc647d54cff65d204c2d",
     "src/Sanctuary.Content/MageWorld.cs": "c5f7edf5a6c020180a3917882dfba933abaf5ca52dc9f608c4e8c09cf01c28d4",
     "src/Sanctuary.Content/MageWorldBody.cs": "7763661aeeb74db60c333ad562fe0272b4a6acaf1231d7073ae0ebe14ede27fe",
+    "src/Sanctuary.Content/MagicArrowContact.cs": "4cbf53639650fac10dc1e624115a43ddcabb6c7157985040ca456e55595f928e",
     "src/Sanctuary.Content/MapDrawing.cs": "3f46a5fd16d6f02c10f638fb634b93450979eb3899e6f35bf53f1da101634bb3",
     "src/Sanctuary.Content/MapSurveys.cs": "369d8c66616d8cf45587aca2de710f78d20b4c605eb93b31441edecf8621df9b",
     "src/Sanctuary.Content/MarketProfiles.cs": "b771fad9ae3cdb5ce2f5f36e84fb4dd4849909a474e8b40cc7eed21c1544a025",
@@ -1106,6 +1107,7 @@
     "src/Sanctuary.Content/PlayerMeleeGeometry.cs": "22fa9fcd2ab728bdfc16b20e68b4cf630e53542ba4536ae70088c57c6b05a42f",
     "src/Sanctuary.Content/PlayerMeleeReturn.cs": "e26ce78ce7e8c15a7029d7cf5ae642329f4346602237ad8458d80420ca2120a1",
     "src/Sanctuary.Content/PlayerWeaponContact.cs": "478fdd7982c2f8f3c4ed2a2e81e626b77e3db6c9ee6239fb87732ae252107264",
+    "src/Sanctuary.Content/PlayerWeaponMissileContact.cs": "63f202631031f32ab2863913d35538dca6562b2c52e601c09742737ba253e45a",
     "src/Sanctuary.Content/PlayerWeaponSequences.cs": "0b1c9f6741bceb4cee2faeae0b94188378a2b2212f90a2150c8193b530fbb307",
     "src/Sanctuary.Content/PoisonCloudGeometry.cs": "b3e93d1a724e92606fb6f91866054e701d0c11d0859f3738da72705fdba13e56",
     "src/Sanctuary.Content/PoisonDaggerCombat.cs": "4e2c3c9f252418f8d87e39adb4bc48424c902f8e114c21e44c846c8102dd42dc",
@@ -1402,7 +1404,7 @@
     "src/Sanctuary.Content/WeaponLandedEvents.cs": "53e34f47bda1eb0dcbe572270ba7329d622b8f19fbf44290f60b046470162c13",
     "src/Sanctuary.Content/WeaponLeech.cs": "8e51d0e8c6ad1e85bc5bc747bbdb128197c952094154c5814bd3319f4b055426",
     "src/Sanctuary.Content/WeaponMasteries.cs": "988d0d0e0407c511a67a366ea9155b36f87aaad3ae5bf68a02b0ccfa1c3b9e14",
-    "src/Sanctuary.Content/WeaponMissiles.cs": "8d7269cbd882f29004b247ec6b5923d5204496cbb5d187b69c10daca330314b4",
+    "src/Sanctuary.Content/WeaponMissiles.cs": "857406466177c48611eb3907db6849794901a18aac25545c48dae825d6a7da5d",
     "src/Sanctuary.Content/WeaponPoisonPackets.cs": "c8d23c250715c0abdff8561664738171284080336f2bc14aaa79d828a7811a29",
     "src/Sanctuary.Content/WeaponStartEffects.cs": "23d233ae5a191d5d483bc93c4ee9f35912a959b843ad05aab36d424ee44fa389",
     "tests/Sanctuary.Integration/NamedGearChecks.cs": "5d4edd339cc75b17a5c1c71f8e1d441e97d4d248e5872a67374aa5869b253656",
@@ -7767,5 +7769,11 @@
         "Set has unavailable pieces"
       ]
     }
-  ]
+  ],
+  "PostVerificationDocumentation": {
+    "Path": "data/Sanctuary/Balance/class-skill-status.json",
+    "ObservedSha256": "3abe268f909ac99abba5b57ee4e34d7d13df6b3487bbdd56ac6b96ea27537adf",
+    "CurrentSha256": "1627e8e2f4db96e1487574fbfee4ffcd2dcbb357cd57135a0b385d2caa37df1f",
+    "Changes": "Eight remaining-description strings only;all mechanical and completion fields unchanged. Original native audit remains in magic-arrow-contact/hellslayer-readiness-fixtures.json."
+  }
 }

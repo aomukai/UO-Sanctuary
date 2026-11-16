@@ -158,7 +158,7 @@ public static class MagicArrowChecks
             target=Target(p);try
             {
                 var flight=Cast(p,target);var all=WeaponMissiles.Snapshot();WeaponMissiles.Restore(all with{Flights=all.Flights.Select(x=>x.Id==flight.Id?x with{Flags=x.Flags|0x10000}:x).ToArray()});Finish(flight.Id);
-                Require(TimedEffects.Slow(target,TimedEffects.Now)==0 && TimedEffects.CanRegenerateHits(target),"Outer attacker event suppression lost");
+                Require(TimedEffects.Slow(target,TimedEffects.Now)==0 && !TimedEffects.CanRegenerateHits(target),"Outer hit-event suppression or separate accuracy-roll PMH lost");
             }finally{target.Delete();}
         }finally{WeaponMissiles.ItemEffects=effects;WeaponMissiles.Cancel(p);p.Delete();}
     }
