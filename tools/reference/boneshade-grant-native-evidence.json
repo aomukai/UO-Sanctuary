@@ -1,0 +1,71 @@
+{
+  "component": "Complete existing Boneshade untrained Bone Wall grant baseline",
+  "referenceVersion": "3.3.93847",
+  "nativeMarkers": 27,
+  "markers": {
+    "boneshade-grant-check": 1,
+    "boneshade-grant-check-result": 1,
+    "boneshade-grant-quick-check": 3,
+    "boneshade-grant-quick-result": 3,
+    "boneshade-grant-reload-check": 2,
+    "boneshade-grant-reload-check-result": 2,
+    "boneshade-grant-right-check": 3,
+    "boneshade-grant-right-result": 3,
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2
+  },
+  "connections": 9,
+  "actualAbilityWireInputs": 6,
+  "boots": 3,
+  "saves": 3,
+  "reloads": 2,
+  "contentBuild": 2,
+  "integrationBuild": 2,
+  "sourceSnapshot": 2,
+  "nativeRun": 2,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
+    "Assemblies/Sanctuary.Content.dll": "137e34e7d23d8563e52fb2398de683a3bb6b29fd7310f36f1a2b9d0a4caba765",
+    "Assemblies/Sanctuary.Integration.dll": "4f5b23856e6de0861c894bad6b2510ec676dc608da5237fd3f7b3d3146f5254b"
+  },
+  "changedSources": [
+    "tests/Sanctuary.Integration/BoneshadeGrantChecks.cs"
+  ],
+  "gameplaySourceChanged": false,
+  "readinessRegistryChanged": false,
+  "newNamedItemsAdmitted": 0,
+  "namedDirectGrantRegistry": 16,
+  "nativeRebuilt": false,
+  "installed": false,
+  "classCertified": false,
+  "goalComplete": false,
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 44
+  },
+  "limits": "Boneshade and Bone Wall were already enabled;this adds actual complete-item untrained cast/equip/trade/identity/broken/binding/save evidence,not a new admission. Ordinary weighted named generation is exercised;no kill/gamble economy or graphical proof is claimed. Two current data differences from the final-four cohort are earlier reporting-only commits. Other direct grants and proc/charge/aura systems remain separate;no new skill,source mechanics,assets or deployment.",
+  "files": {
+    ".local/class-skills/boneshade-grant/birth-inputs.json": "e40478cb0de42aa7b7d906f5554c4095e92679b19e16832be283f6cb32c6b062",
+    ".local/class-skills/boneshade-grant/birth-native-checks.log": "b54881dcee34d773647a272823cdb982edf642fe3bc6f5b201bb148a3a07c6e2",
+    ".local/class-skills/boneshade-grant/content-build-2.log": "ff7288ddf8b9001ef38d605e3211300f50312b64642e4333a91fb52de275daed",
+    ".local/class-skills/boneshade-grant/failed-run-1.tar.gz": "2d528b2f881b8bc8f27dd3fa9ee1fe7ea7d1094f223025b3c492647ee8bd5e9d",
+    ".local/class-skills/boneshade-grant/integration-build-2.log": "671a228c1ca58446d8a9f9dea899f74a1b8f86b7fcca29da0173fedd0c8745bb",
+    ".local/class-skills/boneshade-grant/native-run-2.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/boneshade-grant/source-snapshot-2.json": "aa475b309d9bf902418c7ad4d2828899603f5ade44297cda19dc64e96c8f4392",
+    "docs/boneshade-grant-checkpoint.md": "06b4a7720ba95907b43de3a65d4e270efe2c7f8c8b8c823a3c10e8f79055574d",
+    "tests/check_assassin_planned_acceptance.py": "56e0bde79138ace81029320fec4b8337e15f9366b1968cb30183e6758ee49d91",
+    "tests/check_boneshade_grant.py": "1a196fce5e37baf69d310a746147bf7d56e749f2d7f9a4c586c07b77b0df2a54",
+    "tests/check_britain.py": "632ee450f72bb27cfd0c2d3ab7417ba0d54e405cfd97130d6a7b256594c8dfd3",
+    "tests/check_iron_golem_birth.py": "f83e222cd3bca5c06b8f24604a363b3f0e00bb6a0956e814a9101c306f6a205d",
+    "tools/record_boneshade_grant.py": "f8c4fe27eea316fc4d3aa8a15d50a66c5784c189f93b8349488252685410756f",
+    "tools/reference/bone-barrier-world-rule-approval.json": "d0f078285ee0712d1879f571941b5b108aee78e4dcf84d8ce9d019d40b2c8ca6",
+    "tools/reference/consume-learned-client-evidence.json": "8984cc0448f1e48de980f6525f671478ffb489e7d0870a0cd387ede362e02fec"
+  }
+}
