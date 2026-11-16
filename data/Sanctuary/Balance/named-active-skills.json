@@ -25,5 +25,9 @@
   "sorceress.warmth",
   "sorceress.chainlightning",
   "sorceress.lightning",
-  "sorceress.staticfield"
+  "sorceress.staticfield",
+  "sorceress.firebolt",
+  "sorceress.firemastery",
+  "sorceress.lightningmastery",
+  "sorceress.coldmastery"
 ]

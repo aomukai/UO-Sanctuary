@@ -1,0 +1,103 @@
+{
+  "component": "Bane Ash,Chromatic Ire and full Tal Rasha original-item direct grants",
+  "referenceVersion": "3.3.93847",
+  "baselineCommit": "7fd87e3f",
+  "nativeMarkers": 30,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "sorc-staff-firebolt-quick-check": 3,
+    "sorc-staff-firebolt-quick-result": 3,
+    "sorc-staff-firebolt-right-check": 3,
+    "sorc-staff-firebolt-right-result": 3,
+    "sorceress-staff-grants-check": 1,
+    "sorceress-staff-grants-check-result": 1,
+    "sorceress-staff-grants-reload-check": 2,
+    "sorceress-staff-grants-reload-check-result": 2,
+    "sorceress-staff-readiness-check": 3
+  },
+  "connections": 9,
+  "actualAbilityWireInputs": 6,
+  "boots": 3,
+  "saves": 3,
+  "reloads": 2,
+  "savedOriginals": 10,
+  "namedDirectGrantRegistryBefore": 27,
+  "namedDirectGrantRegistryAfter": 31,
+  "newDirectGrants": [
+    "sorceress.firebolt",
+    "sorceress.firemastery",
+    "sorceress.lightningmastery",
+    "sorceress.coldmastery"
+  ],
+  "newNamedItemsAdmitted": [
+    "unique/54",
+    "unique/185",
+    "piece/76",
+    "piece/77",
+    "piece/78",
+    "piece/79",
+    "piece/80"
+  ],
+  "namedDefinitionsCompared": 573,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
+    "Assemblies/Sanctuary.Content.dll": "a425a14f9009896c16d39e6dbf14120b35eaa24b2d3630701f570c82ed921158",
+    "Assemblies/Sanctuary.Integration.dll": "12fddc6adbedddc367cdc38326dcc622a81148e3cebcd5b7edad6578ba235e5d"
+  },
+  "changedSources": [
+    "tests/Sanctuary.Integration/SorceressStaffGrantChecks.cs"
+  ],
+  "changedRuntimeData": [
+    "Data/Sanctuary/Balance/named-active-skills.json",
+    "Data/Sanctuary/Balance/named-item-coverage.json",
+    "Data/Sanctuary/Balance/named-skill-backlog.json"
+  ],
+  "contentBuild": 2,
+  "integrationBuild": 4,
+  "sourceSnapshot": 4,
+  "nativeRun": 2,
+  "gameplaySourceChanged": false,
+  "nativeRebuilt": false,
+  "persistedSchemaChanged": false,
+  "installed": false,
+  "classCertified": false,
+  "goalComplete": false,
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 44
+  },
+  "limits": "Four direct grants through complete weighted originals,actual Fire Bolt input and passive typed life damage,all Tal partial/full thresholds,original gear/resources and two reloads. Prior staff equipment controls reused without repeating their eight unchanged active routes. No readiness bypass,proc/charge/aura admission,graphical/full-class certificate,new reference read,imagegen or deployment;whole Hellslayer remains gated.",
+  "files": {
+    ".local/class-skills/sorceress-mastery-grants/birth-inputs.json": "82f3f6bae6a77856e0aca63888566c2b1fccf68861540b3f7c787f1794b4c7e6",
+    ".local/class-skills/sorceress-mastery-grants/birth-native-checks.log": "3a07555b54f79dacdb483ba01a1f496c61a913ac4868ec8763031e0f4649f972",
+    ".local/class-skills/sorceress-mastery-grants/content-build-2.log": "640fe24cc3148ecdd98cdb9441f8e6d0959e2f3fe417496960f2ed2e07ed9f72",
+    ".local/class-skills/sorceress-mastery-grants/failed-build-1-complete.tar.gz": "3ae5a38bca309e7b810eaf10e9de76bdc9fb1556bcce9b9f4ca09e08b056f703",
+    ".local/class-skills/sorceress-mastery-grants/failed-build-2.tar.gz": "14a558e796c974b5d5c1cfc846d8363c2d4e866ce820c8e8d5cf301d9818715b",
+    ".local/class-skills/sorceress-mastery-grants/failed-run-1.tar.gz": "1023737c909ede87c0c9dcad4ff0faf2810822d836305bf519259177d1aa9c18",
+    ".local/class-skills/sorceress-mastery-grants/integration-build-4.log": "77959d965bb1397e5b1880c4e50d3705bff3bcbef79413b40ec65a6dfe1095fb",
+    ".local/class-skills/sorceress-mastery-grants/native-run-2.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/sorceress-mastery-grants/sorceress-staff-grants-fixtures.json": "451ef206cc37e00734e654190d5768692935fdd724396c892b3884a8f45c7e56",
+    ".local/class-skills/sorceress-mastery-grants/source-snapshot-4.json": "c3a8e689b7b9030e5a835cc71f7ec0055914f80ad60028b02c54f7c643953ce3",
+    "docs/sorceress-mastery-grants-checkpoint.md": "9180bca7863ead583dd69b40fa741db39c55a344df82d748253d2adf052e6adf",
+    "tests/check_assassin_planned_acceptance.py": "56e0bde79138ace81029320fec4b8337e15f9366b1968cb30183e6758ee49d91",
+    "tests/check_britain.py": "632ee450f72bb27cfd0c2d3ab7417ba0d54e405cfd97130d6a7b256594c8dfd3",
+    "tests/check_iron_golem_birth.py": "f83e222cd3bca5c06b8f24604a363b3f0e00bb6a0956e814a9101c306f6a205d",
+    "tests/check_sorceress_mastery_grants.py": "70190141a2d5860b5e334cb72f93c8d9ead89aa1190a3d2dc36b304261fb14bc",
+    "tests/check_sorceress_staff_grants.py": "59e0e85e8fa0d9a3d9095bc350e30fcafee748fcae7ca96bc332419012e85a6f",
+    "tools/build_named_equipment.py": "56e27c83b7463b619c0055797374cd1b5f87178fa8189c8376ad53f96d11a593",
+    "tools/build_named_skill_backlog.py": "3993af23d08cfb295a7db688a26e4420e466855ceacf94c665f8e6a709c43f5f",
+    "tools/record_sorceress_mastery_grants.py": "d5f521cbb990f0c5d6587d9ab70ba2b3f00243d7bcb2f5bfebd094f77f7880c9",
+    "tools/reference/consume-learned-client-evidence.json": "8984cc0448f1e48de980f6525f671478ffb489e7d0870a0cd387ede362e02fec",
+    "tools/reference/named-item-runtime-audit.json": "76d7f81a71f81a44b7a3b94fe9d2af287d77ac3759b950e16021460d9e3f17e8",
+    "tools/reference/sorceress-staff-grants-native-evidence.json": "9bc66f62bcb648cf7204afc765a0512c30b1e88e0efca5fc975ef984860a2ad6",
+    "tools/reference/warpspear-grants-native-evidence.json": "c13c15d1d638f133403daa7ba9204a93f4a34f872891063f59e9aa6893f51e13"
+  }
+}

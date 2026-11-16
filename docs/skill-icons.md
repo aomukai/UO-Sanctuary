@@ -1,5 +1,7 @@
 # Skill icons
 
+**Fire Bolt/mastery originals returned — 2026-11-16 JST.** Item-granted Fire Bolt reuses its learned talent/hotkey icon. Fire, Lightning and Cold Mastery retain their passive talent icons and cannot occupy active bindings. Existing icon placeholders remain; no extra item-specific hotkey icons are required. [Checkpoint](sorceress-mastery-grants-checkpoint.md).
+
 **Three Sorceress staffs returned — 2026-11-16 JST.** The nine returned direct grants reuse their learned-skill icons. Warmth remains passive and cannot be bound. Existing talent/hotkey icon requirements and identified generic/text placeholders remain; no new item-specific icon is required. [Checkpoint](sorceress-staff-grants-checkpoint.md).
 
 **Warpspear direct grants — 2026-11-16 JST.** Item-granted Telekinesis and Energy Shield use the same skill/binding icons as their learned spells. Existing final icon requirements and generic/text placeholders retain;no extra item-specific hotkey icon is introduced. [Checkpoint](warpspear-grants-checkpoint.md).

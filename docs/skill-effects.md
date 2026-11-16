@@ -1,5 +1,7 @@
 # Skill effects
 
+**Fire Bolt/mastery originals returned — 2026-11-16 JST.** Bane Ash Fire Bolt reuses the existing projectile/impact placeholder. The three masteries have no active cast; Tal Rasha set visuals retain their existing placeholder mapping. Final effects/audio remain in the separate skill entries; no new artwork is generated. [Checkpoint](sorceress-mastery-grants-checkpoint.md).
+
 **Three Sorceress staffs returned — 2026-11-16 JST.** The three returned Sorceress staffs reuse the existing Nova, Frost Nova, Blaze, Fire Wall, Fire Ball, Chain Lightning, Lightning and Static Field placeholders; Warmth has no new active cast. Final effects/audio remain in their existing skill entries. No new item-specific effect is required. [Checkpoint](sorceress-staff-grants-checkpoint.md).
 
 **Warpspear direct grants — 2026-11-16 JST.** The admitted original staff reuses Telekinesis’s instant-hit/motion and Energy Shield’s cast/buff/absorption placeholders. No distinct item-only effect or new artwork is required by this return;their final visuals/audio remain in the existing spell entries. [Checkpoint](warpspear-grants-checkpoint.md).

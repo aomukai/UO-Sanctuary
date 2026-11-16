@@ -1,6 +1,6 @@
 # Deferred item skill effects
 
-**Current direct-grant return.** [Warpspear](warpspear-grants-checkpoint.md) now qualifies Telekinesis43and Energy Shield58through its complete original item,normal inputs,native consumers and two reloads. The registry has18entries;all other item delivery mechanisms retain their own gates. This does not qualify proc/charge/aura delivery or whole Hellslayer admission.
+**Current direct-grant returns.** [Warpspear](warpspear-grants-checkpoint.md), [three Sorceress staffs](sorceress-staff-grants-checkpoint.md), and [Fire Bolt/mastery originals](sorceress-mastery-grants-checkpoint.md) qualify their complete items, normal active/passive consumers and two reloads. The registry now has 31 entries. The latest return includes all five Tal Rasha originals and their partial/full thresholds. These scopes do not qualify proc/charge/aura delivery or whole Hellslayer admission; other item grants retain their own gates.
 
 **Current NPC item-spell scope.** The historical Shadow Hydra62 gap is resolved by the [NPC-owned Hydra world/item-proc checkpoint](npc-hydra-world-checkpoint.md), including the original allocation9 loadout. The [Fire Ball producer checkpoint](npc-item-fireball-checkpoint.md) adds a separately qualified explicit NPC proc route; whole Hellslayer projection/acquisition and automatic learned golem registration remain unfinished. Historical receipts retain their own source/artifact scope.
 

@@ -6,9 +6,9 @@ Art decision (22 October 2026): custom imagegen assets may supply missing equipm
 
 Pinned source: `fa1286949266498b294c40c2942521a7c0d7207a`. Reproduce with `python3 tools/build_named_skill_backlog.py`; verify with `--check`. The machine-readable companion is `data/Sanctuary/Balance/named-skill-backlog.json`.
 
-240 class talent routes are mechanically implemented;the separate direct-grant registry still contains27talents. A working spell alone does not supply a proc, aura, charge or cross-class grant system. Generic class/tree/all-skill and source-tagged fire-skill bonuses raise learned or directly granted skills without spending points or unlocking every skill. Item freeze, blind and flee are implemented shared effects; they do not require the full player class spells to exist.
+240 class talent routes are mechanically implemented;the separate direct-grant registry still contains31talents. A working spell alone does not supply a proc, aura, charge or cross-class grant system. Generic class/tree/all-skill and source-tagged fire-skill bonuses raise learned or directly granted skills without spending points or unlocking every skill. Item freeze, blind and flee are implemented shared effects; they do not require the full player class spells to exist.
 
-161 source-spawnable item definitions have direct or set-wide spell/skill dependencies. 19 additional pieces are held so their sets remain completable. These counts describe skill dependencies, not total runtime availability; other source, appearance or combat-effect gates may also apply.
+158 source-spawnable item definitions have direct or set-wide spell/skill dependencies. 15 additional pieces are held so their sets remain completable. These counts describe skill dependencies, not total runtime availability; other source, appearance or combat-effect gates may also apply.
 
 ## Source-spawnable items to revisit
 
@@ -18,7 +18,6 @@ Pinned source: `fa1286949266498b294c40c2942521a7c0d7207a`. Reproduce with `pytho
 | unique/17 | Stormeye | own `skill`: Resist Lightning (mechanical route implemented) — Qualify direct +skill item grant for this class consumer<br>own `skill`: Holy Shock (mechanical route implemented) — Qualify direct +skill item grant for this class consumer<br>own `skill`: Fist of the Heavens (mechanical route implemented) — Qualify direct +skill item grant for this class consumer |
 | unique/20 | Bloodrise | own `skill`: Sacrifice (mechanical route implemented) — Qualify direct +skill item grant for this class consumer |
 | unique/35 | Kinemil's Awl | own `skill`: Holy Fire (mechanical route implemented) — Qualify direct +skill item grant for this class consumer |
-| unique/54 | Bane Ash | own `skill`: Fire Bolt (mechanical route implemented) — Qualify direct +skill item grant for this class consumer |
 | unique/60 | Witherstring | own `magicarrow`: Magic Arrow (mechanical route implemented) — Inherent magic-arrow attack and projectile delivery |
 | unique/61 | Raven Claw | own `explosivearrow`: Exploding Arrow (mechanical route implemented) — Inherent exploding-arrow attack and area damage |
 | unique/62 | Rogue's Bow | own `skill` via roguesbow-affix1: Fire Arrow (mechanical route implemented) — Qualify direct +skill item grant for this class consumer<br>own `skill` via roguesbow-affix1: Cold Arrow (mechanical route implemented) — Qualify direct +skill item grant for this class consumer |
@@ -56,7 +55,6 @@ Pinned source: `fa1286949266498b294c40c2942521a7c0d7207a`. Reproduce with `pytho
 | unique/171 | Stormspike | own `gethit-skill`: Charged Bolt (mechanical route implemented) — on-taking-hit proc dispatcher |
 | unique/172 | The Impaler | own `skill`: Impale (mechanical route implemented) — Qualify direct +skill item grant for this class consumer<br>own `skill`: Power Strike (mechanical route implemented) — Qualify direct +skill item grant for this class consumer |
 | unique/178 | Blackleach Blade | own `hit-skill`: Weaken (mechanical route implemented) — on-hit proc dispatcher |
-| unique/185 | Chromatic Ire | own `skill`: Fire Mastery (mechanical route implemented) — Qualify direct +skill item grant for this class consumer<br>own `skill`: Lightning Mastery (mechanical route implemented) — Qualify direct +skill item grant for this class consumer<br>own `skill`: Cold Mastery (mechanical route implemented) — Qualify direct +skill item grant for this class consumer |
 | unique/188 | Skystrike | own `hit-skill`: Meteor (mechanical route implemented) — on-hit proc dispatcher |
 | unique/190 | Kuko Shakaku | own `skill`: Immolation Arrow (mechanical route implemented) — Qualify direct +skill item grant for this class consumer<br>own `explosivearrow`: Exploding Arrow (mechanical route implemented) — Inherent exploding-arrow attack and area damage |
 | unique/191 | Endlesshail | own `skill`: Strafe (mechanical route implemented) — Qualify direct +skill item grant for this class consumer |
@@ -151,7 +149,6 @@ Pinned source: `fa1286949266498b294c40c2942521a7c0d7207a`. Reproduce with `pytho
 | unique/417 | Entropy Locket | own `hit-skill`: Miasma Chain (mechanical route implemented) — on-hit proc dispatcher |
 | piece/71 | Immortal King's Soul Cage | own `gethit-skill`: Enchant (mechanical route implemented) — on-taking-hit proc dispatcher |
 | piece/73 | Immortal King's Forge | own `gethit-skill`: Charged Bolt (mechanical route implemented) — on-taking-hit proc dispatcher |
-| piece/78 | Tal Rasha's Lidless Eye | own `skill`: Fire Mastery (mechanical route implemented) — Qualify direct +skill item grant for this class consumer<br>own `skill`: Lightning Mastery (mechanical route implemented) — Qualify direct +skill item grant for this class consumer<br>own `skill`: Cold Mastery (mechanical route implemented) — Qualify direct +skill item grant for this class consumer |
 | piece/85 | Trang-Oul's Guise | partial `oskill`: Fire Ball (mechanical route implemented) — cross-class skill grants and casting<br>partial `oskill`: Fire Wall (mechanical route implemented) — cross-class skill grants and casting<br>partial `oskill`: Meteor (mechanical route implemented) — cross-class skill grants and casting<br>full `state` — Vampire transformation with movement, casting, equipment and restoration lifecycle<br>full `oskill`: Fire Mastery (mechanical route implemented) — cross-class skill grants and casting |
 | piece/86 | Trang-Oul's Scales | partial `oskill`: Fire Ball (mechanical route implemented) — cross-class skill grants and casting<br>partial `oskill`: Fire Wall (mechanical route implemented) — cross-class skill grants and casting<br>partial `oskill`: Meteor (mechanical route implemented) — cross-class skill grants and casting<br>full `state` — Vampire transformation with movement, casting, equipment and restoration lifecycle<br>full `oskill`: Fire Mastery (mechanical route implemented) — cross-class skill grants and casting |
 | piece/87 | Trang-Oul's Wing | partial `oskill`: Fire Ball (mechanical route implemented) — cross-class skill grants and casting<br>partial `oskill`: Fire Wall (mechanical route implemented) — cross-class skill grants and casting<br>partial `oskill`: Meteor (mechanical route implemented) — cross-class skill grants and casting<br>full `state` — Vampire transformation with movement, casting, equipment and restoration lifecycle<br>full `oskill`: Fire Mastery (mechanical route implemented) — cross-class skill grants and casting |
@@ -209,10 +206,6 @@ Pinned source: `fa1286949266498b294c40c2942521a7c0d7207a`. Reproduce with `pytho
 | piece/72 | Immortal King's Detail | set/19 |
 | piece/74 | Immortal King's Pillar | set/19 |
 | piece/75 | Immortal King's Stone Crusher | set/19 |
-| piece/76 | Tal Rasha's Fine-Spun Cloth | set/20 |
-| piece/77 | Tal Rasha's Adjudication | set/20 |
-| piece/79 | Tal Rasha's Guardianship | set/20 |
-| piece/80 | Tal Rasha's Horadric Crest | set/20 |
 | piece/90 | M'avina's True Sight | set/23 |
 | piece/92 | M'avina's Icy Clutch | set/23 |
 | piece/93 | M'avina's Tenet | set/23 |

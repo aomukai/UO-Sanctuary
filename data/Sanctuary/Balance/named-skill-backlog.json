@@ -19,11 +19,15 @@
     "necromancer.terror",
     "sorceress.blaze",
     "sorceress.chainlightning",
+    "sorceress.coldmastery",
     "sorceress.energyshield",
     "sorceress.fireball",
+    "sorceress.firebolt",
+    "sorceress.firemastery",
     "sorceress.firewall",
     "sorceress.frostnova",
     "sorceress.lightning",
+    "sorceress.lightningmastery",
     "sorceress.nova",
     "sorceress.staticfield",
     "sorceress.telekinesis",
@@ -447,37 +451,6 @@
               "name": "Holy Fire",
               "sourceKey": "Holy Fire",
               "talentId": "paladin.holyfire",
-              "implemented": true,
-              "directGrantQualified": false
-            }
-          ],
-          "prerequisites": [
-            "Qualify direct +skill item grant for this class consumer"
-          ]
-        }
-      ],
-      "setDependencies": []
-    },
-    {
-      "id": "unique/54",
-      "name": "Bane Ash",
-      "rarity": "Unique",
-      "setId": null,
-      "sourceAvailability": "SpawnableDefinition",
-      "sourceSpawnable": true,
-      "dependencies": [
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "6",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": 36,
-              "sourceId": 36,
-              "name": "Fire Bolt",
-              "sourceKey": "Fire Bolt",
-              "talentId": "sorceress.firebolt",
               "implemented": true,
               "directGrantQualified": false
             }
@@ -2175,77 +2148,6 @@
           ],
           "prerequisites": [
             "on-hit proc dispatcher"
-          ]
-        }
-      ],
-      "setDependencies": []
-    },
-    {
-      "id": "unique/185",
-      "name": "Chromatic Ire",
-      "rarity": "Unique",
-      "setId": null,
-      "sourceAvailability": "SpawnableDefinition",
-      "sourceSpawnable": true,
-      "dependencies": [
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "6",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": 61,
-              "sourceId": 61,
-              "name": "Fire Mastery",
-              "sourceKey": "Fire Mastery",
-              "talentId": "sorceress.firemastery",
-              "implemented": true,
-              "directGrantQualified": false
-            }
-          ],
-          "prerequisites": [
-            "Qualify direct +skill item grant for this class consumer"
-          ]
-        },
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "7",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": 63,
-              "sourceId": 63,
-              "name": "Lightning Mastery",
-              "sourceKey": "Lightning Mastery",
-              "talentId": "sorceress.lightningmastery",
-              "implemented": true,
-              "directGrantQualified": false
-            }
-          ],
-          "prerequisites": [
-            "Qualify direct +skill item grant for this class consumer"
-          ]
-        },
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "8",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": 65,
-              "sourceId": 65,
-              "name": "Cold Mastery",
-              "sourceKey": "Cold Mastery",
-              "talentId": "sorceress.coldmastery",
-              "implemented": true,
-              "directGrantQualified": false
-            }
-          ],
-          "prerequisites": [
-            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -4656,7 +4558,7 @@
               "sourceKey": "Fire Bolt",
               "talentId": "sorceress.firebolt",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             },
             {
               "sourceParameter": 37,
@@ -6594,77 +6496,6 @@
       "setDependencies": []
     },
     {
-      "id": "piece/78",
-      "name": "Tal Rasha's Lidless Eye",
-      "rarity": "Set",
-      "setId": "set/20",
-      "sourceAvailability": "SpawnableDefinition",
-      "sourceSpawnable": true,
-      "dependencies": [
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "5",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": "Fire Mastery",
-              "sourceId": 61,
-              "name": "Fire Mastery",
-              "sourceKey": "Fire Mastery",
-              "talentId": "sorceress.firemastery",
-              "implemented": true,
-              "directGrantQualified": false
-            }
-          ],
-          "prerequisites": [
-            "Qualify direct +skill item grant for this class consumer"
-          ]
-        },
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "6",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": "Lightning Mastery",
-              "sourceId": 63,
-              "name": "Lightning Mastery",
-              "sourceKey": "Lightning Mastery",
-              "talentId": "sorceress.lightningmastery",
-              "implemented": true,
-              "directGrantQualified": false
-            }
-          ],
-          "prerequisites": [
-            "Qualify direct +skill item grant for this class consumer"
-          ]
-        },
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "7",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": "Cold Mastery",
-              "sourceId": 65,
-              "name": "Cold Mastery",
-              "sourceKey": "Cold Mastery",
-              "talentId": "sorceress.coldmastery",
-              "implemented": true,
-              "directGrantQualified": false
-            }
-          ],
-          "prerequisites": [
-            "Qualify direct +skill item grant for this class consumer"
-          ]
-        }
-      ],
-      "setDependencies": []
-    },
-    {
       "id": "piece/85",
       "name": "Trang-Oul's Guise",
       "rarity": "Set",
@@ -6756,7 +6587,7 @@
               "sourceKey": "Fire Mastery",
               "talentId": "sorceress.firemastery",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -6857,7 +6688,7 @@
               "sourceKey": "Fire Mastery",
               "talentId": "sorceress.firemastery",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -6958,7 +6789,7 @@
               "sourceKey": "Fire Mastery",
               "talentId": "sorceress.firemastery",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -7059,7 +6890,7 @@
               "sourceKey": "Fire Mastery",
               "talentId": "sorceress.firemastery",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -7160,7 +6991,7 @@
               "sourceKey": "Fire Mastery",
               "talentId": "sorceress.firemastery",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -8103,7 +7934,7 @@
               "sourceKey": "Fire Mastery",
               "talentId": "sorceress.firemastery",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -8243,26 +8074,6 @@
       "id": "piece/75",
       "name": "Immortal King's Stone Crusher",
       "setId": "set/19"
-    },
-    {
-      "id": "piece/76",
-      "name": "Tal Rasha's Fine-Spun Cloth",
-      "setId": "set/20"
-    },
-    {
-      "id": "piece/77",
-      "name": "Tal Rasha's Adjudication",
-      "setId": "set/20"
-    },
-    {
-      "id": "piece/79",
-      "name": "Tal Rasha's Guardianship",
-      "setId": "set/20"
-    },
-    {
-      "id": "piece/80",
-      "name": "Tal Rasha's Horadric Crest",
-      "setId": "set/20"
     },
     {
       "id": "piece/90",
