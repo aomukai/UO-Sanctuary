@@ -706,6 +706,10 @@ public static class ClassCombat
             {
                 weaponHit=TigerStrikes.BasicStrike(from,target);
             }
+            else if(ability==CombatAbility.BasicAttack&&PlayerBasicContact.Handles(from,target))
+            {
+                weaponHit=PlayerBasicContact.Release(from,(BaseCreature)target,()=>MeleeReach(from,target),TimedEffects.Now);
+            }
             else if ((formMelee?ClassStats.CheckHit(from,target,0,DruidFormAttacks.HitRoll,projectile:false):ClassStats.CheckHit(from,target)) == true)
             {
                 bool blocked=formMelee&&target is BaseCreature defender&&SourceBlocking.TryBlock(defender,true,out bool shielded)&&shielded;

@@ -10,7 +10,7 @@ namespace Sanctuary;
 // A player actor consumer of the existing ordered source-to-NPC pipeline.
 // Item processors and native encounter reactions remain explicit adapters.
 internal sealed record PlayerWeaponContactPrepared(int Flags,PreparedWeaponImpact Impact,PlayerWeaponDrain Drain,int ColdFrames,int BaseHitClass,Random Effects,int HitClass=0,
-    bool Smite=false,Func<int,int> StunRoll=null,int? MeleeRange=null,bool SkillKnockback=false,Func<int,bool> RangeCheck=null,int FreezeFrames=0,uint HitFlags=0,int? CrushingDivisor=null,bool SuppressWear=false);
+    bool Smite=false,Func<int,int> StunRoll=null,int? MeleeRange=null,bool SkillKnockback=false,Func<int,bool> RangeCheck=null,int FreezeFrames=0,uint HitFlags=0,int? CrushingDivisor=null,bool SuppressWear=false,bool AttemptScoped=false);
 
 internal static class PlayerWeaponContact
 {
@@ -196,7 +196,7 @@ internal static class PlayerWeaponContact
         bool stunRules=CombatStuns.Rules(target,out bool stunBoss,out int stunVelocity);
         var recipient=new PreparedMonsterRecipient(PreparedMonsterStun.IsUnique(target)||prepared.Smite&&target is EncounterCreature{Grade:EncounterGrade.Champion},
             ()=>prepared.Smite?stunBoss:CreatureProfiles.For(target).Traits.Boss??false,()=>prepared.Smite?(stunRules?stunVelocity:0):metadata?.Velocity??0,()=>target is BaseHire);
-        using var attempted=PaladinThorns.Attempt(source,target,false);
+        using var attempted=prepared.AttemptScoped?null:PaladinThorns.Attempt(source,target,false);
         try
         {
             return PreparedMonsterContact.Release(source,target,new Contact(source,target,metadata,scope),recipient,prepared.StunRoll??Utility.Random,
