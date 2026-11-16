@@ -19,7 +19,7 @@ public static class MagicArrowContactChecks
     private static void Require(bool ok,string why){if(!ok){throw new InvalidOperationException(why);}}
     private sealed class High:Random{public override int Next(int n)=>n-1;}
     private sealed class Low:Random{public override int Next(int n)=>0;}
-    private sealed class Rolls:IDisposable
+    internal sealed class Rolls:IDisposable
     {
         private readonly Func<double> Hit=WeaponMissiles.HitRoll;
         private readonly Func<int,int> Damage=WeaponMissiles.DamageRoll,Block=SourceBlocking.BlockRoll,Choice=SourceBlocking.ChoiceRoll;
@@ -27,9 +27,9 @@ public static class MagicArrowContactChecks
         internal Rolls(){WeaponMissiles.HitRoll=()=>0;WeaponMissiles.DamageRoll=_=>0;SourceBlocking.BlockRoll=n=>n-1;SourceBlocking.ChoiceRoll=_=>1;WeaponMissiles.ItemEffects=AmazonBow.LaunchRandom=new High();}
         public void Dispose(){WeaponMissiles.HitRoll=Hit;WeaponMissiles.DamageRoll=Damage;SourceBlocking.BlockRoll=Block;SourceBlocking.ChoiceRoll=Choice;WeaponMissiles.ItemEffects=Effects;AmazonBow.LaunchRandom=Launch;}
     }
-    private static PlayerProcSave Own(PlayerMobile p,Item bow)
+    internal static PlayerProcSave Own(PlayerMobile p,Item bow)
     {var s=PlayerItemProcs.Capture();return s with{Items=s.Items.Where(x=>x.Item==bow.Serial.Value).ToArray(),Owners=s.Owners.Where(x=>x.Actor==p.Serial.Value).ToArray()};}
-    private static WeaponFlight[] Flights(PlayerMobile p)=>WeaponMissiles.Snapshot().Flights.Where(x=>x.Owner==p.Serial.Value).ToArray();
+    internal static WeaponFlight[] Flights(PlayerMobile p)=>WeaponMissiles.Snapshot().Flights.Where(x=>x.Owner==p.Serial.Value).ToArray();
     public static void Configure()
     {
         foreach(bool again in new[]{false,true})
@@ -39,23 +39,23 @@ public static class MagicArrowContactChecks
         {string label="magic-arrow-contact-"+mode;ConsoleInputHandler.RegisterCommand(label+"-check","Authenticated Magic Arrow hit proc and no-ammo/resource rule",_=>Core.LoopContext.Post(()=>
             {try{FixtureNetwork.Connected(label+"-result",n=>Input(n,label));Log.Information("{Label}-check: passed",label);}catch(Exception e){Log.Error(e,"{Label}-check: failed",label);}}));}
     }
-    private static PlayerMobile Owner(int row,bool crossbow,out BaseWeapon bow,out Item gloves,out Item helm)
+    internal static PlayerMobile Owner(int row,bool crossbow,out BaseWeapon bow,out Item gloves,out Item helm)
     {
         var p=HellslayerChecks.Owner(DiabloClass.Amazon,row);ClassSkillChecks.Train(p,"amazon.magicarrow");bow=(BaseWeapon)PlayerItemProcWorldChecks.Carrier(p,crossbow?new Crossbow():new Bow());gloves=DruidSetupItemChecks.Named(p,"Venom Grip");helm=DruidSetupItemChecks.Named(p,"Blackhorn's Face");ClassGear.Refresh(p);
         p.AddToBackpack(new Arrow(7));p.AddToBackpack(new Bolt(11));Require(SkillBindings.Instance.Assign(p,false,CombatAbility.MagicArrow)&&SkillBindings.Instance.AssignQuick(p,7,CombatAbility.MagicArrow),"Magic Arrow contact bindings");return p;
     }
-    private static PoisonDaggerContactChecks.Recipient Target(PlayerMobile p,int dx=3)
+    internal static PoisonDaggerContactChecks.Recipient Target(PlayerMobile p,int dx=3)
     {var t=new PoisonDaggerContactChecks.Recipient();t.SetHits(60000);t.MoveToWorld(new(p.X+dx,p.Y,p.Z),p.Map);t.AIObject.AITimer.Stop();foreach(var r in Enum.GetValues<ResistanceType>()){t.SetResistance(r,100);}t.SetResistance(ResistanceType.Poison,0);return t;}
-    private static void Ready(PlayerMobile p)
+    internal static void Ready(PlayerMobile p)
     {AmazonBow.Cancel(p);ClassCombat.Stop(p);var s=ClassCombat.For(p);s.NextAction=s.RecoveryUntil=Core.TickCount;NecromancerEffects.SetMana256(p,p.ManaMax*256);}
     private static void Ammo(PlayerMobile p)=>Require(p.Backpack.FindItemByType<Arrow>()?.Amount==7&&p.Backpack.FindItemByType<Bolt>()?.Amount==11,"Magic Arrow consumed a quiver");
-    private static void Clean(PlayerMobile p,params BaseCreature[] targets)
+    internal static void Clean(PlayerMobile p,params BaseCreature[] targets)
     {AmazonBow.Cancel(p);ClassCombat.Stop(p);WeaponMissiles.Cancel(p);SorceressSpellMissiles.Cancel(p);foreach(var t in targets){if(t!=null){SourceKnockbacks.Clear(t);t.Corpse?.Delete();t.Delete();}}}
-    private static void Hold(PlayerMobile p,WeaponFlight f)
+    internal static void Hold(PlayerMobile p,WeaponFlight f)
     {var s=WeaponMissiles.Snapshot();WeaponMissiles.Restore(s with{Flights=s.Flights.Where(x=>x.Owner!=p.Serial.Value).Append(f).ToArray()});}
     private static WeaponFlight Launch(PlayerMobile p,BaseCreature target)
     {Require(ClassCombat.Perform(p,CombatAbility.MagicArrow,target,target.Location,Core.TickCount),"Learned Magic Arrow contact entry");ClassCombat.ReleaseCast(p);Require(ClassCombat.ResolveAction(p,ClassCombat.For(p).EffectAt),"Learned Magic Arrow release");return Flights(p).Single();}
-    private static void Drain(PlayerMobile p)
+    internal static void Drain(PlayerMobile p)
     {for(int i=0;i<80&&Flights(p).Length>0;i++){WeaponMissiles.Tick(Flights(p).Min(x=>x.NextUtc),onlyOwner:p.Serial.Value);}Require(Flights(p).Length==0,"Magic Arrow flight did not finish");}
     // Packet-boundary fixture: whole Soul Drainer admission is deliberately not bypassed.
     // A small supported flat armor value is injected into a released packet;
@@ -77,7 +77,7 @@ public static class MagicArrowContactChecks
                 visits.Clear();expectedTargets.Clear();NpcWorldAllocation.RequireStream();var world=NpcWorldAllocation.Capture();var profile=Own(p,bow);int mana=NecromancerEffects.ManaBalance256(p),before=SkillHealth.Balance256(t),cost=SkillMechanics.Values(p,CombatAbility.MagicArrow).Mana256;
                 try
                 {
-                    var f=Launch(p,t);if(armor){f=ArmorPacket(p,f);}Require(MagicArrowContact.Handles(f)&&f.Damage.PhysicalToMagicPercent==5&&f.Damage.ArmorDelta==(armor?-1:0)&&visits.Count==0&&SkillHealth.Balance256(t)==before&&NecromancerEffects.ManaBalance256(p)==mana-cost&&Json(Own(p,bow))==Json(profile)&&NpcWorldAllocation.Capture()==world,"Magic Arrow release snapshot/proc/resource");Ammo(p);
+                    var f=Launch(p,t);if(armor){f=ArmorPacket(p,f);}Require(BowMissileContact.Handles(f)&&f.Damage.PhysicalToMagicPercent==5&&f.Damage.ArmorDelta==(armor?-1:0)&&visits.Count==0&&SkillHealth.Balance256(t)==before&&NecromancerEffects.ManaBalance256(p)==mana-cost&&Json(Own(p,bow))==Json(profile)&&NpcWorldAllocation.Capture()==world,"Magic Arrow release snapshot/proc/resource");Ammo(p);
                     if(suppressed){f=f with{Flags=f.Flags|0x10000};Hold(p,f);}if(scenario=="removed"){p.AddToBackpack(bow);p.AddToBackpack(gloves);ClassGear.Refresh(p);}
                     bool hit=scenario!="miss"&&!blocked,proc=hit&&!suppressed&&scenario!="removed";
                     if(proc){expectedTargets.Enqueue((t,before));if(second!=null){expectedTargets.Enqueue((second,SkillHealth.Balance256(second)));}}

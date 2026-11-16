@@ -1,0 +1,46 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "fan": {
+    "path": "source/D2Game/src/SKILLS/SkillAma.cpp",
+    "sha256": "21aa2ea1359a1b81fa758e5d34e6e67841298514edfb783f9421c57878e54ed9"
+  },
+  "sharedImpactReviewSha256": "24a5f5a4b41ca8a8c4fa0e832be5ac22fd98b2dcdbbc976b534c232ab5d0a1a4",
+  "currentMissilesSha256": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+  "missileFields": {
+    "multipleshotarrow": {
+      "GetHit": 1,
+      "HitClass": 10,
+      "pSrvDoFunc": 1,
+      "pSrvDmgFunc": 0,
+      "ToHit": 1,
+      "NextHit": 1,
+      "NextDelay": 4,
+      "Range": 50,
+      "Vel": 24,
+      "SrcDamage": 96
+    },
+    "multipleshotbolt": {
+      "GetHit": 1,
+      "HitClass": 10,
+      "pSrvDoFunc": 1,
+      "pSrvDmgFunc": 0,
+      "ToHit": 1,
+      "NextHit": 1,
+      "NextDelay": 4,
+      "Range": 50,
+      "Vel": 24,
+      "SrcDamage": 96
+    }
+  },
+  "established": [
+    "Existing do8/Teeth fan emits central flags without0x10000 and outer flags with0x10000. No fan geometry is rewritten.",
+    "Creation flags feed the shared missile damage event suppression. Weapon damage and source poison/drain remain;outer flags suppress attacker hit events,not recipient events or accuracy PMH.",
+    "Use current GetHit1/HitClass10,pSrvDmgFunc0 and SrcDamage96. Reuse captured target armor and the approved persistent world/actor proc stream.",
+    "Existing per-cast/recipient four-frame lease and pierce helper remain unchanged;separate casts retain independent identities. No missile attack event is invented."
+  ],
+  "remaining": [
+    "Exact modern fan seed correlation,NHD owner identity,quiver/stat/provider/owner/world and attack timing remain unverified.",
+    "This qualifies existing Sanctuary lease behavior,not a newly recovered modern global hit-delay rule. Other missile families,exceptional/PvP/full named/class/client/asset acceptance remain separate."
+  ]
+}

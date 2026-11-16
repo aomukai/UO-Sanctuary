@@ -37,7 +37,7 @@ public static class AmazonBow
     public static bool Begin(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now)
     {
         if(!Handles(ability) || !AmazonCombat.Available(owner,ability)){return false;}
-        if(ability==CombatAbility.MagicArrow){try{MagicArrowContact.Require(owner);}catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}
+        if(BowMissileContact.Handles(ability)){try{BowMissileContact.Require(owner,ability);}catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}
         if(ability!=CombatAbility.MagicArrow && !BowAmmunition.CanRelease(owner,CombatTiming.Equipped(owner))){return false;}
         if(selected!=Serial.Zero)
         {

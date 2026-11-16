@@ -346,7 +346,7 @@ public static class WeaponMissiles
             {Server.Logging.LogFactory.GetLogger(typeof(WeaponMissiles)).Warning("Mirrored projectile stopped for {Owner}: {Reason}",owner.Serial.Value,ex.Message);_flights.Remove(flight.Id);return;}
             if(!pierce){_flights.Remove(flight.Id);}return;
         }
-        if((flight.Throwing!=null||MagicArrowContact.Handles(flight))&&selected is BaseCreature throwTarget)
+        if((flight.Throwing!=null||BowMissileContact.Handles(flight))&&selected is BaseCreature throwTarget)
         {
             try{PlayerWeaponContact.Require(player,throwTarget,true,weaponSetup:false);}
             catch(NotSupportedException e){player.SendMessage(0x22,e.Message);_flights.Remove(flight.Id);return;}
@@ -363,7 +363,7 @@ public static class WeaponMissiles
         }
         BowExplosions.Create(player,next,flight.NextUtc);PlagueJavelins.Burst(player,next,selected,flight.NextUtc);AmazonLightningFury.Burst(player,next,flight.NextUtc); // AlwaysExplode survives a parent attack miss.
         if(!hit){_flights.Remove(flight.Id);return;}
-        if((flight.Throwing!=null||MagicArrowContact.Handles(flight))&&selected is BaseCreature hitTarget){WeaponStartEffects.SuccessfulHitRoll(player,hitTarget);}
+        if((flight.Throwing!=null||BowMissileContact.Handles(flight))&&selected is BaseCreature hitTarget){WeaponStartEffects.SuccessfulHitRoll(player,hitTarget);}
         var damage=flight.Damage.Roll(selected,DamageRoll,out int poisonRate256);
         if(flight.Throwing!=null&&selected is PlayerMobile)
         {
@@ -376,11 +376,11 @@ public static class WeaponMissiles
         if(selected is not BaseCreature creature)
         {_flights.Remove(flight.Id);return;}
         bool blocked;
-        if(!((flight.Throwing!=null||MagicArrowContact.Handles(flight))?DoubleThrowMissiles.Block(creature,damage.Physical>0,out blocked):SourceBlocking.TryBlock(creature,damage.Physical>0,out blocked)))
+        if(!((flight.Throwing!=null||BowMissileContact.Handles(flight))?DoubleThrowMissiles.Block(creature,damage.Physical>0,out blocked):SourceBlocking.TryBlock(creature,damage.Physical>0,out blocked)))
         {_flights.Remove(flight.Id);return;}
-        if(MagicArrowContact.Handles(flight))
+        if(BowMissileContact.Handles(flight))
         {
-            if(!blocked){MagicArrowContact.Contact(player,creature,flight,damage,poisonRate256);}
+            if(!blocked){BowMissileContact.Contact(player,creature,flight,damage,poisonRate256);}
             if(creature is{Alive:true,Deleted:false}&&creature is not BaseHire&&flight.Damage.ArmorDelta!=0)
             {WeaponStartEffects.ApplyArmorDelta(creature,flight.Damage.ArmorDelta,flight.NextUtc);}
             if(!pierce){_flights.Remove(flight.Id);}return;

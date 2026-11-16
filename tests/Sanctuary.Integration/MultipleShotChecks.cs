@@ -111,7 +111,7 @@ public static class MultipleShotChecks
                     int before=SkillHealth.Balance256(target);var fan=Cast(p,target:target);var selected=fan.First(x=>((x.Flags&0x10000)!=0)==outer);
                     var all=WeaponMissiles.Snapshot();WeaponMissiles.Restore(all with{Flights=all.Flights.Where(x=>x.Owner!=p.Serial.Value || x.Id==selected.Id).ToArray()});Finish(p);
                     Require(SkillHealth.Balance256(target)<before,"Chosen actual fan ray missed fixture");
-                    Require(TimedEffects.Slow(target,TimedEffects.Now)==(outer?0:20) && TimedEffects.CanRegenerateHits(target)==outer,"Actual central/outer item callback partition");
+                    Require(TimedEffects.Slow(target,TimedEffects.Now)==(outer?0:20) && !TimedEffects.CanRegenerateHits(target),"Actual central/outer hit-event partition and separate accuracy PMH");
                 }finally{target.Delete();}
             }
         }finally{WeaponMissiles.Cancel(p);p.Delete();}
