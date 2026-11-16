@@ -37,14 +37,14 @@ public static class OffensiveAuraChecks
             PaladinAuras.Clear(ally);Require(p.EquipItem(helm),"Fanaticism actual Tarnhelm");ClassGear.Refresh(p);NecromancerEffects.SetMana256(p,256);Select(p,CombatAbility.Fanaticism);
             Require(SkillMechanics.Rank(p,CombatAbility.Fanaticism)==2&&PaladinAuras.Effect(p,CombatAbility.Fanaticism) is{Rank:2,Percent:18,AttackPercent:45,DamagePercent:67}
                 &&PaladinAuras.Effect(ally,CombatAbility.Fanaticism) is{Rank:2,Percent:18,AttackPercent:45,DamagePercent:33}
-                &&PaladinOffense.AttackRate(ally)==18&&NecromancerEffects.ManaBalance256(p)==256,"Provisional positive-mana self/ally Fanaticism soft-rank packet");
+                &&PaladinOffense.AttackRate(ally)==18&&NecromancerEffects.ManaBalance256(p)==256,"Approved positive-mana self/ally Fanaticism soft-rank packet");
             NecromancerEffects.SetMana256(p,0);Select(p,CombatAbility.Fanaticism);var stronger=PaladinAuras.Effect(ally,CombatAbility.Fanaticism);
-            Require(PaladinAuras.Effect(p,CombatAbility.Fanaticism) is{Rank:2,Percent:18,AttackPercent:45,DamagePercent:33}
-                &&stronger is{Rank:2,Percent:18,AttackPercent:45,DamagePercent:33},"Provisional zero-mana self packet altered independent rate/AR");
+            Require(PaladinAuras.Effect(p,CombatAbility.Fanaticism) is{Rank:2,Percent:18,AttackPercent:45,DamagePercent:67}
+                &&stronger is{Rank:2,Percent:18,AttackPercent:45,DamagePercent:33},"Approved zero-mana self packet altered independent rate/AR");
             p.AddToBackpack(helm);ClassGear.Refresh(p);Select(p,CombatAbility.Fanaticism);
-            Require(PaladinAuras.Effect(p,CombatAbility.Fanaticism) is{Rank:1,Percent:14,AttackPercent:40,DamagePercent:25}
+            Require(PaladinAuras.Effect(p,CombatAbility.Fanaticism) is{Rank:1,Percent:14,AttackPercent:40,DamagePercent:50}
                 &&PaladinAuras.Effect(ally,CombatAbility.Fanaticism)==stronger,"Lower self Fanaticism partly rewrote stronger multi-stat recipient");
-            Log.Information("Offensive auras:actual Tarnhelm rank2;Concentration75/chance20/Hammer37;Fanaticism18/45/33and provisional67positive-mana self;lower self rank leaves stronger recipient packet intact;existing recovery/timing/damage/reloads retained");
+            Log.Information("Offensive auras:actual Tarnhelm rank2;Concentration75/chance20/Hammer37;Fanaticism18/45/33and approved67mana-neutral self;lower self rank leaves stronger recipient packet intact;existing recovery/timing/damage/reloads retained");
         }
         finally{foreach(var actor in new Mobile[]{p,ally}){PaladinAuras.Clear(actor);actor.Corpse?.Delete();actor.Delete();}}
     }

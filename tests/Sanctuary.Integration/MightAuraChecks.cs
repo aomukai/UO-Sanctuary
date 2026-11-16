@@ -177,6 +177,9 @@ public static class MightAuraChecks
                 else
                 {
                     Require(actual is{Rank:1}&&actual.Percent==value&&NecromancerEffects.ManaBalance256(p)==0,"Instant aura value or mana");
+                    if(ability==CombatAbility.Fanaticism)
+                    {Require(PaladinAuras.Effect(p,ability) is{Rank:1,DamagePercent:50,Percent:14,AttackPercent:40}
+                        &&actual is{DamagePercent:25,Percent:14,AttackPercent:40},"Actual zero-mana input lost approved personal/party split");}
                     if(right){Require(actual==lease,"Holding selected aura refreshed its lease");}
                     Log.Information("{Label}: acknowledged",label);
                 }

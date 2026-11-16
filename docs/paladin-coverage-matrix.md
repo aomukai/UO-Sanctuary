@@ -41,7 +41,7 @@ User-confirmed behavior remains explicit: Charge spends nine mana with or withou
 
 ## Explicit remaining limits
 
-- At exactly zero mana, the older Fanaticism callback currently supplies its party damage bonus to the caster instead of the full personal bonus. Modern equivalence is unverified; the no-mana-cost observation does not establish the correct damage rule. A [prepared mana-neutral option](fanaticism-mana-proposal.md) now passes47 checks/twelve existing aura inputs/two reloads while remaining disabled; adoption and enabled learned-input qualification are separate. Existing competing-source packet rules remain unqualified and unchanged.
+- Fanaticism now uses the approved mana-neutral personal bonus on successful zero-cost self application: rank1 self50%/allies25%, rank20 self373%/allies186%. The mutable preparation gate is removed; [enabled-input qualification](fanaticism-mana-adopted-checkpoint.md) passes47 results/twelve actual aura inputs/two reloads. Speed/AR/cost/rank/creator/replacement remain unchanged. Equal/stronger competing sources and exact modern callback parity remain unqualified.
 - Sanctuary's broader undead-bypass consumers, exceptional Holy Freeze modes and other skill-specific supplied services retain their documented boundaries.
 - Blessed Hammer retains the documented older-source motion/guard conflict; source comparison does not establish modern factory, room or global chronology parity.
 - Unsupported native species, recipient/item projections, special/PvP routes, exact geometry/event/RNG ordering, historical binary upgrades and graphical-client behavior remain bounded by their dedicated receipts.

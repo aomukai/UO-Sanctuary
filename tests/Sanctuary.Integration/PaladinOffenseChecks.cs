@@ -48,9 +48,9 @@ public static class PaladinOffenseChecks
         Require(c20.Eval("aurastatcalc1")==345 && c20.Eval("aurastatcalc2")==20
             && f20.Eval("aurastatcalc1")==35 && f20.Eval("aurastatcalc2")==135 && f20.Eval("aurastatcalc3")==186 && f20.Eval("passivecalc1")==373,"Pinned rank20 offense values");
         Select(concentration,CombatAbility.Concentration);fanatic.Mana=0;NecromancerEffects.Profiles.Store(fanatic,new());Select(fanatic,CombatAbility.Fanaticism);
-        Require(PaladinAuras.Effect(fanatic,CombatAbility.Fanaticism) is{Percent:14,DamagePercent:25,AttackPercent:40}
+        Require(PaladinAuras.Effect(fanatic,CombatAbility.Fanaticism) is{Percent:14,DamagePercent:50,AttackPercent:40}
             && PaladinAuras.Effect(ally,CombatAbility.Fanaticism) is{DamagePercent:25}
-            && PaladinAuras.DamagePercent(ally)==85 && PaladinAuras.DamagePercent(fanatic)==85,"Legacy zero-mana self override or allied damage values");
+            && PaladinAuras.DamagePercent(ally)==85 && PaladinAuras.DamagePercent(fanatic)==110,"Approved zero-mana self override or allied damage values");
         fanatic.Mana=1;Select(fanatic,CombatAbility.Fanaticism);
         Require(PaladinAuras.Effect(fanatic,CombatAbility.Fanaticism).DamagePercent==50 && PaladinAuras.DamagePercent(fanatic)==110
             && fanatic.Mana==1 && PaladinOffense.HammerBonus(ally)==30,"Positive-mana self override, cost or Hammer primitive");

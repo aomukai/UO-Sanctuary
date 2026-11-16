@@ -1276,7 +1276,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Skill attack rate separate from gear IAS, attack rating and caster/recipient physical bonuses staged in player/native pet/class summon consumers. Strict legacy positive-mana self override and equal-rank replacement are explicit, not modern-certified; full timing/dual-wield/pet/owner/item/client acceptance remains open."
+      "remaining": "Approved zero-cost successful self application uses full personal damage at zero mana: rank1 50percent and rank20 373percent; allies retain25/186percent. Attack rate, AR, rank/creator/replacement and cost remain unchanged. Scoped gear/input/save verification is recorded separately; competing equal/stronger sources and full modern timing/dual-wield/pet/owner/item/client parity remain unqualified."
     },
     {
       "talentId": "paladin.conviction",

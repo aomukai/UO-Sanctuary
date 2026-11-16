@@ -1,0 +1,13 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "answer": "Adopt mana-neutral personal damage (Recommended)",
+  "approvedUtc": "2026-11-16T06:14:09.071728+00:00",
+  "questionItemId": "[\"request_user_input_async\",\"call_611012c0e9184b169eae0b473d35aeee\",0]",
+  "proposal": "docs/fanaticism-mana-proposal.md",
+  "proposalAtApprovalSha256": "3ff6f981c3e42f12806306b70dbeb175581a27890af729c62670713c4ca3aa03",
+  "candidateCommit": "0ba41abb18c963b592a0522360df6520b3995d1b",
+  "testedCandidateEvidence": "tools/reference/fanaticism-mana-native-evidence.json",
+  "testedCandidateEvidenceSha256": "160afae19fb873a2dc58f91da056180c879b0a2ca37a1cad8aa2911844e138dd",
+  "scope": "Successful zero-cost self application uses full personal Fanaticism damage independent of mana. Rank/creator/replacement, speed/AR and allies unchanged. Equal/stronger competing-source behavior remains separately uncertain; learned-input qualification follows. Four Warlock proposals remain frozen pending."
+}
