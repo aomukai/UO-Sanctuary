@@ -48,7 +48,8 @@ internal static class DragonClaws
             impact=impact with{LifeDamage256=checked(NamedElements.To256(impact.Parts.Total)+poison.Rate256),AllocatedPoison=poison};
             drain=WeaponLeech.Capture(owner,AssassinCharges.CobraDrain(states.FirstOrDefault(x=>x.Ability==CombatAbility.CobraStrike),SkillMechanics.Rank(owner,CombatAbility.CobraStrike)));
             if(damage.ColdMs%40!=0){throw new NotSupportedException("Dragon Claw cold duration has no exact source-frame projection");}
-            int rawCold=checked(damage.ColdMs/40+(ice?.Frames??0));
+            // Progressive cold replaces the item length after weapon filling.
+            int rawCold=ice?.Frames??damage.ColdMs/40;
             int rawFreeze=ice?.Count==3?rawCold/SkillMechanics.For(CombatAbility.BladesOfIce).Number("Param5"):0;
             (cold,freeze)=DragonTails.ColdLengths(owner,target,rawCold,rawFreeze);
             if(fire!=null||lightning!=null||ice!=null){flags|=0x4000;}

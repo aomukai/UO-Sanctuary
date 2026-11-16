@@ -52,9 +52,9 @@ public static class DragonKickPackets
         var cobra=states.FirstOrDefault(x=>x.Ability==CombatAbility.CobraStrike);
         var drain=WeaponLeech.Capture(owner,AssassinCharges.CobraDrain(cobra,SkillMechanics.Rank(owner,CombatAbility.CobraStrike)));
         if(damage.ColdMs%40!=0){throw new NotSupportedException("Kick cold duration has no exact source-frame projection");}
-        int cold=checked(damage.ColdMs/40+(ice?.Frames??0));
-        // Prgdam4 adds freeze from the entire accumulated cold length, including
-        // item cold, after the inline Ice roll. Current Ice Param5 is one.
+        // The shared progressive writer replaces item cold length. Count3
+        // then copies that skill length into freeze (current Param5 is one).
+        int cold=ice?.Frames??damage.ColdMs/40;
         int freeze=ice?.Count==3?cold/SkillMechanics.For(CombatAbility.BladesOfIce).Number("Param5"):0;
         return new(input,impact,drain,cold>0?cold:null,freeze,fire!=null || thunder!=null || ice!=null);
     }

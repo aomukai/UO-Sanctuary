@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "9ade3571bb9c8d2f9b0cdc70c89103d5973e87eb0b862f5ba62508cd669e0958",
+  "ContentAssemblySha256": "840d8680f23f74a5d430712c0210f3d77dc93c263d999af6735de5d2a81746a1",
   "NativeAssemblySha256": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
   "InputHashes": {
     "data/Sanctuary/Balance/abyss-route.json": "6c823249f73d320ba6ba4b2c538d419bc54a8cb8aaad8a605f5abf18d5911e18",
@@ -577,12 +577,12 @@
     "src/Sanctuary.Content/DireWolfUpgrades.cs": "7d19edce431d94bce93cb287e7cddfc1032c1111705d56790bf37344208a4064",
     "src/Sanctuary.Content/DirectDamageParts.cs": "79458d5f9d22ce534e94c33cd430c740f6280e8c5e7a24aa51a7094f8f5c3b0c",
     "src/Sanctuary.Content/DragonClawPreparation.cs": "6b1426ed146a64f4f03cc4ef59a5123e877c9cf0caa4e6a075cc81d2b61af231",
-    "src/Sanctuary.Content/DragonClaws.cs": "c7f598ae02853865eefd214b1479285cf0efde30bbef8732dfa93bc4b077ecf9",
+    "src/Sanctuary.Content/DragonClaws.cs": "e6762f0894144aba674688db2607c1cd4a3e4066cd616342067816d5685b93e7",
     "src/Sanctuary.Content/DragonFlightLanding.cs": "4ddfb0160bb15ac8ddf4f154dbdeb7664f55e77c181c9fef078f4b2ea2bd6fdc",
     "src/Sanctuary.Content/DragonFlightPreparation.cs": "24f4d2d8f6c7f30b56934878c4d430705a75df0e7f361d8c31c90762ea864aa8",
     "src/Sanctuary.Content/DragonFlights.cs": "454cd33a701a0fc142c83527d5cfb770a7a9665b89c70c00b7a5e3855ac7de08",
     "src/Sanctuary.Content/DragonKickDamage.cs": "f0fca61276a92855d4ee50fc090372dabdfee6ca72f088b788563d3f6ff3cb68",
-    "src/Sanctuary.Content/DragonKickPackets.cs": "7a50aedc9614d261c9b251f6fe7a47646f240b2356e4e70ef8afd60af98bae56",
+    "src/Sanctuary.Content/DragonKickPackets.cs": "6e7ad177b2078052b49f4af42ecc2fff79b34530c3b612b922757199121196ae",
     "src/Sanctuary.Content/DragonTailPreparation.cs": "18217ca4a365460b0ad650fe3dfba49f4adc872bee5386539e2cb9cc2443f874",
     "src/Sanctuary.Content/DragonTails.cs": "31040812b8fa21293c159e3035407523f12057771d335d4178847ed2f6c2ee50",
     "src/Sanctuary.Content/DragonTalonTiming.cs": "908b260551efb521a1e87bbe706f74aa0182015632a3f7287a35517f28f091f3",

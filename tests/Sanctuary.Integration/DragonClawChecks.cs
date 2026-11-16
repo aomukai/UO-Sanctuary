@@ -44,7 +44,7 @@ public static class DragonClawChecks
     }
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Approved Dragon Claw dual sequence/finisher/contact/resources/lifecycle",_=>Core.LoopContext.Post(()=>{try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     private static void Require(bool yes,string why){if(!yes){throw new InvalidOperationException(why);}}
-    private static PlayerMobile Fresh(int column=6770,int row=3500)
+    internal static PlayerMobile Fresh(int column=6770,int row=3500)
     {
         Creating=true;try
         {
@@ -54,12 +54,12 @@ public static class DragonClawChecks
         }
         finally{Creating=false;}
     }
-    private static BaseCreature Target(PlayerMobile p,int dx=1)
+    internal static BaseCreature Target(PlayerMobile p,int dx=1)
     {
         var t=new CobraPassiveTarget{Name="DragonClawFixtureTarget",Frozen=true,CantWalk=true,NoKillAwards=true};t.MoveToWorld(new(p.X+dx,p.Y,p.Z),p.Map);t.AIObject?.AITimer.Stop();t.SetHits(50000);t.Hits=t.HitsMax;
         foreach(var r in new[]{ResistanceType.Physical,ResistanceType.Fire,ResistanceType.Cold,ResistanceType.Energy,ResistanceType.Poison}){t.SetResistance(r,0);}return t;
     }
-    private static void Hold(PlayerMobile p,CombatAbility ability,int count)
+    internal static void Hold(PlayerMobile p,CombatAbility ability,int count)
     {
         int rank=SkillMechanics.Rank(p,ability);var v=SkillMechanics.Values(p,ability);var charge=new MartialCharge(p.Serial.Value,ability,count,rank,count*(int)v.Eval("aurastatcalc2"),TimedEffects.Now.Add(FixtureSpace.Retention));
         AssassinCharges.Restore(AssassinCharges.Snapshot().Where(x=>x.Owner!=p.Serial.Value||x.Ability!=ability).Append(charge).ToArray());

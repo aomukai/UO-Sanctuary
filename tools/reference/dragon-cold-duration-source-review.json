@@ -1,0 +1,38 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "scope": "Complete older source review and existing approved action policies;not modern executable parity.",
+  "functions": {
+    "sub_6FCF8C70": {
+      "path": "source/D2Game/src/SKILLS/SkillAss.cpp",
+      "sha256": "b74a34f75bac11977b773f1cbcdc15a98fa9bf2a990da99dffb2ccfe90da54aa"
+    },
+    "sub_6FCF7CE0": {
+      "path": "source/D2Game/src/SKILLS/SkillAss.cpp",
+      "sha256": "fb6cab859027d65162dcc79046b28daac2a7d2eacc51dae2314d2ae2bbe35329"
+    },
+    "sub_6FCF5870": {
+      "path": "source/D2Game/src/SKILLS/SkillAss.cpp",
+      "sha256": "dea4aa805fc66d81e82a40546d42c4812b9f77cdad6a9eef819ec680c44476c3"
+    },
+    "D2GAME_RollElementalDamage_6FD14DD0": {
+      "path": "source/D2Game/src/SKILLS/Skills.cpp",
+      "sha256": "430501f2faf68a422913c2812f211c7b1fa8c63fa4a4da09715c149508874e11"
+    },
+    "sub_6FD11E40": {
+      "path": "source/D2Game/src/SKILLS/Skills.cpp",
+      "sha256": "43716701bdf81f3ad8702a1ab50f0efdbcd78c20dd0a8400279b0d1f54509a2a"
+    }
+  },
+  "established": [
+    "Dragon Claw fills ordinary weapon lanes before sub_6FCF5870 applies progressive elemental damage.",
+    "The kick builder fills item elements before the same progressive helper.",
+    "Progressive Ice calls the elemental writer,which adds cold damage but assigns (replaces) dwColdLen. Count3 derives freeze from that resulting length via current Param5.",
+    "With no Ice charge,the item length remains intact. Recipient resistance and difficulty apply through the existing shared cold/freeze services.",
+    "Approved action policies define timing,payment,charge/contact/accuracy and lifecycle;none approves adding item and Ice length."
+  ],
+  "remaining": [
+    "Exact current callbacks/RNG/stat graph and unsupported recipients remain explicit.",
+    "No named item admission,save-schema,asset or gameplay action-policy change is inferred."
+  ]
+}
