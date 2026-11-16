@@ -1,5 +1,7 @@
 # Skill icons
 
+**Final four Warlock talents admitted — 2026-11-16 JST.** Blood Oath still needs a passive talent-tree icon only. Engorge,Blood Boil and Consume still need talent-tree and applicable hotkey/binding artwork. Current generic/text bindings remain placeholders;no icons were generated. Effects/audio stay in the separate register. [Current mechanics](warlock-final-talents-checkpoint.md).
+
 **Raised helpers — 2026-11-16 JST.** [Ownership checkpoint](raised-minions-checkpoint.md) adds no talent or hotkey button. Existing summon/Revive icon requirements remain; helper effects/audio stay separately tracked.
 
 **Native corpse consumers — 2026-11-16 JST.** [Native Lich corpse support](native-corpse-checkpoint.md) adds no skill or button. Existing Raise Skeleton/Mage, Corpse Explosion and Poison Explosion talent/hotkey icon requirements and identified placeholders remain unchanged; effects/audio stay in their separate register.

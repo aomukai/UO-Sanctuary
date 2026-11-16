@@ -1,5 +1,7 @@
 # Skill effects
 
+**Final four Warlock talents admitted — 2026-11-16 JST.** Blood Oath,Engorge,Blood Boil and Consume now use their approved mechanics. Final Oath transfer cues,Engorge corpse/heal/buff visuals,Blood Boil explosions,and Consume retirement/owner-buff effects and audio remain missing. Existing shared heal/explosion/buff/cast presentation is explicitly a placeholder;mechanical admission does not supply final art. [Current mechanics](warlock-final-talents-checkpoint.md).
+
 **Raised helpers — 2026-11-16 JST.** [Ownership checkpoint](raised-minions-checkpoint.md) reuses the existing Lich raise and undead summon placeholders. Final effects/audio remain in the existing register; this ownership graph requires no distinct new artwork.
 
 **Native corpse consumers — 2026-11-16 JST.** [Native Lich corpse support](native-corpse-checkpoint.md) reuses identified existing corpse/explosion/summon placeholders. Existing final CE/Poison Explosion and summon effects/audio requirements remain; this classification adds no distinct visual asset. Icons remain separately tracked.

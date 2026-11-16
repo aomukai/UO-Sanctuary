@@ -110,9 +110,21 @@ public static class BoundDemonEngorgeChecks
         var account=FixtureNetwork.Authenticate(network,p,"bound-engorge-reload-");GoatmanNpcContactChecks.Recipient target=null;
         try
         {
-            PersistentMinions.Resume(p);Require(EngorgeEffects.At(body,TimedEffects.Now)==s.State.Engorge,"Original bound buff lost deadline on reload");target=Target(p,body);Contact(p,body,target);
-            PersistentMinions.Suspend(p);File.WriteAllText(Manifest,JsonSerializer.Serialize(s with{Generation=s.Generation+1,State=BoundDemonHosts.State(body),Life=SkillHealth.Balance256(body)}));
-            Log.Information("Bound Engorge:same native Daemon/items/birth/wounds/resources and original mixed buff deadlines survive reload without recovery;actual native Dagger still leeches once");
+            PersistentMinions.Resume(p);var now=TimedEffects.Now;bool active=now>=s.State.Engorge.AppliedUtc&&now<s.State.Engorge.UntilUtc;
+            Require(EngorgeEffects.At(body,now)==(active?s.State.Engorge:null),"Original bound buff violated its saved absolute deadline");
+            if(!active)
+            {
+                Ready(p);var corpse=DeathSentryExplosionChecks.Body(p,new(p.X+12,p.Y,p.Z));var capture=EngorgePrepared.Capture(p);
+                int life=SkillHealth.Balance256(body),other=SkillHealth.Balance256(goat),mana=NecromancerEffects.ManaBalance256(p);
+                var renewed=EngorgeCasting.ReleasePrepared(p,corpse,TimedEffects.Now);
+                Require(renewed==new EngorgeRelease(true,2,capture.Mana256)&&corpse.SanctuaryConsumed
+                    &&NecromancerEffects.ManaBalance256(p)==mana-capture.Mana256
+                    &&SkillHealth.Balance256(body)==life+EngorgePrepared.Healing256(capture,SkillHealth.Maximum256(body),life)
+                    &&SkillHealth.Balance256(goat)==other+EngorgePrepared.Healing256(capture,SkillHealth.Maximum256(goat),other),"Expired saved buff could not renew through a fresh corpse/payment");
+            }
+            target=Target(p,body);Contact(p,body,target);
+            PersistentMinions.Suspend(p);File.WriteAllText(Manifest,JsonSerializer.Serialize(s with{Generation=s.Generation+1,State=BoundDemonHosts.State(body),Life=SkillHealth.Balance256(body),GoatLife=SkillHealth.Balance256(goat),GoatEffect=EngorgeEffects.Saved(goat)}));
+            Log.Information("Bound Engorge:same native Daemon/items/birth/wounds/resources and original mixed buff deadlines survive reload without recovery;expired buffs stay inactive until a fresh corpse cast;actual native Dagger still leeches once");
         }
         finally{target?.Delete();ClassCombat.Stop(p);network.Mobile=null;p.NetState=null;account[0]=null;network.Account=null;account.Delete();}
     }

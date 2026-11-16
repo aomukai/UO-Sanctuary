@@ -1,5 +1,7 @@
 # Warlock/Witch acceptance inventory
 
+**Current final-four acceptance — 2026-11-16 JST.** [Checkpoint](warlock-final-talents-checkpoint.md) and [receipt](../tools/reference/warlock-final-talents-native-evidence.json):150results/33actual ability inputs/72authenticated connections/three saves/two reloads. All30routes now have scoped subgroup evidence;all four approved rules and reviewed bound/aura extensions are admitted. Historical reviews below describe their original artifacts,not remaining gate decisions. No full modern-parity certificate.
+
 **Current four-talent review — 2026-11-16 JST.** The [consolidated release proposal](warlock-final-talents-release-proposal.md) binds the four original rules and their later qualified bound/numeric/aura extensions. The [current checkpoint](warlock-remaining-review-checkpoint.md) passes75 results/33connections/three saves/two reloads using exact reused C4/I4/native0075artifacts,with no C#/data/gate change. There are zero learned socket ability inputs in this review. Original frozen pairs/receipts are unchanged;this prepares a release decision rather than claiming completion.
 
 Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. **Charms and runewords are excluded.** Druid combined acceptance has passed; this inventory records scoped subgroup results and grants no whole-class certificate.
