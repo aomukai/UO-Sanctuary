@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "b1265d83d3cd46c6431ebb71b8a71f70892561f320913ce1867eefe89f6283b4",
+  "ContentAssemblySha256": "ffad855cde0140633fdec50de5559b44a1385c7c27238b6273aa8f75811bb346",
   "NativeAssemblySha256": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
   "InputHashes": {
     "data/Sanctuary/Balance/abyss-route.json": "6c823249f73d320ba6ba4b2c538d419bc54a8cb8aaad8a605f5abf18d5911e18",
@@ -1085,7 +1085,7 @@
     "src/Sanctuary.Content/PetOwnerRoutes.cs": "5d5d076423b69af304608cfa317e15c7c97e3261f9789bbf639fc891ecf8f456",
     "src/Sanctuary.Content/PetWalkFailure.cs": "131eb1db19a66a7015b98b9144d6933d12228771cd01e5fa19bdac3b59664229",
     "src/Sanctuary.Content/PlagueJavelins.cs": "959bf7a31adf93c735276c66d932c4781fb3a32b7127f4756eb1de76a5db9c8d",
-    "src/Sanctuary.Content/PlayerBasicContact.cs": "39d68bd5fdd402a48152b8c681d2d73eede76b239dada194763a7b17bbb82862",
+    "src/Sanctuary.Content/PlayerBasicContact.cs": "a8f36d00fd7488c780f36fbd0fc0c1850bec4d6811daacc825cb4c9c502262e6",
     "src/Sanctuary.Content/PlayerBlizzards.cs": "e08c0a2bbfd286d364b2e30227cadc9ba4004e4e9b947e5dae826aa32f69ed9a",
     "src/Sanctuary.Content/PlayerFrozenOrbs.cs": "bc2880da96b66e841a60a285f82d05b85a12aac313797adb032c8b2c940610e4",
     "src/Sanctuary.Content/PlayerHydras.cs": "101e22e9a3ac11e36c623e1d3bd838da1cbc3cf18ceb2e59cfe14aa43174075d",

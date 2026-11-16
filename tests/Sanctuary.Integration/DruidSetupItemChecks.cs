@@ -40,7 +40,7 @@ public static class DruidSetupItemChecks
         {string label="druid-setup-items-"+skill+"-"+mode;CombatAbility ability=skill switch{"maul"=>CombatAbility.Maul,"hunger"=>CombatAbility.Hunger,"rabies"=>CombatAbility.Rabies,_=>CombatAbility.Fury};ConsoleInputHandler.RegisterCommand(label+"-check","Authenticated real Woestave/Blackhorn setup phases",_=>Core.LoopContext.Post(()=>
             {try{FixtureNetwork.Connected(label+"-result",n=>Input(n,label,ability));Log.Information("{Label}-check: passed",label);}catch(Exception e){Log.Error(e,"{Label}-check: failed",label);}}));}
     }
-    private static Item Named(PlayerMobile p,string key)
+    internal static Item Named(PlayerMobile p,string key)
     {var item=NamedGear.Create(NamedGear.Catalog.Items.Single(d=>d.SourceKey==key).Id,99,new Random(173),true);p.AddToBackpack(item);Require(p.EquipItem(item),"Equip complete "+key);ClassGear.Refresh(p);return item;}
     private static PlayerMobile Owner(CombatAbility ability,CombatAbility form,int row,out Item weapon,out Item helm)
     {
@@ -48,7 +48,7 @@ public static class DruidSetupItemChecks
         weapon=Named(p,"Woestave");helm=Named(p,"Blackhorn's Face");Require(ClassGear.Bonus(p,"dmg-ac")==-50&&ClassGear.Bonus(p,"noheal")==2,"Real setup property suppliers differ");
         Require(DruidPlayerForms.ApplyPrepared(p,form,TimedEffects.Now),"Enter setup form");Require(SkillBindings.Instance.Assign(p,false,ability)&&SkillBindings.Instance.AssignQuick(p,7,ability),"Bind setup skill");return p;
     }
-    private static GraveyardSkeleton Target(PlayerMobile p)
+    internal static GraveyardSkeleton Target(PlayerMobile p)
     {var t=new GraveyardSkeleton{Frozen=true,CantWalk=true,NoKillAwards=true};t.SetHits(60000);t.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);t.AIObject.AITimer.Stop();foreach(var r in Enum.GetValues<ResistanceType>()){t.SetResistance(r,0);}Require(SourceBlocking.TryRate(t,out int rate,out _)&&rate>0&&CreatureProfiles.Defense(t)>0,"Missing shield/defense control");return t;}
     private static void Ready(PlayerMobile p)
     {ClassCombat.Stop(p);DruidAttackCharges.Clear(p);var s=ClassCombat.For(p);s.NextAction=s.RecoveryUntil=Core.TickCount;NecromancerEffects.SetMana256(p,p.ManaMax*256);}
