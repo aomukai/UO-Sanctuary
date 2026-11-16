@@ -10,10 +10,12 @@ namespace Sanctuary;
 public static class AmazonImpale
 {
     internal sealed record Attack(Serial Weapon,Layer Layer,Serial Target,Map Map,Point3D Origin,int Reach,long Until,long EffectAt,int Rank,
-        bool Basic,bool Hit,bool Released,bool OwnDepletion,PreparedWeaponImpact Impact,double Roll);
+        bool Basic,bool Hit,bool Released,bool OwnDepletion,PreparedWeaponImpact Impact,double Roll)
+    {internal PlayerWeaponContactPrepared Contact{get;init;}}
     internal static Func<double> HitRoll=Utility.RandomDouble;
     internal static Func<double> ElementRoll=Utility.RandomDouble;
     internal static Func<int,int> PhysicalRoll=Utility.Random;
+    internal static Func<int,int> PoisonRoll=Utility.Random;
     internal static Random Effects=Random.Shared;
     internal static Random SpecialWearRoll=Random.Shared;
     internal static Random WearRoll=Random.Shared;
@@ -62,34 +64,51 @@ public static class AmazonImpale
         ActionTiming? timing=null;if(basic){using(WeaponHands.UseMelee(owner,weapon)){timing=CombatTiming.For(owner,CombatAbility.BasicAttack);}}
         if(!SkillCombat.Begin(owner,CombatAbility.Impale,selected,point,now,(_,_,id,_)=>AmazonJab.ValidTarget(owner,id),requireMana:!basic,timing:timing)){return false;}
         var session=ClassCombat.For(owner);var target=World.FindMobile(selected);int reach=AmazonJab.Range(owner);double roll=ElementRoll();PreparedWeaponImpact packet=default;
-        bool hit;using(WeaponHands.UseMelee(owner,weapon))
+        bool hit;PlayerWeaponContactPrepared contact;
+        using(WeaponHands.UseMelee(owner,weapon))
         {
-            hit=!basic || ClassStats.CheckHit(owner,target,0,HitRoll)==true;
-            if(hit)
+            if(target is not BaseCreature creature){session.PendingAbility=CombatAbility.None;return false;}
+            try
             {
+                PlayerWeaponContact.Require(owner,creature,true);
                 if(basic)
-                {packet=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,GearEffects.Damage(owner,roll,target,0,PhysicalRoll));}
+                {
+                    contact=PlayerWeaponContact.PrepareOrdinary(owner,creature,0,0,()=>AmazonJab.ValidTarget(owner,selected),
+                        HitRoll,()=>roll,PhysicalRoll,PoisonRoll,Effects,allowNative:true,suppressWear:true);
+                }
                 else
                 {
-                    // Start7 precomputes physical before special wear. Hitflag1
-                    // bypasses later species ED and ordinary critical. Weapon
-                    // elemental stats are collected after wear, so a broken
-                    // weapon cannot retain its old elemental contribution.
+                    // Retain the current forced-success convention;modern
+                    // shield/avoidance behavior remains explicitly unverified.
+                    WeaponStartEffects.SuccessfulHitRoll(owner,creature);
                     double physical=GearEffects.Damage(owner,roll,null,(int)values.Eval("calc1"),PhysicalRoll).Physical;
                     SpecialWear(weapon,(int)values.Eval("calc2"),(int)values.Eval("calc3"),SpecialWearRoll);
-                    ClassGear.Refresh(owner);
-                    var damage=GearEffects.Damage(owner,roll) with{Physical=physical};
-                    packet=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,damage,projectileCritical:false);
+                    ClassGear.Refresh(owner);WeaponStartEffects.PrepareDamage(owner,creature);
+                    // Hitflag1 retains pre-wear physical without later species
+                    // ED or critical. Other weapon lanes are filled after wear.
+                    var active=CombatTiming.Equipped(owner);
+                    var damage=GearEffects.Damage(owner,roll,poisonRoll:PoisonRoll,poisonFactory:()=>
+                        WeaponPoisonPackets.Melee(WeaponPoisonPackets.AddVenom(BowLaunch.RawPoison(owner,active),Venoms.State(owner)),
+                            NamedElements.MasteryPercent(owner,"pois"),128,PoisonRoll,overrideFrames:Venoms.State(owner)?.Frames??0)) with{Physical=physical};
+                    packet=GearEffects.PrepareWeaponImpact(owner,creature,roll,Effects,damage,projectileCritical:false);
+                    var poison=PoisonJavelins.PreparePoison(owner,creature,damage.SourcePoison.Rate256,damage.SourcePoison.Frames);
+                    packet=packet with{LifeDamage256=checked(NamedElements.To256(packet.Parts.Total)+poison.Rate256),AllocatedPoison=poison};
+                    if(damage.Cold>0&&damage.ColdMs%40!=0){throw new NotSupportedException("Impale cold duration has no exact source-frame projection");}
+                    int cold=damage.Cold>0?ColdStates.LengthFrames(damage.ColdMs/40,NamedElements.Resistance(owner,creature,"cold",creature.ColdResistance),ItemDurationDefenses.CannotFreeze(creature),ItemDurationDefenses.HalfFreeze(creature)):0;
+                    contact=new(SourceMeleeResult.Successful|SourceMeleeResult.GetHit,packet,WeaponLeech.Capture(owner),cold,
+                        CreatureHitRecovery.PlayerHitClass(owner),Effects,HitFlags:1,SuppressWear:true);
                 }
-                packet=packet with{LifeDamage256=NamedElements.To256(packet.Parts.Total)};
+                hit=(contact.Flags&SourceMeleeResult.Successful)!=0;packet=contact.Impact;
+                contact=contact with{AttemptScoped=true,WeaponWear=()=>AmazonJab.Wear(CombatTiming.Equipped(owner),WearRoll)};
             }
+            catch(NotSupportedException e){session.PendingAbility=CombatAbility.None;owner.SendMessage(0x22,e.Message);return false;}
         }
         // The reviewed start dispatcher ignores a post-start debit failure.
         // Rare gear-break max-mana clipping needs modern corroboration; normal
         // starts were already validated as affordable and pay exactly once.
         if(!basic){NecromancerEffects.Pay(owner,values.Mana256);}
         session.Impale=new(weapon.Serial,weapon.Layer,selected,owner.Map,owner.Location,reach,session.NextAction,session.EffectAt,values.Rank,
-            basic,hit,false,ClassGear.Broken(weapon) || !NamedAmmunition.CanAttack(weapon),packet,roll);return true;
+            basic,hit,false,ClassGear.Broken(weapon) || !NamedAmmunition.CanAttack(weapon),packet,roll){Contact=contact};return true;
     }
     public static bool Resolve(PlayerMobile owner,long now)
     {
@@ -108,11 +127,12 @@ public static class AmazonImpale
             {
                 using var melee=WeaponHands.UseMelee(owner,weapon);using var attempt=PaladinThorns.Attempt(owner,target,false);
                 owner.DoHarmful(target,true);owner.PlaySound(0x238); // Identified native thrust/sound placeholder.
-                if(attack.Hit)
+                if(target is BaseCreature creature&&attack.Contact is{} contact)
                 {
-                    GearEffects.Strike(owner,target,attack.Roll,Effects,wearWeapon:false,preparedImpact:attack.Impact);
-                    AmazonJab.Wear(CombatTiming.Equipped(owner),WearRoll); // Separate ordinary successful-hit wear.
-                    if(!attack.Basic){target.FixedEffect(0x374A,10,5,0x480,0);} // Identified impact/slow placeholder.
+                    contact=contact with{RangeCheck=_=>owner.Map==creature.Map&&owner.InRange(creature,reach)&&owner.InLOS(creature)&&Math.Abs(owner.Z-creature.Z)<16};
+                    try{PlayerWeaponContact.Release(owner,creature,contact,TimedEffects.Now,true);}
+                    catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);}
+                    if(attack.Hit&&!attack.Basic){target.FixedEffect(0x374A,10,5,0x480,0);} // Identified impact/slow placeholder.
                 }
             }
             if(attack.Basic){Cancel(owner);ClassCombat.SendState(owner,session);return processed;}

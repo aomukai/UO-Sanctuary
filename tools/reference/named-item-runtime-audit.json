@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "441ddf4cf56fe9b744db706b88989d59d44c48db2f726016cc931097353ad305",
+  "ContentAssemblySha256": "0533957575109f1f709c84a1a79eefb60698f12564e519115a6affa8cfb35835",
   "NativeAssemblySha256": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
   "InputHashes": {
     "data/Sanctuary/Balance/abyss-route.json": "6c823249f73d320ba6ba4b2c538d419bc54a8cb8aaad8a605f5abf18d5911e18",
@@ -348,7 +348,7 @@
     "src/Sanctuary.Content/AmazonCombat.cs": "79c8f3b67c11690ecd1519df959133e9f805837e775da777c3bc52953c040a48",
     "src/Sanctuary.Content/AmazonDecoys.cs": "12438fe44225c2210d51960181d0860e60a2c9821325e1717d812cf83b1d0fb7",
     "src/Sanctuary.Content/AmazonFend.cs": "e4082e9bfd7cf76dbe14d159983bd6af111a98766348dcf22078181c57a74bb6",
-    "src/Sanctuary.Content/AmazonImpale.cs": "f7877646bf8b1fa2919aaa352cebcfd0bcea75e10380d3e0616a4d593ff29715",
+    "src/Sanctuary.Content/AmazonImpale.cs": "9ace3cd9dd7eb4b3c00d3fd77f615961b086419883b20cee9a3dddb4481b1aeb",
     "src/Sanctuary.Content/AmazonInnerSight.cs": "df56cb0e14cc10c7b57565e44dd83be91ccdf6d47b2173983f694b5608b99b72",
     "src/Sanctuary.Content/AmazonJab.cs": "b83a190394a1bf4f442cba0b949b955199602992b896cadb59867113b4a64a18",
     "src/Sanctuary.Content/AmazonJavelins.cs": "5fa114f40d370c39d998db513c4f5b7be31f2413011fde0c104225ab6440d66c",
