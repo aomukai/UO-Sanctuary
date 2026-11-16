@@ -1,0 +1,59 @@
+{
+  "component": "Firestorm saved-state check precedes new clock casts",
+  "referenceVersion": "3.3.93847",
+  "contentBuildReused": 1,
+  "integrationBuildReused": 12,
+  "sourceSnapshot": 14,
+  "nativeMarkers": 21,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "druid-human-cast-clock-check": 3,
+    "firestorm-input-check": 3,
+    "firestorm-input-result": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "firestorm-check": 1,
+    "firestorm-reload-check": 2
+  },
+  "spellInputs": 3,
+  "connections": 3,
+  "boots": 3,
+  "saves": 3,
+  "reloads": 2,
+  "identicalPositiveNegativeInputs": true,
+  "expectedNegativeMarkers": 11,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "5df3992322b515ae6e525927b8b9ddb57420eddd63d9886f019ffd6974b2cd49",
+    "Assemblies/Sanctuary.Content.dll": "508e93ea5f7458c9de14a13d70500aaba9f6f39c76ba3313adaa3966b1d34e14",
+    "Assemblies/Sanctuary.Integration.dll": "44512c661dbe93b5168b829e73ae07941f2f5460a012035581826cd086a0100a"
+  },
+  "gameplayChanged": false,
+  "runtimeDataChanged": false,
+  "csharpChanged": false,
+  "installed": false,
+  "classCertified": false,
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 44
+  },
+  "limits": "The original order deterministically fails after new legitimate clock casts; checking exact saved state first and retaining normal input checkpointing passes two reloads. No weakened world, packet, RNG, life, binding, mana or no-replay assertion. Scope is fixture ordering; combined Druid acceptance remains pending.",
+  "files": {
+    ".local/class-skills/druid-firestorm-clock-input-early/birth-inputs.json": "7732cdb8b1c5b6870fa96416ccd5783b9340b56d91ce5dc5bd53b7fff91109fb",
+    ".local/class-skills/druid-firestorm-clock-input-early/birth-native-checks.log": "afdc6fd0130d9f5c53d27dcd112827ffdfb80b85adfe015a62382b38a0cde53f",
+    ".local/class-skills/druid-firestorm-clock-input-original/birth-inputs.json": "7732cdb8b1c5b6870fa96416ccd5783b9340b56d91ce5dc5bd53b7fff91109fb",
+    ".local/class-skills/druid-firestorm-clock-input-original/birth-native-checks.log": "3e694e5c7fd9a16772ea05cbff6b595d5945e2883447eb5e49454a531ab40451",
+    ".local/class-skills/druid-planned-acceptance/failed-run-4/birth-inputs.json": "0b1c70b4ce656c5616560f4308317818c73303227088f01b06fcccd10c01d7a7",
+    ".local/class-skills/druid-planned-acceptance/firestorm-clock-input-early-run-1.log": "e5c40fb4798d3d6cda292ef78a9fde88e4603968586eb16e174dae11a33a29f0",
+    ".local/class-skills/druid-planned-acceptance/firestorm-clock-input-order-driver.py": "57d50255fab449d847524cc36221a2a51e937f74e7e3366e5770ef4cec757347",
+    ".local/class-skills/druid-planned-acceptance/firestorm-clock-input-original-run-1.log": "ac0df3b92c4532db2f8bb2d47218747a68632c80243ff0c19a83d974834f3c53",
+    ".local/class-skills/druid-planned-acceptance/source-snapshot-14.json": "a66a17e4ae2106c65d58e8bcda21efb6841d70b8476332e56a941f10c4822177",
+    "tests/check_druid_planned_acceptance.py": "3675cee5646b09b73988fa7930f3d8864ed548331cd4b293676550a9c1fe542e",
+    "tools/record_druid_firestorm_order.py": "6fc85e40cafd589d839f917522cc31ff7d52c27d0224454cfe0447c8a4673e55"
+  }
+}

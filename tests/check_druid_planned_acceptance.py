@@ -192,6 +192,10 @@ def configuration():
     for fixture in MODELS:
         add_fixture(config, fixture, False)
     config['extra_manifest_names']['druid-form-attack'] = 'druid-form-world-fixtures.json'
+    # Verify the exact saved Firestorm pool before the clock control makes new
+    # legitimate casts and advances its global allocation counter. The normal
+    # later wire control records those allocations for the next save.
+    config['extra_early_reload_families'] = ('firestorm',)
     config['extra_checks'] += ('druid-human-cast-clock-check', 'druid-form-model-check',
                                'druid-form-rate-check', 'druid-charge-model-check',
                                'druid-rabies-packet-check', 'druid-fire-claws-scalars-check',

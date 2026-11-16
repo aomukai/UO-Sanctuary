@@ -53,7 +53,7 @@ def expected_markers():
 
 
 def record(check=False):
-    run = STAGE / 'native-run-4.log'
+    run = STAGE / 'native-run-5.log'
     assert 'pass across3boots/2reloads' in run.read_text(), 'Combined run has not succeeded'
     born = e.load(STAGE / 'birth-inputs.json')
     snapshot(STAGE / 'source-snapshot-14.json', STAGE / 'birth-inputs.json')
@@ -82,6 +82,7 @@ def record(check=False):
         ('druid-clock-current-native-evidence.json', 33, False),
         ('druid-rabies-composition-native-evidence.json', 27, False),
         ('druid-arctic-composition-native-evidence.json', 39, True),
+        ('druid-firestorm-order-native-evidence.json', 21, True),
     ):
         focused = e.load(ROOT / 'tools/reference' / name)
         assert focused['nativeMarkers'] == count
@@ -89,8 +90,14 @@ def record(check=False):
             if same or artifact != 'Assemblies/Sanctuary.Integration.dll':
                 assert digest == born['artifacts'][artifact], artifact
         for path, digest in focused['files'].items():
-            assert e.sha(ROOT / path) == digest, path
+            if e.sha(ROOT / path) != digest:
+                # Historical focused runs used the pre-ordering driver. Keep
+                # their accepted receipts unchanged and authenticate that exact
+                # saved input; the current run binds the new driver above.
+                assert path == 'tests/check_druid_planned_acceptance.py', path
+                assert e.sha(STAGE / 'failed-run-4/sources' / path) == digest, path
     config = configuration()
+    assert config['extra_early_reload_families'] == ('firestorm',)
     assert tuple(len(config[key]) for key in ('extra_families', 'extra_checks',
         'extra_target_input_commands', 'extra_live_commands', 'extra_files',
         'extra_pre_save_commands')) == (57, 23, 43, 4, 146, 16)
@@ -109,18 +116,19 @@ def record(check=False):
         STAGE / 'birth-native-checks.log', run, STAGE / 'artifact-reuse.json',
         STAGE / 'source-snapshot-1.json', STAGE / 'source-snapshot-14.json',
         STAGE / 'integration-build-12.log']
-    for number in (1, 2, 3):
+    for number in (1, 2, 3, 4):
         failed = STAGE / f'failed-run-{number}'
         files += [failed / name for name in ('birth-inputs.json', 'birth-native-checks.log',
             'sources/tests/check_druid_planned_acceptance.py', 'sources/tests/check_iron_golem_birth.py')]
     files += [ROOT / 'tools/reference' / name for name in (
         'item-content-scope-decision.json', 'summon-snapshot-decision.json',
-        'druid-clock-current-native-evidence.json', 'druid-rabies-composition-native-evidence.json', 'druid-arctic-composition-native-evidence.json')]
+        'druid-clock-current-native-evidence.json', 'druid-rabies-composition-native-evidence.json',
+        'druid-arctic-composition-native-evidence.json', 'druid-firestorm-order-native-evidence.json')]
     files += [ROOT / 'docs' / name for name in ('druid-planned-acceptance-checkpoint.md',
         'druid-coverage-matrix.md', 'arctic-approved-input-rule.md', 'skill-effects.md', 'skill-icons.md')]
     result = dict(component='Current planned-content Druid combined acceptance',
         referenceVersion='3.3.93847', contentBuildReused=1, integrationBuild=12,
-        sourceSnapshot=14, nativeRun=4, nativeMarkers=675,
+        sourceSnapshot=14, nativeRun=5, nativeMarkers=675,
         markers=dict(sorted(expected_markers().items())), fixtureFamilies=57,
         sharedChecks=23, spellInputAttempts=129, legacyElementalSequences=27,
         heldArcticSequences=9, connectedFurySaveStages=3,
