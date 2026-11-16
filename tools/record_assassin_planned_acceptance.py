@@ -39,12 +39,12 @@ def expected_markers():
     for source in (0, 1, 9):
         expected[f'fury-held-wire-{source}-result'] += 3
     expected['fury-held-input-save-stage-check'] += 3
-    assert sum(expected.values()) == 646
+    assert sum(expected.values()) == 655
     return expected
 
 
 def record(check=False):
-    run = STAGE / 'native-run-2.log'
+    run = STAGE / 'native-run-3.log'
     assert 'pass across3boots/2reloads' in run.read_text(), 'Native run has not completed successfully'
     born = e.load(STAGE / 'birth-inputs.json')
     snapshot(STAGE / 'source-snapshot-3.json', STAGE / 'birth-inputs.json')
@@ -81,7 +81,7 @@ def record(check=False):
                 assert digest == born['artifacts'][artifact], artifact
         for path, digest in focused['files'].items():
             assert e.sha(ROOT / path) == digest, path
-    log = e.cohort(STAGE, expected_markers(), 646)
+    log = e.cohort(STAGE, expected_markers(), 655)
     config = configuration()
     assert tuple(len(config[key]) for key in (
         'extra_families', 'extra_checks', 'extra_target_input_commands', 'extra_files')) == (66, 26, 34, 98)
@@ -100,6 +100,7 @@ def record(check=False):
              STAGE / 'source-snapshot-3.json', STAGE / 'integration-build-2.log',
              STAGE / 'failed-run-1/birth-inputs.json', STAGE / 'failed-run-1/birth-native-checks.log',
              STAGE / 'failed-run-1/sources/tests/check_assassin_planned_acceptance.py']
+    files += [STAGE / 'failed-run-2' / name for name in ('birth-inputs.json', 'birth-native-checks.log', 'sources/tests/check_assassin_planned_acceptance.py')]
     files += [ROOT / 'tools/reference' / name for name in (
         'item-content-scope-decision.json', 'assassin-clock-current-native-evidence.json',
         'assassin-wake-placement-current-native-evidence.json',
@@ -112,7 +113,7 @@ def record(check=False):
         'sentry-occupied-placement-proposal.md', 'skill-effects.md', 'skill-icons.md')]
     result = dict(component='Current planned-content Assassin combined acceptance',
                   referenceVersion='3.3.93847', contentBuildReused=1, integrationBuild=2,
-                  sourceSnapshot=3, nativeRun=2, nativeMarkers=646,
+                  sourceSnapshot=3, nativeRun=3, nativeMarkers=655,
                   markers=dict(sorted(expected_markers().items())), fixtureFamilies=66,
                   sharedChecks=26, spellInputAttempts=102, legacyWireSequences=42,
                   heldFuryWireSequences=9, connectedFurySaveStages=3,
@@ -126,7 +127,7 @@ def record(check=False):
                   goalComplete=False, classCertified=False,
                   limits='Scoped class cohort, not full D2R parity. Current executable timing/RNG/stat/event/geometry/owner/PvP equivalence, unsupported original-item callbacks, exceptional terrain/target/recipient cases and graphical-client acceptance remain explicit. Component actors and prepared states retain bounded claims; Shadow learned/AI controls supplement dedicated intrinsic proofs. Final effects/audio/icons and historical save-cleanup concerns remain separate.')
     e.write('assassin-planned-acceptance-native-evidence.json', result, files, check)
-    print('Assassin planned cohort:646 exact results/3boots/2reloads; no class-certification claim.')
+    print('Assassin planned cohort:655 exact results/3boots/2reloads; no class-certification claim.')
 
 
 if __name__ == '__main__':

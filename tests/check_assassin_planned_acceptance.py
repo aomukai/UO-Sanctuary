@@ -169,7 +169,8 @@ def configuration():
         'assassin-cast-clock-source-probe.json': ROOT / '.local/class-skills/assassin-cast-clock-source-probe.json',
         'shadow-fury-action-cases.json': ROOT / '.local/class-skills/shadow-fury-action-source/cases.json',
     })
-    for family in ('psychic-hammer', 'burst-speed', 'cloak', 'fade', 'venom'):
+    for family in ('psychic-hammer', 'burst-speed', 'cloak', 'fade', 'venom',
+                   'fire-blast', 'shock-web', 'mind-blast'):
         config['extra_wait_results'].update({family + '-check': family + '-result',
                                             family + '-reload-check': family + '-reload-result'})
     config['extra_wait_results']['weapon-block-check'] = 'weapon-block-result'
