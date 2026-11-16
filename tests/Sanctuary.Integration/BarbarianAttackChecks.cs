@@ -44,9 +44,9 @@ public static class BarbarianAttackChecks
     private static int Life(Mobile actor)=>actor.Hits*256-SkillHealth.Remainder256(actor);
     private static void Controlled(Action action)
     {
-        var hit=BarbarianMelee.HitRoll;var element=BarbarianMelee.ElementRoll;var physical=BarbarianMelee.PhysicalRoll;var effects=BarbarianMelee.Effects;
-        try{BarbarianMelee.HitRoll=()=>0;BarbarianMelee.ElementRoll=()=>0;BarbarianMelee.PhysicalRoll=_=>0;BarbarianMelee.Effects=new Rolls();action();}
-        finally{BarbarianMelee.HitRoll=hit;BarbarianMelee.ElementRoll=element;BarbarianMelee.PhysicalRoll=physical;BarbarianMelee.Effects=effects;}
+        var hit=BarbarianMelee.HitRoll;var element=BarbarianMelee.ElementRoll;var physical=BarbarianMelee.PhysicalRoll;var effects=BarbarianMelee.Effects;var shield=SourceBlocking.BlockRoll;
+        try{SourceBlocking.BlockRoll=n=>n-1;BarbarianMelee.HitRoll=()=>0;BarbarianMelee.ElementRoll=()=>0;BarbarianMelee.PhysicalRoll=_=>0;BarbarianMelee.Effects=new Rolls();action();}
+        finally{BarbarianMelee.HitRoll=hit;BarbarianMelee.ElementRoll=element;BarbarianMelee.PhysicalRoll=physical;BarbarianMelee.Effects=effects;SourceBlocking.BlockRoll=shield;}
     }
     private static void Ready(PlayerMobile owner){ClassCombat.Stop(owner);ClassCombat.For(owner).NextAction=ClassCombat.For(owner).RecoveryUntil=Core.TickCount;}
     private static void Mana(PlayerMobile owner){owner.Mana=owner.ManaMax;NecromancerEffects.Profiles.Store(owner,new());}
@@ -104,7 +104,7 @@ public static class BarbarianAttackChecks
             Require(plain==CombatTiming.Calculate(DiabloClass.Barbarian,CombatAbility.BasicAttack,timing) && plain==CombatTiming.Calculate(DiabloClass.Barbarian,ability,timing,fcr:100)
                 && CombatTiming.Calculate(DiabloClass.Barbarian,ability,timing,ias:100).Frames<plain.Frames,"Attack used cast timing/FCR or ignored IAS");
             Ready(owner);owner.Mana=1;NecromancerEffects.Profiles.Store(owner,new());
-            Require(!ClassCombat.Perform(owner,ability,enemy,enemy.Location,Core.TickCount) && ClassCombat.For(owner).BarbarianAttack==null,"Unpaid attack started");Mana(owner);
+            Require(ClassCombat.Perform(owner,ability,enemy,enemy.Location,Core.TickCount) && ClassCombat.For(owner).PendingAbility==CombatAbility.BasicAttack && ClassCombat.For(owner).BarbarianAttack==null && NecromancerEffects.ManaBalance256(owner)==256,"Underfunded attack did not preserve free basic fallback");ClassCombat.Stop(owner);Mana(owner);
             var point=enemy.Location;enemy.MoveToWorld(new(owner.X+6,owner.Y,owner.Z),owner.Map);Ready(owner);
             Require(!ClassCombat.Perform(owner,ability,enemy,enemy.Location,Core.TickCount),"Attack used spell reach");enemy.MoveToWorld(point,owner.Map);
             foreach(int cancel in new[]{0,1,2,3,4})

@@ -7,10 +7,12 @@ namespace Sanctuary;
 
 public static class BarbarianMelee
 {
-    internal sealed record Prepared(CombatAbility Ability,Serial Target,bool Hit,PreparedWeaponImpact Impact,double ElementRoll,int StunFrames,long EffectAt);
+    internal sealed record Prepared(CombatAbility Ability,Serial Target,bool Hit,PreparedWeaponImpact Impact,double ElementRoll,int StunFrames,long EffectAt)
+    {internal PlayerWeaponContactPrepared Contact{get;init;}}
     internal static Func<double> HitRoll=Utility.RandomDouble;
     internal static Func<double> ElementRoll=Utility.RandomDouble;
     internal static Func<int,int> PhysicalRoll=Utility.Random;
+    internal static Func<int,int> PoisonRoll=Utility.Random;
     internal static Random Effects=Random.Shared;
     public static bool Handles(CombatAbility ability)=>ability is CombatAbility.Bash or CombatAbility.Stun or CombatAbility.Concentrate or CombatAbility.Berserk;
     public static bool ValidTarget(PlayerMobile owner,CombatAbility ability,Serial selected)
@@ -24,24 +26,34 @@ public static class BarbarianMelee
     }
     public static bool Begin(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now)
     {
-        if(!Handles(ability) || !SkillCombat.Begin(owner,ability,selected,point,now,(_,skill,id,_)=>ValidTarget(owner,skill,id))){return false;}
-        var session=ClassCombat.For(owner);var target=World.FindMobile(selected);var values=SkillMechanics.Values(owner,ability);
-        bool hit=ClassStats.CheckHit(owner,target,(int)(SkillMechanics.For(ability).SourceFields.ContainsKey("ToHitCalc") && SkillMechanics.For(ability).Text("ToHitCalc").Length>0?values.Eval("ToHitCalc"):values.Formula("toht")),HitRoll)==true;
-        double roll=0;PreparedWeaponImpact packet=default;
-        if(hit)
-        {
-            roll=ElementRoll();var damage=GearEffects.Damage(owner,roll,target,(int)values.Eval("calc1"),PhysicalRoll);
-            packet=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,damage,physicalToMagicPercent:ability is CombatAbility.Concentrate or CombatAbility.Berserk?(int)values.Eval("calc4"):0);
-            // Start32 adds this after allocation's ordinary critical/mitigation.
-            // ExecuteEvents later commits the already-stored total, so the legacy
-            // flat amount remains a physical-event field without increasing life damage.
-            // Modern D2R equivalence for that stale-total behavior remains unverified.
-            packet=packet with{LifeDamage256=NamedElements.To256(packet.Parts.Total),Parts=packet.Parts with{Physical=packet.Parts.Physical+(ability==CombatAbility.Berserk?0:values.Eval("calc2"))}};
-        }
+        if(!Handles(ability)||!BarbarianCombat.Available(owner,ability)||!ValidTarget(owner,ability,selected)){return false;}
+        var target=(BaseCreature)World.FindMobile(selected);var values=SkillMechanics.Values(owner,ability);
+        if(!NecromancerEffects.CanPay(owner,values.Mana256))
+        {return ClassCombat.Perform(owner,CombatAbility.BasicAttack,target,point,now);}
+        try{PlayerWeaponContact.RequireOrdinary(owner,target,true);}
+        catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}
+        if(!SkillCombat.Begin(owner,ability,selected,point,now,(_,skill,id,_)=>ValidTarget(owner,skill,id))){return false;}
+        var session=ClassCombat.For(owner);var row=SkillMechanics.For(ability);
+        int ar=(int)(row.SourceFields.ContainsKey("ToHitCalc")&&row.Text("ToHitCalc").Length>0?values.Eval("ToHitCalc"):values.Formula("toht"));
+        // Start32/start39 allocate once. Accuracy,shield,setup,critical,typed
+        // lanes,poison mitigation and leech stay captured across the windup.
+        double roll=0;
+        var contact=PlayerWeaponContact.PrepareOrdinary(owner,target,ar,(int)values.Eval("calc1"),
+            ()=>ValidTarget(owner,ability,selected),HitRoll,()=>roll=ElementRoll(),PhysicalRoll,PoisonRoll,Effects,true,
+            physicalToMagicPercent:ability is CombatAbility.Concentrate or CombatAbility.Berserk?(int)values.Eval("calc4"):0);
+        bool hit=(contact.Flags&SourceMeleeResult.Successful)!=0;var packet=contact.Impact;
+        // Start32 appends flat physical AFTER AllocCombat has stored total,
+        // even on a miss. Keep the event field separate from life damage;
+        // exact modern handling of this old stale total remains unverified.
+        packet=packet with{LifeDamage256=packet.LifeDamage256??NamedElements.To256(packet.Parts.Total),
+            Parts=packet.Parts with{Physical=packet.Parts.Physical+(ability==CombatAbility.Berserk?0:values.Eval("calc2"))},
+            SourceStunFrames=hit&&ability==CombatAbility.Stun?values.DurationFrames:packet.SourceStunFrames};
+        contact=contact with{Impact=packet,Flags=contact.Flags|(hit?row.Number("ResultFlags"):0),HitClass=hit?row.Number("HitClass"):0,
+            HitFlags=hit?(uint)row.Number("HitFlags"):0u,SkillKnockback=ability==CombatAbility.Bash,StunRoll=CombatStuns.Roll,ControlStun=ability==CombatAbility.Stun,AttemptScoped=true};
         if(!NecromancerEffects.Pay(owner,values.Mana256)){session.PendingAbility=CombatAbility.None;return false;}
         if(ability==CombatAbility.Concentrate){BarbarianConcentrate.Begin(owner,values);}
         if(ability==CombatAbility.Berserk){BarbarianBerserk.Begin(owner,values,now);}
-        session.BarbarianAttack=new(ability,selected,hit,packet,roll,ability==CombatAbility.Stun?values.DurationFrames:0,session.EffectAt);
+        session.BarbarianAttack=new(ability,selected,hit,packet,roll,ability==CombatAbility.Stun?values.DurationFrames:0,session.EffectAt){Contact=contact};
         return true;
     }
     public static bool Release(PlayerMobile owner,CombatAbility ability,Serial selected,long now)
@@ -55,13 +67,11 @@ public static class BarbarianMelee
         if(ability==CombatAbility.Concentrate){BarbarianConcentrate.Impact(owner,now);}
         var target=(BaseCreature)World.FindMobile(selected);owner.DoHarmful(target,true);owner.PlaySound(0x238); // Existing weapon sound/animation placeholders.
         using var attempt=PaladinThorns.Attempt(owner,target,false);
-        if(!prepared.Hit){return true;}
-        GearEffects.Strike(owner,target,prepared.ElementRoll,Effects,skillKnockback:ability==CombatAbility.Bash,preparedImpact:prepared.Impact);
-        if(target is{Alive:true,Deleted:false})
-        {
-            if(ability==CombatAbility.Bash){SourceKnockbacks.Begin(owner,target);}
-            else if(ability==CombatAbility.Stun){CombatStuns.Apply(target,prepared.StunFrames);}
-        }
+        if(prepared.Contact==null){throw new NotSupportedException("Missing captured Barbarian contact");}
+        // The outer scope owns the attempt. Even misses and shield blocks
+        // release their captured attempt packet; never reroll at action time.
+        try{PlayerWeaponContact.Release(owner,target,prepared.Contact with{AttemptScoped=true},TimedEffects.Now,true);}
+        catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}
         return true;
     }
 }

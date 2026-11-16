@@ -41,9 +41,9 @@ public static class ConcentrateChecks
     {try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     private static void Controlled(Action action)
     {
-        var hit=BarbarianMelee.HitRoll;var element=BarbarianMelee.ElementRoll;var physical=BarbarianMelee.PhysicalRoll;var effects=BarbarianMelee.Effects;
-        try{BarbarianMelee.HitRoll=()=>0;BarbarianMelee.ElementRoll=()=>0;BarbarianMelee.PhysicalRoll=_=>0;BarbarianMelee.Effects=new Rolls();action();}
-        finally{BarbarianMelee.HitRoll=hit;BarbarianMelee.ElementRoll=element;BarbarianMelee.PhysicalRoll=physical;BarbarianMelee.Effects=effects;}
+        var hit=BarbarianMelee.HitRoll;var element=BarbarianMelee.ElementRoll;var physical=BarbarianMelee.PhysicalRoll;var effects=BarbarianMelee.Effects;var shield=SourceBlocking.BlockRoll;
+        try{SourceBlocking.BlockRoll=n=>n-1;BarbarianMelee.HitRoll=()=>0;BarbarianMelee.ElementRoll=()=>0;BarbarianMelee.PhysicalRoll=_=>0;BarbarianMelee.Effects=new Rolls();action();}
+        finally{BarbarianMelee.HitRoll=hit;BarbarianMelee.ElementRoll=element;BarbarianMelee.PhysicalRoll=physical;BarbarianMelee.Effects=effects;SourceBlocking.BlockRoll=shield;}
     }
     private static void Stop(BaseCreature target){target.Frozen=target.CantWalk=true;target.Combatant=null;target.AIObject?.AITimer.Stop();}
     private static void Freeze(Mobile actor)
@@ -132,7 +132,7 @@ public static class ConcentrateChecks
     private static void Gates(PlayerMobile owner,Skeleton enemy,Item weapon)
     {
         Ready(owner);owner.Mana=1;NecromancerEffects.Profiles.Store(owner,new());
-        Require(!ClassCombat.Perform(owner,CombatAbility.Concentrate,enemy,enemy.Location,Core.TickCount) && BarbarianConcentrate.Defense(owner)==0,"Unpaid Concentrate state");Mana(owner);
+        Require(ClassCombat.Perform(owner,CombatAbility.Concentrate,enemy,enemy.Location,Core.TickCount) && ClassCombat.For(owner).PendingAbility==CombatAbility.BasicAttack && ClassCombat.For(owner).BarbarianAttack==null && BarbarianConcentrate.Defense(owner)==0 && NecromancerEffects.ManaBalance256(owner)==256,"Underfunded Concentrate created skill state or spent basic-attack mana");ClassCombat.Stop(owner);Mana(owner);
         var point=enemy.Location;enemy.MoveToWorld(new(owner.X+6,owner.Y,owner.Z),owner.Map);
         Require(!ClassCombat.Perform(owner,CombatAbility.Concentrate,enemy,enemy.Location,Core.TickCount),"Concentrate spell reach");enemy.MoveToWorld(point,owner.Map);
         Require(!ClassCombat.Perform(owner,CombatAbility.Concentrate,null,owner.Location,Core.TickCount),"Unverified ground acquisition enabled");

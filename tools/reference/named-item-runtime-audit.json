@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "840d8680f23f74a5d430712c0210f3d77dc93c263d999af6735de5d2a81746a1",
+  "ContentAssemblySha256": "06f98dc1d3fe25f4a23c6dfba443386a46fb6c125706c55172fa14eda1a7d828",
   "NativeAssemblySha256": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
   "InputHashes": {
     "data/Sanctuary/Balance/abyss-route.json": "6c823249f73d320ba6ba4b2c538d419bc54a8cb8aaad8a605f5abf18d5911e18",
@@ -422,7 +422,7 @@
     "src/Sanctuary.Content/BarbarianLeap.cs": "4057d5e86d055c5ddbb1b8dd2520b6377c411398c824726e6499e41c60667a95",
     "src/Sanctuary.Content/BarbarianLeapAttack.cs": "5feee3acb17d8eb13e8f2caca035d0498d6071a15e0c7926990c70c94583d0cd",
     "src/Sanctuary.Content/BarbarianMasteries.cs": "5838d760f97c5a97b49f569a79399cc36fabb3dd189acce77d38f7ff300facc6",
-    "src/Sanctuary.Content/BarbarianMelee.cs": "6ff1841bfeb79607ccaa93e0c2e30f6462e7ad68d31b749ba8ae057923ab419e",
+    "src/Sanctuary.Content/BarbarianMelee.cs": "0f345832a6ff5ffd326a83f9320c25800d8dd1064b9cf6d6a7d2c5b6dd65a156",
     "src/Sanctuary.Content/BarbarianPairedMelee.cs": "48fdcbba8ca126ebf7c3917fb7315f7d69e123b9481db16ef444d866ccc9521e",
     "src/Sanctuary.Content/BarbarianShout.cs": "5180e7d04c9d88b3b46c5a28f02d358ed11526db559fff1e2fac7db44493d43f",
     "src/Sanctuary.Content/BarbarianTaunt.cs": "f4a0c577156695062364de936f9160a6354be159ba6ddfb418eb7f183fa7be8e",
@@ -1102,7 +1102,7 @@
     "src/Sanctuary.Content/PlayerItemSpellCasts.cs": "ddbcad067d5938bd5255dc293fd2611b2ec1e04602ac4667255b31c6d0fe3e6b",
     "src/Sanctuary.Content/PlayerMeleeGeometry.cs": "22fa9fcd2ab728bdfc16b20e68b4cf630e53542ba4536ae70088c57c6b05a42f",
     "src/Sanctuary.Content/PlayerMeleeReturn.cs": "e26ce78ce7e8c15a7029d7cf5ae642329f4346602237ad8458d80420ca2120a1",
-    "src/Sanctuary.Content/PlayerWeaponContact.cs": "13621a0ac69f59c4364db683923ac56997e4c2d4c0f8fa97f140f99a39f70fea",
+    "src/Sanctuary.Content/PlayerWeaponContact.cs": "e2c92b1556dcf394631f031c133496fe691ef5ce2f2a7a1d4420a472d000cad5",
     "src/Sanctuary.Content/PlayerWeaponSequences.cs": "0b1c9f6741bceb4cee2faeae0b94188378a2b2212f90a2150c8193b530fbb307",
     "src/Sanctuary.Content/PoisonCloudGeometry.cs": "b3e93d1a724e92606fb6f91866054e701d0c11d0859f3738da72705fdba13e56",
     "src/Sanctuary.Content/PoisonDaggerCombat.cs": "4e2c3c9f252418f8d87e39adb4bc48424c902f8e114c21e44c846c8102dd42dc",

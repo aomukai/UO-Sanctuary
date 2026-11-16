@@ -1,0 +1,39 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "scope": "Complete older functions with pinned tables and approved low-mana/shared world rules;not current executable parity.",
+  "functions": {
+    "SKILLS_SrvSt32_Conversion_Bash_Stun_Concentrate_BearSmite": {
+      "path": "source/D2Game/src/SKILLS/SkillBar.cpp",
+      "sha256": "93b94ff9eda677643f6b1c34e10db5e4550931be57a3c4c317a8586781860aa5"
+    },
+    "SKILLS_SrvSt39_Berserk": {
+      "path": "source/D2Game/src/SKILLS/SkillBar.cpp",
+      "sha256": "01566d7e7f1f8bfbe05a54d35ef0c645fcefca75022cf0349bd1f09e29757dff"
+    },
+    "SKILLS_SrvDo002_Kick_PowerStrike_MonIceSpear_Impale_Bash_Stun_Concentrate_BearSmite_Vengeance_Berserk_FireClaws": {
+      "path": "source/D2Game/src/SKILLS/Skills.cpp",
+      "sha256": "70ec271db773612943aabdcfe55da0812bc818cd35aa97ea8c017fc27f6d27c2"
+    },
+    "SUNITDMG_AllocCombat": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "sha256": "bc56dd3efbba1649d4a3d9bfcb8f2f63187bbd262c2458c6709860891d28c99a"
+    },
+    "SUNITDMG_DrainItemDurability": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "sha256": "9384594853e7f4255913c5cf5ff2e45d306ead9fd8e83b3e592470e1c0ef7d58"
+    }
+  },
+  "established": [
+    "start32/start39 resolve accuracy and shield result,apply row flags/hit class,allocate ordinary source128 weapon damage,then capture self states.",
+    "start32 appends calc2<<8 physical after AllocCombat has calculated/stored total;even unsuccessful stored packets receive this field. start39 does not append duration calc2 as physical.",
+    "Do2 drains the captured combat record;successful packets set hit flags32 before damage events,HP/control,presentation/wear and attack/return events.",
+    "The existing shared contact/poison services supply mitigated initial poison rate plus its independent strongest-poison clock.",
+    "Stun uses the existing explicit boss/velocity control metadata and shared recipient resolver;Bash uses its existing prepared knockback projection.",
+    "The user-approved underfunded melee fallback remains an ordinary Basic Attack;no skill payment,self-state or captured skill packet is created."
+  ],
+  "remaining": [
+    "Exact modern stale-total/startup/RNG/stat-graph and self-state mode equivalence remain unverified;the old physical field is kept separate from initial HP.",
+    "Existing unsupported recipient guards remain explicit. No player-recipient,Whirlwind,DoubleThrow,other named proc body or missile/incoming qualification is inferred."
+  ]
+}

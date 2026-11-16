@@ -42,9 +42,9 @@ public static class BerserkChecks
     private static void Later(int ms,Action action)=>Timer.StartTimer(TimeSpan.FromMilliseconds(Math.Max(1,ms)),()=>Controlled(()=>{try{action();}catch(Exception e){Log.Error(e,"berserk-result: failed");}}));
     private static void Controlled(Action action)
     {
-        var hit=BarbarianMelee.HitRoll;var element=BarbarianMelee.ElementRoll;var physical=BarbarianMelee.PhysicalRoll;var effects=BarbarianMelee.Effects;
-        try{BarbarianMelee.HitRoll=()=>0;BarbarianMelee.ElementRoll=()=>0;BarbarianMelee.PhysicalRoll=_=>0;BarbarianMelee.Effects=new Rolls();action();}
-        finally{BarbarianMelee.HitRoll=hit;BarbarianMelee.ElementRoll=element;BarbarianMelee.PhysicalRoll=physical;BarbarianMelee.Effects=effects;}
+        var hit=BarbarianMelee.HitRoll;var element=BarbarianMelee.ElementRoll;var physical=BarbarianMelee.PhysicalRoll;var effects=BarbarianMelee.Effects;var shield=SourceBlocking.BlockRoll;
+        try{SourceBlocking.BlockRoll=n=>n-1;BarbarianMelee.HitRoll=()=>0;BarbarianMelee.ElementRoll=()=>0;BarbarianMelee.PhysicalRoll=_=>0;BarbarianMelee.Effects=new Rolls();action();}
+        finally{BarbarianMelee.HitRoll=hit;BarbarianMelee.ElementRoll=element;BarbarianMelee.PhysicalRoll=physical;BarbarianMelee.Effects=effects;SourceBlocking.BlockRoll=shield;}
     }
     private static void Stop(BaseCreature target){target.Frozen=target.CantWalk=true;target.Combatant=null;target.AIObject?.AITimer.Stop();}
     private static void Freeze(Mobile actor)
@@ -112,7 +112,7 @@ public static class BerserkChecks
     }
     private static void Gates(PlayerMobile owner,Skeleton enemy,Item weapon)
     {
-        Clean(owner);owner.Mana=3;NecromancerEffects.Profiles.Store(owner,new());Require(!ClassCombat.Perform(owner,CombatAbility.Berserk,enemy,enemy.Location,Core.TickCount) && BarbarianBerserk.State(owner)==null,"Unpaid Berserk");Mana(owner);
+        Clean(owner);owner.Mana=3;NecromancerEffects.Profiles.Store(owner,new());Require(ClassCombat.Perform(owner,CombatAbility.Berserk,enemy,enemy.Location,Core.TickCount) && ClassCombat.For(owner).PendingAbility==CombatAbility.BasicAttack && ClassCombat.For(owner).BarbarianAttack==null && BarbarianBerserk.State(owner)==null && NecromancerEffects.ManaBalance256(owner)==768,"Underfunded Berserk created skill state or spent basic-attack mana");ClassCombat.Stop(owner);Mana(owner);
         var origin=enemy.Location;enemy.MoveToWorld(new(owner.X+6,owner.Y,owner.Z),owner.Map);Require(!ClassCombat.Perform(owner,CombatAbility.Berserk,enemy,enemy.Location,Core.TickCount),"Berserk spell reach");enemy.MoveToWorld(origin,owner.Map);
         Require(!ClassCombat.Perform(owner,CombatAbility.Berserk,null,owner.Location,Core.TickCount),"Unverified Berserk ground acquisition");
         var weaponTiming=CombatTiming.Weapon(CombatTiming.Equipped(owner));var timing=CombatTiming.Calculate(DiabloClass.Barbarian,CombatAbility.Berserk,weaponTiming);

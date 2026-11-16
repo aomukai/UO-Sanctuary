@@ -11,7 +11,7 @@ namespace Sanctuary;
 // Item processors and native encounter reactions remain explicit adapters.
 internal sealed record PlayerWeaponContactPrepared(int Flags,PreparedWeaponImpact Impact,PlayerWeaponDrain Drain,int ColdFrames,int BaseHitClass,Random Effects,int HitClass=0,
     bool Smite=false,Func<int,int> StunRoll=null,int? MeleeRange=null,bool SkillKnockback=false,Func<int,bool> RangeCheck=null,int FreezeFrames=0,uint HitFlags=0,int? CrushingDivisor=null,bool SuppressWear=false,bool AttemptScoped=false,
-    Action<PlayerMobile,BaseCreature,DateTime> CapturedPoison=null);
+    Action<PlayerMobile,BaseCreature,DateTime> CapturedPoison=null,bool ControlStun=false);
 
 internal static class PlayerWeaponContact
 {
@@ -196,8 +196,9 @@ internal static class PlayerWeaponContact
             Cold256:NamedElements.To256(parts.Cold),Poison256:impact.AllocatedPoison?.Rate256??0,AbsorbedLife256:impact.Absorbed256,HitFlags:prepared.HitFlags);
         var scope=new Scope(prepared,packet){Point=target.Location,Map=target.Map,EntryHits=target.Hits,ItemProcs=PlayerItemProcWorld.Capture(source,target,at)};
         bool stunRules=CombatStuns.Rules(target,out bool stunBoss,out int stunVelocity);
+        bool controlStun=prepared.Smite||prepared.ControlStun;
         var recipient=new PreparedMonsterRecipient(PreparedMonsterStun.IsUnique(target)||prepared.Smite&&target is EncounterCreature{Grade:EncounterGrade.Champion},
-            ()=>prepared.Smite?stunBoss:CreatureProfiles.For(target).Traits.Boss??false,()=>prepared.Smite?(stunRules?stunVelocity:0):metadata?.Velocity??0,()=>target is BaseHire);
+            ()=>controlStun?stunBoss:CreatureProfiles.For(target).Traits.Boss??false,()=>controlStun?(stunRules?stunVelocity:0):metadata?.Velocity??0,()=>target is BaseHire);
         using var attempted=prepared.AttemptScoped?null:PaladinThorns.Attempt(source,target,false);
         try
         {
