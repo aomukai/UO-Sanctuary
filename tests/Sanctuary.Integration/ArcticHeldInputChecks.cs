@@ -57,7 +57,10 @@ public static class ArcticHeldInputChecks
     {Release(p);DruidArcticStream.Restore(before);ClassCombat.Stop(p);ClassCombat.For(p).RecoveryUntil=Core.TickCount-1;NecromancerEffects.SetMana256(p,mana);}
     private static void Cases(PlayerMobile p)
     {
-        var before=DruidArcticStream.Snapshot();var at=TimedEffects.Now.Add(FixtureSpace.Retention);var point=new Point3D(p.X+3,p.Y,p.Z);
+        var original=DruidArcticStream.Snapshot();
+        // This control advances a synthetic future clock. Keep other fixtures'
+        // saved shots outside that clock; restoring packets cannot undo hits.
+        var before=original with{Missiles=[]};var at=TimedEffects.Now.Add(FixtureSpace.Retention);var point=new Point3D(p.X+3,p.Y,p.Z);
         try
         {
             Reset(p,before);
@@ -124,7 +127,11 @@ public static class ArcticHeldInputChecks
             }
             finally{NecromancerEffects.Profiles.Clear(target);TimedEffects.Clear(target);target.Delete();}
         }
-        finally{TimedEffects.RemoveBuff(p,TimedEffectCategory.Potion);Reset(p,before);}
+        finally
+        {
+            TimedEffects.RemoveBuff(p,TimedEffectCategory.Potion);Reset(p,original);
+            Require(Json(DruidArcticStream.Snapshot())==Json(original),"Held controls changed the surrounding Arctic pool");
+        }
         Log.Information("Inferno candidate:6mana threshold/96FP press;first stream frame12,then2frame renewal;rank1steady4.6875mana/sec;chunk-independent2second22debits/20streams;6mana16debits/14streams;instant release/fresh windup/live gear and independent fired damage pass;approved held controller");
     }
     private static void Check(NetState net,bool reload)

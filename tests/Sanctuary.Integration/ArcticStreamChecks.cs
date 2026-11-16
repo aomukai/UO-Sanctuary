@@ -25,6 +25,7 @@ public static class ArcticStreamChecks
     {try{run();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     public static void Configure()
     {
+        EventSink.WorldSave+=SaveBoundary;
         Register("arctic-stream-check",Check);Register("arctic-stream-reload-check",Reload);Register("arctic-stream-expiry-stage-check",ExpiryStage);
         Register("arctic-stream-live-check",()=>FixtureClock.NextLoop("arctic-stream-live-result",()=>FixtureNetwork.Connected("arctic-stream-live-result",Live)));
     }
@@ -123,17 +124,33 @@ public static class ArcticStreamChecks
     }
     private static void Reload()
     {
-        Arithmetic();Cases();var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));DruidArcticStream.Tick(TimedEffects.Now,true);
+        var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var target=World.FindMobile((Serial)s.Target);
+        Require(target!=null&&SkillHealth.Balance256(target)==s.Life256,"Retained Arctic target changed before reload controls");
+        Arithmetic();Require(SkillHealth.Balance256(target)==s.Life256,"Arithmetic control damaged retained Arctic target");
+        Cases();Require(SkillHealth.Balance256(target)==s.Life256,"Collision control damaged retained Arctic target");
+        DruidArcticStream.Tick(TimedEffects.Now,true);
         Require(s.ExpiryOwner!=0&&DruidArcticStream.Snapshot().Missiles.All(x=>x.Owner!=s.ExpiryOwner)
             &&World.FindMobile((Serial)s.ExpiryTarget) is ShockWaveTarget expired&&SkillHealth.Balance256(expired)==s.ExpiryLife256,"Restart replayed overdue flight");
-        Require(Json(DruidArcticStream.Snapshot())==Json(s.State)&&World.FindMobile((Serial)s.Target) is ShockWaveTarget t&&SkillHealth.Balance256(t)==s.Life256,"Retained Arctic owner/packet/RNG/history/steps differ");
+        var current=DruidArcticStream.Snapshot();
+        Require(Json(current)==Json(s.State),"Retained Arctic owner/packet/RNG/history/steps differ: expected="+Json(s.State)+" actual="+Json(current));
+        Require(World.FindMobile((Serial)s.Target) is ShockWaveTarget t&&SkillHealth.Balance256(t)==s.Life256,
+            "Retained Arctic target life differs: expected="+s.Life256+" actual="+SkillHealth.Balance256(World.FindMobile((Serial)s.Target)));
         World.FindMobile((Serial)s.ExpiryTarget).Delete();World.FindMobile((Serial)s.ExpiryOwner).Delete();
         File.WriteAllText(Manifest,Json(s with{ExpiryOwner=0,ExpiryTarget=0,ExpiredChecks=s.ExpiredChecks+1}));
     }
     private static void ExpiryStage()
     {
         var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var retained=DruidArcticStream.Snapshot();var p=Fresh();var t=Target(p,1);One(p,TimedEffects.Now);
+        Require(SkillHealth.Balance256(World.FindMobile((Serial)s.Target))==s.Life256,"Retained Arctic target changed before expiry/save stage");
         File.WriteAllText(Manifest,Json(s with{ExpiryOwner=p.Serial.Value,ExpiryTarget=t.Serial.Value,ExpiryLife256=SkillHealth.Balance256(t),State=retained with{NextId=DruidArcticStream.Snapshot().NextId}}));
+    }
+    private static void SaveBoundary()
+    {
+        if(!File.Exists(Manifest)){return;}
+        var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var target=World.FindMobile((Serial)s.Target);
+        Log.Information("Arctic save target {Target}: expected {Expected}, actual {Actual}, native hits {Hits}/{Maximum}",
+            s.Target,s.Life256,SkillHealth.Balance256(target),target?.Hits,target?.HitsMax);
+        Require(target!=null&&SkillHealth.Balance256(target)==s.Life256,"Retained Arctic target changed at world save");
     }
     private static void Live(NetState network)
     {
