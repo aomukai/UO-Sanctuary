@@ -38,9 +38,9 @@ internal static class DruidChargedAttacks
         if(hit&&SourceBlocking.TryRoll(target,true,out blocked,out blockAnimation)&&blocked){hit=false;}
         double roll=0;PreparedWeaponImpact packet=default;
         if(hit)
-        {WeaponStartEffects.PrepareDamage(owner,target);roll=ElementRoll();packet=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,GearEffects.Damage(owner,roll,target,(int)values.Eval("calc1"),PhysicalRoll));}
+        {WeaponStartEffects.PrepareDamage(owner,target);roll=ElementRoll();packet=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,DruidWeaponContact.Damage(owner,target,roll,(int)values.Eval("calc1"),PhysicalRoll));}
         var drain=WeaponLeech.Capture(owner);
-        var contact=DruidWeaponContact.Capture(owner,target,hit,blocked,packet,drain,Effects);
+        var contact=DruidWeaponContact.Capture(owner,target,hit,blocked,packet,drain,Effects);packet=contact.Impact;
         if(!NecromancerEffects.Pay(owner,values.Mana256)){session.PendingAbility=CombatAbility.None;return false;}
         session.DruidChargeAttack=new(ability,selected,form,hit,blocked,blockAnimation,packet,drain,roll,session.EffectAt){Contact=contact};return true;
     }

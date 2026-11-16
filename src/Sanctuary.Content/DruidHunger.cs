@@ -57,7 +57,7 @@ internal static class DruidHunger
         if(hit)
         {
             WeaponStartEffects.PrepareDamage(owner,target);
-            double roll=ElementRoll();var raw=GearEffects.Damage(owner,roll,target,physicalRoll:PhysicalRoll);
+            double roll=ElementRoll();var raw=DruidWeaponContact.Damage(owner,target,roll,physicalRoll:PhysicalRoll);
             packet=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,raw,physicalAfterCritical:ReducePhysical);
             drain=WeaponLeech.Capture(owner,new((int)values.Eval("calc2"),(int)values.Eval("calc3")));
             owner.PlaySound(0x238); // Identified bite/contact audio placeholder; leech effect uses the shared placeholder.

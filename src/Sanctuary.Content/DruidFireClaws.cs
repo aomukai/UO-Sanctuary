@@ -51,11 +51,11 @@ internal static class DruidFireClaws
         if(hit)
         {
             WeaponStartEffects.PrepareDamage(owner,target);
-            roll=ElementRoll();var raw=GearEffects.Damage(owner,roll,target,(int)values.Eval("calc1"),PhysicalRoll);
+            roll=ElementRoll();var raw=DruidWeaponContact.Damage(owner,target,roll,(int)values.Eval("calc1"),PhysicalRoll);
             impact=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,raw,skillElementsFactory:()=>
             {fire=Fire(owner,values);return new(0,fire/256.0,0,0,0,ColdMs:0);});
         }
-        var contact=DruidWeaponContact.Capture(owner,target,hit,blocked,impact,drain,Effects);
+        var contact=DruidWeaponContact.Capture(owner,target,hit,blocked,impact,drain,Effects);impact=contact.Impact;
         if(!NecromancerEffects.Pay(owner,values.Mana256)){session.PendingAbility=CombatAbility.None;return false;}
         session.FireClawAttack=new(selected,form,hit,blocked,blockAnimation,impact,drain,roll,fire,session.EffectAt){Contact=contact};return true;
     }

@@ -71,7 +71,7 @@ internal static class DruidRabies
         if(hit)
         {
             WeaponStartEffects.PrepareDamage(owner,target);
-            double roll=ElementRoll();var raw=GearEffects.Damage(owner,roll,target,physicalRoll:PhysicalRoll);
+            double roll=ElementRoll();var raw=DruidWeaponContact.Damage(owner,target,roll,physicalRoll:PhysicalRoll);
             packet=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,raw);drain=WeaponLeech.Capture(owner);
         }
         DruidWeaponContact.Release(owner,target,DruidWeaponContact.Capture(owner,target,hit,blocked,packet,drain,Effects),TimedEffects.Now);

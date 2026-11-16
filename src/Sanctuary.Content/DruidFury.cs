@@ -102,7 +102,7 @@ internal static class DruidFury
             if(hit&&ValidTarget(owner,target.Serial))
             {
                 WeaponStartEffects.PrepareDamage(owner,(BaseCreature)target);
-                double roll=ElementRoll();var raw=GearEffects.Damage(owner,roll,target,(int)values.Eval("calc2"),PhysicalRoll);
+                double roll=ElementRoll();var raw=DruidWeaponContact.Damage(owner,(BaseCreature)target,roll,(int)values.Eval("calc2"),PhysicalRoll);
                 impact=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,raw);drain=WeaponLeech.Capture(owner);
             }
             else{hit=false;}

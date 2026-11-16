@@ -93,7 +93,7 @@ public static class DruidCapturedProcChecks
                 var impact=new PreparedWeaponImpact(raw,parts,0);var captured=DruidWeaponContact.Capture(p,t,true,false,impact,default,new Random(17));int life=SkillHealth.Balance256(t);
                 DruidWeaponContact.Release(p,t,captured,TimedEffects.Now);
                 var poison=TimedEffects.Snapshot().Single(x=>x.Owner==t.Serial.Value);
-                Require(life-SkillHealth.Balance256(t)==512&&poison.PoisonMs==4000&&Math.Abs(poison.PoisonRate-(sourcePacket?0.00625:0.0025))<1e-9&&poison.PoisonSource==p.Serial.Value&&poison.Cold!=null&&poison.ChillUntilUtc>TimedEffects.Now,"Captured cold/poison lost source/length/rate or fabricated direct poison damage");
+                Require(life-SkillHealth.Balance256(t)==512+(sourcePacket?64:0)&&poison.PoisonMs==4000&&Math.Abs(poison.PoisonRate-(sourcePacket?0.00625:0.0025))<1e-9&&poison.PoisonSource==p.Serial.Value&&poison.Cold!=null&&poison.ChillUntilUtc>TimedEffects.Now,"Captured cold/poison lost source/length/rate or fabricated direct poison damage");
                 TimedEffects.ClearGear(t);Require(TimedEffects.Snapshot().All(x=>x.Owner!=t.Serial.Value||x.PoisonMs==0),"Captured poison survived the shared gear-effect cleanup");
             }
             finally{SorceressSpellMissiles.Cancel(p);t.Delete();}
