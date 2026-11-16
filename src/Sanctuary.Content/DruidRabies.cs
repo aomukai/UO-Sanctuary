@@ -26,6 +26,7 @@ internal static class DruidRabies
     {
         const CombatAbility ability=CombatAbility.Rabies;
         if(!DruidCombat.Available(owner,ability)||!DruidFormAttacks.ValidTarget(owner,selected)){return false;}
+        WeaponStartEffects.Require(owner);
         var values=SkillMechanics.Values(owner,ability);Route(values);
         if(!NecromancerEffects.CanPay(owner,values.Mana256))
         {return ClassCombat.Perform(owner,CombatAbility.BasicAttack,World.FindMobile(selected),point,now);}
@@ -33,7 +34,7 @@ internal static class DruidRabies
         var session=ClassCombat.For(owner);session.RabiesFault=null;
         var target=(BaseCreature)World.FindMobile(selected);
         using var melee=CombatTiming.Equipped(owner) is{} weapon?WeaponHands.UseMelee(owner,weapon):null;
-        bool hit=ClassStats.CheckHit(owner,target,(int)values.Formula("toht"),HitRoll,projectile:false)==true;
+        bool hit=DruidWeaponContact.RollHit(owner,target,(int)values.Formula("toht"),HitRoll);
         bool blocked=false,animation=false;if(hit&&SourceBlocking.TryRoll(target,true,out blocked,out animation)&&blocked){hit=false;}
         if(blocked){SourceBlocking.Present(target,animation);}
         // Complete older start57 refuses failed accuracy/block before payment.
@@ -64,11 +65,12 @@ internal static class DruidRabies
         // Its legacy extra-AR argument incorrectly uses Rabies rank; whether
         // modern D2R retains that path is unverified. Existing native form AR is
         // included once, without silently adding that old second bonus.
-        bool hit=ClassStats.CheckHit(owner,target,0,HitRoll,projectile:false)==true;
+        bool hit=DruidWeaponContact.RollHit(owner,target,0,HitRoll);
         bool blocked=false,animation=false;if(hit&&SourceBlocking.TryRoll(target,true,out blocked,out animation)&&blocked){hit=false;}
         PreparedWeaponImpact packet=default;PlayerWeaponDrain drain=default;
         if(hit)
         {
+            WeaponStartEffects.PrepareDamage(owner,target);
             double roll=ElementRoll();var raw=GearEffects.Damage(owner,roll,target,physicalRoll:PhysicalRoll);
             packet=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,raw);drain=WeaponLeech.Capture(owner);
         }

@@ -20,6 +20,7 @@ internal static class DruidChargedAttacks
     internal static bool Begin(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now)
     {
         if(!Handles(ability)||!DruidCombat.Available(owner,ability)||!ValidTarget(owner,ability,selected)){return false;}
+        WeaponStartEffects.Require(owner);
         var values=SkillMechanics.Values(owner,ability);
         // Current AttackNoMana1 and the pinned older player dispatcher support
         // ordinary Attack at low mana; exact modern outcome remains unverified.
@@ -32,12 +33,12 @@ internal static class DruidChargedAttacks
         using var melee=CombatTiming.Equipped(owner) is{} weapon?WeaponHands.UseMelee(owner,weapon):null;
         // Source start56 allocates the hit and existing charge damage/stun before
         // the action event. Immunity does not turn a successful contact into a miss.
-        bool hit=ClassStats.CheckHit(owner,target,(int)values.Formula("toht"),HitRoll,projectile:false)==true;
+        bool hit=DruidWeaponContact.RollHit(owner,target,(int)values.Formula("toht"),HitRoll);
         bool blocked=false,blockAnimation=false;
         if(hit&&SourceBlocking.TryRoll(target,true,out blocked,out blockAnimation)&&blocked){hit=false;}
         double roll=0;PreparedWeaponImpact packet=default;
         if(hit)
-        {roll=ElementRoll();packet=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,GearEffects.Damage(owner,roll,target,(int)values.Eval("calc1"),PhysicalRoll));}
+        {WeaponStartEffects.PrepareDamage(owner,target);roll=ElementRoll();packet=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,GearEffects.Damage(owner,roll,target,(int)values.Eval("calc1"),PhysicalRoll));}
         var drain=WeaponLeech.Capture(owner);
         var contact=DruidWeaponContact.Capture(owner,target,hit,blocked,packet,drain,Effects);
         if(!NecromancerEffects.Pay(owner,values.Mana256)){session.PendingAbility=CombatAbility.None;return false;}

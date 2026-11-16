@@ -8,6 +8,11 @@ namespace Sanctuary;
 // than allocating it again in the shared contact consumer.
 internal static class DruidWeaponContact
 {
+    internal static bool RollHit(PlayerMobile source,BaseCreature target,int attackPercent,Func<double> roll)
+    {
+        bool hit=ClassStats.CheckHit(source,target,attackPercent,roll,projectile:false)==true;
+        if(hit){WeaponStartEffects.SuccessfulHitRoll(source,target);}return hit;
+    }
     internal static PlayerWeaponContactPrepared Capture(PlayerMobile source,BaseCreature target,bool hit,bool blocked,
         PreparedWeaponImpact impact,PlayerWeaponDrain drain,Random effects)
     {

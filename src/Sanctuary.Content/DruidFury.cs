@@ -68,6 +68,7 @@ internal static class DruidFury
     {
         if(!DruidCombat.Available(owner,CombatAbility.Fury)||!DruidFormAttacks.Supported(owner)){return false;}
         var target=Target(owner,selected);if(target==null){return false;}
+        WeaponStartEffects.Require(owner);
         var values=SkillMechanics.Values(owner,CombatAbility.Fury);Route(values);
         // Approved Sanctuary ordinary-Attack fallback for insufficient melee mana.
         if(!NecromancerEffects.CanPay(owner,values.Mana256)){return ClassCombat.Perform(owner,CombatAbility.BasicAttack,target,target.Location,now);}
@@ -92,7 +93,7 @@ internal static class DruidFury
             using var melee=CombatTiming.Equipped(owner) is{} weapon?WeaponHands.UseMelee(owner,weapon):null;
             owner.Direction=owner.GetDirectionTo(target);owner.DoHarmful(target,true);owner.PlaySound(0x238); // Identified melee sound placeholder.
             var values=SkillMechanics.Values(owner,CombatAbility.Fury);Route(values);
-            bool hit=ClassStats.CheckHit(owner,target,(int)values.Formula("toht"),HitRoll,projectile:false)==true;
+            bool hit=DruidWeaponContact.RollHit(owner,(BaseCreature)target,(int)values.Formula("toht"),HitRoll);
             bool blocked=false,animation=false;
             if(hit&&(!SourceBlocking.TryRoll((BaseCreature)target,true,out blocked,out animation)||blocked)){hit=false;}
             if(!ReferenceEquals(action.Fury,series)||action.PendingAbility!=CombatAbility.Fury){return true;}
@@ -100,6 +101,7 @@ internal static class DruidFury
             PreparedWeaponImpact impact=default;PlayerWeaponDrain drain=default;
             if(hit&&ValidTarget(owner,target.Serial))
             {
+                WeaponStartEffects.PrepareDamage(owner,(BaseCreature)target);
                 double roll=ElementRoll();var raw=GearEffects.Damage(owner,roll,target,(int)values.Eval("calc2"),PhysicalRoll);
                 impact=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,raw);drain=WeaponLeech.Capture(owner);
             }

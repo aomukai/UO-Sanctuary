@@ -34,6 +34,7 @@ internal static class DruidFireClaws
     {
         const CombatAbility ability=CombatAbility.FireClaws;
         if(!DruidCombat.Available(owner,ability)||!DruidFormAttacks.ValidTarget(owner,selected)){return false;}
+        WeaponStartEffects.Require(owner);
         var values=SkillMechanics.Values(owner,ability);Route(values);
         // Table AttackNoMana1 supports ordinary Attack; exact current fallback
         // and the separate later free-empty-swing/control pass remain distinct.
@@ -43,12 +44,13 @@ internal static class DruidFireClaws
         if(!SkillCombat.Begin(owner,ability,selected,point,now,(_,_,id,_)=>DruidFormAttacks.ValidTarget(owner,id))){return false;}
         var session=ClassCombat.For(owner);var target=(BaseCreature)World.FindMobile(selected);
         using var melee=CombatTiming.Equipped(owner) is{} weapon?WeaponHands.UseMelee(owner,weapon):null;
-        bool hit=ClassStats.CheckHit(owner,target,(int)values.Formula("toht"),HitRoll,projectile:false)==true;
+        bool hit=DruidWeaponContact.RollHit(owner,target,(int)values.Formula("toht"),HitRoll);
         bool blocked=false,blockAnimation=false;if(hit&&SourceBlocking.TryRoll(target,true,out blocked,out blockAnimation)&&blocked){hit=false;}
         double roll=0;int fire=0;PreparedWeaponImpact impact=default;
         var drain=WeaponLeech.Capture(owner); // Existing Feral charge, never fire damage, supplies physical leech.
         if(hit)
         {
+            WeaponStartEffects.PrepareDamage(owner,target);
             roll=ElementRoll();var raw=GearEffects.Damage(owner,roll,target,(int)values.Eval("calc1"),PhysicalRoll);
             impact=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,raw,skillElementsFactory:()=>
             {fire=Fire(owner,values);return new(0,fire/256.0,0,0,0,ColdMs:0);});

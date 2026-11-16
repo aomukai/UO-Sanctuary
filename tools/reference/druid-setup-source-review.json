@@ -1,0 +1,27 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "scope": "Read-only review of existing pinned complete bodies;no new reference compilation or current-executable claim.",
+  "functions": {
+    "SKILLS_SrvSt57_Rabies": {
+      "path": "source/D2Game/src/SKILLS/SkillDruid.cpp",
+      "sha256": "41b2b05051be3d1a580f6415fcfd7a0d7ff515dd60c3b6e2e487248946dc6f06"
+    },
+    "SKILLS_SrvDo121_Rabies": {
+      "path": "source/D2Game/src/SKILLS/SkillDruid.cpp",
+      "sha256": "7c4eec658336517babf1047708d3bb62ae0406e0b7ad08393aab3ea6b609359e"
+    },
+    "SUNITDMG_AllocCombat": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "sha256": "bc56dd3efbba1649d4a3d9bfcb8f2f63187bbd262c2458c6709860891d28c99a"
+    }
+  },
+  "existingSetupReview": "tools/reference/weapon-start-source-review.json",
+  "existingRabiesReview": "tools/reference/druid-rabies-bite-engine-evidence.json",
+  "established": [
+    "The initial Rabies gate calls GetResultFlags,so its successful accuracy check reaches the shared pre-shield Prevent Monster Heal phase.",
+    "Rabies do121 drains a separate ordinary transformed attack before infection and the skill-poison packet.",
+    "The pinned Rabies route has HitFlags2;AllocCombat skips FillDamageValues for that flag,so the later forced-success skill-poison packet does not repeat flat target-armor mutation.",
+    "All six ordinary form weapon allocations reuse the existing negative-armor writer;modern exact engine/stat-node parity remains unverified."
+  ]
+}

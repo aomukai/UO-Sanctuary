@@ -29,6 +29,7 @@ internal static class DruidHunger
     {
         const CombatAbility ability=CombatAbility.Hunger;
         if(!DruidCombat.Available(owner,ability)||!DruidFormAttacks.ValidTarget(owner,selected)){return false;}
+        WeaponStartEffects.Require(owner);
         var values=SkillMechanics.Values(owner,ability);Route(values);
         if(!NecromancerEffects.CanPay(owner,values.Mana256))
         {return ClassCombat.Perform(owner,CombatAbility.BasicAttack,World.FindMobile(selected),point,now);}
@@ -50,11 +51,12 @@ internal static class DruidHunger
         if(!NecromancerEffects.CanPay(owner,values.Mana256)){return false;}
         var target=(BaseCreature)World.FindMobile(pending.Target);owner.DoHarmful(target,true);
         using var melee=CombatTiming.Equipped(owner) is{} weapon?WeaponHands.UseMelee(owner,weapon):null;
-        bool hit=ClassStats.CheckHit(owner,target,(int)values.Formula("toht"),HitRoll,projectile:false)==true;
+        bool hit=DruidWeaponContact.RollHit(owner,target,(int)values.Formula("toht"),HitRoll);
         bool blocked=false,blockAnimation=false;if(hit&&SourceBlocking.TryRoll(target,true,out blocked,out blockAnimation)&&blocked){hit=false;}
         PreparedWeaponImpact packet=default;PlayerWeaponDrain drain=default;
         if(hit)
         {
+            WeaponStartEffects.PrepareDamage(owner,target);
             double roll=ElementRoll();var raw=GearEffects.Damage(owner,roll,target,physicalRoll:PhysicalRoll);
             packet=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,raw,physicalAfterCritical:ReducePhysical);
             drain=WeaponLeech.Capture(owner,new((int)values.Eval("calc2"),(int)values.Eval("calc3")));
