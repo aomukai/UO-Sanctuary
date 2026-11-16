@@ -2,7 +2,7 @@
 
 Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Charms and runewords are excluded. All 30 talents have handlers; the following existing checks establish only their named scopes, not a completed class or full modern executable parity.
 
-The [current driver](../tests/check_amazon_planned_acceptance.py) combines existing skill fixtures, the six-fixture original Valkyrie casting cohort, shared weapon-rate/chain/Slow Missiles checks, old real Cast packets and current right/quick input routes. The combined native run is pending. Cached reference files and reused gameplay/integration binaries avoid repeating source compiler matrices.
+The [current driver](../tests/check_amazon_planned_acceptance.py) combines existing skill fixtures, the six-fixture original Valkyrie casting cohort, shared weapon-rate/chain/Slow Missiles checks, old real Cast packets and current right/quick input routes. The combined native run passes 334 exact results, 72 real cast inputs and 84 connections across three boots/saves and two reloads; [receipt](../tools/reference/amazon-planned-acceptance-native-evidence.json). This is scoped acceptance, not a full class certificate. Cached reference files and reused gameplay/integration binaries avoid repeating source compiler matrices.
 
 | Talent | Mechanical scope | Existing fixture |
 | --- | --- | --- |

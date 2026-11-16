@@ -103,6 +103,10 @@ def record(check=False):
     config = configuration()
     assert tuple(len(config[key]) for key in (
         'extra_families', 'extra_checks', 'extra_target_input_commands', 'extra_files')) == (42, 4, 9, 47)
+    connections = sum(expected_markers()[name] for name in config['extra_connected_checks'])
+    connections += 3 * (len(config['extra_target_input_commands']) + len(LEGACY_INPUTS) + 1)
+    assert connections == 84 and log.count('Client: 127.0.0.1: Connected.') == connections
+    assert 'denied by connection filter' not in log
     status = e.load(ROOT / 'data/Sanctuary/Balance/class-skill-status.json')
     assert status['contentScope']['charms'] is False and status['contentScope']['runewords'] is False
     skills = [row for row in status['skills'] if row['characterClass'] == 'Amazon']
