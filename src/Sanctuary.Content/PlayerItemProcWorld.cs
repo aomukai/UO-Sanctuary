@@ -28,7 +28,7 @@ internal static class PlayerItemProcWorld
         return new Proof(owner);
     }
     private static bool Actions(PlayerMobile owner)=>CandidateOwners.Contains(owner.Serial.Value)||owner.NetState is{Running:true};
-    internal static Ticket Capture(PlayerMobile owner,BaseCreature target,DateTime at)
+    internal static Ticket Capture(PlayerMobile owner,BaseCreature target,DateTime at,Func<bool> uninterruptible=null)
     {
         if(!(Approved||CandidateOwners.Contains(owner.Serial.Value))||!PlayerItemProcs.ActiveProvider(owner)) {return null;}
         if(World.Loading||owner is not{Alive:true,Deleted:false}||owner.Map==null||owner.Map==Map.Internal||!Actions(owner)
@@ -36,9 +36,9 @@ internal static class PlayerItemProcWorld
             ||target is not{Alive:true,Deleted:false}||target.Map!=owner.Map||!ClassCombat.IsHostile(owner,target)) {return null;}
         var retained=NpcItemTarget.Capture(target);
         if(!PlayerItemProcs.Initialized(owner)){PlayerItemProcs.InitializeActor(owner,NpcWorldAllocation.UnitSeed());}
-        return new(owner,retained,target.Location,at);
+        return new(owner,retained,target.Location,at,uninterruptible);
     }
-    internal sealed class Ticket(PlayerMobile owner,NpcItemTarget target,Point3D path,DateTime at)
+    internal sealed class Ticket(PlayerMobile owner,NpcItemTarget target,Point3D path,DateTime at,Func<bool> uninterruptible=null)
     {
         private bool Damage,Attack;
         internal void Dispatch(string phase,PreparedMonsterDamagePacket packet)
@@ -48,9 +48,9 @@ internal static class PlayerItemProcWorld
             else if(phase=="domeleeattack")
             {if(Attack){throw new InvalidOperationException("Player melee attack proc phase replayed");}Attack=true;}
             else{throw new NotSupportedException("Player melee ticket needs its actual ordered phase");}
-            // This route permits item casts without changing the ordinary
-            // action. This is the approved adaptation,not a guessed D2 state bit.
-            var outcomes=PlayerItemProcs.Dispatch(owner,phase,target,path,packet,false,at,
+            // Ordinary contacts retain the approved noninterrupting cast rule.
+            // Special controllers supply their actual live source-state guard.
+            var outcomes=PlayerItemProcs.Dispatch(owner,phase,target,path,packet,uninterruptible?.Invoke()??false,at,
                 request=>Allocate(owner,request,at),actions:Actions(owner));
             Observed?.Invoke(new(owner.Serial.Value,phase,packet,outcomes));
         }

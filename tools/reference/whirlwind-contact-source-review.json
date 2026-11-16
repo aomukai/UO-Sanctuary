@@ -1,0 +1,58 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "scope": "Complete pinned older source review,not current executable parity. Existing released2.4.3 cadence remains authoritative over older speed code.",
+  "functions": {
+    "SKILLS_SrvSt38_Whirlwind": {
+      "path": "source/D2Game/src/SKILLS/SkillBar.cpp",
+      "gitBlob": "5f9765530eb12c88f73441b1bbae540fc07fb630",
+      "sha256": "be157779802edccc25cbe42d7f735d255566494f23015eede0ff6170a35fb28e"
+    },
+    "SKILLS_RemoveWhirlwindStats": {
+      "path": "source/D2Game/src/SKILLS/SkillBar.cpp",
+      "gitBlob": "5f9765530eb12c88f73441b1bbae540fc07fb630",
+      "sha256": "96f4da0eb530dc7459256d5168125b1476a401748cff7c8b9f71eb49be0d6f10"
+    },
+    "SKILLS_SrvDo076_Whirlwind": {
+      "path": "source/D2Game/src/SKILLS/SkillBar.cpp",
+      "gitBlob": "5f9765530eb12c88f73441b1bbae540fc07fb630",
+      "sha256": "756eff1e3f80b4bcb3fa54b8e8910565008721ca6969978f30904675e41745f2"
+    },
+    "sub_6FCBDE90": {
+      "path": "source/D2Game/src/UNIT/SUnit.cpp",
+      "gitBlob": "5e4eaddfb33abc5be6c465a6514361b42055270b",
+      "sha256": "16937ef0bd086f6e32052b1c28ea96911153ad0b0d44719eb4139777497d4a3b"
+    },
+    "SUNITDMG_DrainItemDurability": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "gitBlob": "8ec948a0506a5b46700a535be4c0bfe52bcdc8e7",
+      "sha256": "9384594853e7f4255913c5cf5ff2e45d306ead9fd8e83b3e592470e1c0ef7d58"
+    },
+    "SKILLITEM_EventFunc20_SkillOnAttackHitKill": {
+      "path": "source/D2Game/src/SKILLS/SkillItem.cpp",
+      "gitBlob": "43c3ee3e29472e0916d35dc2a9b47822d8b7d7f7",
+      "sha256": "16597b958261a8451464ec506325f5207d9eeca6b94ad80b9bb61b98c3c53cea"
+    },
+    "SKILLITEM_CastSkillOnTarget": {
+      "path": "source/D2Game/src/SKILLS/SkillItem.cpp",
+      "gitBlob": "43c3ee3e29472e0916d35dc2a9b47822d8b7d7f7",
+      "sha256": "e5c236ee80a3c7451d613e66634efe1d6aea50e4f0ec896af39d4a9b33012a79"
+    },
+    "SKILLITEM_CastSkillOnPosition": {
+      "path": "source/D2Game/src/SKILLS/SkillItem.cpp",
+      "gitBlob": "43c3ee3e29472e0916d35dc2a9b47822d8b7d7f7",
+      "sha256": "0557b765f6972c67173217e72ff17d7af8ea70904227a07eb78dc6637df0ecbc"
+    }
+  },
+  "established": [
+    "Whirlwind sets the uninterruptible source state and toggles selected hands around each serial-selected contact.",
+    "Do76 resolves ordinary accuracy/block,applies row flags/ED,allocates source128 weapon lanes and drains the contact.",
+    "Damage/attack item callbacks gate on successful HitFlags32 and roll source RNG before the item-cast helpers reject an uninterruptible caster. A rejected cast allocates no projectile and consumes no world child seed.",
+    "Source death mode is distinct from current HP:Whirlwind retains its active mode at zero life,then settles its pending death when its source state ends.",
+    "Shared source poison keeps one mitigated initial rate plus its independent strongest-poison clock;ordinary contacts retain the approved noninterrupting proc rule outside this controller."
+  ],
+  "remaining": [
+    "Current D2R exact cadence/geometry,stat-node/RNG and mode identity remain scoped by existing Whirlwind receipts.",
+    "Player recipients retain their previous scalar compatibility route;unsupported NPC guards remain explicit. No other named-item/proc,missile,incoming or whole-class qualification follows."
+  ]
+}

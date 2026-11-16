@@ -11,7 +11,7 @@ namespace Sanctuary;
 // Item processors and native encounter reactions remain explicit adapters.
 internal sealed record PlayerWeaponContactPrepared(int Flags,PreparedWeaponImpact Impact,PlayerWeaponDrain Drain,int ColdFrames,int BaseHitClass,Random Effects,int HitClass=0,
     bool Smite=false,Func<int,int> StunRoll=null,int? MeleeRange=null,bool SkillKnockback=false,Func<int,bool> RangeCheck=null,int FreezeFrames=0,uint HitFlags=0,int? CrushingDivisor=null,bool SuppressWear=false,bool AttemptScoped=false,
-    Action<PlayerMobile,BaseCreature,DateTime> CapturedPoison=null,bool ControlStun=false);
+    Action<PlayerMobile,BaseCreature,DateTime> CapturedPoison=null,bool ControlStun=false,Func<bool> UninterruptibleItemCasts=null,Func<bool> ActiveSourceMode=null);
 
 internal static class PlayerWeaponContact
 {
@@ -106,7 +106,7 @@ internal static class PlayerWeaponContact
             if(scope.Prepared.RangeCheck!=null){return scope.Prepared.RangeCheck(bonus);}
             return source.Map==target.Map&&source.InRange(target,scope.Prepared.MeleeRange??CombatTiming.Range(source,CombatAbility.BasicAttack))&&source.InLOS(target);
         }
-        internal override bool AttackerInDeathMode()=>source is not{Alive:true,Deleted:false}||SkillHealth.Balance256(source)<=0;
+        internal override bool AttackerInDeathMode()=>source is not{Alive:true,Deleted:false}||(scope.Prepared.ActiveSourceMode is{} active?!active():SkillHealth.Balance256(source)<=0);
         internal override bool Hostile()=>ClassCombat.IsHostile(source,target);
         internal override bool DefenderHasRoom()=>target.Map is{} map&&map!=Map.Internal;
         internal override bool DefenderInTown()=>SpellHelper.IsTown(target.Location,source);
@@ -169,7 +169,7 @@ internal static class PlayerWeaponContact
             return p;
         }
         internal override PreparedMonsterDamagePacket AttackedInMelee(PreparedMonsterDamagePacket p)=>events.Dispatch("attackedinmelee",p);
-        internal override bool AttackerInActiveMode()=>source is{Alive:true,Deleted:false}&&SkillHealth.Balance256(source)>0;
+        internal override bool AttackerInActiveMode()=>source is{Alive:true,Deleted:false}&&(scope.Prepared.ActiveSourceMode?.Invoke()??SkillHealth.Balance256(source)>0);
         internal override void BeforeThorns(PreparedMonsterDamagePacket p){}
         internal override void Return(ref PreparedMonsterDamagePacket p,Action death)
         {
@@ -194,7 +194,7 @@ internal static class PlayerWeaponContact
             prepared.ColdFrames,prepared.Flags,HitClass:(prepared.Flags&1)!=0?prepared.HitClass:0,
             Magic256:NamedElements.To256(parts.Magic),Fire256:NamedElements.To256(parts.Fire),Lightning256:NamedElements.To256(parts.Lightning),
             Cold256:NamedElements.To256(parts.Cold),Poison256:impact.AllocatedPoison?.Rate256??0,AbsorbedLife256:impact.Absorbed256,HitFlags:prepared.HitFlags);
-        var scope=new Scope(prepared,packet){Point=target.Location,Map=target.Map,EntryHits=target.Hits,ItemProcs=PlayerItemProcWorld.Capture(source,target,at)};
+        var scope=new Scope(prepared,packet){Point=target.Location,Map=target.Map,EntryHits=target.Hits,ItemProcs=PlayerItemProcWorld.Capture(source,target,at,prepared.UninterruptibleItemCasts)};
         bool stunRules=CombatStuns.Rules(target,out bool stunBoss,out int stunVelocity);
         bool controlStun=prepared.Smite||prepared.ControlStun;
         var recipient=new PreparedMonsterRecipient(PreparedMonsterStun.IsUnique(target)||prepared.Smite&&target is EncounterCreature{Grade:EncounterGrade.Champion},

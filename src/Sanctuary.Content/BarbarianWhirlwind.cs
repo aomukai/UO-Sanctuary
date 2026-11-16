@@ -34,6 +34,7 @@ public static class BarbarianWhirlwind
     internal static Func<double> HitRoll=Utility.RandomDouble;
     internal static Func<double> ElementRoll=Utility.RandomDouble;
     internal static Func<int,int> PhysicalRoll=Utility.Random;
+    internal static Func<int,int> PoisonRoll=Utility.Random;
     internal static Random Effects=Random.Shared;
     public static WhirlwindProfiles Profiles{get;private set;}
     public static void Configure()
@@ -154,12 +155,32 @@ public static class BarbarianWhirlwind
             if(WeaponHands.Pair(owner) is{} pair){scope=WeaponHands.Use(owner,state.SecondaryHand?pair.Secondary:pair.Primary);}
             try
             {
-                if(id!=0 && World.FindMobile((Serial)id) is{} target)
+                if(id!=0 && World.FindMobile((Serial)id) is BaseCreature target)
                 {
                     owner.DoHarmful(target,true);var values=SkillMechanics.Values(owner,CombatAbility.Whirlwind);
                     using var attempted=PaladinThorns.Attempt(owner,target,false);
-                    if(ClassStats.CheckHit(owner,target,(int)values.Formula("toht"),HitRoll)==true)
-                    {GearEffects.Strike(owner,target,ElementRoll(),Effects,skillPhysicalPercent:(int)values.Eval("calc1"),physicalRoll:PhysicalRoll);}
+                    try
+                    {
+                        var contact=PlayerWeaponContact.PrepareOrdinary(owner,target,(int)values.Formula("toht"),(int)values.Eval("calc1"),
+                            ()=>owner.Map==target.Map&&owner.InRange(target,CombatTiming.Range(owner,CombatAbility.BasicAttack))&&owner.InLOS(target),
+                            HitRoll,ElementRoll,PhysicalRoll,PoisonRoll,Effects,true);
+                        bool hit=(contact.Flags&SourceMeleeResult.Successful)!=0;
+                        Func<bool> active=()=>Locked(owner);
+                        contact=contact with{Flags=contact.Flags|(hit?SkillMechanics.For(CombatAbility.Whirlwind).Number("ResultFlags"):0),
+                            HitClass=hit?SkillMechanics.For(CombatAbility.Whirlwind).Number("HitClass"):0,HitFlags=hit?(uint)SkillMechanics.For(CombatAbility.Whirlwind).Number("HitFlags"):0u,
+                            AttemptScoped=true,UninterruptibleItemCasts=active,ActiveSourceMode=active};
+                        PlayerWeaponContact.Release(owner,target,contact,TimedEffects.Now,true);
+                    }
+                    catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);}
+                }
+                else if(id!=0 && World.FindMobile((Serial)id) is{} other)
+                {
+                    // Retain the existing player-recipient compatibility route;
+                    // this checkpoint qualifies only the ordered NPC consumer.
+                    owner.DoHarmful(other,true);var values=SkillMechanics.Values(owner,CombatAbility.Whirlwind);
+                    using var attempted=PaladinThorns.Attempt(owner,other,false);
+                    if(ClassStats.CheckHit(owner,other,(int)values.Formula("toht"),HitRoll)==true)
+                    {GearEffects.Strike(owner,other,ElementRoll(),Effects,skillPhysicalPercent:(int)values.Eval("calc1"),physicalRoll:PhysicalRoll);}
                 }
             }
             finally{scope?.Dispose();}

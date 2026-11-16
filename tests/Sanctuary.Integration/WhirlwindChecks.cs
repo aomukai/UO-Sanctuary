@@ -41,7 +41,7 @@ public static class WhirlwindChecks
         var weapon=(BaseWeapon)NamedGear.Create(NamedGear.Catalog.Items.Single(x=>x.SourceKey==key).Id,99,new Random(173),true);
         owner.AddToBackpack(weapon);Require(owner.EquipItem(weapon),"Equip "+key);return weapon;
     }
-    private static PlayerMobile Fresh(bool dual=true)
+    internal static PlayerMobile Fresh(bool dual=true)
     {
         PlayerMobile owner;_creating=true;try{owner=new PlayerMobile{Body=0x190,Player=true,Name="WhirlwindFixture"};}finally{_creating=false;}
         owner.AddItem(new Backpack());ClassCreation.Profiles.Assign(owner,DiabloClass.Barbarian);ClassCreation.Profiles.AdvanceLevel(owner,99);
@@ -58,25 +58,27 @@ public static class WhirlwindChecks
         Require(found,"No independent Whirlwind corridor");Named(owner,"Hellplague");if(dual){Named(owner,"Deathspade");}
         owner.Hits=owner.HitsMax;owner.Mana=owner.ManaMax;return owner;
     }
-    private static GraveyardSkeleton Enemy(PlayerMobile owner,int dx,int dy=0)
+    internal static GraveyardSkeleton Enemy(PlayerMobile owner,int dx,int dy=0)
     {
         var target=new GraveyardSkeleton{NoKillAwards=true,Frozen=true,CantWalk=true};target.AIObject.AITimer.Stop();target.SetHits(50000);
         target.MoveToWorld(new(owner.X+dx,owner.Y+dy,owner.Z),owner.Map);Require(GemCombat.Drain(target)==0,"Fixture source skeleton drain");return target;
     }
-    private static void Ready(PlayerMobile owner)
+    internal static void Ready(PlayerMobile owner)
     {ClassCombat.Stop(owner);var action=ClassCombat.For(owner);action.NextAction=action.RecoveryUntil=Core.TickCount;}
-    private static bool Begin(PlayerMobile owner,int distance=4,Mobile target=null)=>ClassCombat.Perform(owner,CombatAbility.Whirlwind,target,target?.Location??new(owner.X+distance,owner.Y,owner.Z),Core.TickCount);
-    private static void Step(PlayerMobile owner,int count=1)
+    internal static bool Begin(PlayerMobile owner,int distance=4,Mobile target=null)=>ClassCombat.Perform(owner,CombatAbility.Whirlwind,target,target?.Location??new(owner.X+distance,owner.Y,owner.Z),Core.TickCount);
+    internal static void Step(PlayerMobile owner,int count=1)
     {for(int i=0;i<count;i++){var state=BarbarianWhirlwind.State(owner);Require(state!=null,"Missing spin state");BarbarianWhirlwind.Tick(state.NextUtc);}}
-    private static void Finish(PlayerMobile owner)
+    internal static void Finish(PlayerMobile owner)
     {for(int i=0;i<300 && BarbarianWhirlwind.State(owner)!=null;i++){Step(owner);}Require(BarbarianWhirlwind.State(owner)==null,"Unfinished spin");}
     private static int Health(Mobile target)=>target.Hits*256-SkillHealth.Remainder256(target);
-    private static int Expected(PlayerMobile owner,BaseWeapon weapon,Mobile target)
+    private static int Expected(PlayerMobile owner,BaseWeapon weapon,BaseCreature target)
     {
         using(WeaponHands.Use(owner,weapon))
         {
-            var damage=GearEffects.Damage(owner,0,target,(int)SkillMechanics.Values(owner,CombatAbility.Whirlwind).Eval("calc1"),_=>0);
-            return NamedElements.To256(GearEffects.PrepareWeaponImpact(owner,target,0,new HighRoll(),damage).Parts.Total);
+            var damage=GearEffects.Damage(owner,0,target,(int)SkillMechanics.Values(owner,CombatAbility.Whirlwind).Eval("calc1"),_=>0,_=>0,
+                ()=>WeaponPoisonPackets.Melee(BowLaunch.RawPoison(owner,weapon),NamedElements.MasteryPercent(owner,"pois"),128,_=>0));
+            var poison=PoisonJavelins.PreparePoison(owner,target,damage.SourcePoison.Rate256,damage.SourcePoison.Frames);
+            return checked(NamedElements.To256(GearEffects.PrepareWeaponImpact(owner,target,0,new HighRoll(),damage).Parts.Total)+poison.Rate256);
         }
     }
     private static void DamageAndMotion()
@@ -137,10 +139,10 @@ public static class WhirlwindChecks
     }
     private static void Check()
     {
-        var oldHit=BarbarianWhirlwind.HitRoll;var oldElement=BarbarianWhirlwind.ElementRoll;var oldPhysical=BarbarianWhirlwind.PhysicalRoll;var oldEffects=BarbarianWhirlwind.Effects;
-        BarbarianWhirlwind.HitRoll=()=>0;BarbarianWhirlwind.ElementRoll=()=>0;BarbarianWhirlwind.PhysicalRoll=_=>0;BarbarianWhirlwind.Effects=new HighRoll();
+        var oldHit=BarbarianWhirlwind.HitRoll;var oldElement=BarbarianWhirlwind.ElementRoll;var oldPhysical=BarbarianWhirlwind.PhysicalRoll;var oldEffects=BarbarianWhirlwind.Effects;var oldPoison=BarbarianWhirlwind.PoisonRoll;var oldBlock=SourceBlocking.BlockRoll;var oldChoice=SourceBlocking.ChoiceRoll;
+        BarbarianWhirlwind.HitRoll=()=>0;BarbarianWhirlwind.ElementRoll=()=>0;BarbarianWhirlwind.PhysicalRoll=_=>0;BarbarianWhirlwind.Effects=new HighRoll();BarbarianWhirlwind.PoisonRoll=_=>0;SourceBlocking.BlockRoll=n=>n-1;SourceBlocking.ChoiceRoll=_=>1;
         try{DamageAndMotion();ShortAndSnapshot();WalkingVersusFlying();CleanupAndDeath();File.WriteAllText(Manifest,JsonSerializer.Serialize(new[]{Save(false),Save(true)}));}
-        finally{BarbarianWhirlwind.HitRoll=oldHit;BarbarianWhirlwind.ElementRoll=oldElement;BarbarianWhirlwind.PhysicalRoll=oldPhysical;BarbarianWhirlwind.Effects=oldEffects;}
+        finally{BarbarianWhirlwind.HitRoll=oldHit;BarbarianWhirlwind.ElementRoll=oldElement;BarbarianWhirlwind.PhysicalRoll=oldPhysical;BarbarianWhirlwind.Effects=oldEffects;BarbarianWhirlwind.PoisonRoll=oldPoison;SourceBlocking.BlockRoll=oldBlock;SourceBlocking.ChoiceRoll=oldChoice;}
         Natural();
     }
     private static void Natural()
