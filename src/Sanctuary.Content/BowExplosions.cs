@@ -23,6 +23,7 @@ public static class BowExplosions
 {
     private static readonly Dictionary<long,BowExplosion> _pending=new();
     private static long _next;
+    private static readonly HashSet<string> _unsupported=new();
     internal static void Create(PlayerMobile owner,WeaponFlight parent,DateTime at)
     {
         if(parent.Ability==CombatAbility.ImmolationArrow){ImmolationArrows.Contact(owner,parent,at);return;}
@@ -64,7 +65,15 @@ public static class BowExplosions
             targets.Sort((a,b)=>a.Serial.CompareTo(b.Serial));
             Effects.SendLocationEffect(center,owner.Map,0x36BD,3); // Identified explosion placeholder.
             foreach(var target in targets)
-            {if(blast.FreezeColdLength){SkillCombat.FreezeImpact(owner,target,damage,blast.ColdFrames);}else{SkillCombat.FireImpact(owner,target,damage);}}
+            {
+                if(target is BaseCreature creature)
+                {
+                    if(!PlayerWeaponMissileContact.TryElemental(owner,creature,damage,blast.FreezeColdLength,blast.ColdFrames,blast.NextUtc,out string reason)&&_unsupported.Add(reason))
+                    {Server.Logging.LogFactory.GetLogger(typeof(BowExplosions)).Warning("Bow explosion unsupported context: {Reason}",reason);}
+                }
+                else if(blast.FreezeColdLength){SkillCombat.FreezeImpact(owner,target,damage,blast.ColdFrames);}
+                else{SkillCombat.FireImpact(owner,target,damage);}
+            }
         }
     }
     internal static BowExplosion[] Snapshot()=>_pending.Values.OrderBy(x=>x.Id).ToArray();

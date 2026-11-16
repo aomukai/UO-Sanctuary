@@ -1,0 +1,87 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "functions": {
+    "MISSMODE_SrvHit04_ExplodingArrow_FreezingArrow_RoyalStrikeMeteorCenter": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "1113fd0573dd0ffbffe34ed894014d488d264a0bd3f8f32346acbdf5711053aa"
+    },
+    "MISSMODE_SrvHit01_Fireball_ExplodingArrow_FreezingArrowExplosion": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "e0b23ca0464eab53349e716dfae8d223bb75d2775be0a34bd192c98d62f37a0b"
+    },
+    "MISSMODE_GetDamageValue": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "4fd344aff656a049a4a6a2ad63e803ca370618ad0525b7256f181fd14d2d1624"
+    },
+    "sub_6FD10200": {
+      "path": "source/D2Game/src/SKILLS/Skills.cpp",
+      "sha256": "1c9a3f3aee7a9730e17f3ba1371eb7764a7a026944c6129adae11d8af8029327"
+    },
+    "sub_6FD10140": {
+      "path": "source/D2Game/src/SKILLS/Skills.cpp",
+      "sha256": "03f077dacedb03233ecb7bc08f4bf97ce8034819a0d8f887b9b0c9c4f219c768"
+    },
+    "sub_6FCF5DE0": {
+      "path": "source/D2Game/src/SKILLS/SkillAss.cpp",
+      "sha256": "baec12022207d1e060f38280d5ee1e31efa8edae3fdaa9baad43bbc633324a6d"
+    }
+  },
+  "sharedImpactReviewSha256": "24a5f5a4b41ca8a8c4fa0e832be5ac22fd98b2dcdbbc976b534c232ab5d0a1a4",
+  "currentMissilesSha256": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+  "missileFields": {
+    "explodingarrow": {
+      "GetHit": 1,
+      "HitClass": 0,
+      "pSrvDoFunc": 1,
+      "pSrvHitFunc": 4,
+      "pSrvDmgFunc": 0,
+      "ToHit": 1,
+      "AlwaysExplode": 1,
+      "Range": 40,
+      "SrcDamage": 128
+    },
+    "freezingarrow": {
+      "GetHit": 1,
+      "HitClass": 0,
+      "pSrvDoFunc": 1,
+      "pSrvHitFunc": 4,
+      "pSrvDmgFunc": 0,
+      "ToHit": 1,
+      "AlwaysExplode": 1,
+      "Range": 40,
+      "SrcDamage": 128
+    },
+    "explodingarrowexp2": {
+      "HitFlags": 2,
+      "ResultFlags": 5,
+      "HitClass": 0,
+      "pSrvHitFunc": 1,
+      "Range": 1,
+      "sHitPar1": 5,
+      "SrcDamage": 0,
+      "EType": "fire"
+    },
+    "freezingarrowexp3": {
+      "HitFlags": 2,
+      "ResultFlags": 5,
+      "HitClass": 0,
+      "pSrvHitFunc": 1,
+      "Range": 1,
+      "sHitPar1": 5,
+      "SrcDamage": 0,
+      "EType": "frze"
+    }
+  },
+  "established": [
+    "Existing parent hit4 creates independent children before parent damage;AlwaysExplode preserves creation on AR miss,block,terrain and expiry. Existing one-frame scheduling/geometry remain.",
+    "Child hit1 rolls one elemental packet;fire getter excludes other lanes,freeze getter writes cold damage and freeze length. Each recipient receives its own copy;area avoidance is requested without shield block.",
+    "Child HitFlags2 lacks weapon bit32:neither attacker nor recipient weapon hit callbacks run. ResultFlags5 requests successful hit recovery. Reuse ordered HP,absorb,status,kill,credit and native return without weapon poison,drain,armor or proc tickets.",
+    "Parent retains source128 weapon fields,accuracy PMH,captured armor and successful weapon hit tickets. A shared elemental roll cannot be multiplied by per-recipient weapon collection."
+  ],
+  "remaining": [
+    "Existing co-op hostile/Z/town and source radius/no-LOS projection remain explicit. Modern global catch-up,seed/stat/owner/provider/order contexts remain unverified.",
+    "Unsupported native recipient modes are reported and other recipients continue;no replacement mode behavior is invented.",
+    "This does not qualify all other spells,other missiles,exceptional/PvP/full named/class/client/asset acceptance."
+  ]
+}

@@ -23,4 +23,28 @@ internal static class PlayerWeaponMissileContact
             UninterruptibleItemCasts:()=>BarbarianWhirlwind.Locked(owner));
         PlayerWeaponContact.ReleaseMissile(owner,target,contact,flight.NextUtc,true);
     }
+    // Element-only HitFlags2 area packets share HP/status/credit/return,not weapon events.
+    internal static bool TryElemental(PlayerMobile owner,BaseCreature target,int damage256,bool freeze,int rawFrames,DateTime at,out string reason)
+    {
+        reason=null;
+        if(target is not{Alive:true,Deleted:false}||!target.CanBeDamaged()||target.Map!=owner.Map||ClassCombat.Friendly(owner,target)){return true;}
+        if(owner is not{Alive:true,Deleted:false}){reason="Bow explosion caster is no longer active";return false;}
+        try
+        {
+            PlayerWeaponContact.Require(owner,target,true,weaponSetup:false);
+            if(PlayerWeaponContact.Metadata(target,true)is{Killable:false}){throw new NotSupportedException("Bow explosion recipient is not source-killable");}
+        }
+        catch(NotSupportedException e){reason=e.Message;return false;}
+        if(ClassAvoidance.Missile(target)){return true;}
+        var damage=freeze?new GearDamage(0,0,damage256/256.0,0,0):new GearDamage(0,damage256/256.0,0,0,0);
+        var parts=SkillCombat.MitigatePrepared(owner,target,damage,out int absorbed);int cold=0,frozen=0;
+        if(freeze){(cold,frozen)=DragonTails.ColdLengths(owner,target,0,rawFrames);}
+        var impact=new PreparedWeaponImpact(damage,parts,absorbed)with{LifeDamage256=NamedElements.To256(parts.Total)};
+        var packet=new PlayerWeaponContactPrepared(SourceMeleeResult.Successful|SourceMeleeResult.GetHit,impact,new(0,0),cold,0,WeaponMissiles.ItemEffects,
+            FreezeFrames:frozen,HitFlags:2,SuppressWear:true);
+        PlayerWeaponContact.ReleaseMissile(owner,target,packet,at,true);
+        if(target.Alive&&(cold>0||frozen>0)){target.FixedEffect(0x374A,10,15,0x480,0);} // Identified shared cold/freeze placeholder.
+        return true;
+    }
+
 }
