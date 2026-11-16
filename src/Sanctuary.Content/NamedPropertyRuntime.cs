@@ -6,7 +6,12 @@ using System.Linq;
 
 namespace Sanctuary;
 
-public readonly record struct NamedPropertyRoll(string Key, int Value, int Maximum);
+public readonly record struct NamedPropertyRoll(string Key, int Value, int Maximum)
+{
+    // Optional: old saved ranges did not retain property17's independent roll.
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public int? ColdDurationFrames{get;init;}
+}
 
 // Source arguments differ between scalar rolls, combat ranges and scaled stats.
 // Unknown effects remain in the catalogue and cannot enter live acquisition.
@@ -53,6 +58,10 @@ public static class NamedPropertyRuntime
     public static int Parameter(NamedProperty property) => property.Parameter is { } value
         && value.ValueKind == System.Text.Json.JsonValueKind.Number && value.TryGetInt32(out int number) ? number : 0;
 
+    internal static bool IndependentColdDuration(NamedProperty property)=>property.Code=="dmg-cold"&&Parameter(property)==0;
+    internal static int ColdFrames(NamedProperty property,NamedPropertyRoll roll)
+        =>IndependentColdDuration(property)&&roll.ColdDurationFrames is{} frames?frames:Parameter(property);
+
     public static NamedPropertyRoll Roll(string key, NamedProperty template, Random random)
     {
         if (!Supported(template) || !template.SourceEnabled) { throw new InvalidOperationException("An implemented named property is required."); }
@@ -68,7 +77,16 @@ public static class NamedPropertyRuntime
         }
         if (template.Code is "rep-dur" or "rep-quant" || template.Code == "sock" && Parameter(template) > 0) { return new(key, Parameter(template), Parameter(template)); }
         int min = template.SourceMin ?? 0, max = template.SourceMax ?? min;
-        if (_range.Contains(template.Code)) { return new(key, min, max); }
+        if (_range.Contains(template.Code))
+        {
+            var range=new NamedPropertyRoll(key,min,max);
+            if(IndependentColdDuration(template))
+            {
+                int low=Math.Min(min,max),high=Math.Max(min,max);
+                range=range with{ColdDurationFrames=low==high?low:random.Next(low,checked(high+1))};
+            }
+            return range;
+        }
         if (max < min) { throw new InvalidDataException("Invalid scalar property range."); }
         int rolled = random.Next(min, checked(max + 1));
         return new(key, rolled, rolled);
@@ -78,6 +96,8 @@ public static class NamedPropertyRuntime
     {
         if (!Supported(template) || !template.SourceEnabled) { throw new InvalidDataException("Unsupported saved named property."); }
         int min = template.SourceMin ?? 0, max = template.SourceMax ?? min;
+        if(roll.ColdDurationFrames is{} frames&&(!IndependentColdDuration(template)||frames<0||frames<Math.Min(min,max)||frames>Math.Max(min,max)))
+        {throw new InvalidDataException("Saved independent cold duration escaped its property");}
         bool scaledFallback=_scaled.ContainsKey(template.Code)&&Parameter(template)==0;
         bool fixedParameter = _scaled.ContainsKey(template.Code)&&!scaledFallback || template.Code is "rep-dur" or "rep-quant" || template.Code == "sock" && Parameter(template) > 0;
         bool valid = fixedParameter ? roll.Value == Parameter(template) && roll.Maximum == roll.Value

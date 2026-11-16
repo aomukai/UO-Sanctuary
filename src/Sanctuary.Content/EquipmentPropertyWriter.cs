@@ -150,6 +150,15 @@ internal static class EquipmentRawProperties
     private sealed class Target(EquipmentStatUnit unit,EquipmentStatValues values,EquipmentPropertyBase basis,bool weapon,bool armor,bool throwable):EquipmentPropertyServices
     {
         private EquipmentStatNode List;
+        private (int Bound,int Value)? Recorded;
+        internal void RecordParameterRoll(int minimum,int maximum,int value)
+        {
+            int low=Math.Min(minimum,maximum),high=Math.Max(minimum,maximum);
+            if(Recorded!=null||value<low||value>high){throw new InvalidDataException("Invalid retained property parameter roll");}
+            if(low!=high){Recorded=(checked(high-low+1),value-low);}
+        }
+        internal void FinishParameterRoll()
+        {if(Recorded!=null){throw new InvalidDataException("Retained parameter roll was not consumed");}}
         internal bool Ethereal{get;private set;}
         internal bool HasDurability()
         {
@@ -173,7 +182,11 @@ internal static class EquipmentRawProperties
         internal override int ListValue(int stat,int layer)=>EquipmentStatValues.Raw(List.BaseValues,EquipmentStatKey.Pack(stat,layer));
         internal override void SetList(int stat,int value,int layer)=>values.SetBase(List,EquipmentStatKey.Pack(stat,layer),value);
         internal override void AddList(int stat,int value,int layer)=>SetList(stat,checked(ListValue(stat,layer)+value),layer);
-        internal override int Roll(int bound)=>throw new NotSupportedException("Projection cannot reroll a saved original item");
+        internal override int Roll(int bound)
+        {
+            if(Recorded is not{} r||r.Bound!=bound){throw new NotSupportedException("Projection cannot reroll a saved original item");}
+            Recorded=null;return r.Value;
+        }
         internal override void SetEthereal()=>Ethereal=true;
     }
     // Base arrays/type metadata remain explicit inputs until full item birth is
@@ -204,8 +217,10 @@ internal static class EquipmentRawProperties
             int parameter=single?ItemSingleSkillProperty.Parameter(property):NamedPropertyRuntime.Parameter(property);
             if(plan.Steps.Any(s=>s.Function==17)&&parameter==0&&property.Code.EndsWith("/lvl",StringComparison.Ordinal))
             {omissions.Add(new(property.Code,property.Slot,"The original zero-parameter fallback roll is not represented"));continue;}
-            if(plan.Steps.Any(s=>s.Function==17)&&parameter==0&&roll.Value!=roll.Maximum)
+            bool recordedCold=NamedPropertyRuntime.IndependentColdDuration(property)&&roll.ColdDurationFrames.HasValue;
+            if(plan.Steps.Any(s=>s.Function==17)&&parameter==0&&roll.Value!=roll.Maximum&&!recordedCold)
             {omissions.Add(new(property.Code,property.Slot,"The original independent zero-parameter range fallback is not recorded"));continue;}
+            if(recordedCold){target.RecordParameterRoll(roll.Value,roll.Maximum,roll.ColdDurationFrames.Value);}
             var input=new EquipmentPropertyInput(roll.Value,roll.Maximum,parameter);
             if(socket)
             {
@@ -219,6 +234,7 @@ internal static class EquipmentRawProperties
             else if(ethereal){SavedItemEthereality.Apply(true,true,unit.Kind,target.Ethereal,target.HasDurability,target);}
             else if(layered||indestruct){EquipmentPropertyWriter.Create(plan,input,mode,target);}
             else{EquipmentPropertyWriter.Apply(plan,input,mode,target);}
+            target.FinishParameterRoll();
         }
         if(state.Quality!=0){omissions.Add(new("quality","","Quality-base initialization is not integrated"));}
         if(state.MaterialRolls.Length>0||state.CraftedEquipment||state.DurabilityPercent!=0){omissions.Add(new("materials","","Crafted/material stat projection is not integrated"));}

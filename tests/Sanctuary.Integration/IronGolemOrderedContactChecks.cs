@@ -145,12 +145,11 @@ public static class IronGolemOrderedContactChecks
             finally{NecromancerEffects.Profiles.Clear(body);Clean(owner,target);}
         }
         Require(cases==4,"Incomplete two-refusal/PMH/Iron-Maiden controls; original-item Crushing Blow has its own positive acceptance");
-        // Baranar's current cold property has no explicit parameter and its
-        // independent fallback duration was never stored in NamedPropertyRoll.
-        // Keep that original untouched; do not invent a duration or reroll it.
+        // Preserve the old-format negative: its independent cold roll is absent.
+        // Newly generated originals retain that roll and have separate positive coverage.
         foreach(var item in new[]{("Baranar's Star","independent zero-parameter range fallback")})
         {
-            var birthOwner=Owner();var unsupported=Original(birthOwner,item.Item1);
+            var birthOwner=Owner();var unsupported=Original(birthOwner,item.Item1);ColdParameterChecks.Legacy(unsupported);
             try
             {
                 var point=unsupported.Location;var map=unsupported.Map;bool refused=false;

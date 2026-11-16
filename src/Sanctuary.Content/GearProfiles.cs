@@ -292,7 +292,7 @@ public sealed class GearProfiles : GenericPersistence
     private static bool ValidOffer(int offer) => offer is >= 1 and <= 60000;
     public override void Serialize(IGenericWriter writer)
     {
-        writer.Write(6);
+        writer.Write(7);
         writer.Write(_starterMigrations.Count);
         foreach (var serial in _starterMigrations)
         {
@@ -335,13 +335,17 @@ public sealed class GearProfiles : GenericPersistence
             writer.Write(state.NamedSockets);
             writer.Write(state.NamedProperties.Length);
             foreach (var property in state.NamedProperties)
-            { writer.Write(property.Key); writer.Write(property.Value); writer.Write(property.Maximum); }
+            {
+                writer.Write(property.Key); writer.Write(property.Value); writer.Write(property.Maximum);
+                writer.Write(property.ColdDurationFrames.HasValue);
+                if(property.ColdDurationFrames is{} frames){writer.Write(frames);}
+            }
         }
     }
     public override void Deserialize(IGenericReader reader)
     {
         int version = reader.ReadInt();
-        if (version is < 0 or > 6)
+        if (version is < 0 or > 7)
         {
             throw new InvalidDataException("Unsupported equipment persistence version.");
         }
@@ -421,7 +425,11 @@ public sealed class GearProfiles : GenericPersistence
                 string named = reader.ReadString(); int sockets = reader.ReadInt(), countProperties = reader.ReadInt();
                 if (countProperties is < 0 or > 64) { throw new InvalidDataException("Invalid named-property count."); }
                 var properties = new NamedPropertyRoll[countProperties];
-                for (int n = 0; n < properties.Length; n++) { properties[n] = new(reader.ReadString(), reader.ReadInt(), reader.ReadInt()); }
+                for (int n = 0; n < properties.Length; n++)
+                {
+                    properties[n] = new(reader.ReadString(), reader.ReadInt(), reader.ReadInt());
+                    if(version>=7&&reader.ReadBool()){properties[n]=properties[n] with{ColdDurationFrames=reader.ReadInt()};}
+                }
                 state = state with { NamedItemId = named, NamedSockets = sockets, NamedProperties = properties };
             }
             _items.Add(serial, state);

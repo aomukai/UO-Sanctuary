@@ -140,7 +140,7 @@ public static class NpcItemBlindChecks
         Differential();
         if(!reload)
         {
-            var rows=new List<Held>();var p=NpcFreezeHitChecks.Owner();var blocked=Original("Baranar's Star");blocked.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);
+            var rows=new List<Held>();var p=NpcFreezeHitChecks.Owner();var blocked=Original("Baranar's Star");ColdParameterChecks.Legacy(blocked);blocked.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);
             var before=Json(ClassGear.State(blocked));int mana=NecromancerEffects.ManaBalance256(p);
             Require(!IronGolemCasting.Plan(p,blocked,out _,out var issue)&&issue.Contains("independent zero-parameter range fallback",StringComparison.Ordinal)
                 &&!IronGolemCasting.Release(p,blocked,TimedEffects.Now,out _)&&blocked.Parent==null&&blocked.Map==p.Map&&Json(ClassGear.State(blocked))==before

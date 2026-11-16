@@ -313,7 +313,7 @@ public static class NamedGear
     {
         int frames = ClassGear.Bonus(player, "cold-len");
         foreach (var value in ActiveProperties(player))
-        { if (value.Property.Code is "dmg-cold" or "dmg-elem") { frames += NamedPropertyRuntime.Parameter(value.Property); } }
+        { if (value.Property.Code is "dmg-cold" or "dmg-elem") { frames += NamedPropertyRuntime.ColdFrames(value.Property,value.Roll); } }
         return Math.Max(0, frames) * 40;
     }
     internal readonly record struct PoisonContribution(int Minimum,int Maximum,int Frames,bool StatAggregate=false)

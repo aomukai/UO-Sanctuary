@@ -56,7 +56,7 @@ public static class NpcEquipmentElementChecks
         var itemContext=IronGolemItems.Equipment(actor,CreatureProfiles.Level(actor));var raw=itemContext.Elements();var snapshot=NpcEquipmentElements.Capture(actor);
         if(kind=="fire"){Require(raw.FireMin==25*256&&raw.FireMax==75*256,"Hellplague range differs");}
         if(kind=="magic"){Require(raw.MagicMin==108*256&&raw.MagicMax==108*256,"Ghostflame magic range differs");}
-        if(kind=="combined"){Require(raw.FireMin==256&&raw.FireMax==200*256&&raw.LightningMin==256&&raw.ColdMin==256&&raw.ColdFrames==0,"Baranar range or absent cold length differs");}
+        if(kind=="combined"){Require(raw.FireMin==256&&raw.FireMax==200*256&&raw.LightningMin==256&&raw.ColdMin==256&&raw.ColdFrames==ClassGear.State(item).NamedProperties.Single(r=>r.ColdDurationFrames!=null).ColdDurationFrames,"Baranar range or retained cold length differs");}
         if(kind=="cold"){Require(raw.ColdMin==3*256&&raw.ColdMax==5*256&&raw.ColdFrames==50,"Gleamscythe range/frames differ");}
         if(kind=="gems"){Require(raw.FireMin==15*256&&raw.FireMax==20*256&&raw.ColdMin==10*256&&raw.ColdMax==14*256&&raw.ColdFrames==75,"Actual installed Ruby/Sapphire range or units differ");}
         if(kind=="mastery")
@@ -121,7 +121,11 @@ public static class NpcEquipmentElementChecks
         foreach(var row in saved.Actors)
         {
             var actor=(SkeletonGuardian)World.FindMobile((Serial)row.Actor);var item=World.FindItem((Serial)row.Item);
-            Require(actor is{Alive:true,Deleted:false}&&actor.ControlMaster?.Serial.Value==saved.Owner&&actor.Map==Map.Internal&&item.Parent==actor&&JsonSerializer.Serialize(ClassGear.State(item))==row.Gear,"Reload lost original identity/parent/full rolls");
+            Require(actor is{Alive:true,Deleted:false},"Element holder disappeared or died: "+row.Actor);
+            Require(actor.ControlMaster?.Serial.Value==saved.Owner,"Element holder owner changed: "+row.Actor);
+            Require(actor.Map==Map.Internal,"Element holder was not parked: "+row.Actor+" map="+actor.Map);
+            Require(item?.Parent==actor,"Element original parent changed: "+row.Item);
+            Require(JsonSerializer.Serialize(ClassGear.State(item))==row.Gear,"Element original full rolls changed: "+row.Item+" actual="+JsonSerializer.Serialize(ClassGear.State(item))+" expected="+row.Gear);
             var snapshot=NpcEquipmentElements.Capture(actor);Require(snapshot==row.Elements&&NpcEquipmentElements.Roll(snapshot,_=>0)==row.First&&NpcEquipmentElements.Roll(snapshot,n=>n-1)==row.Last,"Reload changed actual element packet/leases/mastery");
             if(row.ColdTarget!=0){var target=World.FindMobile((Serial)row.ColdTarget);Require(TimedEffects.TryActor(target,out var state)&&state.Cold?.Source==actor.Serial.Value&&state.ChillUntil==row.ColdUntil,"Reload lost retained NPC cold source/timer");}
         }

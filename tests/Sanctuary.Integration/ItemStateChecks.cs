@@ -58,7 +58,7 @@ public static class ItemStateChecks
     {
         var reader = new BufferReader(Serialize());
         var writer = new BufferWriter(new byte[1024 * 1024], true);
-        Require(reader.ReadInt() == 6, "Expected gear version 6");
+        Require(reader.ReadInt() == 7, "Expected gear version 7");
         writer.Write(outputVersion);
         int migrations = reader.ReadInt();
         writer.Write(migrations);
@@ -102,7 +102,7 @@ public static class ItemStateChecks
             string namedId = reader.ReadString();
             int namedSockets = reader.ReadInt(), properties = reader.ReadInt();
             for (int j = 0; j < properties; j++)
-            { reader.ReadString(); reader.ReadInt(); reader.ReadInt(); }
+            { reader.ReadString(); reader.ReadInt(); reader.ReadInt(); if(reader.ReadBool()){reader.ReadInt();} }
             // A real pre-v6 world could not contain named gear. Omit those
             // rows from this synthetic old-world payload; callers restore
             // the complete current snapshot after checking migration.
@@ -296,6 +296,9 @@ public static class ItemStateChecks
     }
     private static void CheckImbuing(PlayerMobile player)
     {
+        Require(ClassProfessions.Active(player,SkillName.Imbuing)||ClassProfessions.Profiles.Confirm(player,SkillName.Imbuing),"Imbuing fixture profession enrollment");
+        CraftFacilities.Register(new(SkillName.Imbuing,"Trammel",player.X+1,player.Y,player.Z,0xB4A));
+        TreasureChecks.LearnAll(player);
         player.Skills.Imbuing.Cap = 120; player.Skills.Imbuing.Base = 120;
         player.Backpack.DropItem(new ImbuingLadle());
         var implicitWhite = new Longsword();

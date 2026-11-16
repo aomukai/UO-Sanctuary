@@ -98,7 +98,7 @@ public static class IronGolemCastChecks
                     &&NecromancerEffects.ManaBalance256(p)==(mode==2?0:mana),"Moved item/caster/lost mana consumed original or replaced old");
                 p.MoveToWorld(point,p.Map);i.Delete();
             }
-            Mana(p);var unsupported=NamedGear.Create(NamedGear.Catalog.Items.Single(x=>x.SourceKey=="Baranar's Star").Id,99,new Random(12),true);
+            Mana(p);var unsupported=NamedGear.Create(NamedGear.Catalog.Items.Single(x=>x.SourceKey=="Baranar's Star").Id,99,new Random(12),true);ColdParameterChecks.Legacy(unsupported);
             unsupported.MoveToWorld(new(p.X+2,p.Y,p.Z),p.Map);int before=NecromancerEffects.ManaBalance256(p);
             Require(!IronGolemCasting.Plan(p,unsupported,out _,out var issue)&&issue.Contains("independent zero-parameter range fallback")&&!Begin(p,unsupported)&&unsupported.Parent==null&&!old.Deleted&&NecromancerEffects.ManaBalance256(p)==before,"Unsupported Baranar's Star unrepresented independent cold-duration projection entered learned windup or changed original item/roster/mana: "+issue);unsupported.Delete();
         }
@@ -154,9 +154,9 @@ public static class IronGolemCastChecks
             "Unpaid pending cast replayed on reload");
         Require(SkillBindings.Instance.Get(p).Right==CombatAbility.IronGolem&&SkillBindings.Instance.GetQuick(p.Serial,DiabloClass.Necromancer,7)==CombatAbility.IronGolem,"Learned bindings did not persist");
     }
-    private static void Input(NetState network,bool quick)
+    internal static void Input(NetState network,bool quick,string customLabel=null,Func<PlayerMobile,Item> original=null,Action<PlayerMobile,IronGolemBody,Item> inspect=null)
     {
-        string label=quick?"iron-golem-quick":"iron-golem-right";var p=Owner();var item=Original(p);Ready(p);int mana=NecromancerEffects.ManaBalance256(p);
+        string label=customLabel??(quick?"iron-golem-quick":"iron-golem-right");var p=Owner();var item=original?.Invoke(p)??Original(p);Ready(p);int mana=NecromancerEffects.ManaBalance256(p);
         network.Seeded=network.SentFirstPacket=true;network.CompressionEnabled=false;network.Mobile=p;p.NetState=network;
         var field=typeof(NetState).GetField("_protocolState",BindingFlags.Instance|BindingFlags.NonPublic);field.SetValue(network,Enum.Parse(field.FieldType,"GameServer_LoggedIn"));network.ResetMovementState();network.SendMobileUpdate(p);
         bool began=false;long deadline=Core.TickCount+6000;
@@ -170,6 +170,7 @@ public static class IronGolemCastChecks
                 var golem=NecromancerGolems.For(p).OfType<IronGolemBody>().SingleOrDefault();
                 if(golem==null){Timer.StartTimer(TimeSpan.FromMilliseconds(20),Inspect);return;}
                 Require(began&&item.Parent==golem&&golem.Prepared.RosterMember&&NecromancerEffects.ManaBalance256(p)==mana-35*256,"Actual right/quick input payment or original mismatch");
+                inspect?.Invoke(p,golem,item);
                 Drop(p);Log.Information("{Label}-result: passed",label);
             }
             catch(Exception e){item.Delete();Drop(p);Log.Error(e,"{Label}-result: failed",label);}

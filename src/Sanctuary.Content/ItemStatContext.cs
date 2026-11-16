@@ -72,7 +72,7 @@ internal readonly struct ItemStatContext
         var lightning=Element("ltng","dmg-ltng","lightning-damage");var magic=Element("mag","dmg-mag",null);
         int frames=Bonus("cold-len");
         foreach(var p in Properties())
-        {if(p.Property.Code is "dmg-cold" or "dmg-elem"){frames=checked(frames+NamedPropertyRuntime.Parameter(p.Property));}}
+        {if(p.Property.Code is "dmg-cold" or "dmg-elem"){frames=checked(frames+NamedPropertyRuntime.ColdFrames(p.Property,p.Roll));}}
         int gemMs=GemCombat.Duration(Item,"cold-damage");
         if(gemMs%40!=0){throw new NotSupportedException("NPC socket cold duration has no exact source-frame projection");}
         frames=checked(frames+gemMs/40);
