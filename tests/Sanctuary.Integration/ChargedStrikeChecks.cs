@@ -14,7 +14,7 @@ namespace Sanctuary.Integration;
 public static class ChargedStrikeChecks
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(ChargedStrikeChecks));
-    private sealed class Rolls(int value):Random{public override int Next(int maximum)=>Math.Clamp(value,0,Math.Max(0,maximum-1));}
+    private sealed class Rolls(int value):Random{internal int Value=value;public override int Next(int maximum)=>Math.Clamp(Value,0,Math.Max(0,maximum-1));}
     private sealed record Saved(uint Owner,uint Weapon,uint Helm,uint Target,Point3D Origin,int Mana,int Life,int Durability,int Quantity,int Rank,ChargedStrikeFlight[] Flights);
     private static bool _creating;
     private static string Manifest=>Path.Join(Core.BaseDirectory,"charged-strike-fixtures.json");
@@ -122,13 +122,14 @@ public static class ChargedStrikeChecks
         Ready(owner);owner.AddToBackpack(spear);var weapon=(BaseWeapon)Named(owner,"Titan's Revenge");var helm=Named(owner,"Griffon's Eye");Named(owner,"Goblin Toe");
         foreach(string id in new[]{"amazon.chargedstrike","amazon.powerstrike","amazon.lightningbolt","amazon.lightningstrike"}){Train(owner,id,20);}Train(owner,"amazon.criticalstrike");
         var target=Enemy(owner);Ready(owner);var values=SkillMechanics.Values(owner,CombatAbility.ChargedStrike);Require(values.Eval("EDmgSymPerCalc")==840 && values.Damage256(false)==256 && NamedElements.MasteryPercent(owner,"ltng")>0,"Actual hard-only synergies and Griffon");
-        AmazonMelee.LightningRoll=span=>span-1;AmazonMelee.Effects=new Rolls(0);var prepared=Begin(owner,target);int quantity=NamedAmmunition.Remaining(weapon);
+        AmazonMelee.LightningRoll=span=>span-1;var rng=new Rolls(0);AmazonMelee.Effects=rng;var prepared=Begin(owner,target);int quantity=NamedAmmunition.Remaining(weapon);
         using(WeaponHands.UseMelee(owner,weapon))
         {
             var raw=GearEffects.Damage(owner,0,target,(int)values.Eval("calc1"),_=>0);var expected=GearEffects.PrepareWeaponImpact(owner,target,0,new Rolls(99),raw,new(0,0,0,prepared.Lightning256/256.0,0,ColdMs:0),projectileCritical:true);
             Require(prepared.Impact.Parts==expected.Parts,"Weapon critical doubled lightning or skipped separate calc1 ED");
         }
-        owner.AddToBackpack(helm);ClassGear.Refresh(owner);int before=SkillHealth.Balance256(target);AmazonMelee.Effects=new Rolls(99);Require(Commit(owner,target,prepared)==prepared.Impact.LifeDamage256,"Captured melee changed after gear removal");var flights=Flights(owner);
+        owner.AddToBackpack(helm);ClassGear.Refresh(owner);int before=SkillHealth.Balance256(target);rng.Value=99; // Retain one RNG service: force startup critical,then reject release CB.
+        AmazonMelee.Effects=new Rolls(99);Require(Commit(owner,target,prepared)==prepared.Impact.LifeDamage256,"Captured melee changed after gear removal");var flights=Flights(owner);
         var fresh=SkillMechanics.Values(owner,CombatAbility.ChargedStrike,prepared.Rank);Require(flights.Length==(int)fresh.Eval("calc1") && flights.All(f=>f.Rank==prepared.Rank && f.Min256==256 && f.Max256==fresh.Damage256(true)) && NamedAmmunition.Remaining(weapon)==quantity && !WeaponHands.Melee(weapon),"Bolt factory reused melee critical/gear snapshot or javelin ammunition");
         var snapshot=ChargedStrikeBolts.Snapshot();bool rejected=false;try{ChargedStrikeBolts.Restore(snapshot.Append(flights[0] with{Direction=8,Id=long.MaxValue}).ToArray());}catch(InvalidDataException){rejected=true;}Require(rejected && snapshot.SequenceEqual(ChargedStrikeBolts.Snapshot()),"Invalid restore erased valid flights");ChargedStrikeBolts.Cancel(owner);AmazonMelee.LightningRoll=_=>0;target.Delete();
         var other=Fresh();Equip(other,new Spear());Train(other,"amazon.chargedstrike");target=Enemy(other);Ready(other);Begin(other,target);ChargedStrikeBolts.Cast(other,target.Location,SkillMechanics.Values(other,CombatAbility.ChargedStrike));ClassCreation.Profiles.TryGet(other.Serial,out var profile);ClassCreation.Profiles.ResetAllocatedPoints(other,profile);Require(!ClassCombat.ResolveAction(other,Core.TickCount+10000) && Flights(other).Length==0 && ClassCombat.For(other).AmazonAttack==null,"Respec retained bolts/attack");

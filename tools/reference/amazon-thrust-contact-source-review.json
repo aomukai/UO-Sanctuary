@@ -1,0 +1,54 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "functions": {
+    "SKILLS_SrvSt06_PowerStrike_ChargedStrike": {
+      "path": "source/D2Game/src/SKILLS/SkillAma.cpp",
+      "sha256": "65fb37d65e169b2114988f6c8d96af048c6f0187a323a656e2f6f6f2907a681f"
+    },
+    "SKILLS_SrvSt10_LightningStrike": {
+      "path": "source/D2Game/src/SKILLS/SkillAma.cpp",
+      "sha256": "f38f896fc6f9e7ea79eb2d43d6723ac9481535aef4d1a9c46d1ebf7409ed86a8"
+    },
+    "SKILLS_SrvDo011_ChargedStrike": {
+      "path": "source/D2Game/src/SKILLS/SkillAma.cpp",
+      "sha256": "8d0719607b7bd37b306d79fca083941f4c1c359c6bf5f45a1b912b89a34d47b6"
+    },
+    "SKILLS_SrvDo014_LightningStrike": {
+      "path": "source/D2Game/src/SKILLS/SkillAma.cpp",
+      "sha256": "161fedf51a2255d1875917423df0f237184020efec2d3924f7d2507ba9356280"
+    },
+    "SKILLS_SrvDo002_Kick_PowerStrike_MonIceSpear_Impale_Bash_Stun_Concentrate_BearSmite_Vengeance_Berserk_FireClaws": {
+      "path": "source/D2Game/src/SKILLS/Skills.cpp",
+      "sha256": "70ec271db773612943aabdcfe55da0812bc818cd35aa97ea8c017fc27f6d27c2"
+    },
+    "SUNITDMG_FillDamageValues": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "sha256": "bf95432c3122031006d855c92283e86db6d901e9763974ec7449cfc471c41020"
+    },
+    "SUNITDMG_AllocCombat": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "sha256": "bc56dd3efbba1649d4a3d9bfcb8f2f63187bbd262c2458c6709860891d28c99a"
+    },
+    "SUNITDMG_DrainItemDurability": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "sha256": "9384594853e7f4255913c5cf5ff2e45d306ead9fd8e83b3e592470e1c0ef7d58"
+    },
+    "ITEMS_UpdateDurability": {
+      "path": "source/D2Game/src/ITEMS/Items.cpp",
+      "sha256": "6c582c6a0eed575253bc819ba791074a773cf95cbd59de1b52208f63848eb8ce"
+    }
+  },
+  "scope": "Complete older start6/start10/do11/do14/fill/allocation/drain and existing current/approved controller;not modern executable parity.",
+  "established": [
+    "Accuracy and shield resolve before successful allocation;PMH precedes shield and armor setup precedes fill. Preserve the released Power Strike AR correction.",
+    "Skill lightning rolls before weapon lanes. Capture weapon source poison initial rate and clock,drain,cold,critical and mitigation at startup. Skill lightning is already mastery-scaled and is not enhanced twice.",
+    "Release through existing ordered player damage/item/wear/attack/return services;once-only payment,original target,cancellation,range and ordinary low-mana fallback remain.",
+    "Charged Strike do11 and Lightning Strike do14 emit after the melee attempt,including miss,block or lethal contact. Approved Lightning Strike opening/solo adaptation remains unchanged."
+  ],
+  "remaining": [
+    "Charged Strike calc1 physical ED overlap remains the existing older interpretation,not modern corroboration.",
+    "Exact modern startup/RNG/animation/payment/owner/client/PvP and exceptional recipient details remain unverified.",
+    "Other missile/incoming/full named-item admission and full class certification remain separate."
+  ]
+}
