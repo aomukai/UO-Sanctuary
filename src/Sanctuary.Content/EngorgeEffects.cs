@@ -8,11 +8,11 @@ namespace Sanctuary;
 
 internal sealed record EngorgeEffect(uint Owner,DateTime AppliedUtc,DateTime UntilUtc,EngorgeSuppliers Suppliers);
 
-// Prepared complete recipient rule,not a recovered do161 binder. Only the
-// internal corpse action can install it while learned admission stays gated.
+// Approved Sanctuary recipient rule,not a recovered do161 binder.
+// Normal learned corpse actions reuse the qualified original/bound recipients.
 internal static class EngorgeEffects
 {
-    internal static bool Approved=>false;
+    internal static bool Approved=>true;
     private static readonly Dictionary<uint,DateTime> NativeRecovery=new();
     internal static EngorgeEffect Saved(BaseCreature body)=>body switch
     {WarlockGoatmanBody b=>b.Prepared?.Engorge,WarlockTaintedBody b=>b.Prepared?.Engorge,WarlockDefilerBody b=>b.Prepared?.Engorge,_=>BoundDemonHosts.State(body)?.Engorge};

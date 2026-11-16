@@ -428,7 +428,7 @@ public static class ClassCombat
         }
     }
     internal static bool CorpseCast(CombatAbility ability)=>ClassAbilities.CorpseTarget(ability) && ability!=CombatAbility.RaiseSkeleton;
-    internal static bool BeginCorpse(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now)=>ability==CombatAbility.GrimWard?BarbarianGrimWard.Begin(owner,selected,point,now):ability==CombatAbility.FindPotion?BarbarianFindPotion.Begin(owner,selected,point,now):ability==CombatAbility.FindItem
+    internal static bool BeginCorpse(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now)=>ability==CombatAbility.Engorge?WarlockCombat.Begin(owner,ability,selected,point,now):ability==CombatAbility.GrimWard?BarbarianGrimWard.Begin(owner,selected,point,now):ability==CombatAbility.FindPotion?BarbarianFindPotion.Begin(owner,selected,point,now):ability==CombatAbility.FindItem
         ?BarbarianFindItem.Begin(owner,selected,point,now):NecromancerCombat.CorpseTarget(ability) && NecromancerCombat.Begin(owner,ability,selected,point,now);
     public static bool Perform(PlayerMobile from, CombatAbility ability, Mobile target, Point3D point, long now)
         => Perform(from, ability, target, point, now, false);

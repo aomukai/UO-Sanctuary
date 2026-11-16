@@ -2505,10 +2505,10 @@
       "characterClass": "Warlock",
       "tree": "Demon",
       "sourceId": 379,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Approved normal corpse-target SC/FCR action reuses original/bound demon healing,timed captured armor/physical resistance/attack speed/raw regeneration and percentage physical-melee leech. Direct corpse and two-tile cursor acquisition route through ordinary left/right/quick input,one release debit and protected loot consumption;late loss/cancellation preserve uncommitted resources. Existing optional recipient saves retain absolute expiry,birth/RNG/wounds and no offline recovery. See engorge-learned-checkpoint.md and warlock-final-talents-approval.json. Exact modern do161 binder,special/PvP/property/graphical/full-class certification remain unqualified;incompatible raw NPC drains refuse. Final corpse/buff/audio effects and talent/hotkey icons remain identified placeholders."
     },
     {
       "talentId": "warlock.consume",

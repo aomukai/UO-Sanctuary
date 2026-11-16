@@ -50,7 +50,7 @@ public static class EngorgeWorldChecks
         FixtureSpace.Corridor(p,6900,34,3300);var account=FixtureNetwork.Authenticate(network,p,"engorge-world-");SkeletonGuardian[] bodies=[];bool kept=false;
         try
         {
-            Require(!EngorgeEffects.Approved&&!WarlockCombat.Implemented(CombatAbility.Engorge),"Unapproved Engorge activated");
+            Require(EngorgeEffects.Approved&&WarlockCombat.Implemented(CombatAbility.Engorge),"Approved Engorge route unavailable");
             var first=Corpse(p);int mana=NecromancerEffects.ManaBalance256(p);
             Require(EngorgeCasting.ReleasePrepared(p,first,TimedEffects.Now)==new EngorgeRelease(false,0,0)&&!first.SanctuaryConsumed&&NecromancerEffects.ManaBalance256(p)==mana,"No-demon cast spent corpse/mana");
             bodies=new[]{CombatAbility.SummonGoatman,CombatAbility.SummonTainted,CombatAbility.SummonDefiler}
