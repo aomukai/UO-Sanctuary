@@ -19,6 +19,249 @@
     "necromancer.terror",
     "sorceress.teleport"
   ],
+  "mechanicallyImplementedSkills": [
+    "amazon.avoid",
+    "amazon.chargedstrike",
+    "amazon.coldarrow",
+    "amazon.criticalstrike",
+    "amazon.decoy",
+    "amazon.dodge",
+    "amazon.evade",
+    "amazon.explodingarrow",
+    "amazon.fend",
+    "amazon.firearrow",
+    "amazon.freezingarrow",
+    "amazon.guidedarrow",
+    "amazon.icearrow",
+    "amazon.immolationarrow",
+    "amazon.impale",
+    "amazon.innersight",
+    "amazon.jab",
+    "amazon.lightningbolt",
+    "amazon.lightningfury",
+    "amazon.lightningstrike",
+    "amazon.magicarrow",
+    "amazon.multipleshot",
+    "amazon.penetrate",
+    "amazon.pierce",
+    "amazon.plaguejavelin",
+    "amazon.poisonjavelin",
+    "amazon.powerstrike",
+    "amazon.slowmissiles",
+    "amazon.strafe",
+    "amazon.valkyrie",
+    "assassin.bladefury",
+    "assassin.bladesentinel",
+    "assassin.bladeshield",
+    "assassin.bladesofice",
+    "assassin.burstofspeed",
+    "assassin.chargedboltsentry",
+    "assassin.clawmastery",
+    "assassin.clawsofthunder",
+    "assassin.cloakofshadows",
+    "assassin.cobrastrike",
+    "assassin.deathsentry",
+    "assassin.dragonclaw",
+    "assassin.dragonflight",
+    "assassin.dragontail",
+    "assassin.dragontalon",
+    "assassin.fade",
+    "assassin.fireblast",
+    "assassin.fistsoffire",
+    "assassin.lightningsentry",
+    "assassin.mindblast",
+    "assassin.phoenixstrike",
+    "assassin.psychichammer",
+    "assassin.shadowmaster",
+    "assassin.shadowwarrior",
+    "assassin.shockweb",
+    "assassin.tigerstrike",
+    "assassin.venom",
+    "assassin.wakeoffire",
+    "assassin.wakeofinferno",
+    "assassin.weaponblock",
+    "barbarian.axemastery",
+    "barbarian.bash",
+    "barbarian.battlecommand",
+    "barbarian.battlecry",
+    "barbarian.battleorders",
+    "barbarian.berserk",
+    "barbarian.concentrate",
+    "barbarian.doubleswing",
+    "barbarian.doublethrow",
+    "barbarian.finditem",
+    "barbarian.findpotion",
+    "barbarian.frenzy",
+    "barbarian.grimward",
+    "barbarian.howl",
+    "barbarian.increasedspeed",
+    "barbarian.increasedstamina",
+    "barbarian.ironskin",
+    "barbarian.leap",
+    "barbarian.leapattack",
+    "barbarian.macemastery",
+    "barbarian.naturalresistance",
+    "barbarian.polearmmastery",
+    "barbarian.shout",
+    "barbarian.spearmastery",
+    "barbarian.stun",
+    "barbarian.swordmastery",
+    "barbarian.taunt",
+    "barbarian.throwingmastery",
+    "barbarian.warcry",
+    "barbarian.whirlwind",
+    "druid.arcticblast",
+    "druid.armageddon",
+    "druid.carrionvine",
+    "druid.cyclonearmor",
+    "druid.feralrage",
+    "druid.fireclaws",
+    "druid.firestorm",
+    "druid.fissure",
+    "druid.fury",
+    "druid.heartofwolverine",
+    "druid.hunger",
+    "druid.hurricane",
+    "druid.lycanthropy",
+    "druid.maul",
+    "druid.moltenboulder",
+    "druid.oaksage",
+    "druid.poisoncreeper",
+    "druid.rabies",
+    "druid.raven",
+    "druid.shockwave",
+    "druid.solarcreeper",
+    "druid.spiritofbarbs",
+    "druid.summondirewolf",
+    "druid.summongrizzly",
+    "druid.summonspiritwolf",
+    "druid.tornado",
+    "druid.twister",
+    "druid.volcano",
+    "druid.werebear",
+    "druid.werewolf",
+    "necromancer.amplifydamage",
+    "necromancer.attract",
+    "necromancer.bloodgolem",
+    "necromancer.bonearmor",
+    "necromancer.boneprison",
+    "necromancer.bonespear",
+    "necromancer.bonespirit",
+    "necromancer.bonewall",
+    "necromancer.claygolem",
+    "necromancer.confuse",
+    "necromancer.corpseexplosion",
+    "necromancer.decrepify",
+    "necromancer.dimvision",
+    "necromancer.firegolem",
+    "necromancer.golemmastery",
+    "necromancer.irongolem",
+    "necromancer.ironmaiden",
+    "necromancer.lifetap",
+    "necromancer.lowerresist",
+    "necromancer.poisondagger",
+    "necromancer.poisonexplosion",
+    "necromancer.poisonnova",
+    "necromancer.raiseskeleton",
+    "necromancer.revive",
+    "necromancer.skeletalmage",
+    "necromancer.skeletonmastery",
+    "necromancer.summonresist",
+    "necromancer.teeth",
+    "necromancer.terror",
+    "necromancer.weaken",
+    "paladin.blessedaim",
+    "paladin.blessedhammer",
+    "paladin.charge",
+    "paladin.cleansing",
+    "paladin.concentration",
+    "paladin.conversion",
+    "paladin.conviction",
+    "paladin.defiance",
+    "paladin.fanaticism",
+    "paladin.fistoftheheavens",
+    "paladin.holybolt",
+    "paladin.holyfire",
+    "paladin.holyfreeze",
+    "paladin.holyshield",
+    "paladin.holyshock",
+    "paladin.meditation",
+    "paladin.might",
+    "paladin.prayer",
+    "paladin.redemption",
+    "paladin.resistcold",
+    "paladin.resistfire",
+    "paladin.resistlightning",
+    "paladin.sacrifice",
+    "paladin.salvation",
+    "paladin.sanctuary",
+    "paladin.smite",
+    "paladin.thorns",
+    "paladin.vengeance",
+    "paladin.vigor",
+    "paladin.zeal",
+    "sorceress.blaze",
+    "sorceress.blizzard",
+    "sorceress.chainlightning",
+    "sorceress.chargedbolt",
+    "sorceress.chillingarmor",
+    "sorceress.coldmastery",
+    "sorceress.enchant",
+    "sorceress.energyshield",
+    "sorceress.fireball",
+    "sorceress.firebolt",
+    "sorceress.firemastery",
+    "sorceress.firewall",
+    "sorceress.frostnova",
+    "sorceress.frozenarmor",
+    "sorceress.frozenorb",
+    "sorceress.glacialspike",
+    "sorceress.hydra",
+    "sorceress.iceblast",
+    "sorceress.icebolt",
+    "sorceress.inferno",
+    "sorceress.lightning",
+    "sorceress.lightningmastery",
+    "sorceress.meteor",
+    "sorceress.nova",
+    "sorceress.shiverarmor",
+    "sorceress.staticfield",
+    "sorceress.telekinesis",
+    "sorceress.teleport",
+    "sorceress.thunderstorm",
+    "sorceress.warmth",
+    "warlock.abyss",
+    "warlock.apocalypse",
+    "warlock.binddemon",
+    "warlock.bladewarp",
+    "warlock.bloodboil",
+    "warlock.bloodoath",
+    "warlock.cleave",
+    "warlock.consume",
+    "warlock.deathmark",
+    "warlock.demonicmastery",
+    "warlock.echoingstrike",
+    "warlock.eldritchblast",
+    "warlock.engorge",
+    "warlock.enhancedentropy",
+    "warlock.flamewave",
+    "warlock.hexbane",
+    "warlock.hexpurge",
+    "warlock.hexsiphon",
+    "warlock.levitationmastery",
+    "warlock.miasmabolt",
+    "warlock.miasmachain",
+    "warlock.mirroredblades",
+    "warlock.psychicward",
+    "warlock.ringoffire",
+    "warlock.sigildeath",
+    "warlock.sigillethargy",
+    "warlock.sigilrancor",
+    "warlock.summondefiler",
+    "warlock.summongoatman",
+    "warlock.summontainted"
+  ],
+  "skillReadinessRule": "implemented describes the class mechanic route;directGrantQualified describes the separate unchanged named-active-skills registry. Neither implies proc/charge/aura/other item delivery readiness.",
   "items": [
     {
       "id": "unique/16",
@@ -40,11 +283,12 @@
               "name": "Vengeance",
               "sourceKey": "Vengeance",
               "talentId": "paladin.vengeance",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Vengeance"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -59,11 +303,12 @@
               "name": "Thorns",
               "sourceKey": "Thorns",
               "talentId": "paladin.thorns",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Thorns"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -89,11 +334,12 @@
               "name": "Resist Lightning",
               "sourceKey": "Resist Lightning",
               "talentId": "paladin.resistlightning",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Resist Lightning"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -108,11 +354,12 @@
               "name": "Holy Shock",
               "sourceKey": "Holy Shock",
               "talentId": "paladin.holyshock",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Holy Shock"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -127,11 +374,12 @@
               "name": "Fist of the Heavens",
               "sourceKey": "Fist of the Heavens",
               "talentId": "paladin.fistoftheheavens",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fist of the Heavens"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -157,11 +405,12 @@
               "name": "Sacrifice",
               "sourceKey": "Sacrifice",
               "talentId": "paladin.sacrifice",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Sacrifice"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -187,11 +436,12 @@
               "name": "Holy Fire",
               "sourceKey": "Holy Fire",
               "talentId": "paladin.holyfire",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Holy Fire"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -217,11 +467,12 @@
               "name": "Fire Bolt",
               "sourceKey": "Fire Bolt",
               "talentId": "sorceress.firebolt",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fire Bolt"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -236,11 +487,12 @@
               "name": "Warmth",
               "sourceKey": "Warmth",
               "talentId": "sorceress.warmth",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Warmth"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -266,11 +518,12 @@
               "name": "Chain Lightning",
               "sourceKey": "Chain Lightning",
               "talentId": "sorceress.chainlightning",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Chain Lightning"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -285,11 +538,12 @@
               "name": "Lightning",
               "sourceKey": "Lightning",
               "talentId": "sorceress.lightning",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Lightning"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -304,11 +558,12 @@
               "name": "Static Field",
               "sourceKey": "Static Field",
               "talentId": "sorceress.staticfield",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Static Field"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -334,11 +589,12 @@
               "name": "Fire Wall",
               "sourceKey": "Fire Wall",
               "talentId": "sorceress.firewall",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fire Wall"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -353,11 +609,12 @@
               "name": "Fire Ball",
               "sourceKey": "Fire Ball",
               "talentId": "sorceress.fireball",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fire Ball"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -372,11 +629,12 @@
               "name": "Warmth",
               "sourceKey": "Warmth",
               "talentId": "sorceress.warmth",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Warmth"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -402,11 +660,12 @@
               "name": "Nova",
               "sourceKey": "Nova",
               "talentId": "sorceress.nova",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Nova"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -421,11 +680,12 @@
               "name": "Blaze",
               "sourceKey": "Blaze",
               "talentId": "sorceress.blaze",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Blaze"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -440,11 +700,12 @@
               "name": "Frost Nova",
               "sourceKey": "Frost Nova",
               "talentId": "sorceress.frostnova",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Frost Nova"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -470,11 +731,11 @@
               "name": "Magic Arrow",
               "sourceKey": "Magic Arrow",
               "talentId": "amazon.magicarrow",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Magic Arrow",
             "Inherent magic-arrow attack and projectile delivery"
           ]
         }
@@ -501,11 +762,11 @@
               "name": "Exploding Arrow",
               "sourceKey": "Exploding Arrow",
               "talentId": "amazon.explodingarrow",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Exploding Arrow",
             "Inherent exploding-arrow attack and area damage"
           ]
         }
@@ -534,11 +795,12 @@
               "name": "Fire Arrow",
               "sourceKey": "Fire Arrow",
               "talentId": "amazon.firearrow",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fire Arrow"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -555,11 +817,12 @@
               "name": "Cold Arrow",
               "sourceKey": "Cold Arrow",
               "talentId": "amazon.coldarrow",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Cold Arrow"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -585,11 +848,11 @@
               "name": "Magic Arrow",
               "sourceKey": "Magic Arrow",
               "talentId": "amazon.magicarrow",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Magic Arrow",
             "Inherent magic-arrow attack and projectile delivery"
           ]
         }
@@ -616,11 +879,12 @@
               "name": "Exploding Arrow",
               "sourceKey": "Exploding Arrow",
               "talentId": "amazon.explodingarrow",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Exploding Arrow"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -646,11 +910,11 @@
               "name": "Exploding Arrow",
               "sourceKey": "Exploding Arrow",
               "talentId": "amazon.explodingarrow",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Exploding Arrow",
             "Inherent exploding-arrow attack and area damage"
           ]
         }
@@ -677,11 +941,12 @@
               "name": "Leap",
               "sourceKey": "Leap",
               "talentId": "barbarian.leap",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Leap"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -707,11 +972,12 @@
               "name": "Vigor",
               "sourceKey": "Vigor",
               "talentId": "paladin.vigor",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Vigor"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -737,11 +1003,11 @@
               "name": "Ice Blast",
               "sourceKey": "Ice Blast",
               "talentId": "sorceress.iceblast",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Ice Blast",
             "on-hit proc dispatcher"
           ]
         },
@@ -757,11 +1023,11 @@
               "name": "Frost Nova",
               "sourceKey": "Frost Nova",
               "talentId": "sorceress.frostnova",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Frost Nova",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -788,11 +1054,12 @@
               "name": "Maul",
               "sourceKey": "Maul",
               "talentId": "druid.maul",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Maul"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -807,11 +1074,12 @@
               "name": "Fury",
               "sourceKey": "Fury",
               "talentId": "druid.fury",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fury"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -837,11 +1105,11 @@
               "name": "Volcano",
               "sourceKey": "Volcano",
               "talentId": "druid.volcano",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Volcano",
             "on-hit proc dispatcher"
           ]
         }
@@ -868,7 +1136,8 @@
               "name": "Poison Nova",
               "sourceKey": "Poison Nova",
               "talentId": "necromancer.poisonnova",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -898,7 +1167,8 @@
               "name": "Teleport",
               "sourceKey": "Teleport",
               "talentId": "sorceress.teleport",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -917,7 +1187,8 @@
               "name": "Decrepify",
               "sourceKey": "Decrepify",
               "talentId": "necromancer.decrepify",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -936,11 +1207,11 @@
               "name": "Holy Bolt",
               "sourceKey": "Holy Bolt",
               "talentId": "paladin.holybolt",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Holy Bolt",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         },
@@ -956,11 +1227,11 @@
               "name": "Firestorm",
               "sourceKey": "Firestorm",
               "talentId": "druid.firestorm",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Firestorm",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         }
@@ -987,11 +1258,11 @@
               "name": "Chain Lightning",
               "sourceKey": "Chain Lightning",
               "talentId": "sorceress.chainlightning",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Chain Lightning",
             "on-hit proc dispatcher"
           ]
         },
@@ -1007,11 +1278,11 @@
               "name": "Charged Bolt",
               "sourceKey": "Charged Bolt",
               "talentId": "sorceress.chargedbolt",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Charged Bolt",
             "on-hit proc dispatcher"
           ]
         },
@@ -1027,11 +1298,11 @@
               "name": "Charged Bolt",
               "sourceKey": "Charged Bolt",
               "talentId": "sorceress.chargedbolt",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Charged Bolt",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -1058,11 +1329,11 @@
               "name": "Holy Bolt",
               "sourceKey": "Holy Bolt",
               "talentId": "paladin.holybolt",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Holy Bolt",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         },
@@ -1078,11 +1349,11 @@
               "name": "Holy Bolt",
               "sourceKey": "Holy Bolt",
               "talentId": "paladin.holybolt",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Holy Bolt",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -1109,7 +1380,8 @@
               "name": "Bone Spirit",
               "sourceKey": "Bone Spirit",
               "talentId": "necromancer.bonespirit",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -1128,11 +1400,11 @@
               "name": "Bone Prison",
               "sourceKey": "Bone Prison",
               "talentId": "necromancer.boneprison",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Bone Prison",
             "on-taking-hit proc dispatcher"
           ]
         },
@@ -1148,11 +1420,12 @@
               "name": "Raise Skeletal Mage",
               "sourceKey": "Raise Skeletal Mage",
               "talentId": "necromancer.skeletalmage",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Raise Skeletal Mage"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -1178,11 +1451,11 @@
               "name": "Grim Ward",
               "sourceKey": "Grim Ward",
               "talentId": "barbarian.grimward",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Grim Ward",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         }
@@ -1209,11 +1482,11 @@
               "name": "Blizzard",
               "sourceKey": "Blizzard",
               "talentId": "sorceress.blizzard",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Blizzard",
             "on-hit proc dispatcher"
           ]
         },
@@ -1229,11 +1502,12 @@
               "name": "Holy Freeze",
               "sourceKey": "Holy Freeze",
               "talentId": "paladin.holyfreeze",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Holy Freeze"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -1248,11 +1522,12 @@
               "name": "Holy Shock",
               "sourceKey": "Holy Shock",
               "talentId": "paladin.holyshock",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Holy Shock"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -1278,7 +1553,8 @@
               "name": "Decrepify",
               "sourceKey": "Decrepify",
               "talentId": "necromancer.decrepify",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -1297,11 +1573,11 @@
               "name": "Confuse",
               "sourceKey": "Confuse",
               "talentId": "necromancer.confuse",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Confuse",
             "on-hit proc dispatcher"
           ]
         }
@@ -1328,11 +1604,12 @@
               "name": "Holy Bolt",
               "sourceKey": "Holy Bolt",
               "talentId": "paladin.holybolt",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Holy Bolt"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -1347,11 +1624,12 @@
               "name": "Fist of the Heavens",
               "sourceKey": "Fist of the Heavens",
               "talentId": "paladin.fistoftheheavens",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fist of the Heavens"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -1366,11 +1644,11 @@
               "name": "Fist of the Heavens",
               "sourceKey": "Fist of the Heavens",
               "talentId": "paladin.fistoftheheavens",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fist of the Heavens",
             "on-hit proc dispatcher"
           ]
         }
@@ -1397,11 +1675,11 @@
               "name": "Frozen Orb",
               "sourceKey": "Frozen Orb",
               "talentId": "sorceress.frozenorb",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Frozen Orb",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         }
@@ -1428,11 +1706,11 @@
               "name": "Meteor",
               "sourceKey": "Meteor",
               "talentId": "sorceress.meteor",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Meteor",
             "on-hit proc dispatcher"
           ]
         },
@@ -1448,11 +1726,11 @@
               "name": "Meteor",
               "sourceKey": "Meteor",
               "talentId": "sorceress.meteor",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Meteor",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         }
@@ -1479,11 +1757,11 @@
               "name": "Nova",
               "sourceKey": "Nova",
               "talentId": "sorceress.nova",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Nova",
             "on-hit proc dispatcher"
           ]
         },
@@ -1499,11 +1777,11 @@
               "name": "Nova",
               "sourceKey": "Nova",
               "talentId": "sorceress.nova",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Nova",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         }
@@ -1530,11 +1808,11 @@
               "name": "Fissure",
               "sourceKey": "Eruption",
               "talentId": "druid.fissure",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fissure",
             "on-hit proc dispatcher"
           ]
         }
@@ -1561,11 +1839,12 @@
               "name": "Mace Mastery",
               "sourceKey": "Mace Mastery",
               "talentId": "barbarian.macemastery",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Mace Mastery"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -1591,7 +1870,8 @@
               "name": "Amplify Damage",
               "sourceKey": "Amplify Damage",
               "talentId": "necromancer.amplifydamage",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -1610,7 +1890,8 @@
               "name": "Iron Maiden",
               "sourceKey": "Iron Maiden",
               "talentId": "necromancer.ironmaiden",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -1629,7 +1910,8 @@
               "name": "Amplify Damage",
               "sourceKey": "Amplify Damage",
               "talentId": "necromancer.amplifydamage",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -1659,11 +1941,12 @@
               "name": "Blade Mastery",
               "sourceKey": "Blade Mastery",
               "talentId": "barbarian.swordmastery",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Blade Mastery"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -1678,11 +1961,12 @@
               "name": "Whirlwind",
               "sourceKey": "Whirlwind",
               "talentId": "barbarian.whirlwind",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Whirlwind"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -1708,11 +1992,11 @@
               "name": "Hydra",
               "sourceKey": "Hydra",
               "talentId": "sorceress.hydra",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Hydra",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         }
@@ -1739,7 +2023,8 @@
               "name": "Poison Nova",
               "sourceKey": "Poison Nova",
               "talentId": "necromancer.poisonnova",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -1758,11 +2043,12 @@
               "name": "Rabies",
               "sourceKey": "Rabies",
               "talentId": "druid.rabies",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Rabies"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -1788,11 +2074,11 @@
               "name": "Frozen Orb",
               "sourceKey": "Frozen Orb",
               "talentId": "sorceress.frozenorb",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Frozen Orb",
             "on-hit proc dispatcher"
           ]
         }
@@ -1819,7 +2105,8 @@
               "name": "Amplify Damage",
               "sourceKey": "Amplify Damage",
               "talentId": "necromancer.amplifydamage",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -1849,11 +2136,11 @@
               "name": "Fist of the Heavens",
               "sourceKey": "Fist of the Heavens",
               "talentId": "paladin.fistoftheheavens",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fist of the Heavens",
             "on-hit proc dispatcher"
           ]
         }
@@ -1880,11 +2167,11 @@
               "name": "Fire Ball",
               "sourceKey": "Fire Ball",
               "talentId": "sorceress.fireball",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fire Ball",
             "on-attack proc dispatcher"
           ]
         },
@@ -1900,11 +2187,11 @@
               "name": "Enchant",
               "sourceKey": "Enchant",
               "talentId": "sorceress.enchant",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Enchant",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         },
@@ -1920,11 +2207,11 @@
               "name": "Fire Wall",
               "sourceKey": "Fire Wall",
               "talentId": "sorceress.firewall",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fire Wall",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         }
@@ -1951,11 +2238,12 @@
               "name": "Find Potion",
               "sourceKey": "Find Potion",
               "talentId": "barbarian.findpotion",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Find Potion"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -1970,11 +2258,12 @@
               "name": "Find Item",
               "sourceKey": "Find Item",
               "talentId": "barbarian.finditem",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Find Item"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -1989,11 +2278,12 @@
               "name": "Grim Ward",
               "sourceKey": "Grim Ward",
               "talentId": "barbarian.grimward",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Grim Ward"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -2019,11 +2309,11 @@
               "name": "Charged Bolt",
               "sourceKey": "Charged Bolt",
               "talentId": "sorceress.chargedbolt",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Charged Bolt",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -2050,11 +2340,12 @@
               "name": "Impale",
               "sourceKey": "Impale",
               "talentId": "amazon.impale",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Impale"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -2069,11 +2360,12 @@
               "name": "Power Strike",
               "sourceKey": "Power Strike",
               "talentId": "amazon.powerstrike",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Power Strike"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -2099,11 +2391,11 @@
               "name": "Weaken",
               "sourceKey": "Weaken",
               "talentId": "necromancer.weaken",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Weaken",
             "on-hit proc dispatcher"
           ]
         }
@@ -2130,11 +2422,12 @@
               "name": "Fire Mastery",
               "sourceKey": "Fire Mastery",
               "talentId": "sorceress.firemastery",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fire Mastery"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -2149,11 +2442,12 @@
               "name": "Lightning Mastery",
               "sourceKey": "Lightning Mastery",
               "talentId": "sorceress.lightningmastery",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Lightning Mastery"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -2168,11 +2462,12 @@
               "name": "Cold Mastery",
               "sourceKey": "Cold Mastery",
               "talentId": "sorceress.coldmastery",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Cold Mastery"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -2198,11 +2493,12 @@
               "name": "Telekinesis",
               "sourceKey": "Telekinesis",
               "talentId": "sorceress.telekinesis",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Telekinesis"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -2217,11 +2513,12 @@
               "name": "Energy Shield",
               "sourceKey": "Energy Shield",
               "talentId": "sorceress.energyshield",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Energy Shield"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -2247,11 +2544,11 @@
               "name": "Meteor",
               "sourceKey": "Meteor",
               "talentId": "sorceress.meteor",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Meteor",
             "on-hit proc dispatcher"
           ]
         }
@@ -2278,11 +2575,12 @@
               "name": "Immolation Arrow",
               "sourceKey": "Immolation Arrow",
               "talentId": "amazon.immolationarrow",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Immolation Arrow"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -2297,11 +2595,11 @@
               "name": "Exploding Arrow",
               "sourceKey": "Exploding Arrow",
               "talentId": "amazon.explodingarrow",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Exploding Arrow",
             "Inherent exploding-arrow attack and area damage"
           ]
         }
@@ -2328,11 +2626,12 @@
               "name": "Strafe",
               "sourceKey": "Strafe",
               "talentId": "amazon.strafe",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Strafe"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -2358,7 +2657,8 @@
               "name": "Amplify Damage",
               "sourceKey": "Amplify Damage",
               "talentId": "necromancer.amplifydamage",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -2377,11 +2677,11 @@
               "name": "Magic Arrow",
               "sourceKey": "Magic Arrow",
               "talentId": "amazon.magicarrow",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Magic Arrow",
             "Inherent magic-arrow attack and projectile delivery"
           ]
         }
@@ -2408,11 +2708,12 @@
               "name": "Guided Arrow",
               "sourceKey": "Guided Arrow",
               "talentId": "amazon.guidedarrow",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Guided Arrow"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -2438,11 +2739,11 @@
               "name": "Fist of the Heavens",
               "sourceKey": "Fist of the Heavens",
               "talentId": "paladin.fistoftheheavens",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fist of the Heavens",
             "on-hit proc dispatcher"
           ]
         }
@@ -2469,11 +2770,11 @@
               "name": "Lower Resist",
               "sourceKey": "Lower Resist",
               "talentId": "necromancer.lowerresist",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Lower Resist",
             "on-hit proc dispatcher"
           ]
         },
@@ -2489,7 +2790,8 @@
               "name": "Poison Nova",
               "sourceKey": "Poison Nova",
               "talentId": "necromancer.poisonnova",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -2519,11 +2821,11 @@
               "name": "Exploding Arrow",
               "sourceKey": "Exploding Arrow",
               "talentId": "amazon.explodingarrow",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Exploding Arrow",
             "Inherent exploding-arrow attack and area damage"
           ]
         }
@@ -2550,11 +2852,11 @@
               "name": "Dim Vision",
               "sourceKey": "Dim Vision",
               "talentId": "necromancer.dimvision",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Dim Vision",
             "on-taking-hit proc dispatcher"
           ]
         },
@@ -2570,11 +2872,11 @@
               "name": "Cloak of Shadows",
               "sourceKey": "Cloak of Shadows",
               "talentId": "assassin.cloakofshadows",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Cloak of Shadows",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         }
@@ -2601,7 +2903,8 @@
               "name": "Iron Maiden",
               "sourceKey": "Iron Maiden",
               "talentId": "necromancer.ironmaiden",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -2620,7 +2923,8 @@
               "name": "Corpse Explosion",
               "sourceKey": "Corpse Explosion",
               "talentId": "necromancer.corpseexplosion",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -2650,11 +2954,11 @@
               "name": "Blizzard",
               "sourceKey": "Blizzard",
               "talentId": "sorceress.blizzard",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Blizzard",
             "on-taking-hit proc dispatcher"
           ]
         },
@@ -2670,11 +2974,11 @@
               "name": "Tornado",
               "sourceKey": "Tornado",
               "talentId": "druid.tornado",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Tornado",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -2701,11 +3005,11 @@
               "name": "Frost Nova",
               "sourceKey": "Frost Nova",
               "talentId": "sorceress.frostnova",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Frost Nova",
             "on-taking-hit proc dispatcher"
           ]
         },
@@ -2721,11 +3025,11 @@
               "name": "Nova",
               "sourceKey": "Nova",
               "talentId": "sorceress.nova",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Nova",
             "on-taking-hit proc dispatcher"
           ]
         },
@@ -2741,11 +3045,11 @@
               "name": "Hydra",
               "sourceKey": "Hydra",
               "talentId": "sorceress.hydra",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Hydra",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -2772,7 +3076,8 @@
               "name": "Poison Nova",
               "sourceKey": "Poison Nova",
               "talentId": "necromancer.poisonnova",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -2791,7 +3096,8 @@
               "name": "Poison Explosion",
               "sourceKey": "Poison Explosion",
               "talentId": "necromancer.poisonexplosion",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -2821,11 +3127,11 @@
               "name": "Enchant",
               "sourceKey": "Enchant",
               "talentId": "sorceress.enchant",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Enchant",
             "on-hit proc dispatcher"
           ]
         }
@@ -2852,11 +3158,11 @@
               "name": "Meteor",
               "sourceKey": "Meteor",
               "talentId": "sorceress.meteor",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Meteor",
             "on-hit proc dispatcher"
           ]
         },
@@ -2872,11 +3178,11 @@
               "name": "Firestorm",
               "sourceKey": "Firestorm",
               "talentId": "druid.firestorm",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Firestorm",
             "on-hit proc dispatcher"
           ]
         }
@@ -2903,11 +3209,11 @@
               "name": "Blaze",
               "sourceKey": "Blaze",
               "talentId": "sorceress.blaze",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Blaze",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -2934,11 +3240,11 @@
               "name": "Blizzard",
               "sourceKey": "Blizzard",
               "talentId": "sorceress.blizzard",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Blizzard",
             "on-taking-hit proc dispatcher"
           ]
         },
@@ -2954,11 +3260,12 @@
               "name": "Blizzard",
               "sourceKey": "Blizzard",
               "talentId": "sorceress.blizzard",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Blizzard"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -2973,11 +3280,12 @@
               "name": "Glacial Spike",
               "sourceKey": "Glacial Spike",
               "talentId": "sorceress.glacialspike",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Glacial Spike"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -2992,11 +3300,12 @@
               "name": "Chilling Armor",
               "sourceKey": "Chilling Armor",
               "talentId": "sorceress.chillingarmor",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Chilling Armor"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -3022,11 +3331,11 @@
               "name": "Fist of the Heavens",
               "sourceKey": "Fist of the Heavens",
               "talentId": "paladin.fistoftheheavens",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fist of the Heavens",
             "on-taking-hit proc dispatcher"
           ]
         },
@@ -3042,11 +3351,12 @@
               "name": "Lightning Strike",
               "sourceKey": "Lightning Strike",
               "talentId": "amazon.lightningstrike",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Lightning Strike"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -3061,11 +3371,12 @@
               "name": "Lightning Fury",
               "sourceKey": "Lightning Fury",
               "talentId": "amazon.lightningfury",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Lightning Fury"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -3091,11 +3402,11 @@
               "name": "Weaken",
               "sourceKey": "Weaken",
               "talentId": "necromancer.weaken",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Weaken",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -3122,11 +3433,11 @@
               "name": "Fire Ball",
               "sourceKey": "Fire Ball",
               "talentId": "sorceress.fireball",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fire Ball",
             "on-attack proc dispatcher"
           ]
         }
@@ -3153,11 +3464,11 @@
               "name": "Static Field",
               "sourceKey": "Static Field",
               "talentId": "sorceress.staticfield",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Static Field",
             "on-hit proc dispatcher"
           ]
         }
@@ -3184,7 +3495,8 @@
               "name": "Amplify Damage",
               "sourceKey": "Amplify Damage",
               "talentId": "necromancer.amplifydamage",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -3214,11 +3526,11 @@
               "name": "Chain Lightning",
               "sourceKey": "Chain Lightning",
               "talentId": "sorceress.chainlightning",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Chain Lightning",
             "on-attack proc dispatcher"
           ]
         }
@@ -3245,11 +3557,11 @@
               "name": "Weaken",
               "sourceKey": "Weaken",
               "talentId": "necromancer.weaken",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Weaken",
             "on-hit proc dispatcher"
           ]
         }
@@ -3276,11 +3588,11 @@
               "name": "Chain Lightning",
               "sourceKey": "Chain Lightning",
               "talentId": "sorceress.chainlightning",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Chain Lightning",
             "on-taking-hit proc dispatcher"
           ]
         },
@@ -3296,11 +3608,11 @@
               "name": "Charged Bolt",
               "sourceKey": "Charged Bolt",
               "talentId": "sorceress.chargedbolt",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Charged Bolt",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -3327,11 +3639,11 @@
               "name": "Meteor",
               "sourceKey": "Meteor",
               "talentId": "sorceress.meteor",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Meteor",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -3358,7 +3670,8 @@
               "name": "Amplify Damage",
               "sourceKey": "Amplify Damage",
               "talentId": "necromancer.amplifydamage",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -3388,7 +3701,8 @@
               "name": "Iron Maiden",
               "sourceKey": "Iron Maiden",
               "talentId": "necromancer.ironmaiden",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -3418,7 +3732,8 @@
               "name": "Teleport",
               "sourceKey": "Teleport",
               "talentId": "sorceress.teleport",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -3448,11 +3763,11 @@
               "name": "Blood Golem",
               "sourceKey": "BloodGolem",
               "talentId": "necromancer.bloodgolem",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Blood Golem",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         }
@@ -3479,11 +3794,11 @@
               "name": "Nova",
               "sourceKey": "Nova",
               "talentId": "sorceress.nova",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Nova",
             "on-hit proc dispatcher"
           ]
         }
@@ -3510,11 +3825,11 @@
               "name": "Enchant",
               "sourceKey": "Enchant",
               "talentId": "sorceress.enchant",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Enchant",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         }
@@ -3567,11 +3882,11 @@
               "name": "Oak Sage",
               "sourceKey": "Oak Sage",
               "talentId": "druid.oaksage",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Oak Sage",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         }
@@ -3598,11 +3913,11 @@
               "name": "Sanctuary",
               "sourceKey": "Sanctuary",
               "talentId": "paladin.sanctuary",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Sanctuary",
             "equipped aura lifecycle, radius and stacking"
           ]
         }
@@ -3629,11 +3944,11 @@
               "name": "Tornado",
               "sourceKey": "Tornado",
               "talentId": "druid.tornado",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Tornado",
             "on-hit proc dispatcher"
           ]
         }
@@ -3660,11 +3975,12 @@
               "name": "Feral Rage",
               "sourceKey": "Feral Rage",
               "talentId": "druid.feralrage",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Feral Rage"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -3690,11 +4006,11 @@
               "name": "Weaken",
               "sourceKey": "Weaken",
               "talentId": "necromancer.weaken",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Weaken",
             "on-hit proc dispatcher"
           ]
         }
@@ -3721,7 +4037,8 @@
               "name": "Decrepify",
               "sourceKey": "Decrepify",
               "talentId": "necromancer.decrepify",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -3751,11 +4068,11 @@
               "name": "Lightning",
               "sourceKey": "Lightning",
               "talentId": "sorceress.lightning",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Lightning",
             "on-hit proc dispatcher"
           ]
         },
@@ -3771,11 +4088,11 @@
               "name": "Oak Sage",
               "sourceKey": "Oak Sage",
               "talentId": "druid.oaksage",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Oak Sage",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         },
@@ -3791,11 +4108,11 @@
               "name": "Heart of Wolverine",
               "sourceKey": "Heart of Wolverine",
               "talentId": "druid.heartofwolverine",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Heart of Wolverine",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         },
@@ -3811,11 +4128,11 @@
               "name": "Spirit of Barbs",
               "sourceKey": "Spirit of Barbs",
               "talentId": "druid.spiritofbarbs",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Spirit of Barbs",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         }
@@ -3842,11 +4159,11 @@
               "name": "Plague Javelin",
               "sourceKey": "Plague Javelin",
               "talentId": "amazon.plaguejavelin",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Plague Javelin",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         }
@@ -3873,7 +4190,8 @@
               "name": "Amplify Damage",
               "sourceKey": "Amplify Damage",
               "talentId": "necromancer.amplifydamage",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -3903,7 +4221,8 @@
               "name": "Poison Explosion",
               "sourceKey": "Poison Explosion",
               "talentId": "necromancer.poisonexplosion",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -3933,7 +4252,8 @@
               "name": "Decrepify",
               "sourceKey": "Decrepify",
               "talentId": "necromancer.decrepify",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -3963,11 +4283,11 @@
               "name": "Immolation Arrow",
               "sourceKey": "Immolation Arrow",
               "talentId": "amazon.immolationarrow",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Immolation Arrow",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         }
@@ -3994,11 +4314,11 @@
               "name": "Magic Arrow",
               "sourceKey": "Magic Arrow",
               "talentId": "amazon.magicarrow",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Magic Arrow",
             "Inherent magic-arrow attack and projectile delivery"
           ]
         },
@@ -4014,11 +4334,11 @@
               "name": "Guided Arrow",
               "sourceKey": "Guided Arrow",
               "talentId": "amazon.guidedarrow",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Guided Arrow",
             "cross-class skill grants and casting"
           ]
         }
@@ -4045,11 +4365,11 @@
               "name": "Exploding Arrow",
               "sourceKey": "Exploding Arrow",
               "talentId": "amazon.explodingarrow",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Exploding Arrow",
             "Inherent exploding-arrow attack and area damage"
           ]
         },
@@ -4065,11 +4385,11 @@
               "name": "Revive",
               "sourceKey": "Revive",
               "talentId": "necromancer.revive",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Revive",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         }
@@ -4096,11 +4416,11 @@
               "name": "Frost Nova",
               "sourceKey": "Frost Nova",
               "talentId": "sorceress.frostnova",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Frost Nova",
             "on-hit proc dispatcher"
           ]
         }
@@ -4127,11 +4447,11 @@
               "name": "Twister",
               "sourceKey": "Twister",
               "talentId": "druid.twister",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Twister",
             "on-hit proc dispatcher"
           ]
         }
@@ -4158,11 +4478,11 @@
               "name": "Lightning",
               "sourceKey": "Lightning",
               "talentId": "sorceress.lightning",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Lightning",
             "on-hit proc dispatcher"
           ]
         },
@@ -4178,11 +4498,12 @@
               "name": "Lightning Bolt",
               "sourceKey": "Lightning Bolt",
               "talentId": "amazon.lightningbolt",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Lightning Bolt"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -4208,7 +4529,8 @@
               "name": "Terror",
               "sourceKey": "Terror",
               "talentId": "necromancer.terror",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -4238,7 +4560,8 @@
               "name": "Poison Nova",
               "sourceKey": "Poison Nova",
               "talentId": "necromancer.poisonnova",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -4257,11 +4580,11 @@
               "name": "Venom",
               "sourceKey": "Venom",
               "talentId": "assassin.venom",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Venom",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         }
@@ -4288,11 +4611,11 @@
               "name": "Hydra",
               "sourceKey": "Hydra",
               "talentId": "sorceress.hydra",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Hydra",
             "cross-class skill grants and casting"
           ]
         }
@@ -4319,7 +4642,8 @@
               "name": "Iron Maiden",
               "sourceKey": "Iron Maiden",
               "talentId": "necromancer.ironmaiden",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -4349,11 +4673,11 @@
               "name": "Lower Resist",
               "sourceKey": "Lower Resist",
               "talentId": "necromancer.lowerresist",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Lower Resist",
             "on-taking-hit proc dispatcher"
           ]
         },
@@ -4369,11 +4693,11 @@
               "name": "Nova",
               "sourceKey": "Nova",
               "talentId": "sorceress.nova",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Nova",
             "on-death proc dispatcher"
           ]
         }
@@ -4400,11 +4724,12 @@
               "name": "Raven",
               "sourceKey": "Raven",
               "talentId": "druid.raven",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Raven"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -4430,11 +4755,11 @@
               "name": "Firestorm",
               "sourceKey": "Firestorm",
               "talentId": "druid.firestorm",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Firestorm",
             "on-hit proc dispatcher"
           ]
         },
@@ -4450,11 +4775,11 @@
               "name": "Inferno",
               "sourceKey": "Inferno",
               "talentId": "sorceress.inferno",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Inferno",
             "cross-class skill grants and casting"
           ]
         }
@@ -4481,11 +4806,11 @@
               "name": "Werewolf",
               "sourceKey": "Wearwolf",
               "talentId": "druid.werewolf",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Werewolf",
             "cross-class skill grants and casting"
           ]
         },
@@ -4501,11 +4826,11 @@
               "name": "Summon Dire Wolf",
               "sourceKey": "Summon Fenris",
               "talentId": "druid.summondirewolf",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Summon Dire Wolf",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         },
@@ -4521,11 +4846,11 @@
               "name": "Lycanthropy",
               "sourceKey": "Shape Shifting",
               "talentId": "druid.lycanthropy",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Lycanthropy",
             "cross-class skill grants and casting"
           ]
         },
@@ -4541,11 +4866,11 @@
               "name": "Feral Rage",
               "sourceKey": "Feral Rage",
               "talentId": "druid.feralrage",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Feral Rage",
             "cross-class skill grants and casting"
           ]
         }
@@ -4572,11 +4897,11 @@
               "name": "Fade",
               "sourceKey": "Fade",
               "talentId": "assassin.fade",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fade",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -4603,7 +4928,8 @@
               "name": "Fire Bolt",
               "sourceKey": "Fire Bolt",
               "talentId": "sorceress.firebolt",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             },
             {
               "sourceParameter": 37,
@@ -4611,7 +4937,8 @@
               "name": "Warmth",
               "sourceKey": "Warmth",
               "talentId": "sorceress.warmth",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             },
             {
               "sourceParameter": 38,
@@ -4619,7 +4946,8 @@
               "name": "Charged Bolt",
               "sourceKey": "Charged Bolt",
               "talentId": "sorceress.chargedbolt",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             },
             {
               "sourceParameter": 39,
@@ -4627,7 +4955,8 @@
               "name": "Ice Bolt",
               "sourceKey": "Ice Bolt",
               "talentId": "sorceress.icebolt",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             },
             {
               "sourceParameter": 40,
@@ -4635,7 +4964,8 @@
               "name": "Frozen Armor",
               "sourceKey": "Frozen Armor",
               "talentId": "sorceress.frozenarmor",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             },
             {
               "sourceParameter": 41,
@@ -4643,7 +4973,8 @@
               "name": "Inferno",
               "sourceKey": "Inferno",
               "talentId": "sorceress.inferno",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             },
             {
               "sourceParameter": 42,
@@ -4651,7 +4982,8 @@
               "name": "Static Field",
               "sourceKey": "Static Field",
               "talentId": "sorceress.staticfield",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             },
             {
               "sourceParameter": 43,
@@ -4659,7 +4991,8 @@
               "name": "Telekinesis",
               "sourceKey": "Telekinesis",
               "talentId": "sorceress.telekinesis",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             },
             {
               "sourceParameter": 44,
@@ -4667,7 +5000,8 @@
               "name": "Frost Nova",
               "sourceKey": "Frost Nova",
               "talentId": "sorceress.frostnova",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             },
             {
               "sourceParameter": 45,
@@ -4675,7 +5009,8 @@
               "name": "Ice Blast",
               "sourceKey": "Ice Blast",
               "talentId": "sorceress.iceblast",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             },
             {
               "sourceParameter": 46,
@@ -4683,7 +5018,8 @@
               "name": "Blaze",
               "sourceKey": "Blaze",
               "talentId": "sorceress.blaze",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             },
             {
               "sourceParameter": 47,
@@ -4691,7 +5027,8 @@
               "name": "Fire Ball",
               "sourceKey": "Fire Ball",
               "talentId": "sorceress.fireball",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             },
             {
               "sourceParameter": 48,
@@ -4699,7 +5036,8 @@
               "name": "Nova",
               "sourceKey": "Nova",
               "talentId": "sorceress.nova",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             },
             {
               "sourceParameter": 49,
@@ -4707,7 +5045,8 @@
               "name": "Lightning",
               "sourceKey": "Lightning",
               "talentId": "sorceress.lightning",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             },
             {
               "sourceParameter": 50,
@@ -4715,7 +5054,8 @@
               "name": "Shiver Armor",
               "sourceKey": "Shiver Armor",
               "talentId": "sorceress.shiverarmor",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             },
             {
               "sourceParameter": 51,
@@ -4723,7 +5063,8 @@
               "name": "Fire Wall",
               "sourceKey": "Fire Wall",
               "talentId": "sorceress.firewall",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             },
             {
               "sourceParameter": 52,
@@ -4731,7 +5072,8 @@
               "name": "Enchant",
               "sourceKey": "Enchant",
               "talentId": "sorceress.enchant",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             },
             {
               "sourceParameter": 53,
@@ -4739,7 +5081,8 @@
               "name": "Chain Lightning",
               "sourceKey": "Chain Lightning",
               "talentId": "sorceress.chainlightning",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             },
             {
               "sourceParameter": 54,
@@ -4747,7 +5090,8 @@
               "name": "Teleport",
               "sourceKey": "Teleport",
               "talentId": "sorceress.teleport",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             },
             {
               "sourceParameter": 55,
@@ -4755,7 +5099,8 @@
               "name": "Glacial Spike",
               "sourceKey": "Glacial Spike",
               "talentId": "sorceress.glacialspike",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             },
             {
               "sourceParameter": 56,
@@ -4763,7 +5108,8 @@
               "name": "Meteor",
               "sourceKey": "Meteor",
               "talentId": "sorceress.meteor",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             },
             {
               "sourceParameter": 57,
@@ -4771,7 +5117,8 @@
               "name": "Thunder Storm",
               "sourceKey": "Thunder Storm",
               "talentId": "sorceress.thunderstorm",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             },
             {
               "sourceParameter": 58,
@@ -4779,7 +5126,8 @@
               "name": "Energy Shield",
               "sourceKey": "Energy Shield",
               "talentId": "sorceress.energyshield",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             },
             {
               "sourceParameter": 59,
@@ -4787,7 +5135,8 @@
               "name": "Blizzard",
               "sourceKey": "Blizzard",
               "talentId": "sorceress.blizzard",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             },
             {
               "sourceParameter": 60,
@@ -4795,12 +5144,13 @@
               "name": "Chilling Armor",
               "sourceKey": "Chilling Armor",
               "talentId": "sorceress.chillingarmor",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
             "Random skill selection and saved skill identity",
-            "Implement remaining skills in the source ID range"
+            "Qualify direct +skill item grants for the selected class consumers"
           ],
           "sourceArguments": {
             "parameter": 3,
@@ -4831,11 +5181,11 @@
               "name": "Static Field",
               "sourceKey": "Static Field",
               "talentId": "sorceress.staticfield",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Static Field",
             "on-hit proc dispatcher"
           ]
         },
@@ -4851,11 +5201,11 @@
               "name": "Tornado",
               "sourceKey": "Tornado",
               "talentId": "druid.tornado",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Tornado",
             "on-hit proc dispatcher"
           ]
         }
@@ -4882,11 +5232,12 @@
               "name": "Battle Orders",
               "sourceKey": "Battle Orders",
               "talentId": "barbarian.battleorders",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Battle Orders"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -4901,11 +5252,12 @@
               "name": "Battle Command",
               "sourceKey": "Battle Command",
               "talentId": "barbarian.battlecommand",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Battle Command"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -4931,11 +5283,11 @@
               "name": "Life Tap",
               "sourceKey": "Life Tap",
               "talentId": "necromancer.lifetap",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Life Tap",
             "on-hit proc dispatcher"
           ]
         }
@@ -4962,11 +5314,11 @@
               "name": "Arctic Blast",
               "sourceKey": "Arctic Blast",
               "talentId": "druid.arcticblast",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Arctic Blast",
             "cross-class skill grants and casting"
           ]
         }
@@ -4993,11 +5345,12 @@
               "name": "Wake of Fire",
               "sourceKey": "Wake of Fire Sentry",
               "talentId": "assassin.wakeoffire",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Wake of Fire"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -5012,11 +5365,12 @@
               "name": "Wake of Inferno",
               "sourceKey": "Inferno Sentry",
               "talentId": "assassin.wakeofinferno",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Wake of Inferno"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -5042,11 +5396,11 @@
               "name": "Bone Prison",
               "sourceKey": "Bone Prison",
               "talentId": "necromancer.boneprison",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Bone Prison",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         },
@@ -5062,11 +5416,11 @@
               "name": "Life Tap",
               "sourceKey": "Life Tap",
               "talentId": "necromancer.lifetap",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Life Tap",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         }
@@ -5093,11 +5447,11 @@
               "name": "Venom",
               "sourceKey": "Venom",
               "talentId": "assassin.venom",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Venom",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         }
@@ -5124,11 +5478,11 @@
               "name": "Iron Golem",
               "sourceKey": "IronGolem",
               "talentId": "necromancer.irongolem",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Iron Golem",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         },
@@ -5144,7 +5498,8 @@
               "name": "Iron Maiden",
               "sourceKey": "Iron Maiden",
               "talentId": "necromancer.ironmaiden",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -5174,7 +5529,8 @@
               "name": "Poison Nova",
               "sourceKey": "Poison Nova",
               "talentId": "necromancer.poisonnova",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -5193,11 +5549,11 @@
               "name": "Poison Creeper",
               "sourceKey": "Plague Poppy",
               "talentId": "druid.poisoncreeper",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Poison Creeper",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         },
@@ -5213,11 +5569,11 @@
               "name": "Twister",
               "sourceKey": "Twister",
               "talentId": "druid.twister",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Twister",
             "on-hit proc dispatcher"
           ]
         }
@@ -5244,11 +5600,11 @@
               "name": "Raven",
               "sourceKey": "Raven",
               "talentId": "druid.raven",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Raven",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         }
@@ -5275,11 +5631,11 @@
               "name": "Blizzard",
               "sourceKey": "Blizzard",
               "talentId": "sorceress.blizzard",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Blizzard",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         }
@@ -5306,11 +5662,11 @@
               "name": "Fissure",
               "sourceKey": "Eruption",
               "talentId": "druid.fissure",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fissure",
             "on-hit proc dispatcher"
           ]
         },
@@ -5326,11 +5682,11 @@
               "name": "Volcano",
               "sourceKey": "Volcano",
               "talentId": "druid.volcano",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Volcano",
             "charged-skill casting, targeting, charge ledger and recharge"
           ]
         }
@@ -5357,7 +5713,8 @@
               "name": "Corpse Explosion",
               "sourceKey": "Corpse Explosion",
               "talentId": "necromancer.corpseexplosion",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -5376,7 +5733,8 @@
               "name": "Bone Spear",
               "sourceKey": "Bone Spear",
               "talentId": "necromancer.bonespear",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -5406,11 +5764,12 @@
               "name": "Redemption",
               "sourceKey": "Redemption",
               "talentId": "paladin.redemption",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Redemption"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -5425,11 +5784,12 @@
               "name": "Holy Bolt",
               "sourceKey": "Holy Bolt",
               "talentId": "paladin.holybolt",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Holy Bolt"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -5455,11 +5815,11 @@
               "name": "Chain Lightning",
               "sourceKey": "Chain Lightning",
               "talentId": "sorceress.chainlightning",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Chain Lightning",
             "on-death proc dispatcher"
           ]
         }
@@ -5486,11 +5846,11 @@
               "name": "Blizzard",
               "sourceKey": "Blizzard",
               "talentId": "sorceress.blizzard",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Blizzard",
             "on-death proc dispatcher"
           ]
         }
@@ -5517,11 +5877,11 @@
               "name": "Meteor",
               "sourceKey": "Meteor",
               "talentId": "sorceress.meteor",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Meteor",
             "on-death proc dispatcher"
           ]
         }
@@ -5548,7 +5908,8 @@
               "name": "Poison Nova",
               "sourceKey": "Poison Nova",
               "talentId": "necromancer.poisonnova",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -5578,11 +5939,11 @@
               "name": "Nova",
               "sourceKey": "Nova",
               "talentId": "sorceress.nova",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Nova",
             "on-level-up proc dispatcher"
           ]
         }
@@ -5609,11 +5970,11 @@
               "name": "Frost Nova",
               "sourceKey": "Frost Nova",
               "talentId": "sorceress.frostnova",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Frost Nova",
             "on-level-up proc dispatcher"
           ]
         }
@@ -5640,11 +6001,11 @@
               "name": "Blaze",
               "sourceKey": "Blaze",
               "talentId": "sorceress.blaze",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Blaze",
             "on-level-up proc dispatcher"
           ]
         }
@@ -5671,11 +6032,11 @@
               "name": "Venom",
               "sourceKey": "Venom",
               "talentId": "assassin.venom",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Venom",
             "on-level-up proc dispatcher"
           ]
         }
@@ -5712,7 +6073,8 @@
               "name": "Terror",
               "sourceKey": "Terror",
               "talentId": "necromancer.terror",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -5731,11 +6093,12 @@
               "name": "Apocalypse",
               "sourceKey": "Apocalypse",
               "talentId": "warlock.apocalypse",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Apocalypse"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -5771,7 +6134,8 @@
               "name": "Decrepify",
               "sourceKey": "Decrepify",
               "talentId": "necromancer.decrepify",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -5790,11 +6154,12 @@
               "name": "Demonic Mastery",
               "sourceKey": "Demonic Mastery",
               "talentId": "warlock.demonicmastery",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Demonic Mastery"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -5809,11 +6174,12 @@
               "name": "Blood Boil",
               "sourceKey": "Blood Boil",
               "talentId": "warlock.bloodboil",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Blood Boil"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -5828,11 +6194,12 @@
               "name": "Engorge",
               "sourceKey": "Engorge",
               "talentId": "warlock.engorge",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Engorge"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -5847,11 +6214,12 @@
               "name": "Consume",
               "sourceKey": "Consume",
               "talentId": "warlock.consume",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Consume"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -5887,11 +6255,11 @@
               "name": "Blizzard",
               "sourceKey": "Blizzard",
               "talentId": "sorceress.blizzard",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Blizzard",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -5928,11 +6296,11 @@
               "name": "Ring of Fire",
               "sourceKey": "Ring of Fire",
               "talentId": "warlock.ringoffire",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Ring of Fire",
             "on-taking-hit proc dispatcher"
           ]
         },
@@ -5948,11 +6316,12 @@
               "name": "Summon Tainted",
               "sourceKey": "Summon Tainted",
               "talentId": "warlock.summontainted",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Summon Tainted"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -5967,11 +6336,12 @@
               "name": "Ring of Fire",
               "sourceKey": "Ring of Fire",
               "talentId": "warlock.ringoffire",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Ring of Fire"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -5986,11 +6356,12 @@
               "name": "Flame Wave",
               "sourceKey": "Flame Wave",
               "talentId": "warlock.flamewave",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Flame Wave"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -6016,7 +6387,8 @@
               "name": "Amplify Damage",
               "sourceKey": "Amplify Damage",
               "talentId": "necromancer.amplifydamage",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -6035,11 +6407,12 @@
               "name": "Mirrored Blades",
               "sourceKey": "Mirrored Blades",
               "talentId": "warlock.mirroredblades",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Mirrored Blades"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -6100,11 +6473,12 @@
               "name": "Blood Oath",
               "sourceKey": "Blood Oath",
               "talentId": "warlock.bloodoath",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Blood Oath"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -6119,11 +6493,12 @@
               "name": "Blood Boil",
               "sourceKey": "Blood Boil",
               "talentId": "warlock.bloodboil",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Blood Boil"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -6138,11 +6513,12 @@
               "name": "Bind Demon",
               "sourceKey": "Bind Demon",
               "talentId": "warlock.binddemon",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Bind Demon"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -6168,7 +6544,8 @@
               "name": "Town Portal",
               "sourceKey": "Townportal O Skill",
               "talentId": null,
-              "implemented": false
+              "implemented": false,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
@@ -6199,11 +6576,11 @@
               "name": "Flame Wave",
               "sourceKey": "Flame Wave",
               "talentId": "warlock.flamewave",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Flame Wave",
             "on-attack proc dispatcher"
           ]
         }
@@ -6230,11 +6607,11 @@
               "name": "Miasma Chain",
               "sourceKey": "Miasma Chains",
               "talentId": "warlock.miasmachain",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Miasma Chain",
             "on-hit proc dispatcher"
           ]
         }
@@ -6261,7 +6638,8 @@
               "name": "Bone Armor",
               "sourceKey": "Bone Armor",
               "talentId": "necromancer.bonearmor",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -6291,11 +6669,11 @@
               "name": "Cyclone Armor",
               "sourceKey": "Cyclone Armor",
               "talentId": "druid.cyclonearmor",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Cyclone Armor",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -6322,11 +6700,11 @@
               "name": "Frozen Armor",
               "sourceKey": "Frozen Armor",
               "talentId": "sorceress.frozenarmor",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Frozen Armor",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -6353,11 +6731,11 @@
               "name": "Blaze",
               "sourceKey": "Blaze",
               "talentId": "sorceress.blaze",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Blaze",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -6384,11 +6762,11 @@
               "name": "Fade",
               "sourceKey": "Fade",
               "talentId": "assassin.fade",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fade",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -6415,11 +6793,11 @@
               "name": "Psychic Ward",
               "sourceKey": "Psychic Ward",
               "talentId": "warlock.psychicward",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Psychic Ward",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -6446,11 +6824,11 @@
               "name": "Enchant",
               "sourceKey": "Enchant",
               "talentId": "sorceress.enchant",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Enchant",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -6477,11 +6855,11 @@
               "name": "Charged Bolt",
               "sourceKey": "Charged Bolt",
               "talentId": "sorceress.chargedbolt",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Charged Bolt",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -6508,11 +6886,12 @@
               "name": "Fire Mastery",
               "sourceKey": "Fire Mastery",
               "talentId": "sorceress.firemastery",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fire Mastery"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -6527,11 +6906,12 @@
               "name": "Lightning Mastery",
               "sourceKey": "Lightning Mastery",
               "talentId": "sorceress.lightningmastery",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Lightning Mastery"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         },
         {
@@ -6546,11 +6926,12 @@
               "name": "Cold Mastery",
               "sourceKey": "Cold Mastery",
               "talentId": "sorceress.coldmastery",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Cold Mastery"
+            "Qualify direct +skill item grant for this class consumer"
           ]
         }
       ],
@@ -6577,11 +6958,11 @@
               "name": "Fire Ball",
               "sourceKey": "Fire Ball",
               "talentId": "sorceress.fireball",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fire Ball",
             "cross-class skill grants and casting"
           ]
         },
@@ -6597,11 +6978,11 @@
               "name": "Fire Wall",
               "sourceKey": "Fire Wall",
               "talentId": "sorceress.firewall",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fire Wall",
             "cross-class skill grants and casting"
           ]
         },
@@ -6617,11 +6998,11 @@
               "name": "Meteor",
               "sourceKey": "Meteor",
               "talentId": "sorceress.meteor",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Meteor",
             "cross-class skill grants and casting"
           ]
         },
@@ -6647,11 +7028,11 @@
               "name": "Fire Mastery",
               "sourceKey": "Fire Mastery",
               "talentId": "sorceress.firemastery",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fire Mastery",
             "cross-class skill grants and casting"
           ]
         }
@@ -6678,11 +7059,11 @@
               "name": "Fire Ball",
               "sourceKey": "Fire Ball",
               "talentId": "sorceress.fireball",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fire Ball",
             "cross-class skill grants and casting"
           ]
         },
@@ -6698,11 +7079,11 @@
               "name": "Fire Wall",
               "sourceKey": "Fire Wall",
               "talentId": "sorceress.firewall",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fire Wall",
             "cross-class skill grants and casting"
           ]
         },
@@ -6718,11 +7099,11 @@
               "name": "Meteor",
               "sourceKey": "Meteor",
               "talentId": "sorceress.meteor",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Meteor",
             "cross-class skill grants and casting"
           ]
         },
@@ -6748,11 +7129,11 @@
               "name": "Fire Mastery",
               "sourceKey": "Fire Mastery",
               "talentId": "sorceress.firemastery",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fire Mastery",
             "cross-class skill grants and casting"
           ]
         }
@@ -6779,11 +7160,11 @@
               "name": "Fire Ball",
               "sourceKey": "Fire Ball",
               "talentId": "sorceress.fireball",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fire Ball",
             "cross-class skill grants and casting"
           ]
         },
@@ -6799,11 +7180,11 @@
               "name": "Fire Wall",
               "sourceKey": "Fire Wall",
               "talentId": "sorceress.firewall",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fire Wall",
             "cross-class skill grants and casting"
           ]
         },
@@ -6819,11 +7200,11 @@
               "name": "Meteor",
               "sourceKey": "Meteor",
               "talentId": "sorceress.meteor",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Meteor",
             "cross-class skill grants and casting"
           ]
         },
@@ -6849,11 +7230,11 @@
               "name": "Fire Mastery",
               "sourceKey": "Fire Mastery",
               "talentId": "sorceress.firemastery",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fire Mastery",
             "cross-class skill grants and casting"
           ]
         }
@@ -6880,11 +7261,11 @@
               "name": "Fire Ball",
               "sourceKey": "Fire Ball",
               "talentId": "sorceress.fireball",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fire Ball",
             "cross-class skill grants and casting"
           ]
         },
@@ -6900,11 +7281,11 @@
               "name": "Fire Wall",
               "sourceKey": "Fire Wall",
               "talentId": "sorceress.firewall",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fire Wall",
             "cross-class skill grants and casting"
           ]
         },
@@ -6920,11 +7301,11 @@
               "name": "Meteor",
               "sourceKey": "Meteor",
               "talentId": "sorceress.meteor",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Meteor",
             "cross-class skill grants and casting"
           ]
         },
@@ -6950,11 +7331,11 @@
               "name": "Fire Mastery",
               "sourceKey": "Fire Mastery",
               "talentId": "sorceress.firemastery",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fire Mastery",
             "cross-class skill grants and casting"
           ]
         }
@@ -6981,11 +7362,11 @@
               "name": "Fire Ball",
               "sourceKey": "Fire Ball",
               "talentId": "sorceress.fireball",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fire Ball",
             "cross-class skill grants and casting"
           ]
         },
@@ -7001,11 +7382,11 @@
               "name": "Fire Wall",
               "sourceKey": "Fire Wall",
               "talentId": "sorceress.firewall",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fire Wall",
             "cross-class skill grants and casting"
           ]
         },
@@ -7021,11 +7402,11 @@
               "name": "Meteor",
               "sourceKey": "Meteor",
               "talentId": "sorceress.meteor",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Meteor",
             "cross-class skill grants and casting"
           ]
         },
@@ -7051,11 +7432,11 @@
               "name": "Fire Mastery",
               "sourceKey": "Fire Mastery",
               "talentId": "sorceress.firemastery",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fire Mastery",
             "cross-class skill grants and casting"
           ]
         }
@@ -7081,11 +7462,11 @@
               "name": "Glacial Spike",
               "sourceKey": "Glacial Spike",
               "talentId": "sorceress.glacialspike",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Glacial Spike",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -7112,11 +7493,11 @@
               "name": "Magic Arrow",
               "sourceKey": "Magic Arrow",
               "talentId": "amazon.magicarrow",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Magic Arrow",
             "Inherent magic-arrow attack and projectile delivery"
           ]
         },
@@ -7132,11 +7513,11 @@
               "name": "Nova",
               "sourceKey": "Nova",
               "talentId": "sorceress.nova",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Nova",
             "on-hit proc dispatcher"
           ]
         }
@@ -7163,11 +7544,11 @@
               "name": "Holy Bolt",
               "sourceKey": "Holy Bolt",
               "talentId": "paladin.holybolt",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Holy Bolt",
             "on-hit proc dispatcher"
           ]
         }
@@ -7194,11 +7575,11 @@
               "name": "Nova",
               "sourceKey": "Nova",
               "talentId": "sorceress.nova",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Nova",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -7225,11 +7606,11 @@
               "name": "Frost Nova",
               "sourceKey": "Frost Nova",
               "talentId": "sorceress.frostnova",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Frost Nova",
             "on-hit proc dispatcher"
           ]
         }
@@ -7256,11 +7637,11 @@
               "name": "Weaken",
               "sourceKey": "Weaken",
               "talentId": "necromancer.weaken",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Weaken",
             "on-hit proc dispatcher"
           ]
         }
@@ -7287,11 +7668,11 @@
               "name": "Static Field",
               "sourceKey": "Static Field",
               "talentId": "sorceress.staticfield",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Static Field",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -7318,11 +7699,11 @@
               "name": "Ice Blast",
               "sourceKey": "Ice Blast",
               "talentId": "sorceress.iceblast",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Ice Blast",
             "on-hit proc dispatcher"
           ]
         }
@@ -7350,11 +7731,11 @@
               "name": "Static Field",
               "sourceKey": "Static Field",
               "talentId": "sorceress.staticfield",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Static Field",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -7380,11 +7761,11 @@
               "name": "Chain Lightning",
               "sourceKey": "Chain Lightning",
               "talentId": "sorceress.chainlightning",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Chain Lightning",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -7402,11 +7783,11 @@
               "name": "Static Field",
               "sourceKey": "Static Field",
               "talentId": "sorceress.staticfield",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Static Field",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -7433,11 +7814,11 @@
               "name": "Static Field",
               "sourceKey": "Static Field",
               "talentId": "sorceress.staticfield",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Static Field",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -7463,7 +7844,8 @@
               "name": "Teleport",
               "sourceKey": "Teleport",
               "talentId": "sorceress.teleport",
-              "implemented": true
+              "implemented": true,
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -7493,11 +7875,11 @@
               "name": "Chain Lightning",
               "sourceKey": "Chain Lightning",
               "talentId": "sorceress.chainlightning",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Chain Lightning",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -7525,11 +7907,11 @@
               "name": "Meditation",
               "sourceKey": "Meditation",
               "talentId": "paladin.meditation",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Meditation",
             "equipped aura lifecycle, radius and stacking"
           ]
         }
@@ -7556,11 +7938,11 @@
               "name": "Meditation",
               "sourceKey": "Meditation",
               "talentId": "paladin.meditation",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Meditation",
             "equipped aura lifecycle, radius and stacking"
           ]
         }
@@ -7587,11 +7969,11 @@
               "name": "Meditation",
               "sourceKey": "Meditation",
               "talentId": "paladin.meditation",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Meditation",
             "equipped aura lifecycle, radius and stacking"
           ]
         }
@@ -7618,11 +8000,11 @@
               "name": "Meditation",
               "sourceKey": "Meditation",
               "talentId": "paladin.meditation",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Meditation",
             "equipped aura lifecycle, radius and stacking"
           ]
         }
@@ -7649,11 +8031,11 @@
               "name": "Meditation",
               "sourceKey": "Meditation",
               "talentId": "paladin.meditation",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Meditation",
             "equipped aura lifecycle, radius and stacking"
           ]
         }
@@ -7701,11 +8083,11 @@
               "name": "Enchant",
               "sourceKey": "Enchant",
               "talentId": "sorceress.enchant",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Enchant",
             "cross-class skill grants and casting"
           ]
         }
@@ -7753,11 +8135,11 @@
               "name": "Enchant",
               "sourceKey": "Enchant",
               "talentId": "sorceress.enchant",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Enchant",
             "cross-class skill grants and casting"
           ]
         }
@@ -7794,11 +8176,11 @@
               "name": "Enchant",
               "sourceKey": "Enchant",
               "talentId": "sorceress.enchant",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Enchant",
             "cross-class skill grants and casting"
           ]
         }
@@ -7835,11 +8217,11 @@
               "name": "Enchant",
               "sourceKey": "Enchant",
               "talentId": "sorceress.enchant",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Enchant",
             "cross-class skill grants and casting"
           ]
         }
@@ -7887,11 +8269,11 @@
               "name": "Enchant",
               "sourceKey": "Enchant",
               "talentId": "sorceress.enchant",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Enchant",
             "cross-class skill grants and casting"
           ]
         }
@@ -7923,11 +8305,11 @@
               "name": "Fire Ball",
               "sourceKey": "Fire Ball",
               "talentId": "sorceress.fireball",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fire Ball",
             "cross-class skill grants and casting"
           ]
         },
@@ -7943,11 +8325,11 @@
               "name": "Fire Wall",
               "sourceKey": "Fire Wall",
               "talentId": "sorceress.firewall",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fire Wall",
             "cross-class skill grants and casting"
           ]
         },
@@ -7963,11 +8345,11 @@
               "name": "Meteor",
               "sourceKey": "Meteor",
               "talentId": "sorceress.meteor",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Meteor",
             "cross-class skill grants and casting"
           ]
         },
@@ -7993,11 +8375,11 @@
               "name": "Fire Mastery",
               "sourceKey": "Fire Mastery",
               "talentId": "sorceress.firemastery",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Fire Mastery",
             "cross-class skill grants and casting"
           ]
         }
@@ -8025,11 +8407,11 @@
               "name": "Static Field",
               "sourceKey": "Static Field",
               "talentId": "sorceress.staticfield",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Static Field",
             "on-taking-hit proc dispatcher"
           ]
         }
@@ -8059,11 +8441,11 @@
               "name": "Meditation",
               "sourceKey": "Meditation",
               "talentId": "paladin.meditation",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Meditation",
             "equipped aura lifecycle, radius and stacking"
           ]
         }
@@ -8103,11 +8485,11 @@
               "name": "Enchant",
               "sourceKey": "Enchant",
               "talentId": "sorceress.enchant",
-              "implemented": false
+              "implemented": true,
+              "directGrantQualified": false
             }
           ],
           "prerequisites": [
-            "Implement spell/skill: Enchant",
             "cross-class skill grants and casting"
           ]
         }

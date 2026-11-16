@@ -17,7 +17,7 @@ MODES = {
     'charged': 'charged-skill casting, targeting, charge ledger and recharge',
     'oskill': 'cross-class skill grants and casting',
 }
-# Inherent item attacks/curses use the same still-missing skill mechanics.
+# Inherent attacks reuse class mechanics,but still need their item delivery.
 INHERENT = {
     'magicarrow': ('Magic Arrow', 'Inherent magic-arrow attack and projectile delivery'),
     'explosivearrow': ('Exploding Arrow', 'Inherent exploding-arrow attack and area damage'),
@@ -34,6 +34,8 @@ def compile_backlog():
     working = set(json.loads((ROOT / 'data/Sanctuary/Balance/named-active-skills.json').read_text()))
     if not working <= {r['talentId'] for r in bindings.values()}:
         raise ValueError('Active skill lacks its source binding')
+    status=json.loads((ROOT/'data/Sanctuary/Balance/class-skill-status.json').read_text())
+    implemented={r['talentId'] for r in status['skills'] if r['implementation']=='handler-present'}
     by_name = {r['skill'].casefold(): str(r['*Id']) for r in skills.values() if r.get('skill')}
     definitions = {p['code']: p for p in compiled['named-item-properties']}
 
@@ -42,12 +44,13 @@ def compile_backlog():
         key = by_name.get(key.casefold(), key)
         row = skills.get(key)
         if row is None:
-            return dict(sourceParameter=parameter, sourceId=None, name=str(parameter), talentId=None, implemented=False)
+            return dict(sourceParameter=parameter, sourceId=None, name=str(parameter), talentId=None, implemented=False, directGrantQualified=False)
         desc = descriptions.get(row.get('skilldesc'), {})
         binding = bindings.get(key, {})
         return dict(sourceParameter=parameter, sourceId=row['*Id'],
                     name=strings.get(desc.get('str name'), row['skill']), sourceKey=row['skill'],
-                    talentId=binding.get('talentId'), implemented=binding.get('talentId') in working)
+                    talentId=binding.get('talentId'), implemented=binding.get('talentId') in implemented,
+                    directGrantQualified=binding.get('talentId') in working)
 
     def prerequisites(prop, via=()):
         if not prop['sourceEnabled']:
@@ -72,7 +75,7 @@ def compile_backlog():
             name, mechanism = INHERENT[code]
             skill = spell(name)
             result.append(dict(code=code, slot=prop['slot'], via=list(via), skills=[skill],
-                               prerequisites=['Implement spell/skill: ' + skill['name'], mechanism]))
+                               prerequisites=([] if skill['implemented'] else ['Implement spell/skill: '+skill['name']])+[mechanism]))
         elif code == 'state' and prop['parameter'] == 'monsterset':
             requirement = ('Complete-set cosmetic aura overlay and equip/break/unequip lifecycle' if prop['parameter'] == 'fullsetgeneric'
                            else 'Vampire transformation with movement, casting, equipment and restoration lifecycle')
@@ -84,6 +87,8 @@ def compile_backlog():
         elif code in MODES or code == 'skill':
             skill = spell(prop['parameter'])
             missing = ([] if skill['implemented'] else ['Implement spell/skill: ' + skill['name']])
+            if code=='skill' and not skill['directGrantQualified']:
+                missing.append('Qualify direct +skill item grant for this class consumer')
             if code in MODES:
                 missing.append(MODES[code])
             if missing:
@@ -91,8 +96,9 @@ def compile_backlog():
         elif code == 'skill-rand':
             candidates = [spell(i) for i in range(prop['sourceMin'], prop['sourceMax'] + 1)]
             result.append(dict(code=code, slot=prop['slot'], via=list(via), skills=candidates,
-                               prerequisites=['Random skill selection and saved skill identity',
-                                              'Implement remaining skills in the source ID range'],
+                               prerequisites=['Random skill selection and saved skill identity']
+                                   +(['Implement remaining skills in the source ID range'] if any(not r['implemented'] for r in candidates) else [])
+                                   +(['Qualify direct +skill item grants for the selected class consumers'] if any(not r['directGrantQualified'] for r in candidates) else []),
                                sourceArguments={k: prop.get(k) for k in ('parameter', 'sourceMin', 'sourceMax')}))
         elif code in ('randclassskill', 'war') or code == 'skilltab' and prop['parameter'] >= 21:
             requirement = {'fireskill': 'Fire-skill rank bonuses and the affected class skills',
@@ -124,7 +130,8 @@ def compile_backlog():
     dependent_sets = {r['setId'] for r in items if r['setId'] is not None}
     partners = [dict(id=r['id'], name=r['name'], setId=r['setId']) for r in compiled['set-items']
                 if r['setId'] in dependent_sets and r['id'] not in {i['id'] for i in items}]
-    return dict(schemaVersion=1, sourceCommit=manifest['commit'], workingDirectSkills=sorted(working),
+    return dict(schemaVersion=1, sourceCommit=manifest['commit'], workingDirectSkills=sorted(working), mechanicallyImplementedSkills=sorted(implemented),
+                skillReadinessRule="implemented describes the class mechanic route;directGrantQualified describes the separate unchanged named-active-skills registry. Neither implies proc/charge/aura/other item delivery readiness.",
                 items=items, sets=sets, heldSetPartners=partners)
 
 
@@ -134,7 +141,7 @@ def render(data):
     def describe(deps):
         parts = []
         for dep in deps:
-            names = ', '.join(s['name'] + (' (spell implemented)' if s['implemented'] else '') for s in dep['skills'])
+            names = ', '.join(s['name'] + (' (mechanical route implemented)' if s['implemented'] else '') for s in dep['skills'])
             text = f"{dep['scope']} `{dep['code']}`"
             if dep['via']:
                 text += ' via ' + ', '.join(dep['via'])
@@ -152,7 +159,7 @@ def render(data):
              'Generation, client integration and gameplay verification are separate completion checks.', '',
              f"Pinned source: `{data['sourceCommit']}`. Reproduce with `python3 tools/build_named_skill_backlog.py`; verify with `--check`. "
              'The machine-readable companion is `data/Sanctuary/Balance/named-skill-backlog.json`.', '',
-             'Direct bonuses currently work for Teeth, Raise Skeleton, Skeleton Mastery and Teleport. '
+             f"{len(data['mechanicallyImplementedSkills'])} class talent routes are mechanically implemented;the separate direct-grant registry still contains{len(data['workingDirectSkills'])}talents. "
              'A working spell alone does not supply a proc, aura, charge or cross-class grant system. '
              'Generic class/tree/all-skill and source-tagged fire-skill bonuses raise learned or directly granted skills without spending points or unlocking every skill. '
              'Item freeze, blind and flee are implemented shared effects; they do not require the full player class spells to exist.', '',

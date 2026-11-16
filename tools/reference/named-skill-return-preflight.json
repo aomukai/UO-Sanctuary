@@ -1,0 +1,74 @@
+{
+  "component": "Named skill return preflight and truthful prerequisite ledger",
+  "referenceVersion": "3.3.93847",
+  "baselineCommit": "a1dfc941",
+  "mechanicalTalentRoutes": 240,
+  "namedDirectGrantRegistry": 16,
+  "classBackedItemReferences": 305,
+  "items": 176,
+  "sets": 4,
+  "heldPartners": 19,
+  "acquisitionGatesChanged": false,
+  "directGrantRegistryChanged": false,
+  "gameplayChanged": false,
+  "newBuilds": 0,
+  "newNativeRuns": 0,
+  "hellslayer": {
+    "id": "unique/254",
+    "name": "Hellslayer",
+    "rarity": "Unique",
+    "setId": null,
+    "sourceAvailability": "SpawnableDefinition",
+    "sourceSpawnable": true,
+    "dependencies": [
+      {
+        "scope": "own",
+        "code": "att-skill",
+        "slot": "7",
+        "via": [],
+        "skills": [
+          {
+            "sourceParameter": 47,
+            "sourceId": 47,
+            "name": "Fire Ball",
+            "sourceKey": "Fire Ball",
+            "talentId": "sorceress.fireball",
+            "implemented": true,
+            "directGrantQualified": false
+          }
+        ],
+        "prerequisites": [
+          "on-attack proc dispatcher"
+        ]
+      }
+    ],
+    "setDependencies": []
+  },
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 44
+  },
+  "goalComplete": false,
+  "limits": "Mechanic implementation and item direct-grant readiness are distinct fields. Item delivery/trigger/charges/auras remain independent;no readiness bypass or whole Hellslayer proof is claimed. Native projection/automatic golem registration/player delivery remain required. This is a source/catalogue audit,not a new runtime execution result.",
+  "files": {
+    "data/Sanctuary/Balance/class-skill-status.json": "3abe268f909ac99abba5b57ee4e34d7d13df6b3487bbdd56ac6b96ea27537adf",
+    "data/Sanctuary/Balance/named-active-skills.json": "752fe9a6971d04c42afbc8c9e8af1e280ca2cc0cab4e9ee38349933359431fcd",
+    "data/Sanctuary/Balance/named-skill-backlog.json": "98972b30460d94e774ef0995bb8eb7b0d7bd842a8efea8e5c62392a62c76acd8",
+    "docs/deferred-named-skills.md": "b282c14d86d3bc794b246fbb5681e9c2a39debdb5dd9fb43d4fc10a878505ad7",
+    "docs/item-skill-return-preflight.md": "3df736de3ff39fb0c9df4bd0104d260049dd8e8a46e00ca47a748abec3bc2ce9",
+    "src/Sanctuary.Content/EquipmentPropertyWriter.cs": "35c84562fd360b3dddfe3a1e3a75fb20e816a1d50187a7a8020a4e9cb2814b84",
+    "src/Sanctuary.Content/IronGolemCasting.cs": "24a6529b70cf6f671d5d322a16cb7cd89c846bade8390803edd57b71e40ea65c",
+    "src/Sanctuary.Content/IronGolemFireBall.cs": "65a544d4dad862714d7ae45dc378e9f367878e1315423ac34eb0cfdf652b4a1a",
+    "src/Sanctuary.Content/ItemSkillPropertyWriter.cs": "c13ac2b5523f9ddb6fac39ad663690e49546bd084bec96b425273a35e381f656",
+    "src/Sanctuary.Content/NamedGear.cs": "de5e61e4b40e3033a5382b86e316029161d8ca2493a8da3d2d6c64bbda0599b2",
+    "src/Sanctuary.Content/NamedPropertyRuntime.cs": "0a630552f04c44282dca219894ce765f7b224d374b64a1010bee686d01cb92f8",
+    "src/Sanctuary.Content/NamedSkills.cs": "a00452d06b463a5df0e8bfeb9bb056761b02dc3af2711b3114b0818ee7fee08a",
+    "src/Sanctuary.Content/NpcItemProcGraph.cs": "8da57fc3652e716fe201b245364270c55c3e217d472ed03a181bc59945791bc1",
+    "tools/build_named_skill_backlog.py": "3993af23d08cfb295a7db688a26e4420e466855ceacf94c665f8e6a709c43f5f",
+    "tools/record_named_skill_return_preflight.py": "68db10364200413f9d01954131539c9672eadfa3fef8bf438aacae290e61d344",
+    "tools/reference/consume-learned-client-evidence.json": "8984cc0448f1e48de980f6525f671478ffb489e7d0870a0cd387ede362e02fec",
+    "tools/reference/npc-item-fireball-native-evidence.json": "91bc78a77f4ee761c59ef06f6d937240d880ae5cf7562c26928d00b8e85cec49"
+  }
+}

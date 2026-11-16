@@ -1,0 +1,17 @@
+# Returning skill-dependent item effects
+
+Reference: **D2R Reign of the Warlock3.3.93847**,approved Sanctuary deviations first. The user asked to return to skill-dependent item effects after the class mechanics exist. All240talent routes now exist with scoped native evidence. This is the next mechanical integration track,not an artwork task.
+
+The existing named return ledger incorrectly treated the16-entry direct-grant registry as its list of implemented class mechanics. It now reads class implementation status separately,while retaining `named-active-skills.json` unchanged. Each referenced spell records both `implemented` (class route) and `directGrantQualified` (the unchanged named direct-grant registry). All305references backed by class routes now have the correct mechanical status. The same176item rows,four set dependency groups and19held partners remain listed. No item becomes acquirable as a result of this reporting correction.
+
+| Return step | Current evidence | Required mechanical work |
+| --- | --- | --- |
+| Direct class +skill grants | Existing generic named rank/equipment path;only16talents in its direct-grant registry | Qualify actual complete named items/equipment transitions against current class consumers,including unlearned versus hard-point behavior,snapshots and two reloads,before expanding that registry. |
+| Saved item proc properties | `ItemSkillPropertyWriter` handles source function11/19 in supplied contexts;`EquipmentRawProperties` does not project those into whole originals | Preserve explicit chance/rank/item-level parameters through ordinary/named item creation and numeric projection without rerolls or dropped properties. |
+| Player proc delivery | Class spell mechanics are present;item on-attack/on-hit/on-struck dispatch remains a separate task | Reuse source event callbacks and class spell controllers with actual player ownership,hard synergies,mastery,target/RNG/resource/lifecycle rules. Do not borrow NPC-only proof. |
+| Iron Golem Fire Ball | Shared NPC Fire Ball producer has original-attacker/area/projectile/save evidence | Connect a complete original's proc properties to automatic registration and its normal learned cast/contact/save path;the current explicit event carrier is insufficient. |
+| Whole Hellslayer admission | Pinned item254has all seven source properties,including `att-skill`47 | Qualify all properties and actual complete-item acquisition/equip/golem behavior before changing readiness. Its class spell prerequisite is now satisfied;the on-attack dispatcher and full original projection/admission are not. |
+
+Hellslayer must not be made available by stripping its proc or bypassing the named readiness gate. Its prepared Fire Ball carrier is not whole-item proof. The cached property11 writer uses the pinned source item level to derive its zero-max proc rank;the saved original must retain that context. Other spells,charges,auras,oskills and trigger stages keep their separate existing return tasks.
+
+Bash's unresolved modern flat-health behavior and Find Item's rounding/special-treasure edges remain nonblocking questions in the Barbarian inventory. No newer installed D2R process/CASC is substituted for3.3evidence. Native-only species/receiver,property and graphical limits remain explicit. No artwork is generated;effects/audio and talent/hotkey icons remain separately tracked. Installed build/saves/config and the direct-grant/acquisition registries remain unchanged in this preflight.
