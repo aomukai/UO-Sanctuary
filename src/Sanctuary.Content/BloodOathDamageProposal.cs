@@ -9,23 +9,15 @@ namespace Sanctuary;
 internal sealed record BloodOathTransfer(uint Demon,int Amount256);
 internal sealed record BloodOathRedirect(int Original256,int Remaining256,int Rank,int Percent,BloodOathTransfer[] Transfers,string Fault=null);
 
-// Explicit candidate,not recovered event35. Only internal prepared leases
-// enter the pipeline until the complete documented rule is approved.
+// Approved Sanctuary reaction,not a recovered event35. See the complete
+// original/bound rule in warlock-final-talents-approval.json.
 internal static class BloodOathDamageProposal
 {
-    internal static bool Approved=>false;
+    internal static bool Approved=>true;
     private static readonly Server.Logging.ILogger Log=Server.Logging.LogFactory.GetLogger(typeof(BloodOathDamageProposal));
-    private static readonly Dictionary<uint,int> Prepared=new();
     private static readonly HashSet<uint> Delivering=new();
-    private sealed class Lease(uint owner):IDisposable
-    {
-        private bool Disposed;
-        public void Dispose(){if(Disposed){return;}Disposed=true;if(Prepared[owner]==1){Prepared.Remove(owner);}else{Prepared[owner]--;}}
-    }
-    internal static IDisposable AdmitPrepared(PlayerMobile owner)
-    {if(owner==null||owner.Deleted){throw new ArgumentException("Prepared Blood Oath needs its original owner");}Prepared[owner.Serial.Value]=Prepared.GetValueOrDefault(owner.Serial.Value)+1;return new Lease(owner.Serial.Value);}
     internal static bool ManagedPrepared(Mobile target)=>target is PlayerMobile{Alive:true,Deleted:false,NetState:{Running:true}} owner
-        &&(Approved||Prepared.ContainsKey(owner.Serial.Value))&&ClassCreation.Profiles.TryGet(owner.Serial,out var profile)
+        &&Approved&&ClassCreation.Profiles.TryGet(owner.Serial,out var profile)
         &&profile.Class==DiabloClass.Warlock&&SkillMechanics.Rank(owner,CombatAbility.BloodOath)>0;
     internal static (int Percent,int Maximum) Numbers(int rank)
     {

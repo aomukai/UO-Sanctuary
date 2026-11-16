@@ -25,7 +25,7 @@ public static class BloodOathDamageChecks
     {
         Rates();foreach(bool again in new[]{false,true})
         {bool reload=again;string name=reload?"blood-oath-damage-reload-check":"blood-oath-damage-check";
-            ConsoleInputHandler.RegisterCommand(name,"Prepared Blood Oath settled damage,world eligibility and original saves",_=>Core.LoopContext.Post(()=>
+            ConsoleInputHandler.RegisterCommand(name,"Approved Blood Oath settled damage,world eligibility and original saves",_=>Core.LoopContext.Post(()=>
             {Log.Information("{Name}: passed",name);FixtureNetwork.Connected(name+"-result",n=>
             {try{if(reload){Reload(n);}else{Scene(n);}Log.Information("{Name}: passed",name+"-result");}catch(Exception e){Log.Error(e,"{Name}: failed",name+"-result");}});}));}
     }
@@ -48,9 +48,8 @@ public static class BloodOathDamageChecks
         var enemy=new GoatmanNpcContactChecks.Recipient{Frozen=true,CantWalk=true,NoKillAwards=true};enemy.SetHits(50000);enemy.Hits=enemy.HitsMax;enemy.MoveToWorld(new(p.X+20,p.Y,p.Z),p.Map);enemy.AIObject?.AITimer.Stop();
         try
         {
-            Require(!BloodOathDamageProposal.Approved&&!WarlockCombat.Implemented(CombatAbility.BloodOath),"Unapproved reaction was enabled");
+            Require(BloodOathDamageProposal.Approved&&WarlockCombat.Implemented(CombatAbility.BloodOath),"Approved learned reaction was not enabled");
             Require(BloodOathDamageProposal.Numbers(1)==(3,3)&&BloodOathDamageProposal.Numbers(20)==(25,3)&&BloodOathDamageProposal.Numbers(60)==(30,3),"Pinned effective-rank curve/explicit recipient limit");
-            using(var none=BloodOathDamageProposal.AdmitPrepared(p))
             {
                 Require(OwnerLoss(p,()=>SkillHealth.Damage(enemy,p,1001))==1001,"No-demon reaction invented protection");
                 var legacy=WarlockGoatmanBody.CreatePrepared(p,new(p.X+2,p.Y,p.Z),TimedEffects.Now);
@@ -63,8 +62,8 @@ public static class BloodOathDamageChecks
             }
             SkeletonGuardian[] pets=[Summon(p,CombatAbility.SummonGoatman,2),Summon(p,CombatAbility.SummonTainted,4),Summon(p,CombatAbility.SummonDefiler,6)];
             Fill(p,pets);var before=Life(pets);
-            Require(OwnerLoss(p,()=>SkillHealth.Damage(enemy,p,1001))==1001&&Life(pets).SequenceEqual(before),"Unprepared live player received candidate reaction");
-            using(var lease=BloodOathDamageProposal.AdmitPrepared(p))
+            Require(OwnerLoss(p,()=>SkillHealth.Damage(enemy,p,1001))==751&&before.Zip(Life(pets),(a,b)=>a-b).SequenceEqual(new[]{84,83,83}),"Learned live player did not receive automatic reaction");
+
             {
                 Fill(p,pets);before=Life(pets);int ownerEvents=0,petEvents=0;
                 void Notify(SkillDamageContact c){if(c.Target==p){ownerEvents++;}if(pets.Contains(c.Target)){petEvents++;}}
@@ -105,7 +104,7 @@ public static class BloodOathDamageChecks
                 SkillHealth.SetBalance256(p,SkillHealth.Maximum256(p));Require(OwnerLoss(p,()=>SkillHealth.Damage(enemy,p,777))==777&&Life(pets).SequenceEqual(before),"Parking granted cover/healing or replayed damage");
             }
             File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(0,p.Serial.Value,enemy.Serial.Value,SkillHealth.Balance256(p),pets.Select(b=>new Pet(b.Serial.Value,Birth(b),SkillHealth.Balance256(b),NpcEquipmentRandom.State(b))).ToArray())));kept=true;
-            Log.Information("Prepared Blood Oath:one pinned budget/FP8 split;actual scalar/native resisted/armor-ignore/shield routes;no recursive attack events;pet immunity bypass;facet/park exclusions;low-life cap/no redistribution/death credit;learned reaction gated");
+            Log.Information("Approved Blood Oath:one pinned budget/FP8 split;actual scalar/native resisted/armor-ignore/shield routes;no recursive attack events;pet immunity bypass;facet/park exclusions;low-life cap/no redistribution/death credit;automatic learned reaction enabled");
         }
         finally{ClassCombat.Stop(p);network.Mobile=null;p.NetState=null;account[0]=null;network.Account=null;account.Delete();if(!kept){enemy.Delete();foreach(var b in WarlockGoatmanWorld.Demons(p)){b.Delete();}p.Delete();}}
         SoftRank(network);
@@ -116,12 +115,12 @@ public static class BloodOathDamageChecks
         var pet=Summon(p,CombatAbility.SummonGoatman,3);string birth=Birth(pet);
         try
         {
-            using var lease=BloodOathDamageProposal.AdmitPrepared(p);int before=SkillHealth.Balance256(pet);
+            int before=SkillHealth.Balance256(pet);
             Require(OwnerLoss(p,()=>SkillHealth.Damage(enemy,p,1000))==880&&before-SkillHealth.Balance256(pet)==120,"Hard4 curve control");
             PoisonDaggerChecks.Named(p,"Tarnhelm");ClassGear.Refresh(p);before=SkillHealth.Balance256(pet);
             Require(SkillMechanics.Rank(p,CombatAbility.BloodOath)==5&&OwnerLoss(p,()=>SkillHealth.Damage(enemy,p,1000))==860
                 &&before-SkillHealth.Balance256(pet)==140&&Birth(pet)==birth,"Current soft rank did not update owner reaction independently of saved pet birth");
-            Log.Information("Prepared Blood Oath:Witch/Tarnhelm current effective4to5redirect12to14percent;existing pet life/resistance snapshot unchanged");
+            Log.Information("Approved Blood Oath:Witch/Tarnhelm current effective4to5redirect12to14percent;existing pet life/resistance snapshot unchanged");
         }
         finally{pet.Delete();enemy.Delete();network.Mobile=null;p.NetState=null;account[0]=null;network.Account=null;account.Delete();p.Delete();}
     }
@@ -132,14 +131,17 @@ public static class BloodOathDamageChecks
         Require(SkillHealth.Balance256(p)==s.Life,"Saved owner fractional wounds changed");
         for(int i=0;i<pets.Length;i++){Require(pets[i].Map==Map.Internal&&Birth(pets[i])==s.Pets[i].Birth&&SkillHealth.Balance256(pets[i])==s.Pets[i].Life
             &&NpcEquipmentRandom.State(pets[i])==s.Pets[i].Random,"Original recipient snapshot/wounds/RNG changed on reload");}
+        Require(!BloodOathDamageProposal.ManagedPrepared(p),"Offline owner unexpectedly gained automatic protection");
+        var offline=BloodOathDamageProposal.ReducePrepared(enemy,p,1001,SkillDamageKind.Direct);
+        Require(offline is{Remaining256:1001,Transfers.Length:0},"Offline roster redirected damage");
         var account=FixtureNetwork.Authenticate(network,p,"blood-oath-reload-");
         try
         {
-            Require(!BloodOathDamageProposal.ManagedPrepared(p),"Prepared lease unexpectedly persisted/enabled itself");PersistentMinions.Resume(p);WarlockGoatmanWorld.Tick(TimedEffects.Now);
-            using var lease=BloodOathDamageProposal.AdmitPrepared(p);var before=Life(pets);
+            Require(BloodOathDamageProposal.ManagedPrepared(p),"Connected learned owner did not regain automatic protection");PersistentMinions.Resume(p);WarlockGoatmanWorld.Tick(TimedEffects.Now);
+            var before=Life(pets);
             Require(OwnerLoss(p,()=>SkillHealth.Damage(enemy,p,1001))==751&&before.Zip(Life(pets),(a,b)=>a-b).Sum()==250,"Reloaded original roster did not redirect again");
             PersistentMinions.Suspend(p);File.WriteAllText(Manifest,JsonSerializer.Serialize(s with{Generation=s.Generation+1,Life=SkillHealth.Balance256(p),Pets=pets.Select(b=>new Pet(b.Serial.Value,Birth(b),SkillHealth.Balance256(b),NpcEquipmentRandom.State(b))).ToArray()}));
-            Log.Information("Prepared Blood Oath:original owner/three recipients retain fractional wounds,birth,RNG/host through reload,then react again without offline replay;lease remains transient");
+            Log.Information("Approved Blood Oath:original owner/three recipients retain fractional wounds,birth,RNG/host through reload,then react again without offline replay;automatic learned reaction uses no admission lease");
         }
         finally{network.Mobile=null;p.NetState=null;account[0]=null;network.Account=null;account.Delete();}
     }

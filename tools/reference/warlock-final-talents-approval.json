@@ -1,0 +1,30 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "answer": "Adopt all four reviewed rules (Recommended)",
+  "approvedUtc": "2026-11-16T07:48:11.986588+00:00",
+  "questionItemId": "[\"request_user_input_async\",\"call_36f267bd16d64810ad3ca40bfa6af888\",0]",
+  "candidateCommit": "a1d4bc47753dedb1c325ef5a9439c07736259857",
+  "approvedTalents": [
+    "warlock.bloodoath",
+    "warlock.engorge",
+    "warlock.bloodboil",
+    "warlock.consume"
+  ],
+  "proposal": "docs/warlock-final-talents-release-proposal.md",
+  "testedCandidateEvidence": "tools/reference/warlock-remaining-review-native-evidence.json",
+  "approvedScope": "Four complete original rules and reviewed qualified-bound-demon/Consume-aura extensions. Admit and verify one talent at a time through learned/default operation and applicable bound/menu/save paths. Keep stated unsupported contexts and exact-modern-parity limits explicit; no charms/runewords or asset/deployment permission inferred.",
+  "filesAtApprovalSha256": {
+    "docs/warlock-final-talents-release-proposal.md": "25501715f32eab716950dd8ca37aa90f534528193827abe5bfc438d0eba05edb",
+    "tools/reference/warlock-remaining-review-native-evidence.json": "85c5c0d237df46aa9167e757c1362ce6fe309aa6653f5a5709e2a1fe6c508781",
+    "docs/blood-oath-damage-proposal.md": "708eae5c96de89b680b975df6ff937f4d7ee6038877a026e440768519906746d",
+    "docs/engorge-world-rule-proposal.md": "e7d1a57aa309bc29a2278e5d0588a818e1addd169151b78f3f5543ac62c6c878",
+    "docs/blood-boil-rule-proposal.md": "9b530871555c6a3c3c269123addbedea0a020bac10a29c02b8a505e6c572dbe7",
+    "docs/consume-world-rule-proposal.md": "e4a2cc5b07c1b897f307382406561cae340cf43abf6b0bb94a3ff2f6b024a5d6",
+    "docs/bind-demon-recipients-checkpoint.md": "f4d3529678293e2fa45c0f0198c2d1128ad17b0f36bc5c3178dcf30235e3cacc",
+    "docs/bind-demon-oath-checkpoint.md": "297cfe81b579c8154feb232d0a7c609c95d55908ed71771114f5a4b43e33dedc",
+    "docs/bind-demon-engorge-checkpoint.md": "dc1f626a38a2bd78212fbf89ab79f39621ed23269ece818dd0ea8587921bb867",
+    "docs/bind-demon-consume-checkpoint.md": "4403bb2f50b706d0b6735a60abea64779a1e0cf383eee453465e39fee96280c3",
+    "docs/consume-aura-checkpoint.md": "684a91e81aa1018b176d69f1a03463477c6a58e5893e59426cb338fae2ce483e"
+  }
+}

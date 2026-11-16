@@ -2450,10 +2450,10 @@
       "characterClass": "Warlock",
       "tree": "Demon",
       "sourceId": 378,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Approved original/bound incoming reaction is automatic for a living connected active Warlock/Witch with a positive effective rank. One settled post-shield direct-damage budget splits across up to3qualified demons in saved order,with FP8 remainders,per-body life caps,no redistribution and ordinary attacker/death credit. Native identity-modifier qualification and unsupported refusals retain;self/friendly/periodic/return/offline/safe-area contexts give no cover. Existing birth life/resistance snapshots remain independent. No active binding,mana,timer or passive save-registration is introduced. See blood-oath-learned-checkpoint.md and warlock-final-talents-approval.json;current event35/start66/global ordering,PvP/special/property/client and class parity remain unqualified. Passive icon and any final transfer/audio presentation remain separate placeholders."
     },
     {
       "talentId": "warlock.deathmark",
