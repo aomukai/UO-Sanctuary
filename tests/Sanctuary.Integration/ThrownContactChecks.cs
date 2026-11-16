@@ -19,7 +19,7 @@ public static class ThrownContactChecks
     private static void Require(bool ok,string why){if(!ok){throw new InvalidOperationException(why);}}
     private sealed class High:Random{public override int Next(int n)=>n-1;}
     private sealed class Low:Random{public override int Next(int n)=>0;}
-    private sealed class Rolls:IDisposable
+    internal sealed class Rolls:IDisposable
     {
         private readonly Func<double> Hit=BarbarianDoubleThrow.HitRoll;
         private readonly Func<int,int> Damage=WeaponMissiles.DamageRoll,Block=SourceBlocking.BlockRoll,Choice=SourceBlocking.ChoiceRoll;
@@ -28,9 +28,9 @@ public static class ThrownContactChecks
         internal Rolls(){BarbarianDoubleThrow.HitRoll=()=>0;WeaponMissiles.DamageRoll=_=>0;SourceBlocking.BlockRoll=n=>n-1;SourceBlocking.ChoiceRoll=_=>1;WeaponMissiles.ItemEffects=new High();BarbarianThrowing.RandomSource=()=>new High();}
         public void Dispose(){BarbarianDoubleThrow.HitRoll=Hit;WeaponMissiles.DamageRoll=Damage;SourceBlocking.BlockRoll=Block;SourceBlocking.ChoiceRoll=Choice;WeaponMissiles.ItemEffects=Effects;BarbarianThrowing.RandomSource=Throw;}
     }
-    private static PlayerProcSave Own(PlayerMobile p,Item item)
+    internal static PlayerProcSave Own(PlayerMobile p,Item item)
     {var s=PlayerItemProcs.Capture();return s with{Items=s.Items.Where(x=>x.Item==item.Serial.Value).ToArray(),Owners=s.Owners.Where(x=>x.Actor==p.Serial.Value).ToArray()};}
-    private static WeaponFlight[] Flights(PlayerMobile p)=>WeaponMissiles.Snapshot().Flights.Where(x=>x.Owner==p.Serial.Value).ToArray();
+    internal static WeaponFlight[] Flights(PlayerMobile p)=>WeaponMissiles.Snapshot().Flights.Where(x=>x.Owner==p.Serial.Value).ToArray();
     public static void Configure()
     {
         foreach(bool again in new[]{false,true})
@@ -40,19 +40,19 @@ public static class ThrownContactChecks
         {string label="thrown-contact-"+mode;ConsoleInputHandler.RegisterCommand(label+"-check","Authenticated first Double Throw release,travel and item hit proc",_=>Core.LoopContext.Post(()=>
             {try{FixtureNetwork.Connected(label+"-result",n=>Input(n,label));Log.Information("{Label}-check: passed",label);}catch(Exception e){Log.Error(e,"{Label}-check: failed",label);}}));}
     }
-    private static PlayerMobile Owner(int row,out BaseWeapon primary,out BaseWeapon secondary,out Item gloves,out Item helm)
+    internal static PlayerMobile Owner(int row,out BaseWeapon primary,out BaseWeapon secondary,out Item gloves,out Item helm)
     {
         var p=DoubleThrowChecks.Fresh();p.Name="PlayerItemFireBallFixture";FixtureSpace.Corridor(p,6200,32,row);var pair=BarbarianDoubleThrow.Pair(p).Value;
         p.AddToBackpack(pair.Primary);p.AddToBackpack(pair.Secondary);primary=(BaseWeapon)PlayerItemProcWorldChecks.Carrier(p,new NamedThrowingKnife());secondary=pair.Secondary;Require(p.EquipItem(secondary),"Restore secondary beside raw primary");gloves=DruidSetupItemChecks.Named(p,"Venom Grip");helm=DruidSetupItemChecks.Named(p,"Blackhorn's Face");ClassGear.Refresh(p);
         Require(BarbarianDoubleThrow.Pair(p)==new WeaponPair(primary,secondary),"Raw carrier changed selected pair");Require(SkillBindings.Instance.Assign(p,false,CombatAbility.DoubleThrow)&&SkillBindings.Instance.AssignQuick(p,7,CombatAbility.DoubleThrow),"Throw bindings");return p;
     }
-    private static PoisonDaggerContactChecks.Recipient Target(PlayerMobile p,int dx=3)
+    internal static PoisonDaggerContactChecks.Recipient Target(PlayerMobile p,int dx=3)
     {var t=new PoisonDaggerContactChecks.Recipient();t.SetHits(60000);t.MoveToWorld(new(p.X+dx,p.Y,p.Z),p.Map);t.AIObject.AITimer.Stop();foreach(var r in Enum.GetValues<ResistanceType>()){t.SetResistance(r,100);}t.SetResistance(ResistanceType.Poison,0);return t;}
-    private static void Ready(PlayerMobile p,BaseWeapon a,BaseWeapon b)
+    internal static void Ready(PlayerMobile p,BaseWeapon a,BaseWeapon b)
     {BarbarianDoubleThrow.Cancel(p);ClassCombat.Stop(p);var s=ClassCombat.For(p);s.NextAction=s.RecoveryUntil=Core.TickCount;NecromancerEffects.SetMana256(p,p.ManaMax*256);DoubleThrowChecks.Quantity(a,40);DoubleThrowChecks.Quantity(b,40);}
-    private static void Clean(PlayerMobile p,params BaseCreature[] targets)
+    internal static void Clean(PlayerMobile p,params BaseCreature[] targets)
     {BarbarianDoubleThrow.Cancel(p);ClassCombat.Stop(p);WeaponMissiles.Cancel(p);SorceressSpellMissiles.Cancel(p);foreach(var t in targets){if(t!=null){SourceKnockbacks.Clear(t);t.Corpse?.Delete();t.Delete();}}}
-    private static void Drain(PlayerMobile p)
+    internal static void Drain(PlayerMobile p)
     {for(int i=0;i<60&&Flights(p).Length>0;i++){WeaponMissiles.Tick(Flights(p).Min(x=>x.NextUtc),onlyOwner:p.Serial.Value);}Require(Flights(p).Length==0,"Thrown contact flight did not finish");}
     private static void Scenarios(PlayerMobile p,BaseWeapon primary,BaseWeapon secondary)
     {
