@@ -1464,7 +1464,7 @@
       "tree": "Warcries",
       "sourceId": 142,
       "implementation": "handler-present",
-      "verification": "build-only",
+      "verification": "partial-native-coverage",
       "complete": false,
       "remaining": "Right/quick explicit corpse SC search pays7mana at start, without impact debit/refund on failure/cancellation. Saved one-attempt noselect flag preserves corpse/loot and excludes shared player/NPC/legacy animation consumers. Captured ordinary source/difficulty/resolved world TC/level survives owner deletion; current caster gold/MF uses existing generators with nested NoDrop bypass. Source624/4464 and20 historical base chances, focused native3boots/2reloads pass. Existing curve retained pending modern conflict; unsupported old/missing contexts, special boss/quest/elite or changed-level TC contexts gated. Current shared8-tile corpse footprint/input auto-approach, exact modern snapshots/RNG/quality/client remain open."
     },
@@ -1497,7 +1497,7 @@
       "tree": "Warcries",
       "sourceId": 154,
       "implementation": "handler-present",
-      "verification": "build-only",
+      "verification": "partial-native-coverage",
       "complete": false,
       "remaining": "Shared64-ray ring with distinct12/12/-600/16 motion, saved physical FP256 endpoints and per-hit RNG, hard Howl/Taunt/Battle Cry synergies, one fractional mana debit and skill-local6-frame delay. Reuses prepared mitigation, health/recovery and saved common stun rules. NPC shield-component block differs from bare ToBlock; selected source SH choice persists per actor. Source750 bounded cases and focused3boots/2reloads pass. Native no-regional-pool SH selection is provisional; full modern block/dodge, DAMAGE_VS_MONTYPE gear, PvP/unmapped targets, event/proc/owner/geometry/SC/FCR/client acceptance remain open."
     },
@@ -1827,7 +1827,7 @@
       "tree": "Elemental",
       "sourceId": 250,
       "implementation": "handler-present",
-      "verification": "build-only",
+      "verification": "partial-native-coverage",
       "complete": false,
       "remaining": "Learned self SC cast pays30mana once and replaces one saved weather state without local delay. Periodic20-frame copied cold packet reads live hard Twister/Tornado synergies and gear at retained cast rank; duration captures250+50frames per hard Cyclone Armor point. Source0xA783 LOS/center-radius and separate area defense/cold-state consumers are connected. Source/native verification, installation and explicit modern equal-deadline/global seed/event/geometry/PvP/item/client limits are recorded in the checkpoint. Final wind/debris/cast/pulse/end/audio and talent/right/quick icons remain identified placeholders; no class complete."
     },
@@ -1838,7 +1838,7 @@
       "tree": "Elemental",
       "sourceId": 249,
       "implementation": "handler-present",
-      "verification": "build-only",
+      "verification": "partial-native-coverage",
       "complete": false,
       "remaining": "Learned self SC cast pays35mana once and captures weather duration/rank. Every6frames attempts up to5source-seeded positions, creating a stationary25-frame control with captured physical/fire endpoints. Its terminal radius4 copied area creates a fresh37-frame Collision1 ground field at retained rank; ground uses own endpoints and DamageRate41 MDR scaling, no get-hit/knockback. Saved weather/actors reuse shared casting, RNG, endpoints, copied-area and ground consumers; verification/installation and explicit modern ordering/global RNG/native geometry/item/event/client limits are recorded in the checkpoint. Final effects/audio/icons are identified placeholders; no class complete."
     },
@@ -1915,7 +1915,7 @@
       "tree": "Shape Shifting",
       "sourceId": 238,
       "implementation": "handler-present",
-      "verification": "build-only",
+      "verification": "partial-native-coverage",
       "complete": false,
       "remaining": "Learned Werewolf S3 candidate uses a source-derived initial hit gate and pinned10mana, then a distinct ordinary weapon bite followed by independent infection and forced-success skill poison. Saved markers/emitters, retained child rank/live synergy, negative-current tail/reinfection and migration have bounded source/native evidence. Actual learned input/payment/cancellation/full-regression acceptance is recorded in the current checkpoint. Modern initial miss/block presentation/payment, extra transformed AR, lost-range attachment, lethal/reentrant chronology, owner logout/facet and exact event/seed/geometry remain explicit gaps. Human Wrestle/contact audio and poison status are identified placeholders; final effects and talent/left/right/quick icons remain separate."
     },
@@ -1973,7 +1973,7 @@
       "tree": "Summoning",
       "sourceId": 222,
       "implementation": "handler-present",
-      "verification": "build-only",
+      "verification": "partial-native-coverage",
       "complete": false,
       "remaining": "Learned right/quick SC/FCR casting uses the existing8mana atomic shared-vine transaction. Approved summon-time snapshot freezes effective summon rank and hard Rabies; owner poison mastery/item pierce are excluded. New explicit profile retains the approved rank20base midpoint2000over4seconds before sole hard Rabies10percent synergy; historical profiles/fields retain their packets. Always vulnerable. External Battle Command affects innate Vine Attack at emission without rewriting base stats or existing groups. Exact current room/path/vision/global scheduling and source AStar fallback remain explicit gaps. See summon-snapshot-decision.json and creeper-learned-checkpoint.md; final body/mat/audio and talent/hotkey assets stay separate.",
       "excludedDependencies": [
@@ -2012,7 +2012,7 @@
       "tree": "Summoning",
       "sourceId": 231,
       "implementation": "handler-present",
-      "verification": "build-only",
+      "verification": "partial-native-coverage",
       "complete": false,
       "remaining": "Learned right/quick SC/FCR casting reuses the shared unpaid windup and once-only10mana do115transaction, one-vine category, saved AI111 seeking/feeding and independent player-owned delayed recovery. Always vulnerable in every action mode under approved Sanctuary policy. Current innate Battle Command contributes to corpse search and the rank captured at consumption; expiry does not change a pending recovery. Source whole-point healing, cancellation/replacement/parking/facet/save behavior and actual input are tracked in recycler-learned-checkpoint.md. Exact current room/path/vision/global frame and graphical parity remain explicit; final effects/audio/icons stay separate."
     },
@@ -2048,7 +2048,7 @@
       "tree": "Summoning",
       "sourceId": 241,
       "implementation": "handler-present",
-      "verification": "build-only",
+      "verification": "partial-native-coverage",
       "complete": false,
       "remaining": "Learned right/quick SC/FCR casting reuses the shared unpaid windup and once-only13+effective rank mana do115transaction, one-vine category and saved AI111 feeding. Approved Sanctuary profile2uses current NPC325calc2=4percent at rank1,+1percentage point per rank, with source whole-point current/max/gain arithmetic at elapsed45. Historical profiles0/1retain their behavior. Vines are always vulnerable. Live innate Command is captured into the pending recovery rank. Actual input/cancellation/resource/roster/save acceptance is tracked in recycler-learned-checkpoint.md. This approved adaptation is not a current executable parity claim; final effects/audio/icons remain separate."
     },
@@ -2600,7 +2600,7 @@
       "tree": "Eldritch",
       "sourceId": 390,
       "implementation": "handler-present",
-      "verification": "build-only",
+      "verification": "partial-native-coverage",
       "complete": false,
       "remaining": "User-authorized Sanctuary estimate implemented with ordinary SC,melee restriction,one15mana release/cooldown,release snapshots,one traveling blade/magic impact and shared safe teleport landing. Focused native/input/reload checks and explicit source/assumption receipt track qualification;protected do166/hit42 parity and final graphical/effects/icon acceptance remain separate."
     },
@@ -2721,7 +2721,7 @@
       "tree": "Chaos",
       "sourceId": 400,
       "implementation": "handler-present",
-      "verification": "build-only",
+      "verification": "partial-native-coverage",
       "complete": false,
       "remaining": "Shared Sigil launch/tracking/markers are prepared. Owned current400 links killed event33 to hidden403/do153 and damage/install events34. A complete950byte candidate33 trigger-skill body is retained, but its event-table dispatcher identity is not linked;candidate34 has759protected bytes and linked explosion153 has159protected bytes. All2145 compiled summon-skill IDs and49formula presences/bounds match primary data. Do not substitute CorpseExplosion do55 HP/RNG/level scaling/inner radius or extend legacy event1..31 registration without qualification. Mark bookkeeping,death ownership,explosion and learned input remain gated;see sigil-death-reference-checkpoint.md. Effects/icons separate."
     },

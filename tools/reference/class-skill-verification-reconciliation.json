@@ -1,0 +1,312 @@
+{
+  "component": "Historical native coverage label reconciliation",
+  "referenceVersion": "3.3.93847",
+  "baselineCommit": "d40b0203",
+  "changedTalents": [
+    "barbarian.finditem",
+    "barbarian.warcry",
+    "druid.hurricane",
+    "druid.armageddon",
+    "druid.rabies",
+    "druid.poisoncreeper",
+    "druid.carrionvine",
+    "druid.solarcreeper",
+    "warlock.bladewarp",
+    "warlock.sigildeath"
+  ],
+  "onlyRuntimeFieldChanged": "verification",
+  "beforeBuildOnly": 10,
+  "afterBuildOnly": 0,
+  "partialNativeTalents": 240,
+  "handlers": 240,
+  "newNativeRuns": 0,
+  "newBuilds": 0,
+  "gameplayChanged": false,
+  "classCertified": false,
+  "goalComplete": false,
+  "cohorts": {
+    "barbarian-planned-acceptance": {
+      "receipt": "tools/reference/barbarian-planned-acceptance-native-evidence.json",
+      "receiptSha256": "0ee1d764ccdf5012f0d446452e05964cab515c566e32b646ee9d0fd0519d9fcc",
+      "nativeMarkers": 245,
+      "boots": 3,
+      "saves": 3,
+      "reloads": 2,
+      "artifacts": {
+        "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+        "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+        "Assemblies/UOContent.dll": "5df3992322b515ae6e525927b8b9ddb57420eddd63d9886f019ffd6974b2cd49",
+        "Assemblies/Sanctuary.Content.dll": "508e93ea5f7458c9de14a13d70500aaba9f6f39c76ba3313adaa3966b1d34e14",
+        "Assemblies/Sanctuary.Integration.dll": "299e250965844d0ffdc77e12dbd64fbea68e8f4db6bad3407ec123236d834ede"
+      }
+    },
+    "druid-planned-acceptance": {
+      "receipt": "tools/reference/druid-planned-acceptance-native-evidence.json",
+      "receiptSha256": "e444dc59f9b97399395144a5aa1d0a98a1a3d860ad11371c67ce9a2dc57a1e1b",
+      "nativeMarkers": 675,
+      "boots": 3,
+      "saves": 3,
+      "reloads": 2,
+      "artifacts": {
+        "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+        "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+        "Assemblies/UOContent.dll": "5df3992322b515ae6e525927b8b9ddb57420eddd63d9886f019ffd6974b2cd49",
+        "Assemblies/Sanctuary.Content.dll": "508e93ea5f7458c9de14a13d70500aaba9f6f39c76ba3313adaa3966b1d34e14",
+        "Assemblies/Sanctuary.Integration.dll": "951120debe8638e0f8f10fb143f2ed1fc3373cbb9549e9bdcc6fd2b18a6dd2c7"
+      }
+    },
+    "warlock-weapons-acceptance": {
+      "receipt": "tools/reference/warlock-weapons-acceptance-native-evidence.json",
+      "receiptSha256": "3927009430e771e4d28fec5a26dd33cee647d1bed9446d7f41b6b474061cc114",
+      "nativeMarkers": 240,
+      "boots": 3,
+      "saves": 3,
+      "reloads": 2,
+      "artifacts": {
+        "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+        "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+        "Assemblies/UOContent.dll": "5df3992322b515ae6e525927b8b9ddb57420eddd63d9886f019ffd6974b2cd49",
+        "Assemblies/Sanctuary.Content.dll": "508e93ea5f7458c9de14a13d70500aaba9f6f39c76ba3313adaa3966b1d34e14",
+        "Assemblies/Sanctuary.Integration.dll": "cdfa29f620b20f1f1c5cb99591891a95bbc38cc74397c77f45d1d93184868b03"
+      }
+    },
+    "warlock-chaos-acceptance": {
+      "receipt": "tools/reference/warlock-chaos-acceptance-native-evidence.json",
+      "receiptSha256": "de60d87cacca91ffe1466497b9ed32936613b7eb913be43fc93d2b7ec6058cd5",
+      "nativeMarkers": 315,
+      "boots": 3,
+      "saves": 3,
+      "reloads": 2,
+      "artifacts": {
+        "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+        "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+        "Assemblies/UOContent.dll": "5df3992322b515ae6e525927b8b9ddb57420eddd63d9886f019ffd6974b2cd49",
+        "Assemblies/Sanctuary.Content.dll": "508e93ea5f7458c9de14a13d70500aaba9f6f39c76ba3313adaa3966b1d34e14",
+        "Assemblies/Sanctuary.Integration.dll": "9d8d5e37e230c99527e1c66680ee6226a8c6a6339d391a810f36d0dfeadfd36a"
+      }
+    }
+  },
+  "entries": {
+    "barbarian.finditem": {
+      "cohort": "barbarian-planned-acceptance",
+      "verifiedMarkerSubset": {
+        "find-item-result": 3,
+        "find-item-reload-check": 2,
+        "find-item-snapshot-check": 3
+      },
+      "unchangedRelevantSources": {
+        "src/Sanctuary.Content/BarbarianFindItem.cs": "d14ff3c5376bd14effe09db3b6bb0fd3e965e3239b5693e072d70038f3f3f1f6",
+        "tests/Sanctuary.Integration/FindItemChecks.cs": "ad69128f7aa393f42220545edfcba70bc4f1c7876e20997f2138dda07f1b414e",
+        "tests/Sanctuary.Integration/FindItemPrimitiveChecks.cs": "80a412f7733fcea0c1a2124ab868dbc873e3c224537aabe07d869f6315de7659"
+      },
+      "verification": "partial-native-coverage"
+    },
+    "barbarian.warcry": {
+      "cohort": "barbarian-planned-acceptance",
+      "verifiedMarkerSubset": {
+        "warcry-result": 3,
+        "warcry-reload-check": 2
+      },
+      "unchangedRelevantSources": {
+        "src/Sanctuary.Content/BarbarianWarCry.cs": "74e5171d83eac0f17e1dd1850b9fce11457778121a15eae71cebbcf16c22a5ac",
+        "tests/Sanctuary.Integration/WarCryChecks.cs": "da8b447add65d201f30bb9db375e5e20afb176612f5b40665eabb5881e3252f3"
+      },
+      "verification": "partial-native-coverage"
+    },
+    "druid.hurricane": {
+      "cohort": "druid-planned-acceptance",
+      "verifiedMarkerSubset": {
+        "hurricane-check": 1,
+        "hurricane-reload-check": 2,
+        "hurricane-input-result": 3
+      },
+      "unchangedRelevantSources": {
+        "src/Sanctuary.Content/DruidHurricane.cs": "ab71238427a3d2af2cc1f919e452d943434bd21c569df730daea60bbd71c442b",
+        "src/Sanctuary.Content/DruidWeather.cs": "54fcf5ef5b702a72aa67507b8e9c15486d01f96de0f5b7b26f346f27c2080bb5",
+        "tests/Sanctuary.Integration/HurricaneChecks.cs": "b4c91b9794d507f105cd4dd93eb04847caa8ecda0b1494d6aea0cea85d23623c"
+      },
+      "verification": "partial-native-coverage"
+    },
+    "druid.armageddon": {
+      "cohort": "druid-planned-acceptance",
+      "verifiedMarkerSubset": {
+        "armageddon-check": 1,
+        "armageddon-reload-check": 2,
+        "armageddon-input-result": 3
+      },
+      "unchangedRelevantSources": {
+        "src/Sanctuary.Content/DruidArmageddon.cs": "48eafbf5ae56a9ce8fd3ac266b8b6da292c4ff74509cacbd1f65e67369420d07",
+        "src/Sanctuary.Content/DruidWeather.cs": "54fcf5ef5b702a72aa67507b8e9c15486d01f96de0f5b7b26f346f27c2080bb5",
+        "tests/Sanctuary.Integration/ArmageddonChecks.cs": "1bd60c047fd53a20b1bcf594b0c7f47c623122acec9ae41fbb51dfcd474cbe53"
+      },
+      "verification": "partial-native-coverage"
+    },
+    "druid.rabies": {
+      "cohort": "druid-planned-acceptance",
+      "verifiedMarkerSubset": {
+        "druid-rabies-check": 1,
+        "druid-rabies-reload-check": 2,
+        "druid-rabies-infection-reload-check": 2,
+        "druid-rabies-lifecycle-reload-check": 2,
+        "rabies-right-result": 3,
+        "rabies-quick-result": 3
+      },
+      "unchangedRelevantSources": {
+        "src/Sanctuary.Content/DruidRabies.cs": "1d30ae0cf6c5f6cde068ea6871937a9f585f6426db8af3e10bf2cd11e5217ad1",
+        "src/Sanctuary.Content/DruidRabiesEmitterClock.cs": "2811f4d64fe8b1f0f9522f1adb1bd5f2125c91ad5554ac9dc95e5715e03cb723",
+        "src/Sanctuary.Content/DruidRabiesInfections.cs": "7c56ad5da8773754eb86f97a299540adfff1d0e307c3a6bead94950b26757d00",
+        "src/Sanctuary.Content/DruidRabiesPackets.cs": "0bfceb764692233fd409b3f133e049d5f275b5956b976326cc46b8a774f3e53a",
+        "tests/Sanctuary.Integration/DruidRabiesChecks.cs": "9388222c7aab92c834eb2426d4bacd3cbf78baaf4fc1b3851555f4f20e53cc07",
+        "tests/Sanctuary.Integration/DruidRabiesInfectionChecks.cs": "5d20df0a3c12fa27b610e7e228254ee8446a80c69e81a43ddc237b15175e18e0",
+        "tests/Sanctuary.Integration/DruidRabiesLifecycleChecks.cs": "1a4d320946b24d541141a83ede6026a0b2a2486721634f322ddebff0f36a6d68"
+      },
+      "verification": "partial-native-coverage"
+    },
+    "druid.poisoncreeper": {
+      "cohort": "druid-planned-acceptance",
+      "verifiedMarkerSubset": {
+        "creeper-learned-reload-check": 2,
+        "creeper-learned-live-result": 3,
+        "creeper-learned-right-result": 3,
+        "creeper-learned-quick-result": 3,
+        "creeper-balance-reload-check": 2
+      },
+      "unchangedRelevantSources": {
+        "src/Sanctuary.Content/DruidCreeperCasting.cs": "823393073cee36637924ce5253ff56af1d154dd82a9eea7e174d56b891de0f45",
+        "src/Sanctuary.Content/DruidCreeperPoison.cs": "442b43323ad91de1579ee76affd8279da2130e517d15b69cc3c67ccf2b85f716",
+        "src/Sanctuary.Content/DruidCreeperStats.cs": "f1604e35be4ad6d01e66870537e7e45d9342d6b203f062a06ad401072f01c910",
+        "tests/Sanctuary.Integration/CreeperBalanceChecks.cs": "89542b234a869150118e0c5b2650ba9a914260860e29ef0a7d7a4d2732d32c3b",
+        "tests/Sanctuary.Integration/CreeperLearnedChecks.cs": "ad4173d7fa205c37e8a2ab41a51582e1c52b69b1c8e17c9ec68c4f83a20d8390"
+      },
+      "verification": "partial-native-coverage"
+    },
+    "druid.carrionvine": {
+      "cohort": "druid-planned-acceptance",
+      "verifiedMarkerSubset": {
+        "recycler-learned-reload-check": 2,
+        "recycler-recovery-reload-check": 2,
+        "carrion-right-result": 3,
+        "carrion-quick-result": 3
+      },
+      "unchangedRelevantSources": {
+        "src/Sanctuary.Content/DruidRecyclerCasting.cs": "cf2c4efee808d73e830e002dba6a745eb6cb575ee4dbce34a91d5fe1d88361ce",
+        "src/Sanctuary.Content/DruidRecyclerRecovery.cs": "d5a9bbd6df5a1bbeca5390b17aa2a2575a351014f38efe343008de8849f01021",
+        "src/Sanctuary.Content/DruidRecyclerStats.cs": "f0bbd2c5962dcb8ffc0a34fb58daeb0475b7a2df71c09b548c40fbd51783659c",
+        "tests/Sanctuary.Integration/RecyclerLearnedChecks.cs": "a0eea41fb3f22d643c7e764b035efeb71ab656bd756dc7ed54a7260515413c2d",
+        "tests/Sanctuary.Integration/RecyclerRecoveryChecks.cs": "6f98320d5183a06407dc6861099c93e38e8cd820db30698336b482647dc4d173"
+      },
+      "verification": "partial-native-coverage"
+    },
+    "druid.solarcreeper": {
+      "cohort": "druid-planned-acceptance",
+      "verifiedMarkerSubset": {
+        "recycler-learned-reload-check": 2,
+        "recycler-recovery-reload-check": 2,
+        "solar-right-result": 3,
+        "solar-quick-result": 3
+      },
+      "unchangedRelevantSources": {
+        "src/Sanctuary.Content/DruidRecyclerCasting.cs": "cf2c4efee808d73e830e002dba6a745eb6cb575ee4dbce34a91d5fe1d88361ce",
+        "src/Sanctuary.Content/DruidRecyclerRecovery.cs": "d5a9bbd6df5a1bbeca5390b17aa2a2575a351014f38efe343008de8849f01021",
+        "src/Sanctuary.Content/DruidRecyclerStats.cs": "f0bbd2c5962dcb8ffc0a34fb58daeb0475b7a2df71c09b548c40fbd51783659c",
+        "tests/Sanctuary.Integration/RecyclerLearnedChecks.cs": "a0eea41fb3f22d643c7e764b035efeb71ab656bd756dc7ed54a7260515413c2d",
+        "tests/Sanctuary.Integration/RecyclerRecoveryChecks.cs": "6f98320d5183a06407dc6861099c93e38e8cd820db30698336b482647dc4d173"
+      },
+      "verification": "partial-native-coverage"
+    },
+    "warlock.bladewarp": {
+      "cohort": "warlock-weapons-acceptance",
+      "verifiedMarkerSubset": {
+        "blade-warp-check": 1,
+        "blade-warp-reload-check": 2,
+        "blade-warp-left-result": 3,
+        "blade-warp-right-result": 3,
+        "blade-warp-quick-result": 3
+      },
+      "unchangedRelevantSources": {
+        "src/Sanctuary.Content/BladeWarp.cs": "4fe43c349da85705199b211204a2decb4f35d61908c5c71d553346e6d31fe4f5",
+        "tests/Sanctuary.Integration/BladeWarpChecks.cs": "94d3d92567bb2b20012b5fb10e926b60d5f2f5220b3d2b241021fa5708456cfb"
+      },
+      "verification": "partial-native-coverage"
+    },
+    "warlock.sigildeath": {
+      "cohort": "warlock-chaos-acceptance",
+      "verifiedMarkerSubset": {
+        "sigil-death-check-result": 1,
+        "sigil-death-reload-check-result": 2
+      },
+      "unchangedRelevantSources": {
+        "src/Sanctuary.Content/SigilDeathEvents.cs": "d23c8d1b88ebf9a67c0a029f8eb547fa77829ee1a2f1ceaeef6428f296d5d373",
+        "src/Sanctuary.Content/SigilDeathProposal.cs": "aafa434ca48d848e98ffdf9c2eca3bcce0303e7293c6fb6af3ef4ddee1f03c21",
+        "tests/Sanctuary.Integration/SigilDeathChecks.cs": "4cc55e7d9550c1bd7e3fdf833f063dbd96086fcf647d276060c44100050dac7b"
+      },
+      "verification": "partial-native-coverage"
+    }
+  },
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 44
+  },
+  "limits": "Preserved completed native cohorts and unchanged relevant per-talent source/test hashes justify partial-native-coverage,not current-head or whole-dependency certification. No old receipt is regenerated. Remaining strings,complete flags,completedClasses,content scope and source reference are unchanged. No mechanical gap,unverified D2R branch,graphical acceptance or asset is declared resolved by metadata.",
+  "files": {
+    ".local/class-skills/barbarian-planned-acceptance/birth-inputs.json": "ed314dbdef322373ca5c043c2479f2b5737d4421fc36dbfb445328a242efa848",
+    ".local/class-skills/barbarian-planned-acceptance/birth-native-checks.log": "473367b4b13b1ef95e3590b062dcb3b01c66b86221ccfaba56c47ee24459477b",
+    ".local/class-skills/barbarian-planned-acceptance/content/Sanctuary.Content.dll": "508e93ea5f7458c9de14a13d70500aaba9f6f39c76ba3313adaa3966b1d34e14",
+    ".local/class-skills/barbarian-planned-acceptance/integration/Sanctuary.Integration.dll": "299e250965844d0ffdc77e12dbd64fbea68e8f4db6bad3407ec123236d834ede",
+    ".local/class-skills/druid-planned-acceptance/birth-inputs.json": "3cc50e0a4eebb1fe03dd701c5825a1f0edddbfe02968da13d4a9bcf99fb97746",
+    ".local/class-skills/druid-planned-acceptance/birth-native-checks.log": "c92471c146b389b6d314266de4e858e632b10b6c295ec2703057bd77c1b2ddd3",
+    ".local/class-skills/druid-planned-acceptance/content/Sanctuary.Content.dll": "508e93ea5f7458c9de14a13d70500aaba9f6f39c76ba3313adaa3966b1d34e14",
+    ".local/class-skills/druid-planned-acceptance/integration/Sanctuary.Integration.dll": "951120debe8638e0f8f10fb143f2ed1fc3373cbb9549e9bdcc6fd2b18a6dd2c7",
+    ".local/class-skills/warlock-chaos-acceptance/birth-inputs.json": "6e132071b7d42673332a4450a1449e96d0fa0e3398ec48317eebc8b33214a1cf",
+    ".local/class-skills/warlock-chaos-acceptance/birth-native-checks.log": "aa85a9c9b1e5abce9ff4c3342a9b10cea100a03f2b75e14e6a4e1b505b1056aa",
+    ".local/class-skills/warlock-chaos-acceptance/content/Sanctuary.Content.dll": "508e93ea5f7458c9de14a13d70500aaba9f6f39c76ba3313adaa3966b1d34e14",
+    ".local/class-skills/warlock-chaos-acceptance/integration/Sanctuary.Integration.dll": "9d8d5e37e230c99527e1c66680ee6226a8c6a6339d391a810f36d0dfeadfd36a",
+    ".local/class-skills/warlock-weapons-acceptance/birth-inputs.json": "43567940acbe75fd0ead0b5ce48d07caa78f3a85b138717eaacbc011ab427b06",
+    ".local/class-skills/warlock-weapons-acceptance/birth-native-checks.log": "308b712c6fa433de912a4c487620a0766eebeafea970a1ad39db0d3ea1b535d6",
+    ".local/class-skills/warlock-weapons-acceptance/content/Sanctuary.Content.dll": "508e93ea5f7458c9de14a13d70500aaba9f6f39c76ba3313adaa3966b1d34e14",
+    ".local/class-skills/warlock-weapons-acceptance/integration/Sanctuary.Integration.dll": "cdfa29f620b20f1f1c5cb99591891a95bbc38cc74397c77f45d1d93184868b03",
+    "data/Sanctuary/Balance/class-skill-status.json": "3abe268f909ac99abba5b57ee4e34d7d13df6b3487bbdd56ac6b96ea27537adf",
+    "docs/class-skill-verification-reconciliation.md": "37627fec34df0243c6d272a8d03f346f8351270689741ade492def8bae5bfcde",
+    "src/Sanctuary.Content/BarbarianFindItem.cs": "d14ff3c5376bd14effe09db3b6bb0fd3e965e3239b5693e072d70038f3f3f1f6",
+    "src/Sanctuary.Content/BarbarianWarCry.cs": "74e5171d83eac0f17e1dd1850b9fce11457778121a15eae71cebbcf16c22a5ac",
+    "src/Sanctuary.Content/BladeWarp.cs": "4fe43c349da85705199b211204a2decb4f35d61908c5c71d553346e6d31fe4f5",
+    "src/Sanctuary.Content/DruidArmageddon.cs": "48eafbf5ae56a9ce8fd3ac266b8b6da292c4ff74509cacbd1f65e67369420d07",
+    "src/Sanctuary.Content/DruidCreeperCasting.cs": "823393073cee36637924ce5253ff56af1d154dd82a9eea7e174d56b891de0f45",
+    "src/Sanctuary.Content/DruidCreeperPoison.cs": "442b43323ad91de1579ee76affd8279da2130e517d15b69cc3c67ccf2b85f716",
+    "src/Sanctuary.Content/DruidCreeperStats.cs": "f1604e35be4ad6d01e66870537e7e45d9342d6b203f062a06ad401072f01c910",
+    "src/Sanctuary.Content/DruidHurricane.cs": "ab71238427a3d2af2cc1f919e452d943434bd21c569df730daea60bbd71c442b",
+    "src/Sanctuary.Content/DruidRabies.cs": "1d30ae0cf6c5f6cde068ea6871937a9f585f6426db8af3e10bf2cd11e5217ad1",
+    "src/Sanctuary.Content/DruidRabiesEmitterClock.cs": "2811f4d64fe8b1f0f9522f1adb1bd5f2125c91ad5554ac9dc95e5715e03cb723",
+    "src/Sanctuary.Content/DruidRabiesInfections.cs": "7c56ad5da8773754eb86f97a299540adfff1d0e307c3a6bead94950b26757d00",
+    "src/Sanctuary.Content/DruidRabiesPackets.cs": "0bfceb764692233fd409b3f133e049d5f275b5956b976326cc46b8a774f3e53a",
+    "src/Sanctuary.Content/DruidRecyclerCasting.cs": "cf2c4efee808d73e830e002dba6a745eb6cb575ee4dbce34a91d5fe1d88361ce",
+    "src/Sanctuary.Content/DruidRecyclerRecovery.cs": "d5a9bbd6df5a1bbeca5390b17aa2a2575a351014f38efe343008de8849f01021",
+    "src/Sanctuary.Content/DruidRecyclerStats.cs": "f0bbd2c5962dcb8ffc0a34fb58daeb0475b7a2df71c09b548c40fbd51783659c",
+    "src/Sanctuary.Content/DruidWeather.cs": "54fcf5ef5b702a72aa67507b8e9c15486d01f96de0f5b7b26f346f27c2080bb5",
+    "src/Sanctuary.Content/SigilDeathEvents.cs": "d23c8d1b88ebf9a67c0a029f8eb547fa77829ee1a2f1ceaeef6428f296d5d373",
+    "src/Sanctuary.Content/SigilDeathProposal.cs": "aafa434ca48d848e98ffdf9c2eca3bcce0303e7293c6fb6af3ef4ddee1f03c21",
+    "tests/Sanctuary.Integration/ArmageddonChecks.cs": "1bd60c047fd53a20b1bcf594b0c7f47c623122acec9ae41fbb51dfcd474cbe53",
+    "tests/Sanctuary.Integration/BladeWarpChecks.cs": "94d3d92567bb2b20012b5fb10e926b60d5f2f5220b3d2b241021fa5708456cfb",
+    "tests/Sanctuary.Integration/CreeperBalanceChecks.cs": "89542b234a869150118e0c5b2650ba9a914260860e29ef0a7d7a4d2732d32c3b",
+    "tests/Sanctuary.Integration/CreeperLearnedChecks.cs": "ad4173d7fa205c37e8a2ab41a51582e1c52b69b1c8e17c9ec68c4f83a20d8390",
+    "tests/Sanctuary.Integration/DruidRabiesChecks.cs": "9388222c7aab92c834eb2426d4bacd3cbf78baaf4fc1b3851555f4f20e53cc07",
+    "tests/Sanctuary.Integration/DruidRabiesInfectionChecks.cs": "5d20df0a3c12fa27b610e7e228254ee8446a80c69e81a43ddc237b15175e18e0",
+    "tests/Sanctuary.Integration/DruidRabiesLifecycleChecks.cs": "1a4d320946b24d541141a83ede6026a0b2a2486721634f322ddebff0f36a6d68",
+    "tests/Sanctuary.Integration/FindItemChecks.cs": "ad69128f7aa393f42220545edfcba70bc4f1c7876e20997f2138dda07f1b414e",
+    "tests/Sanctuary.Integration/FindItemPrimitiveChecks.cs": "80a412f7733fcea0c1a2124ab868dbc873e3c224537aabe07d869f6315de7659",
+    "tests/Sanctuary.Integration/HurricaneChecks.cs": "b4c91b9794d507f105cd4dd93eb04847caa8ecda0b1494d6aea0cea85d23623c",
+    "tests/Sanctuary.Integration/RecyclerLearnedChecks.cs": "a0eea41fb3f22d643c7e764b035efeb71ab656bd756dc7ed54a7260515413c2d",
+    "tests/Sanctuary.Integration/RecyclerRecoveryChecks.cs": "6f98320d5183a06407dc6861099c93e38e8cd820db30698336b482647dc4d173",
+    "tests/Sanctuary.Integration/SigilDeathChecks.cs": "4cc55e7d9550c1bd7e3fdf833f063dbd96086fcf647d276060c44100050dac7b",
+    "tests/Sanctuary.Integration/WarCryChecks.cs": "da8b447add65d201f30bb9db375e5e20afb176612f5b40665eabb5881e3252f3",
+    "tools/build_skill_roadmap.py": "0c15bbfacce6711bd22c73ca84db72314f546865d9a83f8e74bdbec4413f744f",
+    "tools/record_skill_verification_reconciliation.py": "6d3ab5e18c44232d2937e2eedf9f253fe74f545448ffbcb1772908bc20e0a549",
+    "tools/reference/barbarian-planned-acceptance-native-evidence.json": "0ee1d764ccdf5012f0d446452e05964cab515c566e32b646ee9d0fd0519d9fcc",
+    "tools/reference/consume-learned-client-evidence.json": "8984cc0448f1e48de980f6525f671478ffb489e7d0870a0cd387ede362e02fec",
+    "tools/reference/druid-planned-acceptance-native-evidence.json": "e444dc59f9b97399395144a5aa1d0a98a1a3d860ad11371c67ce9a2dc57a1e1b",
+    "tools/reference/warlock-chaos-acceptance-native-evidence.json": "de60d87cacca91ffe1466497b9ed32936613b7eb913be43fc93d2b7ec6058cd5",
+    "tools/reference/warlock-weapons-acceptance-native-evidence.json": "3927009430e771e4d28fec5a26dd33cee647d1bed9446d7f41b6b474061cc114"
+  }
+}

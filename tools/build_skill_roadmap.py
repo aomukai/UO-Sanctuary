@@ -839,6 +839,15 @@ BLOCKERS["amazon.slowmissiles"] = "Approved complete Sanctuary right/quick caste
 for _barrier in ("necromancer.bonewall","necromancer.boneprison"):
     CAVEATS[_barrier] = "Approved native placement/geometry and linked-death mapping retains source-derived birth/resources, Wall makers and Prison cursor acquisition/raster connectors. Normal learned casts collapse the whole formation on any segment destruction or first AI death event, release movement/placement/projectile collision immediately, and remove original entities after the shared DT15/600ms deadline. Explicit links include distant children; historical roots keep historical children and old save layouts. Actual weapon damage, default right/quick input, original pending resources, in-progress saves and overdue cleanup pass in bone-barrier-world-cast-checkpoint.md. Exact modern room/owner/hidedead parity is an approved adaptation, not recovered executable behavior. Broader recipients/PvP/class, old-binary/unheld snapshots and graphical acceptance remain separate;final effects/audio and talent/hotkey icons needed. Approval:bone-barrier-world-rule-approval.json."
 
+# Later accepted native cohorts cover these older labels. Keep the scope
+# partial:historical source/artifact evidence is not full class certification.
+# See class-skill-verification-reconciliation.md and its exact receipt.
+NATIVE_PARTIAL.update((
+    'barbarian.finditem','barbarian.warcry',
+    'druid.hurricane','druid.armageddon','druid.rabies','druid.poisoncreeper',
+    'druid.carrionvine','druid.solarcreeper','warlock.bladewarp','warlock.sigildeath',
+))
+
 def planned_content_remaining(text):
     """Keep excluded charm-only mechanics out of active talent blockers."""
     if not re.search('sunder',text,re.I):return text

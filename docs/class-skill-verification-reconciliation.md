@@ -1,0 +1,9 @@
+# Native verification labels reconciled
+
+Reference: **D2R Reign of the Warlock3.3.93847**,approved Sanctuary deviations first. Ten old runtime entries still said `build-only` despite later native class-cohort evidence. Their labels now say `partial-native-coverage`:Find Item,War Cry,Hurricane,Armageddon,Rabies,Poison Creeper,Carrion Vine,Solar Creeper,Blade Warp and Sigil:Death.
+
+The audit checks the preserved native manifests and complete successful marker inventories against their original receipts,verifies the matching content/integration binaries,and compares each named mechanic and integration-test source with its tested hash. It then binds the relevant per-talent result subsets. The evidence comes from the accepted Barbarian245-result,Druid675-result,Warlock weapon240-result and Warlock Chaos315-result cohorts. These are historical tests of their own preserved artifacts,not fresh current-head execution. Existing receipts are not rewritten. [Exact audit](../tools/reference/class-skill-verification-reconciliation.json).
+
+Only those ten runtime `verification` fields change. All240talents have implemented routes and scoped partial-native evidence;none is promoted to complete. Per-skill remaining-work text,source reference,content scope and empty `completedClasses` remain unchanged. No C#,gameplay rule,save schema,artifact or installed save changes;no rebuild or repeated native suite was necessary.
+
+This correction does not settle Bash's unresolved modern flat damage,Find Item's chance/special-treasure edges,other explicit callback/property/recipient/PvP boundaries,graphical acceptance or missing assets. Effects/audio and talent/hotkey icons stay separately tracked with identified placeholders. The next mechanical work must address those actual limits,not inflate coverage labels into certification.
