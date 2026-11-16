@@ -1,0 +1,13 @@
+# Prepared Fanaticism mana rule checkpoint
+
+Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. [Proposal](fanaticism-mana-proposal.md), [driver](../tests/check_fanaticism_mana.py), [receipt](../tools/reference/fanaticism-mana-native-evidence.json). **Charms and runewords are excluded.**
+
+**C1/I1/source1/native1 passes47 exact results, twelve existing offensive-aura input actions, fourteen connections, three saves and two reloads.** Both builds have zero warnings/errors. No save-deletion warnings, unsupported-context warnings or connection denials occur. Installed106artifacts/38saves/20configs/44clientpatches remain protected.
+
+Two C# files differ from the accepted native-shield checkpoint: one disabled preparation flag and guarded self-formula expression in `PaladinAuras`, plus the new fixture. Runtime data and all three native binaries are unchanged; the candidate reuses patch0075's accepted distribution. No reference compiler matrix, native rebuild, new persistence field/version, asset generation or deployment occurred. The ordinary offensive-aura fixtures remain unchanged and still characterize the older default zero-mana packet.
+
+Prepared rank1 and20 cases compare exact zero, one FP256 unit, one mana and full mana. Physical weapon damage, attack rating and the aura speed/rating packet remain identical across mana balances, with no payment. Party and controlled-pet damage retain25%/186%, while self uses50%/373%. Actual Tarnhelm rank2 gives self67%/party33%; the separate pinned formulas preserve their rounding. A zero-mana Might control retains its ordinary value.
+
+The saved original caster/ally, Tarnhelm/sword, aura emitter/leases, zero mana and fractional wounds survive both reloads. Each reload rearms only the inspection emitter; the existing natural timer creates a normal short-lived packet, retains the proposed full self value and party half value, spends no mana and heals/resets nothing. The fixture then holds that exact post-pulse state for the next inspection. The preparation switch resets after every scope.
+
+**No adaptation is adopted yet.** Current D2R self-gate behavior remains unverified; existing rank/creator/whole-packet replacement stays untouched. Equal/stronger competing Fanaticism sources are not settled or newly certified. The full goal remains236/240handlers, with four Warlock proposals frozen pending; no class certificate. After approval, qualify actual inputs with the rule enabled and update the prior zero-mana characterizations. Final effects/audio and talent/hotkey icons remain separate existing placeholders.

@@ -1,0 +1,11 @@
+# Fanaticism mana-neutral self packet
+
+Status: **prepared, disabled by default, awaiting an explicit Sanctuary decision**. Mechanical reference remains **D2R Reign of the Warlock 3.3.93847**. The pinned table distinguishes party `aurastatcalc3` from full personal `passivecalc1`. The complete older basic-aura path gates the self override on mana strictly greater than cost: at zero cost and exactly zero mana, it uses the party value. Current D2R equivalence is unverified. The user's no-aura-cost observation establishes cost, not the missing damage behavior.
+
+Proposed rule: **when the existing rank/creator rules permit a Fanaticism self application and its pinned cost is zero, use its full personal formula regardless of current mana.** Rank1 is self50%/party25%; rank2 is67%/33%; rank20 is373%/186%. Recipients, including pets, keep the party formula. Attack speed/rating, zero cost, pulse timing, range, duration, provider identity, rank priority, group replacement and saves keep their existing rules. No party-to-personal doubling is used; both formulas are read independently, preserving rank2 rounding.
+
+This resolves the mana gate only. **Competing equal/stronger Fanaticism sources retain existing behavior and remain unqualified; this proposal does not promise the personal packet wins those conflicts.** No other aura, item acquisition or passive rule is changed.
+
+The candidate uses a disabled test switch; ordinary skills still use the older zero-mana rule. Prepared rank1/20 cases compare zero, one FP256 unit, one mana and full mana through live physical-damage/attack-rating consumers and party/pet packets. Actual Tarnhelm checks rank2. Original zero-mana aura/gear/wounds and natural pulses retain through two reloads. Existing Concentration/Fanaticism inputs and prior offensive consumers remain regressions. The [checkpoint](fanaticism-mana-checkpoint.md) binds the concrete result.
+
+After a decision: adopt the rule, reconcile the old zero-mana characterizations, and qualify actual learned aura inputs under the enabled mapping. Exact modern callback/competing-provider/stat/event/PvP and graphical acceptance remain bounded. No charms/runewords, new effects/audio/icons, current D2R read or installed change. Existing separate asset placeholders remain.

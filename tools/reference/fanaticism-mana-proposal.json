@@ -1,0 +1,25 @@
+{
+  "status": "prepared-pending-decision",
+  "referenceVersion": "3.3.93847",
+  "proposal": "docs/fanaticism-mana-proposal.md",
+  "checkpoint": "docs/fanaticism-mana-checkpoint.md",
+  "preparedReceipt": "tools/reference/fanaticism-mana-native-evidence.json",
+  "defaultEnabled": false,
+  "scope": "Successful zero-cost Fanaticism self application uses pinned passivecalc1 independent of current mana; party recipients retain aurastatcalc3. Existing rank/creator/replacement rules remain authoritative.",
+  "rankValues": {
+    "1": {
+      "self": 50,
+      "party": 25
+    },
+    "2": {
+      "self": 67,
+      "party": 33
+    },
+    "20": {
+      "self": 373,
+      "party": 186
+    }
+  },
+  "referenceGap": "Modern zero-mana self override is unverified; existing equal/stronger provider interactions remain separate,not silently changed.",
+  "nextAfterDecision": "Adopt scoped rule, update old zero-mana characterizations and qualify actual learned aura input. No charms/runewords/new assets or deployment."
+}

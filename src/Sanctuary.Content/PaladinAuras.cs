@@ -36,6 +36,9 @@ public sealed class PaladinAuraProfiles : GenericPersistence
 
 public static class PaladinAuras
 {
+    // Prepared mana-zero self-packet adaptation; rank/creator replacement
+    // remains unchanged and normal routes retain the older rule until adoption.
+    internal static bool PreparedFanaticismManaNeutral;
     private static readonly Dictionary<uint,PaladinEmitter> _emitters=new();
     private static readonly Dictionary<(uint,CombatAbility),PaladinAuraLease> _leases=new();
     private static readonly List<uint> _owners=new();
@@ -170,7 +173,7 @@ public static class PaladinAuras
         int stamina=ability==CombatAbility.Vigor?(int)values.Eval("aurastatcalc2"):0;
         int velocity=ability==CombatAbility.Vigor?(int)values.Eval("aurastatcalc3"):0;
         int damage=ability==CombatAbility.Fanaticism?(int)values.Eval("aurastatcalc3"):ability==CombatAbility.Thorns?(int)values.Eval("aurastatcalc2"):0;
-        int selfDamage=ability==CombatAbility.Fanaticism && fullSelfDamage?(int)values.Eval("passivecalc1"):damage;
+        int selfDamage=ability==CombatAbility.Fanaticism && (fullSelfDamage||PreparedFanaticismManaNeutral&&values.Mana256==0)?(int)values.Eval("passivecalc1"):damage;
         int attack=ability==CombatAbility.Fanaticism?(int)values.Eval("aurastatcalc2"):0;
         int uninterrupt=ability==CombatAbility.Concentration?(int)values.Eval("aurastatcalc2"):0;
         int maximum=canPay && PaladinResistance.Single(ability)?(int)values.Eval("aurastatcalc2"):0;
