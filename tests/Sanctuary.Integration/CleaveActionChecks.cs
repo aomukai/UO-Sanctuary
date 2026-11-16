@@ -43,7 +43,7 @@ public static class CleaveActionChecks
     internal static PlayerMobile Fresh(bool female=false)
     {
         var p=new PlayerMobile{Player=true,Female=female,Body=female?0x191:0x190,Name="CleaveActionSaved"};p.AddItem(new Backpack());ClassCreation.Profiles.Assign(p,DiabloClass.Warlock);ClassCreation.Profiles.AdvanceLevel(p,99);ClassSkillChecks.Train(p,"warlock.cleave");
-        while(p.RawStr<100){Require(ClassCreation.Profiles.TrySpendStat(p,CharacterStat.Strength),"Cleave Strength");}FixtureSpace.Corridor(p,6560,20,3500);
+        while(p.RawStr<100){Require(ClassCreation.Profiles.TrySpendStat(p,CharacterStat.Strength),"Cleave Strength");}FixtureSpace.Corridor(p,6560,20,1000);
         var w=new Broadsword();p.AddToBackpack(w);Require(p.EquipItem(w),"Cleave sword");ClassGear.Refresh(p);Ready(p);return p;
     }
     internal static CleaveActionTarget Enemy(PlayerMobile p,int dx,int dy=0)

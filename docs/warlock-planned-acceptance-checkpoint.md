@@ -39,3 +39,6 @@ The [weapon/Hex/Ward checkpoint](warlock-weapons-acceptance-checkpoint.md) and [
 
 
 Weapon-group preflight corrections are documented in its checkpoint: a stale learned-Purge guard, isolated single-contact Purge scene and field-specific Bane diagnostics. Focused C1/I4/source5/run4 passes66 results/18input attempts/two reloads with unchanged gameplay. One earlier Bane failure remains explicitly unassigned. Full nine-route N2 is next; the accepted seven-route demon group remains historical C1/I15.
+
+
+Weapon full N2 reached Mirrored packet checks and exhausted the small shared Cleave fixture strip. One shared fixture starting row now permits more empty terrain-valid rows; isolated original Cleave/Magic Arrow/Mirrored controls pass18 results/two reloads on C1/I5/source6. Full N3 remains the same240-marker scope. Prior Hex66 proof stays historical; Bane's earlier intermittent failure remains unassigned.

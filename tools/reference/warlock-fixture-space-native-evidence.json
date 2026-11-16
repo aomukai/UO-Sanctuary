@@ -1,0 +1,59 @@
+{
+  "component": "Shared Cleave/Mirrored fixture has enough empty test rows",
+  "referenceVersion": "3.3.93847",
+  "contentBuildReused": 1,
+  "integrationBuild": 5,
+  "sourceSnapshot": 6,
+  "nativeRun": 1,
+  "nativeMarkers": 18,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "cleave-action-check": 1,
+    "cleave-action-reload-check": 2,
+    "magic-arrow-cast-check": 1,
+    "magic-arrow-cast-reload-check": 2,
+    "mirrored-packets-check": 1,
+    "mirrored-packets-reload-check": 2
+  },
+  "boots": 3,
+  "saves": 3,
+  "reloads": 2,
+  "changedSources": [
+    "tests/Sanctuary.Integration/CleaveActionChecks.cs"
+  ],
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "5df3992322b515ae6e525927b8b9ddb57420eddd63d9886f019ffd6974b2cd49",
+    "Assemblies/Sanctuary.Content.dll": "508e93ea5f7458c9de14a13d70500aaba9f6f39c76ba3313adaa3966b1d34e14",
+    "Assemblies/Sanctuary.Integration.dll": "8b83938dd168233bffb5be285a10c749aacd627025f7a45f17b02c24ea7357d9"
+  },
+  "gameplayChanged": false,
+  "runtimeDataChanged": false,
+  "installed": false,
+  "classCertified": false,
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 44
+  },
+  "limits": "Only the shared fixture starting row changes, from3500 to1000. Existing terrain/fit/LOS, skill range/contact, damage, original actor/item and save assertions remain. Original Cleave, Magic Arrow and Mirrored packet controls pass; full nine-route group remains separate. Earlier Bane intermittent failure is not explained by this change.",
+  "files": {
+    ".local/class-skills/warlock-cleave-fixture-space-current/birth-inputs.json": "3581f2290b81fa39873cade1061afa316676a5581af8a50ab87e83c07474770c",
+    ".local/class-skills/warlock-cleave-fixture-space-current/birth-native-checks.log": "6ac1083b8339e3c2ddb8aeebc1d9e3c114547f2e713867061ef0a6257e84bf79",
+    ".local/class-skills/warlock-weapons-acceptance/failed-run-2/birth-inputs.json": "6c12709cb9852cd6886ca22df9705dbaa1f52221912e47993014c4017ae27295",
+    ".local/class-skills/warlock-weapons-acceptance/failed-run-2/birth-native-checks.log": "f2589197de2b98b6af123a63ba795c0be92df1436fe37cf540b17923d0629ef3",
+    ".local/class-skills/warlock-weapons-acceptance/failed-run-2/sources/tests/Sanctuary.Integration/CleaveActionChecks.cs": "f766ce4e41ee59152157ee8f5740148a68c274cafdfd71471f53709a4da4ffd3",
+    ".local/class-skills/warlock-weapons-acceptance/fixture-space-focused-run-1.log": "acd54005b2346bcf06641a11bdf75c5404761f7ec458957c875cf6d5fda7b9d4",
+    ".local/class-skills/warlock-weapons-acceptance/integration-build-5.log": "36c26df091b71bec222e9a6788c7470e308b3b10d4fc54d538b077de9fc5af29",
+    ".local/class-skills/warlock-weapons-acceptance/source-snapshot-6.json": "501b700f4c5115ac699b6c3fd4382772917735b62bcd9c79ffecb30ed9b2a135",
+    "tests/Sanctuary.Integration/CleaveActionChecks.cs": "b79364648f49ff93b5330861208e6e8ba728c325a05ba5fb4080bd89caa311aa",
+    "tests/check_warlock_weapons_acceptance.py": "7f5270949134ed223a52350856fa9403461f9c4752473232b9e07e85da111d52",
+    "tools/record_warlock_fixture_space.py": "9601b4100aa7234eb5a78538d20796d8fd8b2613c2d68bcff5888073985dd94b"
+  }
+}

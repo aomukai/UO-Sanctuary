@@ -25,4 +25,13 @@ A later focused Bane saved-state assertion failed on the second reload. Its orig
 
 The exact failed whole run and three focused controls retain logs/inputs, binaries, all C# sources and original/shared drivers on FILES under `Sanctuary-checkpoint-archives/revive-respec/warlock-weapons-acceptance`, with original local paths as symlinks.
 
-Next: complete weapon-group N2 on C1/I4/source5, using the unchanged 240-marker/93-connection driver and all 72 ordinary input attempts through three saves/two reloads. No whole-group or class acceptance is claimed before that result. Ten Chaos/Sigil routes remain next; the four older proposals stay frozen.
+That focused checkpoint preceded full N2; its fixture-capacity failure and the subsequent N3 preparation are recorded below. No whole-group or class acceptance is claimed before a passing full result. Ten Chaos/Sigil routes remain next; the four older proposals stay frozen.
+
+
+## Shared Cleave/Mirrored fixture capacity
+
+Full N2 passed the corrected Hex group and continued to Mirrored packet controls, where the shared `CleaveActionChecks.Fresh` helper exhausted its original inspection strip starting at `(6560,3500)`. Its unchanged terrain-valid search ends at row 3800; the combined cohort retains more old floors than its original small scope. N2 and the accepted Hex I4/source5 binaries/inputs are frozen before the next build.
+
+One fixture line now starts that same search at row 1000. Reach, map, floor/fit/LOS, contact/range, damage, actor/item identity and all original assertions remain unchanged. Only the shared test factory's available rows increase. **C1/I5/source6/focused run1 passes18 exact results, three saves and two reloads**, retaining original Cleave, Magic Arrow and Mirrored packet controls. [Receipt](../tools/reference/warlock-fixture-space-native-evidence.json), [recorder](../tools/record_warlock_fixture_space.py). Build I5 has zero warnings/errors; installed artifact/save/config/client protection passes. Gameplay/data/kernel/client remain unchanged.
+
+Next is full N3 with the original 240-marker/93-connection scope on C1/I5/source6. The earlier 66-result Hex receipt remains historical and unchanged. The earlier Bane saved-state failure remains unassigned and its field-specific diagnostics remain enabled. Four integration fixture files now differ from the copied parent baseline; no production source changes.
