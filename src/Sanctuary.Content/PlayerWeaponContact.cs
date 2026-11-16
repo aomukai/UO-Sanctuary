@@ -94,6 +94,7 @@ internal static class PlayerWeaponContact
         internal int Before,After,Loss,EntryHits;
         internal Point3D Point;internal Map Map;
         internal IDisposable KillRecovery;
+        internal PlayerItemProcWorld.Ticket ItemProcs;
     }
     private sealed class Contact(PlayerMobile source,BaseCreature target,MonsterReturnMetadata metadata,Scope scope):MonsterContactServices
     {
@@ -117,7 +118,7 @@ internal static class PlayerWeaponContact
         private bool Freed;
         internal override void StoreLastAttacker()=>source.DoHarmful(target,true);
         internal override PreparedMonsterDamagePacket DealtDamage(PreparedMonsterDamagePacket p)
-        {NamedCombat.Crushing(source,target,false,scope.Prepared.Effects,scope.Prepared.CrushingDivisor);return p;}
+        {NamedCombat.Crushing(source,target,false,scope.Prepared.Effects,scope.Prepared.CrushingDivisor);scope.ItemProcs?.Dispatch("domeleedamage",p);return p;}
         internal override PreparedMonsterDamagePacket TookDamage(PreparedMonsterDamagePacket p)=>events.Dispatch("damagedinmelee",p);
         internal override void BeforeHealth(PreparedMonsterDamagePacket p)
         {
@@ -162,6 +163,7 @@ internal static class PlayerWeaponContact
             // Armor reactions retain their compatibility attempt hook. Life
             // Tap/Iron Maiden already ran in the fractional damage-event phase.
             NecromancerEffects.WeaponHit(source,target,Math.Min(scope.Loss,p.Physical256>>8),false,lifeTap:false,ironMaiden:false);
+            scope.ItemProcs?.Dispatch("domeleeattack",p);
             return p;
         }
         internal override PreparedMonsterDamagePacket AttackedInMelee(PreparedMonsterDamagePacket p)=>events.Dispatch("attackedinmelee",p);
@@ -190,7 +192,7 @@ internal static class PlayerWeaponContact
             prepared.ColdFrames,prepared.Flags,HitClass:(prepared.Flags&1)!=0?prepared.HitClass:0,
             Magic256:NamedElements.To256(parts.Magic),Fire256:NamedElements.To256(parts.Fire),Lightning256:NamedElements.To256(parts.Lightning),
             Cold256:NamedElements.To256(parts.Cold),Poison256:impact.AllocatedPoison?.Rate256??0,AbsorbedLife256:impact.Absorbed256,HitFlags:prepared.HitFlags);
-        var scope=new Scope(prepared,packet){Point=target.Location,Map=target.Map,EntryHits=target.Hits};
+        var scope=new Scope(prepared,packet){Point=target.Location,Map=target.Map,EntryHits=target.Hits,ItemProcs=PlayerItemProcWorld.Capture(source,target,at)};
         bool stunRules=CombatStuns.Rules(target,out bool stunBoss,out int stunVelocity);
         var recipient=new PreparedMonsterRecipient(PreparedMonsterStun.IsUnique(target)||prepared.Smite&&target is EncounterCreature{Grade:EncounterGrade.Champion},
             ()=>prepared.Smite?stunBoss:CreatureProfiles.For(target).Traits.Boss??false,()=>prepared.Smite?(stunRules?stunVelocity:0):metadata?.Velocity??0,()=>target is BaseHire);

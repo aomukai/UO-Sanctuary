@@ -52,6 +52,9 @@ internal static class PlayerItemProcs
         if(Owners.ContainsKey(owner.Serial.Value)){throw new InvalidOperationException("Player proc RNG already initialized");}
         Owners.Add(owner.Serial.Value,new(owner.Serial.Value,seed,[],new(true,0,[])));Refresh(owner);
     }
+    internal static bool Initialized(PlayerMobile owner)=>owner!=null&&Owners.ContainsKey(owner.Serial.Value);
+    internal static bool ActiveProvider(PlayerMobile owner)=>owner is{Alive:true,Deleted:false}
+        &&owner.Items.Any(i=>Providers.ContainsKey(i.Serial.Value)&&ClassGear.Active(owner,i));
     private static PlayerItemProcGraph Require(PlayerMobile owner)
     {
         if(owner==null||!Owners.TryGetValue(owner.Serial.Value,out var saved)){throw new NotSupportedException("Player item procs need explicit initialized source RNG");}

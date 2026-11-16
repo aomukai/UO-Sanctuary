@@ -61,6 +61,11 @@ public static class PlayerItemProcHostChecks
         }
         Require(NecromancerEffects.ManaBalance256(p)==mana,"Registered proc spent player mana");
     }
+    private static PlayerProcSave Own(PlayerMobile p,PlayerMobile q,Item a,Item b,Item h)
+    {
+        var state=PlayerItemProcs.Capture();uint[] items=[a.Serial.Value,b.Serial.Value,h.Serial.Value];
+        return state with{Items=state.Items.Where(i=>items.Contains(i.Item)).ToArray(),Owners=state.Owners.Where(o=>o.Actor==p.Serial.Value||o.Actor==q.Serial.Value).ToArray()};
+    }
     private static void Check(bool reload)
     {
         Require(!NamedGear.Available("unique/254"),"Prepared host admitted incomplete Hellslayer");PlayerMobile p,q;Item a,b,h;IronGolemFireBallChecks.Recipient t,u;int generation=0;
@@ -82,7 +87,7 @@ public static class PlayerItemProcHostChecks
         {
             var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));generation=saved.Generation+1;Require(generation<=2,"Extra host reload");
             p=(PlayerMobile)World.FindMobile((Serial)saved.First);q=(PlayerMobile)World.FindMobile((Serial)saved.Second);a=World.FindItem((Serial)saved.Primary);b=World.FindItem((Serial)saved.Secondary);h=World.FindItem((Serial)saved.Helm);t=(IronGolemFireBallChecks.Recipient)World.FindMobile((Serial)saved.Target1);u=(IronGolemFireBallChecks.Recipient)World.FindMobile((Serial)saved.Target2);
-            Require(a.Parent==p&&h.Parent==p&&b.Parent==q&&Json(PlayerItemProcs.Capture())==saved.State,"Saved original subscriptions,player RNG or trade identity changed");
+            Require(a.Parent==p&&h.Parent==p&&b.Parent==q&&Json(Own(p,q,a,b,h))==saved.State,"Saved original subscriptions,player RNG or trade identity changed");
             Require(new[]{a,b,h}.Select(i=>Json(ClassGear.State(i))).SequenceEqual(saved.Gear)&&new[]{p,q}.Select(SkillHealth.Balance256).SequenceEqual(saved.Life)&&new[]{p,q}.Select(NecromancerEffects.ManaBalance256).SequenceEqual(saved.Mana),"Saved gear,wounds or mana changed");
             p.MoveToWorld(saved.Point1,Map.Trammel);q.MoveToWorld(saved.Point2,Map.Trammel);Require(Chance(p)==35&&Chance(q)==50&&Chance(p,201)==100,"Loaded provider/recipient mapping differs");
         }
@@ -99,6 +104,6 @@ public static class PlayerItemProcHostChecks
         try{PlayerItemProcs.Restore(invalid);}catch(InvalidDataException){refused=true;}Require(refused&&Json(PlayerItemProcs.Capture())==stable,"Invalid persisted source body partly restored");
         var isolated=PlayerItemProcs.Capture();isolated.Items[0].State.Properties[0]=new(0,0);Require(Json(PlayerItemProcs.Capture())==stable,"Player proc snapshot aliases saved original fields");
         var point=p.Location;var other=q.Location;p.Internalize();q.Internalize();
-        File.WriteAllText(Manifest,Json(new Saved(p.Serial.Value,q.Serial.Value,a.Serial.Value,b.Serial.Value,h.Serial.Value,t.Serial.Value,u.Serial.Value,point,other,Json(PlayerItemProcs.Capture()),new[]{a,b,h}.Select(i=>Json(ClassGear.State(i))).ToArray(),new[]{p,q}.Select(SkillHealth.Balance256).ToArray(),new[]{p,q}.Select(NecromancerEffects.ManaBalance256).ToArray(),generation)));
+        File.WriteAllText(Manifest,Json(new Saved(p.Serial.Value,q.Serial.Value,a.Serial.Value,b.Serial.Value,h.Serial.Value,t.Serial.Value,u.Serial.Value,point,other,Json(Own(p,q,a,b,h)),new[]{a,b,h}.Select(i=>Json(ClassGear.State(i))).ToArray(),new[]{p,q}.Select(SkillHealth.Balance256).ToArray(),new[]{p,q}.Select(NecromancerEffects.ManaBalance256).ToArray(),generation)));
     }
 }
