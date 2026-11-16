@@ -1,0 +1,22 @@
+#!/usr/bin/env python3
+"""Bind Fury weapon-parent and source0 bolt damage/event identities."""
+import argparse,hashlib,json
+from review_weapon_event_order import ROOT,STAGE,function
+from review_magic_arrow_contact import record as parent
+
+def record(check=False):
+    parent(True);tree=json.loads((STAGE/'d2moo-source-tree.json').read_text());records={}
+    for path,names in {'source/D2Game/src/MISSILES/MissMode.cpp':['MISSMODE_SrvHit20_LightningFury','MISSMODE_LightningFury_AuraCallback','MISSMODE_SetDamageFlags','MISSMODE_SrvDmgHitHandler'],'source/D2Game/src/SKILLS/Skills.cpp':['sub_6FD0FA00','sub_6FD0FE80'],'source/D2Common/src/Units/Missile.cpp':['MISSILE_CalculateDamageData','MISSILE_SetDamageStats'],'source/D2Game/src/UNIT/SUnitDmg.cpp':['SUNITDMG_ExecuteEvents']}.items():
+        raw=(STAGE/'d2moo-pinned-source'/path).read_bytes();assert hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()==next(x['sha']for x in tree['tree']if x['path']==path)
+        for name in names:body=function(raw.decode(),name);records[name]=dict(path=path,sha256=hashlib.sha256(body.encode()).hexdigest())
+    cache=ROOT/'tools/reference/d2r-named-equipment';manifest=json.loads((cache/'sources.json').read_text());p=cache/'json/missiles.json';sha=hashlib.sha256(p.read_bytes()).hexdigest();assert sha==manifest['files']['json/missiles.json']['sha256'];rows=json.loads(p.read_text());runtime={r['key']:r['fields']for r in json.loads((ROOT/'data/Sanctuary/Balance/necromancer-summons.json').read_text())};fields={}
+    for name,wanted in {'lightningfury':dict(pSrvDoFunc=1,pSrvHitFunc=20,pSrvDmgFunc=0,ToHit=0,HitClass=64,GetHit=1,ResultFlags=4,HitFlags=0,Range=25,Size=2,CollideKill=1,Pierce=1,LastCollide=1,AlwaysExplode=0),'furylightning':dict(pSrvDoFunc=1,pSrvHitFunc=0,pSrvDmgFunc=0,ToHit=0,HitClass=64,GetHit=1,ResultFlags=4,HitFlags=0,SrcDamage=-1,Range=25,Size=2,CollideKill=0,Pierce=0,LastCollide=1)}.items():
+        assert all(rows[name].get(k,0)==v and runtime[name].get(k,0)==v for k,v in wanted.items());fields[name]=wanted
+    p=ROOT/'tools/reference/lightning-fury-engine-evidence.json';source=json.loads(p.read_text());probe=ROOT/source['probe']['path'];assert hashlib.sha256(probe.read_bytes()).hexdigest()==source['probe']['sha256'];assert source['pinnedSkill']['SrcDam']==128
+    result=dict(referenceVersion='3.3.93847',legacyCommit=tree['sha'],functions=records,currentMissilesSha256=sha,missileFields=fields,skillSourceDamage=128,retainedSourceEvidence={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest()},established=['Parent source128 retains full weapon/item/skill lightning/critical/species fields and source flag1;SetDamageFlags adds weapon HitFlags32. hit20 emits bolts before direct weapon contact,including shield-blocked contacts. ToHit0 bypasses accuracy and its PMH side path.','Source0 bolts retain captured skill lightning only and receive Successful1/GetHit4/HitClass64 without weapon bit32. They dispatch no attacker/defender weapon hit callbacks or Crushing Blow,poison,cold,drain,slow or armor effects. Direct spell damage/credit/kill/native return remain.','Keep existing full search/filter/room order,primary inclusion,retained parent rank/live hard synergy/mastery at birth,integer source-step path and25-frame lifetime. Children continue through recipients with LastCollide and no Pierce budget;parent passive Pierce and repeated bursts remain independent.','Existing null-expiry a4 routing can call hit20 despite AlwaysExplode0. Retain that path and its original fixture,rather than interpreting the row as no expiry callback.'],remaining=['Archived current rows and complete older functions/probes establish scoped event integration,not exact modern callback/seed/stat/provider/owner/scheduler/room-order/geometry or primary-overlap parity.','Modern zero-ToHit PMH,depleted providers,exceptional/uninterruptible/death-delay/hireling/PvP remain unverified.','Poison-cloud and other missile callers,whole named acquisition,full class/client and separate effect/audio/icon acceptance remain open.'])
+    out=ROOT/'tools/reference/lightning-fury-contact-source-review.json';encoded=json.dumps(result,indent=2)+'\n'
+    if check:assert out.read_text()==encoded
+    else:out.write_text(encoded)
+    print('Fury complete parent/child source flags bound;source0 bolts exclude weapon callbacks and retain unlimited contacts.')
+if __name__=='__main__':
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--check',action='store_true');record(p.parse_args().check)

@@ -135,6 +135,7 @@ public sealed class WeaponMissileProfiles:GenericPersistence
 // Travelling direct-damage component. Skill launch/stat collection and item-event dispatch remain separate consumers.
 public static class WeaponMissiles
 {
+    private static readonly HashSet<string> _furyUnsupported=new();
     private static readonly Dictionary<long,WeaponFlight> _flights=new();
     private static readonly Dictionary<(long Cast,uint Target),WeaponFlightLease> _leases=new();
     private static readonly List<long> _keys=new();
@@ -379,6 +380,12 @@ public static class WeaponMissiles
         }
         if(selected is not BaseCreature creature)
         {_flights.Remove(flight.Id);return;}
+        if(furyChild)
+        {
+            if(!PlayerWeaponMissileContact.TryLightning(player,creature,NamedElements.To256(damage.Lightning),flight.NextUtc,out string reason)&&_furyUnsupported.Add(reason))
+            {Server.Logging.LogFactory.GetLogger(typeof(WeaponMissiles)).Warning("Fury child unsupported context: {Reason}",reason);}
+            return; // Source0 bolts retain unlimited contacts and their original lifetime.
+        }
         bool blocked;
         if(!((flight.Throwing!=null||BowMissileContact.Handles(flight))?DoubleThrowMissiles.Block(creature,damage.Physical>0,out blocked):SourceBlocking.TryBlock(creature,damage.Physical>0,out blocked)))
         {_flights.Remove(flight.Id);return;}

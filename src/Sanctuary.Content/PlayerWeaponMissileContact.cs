@@ -29,7 +29,9 @@ internal static class PlayerWeaponMissileContact
         =>TryElementalCore(owner,target,damage256,freeze,rawFrames,at,5,2,0,0,SkillDamageKind.Direct,out reason);
     internal static bool TryFireFrame(PlayerMobile owner,BaseCreature target,int damage256,int damageRate,bool soft,DateTime at,out string reason)
         =>TryElementalCore(owner,target,damage256,false,0,at,1|(soft?16384:0),0,32,damageRate,SkillDamageKind.Periodic,out reason);
-    private static bool TryElementalCore(PlayerMobile owner,BaseCreature target,int damage256,bool freeze,int rawFrames,DateTime at,int flags,uint hitFlags,int hitClass,int damageRate,SkillDamageKind kind,out string reason)
+    internal static bool TryLightning(PlayerMobile owner,BaseCreature target,int damage256,DateTime at,out string reason)
+        =>TryElementalCore(owner,target,damage256,false,0,at,5,0,64,0,SkillDamageKind.Direct,out reason,lightning:true);
+    private static bool TryElementalCore(PlayerMobile owner,BaseCreature target,int damage256,bool freeze,int rawFrames,DateTime at,int flags,uint hitFlags,int hitClass,int damageRate,SkillDamageKind kind,out string reason,bool lightning=false)
     {
         reason=null;
         if(target is not{Alive:true,Deleted:false}||!target.CanBeDamaged()||target.Map!=owner.Map||ClassCombat.Friendly(owner,target)){return true;}
@@ -41,7 +43,7 @@ internal static class PlayerWeaponMissileContact
         }
         catch(NotSupportedException e){reason=e.Message;return false;}
         if(ClassAvoidance.Missile(target)){return true;}
-        var damage=freeze?new GearDamage(0,0,damage256/256.0,0,0):new GearDamage(0,damage256/256.0,0,0,0);
+        var damage=lightning?new GearDamage(0,0,0,damage256/256.0,0):freeze?new GearDamage(0,0,damage256/256.0,0,0):new GearDamage(0,damage256/256.0,0,0,0);
         var parts=SkillCombat.MitigatePrepared(owner,target,damage,out int absorbed,damageRate);int cold=0,frozen=0;
         if(freeze){(cold,frozen)=DragonTails.ColdLengths(owner,target,0,rawFrames);}
         var impact=new PreparedWeaponImpact(damage,parts,absorbed)with{LifeDamage256=NamedElements.To256(parts.Total)};

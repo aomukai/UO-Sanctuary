@@ -1,0 +1,92 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "functions": {
+    "MISSMODE_SrvHit20_LightningFury": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "6fe0f0e4c7701e6db1f7adf4bb931b55b147395277e5d5e253fe7eee6e6f4f21"
+    },
+    "MISSMODE_LightningFury_AuraCallback": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "9b26fead9d7aee85c63392223bdbff8573bd6bda591a090e98f8811027a3b13e"
+    },
+    "MISSMODE_SetDamageFlags": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "e45650c089a89c9f2db72a953ea9f09b8ea823f0a2bcf7b65dfd130c6b476280"
+    },
+    "MISSMODE_SrvDmgHitHandler": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "ea4d1c52db64fe810d2404b578ab7aa3ba4a375e9fc6f0bb20b559ccb308f329"
+    },
+    "sub_6FD0FA00": {
+      "path": "source/D2Game/src/SKILLS/Skills.cpp",
+      "sha256": "deb2e3c0df36d00e81914f21202ab03c108a5acebc88b01aaeab50703caed45b"
+    },
+    "sub_6FD0FE80": {
+      "path": "source/D2Game/src/SKILLS/Skills.cpp",
+      "sha256": "205e92f8514caf6d9d96461812608f81fc4b192087e6052dba568e181a9282c2"
+    },
+    "MISSILE_CalculateDamageData": {
+      "path": "source/D2Common/src/Units/Missile.cpp",
+      "sha256": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f"
+    },
+    "MISSILE_SetDamageStats": {
+      "path": "source/D2Common/src/Units/Missile.cpp",
+      "sha256": "16a3fa97e7ba9fd4ae28f4128d4f2e6b32736f0252a563b294df73d6c93145c1"
+    },
+    "SUNITDMG_ExecuteEvents": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "sha256": "29d79fe1ff916cce3da9b78493564f9438ea99718e99d208f4412a07c3898c55"
+    }
+  },
+  "currentMissilesSha256": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+  "missileFields": {
+    "lightningfury": {
+      "pSrvDoFunc": 1,
+      "pSrvHitFunc": 20,
+      "pSrvDmgFunc": 0,
+      "ToHit": 0,
+      "HitClass": 64,
+      "GetHit": 1,
+      "ResultFlags": 4,
+      "HitFlags": 0,
+      "Range": 25,
+      "Size": 2,
+      "CollideKill": 1,
+      "Pierce": 1,
+      "LastCollide": 1,
+      "AlwaysExplode": 0
+    },
+    "furylightning": {
+      "pSrvDoFunc": 1,
+      "pSrvHitFunc": 0,
+      "pSrvDmgFunc": 0,
+      "ToHit": 0,
+      "HitClass": 64,
+      "GetHit": 1,
+      "ResultFlags": 4,
+      "HitFlags": 0,
+      "SrcDamage": -1,
+      "Range": 25,
+      "Size": 2,
+      "CollideKill": 0,
+      "Pierce": 0,
+      "LastCollide": 1
+    }
+  },
+  "skillSourceDamage": 128,
+  "retainedSourceEvidence": {
+    "tools/reference/lightning-fury-engine-evidence.json": "e1f7ca51dc0fee4e62f3f879cf6dbfe64bcc2d3eff024c5a124fca18ca2dff26"
+  },
+  "established": [
+    "Parent source128 retains full weapon/item/skill lightning/critical/species fields and source flag1;SetDamageFlags adds weapon HitFlags32. hit20 emits bolts before direct weapon contact,including shield-blocked contacts. ToHit0 bypasses accuracy and its PMH side path.",
+    "Source0 bolts retain captured skill lightning only and receive Successful1/GetHit4/HitClass64 without weapon bit32. They dispatch no attacker/defender weapon hit callbacks or Crushing Blow,poison,cold,drain,slow or armor effects. Direct spell damage/credit/kill/native return remain.",
+    "Keep existing full search/filter/room order,primary inclusion,retained parent rank/live hard synergy/mastery at birth,integer source-step path and25-frame lifetime. Children continue through recipients with LastCollide and no Pierce budget;parent passive Pierce and repeated bursts remain independent.",
+    "Existing null-expiry a4 routing can call hit20 despite AlwaysExplode0. Retain that path and its original fixture,rather than interpreting the row as no expiry callback."
+  ],
+  "remaining": [
+    "Archived current rows and complete older functions/probes establish scoped event integration,not exact modern callback/seed/stat/provider/owner/scheduler/room-order/geometry or primary-overlap parity.",
+    "Modern zero-ToHit PMH,depleted providers,exceptional/uninterruptible/death-delay/hireling/PvP remain unverified.",
+    "Poison-cloud and other missile callers,whole named acquisition,full class/client and separate effect/audio/icon acceptance remain open."
+  ]
+}
