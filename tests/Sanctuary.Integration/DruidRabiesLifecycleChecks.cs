@@ -55,8 +55,13 @@ public static class DruidRabiesLifecycleChecks
         var original=DruidRabiesInfections.Snapshot();var owner=Fresh();var host=Target(owner,1,true);var at=TimedEffects.Now.Add(FixtureSpace.Retention);
         try
         {
-            var marker=DruidRabiesInfections.Mark(owner,host,1,100,at);var legacy=DruidRabiesInfections.Snapshot();
-            DruidRabiesInfections.Restore(legacy with{Markers=null,Infections=[legacy.Infections[0] with{Emitting=false,NextUtc=marker.UntilUtc}]});
+            var marker=DruidRabiesInfections.Mark(owner,host,1,100,at);var captured=DruidRabiesInfections.Snapshot();
+            // Version0 represents this controlled marker/emitter pair, not
+            // unrelated version1 actors retained by earlier class fixtures.
+            var legacy=captured with{Infections=captured.Infections.Where(x=>x.Id==marker.Id).ToArray(),
+                Markers=captured.Markers.Where(x=>x.Id==marker.Id).ToArray(),Contagions=[],
+                Seeds=captured.Seeds.Where(x=>x.Caster==owner.Serial.Value).ToArray()};
+            DruidRabiesInfections.Restore(legacy with{Markers=null,Infections=[legacy.Infections.Single() with{Emitting=false,NextUtc=marker.UntilUtc}]});
             Require(DruidRabiesInfections.Infection(host)==marker&&DruidRabiesInfections.Emitters(owner.Serial.Value).Length==0,"Version0 stopped-emitter migration lost marker or revived emitter");
             DruidRabiesInfections.Restore(legacy with{Markers=null});
             Require(Json(DruidRabiesInfections.Snapshot())==Json(legacy),"Version0 migration reset marker/emitter/rank/expiry/seed");
@@ -76,7 +81,7 @@ public static class DruidRabiesLifecycleChecks
             DruidRabiesInfections.Tick(marker.UntilUtc.AddMilliseconds(80),true,owner.Serial.Value);
             Require(DruidRabiesInfections.Emitters(owner.Serial.Value).Length==0,"Negative-current emitter did not retire");
         }
-        finally{DruidRabiesInfections.Restore(original);host.Delete();owner.Delete();}
+        finally{DruidRabiesInfections.Restore(original);Require(Json(DruidRabiesInfections.Snapshot())==Json(original),"Migration control changed the surrounding infection pool");host.Delete();owner.Delete();}
     }
     private static TimedEffectState[] Poison(uint other)=>TimedEffects.Snapshot().Where(x=>x.Owner==other).ToArray();
     private static void Check()
@@ -101,25 +106,39 @@ public static class DruidRabiesLifecycleChecks
         // Save while the old emitter has current=-1 and both new emitters are
         // still waiting for their first callback. Real reload must not replay.
         var state=DruidRabiesInfections.Snapshot();
-        Require(state.Markers.Length==2&&state.Infections.Length==3&&state.Infections.Single(x=>x.Id==old.Id).Age==121,"Missing independent marker/old/new save identities");
+        Require(state.Markers.Count(x=>x.Caster==owner.Serial.Value||x.Caster==replacement.Serial.Value)==2
+            &&state.Infections.Count(x=>x.Caster==owner.Serial.Value||x.Caster==replacement.Serial.Value)==3
+            &&state.Infections.Single(x=>x.Id==old.Id).Age==121,"Missing independent marker/old/new save identities");
         File.WriteAllText(Manifest,Json(new Saved(owner.Serial.Value,replacement.Serial.Value,host.Serial.Value,other.Serial.Value,state,Poison(other.Serial.Value),replaceAt.AddMilliseconds(40),0)));
         Log.Information("Rabies lifecycle: missing-marker zero deadline, overlapping replacement emitters, retained old caster/rank and actual secondary poison pass; saved version1, version0 migration retained");
     }
     private static void Snapshot()
     {
-        var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));Require(Json(DruidRabiesInfections.Snapshot())==Json(saved.State)&&Json(Poison(saved.Other))==Json(saved.Poison),"Lifecycle changed before save");
+        var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var current=DruidRabiesInfections.Snapshot();
+        Require(current.NextId>=saved.State.NextId
+            &&DruidRabiesInfectionChecks.OwnedState(current,saved.OldCaster,saved.NewCaster)
+                ==DruidRabiesInfectionChecks.OwnedState(saved.State,saved.OldCaster,saved.NewCaster)
+            &&Json(Poison(saved.Other))==Json(saved.Poison),"Lifecycle changed before save");
     }
     private static void Reload()
     {
         var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));
         Require(World.FindMobile((Serial)saved.OldCaster) is PlayerMobile{Alive:true}&&World.FindMobile((Serial)saved.NewCaster) is PlayerMobile{Alive:true}
             &&World.FindMobile((Serial)saved.Host) is BaseCreature{Alive:true}&&World.FindMobile((Serial)saved.Other) is BaseCreature{Alive:true},"Lifecycle saved actors missing");
-        Require(Json(DruidRabiesInfections.Snapshot())==Json(saved.State)&&Json(Poison(saved.Other))==Json(saved.Poison),"Lifecycle save lost markers/emitters/paths/seeds/poison");
+        var before=DruidRabiesInfections.Snapshot();
+        Require(before.NextId>=saved.State.NextId
+            &&DruidRabiesInfectionChecks.OwnedState(before,saved.OldCaster,saved.NewCaster)
+                ==DruidRabiesInfectionChecks.OwnedState(saved.State,saved.OldCaster,saved.NewCaster)
+            &&Json(Poison(saved.Other))==Json(saved.Poison),"Lifecycle save lost markers/emitters/paths/seeds/poison");
         DruidRabiesInfections.Tick(saved.Clock,true,saved.OldCaster);DruidRabiesInfections.Tick(saved.Clock,true,saved.NewCaster);
         var state=DruidRabiesInfections.Snapshot();
-        Require(Json(state.Markers)==Json(saved.State.Markers)&&Json(state.Seeds)==Json(saved.State.Seeds)&&state.NextId==saved.State.NextId
-            &&state.Contagions.All(x=>saved.State.Contagions.Any(y=>y.Id==x.Id))&&Json(Poison(saved.Other))==Json(saved.Poison),"Reload replayed emission/damage or changed deadline ownership");
-        Require(state.Infections.Length==2,"Negative-current old emitter did not retire independently on resume");
+        Require(Json(state.Markers)==Json(before.Markers)&&Json(state.Seeds)==Json(before.Seeds)&&state.NextId==before.NextId
+            &&state.Contagions.All(x=>before.Contagions.Any(y=>y.Id==x.Id))&&Json(Poison(saved.Other))==Json(saved.Poison),"Reload replayed emission/damage or changed deadline ownership");
+        Require(state.Infections.Count(x=>x.Caster==saved.OldCaster||x.Caster==saved.NewCaster)==2
+            &&state.Infections.Length==before.Infections.Length-(saved.Reloads==0?1:0)
+            &&Json(state.Infections.Where(x=>x.Caster!=saved.OldCaster&&x.Caster!=saved.NewCaster))
+                ==Json(before.Infections.Where(x=>x.Caster!=saved.OldCaster&&x.Caster!=saved.NewCaster)),
+            "Negative-current old emitter did not retire independently on resume or changed unrelated emitters");
         File.WriteAllText(Manifest,Json(saved with{State=state,Clock=saved.Clock.AddMilliseconds(40),Reloads=saved.Reloads+1}));
     }
 }

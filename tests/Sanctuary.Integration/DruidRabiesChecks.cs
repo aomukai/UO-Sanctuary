@@ -138,7 +138,9 @@ public static class DruidRabiesChecks
         var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)saved.Owner);var target=World.FindMobile((Serial)saved.Target);
         Require(DruidPlayerForms.State(p)==saved.Form&&DruidAttackCharges.State(p,CombatAbility.FeralRage)==saved.Charge&&SkillHealth.Balance256(p)==saved.Life
             &&NecromancerEffects.ManaBalance256(p)==saved.Mana&&SkillHealth.Balance256(target)==saved.TargetLife&&Json(Poison(target))==Json(saved.Poison)
-            &&Json(DruidRabiesInfections.Snapshot())==Json(saved.Infections),"Saved learned Rabies state changed");
+            &&DruidRabiesInfections.Snapshot().NextId>=saved.Infections.NextId
+            &&DruidRabiesInfectionChecks.OwnedState(DruidRabiesInfections.Snapshot(),saved.Owner)
+                ==DruidRabiesInfectionChecks.OwnedState(saved.Infections,saved.Owner),"Saved learned Rabies state changed");
     }
     private static void Reload()
     {

@@ -19,7 +19,7 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def check(stage=None, extra_files=None, extra_families=(), extra_inputs=(), extra_checks=(), extra_live_commands=(), extra_wait_results=None, extra_target_input_commands=(), extra_manifest_names=None, extra_connected_checks=(), extra_one_reload_families=(), save_command='save', save_result=None, extra_input_timeouts=None, extra_ground_input_commands=(), extra_early_reload_families=(), extra_instant_input_commands=(), checked_live_commands=(), connected_save=False, extra_save_results=(), extra_wire_callbacks=(), extra_connection_settle=0, extra_check_timeouts=None, extra_pre_save_commands=()):
+def check(stage=None, extra_files=None, extra_families=(), extra_inputs=(), extra_checks=(), extra_live_commands=(), extra_wait_results=None, extra_target_input_commands=(), extra_manifest_names=None, extra_connected_checks=(), extra_one_reload_families=(), save_command='save', save_result=None, extra_input_timeouts=None, extra_ground_input_commands=(), extra_early_reload_families=(), extra_instant_input_commands=(), checked_live_commands=(), connected_save=False, extra_save_results=(), extra_wire_callbacks=(), extra_connection_settle=0, extra_check_timeouts=None, extra_pre_save_commands=(), extra_pre_save_callbacks=(), between_boot_delay=0):
     stage = stage or STAGE
     with tempfile.TemporaryDirectory(prefix='sanctuary-iron-golem-birth-', dir='/dev/shm') as temp:
         folder = Path(temp)
@@ -70,6 +70,8 @@ def check(stage=None, extra_files=None, extra_families=(), extra_inputs=(), extr
         waited_results = 0
         with (stage / 'birth-native-checks.log').open('w') as log:
             for boot in range(3):
+                if boot and between_boot_delay:
+                    time.sleep(between_boot_delay)
                 session = Session(folder, log)
                 try:
                     ready = session.expect(r'create the owner account now\? \(y/n\):|Listening: 127.0.0.1:' + str(port))
@@ -144,6 +146,8 @@ def check(stage=None, extra_files=None, extra_families=(), extra_inputs=(), extr
                             session.expect(family+(': acknowledged' if family in extra_instant_input_commands else ': windup'))
                             if family.endswith(('left','right')):client.sendall(struct.pack('>BHHBBI',0xBF,11,0xF2,7,8 if family.endswith('left') else 5,2))
                             assert session.expect(family+r'-result: (passed|failed)',timeout=(extra_input_timeouts or {}).get(family,10)).group(1)=='passed'
+                    for callback in extra_pre_save_callbacks:
+                        waited_results += callback(session,port,boot)
                     with ExitStack() as saving:
                         if connected_save:
                             client=saving.enter_context(socket.create_connection(('127.0.0.1',port),timeout=5))

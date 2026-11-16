@@ -1,0 +1,59 @@
+{
+  "component": "Druid human clock admits implemented vines and approved Arctic",
+  "referenceVersion": "3.3.93847",
+  "contentBuildReused": 1,
+  "integrationBuild": 1,
+  "sourceSnapshot": 2,
+  "nativeRun": 1,
+  "nativeMarkers": 33,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "druid-human-cast-clock-check": 3,
+    "druid-form-delay-live-check": 3,
+    "druid-form-delay-result": 3,
+    "druid-form-casting-check": 1,
+    "druid-form-casting-reload-check": 2,
+    "druid-human-cast-clock-right-check": 3,
+    "druid-human-cast-clock-right-result": 3,
+    "druid-human-cast-clock-quick-check": 3,
+    "druid-human-cast-clock-quick-result": 3
+  },
+  "spellInputs": 6,
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "changedSources": [
+    "tests/Sanctuary.Integration/DruidHumanCastClockChecks.cs"
+  ],
+  "gameplayChanged": false,
+  "runtimeDataChanged": false,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "5df3992322b515ae6e525927b8b9ddb57420eddd63d9886f019ffd6974b2cd49",
+    "Assemblies/Sanctuary.Content.dll": "508e93ea5f7458c9de14a13d70500aaba9f6f39c76ba3313adaa3966b1d34e14",
+    "Assemblies/Sanctuary.Integration.dll": "d3125a6c0402d991b301399fea2e4bd9e3c5030263b5f473780d2231ec583e7e"
+  },
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 44
+  },
+  "classCertified": false,
+  "limits": "Only stale vines/Arctic availability expectation changes; human Shock Wave refusal and separate clocks remain. Ordinary human SC,FCR,form transactions/cooldown,right/quick input and original saves verified. Full class composition pending; no exact modern certification.",
+  "files": {
+    ".local/class-skills/druid-clock-current/birth-inputs.json": "bbe4376616072c4eda3a3265c7e7556aced0c107feba1e745c05eb059d1288c3",
+    ".local/class-skills/druid-clock-current/birth-native-checks.log": "3e7c2968dbf73ed00c3a4bf5987af66860b4de21ab7c76f0afdd2204ae6faec0",
+    ".local/class-skills/druid-planned-acceptance/artifact-reuse.json": "58f09cc5ee3bea4e70a7cc7b895767e35236b968d86a79dc2a166d9f6c3398f5",
+    ".local/class-skills/druid-planned-acceptance/clock-focused-run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/druid-planned-acceptance/integration-build-1.log": "a6d1dbbf6a4c382a19484d46edef5f76bcb9b5c7aa3c74b02dc23ec4d8ce4134",
+    ".local/class-skills/druid-planned-acceptance/prechange-sources/tests/Sanctuary.Integration/DruidHumanCastClockChecks.cs": "39a5a9516e706c66f06e2739264e8d51e9c573f5ced2b562397855178c6dfd45",
+    ".local/class-skills/druid-planned-acceptance/source-snapshot-2.json": "febf110a45efc5b62436e33f5a98f7b55107e10da503e0b2c8ab156a0334775d",
+    "tests/Sanctuary.Integration/DruidHumanCastClockChecks.cs": "25c37bd39e34c0913ce5c7bc71c07e76e7d67c5a3133904c25a9d606d520469e"
+  }
+}

@@ -22,6 +22,15 @@ public static class DruidRabiesInfectionChecks
     {try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     private static void Require(bool ok,string why){if(!ok){throw new InvalidOperationException(why);}}
     private static string Json<T>(T value)=>JsonSerializer.Serialize(value);
+    // Multiple Rabies fixtures coexist in a combined world. Compare every
+    // owned marker/emitter/path/seed, while allowing unrelated allocations.
+    internal static string OwnedState(RabiesInfectionSave state,params uint[] owners)=>Json(new
+    {
+        Infections=state.Infections.Where(x=>owners.Contains(x.Caster)),
+        Markers=state.Markers.Where(x=>owners.Contains(x.Caster)),
+        Contagions=state.Contagions.Where(x=>owners.Contains(x.Caster)),
+        Seeds=state.Seeds.Where(x=>owners.Contains(x.Caster))
+    });
     private static PlayerMobile Fresh()
     {
         var owner=new PlayerMobile{Body=0x190,Player=true,Name="RabiesInfectionFixture"};owner.AddItem(new Backpack());
@@ -101,18 +110,40 @@ public static class DruidRabiesInfectionChecks
     private static void Snapshot()
     {
         var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));
-        Require(Json(DruidRabiesInfections.Snapshot())==Json(s.State)&&Json(Poison(s.Host,s.Other))==Json(s.Poison),"Prepared infection changed before world save");
+        var current=DruidRabiesInfections.Snapshot();
+        Require(current.NextId>=s.State.NextId&&OwnedState(current,s.Owner)==OwnedState(s.State,s.Owner)
+            &&Json(Poison(s.Host,s.Other))==Json(s.Poison),"Prepared infection changed before world save");
     }
     private static void Reload()
     {
         var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));
         Require(World.FindMobile((Serial)s.Owner) is PlayerMobile{Alive:true}&&World.FindMobile((Serial)s.Host) is BaseCreature{Alive:true}
             &&World.FindMobile((Serial)s.Other) is BaseCreature{Alive:true},"Rabies saved owner/hosts missing");
-        Require(Json(DruidRabiesInfections.Snapshot())==Json(s.State)&&Json(Poison(s.Host,s.Other))==Json(s.Poison),"Saved infection/poison/seed/path mismatch");
-        var seeds=Json(s.State.Seeds);int children=s.State.Contagions.Length;
+        var before=DruidRabiesInfections.Snapshot();
+        Require(before.NextId>=s.State.NextId&&OwnedState(before,s.Owner)==OwnedState(s.State,s.Owner)
+            &&Json(Poison(s.Host,s.Other))==Json(s.Poison),"Saved infection/poison/seed/path mismatch");
+        var seeds=Json(before.Seeds);int children=before.Contagions.Length;
         DruidRabiesInfections.Tick(s.Clock,true,s.Owner);
         var state=DruidRabiesInfections.Snapshot();
-        Require(Json(state.Seeds)==seeds&&state.Contagions.Length==children&&Json(Poison(s.Host,s.Other))==Json(s.Poison),"Load replayed overdue emissions or poison impacts");
+        Require(state.NextId==before.NextId,"Load allocated new infection identities");
+        Require(Json(state.Seeds)==seeds,"Load replayed caster RNG");
+        Require(state.Contagions.Length==children,"Load changed child count");
+        Require(Json(state.Infections.Where(x=>x.Caster!=s.Owner))==Json(before.Infections.Where(x=>x.Caster!=s.Owner)),"Load changed unrelated emitters");
+        Require(Json(state.Markers)==Json(before.Markers),"Load changed markers");
+        Require(state.Contagions.All(x=>
+            {
+                var previous=before.Contagions.Single(y=>y.Id==x.Id);
+                // Offline player bodies load on Internal; that sets the
+                // existing facet/logout fault while clocks age without replay.
+                var owner=World.FindMobile((Serial)s.Owner);
+                string fault=owner.Map==null||owner.Map==Map.Internal||owner.Map.MapID!=x.Map
+                    ?"Rabies owner facet/logout behavior is unverified":null;
+                return x.Caster==s.Owner
+                    ?x.Age>=previous.Age&&x.NextUtc>=previous.NextUtc&&x.Fault==fault
+                        &&Json(x with{Age=previous.Age,NextUtc=previous.NextUtc,Fault=previous.Fault})==Json(previous)
+                    :Json(x)==Json(previous);
+            }),"Load changed child packets/paths: before="+Json(before.Contagions)+" after="+Json(state.Contagions));
+        Require(Json(Poison(s.Host,s.Other))==Json(s.Poison),"Load replayed poison impacts");
         Require(state.Infections.Where(x=>x.Caster==s.Owner).All(x=>x.UntilUtc==s.State.Infections.Single(y=>y.Id==x.Id).UntilUtc),"Load extended infection deadline");
         File.WriteAllText(Manifest,Json(s with{State=state,Clock=s.Clock.AddMilliseconds(40),Reloads=s.Reloads+1}));
     }

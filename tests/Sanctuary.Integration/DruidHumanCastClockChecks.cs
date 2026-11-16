@@ -73,8 +73,9 @@ public static class DruidHumanCastClockChecks
             {
                 var weapon=CombatTiming.For(p,CombatAbility.BasicAttack);if(boosted){Magefist(p);}int fcr=boosted?20:0;var expected=DruidHumanCastClock.Calculate(fcr);
                 Require(CombatTiming.Fcr(p)==fcr&&CombatTiming.For(p,CombatAbility.BasicAttack)==weapon,"Actual FCR/weapon clock");
-                foreach(var ability in new[]{CombatAbility.PoisonCreeper,CombatAbility.CarrionVine,CombatAbility.SolarCreeper,CombatAbility.ArcticBlast,CombatAbility.ShockWave})
-                {Require(!ClassCombat.Available(p,ability),"Human timing enabled a gated/form-only skill");}
+                foreach(var ability in new[]{CombatAbility.PoisonCreeper,CombatAbility.CarrionVine,CombatAbility.SolarCreeper,CombatAbility.ArcticBlast})
+                {Require(ClassCombat.Available(p,ability),"Human clock fixture lost an implemented learned skill");}
+                Require(!ClassCombat.Available(p,CombatAbility.ShockWave),"Human timing enabled bear-only Shock Wave");
                 foreach(var skill in skills)
                 {
                     Ready(p);int mana=NecromancerEffects.ManaBalance256(p);long at=Core.TickCount;
