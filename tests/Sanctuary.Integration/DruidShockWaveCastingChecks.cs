@@ -112,6 +112,7 @@ public static class DruidShockWaveCastingChecks
         Cases();var p=Fresh();var waves=Cast(p);var shift=FixtureSpace.Retention+FixtureSpace.Retention;
         DruidShockWave.Restore(DruidShockWave.Snapshot() with{Missiles=DruidShockWave.Snapshot().Missiles.Select(x=>x.Owner==p.Serial.Value?x with{NextUtc=x.NextUtc.Add(shift)}:x).ToArray()});
         Require(SkillBindings.Instance.Assign(p,false,CombatAbility.ShockWave)&&SkillBindings.Instance.AssignQuick(p,7,CombatAbility.ShockWave),"Saved bindings");
+        DruidFormWorldChecks.RetainForInspection(p);
         var unpaid=Fresh();Begin(unpaid);var saved=new Saved(p.Serial.Value,NecromancerEffects.ManaBalance256(p),SkillHealth.Balance256(p),DruidPlayerForms.State(p),DruidShockWave.Snapshot(),unpaid.Serial.Value,NecromancerEffects.ManaBalance256(unpaid));
         // Save before the pending action can release: this is a deliberately
         // unconnected unpaid windup; generic sessions are not persistent.

@@ -125,6 +125,7 @@ public static class DruidFeralChecks
         Edges();var savedOwner=Fresh();var savedTarget=Target(savedOwner);Contact(savedOwner,savedTarget);Contact(savedOwner,savedTarget);
         Require(SkillBindings.Instance.Assign(savedOwner,false,CombatAbility.FeralRage)&&SkillBindings.Instance.AssignQuick(savedOwner,7,CombatAbility.FeralRage),"Saved Feral bindings");
         Hold(savedOwner,State(savedOwner) with{UntilUtc=TimedEffects.Now.Add(FixtureSpace.Retention)});
+        DruidFormWorldChecks.RetainForInspection(savedOwner);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(savedOwner.Serial.Value,savedTarget.Serial.Value,State(savedOwner),DruidPlayerForms.State(savedOwner),
             SkillHealth.Balance256(savedOwner),NecromancerEffects.ManaBalance256(savedOwner),SkillHealth.Balance256(savedTarget))));Snapshot();
     }

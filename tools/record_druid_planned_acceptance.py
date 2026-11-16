@@ -53,10 +53,10 @@ def expected_markers():
 
 
 def record(check=False):
-    run = STAGE / 'native-run-5.log'
+    run = STAGE / 'native-run-6.log'
     assert 'pass across3boots/2reloads' in run.read_text(), 'Combined run has not succeeded'
     born = e.load(STAGE / 'birth-inputs.json')
-    snapshot(STAGE / 'source-snapshot-14.json', STAGE / 'birth-inputs.json')
+    snapshot(STAGE / 'source-snapshot-16.json', STAGE / 'birth-inputs.json')
     for name, digest in born['sourceInputs'].items():
         assert e.sha(ROOT / name) == digest, name
     for name, digest in born['copiedData'].items():
@@ -75,14 +75,19 @@ def record(check=False):
     changed = {name for name, digest in baseline.items() if born['sourceInputs'][name] != digest}
     assert changed == {'tests/Sanctuary.Integration/' + name + '.cs' for name in (
         'DruidHumanCastClockChecks', 'DruidRabiesChecks', 'DruidRabiesInfectionChecks',
-        'DruidRabiesLifecycleChecks', 'ArcticStreamChecks', 'ArcticHeldInputChecks')}
-    build = (STAGE / 'integration-build-12.log').read_text()
+        'DruidRabiesLifecycleChecks', 'ArcticStreamChecks', 'ArcticHeldInputChecks',
+        'DruidFormWorldChecks', 'DruidFormCastingChecks', 'DruidFormInterruptionChecks',
+        'DruidFormReactionChecks', 'DruidMaulChecks', 'DruidFeralChecks',
+        'DruidFireClawsChecks', 'DruidHungerChecks', 'DruidShockWaveCastingChecks')}
+    build = (STAGE / 'integration-build-14.log').read_text()
     assert all(value in build for value in ('Build succeeded.', '0 Warning(s)', '0 Error(s)'))
+    historical_inputs = set()
     for name, count, same in (
         ('druid-clock-current-native-evidence.json', 33, False),
         ('druid-rabies-composition-native-evidence.json', 27, False),
-        ('druid-arctic-composition-native-evidence.json', 39, True),
-        ('druid-firestorm-order-native-evidence.json', 21, True),
+        ('druid-arctic-composition-native-evidence.json', 39, False),
+        ('druid-firestorm-order-native-evidence.json', 21, False),
+        ('druid-form-retained-native-evidence.json', 165, True),
     ):
         focused = e.load(ROOT / 'tools/reference' / name)
         assert focused['nativeMarkers'] == count
@@ -94,8 +99,10 @@ def record(check=False):
                 # Historical focused runs used the pre-ordering driver. Keep
                 # their accepted receipts unchanged and authenticate that exact
                 # saved input; the current run binds the new driver above.
-                assert path == 'tests/check_druid_planned_acceptance.py', path
-                assert e.sha(STAGE / 'failed-run-4/sources' / path) == digest, path
+                assert path == 'tests/check_druid_planned_acceptance.py' or path in changed, path
+                frozen_input = STAGE / 'failed-run-4/sources' / path
+                assert e.sha(frozen_input) == digest, path
+                historical_inputs.add(frozen_input)
     config = configuration()
     assert config['extra_early_reload_families'] == ('firestorm',)
     assert tuple(len(config[key]) for key in ('extra_families', 'extra_checks',
@@ -114,21 +121,23 @@ def record(check=False):
     files = [ROOT / 'tools/record_druid_planned_acceptance.py',
         ROOT / 'tests/check_druid_planned_acceptance.py', STAGE / 'birth-inputs.json',
         STAGE / 'birth-native-checks.log', run, STAGE / 'artifact-reuse.json',
-        STAGE / 'source-snapshot-1.json', STAGE / 'source-snapshot-14.json',
-        STAGE / 'integration-build-12.log']
-    for number in (1, 2, 3, 4):
+        STAGE / 'source-snapshot-1.json', STAGE / 'source-snapshot-16.json',
+        STAGE / 'integration-build-14.log']
+    files += list(historical_inputs)
+    for number in (1, 2, 3, 4, 5):
         failed = STAGE / f'failed-run-{number}'
         files += [failed / name for name in ('birth-inputs.json', 'birth-native-checks.log',
             'sources/tests/check_druid_planned_acceptance.py', 'sources/tests/check_iron_golem_birth.py')]
     files += [ROOT / 'tools/reference' / name for name in (
         'item-content-scope-decision.json', 'summon-snapshot-decision.json',
         'druid-clock-current-native-evidence.json', 'druid-rabies-composition-native-evidence.json',
-        'druid-arctic-composition-native-evidence.json', 'druid-firestorm-order-native-evidence.json')]
+        'druid-arctic-composition-native-evidence.json', 'druid-firestorm-order-native-evidence.json',
+        'druid-form-retained-native-evidence.json')]
     files += [ROOT / 'docs' / name for name in ('druid-planned-acceptance-checkpoint.md',
         'druid-coverage-matrix.md', 'arctic-approved-input-rule.md', 'skill-effects.md', 'skill-icons.md')]
     result = dict(component='Current planned-content Druid combined acceptance',
-        referenceVersion='3.3.93847', contentBuildReused=1, integrationBuild=12,
-        sourceSnapshot=14, nativeRun=5, nativeMarkers=675,
+        referenceVersion='3.3.93847', contentBuildReused=1, integrationBuild=14,
+        sourceSnapshot=16, nativeRun=6, nativeMarkers=675,
         markers=dict(sorted(expected_markers().items())), fixtureFamilies=57,
         sharedChecks=23, spellInputAttempts=129, legacyElementalSequences=27,
         heldArcticSequences=9, connectedFurySaveStages=3,

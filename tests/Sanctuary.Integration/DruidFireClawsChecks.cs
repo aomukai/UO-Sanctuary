@@ -154,6 +154,7 @@ public static class DruidFireClawsChecks
         var charge=DruidAttackCharges.State(p,CombatAbility.FeralRage);
         DruidAttackCharges.Restore(DruidAttackCharges.Snapshot().Select(x=>x.Owner==p.Serial.Value?x with{Charge=x.Charge with{UntilUtc=TimedEffects.Now.Add(FixtureSpace.Retention)}}:x).ToArray());charge=DruidAttackCharges.State(p,CombatAbility.FeralRage);
         Require(SkillBindings.Instance.Assign(p,false,CombatAbility.FireClaws)&&SkillBindings.Instance.AssignQuick(p,7,CombatAbility.FireClaws),"Saved bindings");
+        DruidFormWorldChecks.RetainForInspection(p);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,target.Serial.Value,DruidPlayerForms.State(p),charge,SkillHealth.Balance256(p),NecromancerEffects.ManaBalance256(p),SkillHealth.Balance256(target))));Snapshot();
     }
     private static void Snapshot()

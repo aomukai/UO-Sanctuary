@@ -175,6 +175,7 @@ public static class DruidHungerChecks
         var p=Fresh();var target=Target(p);Train(p,CombatAbility.FeralRage);Require(DruidAttackCharges.Gain(p,SkillMechanics.Values(p,CombatAbility.FeralRage)),"Saved charge");var pending=Begin(p,target);Require(ClassCombat.ResolveAction(p,pending.EffectAt),"Saved bite");
         DruidAttackCharges.Restore(DruidAttackCharges.Snapshot().Select(x=>x.Owner==p.Serial.Value?x with{Charge=x.Charge with{UntilUtc=TimedEffects.Now.Add(FixtureSpace.Retention)}}:x).ToArray());
         Require(SkillBindings.Instance.Assign(p,false,CombatAbility.Hunger)&&SkillBindings.Instance.AssignQuick(p,7,CombatAbility.Hunger),"Saved bindings");
+        DruidFormWorldChecks.RetainForInspection(p);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,target.Serial.Value,DruidPlayerForms.State(p),DruidAttackCharges.State(p,CombatAbility.FeralRage),SkillHealth.Balance256(p),NecromancerEffects.ManaBalance256(p),SkillHealth.Balance256(target))));Snapshot();
     }
     private static void Snapshot()

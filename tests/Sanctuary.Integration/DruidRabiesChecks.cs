@@ -131,6 +131,7 @@ public static class DruidRabiesChecks
         var poison=Poison(target);poison=poison with{UpdatedUtc=TimedEffects.Now.Add(shift)};TimedEffects.Load(TimedEffects.Snapshot().Where(x=>x.Owner!=target.Serial.Value).Append(poison).ToArray());
         DruidAttackCharges.Restore(DruidAttackCharges.Snapshot().Select(x=>x.Owner==p.Serial.Value?x with{Charge=x.Charge with{UntilUtc=TimedEffects.Now.Add(shift)}}:x).ToArray());
         Require(SkillBindings.Instance.Assign(p,false,CombatAbility.Rabies)&&SkillBindings.Instance.AssignQuick(p,7,CombatAbility.Rabies),"Saved bindings");
+        DruidFormWorldChecks.RetainForInspection(p);
         File.WriteAllText(Manifest,Json(new Saved(p.Serial.Value,target.Serial.Value,DruidPlayerForms.State(p),DruidAttackCharges.State(p,CombatAbility.FeralRage),SkillHealth.Balance256(p),NecromancerEffects.ManaBalance256(p),SkillHealth.Balance256(target),DruidRabiesInfections.Snapshot(),poison)));Snapshot();
     }
     private static void Snapshot()

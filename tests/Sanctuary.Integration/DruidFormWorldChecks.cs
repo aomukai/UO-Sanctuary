@@ -144,6 +144,19 @@ public static class DruidFormWorldChecks
         var state=DruidPlayerForms.State(p);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,state,SkillHealth.Balance256(p),NecromancerEffects.ManaBalance256(p),BattleOrders.Stamina256(p),p.HitsMax,p.StamMax,p.Body)));
     }
+    internal static void RetainForInspection(PlayerMobile p)
+    {
+        var state=DruidPlayerForms.State(p);Require(state!=null,"Missing inspected form");
+        var resources=BattleOrders.Capture(p);int body=p.Body;
+        var held=state with{StartedUtc=state.StartedUtc.Add(FixtureSpace.Retention),UntilUtc=state.UntilUtc.Add(FixtureSpace.Retention)};
+        DruidPlayerForms.Restore(DruidPlayerForms.Snapshot().Select(x=>x.Owner==p.Serial.Value?held:x).ToArray());
+        Require(DruidPlayerForms.State(p)==held&&held.Form==state.Form
+            &&held.UntilUtc-held.StartedUtc==state.UntilUtc-state.StartedUtc
+            &&SkillHealth.Balance256(p)==resources.Life256&&NecromancerEffects.ManaBalance256(p)==resources.Mana256
+            &&BattleOrders.Stamina256(p)==resources.Stamina256&&p.HitsMax==resources.LifeMax
+            &&p.ManaMax==resources.ManaMax&&p.StamMax==resources.StaminaMax&&p.Body==body,
+            "Inspection hold reset form birth, captured duration, wounds or resources");
+    }
     private static void Live()
     {
         var p=Fresh();SkillHealth.SetBalance256(p,p.HitsMax*128-17);
@@ -178,7 +191,7 @@ public static class DruidFormWorldChecks
         var p=Fresh();Train(p,CombatAbility.Werewolf,20);Train(p,CombatAbility.Lycanthropy,20);Train(p,CombatAbility.Werebear,20);
         Require(DruidPlayerForms.ApplyPrepared(p,CombatAbility.Werebear,TimedEffects.Now),"Saved bear");
         SkillHealth.SetBalance256(p,p.HitsMax*256-20007);NecromancerEffects.SetMana256(p,p.ManaMax*256-71);BattleOrders.SetStamina256(p,p.StamMax*256-31);
-        Write(p);Snapshot();
+        RetainForInspection(p);Write(p);Snapshot();
         Log.Information("Druid form saved world:typed life/stamina/AR/physical/armor pools,BO stacking,proportional entry/removal/expiry,effective real-gear capture,atomic malformed restore,death/deletion and strict fractional injury guards pass; no learned casting,modern rates/restrictions or body art claimed");
     }
     private static void Snapshot()

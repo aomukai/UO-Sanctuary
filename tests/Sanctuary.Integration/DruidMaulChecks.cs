@@ -212,6 +212,7 @@ public static class DruidMaulChecks
     {
         Combat();Lifecycle();var p=Fresh();var t=Target(p);Swing(p,t);Swing(p,t);var charge=State(p);var natural=charge.UntilUtc;
         Hold(p,charge with{UntilUtc=TimedEffects.Now.Add(FixtureSpace.Retention)});charge=State(p);
+        DruidFormWorldChecks.RetainForInspection(p);
         Require(SkillBindings.Instance.Assign(p,false,CombatAbility.Maul)&&SkillBindings.Instance.AssignQuick(p,7,CombatAbility.Maul),"Save bindings");
         var pending=Fresh();var pt=Target(pending);Begin(pending,pt);int paid=NecromancerEffects.ManaBalance256(pending);
         // Save an already-paid interrupted action; the transient packet is never serialized.

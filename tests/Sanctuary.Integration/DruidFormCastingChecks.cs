@@ -129,7 +129,8 @@ public static class DruidFormCastingChecks
         Clock();Transactions();var p=Fresh();Train(p,CombatAbility.Werebear,20);Train(p,CombatAbility.Lycanthropy,20);Cast(p,CombatAbility.Werebear);
         SkillHealth.SetBalance256(p,p.HitsMax*256-20007);Mana(p,1000);
         Require(SkillBindings.Instance.Assign(p,false,CombatAbility.Werebear)&&SkillBindings.Instance.AssignQuick(p,7,CombatAbility.Werebear),"Saved form bindings");
-        var all=FireGround.Snapshot();var held=TimedEffects.Now.AddMinutes(10);
+        DruidFormWorldChecks.RetainForInspection(p);
+        var all=FireGround.Snapshot();var held=TimedEffects.Now.Add(FixtureSpace.Retention);
         FireGround.Restore(all with{Cooldowns=all.Cooldowns.Select(x=>x.Owner==p.Serial.Value&&DruidFormCasting.Handles(x.Ability)?x with{UntilUtc=held}:x).ToArray()});
         var pending=Fresh();Require(ClassCombat.Perform(pending,CombatAbility.Werewolf,null,pending.Location,Core.TickCount),"Saved unpaid form windup");
         ClassCombat.For(pending).EffectAt=Core.TickCount+3600000;ClassCombat.For(pending).NextAction=Core.TickCount+3601000;

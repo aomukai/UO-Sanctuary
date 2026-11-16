@@ -86,6 +86,7 @@ public static class DruidFormReactionChecks
         }
         finally{Drop(p);gloves?.Delete();armor?.Delete();}
         var saved=Fresh();DruidPlayerForms.ApplyPrepared(saved,CombatAbility.Werewolf,TimedEffects.Now);var g=Named(saved,"Bloodfist");var a=Named(saved,"Guardian Angel");Ready(saved);
+        DruidFormWorldChecks.RetainForInspection(saved);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(saved.Serial.Value,DruidPlayerForms.State(saved),g.Serial.Value,a.Serial.Value,DruidFormReactionClock.Current(saved,false).Value,DruidFormReactionClock.Current(saved,true).Value,0)));
     }
     private static void Snapshot()

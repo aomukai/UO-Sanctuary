@@ -100,6 +100,7 @@ public static class DruidFormInterruptionChecks
             {Require(ClassCreation.Profiles.TryTrain(p.Serial,SkillMechanics.For(CombatAbility.Lycanthropy).TalentId,out _),"Saved Lycanthropy");}
             Require(DruidPlayerForms.ApplyPrepared(p,CombatAbility.Werebear,TimedEffects.Now),"Saved bear entry");
         }
+        DruidFormWorldChecks.RetainForInspection(p);
         Start(p,CombatAbility.BasicAttack);Require(DruidFormInterruption.PreventRecovery(p,Core.TickCount),"Missing pre-save action context");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,DruidPlayerForms.State(p),NecromancerEffects.ManaBalance256(p),SkillHealth.Balance256(p))));
     }
