@@ -1,0 +1,81 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "functions": {
+    "MISSMODE_SetDamageFlags": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "e45650c089a89c9f2db72a953ea9f09b8ea823f0a2bcf7b65dfd130c6b476280"
+    },
+    "MISSMODE_SrvDmgHitHandler": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "ea4d1c52db64fe810d2404b578ab7aa3ba4a375e9fc6f0bb20b559ccb308f329"
+    },
+    "MISSILE_CalculateDamageData": {
+      "path": "source/D2Common/src/Units/Missile.cpp",
+      "sha256": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f"
+    },
+    "MISSILE_SetDamageStats": {
+      "path": "source/D2Common/src/Units/Missile.cpp",
+      "sha256": "16a3fa97e7ba9fd4ae28f4128d4f2e6b32736f0252a563b294df73d6c93145c1"
+    },
+    "SUNITDMG_ExecuteEvents": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "sha256": "29d79fe1ff916cce3da9b78493564f9438ea99718e99d208f4412a07c3898c55"
+    },
+    "SUNITDMG_ExecuteMissileDamage": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "sha256": "1fdd8c096d3c9c6d688f29f1888e88df7c98a9fb13214c65b1099c4b3b3f6f3f"
+    },
+    "SUNITDMG_IsHitSuccessful": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "sha256": "26a6da2610750e203fb8bad4fdc9287a75209905e5633c4b50a374424b84a758"
+    },
+    "SUNITDMG_PreventMonsterHeal": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "sha256": "8678a9b2051d08dea026ce1f3442e12acb3290fcb8ab5bc198788c30cc621875"
+    }
+  },
+  "sharedImpactReviewSha256": "24a5f5a4b41ca8a8c4fa0e832be5ac22fd98b2dcdbbc976b534c232ab5d0a1a4",
+  "currentMissilesSha256": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+  "missileFields": {
+    "strafearrow": {
+      "pSrvDoFunc": 1,
+      "pSrvHitFunc": 0,
+      "pSrvDmgFunc": 0,
+      "ToHit": 1,
+      "HitClass": 10,
+      "GetHit": 1,
+      "NextHit": 1,
+      "NextDelay": 4,
+      "SrcDamage": 128
+    },
+    "strafebolt": {
+      "pSrvDoFunc": 1,
+      "pSrvHitFunc": 0,
+      "pSrvDmgFunc": 0,
+      "ToHit": 1,
+      "HitClass": 10,
+      "GetHit": 1,
+      "NextHit": 1,
+      "NextDelay": 4,
+      "SrcDamage": 128
+    }
+  },
+  "retainedSourceEvidence": {
+    "tools/reference/strafe-engine-evidence.json": "7b3b364dced283bb0a1dec4ebefbceeb3af0fba610790a420c1f79d06880bf2e",
+    "tools/reference/strafe-mode-engine-evidence.json": "272478ac99e961f32beb5926675d5346a180f3984713a1e8d02e271000cdd255",
+    "tools/reference/strafe-timing-engine-evidence.json": "88560043672b121f4671e55c58666a618b1865cedac4428c79e67e6e16fd650a",
+    "tools/reference/strafe-action-engine-evidence.json": "230af441ae11818a03050bd89c70a81b62848d3b4bec1628b0a6986624f09563"
+  },
+  "established": [
+    "Current arrows/bolts use full SrcDamage128,AR,GetHit1/HitClass10 and no damage callback. Reuse the released weapon packet,source poison/drain/cold,captured armor,successful accuracy PMH and pre-HP missile item hit events.",
+    "Keep existing Strafe start/quantity/mana,per-emission current stat/rank/AR capture,50percent rollback and identity selector. One series reuses its cast identity across arrows.",
+    "The existing series-local four-frame lease survives an empty flight gap and saved reload. Contacts refused by that lease must not allocate proc streams,roll chances,deal damage or dispatch weapon events. Independent casts retain the current separate scope.",
+    "Source mode-entry restrictions do not by themselves establish STATE_UNINTERRUPTABLE. Retain approved noninterrupting item casts in this route;do not equate its movement/input lock with the separate Whirlwind state."
+  ],
+  "remaining": [
+    "Archived current rows plus complete older damage/sequence functions and original calculator evidence are scoped evidence,not exact modern executable parity.",
+    "Modern cross-cast NHD/provider/owner/stat/seed/geometry,input queuing/restart and exceptional/uninterruptible/death-delay/hireling/PvP contexts remain explicit.",
+    "Whole named acquisition,remaining javelin/Blade Fury/Mirrored/NPC missile consumers,full class/client and separate effect/audio/icon assets remain open."
+  ]
+}
