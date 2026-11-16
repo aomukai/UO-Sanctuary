@@ -1,0 +1,34 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "damageFunction": {
+    "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+    "name": "MISSMODE_SrvDmg02_IceArrow_RoyalStrikeChaos",
+    "sha256": "4ab2860025b096cd6b35e157c66ee01b6bebeeff2542a4401a2b087490f1f7e1"
+  },
+  "sharedImpactReviewSha256": "24a5f5a4b41ca8a8c4fa0e832be5ac22fd98b2dcdbbc976b534c232ab5d0a1a4",
+  "currentMissilesSha256": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+  "missileFields": {
+    "GetHit": 1,
+    "HitClass": 0,
+    "pSrvDoFunc": 1,
+    "pSrvDmgFunc": 2,
+    "ToHit": 1,
+    "NextHit": 0,
+    "NextDelay": 0,
+    "Range": 40,
+    "Vel": 24,
+    "dParam1": 100
+  },
+  "established": [
+    "Damage callback2 writes100percent captured cold length into packet freeze length and clears ordinary cold length before missile events. Physical/elemental/poison damage remains.",
+    "Reuse the existing Dragon cold/freeze length adapter for resistance/item mitigation and existing native elite chill mapping. Project the chosen mitigated lengths into the actual player packet,including existing Dragon contacts.",
+    "The shared source event body commits cold,freeze,poison after HP and before kill/return. Use existing qualified status receivers,freeze corpse eligibility and owner/difficulty/thaw behavior.",
+    "Preserve existing collector,cost,quantity,flight,PMH,armor and proc stream rules. No missile attack event is invented."
+  ],
+  "remaining": [
+    "Modern AR/provider/owner/stat/RNG/attack and exceptional uninterruptable/hireling mapping remain unverified.",
+    "Ordinary nonfreeze cold corpse shatter is still unsupported;Ice Arrow retains the existing explicit frozen-corpse eligibility mask.",
+    "This is scoped source/native qualification,not full current executable,class/client or named-item admission."
+  ]
+}

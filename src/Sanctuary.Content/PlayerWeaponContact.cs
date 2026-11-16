@@ -139,7 +139,12 @@ internal static class PlayerWeaponContact
         internal override void ApplyCold(int frames)
         {
             if(frames>0){ColdStates.Commit(source,target,frames,true,ColdStates.Effect(target),NecromancerEffects.DifficultyDivisor(target),TimedEffects.TickAt(at));}
-            if(scope.Prepared.FreezeFrames>0){FreezeStates.Commit(source,target,scope.Prepared.FreezeFrames,true,NecromancerEffects.DifficultyDivisor(target),TimedEffects.TickAt(at));}
+        }
+        internal override bool SupportsFreeze=>true;
+        internal override void ApplyFreeze(int frames)
+        {if(frames>0){FreezeStates.Commit(source,target,frames,true,NecromancerEffects.DifficultyDivisor(target),TimedEffects.TickAt(at));}}
+        internal override void ApplyPoison()
+        {
             scope.Prepared.Impact.AllocatedPoison?.Commit(source,target,at);
             scope.Prepared.CapturedPoison?.Invoke(source,target,at);
         }
@@ -200,7 +205,7 @@ internal static class PlayerWeaponContact
         return new PreparedMonsterDamagePacket(NamedElements.To256(parts.Physical),impact.LifeDamage256??NamedElements.To256(parts.Total),impact.SourceStunFrames,
             prepared.ColdFrames,prepared.Flags,HitClass:(prepared.Flags&1)!=0?prepared.HitClass:0,
             Magic256:NamedElements.To256(parts.Magic),Fire256:NamedElements.To256(parts.Fire),Lightning256:NamedElements.To256(parts.Lightning),
-            Cold256:NamedElements.To256(parts.Cold),Poison256:impact.AllocatedPoison?.Rate256??0,AbsorbedLife256:impact.Absorbed256,HitFlags:prepared.HitFlags);
+            Cold256:NamedElements.To256(parts.Cold),Poison256:impact.AllocatedPoison?.Rate256??0,AbsorbedLife256:impact.Absorbed256,HitFlags:prepared.HitFlags,FreezeFrames:prepared.FreezeFrames);
     }
     internal static PreparedMonsterDamageResult ReleaseMissile(PlayerMobile source,BaseCreature target,PlayerWeaponContactPrepared prepared,DateTime at,bool allowNative=false)
     {
