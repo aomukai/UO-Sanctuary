@@ -31,3 +31,8 @@ Final effects/audio and talent/hotkey icons remain in separate registers with id
 The demon/foundation group now passes **180 exact results, 75 connections, three saves and two reloads** on unchanged C1/I15. It verifies seven routes, 27 ordinary input attempts and six held Bind sequences. [Stable group checkpoint](warlock-demons-acceptance-checkpoint.md), [receipt](../tools/reference/warlock-demons-acceptance-native-evidence.json). No code/build/data/runtime change occurred. Seven deliberate unsupported-context rejections remain recorded (three untyped Health Link inputs and four lost S1 targets); no save-deletion warnings or connection denials occurred. Installed protection passes.
 
 Next is the nine-route weapon/Hex/Ward group, followed by the ten-route Sigil/Chaos group. These groups retain existing shared-mechanic regressions and current input checks. Whole-class completion is not claimed; four proposals remain frozen pending.
+
+
+## Current second group
+
+The [weapon/Hex/Ward checkpoint](warlock-weapons-acceptance-checkpoint.md) and [driver](../tests/check_warlock_weapons_acceptance.py) declare nine more routes with 21 existing families, 24 current input commands, seven connected asynchronous families and the existing shared Magic Arrow regression. Candidate artifacts remain the accepted C1/I15 without recompilation. Expected totals are 240 markers and 93 connections over three saves/two reloads; no second-group acceptance is claimed yet. Ten Chaos/Sigil routes and four frozen proposals remain separate.
