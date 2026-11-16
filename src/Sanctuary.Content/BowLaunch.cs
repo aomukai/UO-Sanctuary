@@ -119,13 +119,13 @@ public static class BowLaunch
     }
     internal static WeaponMissileDamage Capture(PlayerMobile owner,CombatAbility ability,bool critical,int? missilePercent=null,SkillValues preparedValues=null)
     {
-        if(ability is not(CombatAbility.LightningFury or CombatAbility.PlagueJavelin or CombatAbility.LightningBolt or CombatAbility.PoisonJavelin or CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.ExplodingArrow or CombatAbility.IceArrow or CombatAbility.GuidedArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow or CombatAbility.Strafe))
+        if(ability is not(CombatAbility.DoubleThrow or CombatAbility.LightningFury or CombatAbility.PlagueJavelin or CombatAbility.LightningBolt or CombatAbility.PoisonJavelin or CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.ExplodingArrow or CombatAbility.IceArrow or CombatAbility.GuidedArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow or CombatAbility.Strafe))
         {throw new NotSupportedException("This bow collector requires a separately integrated skill elemental source.");}
-        if(!(AmazonJavelins.Handles(ability)?AmazonJavelins.WeaponAllowed(owner):WeaponAllowed(owner))){return null;}
+        if(!(ability==CombatAbility.DoubleThrow?NamedAmmunition.Maximum(CombatTiming.Equipped(owner))>0:AmazonJavelins.Handles(ability)?AmazonJavelins.WeaponAllowed(owner):WeaponAllowed(owner))){return null;}
         var weapon=CombatTiming.Equipped(owner);var values=preparedValues??SkillMechanics.Values(owner,ability);var row=SkillMechanics.For(ability);
         if(values.Rank<=0){return null;}
-        int skillPercent=missilePercent??(ability==CombatAbility.MultipleShot?(int)values.Eval("calc5"):ability==CombatAbility.GuidedArrow?(int)values.Eval("calc1"):ability==CombatAbility.Strafe?(int)values.Eval("calc2"):0);
-        int sourceDamage=row.Number("SrcDam");var raw=ClassStats.WeaponBaseDamage(owner);
+        int skillPercent=missilePercent??(ability==CombatAbility.DoubleThrow?(int)values.Eval("calc1"):ability==CombatAbility.MultipleShot?(int)values.Eval("calc5"):ability==CombatAbility.GuidedArrow?(int)values.Eval("calc1"):ability==CombatAbility.Strafe?(int)values.Eval("calc2"):0);
+        int sourceDamage=ability==CombatAbility.DoubleThrow?128:row.Number("SrcDam");var raw=ClassStats.WeaponBaseDamage(owner);
         var elements=WeaponElements(owner,weapon,ability is CombatAbility.LightningBolt or CombatAbility.LightningFury);
         if(ability is CombatAbility.LightningBolt or CombatAbility.LightningFury)
         {elements=elements with{LightningMin=checked(elements.LightningMin+AmazonMelee.EnhanceEndpoint(values.Damage256(false),NamedElements.MasteryPercent(owner,"ltng"))),LightningMax=checked(elements.LightningMax+AmazonMelee.EnhanceEndpoint(values.Damage256(true),NamedElements.MasteryPercent(owner,"ltng")))};}
@@ -158,8 +158,8 @@ public static class BowLaunch
         {damage=damage with{Conversion=new("cold",Math.Min(100,NecromancerSummons.Source("coldarrow","dParam1")+(values.Rank-1)*NecromancerSummons.Source("coldarrow","dParam2")))};}
         if(ability==CombatAbility.IceArrow){damage=damage with{FreezeColdLength=true};}
         damage=damage with{PhysicalSupplement=PhysicalSupplement(owner,weapon,sourceDamage,skillPercent)};
-        if(ability==CombatAbility.Strafe){damage=damage with{SkillAttackPercent=(int)values.Formula("toht")};}
-        if(Venoms.State(owner)!=null){damage=damage with{SourcePoisonFrames=true};}
+        if(ability is CombatAbility.Strafe or CombatAbility.DoubleThrow){damage=damage with{SkillAttackPercent=(int)values.Formula("toht")};}
+        if(ability==CombatAbility.DoubleThrow||Venoms.State(owner)!=null){damage=damage with{SourcePoisonFrames=true};}
         return damage;
     }
 }

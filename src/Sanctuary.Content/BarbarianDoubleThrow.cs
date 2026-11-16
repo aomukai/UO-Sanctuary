@@ -29,6 +29,8 @@ public static class BarbarianDoubleThrow
     {
         if(!BarbarianCombat.Available(owner,CombatAbility.DoubleThrow) || Pair(owner) is not{} pair || !NamedAmmunition.CanAttack(pair.Primary)
             || !SkillCombat.Begin(owner,CombatAbility.DoubleThrow,selected,point,now,(_,_,id,p)=>Aim(owner,id,p))){return false;}
+        try{using(WeaponHands.Use(owner,pair.Primary)){DoubleThrowMissiles.Require(owner);}using(WeaponHands.Use(owner,pair.Secondary)){DoubleThrowMissiles.Require(owner);}}
+        catch(NotSupportedException e){ClassCombat.For(owner).PendingAbility=CombatAbility.None;owner.SendMessage(0x22,e.Message);return false;}
         var session=ClassCombat.For(owner);
         session.DoubleThrow=new(pair.Primary.Serial,pair.Secondary.Serial,owner.Map,owner.Location,
             now+CombatTiming.WeaponSequencePoint(owner,9,CombatAbility.DoubleThrow)*40,0);
@@ -54,26 +56,15 @@ public static class BarbarianDoubleThrow
         var weapon=series.Released==0?pair.Primary:pair.Secondary;
         using(WeaponHands.Use(owner,weapon))
         {
+            try{DoubleThrowMissiles.Require(owner);}catch(NotSupportedException e){Cancel(owner);owner.SendMessage(0x22,e.Message);return false;}
             var values=SkillMechanics.Values(owner,CombatAbility.DoubleThrow);
             var selected=World.FindMobile(session.PendingTarget);
             var aim=selected is{Deleted:false} && selected.Map==owner.Map?selected.Location:session.PendingPoint;
             var release=BarbarianThrowing.Release(owner,TimedEffects.Now,allowUntrained:true);
             if(release is{} thrown)
             {
-                int range=CombatTiming.Range(owner,CombatAbility.DoubleThrow);
-                var end=NamedProjectiles.Endpoint(owner,aim,range);
-                var target=ClassCombat.FindRayTarget(owner,end,range);
-                owner.PlaySound(0x238); // Identified native throwing sound/art placeholders.
-                owner.MovingEffect(target??(IEntity)new Entity(Serial.Zero,end,owner.Map),0xF42,5,0,false,false);
-                int attack=(int)values.Formula("toht"),damage=(int)values.Eval("calc1");
-                if(target!=null)
-                {
-                    var collision=target.Location;owner.DoHarmful(target,true);
-                    if(ClassStats.CheckHit(owner,target,attack,HitRoll,projectile:true)==true)
-                    {GearEffects.Strike(owner,target,ElementRoll(),Effects,false,skillPhysicalPercent:damage,physicalRoll:PhysicalRoll,projectileCritical:thrown.Critical);}
-                    CombatDamage.Finish(target,owner);
-                    NamedProjectiles.Continue(owner,target,aim,thrown.Pierces,Effects,thrown.Critical,damage,attack,collision);
-                }
+                DoubleThrowMissiles.Launch(owner,aim,thrown,TimedEffects.Now);
+                owner.PlaySound(0x238); // Identified native throwing sound placeholder.
             }
             // No srv-start: the legacy wrapper consumes after each successful
             // do74, even if quantity/allocation failed, and ignores debit failure.

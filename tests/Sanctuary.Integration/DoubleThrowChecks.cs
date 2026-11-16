@@ -30,13 +30,13 @@ public static class DoubleThrowChecks
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Double Throw hand, event, resource, damage and reload checks",_=>Core.LoopContext.Post(()=>
     {try{action();Log.Information("{Name}: passed",name);}catch(Exception ex){Log.Error(ex,"{Name}: failed",name);}}));
     private static void Require(bool value,string reason){if(!value){throw new InvalidOperationException(reason);}}
-    private static void Train(PlayerMobile owner,string id,int rank=1)
+    internal static void Train(PlayerMobile owner,string id,int rank=1)
     {
         Require(TalentCatalog.TryGet(DiabloClass.Barbarian,id,out var talent),"Missing talent");
         foreach(var prerequisite in talent.Prerequisites){Train(owner,prerequisite);}
         while(ClassCreation.Profiles.GetRank(owner.Serial,id)<rank){Require(ClassCreation.Profiles.TryTrain(owner.Serial,id,out _),"Train "+id);}
     }
-    private static PlayerMobile Fresh()
+    internal static PlayerMobile Fresh()
     {
         PlayerMobile owner;_creating=true;try{owner=new PlayerMobile{Body=0x190,Player=true,Name="DoubleThrowFixture"};}finally{_creating=false;}
         owner.AddItem(new Backpack());ClassCreation.Profiles.Assign(owner,DiabloClass.Barbarian);ClassCreation.Profiles.AdvanceLevel(owner,99);
@@ -58,12 +58,23 @@ public static class DoubleThrowChecks
         Require(BarbarianDoubleThrow.Pair(owner)==new WeaponPair(first,second),"Throwing pair identity");
         Quantity(first,9);Quantity(second,11);owner.Hits=owner.HitsMax;owner.Mana=owner.ManaMax;return owner;
     }
-    private static void Quantity(BaseWeapon weapon,int value)
+    internal static void Quantity(BaseWeapon weapon,int value)
     {NamedAmmunition.Track(weapon);NamedAmmunition.Quantities[weapon.Serial]=new(value,new(DateTime.MaxValue.Ticks,DateTimeKind.Utc));}
-    private static void Ready(PlayerMobile owner)
+    internal static void Ready(PlayerMobile owner)
     {ClassCombat.Stop(owner);var action=ClassCombat.For(owner);action.NextAction=action.RecoveryUntil=Core.TickCount;}
-    private static bool Begin(PlayerMobile owner,Mobile target=null)=>ClassCombat.Perform(owner,CombatAbility.DoubleThrow,target,target?.Location??new(owner.X+5,owner.Y,owner.Z),Core.TickCount);
-    private static void Event(PlayerMobile owner)=>Require(ClassCombat.ResolveAction(owner,ClassCombat.For(owner).EffectAt),"Missing due throw event");
+    internal static bool Begin(PlayerMobile owner,Mobile target=null)=>ClassCombat.Perform(owner,CombatAbility.DoubleThrow,target,target?.Location??new(owner.X+5,owner.Y,owner.Z),Core.TickCount);
+    private static void Event(PlayerMobile owner)
+    {
+        Require(ClassCombat.ResolveAction(owner,ClassCombat.For(owner).EffectAt),"Missing due throw event");
+        Settle(owner);
+    }
+    private static void Settle(PlayerMobile owner)
+    {
+        // Legacy hand/resource scenarios settle real flights;new dedicated
+        // cases separately assert travel delay and moving-target collisions.
+        for(int i=0;i<50;i++)
+        {var flights=WeaponMissiles.Snapshot().Flights.Where(f=>f.Owner==owner.Serial.Value).ToArray();if(flights.Length==0){break;}WeaponMissiles.Tick(flights.Min(f=>f.NextUtc),onlyOwner:owner.Serial.Value);}
+    }
     private static Ogre Enemy(PlayerMobile owner,int dx)
     {
         var enemy=new Ogre{NoKillAwards=true,Frozen=true,CantWalk=true};enemy.SetHits(50000);enemy.MoveToWorld(new(owner.X+dx,owner.Y,owner.Z),owner.Map);enemy.AIObject.AITimer.Stop();
@@ -71,13 +82,13 @@ public static class DoubleThrowChecks
         return enemy;
     }
     private static int Health(Mobile actor)=>actor.Hits*256-SkillHealth.Remainder256(actor);
-    private static int Expected(PlayerMobile owner,BaseWeapon weapon,Mobile target)
+    private static int Expected(PlayerMobile owner,BaseWeapon weapon,BaseCreature target)
     {
         using(WeaponHands.Use(owner,weapon))
         {
-            var values=SkillMechanics.Values(owner,CombatAbility.DoubleThrow);
-            var damage=GearEffects.Damage(owner,0,target,(int)values.Eval("calc1"),_=>0);
-            return NamedElements.To256(GearEffects.PrepareWeaponImpact(owner,target,0,new HighRoll(),damage,projectileCritical:false).Parts.Total);
+            var packet=BowLaunch.Capture(owner,CombatAbility.DoubleThrow,false);var damage=packet.Roll(target,_=>0,out int rate);
+            var parts=SkillCombat.MitigatePrepared(owner,target,damage with{Poison=0});
+            return checked(NamedElements.To256(parts.Total)+PoisonJavelins.PreparePoison(owner,target,rate,packet.Elements.PoisonImpactFrames).Rate256);
         }
     }
     private static void Goldens()
@@ -104,15 +115,16 @@ public static class DoubleThrowChecks
         var action=ClassCombat.For(owner);Require(owner.Mana==10 && NamedAmmunition.Remaining(pair.Primary)==9 && !ClassCombat.ResolveAction(owner,action.EffectAt-1),"Pre-event debit");
         int before=Health(enemy);Event(owner);
         Require(before-Health(enemy)==first && owner.Mana==9 && NamedAmmunition.Remaining(pair.Primary)==8 && NamedAmmunition.Remaining(pair.Secondary)==11
-            && action.DoubleThrow is{Released:1} && CombatTiming.Equipped(owner)==pair.Primary,"First hand/damage/payment/scope");
+            && action.DoubleThrow is{Released:1} && CombatTiming.Equipped(owner)==pair.Primary,"First hand/damage/payment/scope:damage="+(before-Health(enemy))+"/"+first+" mana="+owner.Mana+" quantities="+NamedAmmunition.Remaining(pair.Primary)+","+NamedAmmunition.Remaining(pair.Secondary)+" series="+action.DoubleThrow+" selected="+CombatTiming.Equipped(owner)?.Serial);
+
         Require(!ClassCombat.ResolveAction(owner,action.EffectAt-1),"Secondary throw too early");before=Health(enemy);Event(owner);
         Require(before-Health(enemy)==second && owner.Mana==8 && NamedAmmunition.Remaining(pair.Secondary)==10 && action.DoubleThrow==null
             && !ClassCombat.ResolveAction(owner,action.EffectAt),"Second hand/damage/payment/repeated event");
         enemy.Delete();Ready(owner);enemy=Enemy(owner,3);enemy.SetHits(1);owner.Mana=10;
         Require(Begin(owner,enemy),"Kill-first target start");ClassCombat.For(owner).Target=enemy.Serial;
-        ClassCombat.UpdateCombat(owner,ClassCombat.For(owner).EffectAt);
+        ClassCombat.UpdateCombat(owner,ClassCombat.For(owner).EffectAt);Settle(owner);
         Require(!enemy.Alive && ClassCombat.For(owner).DoubleThrow is{Released:1},"Primary kill canceled the secondary event");
-        ClassCombat.UpdateCombat(owner,ClassCombat.For(owner).EffectAt);
+        ClassCombat.UpdateCombat(owner,ClassCombat.For(owner).EffectAt);Settle(owner);
         Require(ClassCombat.For(owner).DoubleThrow==null && owner.Mana==8 && NamedAmmunition.Remaining(pair.Secondary)==9,"Lost target prevented empty-ray secondary release");
         enemy.Corpse?.Delete();enemy.Delete();Ready(owner);owner.Mana=1;Require(Begin(owner),"One-mana initial threshold");Event(owner);Event(owner);
         Require(owner.Mana==0 && NamedAmmunition.Remaining(pair.Primary)==6 && NamedAmmunition.Remaining(pair.Secondary)==8,"Declared source ignored post-do debit failure");
@@ -142,10 +154,10 @@ public static class DoubleThrowChecks
     }
     private static void Check()
     {
-        var random=BarbarianThrowing.RandomSource;var hit=BarbarianDoubleThrow.HitRoll;var element=BarbarianDoubleThrow.ElementRoll;var physical=BarbarianDoubleThrow.PhysicalRoll;
-        BarbarianThrowing.RandomSource=()=>new HighRoll();BarbarianDoubleThrow.HitRoll=()=>0;BarbarianDoubleThrow.ElementRoll=()=>0;BarbarianDoubleThrow.PhysicalRoll=_=>0;
+        var random=BarbarianThrowing.RandomSource;var hit=BarbarianDoubleThrow.HitRoll;var element=BarbarianDoubleThrow.ElementRoll;var physical=BarbarianDoubleThrow.PhysicalRoll;var missile=WeaponMissiles.DamageRoll;var block=SourceBlocking.BlockRoll;var effects=WeaponMissiles.ItemEffects;
+        BarbarianThrowing.RandomSource=()=>new HighRoll();BarbarianDoubleThrow.HitRoll=()=>0;BarbarianDoubleThrow.ElementRoll=()=>0;BarbarianDoubleThrow.PhysicalRoll=_=>0;WeaponMissiles.DamageRoll=_=>0;SourceBlocking.BlockRoll=n=>n-1;WeaponMissiles.ItemEffects=new HighRoll();
         try{Goldens();HandsAndDamage();Cancellation();File.WriteAllText(Manifest,JsonSerializer.Serialize(new[]{Save(false),Save(true)}));}
-        finally{BarbarianThrowing.RandomSource=random;BarbarianDoubleThrow.HitRoll=hit;BarbarianDoubleThrow.ElementRoll=element;BarbarianDoubleThrow.PhysicalRoll=physical;}
+        finally{BarbarianThrowing.RandomSource=random;BarbarianDoubleThrow.HitRoll=hit;BarbarianDoubleThrow.ElementRoll=element;BarbarianDoubleThrow.PhysicalRoll=physical;WeaponMissiles.DamageRoll=missile;SourceBlocking.BlockRoll=block;WeaponMissiles.ItemEffects=effects;}
         Natural();
     }
     private static void Natural()
