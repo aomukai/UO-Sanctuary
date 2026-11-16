@@ -1,5 +1,7 @@
 # Skill effects
 
+**Prepared player item Fire Ball — 2026-11-16 JST.** The prepared cross-class item producer reuses existing Fire Ball travel/explosion placeholders. Item-effect notification/audio remains with the future protected item-cast host; no final asset is added. [Checkpoint](player-item-fireball-checkpoint.md).
+
 **Fire Bolt/mastery originals returned — 2026-11-16 JST.** Bane Ash Fire Bolt reuses the existing projectile/impact placeholder. The three masteries have no active cast; Tal Rasha set visuals retain their existing placeholder mapping. Final effects/audio remain in the separate skill entries; no new artwork is generated. [Checkpoint](sorceress-mastery-grants-checkpoint.md).
 
 **Three Sorceress staffs returned — 2026-11-16 JST.** The three returned Sorceress staffs reuse the existing Nova, Frost Nova, Blaze, Fire Wall, Fire Ball, Chain Lightning, Lightning and Static Field placeholders; Warmth has no new active cast. Final effects/audio remain in their existing skill entries. No new item-specific effect is required. [Checkpoint](sorceress-staff-grants-checkpoint.md).

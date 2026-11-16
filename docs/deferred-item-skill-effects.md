@@ -2,6 +2,8 @@
 
 **Current direct-grant returns.** [Warpspear](warpspear-grants-checkpoint.md), [three Sorceress staffs](sorceress-staff-grants-checkpoint.md), and [Fire Bolt/mastery originals](sorceress-mastery-grants-checkpoint.md) qualify their complete items, normal active/passive consumers and two reloads. The registry now has 31 entries. The latest return includes all five Tal Rasha originals and their partial/full thresholds. These scopes do not qualify proc/charge/aura delivery or whole Hellslayer admission; other item grants retain their own gates.
 
+**Prepared player Fire Ball producer.** The [eight-class checkpoint](player-item-fireball-checkpoint.md) supplies shared source execution/origins, captured own-player spell damage and native projectile saves. Its explicit carrier is a component fixture. Protected item-effect frames, actual player event/RNG hosting, full original property projection and whole Hellslayer/golem admission remain required; no proc item becomes available yet.
+
 **Current NPC item-spell scope.** The historical Shadow Hydra62 gap is resolved by the [NPC-owned Hydra world/item-proc checkpoint](npc-hydra-world-checkpoint.md), including the original allocation9 loadout. The [Fire Ball producer checkpoint](npc-item-fireball-checkpoint.md) adds a separately qualified explicit NPC proc route; whole Hellslayer projection/acquisition and automatic learned golem registration remain unfinished. Historical receipts retain their own source/artifact scope.
 
 User decision: return to skill-dependent item effects after the relevant class mechanics are implemented. A finished skill handler still needs its item trigger, grant, aura or charge delivery system. Existing supported bonuses keep working; this list does not disable them.

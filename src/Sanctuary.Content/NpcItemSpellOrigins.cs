@@ -17,6 +17,7 @@ internal sealed class NpcItemSpellOrigins : SkillExecutionServices
     private readonly (int X, int Y)? _target;
     private readonly (int X, int Y) _path;
     private readonly int _attackRating;
+    private readonly int _unitType;
     private readonly Func<NpcItemMissileRequest, object> _create;
     private readonly Action<object, int> _setBudget;
     private readonly Func<int,(int X,int Y)?> _chargedAim;
@@ -25,20 +26,20 @@ internal sealed class NpcItemSpellOrigins : SkillExecutionServices
 
     internal NpcItemSpellOrigins((int X, int Y) source, (int X, int Y)? target,
         (int X, int Y) path, int attackRating, bool serverDo,
-        Func<NpcItemMissileRequest, object> create, Action<object, int> setBudget,Func<int,(int X,int Y)?> chargedAim=null,Action<bool> serverDoChanged=null)
+        Func<NpcItemMissileRequest, object> create, Action<object, int> setBudget,Func<int,(int X,int Y)?> chargedAim=null,Action<bool> serverDoChanged=null,int unitType=1)
     {
         ArgumentNullException.ThrowIfNull(create);
         ArgumentNullException.ThrowIfNull(setBudget);
         static bool Bounded((int X, int Y) p) => p.X is >= 0 and <= 65535 && p.Y is >= 0 and <= 65535;
-        if (!Bounded(source) || !Bounded(path) || target is {} t && !Bounded(t) || attackRating < 0)
+        if (unitType is not(0 or 1)||!Bounded(source) || !Bounded(path) || target is {} t && !Bounded(t) || attackRating < 0)
         { throw new NotSupportedException("NPC item origin frame exceeds its coordinate/stat domain"); }
-        _source = source; _target = target; _path = path; _attackRating = attackRating;
+        _unitType=unitType;_source = source; _target = target; _path = path; _attackRating = attackRating;
         ServerDo = serverDo; _create = create; _setBudget = setBudget;_chargedAim=chargedAim;_serverDoChanged=serverDoChanged;
     }
 
     internal int Run(int skill, int rank, int outgoing)
     {
-        if (rank is < 1 or > 63 || outgoing is < 0 or > 1)
+        if (rank is < 1 or > 63 || outgoing is < 0 or > 1||_unitType==0&&skill!=47)
         { throw new NotSupportedException("NPC item origin frame needs an explicit six-bit rank and caller flag"); }
         return SkillExecution.Run(this, skill, rank, false, true, outgoing != 0);
     }
@@ -51,8 +52,8 @@ internal sealed class NpcItemSpellOrigins : SkillExecutionServices
     }
     internal override bool HasGame => true;
     internal override bool HasSource => true;
-    internal override int UnitType => 1;
-    internal override SkillExecutionRecord Record(int skill) => Require(skill).LegacyRecord(false, 1);
+    internal override int UnitType => _unitType;
+    internal override SkillExecutionRecord Record(int skill) => Require(skill).LegacyRecord(false, UnitType);
     internal override ExecutionSkill UsedSkill() => null;
     internal override int DoCount => 191;
     internal override int MissileCount => ItemSkillExecution.MissileCount;

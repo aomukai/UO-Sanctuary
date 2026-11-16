@@ -25,6 +25,9 @@ internal sealed record SorceressSpellFlight(long Id,uint Owner,int Map,int Z,Com
     // Optional V0 extension: historical Fire Bolt records retain zero length.
     [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public NpcItemSpellSource Npc{get;init;}
+    // Explicit player item-proc owner class; absent on historical learned/NPC flights.
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public DiabloClass? PlayerItemClass{get;init;}
     public int ColdFrames{get;init;}
     // Optional V0 ring extension. Historical straight flights use defaults.
     public long Cast{get;init;}
@@ -52,7 +55,7 @@ public sealed class SorceressSpellProfiles:GenericPersistence
 // Player straight spells reuse the existing checked kernels,not a pet actor's
 // ownership/AI or a weapon packet. Native room/cell order,initial dispatch and
 // creator RNG allocation remain declared world adapters.
-internal static class SorceressSpellMissiles
+internal static partial class SorceressSpellMissiles
 {
     private sealed record Pool(ImmutableDictionary<long,SorceressSpellFlight> Flights,long NextId);
     private static Pool _pool=new(ImmutableDictionary<long,SorceressSpellFlight>.Empty,0);
@@ -102,9 +105,9 @@ internal static class SorceressSpellMissiles
             ||profile.HitFunction==1&&(M("sHitPar1")!=0||new MissileValues(profile.Key,values).Text("EType")!="fire"))
         {throw new NotSupportedException("Unmapped player straight spell route");}
     }
-    private static PlayerMobile Owner(uint id)=>World.FindMobile((Serial)id) is PlayerMobile{Alive:true,Deleted:false} p
-        &&ClassCreation.Profiles.TryGet(p.Serial,out var profile)&&profile.Class==DiabloClass.Sorceress?p:null;
-    internal static SorceressSpellFlight Prepare(PlayerMobile owner,Point3D point,SkillValues values,DateTime at,int radialIndex=-1,long id=0,long cast=0,int ordinal=-1,ColdArmorState reaction=null)
+    private static PlayerMobile Owner(uint id,DiabloClass? itemClass=null)=>World.FindMobile((Serial)id) is PlayerMobile{Alive:true,Deleted:false} p
+        &&ClassCreation.Profiles.TryGet(p.Serial,out var profile)&&profile.Class==(itemClass??DiabloClass.Sorceress)?p:null;
+    internal static SorceressSpellFlight Prepare(PlayerMobile owner,Point3D point,SkillValues values,DateTime at,int radialIndex=-1,long id=0,long cast=0,int ordinal=-1,ColdArmorState reaction=null,PlayerItemFireBallBirth item=null)
     {
         if(values.Ability==CombatAbility.Inferno){throw new NotSupportedException("Inferno requires its channel-supplied source-coordinate factory");}
         Route(values);bool ring=Ring(values.Ability),charged=values.Ability==CombatAbility.ChargedBolt;
@@ -112,10 +115,14 @@ internal static class SorceressSpellMissiles
         if(armor!=(reaction!=null)||reaction!=null&&(reaction.Ability!=CombatAbility.ChillingArmor||reaction.Rank is <0 or >255
             ||reaction.Rank>0&&values.Rank!=reaction.Rank)) {throw new NotSupportedException("Chilling bolt requires its armor reaction context");}
         if(ring&&(radialIndex is <0 or >63||id<=0||cast<=0||ordinal!=-1)||charged&&(radialIndex!=-1||id<=0||cast!=0||ordinal<0||ordinal>=values.Eval("calc1"))||!ring&&!charged&&(radialIndex!=-1||id!=0||cast!=0||ordinal!=-1)){throw new NotSupportedException("Unmapped Sorceress radial launch");}
-        if(owner==null||Owner(owner.Serial.Value)!=owner||owner.Map==null||owner.Map==Map.Internal
+        if(owner==null||Owner(owner.Serial.Value,item?.Class)!=owner||owner.Map==null||owner.Map==Map.Internal
             ||point.X<=0||point.Y<=0||point.X>=owner.Map.Width||point.Y>=owner.Map.Height||at.Kind!=DateTimeKind.Utc
             ||SpellHelper.IsTown(owner.Location,owner)||SpellHelper.IsTown(point,owner))
         {throw new NotSupportedException("Unsupported player straight spell owner/aim");}
+        var origin=item?.Origin??owner.Location;
+        if(item!=null&&(values.Ability!=CombatAbility.Fireball||values.Rank is <1 or >63||!Enum.IsDefined(item.Class))
+            ||origin.X<=0||origin.Y<=0||origin.X>=owner.Map.Width||origin.Y>=owner.Map.Height||SpellHelper.IsTown(origin,owner))
+        {throw new NotSupportedException("Unqualified player item spell origin/class/rank");}
         var profile=Profile(values.Ability);
         var slow=AmazonSlowMissiles.Capture(owner,!ring);var mods=DruidFirestorm.Modifiers(owner);
         var ends=reaction is{Rank:0}?DruidFirestorm.Endpoints(reaction.Min256,reaction.Max256,mods.ColdMastery,slow)
@@ -123,11 +130,11 @@ internal static class SorceressSpellMissiles
         // Straight casts supply33; do22 supplies7; armor event01 supplies32.
         // These are spell packets, without weapon AR/damage/ammo.
         int velocity=SlowMissilePayload.VelocityFp8(profile.Velocity,0,values.Rank,armor?32:ring?7:33,ring?profile.Velocity:0,!ring,slow.VelocityPercent);
-        int dx=point.X-owner.X,dy=point.Y-owner.Y;if(ring){var direction=FrozenOrbs.Direction(radialIndex);dx=direction.X;dy=direction.Y;}else if(dx==0&&dy==0){dx=dy=1;} // Existing shared zero-vector projection.
+        int dx=point.X-origin.X,dy=point.Y-origin.Y;if(ring){var direction=FrozenOrbs.Direction(radialIndex);dx=direction.X;dy=direction.Y;}else if(dx==0&&dy==0){dx=dy=1;} // Existing shared zero-vector projection.
         var vector=MissileVectors.VelocityFp8(dx,dy,velocity);
         // Unit allocation still draws once. Charged initialization then
         // replaces that seed and path generation advances the missile stream.
-        ulong seed=SourceRandom.InitLow(SeedLow());SorceressChargedMotion motion=null;
+        ulong seed=item?.Seed??SourceRandom.InitLow(SeedLow());SorceressChargedMotion motion=null;
         if(charged)
         {
             int ax=point.X*2,cx=point.X-owner.X,cy=point.Y-owner.Y;
@@ -136,9 +143,9 @@ internal static class SorceressSpellMissiles
             motion=new(owner.X,owner.Y,path,1,ordinal);
         }
         var flight=new SorceressSpellFlight(ring||charged?id:checked(_pool.NextId+1),owner.Serial.Value,owner.Map.MapID,owner.Z,
-            values.Ability,reaction?.Rank??values.Rank,owner.X,owner.Y,vector.X,vector.Y,velocity,0,profile.Frames,ends.Min,ends.Max,mods,slow,
-            seed,new([new(owner.X*2,owner.Y*2)]),at.AddMilliseconds(40))
-            {ColdFrames=profile.Element=="cold"&&profile.HitFunction!=13?reaction is{Rank:0}?reaction.ColdFrames:values.DurationFrames:0,Cast=cast,RadialIndex=radialIndex,LastCollision=ring?owner.Serial.Value:0,
+            values.Ability,reaction?.Rank??values.Rank,origin.X,origin.Y,vector.X,vector.Y,velocity,0,profile.Frames,ends.Min,ends.Max,mods,slow,
+            seed,new([new(origin.X*2,origin.Y*2)]),at.AddMilliseconds(40))
+            {PlayerItemClass=item?.Class,ColdFrames=profile.Element=="cold"&&profile.HitFunction!=13?reaction is{Rank:0}?reaction.ColdFrames:values.DurationFrames:0,Cast=cast,RadialIndex=radialIndex,LastCollision=ring?owner.Serial.Value:0,
              Charged=motion};
         Validate(flight);return flight;
     }
@@ -395,7 +402,7 @@ internal static class SorceressSpellMissiles
         var profile=Profile(flight.Ability);if(profile.HitFunction is not(1 or 13)){throw new NotSupportedException("Unmapped player area callback");}
         // Both callbacks evaluate radius on the current owner at retained
         // rank; only hit13 evaluates freeze length. Damage stays captured.
-        var values=SkillMechanics.Values(owner,flight.Ability,flight.Rank);double radius=ExplosionRadius(values);
+        var values=flight.PlayerItemClass!=null?PlayerItemFireBallValues(owner,flight.Rank):SkillMechanics.Values(owner,flight.Ability,flight.Rank);double radius=ExplosionRadius(values);
         int frames=profile.HitFunction==13?GlacialSpikes.FreezeFrames(values):0;
         int raw=Roll(flight,out seed);var mods=flight.Modifiers with{Potion=CombatPotions.BonusAt(owner,"magical-penetration",flight.NextUtc)};
         var basis=profile.Element=="fire"?new GearDamage(0,raw/256.0,0,0,0):new(0,0,raw/256.0,0,0);
@@ -412,7 +419,7 @@ internal static class SorceressSpellMissiles
     private static void Advance(SorceressSpellFlight flight,DateTime at,bool? actions)
     {
         var npc=flight.Npc==null?null:World.FindMobile((Serial)flight.Npc.Actor)as SkeletonGuardian;
-        var owner=flight.Npc==null?Owner(flight.Owner):World.FindMobile((Serial)flight.Owner)as PlayerMobile;
+        var owner=flight.Npc==null?Owner(flight.Owner,flight.PlayerItemClass):World.FindMobile((Serial)flight.Owner)as PlayerMobile;
         if(flight.Npc==null&&(owner==null||owner.Map!=Map.Internal&&owner.Map?.MapID!=flight.Map)){Remove(flight.Id);return;}
         Mobile caster=flight.Npc==null?owner:npc;
         bool attached=flight.Npc==null||NpcItemSpellFlights.AttachedSource(npc,owner,flight.Map,flight.Npc);
@@ -509,6 +516,8 @@ internal static class SorceressSpellMissiles
     {
         if(s==null||s.Ability is not(CombatAbility.FireBolt or CombatAbility.Inferno or CombatAbility.IceBolt or CombatAbility.IceBlast or CombatAbility.GlacialSpike or CombatAbility.Fireball or CombatAbility.Nova or CombatAbility.FrostNova or CombatAbility.Lightning or CombatAbility.ChargedBolt or CombatAbility.ChillingArmor))
         {throw new InvalidDataException("Invalid saved Sorceress spell kind");}
+        if(s.PlayerItemClass is{} itemClass&&(!Enum.IsDefined(itemClass)||s.Npc!=null||s.Ability!=CombatAbility.Fireball||s.Rank is <1 or >63))
+        {throw new InvalidDataException("Invalid saved player item Fire Ball context");}
         if(s.Npc!=null){NpcItemSpellFlights.Validate(s);}
         var profile=Profile(s.Ability);bool ring=Ring(s.Ability),capturedCold=s.Ability is CombatAbility.IceBolt or CombatAbility.IceBlast or CombatAbility.FrostNova or CombatAbility.ChillingArmor;
         if(s.Ability==CombatAbility.ChargedBolt)

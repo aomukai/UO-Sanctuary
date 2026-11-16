@@ -22,3 +22,5 @@ The [verification-label audit](class-skill-verification-reconciliation.md) now r
 The subsequent [complete Sorceress staff return](sorceress-staff-grants-checkpoint.md) qualifies nine more item-granted consumers and fixes unchanged equipment-refresh mana loss. This scoped item cohort does not replace the historical class artifacts or resolve the separately listed parity limits.
 
 The [Fire Bolt/mastery item checkpoint](sorceress-mastery-grants-checkpoint.md) additionally admits Bane Ash, Chromatic Ire and the full Tal Rasha set, with native passive damage and saved partial/full thresholds. It reuses the earlier class consumers and does not expand their parity claims.
+
+The [prepared player item Fire Ball producer](player-item-fireball-checkpoint.md) adds an explicit cross-class item-emission component and optional native saved-flight metadata. It retains ordinary learned and NPC regression controls; actual item-event hosting and whole-item admission are still separate gaps.
