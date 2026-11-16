@@ -1,0 +1,46 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "functions": {
+    "SKILLS_SrvSt05_Jab": {
+      "path": "source/D2Game/src/SKILLS/SkillAma.cpp",
+      "sha256": "a581f6bc32413a9922522c7f35ebcd5128e3a0e45d5bf6fc138595e1ffcc72cd"
+    },
+    "SKILLS_SrvSt09_Fend": {
+      "path": "source/D2Game/src/SKILLS/SkillAma.cpp",
+      "sha256": "fbaf1c166cec4f46a1b3993433b0bbb0abd2c960b34205ea6b5d89295ecbf050"
+    },
+    "SKILLS_SrvDo007_Jab": {
+      "path": "source/D2Game/src/SKILLS/SkillAma.cpp",
+      "sha256": "656e3548bf865de595f03c6025958ded90eeccf1b6e273410deade50ee7da7dc"
+    },
+    "SKILLS_SrvDo013_Fend_Zeal_Fury": {
+      "path": "source/D2Game/src/SKILLS/SkillAma.cpp",
+      "sha256": "0d6dfa1da37877194eee912ee9bfa6fd1fae478cd908a57bb0905153a7e8acb4"
+    },
+    "SUNITDMG_AllocCombat": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "sha256": "bc56dd3efbba1649d4a3d9bfcb8f2f63187bbd262c2458c6709860891d28c99a"
+    },
+    "SUNITDMG_DrainItemDurability": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "sha256": "9384594853e7f4255913c5cf5ff2e45d306ead9fd8e83b3e592470e1c0ef7d58"
+    },
+    "ITEMS_UpdateDurability": {
+      "path": "source/D2Game/src/ITEMS/Items.cpp",
+      "sha256": "6c582c6a0eed575253bc819ba791074a773cf95cbd59de1b52208f63848eb8ce"
+    }
+  },
+  "scope": "Complete pinned older bodies plus existing approved/native sequence controllers;not current executable parity.",
+  "established": [
+    "Jab do7 and Fend do13 allocate ordinary source128 weapon contacts anew at each strike,with current skill AR and calc1/calc2 physical ED respectively.",
+    "Jab retains its original target;Fend retains its existing count,cyclic selection and rollback controls. Neither repeats mana at each contact.",
+    "Successful contacts use source shield/allocation and initial poison rate/clock,ordered damage/attack callbacks and wear/return. Misses and blocks retain attempts without successful damage.",
+    "The existing expansion durability writer remains4percent for ordinary weapons and10percent for throwable weapons,with quantity/reset on depletion. Invoke it once at the existing presentation/wear phase;do not add native weapon wear.",
+    "The approved basic fallback retains no skill AR/ED and a single contact."
+  ],
+  "remaining": [
+    "Exact modern sequence/RNG/stat/geometry/owner and exceptional recipient/PvP equivalence remain unverified.",
+    "Impale and captured lightning thrusts,other item/missile/incoming paths and full named-item admission remain separate. No new item or class certification follows."
+  ]
+}

@@ -11,7 +11,7 @@ namespace Sanctuary;
 // Item processors and native encounter reactions remain explicit adapters.
 internal sealed record PlayerWeaponContactPrepared(int Flags,PreparedWeaponImpact Impact,PlayerWeaponDrain Drain,int ColdFrames,int BaseHitClass,Random Effects,int HitClass=0,
     bool Smite=false,Func<int,int> StunRoll=null,int? MeleeRange=null,bool SkillKnockback=false,Func<int,bool> RangeCheck=null,int FreezeFrames=0,uint HitFlags=0,int? CrushingDivisor=null,bool SuppressWear=false,bool AttemptScoped=false,
-    Action<PlayerMobile,BaseCreature,DateTime> CapturedPoison=null,bool ControlStun=false,Func<bool> UninterruptibleItemCasts=null,Func<bool> ActiveSourceMode=null);
+    Action<PlayerMobile,BaseCreature,DateTime> CapturedPoison=null,bool ControlStun=false,Func<bool> UninterruptibleItemCasts=null,Func<bool> ActiveSourceMode=null,Action WeaponWear=null);
 
 internal static class PlayerWeaponContact
 {
@@ -156,6 +156,7 @@ internal static class PlayerWeaponContact
         internal override int BaseHitClass()=>scope.Prepared.BaseHitClass;
         internal override void AfterHitPresentation(PreparedMonsterDamagePacket packet)
         {
+            scope.Prepared.WeaponWear?.Invoke();
             if(!scope.Prepared.SuppressWear&&CombatTiming.Equipped(source) is{} weapon&&NamedAmmunition.Maximum(weapon)==0){weapon.WearOnHit(source,target);}
             if(scope.Loss>0&&scope.Map!=null&&scope.Map!=Map.Internal&&ClassGear.Bonus(source,"bloody")>0)
             {new Blood().MoveToWorld(scope.Point,scope.Map);}

@@ -14,6 +14,7 @@ public static class AmazonFend
     internal static Func<double> HitRoll=Utility.RandomDouble;
     internal static Func<double> ElementRoll=Utility.RandomDouble;
     internal static Func<int,int> PhysicalRoll=Utility.Random;
+    internal static Func<int,int> PoisonRoll=Utility.Random;
     internal static Random Effects=Random.Shared;
     internal static Random WearRoll=Random.Shared;
     internal static int Ceiling(int frames,int advance)=>(frames*256+Math.Max(1,advance)-1)/Math.Max(1,advance);
@@ -91,12 +92,8 @@ public static class AmazonFend
             owner.Direction=owner.GetDirectionTo(target);owner.DoHarmful(target,true);owner.PlaySound(0x238); // Identified native melee placeholder.
             using var attempted=PaladinThorns.Attempt(owner,target,false);
             var values=SkillMechanics.Values(owner,CombatAbility.Fend);
-            if(ClassStats.CheckHit(owner,target,series.Basic?0:(int)values.Formula("toht"),HitRoll)==true)
-            {
-                var weapon=CombatTiming.Equipped(owner);
-                GearEffects.Strike(owner,target,ElementRoll(),Effects,wearWeapon:false,skillPhysicalPercent:series.Basic?0:(int)values.Eval("calc2"),physicalRoll:PhysicalRoll);
-                AmazonJab.Wear(weapon,WearRoll);
-            }
+            if(target is BaseCreature creature)
+            {AmazonSequenceContact.Release(owner,creature,series.Basic?0:(int)values.Formula("toht"),series.Basic?0:(int)values.Eval("calc2"),HitRoll,ElementRoll,PhysicalRoll,PoisonRoll,Effects,WearRoll);}
         }
         series=series with{Remaining=series.Remaining-1,Released=series.Released+1};
         if(!Valid(owner,series)){Cancel(owner);ClassCombat.SendState(owner,session);return true;}

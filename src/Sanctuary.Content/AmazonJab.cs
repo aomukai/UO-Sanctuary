@@ -13,6 +13,7 @@ public static class AmazonJab
     internal static Func<double> HitRoll=Utility.RandomDouble;
     internal static Func<double> ElementRoll=Utility.RandomDouble;
     internal static Func<int,int> PhysicalRoll=Utility.Random;
+    internal static Func<int,int> PoisonRoll=Utility.Random;
     internal static Random Effects=Random.Shared;
     internal static Random WearRoll=Random.Shared;
     internal static string Code(PlayerMobile owner)=>PaladinZeal.AnimationCode(owner);
@@ -99,8 +100,8 @@ public static class AmazonJab
                 owner.DoHarmful(target,true);owner.PlaySound(0x238); // Identified native weapon sound/animation placeholder.
                 using var attempt=PaladinThorns.Attempt(owner,target,false);
                 var values=SkillMechanics.Values(owner,CombatAbility.Jab);
-                if(ClassStats.CheckHit(owner,target,series.Basic?0:(int)values.Formula("toht"),HitRoll)==true)
-                {var weapon=CombatTiming.Equipped(owner);GearEffects.Strike(owner,target,ElementRoll(),Effects,wearWeapon:false,skillPhysicalPercent:series.Basic?0:(int)values.Eval("calc1"),physicalRoll:PhysicalRoll);Wear(weapon,WearRoll);}
+                if(target is BaseCreature creature)
+                {AmazonSequenceContact.Release(owner,creature,series.Basic?0:(int)values.Formula("toht"),series.Basic?0:(int)values.Eval("calc1"),HitRoll,ElementRoll,PhysicalRoll,PoisonRoll,Effects,WearRoll);}
             }
             if(!Valid(owner,series)){Cancel(owner);return processed;}
         }
