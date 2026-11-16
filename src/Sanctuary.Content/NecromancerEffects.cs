@@ -111,6 +111,7 @@ public static class NecromancerEffects
         Profiles = new(); EventSink.WorldSave += Profiles.Prune;
         ClassCombatHooks.SkillResistedDamage = SkillCombat.ResistedDamage;
         ClassCombatHooks.SkillUnresistedDamage = SkillCombat.UnresistedDamage;
+        ClassCombatHooks.SkillUnresistedTypedDamage = SkillCombat.UnresistedTypedDamage;
         // Native AOS supplies the fractional physical event before committing life.
         // Its later ordinary hit callback must not repeat Life Tap.
         ClassCombatHooks.SkillWeaponHit = (attacker,target,loss,ranged)=>WeaponHit(attacker,target,loss,ranged,lifeTap:false,ironMaiden:false,frozenArmor:false);

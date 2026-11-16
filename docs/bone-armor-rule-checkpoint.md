@@ -1,5 +1,7 @@
 # Bone Armor current absorption qualification
 
+**Native shield producer update — 2026-11-16 JST.** [Qualified checkpoint](unresisted-shields-checkpoint.md):33 checks/six actual Energy Shield casts/two reloads now cover normalized native armor-ignore channels through the existing Energy/Bone/Cyclone pipeline. This corrects a missing producer without new shield formulas or priority policy. Unknown direct/remainder inputs and Ward/Energy overlap remain refused; source monster drains and special native/PvP/event ordering remain open. Older scopes and receipts below retain their historical binaries/source inventories.
+
 **Current policy adopted — 2026-11-16 JST.** [Exact approval](../tools/reference/bone-armor-rule-approval.json) and [adoption receipt](../tools/reference/bone-armor-rule-adoption-evidence.json) bind the unchanged tested C2/I2/S2/N2code. The pending statements below describe the historical candidate,not a new block on this skill.
 
 Reference: **D2R Reign of the Warlock3.3.93847**,approved deviations first. [Proposed absorption rule](bone-armor-rule-proposal.md);[current evidence](../tools/reference/bone-armor-rule-native-evidence.json). **Policy adoption remains pending.** Existing learned Bone Armor stays available; no new gate was added.

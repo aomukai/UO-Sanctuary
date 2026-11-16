@@ -1,5 +1,7 @@
 # Energy Shield checkpoint
 
+**Native shield producer update — 2026-11-16 JST.** [Qualified checkpoint](unresisted-shields-checkpoint.md):33 checks/six actual Energy Shield casts/two reloads now cover normalized native armor-ignore channels through the existing Energy/Bone/Cyclone pipeline. This corrects a missing producer without new shield formulas or priority policy. Unknown direct/remainder inputs and Ward/Energy overlap remain refused; source monster drains and special native/PvP/event ordering remain open. Older scopes and receipts below retain their historical binaries/source inventories.
+
 Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. This follows [Shiver Armor](sorceress-shiver-armor-checkpoint.md). No class completion or deployment is claimed.
 
 The [complete older event24 and percentage helper](../tools/reference/energy-shield-source-evidence.json) compose in25,344cases plus eight refusal guards under clean ASan/UBSan. The [complete do23, state-list and passive helper](../tools/reference/energy-shield-cast-source-evidence.json) add1,620sanitized cast contexts, reusing the exact retained Enchant service scaffold and canonical shared list helper. Equal ranks refresh the same list; weaker same-skill ranks refuse; stronger/different lists replace it. Current Energy Shield has no passive-stat entries. Evaluated formula/stat/state/allocation/event/animation services remain explicit boundaries; neither proof executes the modern game.

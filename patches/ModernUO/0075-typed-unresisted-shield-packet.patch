@@ -1,0 +1,33 @@
+--- a/Projects/UOContent/Mobiles/ClassCombatHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -9,6 +9,9 @@
+     public int Physical256 { get; init; }
+     public object WeaponContext { get; init; }
+ }
++// Native fields after the existing chaos allocation; no drain inference.
++public readonly record struct ClassUnresistedPacket(int Damage, int Physical, int Fire,
++    int Cold, int Poison, int Lightning, int Direct, bool Weapon, bool Ranged);
+ public static class ClassCombatHooks
+ {
+     public static Func<PlayerMobile, bool> DeathAllowed { get; set; }
+@@ -37,6 +40,7 @@
+     public static Func<PlayerMobile, int, int> WalkingDelay { get; set; }
+     public static Func<Mobile, Mobile, int, int, int, int, int, int, bool, bool, bool, ClassSkillDamage?> SkillResistedDamage { get; set; }
+     public static Func<Mobile, Mobile, int, int, bool, bool, ClassSkillDamage?> SkillUnresistedDamage { get; set; }
++    public static Func<Mobile, Mobile, ClassUnresistedPacket, ClassSkillDamage?> SkillUnresistedTypedDamage { get; set; }
+     public static Action<Mobile, Mobile, int, bool> SkillWeaponHit { get; set; }
+     public static Func<BaseCreature, bool> ControlThink { get; set; }
+     public static Func<Mobile, Mobile, bool> TargetAllowed { get; set; }
+--- a/Projects/UOContent/Misc/AOS.cs
++++ b/Projects/UOContent/Misc/AOS.cs
+@@ -237,7 +237,9 @@
+ 
+             if (ignoreArmor)
+             {
+-                skillResistance = ClassCombatHooks.SkillUnresistedDamage?.Invoke(m, from, damage, phys, weaponDamage, archer);
++                skillResistance = ClassCombatHooks.SkillUnresistedTypedDamage?.Invoke(m, from,
++                    new ClassUnresistedPacket(damage, phys, fire, cold, pois, nrgy, direct, weaponDamage, archer))
++                    ?? ClassCombatHooks.SkillUnresistedDamage?.Invoke(m, from, damage, phys, weaponDamage, archer);
+                 if (skillResistance is { } unresisted)
+                 {
+                     totalDamage -= damage - unresisted.Total;

@@ -1,5 +1,7 @@
 # Druid acceptance map
 
+**Native shield producer update — 2026-11-16 JST.** [Qualified checkpoint](unresisted-shields-checkpoint.md):33 checks/six actual Energy Shield casts/two reloads now cover normalized native armor-ignore channels through the existing Energy/Bone/Cyclone pipeline. This corrects a missing producer without new shield formulas or priority policy. Unknown direct/remainder inputs and Ward/Energy overlap remain refused; source monster drains and special native/PvP/event ordering remain open. Older scopes and receipts below retain their historical binaries/source inventories.
+
 Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Charms and runewords are excluded. All 30 talents have handlers; the combined cohort passes 675 exact results across three saves/two reloads. A handler or passing subset does not certify complete modern D2R parity.
 
 | Talent | Mechanical scope | Existing fixture |

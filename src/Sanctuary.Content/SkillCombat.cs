@@ -166,17 +166,37 @@ public static class SkillCombat
     // Native armor-ignore bypasses resistance,not finite physical shields.
     // Leave all pre-existing unshielded damage routes untouched.
     internal static ClassSkillDamage? UnresistedDamage(Mobile target,Mobile source,int damage,int physical,bool weapon,bool ranged)
+        =>UnresistedDamageCore(target,source,damage,physical,weapon,ranged,null);
+    internal static ClassSkillDamage? UnresistedTypedDamage(Mobile target,Mobile source,ClassUnresistedPacket packet)
+    {
+        bool energy=SorceressEffects.Shield(target)!=null;
+        if(!energy&&DruidCycloneArmor.State(target)==null){return null;}
+        // Refuse unclassified native direct/remainder damage before spending
+        // mana or any pool. It is not a D2 magic or drain field.
+        if(packet.Damage<0||packet.Direct!=0||packet.Physical<0||packet.Fire<0||packet.Cold<0||packet.Poison<0||packet.Lightning<0
+            ||(long)packet.Physical+packet.Fire+packet.Cold+packet.Poison+packet.Lightning!=100)
+        {throw new NotSupportedException("Unclassified native armor-ignore channel projection");}
+        if(energy&&PsychicWard.State(target)!=null)
+        {throw new NotSupportedException("Psychic Ward/Energy Shield priority remains unverified");}
+        var raw=new GearDamage(packet.Damage*(packet.Physical/100.0),packet.Damage*(packet.Fire/100.0),
+            packet.Damage*(packet.Cold/100.0),packet.Damage*(packet.Lightning/100.0),packet.Damage*(packet.Poison/100.0));
+        return UnresistedDamageCore(target,source,packet.Damage,packet.Physical,packet.Weapon,packet.Ranged,raw);
+    }
+    private static ClassSkillDamage? UnresistedDamageCore(Mobile target,Mobile source,int damage,int physical,bool weapon,bool ranged,GearDamage? typed)
     {
         bool boundWeapon=weapon&&damage>0&&BoundDemonHosts.Active(source);
-        if(!boundWeapon&&NecromancerEffects.Armor(target)==0&&PsychicWard.State(target)==null&&!HexPurgeReactionProposal.ManagedPrepared(target)&&!BloodOathDamageProposal.ManagedPrepared(target)){return null;}
+        if(typed==null&&!boundWeapon&&NecromancerEffects.Armor(target)==0&&PsychicWard.State(target)==null&&!HexPurgeReactionProposal.ManagedPrepared(target)&&!BloodOathDamageProposal.ManagedPrepared(target)){return null;}
         if(damage<0||physical is <0 or >100){throw new NotSupportedException("Unsupported Ward native armor-ignore packet");}
         double physicalBase=damage*physical/100.0;int originalPhysical=NamedElements.To256(physicalBase);
         int raw=boundWeapon?NamedElements.To256((physicalBase+BoundDemonHosts.FlatDamage(source))*PaladinAuras.NativeWeaponMultiplier(source,true)):originalPhysical;
         var ward=PsychicWardReactionProposal.Capture(source,target,raw,weapon&&!ranged,weapon);
-        int remaining=NamedElements.To256(PsychicWard.AbsorbPhysical(target,NecromancerEffects.AbsorbPhysical(target,raw/256.0)));
+        var parts=typed is{} channels?DefensiveArmors.Absorb(target,channels with{Physical=raw/256.0})
+            :new GearDamage(PsychicWard.AbsorbPhysical(target,NecromancerEffects.AbsorbPhysical(target,raw/256.0)),0,0,0,0);
+        int remaining=NamedElements.To256(parts.Physical);
         var spectral=BoundDemonUpgrades.Capture(source,target,weapon,ranged,damage);
         var added=SpectralHit.Direct(default,spectral?.Roll);
-        int total=(int)Math.Clamp((long)NamedElements.To256(damage)-originalPhysical+remaining+NamedElements.To256(added.Total),0,int.MaxValue);
+        long baseTotal=typed!=null?NamedElements.To256(parts.Total):(long)NamedElements.To256(damage)-originalPhysical+remaining;
+        int total=(int)Math.Clamp(baseTotal+NamedElements.To256(added.Total),0,int.MaxValue);
         BoundDemonUpgrades.PrepareDelivery(spectral,new(total/256.0,0,0,0,0));
         return new(total/256,remaining/256){Total256=total,Physical256=remaining,WeaponContext=ward};
     }
