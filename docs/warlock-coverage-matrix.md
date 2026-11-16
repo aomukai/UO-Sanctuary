@@ -1,6 +1,6 @@
 # Warlock/Witch acceptance inventory
 
-Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. **Charms and runewords are excluded.** Druid combined acceptance has passed; this is the next-class inventory and it enables no skill, performs no new native run and grants no class certificate.
+Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. **Charms and runewords are excluded.** Druid combined acceptance has passed; this inventory records scoped subgroup results and grants no whole-class certificate.
 
 Current status has **26 handlers and four pending talents**. Existing component/learned fixtures are listed below for reuse. A fixture filename is an evidence entry point, not a claim that every modern mechanic or the combined class has passed.
 
@@ -26,16 +26,16 @@ Current status has **26 handlers and four pending talents**. Existing component/
 | Eldritch Blast | Weapon/Hex/Ward group accepted (240 results) | [EldritchBlastCastChecks.cs](../tests/Sanctuary.Integration/EldritchBlastCastChecks.cs) |
 | Hex: Siphon | Weapon/Hex/Ward group accepted (240 results) | [HexSiphonCastChecks.cs](../tests/Sanctuary.Integration/HexSiphonCastChecks.cs) |
 | Mirrored Blades | Weapon/Hex/Ward group accepted (240 results) | [MirroredCastChecks.cs](../tests/Sanctuary.Integration/MirroredCastChecks.cs) |
-| Miasma Bolt | Handler present; combined acceptance pending | [MiasmaCastChecks.cs](../tests/Sanctuary.Integration/MiasmaCastChecks.cs) |
-| Ring of Fire | Handler present; combined acceptance pending | [RingCastChecks.cs](../tests/Sanctuary.Integration/RingCastChecks.cs) |
-| Sigil: Lethargy | Handler present; combined acceptance pending | [SigilCastChecks.cs](../tests/Sanctuary.Integration/SigilCastChecks.cs) |
-| Sigil: Rancor | Handler present; combined acceptance pending | [RancorCastChecks.cs](../tests/Sanctuary.Integration/RancorCastChecks.cs) |
-| Miasma Chain | Handler present; combined acceptance pending | [MiasmaChainCastChecks.cs](../tests/Sanctuary.Integration/MiasmaChainCastChecks.cs) |
-| Flame Wave | Handler present; combined acceptance pending | [FlameWaveCastChecks.cs](../tests/Sanctuary.Integration/FlameWaveCastChecks.cs) |
-| Sigil: Death | Handler present; combined acceptance pending | [SigilDeathChecks.cs](../tests/Sanctuary.Integration/SigilDeathChecks.cs) |
-| Enhanced Entropy | Handler present; combined acceptance pending | [EntropyCloudChecks.cs](../tests/Sanctuary.Integration/EntropyCloudChecks.cs) |
-| Apocalypse | Handler present; combined acceptance pending | [ApocalypseCastChecks.cs](../tests/Sanctuary.Integration/ApocalypseCastChecks.cs) |
-| Abyss | Handler present; combined acceptance pending | [AbyssCastChecks.cs](../tests/Sanctuary.Integration/AbyssCastChecks.cs) |
+| Miasma Bolt | Chaos/Sigil group accepted (315 results) | [MiasmaCastChecks.cs](../tests/Sanctuary.Integration/MiasmaCastChecks.cs) |
+| Ring of Fire | Chaos/Sigil group accepted (315 results) | [RingCastChecks.cs](../tests/Sanctuary.Integration/RingCastChecks.cs) |
+| Sigil: Lethargy | Chaos/Sigil group accepted (315 results) | [SigilCastChecks.cs](../tests/Sanctuary.Integration/SigilCastChecks.cs) |
+| Sigil: Rancor | Chaos/Sigil group accepted (315 results) | [RancorCastChecks.cs](../tests/Sanctuary.Integration/RancorCastChecks.cs) |
+| Miasma Chain | Chaos/Sigil group accepted (315 results) | [MiasmaChainCastChecks.cs](../tests/Sanctuary.Integration/MiasmaChainCastChecks.cs) |
+| Flame Wave | Chaos/Sigil group accepted (315 results) | [FlameWaveCastChecks.cs](../tests/Sanctuary.Integration/FlameWaveCastChecks.cs) |
+| Sigil: Death | Chaos/Sigil group accepted (315 results) | [SigilDeathChecks.cs](../tests/Sanctuary.Integration/SigilDeathChecks.cs) |
+| Enhanced Entropy | Chaos/Sigil group accepted (315 results) | [EntropyCloudChecks.cs](../tests/Sanctuary.Integration/EntropyCloudChecks.cs) |
+| Apocalypse | Chaos/Sigil group accepted (315 results) | [ApocalypseCastChecks.cs](../tests/Sanctuary.Integration/ApocalypseCastChecks.cs) |
+| Abyss | Chaos/Sigil group accepted (315 results) | [AbyssCastChecks.cs](../tests/Sanctuary.Integration/AbyssCastChecks.cs) |
 
 The four frozen proposal pairs are `blood-oath-damage`, `engorge-world-rule`, `blood-boil-rule` and `consume-world-rule`. Do not infer approval, open their learned routes or reask solely for this inventory. Other existing routes can continue independently.
 
@@ -45,8 +45,4 @@ Reuse the existing current-input and component drivers when assembling the class
 
 Missing visual effects/audio stay in [skill-effects](skill-effects.md); tree/hotkey art stays in [skill-icons](skill-icons.md). Identified placeholders do not gate mechanics. No image generation or deployment is part of this inventory.
 
-Current first group: [demon/foundation checkpoint](warlock-planned-acceptance-checkpoint.md), [driver](../tests/check_warlock_demons_acceptance.py). Seven route entry points, 21 reused families, nine ordinary input commands and two held Bind sequences per boot are declared; native acceptance remains pending. The other nineteen implemented routes remain next, and the four frozen proposals remain pending.
-
-The [demon/foundation group](warlock-demons-acceptance-checkpoint.md) is accepted:180 exact results/75connections/three saves/two reloads, covering seven routes. Seven unsupported-context rejections remain explicit; no save-deletion warnings or connection denials occurred. Nineteen implemented routes and four frozen proposals remain outside that accepted scope.
-
-Second group prepared: [weapons/Hex/Ward checkpoint](warlock-weapons-acceptance-checkpoint.md), [driver](../tests/check_warlock_weapons_acceptance.py). Nine routes, 21 existing families, 24 input commands and original save controls are declared; acceptance is pending. Ten implemented Chaos/Sigil routes and four frozen proposals remain.
+Accepted groups: [demons/foundations](warlock-demons-acceptance-checkpoint.md) cover seven routes (180 results); [weapons/Hex/Ward](warlock-weapons-acceptance-checkpoint.md) cover nine (240 results); [Chaos/Sigils](warlock-chaos-acceptance-checkpoint.md) cover ten (315 results). Each retains three saves/two reloads and its own exact artifact/source inventory. This covers all26 currently implemented routes, not the four pending talents or full modern parity. Bane's previous three-life loss and the first Chaos run's Abyss input timeout remain explicitly unattributed; the accepted reruns retain the original assertions and added diagnostics.

@@ -129,7 +129,7 @@ public static class AbyssCastChecks
             if(done){return;}
             try
             {
-                if(Core.TickCount>=deadline){throw new InvalidOperationException("Wire pulse/terminal timeout");}var s=ClassCombat.For(p);var nodes=AbyssWorld.For(p);
+                if(Core.TickCount>=deadline){throw new InvalidOperationException("Wire pulse/terminal timeout; began="+began+" released="+released+" direct="+direct+" terminal="+terminal+" initialLife="+hp+" directLife="+directLife+" terminalLife="+terminalLife+" currentLife="+SkillHealth.Balance256(target)+" nodes="+JsonSerializer.Serialize(AbyssWorld.For(p)));}var s=ClassCombat.For(p);var nodes=AbyssWorld.For(p);
                 if(!began&&s.PendingAbility==Ability)
                 {Require(s.PendingTarget==target.Serial&&s.PendingPoint==target.Location&&NecromancerEffects.ManaBalance256(p)==mana,"Wire selected aim/unpaid windup");began=true;Log.Information("{Label}: windup",label);}
                 if(nodes.Length>0&&!released){Require(began&&NecromancerEffects.ManaBalance256(p)==mana-cost,"Wire one release debit");released=true;}
