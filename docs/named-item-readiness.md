@@ -2,7 +2,7 @@
 
 Generated from the real native factory/eligibility fixture. This records staged acquisition eligibility; it does not certify deployment or every gameplay path. Every source definition appears in the runtime audit, and every deferred definition is listed below. Excluded charms remain in the source audit only. Rebuild with `python3 tools/build_named_readiness.py`; verify with `--check`.
 
-Currently eligible: **249 Unique variants and 88 Set pieces**. **192 source-spawnable definitions remain held**; 29 other source records retain their source/quest/recipe restrictions. 15 charm definitions are intentionally excluded, with no implementation or class-return task.
+Currently eligible: **256 Unique variants and 93 Set pieces**. **180 source-spawnable definitions remain held**; 29 other source records retain their source/quest/recipe restrictions. 15 charm definitions are intentionally excluded, with no implementation or class-return task.
 
 Unavailable outcomes keep their original weight: empty drops or refunded gambles, without replacement rolls. A Set stays held until all its pieces and bonuses can work. The [spell/skill prerequisite list](deferred-named-skills.md) gives the exact source skills and delivery systems.
 
@@ -23,10 +23,10 @@ Counts overlap: one item may need several systems. Shared combat, maintenance an
 
 | Workstream | Held definitions | Remaining gates |
 | --- | ---: | --- |
-| Class skills and effect delivery | 164 | Implement each listed skill/effect and its proc, aura, charge or cross-class delivery. A rank bonus alone does not complete these paths. |
+| Class skills and effect delivery | 156 | Implement each listed skill/effect and its proc, aura, charge or cross-class delivery. A rank bonus alone does not complete these paths. |
 | Equipment, sockets and appearance | 21 | Rainbow Facet socket delivery; dual wielding; vampire form; held Warlock/quest gear representations. The item rows identify each dependency. |
 | Source groups, restrictions and unresolved data | 13 | Saved random source-group choices, six quest-only acquisition paths, Warlock prerequisites and unresolved source data. Never invent missing definitions. |
-| Whole-set dependency gate | 47 | These are dependent partner pieces, not separate mechanics. Release the whole set after all pieces and bonuses work. |
+| Whole-set dependency gate | 42 | These are dependent partner pieces, not separate mechanics. Release the whole set after all pieces and bonuses work. |
 
 ## Outstanding blocker inventory
 
@@ -34,7 +34,7 @@ A definition may have several blockers. These include shared item mechanics as w
 
 | Blocker | Definitions | Return requirement |
 | --- | ---: | --- |
-| Effect: att-skill | 4 | Use the per-item skill list; implement both the skill and its exact trigger, aura, charges or granted-rank delivery. |
+| Effect: att-skill | 3 | Use the per-item skill list; implement both the skill and its exact trigger, aura, charges or granted-rank delivery. |
 | Effect: aura | 1 | Use the per-item skill list; implement both the skill and its exact trigger, aura, charges or granted-rank delivery. |
 | Effect: charged | 30 | Use the per-item skill list; implement both the skill and its exact trigger, aura, charges or granted-rank delivery. |
 | Effect: death-skill | 5 | Use the per-item skill list; implement both the skill and its exact trigger, aura, charges or granted-rank delivery. |
@@ -48,7 +48,7 @@ A definition may have several blockers. These include shared item mechanics as w
 | Effect: oskill | 6 | Use the per-item skill list; implement both the skill and its exact trigger, aura, charges or granted-rank delivery. |
 | Effect: reanimate | 1 | Implement source monster template, on-kill ownership, AI, lifetime and persistence. |
 | Effect: roguesbow-affix1 | 1 | Resolve the exact pinned property group and all argument ranges/delivery systems; never invent missing Gelid-Affix5. |
-| Effect: skill | 39 | Use the per-item skill list; implement both the skill and its exact trigger, aura, charges or granted-rank delivery. |
+| Effect: skill | 32 | Use the per-item skill list; implement both the skill and its exact trigger, aura, charges or granted-rank delivery. |
 | Effect: skill-rand | 1 | Persist the selected source skill and rank, then implement every possible skill effect. |
 | Effect: skilltab-war | 1 | Implement the Warlock source tree, bindings and skill consumers. |
 | Effect: war | 3 | Implement the source Warlock class and class skill bonuses. |
@@ -58,7 +58,7 @@ A definition may have several blockers. These include shared item mechanics as w
 | Set effect: oskill | 10 | Use the per-item skill list; implement both the skill and its exact trigger, aura, charges or granted-rank delivery. |
 | Set effect: state | 5 | Implement the vampire transformation, class movement/casting/equipment rules and equip/break/unequip/save restoration; golden set auras already work. |
 | Set effect: war | 5 | Implement the source Warlock class and class skill bonuses. |
-| Set has unavailable pieces | 47 | Complete every held partner and bonus before enabling the whole set. |
+| Set has unavailable pieces | 42 | Complete every held partner and bonus before enabling the whole set. |
 | Set requires dual wielding | 2 | Implement both-hand equipment, attack/stat rules and save/wardrobe/death behavior. |
 | Warlock class is not implemented | 5 | Honor the stated class, quest, recipe or source-acquisition restriction; add its actual prerequisite before enabling it. |
 
@@ -72,11 +72,6 @@ A definition may have several blockers. These include shared item mechanics as w
 | piece/73 | Immortal King's Forge | Effect: gethit-skill; Set has unavailable pieces |
 | piece/74 | Immortal King's Pillar | Set has unavailable pieces |
 | piece/75 | Immortal King's Stone Crusher | Set has unavailable pieces |
-| piece/76 | Tal Rasha's Fine-Spun Cloth | Set has unavailable pieces |
-| piece/77 | Tal Rasha's Adjudication | Set has unavailable pieces |
-| piece/78 | Tal Rasha's Lidless Eye | Effect: skill; Set has unavailable pieces |
-| piece/79 | Tal Rasha's Guardianship | Set has unavailable pieces |
-| piece/80 | Tal Rasha's Horadric Crest | Set has unavailable pieces |
 | piece/85 | Trang-Oul's Guise | Set effect: oskill; Set effect: state; Set has unavailable pieces |
 | piece/86 | Trang-Oul's Scales | Set effect: oskill; Set effect: state; Set has unavailable pieces |
 | piece/87 | Trang-Oul's Wing | Set effect: oskill; Set effect: state; Set has unavailable pieces |
@@ -117,10 +112,6 @@ A definition may have several blockers. These include shared item mechanics as w
 | unique/17 | Stormeye | Effect: skill |
 | unique/20 | Bloodrise | Effect: skill |
 | unique/35 | Kinemil's Awl | Effect: skill |
-| unique/54 | Bane Ash | Effect: skill |
-| unique/56 | Spire of Lazarus | Effect: skill |
-| unique/57 | The Salamander | Effect: skill |
-| unique/58 | The Iron Jang Bong | Effect: skill |
 | unique/60 | Witherstring | Effect: magicarrow |
 | unique/61 | Raven Claw | Effect: explosivearrow |
 | unique/62 | Rogue's Bow | Effect: roguesbow-affix1 |
@@ -164,8 +155,6 @@ A definition may have several blockers. These include shared item mechanics as w
 | unique/171 | Stormspike | Effect: gethit-skill |
 | unique/172 | The Impaler | Effect: skill |
 | unique/178 | Blackleach Blade | Effect: hit-skill |
-| unique/185 | Chromatic Ire | Effect: skill |
-| unique/186 | Warpspear | Effect: skill |
 | unique/188 | Skystrike | Effect: hit-skill |
 | unique/190 | Kuko Shakaku | Effect: explosivearrow; Effect: skill |
 | unique/191 | Endlesshail | Effect: skill |
@@ -185,7 +174,6 @@ A definition may have several blockers. These include shared item mechanics as w
 | unique/245 | Snowclash | Effect: gethit-skill; Effect: skill |
 | unique/246 | Thundergod's Vigor | Effect: gethit-skill; Effect: skill |
 | unique/252 | Blackoak Shield | Effect: gethit-skill |
-| unique/254 | Hellslayer | Effect: att-skill |
 | unique/257 | Schaefer's Hammer | Effect: hit-skill |
 | unique/258 | The Cranium Basher | Effect: hit-skill |
 | unique/259 | Lightsabre | Effect: att-skill |
@@ -367,6 +355,11 @@ A definition may have several blockers. These include shared item mechanics as w
 | piece/67 | Aldur's Deception | Set |
 | piece/68 | Aldur's Rhythm | Set |
 | piece/69 | Aldur's Advance | Set |
+| piece/76 | Tal Rasha's Fine-Spun Cloth | Set |
+| piece/77 | Tal Rasha's Adjudication | Set |
+| piece/78 | Tal Rasha's Lidless Eye | Set |
+| piece/79 | Tal Rasha's Guardianship | Set |
+| piece/80 | Tal Rasha's Horadric Crest | Set |
 | piece/81 | Griswold's Valor | Set |
 | piece/82 | Griswold's Heart | Set |
 | piece/83 | Griswold's Redemption | Set |
@@ -434,7 +427,11 @@ A definition may have several blockers. These include shared item mechanics as w
 | unique/51 | The Battlebranch | Unique |
 | unique/52 | Woestave | Unique |
 | unique/53 | The Grim Reaper | Unique |
+| unique/54 | Bane Ash | Unique |
 | unique/55 | Serpent Lord | Unique |
+| unique/56 | Spire of Lazarus | Unique |
+| unique/57 | The Salamander | Unique |
+| unique/58 | The Iron Jang Bong | Unique |
 | unique/59 | Pluckeye | Unique |
 | unique/63 | Stormstrike | Unique |
 | unique/65 | Hellclap | Unique |
@@ -518,6 +515,8 @@ A definition may have several blockers. These include shared item mechanics as w
 | unique/182 | Grim's Burning Dead | Unique |
 | unique/183 | Razorswitch | Unique |
 | unique/184 | Ribcracker | Unique |
+| unique/185 | Chromatic Ire | Unique |
+| unique/186 | Warpspear | Unique |
 | unique/187 | Skull Collector | Unique |
 | unique/189 | Riphook | Unique |
 | unique/193 | Cliffkiller | Unique |
@@ -564,6 +563,7 @@ A definition may have several blockers. These include shared item mechanics as w
 | unique/250 | The Gladiator's Bane | Unique |
 | unique/251 | Arkaine's Valor | Unique |
 | unique/253 | Stormshield | Unique |
+| unique/254 | Hellslayer | Unique |
 | unique/255 | Messerschmidt's Reaver | Unique |
 | unique/256 | Baranar's Star | Unique |
 | unique/261 | The Grandfather | Unique |

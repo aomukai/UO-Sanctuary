@@ -42,7 +42,7 @@ public static class IronGolemFireBallChecks
         // Existing plain original and explicit proc carrier. Whole Hellslayer
         // acquisition/projection remains unavailable; do not enable its ledger.
         var definition=NamedGear.Catalog.Items.Single(x=>x.SourceKey=="Hellslayer");
-        Require(!NamedGear.Available(definition.Id),"Fixture enabled named acquisition");
+        Require(NamedGear.Available(definition.Id),"Retained complete Hellslayer admission is missing");
         var item=new DoubleAxe();ClassGear.Profiles.Ensure(item);return item;
     }
     private static Recipient Target(IronGolemBody body,int dx,int dy=0,int fire=0)

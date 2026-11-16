@@ -46,7 +46,7 @@ public static class WarpspearGrantChecks
         var rows=doc.RootElement.GetProperty("Definitions").EnumerateArray().ToArray();Require(rows.Length==573,"Incomplete named baseline");
         var changed=rows.Where(r=>r.GetProperty("Available").GetBoolean()!=NamedGear.Available(r.GetProperty("Id").GetString())).ToArray();
         Require(changed.Length==1&&changed[0].GetProperty("Id").GetString()=="unique/186"&&!changed[0].GetProperty("Available").GetBoolean()&&NamedGear.Available("unique/186"),"Direct grant update changed additional item readiness: "+string.Join(',',changed.Select(r=>r.GetProperty("Id").GetString())));
-        Require(!NamedGear.Available("unique/254"),"Warpspear admission bypassed Hellslayer proc gate");
+        Require(NamedGear.Available("unique/254"),"Retained complete Hellslayer admission regressed");
     }
     private static PlayerMobile Owner(DiabloClass type=DiabloClass.Sorceress)
     {

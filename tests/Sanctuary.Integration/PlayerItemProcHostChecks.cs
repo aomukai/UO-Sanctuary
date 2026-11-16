@@ -68,7 +68,7 @@ public static class PlayerItemProcHostChecks
     }
     private static void Check(bool reload)
     {
-        Require(!NamedGear.Available("unique/254"),"Prepared host admitted incomplete Hellslayer");PlayerMobile p,q;Item a,b,h;IronGolemFireBallChecks.Recipient t,u;int generation=0;
+        Require(NamedGear.Available("unique/254"),"Retained complete Hellslayer admission regressed");PlayerMobile p,q;Item a,b,h;IronGolemFireBallChecks.Recipient t,u;int generation=0;
         if(!reload)
         {
             p=Owner(DiabloClass.Barbarian,3550);q=Owner(DiabloClass.Paladin,3610);PlayerItemProcs.InitializeActor(p,SourceRandom.InitLow(13));PlayerItemProcs.InitializeActor(q,SourceRandom.InitLow(27));

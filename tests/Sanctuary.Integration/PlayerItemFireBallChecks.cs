@@ -124,7 +124,7 @@ public static class PlayerItemFireBallChecks
     {var pool=SorceressSpellMissiles.Snapshot();SorceressSpellMissiles.Restore(pool with{Flights=pool.Flights.Select(x=>x.Id==f.Id?f:x).ToArray()});}
     private static void Check(bool reload)
     {
-        Require(!NamedGear.Available("unique/254"),"Prepared producer enabled incomplete Hellslayer acquisition");var types=Enum.GetValues<DiabloClass>();Require(types.Length==8,"Class roster changed");
+        Require(NamedGear.Available("unique/254"),"Retained complete Hellslayer admission regressed");var types=Enum.GetValues<DiabloClass>();Require(types.Length==8,"Class roster changed");
         var saved=reload?JsonSerializer.Deserialize<Saved[]>(File.ReadAllText(Manifest)):new Saved[8];var originalSeed=SorceressSpellMissiles.SeedLow;
         SorceressSpellMissiles.SeedLow=()=>throw new InvalidOperationException("Item allocation borrowed ordinary spell RNG");
         try

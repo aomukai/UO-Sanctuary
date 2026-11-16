@@ -34,6 +34,9 @@
     "sorceress.teleport",
     "sorceress.warmth"
   ],
+  "qualifiedProcItems": [
+    "unique/254"
+  ],
   "mechanicallyImplementedSkills": [
     "amazon.avoid",
     "amazon.chargedstrike",
@@ -3037,37 +3040,6 @@
           ],
           "prerequisites": [
             "on-taking-hit proc dispatcher"
-          ]
-        }
-      ],
-      "setDependencies": []
-    },
-    {
-      "id": "unique/254",
-      "name": "Hellslayer",
-      "rarity": "Unique",
-      "setId": null,
-      "sourceAvailability": "SpawnableDefinition",
-      "sourceSpawnable": true,
-      "dependencies": [
-        {
-          "scope": "own",
-          "code": "att-skill",
-          "slot": "7",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": 47,
-              "sourceId": 47,
-              "name": "Fire Ball",
-              "sourceKey": "Fire Ball",
-              "talentId": "sorceress.fireball",
-              "implemented": true,
-              "directGrantQualified": true
-            }
-          ],
-          "prerequisites": [
-            "on-attack proc dispatcher"
           ]
         }
       ],

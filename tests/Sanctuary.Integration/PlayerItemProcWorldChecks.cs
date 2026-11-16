@@ -54,7 +54,7 @@ public static class PlayerItemProcWorldChecks
     }
     private static void Check(bool reload)
     {
-        Require(PlayerItemProcWorld.Approved&&!NamedGear.Available("unique/254"),"Approved world policy changed complete-item admission");
+        Require(PlayerItemProcWorld.Approved&&NamedGear.Available("unique/254"),"Retained complete Hellslayer admission regressed");
         PlayerMobile p;Item item;IronGolemFireBallChecks.Recipient t;int generation=0;
         if(!reload)
         {

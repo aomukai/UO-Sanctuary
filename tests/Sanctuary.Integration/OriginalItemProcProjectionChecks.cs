@@ -33,7 +33,7 @@ public static class OriginalItemProcProjectionChecks
     }
     private static void Check(bool reload)
     {
-        Require(!NamedGear.Available("unique/254"),"Projection/registration preparation bypassed whole Hellslayer acquisition");
+        Require(NamedGear.Available("unique/254"),"Retained complete Hellslayer admission regressed");
         var definition=NamedGear.Catalog.Item("unique/254");Require(definition.Properties.Count(p=>p.SourceEnabled)==7,"Incomplete pinned Hellslayer recipe");
         int[] levels=[1,40,99];int[] ranks=[1,8,20];var saved=reload?JsonSerializer.Deserialize<Saved[]>(File.ReadAllText(Manifest)):new Saved[3];
         for(int index=0;index<levels.Length;index++)

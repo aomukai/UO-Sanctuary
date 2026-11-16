@@ -80,7 +80,7 @@ public static class NamedGear
                 && quest.TryGetInt32(out int questId) && questId != 0)
             { reasons.Add("Quest-only base requires its quest acquisition path"); }
             foreach (var template in NamedPropertyRuntime.Templates(item))
-            { if (!NamedPropertyRuntime.Supported(template.Property) || !NamedSkills.Supported(template.Property)) { reasons.Add("Effect: " + template.Property.Code); } }
+            { if ((!NamedPropertyRuntime.Supported(template.Property)&&!NamedItemProcs.Supported(item,template.Property)) || !NamedSkills.Supported(template.Property)) { reasons.Add("Effect: " + template.Property.Code); } }
             if (item.Rarity == "Set")
             {
                 var set = Catalog.Set(item.SetId);
@@ -360,7 +360,7 @@ public static class NamedGear
                     && PieceBonusEnabled(wearer, definition.Id, property.Slot);
                 suffix = " (with " + condition + (active ? "; active)" : "; inactive)");
             }
-            string label = PropertyText(template.Property, value, item.RootParent is PlayerMobile owner ? ClassStats.Level(owner) : 1);
+            string label = PropertyText(template.Property, value, item.RootParent is PlayerMobile owner ? ClassStats.Level(owner) : 1,state.Roll.ItemLevel);
             list.Add($"{label}{suffix}");
         }
         int capacity = NamedAmmunition.Maximum(item);
@@ -384,8 +384,14 @@ public static class NamedGear
             }
         }
     }
-    internal static string PropertyText(NamedProperty property, NamedPropertyRoll value, int level)
+    internal static string PropertyText(NamedProperty property, NamedPropertyRoll value, int level,int? itemLevel=null)
     {
+        if(NamedPropertyRuntime.ProcArguments(property))
+        {
+            int rank=ItemSkillPropertyWriter.ProcRank(property,value,itemLevel??throw new System.NotSupportedException("Proc description requires its saved item level"));
+            string trigger=property.Code switch{"att-skill"=>"on Attack","hit-skill"=>"on Striking","gethit-skill"=>"when Struck","kill-skill"=>"on Kill","death-skill"=>"on Death","levelup-skill"=>"on Level Up",_=>throw new System.NotSupportedException()};
+            return $"{(value.Value<=0?5:value.Value)}% Chance to Cast Level {rank} {ItemSkillProperties.Skill(ItemSkillProperties.Parameter(property)).Name} {trigger}";
+        }
         if (property.Code == "state" && property.Parameter?.ToString() == "fullsetgeneric") { return "Golden Set Aura"; }
         if (property.Code == "fade") { return "Visible Fade (50% opacity)"; }
         if (property.Code == "bloody") { return "Extra Blood (cosmetic)"; }

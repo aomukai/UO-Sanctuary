@@ -54,6 +54,12 @@ internal static class ItemSkillPropertyWriter
         if(level==0){return Math.Clamp((itemLevel-skill.RequiredLevel)/4+1,1,skill.MaximumLevel<=0?20:skill.MaximumLevel);}
         return level;
     }
+    internal static int ProcRank(NamedProperty property,NamedPropertyRoll roll,int itemLevel)
+    {
+        NamedPropertyRuntime.Validate(property,roll);
+        if(!NamedPropertyRuntime.ProcArguments(property)||itemLevel is<1 or>787){throw new System.NotSupportedException("Proc rank needs its retained arguments and source item level");}
+        int skill=ItemSkillProperties.Parameter(property);return Level(new(roll.Value,roll.Maximum,skill),ItemSkillProperties.Skill(skill),itemLevel)&63;
+    }
     internal static void Apply(EquipmentPropertyPlan plan,EquipmentPropertyInput input,ItemSkillPropertyServices metadata,EquipmentPropertyServices target)
     {
         if(!Supports(plan)){throw new NotSupportedException("No encoded skill-property writer for "+plan?.Code);}

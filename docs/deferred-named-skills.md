@@ -8,7 +8,7 @@ Pinned source: `fa1286949266498b294c40c2942521a7c0d7207a`. Reproduce with `pytho
 
 240 class talent routes are mechanically implemented;the separate direct-grant registry still contains31talents. A working spell alone does not supply a proc, aura, charge or cross-class grant system. Generic class/tree/all-skill and source-tagged fire-skill bonuses raise learned or directly granted skills without spending points or unlocking every skill. Item freeze, blind and flee are implemented shared effects; they do not require the full player class spells to exist.
 
-158 source-spawnable item definitions have direct or set-wide spell/skill dependencies. 15 additional pieces are held so their sets remain completable. These counts describe skill dependencies, not total runtime availability; other source, appearance or combat-effect gates may also apply.
+157 source-spawnable item definitions have direct or set-wide spell/skill dependencies. 15 additional pieces are held so their sets remain completable. These counts describe skill dependencies, not total runtime availability; other source, appearance or combat-effect gates may also apply.
 
 ## Source-spawnable items to revisit
 
@@ -74,7 +74,6 @@ Pinned source: `fa1286949266498b294c40c2942521a7c0d7207a`. Reproduce with `pytho
 | unique/245 | Snowclash | own `gethit-skill`: Blizzard (mechanical route implemented) — on-taking-hit proc dispatcher<br>own `skill`: Blizzard (mechanical route implemented) — Qualify direct +skill item grant for this class consumer<br>own `skill`: Glacial Spike (mechanical route implemented) — Qualify direct +skill item grant for this class consumer<br>own `skill`: Chilling Armor (mechanical route implemented) — Qualify direct +skill item grant for this class consumer |
 | unique/246 | Thundergod's Vigor | own `gethit-skill`: Fist of the Heavens (mechanical route implemented) — on-taking-hit proc dispatcher<br>own `skill`: Lightning Strike (mechanical route implemented) — Qualify direct +skill item grant for this class consumer<br>own `skill`: Lightning Fury (mechanical route implemented) — Qualify direct +skill item grant for this class consumer |
 | unique/252 | Blackoak Shield | own `gethit-skill`: Weaken (mechanical route implemented) — on-taking-hit proc dispatcher |
-| unique/254 | Hellslayer | own `att-skill`: Fire Ball (mechanical route implemented) — on-attack proc dispatcher |
 | unique/257 | Schaefer's Hammer | own `hit-skill`: Static Field (mechanical route implemented) — on-hit proc dispatcher |
 | unique/258 | The Cranium Basher | own `hit-skill`: Amplify Damage (mechanical route implemented) — on-hit proc dispatcher |
 | unique/259 | Lightsabre | own `att-skill`: Chain Lightning (mechanical route implemented) — on-attack proc dispatcher |

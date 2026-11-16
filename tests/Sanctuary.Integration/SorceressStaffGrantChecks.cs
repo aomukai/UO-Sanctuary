@@ -61,9 +61,9 @@ public static class SorceressStaffGrantChecks
         using var doc=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"sorceress-staff-before-readiness.json")));
         var rows=doc.RootElement.GetProperty("Definitions").EnumerateArray().ToArray();Require(rows.Length==573,"Incomplete baseline definitions");
         var changed=rows.Where(r=>r.GetProperty("Available").GetBoolean()!=NamedGear.Available(r.GetProperty("Id").GetString())).ToArray();
-        var expected=new[]{"unique/186","unique/56","unique/57","unique/58","unique/54","unique/185","piece/76","piece/77","piece/78","piece/79","piece/80"}.Order(StringComparer.Ordinal);
+        var expected=new[]{"unique/186","unique/56","unique/57","unique/58","unique/54","unique/185","unique/254","piece/76","piece/77","piece/78","piece/79","piece/80"}.Order(StringComparer.Ordinal);
         Require(changed.All(r=>!r.GetProperty("Available").GetBoolean())&&changed.Select(r=>r.GetProperty("Id").GetString()).Order(StringComparer.Ordinal).SequenceEqual(expected),"Unexpected named readiness delta: "+string.Join(',',changed.Select(r=>r.GetProperty("Id").GetString())));
-        Require(!NamedGear.Available("unique/254"),"Staff direct grants enabled unfinished Hellslayer proc");
+        Require(NamedGear.Available("unique/254"),"Retained complete Hellslayer admission regressed");
     }
     private static PlayerMobile Owner(DiabloClass type=DiabloClass.Sorceress)
     {

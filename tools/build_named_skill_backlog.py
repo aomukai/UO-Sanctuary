@@ -34,6 +34,9 @@ def compile_backlog():
     working = set(json.loads((ROOT / 'data/Sanctuary/Balance/named-active-skills.json').read_text()))
     if not working <= {r['talentId'] for r in bindings.values()}:
         raise ValueError('Active skill lacks its source binding')
+    qualified_procs=json.loads((ROOT/'data/Sanctuary/Balance/named-proc-items.json').read_text())
+    if qualified_procs!=['unique/254']:
+        raise ValueError('Unqualified whole-original proc return ledger')
     status=json.loads((ROOT/'data/Sanctuary/Balance/class-skill-status.json').read_text())
     implemented={r['talentId'] for r in status['skills'] if r['implementation']=='handler-present'}
     by_name = {r['skill'].casefold(): str(r['*Id']) for r in skills.values() if r.get('skill')}
@@ -122,6 +125,9 @@ def compile_backlog():
             continue  # Charms are intentionally excluded, not deferred.
         deps = [dict(scope=scope, **dep) for scope, key in [('own', 'properties'), ('piece bonus', 'additionalProperties')]
                 for prop in item[key] for dep in prerequisites(prop)]
+        if item['id'] in qualified_procs:
+            deps=[dep for dep in deps if not(dep['scope']=='own' and dep['code']=='att-skill' and not dep['via']
+                  and len(dep['skills'])==1 and dep['skills'][0]['sourceId']==47)]
         if deps or by_set.get(item['setId']):
             items.append(dict(id=item['id'], name=item['name'], rarity=item['rarity'], setId=item['setId'],
                               sourceAvailability=item['sourceAvailability'], sourceSpawnable=item['sourceSpawnable'],
@@ -130,7 +136,7 @@ def compile_backlog():
     dependent_sets = {r['setId'] for r in items if r['setId'] is not None}
     partners = [dict(id=r['id'], name=r['name'], setId=r['setId']) for r in compiled['set-items']
                 if r['setId'] in dependent_sets and r['id'] not in {i['id'] for i in items}]
-    return dict(schemaVersion=1, sourceCommit=manifest['commit'], workingDirectSkills=sorted(working), mechanicallyImplementedSkills=sorted(implemented),
+    return dict(schemaVersion=1, sourceCommit=manifest['commit'], workingDirectSkills=sorted(working), qualifiedProcItems=qualified_procs, mechanicallyImplementedSkills=sorted(implemented),
                 skillReadinessRule="implemented describes the class mechanic route;directGrantQualified describes the separate unchanged named-active-skills registry. Neither implies proc/charge/aura/other item delivery readiness.",
                 items=items, sets=sets, heldSetPartners=partners)
 

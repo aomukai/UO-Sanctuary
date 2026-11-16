@@ -46,7 +46,7 @@ public static class SavedItemProcPropertiesChecks
     }
     private static void Check(bool reload)
     {
-        Require(!NamedGear.Available("unique/254"),"Retaining arguments admitted incomplete Hellslayer");
+        Require(NamedGear.Available("unique/254"),"Retained complete Hellslayer admission regressed");
         var saved=reload?JsonSerializer.Deserialize<Saved[]>(File.ReadAllText(Manifest)):new Saved[Cases.Length];
         for(int index=0;index<Cases.Length;index++)
         {
