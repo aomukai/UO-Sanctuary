@@ -6,17 +6,17 @@ Current status has **26 handlers and four pending talents**. Existing component/
 
 | Talent | Current route | Existing fixture entry point |
 | --- | --- | --- |
-| Demonic Mastery | Handler present; combined acceptance pending | [DemonicMasteryChecks.cs](../tests/Sanctuary.Integration/DemonicMasteryChecks.cs) |
-| Summon Goatman | Handler present; combined acceptance pending | [GoatmanCastChecks.cs](../tests/Sanctuary.Integration/GoatmanCastChecks.cs) |
+| Demonic Mastery | Demon/foundation group accepted (180 results) | [DemonicMasteryChecks.cs](../tests/Sanctuary.Integration/DemonicMasteryChecks.cs) |
+| Summon Goatman | Demon/foundation group accepted (180 results) | [GoatmanCastChecks.cs](../tests/Sanctuary.Integration/GoatmanCastChecks.cs) |
 | Blood Oath | **Prepared only; frozen pending decision** | [BloodOathDamageChecks.cs](../tests/Sanctuary.Integration/BloodOathDamageChecks.cs) |
-| Death Mark | Handler present; combined acceptance pending | [DeathMarkActionChecks.cs](../tests/Sanctuary.Integration/DeathMarkActionChecks.cs) |
-| Summon Tainted | Handler present; combined acceptance pending | [TaintedCastChecks.cs](../tests/Sanctuary.Integration/TaintedCastChecks.cs) |
+| Death Mark | Demon/foundation group accepted (180 results) | [DeathMarkActionChecks.cs](../tests/Sanctuary.Integration/DeathMarkActionChecks.cs) |
+| Summon Tainted | Demon/foundation group accepted (180 results) | [TaintedCastChecks.cs](../tests/Sanctuary.Integration/TaintedCastChecks.cs) |
 | Blood Boil | **Prepared only; frozen pending decision** | [BloodBoilWorldChecks.cs](../tests/Sanctuary.Integration/BloodBoilWorldChecks.cs) |
-| Summon Defiler | Handler present; combined acceptance pending | [DefilerCastChecks.cs](../tests/Sanctuary.Integration/DefilerCastChecks.cs) |
+| Summon Defiler | Demon/foundation group accepted (180 results) | [DefilerCastChecks.cs](../tests/Sanctuary.Integration/DefilerCastChecks.cs) |
 | Engorge | **Prepared only; frozen pending decision** | [EngorgeWorldChecks.cs](../tests/Sanctuary.Integration/EngorgeWorldChecks.cs) |
 | Consume | **Prepared only; frozen pending decision** | [ConsumeWorldChecks.cs](../tests/Sanctuary.Integration/ConsumeWorldChecks.cs) |
-| Bind Demon | Handler present; combined acceptance pending | [BindDemonLearnedChecks.cs](../tests/Sanctuary.Integration/BindDemonLearnedChecks.cs) |
-| Levitation Mastery | Handler present; combined acceptance pending | [LevitationChecks.cs](../tests/Sanctuary.Integration/LevitationChecks.cs) |
+| Bind Demon | Demon/foundation group accepted (180 results) | [BindDemonLearnedChecks.cs](../tests/Sanctuary.Integration/BindDemonLearnedChecks.cs) |
+| Levitation Mastery | Demon/foundation group accepted (180 results) | [LevitationChecks.cs](../tests/Sanctuary.Integration/LevitationChecks.cs) |
 | Hex: Bane | Handler present; combined acceptance pending | [HexBaneCastChecks.cs](../tests/Sanctuary.Integration/HexBaneCastChecks.cs) |
 | Cleave | Handler present; combined acceptance pending | [CleaveCastChecks.cs](../tests/Sanctuary.Integration/CleaveCastChecks.cs) |
 | Echoing Strike | Handler present; combined acceptance pending | [EchoingStrikeCastChecks.cs](../tests/Sanctuary.Integration/EchoingStrikeCastChecks.cs) |
@@ -46,3 +46,5 @@ Reuse the existing current-input and component drivers when assembling the class
 Missing visual effects/audio stay in [skill-effects](skill-effects.md); tree/hotkey art stays in [skill-icons](skill-icons.md). Identified placeholders do not gate mechanics. No image generation or deployment is part of this inventory.
 
 Current first group: [demon/foundation checkpoint](warlock-planned-acceptance-checkpoint.md), [driver](../tests/check_warlock_demons_acceptance.py). Seven route entry points, 21 reused families, nine ordinary input commands and two held Bind sequences per boot are declared; native acceptance remains pending. The other nineteen implemented routes remain next, and the four frozen proposals remain pending.
+
+The [demon/foundation group](warlock-demons-acceptance-checkpoint.md) is accepted:180 exact results/75connections/three saves/two reloads, covering seven routes. Seven unsupported-context rejections remain explicit; no save-deletion warnings or connection denials occurred. Nineteen implemented routes and four frozen proposals remain outside that accepted scope.

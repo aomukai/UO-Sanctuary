@@ -24,3 +24,10 @@ Blood Oath, Blood Boil, Engorge and Consume retain their four frozen proposal pa
 Approved bodies remain Goatman → Gargoyle, Tainted → Succubus and Defiler → Gazer. The Defiler follows and links rather than making ordinary attacks. Summon-time capture, facet difficulty/percentage-life rescaling and safe-area parking retain their existing no-healing/no-reset rules. Exact current engine, special native species/elite/Sunder, item/recipient/terrain/PvP and graphical acceptance limits remain explicit per component. Current installed D2R is newer than the pinned reference; do not inspect its process or CASC.
 
 Final effects/audio and talent/hotkey icons remain in separate registers with identified placeholders. No new timer, persistence version, production gameplay, native kernel, deployment or artwork generation is introduced by this test composition. Installed runtime/saves/configuration/client protection remains required. The earlier five Druid WardrobeSet save warnings remain a separate shared-cleanup concern.
+
+
+## Accepted first group
+
+The demon/foundation group now passes **180 exact results, 75 connections, three saves and two reloads** on unchanged C1/I15. It verifies seven routes, 27 ordinary input attempts and six held Bind sequences. [Stable group checkpoint](warlock-demons-acceptance-checkpoint.md), [receipt](../tools/reference/warlock-demons-acceptance-native-evidence.json). No code/build/data/runtime change occurred. Seven deliberate unsupported-context rejections remain recorded (three untyped Health Link inputs and four lost S1 targets); no save-deletion warnings or connection denials occurred. Installed protection passes.
+
+Next is the nine-route weapon/Hex/Ward group, followed by the ten-route Sigil/Chaos group. These groups retain existing shared-mechanic regressions and current input checks. Whole-class completion is not claimed; four proposals remain frozen pending.
