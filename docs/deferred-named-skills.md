@@ -6,9 +6,9 @@ Art decision (22 October 2026): custom imagegen assets may supply missing equipm
 
 Pinned source: `fa1286949266498b294c40c2942521a7c0d7207a`. Reproduce with `python3 tools/build_named_skill_backlog.py`; verify with `--check`. The machine-readable companion is `data/Sanctuary/Balance/named-skill-backlog.json`.
 
-240 class talent routes are mechanically implemented;the separate direct-grant registry still contains16talents. A working spell alone does not supply a proc, aura, charge or cross-class grant system. Generic class/tree/all-skill and source-tagged fire-skill bonuses raise learned or directly granted skills without spending points or unlocking every skill. Item freeze, blind and flee are implemented shared effects; they do not require the full player class spells to exist.
+240 class talent routes are mechanically implemented;the separate direct-grant registry still contains18talents. A working spell alone does not supply a proc, aura, charge or cross-class grant system. Generic class/tree/all-skill and source-tagged fire-skill bonuses raise learned or directly granted skills without spending points or unlocking every skill. Item freeze, blind and flee are implemented shared effects; they do not require the full player class spells to exist.
 
-165 source-spawnable item definitions have direct or set-wide spell/skill dependencies. 19 additional pieces are held so their sets remain completable. These counts describe skill dependencies, not total runtime availability; other source, appearance or combat-effect gates may also apply.
+164 source-spawnable item definitions have direct or set-wide spell/skill dependencies. 19 additional pieces are held so their sets remain completable. These counts describe skill dependencies, not total runtime availability; other source, appearance or combat-effect gates may also apply.
 
 ## Source-spawnable items to revisit
 
@@ -60,7 +60,6 @@ Pinned source: `fa1286949266498b294c40c2942521a7c0d7207a`. Reproduce with `pytho
 | unique/172 | The Impaler | own `skill`: Impale (mechanical route implemented) — Qualify direct +skill item grant for this class consumer<br>own `skill`: Power Strike (mechanical route implemented) — Qualify direct +skill item grant for this class consumer |
 | unique/178 | Blackleach Blade | own `hit-skill`: Weaken (mechanical route implemented) — on-hit proc dispatcher |
 | unique/185 | Chromatic Ire | own `skill`: Fire Mastery (mechanical route implemented) — Qualify direct +skill item grant for this class consumer<br>own `skill`: Lightning Mastery (mechanical route implemented) — Qualify direct +skill item grant for this class consumer<br>own `skill`: Cold Mastery (mechanical route implemented) — Qualify direct +skill item grant for this class consumer |
-| unique/186 | Warpspear | own `skill`: Telekinesis (mechanical route implemented) — Qualify direct +skill item grant for this class consumer<br>own `skill`: Energy Shield (mechanical route implemented) — Qualify direct +skill item grant for this class consumer |
 | unique/188 | Skystrike | own `hit-skill`: Meteor (mechanical route implemented) — on-hit proc dispatcher |
 | unique/190 | Kuko Shakaku | own `skill`: Immolation Arrow (mechanical route implemented) — Qualify direct +skill item grant for this class consumer<br>own `explosivearrow`: Exploding Arrow (mechanical route implemented) — Inherent exploding-arrow attack and area damage |
 | unique/191 | Endlesshail | own `skill`: Strafe (mechanical route implemented) — Qualify direct +skill item grant for this class consumer |

@@ -1,0 +1,92 @@
+{
+  "component": "Complete Warpspear Telekinesis/Energy Shield direct grants",
+  "referenceVersion": "3.3.93847",
+  "baselineCommit": "9066c559",
+  "nativeMarkers": 42,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "warpspear-es-quick-check": 3,
+    "warpspear-es-quick-result": 3,
+    "warpspear-es-right-check": 3,
+    "warpspear-es-right-result": 3,
+    "warpspear-grants-check": 1,
+    "warpspear-grants-check-result": 1,
+    "warpspear-grants-reload-check": 2,
+    "warpspear-grants-reload-check-result": 2,
+    "warpspear-readiness-check": 3,
+    "warpspear-tk-quick-check": 3,
+    "warpspear-tk-quick-result": 3,
+    "warpspear-tk-right-check": 3,
+    "warpspear-tk-right-result": 3
+  },
+  "connections": 15,
+  "actualAbilityWireInputs": 12,
+  "boots": 3,
+  "saves": 3,
+  "reloads": 2,
+  "namedDirectGrantRegistryBefore": 16,
+  "namedDirectGrantRegistryAfter": 18,
+  "newDirectGrants": [
+    "sorceress.telekinesis",
+    "sorceress.energyshield"
+  ],
+  "newNamedItemsAdmitted": [
+    "unique/186"
+  ],
+  "namedDefinitionsCompared": 573,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
+    "Assemblies/Sanctuary.Content.dll": "203617e4b7dd15c6e4e2d9b4dff8a7627688ebabe19384be65ed3027d42b1193",
+    "Assemblies/Sanctuary.Integration.dll": "080637b96e20a324d3d4438b1f3a8ff9066a6eb5cf93bfcfb2c418dbc01155bb"
+  },
+  "changedSources": [
+    "tests/Sanctuary.Integration/WarpspearGrantChecks.cs"
+  ],
+  "changedRuntimeData": [
+    "Data/Sanctuary/Balance/named-active-skills.json",
+    "Data/Sanctuary/Balance/named-item-coverage.json",
+    "Data/Sanctuary/Balance/named-skill-backlog.json"
+  ],
+  "contentBuild": 2,
+  "integrationBuild": 2,
+  "sourceSnapshot": 2,
+  "nativeRun": 1,
+  "gameplaySourceChanged": false,
+  "nativeRebuilt": false,
+  "persistedSchemaChanged": false,
+  "installed": false,
+  "classCertified": false,
+  "goalComplete": false,
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 44
+  },
+  "limits": "Normal weighted generation and complete-item untrained spell use/equipment/native damage/save controls qualify this one admission. No kill/gamble economy or graphical-client certificate. Existing source special/PvP/property limits remain;other direct grants,procs,charges,item auras and whole Hellslayer registration are separate. No readiness bypass,owner hard-point invention,new reference compilation,imagegen or deployment.",
+  "files": {
+    ".local/class-skills/warpspear-grants/birth-inputs.json": "7172ac61e04f8a08ca82a8767c94b4478be5f3705168c18b7f8223d44bbd55ed",
+    ".local/class-skills/warpspear-grants/birth-native-checks.log": "eaa2dc7c769a0dff954c03449c7509cd56a91fe60c04e3265f105a643d8f1c67",
+    ".local/class-skills/warpspear-grants/content-build-2.log": "595739358e43c758b351b31acc0811a9b0627966b79f9ae2b9b4155d76e6d125",
+    ".local/class-skills/warpspear-grants/failed-build-1.tar.gz": "36a9991d8c4da26d5975bbdd8a6d229c9b50f92ab5bb3238ebbe8603ca85b07a",
+    ".local/class-skills/warpspear-grants/integration-build-2.log": "15b3d82bea183ece59961dde20035271570e6e8b1865aa21da106202d666f84f",
+    ".local/class-skills/warpspear-grants/native-run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/warpspear-grants/source-snapshot-2.json": "fad33747fce2ab4018c5a31a8469035612b031bcc2d1ed2af6618e7e2ac65003",
+    "docs/warpspear-grants-checkpoint.md": "cca594cff023f131a04567d8940614f163c23e3a987249be1e78ba18f072fd7a",
+    "tests/check_assassin_planned_acceptance.py": "56e0bde79138ace81029320fec4b8337e15f9366b1968cb30183e6758ee49d91",
+    "tests/check_britain.py": "632ee450f72bb27cfd0c2d3ab7417ba0d54e405cfd97130d6a7b256594c8dfd3",
+    "tests/check_iron_golem_birth.py": "f83e222cd3bca5c06b8f24604a363b3f0e00bb6a0956e814a9101c306f6a205d",
+    "tests/check_warpspear_grants.py": "84554845192bfcb71d098af765c5866cd392fee9371324b406cb6cc853d48c46",
+    "tools/build_named_equipment.py": "56e27c83b7463b619c0055797374cd1b5f87178fa8189c8376ad53f96d11a593",
+    "tools/build_named_skill_backlog.py": "3993af23d08cfb295a7db688a26e4420e466855ceacf94c665f8e6a709c43f5f",
+    "tools/record_warpspear_grants.py": "339fbd77063c3cf77fb6700faf8b012ce60cabbb836a969d98fd9be766e4a61d",
+    "tools/reference/consume-learned-client-evidence.json": "8984cc0448f1e48de980f6525f671478ffb489e7d0870a0cd387ede362e02fec",
+    "tools/reference/named-item-runtime-audit.json": "76d7f81a71f81a44b7a3b94fe9d2af287d77ac3759b950e16021460d9e3f17e8"
+  }
+}

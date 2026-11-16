@@ -17,6 +17,8 @@
     "necromancer.skeletonmastery",
     "necromancer.teeth",
     "necromancer.terror",
+    "sorceress.energyshield",
+    "sorceress.telekinesis",
     "sorceress.teleport"
   ],
   "mechanicallyImplementedSkills": [
@@ -2462,57 +2464,6 @@
               "name": "Cold Mastery",
               "sourceKey": "Cold Mastery",
               "talentId": "sorceress.coldmastery",
-              "implemented": true,
-              "directGrantQualified": false
-            }
-          ],
-          "prerequisites": [
-            "Qualify direct +skill item grant for this class consumer"
-          ]
-        }
-      ],
-      "setDependencies": []
-    },
-    {
-      "id": "unique/186",
-      "name": "Warpspear",
-      "rarity": "Unique",
-      "setId": null,
-      "sourceAvailability": "SpawnableDefinition",
-      "sourceSpawnable": true,
-      "dependencies": [
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "4",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": 43,
-              "sourceId": 43,
-              "name": "Telekinesis",
-              "sourceKey": "Telekinesis",
-              "talentId": "sorceress.telekinesis",
-              "implemented": true,
-              "directGrantQualified": false
-            }
-          ],
-          "prerequisites": [
-            "Qualify direct +skill item grant for this class consumer"
-          ]
-        },
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "5",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": 58,
-              "sourceId": 58,
-              "name": "Energy Shield",
-              "sourceKey": "Energy Shield",
-              "talentId": "sorceress.energyshield",
               "implemented": true,
               "directGrantQualified": false
             }
@@ -4992,7 +4943,7 @@
               "sourceKey": "Telekinesis",
               "talentId": "sorceress.telekinesis",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             },
             {
               "sourceParameter": 44,
@@ -5127,7 +5078,7 @@
               "sourceKey": "Energy Shield",
               "talentId": "sorceress.energyshield",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             },
             {
               "sourceParameter": 59,

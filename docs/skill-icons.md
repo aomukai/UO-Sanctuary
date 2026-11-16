@@ -1,5 +1,7 @@
 # Skill icons
 
+**Warpspear direct grants — 2026-11-16 JST.** Item-granted Telekinesis and Energy Shield use the same skill/binding icons as their learned spells. Existing final icon requirements and generic/text placeholders retain;no extra item-specific hotkey icon is introduced. [Checkpoint](warpspear-grants-checkpoint.md).
+
 **Final four Warlock talents admitted — 2026-11-16 JST.** Blood Oath still needs a passive talent-tree icon only. Engorge,Blood Boil and Consume still need talent-tree and applicable hotkey/binding artwork. Current generic/text bindings remain placeholders;no icons were generated. Effects/audio stay in the separate register. [Current mechanics](warlock-final-talents-checkpoint.md).
 
 **Raised helpers — 2026-11-16 JST.** [Ownership checkpoint](raised-minions-checkpoint.md) adds no talent or hotkey button. Existing summon/Revive icon requirements remain; helper effects/audio stay separately tracked.

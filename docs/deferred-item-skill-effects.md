@@ -1,5 +1,7 @@
 # Deferred item skill effects
 
+**Current direct-grant return.** [Warpspear](warpspear-grants-checkpoint.md) now qualifies Telekinesis43and Energy Shield58through its complete original item,normal inputs,native consumers and two reloads. The registry has18entries;all other item delivery mechanisms retain their own gates. This does not qualify proc/charge/aura delivery or whole Hellslayer admission.
+
 **Current NPC item-spell scope.** The historical Shadow Hydra62 gap is resolved by the [NPC-owned Hydra world/item-proc checkpoint](npc-hydra-world-checkpoint.md), including the original allocation9 loadout. The [Fire Ball producer checkpoint](npc-item-fireball-checkpoint.md) adds a separately qualified explicit NPC proc route; whole Hellslayer projection/acquisition and automatic learned golem registration remain unfinished. Historical receipts retain their own source/artifact scope.
 
 User decision: return to skill-dependent item effects after the relevant class mechanics are implemented. A finished skill handler still needs its item trigger, grant, aura or charge delivery system. Existing supported bonuses keep working; this list does not disable them.
