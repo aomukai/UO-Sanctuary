@@ -54,6 +54,7 @@ internal static class IronGolemWorld
             b.RestoreController(new(owner.Map.MapID,DruidRavenMotion.Center(point.X*2,point.Y*2),at.AddMilliseconds(40),
                 EndAt:DruidWolfGeometry.Clock("S1",source:"irongolem-animation").End));
             PetOwnerRoutes.For(owner,at);
+            NpcItemProcs.RegisterOriginal(b);
         });
         IronGolems.Track(body);return body;
     }

@@ -39,7 +39,7 @@ internal sealed class NpcCombatEvents
     }
     internal NpcCombatEvents(ItemStatContext item):this(item,false,false,false){}
     private static EquipmentStatValue[] Stats(ItemStatContext? item)
-    {item?.RequireOrdinaryNpcDrainInputs();return item?.ActiveNumericProperties()??[];}
+    {item?.RequireOrdinaryNpcDrainInputs();return OriginalItemProcProjection.Legacy(item?.ActiveNumericProperties()??[]);}
     private NpcCombatEvents(ItemStatContext? item,bool inherentWounds,bool blood,bool inherentCrushing):this(Stats(item),inherentWounds,blood,inherentCrushing){}
     internal static NpcCombatEvents FromStats(EquipmentStatValue[] stats)=>new(stats,false,false,false);
     internal static NpcCombatEvents FromOriginalStats(EquipmentStatValue[] stats)=>new(stats,false,false,false,true);

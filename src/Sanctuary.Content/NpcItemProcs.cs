@@ -35,6 +35,33 @@ internal static class NpcItemProcs
         if(Get(actor)!=null){throw new InvalidOperationException("NPC already has an item event graph");}
         var result=NpcItemProcGraph.Create(actor,Changed);Live.Add(actor.Serial.Value,result);Changed(result);return result;
     }
+    internal static bool RegisterOriginal(IronGolemBody body)
+    {
+        if(body?.Prepared?.Recipe is not{} recipe||IronGolemItems.State(body)is not{} binding||binding.Item!=recipe.Item
+            ||World.FindItem((Serial)recipe.Item)is not{Deleted:false} original||original.Parent!=body)
+        {throw new NotSupportedException("Original golem proc enrollment needs its actual bound birth recipe");}
+        var fields=OriginalItemProcProjection.FromCaptured(original,new(IronGolemItems.Metadata(recipe.BaseCode).Body1,recipe.ItemBase,recipe.Properties));
+        if(fields.Events.Properties.Length==0){return false;}
+        if(Get(body)is{} existing)
+        {
+            var retained=existing.Capture().Items.SingleOrDefault(i=>i.Item==original.Serial.Value);
+            if(retained==null||!retained.State.Properties.SequenceEqual(fields.Events.Properties))
+            {throw new NotSupportedException("Original golem proc fields differ from its captured birth recipe");}
+            return true;
+        }
+        var graph=Create(body);
+        try
+        {
+            graph.Add(original,fields.Full.Body,fields.Events.Seed);
+            foreach(var value in fields.Events.Properties)
+            {
+                string code=value.Stat switch{195=>"att-skill",196=>"kill-skill",198=>"hit-skill",201=>"gethit-skill",_=>throw new InvalidOperationException()};
+                graph.Apply(original,EquipmentPropertyWriter.Plan(code),new(value.Value,(int)(value.Packed&63),(ushort)value.Packed>>6),ItemSkillProperties.ForLevel(fields.ItemLevel));
+            }
+            return true;
+        }
+        catch{Forget(body);throw;}
+    }
     internal static NpcItemProcGraph Get(SkeletonGuardian actor)
     {
         if(actor==null||actor.Deleted){return null;}

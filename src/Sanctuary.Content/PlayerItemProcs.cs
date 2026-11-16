@@ -38,13 +38,19 @@ internal static class PlayerItemProcs
             ||item.State.Properties.Any(v=>v.Stat is not(195 or 196 or 198 or 201)||v.Value<=0||((ushort)v.Packed>>6)!=47||(v.Packed&63)==0))
         {throw new InvalidDataException("Player proc provider needs its complete explicit Fire Ball event-only fields");}
     }
-    internal static void Register(Item item,int body,ItemPropertyCreationState state)
+    internal static void Register(Item item,int body,ItemPropertyCreationState state,bool refresh=true)
     {
         if(item is not{Deleted:false}||!ClassGear.Converted(item)){throw new NotSupportedException("Player proc provider needs its original converted native item");}
         var saved=new PlayerProcItem(item.Serial.Value,body,state);Validate(saved);saved=saved with{State=Copy(state)};
         if(Providers.TryGetValue(saved.Item,out var old))
         {if(JsonSerializer.Serialize(old)!=JsonSerializer.Serialize(saved)){throw new InvalidOperationException("Original proc fields cannot be replaced or rerolled");}return;}
-        Providers.Add(saved.Item,saved);if(item.Parent is PlayerMobile owner){Refresh(owner);}
+        Providers.Add(saved.Item,saved);if(refresh&&item.Parent is PlayerMobile owner){Refresh(owner);}
+    }
+    internal static bool RegisterOriginal(Item original)
+    {
+        var fields=OriginalItemProcProjection.Capture(original);
+        if(fields.Events.Properties.Length==0){return false;}
+        Register(original,fields.Full.Body,fields.Events,refresh:false);return true;
     }
     internal static void InitializeActor(PlayerMobile owner,ulong seed)
     {
@@ -62,7 +68,11 @@ internal static class PlayerItemProcs
         return graph;
     }
     internal static void Refresh(PlayerMobile owner)
-    {if(!World.Loading&&owner is{Deleted:false}&&Owners.ContainsKey(owner.Serial.Value)){Require(owner).Refresh();}}
+    {
+        if(World.Loading||owner is not{Deleted:false}){return;}
+        foreach(var original in owner.Items.Where(OriginalItemProcProjection.HasDeclaredProc)){RegisterOriginal(original);}
+        if(Owners.ContainsKey(owner.Serial.Value)){Require(owner).Refresh();}
+    }
     internal static int Chance(PlayerMobile owner,int stat,int layer)
     {var graph=Require(owner);graph.Refresh();return graph.Chance(stat,layer);}
     internal static PlayerItemProcOutcome[] Dispatch(PlayerMobile owner,string phase,NpcItemTarget target,Point3D path,PreparedMonsterDamagePacket packet,
