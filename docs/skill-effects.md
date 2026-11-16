@@ -1,5 +1,7 @@
 # Skill effects
 
+**Saved player proc host — 2026-11-16 JST.** Saving proc providers/streams and changing equipment creates no new visual effect. The existing item-cast sound and Fire Ball travel/explosion placeholders remain on their separate effect/audio entries. [Checkpoint](player-item-proc-host-checkpoint.md).
+
 **Player proc frames — 2026-11-16 JST.** The protected player item frame now emits the shared 0x1E5 item-cast audio placeholder after an accepted source execution. Fire Ball travel/explosion placeholders are reused. Final effects/audio remain in their existing entries; no generated asset is added. [Checkpoint](player-item-proc-frames-checkpoint.md).
 
 **Prepared player item Fire Ball — 2026-11-16 JST.** The prepared cross-class item producer reuses existing Fire Ball travel/explosion placeholders. Item-effect notification/audio remains with the future protected item-cast host; no final asset is added. [Checkpoint](player-item-fireball-checkpoint.md).

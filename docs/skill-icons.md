@@ -1,5 +1,7 @@
 # Skill icons
 
+**Saved player proc host — 2026-11-16 JST.** Saved item proc providers and player RNG create no active binding or new icon. Existing learned Fire Ball talent/hotkey requirements remain unchanged. [Checkpoint](player-item-proc-host-checkpoint.md).
+
 **Player proc frames — 2026-11-16 JST.** Item proc callbacks still create no active binding or extra hotkey icon. Existing Fire Ball talent/hotkey icon requirements remain separate from proc audio and projectile effects. [Checkpoint](player-item-proc-frames-checkpoint.md).
 
 **Prepared player item Fire Ball — 2026-11-16 JST.** A Fire Ball item proc creates no active binding or new hotkey icon. The learned Fire Ball talent/hotkey icon remains on its existing asset entry. [Checkpoint](player-item-fireball-checkpoint.md).

@@ -26,3 +26,5 @@ The [Fire Bolt/mastery item checkpoint](sorceress-mastery-grants-checkpoint.md) 
 The [prepared player item Fire Ball producer](player-item-fireball-checkpoint.md) adds an explicit cross-class item-emission component and optional native saved-flight metadata. It retains ordinary learned and NPC regression controls; actual item-event hosting and whole-item admission are still separate gaps.
 
 The [player proc-frame checkpoint](player-item-proc-frames-checkpoint.md) connects source callbacks and protected temporary targeting to the prepared Fire Ball producer. Full equipment subscriptions, persistent player RNG hosting and whole-item admission remain required. Existing class availability/certification counts do not change.
+
+The [saved player proc host](player-item-proc-host-checkpoint.md) now preserves item-owned providers, per-player streams and event history through real equipment transitions and native reloads. Normal combat wiring and complete-item projection/admission remain open; the existing broken-pair promotion question is explicitly flagged.

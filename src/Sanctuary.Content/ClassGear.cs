@@ -542,6 +542,7 @@ public static class ClassGear
         player.Stam = Math.Min(player.Stam, player.StamMax);
         NamedSetVisuals.Track(player);
         WarlockLevitation.InvalidateProperties(player);
+        PlayerItemProcs.Refresh(player);
     }
     public static void Configure()
     {
