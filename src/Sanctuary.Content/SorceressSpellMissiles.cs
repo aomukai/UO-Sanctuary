@@ -193,10 +193,10 @@ internal static class SorceressSpellMissiles
         {throw new NotSupportedException("Original NPC spell needs its active caster, supported emission, aim and UTC release context");}
         _=NpcEquipmentRandom.Require(actor);
         var packet=NpcItemSpellDamage.CaptureOriginal(actor,skill,rank);var ability=NpcItemSpellDamage.Ability(skill);
-        var values=new SkillValues(SkillMechanics.For(ability),_=>rank,_=>0,OriginalNpcEquipment.Level(actor));Route(values);
+        var values=new SkillValues(SkillMechanics.For(ability),_=>rank,_=>0,NpcItemSpellFlights.Level(actor));Route(values);
         bool ring=Ring(ability);
         var slow=AmazonSlowMissiles.Capture(actor,!ring);long first=checked(_pool.NextId+1);
-        var context=new NpcItemSpellSource(actor.Serial.Value,OriginalNpcEquipment.Binding(actor),packet);
+        var context=new NpcItemSpellSource(actor.Serial.Value,NpcItemSpellFlights.Binding(actor),packet);
         var flights=new SorceressSpellFlight[packet.Emissions];
         for(int i=0;i<flights.Length;i++)
         {
@@ -251,17 +251,17 @@ internal static class SorceressSpellMissiles
     {
         ArgumentNullException.ThrowIfNull(allocate);
         var owner=actor?.ControlMaster as PlayerMobile;
-        if(skill is not(36 or 38 or 39 or 44 or 48 or 49)||!NpcItemSpellFlights.Attached(actor,owner,actor?.Map?.MapID??-1)
+        if(skill is not(36 or 38 or 39 or 44 or 47 or 48 or 49)||!NpcItemSpellFlights.Attached(actor,owner,actor?.Map?.MapID??-1)
             ||at.Kind!=DateTimeKind.Utc||at>DateTime.MaxValue.AddMilliseconds(-4000))
         {throw new NotSupportedException("Original item emission needs its qualified spell,active source and UTC context");}
         _=NpcEquipmentRandom.Require(actor);
         var packet=NpcItemSpellDamage.CaptureOriginal(actor,skill,rank);var ability=NpcItemSpellDamage.Ability(skill);
-        Route(new SkillValues(SkillMechanics.For(ability),_=>rank,_=>0,OriginalNpcEquipment.Level(actor)));
+        Route(new SkillValues(SkillMechanics.For(ability),_=>rank,_=>0,NpcItemSpellFlights.Level(actor)));
         var point=target?.Point(actor.Map);bool ring=Ring(ability),charged=skill==38;var slow=AmazonSlowMissiles.Capture(actor,!ring);
-        var context=new NpcItemSpellSource(actor.Serial.Value,OriginalNpcEquipment.Binding(actor),packet);
+        var context=new NpcItemSpellSource(actor.Serial.Value,NpcItemSpellFlights.Binding(actor),packet);
         var before=_pool;long first=checked(before.NextId+1);int attempts=0;var flights=new List<SorceressSpellFlight>();
         var frame=new NpcItemSpellOrigins((actor.X*2,actor.Y*2),point is{} p?(p.X*2,p.Y*2):null,(path.X*2,path.Y*2),
-            OriginalNpcEquipment.Graph(actor).Read(19),serverDo,request=>
+            actor is IronGolemBody?checked((int)ClassStats.AttackRating(actor)):OriginalNpcEquipment.Graph(actor).Read(19),serverDo,request=>
         {
             int attempt=attempts++,ordinal=charged?request.ChargedOrdinal:attempt;
             if(request.Skill!=skill||request.Rank!=rank||request.Missile!=ItemSkillExecution.MissileId(packet.Missile)
@@ -386,6 +386,12 @@ internal static class SorceressSpellMissiles
     };
     internal static void Explosion(PlayerMobile owner,Point3D center,SorceressSpellFlight flight,out ulong seed)
     {
+        if(flight.Npc!=null)
+        {
+            NpcItemSpellFlights.Explosion(owner,center,flight,out seed);
+            Effects.SendLocationEffect(center,Map.Maps[flight.Map],0x36BD,8,10,0x489,0); // Shared explosion placeholder.
+            return;
+        }
         var profile=Profile(flight.Ability);if(profile.HitFunction is not(1 or 13)){throw new NotSupportedException("Unmapped player area callback");}
         // Both callbacks evaluate radius on the current owner at retained
         // rank; only hit13 evaluates freeze length. Damage stays captured.
@@ -461,7 +467,7 @@ internal static class SorceressSpellMissiles
         {
             if(flight.Ability is CombatAbility.GlacialSpike or CombatAbility.Fireball)
             {
-                if(!terminal&&World.FindMobile((Serial)serial) is{} primary){SorceressEffects.MissileHit(owner,primary,Profile(flight.Ability).Key);}
+                if(!terminal&&World.FindMobile((Serial)serial) is{} primary){SorceressEffects.MissileHit(caster,primary,Profile(flight.Ability).Key);}
                 var center=next.X>=0&&next.Y>=0&&next.X<map.Width&&next.Y<map.Height
                     ?new Point3D((int)Math.Round(next.X),(int)Math.Round(next.Y),flight.Z):new((int)Math.Round(flight.X),(int)Math.Round(flight.Y),flight.Z);
                 Explosion(owner,center,flight,out var seed);next=next with{Seed=seed};

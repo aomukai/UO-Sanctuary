@@ -13,7 +13,7 @@ internal static class NpcItemSpellDamage
 {
     internal static CombatAbility Ability(int skill)=>skill switch
     {
-        36=>CombatAbility.FireBolt,38=>CombatAbility.ChargedBolt,39=>CombatAbility.IceBolt,44=>CombatAbility.FrostNova,
+        36=>CombatAbility.FireBolt,38=>CombatAbility.ChargedBolt,39=>CombatAbility.IceBolt,44=>CombatAbility.FrostNova,47=>CombatAbility.Fireball,
         48=>CombatAbility.Nova,49=>CombatAbility.Lightning,53=>CombatAbility.ChainLightning,62=>CombatAbility.Hydra,66=>CombatAbility.AmplifyDamage,
         _=>throw new NotSupportedException("NPC item spell requires its own damage/execution adapter: "+skill)
     };
@@ -22,9 +22,9 @@ internal static class NpcItemSpellDamage
         if(skill==62){return NpcHydraCreation.Require();}
         if(skill==66){return ItemSkillExecution.RequireCurse(skill);}
         var ability=Ability(skill);var row=ItemSkillExecution.Skill(skill);var definition=SkillMechanics.For(ability);
-        int function=skill switch{36 or 39 or 49=>0,38=>17,44 or 48=>22,_=>26};
+        int function=skill switch{36 or 39 or 47 or 49=>0,38=>17,44 or 48=>22,_=>26};
         int effect=skill is 44 or 48?36:skill==53?151:1;
-        string missile=skill switch{36=>"firebolt",38=>"chargedbolt",39=>"icebolt",44=>"frostnova",48=>"nova",49=>"lightningbolt",_=>"chainlightning"};
+        string missile=skill switch{36=>"firebolt",38=>"chargedbolt",39=>"icebolt",44=>"frostnova",47=>"fireball",48=>"nova",49=>"lightningbolt",_=>"chainlightning"};
         if(row is not{Start:0,ItemTarget:0,ItemTargetDo:false,ItemCheckStart:false,InTown:false,UseManaOnDo:false,Lob:false,DecrementQuantity:false}
             ||row.Do!=function||row.ItemEffect!=effect||row.Animation!=(skill is 49 or 53?18:10)||row.Missile!=(function==0?ItemSkillExecution.MissileId(missile):-1)
             ||row.HasDelay("delay")||row.HasDelay("localdelay")||row.HasDelay("globaldelay")||row.HasDelay("perdelay")
@@ -45,15 +45,16 @@ internal static class NpcItemSpellDamage
         var values=new SkillValues(definition,key=>key.Equals(definition.SourceKey,StringComparison.OrdinalIgnoreCase)?rank:0,_=>0,level);
         var endpoints=DruidFirestorm.Endpoints(values,mastery,SlowMissilePayload.Normal);
         int emissions=skill is 44 or 48?64:skill is 38 or 53?checked((int)values.Eval("calc1")):1;
-        return new(skill,rank,definition.Text(skill is 36 or 39 or 49?"srvmissile":"srvmissilea"),definition.Text("EType"),
+        return new(skill,rank,definition.Text(skill is 36 or 39 or 47 or 49?"srvmissile":"srvmissilea"),definition.Text("EType"),
             endpoints.Min,endpoints.Max,skill is 39 or 44?values.DurationFrames:0,emissions,firePierce,coldPierce,lightningPierce);
     }
     internal static NpcItemSpellPacket CaptureOriginal(SkeletonGuardian body,int skill,int rank)
     {
+        if(body is IronGolemBody golem){return IronGolemFireBall.Capture(golem,skill,rank);}
         // Also rejects unmaterialized item-granted skills: silently assuming
         // those new skill-list entries are absent would corrupt synergies.
         var graph=OriginalNpcEquipment.Graph(body);
-        int mastery=graph.Read(skill==36?329:skill is 39 or 44?331:330);
+        int mastery=graph.Read(skill is 36 or 47?329:skill is 39 or 44?331:330);
         return Calculate(skill,rank,OriginalNpcEquipment.Level(body),mastery,graph.Read(333),graph.Read(335),graph.Read(334));
     }
 }

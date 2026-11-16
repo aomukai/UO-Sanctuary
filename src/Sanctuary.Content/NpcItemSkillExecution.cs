@@ -66,6 +66,7 @@ internal static class NpcItemSkillExecution
         {throw new NotSupportedException("Original NPC execution needs its qualified attached source");}
         if(finish!=0||item!=1||outgoing is<0 or>1||!NpcItemSpellCasts.KeepsCombatTarget(source))
         {throw new NotSupportedException("Original NPC spell needs its protected synchronous item frame");}
+        if(source is IronGolemBody&&skill!=47){throw new NotSupportedException("Iron Golem item missile adapter supports Fire Ball only");}
         _=NpcItemSpellDamage.Require(skill);ArgumentNullException.ThrowIfNull(allocate);
         if(skill==62){return new NpcHydraExecution(source,target,(path.X,path.Y),at,Hydras.PreparedNpcFactory(source,at)).Run(level,outgoing);}
         if(skill==66)

@@ -1,0 +1,71 @@
+{
+  "component": "Scoped original NPC Fire Ball proc producer",
+  "referenceVersion": "3.3.93847",
+  "nativeMarkers": 12,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-fireball-check": 1,
+    "iron-golem-fireball-reload-check": 2,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2
+  },
+  "boots": 3,
+  "saves": 3,
+  "reloads": 2,
+  "contentBuild": 5,
+  "integrationBuild": 5,
+  "sourceSnapshot": 5,
+  "nativeRun": 4,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
+    "Assemblies/Sanctuary.Content.dll": "dee34b94968d1647d8a8dc3f610b47b218d505bee9db42ffbbe8b280e402971b",
+    "Assemblies/Sanctuary.Integration.dll": "06f6a18259aeb4a7e23e881eaf39471deb171a7174d41bbaa49e0023268e7491"
+  },
+  "changedSources": [
+    "src/Sanctuary.Content/IronGolemFireBall.cs",
+    "src/Sanctuary.Content/NpcItemProcGraph.cs",
+    "src/Sanctuary.Content/NpcItemSkillExecution.cs",
+    "src/Sanctuary.Content/NpcItemSpellDamage.cs",
+    "src/Sanctuary.Content/NpcItemSpellFlights.cs",
+    "src/Sanctuary.Content/NpcItemSpellOrigins.cs",
+    "src/Sanctuary.Content/NpcWorldAllocation.cs",
+    "src/Sanctuary.Content/SorceressSpellMissiles.cs",
+    "tests/Sanctuary.Integration/IronGolemFireBallChecks.cs"
+  ],
+  "runtimeDataChanged": false,
+  "nativeRebuilt": false,
+  "persistedSchemaChanged": false,
+  "installed": false,
+  "classCertified": false,
+  "goalComplete": false,
+  "automaticWholeItemGolemAdmission": false,
+  "namedAcquisitionChanged": false,
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 44
+  },
+  "limits": "Existing explicit event carrier on an actual Iron Golem/plain original. Pinned Hellslayer chance/rank arguments use the existing writer and callback,not a full Hellslayer. Whole-item projection/admission,automatic learned integration,nonzero mastery/pierce,all recipient/terrain/current-executable/graphical parity remain unqualified. NPC flights retain their earlier terrain mapping;player-only terrain approval is not extended. Existing Fire Ball/audio/icon placeholders are reused. No charms/runewords.",
+  "files": {
+    ".local/class-skills/iron-golem-fireball/birth-inputs.json": "3c36e0ae8ca52286e3a71c92c5d9063ef6f5fb4883d2628963262114ddaf5607",
+    ".local/class-skills/iron-golem-fireball/birth-native-checks.log": "2f56579751ed8f91252c1a3aa3ff8dc6d041f2742846f48756c0da2972501b51",
+    ".local/class-skills/iron-golem-fireball/content-build-5.log": "343de11e7f17f451df5a169b0ee3c98276e00f474659e110e10c6394cd89aa85",
+    ".local/class-skills/iron-golem-fireball/failed-build-2.tar.gz": "c8f67e0dcb160ddd136c54f9fa6d5f0120bcb8b9fd98cce6e06432139d43ec69",
+    ".local/class-skills/iron-golem-fireball/failed-run-1.tar.gz": "75fbd9f3554bb57c389ee82c87c9d97f477c5b8b7885356e74b7d753e0b66bd1",
+    ".local/class-skills/iron-golem-fireball/failed-run-2.tar.gz": "ad37813c6ce616c5180b0919b4ad547ec5657d85b2069fe6478e3cccbc17acc2",
+    ".local/class-skills/iron-golem-fireball/failed-run-3.tar.gz": "3470eb29f45623ee93f88a9fb0dd6ed037f14fb63fd6a586658a45f40154da18",
+    ".local/class-skills/iron-golem-fireball/integration-build-5.log": "f00b8d3ad987dca171648c4e4e79e82f049e05abe32064b012ce0c9c5d6aefa7",
+    ".local/class-skills/iron-golem-fireball/native-run-4.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/iron-golem-fireball/source-snapshot-5.json": "7d0254092c9d50fb175939ad249b32a65b70cf536f6e2daf1eb47f1d8bde817e",
+    "docs/npc-item-fireball-checkpoint.md": "957497c529a4cb96c621246915c17a8b4a4f37a01ad0e4ef9f9d64930a00a360",
+    "tests/check_britain.py": "632ee450f72bb27cfd0c2d3ab7417ba0d54e405cfd97130d6a7b256594c8dfd3",
+    "tests/check_iron_golem_birth.py": "f83e222cd3bca5c06b8f24604a363b3f0e00bb6a0956e814a9101c306f6a205d",
+    "tests/check_iron_golem_fireball.py": "932325d05c85a25411e77fdabe45457c969c745bf98dc9323b036461f0a5c2c5",
+    "tools/record_npc_item_fireball.py": "7cb4494558648917147b9b05815dbe7a915f8a742a8a775015e04765a4dc1b9d"
+  }
+}

@@ -57,6 +57,7 @@ internal sealed class NpcItemProcGraph
     private void Publish(){if(Dirty&&Mutation==0&&Current==null&&!Events.Dispatching){Dirty=false;Changed?.Invoke(this);}}
     private void Mutate(Action action,bool structural=false)
     {Mutation++;try{action();Dirty|=structural;}finally{Mutation--;Publish();}}
+    private static ItemExecutionMetadata ProcSkill(int skill)=>skill==47?NpcItemSpellDamage.Require(skill):ItemSkillExecution.RequireCurse(skill);
     private static void Validate(ItemPropertyCreationState state)
     {
         if(state is not{ItemBase.Length:0,Properties:not null}||state.Ethereal||!state.HasProperties&&state.Properties.Length!=0
@@ -66,7 +67,7 @@ internal sealed class NpcItemProcGraph
         {
             if(value.Stat is not(195 or 196 or 198 or 201))
             {throw new NotSupportedException("NPC proc carrier needs its other stat/incoming/death/level-up consumer:"+value.Stat);}
-            int layer=(ushort)value.Packed,rank=layer&63;_=ItemSkillExecution.RequireCurse(layer>>6);
+            int layer=(ushort)value.Packed,rank=layer&63;_=ProcSkill(layer>>6);
             if(rank==0){throw new NotSupportedException("NPC rank-zero curse proc needs its own adapter");}
         }
     }
@@ -142,11 +143,13 @@ internal sealed class NpcItemProcGraph
         internal override int LevelBits=>6;
         internal override int Chance(int stat,int layer)=>graph.Values.Query(graph.Unit.Stats,EquipmentStatKey.Pack(stat,layer));
         internal override uint Roll()=>NpcEquipmentRandom.Raw(frame.Actor);
-        internal override ItemProcSkill Skill(int id)=>new(ItemSkillExecution.RequireCurse(id).ItemTargetDo);
+        internal override ItemProcSkill Skill(int id)=>new(ProcSkill(id).ItemTargetDo);
         internal override (int X,int Y) FirstPathPoint()=>throw new NotSupportedException("NPC no-target proc needs its actual path/ground cast adapter");
         internal override void CastTarget(bool targetAsCaster,int skill,int level,int flag)
         {
             if(targetAsCaster){throw new NotSupportedException("NPC target-as-caster proc needs its context");}
+            if(skill==47)
+            {IronGolemFireBall.Cast(frame.Actor,frame.Retained??NpcItemTarget.Capture(frame.Other),skill,level,flag,frame.At);return;}
             if(frame.Retained!=null)
             {
                 NpcItemSpellCasts.CastCurse(frame.Actor,frame.Retained,ItemSkillExecution.CurseAbility(skill),level,frame.At,flag);return;
