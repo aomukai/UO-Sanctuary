@@ -1,6 +1,6 @@
 # Assassin acceptance map
 
-Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Charms and runewords are excluded. All 30 talents have handlers; each fixture below proves only its named scope. Current combined acceptance is pending, and no full class certificate is claimed.
+Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Charms and runewords are excluded. All 30 talents have handlers; each fixture below proves only its named scope. Current combined acceptance passes 655 exact results across 189 connections, three saves and two reloads; [receipt](../tools/reference/assassin-planned-acceptance-native-evidence.json). The inputs include 102 current spell attempts, 42 legacy wire sequences and nine held-Fury sequences. No full class certificate is claimed.
 
 | Talent | Mechanical scope | Existing fixture |
 | --- | --- | --- |
