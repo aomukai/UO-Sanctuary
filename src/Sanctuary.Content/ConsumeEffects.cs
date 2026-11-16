@@ -20,10 +20,10 @@ public sealed class ConsumeProfiles:GenericPersistence
 }
 
 // Prepared owner state and logical source-pool slot. The original demon is
-// retired,not parked for later resurrection. Normal skill admission is gated.
+// retired,not parked for later resurrection. Normal learned admission uses the approved original/bound roster.
 internal static class ConsumeEffects
 {
-    internal static bool Approved=>false;
+    internal static bool Approved=>true;
     private static ImmutableDictionary<uint,ConsumeEffect> States=ImmutableDictionary<uint,ConsumeEffect>.Empty;
     public static void Configure()=>_=new ConsumeProfiles();
     public static void Initialize()=>ClassMapHooks.LocationChanged+=Moved;

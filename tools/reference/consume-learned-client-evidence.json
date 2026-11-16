@@ -1,0 +1,31 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Consume shared ally-target client classification",
+  "inputManifest": {
+    "path": ".local/class-skills/consume-learned/client-inputs-1.json",
+    "sha256": "cbc7e623e49596bf24b10ef0cb6a952dca2eb9931529928b3637a2fb4d13b289"
+  },
+  "patches": 44,
+  "changedClientPaths": [],
+  "addedPatches": [],
+  "intentionalSharedChanges": [
+    "shared/ClassAbilities.cs"
+  ],
+  "buildErrors": 0,
+  "baselineWarningsIdentical": true,
+  "baselineSourceWarningsIdentical": true,
+  "packageAuditMessagesIdentical": true,
+  "baselineInheritedWarnings": 44,
+  "inheritedWarningMessages": 44,
+  "graphicalInputVerified": false,
+  "installed": false,
+  "scope": "All accepted client paths/44patches unchanged;only shared AllyTarget adds Consume. Source warnings and audit-message sets are identical;both builds have44warning occurrences. No patch roundtrip replay or installation.",
+  "files": {
+    ".local/class-skills/consume-learned/client-inputs-1.json": "cbc7e623e49596bf24b10ef0cb6a952dca2eb9931529928b3637a2fb4d13b289",
+    ".local/class-skills/consume-learned/client-build-1.log": "8a2f1c71003db593fa536d961c46e408070ce98ffe6e0c8842a0a28cf24183a3",
+    ".local/class-skills/consume-learned/client/cuo.dll": "63bd69dfe09964c9f6c2d3100f209979915f14c42aaec598fbc0403456db7b91",
+    ".local/class-skills/consume-learned/client-source-1.tar.gz": "4935f55efc5354460b07ccbe09525e1e88d95317292b58060548c4541fcd2e3f",
+    "tools/prepare_consume_client.py": "bb595e0cb8ace2a942034f4cb8cba2f011655b534894359e453e5316464cdec5",
+    "tools/review_consume_client.py": "41e4fed948d60f70034fc73d14762cc75e19c94a91439b24547e74af91b41862"
+  }
+}

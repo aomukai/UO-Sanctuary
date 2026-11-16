@@ -2516,10 +2516,13 @@
       "characterClass": "Warlock",
       "tree": "Demon",
       "sourceId": 381,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Approved right/quick learned SC/FCR action retires the selected eligible original/bound demon for one captured timed owner payload. Zero-target input opens the existing actual roster menu,including parked town bodies;creation order rejects stale menu/windup identities. One release payment,relative-life transitions,logical summon-pool slot/FIFO,absolute expiry and original saved numeric/aura recipes retain. See consume-learned-checkpoint.md and warlock-final-talents-approval.json. All171recipes,17numeric kinds and four shared aura recipes are scoped adaptations;unclassified species/modifiers/ and unavailable recipient/PvP/current-callback/graphical/full-class parity remain flagged. Existing identified buff/audio placeholders and separate talent/hotkey icons remain missing;no new schema,timer or charms/runewords.",
+      "excludedDependencies": [
+        "charm-only Sunder inheritance"
+      ]
     },
     {
       "talentId": "warlock.binddemon",

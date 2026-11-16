@@ -22,6 +22,7 @@ public static class ConsumeAuraChecks
     private static void Require(bool yes,string why){if(!yes){throw new InvalidOperationException(why);}}
     public static void Configure()
     {
+        ConsoleInputHandler.RegisterCommand("consume-aura-save-check","Refresh real short recipient lease immediately before saved-world proof",_=>Core.LoopContext.Post(()=>FixtureNetwork.Connected("consume-aura-save-check",BeforeSave)));
         Rates();foreach(bool again in new[]{false,true})
         {bool reload=again;string name=reload?"consume-aura-reload-check":"consume-aura-check";
             ConsoleInputHandler.RegisterCommand(name,"Consume fixed-rank Paladin aura providers and native lifecycle",_=>Core.LoopContext.Post(()=>
@@ -115,6 +116,21 @@ public static class ConsumeAuraChecks
             }));
         }
         finally{if(!pending){Finish(false);}}
+    }
+    private static void BeforeSave(NetState network)
+    {
+        var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)s.Owner);var ally=(PlayerMobile)World.FindMobile((Serial)s.Ally);
+        var account=FixtureNetwork.Authenticate(network,p,"consume-aura-save-");
+        try
+        {
+            ally.MoveToWorld(new(p.X+2,p.Y,p.Z),p.Map);ConsumeAuras.Stop(p,s.State.Order);ConsumeAuras.Tick(p,s.State,TimedEffects.Now);
+            var lease=PaladinAuras.Effect(ally,CombatAbility.Meditation);
+            Require(ConsumeEffects.State(p)==s.State&&lease?.ProviderOrder==s.State.Order&&lease.ProviderOwner==s.Owner
+                &&lease.UntilUtc>TimedEffects.Now&&SkillHealth.Balance256(p)==s.Life&&SkillHealth.Balance256(ally)==s.AllyLife,"Pre-save pulse changed saved buff/deadline/wounds or failed real recipient lease");
+            ally.Internalize();Log.Information("consume-aura-save-check: passed");
+        }
+        catch(Exception e){Log.Error(e,"consume-aura-save-check: failed");}
+        finally{network.Mobile=null;p.NetState=null;account[0]=null;network.Account=null;account.Delete();}
     }
     private static void Reload(NetState network)
     {

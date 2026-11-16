@@ -83,7 +83,9 @@ public static class ConsumeWorldChecks
         FixtureSpace.Corridor(p,6900,40,3300);var account=FixtureNetwork.Authenticate(network,p,"consume-world-");var facets=SummonDifficulties.Facets();GuardedRegion town=null;bool kept=false;GoatmanNpcContactChecks.Recipient target=null;
         try
         {
-            Require(!ConsumeEffects.Approved&&!WarlockCombat.Implemented(CombatAbility.Consume),"Unapproved Consume enabled");
+            Require(ConsumeEffects.Approved&&WarlockCombat.Implemented(CombatAbility.Consume)
+                &&!SkillBindings.Instance.Assign(p,true,CombatAbility.Consume)&&SkillBindings.Instance.Assign(p,false,CombatAbility.Consume)
+                &&SkillBindings.Instance.AssignQuick(p,7,CombatAbility.Consume),"Approved Consume normal bindings unavailable");
             PoisonDaggerChecks.Named(p,"Tarnhelm");PoisonDaggerChecks.Dagger(p);ClassGear.Refresh(p);
             var a=Summon(p,CombatAbility.SummonGoatman,3);var b=Summon(p,CombatAbility.SummonTainted,6);var c=Summon(p,CombatAbility.SummonDefiler,9);
             NecromancerEffects.SetMana256(p,1);Require(!ConsumeCasting.ReleasePrepared(p,a,TimedEffects.Now).Consumed&&!a.Deleted&&ConsumeEffects.State(p)==null,"Low mana deleted a demon/granted state");Ready(p);
@@ -113,7 +115,7 @@ public static class ConsumeWorldChecks
             Require(invalid&&ConsumeEffects.State(p)==intact[0],"Malformed restored buff partially replaced state");
             life=SkillHealth.Balance256(p);maximum=SkillHealth.Maximum256(p);ConsumeEffects.Prune(intact[0].UntilUtc);Require(ConsumeEffects.State(p)==null&&ConsumeEffects.ElementBonus(p,"extra-mag")==0,"Expiry retained buff");Ratio(p,life,maximum,"Expiry lost old maximum before percentage transition");
             var final=Summon(p,CombatAbility.SummonDefiler,9);town=new GuardedRegion("ConsumeTown"+p.Serial.Value,p.Map,1000,new Rectangle2D(p.X+18,p.Y-2,6,5));town.Register();p.Location=new(p.X+20,p.Y,p.Z);
-            Require(MinionSafeAreas.Contains(p)&&WarlockGoatmanWorld.Demons(p).All(MinionSafeAreas.Parked),"Actual town did not park roster");Ready(p);Require(ConsumeCasting.OpenPrepared(p),"Town roster picker did not open");
+            Require(MinionSafeAreas.Contains(p)&&WarlockGoatmanWorld.Demons(p).All(MinionSafeAreas.Parked),"Actual town did not park roster");Ready(p);Require(ClassCombat.Perform(p,CombatAbility.Consume,null,p.Location,Core.TickCount),"Normal town roster picker did not open");
             var menu=p.FindGump<ConsumeRosterGump>();var roster=ConsumeCasting.Roster(p);int button=Array.IndexOf(roster,final)+1;Require(menu!=null&&button>0,"Parked target absent from actual sent gump");
             menu.OnResponse(network,new RelayInfo(button,[],[],[],[]));var action=ClassCombat.For(p).Consume;Require(action!=null,"Town gump response did not enter cast");
             int mana=NecromancerEffects.ManaBalance256(p);Require(!ClassCombat.ResolveAction(p,ClassCombat.For(p).EffectAt-1)&&!final.Deleted&&NecromancerEffects.ManaBalance256(p)==mana,"Town windup paid/consumed early");
@@ -140,6 +142,7 @@ public static class ConsumeWorldChecks
         var retired=World.FindMobile((Serial)saved.Effect.OriginalPet)as SkeletonGuardian;
         Require(retired==null||retired.ControlMaster!=p||BattleCommand.PetOrder(retired)!=saved.Effect.Order,"Consumed source body reappeared after load");
         var account=FixtureNetwork.Authenticate(network,p,"consume-world-reload-");
+        Require(SkillBindings.Instance.Get(p).Right==CombatAbility.Consume&&SkillBindings.Instance.GetQuick(p.Serial,DiabloClass.Warlock,7)==CombatAbility.Consume,"Saved normal Consume bindings changed");
         try
         {
             PersistentMinions.Resume(p);WarlockGoatmanWorld.Tick(TimedEffects.Now);var point=p.Location;p.Location=new(6900,point.Y,point.Z);var old=WarlockGoatmanWorld.Demons(p).OrderBy(BattleCommand.PetOrder).First();

@@ -25,7 +25,7 @@ internal sealed class ConsumeRosterGump:Gump
     }
     public override void OnResponse(NetState sender,in RelayInfo info)
     {
-        if(sender.Mobile is not PlayerMobile owner||owner.Serial.Value!=Owner||info.ButtonID<1||info.ButtonID>Pets.Length){return;}
+        if(!ConsumeEffects.Approved||sender.Mobile is not PlayerMobile owner||owner.Serial.Value!=Owner||info.ButtonID<1||info.ButtonID>Pets.Length){return;}
         var selected=Pets[info.ButtonID-1];
         if(World.FindMobile((Serial)selected.Serial)is BaseCreature body&&BattleCommand.PetOrder(body)==selected.Order)
         {ConsumeCasting.BeginPrepared(owner,body.Serial,Core.TickCount);}

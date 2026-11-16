@@ -56,7 +56,7 @@ public static class ConsumeSupplierChecks
         FixtureSpace.Corridor(p,6900,34,3300);var account=FixtureNetwork.Authenticate(network,p,"consume-suppliers-");SkeletonGuardian[] bodies=[];bool kept=false;
         try
         {
-            Require(!WarlockCombat.Implemented(CombatAbility.Consume)&&!WarlockCombat.Handles(CombatAbility.Consume),"Numerical capture enabled unfinished skill");
+            Require(WarlockCombat.Implemented(CombatAbility.Consume)&&WarlockCombat.Handles(CombatAbility.Consume)&&ConsumeEffects.Approved,"Approved learned Consume unavailable");
             bodies=new[]{CombatAbility.SummonGoatman,CombatAbility.SummonTainted,CombatAbility.SummonDefiler}
                 .Select((a,i)=>WarlockGoatmanWorld.Create(p,new(p.X+2+i*2,p.Y,p.Z),TimedEffects.Now,a)).ToArray();foreach(var b in bodies){WarlockGoatmanWorld.Admit(b);}
             var births=bodies.Select(Birth).ToArray();int mana=NecromancerEffects.ManaBalance256(p),life=SkillHealth.Balance256(p),maximum=SkillHealth.Maximum256(p);
