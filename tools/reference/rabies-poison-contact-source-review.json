@@ -1,0 +1,42 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "scope": "Complete older bodies plus pinned current skill row; not modern executable verification.",
+  "functions": {
+    "SKILLS_SrvDo121_Rabies": {
+      "path": "source/D2Game/src/SKILLS/SkillDruid.cpp",
+      "sha256": "7c4eec658336517babf1047708d3bb62ae0406e0b7ad08393aab3ea6b609359e"
+    },
+    "sub_6FD155E0": {
+      "path": "source/D2Game/src/SKILLS/Skills.cpp",
+      "sha256": "547c0042f87255cb57c734619e0cf288ac5d544da97b1e0aec48fe6872b6ece5"
+    },
+    "sub_6FD11D90": {
+      "path": "source/D2Game/src/SKILLS/Skills.cpp",
+      "sha256": "455878a27b6e63b137de5425c2a7230e503ddf294005c7ffc1ab7b313961ff2f"
+    },
+    "SUNITDMG_AllocCombat": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "sha256": "bc56dd3efbba1649d4a3d9bfcb8f2f63187bbd262c2458c6709860891d28c99a"
+    },
+    "SUNITDMG_CalculateTotalDamage": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "sha256": "ee329c7d8429c54de7366b2dcecef33d1ed4dacc1690a8986ac5e1c0a3b4fb4e"
+    },
+    "SUNITDMG_DrainItemDurability": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "sha256": "9384594853e7f4255913c5cf5ff2e45d306ead9fd8e83b3e592470e1c0ef7d58"
+    }
+  },
+  "established": [
+    "do121 drains ordinary transformed weapon damage, then separately allocates and drains a forced-success skill packet.",
+    "Current ResultFlags1 bypasses a new accuracy/block roll; HitFlags2 skips FillDamageValues, including weapon damage, item poison and armor mutation.",
+    "CalculateTotalDamage includes mitigated poison rate once in initial total, independently of later strongest-poison state.",
+    "DrainItemDurability changes successful packet hit flags to32 before damage events, weapon wear and attack events; both contacts use this path.",
+    "Skill poison duration is clamped to at least10frames; marker retains its independent original duration."
+  ],
+  "remaining": [
+    "Exact modern callbacks,failed startup and lethal/reentrant post-ordinary marker chronology remain unverified.",
+    "Conditional item processors retain their individually documented scope; this does not certify every item proc or recipient."
+  ]
+}

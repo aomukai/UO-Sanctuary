@@ -81,11 +81,11 @@ public static class DruidRabiesChecks
             var pending=Begin(p,target);int before=SkillHealth.Balance256(target),mana=NecromancerEffects.ManaBalance256(p);
             var raw=GearEffects.Damage(p,0,target,physicalRoll:_=>0);var packet=GearEffects.PrepareWeaponImpact(p,target,0,new Rolls(),raw);int expected=packet.LifeDamage256??NamedElements.To256(packet.Parts.Total);
             DruidRabies.PoisonRoll=_=>{Require(DruidRabiesInfections.Infection(target)!=null&&before-SkillHealth.Balance256(target)==expected,"Infection/poison roll preceded ordinary weapon commit");return 0;};
-            Require(ClassCombat.ResolveAction(p,pending.EffectAt)&&before-SkillHealth.Balance256(target)==expected,"Ordinary bite packet");DruidRabies.PoisonRoll=_=>0;
+            Require(ClassCombat.ResolveAction(p,pending.EffectAt)&&before-SkillHealth.Balance256(target)==expected+48,"Ordinary bite plus forced poison initial rate");DruidRabies.PoisonRoll=_=>0;
             Require(Poison(target).PoisonClock is{Rate256:48}&&Poison(target).PoisonMs==4000&&DruidRabiesInfections.Infection(target).Rank==1,"Separate rank1poison packet");
             Require(NecromancerEffects.ManaBalance256(p)==mana&&DruidAttackCharges.State(p,CombatAbility.FeralRage)==charge&&!ClassCombat.ResolveAction(p,pending.EffectAt),"Release repaid mana,changed charge or replayed");
             var marker=DruidRabiesInfections.Infection(target);Train(p,CombatAbility.Rabies,3);pending=Begin(p,target);DruidRabies.HitRoll=()=>1;before=SkillHealth.Balance256(target);
-            Require(ClassCombat.ResolveAction(p,pending.EffectAt)&&SkillHealth.Balance256(target)==before&&Poison(target).PoisonClock is{Rate256:112}
+            Require(ClassCombat.ResolveAction(p,pending.EffectAt)&&before-SkillHealth.Balance256(target)==112&&Poison(target).PoisonClock is{Rate256:112}
                 &&Poison(target).PoisonMs==4800&&DruidRabiesInfections.Infection(target)==marker,"Ordinary miss suppressed poison or repeat bite refreshed marker");DruidRabies.HitRoll=()=>0;
             TimedEffects.CleansePoison(target,0,TimedEffects.Now);Require(DruidRabiesInfections.Infection(target)==marker,"Cure removed marker");
             target.SetResistance(ResistanceType.Poison,100);pending=Begin(p,target);Require(ClassCombat.ResolveAction(p,pending.EffectAt)&&Poison(target).PoisonMs==0&&DruidRabiesInfections.Infection(target)==marker,"Poison immunity removed marker or took poison");target.SetResistance(ResistanceType.Poison,0);
@@ -97,7 +97,7 @@ public static class DruidRabiesChecks
             try
             {
                 SourceBlocking.ChoiceRoll=_=>1;SourceBlocking.BlockRoll=_=>99;pending=Begin(p,blocker);SourceBlocking.BlockRoll=_=>0;before=SkillHealth.Balance256(blocker);
-                Require(ClassCombat.ResolveAction(p,pending.EffectAt)&&SkillHealth.Balance256(blocker)==before&&Poison(blocker).PoisonMs>0,"Ordinary shield block suppressed forced-success poison");
+                Require(ClassCombat.ResolveAction(p,pending.EffectAt)&&before-SkillHealth.Balance256(blocker)==PoisonJavelins.PreparePoison(p,blocker,112,120).Rate256&&Poison(blocker).PoisonMs>0,"Ordinary shield block suppressed forced-success poison");
                 Ready(p);mana=NecromancerEffects.ManaBalance256(p);Require(!ClassCombat.Perform(p,CombatAbility.Rabies,blocker,blocker.Location,Core.TickCount)&&NecromancerEffects.ManaBalance256(p)==mana,"Initial shield block paid");
             }
             finally{SourceBlocking.ChoiceRoll=choice;SourceBlocking.BlockRoll=block;blocker.Delete();}

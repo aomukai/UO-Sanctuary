@@ -84,7 +84,14 @@ internal static class DruidRabies
         DruidRabiesInfections.Mark(owner,target,values.Rank,values.DurationFrames,at);
         var poison=DruidRabiesPackets.Capture(owner,values.Rank).Elements;
         int rate=WeaponMissileDamage.RollValue(poison.PoisonMin,poison.PoisonMax,0,PoisonRoll);
-        PoisonJavelins.Poison(owner,target,rate,values.DurationFrames,at);
+        // do121 allocates a second, forced-success packet with HitFlags2:
+        // skip FillDamageValues (no weapon lanes/armor mutation), then drain
+        // through the ordinary melee event/wear/return consumer. Poison rate
+        // contributes once to initial HP, independently of strongest DoT.
+        var skillPoison=PoisonJavelins.PreparePoison(owner,target,rate,Math.Max(10,values.DurationFrames));
+        var poisonImpact=new PreparedWeaponImpact(default,default,0,skillPoison.Rate256){AllocatedPoison=skillPoison};
+        PlayerWeaponContact.Release(owner,target,new(SourceMeleeResult.Successful,poisonImpact,default,0,
+            CreatureHitRecovery.PlayerHitClass(owner),Effects,MeleeRange:DruidFormAttacks.Reach(owner),HitFlags:2),at,true);
         owner.PlaySound(0x238); // Identified bite/contact audio placeholder.
         return true;
     }

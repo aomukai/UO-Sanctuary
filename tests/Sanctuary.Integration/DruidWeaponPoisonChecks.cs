@@ -22,10 +22,10 @@ public static class DruidWeaponPoisonChecks
     {
         private readonly Func<double> Charge=DruidChargedAttacks.HitRoll,Fire=DruidFireClaws.HitRoll,Hunger=DruidHunger.HitRoll,Rabies=DruidRabies.HitRoll,Fury=DruidFury.HitRoll;
         private readonly Random C=DruidChargedAttacks.Effects,F=DruidFireClaws.Effects,H=DruidHunger.Effects,R=DruidRabies.Effects,Y=DruidFury.Effects;
-        private readonly Func<int,int> Poison=DruidWeaponContact.PoisonRoll,Block=SourceBlocking.BlockRoll,Choice=SourceBlocking.ChoiceRoll;
-        internal Rolls(){Hit(true);DruidWeaponContact.PoisonRoll=_=>0;SourceBlocking.BlockRoll=n=>n-1;SourceBlocking.ChoiceRoll=_=>1;DruidChargedAttacks.Effects=DruidFireClaws.Effects=DruidHunger.Effects=DruidRabies.Effects=DruidFury.Effects=new NoEffects();}
+        private readonly Func<int,int> Poison=DruidWeaponContact.PoisonRoll,SkillPoison=DruidRabies.PoisonRoll,Block=SourceBlocking.BlockRoll,Choice=SourceBlocking.ChoiceRoll;
+        internal Rolls(){Hit(true);DruidWeaponContact.PoisonRoll=DruidRabies.PoisonRoll=_=>0;SourceBlocking.BlockRoll=n=>n-1;SourceBlocking.ChoiceRoll=_=>1;DruidChargedAttacks.Effects=DruidFireClaws.Effects=DruidHunger.Effects=DruidRabies.Effects=DruidFury.Effects=new NoEffects();}
         internal static void Hit(bool yes){DruidChargedAttacks.HitRoll=DruidFireClaws.HitRoll=DruidHunger.HitRoll=DruidRabies.HitRoll=DruidFury.HitRoll=()=>yes?0:1;}
-        public void Dispose(){DruidChargedAttacks.HitRoll=Charge;DruidFireClaws.HitRoll=Fire;DruidHunger.HitRoll=Hunger;DruidRabies.HitRoll=Rabies;DruidFury.HitRoll=Fury;DruidChargedAttacks.Effects=C;DruidFireClaws.Effects=F;DruidHunger.Effects=H;DruidRabies.Effects=R;DruidFury.Effects=Y;DruidWeaponContact.PoisonRoll=Poison;SourceBlocking.BlockRoll=Block;SourceBlocking.ChoiceRoll=Choice;}
+        public void Dispose(){DruidChargedAttacks.HitRoll=Charge;DruidFireClaws.HitRoll=Fire;DruidHunger.HitRoll=Hunger;DruidRabies.HitRoll=Rabies;DruidFury.HitRoll=Fury;DruidChargedAttacks.Effects=C;DruidFireClaws.Effects=F;DruidHunger.Effects=H;DruidRabies.Effects=R;DruidFury.Effects=Y;DruidWeaponContact.PoisonRoll=Poison;DruidRabies.PoisonRoll=SkillPoison;SourceBlocking.BlockRoll=Block;SourceBlocking.ChoiceRoll=Choice;}
     }
     public static void Configure()
     {
@@ -64,10 +64,11 @@ public static class DruidWeaponPoisonChecks
         int releases=0;
         do{Require(ClassCombat.ResolveAction(p,ClassCombat.For(p).EffectAt),"Poison skill action");releases++;}while(full&&ability==CombatAbility.Fury&&ClassCombat.For(p).Fury is{Remaining:>0});
         ClassCombat.Stop(p);ClearRabies(p);int rate=change?(Captured(ability)?326:500):resistance>=100?0:resistance==50?326:653;int frames=change&&!Captured(ability)?250:175;
-        if(miss||block){Require(SkillHealth.Balance256(t)==before,"Miss/block committed an initial weapon poison rate");if(ability!=CombatAbility.Rabies){Require(Poison(t)==null,"Miss/block committed weapon poison state");}}
+        int skillRate=ability==CombatAbility.Rabies?(resistance>=100?0:change?48:resistance==50?24:48):0;
+        if(miss||block){Require(before-SkillHealth.Balance256(t)==skillRate,"Miss/block committed an initial weapon poison rate");if(ability!=CombatAbility.Rabies){Require(Poison(t)==null,"Miss/block committed weapon poison state");}}
         else
         {
-            Require(before-SkillHealth.Balance256(t)==rate*releases&&SkillHealth.Balance256(p)==life,"Initial poison rate missing,duplicated,reduced as Hunger physical damage or leeched");
+            Require(before-SkillHealth.Balance256(t)==rate*releases+skillRate&&SkillHealth.Balance256(p)==life,"Initial poison rate missing,duplicated,reduced as Hunger physical damage or leeched");
             var state=Poison(t);Require(rate==0?state==null:state is{PoisonClock:not null}&&state.PoisonClock.Rate256==rate&&state.PoisonMs==frames*40&&state.PoisonSource==p.Serial.Value,"Source poison rate/length/count/capture/defense or strongest-state replacement differs");
             if(full){Require(releases==2,"Rank-one Fury did not release both poisoned contacts");}
         }

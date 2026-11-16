@@ -47,7 +47,7 @@ public static class DruidActionProcChecks
     {
         var s=DruidRabiesInfections.Snapshot();DruidRabiesInfections.Restore(s with{Infections=s.Infections.Where(i=>i.Caster!=p.Serial.Value).ToArray(),Contagions=s.Contagions.Where(i=>i.Caster!=p.Serial.Value).ToArray(),Seeds=s.Seeds.Where(i=>i.Caster!=p.Serial.Value).ToArray(),Markers=s.Markers.Where(i=>i.Caster!=p.Serial.Value).ToArray()});
     }
-    private static int Contacts(PlayerMobile p,CombatAbility ability)=>ability==CombatAbility.Fury?(int)SkillMechanics.Values(p,ability).Eval("calc1"):1;
+    private static int Contacts(PlayerMobile p,CombatAbility ability)=>ability==CombatAbility.Fury?(int)SkillMechanics.Values(p,ability).Eval("calc1"):ability==CombatAbility.Rabies?2:1;
     private static bool Pending(PlayerMobile p,CombatAbility ability)
     {var s=ClassCombat.For(p);return ability switch{CombatAbility.Hunger=>s.HungerAttack!=null,CombatAbility.Rabies=>s.RabiesAttack!=null,_=>s.Fury!=null};}
     private static void Ready(PlayerMobile p){ClassCombat.Stop(p);var s=ClassCombat.For(p);s.NextAction=s.RecoveryUntil=Core.TickCount;NecromancerEffects.SetMana256(p,p.ManaMax*256);}
@@ -74,7 +74,7 @@ public static class DruidActionProcChecks
             long at=ClassCombat.For(p).EffectAt;Require(ClassCombat.ResolveAction(p,at),"Action-time skill release");released++;
             int life=SkillHealth.Balance256(target);var profile=Json(Own(p,item));var allocation=NpcWorldAllocation.Capture();Require(!ClassCombat.ResolveAction(p,at)&&SkillHealth.Balance256(target)==life&&Json(Own(p,item))==profile&&NpcWorldAllocation.Capture()==allocation,"Action-time skill replayed a contact/proc");
         }while(ability==CombatAbility.Fury&&ClassCombat.For(p).Fury is{Remaining:>0});
-        Require(released==Contacts(p,ability)&&NecromancerEffects.ManaBalance256(p)==mana-cost,"Action-time skill lost full series or charged mana again");Rolls.Hit(true);
+        Require(released==(ability==CombatAbility.Rabies?1:Contacts(p,ability))&&NecromancerEffects.ManaBalance256(p)==mana-cost,"Action-time skill lost full series or charged mana again");Rolls.Hit(true);
     }
     private static void Play(PlayerMobile p,Item item,CombatAbility ability)
     {
@@ -90,8 +90,12 @@ public static class DruidActionProcChecks
                     &&visits.Where((_,i)=>i%2==1).Select(v=>v.Outcomes.Single().CastAttempts).SequenceEqual(success)&&Own(p,item).Owners.Single().Seed==seed&&NpcWorldAllocation.Capture().Seed==world,"Action-time source phases,real chance or separate streams differ");
                 Finish(p,t,ability,success.Sum());if(success.Sum()>0){break;}Require(attempt<999,"No successful proc within1000ordinary series");
             }
-            visits.Clear();string own=Json(Own(p,item));var allocation=NpcWorldAllocation.Capture();int before=SkillHealth.Balance256(t);Cast(p,item,t,ability,true);
-            Require(visits.Count==count&&visits.All(v=>v.Phase=="domeleeattack"&&v.Outcomes.Single().CastAttempts==0)&&Json(Own(p,item))==own&&NpcWorldAllocation.Capture()==allocation&&(ability==CombatAbility.Rabies||SkillHealth.Balance256(t)==before),"Action-time miss emitted a weapon proc or changed streams");Finish(p,t,ability,0);
+            visits.Clear();int before=SkillHealth.Balance256(t);Expected(p,item,ability==CombatAbility.Rabies?1:0,out var missSeed,out var missWorld,out var missSuccess);string own=Json(Own(p,item));var allocation=NpcWorldAllocation.Capture();Cast(p,item,t,ability,true);
+            if(ability==CombatAbility.Rabies)
+            {Require(visits.Count==3&&visits[0].Phase=="domeleeattack"&&visits[0].Outcomes.Single().CastAttempts==0&&visits[1].Phase=="domeleedamage"&&visits[1].Packet.Physical256==0&&visits[1].Packet.ResultFlags==1&&visits[2].Phase=="domeleeattack"&&visits[2].Outcomes.Single().CastAttempts==missSuccess.Single()&&Own(p,item).Owners.Single().Seed==missSeed&&NpcWorldAllocation.Capture().Seed==missWorld,"Ordinary Rabies miss suppressed or duplicated forced-poison contact/proc");}
+            else
+            {Require(visits.Count==count&&visits.All(v=>v.Phase=="domeleeattack"&&v.Outcomes.Single().CastAttempts==0)&&Json(Own(p,item))==own&&NpcWorldAllocation.Capture()==allocation&&SkillHealth.Balance256(t)==before,"Action-time miss emitted a weapon proc or changed streams");}
+            Finish(p,t,ability,missSuccess.Sum());own=Json(Own(p,item));allocation=NpcWorldAllocation.Capture();
             visits.Clear();Ready(p);Require(ClassCombat.Perform(p,ability,t,t.Location,Core.TickCount),"Cancelled action-time start");long at=ClassCombat.For(p).EffectAt;int paid=NecromancerEffects.ManaBalance256(p);ClassCombat.Stop(p);
             Require(!ClassCombat.ResolveAction(p,at)&&visits.Count==0&&NecromancerEffects.ManaBalance256(p)==paid&&Json(Own(p,item))==own&&NpcWorldAllocation.Capture()==allocation,"Cancelled action-time skill replayed/refunded/rolled procs");
         }
