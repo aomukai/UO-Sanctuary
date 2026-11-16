@@ -410,7 +410,7 @@
     "tools/reference/druid-weapon-poison-native-evidence.json": "6048ca2392250f30ace0b4cf42315414eb16e42cb5f016deb5c322ee53b12526",
     "tools/reference/hellslayer-native-evidence.json": "2f82cc1f04665c5d7d7c3932a8ce88a18fef31a07218254a1610630fc14180c9",
     "tools/reference/named-item-pre-proc-baseline.json": "76d7f81a71f81a44b7a3b94fe9d2af287d77ac3759b950e16021460d9e3f17e8",
-    "tools/reference/named-item-runtime-audit.json": "60dfebb81553762bd319ab9aad3cede68a5a3a685c0957846abdca9529532ccc",
+    "tools/reference/named-item-runtime-audit.json": "999cb47fe5926dd3edb9012b0dad529a6384415775326278a27b50b1b017e58e",
     "tools/reference/npc-item-fireball-native-evidence.json": "91bc78a77f4ee761c59ef06f6d937240d880ae5cf7562c26928d00b8e85cec49",
     "tools/reference/original-item-proc-projection-native-evidence.json": "7aef2f9fc48f73d2deea0eef09b7494e6c8caeaa5fe617d51dd305c40a3b8d20",
     "tools/reference/player-basic-proc-native-evidence.json": "59f1530b29f98a73299971148c26b7899552bcb7ab67afd7851307bb9c8132b8",
