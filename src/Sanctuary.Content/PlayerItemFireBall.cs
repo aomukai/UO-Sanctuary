@@ -21,7 +21,7 @@ internal static partial class SorceressSpellMissiles
     // chance,actual item admission and the protected temporary target frame.
     // Explicit item rank never gains +skills;owner hard synergies/mastery do apply.
     internal static NpcItemSpellEmission EmitPlayerItemFireBall(PlayerMobile owner,Point3D? target,Point3D path,int rank,int outgoing,DateTime at,
-        Func<NpcItemMissileRequest,NpcItemSpellAllocation> allocate)
+        Func<NpcItemMissileRequest,NpcItemSpellAllocation> allocate,bool serverDo=false,Action<bool> serverDoChanged=null)
     {
         ArgumentNullException.ThrowIfNull(allocate);_=NpcItemSpellDamage.Require(47);
         if(owner is not{Alive:true,Deleted:false}||owner.Map==null||owner.Map==Map.Internal
@@ -31,7 +31,7 @@ internal static partial class SorceressSpellMissiles
         var before=_pool;int attempts=0;var flights=new List<SorceressSpellFlight>();
         var values=PlayerItemFireBallValues(owner,rank);
         var frame=new NpcItemSpellOrigins((owner.X*2,owner.Y*2),target is{} t?(t.X*2,t.Y*2):null,(path.X*2,path.Y*2),
-            checked((int)ClassStats.AttackRating(owner)),false,request=>
+            checked((int)ClassStats.AttackRating(owner)),serverDo,request=>
         {
             int attempt=attempts++;
             if(request.Skill!=47||request.Rank!=rank||request.Missile!=ItemSkillExecution.MissileId("fireball")
@@ -46,7 +46,7 @@ internal static partial class SorceressSpellMissiles
             var allocation=allocate(request);if(!allocation.Allocated){return null;}
             var flight=Prepare(owner,aim,values,at,item:new(profile.Class,origin,allocation.Seed)) with{Id=checked(before.NextId+attempt+1)};
             Validate(flight);flights.Add(flight);return flight;
-        },(_,_)=>throw new NotSupportedException("Player Fire Ball has no chain budget"),unitType:0);
+        },(_,_)=>throw new NotSupportedException("Player Fire Ball has no chain budget"),serverDoChanged:serverDoChanged,unitType:0);
         int result=frame.Run(47,rank,outgoing);
         if(!ReferenceEquals(before,_pool)){throw new InvalidOperationException("Player item allocator changed the flight pool reentrantly");}
         var pool=before.Flights;foreach(var flight in flights){pool=pool.Add(flight.Id,Copy(flight));}

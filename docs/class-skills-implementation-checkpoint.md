@@ -24,3 +24,5 @@ The subsequent [complete Sorceress staff return](sorceress-staff-grants-checkpoi
 The [Fire Bolt/mastery item checkpoint](sorceress-mastery-grants-checkpoint.md) additionally admits Bane Ash, Chromatic Ire and the full Tal Rasha set, with native passive damage and saved partial/full thresholds. It reuses the earlier class consumers and does not expand their parity claims.
 
 The [prepared player item Fire Ball producer](player-item-fireball-checkpoint.md) adds an explicit cross-class item-emission component and optional native saved-flight metadata. It retains ordinary learned and NPC regression controls; actual item-event hosting and whole-item admission are still separate gaps.
+
+The [player proc-frame checkpoint](player-item-proc-frames-checkpoint.md) connects source callbacks and protected temporary targeting to the prepared Fire Ball producer. Full equipment subscriptions, persistent player RNG hosting and whole-item admission remain required. Existing class availability/certification counts do not change.

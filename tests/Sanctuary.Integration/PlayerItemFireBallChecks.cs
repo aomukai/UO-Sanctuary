@@ -57,26 +57,67 @@ public static class PlayerItemFireBallChecks
         var state=ClassCombat.For(p);var pending=(state.PendingAbility,state.PendingTarget,state.PendingPoint,state.NextAction);string binding=Json(SkillBindings.Instance.Get(p));
         int mana=NecromancerEffects.ManaBalance256(p),life=SkillHealth.Balance256(p);int draws=0;
         var aim=target.Location;
-        var emitted=SorceressSpellMissiles.EmitPlayerItemFireBall(p,position?null:target.Location,aim,rank,outgoing,at,r=>
+        var beforePool=SorceressSpellMissiles.Snapshot();var combatant=p.Combatant;int rolls=0,notifications=0;ulong random=ChanceSeed(true),expected=random;SourceRandom.Roll(ref expected);
+        int stat=outgoing==1?195:201;uint packed=EquipmentStatKey.Pack(stat,(47<<6)|rank);
+        var emitted=PlayerItemProcDispatch.Run(outgoing==1?20:21,packed,p,position?null:NpcItemTarget.Capture((BaseCreature)target),aim,new(0,0,0,0,4,HitFlags:32),
+            (s,layer)=>{Require(s==stat&&layer==((47<<6)|rank),"Proc read a different stat/layer");return 10;},()=>{rolls++;return SourceRandom.Roll(ref random);},false,at,r=>
         {
             draws++;Require(r.Skill==47&&r.Rank==rank&&r.X==(outgoing==1?target.X:p.X)*2&&r.Y==p.Y*2&&r.TargetX==(outgoing==1?2*target.X-p.X:target.X)*2,"Player/source item origin request differs");
+            var frame=PlayerItemSpellCasts.Context(p);Require(frame!=null&&frame.ServerDo&&frame.Target==(position?0:checked((int)target.Serial.Value))&&NpcItemSpellCasts.KeepsCombatTarget(p),"Missing protected player item frame");
+            var alternate=World.FindMobile(state.PendingTarget)as BaseCreature;Require(alternate!=null&&alternate!=target,"Missing distinct ordinary target");
+            p.Combatant=p.Combatant==target?alternate:target;Require(p.Combatant==combatant,"Item frame replaced native ordinary combatant");
+            bool nested=false;try
+            {
+                PlayerItemSpellCasts.Target(p,NpcItemTarget.Capture(alternate),rank,1,false,at,_=>throw new ArithmeticException("Nested item allocation probe"));
+            }
+            catch(ArithmeticException){nested=true;}
+            Require(nested&&PlayerItemSpellCasts.Context(p)==frame&&p.Combatant==combatant&&NpcItemSpellCasts.KeepsCombatTarget(p),"Nested failure lost outer target/path/server-do/guard");
             return new(allocated,SourceRandom.InitLow(73));
-        });
-        Require(emitted.Result==1&&emitted.Attempts==1&&draws==1&&emitted.Flights.Length==(allocated?1:0),"Source result/allocation refusal distinction");
+        },_=>{notifications++;Require(NpcItemSpellCasts.KeepsCombatTarget(p),"Notification escaped target guard");});
+        var created=SorceressSpellMissiles.Snapshot().Flights.Where(f=>f.Owner==p.Serial.Value&&f.Id>beforePool.NextId).ToArray();
+        Require(emitted==new PlayerItemProcOutcome(1,1,1)&&draws==1&&rolls==1&&random==expected&&notifications==1&&created.Length==(allocated?1:0),"Source callback/cast/allocation/refusal distinction or RNG count");
+        Require(PlayerItemSpellCasts.Context(p)==null&&!NpcItemSpellCasts.KeepsCombatTarget(p)&&p.Combatant==combatant,"Outer item frame/guard leaked");
         Require(NecromancerEffects.ManaBalance256(p)==mana&&SkillHealth.Balance256(p)==life&&(state.PendingAbility,state.PendingTarget,state.PendingPoint,state.NextAction)==pending&&Json(SkillBindings.Instance.Get(p))==binding,"Item emission changed player mana/life/ordinary action or bindings");
         Require(ClassCreation.Profiles.GetRank(p.Serial,"sorceress.fireball")==0&&SkillMechanics.Rank(p,CombatAbility.Fireball)==0&&!ClassCombat.Available(p,CombatAbility.Fireball),"Item emission granted learned/cross-class Fire Ball");
         if(!allocated){return null;}
-        var f=Flight(emitted.Flights.Single());ClassCreation.Profiles.TryGet(p.Serial,out var profile);
+        var f=created.Single();ClassCreation.Profiles.TryGet(p.Serial,out var profile);
         Require(f.PlayerItemClass==profile.Class&&f.Npc==null&&f.Rank==rank&&f.Seed==SourceRandom.InitLow(73)&&f.Minimum256>0,"Player proc lost own class/rank/seed/positive packet");
         if(profile.Class==DiabloClass.Sorceress){Require(f.Modifiers.FireMastery==51,"Item Fire Ball omitted player's own mastery");}
         else{Require(f.Modifiers.FireMastery==0,"Foreign item Fire Ball borrowed Sorceress mastery");}
         return f;
     }
+    private static ulong ChanceSeed(bool success)
+    {
+        for(int n=1;n<10000;n++){ulong seed=SourceRandom.InitLow(n),copy=seed;if((SourceRandom.Roll(ref copy)%100<10)==success){return seed;}}
+        throw new InvalidOperationException("No callback chance seed");
+    }
+    private static void Gates(PlayerMobile p,BaseCreature target)
+    {
+        uint packed=EquipmentStatKey.Pack(195,(47<<6)|20);var pool=SorceressSpellMissiles.Snapshot();var combatant=p.Combatant;
+        foreach(int test in Enumerable.Range(0,7))
+        {
+            int rolls=0,allocations=0,notifications=0;ulong random=ChanceSeed(test!=2);bool incoming=test is 3 or 4;int function=incoming?21:20;
+            var packet=test==4?null:new PreparedMonsterDamagePacket(0,0,0,0,incoming?0:4,HitFlags:test==1?0u:32u);
+            var outcome=PlayerItemProcDispatch.Run(function,incoming?EquipmentStatKey.Pack(201,(47<<6)|20):packed,test==6?null:p,NpcItemTarget.Capture(target),target.Location,packet,
+                (_,_)=>test==0?0:10,()=>{rolls++;return SourceRandom.Roll(ref random);},test==5,TimedEffects.Now,_=>{allocations++;throw new ArithmeticException("Unexpected gate allocation");},_=>notifications++);
+            if(test==5){Require(outcome==new PlayerItemProcOutcome(1,1,0)&&rolls==1,"Uninterruptible player cast/result gate");}
+            else{Require(outcome==new PlayerItemProcOutcome(0,0,0)&&rolls==(test==2?1:0),"Callback chance/hit/source/get-hit gate "+test);}
+            Require(allocations==0&&notifications==0&&PlayerItemSpellCasts.Context(p)==null&&!NpcItemSpellCasts.KeepsCombatTarget(p)&&p.Combatant==combatant,"Rejected callback mutated world/frame");
+        }
+        bool failed=false;int chanceRolls=0;
+        try
+        {
+            PlayerItemProcDispatch.Run(20,packed,p,NpcItemTarget.Capture(target),target.Location,new(0,0,0,0,0,HitFlags:32),(_,_)=>10,()=>{chanceRolls++;return 0;},false,TimedEffects.Now,_=>throw new ArithmeticException("Outer allocation failure"));
+        }
+        catch(ArithmeticException){failed=true;}
+        Require(failed&&chanceRolls==1&&PlayerItemSpellCasts.Context(p)==null&&!NpcItemSpellCasts.KeepsCombatTarget(p)&&p.Combatant==combatant,"Throwing callback failed restoration or rolled back chance");
+        Require(Json(SorceressSpellMissiles.Snapshot())==Json(pool),"Rejected callback allocated a flight");
+    }
     private static void Finish(PlayerMobile p,IronGolemFireBallChecks.Recipient target,SorceressSpellFlight f)
     {
         int before=SkillHealth.Balance256(target),mana=NecromancerEffects.ManaBalance256(p);int raw=SorceressSpellMissiles.Roll(f,out _);
         for(int n=0;n<60&&Flight(f.Id)is{} current;n++){SorceressSpellMissiles.Tick(current.NextUtc,true,current.Id);}
-        Require(Flight(f.Id)==null&&before-SkillHealth.Balance256(target)==raw&&target.Source==p.Serial.Value&&target.Before==before,"Player item travel/one captured Fire Ball/source/notification-before-life differs");
+        Require(Flight(f.Id)==null&&before-SkillHealth.Balance256(target)==raw&&target.Source==p.Serial.Value&&target.Before==before,"Player item travel/one captured Fire Ball/source/notification-before-life differs: loss="+(before-SkillHealth.Balance256(target))+" raw="+raw+" source="+target.Source+"/"+p.Serial.Value+" before="+target.Before+"/"+before);
         Require(NecromancerEffects.ManaBalance256(p)==mana,"Item Fire Ball spent player mana on contact");
     }
     private static void RestoreFlight(SorceressSpellFlight f)
@@ -106,6 +147,9 @@ public static class PlayerItemFireBallChecks
                     p.MoveToWorld(old.Point,Map.Trammel);var held=Flight(old.Flight.Id);SorceressSpellMissiles.Tick(held.NextUtc,true,held.Id);var aged=Flight(held.Id);
                     Require(aged.Frame==held.Frame+1&&aged.X==held.X&&aged.Y==held.Y&&SkillHealth.Balance256(t)==old.TargetLife,"Loaded item projectile replayed offline movement/damage");Finish(p,t,aged);
                 }
+                var ordinary=FireBoltChecks.Target(p,1);ordinary.MoveToWorld(new(p.X,p.Y+1,p.Z),p.Map);ClassCombat.Stop(p);ClassCombat.For(p).NextAction=ClassCombat.For(p).RecoveryUntil=0;p.Combatant=ordinary;
+                if(ClassCombat.For(p).PendingAbility==CombatAbility.None){Require(ClassCombat.Perform(p,CombatAbility.BasicAttack,ordinary,ordinary.Location,Core.TickCount),"Begin distinct ordinary attack");}
+                Require(ClassCombat.For(p).PendingTarget==ordinary.Serial,"Ordinary target not retained");Gates(p,t);
                 int rank=(ushort)Encoded(carrier).Packed&63;
                 if(!reload)
                 {
@@ -121,6 +165,7 @@ public static class PlayerItemFireBallChecks
                     var pool=SorceressSpellMissiles.Snapshot();bool refused=false;try{SorceressSpellMissiles.Restore(pool with{Flights=pool.Flights.Select(f=>f.Id==pending.Id?f with{PlayerItemClass=(DiabloClass)0}:f).ToArray()});}catch(InvalidDataException){refused=true;}
                     Require(refused&&Flight(pending.Id)==pending,"Invalid saved item class partly restored");
                 }
+                ClassCombat.Stop(p);p.Combatant=null;ordinary.Delete();
                 var point=p.Location;p.Internalize();saved[index]=new(p.Serial.Value,item.Serial.Value,t.Serial.Value,point,Json(ClassGear.State(item)),carrier,SkillHealth.Balance256(p),NecromancerEffects.ManaBalance256(p),SkillHealth.Balance256(t),pending,generation);
             }
             File.WriteAllText(Manifest,Json(saved));

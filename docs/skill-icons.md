@@ -1,5 +1,7 @@
 # Skill icons
 
+**Player proc frames — 2026-11-16 JST.** Item proc callbacks still create no active binding or extra hotkey icon. Existing Fire Ball talent/hotkey icon requirements remain separate from proc audio and projectile effects. [Checkpoint](player-item-proc-frames-checkpoint.md).
+
 **Prepared player item Fire Ball — 2026-11-16 JST.** A Fire Ball item proc creates no active binding or new hotkey icon. The learned Fire Ball talent/hotkey icon remains on its existing asset entry. [Checkpoint](player-item-fireball-checkpoint.md).
 
 **Fire Bolt/mastery originals returned — 2026-11-16 JST.** Item-granted Fire Bolt reuses its learned talent/hotkey icon. Fire, Lightning and Cold Mastery retain their passive talent icons and cannot occupy active bindings. Existing icon placeholders remain; no extra item-specific hotkey icons are required. [Checkpoint](sorceress-mastery-grants-checkpoint.md).

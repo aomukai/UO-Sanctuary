@@ -22,22 +22,22 @@ internal static class NpcItemSpellCasts
     // exists only during execution and is restored even on an exception.
     private static readonly Dictionary<uint,FrameState> ActiveFrames=new();
     private static readonly Dictionary<uint, int> TargetScopes = new();
-    internal static bool KeepsCombatTarget(BaseCreature caster) => TargetScopes.ContainsKey(caster.Serial.Value);
+    internal static bool KeepsCombatTarget(Mobile caster) => TargetScopes.ContainsKey(caster.Serial.Value);
     public static void Initialize()
     {
         var allowed=ClassCombatHooks.TargetAllowed;
         // Native Mobile.Combatant validates CanBeHarmful while its tentative
         // assignment is marked ChangingCombatant. Veto that assignment before
         // retaliation/notifications,including original frozen Revive bodies.
-        ClassCombatHooks.TargetAllowed=(actor,target)=>!(actor is BaseCreature{Alive:true,Deleted:false,ChangingCombatant:true} source&&KeepsCombatTarget(source))
+        ClassCombatHooks.TargetAllowed=(actor,target)=>!(actor is{Alive:true,Deleted:false,ChangingCombatant:true} source&&KeepsCombatTarget(source))
             &&allowed?.Invoke(actor,target)!=false;
     }
-    internal static IDisposable PreserveCombatTarget(BaseCreature caster)=>new TargetScope(caster);
+    internal static IDisposable PreserveCombatTarget(Mobile caster)=>new TargetScope(caster);
     private sealed class TargetScope : IDisposable
     {
         private readonly uint _actor;
         private bool _disposed;
-        internal TargetScope(BaseCreature caster)
+        internal TargetScope(Mobile caster)
         {
             _actor = caster.Serial.Value;
             TargetScopes[_actor] = TargetScopes.GetValueOrDefault(_actor) + 1;
