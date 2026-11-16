@@ -66,14 +66,13 @@ internal static class DruidRabies
         // included once, without silently adding that old second bonus.
         bool hit=ClassStats.CheckHit(owner,target,0,HitRoll,projectile:false)==true;
         bool blocked=false,animation=false;if(hit&&SourceBlocking.TryRoll(target,true,out blocked,out animation)&&blocked){hit=false;}
-        if(blocked){SourceBlocking.Present(target,animation);}
+        PreparedWeaponImpact packet=default;PlayerWeaponDrain drain=default;
         if(hit)
         {
-            using var attempt=PaladinThorns.Attempt(owner,target,false);
             double roll=ElementRoll();var raw=GearEffects.Damage(owner,roll,target,physicalRoll:PhysicalRoll);
-            var packet=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,raw);
-            GearEffects.Strike(owner,target,roll,Effects,preparedImpact:packet,sourceDrain:WeaponLeech.Capture(owner));
+            packet=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,raw);drain=WeaponLeech.Capture(owner);
         }
+        DruidWeaponContact.Release(owner,target,DruidWeaponContact.Capture(owner,target,hit,blocked,packet,drain,Effects),TimedEffects.Now);
         if(target is not{Alive:true,Deleted:false}||owner is not{Alive:true,Deleted:false}||!ReferenceEquals(pending.Form,DruidPlayerForms.State(owner)))
         {session.RabiesFault="Lethal/reentrant post-bite marker chronology is unverified";return true;}
         // Re-evaluate AFTER ordinary weapon events, as do121 does. Item poison

@@ -95,14 +95,16 @@ internal static class DruidFury
             bool hit=ClassStats.CheckHit(owner,target,(int)values.Formula("toht"),HitRoll,projectile:false)==true;
             bool blocked=false,animation=false;
             if(hit&&(!SourceBlocking.TryRoll((BaseCreature)target,true,out blocked,out animation)||blocked)){hit=false;}
-            if(blocked){SourceBlocking.Present((BaseCreature)target,animation);}
             if(!ReferenceEquals(action.Fury,series)||action.PendingAbility!=CombatAbility.Fury){return true;}
             if(!Valid(owner,series)){Cancel(owner);return true;}
+            PreparedWeaponImpact impact=default;PlayerWeaponDrain drain=default;
             if(hit&&ValidTarget(owner,target.Serial))
             {
-                using var attempt=PaladinThorns.Attempt(owner,target,false);
-                GearEffects.Strike(owner,target,ElementRoll(),Effects,skillPhysicalPercent:(int)values.Eval("calc2"),physicalRoll:PhysicalRoll);
+                double roll=ElementRoll();var raw=GearEffects.Damage(owner,roll,target,(int)values.Eval("calc2"),PhysicalRoll);
+                impact=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,raw);drain=WeaponLeech.Capture(owner);
             }
+            else{hit=false;}
+            DruidWeaponContact.Release(owner,(BaseCreature)target,DruidWeaponContact.Capture(owner,(BaseCreature)target,hit,blocked,impact,drain,Effects),TimedEffects.Now);
         }
         // Health/item callbacks may deliberately stop,replace or unshift the
         // action. Never resurrect the old series after a reentrant callback.

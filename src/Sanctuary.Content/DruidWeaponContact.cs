@@ -3,8 +3,9 @@ using System;
 using Server.Mobiles;
 namespace Sanctuary;
 
-// Start56/start58 already own accuracy,shield selection,critical,element rolls
-// and payment. Retain their stored packet rather than allocating it again.
+// Form skill controllers own accuracy,shield selection,critical,element rolls
+// and payment at their distinct start/action phases. Retain that packet rather
+// than allocating it again in the shared contact consumer.
 internal static class DruidWeaponContact
 {
     internal static PlayerWeaponContactPrepared Capture(PlayerMobile source,BaseCreature target,bool hit,bool blocked,

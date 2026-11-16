@@ -52,16 +52,15 @@ internal static class DruidHunger
         using var melee=CombatTiming.Equipped(owner) is{} weapon?WeaponHands.UseMelee(owner,weapon):null;
         bool hit=ClassStats.CheckHit(owner,target,(int)values.Formula("toht"),HitRoll,projectile:false)==true;
         bool blocked=false,blockAnimation=false;if(hit&&SourceBlocking.TryRoll(target,true,out blocked,out blockAnimation)&&blocked){hit=false;}
-        if(blocked){SourceBlocking.Present(target,blockAnimation);}
+        PreparedWeaponImpact packet=default;PlayerWeaponDrain drain=default;
         if(hit)
         {
-            using var attempt=PaladinThorns.Attempt(owner,target,false);
             double roll=ElementRoll();var raw=GearEffects.Damage(owner,roll,target,physicalRoll:PhysicalRoll);
-            var packet=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,raw,physicalAfterCritical:ReducePhysical);
-            var drain=WeaponLeech.Capture(owner,new((int)values.Eval("calc2"),(int)values.Eval("calc3")));
-            GearEffects.Strike(owner,target,roll,Effects,preparedImpact:packet,sourceDrain:drain);
+            packet=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,raw,physicalAfterCritical:ReducePhysical);
+            drain=WeaponLeech.Capture(owner,new((int)values.Eval("calc2"),(int)values.Eval("calc3")));
             owner.PlaySound(0x238); // Identified bite/contact audio placeholder; leech effect uses the shared placeholder.
         }
+        DruidWeaponContact.Release(owner,target,DruidWeaponContact.Capture(owner,target,hit,blocked,packet,drain,Effects),TimedEffects.Now);
         // No-start handler consumes mana after do122, so a full mana pool
         // cannot bank this bite's leech against its own payment.
         NecromancerEffects.Pay(owner,values.Mana256);
