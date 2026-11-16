@@ -1,0 +1,66 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "functions": {
+    "MISSMODE_FillDamageParams": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "3b41025fb32951b5bce45ff9679aa548f7f784cfe5ec22432ca94e57c33defe6"
+    },
+    "MISSMODE_ResetDamageParams": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "391b685f3f86856b4c5187fea56c2efe2892b9b4953c5d2ae59b28a4e652aed0"
+    },
+    "MISSMODE_AddDamageValue": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "910a2dfa32fe61bc13455dbb3a71180aa4ca7819954dc0bec66fab9fb20a1d56"
+    },
+    "MISSMODE_SrvDmg12_LightningJavelin": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "c1da75cfdd915d61df0c6024aa02e3214770b383781446b70f36a49d0220d1f7"
+    },
+    "MISSMODE_SetDamageFlags": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "e45650c089a89c9f2db72a953ea9f09b8ea823f0a2bcf7b65dfd130c6b476280"
+    },
+    "MISSMODE_SrvDmgHitHandler": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "ea4d1c52db64fe810d2404b578ab7aa3ba4a375e9fc6f0bb20b559ccb308f329"
+    },
+    "SKILLITEM_EventFunc14_Freeze": {
+      "path": "source/D2Game/src/SKILLS/SkillItem.cpp",
+      "sha256": "2b63b338c9aa425d73b8c0c334a14efa75a49860ed8ff487d3f7c37e941a158b"
+    }
+  },
+  "sourceHashes": {
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
+  },
+  "missileFields": {
+    "pSrvDoFunc": 1,
+    "pSrvHitFunc": 0,
+    "pSrvDmgFunc": 12,
+    "ToHit": 0,
+    "HitClass": 64,
+    "GetHit": 1,
+    "NextHit": 0,
+    "NextDelay": 0,
+    "Range": 25,
+    "Size": 2,
+    "dParam1": 100
+  },
+  "skillSourceDamage": 96,
+  "retainedSourceEvidence": {
+    "tools/reference/lightning-bolt-engine-evidence.json": "76223e28375a898a6824f417ad9d204b19ebffa614f954ce46c9e81bc1148f56"
+  },
+  "established": [
+    "The existing complete creator/impact differentials retain SrcDam96,enhanced/critical physical conversion,second lightning roll and full damage/length/drain reset. The shared actor allocator explicitly receives zero poison/length and drain for this route.",
+    "SetDamageFlags adds source weapon HitFlags32 after damage reset:successful item hit callbacks remain,including independent attacker item-freeze;cleared missile cold does not clear owner equipment. No launch or missile attack event is invented.",
+    "Current ToHit0 bypasses the older complete accuracy routine,including its PMH setup,as with Guided Arrow. Native AR and physical shield delegates must remain unused for the pure-lightning packet;modern live PMH remains unverified.",
+    "Reuse existing source-step collision,Pierce/LastCollide,25-frame lifetime,TH/IAS input,mana/quantity,packet/stat capture and saves. Captured armor still belongs to the separate post-handler stat effect."
+  ],
+  "remaining": [
+    "Archived current rows and complete older functions establish the scoped adapter,not modern seed/provider/owner/stat/geometry/global scheduler parity.",
+    "Actual current zero-ToHit PMH,exceptional/uninterruptible/death-delay/hireling/PvP and depleted-provider semantics remain explicitly unverified.",
+    "Fury/poison-cloud children,other missile consumers,whole named acquisition,full class/client and separate effect/audio/icon assets remain open."
+  ]
+}

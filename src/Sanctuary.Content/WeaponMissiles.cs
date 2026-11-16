@@ -354,8 +354,8 @@ public static class WeaponMissiles
         bool hit=flight.Ability is CombatAbility.LightningBolt or CombatAbility.LightningFury || next.Guided!=null
             || (flight.Ability==CombatAbility.DoubleThrow?DoubleThrowMissiles.Hit(player,selected,flight.Damage.SkillAttackPercent,BarbarianDoubleThrow.HitRoll):flight.Ability==CombatAbility.BladeFury?BladeFuryMissiles.Hit(player,selected,flight.Damage.SkillAttackPercent,HitRoll)
                 :ClassStats.CheckHit(owner,selected,flight.Damage.SkillAttackPercent,HitRoll,projectile:true))==true;
-        // Accuracy-side PMH precedes hit09's immediate area; Guided has no AR path.
-        if(hit&&(flight.Throwing!=null||BowMissileContact.Handles(flight)&&flight.Guided==null)&&selected is BaseCreature hitTarget)
+        // Accuracy-side PMH precedes hit09; zero-ToHit routes bypass that source routine.
+        if(hit&&(flight.Throwing!=null||BowMissileContact.AccuracyPMH(flight))&&selected is BaseCreature hitTarget)
         {WeaponStartEffects.SuccessfulHitRoll(player,hitTarget);}
         if(flight.Ability==CombatAbility.ImmolationArrow)
         {
