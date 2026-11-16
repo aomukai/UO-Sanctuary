@@ -1,0 +1,30 @@
+{
+  "status": "prepared-pending-decision",
+  "referenceVersion": "3.3.93847",
+  "proposal": "docs/explosive-terrain-rule-proposal.md",
+  "checkpoint": "docs/explosive-terrain-checkpoint.md",
+  "preparedReceipt": "tools/reference/explosive-terrain-prepared-native-evidence.json",
+  "scope": [
+    "Sorceress Fire Ball",
+    "Sorceress Glacial Spike"
+  ],
+  "rule": "Reuse existing LobProjectiles.Advance on each movement update; native Wall/NoShoot metadata and LOS stop at the last clear tile, then dispatch the existing explosion. Terrain termination precedes recipient search in that move. Unblocked contact and active expiry retain existing rules.",
+  "defaultEnabled": false,
+  "referenceGap": "Exact pinned D2R collision-to-UO tile centre remains unverified; this is an explicit native-world adaptation.",
+  "unchanged": [
+    "Damage capture and RNG",
+    "Copied area radius/mitigation",
+    "Glacial freeze versus Fire Ball no freeze",
+    "Once-only payment",
+    "Flight lifetime and V0 save shape",
+    "Lifecycle/no replay",
+    "Installed build and saves"
+  ],
+  "excluded": [
+    "NPC/mage projectiles",
+    "Other explosive controllers",
+    "Charms and runewords",
+    "Final effects/audio/icons"
+  ],
+  "nextAfterDecision": "Adopt scoped rule and verify actual learned casts under it before claiming closure."
+}

@@ -41,7 +41,7 @@ Shared `sorceress-binding` checks cover all 30 pinned mouse policies, passive re
 
 ## Explicit remaining limits
 
-- Fireball's existing wall fixture characterizes an explosion beyond a native blocking tile. Glacial Spike and other explosive producers need the same shared terrain-impact review; a correct D2R-to-UO tile centre has not been established or invented.
+- Fireball's existing wall fixture characterizes an explosion beyond a native blocking tile. Glacial Spike and other explosive producers need the same shared terrain-impact review; a correct D2R-to-UO tile centre has not been established or invented. A [tested native-world proposal](explosive-terrain-rule-proposal.md) now reuses the existing lob last-clear-tile adapter for player Fire Ball/Glacial only (46 results/two reloads); it remains disabled pending a decision and learned-input qualification. Other producers are not silently changed.
 - Energy Shield has no qualified live producer for the older monster drain fields. The native armor-ignore route remains distinct from the supported typed five-channel incoming adapter. Psychic Ward's unsupported Energy Shield overlap stays guarded.
 - Telekinesis world targets such as portals, waypoints and shrines remain unsupported where no matching world service exists. Current target-specific guards remain authoritative.
 - Exact modern room/geometry/candidate and event/RNG ordering, unqualified special/PvP recipients, historical binary upgrades and graphical-client behavior remain bounded by each dedicated receipt. A combined pass cannot establish those absent adapters.
