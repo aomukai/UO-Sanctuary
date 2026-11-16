@@ -44,3 +44,5 @@ Retain the approved UO bodies: Goatman → Gargoyle, Tainted → Succubus, Defil
 Reuse the existing current-input and component drivers when assembling the class cohort. Keep connected setup/result ordering, independent synthetic clocks, retained wounds/resources, original-save identity, no input replay and exact marker inventories. Do not rerun unchanged reference compiler matrices. Current installed D2R is newer than the pinned reference; do not inspect that process or CASC.
 
 Missing visual effects/audio stay in [skill-effects](skill-effects.md); tree/hotkey art stays in [skill-icons](skill-icons.md). Identified placeholders do not gate mechanics. No image generation or deployment is part of this inventory.
+
+Current first group: [demon/foundation checkpoint](warlock-planned-acceptance-checkpoint.md), [driver](../tests/check_warlock_demons_acceptance.py). Seven route entry points, 21 reused families, nine ordinary input commands and two held Bind sequences per boot are declared; native acceptance remains pending. The other nineteen implemented routes remain next, and the four frozen proposals remain pending.
