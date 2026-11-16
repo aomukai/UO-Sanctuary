@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "3681fefb6d3af02a403b69668838b3e776865cb66e1b839168f3c173cdc3eb3d",
+  "ContentAssemblySha256": "9ade3571bb9c8d2f9b0cdc70c89103d5973e87eb0b862f5ba62508cd669e0958",
   "NativeAssemblySha256": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
   "InputHashes": {
     "data/Sanctuary/Balance/abyss-route.json": "6c823249f73d320ba6ba4b2c538d419bc54a8cb8aaad8a605f5abf18d5911e18",
@@ -367,7 +367,7 @@
     "src/Sanctuary.Content/AssassinBuffs.cs": "90bf27935ce9394663a01a54225965e25db5be53e68a843dc0fd8a53e27232a3",
     "src/Sanctuary.Content/AssassinCastClock.cs": "d14b21cf18cd3332238c8d5b301d7de6d36d3ca437669e77c149ef09186b6639",
     "src/Sanctuary.Content/AssassinCharges.cs": "bbf39b3866b46fe7d0ce6a1957589dc94ae359e651b82abd1d89eddee08902a3",
-    "src/Sanctuary.Content/AssassinClaws.cs": "22d521570f8d409ece33c1f4d1e58722baeb93e0f21c85993f113756b50bde0d",
+    "src/Sanctuary.Content/AssassinClaws.cs": "68b38d2c372c9ab64f975b16daf46e232e491634617b58864c72ec5c5954b2ab",
     "src/Sanctuary.Content/AssassinCombat.cs": "989466e52cc3a8ae97ff0446ed103e1e629ff297568ae00eba65fc9883a68003",
     "src/Sanctuary.Content/AssassinDeathSentryAi.cs": "5aaf2160681fa1a666508eada36388c5f38113abd93861674a0246dc227c4913",
     "src/Sanctuary.Content/AssassinDeathSentryControl.cs": "4774e6954b6f89f5ba05d48cafbd1bf2140cc9068d0393893596d2c582eb0415",
@@ -401,6 +401,7 @@
     "src/Sanctuary.Content/AssassinTrapStats.cs": "61330a28dfc1ee2e4166d14edde76c7ddf7ce96a34ae519f936007f335552db8",
     "src/Sanctuary.Content/AssassinWakeFire.cs": "4a93b789d916a0712e6704073aa24f3820e8eb04ac437b4280e12ad97b5ffba5",
     "src/Sanctuary.Content/AssassinWakeFireMissiles.cs": "35dbfd2306320e4c10eb01563ab42d4a0894f72af4d4ab67cb7b7408e6ecba23",
+    "src/Sanctuary.Content/AssassinWeaponContact.cs": "bfbe25c174182b793bba6afbe14366b22a1a063fcf9671f5df4d9fe9c14c4e4e",
     "src/Sanctuary.Content/AttractCasts.cs": "13e2c7e90bd17ae98a895964d5eca11b722b1bdf68dd763e6fc59c82a2c94c49",
     "src/Sanctuary.Content/BalanceCatalog.cs": "fcaf81546abe7927c62ef119141038ceca5fb32a2fbed672f95f099c166b2dd8",
     "src/Sanctuary.Content/BarbarianBattleCry.cs": "635e66665af02e4df9213199f8cf0d748a851747463a6fdc8cc1ffc192053e13",
@@ -1334,7 +1335,7 @@
     "src/Sanctuary.Content/Teleportation.cs": "80cb61ebc3e56ea7d55854fe0b7b01db416a55585afaf895dc486616fca102e1",
     "src/Sanctuary.Content/ThunderStorm.cs": "ea2265a340b77310ec8ad84937e74e78977a828714b73febb9fe54dbaea5fb26",
     "src/Sanctuary.Content/TieredImbuing.cs": "95ba6d99f6430e445c1eb8e2ae9631777aab20ab56e283be48888362c1dd0eb9",
-    "src/Sanctuary.Content/TigerStrikes.cs": "73e9cc00b1cf338eb64448c476b55307bb032c6a1aaa42ace6cc25e5b9373c16",
+    "src/Sanctuary.Content/TigerStrikes.cs": "b6dc089a4f25ba1bc32f5bcfacb930079e86c4caf23ca3b863602165d9e20c38",
     "src/Sanctuary.Content/TimedEffects.cs": "ffeef8bf6f2a36b56fc78ab34c4d7967ec6f0620826d7c376376d62d12759786",
     "src/Sanctuary.Content/TinkeringSockets.cs": "92594249b0cc2b06595d65349a392514d069aa558a526fa43a26d499506f3c93",
     "src/Sanctuary.Content/TitleNetwork.cs": "e3f8f5284b61eaa79b7afabb45163b130966d1b449465fea575b439ba19d2e86",

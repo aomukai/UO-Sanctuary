@@ -14,6 +14,7 @@ public static class TigerStrikes
     internal static Func<double> HitRoll=Utility.RandomDouble;
     internal static Func<double> ElementRoll=Utility.RandomDouble;
     internal static Func<int,int> PhysicalRoll=Utility.Random;
+    internal static Func<int,int> PoisonRoll=Utility.Random;
     internal static Random Effects=Random.Shared;
     // Reuse source weapon-class selection, including dual claws' HT1/HT2.
     internal static ActionTiming Timing(string code,int advance)
@@ -33,6 +34,7 @@ public static class TigerStrikes
     internal static bool Begin(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now)
     {
         if(!Handles(ability) || !AssassinCombat.Available(owner,ability) || !ValidTarget(owner,selected)){return false;}
+        if(!AssassinWeaponContact.Require(owner,World.FindMobile(selected))){return false;}
         var values=SkillMechanics.Values(owner,ability);bool basic=!NecromancerEffects.CanPay(owner,values.Mana256);
         if(!SkillCombat.Begin(owner,ability,selected,point,now,(_,_,id,_)=>ValidTarget(owner,id),requireMana:!basic,timing:Timing(owner))){return false;}
         var session=ClassCombat.For(owner);
@@ -55,6 +57,8 @@ public static class TigerStrikes
     }
     internal static bool ChargeContact(PlayerMobile owner,Mobile target,SkillValues values)
     {
+        if(target is BaseCreature creature){return AssassinWeaponContact.Builder(owner,creature,values);}
+        // Player recipients retain their separate compatibility route.
         // Unlike the ordinary finisher, charge builder uses only its own skill AR.
         if(!Successful(owner,target,(int)values.Formula("toht"))){return false;}
         double roll=ElementRoll();var raw=GearEffects.Damage(owner,roll,target,0,PhysicalRoll);
@@ -72,6 +76,7 @@ public static class TigerStrikes
     }
     internal static bool BasicStrike(PlayerMobile owner,Mobile target)
     {
+        if(target is BaseCreature creature){return AssassinWeaponContact.Basic(owner,creature);}
         var states=AssassinCharges.Finisher(owner);int attack=states.Sum(x=>x.AttackPercent);
         if(!Successful(owner,target,attack)){return false;}
         var tiger=states.FirstOrDefault(x=>x.Ability==CombatAbility.TigerStrike);var cobra=states.FirstOrDefault(x=>x.Ability==CombatAbility.CobraStrike);

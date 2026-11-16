@@ -57,6 +57,7 @@ public static class AssassinClaws
     public static bool Begin(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now)
     {
         if(!Handles(ability) || !AssassinCombat.Available(owner,ability) || !ValidTarget(owner,selected,ability)){return false;}
+        if(ability!=CombatAbility.DragonClaw&&!AssassinWeaponContact.Require(owner,World.FindMobile(selected))){return false;}
         var values=SkillMechanics.Values(owner,ability);bool basic=!NecromancerEffects.CanPay(owner,values.Mana256);
         var pair=WeaponHands.Pair(owner);using var primary=ability==CombatAbility.DragonClaw&&pair is{} hands?WeaponHands.Use(owner,hands.Primary):null;
         if(ability==CombatAbility.DragonClaw)

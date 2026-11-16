@@ -36,9 +36,9 @@ public static class PlayerItemProcWorldChecks
     private static PlayerProcSave Own(PlayerMobile p,Item item)
     {var all=PlayerItemProcs.Capture();return all with{Items=all.Items.Where(i=>i.Item==item.Serial.Value).ToArray(),Owners=all.Owners.Where(o=>o.Actor==p.Serial.Value).ToArray()};}
     private static ulong Seed(PlayerMobile p)=>PlayerItemProcs.Capture().Owners.Single(o=>o.Actor==p.Serial.Value).Seed;
-    private static Item Carrier(PlayerMobile p)
+    internal static Item Carrier(PlayerMobile p,BaseWeapon weapon=null)
     {
-        var item=new Dagger();ClassGear.Profiles.Convert(item,99,GearRarity.Normal,new Random(173));p.AddToBackpack(item);
+        var item=weapon??new Dagger();ClassGear.Profiles.Convert(item,99,GearRarity.Normal,new Random(173));p.AddToBackpack(item);
         var values=new EquipmentStatValues(_=>4,_=>null,_=>null,(_,_,_,_,_)=>{});var graph=new ItemPropertyCreationContext(item,values,default,false,false,false,SourceRandom.InitLow(17),[]);
         var properties=new[]{"att-skill","hit-skill"}.Select(code=>new NamedProperty(code,code,code,true,JsonSerializer.SerializeToElement("Fire Ball"),100,20)).ToArray();
         Require(EquipmentRawProperties.ProjectRecorded(item,graph.Unit,values,default,false,false,false,properties.Select(prop=>(prop,NamedPropertyRuntime.Roll(prop.Code,prop,new Random(173))))).Length==0,"Candidate carrier fields omitted");

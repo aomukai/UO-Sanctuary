@@ -119,7 +119,7 @@ public static class CobraStrikeChecks
     }
     private static (PreparedWeaponImpact Packet,PlayerWeaponDrain Drain,WeaponLeechResult Recovery) Expected(PlayerMobile p,BaseCreature t)
     {
-        var tiger=AssassinCharges.State(p);int? ed=tiger==null?null:AssassinCharges.TigerPercent(tiger,SkillMechanics.Rank(p,CombatAbility.TigerStrike));
+        var tiger=AssassinCharges.State(p);int ed=AssassinCharges.TigerPercent(tiger,SkillMechanics.Rank(p,CombatAbility.TigerStrike));
         var packet=GearEffects.PrepareWeaponImpact(p,t,0,new FixedRandom(99),GearEffects.Damage(p,0,t,ed,_=>0));var extra=AssassinCharges.CobraDrain(Cobra(p),SkillMechanics.Rank(p,CombatAbility.CobraStrike));var drain=WeaponLeech.Capture(p,extra);
         int div=MonsterVariants.Difficulty(t) switch{MonsterDifficulty.Nightmare=>2,MonsterDifficulty.Hell=>3,_=>1};
         return(packet,drain,WeaponLeech.Calculate(NamedElements.To256(packet.Parts.Physical),SkillHealth.Balance256(t),NecromancerEffects.ManaBalance256(t),drain.LifePercent,drain.ManaPercent,GemCombat.Drain(t),div,div));
@@ -128,7 +128,7 @@ public static class CobraStrikeChecks
     {
         int hp=SkillHealth.Balance256(p),mp=NecromancerEffects.ManaBalance256(p),life=SkillHealth.Balance256(t);var states=AssassinCharges.Finisher(p);var e=Expected(p,t);
         int loss=Swing(p,t,ability),damage=NamedElements.To256(e.Packet.Parts.Total);int expectedLoss=life-damage<256?life:damage;
-        Require(loss==expectedLoss && SkillHealth.Balance256(p)==Math.Min(SkillHealth.Maximum256(p),hp+e.Recovery.Life256) && NecromancerEffects.ManaBalance256(p)==Math.Min(p.ManaMax*256,mp+e.Recovery.Mana256),"Physical-only merged FP256 drain/cap/damage "+MonsterVariants.Difficulty(t));
+        Require(loss==expectedLoss && SkillHealth.Balance256(p)==Math.Min(SkillHealth.Maximum256(p),hp+e.Recovery.Life256) && NecromancerEffects.ManaBalance256(p)==Math.Min(p.ManaMax*256,mp+e.Recovery.Mana256),$"Physical-only merged FP256 drain/cap/damage {MonsterVariants.Difficulty(t)} loss={loss}/{expectedLoss} life={SkillHealth.Balance256(p)}/{Math.Min(SkillHealth.Maximum256(p),hp+e.Recovery.Life256)} mana={NecromancerEffects.ManaBalance256(p)}/{Math.Min(p.ManaMax*256,mp+e.Recovery.Mana256)}");
         if(t.Alive){Require(NecromancerEffects.ManaBalance256(t)==e.Recovery.VictimMana256,"Scoped legacy victim-mana tail");}
         foreach(var state in states){Require(AssassinCharges.State(p,state.Ability)==AssassinCharges.Consumed(state,1),"One-of-each charge consumed");}
     }
