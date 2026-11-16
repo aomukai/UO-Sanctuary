@@ -8,11 +8,11 @@ namespace Sanctuary;
 
 internal sealed record PlayerProcWorldVisit(uint Owner,string Phase,PreparedMonsterDamagePacket Packet,PlayerItemProcOutcome[] Outcomes);
 
-// Proposed world binding for the existing ordered player melee consumer.
+// Approved Sanctuary world binding for the existing ordered player melee consumer.
 // No scalar native Damage inference,and no attack event per missile impact.
 internal static class PlayerItemProcWorld
 {
-    internal static bool Approved=>false;
+    internal static bool Approved=>true;
     private static readonly HashSet<uint> CandidateOwners=[];
     internal static Action<PlayerProcWorldVisit> Observed;
     private sealed class Proof(PlayerMobile owner):IDisposable
@@ -49,7 +49,7 @@ internal static class PlayerItemProcWorld
             {if(Attack){throw new InvalidOperationException("Player melee attack proc phase replayed");}Attack=true;}
             else{throw new NotSupportedException("Player melee ticket needs its actual ordered phase");}
             // This route permits item casts without changing the ordinary
-            // action. This is an explicit proposal,not a guessed D2 state bit.
+            // action. This is the approved adaptation,not a guessed D2 state bit.
             var outcomes=PlayerItemProcs.Dispatch(owner,phase,target,path,packet,false,at,
                 request=>Allocate(owner,request,at),actions:Actions(owner));
             Observed?.Invoke(new(owner.Serial.Value,phase,packet,outcomes));

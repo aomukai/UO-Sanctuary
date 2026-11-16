@@ -7,6 +7,7 @@ using System.Text.Json;
 using Server;
 using Server.Items;
 using Server.Mobiles;
+using Server.Network;
 namespace Sanctuary.Integration;
 
 public static class PlayerItemProcWorldChecks
@@ -18,10 +19,17 @@ public static class PlayerItemProcWorldChecks
     private static void Require(bool ok,string why){if(!ok){throw new InvalidOperationException(why);}}
     public static void Configure()
     {
+        WireCommands();
         foreach(bool again in new[]{false,true})
         {bool reload=again;string name=reload?"player-item-proc-world-reload-check":"player-item-proc-world-check";
-            ConsoleInputHandler.RegisterCommand(name,"Candidate ordered player melee proc callers,shared world allocation and saves",_=>Core.LoopContext.Post(()=>
+            ConsoleInputHandler.RegisterCommand(name,"Approved ordered player melee proc callers,shared world allocation and saves",_=>Core.LoopContext.Post(()=>
             {try{Check(reload);Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));}
+    }
+    private static void WireCommands()
+    {
+        foreach(string mode in new[]{"right","quick"})
+        {string label="player-item-proc-zeal-"+mode;ConsoleInputHandler.RegisterCommand(label+"-check","Authenticated learned Zeal with approved equipped item procs",_=>Core.LoopContext.Post(()=>
+            {try{FixtureNetwork.Connected(label+"-result",n=>Input(n,label));Log.Information("{Label}-check: passed",label);}catch(Exception e){Log.Error(e,"{Label}-check: failed",label);}}));}
     }
     public static void Initialize()=>ConsoleInputHandler.RegisterCommand("player-item-proc-world-save-check","Bind final shared world seed after all component allocations",_=>Core.LoopContext.Post(()=>
     {try{var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));File.WriteAllText(Manifest,Json(saved with{World=NpcWorldAllocation.Capture()}));Log.Information("player-item-proc-world-save-check: passed");}catch(Exception e){Log.Error(e,"player-item-proc-world-save-check: failed");}}));
@@ -46,20 +54,23 @@ public static class PlayerItemProcWorldChecks
     }
     private static void Check(bool reload)
     {
-        Require(!PlayerItemProcWorld.Approved&&!NamedGear.Available("unique/254"),"Candidate silently admitted a world/item policy");
+        Require(PlayerItemProcWorld.Approved&&!NamedGear.Available("unique/254"),"Approved world policy changed complete-item admission");
         PlayerMobile p;Item item;IronGolemFireBallChecks.Recipient t;int generation=0;
         if(!reload)
         {
             p=ClassSkillChecks.Player(DiabloClass.Paladin);p.Name="PlayerItemFireBallFixture";p.AddItem(new Backpack());FixtureSpace.Corridor(p,6280,32,3700);
-            item=Carrier(p);t=new IronGolemFireBallChecks.Recipient();t.SetHits(60000);t.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);t.AIObject.AITimer.Stop();foreach(var r in Enum.GetValues<ResistanceType>()){t.SetResistance(r,0);}
-            var world=NpcWorldAllocation.Capture();Require(PlayerItemProcWorld.Capture(p,t,TimedEffects.Now)==null&&!PlayerItemProcs.Initialized(p)&&NpcWorldAllocation.Capture()==world,"Unapproved policy initialized a player or consumed world RNG");
+            item=Carrier(p);t=new IronGolemFireBallChecks.Recipient();t.SetHits(60000);t.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);t.AIObject.AITimer.Stop();foreach(var r in Enum.GetValues<ResistanceType>()){t.SetResistance(r,0);}TimedEffects.PreventHealing(t,TimedEffects.Now);
+            var world=NpcWorldAllocation.Capture();Require(PlayerItemProcWorld.Capture(p,t,TimedEffects.Now)==null&&!PlayerItemProcs.Initialized(p)&&NpcWorldAllocation.Capture()==world,"Offline player initialized or consumed world RNG");
         }
         else
         {
             var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));generation=s.Generation+1;Require(generation<=2,"Extra world-proc reload");
             p=(PlayerMobile)World.FindMobile((Serial)s.Owner);item=World.FindItem((Serial)s.Item);t=(IronGolemFireBallChecks.Recipient)World.FindMobile((Serial)s.Target);
-            Require(item.Parent==p&&Json(ClassGear.State(item))==s.Gear&&Json(Own(p,item))==s.Profile&&NpcWorldAllocation.Capture()==s.World
-                &&SkillHealth.Balance256(p)==s.Life&&NecromancerEffects.ManaBalance256(p)==s.Mana&&SkillHealth.Balance256(t)==s.TargetLife,"Saved native original/player/world RNG or life changed");
+            Require(item.Parent==p&&Json(ClassGear.State(item))==s.Gear,"Saved native proc original/gear changed");
+            Require(Json(Own(p,item))==s.Profile,"Saved player proc profile differs: actual="+Json(Own(p,item))+" expected="+s.Profile);
+            Require(NpcWorldAllocation.Capture()==s.World,"Saved shared world differs: actual="+Json(NpcWorldAllocation.Capture())+" expected="+Json(s.World));
+            Require(SkillHealth.Balance256(p)==s.Life&&NecromancerEffects.ManaBalance256(p)==s.Mana&&SkillHealth.Balance256(t)==s.TargetLife,
+                "Saved health/mana differs: owner="+SkillHealth.Balance256(p)+"/"+s.Life+" mana="+NecromancerEffects.ManaBalance256(p)+"/"+s.Mana+" target="+SkillHealth.Balance256(t)+"/"+s.TargetLife);
             p.MoveToWorld(s.Point,Map.Trammel);
         }
         var block=SourceBlocking.BlockRoll;var hit=PaladinZeal.HitRoll;var observer=PlayerItemProcWorld.Observed;var visits=new List<PlayerProcWorldVisit>();
@@ -101,10 +112,56 @@ public static class PlayerItemProcWorldChecks
                 Require(TickFlights(p,first)==2,"Learned Zeal did not emit both actual item phases");ClassCombat.Stop(p);
             }
             var count=visits.Count;var savedWorld=NpcWorldAllocation.Capture();var savedSeed=Seed(p);PlayerWeaponContact.Release(p,t,Prepared(p,t),TimedEffects.Now);
-            Require(visits.Count==count&&Seed(p)==savedSeed&&NpcWorldAllocation.Capture()==savedWorld,"Candidate scope leaked into ordinary unapproved combat");
+            Require(visits.Count==count&&Seed(p)==savedSeed&&NpcWorldAllocation.Capture()==savedWorld,"Qualification scope leaked into ordinary offline combat");
         }
         finally{SourceBlocking.BlockRoll=block;PaladinZeal.HitRoll=hit;PlayerItemProcWorld.Observed=observer;ClassCombat.Stop(p);}
         var point=p.Location;p.Internalize();
         File.WriteAllText(Manifest,Json(new Saved(p.Serial.Value,item.Serial.Value,t.Serial.Value,point,Json(ClassGear.State(item)),Json(Own(p,item)),NpcWorldAllocation.Capture(),SkillHealth.Balance256(p),NecromancerEffects.ManaBalance256(p),SkillHealth.Balance256(t),generation)));
     }
+    private static void Input(NetState network,string label)
+    {
+        var p=ClassSkillChecks.Player(DiabloClass.Paladin);p.Name="PlayerItemFireBallFixture";p.AddItem(new Backpack());FixtureSpace.Corridor(p,6280,32,3700);
+        var item=Carrier(p);var t=new IronGolemFireBallChecks.Recipient();t.SetHits(60000);t.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);t.AIObject.AITimer.Stop();foreach(var r in Enum.GetValues<ResistanceType>()){t.SetResistance(r,0);}TimedEffects.PreventHealing(t,TimedEffects.Now);
+        Require(SkillBindings.Instance.Assign(p,false,CombatAbility.Zeal)&&SkillBindings.Instance.AssignQuick(p,7,CombatAbility.Zeal),"Wire proc Zeal bindings");
+        var account=FixtureNetwork.Authenticate(network,p,"player-proc-zeal-");NecromancerEffects.SetMana256(p,529);
+        var hit=PaladinZeal.HitRoll;var block=SourceBlocking.BlockRoll;var observed=PlayerItemProcWorld.Observed;PaladinZeal.HitRoll=()=>0;SourceBlocking.BlockRoll=n=>n-1;
+        var visits=new List<PlayerProcWorldVisit>();var emitted=new HashSet<long>();long first=SorceressSpellMissiles.Snapshot().NextId;
+        ulong expectedWorld=NpcWorldAllocation.RequireStream().Value;ulong expectedActor=SourceRandom.InitLow(unchecked((int)SourceRandom.Roll(ref expectedWorld)));
+        SourceRandom.Roll(ref expectedActor);SourceRandom.Roll(ref expectedActor);SourceRandom.Roll(ref expectedWorld);SourceRandom.Roll(ref expectedWorld);
+        int before=SkillHealth.Balance256(t);bool began=false;long deadline=Core.TickCount+5000;
+        PlayerItemProcWorld.Observed=v=>
+        {
+            if(v.Owner!=p.Serial.Value){return;}visits.Add(v);
+            foreach(var flight in SorceressSpellMissiles.Snapshot().Flights.Where(f=>f.Owner==p.Serial.Value&&f.Id>first)){emitted.Add(flight.Id);}
+            if(v.Phase=="domeleedamage"){Require(SkillHealth.Balance256(t)==before,"Wire proc damage phase ran after life commitment");}
+        };
+        void Cleanup()
+        {
+            ClassCombat.Stop(p);PaladinZeal.HitRoll=hit;SourceBlocking.BlockRoll=block;PlayerItemProcWorld.Observed=observed;
+            SorceressSpellMissiles.Cancel(p);t.Delete();item.Delete();p.Delete();account.Delete();
+        }
+        void Observe()
+        {
+            try
+            {
+                Require(Core.TickCount<deadline,"Wire item proc Zeal timeout");var state=ClassCombat.For(p);
+                if(!began&&state.PendingAbility==CombatAbility.Zeal)
+                {
+                    Require(!PlayerItemProcs.Initialized(p)&&visits.Count==0&&SkillHealth.Balance256(t)==before&&NecromancerEffects.ManaBalance256(p)==17,"Wire windup initialized procs,rolled damage or missed once-only payment");
+                    began=true;Log.Information("{Label}: windup",label);
+                }
+                if(visits.Count<2){Timer.StartTimer(TimeSpan.FromMilliseconds(10),Observe);return;}
+                Require(began&&network.Running&&p.NetState==network&&visits.Select(v=>v.Phase).SequenceEqual(new[]{"domeleedamage","domeleeattack"})
+                    &&visits.All(v=>v.Outcomes.Single() is{CallbackResult:1,CastAttempts:1,CastResults:1})&&emitted.Count==2
+                    &&Seed(p)==expectedActor&&NpcWorldAllocation.Capture().Seed==expectedWorld&&NecromancerEffects.ManaBalance256(p)==17
+                    &&state.Zeal!=null&&state.Zeal.Remaining==1&&state.PendingTarget==t.Serial&&NativeMonsterReturn.Session(t).Packets==1,"Authenticated input lost exact proc streams,ordinary Zeal series,target or mana");
+                ClassCombat.Stop(p);int life=SkillHealth.Balance256(t);TickFlights(p,first);
+                Require(SkillHealth.Balance256(t)<life&&t.Source==p.Serial.Value,"Authenticated equipment proc did not cause native player-attributed damage");
+                Cleanup();Log.Information("{Label}-result: passed",label);
+            }
+            catch(Exception e){Cleanup();Log.Error(e,"{Label}-result: failed",label);}
+        }
+        Timer.StartTimer(TimeSpan.FromMilliseconds(30),()=>{Log.Information("{Label}: ready ability={Ability} class={Class} target={Target} x={X} y={Y} z={Z}",label,(int)CombatAbility.Zeal,(int)DiabloClass.Paladin,t.Serial.Value,t.X,t.Y,t.Z);Observe();});
+    }
+
 }

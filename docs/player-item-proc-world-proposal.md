@@ -1,6 +1,6 @@
-# Proposed player melee item-proc world rule
+# Approved player melee item-proc world rule
 
-Mechanical reference: **D2R Reign of the Warlock 3.3.93847**; approved Sanctuary deviations take precedence. The source event order and callbacks are reused. Current player unit-allocation chronology and the relevant uninterruptible-state mapping remain unverified. **This proposal is prepared and gated, not an approved claim of D2R parity.**
+Mechanical reference: **D2R Reign of the Warlock 3.3.93847**; approved Sanctuary deviations take precedence. The source event order and callbacks are reused. Current player unit-allocation chronology and the relevant uninterruptible-state mapping remain unverified. **Approved by the user on2026-11-16 as an explicit Sanctuary adaptation.** Exact current D2R parity is not claimed.
 
 Adopt one world binding for the existing `PlayerWeaponContact` pipeline:
 
@@ -12,4 +12,4 @@ Adopt one world binding for the existing `PlayerWeaponContact` pipeline:
 
 The candidate verifies native damage and real learned Zeal through these actual hooks, plus exact phase/RNG behavior, misses/blocks/dodges, zero-life contacts, range refusal and two reloads. The proposal's implementation supports only already-qualified registered Fire Ball event providers. It does **not** admit Hellslayer, manufacture a complete named GearState, supply normal basic-attack/missile/incoming callers, enable other proc bodies or finish automatic Iron Golem registration. Full original-item qualification remains required before named acquisition.
 
-`PlayerItemProcWorld.Approved` stays false. An owner-specific, transient scope is used only by the isolated qualification fixture and is closed before saving. The prepared candidate and retained regressions are described in [the checkpoint](player-item-proc-world-checkpoint.md). Approval would enable this world rule; normal online input should then receive its own qualification under the adopted rule.
+`PlayerItemProcWorld.Approved` is now true. An owner-specific, transient scope remains only for isolated offline component qualification and closes before saving. Normal authenticated right/quick Zeal input uses no such scope. The original candidate is retained in [its historical checkpoint](player-item-proc-world-checkpoint.md); adoption and online input qualification are documented in [the current checkpoint](player-item-proc-live-checkpoint.md).
