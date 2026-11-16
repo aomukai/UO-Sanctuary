@@ -363,7 +363,8 @@ public static class WeaponMissiles
         }
         BowExplosions.Create(player,next,flight.NextUtc);PlagueJavelins.Burst(player,next,selected,flight.NextUtc);AmazonLightningFury.Burst(player,next,flight.NextUtc); // AlwaysExplode survives a parent attack miss.
         if(!hit){_flights.Remove(flight.Id);return;}
-        if((flight.Throwing!=null||BowMissileContact.Handles(flight))&&selected is BaseCreature hitTarget){WeaponStartEffects.SuccessfulHitRoll(player,hitTarget);}
+        // Guided ToHit0 bypasses the source accuracy routine and its PMH setup.
+        if((flight.Throwing!=null||BowMissileContact.Handles(flight)&&flight.Guided==null)&&selected is BaseCreature hitTarget){WeaponStartEffects.SuccessfulHitRoll(player,hitTarget);}
         var damage=flight.Damage.Roll(selected,DamageRoll,out int poisonRate256);
         if(flight.Throwing!=null&&selected is PlayerMobile)
         {

@@ -1,0 +1,42 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "functions": {
+    "MISSMODE_SrvDmgHitHandler": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "ea4d1c52db64fe810d2404b578ab7aa3ba4a375e9fc6f0bb20b559ccb308f329"
+    },
+    "MISSMODE_SrvHit10_GuidedArrow_BoneSpirit": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "20aa8d5d9f038853191d305c1c55b85765aa6204d4027cd5c68a4291255b3694"
+    },
+    "MISSMODE_SrvDo07_GuidedArrow_BoneSpirit": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "b2b81ccd67a83eaade3bead5faf81c8f2b191c819464c57573eed548d8d48888"
+    }
+  },
+  "sharedImpactReviewSha256": "24a5f5a4b41ca8a8c4fa0e832be5ac22fd98b2dcdbbc976b534c232ab5d0a1a4",
+  "currentMissilesSha256": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+  "missileFields": {
+    "GetHit": 1,
+    "HitClass": 10,
+    "pSrvDoFunc": 7,
+    "pSrvHitFunc": 10,
+    "pSrvDmgFunc": 0,
+    "ToHit": 0,
+    "NextHit": 0,
+    "NextDelay": 0,
+    "Range": 128,
+    "Vel": 24
+  },
+  "established": [
+    "Current Guided Arrow ToHit0 bypasses the older router accuracy call. Its sole PMH writer call is inside successful accuracy. Inference:no accuracy-PMH setup on this path;current live3.3PMH behavior remains unverified.",
+    "Retain target-locked recipient filtering,existing mode/steer/search/owner lifecycle and zero pierce. Ordinary source shield blocking still applies.",
+    "Reuse captured damage/poison/drain/cold/armor and the qualified pre-HP missile item hit event/return bridge. Separate poison can inhibit regeneration without creating the long PMH state.",
+    "No launch/per-impact missile attack event,melee attempts,weapon wear or Thorns is invented."
+  ],
+  "remaining": [
+    "Current D2R PMH behavior is an explicit inference,not an observed current executable result.",
+    "Modern path/target-loss,provider/owner/stat/RNG/world and other missile/exceptional/PvP/full named/class/client/asset acceptance remain separate."
+  ]
+}
