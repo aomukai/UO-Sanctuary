@@ -2483,10 +2483,10 @@
       "characterClass": "Warlock",
       "tree": "Demon",
       "sourceId": 380,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Approved learned self SC/FCR cast uses one release mana debit and the qualified original/bound roster in saved order. Source tier costs count low-life demons but only bodies strictly above5percent life erupt;life payment can kill and still emits its captured physical/fire spell. One percast roll stream,shared120ms caster/recipient leases and existing typed areas retain. See blood-boil-learned-checkpoint.md and warlock-final-talents-approval.json;current do160 ordering,unqualified properties/recipients/PvP/graphical/full-class parity remain explicit. Final explosion/audio effects and talent/hotkey icons remain separate placeholders. No new save schema,timer or proc producer is introduced."
     },
     {
       "talentId": "warlock.summondefiler",

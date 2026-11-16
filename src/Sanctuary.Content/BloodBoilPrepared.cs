@@ -11,11 +11,11 @@ internal sealed record BloodBoilNumbers(int Rank,int Mana256,int Radius,int Dela
 internal sealed record BloodBoilBurst(uint Demon,Point3D Center,int LifePaid256,int Physical256,int Fire256,uint[] Recipients);
 internal sealed record BloodBoilRelease(bool Released,int ManaPaid256,int DemonCount,ulong InitialSeed,ulong FinalSeed,BloodBoilBurst[] Bursts,string Fault=null);
 
-// Complete prepared world rule,not recovered do160. All borrowed recipient,
+// Approved Sanctuary world rule,not recovered do160. All borrowed recipient,
 // health,roll,area and spell services keep their original implementation.
 internal static class BloodBoilPrepared
 {
-    internal static bool Approved=>false;
+    internal static bool Approved=>true;
     internal static Func<int> SeedLow=()=>SorceressSpellMissiles.SeedLow();
     private static readonly Dictionary<(uint Owner,uint Target),DateTime> Delays=new();
     private static readonly Server.Logging.ILogger Log=Server.Logging.LogFactory.GetLogger(typeof(BloodBoilPrepared));

@@ -4,7 +4,7 @@
 
 Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. **Charms and runewords are excluded.** Druid combined acceptance has passed; this inventory records scoped subgroup results and grants no whole-class certificate.
 
-Current status has **28 handlers and two approved talents awaiting learned admission**. Existing component/learned fixtures are listed below for reuse. A fixture filename is an evidence entry point, not a claim that every modern mechanic or the combined class has passed.
+Current status has **29 handlers and one approved talent awaiting learned admission**. Existing component/learned fixtures are listed below for reuse. A fixture filename is an evidence entry point, not a claim that every modern mechanic or the combined class has passed.
 
 | Talent | Current route | Existing fixture entry point |
 | --- | --- | --- |
@@ -13,7 +13,7 @@ Current status has **28 handlers and two approved talents awaiting learned admis
 | Blood Oath | Automatic learned original/bound passive accepted (27 results) | [BloodOathLearnedChecks.cs](../tests/Sanctuary.Integration/BloodOathLearnedChecks.cs), [checkpoint](blood-oath-learned-checkpoint.md) |
 | Death Mark | Demon/foundation group accepted (180 results) | [DeathMarkActionChecks.cs](../tests/Sanctuary.Integration/DeathMarkActionChecks.cs) |
 | Summon Tainted | Demon/foundation group accepted (180 results) | [TaintedCastChecks.cs](../tests/Sanctuary.Integration/TaintedCastChecks.cs) |
-| Blood Boil | **Approved; learned admission next** | [BloodBoilWorldChecks.cs](../tests/Sanctuary.Integration/BloodBoilWorldChecks.cs) |
+| Blood Boil | Learned original/bound self inputs accepted (39 results/nine wire casts) | [BloodBoilLearnedChecks.cs](../tests/Sanctuary.Integration/BloodBoilLearnedChecks.cs), [checkpoint](blood-boil-learned-checkpoint.md) |
 | Summon Defiler | Demon/foundation group accepted (180 results) | [DefilerCastChecks.cs](../tests/Sanctuary.Integration/DefilerCastChecks.cs) |
 | Engorge | Learned original/bound corpse inputs accepted (45 results/12 wire casts) | [EngorgeLearnedChecks.cs](../tests/Sanctuary.Integration/EngorgeLearnedChecks.cs), [checkpoint](engorge-learned-checkpoint.md) |
 | Consume | **Approved; learned admission next** | [ConsumeWorldChecks.cs](../tests/Sanctuary.Integration/ConsumeWorldChecks.cs) |
@@ -39,7 +39,7 @@ Current status has **28 handlers and two approved talents awaiting learned admis
 | Apocalypse | Chaos/Sigil group accepted (315 results) | [ApocalypseCastChecks.cs](../tests/Sanctuary.Integration/ApocalypseCastChecks.cs) |
 | Abyss | Chaos/Sigil group accepted (315 results) | [AbyssCastChecks.cs](../tests/Sanctuary.Integration/AbyssCastChecks.cs) |
 
-The user [approved all four reviewed rules](../tools/reference/warlock-final-talents-approval.json), including their qualified-bound and Consume-aura extensions. The original proposals/receipts remain historical and unchanged. Blood Oath and Engorge are admitted; enable and verify Blood Boil and Consume one at a time without repeating the approved decisions. [Release scope](warlock-final-talents-release-proposal.md).
+The user [approved all four reviewed rules](../tools/reference/warlock-final-talents-approval.json), including their qualified-bound and Consume-aura extensions. The original proposals/receipts remain historical and unchanged. Blood Oath, Engorge and Blood Boil are admitted; enable and verify Consume next without repeating the approved decisions. [Release scope](warlock-final-talents-release-proposal.md).
 
 Retain the approved UO bodies: Goatman → Gargoyle, Tainted → Succubus, Defiler → Gazer. Defiler is a following/linking demon rather than a basic attacker. Reuse shared summon snapshots, original bodies/equipment, difficulty and percentage-life rescaling, safe-area parking without recovery/reset, existing allegiance and native path/damage services. Current caller, unsupported native species/elite/Sunder inputs, item callbacks, geometry, event ordering and exceptional recipient/PvP limits remain explicit in the component checkpoints.
 
@@ -47,4 +47,4 @@ Reuse the existing current-input and component drivers when assembling the class
 
 Missing visual effects/audio stay in [skill-effects](skill-effects.md); tree/hotkey art stays in [skill-icons](skill-icons.md). Identified placeholders do not gate mechanics. No image generation or deployment is part of this inventory.
 
-Accepted groups: [demons/foundations](warlock-demons-acceptance-checkpoint.md) cover seven routes (180 results); [weapons/Hex/Ward](warlock-weapons-acceptance-checkpoint.md) cover nine (240 results); [Chaos/Sigils](warlock-chaos-acceptance-checkpoint.md) cover ten (315 results). Each retains three saves/two reloads and its own exact artifact/source inventory. Those groups cover the26 previously implemented routes. The separate [Blood Oath checkpoint](blood-oath-learned-checkpoint.md) adds the27th; [Engorge](engorge-learned-checkpoint.md) adds the28th. Two approved active talents remain to admit. No full modern parity is claimed. Bane's previous three-life loss and the first Chaos run's Abyss input timeout remain explicitly unattributed; the accepted reruns retain the original assertions and added diagnostics.
+Accepted groups: [demons/foundations](warlock-demons-acceptance-checkpoint.md) cover seven routes (180 results); [weapons/Hex/Ward](warlock-weapons-acceptance-checkpoint.md) cover nine (240 results); [Chaos/Sigils](warlock-chaos-acceptance-checkpoint.md) cover ten (315 results). Each retains three saves/two reloads and its own exact artifact/source inventory. Those groups cover the26 previously implemented routes. The separate [Blood Oath checkpoint](blood-oath-learned-checkpoint.md) adds the27th; [Engorge](engorge-learned-checkpoint.md) adds the28th. [Blood Boil](blood-boil-learned-checkpoint.md) adds the29th. Consume remains approved pending admission. No full modern parity is claimed. Bane's previous three-life loss and the first Chaos run's Abyss input timeout remain explicitly unattributed; the accepted reruns retain the original assertions and added diagnostics.

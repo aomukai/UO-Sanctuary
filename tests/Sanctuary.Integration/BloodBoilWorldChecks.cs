@@ -64,7 +64,7 @@ public static class BloodBoilWorldChecks
         GoatmanNpcContactChecks.Recipient target=null,outside=null;
         try
         {
-            Require(!BloodBoilPrepared.Approved&&!WarlockCombat.Implemented(CombatAbility.BloodBoil),"Unapproved Blood Boil enabled");
+            Require(BloodBoilPrepared.Approved&&WarlockCombat.Implemented(CombatAbility.BloodBoil),"Approved Blood Boil unavailable");
             Require(!BloodBoilPrepared.ReleasePrepared(p,TimedEffects.Now).Released&&seeds==0,"No-demon cast committed/RNG");
             bodies=new[]{CombatAbility.SummonGoatman,CombatAbility.SummonTainted,CombatAbility.SummonDefiler}
                 .Select((ability,i)=>WarlockGoatmanWorld.Create(p,new(p.X+2+i*2,p.Y,p.Z),TimedEffects.Now,ability)).ToArray();foreach(var b in bodies){WarlockGoatmanWorld.Admit(b);}

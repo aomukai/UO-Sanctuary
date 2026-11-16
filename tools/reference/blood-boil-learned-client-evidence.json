@@ -1,0 +1,32 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Blood Boil shared self-target client classification",
+  "inputManifest": {
+    "path": ".local/class-skills/blood-boil-learned/client-inputs-1.json",
+    "sha256": "25c8f11c036e4a4da1d5b13af93f066adad9f70e806ecc7a4051a2fe6501d168"
+  },
+  "patches": 44,
+  "changedClientPaths": [],
+  "addedPatches": [],
+  "intentionalSharedChanges": [
+    "shared/ClassAbilities.cs"
+  ],
+  "buildErrors": 0,
+  "baselineWarningsIdentical": false,
+  "baselineSourceWarningsIdentical": true,
+  "packageAuditMessagesIdentical": true,
+  "baselineInheritedWarnings": 20,
+  "inheritedWarningMessages": 44,
+  "graphicalInputVerified": false,
+  "installed": false,
+  "scope": "All accepted client paths/44patches unchanged;only shared SelfTarget adds Blood Boil. Source warnings and audit-message sets are identical;--no-restore emits more project-context audit duplicates (44total versus20baseline). No patch roundtrip replay or installation.",
+  "files": {
+    ".local/class-skills/blood-boil-learned/client-inputs-1.json": "25c8f11c036e4a4da1d5b13af93f066adad9f70e806ecc7a4051a2fe6501d168",
+    ".local/class-skills/blood-boil-learned/client-build-2.log": "f6f5e8cb6496109943e8f87e8b3efac41c28673fb40f37a7197614d83faebf65",
+    ".local/class-skills/blood-boil-learned/client/cuo.dll": "7c1a48da7eb87fc44fb8405950acd24998bd40b20d2127ab6a1ba5cf348401c8",
+    ".local/class-skills/blood-boil-learned/client-source-1.tar.gz": "22c6c5962ab7afa97d5f3af3da65e72ac44e4e334abc6538a59cb06c999403c7",
+    ".local/class-skills/blood-boil-learned/failed-client-build-1.tar.gz": "e79537afc729619ea74a8af8f554cfbcde7e7a779a616b849ce0723575506b92",
+    "tools/prepare_blood_boil_client.py": "323b58857bd832c5e92b0d7e9855981a8b2cda7236768ef7779e97dfc8f2d433",
+    "tools/review_blood_boil_client.py": "57e4da169393ff870071fb01ea6e19c7e9a869023b8e89f0a9bf49d154095613"
+  }
+}
