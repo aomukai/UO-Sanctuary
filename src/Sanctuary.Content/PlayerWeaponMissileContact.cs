@@ -31,18 +31,33 @@ internal static class PlayerWeaponMissileContact
         =>TryElementalCore(owner,target,damage256,false,0,at,1|(soft?16384:0),0,32,damageRate,SkillDamageKind.Periodic,out reason);
     internal static bool TryLightning(PlayerMobile owner,BaseCreature target,int damage256,DateTime at,out string reason)
         =>TryElementalCore(owner,target,damage256,false,0,at,5,0,64,0,SkillDamageKind.Direct,out reason,lightning:true);
-    private static bool TryElementalCore(PlayerMobile owner,BaseCreature target,int damage256,bool freeze,int rawFrames,DateTime at,int flags,uint hitFlags,int hitClass,int damageRate,SkillDamageKind kind,out string reason,bool lightning=false)
+    internal static bool TryPoison(PlayerMobile owner,BaseCreature target,int rate256,int frames,DateTime at,out string reason)
     {
-        reason=null;
+        if(!ElementalAdmission(owner,target,out bool contact,out reason)){return false;}
+        if(!contact){return true;}
+        var poison=PoisonJavelins.PreparePoison(owner,target,rate256,frames);
+        var impact=new PreparedWeaponImpact(default,default,0)with{LifeDamage256=poison.Rate256,AllocatedPoison=poison};
+        var packet=new PlayerWeaponContactPrepared(SourceMeleeResult.Successful,impact,new(0,0),0,0,WeaponMissiles.ItemEffects,
+            HitClass:6,HitFlags:0,SuppressWear:true);
+        PlayerWeaponContact.ReleaseMissile(owner,target,packet,at,true);return true;
+    }
+    private static bool ElementalAdmission(PlayerMobile owner,BaseCreature target,out bool contact,out string reason)
+    {
+        contact=false;reason=null;
+        if(owner is not{Alive:true,Deleted:false}){reason="Elemental missile caster is no longer active";return false;}
         if(target is not{Alive:true,Deleted:false}||!target.CanBeDamaged()||target.Map!=owner.Map||ClassCombat.Friendly(owner,target)){return true;}
-        if(owner is not{Alive:true,Deleted:false}){reason="Bow explosion caster is no longer active";return false;}
         try
         {
             PlayerWeaponContact.Require(owner,target,true,weaponSetup:false);
-            if(PlayerWeaponContact.Metadata(target,true)is{Killable:false}){throw new NotSupportedException("Bow explosion recipient is not source-killable");}
+            if(PlayerWeaponContact.Metadata(target,true)is{Killable:false}){throw new NotSupportedException("Elemental missile recipient is not source-killable");}
         }
         catch(NotSupportedException e){reason=e.Message;return false;}
-        if(ClassAvoidance.Missile(target)){return true;}
+        contact=!ClassAvoidance.Missile(target);return true;
+    }
+    private static bool TryElementalCore(PlayerMobile owner,BaseCreature target,int damage256,bool freeze,int rawFrames,DateTime at,int flags,uint hitFlags,int hitClass,int damageRate,SkillDamageKind kind,out string reason,bool lightning=false)
+    {
+        if(!ElementalAdmission(owner,target,out bool contact,out reason)){return false;}
+        if(!contact){return true;}
         var damage=lightning?new GearDamage(0,0,0,damage256/256.0,0):freeze?new GearDamage(0,0,damage256/256.0,0,0):new GearDamage(0,damage256/256.0,0,0,0);
         var parts=SkillCombat.MitigatePrepared(owner,target,damage,out int absorbed,damageRate);int cold=0,frozen=0;
         if(freeze){(cold,frozen)=DragonTails.ColdLengths(owner,target,0,rawFrames);}

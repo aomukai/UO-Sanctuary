@@ -1,0 +1,95 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "functions": {
+    "MISSMODE_SrvDo02_PlagueJavelin_PoisonJavelin_PoisonTrap": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "59c0cebd84ab332d0a22d0838c3e4523221c30542e9ade02b17e91d293e267e6"
+    },
+    "MISSMODE_SrvDo03_PoisonCloud_Blizzard_ThunderStorm_HandOfGod": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "306501ecd3ab733337b122d79b17f2fce2062730dbe8c4a4dd930cd1ae0ae415"
+    },
+    "MISSMODE_SetDamageFlags": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "e45650c089a89c9f2db72a953ea9f09b8ea823f0a2bcf7b65dfd130c6b476280"
+    },
+    "MISSMODE_SrvDmgHitHandler": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "ea4d1c52db64fe810d2404b578ab7aa3ba4a375e9fc6f0bb20b559ccb308f329"
+    },
+    "MISSILE_CalculateDamageData": {
+      "path": "source/D2Common/src/Units/Missile.cpp",
+      "sha256": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f"
+    },
+    "MISSILE_SetDamageStats": {
+      "path": "source/D2Common/src/Units/Missile.cpp",
+      "sha256": "16a3fa97e7ba9fd4ae28f4128d4f2e6b32736f0252a563b294df73d6c93145c1"
+    },
+    "SUNITDMG_CalculateTotalDamage": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "sha256": "ee329c7d8429c54de7366b2dcecef33d1ed4dacc1690a8986ac5e1c0a3b4fb4e"
+    },
+    "SUNITDMG_ExecuteEvents": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "sha256": "29d79fe1ff916cce3da9b78493564f9438ea99718e99d208f4412a07c3898c55"
+    },
+    "SUNITDMG_ExecuteMissileDamage": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "sha256": "1fdd8c096d3c9c6d688f29f1888e88df7c98a9fb13214c65b1099c4b3b3f6f3f"
+    }
+  },
+  "currentMissilesSha256": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+  "missileFields": {
+    "poisonjav": {
+      "pSrvDoFunc": 2,
+      "pSrvHitFunc": 0,
+      "pSrvDmgFunc": 0,
+      "ToHit": 1,
+      "HitClass": 6,
+      "GetHit": 1,
+      "ResultFlags": 4,
+      "HitFlags": 0,
+      "Range": 25,
+      "Size": 1,
+      "CollideKill": 1,
+      "Pierce": 1,
+      "LastCollide": 1,
+      "AlwaysExplode": 0
+    },
+    "poisonjavcloud": {
+      "pSrvDoFunc": 3,
+      "pSrvHitFunc": 0,
+      "pSrvDmgFunc": 0,
+      "ToHit": 0,
+      "HitClass": 6,
+      "GetHit": 0,
+      "ResultFlags": 0,
+      "HitFlags": 0,
+      "SrcDamage": -1,
+      "Range": 60,
+      "Size": 2,
+      "CollideKill": 0,
+      "Pierce": 0,
+      "LastCollide": 1
+    }
+  },
+  "skillSourceDamage": 128,
+  "retainedSourceEvidence": {
+    "tools/reference/poison-javelin-factory-engine-evidence.json": "4caac54d20f38a282cc19bd7e09ee863954c66b6369f751f147cdf6ed36a00f8",
+    "tools/reference/poison-javelin-damage-engine-evidence.json": "e9d1a660e8d600a2d234bd236e19b1a80fa446340101f00501499082de484c2c",
+    "tools/reference/poison-javelin-routing-engine-evidence.json": "cc6483d855c91cd00c8e12b9e179ed6702fef027c641c50f07466f826de915b0",
+    "tools/reference/poison-javelin-trail-engine-evidence.json": "3ffe0bc50f6805247033d3e812a8cbacb42df5adb11904640aaa757cfbb70257"
+  },
+  "established": [
+    "Source128 parent uses full weapon/item/skill poison fields and HitFlags32; source ToHit1 applies accuracy PMH before physical blocking. Existing source128 integer rate/length/count packet is unchanged.",
+    "Source0 clouds have Successful1,GetHit0,HitClass6,HitFlags0. They commit one mitigated poison-rate HP hit before applying the ordinary poison clock,without attacker/defender weapon events,Crushing Blow,drain,slow,armor,cold or weapon RNG. The complete older total calculator includes poison in immediate damage; later poison ticks remain independent.",
+    "Existing previous path-change trail birth,retained parent rank/live hard Plague synergy/mastery,59 contact updates/60-frame expiry,source footprint and pre-selection LastCollide remain. Alternating recipients may receive later initial-rate hits;strongest-poison replacement and cure use the shared receiver.",
+    "Weapon-skill Magical Penetration exclusion remains per current policy;user explicitly confirmed that Poison Javelin and Plague Javelin clouds retain that exclusion."
+  ],
+  "remaining": [
+    "Archived current rows and complete older functions/probes establish scoped event integration,not exact modern initial-rate callback/seed/stat/provider/owner/scheduler/room-order/geometry parity.",
+    "Modern depleted providers,exceptional/uninterruptible/death-delay/hireling/PvP remain unverified. Plague Javelin is a separate next consumer.",
+    "Whole named acquisition,full class/client and separate effect/audio/icon acceptance remain open."
+  ]
+}

@@ -16,6 +16,7 @@ public static class PoisonJavelins
 {
     private static readonly Dictionary<long,PoisonCloud> _clouds=new();
     private static long _next;
+    private static readonly HashSet<string> Unsupported=[];
     internal static ActionTiming Timing(int advance)=>AmazonJavelins.Timing(advance);
     public static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now)=>AmazonJavelins.Begin(owner,CombatAbility.PoisonJavelin,selected,point,now);
     public static bool Release(PlayerMobile owner)=>AmazonJavelins.Release(owner,CombatAbility.PoisonJavelin);
@@ -76,7 +77,8 @@ public static class PoisonJavelins
             {
                 _clouds[cloud.Id]=next=next with{LastCollision=target.Serial.Value};
                 int rate=WeaponMissileDamage.RollValue(cloud.Damage.Elements.PoisonMin,cloud.Damage.Elements.PoisonMax,0,WeaponMissiles.DamageRoll);
-                owner.DoHarmful(target,true);Poison(owner,target,rate,cloud.Damage.Elements.PoisonImpactFrames,cloud.NextUtc);
+                if(!PlayerWeaponMissileContact.TryPoison(owner,target,rate,cloud.Damage.Elements.PoisonImpactFrames,cloud.NextUtc,out string reason)&&Unsupported.Add(reason))
+                {Server.Logging.LogFactory.GetLogger(typeof(PoisonJavelins)).Warning("Poison Javelin cloud unsupported context: {Reason}",reason);}
             }
             if(frame%5==0){Effects.SendLocationEffect(new Point3D((int)Math.Round(cloud.X),(int)Math.Round(cloud.Y),cloud.Z),owner.Map,0x374A,2,10,0x3F,0);} // Identified green poison placeholder.
             if(next.NextUtc<=at){queue.Enqueue(next,(next.NextUtc,next.Id));}
