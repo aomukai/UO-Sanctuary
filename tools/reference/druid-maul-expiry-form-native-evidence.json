@@ -1,0 +1,60 @@
+{
+  "component": "Maul charge expires independently of retained support form",
+  "referenceVersion": "3.3.93847",
+  "contentBuildReused": 1,
+  "integrationBuild": 15,
+  "sourceSnapshot": 17,
+  "nativeRun": 1,
+  "nativeMarkers": 24,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "druid-maul-live-check": 3,
+    "druid-maul-live-result": 3,
+    "druid-maul-snapshot-check": 3,
+    "druid-maul-expiry-stage-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "druid-maul-check": 1,
+    "druid-maul-reload-check": 2
+  },
+  "boots": 3,
+  "saves": 3,
+  "reloads": 2,
+  "changedSources": [
+    "tests/Sanctuary.Integration/DruidMaulChecks.cs"
+  ],
+  "gameplayChanged": false,
+  "runtimeDataChanged": false,
+  "installed": false,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "5df3992322b515ae6e525927b8b9ddb57420eddd63d9886f019ffd6974b2cd49",
+    "Assemblies/Sanctuary.Content.dll": "508e93ea5f7458c9de14a13d70500aaba9f6f39c76ba3313adaa3966b1d34e14",
+    "Assemblies/Sanctuary.Integration.dll": "951120debe8638e0f8f10fb143f2ed1fc3373cbb9549e9bdcc6fd2b18a6dd2c7"
+  },
+  "classCertified": false,
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 44
+  },
+  "limits": "One inspection-helper call added for the original expiry-control actor. Its charge still uses the original two-second deadline and expires across offline time; the support form retains its captured payload and resources. Main Maul wounds, mana, weapon, charges, bindings and paid-action no replay remain checked. Combined Druid acceptance is separate.",
+  "files": {
+    ".local/class-skills/druid-maul-expiry-form-current/birth-inputs.json": "66009d4803ccf77930e9971d21a29e89952acc693df1ac2eb980b5b4971d8501",
+    ".local/class-skills/druid-maul-expiry-form-current/birth-native-checks.log": "3b481a260ebff7f1b5d074d973660aca9bf87b15ef6aeb175bb2fbb806ba8921",
+    ".local/class-skills/druid-planned-acceptance/failed-run-6/birth-inputs.json": "b1a3fd32231c94a20a3aa1fc283daafe747fa16da72a0b582c6b5daacb4d8ea2",
+    ".local/class-skills/druid-planned-acceptance/failed-run-6/birth-native-checks.log": "7cc32c91b63d2d4c38f057124f4d75252450e61bb67de5bf4b989be45b3beffb",
+    ".local/class-skills/druid-planned-acceptance/failed-run-6/sources/tests/Sanctuary.Integration/DruidMaulChecks.cs": "e83fac74c965cff08bdcfb056e6a0775c261838beb98339b30a79688e969368e",
+    ".local/class-skills/druid-planned-acceptance/integration-build-15.log": "6fde38e33cc9e4429b4504580e43974e9f7b5e72d193584b2d680ee4b714c723",
+    ".local/class-skills/druid-planned-acceptance/maul-expiry-form-focused-run-1.log": "c3e370e281ef19a5ef3b7dd63828fdd932693a94821a3dd6b5de39d3788810f4",
+    ".local/class-skills/druid-planned-acceptance/source-snapshot-17.json": "a2fdf31380c5d488ada0ed45e50a1eaa85aba0ae268c5630ed5717bb9afff1c0",
+    "tests/Sanctuary.Integration/DruidFormWorldChecks.cs": "9e89f4c9c782c9d206076fedd4cafb01af922154e6f3302e89c19ec6595e9218",
+    "tests/Sanctuary.Integration/DruidMaulChecks.cs": "19d186df2862d91687a06742a4e9cd38c184a8d5fe7a2d43390b7957fbda2a2b",
+    "tests/check_druid_planned_acceptance.py": "fdab21bd58038557326da28f574cc0032ef8c7c6c108c38302bab8f2004d10ca",
+    "tools/record_druid_maul_expiry_form.py": "d70200933e8a4da19d14d30f6ccbda890b3486146f3f1c2bc2d2bffe1078909a"
+  }
+}

@@ -217,6 +217,7 @@ public static class DruidMaulChecks
         var pending=Fresh();var pt=Target(pending);Begin(pending,pt);int paid=NecromancerEffects.ManaBalance256(pending);
         // Save an already-paid interrupted action; the transient packet is never serialized.
         ClassCombat.Stop(pending);pt.Delete();var expired=Fresh();var et=Target(expired);Swing(expired,et);et.Delete();
+        DruidFormWorldChecks.RetainForInspection(expired);
         var deadline=TimedEffects.Now.AddSeconds(2);Hold(expired,State(expired) with{UntilUtc=deadline});
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,t.Serial.Value,CombatTiming.Equipped(p).Serial.Value,
             DruidPlayerForms.State(p),charge,natural,NecromancerEffects.ManaBalance256(p),SkillHealth.Balance256(t),pending.Serial.Value,paid,expired.Serial.Value,deadline)));
