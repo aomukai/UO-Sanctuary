@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "f7e6c1ca831714e599077b9fc97d7003f105497bf360acf44d32ab35fcee17b6",
+  "ContentAssemblySha256": "d9e46cf5815bda6b58dab5f449fe8c5e5be5b10d37580eb654fcc0e75bcba672",
   "NativeAssemblySha256": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
   "InputHashes": {
     "data/Sanctuary/Balance/abyss-route.json": "6c823249f73d320ba6ba4b2c538d419bc54a8cb8aaad8a605f5abf18d5911e18",
@@ -14,7 +14,7 @@
     "data/Sanctuary/Balance/blind-ai-rules.json": "744926507cc56ee2192a184deeaa7b7632a355503af43c74cb2438b9805ed876",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "3e625c0124b7ae6334c2002d4aed6e7784276a015b3bd9d3b7bc1d70babbae8c",
+    "data/Sanctuary/Balance/class-skill-status.json": "1f5d73f45fd9e679d361eaaf6d0eca18b724582a2d102f5b83a35b3bee9815f7",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "77dc2142ca806a9d6e6ed39f274ecdac247dcd5c60388512c17f5bc3e4c79c49",
@@ -486,7 +486,7 @@
     "src/Sanctuary.Content/BowAmmunition.cs": "51b3a7edfed99f9c802411dabc9c236ff245a0a0c8f669273b44133a2f923a42",
     "src/Sanctuary.Content/BowExplosions.cs": "1ffd0af3775b9455da2c49adb42e77339aec2bc3ca0227202c1cef0f585f125a",
     "src/Sanctuary.Content/BowLaunch.cs": "cc965538d9974575cbd776b9b58f1a38f96e2daeb50595aa16811a7ef5fb5b03",
-    "src/Sanctuary.Content/BowMissileContact.cs": "64e25f4806430841539c786a3472fe4dcdceeb0dc76ee853e9d41788587447ad",
+    "src/Sanctuary.Content/BowMissileContact.cs": "791ed87b0655d20b8095c9f28d7e24ed7d51ef548bb23f8e69b75a85e3afb821",
     "src/Sanctuary.Content/BritainBaseline.cs": "b89f0511bc447a28bef383a3acde07facde23c2ede78beaa282657bd65d57f62",
     "src/Sanctuary.Content/CarpentryCrafting.cs": "3db990690064d43a852bfb55514d30a0c784cbb2b94ff6dfc18b8e5c37dee6eb",
     "src/Sanctuary.Content/CarpentryGump.cs": "12a1f8e678a70da584f74654d916d68011465565e046308253440519e4e88471",

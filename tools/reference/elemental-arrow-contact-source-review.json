@@ -1,0 +1,39 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sharedConversionImpactReviewSha256": "24a5f5a4b41ca8a8c4fa0e832be5ac22fd98b2dcdbbc976b534c232ab5d0a1a4",
+  "currentMissilesSha256": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+  "missileFields": {
+    "firearrow": {
+      "GetHit": 1,
+      "HitClass": 0,
+      "pSrvDoFunc": 1,
+      "pSrvDmgFunc": 1,
+      "ToHit": 1,
+      "NextHit": 0,
+      "NextDelay": 0,
+      "Range": 40,
+      "Vel": 24
+    },
+    "coldarrow": {
+      "GetHit": 1,
+      "HitClass": 0,
+      "pSrvDoFunc": 1,
+      "pSrvDmgFunc": 1,
+      "ToHit": 1,
+      "NextHit": 0,
+      "NextDelay": 0,
+      "Range": 20,
+      "Vel": 24
+    }
+  },
+  "established": [
+    "Both arrows reuse bound srvdmg1 conversion after weapon fill and critical;existing skill/item elemental capture and mastery order are preserved.",
+    "Current row HitClass0 is passed into the shared packet/return selector;do not reuse Magic Arrow's HitClass10.",
+    "Reuse accuracy PMH before block,post-handler captured armor,source poison/drain/cold and pre-HP missile item hit events. No melee wear/Thorns or invented missile-attack event.",
+    "Existing integer cold resistance,item immunity/half-length,difficulty and owner-retention helpers are reused;ordinary cold corpse-shatter remains unsupported."
+  ],
+  "remaining": [
+    "Exact modern skill AR,conversion/mastery/stat/provider/owner/RNG/attack timing,exceptional/PvP/full named/class/client/asset parity remains unverified.",
+    "This does not enable Ice Arrow freezing,explosive arrows or other missile families."
+  ]
+}
