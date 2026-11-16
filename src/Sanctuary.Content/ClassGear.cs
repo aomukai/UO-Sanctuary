@@ -505,6 +505,15 @@ public static class ClassGear
             { player.CheckLightLevels(false); ClassCombat.SendState(player, ClassCombat.For(player)); SkillBindingNetwork.Send(player); }
         });
     }
+    private static void RefreshStatMod(PlayerMobile player,StatType stat,string name,int value)
+    {
+        var current=player.GetStatMod(name);
+        // Native removal clamps resource pools immediately. Retain unchanged
+        // permanent equipment mods so an ordinary refresh cannot spend mana.
+        if(current!=null&&current.Type==stat&&current.Offset==value){return;}
+        player.RemoveStatMod(name);
+        if(value!=0){player.AddStatMod(new StatMod(stat,name,value,TimeSpan.Zero));}
+    }
     public static void Refresh(PlayerMobile player)
     {
         foreach (var item in player.Items)
@@ -516,20 +525,15 @@ public static class ClassGear
             foreach (var (stat, code, suffix) in new[] { (StatType.Str, "str", "Str"), (StatType.Dex, "dex", "Dex"), (StatType.Int, "enr", "Int") })
             {
                 string name = $"{item.Serial}{suffix}";
-                player.RemoveStatMod(name);
                 int value = Active(player, item) ? Bonus(item, code) : 0;
-                if (value != 0)
-                {
-                    player.AddStatMod(new StatMod(stat, name, value, TimeSpan.Zero));
-                }
+                RefreshStatMod(player,stat,name,value);
             }
         }
         foreach (var (stat, code) in new[] { (StatType.Str, "str"), (StatType.Dex, "dex"), (StatType.Int, "enr") })
         {
             string name = "SanctuaryNamedSet/" + code;
-            player.RemoveStatMod(name);
             int value = NamedGear.SetBonus(player, code);
-            if (value != 0) { player.AddStatMod(new StatMod(stat, name, value, TimeSpan.Zero)); }
+            RefreshStatMod(player,stat,name,value);
         }
         player.UpdateResistances();
         ClassStats.Refresh(player);

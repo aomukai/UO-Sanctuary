@@ -1,5 +1,7 @@
 # Skill effects
 
+**Three Sorceress staffs returned — 2026-11-16 JST.** The three returned Sorceress staffs reuse the existing Nova, Frost Nova, Blaze, Fire Wall, Fire Ball, Chain Lightning, Lightning and Static Field placeholders; Warmth has no new active cast. Final effects/audio remain in their existing skill entries. No new item-specific effect is required. [Checkpoint](sorceress-staff-grants-checkpoint.md).
+
 **Warpspear direct grants — 2026-11-16 JST.** The admitted original staff reuses Telekinesis’s instant-hit/motion and Energy Shield’s cast/buff/absorption placeholders. No distinct item-only effect or new artwork is required by this return;their final visuals/audio remain in the existing spell entries. [Checkpoint](warpspear-grants-checkpoint.md).
 
 **Final four Warlock talents admitted — 2026-11-16 JST.** Blood Oath,Engorge,Blood Boil and Consume now use their approved mechanics. Final Oath transfer cues,Engorge corpse/heal/buff visuals,Blood Boil explosions,and Consume retirement/owner-buff effects and audio remain missing. Existing shared heal/explosion/buff/cast presentation is explicitly a placeholder;mechanical admission does not supply final art. [Current mechanics](warlock-final-talents-checkpoint.md).

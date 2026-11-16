@@ -16,5 +16,14 @@
   "necromancer.bonespirit",
   "necromancer.bonewall",
   "sorceress.telekinesis",
-  "sorceress.energyshield"
+  "sorceress.energyshield",
+  "sorceress.nova",
+  "sorceress.frostnova",
+  "sorceress.blaze",
+  "sorceress.firewall",
+  "sorceress.fireball",
+  "sorceress.warmth",
+  "sorceress.chainlightning",
+  "sorceress.lightning",
+  "sorceress.staticfield"
 ]

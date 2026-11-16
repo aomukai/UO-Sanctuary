@@ -17,9 +17,18 @@
     "necromancer.skeletonmastery",
     "necromancer.teeth",
     "necromancer.terror",
+    "sorceress.blaze",
+    "sorceress.chainlightning",
     "sorceress.energyshield",
+    "sorceress.fireball",
+    "sorceress.firewall",
+    "sorceress.frostnova",
+    "sorceress.lightning",
+    "sorceress.nova",
+    "sorceress.staticfield",
     "sorceress.telekinesis",
-    "sorceress.teleport"
+    "sorceress.teleport",
+    "sorceress.warmth"
   ],
   "mechanicallyImplementedSkills": [
     "amazon.avoid",
@@ -476,239 +485,6 @@
           "prerequisites": [
             "Qualify direct +skill item grant for this class consumer"
           ]
-        },
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "7",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": 37,
-              "sourceId": 37,
-              "name": "Warmth",
-              "sourceKey": "Warmth",
-              "talentId": "sorceress.warmth",
-              "implemented": true,
-              "directGrantQualified": false
-            }
-          ],
-          "prerequisites": [
-            "Qualify direct +skill item grant for this class consumer"
-          ]
-        }
-      ],
-      "setDependencies": []
-    },
-    {
-      "id": "unique/56",
-      "name": "Spire of Lazarus",
-      "rarity": "Unique",
-      "setId": null,
-      "sourceAvailability": "SpawnableDefinition",
-      "sourceSpawnable": true,
-      "dependencies": [
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "4",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": 53,
-              "sourceId": 53,
-              "name": "Chain Lightning",
-              "sourceKey": "Chain Lightning",
-              "talentId": "sorceress.chainlightning",
-              "implemented": true,
-              "directGrantQualified": false
-            }
-          ],
-          "prerequisites": [
-            "Qualify direct +skill item grant for this class consumer"
-          ]
-        },
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "5",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": 49,
-              "sourceId": 49,
-              "name": "Lightning",
-              "sourceKey": "Lightning",
-              "talentId": "sorceress.lightning",
-              "implemented": true,
-              "directGrantQualified": false
-            }
-          ],
-          "prerequisites": [
-            "Qualify direct +skill item grant for this class consumer"
-          ]
-        },
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "6",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": 42,
-              "sourceId": 42,
-              "name": "Static Field",
-              "sourceKey": "Static Field",
-              "talentId": "sorceress.staticfield",
-              "implemented": true,
-              "directGrantQualified": false
-            }
-          ],
-          "prerequisites": [
-            "Qualify direct +skill item grant for this class consumer"
-          ]
-        }
-      ],
-      "setDependencies": []
-    },
-    {
-      "id": "unique/57",
-      "name": "The Salamander",
-      "rarity": "Unique",
-      "setId": null,
-      "sourceAvailability": "SpawnableDefinition",
-      "sourceSpawnable": true,
-      "dependencies": [
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "3",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": 51,
-              "sourceId": 51,
-              "name": "Fire Wall",
-              "sourceKey": "Fire Wall",
-              "talentId": "sorceress.firewall",
-              "implemented": true,
-              "directGrantQualified": false
-            }
-          ],
-          "prerequisites": [
-            "Qualify direct +skill item grant for this class consumer"
-          ]
-        },
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "4",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": 47,
-              "sourceId": 47,
-              "name": "Fire Ball",
-              "sourceKey": "Fire Ball",
-              "talentId": "sorceress.fireball",
-              "implemented": true,
-              "directGrantQualified": false
-            }
-          ],
-          "prerequisites": [
-            "Qualify direct +skill item grant for this class consumer"
-          ]
-        },
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "5",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": 37,
-              "sourceId": 37,
-              "name": "Warmth",
-              "sourceKey": "Warmth",
-              "talentId": "sorceress.warmth",
-              "implemented": true,
-              "directGrantQualified": false
-            }
-          ],
-          "prerequisites": [
-            "Qualify direct +skill item grant for this class consumer"
-          ]
-        }
-      ],
-      "setDependencies": []
-    },
-    {
-      "id": "unique/58",
-      "name": "The Iron Jang Bong",
-      "rarity": "Unique",
-      "setId": null,
-      "sourceAvailability": "SpawnableDefinition",
-      "sourceSpawnable": true,
-      "dependencies": [
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "5",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": 48,
-              "sourceId": 48,
-              "name": "Nova",
-              "sourceKey": "Nova",
-              "talentId": "sorceress.nova",
-              "implemented": true,
-              "directGrantQualified": false
-            }
-          ],
-          "prerequisites": [
-            "Qualify direct +skill item grant for this class consumer"
-          ]
-        },
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "6",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": 46,
-              "sourceId": 46,
-              "name": "Blaze",
-              "sourceKey": "Blaze",
-              "talentId": "sorceress.blaze",
-              "implemented": true,
-              "directGrantQualified": false
-            }
-          ],
-          "prerequisites": [
-            "Qualify direct +skill item grant for this class consumer"
-          ]
-        },
-        {
-          "scope": "own",
-          "code": "skill",
-          "slot": "7",
-          "via": [],
-          "skills": [
-            {
-              "sourceParameter": 44,
-              "sourceId": 44,
-              "name": "Frost Nova",
-              "sourceKey": "Frost Nova",
-              "talentId": "sorceress.frostnova",
-              "implemented": true,
-              "directGrantQualified": false
-            }
-          ],
-          "prerequisites": [
-            "Qualify direct +skill item grant for this class consumer"
-          ]
         }
       ],
       "setDependencies": []
@@ -1026,7 +802,7 @@
               "sourceKey": "Frost Nova",
               "talentId": "sorceress.frostnova",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -1261,7 +1037,7 @@
               "sourceKey": "Chain Lightning",
               "talentId": "sorceress.chainlightning",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -1760,7 +1536,7 @@
               "sourceKey": "Nova",
               "talentId": "sorceress.nova",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -1780,7 +1556,7 @@
               "sourceKey": "Nova",
               "talentId": "sorceress.nova",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -2170,7 +1946,7 @@
               "sourceKey": "Fire Ball",
               "talentId": "sorceress.fireball",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -2210,7 +1986,7 @@
               "sourceKey": "Fire Wall",
               "talentId": "sorceress.firewall",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -2957,7 +2733,7 @@
               "sourceKey": "Frost Nova",
               "talentId": "sorceress.frostnova",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -2977,7 +2753,7 @@
               "sourceKey": "Nova",
               "talentId": "sorceress.nova",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -3161,7 +2937,7 @@
               "sourceKey": "Blaze",
               "talentId": "sorceress.blaze",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -3385,7 +3161,7 @@
               "sourceKey": "Fire Ball",
               "talentId": "sorceress.fireball",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -3416,7 +3192,7 @@
               "sourceKey": "Static Field",
               "talentId": "sorceress.staticfield",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -3478,7 +3254,7 @@
               "sourceKey": "Chain Lightning",
               "talentId": "sorceress.chainlightning",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -3540,7 +3316,7 @@
               "sourceKey": "Chain Lightning",
               "talentId": "sorceress.chainlightning",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -3746,7 +3522,7 @@
               "sourceKey": "Nova",
               "talentId": "sorceress.nova",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -4020,7 +3796,7 @@
               "sourceKey": "Lightning",
               "talentId": "sorceress.lightning",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -4368,7 +4144,7 @@
               "sourceKey": "Frost Nova",
               "talentId": "sorceress.frostnova",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -4430,7 +4206,7 @@
               "sourceKey": "Lightning",
               "talentId": "sorceress.lightning",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -4645,7 +4421,7 @@
               "sourceKey": "Nova",
               "talentId": "sorceress.nova",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -4889,7 +4665,7 @@
               "sourceKey": "Warmth",
               "talentId": "sorceress.warmth",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             },
             {
               "sourceParameter": 38,
@@ -4934,7 +4710,7 @@
               "sourceKey": "Static Field",
               "talentId": "sorceress.staticfield",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             },
             {
               "sourceParameter": 43,
@@ -4952,7 +4728,7 @@
               "sourceKey": "Frost Nova",
               "talentId": "sorceress.frostnova",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             },
             {
               "sourceParameter": 45,
@@ -4970,7 +4746,7 @@
               "sourceKey": "Blaze",
               "talentId": "sorceress.blaze",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             },
             {
               "sourceParameter": 47,
@@ -4979,7 +4755,7 @@
               "sourceKey": "Fire Ball",
               "talentId": "sorceress.fireball",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             },
             {
               "sourceParameter": 48,
@@ -4988,7 +4764,7 @@
               "sourceKey": "Nova",
               "talentId": "sorceress.nova",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             },
             {
               "sourceParameter": 49,
@@ -4997,7 +4773,7 @@
               "sourceKey": "Lightning",
               "talentId": "sorceress.lightning",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             },
             {
               "sourceParameter": 50,
@@ -5015,7 +4791,7 @@
               "sourceKey": "Fire Wall",
               "talentId": "sorceress.firewall",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             },
             {
               "sourceParameter": 52,
@@ -5033,7 +4809,7 @@
               "sourceKey": "Chain Lightning",
               "talentId": "sorceress.chainlightning",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             },
             {
               "sourceParameter": 54,
@@ -5133,7 +4909,7 @@
               "sourceKey": "Static Field",
               "talentId": "sorceress.staticfield",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -5767,7 +5543,7 @@
               "sourceKey": "Chain Lightning",
               "talentId": "sorceress.chainlightning",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -5891,7 +5667,7 @@
               "sourceKey": "Nova",
               "talentId": "sorceress.nova",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -5922,7 +5698,7 @@
               "sourceKey": "Frost Nova",
               "talentId": "sorceress.frostnova",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -5953,7 +5729,7 @@
               "sourceKey": "Blaze",
               "talentId": "sorceress.blaze",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -6683,7 +6459,7 @@
               "sourceKey": "Blaze",
               "talentId": "sorceress.blaze",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -6910,7 +6686,7 @@
               "sourceKey": "Fire Ball",
               "talentId": "sorceress.fireball",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -6930,7 +6706,7 @@
               "sourceKey": "Fire Wall",
               "talentId": "sorceress.firewall",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -7011,7 +6787,7 @@
               "sourceKey": "Fire Ball",
               "talentId": "sorceress.fireball",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -7031,7 +6807,7 @@
               "sourceKey": "Fire Wall",
               "talentId": "sorceress.firewall",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -7112,7 +6888,7 @@
               "sourceKey": "Fire Ball",
               "talentId": "sorceress.fireball",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -7132,7 +6908,7 @@
               "sourceKey": "Fire Wall",
               "talentId": "sorceress.firewall",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -7213,7 +6989,7 @@
               "sourceKey": "Fire Ball",
               "talentId": "sorceress.fireball",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -7233,7 +7009,7 @@
               "sourceKey": "Fire Wall",
               "talentId": "sorceress.firewall",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -7314,7 +7090,7 @@
               "sourceKey": "Fire Ball",
               "talentId": "sorceress.fireball",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -7334,7 +7110,7 @@
               "sourceKey": "Fire Wall",
               "talentId": "sorceress.firewall",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -7465,7 +7241,7 @@
               "sourceKey": "Nova",
               "talentId": "sorceress.nova",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -7527,7 +7303,7 @@
               "sourceKey": "Nova",
               "talentId": "sorceress.nova",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -7558,7 +7334,7 @@
               "sourceKey": "Frost Nova",
               "talentId": "sorceress.frostnova",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -7620,7 +7396,7 @@
               "sourceKey": "Static Field",
               "talentId": "sorceress.staticfield",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -7683,7 +7459,7 @@
               "sourceKey": "Static Field",
               "talentId": "sorceress.staticfield",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -7713,7 +7489,7 @@
               "sourceKey": "Chain Lightning",
               "talentId": "sorceress.chainlightning",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -7735,7 +7511,7 @@
               "sourceKey": "Static Field",
               "talentId": "sorceress.staticfield",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -7766,7 +7542,7 @@
               "sourceKey": "Static Field",
               "talentId": "sorceress.staticfield",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -7827,7 +7603,7 @@
               "sourceKey": "Chain Lightning",
               "talentId": "sorceress.chainlightning",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -8257,7 +8033,7 @@
               "sourceKey": "Fire Ball",
               "talentId": "sorceress.fireball",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -8277,7 +8053,7 @@
               "sourceKey": "Fire Wall",
               "talentId": "sorceress.firewall",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
@@ -8359,7 +8135,7 @@
               "sourceKey": "Static Field",
               "talentId": "sorceress.staticfield",
               "implemented": true,
-              "directGrantQualified": false
+              "directGrantQualified": true
             }
           ],
           "prerequisites": [
