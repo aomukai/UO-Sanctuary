@@ -107,7 +107,8 @@ public static class EldritchBlastCastChecks
             Require(p.Female&&CombatTiming.Equipped(p)?.Serial.Value==saved.Weapon&&SkillHealth.Balance256(p)==saved.Life&&NecromancerEffects.ManaBalance256(p)==saved.Mana
                 &&EldritchBlastWorld.State(p)==null&&ClassCombat.For(p).PendingAbility==CombatAbility.None,"Saved owner/gear/resources or replay");
             var b=SkillBindings.Instance.Get(p);Require(b.Left==Ability&&b.Right==Ability&&SkillBindings.Instance.GetQuick(p.Serial,DiabloClass.Warlock,7)==Ability,"Saved bindings");
-            Cast(p);EldritchBlastWorld.Clear(p);Ready(p);SkillHealth.SetBalance256(p,saved.Life);NecromancerEffects.SetMana256(p,saved.Mana);
+            // Saved players are internalized at boot, as in the Echoing cast fixture.
+            FixtureSpace.Corridor(p,6600,24,1000);Cast(p);EldritchBlastWorld.Clear(p);Ready(p);SkillHealth.SetBalance256(p,saved.Life);NecromancerEffects.SetMana256(p,saved.Mana);
             File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Generation=saved.Generation+1}));
             Log.Information("Eldritch learned:saved Witch/original dagger/fractional wounds+mana/all bindings retain;post-load learned cast works without replay");
         }

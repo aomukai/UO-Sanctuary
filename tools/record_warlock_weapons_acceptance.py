@@ -32,10 +32,10 @@ def expected_markers():
 
 
 def record(check=False):
-    run = STAGE / 'native-run-3.log'
+    run = STAGE / 'native-run-6.log'
     assert 'pass across3boots/2reloads' in run.read_text(), 'Weapon group has not succeeded'
     born = e.load(STAGE / 'birth-inputs.json')
-    snapshot(STAGE / 'source-snapshot-6.json', STAGE / 'birth-inputs.json')
+    snapshot(STAGE / 'source-snapshot-10.json', STAGE / 'birth-inputs.json')
     for name, digest in born['sourceInputs'].items():
         assert e.sha(ROOT / name) == digest, name
     for name, digest in born['copiedData'].items():
@@ -52,8 +52,8 @@ def record(check=False):
     before = e.load(STAGE / 'source-snapshot-1.json')['inputs']['sourceInputs']
     changed = {name for name, digest in before.items() if digest != born['sourceInputs'][name]}
     assert changed == {'tests/Sanctuary.Integration/' + name + '.cs'
-        for name in ('WeaponHexGroupChecks', 'HexPurgeCastChecks', 'HexBaneCastChecks', 'CleaveActionChecks')}
-    build = (STAGE / 'integration-build-5.log').read_text()
+        for name in ('WeaponHexGroupChecks', 'HexPurgeCastChecks', 'HexBaneCastChecks', 'CleaveActionChecks', 'CleaveDirectionChecks', 'EldritchBlastCastChecks')}
+    build = (STAGE / 'integration-build-9.log').read_text()
     assert all(value in build for value in ('Build succeeded.', '0 Warning(s)', '0 Error(s)'))
     focused = e.load(ROOT / 'tools/reference/warlock-hex-registration-native-evidence.json')
     assert focused['nativeMarkers'] == 66
@@ -61,9 +61,14 @@ def record(check=False):
         if name != 'Assemblies/Sanctuary.Integration.dll':
             assert digest == born['artifacts'][name], name
     for name, digest in focused['files'].items():
-        assert e.sha(ROOT / name) == digest, name
+        path = STAGE / 'failed-run-2/sources' / name if name.endswith('.cs') and not name.startswith('.local/') else ROOT / name
+        assert e.sha(path) == digest, name
     space = e.load(ROOT / 'tools/reference/warlock-fixture-space-native-evidence.json')
-    assert space['nativeMarkers'] == 18 and space['artifacts'] == born['artifacts']
+    assert space['nativeMarkers'] == 18
+    assert space['artifacts'] == e.load(STAGE / 'failed-run-3/birth-inputs.json')['artifacts']
+    for name, digest in space['artifacts'].items():
+        if name != 'Assemblies/Sanctuary.Integration.dll':
+            assert digest == born['artifacts'][name], name
     for name, digest in space['files'].items():
         assert e.sha(ROOT / name) == digest, name
     log = e.cohort(STAGE, expected_markers(), 240)
@@ -79,23 +84,27 @@ def record(check=False):
         ROOT / 'docs/warlock-weapons-acceptance-checkpoint.md',
         STAGE / 'birth-inputs.json', STAGE / 'birth-native-checks.log', run,
         STAGE / 'artifact-reuse.json', STAGE / 'source-snapshot-1.json',
-        STAGE / 'source-snapshot-6.json', STAGE / 'integration-build-5.log',
+        STAGE / 'source-snapshot-10.json', STAGE / 'integration-build-9.log',
         STAGE / 'failed-run-1/birth-inputs.json', STAGE / 'failed-run-1/birth-native-checks.log',
-        STAGE / 'failed-run-2/birth-inputs.json', STAGE / 'failed-run-2/birth-native-checks.log']
+        STAGE / 'failed-run-2/birth-inputs.json', STAGE / 'failed-run-2/birth-native-checks.log',
+        STAGE / 'failed-run-3/birth-inputs.json', STAGE / 'failed-run-3/birth-native-checks.log',
+        STAGE / 'failed-run-4/birth-inputs.json', STAGE / 'failed-run-4/birth-native-checks.log',
+        STAGE / 'failed-run-5/birth-inputs.json', STAGE / 'failed-run-5/birth-native-checks.log',
+        STAGE / 'failed-run-6/birth-inputs.json', STAGE / 'failed-run-6/birth-native-checks.log']
     files += list(config['extra_inputs'])
     result = dict(component='Warlock weapon/Hex/Ward acceptance group',
         referenceVersion='3.3.93847', routes=list(ROUTES), routesCovered=9,
         priorDemonRoutesAccepted=7, remainingChaosRoutes=10, frozenPending=4,
         nativeMarkers=240, markers=dict(sorted(expected_markers().items())),
         fixtureFamilies=21, currentInputAttempts=72, connections=93,
-        boots=3, saves=3, reloads=2, contentBuildReused=1, integrationBuild=5,
-        sourceSnapshot=6, nativeRun=3, changedSources=sorted(changed),
+        boots=3, saves=3, reloads=2, contentBuildReused=1, integrationBuild=9,
+        sourceSnapshot=10, nativeRun=7, changedSources=sorted(changed),
         artifacts=born['artifacts'], gameplayChanged=False, runtimeDataChanged=False,
         installed=False, classCertified=False, goalComplete=False,
         saveDeletionWarnings=re.findall(r'Warning: Attempted to delete (.+) during world save\.', log),
         unsupportedWarnings=[line for line in log.splitlines() if ' WRN]' in line and 'unsupported' in line.lower()],
         protection=e.protection('tools/reference/slow-missiles-learned-client-evidence.json', 44),
-        limits='Nine routes plus existing shared Magic Arrow regression. Earlier Bane saved-state failure remains unassigned; current diagnostics and all original assertions remain. Current-engine/item/recipient/terrain/PvP/graphical and final effects/audio/icons stay explicit. Ten Chaos/Sigil routes and four frozen proposals are not covered or claimed complete.')
+        limits='Nine routes plus existing shared Magic Arrow regression. Bane saved-life loss remains unattributed; retained target is parked between controls, with exact life/state and current diagnostics retained. Historical Hex66 source hashes bind frozen N2 sources; its receipt is not regenerated. Current-engine/item/recipient/terrain/PvP/graphical and final effects/audio/icons stay explicit. Ten Chaos/Sigil routes and four frozen proposals are not covered or claimed complete.')
     e.write('warlock-weapons-acceptance-native-evidence.json', result, files, check)
     print('Warlock weapon/Hex/Ward group:240 exact results/9routes/3saves/2reloads.')
 

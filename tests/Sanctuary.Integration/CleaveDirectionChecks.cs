@@ -51,12 +51,14 @@ public static class CleaveDirectionChecks
         {
             saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));p=World.FindMobile((Serial)saved.Owner)as PlayerMobile;
             Require(p!=null&&CombatTiming.Equipped(p)?.Serial.Value==saved.Weapon,"Original mapped Cleave weapon missing");
-            FixtureSpace.Place(p,new(saved.X,saved.Y,0),Map.Trammel);Require(Plan(p)==saved.Request,"Original mapped Cleave plan changed on reload");saved=saved with{Generation=saved.Generation+1};
+            FixtureSpace.Place(p,new(saved.X,saved.Y,0),Map.Trammel);var actual=Plan(p);
+            Require(actual==saved.Request,"Original mapped Cleave plan changed on reload; expected="+saved.Request+" actual="+actual+" savedPosition="+saved.X+","+saved.Y+" actualPosition="+p.Location);
+            saved=saved with{Generation=saved.Generation+1};
         }
         else
         {
             p=ClassSkillChecks.Player(DiabloClass.Warlock);ClassSkillChecks.Train(p,"warlock.cleave");while(p.RawStr<100){Require(ClassCreation.Profiles.TrySpendStat(p,CharacterStat.Strength),"Direction fixture Strength");}
-            FixtureSpace.Corridor(p,6560,16,3500);var weapon=new Broadsword();p.AddToBackpack(weapon);Require(p.EquipItem(weapon),"Mapped Cleave sword");ClassGear.Refresh(p);var request=Plan(p);
+            FixtureSpace.Corridor(p,6560,16,600);var weapon=new Broadsword();p.AddToBackpack(weapon);Require(p.EquipItem(weapon),"Mapped Cleave sword");ClassGear.Refresh(p);var request=Plan(p);
             p.AddToBackpack(weapon);ClassGear.Refresh(p);
             try{CleaveSweep.PrimaryPrepared(p,p.Location,Supplied);throw new InvalidOperationException("Unarmed prepared Cleave accepted");}catch(NotSupportedException){}
             Require(p.EquipItem(weapon),"Original Cleave sword re-equip");ClassGear.Refresh(p);Require(Plan(p)==request,"Mapped Cleave re-equip changed request");

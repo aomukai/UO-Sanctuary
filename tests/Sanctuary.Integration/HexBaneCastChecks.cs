@@ -105,6 +105,7 @@ public static class HexBaneCastChecks
                 HexBane.Restore(new(s.Buffs.Select(b=>b.Owner==p.Serial.Value?b with{UntilUtc=until}:b).ToArray(),s.Debuffs.Select(d=>d.Target==t.Serial.Value?d with{UntilUtc=until}:d).ToArray()));p.Name="BaneCastSaved";
                 SkillHealth.SetBalance256(p,p.HitsMax*256-333);NecromancerEffects.SetMana256(p,p.ManaMax*256-517);
                 rows[i++]=new(p.Serial.Value,t.Serial.Value,CombatTiming.Equipped(p).Serial.Value,female,SkillHealth.Balance256(p),NecromancerEffects.ManaBalance256(p),HexBane.Buff(p),HexBane.Debuff(t));
+                t.Combatant=null;t.Internalize();
             }
             manifest=new(0,rows);
         }
@@ -119,10 +120,11 @@ public static class HexBaneCastChecks
                 Require(HexBane.Buff(p)==row.Buff,"Bane saved buff changed: expected="+JsonSerializer.Serialize(row.Buff)+" actual="+JsonSerializer.Serialize(HexBane.Buff(p)));
                 Require(HexBane.Debuff(t)==row.Debuff,"Bane saved debuff changed: expected="+JsonSerializer.Serialize(row.Debuff)+" actual="+JsonSerializer.Serialize(HexBane.Debuff(t)));
                 Require(row.Buff.CastMastery==50,"Bane saved cast mastery changed");
-                Require(SkillHealth.Balance256(p)==row.Life,"Bane saved life changed: expected="+row.Life+" actual="+SkillHealth.Balance256(p));
+                Require(SkillHealth.Balance256(p)==row.Life,"Bane saved life changed: expected="+row.Life+" actual="+SkillHealth.Balance256(p)+" owner="+p.Serial+" position="+p.Location+" map="+p.Map+" target="+t.Serial+" targetMap="+t.Map);
                 Require(NecromancerEffects.ManaBalance256(p)==row.Mana,"Bane saved mana changed: expected="+row.Mana+" actual="+NecromancerEffects.ManaBalance256(p));
                 FixtureSpace.Corridor(p,row.Female?6480:6400,24,3500);t.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);Events(p,t);var s=HexBane.Snapshot();
                 HexBane.Restore(new(s.Buffs.Select(b=>b.Owner==row.Owner?row.Buff:b).ToArray(),s.Debuffs.Select(d=>d.Target==row.Target?row.Debuff:d).ToArray()));SkillHealth.SetBalance256(p,row.Life);NecromancerEffects.SetMana256(p,row.Mana);Ready(p);
+                t.Combatant=null;t.Internalize();
             }
             manifest=old with{Generation=old.Generation+1};
         }

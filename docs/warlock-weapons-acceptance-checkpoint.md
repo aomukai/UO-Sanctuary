@@ -35,3 +35,22 @@ Full N2 passed the corrected Hex group and continued to Mirrored packet controls
 One fixture line now starts that same search at row 1000. Reach, map, floor/fit/LOS, contact/range, damage, actor/item identity and all original assertions remain unchanged. Only the shared test factory's available rows increase. **C1/I5/source6/focused run1 passes18 exact results, three saves and two reloads**, retaining original Cleave, Magic Arrow and Mirrored packet controls. [Receipt](../tools/reference/warlock-fixture-space-native-evidence.json), [recorder](../tools/record_warlock_fixture_space.py). Build I5 has zero warnings/errors; installed artifact/save/config/client protection passes. Gameplay/data/kernel/client remain unchanged.
 
 Next is full N3 with the original 240-marker/93-connection scope on C1/I5/source6. The earlier 66-result Hex receipt remains historical and unchanged. The earlier Bane saved-state failure remains unassigned and its field-specific diagnostics remain enabled. Four integration fixture files now differ from the copied parent baseline; no production source changes.
+
+
+## Cleave direction fixture reload
+
+Full N3 reached the first reload and rejected the saved mapped direction request. Diagnostic-only N4 showed that all skill/arc/reach/filter fields matched, but `FixtureSpace.Place` moved the original owner from `(6560,3532)` to `(6559,3531)`. Its request center therefore changed by two source-grid units. Both runs, exact binaries, all C# and actual/shared drivers are frozen before repair.
+
+The direction fixture now starts in its own low-row strip at `(6560,600)`, retaining the same terrain-valid helper, weapon, skill/resource checks and exact original request equality on reload. The detailed assertion remains. C1/I7/source8/full N5 is next; five integration fixture files differ from the copied parent. No gameplay/data/kernel/install changes or group acceptance are claimed yet. The earlier Bane failure remains unassigned.
+
+
+## Saved Eldritch owner activation
+
+Full N5 passed the Cleave direction reload after isolation, then reached Eldritch Blast's learned reload cast. Its fixture authenticated the saved player without returning it from the native internal map to a legal world location. The existing Echoing Strike fixture already performs that activation before its reload cast. Eldritch now reuses `FixtureSpace.Corridor` after all original owner/weapon/wounds/mana/bindings/no-replay assertions and before the unchanged learned cast checks. No gameplay admission rule is relaxed. Exact N5 evidence is frozen; C1/I8/source9/full N6 is next. Six integration fixtures now differ from the parent; gameplay/data/kernel/install remain unchanged.
+
+
+## Bane inspection isolation
+
+Full N6 passed the previously failing Eldritch learned reload and reached the second save/reload. Bane's field diagnostics reproduced the intermittent failure as exactly three whole life lost on a saved owner (`63923` to `63155` in 1/256 units). The damage source remains unassigned. The retained original target is now internalized with its combatant cleared between explicit event controls; it returns through the original terrain-valid setup for each inspection. Exact saved owner life/mana, all buff/debuff/weapon identity and damage-event assertions remain. No gameplay rule changes or compensating heal is introduced; existing explicit fixture post-control restoration remains unchanged.
+
+N6 exact artifacts, all C# and actual/shared drivers are frozen. Historical Hex66 binds its original I4/sources in frozen N2 rather than today's modified fixture, without regenerating that receipt. C1/I9/source10/full N7 is next; six fixture source differences from the parent remain.
