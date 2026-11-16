@@ -43,10 +43,11 @@ public static class WakeLearnedChecks
             ClassCombat.Stop(p);Require(!ClassCombat.ResolveAction(p,effect)&&AssassinTrapRoster.For(p).Length==0&&NecromancerEffects.ManaBalance256(p)==3455,"Stopped Wake paid/created a trap");
             SentryLearnedChecks.Ready(p);Require(ClassCombat.Perform(p,Ability,null,aim,Core.TickCount),"Wake depleted release begin");NecromancerEffects.SetMana256(p,3327);
             Require(!ClassCombat.ResolveAction(p,ClassCombat.For(p).EffectAt)&&AssassinTrapRoster.For(p).Length==0&&NecromancerEffects.ManaBalance256(p)==3327,"Mana loss created free Wake");
+            aim=new Point3D(p.X+6,p.Y,p.Z); // Keep the caster outside the blocked search footprint.
             NecromancerEffects.SetMana256(p,3455);SentryLearnedChecks.Ready(p);Require(ClassCombat.Perform(p,Ability,null,aim,Core.TickCount),"Wake placement revalidation begin");
-            var wall=new Static(0x80);wall.MoveToWorld(aim,p.Map);try
-            {Require(!ClassCombat.ResolveAction(p,ClassCombat.For(p).EffectAt)&&AssassinTrapRoster.For(p).Length==0&&NecromancerEffects.ManaBalance256(p)==3455,"Blocked Wake release paid or invented fallback");}
-            finally{wall.Delete();}
+            var walls=SentryPlacementChecks.Block(p.Map,aim);try
+            {Require(!ClassCombat.ResolveAction(p,ClassCombat.For(p).EffectAt)&&AssassinTrapRoster.For(p).Length==0&&NecromancerEffects.ManaBalance256(p)==3455,"Fully blocked Wake release paid or allocated a trap");}
+            finally{foreach(var wall in walls){wall.Delete();}}
             SentryLearnedChecks.Ready(p);var body=SentryLearnedChecks.Cast(p,Ability);
             Require(body.Prepared.Creation.Ability==Ability&&body.Prepared.WakeControl is{Mode:8,Frame:0}&&AssassinSentryCreation.Shots(body.Prepared.Creation)==5
                 &&NecromancerEffects.ManaBalance256(p)==127&&FireGround.Ready(p,Ability),"Paid Wake source S1/five shots/no extra delay");

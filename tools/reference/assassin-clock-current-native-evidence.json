@@ -1,0 +1,58 @@
+{
+  "component": "Assassin clock fixture aligned with implemented learned routes",
+  "referenceVersion": "3.3.93847",
+  "contentBuildReused": 1,
+  "integrationBuild": 1,
+  "sourceSnapshot": 2,
+  "nativeRun": 1,
+  "nativeMarkers": 30,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "assassin-cast-clock-check": 3,
+    "blade-shield-check": 1,
+    "blade-shield-reload-check": 2,
+    "blade-shield-result": 3,
+    "assassin-cast-clock-right-check": 3,
+    "assassin-cast-clock-right-result": 3,
+    "assassin-cast-clock-quick-check": 3,
+    "assassin-cast-clock-quick-result": 3
+  },
+  "spellInputs": 6,
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "changedSources": [
+    "tests/Sanctuary.Integration/AssassinCastClockChecks.cs"
+  ],
+  "gameplayChanged": false,
+  "runtimeDataChanged": false,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "5df3992322b515ae6e525927b8b9ddb57420eddd63d9886f019ffd6974b2cd49",
+    "Assemblies/Sanctuary.Content.dll": "508e93ea5f7458c9de14a13d70500aaba9f6f39c76ba3313adaa3966b1d34e14",
+    "Assemblies/Sanctuary.Integration.dll": "039c964c1b41e8827cdeed5994c9af5200afa3fbe35f0597f2fd654baec77232"
+  },
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 44
+  },
+  "classCertified": false,
+  "limits": "Trained Shadow Warrior/Master,Blade Fury,Wake of Fire are available. Seven ordinary SC routes retain source/FCR/payment/cancellation checks; constructor/held/trap skills retain their separate clocks and fixtures. Full Assassin composition pending; no exact modern certification.",
+  "files": {
+    ".local/class-skills/assassin-clock-current/birth-inputs.json": "1354dcebafa91b38ec17cb6a64fc794421ae3802bfb10e871e4553808af7f21c",
+    ".local/class-skills/assassin-clock-current/birth-native-checks.log": "63c7ae64a87c6fad746cab93f2de0cb3d0d4348fa7377d9fa821d5259aca4cb7",
+    ".local/class-skills/assassin-planned-acceptance/artifact-reuse.json": "aa11892ae274c1e496e426d31ceb5d3907c8a03cff7f9b2085714cebc560c2d5",
+    ".local/class-skills/assassin-planned-acceptance/clock-focused-run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/assassin-planned-acceptance/integration-build-1.log": "ef9031b967d38d62704ab937a92e50783eec25094af4e57cb9fe13a283af398a",
+    ".local/class-skills/assassin-planned-acceptance/prechange-sources/tests/Sanctuary.Integration/AssassinCastClockChecks.cs": "126ff02c39b3cc86cd012a66fe710b1c6c3a535a341e2995108e8c73d581f399",
+    ".local/class-skills/assassin-planned-acceptance/source-snapshot-2.json": "23d51a87ca30873f5da14e4eb30f3f6da20e46216df55b2a3404ce1b61431fde",
+    "tests/Sanctuary.Integration/AssassinCastClockChecks.cs": "24125e0905d8e78852161aa292ba39f484256c6051073235273f709464f0e69d"
+  }
+}

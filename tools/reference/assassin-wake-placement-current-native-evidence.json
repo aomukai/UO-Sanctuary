@@ -1,0 +1,55 @@
+{
+  "component": "Wake failed release uses approved shared bounded sentry placement",
+  "referenceVersion": "3.3.93847",
+  "contentBuildReused": 1,
+  "integrationBuild": 2,
+  "sourceSnapshot": 3,
+  "nativeRun": 1,
+  "nativeMarkers": 15,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "sentry-placement-check": 1,
+    "sentry-placement-reload-check": 2,
+    "wake-learned-mechanics-check": 3
+  },
+  "boots": 3,
+  "reloads": 2,
+  "saves": 3,
+  "changedSources": [
+    "tests/Sanctuary.Integration/WakeLearnedChecks.cs"
+  ],
+  "gameplayChanged": false,
+  "runtimeDataChanged": false,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "5df3992322b515ae6e525927b8b9ddb57420eddd63d9886f019ffd6974b2cd49",
+    "Assemblies/Sanctuary.Content.dll": "508e93ea5f7458c9de14a13d70500aaba9f6f39c76ba3313adaa3966b1d34e14",
+    "Assemblies/Sanctuary.Integration.dll": "389ce661cde5773ad93817c3a4094dfffae8de3c18734f81b235477390af78ff"
+  },
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 44
+  },
+  "classCertified": false,
+  "limits": "Reuses existing81-tile blocker with caster outside search footprint; preserves no-payment/allocation/roster assertions. Shared all-five-sentry placement, bounds/order/LOS/town and occupied-target cases retain. Complete Assassin composition pending; no exact modern certification.",
+  "files": {
+    ".local/class-skills/assassin-planned-acceptance/failed-run-1/birth-inputs.json": "a315a3ef9ac6391f0ece354a6c9d481a295bf846d98e6b192fa4822ef362514d",
+    ".local/class-skills/assassin-planned-acceptance/failed-run-1/birth-native-checks.log": "611287d1257d3613a4661bbdf47be355d90e49271324233c1c1cd51480c97873",
+    ".local/class-skills/assassin-planned-acceptance/integration-build-2.log": "ef37320be7a8dbac6996d446b43150c950e7780a4be4b5d24aceb3d1c24e020a",
+    ".local/class-skills/assassin-planned-acceptance/source-snapshot-3.json": "b6b800be3d0ba1b7af3eedc6dc5a4129c7f0ef8fbfc0631039b79fd96be604ef",
+    ".local/class-skills/assassin-planned-acceptance/wake-placement-focused-run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/assassin-wake-placement-current/birth-inputs.json": "056935aacd0ab55d56f765679fc5d3c9fab78b912a32c65e171f880843b03824",
+    ".local/class-skills/assassin-wake-placement-current/birth-native-checks.log": "ad1cbde747693faa03805f6f9ac7a7a0dd9b4ea34ea0c68c8743ebc20fdda78d",
+    "docs/sentry-occupied-placement-proposal.md": "669911b4a5cfc0d7a74497372ac9fb01a382666f55f8403a03683372d3926559",
+    "tests/Sanctuary.Integration/SentryPlacementChecks.cs": "cc193d926cb95db3b9b9ad7c66bb25795e0b4c1727d138de6de1151255a61783",
+    "tests/Sanctuary.Integration/WakeLearnedChecks.cs": "960a69c0f2c78a72bd34e7c370f384d5a438aea1b0fb7bc420b94a75355fb439",
+    "tools/reference/sentry-placement-native-evidence.json": "ad4ce85c25d91374ea8b7606402ddf4dfbfb4d676a766636e7e64aeb3fcd215b"
+  }
+}

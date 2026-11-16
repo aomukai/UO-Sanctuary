@@ -79,7 +79,7 @@ public static class AssassinCastClockChecks
                 Require(CombatTiming.Fcr(p)==fcr,"Actual FCR");
                 var trap=FireBlasts.Timing(p);Require(CombatTiming.For(p,CombatAbility.FireBlast)==trap,"S2 placement clock changed");
                 foreach(var ability in new[]{CombatAbility.ShadowWarrior,CombatAbility.ShadowMaster,CombatAbility.BladeFury,CombatAbility.WakeOfFire})
-                {Require(!ClassCombat.Available(p,ability),"Clock enabled an unsupported skill");}
+                {Require(ClassCombat.Available(p,ability),"Clock fixture lost an implemented learned skill");}
                 foreach(var skill in skills)
                 {
                     var ability=skill.Ability;Clear(p);Ready(p);int mana=NecromancerEffects.ManaBalance256(p),cost=SkillMechanics.Values(p,ability).Mana256;long at=Core.TickCount;
