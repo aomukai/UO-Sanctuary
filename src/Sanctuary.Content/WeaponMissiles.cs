@@ -344,6 +344,11 @@ public static class WeaponMissiles
             {Server.Logging.LogFactory.GetLogger(typeof(WeaponMissiles)).Warning("Mirrored projectile stopped for {Owner}: {Reason}",owner.Serial.Value,ex.Message);_flights.Remove(flight.Id);return;}
             if(!pierce){_flights.Remove(flight.Id);}return;
         }
+        if(flight.Throwing!=null&&selected is BaseCreature throwTarget)
+        {
+            try{PlayerWeaponContact.Require(player,throwTarget,true,weaponSetup:false);}
+            catch(NotSupportedException e){player.SendMessage(0x22,e.Message);_flights.Remove(flight.Id);return;}
+        }
         bool hit=flight.Ability is CombatAbility.LightningBolt or CombatAbility.LightningFury || next.Guided!=null
             || (flight.Ability==CombatAbility.DoubleThrow?DoubleThrowMissiles.Hit(player,selected,flight.Damage.SkillAttackPercent,BarbarianDoubleThrow.HitRoll):flight.Ability==CombatAbility.BladeFury?BladeFuryMissiles.Hit(player,selected,flight.Damage.SkillAttackPercent,HitRoll)
                 :ClassStats.CheckHit(owner,selected,flight.Damage.SkillAttackPercent,HitRoll,projectile:true))==true;
@@ -371,6 +376,13 @@ public static class WeaponMissiles
         bool blocked;
         if(!(flight.Throwing!=null?DoubleThrowMissiles.Block(creature,damage.Physical>0,out blocked):SourceBlocking.TryBlock(creature,damage.Physical>0,out blocked)))
         {_flights.Remove(flight.Id);return;}
+        if(flight.Throwing is{} thrownSource)
+        {
+            if(!blocked){DoubleThrowMissiles.Contact(player,creature,flight,damage,poisonRate256);}
+            if(creature is{Alive:true,Deleted:false}&&creature is not BaseHire&&thrownSource.ArmorDelta!=0)
+            {WeaponStartEffects.ApplyArmorDelta(creature,thrownSource.ArmorDelta,flight.NextUtc);}
+            if(!pierce){_flights.Remove(flight.Id);}return;
+        }
         if(!blocked)
         {
             owner.DoHarmful(selected,true);

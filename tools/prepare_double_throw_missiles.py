@@ -9,7 +9,7 @@ def render(check=False):
     for name in ('weapons','missiles'):
         p=source/'json'/(name+'.json');raw=p.read_bytes();digest=hashlib.sha256(raw).hexdigest();assert digest==manifest['files']['json/'+name+'.json']['sha256'];tables[name]=json.loads(raw);hashes[str(p.relative_to(ROOT))]=digest
     missiles=tables['missiles'];names=('javelin','throwaxe','throwknife','glaive','pilum');ids={missiles[k]['*ID']:k for k in names}
-    fields=('Vel','VelLev','Range','Activate','InitSteps','Size','ToHit','SrcDamage','pSrvDoFunc','pSrvHitFunc','pSrvDmgFunc','LastCollide','NextHit','NextDelay','Pierce','GetHit','ReturnFire','HitShift','ResultFlags','HitFlags','CanSlow')
+    fields=('Vel','VelLev','Range','Activate','InitSteps','Size','ToHit','SrcDamage','pSrvDoFunc','pSrvHitFunc','pSrvDmgFunc','LastCollide','NextHit','NextDelay','Pierce','GetHit','ReturnFire','HitShift','HitClass','ResultFlags','HitFlags','CanSlow')
     mappings={k:ids[v['missiletype']] for k,v in sorted(tables['weapons'].items()) if v.get('missiletype') in ids and v.get('type') in ('jave','ajav','taxe','tkni')}
     assert len(mappings)==30,len(mappings)
     data=[dict(ReferenceVersion='3.3.93847',SourceHashes=hashes,Weapons=mappings,Missiles={k:{f:missiles[k].get(f,0)for f in fields}for k in names})]

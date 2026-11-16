@@ -29,6 +29,10 @@ internal static class PlayerItemProcWorld
     }
     private static bool Actions(PlayerMobile owner)=>CandidateOwners.Contains(owner.Serial.Value)||owner.NetState is{Running:true};
     internal static Ticket Capture(PlayerMobile owner,BaseCreature target,DateTime at,Func<bool> uninterruptible=null)
+        =>CaptureCore(owner,target,at,uninterruptible,false);
+    internal static Ticket CaptureMissile(PlayerMobile owner,BaseCreature target,DateTime at,Func<bool> uninterruptible=null)
+        =>CaptureCore(owner,target,at,uninterruptible,true);
+    private static Ticket CaptureCore(PlayerMobile owner,BaseCreature target,DateTime at,Func<bool> uninterruptible,bool missile)
     {
         if(!(Approved||CandidateOwners.Contains(owner.Serial.Value))||!PlayerItemProcs.ActiveProvider(owner)) {return null;}
         if(World.Loading||owner is not{Alive:true,Deleted:false}||owner.Map==null||owner.Map==Map.Internal||!Actions(owner)
@@ -36,18 +40,18 @@ internal static class PlayerItemProcWorld
             ||target is not{Alive:true,Deleted:false}||target.Map!=owner.Map||!ClassCombat.IsHostile(owner,target)) {return null;}
         var retained=NpcItemTarget.Capture(target);
         if(!PlayerItemProcs.Initialized(owner)){PlayerItemProcs.InitializeActor(owner,NpcWorldAllocation.UnitSeed());}
-        return new(owner,retained,target.Location,at,uninterruptible);
+        return new(owner,retained,target.Location,at,uninterruptible,missile);
     }
-    internal sealed class Ticket(PlayerMobile owner,NpcItemTarget target,Point3D path,DateTime at,Func<bool> uninterruptible=null)
+    internal sealed class Ticket(PlayerMobile owner,NpcItemTarget target,Point3D path,DateTime at,Func<bool> uninterruptible=null,bool missile=false)
     {
         private bool Damage,Attack;
         internal void Dispatch(string phase,PreparedMonsterDamagePacket packet)
         {
-            if(phase=="domeleedamage")
-            {if(Damage){throw new InvalidOperationException("Player melee damage proc phase replayed");}Damage=true;}
-            else if(phase=="domeleeattack")
+            if(phase==(missile?"domissiledamage":"domeleedamage"))
+            {if(Damage){throw new InvalidOperationException("Player damage proc phase replayed");}Damage=true;}
+            else if(!missile&&phase=="domeleeattack")
             {if(Attack){throw new InvalidOperationException("Player melee attack proc phase replayed");}Attack=true;}
-            else{throw new NotSupportedException("Player melee ticket needs its actual ordered phase");}
+            else{throw new NotSupportedException("Player proc ticket needs its actual ordered phase");}
             // Ordinary contacts retain the approved noninterrupting cast rule.
             // Special controllers supply their actual live source-state guard.
             var outcomes=PlayerItemProcs.Dispatch(owner,phase,target,path,packet,uninterruptible?.Invoke()??false,at,

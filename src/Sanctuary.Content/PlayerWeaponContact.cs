@@ -114,16 +114,23 @@ internal static class PlayerWeaponContact
         internal override bool DefenderKillable()=>(metadata?.Killable??true)&&target.CanBeDamaged();
         internal override bool DefenderDead()=>target is not{Alive:true,Deleted:false}||SkillHealth.Balance256(target)<=0;
     }
-    private sealed class Damage(PlayerMobile source,BaseCreature target,MonsterReturnMetadata metadata,NpcCombatEvents events,Scope scope,DateTime at):PreparedMonsterDamageServices
+    private sealed class Damage(PlayerMobile source,BaseCreature target,MonsterReturnMetadata metadata,NpcCombatEvents events,Scope scope,DateTime at,bool missile=false):PreparedMonsterDamageServices
     {
         private bool Freed;
         internal override void StoreLastAttacker()=>source.DoHarmful(target,true);
         internal override PreparedMonsterDamagePacket DealtDamage(PreparedMonsterDamagePacket p)
-        {NamedCombat.Crushing(source,target,false,scope.Prepared.Effects,scope.Prepared.CrushingDivisor);scope.ItemProcs?.Dispatch("domeleedamage",p);return p;}
-        internal override PreparedMonsterDamagePacket TookDamage(PreparedMonsterDamagePacket p)=>events.Dispatch("damagedinmelee",p);
+        {
+            NamedCombat.Crushing(source,target,missile,scope.Prepared.Effects,scope.Prepared.CrushingDivisor);scope.ItemProcs?.Dispatch(missile?"domissiledamage":"domeleedamage",p);
+            // Missile item status callbacks belong to this successful event,
+            // including zero-life-damage/fully absorbed and lethal hits.
+            if(missile){NamedCombat.AfterStrike(source,target,true,scope.Prepared.Effects,setupApplied:true);}
+            return p;
+        }
+        internal override PreparedMonsterDamagePacket TookDamage(PreparedMonsterDamagePacket p)=>events.Dispatch(missile?"damagedbymissile":"damagedinmelee",p);
+        internal override PreparedMonsterDamagePacket MitigateMissile(PreparedMonsterDamagePacket p)=>missile?p:throw new InvalidOperationException("Melee has no missile mitigation stage"); // Caller has captured typed mitigation.
         internal override void BeforeHealth(PreparedMonsterDamagePacket p)
         {
-            if((p.ResultFlags&32)==0){WeaponLandedEvents.Notify(source,target,false);}
+            if((p.ResultFlags&32)==0&&(!missile||(p.HitFlags&160)==32)){WeaponLandedEvents.Notify(source,target,missile);}
             scope.Before=SkillHealth.Balance256(target);WeaponLeech.Apply(source,target,p.Physical256,scope.Prepared.Drain);
         }
         internal override void BeforeHealthCommit(Mobile attacker,BaseCreature recipient,int after256)
@@ -140,7 +147,7 @@ internal static class PlayerWeaponContact
         {
             // Preserve existing supported conditional item consumers. Their
             // internal registration/RNG order still needs individual acceptance.
-            NamedCombat.AfterStrike(source,target,false,scope.Prepared.Effects,smite:scope.Prepared.Smite,skipKnockback:scope.Prepared.SkillKnockback,setupApplied:true);
+            if(!missile){NamedCombat.AfterStrike(source,target,missile,scope.Prepared.Effects,smite:scope.Prepared.Smite,skipKnockback:scope.Prepared.SkillKnockback,setupApplied:true);}
         }
         internal override PreparedMonsterDamagePacket Killed(PreparedMonsterDamagePacket p)=>events.Dispatch("killed",p);
         internal override PreparedMonsterDamagePacket Kill(PreparedMonsterDamagePacket p)
@@ -187,14 +194,30 @@ internal static class PlayerWeaponContact
         internal override void FreePacket()
         {if(Freed){throw new InvalidOperationException("Player contact packet freed twice");}Freed=true;scope.Packet=null;NativeMonsterReturn.Session(target).Packets++;}
     }
-    internal static MonsterContactResult Release(PlayerMobile source,BaseCreature target,PlayerWeaponContactPrepared prepared,DateTime at,bool allowNative=false)
+    private static PreparedMonsterDamagePacket Packet(PlayerWeaponContactPrepared prepared)
     {
-        Require(source,target,allowNative,!prepared.Smite);var metadata=Metadata(target,allowNative);NativeMonsterReturn.Session(target);
         var impact=prepared.Impact;var parts=impact.Parts;
-        var packet=new PreparedMonsterDamagePacket(NamedElements.To256(parts.Physical),impact.LifeDamage256??NamedElements.To256(parts.Total),impact.SourceStunFrames,
+        return new PreparedMonsterDamagePacket(NamedElements.To256(parts.Physical),impact.LifeDamage256??NamedElements.To256(parts.Total),impact.SourceStunFrames,
             prepared.ColdFrames,prepared.Flags,HitClass:(prepared.Flags&1)!=0?prepared.HitClass:0,
             Magic256:NamedElements.To256(parts.Magic),Fire256:NamedElements.To256(parts.Fire),Lightning256:NamedElements.To256(parts.Lightning),
             Cold256:NamedElements.To256(parts.Cold),Poison256:impact.AllocatedPoison?.Rate256??0,AbsorbedLife256:impact.Absorbed256,HitFlags:prepared.HitFlags);
+    }
+    internal static PreparedMonsterDamageResult ReleaseMissile(PlayerMobile source,BaseCreature target,PlayerWeaponContactPrepared prepared,DateTime at,bool allowNative=false)
+    {
+        Require(source,target,allowNative,weaponSetup:false);var metadata=Metadata(target,allowNative);NativeMonsterReturn.Session(target);
+        if(source.Map!=target.Map||!ClassCombat.IsHostile(source,target)||SpellHelper.IsTown(target.Location,source)||metadata is{Killable:false})
+        {throw new NotSupportedException("Player missile lost its qualified hostile world recipient");}
+        var packet=Packet(prepared);
+        var scope=new Scope(prepared,packet){Point=target.Location,Map=target.Map,EntryHits=target.Hits,
+            ItemProcs=(packet.HitFlags&160)==32?PlayerItemProcWorld.CaptureMissile(source,target,at,prepared.UninterruptibleItemCasts):null};
+        var recipient=new PreparedMonsterRecipient(PreparedMonsterStun.IsUnique(target),()=>CreatureProfiles.For(target).Traits.Boss??false,()=>metadata?.Velocity??0,()=>target is BaseHire);
+        try{return PreparedMonsterDamage.ReleaseMissile(source,target,packet,recipient,prepared.StunRoll??Utility.Random,new Damage(source,target,metadata,IronGolemContact.Events(target),scope,at,true),at);}
+        finally{scope.KillRecovery?.Dispose();}
+    }
+    internal static MonsterContactResult Release(PlayerMobile source,BaseCreature target,PlayerWeaponContactPrepared prepared,DateTime at,bool allowNative=false)
+    {
+        Require(source,target,allowNative,!prepared.Smite);var metadata=Metadata(target,allowNative);NativeMonsterReturn.Session(target);
+        var packet=Packet(prepared);
         var scope=new Scope(prepared,packet){Point=target.Location,Map=target.Map,EntryHits=target.Hits,ItemProcs=PlayerItemProcWorld.Capture(source,target,at,prepared.UninterruptibleItemCasts)};
         bool stunRules=CombatStuns.Rules(target,out bool stunBoss,out int stunVelocity);
         bool controlStun=prepared.Smite||prepared.ControlStun;

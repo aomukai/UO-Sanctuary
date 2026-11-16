@@ -1,0 +1,42 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "functions": {
+    "MISSMODE_SetDamageFlags": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "e45650c089a89c9f2db72a953ea9f09b8ea823f0a2bcf7b65dfd130c6b476280"
+    },
+    "MISSILES_CreateMissileFromParams": {
+      "path": "source/D2Game/src/MISSILES/Missiles.cpp",
+      "sha256": "e6233f075331a0ac515577834ae2abbb234ee71cf68989ac002d34bd6d69a4e9"
+    },
+    "MISSILE_CalculateDamageData": {
+      "path": "source/D2Common/src/Units/Missile.cpp",
+      "sha256": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f"
+    },
+    "MISSILE_SetDamageStats": {
+      "path": "source/D2Common/src/Units/Missile.cpp",
+      "sha256": "16a3fa97e7ba9fd4ae28f4128d4f2e6b32736f0252a563b294df73d6c93145c1"
+    },
+    "SUNITDMG_ExecuteEvents": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "sha256": "29d79fe1ff916cce3da9b78493564f9438ea99718e99d208f4412a07c3898c55"
+    },
+    "SUNITDMG_ExecuteMissileDamage": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "sha256": "1fdd8c096d3c9c6d688f29f1888e88df7c98a9fb13214c65b1099c4b3b3f6f3f"
+    }
+  },
+  "scope": "Complete older weapon-missile flags/damage/return bodies and pinned ordinary throwing rows;not modern executable parity.",
+  "established": [
+    "Source weapon contribution sets missile flag1 and packet HitFlags32. Creation suppression and damage metadata can set missile flag2 and packet HitFlags128.",
+    "Successful unblocked impact dispatches domissiledamage before recipient damagedbymissile,physical clipping,drain,HP,status,kill and return. HitFlags128 suppresses only the attacker damage event.",
+    "Source DoMissileDamage has no melee attempt,weapon wear or Thorns phase. No missile-attack caller was established in this pinned source;no launch/per-impact attack event is invented.",
+    "Five ordinary throwing GetHit1/HitClass rows come from the archived current tables. Source damage,poison,drain and hit class retain the existing released flight;item providers are read at impact through the existing live graph.",
+    "Reuse the approved persistent player/world RNG and noninterrupting item-cast mapping;actual Whirlwind state retains its existing execution refusal."
+  ],
+  "remaining": [
+    "Only ordinary Double Throw is connected in this checkpoint;other player missiles and Mirrored/NPC bodies remain separate.",
+    "Modern missile attack timing,selected-hand item graph timing,RNG/owner/geometry,exceptional/PvP recipients and full named admission remain unverified."
+  ]
+}
