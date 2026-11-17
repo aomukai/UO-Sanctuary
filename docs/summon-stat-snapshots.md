@@ -1,5 +1,7 @@
 # Summon and trap stat snapshots
 
+**Current Necromancer verification (2026-11-18 JST):** the [pet policy audit](necromancer-pet-policy-audit.md) joins the current public-birth consumers to the installed package. Its focused refresh verifies two original Warriors and 18 original Mage/golem cases through two reloads. Earlier missing-supplement/live-upgrade fixtures remain separate compatibility tests; their presence in a combined cohort is not proof of a current birth snapshot. Other classes retain their own rollout and acceptance scopes.
+
 The approved Sanctuary rule applies across all classes, including Assassin traps: capture each summoned unit's inherited base stats and ranks when it is created. The user settled Poison Creeper with “just snapshot it on being summoned” and extended the rule to all summons. See [the decision](../tools/reference/summon-snapshot-decision.json). This is an explicit adaptation where the exact D2R 3.3.93847 capture timing is uncertain.
 
 Snapshot the effective summon rank, relevant hard-point synergies and the stats explicitly inherited by that skill. This does not grant every pet all of its owner's equipment effects. For example, traps keep their declared inherited passives, while Poison Creeper does not inherit the owner's poison mastery or ordinary item resistance pierce. Capturing a sunder value does not establish its damage consumer; unsupported delivery stays explicit.

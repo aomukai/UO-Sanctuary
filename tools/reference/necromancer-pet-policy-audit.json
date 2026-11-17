@@ -1,0 +1,501 @@
+{
+  "referenceVersion": "3.3.93847",
+  "reviewedRequirements": 22,
+  "requirements": [
+    {
+      "requirement": "warrior-return",
+      "approvedRule": "Hard 10 grants 34 flat physical attacker return.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/SkeletonPetUpgrades.cs",
+        "src/Sanctuary.Content/NpcEquipmentRetaliation.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/SkeletonUpgradeChecks.cs",
+      "retainedNativeMarkers": {
+        "skeleton-upgrades-check": 1,
+        "skeleton-upgrades-live-result": 3,
+        "skeleton-upgrades-reload-check": 2
+      },
+      "status": "verified-for-qualified-actors",
+      "modernParityClaimed": false
+    },
+    {
+      "requirement": "warrior-fast",
+      "approvedRule": "Hard 20 grants the existing movement-only Extra Fast affix.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/SkeletonPetUpgrades.cs",
+        "src/Sanctuary.Content/SkeletonWorldBody.cs",
+        "src/Sanctuary.Content/SkeletonPets.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/SkeletonUpgradeChecks.cs",
+      "retainedNativeMarkers": {
+        "skeleton-upgrades-check": 1,
+        "skeleton-upgrades-live-result": 3,
+        "skeleton-upgrades-reload-check": 2
+      },
+      "status": "verified-for-qualified-actors",
+      "modernParityClaimed": false
+    },
+    {
+      "requirement": "mage-elements",
+      "approvedRule": "New Mages use fire/lightning/ice; saved poison Mages become ice without rerolling identity or wounds.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/NecromancerSummons.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/MageElementChecks.cs",
+      "retainedNativeMarkers": {
+        "mage-elements-check": 1,
+        "mage-elements-live-result": 3,
+        "mage-elements-reload-check": 2
+      },
+      "status": "verified-for-qualified-actors",
+      "modernParityClaimed": false
+    },
+    {
+      "requirement": "mage-basics",
+      "approvedRule": "Basic Sorceress spell rank follows captured effective Mage rank; captured Skeleton Mastery adds its approved flat endpoint difference.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/MageBasicSkills.cs",
+        "src/Sanctuary.Content/NecromancerMageMissiles.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/MageBasicChecks.cs",
+      "retainedNativeMarkers": {
+        "mage-basics-check": 1,
+        "mage-basics-live-result": 3,
+        "mage-basics-reload-check": 2
+      },
+      "status": "verified-for-qualified-actors",
+      "modernParityClaimed": false
+    },
+    {
+      "requirement": "mage-triples",
+      "approvedRule": "Hard 5 triples only basic Fire Bolt, Ice Bolt and the normal Charged Bolt volley.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/MageBasicSkills.cs",
+        "src/Sanctuary.Content/MageOffensiveSkills.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/MageBasicChecks.cs",
+      "retainedNativeMarkers": {
+        "mage-basics-check": 1,
+        "mage-basics-live-result": 3,
+        "mage-basics-reload-check": 2
+      },
+      "status": "verified-for-qualified-actors",
+      "modernParityClaimed": false
+    },
+    {
+      "requirement": "mage-meteor",
+      "approvedRule": "Fire hard 10 grants a 5% fixed-rank-10 Meteor opportunity.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/MageOffensiveSkills.cs",
+        "src/Sanctuary.Content/MageMeteors.cs",
+        "src/Sanctuary.Content/FireGround.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/MageMeteorChecks.cs",
+      "retainedNativeMarkers": {
+        "mage-meteor-check": 1,
+        "mage-meteor-live-result": 3,
+        "mage-meteor-reload-check": 2
+      },
+      "status": "verified-for-qualified-actors",
+      "modernParityClaimed": false
+    },
+    {
+      "requirement": "mage-enchant",
+      "approvedRule": "Fire hard 20 automatically enchants eligible unenchanted allies at combat start with rank 20; no owner mana or casting action.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/MagePetBuffs.cs",
+        "src/Sanctuary.Content/MageWorld.cs",
+        "src/Sanctuary.Content/SorceressEffects.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/MagePetBuffChecks.cs",
+      "retainedNativeMarkers": {
+        "mage-pet-buff-check": 1,
+        "mage-pet-buff-reload-check": 2
+      },
+      "status": "verified-for-qualified-actors",
+      "modernParityClaimed": false
+    },
+    {
+      "requirement": "mage-chain",
+      "approvedRule": "Lightning hard 10 grants a 5% fixed-rank-10 Chain Lightning opportunity.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/MageOffensiveSkills.cs",
+        "src/Sanctuary.Content/ChainLightning.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/MageChainChecks.cs",
+      "retainedNativeMarkers": {
+        "mage-chain-check": 1,
+        "mage-chain-live-result": 3,
+        "mage-chain-reload-check": 2
+      },
+      "status": "verified-for-qualified-actors",
+      "modernParityClaimed": false
+    },
+    {
+      "requirement": "mage-static",
+      "approvedRule": "Lightning hard 20 grants a separate 5% fixed-rank-5 Static Field opportunity.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/MageOffensiveSkills.cs",
+        "src/Sanctuary.Content/StaticFields.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/MageStaticFieldChecks.cs",
+      "retainedNativeMarkers": {
+        "mage-static-check": 1,
+        "mage-static-live-result": 3,
+        "mage-static-reload-check": 2
+      },
+      "status": "verified-for-qualified-actors",
+      "modernParityClaimed": false
+    },
+    {
+      "requirement": "mage-glacial",
+      "approvedRule": "Ice hard 10 grants a 5% fixed-rank-10 Glacial Spike opportunity, including ordinary freeze/corpse rules.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/MageOffensiveSkills.cs",
+        "src/Sanctuary.Content/NecromancerMageMissiles.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/MageGlacialChecks.cs",
+      "retainedNativeMarkers": {
+        "mage-glacial-check": 1,
+        "mage-glacial-live-result": 3,
+        "mage-glacial-reload-check": 2
+      },
+      "status": "verified-for-qualified-actors",
+      "modernParityClaimed": false
+    },
+    {
+      "requirement": "mage-armor",
+      "approvedRule": "Ice hard 20 has always-on fixed-rank-20 Frozen Armor through the shared armor consumer.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/MagePetBuffs.cs",
+        "src/Sanctuary.Content/SorceressEffects.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/MagePetBuffChecks.cs",
+      "retainedNativeMarkers": {
+        "mage-pet-buff-check": 1,
+        "mage-pet-buff-reload-check": 2
+      },
+      "status": "verified-for-qualified-actors",
+      "modernParityClaimed": false
+    },
+    {
+      "requirement": "clay",
+      "approvedRule": "Clay uses the Warrior curve with Golem Mastery, Stone Skin at hard 10 and Magic Resistant at hard 20.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/GolemPetDamage.cs",
+        "src/Sanctuary.Content/ClayGolemUpgrades.cs",
+        "src/Sanctuary.Content/ClayGolemBody.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/ClayGolemUpgradeChecks.cs",
+      "retainedNativeMarkers": {
+        "clay-upgrades-check": 1,
+        "clay-upgrades-live-result": 3,
+        "clay-upgrades-reload-check": 2
+      },
+      "status": "verified-for-qualified-actors",
+      "modernParityClaimed": false
+    },
+    {
+      "requirement": "blood",
+      "approvedRule": "Blood uses 150% of Clay baseline, 100% Open Wounds at hard 10 and 5% rank-5 Life Tap at hard 20.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/GolemPetDamage.cs",
+        "src/Sanctuary.Content/NpcOpenWounds.cs",
+        "src/Sanctuary.Content/NpcHitSkills.cs",
+        "src/Sanctuary.Content/NpcCombatEvents.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/BloodLifeTapChecks.cs",
+      "retainedNativeMarkers": {
+        "blood-damage-check": 1,
+        "blood-damage-live-result": 3,
+        "blood-damage-reload-check": 2,
+        "blood-life-tap-check": 1,
+        "blood-life-tap-live-result": 3,
+        "blood-life-tap-reload-check": 2,
+        "npc-open-wounds-check": 1,
+        "npc-open-wounds-live-result": 3,
+        "npc-open-wounds-reload-check": 2
+      },
+      "status": "verified-for-qualified-actors",
+      "modernParityClaimed": false
+    },
+    {
+      "requirement": "iron",
+      "approvedRule": "Iron keeps Clay baseline plus its qualified original-item recipe; Extra Strong at hard 10 and Spectral Hit at hard 20 reuse existing affixes.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/GolemPetDamage.cs",
+        "src/Sanctuary.Content/IronGolemBodyNumbers.cs",
+        "src/Sanctuary.Content/IronGolemUpgrades.cs",
+        "src/Sanctuary.Content/NpcSpectralHit.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/IronGolemSpectralChecks.cs",
+      "retainedNativeMarkers": {
+        "iron-golem-damage-check": 1,
+        "iron-golem-damage-live-result": 3,
+        "iron-golem-damage-reload-check": 2,
+        "iron-golem-spectral-check": 1,
+        "iron-golem-spectral-live-result": 3,
+        "iron-golem-spectral-reload-check": 2,
+        "iron-golem-strong-check": 1,
+        "iron-golem-strong-live-result": 3,
+        "iron-golem-strong-reload-check": 2
+      },
+      "status": "verified-for-qualified-actors",
+      "modernParityClaimed": false
+    },
+    {
+      "requirement": "fire",
+      "approvedRule": "Fire uses 200% Clay physical baseline plus own-rank Paladin Holy Fire without Paladin synergies; CBF at hard 10 and ordinary cold immunity at hard 20.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/GolemPetDamage.cs",
+        "src/Sanctuary.Content/FireGolemUpgrades.cs",
+        "src/Sanctuary.Content/FireGolemAura.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/FireGolemUpgradeChecks.cs",
+      "retainedNativeMarkers": {
+        "fire-upgrades-check": 1,
+        "fire-upgrades-live-result": 3,
+        "fire-upgrades-reload-check": 2
+      },
+      "status": "verified-for-qualified-actors",
+      "modernParityClaimed": false
+    },
+    {
+      "requirement": "army-caps",
+      "approvedRule": "Current effective rank gives 5 Mages/3 Revives at 20, 7/5 at 40+, with approved intermediate steps and FIFO enforcement.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/NecromancerArmyLimits.cs",
+        "src/Sanctuary.Content/SkeletonPets.cs",
+        "src/Sanctuary.Content/ReviveNativeActivation.cs",
+        "src/Sanctuary.Content/ClassGear.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/NecromancerArmyChecks.cs",
+      "retainedNativeMarkers": {
+        "necromancer-army-check": 1,
+        "necromancer-army-live-result": 3,
+        "necromancer-army-reload-check": 2
+      },
+      "status": "verified-for-qualified-actors",
+      "modernParityClaimed": false
+    },
+    {
+      "requirement": "revive-lifetime",
+      "approvedRule": "Qualified original Revives have no expiry; death, owner death and replacement still remove them. Loot remains separate from captured combat effects.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/ReviveNativeActivation.cs",
+        "src/Sanctuary.Content/ReviveOriginals.cs",
+        "src/Sanctuary.Content/PersistentMinions.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/ReviveNativeActivationChecks.cs",
+      "retainedNativeMarkers": {
+        "revive-cast-check": 1,
+        "revive-cast-reload-check": 2,
+        "revive-native-activation-check": 1,
+        "revive-native-activation-reload-check": 2
+      },
+      "status": "verified-for-qualified-actors",
+      "modernParityClaimed": false
+    },
+    {
+      "requirement": "safe-parking",
+      "approvedRule": "Actual safe regions park armies with original identities and wounds; no automatic healing, cure, refill or effect-deadline reset.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/MinionSafeAreas.cs",
+        "src/Sanctuary.Content/PersistentMinions.cs",
+        "src/Sanctuary.Content/TimedEffects.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/SafeAreaMinionChecks.cs",
+      "retainedNativeMarkers": {
+        "parking-boundary-check": 1,
+        "parking-boundary-live-result": 3,
+        "parking-boundary-reload-check": 2,
+        "safe-area-minion-check": 1,
+        "safe-area-minion-live-result": 3,
+        "safe-area-minion-reload-check": 2
+      },
+      "status": "verified-for-qualified-actors",
+      "modernParityClaimed": false
+    },
+    {
+      "requirement": "healer-companion",
+      "approvedRule": "Explicit healer menu can heal the parked living roster; the registered named mercenary remains beside the owner.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/MinionSafeAreas.cs",
+        "src/Sanctuary.Content/MercenaryCare.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/SafeAreaMinionChecks.cs",
+      "retainedNativeMarkers": {
+        "safe-area-minion-check": 1,
+        "safe-area-minion-live-result": 3,
+        "safe-area-minion-reload-check": 2
+      },
+      "status": "verified-for-qualified-actors",
+      "modernParityClaimed": false
+    },
+    {
+      "requirement": "difficulty",
+      "approvedRule": "Configured facet difficulty rescales existing summons while preserving current life percentage.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/SummonDifficulties.cs",
+        "src/Sanctuary.Content/ReviveFacets.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/SummonDifficultyChecks.cs",
+      "retainedNativeMarkers": {
+        "revive-facet-check": 1,
+        "revive-facet-reload-check": 2,
+        "summon-difficulty-check": 1,
+        "summon-difficulty-reload-check": 2
+      },
+      "status": "verified-for-qualified-actors",
+      "modernParityClaimed": false
+    },
+    {
+      "requirement": "mage-flight-lifetime",
+      "approvedRule": "Already-fired Mage bolts retain original packets and expiry after Mage death, subject to owner lifecycle restrictions.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/NecromancerMageMissiles.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/MageProjectileLifetimeChecks.cs",
+      "retainedNativeMarkers": {
+        "mage-projectile-lifetime-check": 1,
+        "mage-projectile-lifetime-check-result": 1,
+        "mage-projectile-lifetime-reload-check": 2,
+        "mage-projectile-lifetime-reload-check-result": 2
+      },
+      "status": "verified-for-qualified-actors",
+      "modernParityClaimed": false
+    },
+    {
+      "requirement": "birth-snapshots",
+      "approvedRule": "New Warriors, Mages and four golems retain captured effective ranks, hard unlocks, mastery, wounds, order and RNG through training/gear/respec and reload; missing historical supplements keep explicit compatibility behavior.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/SummonUpgradeSnapshots.cs",
+        "src/Sanctuary.Content/NecromancerSummons.cs",
+        "src/Sanctuary.Content/SkeletonPets.cs",
+        "src/Sanctuary.Content/IronGolemCasting.cs"
+      ],
+      "fixtures": [
+        "tests/Sanctuary.Integration/WarriorSnapshotChecks.cs",
+        "tests/Sanctuary.Integration/NecroSnapshotChecks.cs"
+      ],
+      "currentNativeMarkers": {
+        "warrior-snapshot-check": 1,
+        "warrior-snapshot-reload-check": 2,
+        "necro-snapshot-check": 1,
+        "necro-snapshot-reload-check": 2
+      },
+      "savedOriginalWarriors": 2,
+      "savedOriginalMageGolemActors": 18,
+      "status": "verified-for-current-public-births"
+    }
+  ],
+  "snapshotRefreshMarkers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "warrior-snapshot-check": 1,
+    "warrior-snapshot-reload-check": 2,
+    "necro-snapshot-check": 1,
+    "necro-snapshot-reload-check": 2
+  },
+  "currentSnapshotOriginalActors": 20,
+  "saves": 3,
+  "actualReloads": 2,
+  "gameplayChanged": false,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
+    "Assemblies/Sanctuary.Content.dll": "279d7216ecd05447605a61f89d02041edc5b6876bfad45d00080d714f1c21c28",
+    "Assemblies/Sanctuary.Integration.dll": "2b8c875f85ec31fea40d7b04e8ddc53ce4038289e88fbddb8f4d7d20e6de9d7f"
+  },
+  "existingClassMarkersReused": 953,
+  "existingClassMarkerCountsNotAddedAgain": true,
+  "installedGameplayReused": true,
+  "limits": [
+    "Only qualified original actors and item projections; unsupported species/properties still refuse.",
+    "Historical missing-supplement compatibility is constructed explicitly; no old-binary writer run.",
+    "Shared sunder delivery, native monster spell conversion and exact modern path/event gaps retain their individual scopes.",
+    "Graphical combat and final effects/audio/icons remain separate. This is not a class or goal certificate."
+  ],
+  "classCertified": false,
+  "goalComplete": false,
+  "files": {
+    ".local/class-skills/necro-pet-snapshot-refresh/birth-inputs.json": "f28cc99ff0c1358bf6f0802d9b41c57357811c44299e8930b54c2fedd5efb82b",
+    ".local/class-skills/necro-pet-snapshot-refresh/birth-native-checks.log": "8f9a03a1158a59d91b846b3063ed79646c7df428c669f2d29cd7453ba011e1aa",
+    ".local/class-skills/necro-pet-snapshot-refresh/integration/Sanctuary.Integration.dll": "2b8c875f85ec31fea40d7b04e8ddc53ce4038289e88fbddb8f4d7d20e6de9d7f",
+    ".local/class-skills/necro-pet-snapshot-refresh/iron-golem-items-fixtures.json": "9ac5e624156058f211d5d1f0e03d4135802292617a8f205c771ef530ac21178b",
+    ".local/class-skills/necro-pet-snapshot-refresh/necro-snapshot-fixtures.json": "0e4a7a06d0d6d2beb0123cbdf9bd2263e2e1d9854f8f11d478fd9eaa8665620f",
+    ".local/class-skills/necro-pet-snapshot-refresh/npc-resource-callbacks-fixtures.json": "7e08297a7d83998038293631e08cc199c865cf4ffd3f21e827407622a7c3d855",
+    ".local/class-skills/necro-pet-snapshot-refresh/run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/necro-pet-snapshot-refresh/source-inputs.json": "f73e005ecead6b118eaae81d81a998e3741a741359c445877106e8a622d7f16a",
+    ".local/class-skills/necro-pet-snapshot-refresh/sources.tar.gz": "dadd92f958a12c2b46619cfc1be4a6941bbc16d9e0d6ea0b033dc95422960ce9",
+    ".local/class-skills/necro-pet-snapshot-refresh/warrior-snapshot-fixtures.json": "f89eb818669c4d9b6af51fa2ff9c184636bd765132e88c02e188d3c8888ede31",
+    "docs/necromancer-pet-policy-audit.md": "92bfd3580246b44766c71a80ead25d57b6c2e0c4a07d4279c773746e5e231d64",
+    "docs/pet-adjustment-review.md": "7ea0f6beb1b888aa0fdf7eb7c4f91ff2d09d75d9a44ed2852254b9f66e949186",
+    "docs/summon-stat-snapshots.md": "0251f109f1967fdee200064db95bb53f655296fcedf0bf8282426fcfe43b1e2f",
+    "src/Sanctuary.Content/ChainLightning.cs": "e378a8afb9348b379d3d04a6b22da3f0fbeb2d7865961b4c26f069c83a72165e",
+    "src/Sanctuary.Content/ClassGear.cs": "6d553126ba03b07e8f1ccebcafe6adb097c2e17ba1c7f647f0e5585678344511",
+    "src/Sanctuary.Content/ClayGolemBody.cs": "3c1d64c91e68eadebf3248da919020baf02de0ebd7b2ba69052c62e11a9d48f6",
+    "src/Sanctuary.Content/ClayGolemUpgrades.cs": "2216e69e3f013a9b0ce8d5e29bf661c90b816a9c3d699cf5c29c0b387684340d",
+    "src/Sanctuary.Content/FireGolemAura.cs": "f0935967bca822bae40455dfc3951600ad09a8f6c8f9371189e1540e06676c30",
+    "src/Sanctuary.Content/FireGolemUpgrades.cs": "db5f8e46b86515580e2e8b89c94b2bafc3db48b73492dc945a78d9ee9fd7d142",
+    "src/Sanctuary.Content/FireGround.cs": "3c34430f1cb943dbac8016cd9fb942da4e23b55930e14febb465b2d460e2b8cf",
+    "src/Sanctuary.Content/GolemPetDamage.cs": "123006cf4e366b5435f7d44f6b6b9e6016b1c0db7ac1c54baf356fb4ada5b6fd",
+    "src/Sanctuary.Content/IronGolemBodyNumbers.cs": "e72447f5078b02c5cd38c8cd0f4732452ae4395eb840d85f76c11e491ee752db",
+    "src/Sanctuary.Content/IronGolemCasting.cs": "24a6529b70cf6f671d5d322a16cb7cd89c846bade8390803edd57b71e40ea65c",
+    "src/Sanctuary.Content/IronGolemUpgrades.cs": "e8b6282e0c5f6fa3c116193f163db0e21ef79a71f0342eba45e304f806aab21a",
+    "src/Sanctuary.Content/MageBasicSkills.cs": "4a8bf269209f3817fe214c86c8eda1a22d6f3c70c7737c5c262a8cd34dea66b1",
+    "src/Sanctuary.Content/MageMeteors.cs": "0c4c3bc299c9739ec5e986e15b113e36fc829b06bb4b5f03b3ba491a682eb281",
+    "src/Sanctuary.Content/MageOffensiveSkills.cs": "d487800d5b0cbe4f9e6701948388c1881e228187dc8c7e4cd28c79e774654146",
+    "src/Sanctuary.Content/MagePetBuffs.cs": "38c6d2c5b07d0340933feb5ef2db45870fcc3a3e99e5fc647d54cff65d204c2d",
+    "src/Sanctuary.Content/MageWorld.cs": "c5f7edf5a6c020180a3917882dfba933abaf5ca52dc9f608c4e8c09cf01c28d4",
+    "src/Sanctuary.Content/MercenaryCare.cs": "a6d6fd707232f6959f19f0643caeb4205eac4f6d894a394e67fda68c5fb14b1f",
+    "src/Sanctuary.Content/MinionSafeAreas.cs": "78d69b1d5c81f78f67286b3d7be973f8ece467cfe8bfa9588d66bab4247c74a0",
+    "src/Sanctuary.Content/NecromancerArmyLimits.cs": "9ccf05adf700a1546907c851ee18d729877700feb5ae57fa0edbddf3ab735f8a",
+    "src/Sanctuary.Content/NecromancerMageMissiles.cs": "ce4d1a0e53037da1b0f0e4f05bd206c744557fefb951e4e5106ae62dd7de73d0",
+    "src/Sanctuary.Content/NecromancerSummons.cs": "ca766483b2696c11800646dffcec69d67e7b88c0131a48bd5e1fdbcb778d8ead",
+    "src/Sanctuary.Content/NpcCombatEvents.cs": "e9cf230c6c88cb97c66de0d9f95e9921931b7369bd92c214c5cdbd3124489ccc",
+    "src/Sanctuary.Content/NpcEquipmentRetaliation.cs": "c162bd4dd3cafe5e15ace8810177759a81e1e8b0aed3ccc888457b6469452662",
+    "src/Sanctuary.Content/NpcHitSkills.cs": "ed861e589912e5b2347c5c5235fa4ff418db2ba7cafc2e4c0b22e0ed3fc6af8b",
+    "src/Sanctuary.Content/NpcOpenWounds.cs": "f495c590e2a2fcd0a982c5e1955e704b6c6787c86ecc9ade84a2a958db0917d9",
+    "src/Sanctuary.Content/NpcSpectralHit.cs": "b0986936126840511d362180fa018da5b8da14f31fb5ede3e6815ca2916db3d5",
+    "src/Sanctuary.Content/PersistentMinions.cs": "04b1d5bf1c949f506328e32a844041b33c73ca374f890dd1890f732a0f40e423",
+    "src/Sanctuary.Content/ReviveFacets.cs": "895c91f005ebb379c9be805cc8cf19a2af21fcc7aba67cf7d32d775cfca7cbee",
+    "src/Sanctuary.Content/ReviveNativeActivation.cs": "697d9d2721b729caaf333aa4827f40405ad0c18ac6e02b3872689b7aa19a02c5",
+    "src/Sanctuary.Content/ReviveOriginals.cs": "b1cfc3f60485ab6c7ea88ca0be39e3772ba422b5740e0ddf8c54886144d89c1c",
+    "src/Sanctuary.Content/SkeletonPetUpgrades.cs": "9104d31643e8361606f687fc0ba82dc6051286fdd1b74290e6e9a3aaefd45ec6",
+    "src/Sanctuary.Content/SkeletonPets.cs": "9eddb5cd8e50cd33f05fde968958e6767773145085e833981f626b274e1f0356",
+    "src/Sanctuary.Content/SkeletonWorldBody.cs": "b9932f8ade023991b1a4ee0f5de1a9cf8481be74df0b357a2dd5f3278feac214",
+    "src/Sanctuary.Content/SorceressEffects.cs": "66a4118918192bd2e2c713c680c5f4898fbd1478bbc0de51869c1b01d3d4e62b",
+    "src/Sanctuary.Content/StaticFields.cs": "a164cba2317b8a1ec747fbd90bc1c46b2ed15caee2f5bb05f303c800ab05f349",
+    "src/Sanctuary.Content/SummonDifficulties.cs": "00427ed7c1fc9fe5ada4299cb913a835267e343ded71d86f6e0e91f180055056",
+    "src/Sanctuary.Content/SummonUpgradeSnapshots.cs": "70cab49186bf78a0214b380c1e1c9d4b35b24edca0622529eb461cdd1f1c9e59",
+    "src/Sanctuary.Content/TimedEffects.cs": "ffeef8bf6f2a36b56fc78ab34c4d7967ec6f0620826d7c376376d62d12759786",
+    "tests/Sanctuary.Integration/BloodLifeTapChecks.cs": "8f9a8b2dfbb1c0d54e4990971f8f4aec0c7999f64063f56ef29e57c79e4d8334",
+    "tests/Sanctuary.Integration/ClayGolemUpgradeChecks.cs": "a498ed06c85cae66d5fbd9426655d36e165c2b70a0f479f9a4b0d58256dea277",
+    "tests/Sanctuary.Integration/FireGolemUpgradeChecks.cs": "ff7dacbebdf0942823d25ac2197e711fb4181ef8eb40782f45f45890641c3f36",
+    "tests/Sanctuary.Integration/IronGolemSpectralChecks.cs": "ad2ab1ea18cdfd18370cc2299f457e19bd44de12bbb77575bebfbf8f3ec97cbc",
+    "tests/Sanctuary.Integration/MageBasicChecks.cs": "a04252c271cefc09c01e24fade9214e35eb317f1dd5e60b95276c6134e5ceb6b",
+    "tests/Sanctuary.Integration/MageChainChecks.cs": "557c780b746cfbd5cb9f123ca5c126166444539865fa5fc95c59bd0c35180cf9",
+    "tests/Sanctuary.Integration/MageElementChecks.cs": "c90bfea057b7b3f6a554b0e550fa9a2b3cc3349dcaf8eaae81647b38f182f4f8",
+    "tests/Sanctuary.Integration/MageGlacialChecks.cs": "afa2dcc2e43154c4a0935a13af85022ee521198878a23f7b75a69d9ee29272e7",
+    "tests/Sanctuary.Integration/MageMeteorChecks.cs": "36de1a0ddedb1f381acebd3bcbd96449d99eb6d3d937b58bb95379ecceb324d7",
+    "tests/Sanctuary.Integration/MagePetBuffChecks.cs": "53cf58e48890733b49a020ca6780a539a29c9b9706cb24cade5342036234103b",
+    "tests/Sanctuary.Integration/MageProjectileLifetimeChecks.cs": "2cef410b082a0471e05d6114ff0102de5380aee2cb153ef56891e24bf4afe448",
+    "tests/Sanctuary.Integration/MageStaticFieldChecks.cs": "f2a683ae8b74c158598d04dfda8c88091273204d9677cf1a2e68cc5a1ca528a3",
+    "tests/Sanctuary.Integration/NecroSnapshotChecks.cs": "74d5ad4fc7127411b05496ad9ea6391ee7ad6e8c15c17ce71105b8491ad8552b",
+    "tests/Sanctuary.Integration/NecromancerArmyChecks.cs": "5c1e736d70edbe5a8759ffed144200b319a0f6a4510cbacfdf4c9d57ce6c0359",
+    "tests/Sanctuary.Integration/ReviveNativeActivationChecks.cs": "46e488b6a2436ec9b5ac2ad4038e09202b2b940a10e985dc7a31f7ea5ad3e828",
+    "tests/Sanctuary.Integration/SafeAreaMinionChecks.cs": "db4391f83e6769ef744e04832da910138b56fc08502f34dbdbae9fdebaabc7e4",
+    "tests/Sanctuary.Integration/SkeletonUpgradeChecks.cs": "5559279742a4c2eab0bd7d3c2ce0c71e22a20b315bd731f96c52e8a3261fe814",
+    "tests/Sanctuary.Integration/SummonDifficultyChecks.cs": "01cf24bc6964a40c4b06897749f3ea2fe362252432bdb402961dd3fed97dde95",
+    "tests/Sanctuary.Integration/WarriorSnapshotChecks.cs": "090abd55c391d81201ac50dfb905cdafddd66ad5b0673d4bcdd399161c6d30c3",
+    "tests/check_necromancer_pet_snapshot_refresh.py": "54b9df7e201d4c9950026515c2a6f4605468734a52ef3fd1aff16dc65a895dab",
+    "tools/record_necromancer_pet_policy.py": "d10b879116c390808e822d03921f51dd6407dbdf0dec8c5796c2ede0b1583781",
+    "tools/reference/class-roster-ui-evidence.json": "e5dfa1ed946c0bc33784d8f7503de49bc2afaa3abc699718bf280db27fce1458",
+    "tools/reference/necromancer-lifecycle-acceptance-native-evidence.json": "af96df56068a917a5cf822c85826d71b69ab5c9b0f9d6836d539b126697ee29e"
+  }
+}

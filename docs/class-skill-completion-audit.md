@@ -14,7 +14,7 @@ Audit started2026-11-18JST after the matching package was installed and all revi
 | Original saves and working build | Real world loaded5290entities without saving;38save files/20configs unchanged;rollback copies retained | Preservation proven for the installation |
 | Main consolidation | Reviewed branch histories retained;4251native/946client source files match | Proven and pushed at1ad321b1 |
 | Effects/audio and icons | Separate240-entry registers,matching all talent IDs and identified placeholders | Tracking complete;final assets deliberately pending |
-| Approved pet and shared lifecycle decisions | [Pet design](pet-adjustment-review.md),snapshot/safe-area and dedicated pet receipts | Must finish explicit consumer-by-consumer review before closing the goal |
+| Approved pet and shared lifecycle decisions | [Necromancer consumer audit](necromancer-pet-policy-audit.md), [pet design](pet-adjustment-review.md), snapshot/safe-area and dedicated receipts | Necromancer's 22 approved requirements have scoped evidence; Druid and other shared consumers retain separate review |
 
 ## Preserve the actual evidence scope
 
