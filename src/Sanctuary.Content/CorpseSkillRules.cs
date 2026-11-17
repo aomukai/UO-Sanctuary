@@ -66,7 +66,7 @@ public static class CorpseSkillRules
     public static void Initialize()
     {
         var animation=CorpseRecoveryHooks.CanAnimate;
-        CorpseRecoveryHooks.CanAnimate=corpse=>!NoSelect(corpse) && animation?.Invoke(corpse)!=false;
+        CorpseRecoveryHooks.CanAnimate=corpse=>!BlocksReanimation(corpse) && animation?.Invoke(corpse)!=false;
         var previous=CorpseRecoveryHooks.Deleted;
         CorpseRecoveryHooks.Deleted=corpse=>{Profiles.Remove(corpse);previous?.Invoke(corpse);};
     }
@@ -132,6 +132,7 @@ public static class CorpseSkillRules
     }
     internal static bool Soft(Corpse corpse)=>Profiles.Find(corpse)?.Source is{} source && _soft.Contains(source);
     public static bool NoSelect(Corpse corpse)=>Profiles.Find(corpse)?.NoSelect??false;
+    internal static bool BlocksReanimation(Corpse corpse)=>Profiles.Find(corpse) is{NoSelect:true}or{Shattered:true};
     public static bool TryBaseLife(Corpse corpse,out CorpseBaseSnapshot snapshot)
     {
         snapshot=Profiles.Find(corpse)?.BaseLife;

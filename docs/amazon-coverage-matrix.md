@@ -6,6 +6,8 @@ The last [combined driver](../tests/check_amazon_planned_acceptance.py) acceptan
 
 The latest [Lightning Strike contact pass](lightning-strike-contact-checkpoint.md) runs483results,144wire inputs and two reloads on its own captured current artifacts. It retains the [Charged Strike contact pass](charged-strike-contact-checkpoint.md) and adds current shared Sorceress/Mage chain controls. It adds source0 bolt delivery to the earlier [Plague Javelin](plague-javelin-contact-checkpoint.md),[Poison Javelin](poison-javelin-contact-checkpoint.md),[Lightning Fury](lightning-fury-contact-checkpoint.md) and preceding ranged-contact cohorts. These incremental checks include their retained scopes;they do not replace every passive,Valkyrie,Decoy or full-class check. Historical source receipts and recorder inputs remain pinned to their original artifacts. Full current class requalification remains pending after the remaining delivery work.
 
+The [shattered-corpse guard pass](corpse-shatter-guard-checkpoint.md) retains those scopes with489results and two reloads. Existing captured freeze/Holy Freeze exclusion now reaches native initial/delayed animation and wild Lich eligibility/revalidation. Ordinary raising,loot and four original saved corpses are checked;ordinary-chill destruction chance remains unresolved. This is an incremental shared-consumer fix,not current full-class acceptance.
+
 | Talent | Mechanical scope | Existing fixture |
 | --- | --- | --- |
 | Jab | Paid three-strike sequence, melee javelins, wear, interruptions and saved resources | `jab` |

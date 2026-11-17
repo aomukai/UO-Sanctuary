@@ -1,0 +1,32 @@
+{
+  "referenceVersion": "3.3.93847",
+  "nativeAnimateSource": {
+    "path": ".local/class-skills/unresisted-shields/native/Projects/UOContent/Spells/Necromancy/AnimateDeadSpell.cs",
+    "sha256": "280dd368471b06ceaa0229538a1b7445c2de60d2d480fcce8252a9d659cf53e0",
+    "hookCalls": 2
+  },
+  "retainedSourceEvidence": {
+    "tools/reference/freeze-state-engine-evidence.json": "f8092b8fa3fa5e40e81ed50314e4f78f2071d67125d49e18de2e78c08bed6dc9",
+    "tools/reference/holy-freeze-engine-evidence.json": "9e69390c221dbc865b1b87cbcb8dbfa4d67a24da3846bfdeff2bdfe7647d048d",
+    "tools/reference/cold-corpse-reference-gap.json": "a3d485a22c39e9cab782d1ad86199acb3899dacbf0cb78da4c18b9bc3ca6eb55"
+  },
+  "established": [
+    "Existing freeze and Holy Freeze markers are captured as CorpseSkillRecord.Shattered. Shared D2 corpse availability already rejects them;NoSelect is a separate one-consumer reservation.",
+    "Native Animate Dead consults the public CanAnimate hook at initial targeting and again before delayed allocation. The old content hook checked NoSelect only. Wild Lich CanRaise likewise omitted Shattered;controlled helper policy has an additional availability check.",
+    "Use the existing captured Shattered/NoSelect flags for both bridge guards. Preserve the previous native hook veto,unknown-metadata compatibility,ordinary unshattered raising,loot and all producer chances. No ordinary-cold chance or new shatter marker is introduced."
+  ],
+  "primarySources": [
+    {
+      "url": "https://classic.battle.net/diablo2exp/monsters/basics.shtml",
+      "scope": "Blizzard legacy guide describes corpse loss from some chilled kills and all frozen kills;does not specify current3.3.93847chance."
+    },
+    {
+      "url": "https://classic.battle.net/diablo2exp/classes/meleeequipment.shtml",
+      "scope": "Blizzard legacy melee guide confirms ordinary cold can remove revival corpses;does not establish exact chance/timing."
+    }
+  ],
+  "remaining": [
+    "The older ordinary-cold deadCol/raw-SHATTER branch remains individually unsupported. Neither legacy guide is proof of modern3.3.93847chance or executable state routing.",
+    "Native UO spell conversion,all corpse consumers/current class/client/final effects and icons remain separate. These bridge guards do not enable new UO spells for D2 classes."
+  ]
+}

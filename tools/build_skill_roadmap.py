@@ -845,6 +845,10 @@ NATIVE_PARTIAL.update((
     'druid.carrionvine','druid.solarcreeper','warlock.bladewarp','warlock.sigildeath',
 ))
 
+# Existing freeze/Holy Freeze corpse exclusion also governs native reanimation.
+for _talent in ('amazon.icearrow','amazon.freezingarrow'):
+    CAVEATS[_talent]+=' Existing captured shattered-corpse metadata now also blocks native Animate Dead initial/delayed gates and wild Lich selection/revalidation through the shared corpse guard. Actual frozen/Holy Freeze records,retained loot,ordinary positive controls and original corpse reloads are qualified separately in corpse-shatter-guard-checkpoint.md;no ordinary-cold destruction chance is inferred.'
+
 def planned_content_remaining(text):
     """Keep excluded charm-only mechanics out of active talent blockers."""
     if not re.search('sunder',text,re.I):return text
