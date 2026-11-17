@@ -1,5 +1,7 @@
 # Consolidate class work into main
 
+**Consolidated — 2026-11-18 JST.** All four reviewed side histories are merged with the current verified tree retained. Every local and fetched remote branch head is an ancestor. The main checkout is updated,and its patched native/client sources match4,251/946captured source files. Original submodule edits and installed-world backups are preserved. The matching package is installed with38original saves unchanged. See the [installation checkpoint](class-skills-installed-checkpoint.md) and [receipt](../tools/reference/class-skills-installation-evidence.json). The inventory below records the earlier preparation.
+
 The user requested consolidating the branches into `main` once the class work is finished. This is authorized follow-up to the class goal, including reconciling genuine side-branch work, checking the resulting build and pushing the verified result.
 
 A read-only inventory on 2026-11-18 JST, at working commit `910559402a30293b8629c48709569fa197c544b0`, found 117 remote branches and 120 local branches. Remote `main` was `4c5d3a0752b005c8950b43aeccc0541ba1fdd695`, an ancestor of the working branch, with a divergence of zero main-only commits and 920 working-branch commits. Most branch tips are already ancestors of this work. Advancing main to the verified working history is therefore structurally straightforward; the side branches below need a separate content review first.

@@ -1,5 +1,7 @@
 # Current class package handoff preparation
 
+This is the historical preparation checkpoint. The package is now [installed with its source/history consolidation](class-skills-installed-checkpoint.md);the original preparation evidence remains tied to its recorded artifacts.
+
 Reference: **D2R Reign of the Warlock 3.3.93847**, with approved Sanctuary adaptations first. [Mechanical reference](skill-mechanical-reference.md). Charms and runewords remain excluded. All240talents have implemented routes and current scoped class evidence;this checkpoint assembles their verified production artifacts for the existing world. It does not replace the individual class evidence or claim exact modern executable parity.
 
 **Prepared, not yet installed — 2026-11-18 JST.** The [receipt](../tools/reference/class-skills-handoff-native-evidence.json) binds the existing all-thirty Warlock qualification,matching native/content/data,original-world copies and corrected client package. Main branch reconciliation and promotion remain required. Do not launch the copied-world test package as the real world.
