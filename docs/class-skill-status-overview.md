@@ -1,35 +1,21 @@
-# Class skills: implementation versus remaining work
+# Class skills: mechanical release
 
-Status: 2026-11-18 JST; current milestones are linked below. Reference: D2R Reign of the Warlock 3.3.93847, with approved Sanctuary deviations first. No charms or runewords.
+Status: **2026-11-18 JST — eight classes mechanically qualified under approved Sanctuary rules/current supported PvE catalogue**. Reference: D2R Reign of the Warlock **3.3.93847**. [Final handoff](class-skills-complete.md), [scope and explicit limits](class-mechanics-supported-contexts.md), [release evidence](../tools/reference/class-skill-release-evidence.json).
 
 | Deliverable | Current evidence |
 | --- | --- |
-| Talent implementation | 240/240 routes across eight classes, including Warlock/Witch; 30 per class |
-| Character creation | All eight rendered choices and both appearance variants checked; Warlock and Witch creation, native titles/rendered talent headings and save/reload pass in disposable worlds |
-| Existing mechanical tests | All 240 have scoped native coverage; all eight classes have earlier combined or grouped acceptance evidence |
-| Approved pet changes | Necromancer's 22 requirements and Druid's 11 policy groups map to actual consumers and scoped native evidence; current birth snapshots and ten-type Druid parking are distinguished |
-| Latest consolidated input/lifecycle refresh | All eight classes have current scoped evidence; Warlock/Witch passes906results,26active routes and four separate passive consumers |
-| Effects/audio | Separate missing-asset register; identified placeholders remain |
-| Talent/hotkey icons | Separate missing-asset register; identified placeholders remain |
-| Playable-build handoff | Matching240-route package installed;real world loads5290entities without saving;all38saves/20configs/client settings/data preserved;default staging synchronized |
+| Talents | 240/240, 30 per class; all eight completion-ledger entries qualified |
+| Active input and passives | 210 active talents have preserved successful input routes; 30 passive entries retain dedicated consumer/class evidence |
+| Mechanics and lifecycle | Eight preserved dedicated class cohorts plus scoped later repairs; original receipts retain their own sources/artifacts |
+| Approved pets | Necromancer and Druid policy reviews, original snapshot actors, safe-area parking and saved wounds/lifetimes retained |
+| Creation | All eight choices and both Warlock/Witch submissions/native titles/talent headings/save-reload checked |
+| Rendered class samples | Necromancer Warrior/Teeth/pet combat; Barbarian Find Item; Amazon Inner Sight; Sorceress Fire Bolt; Paladin Holy Bolt; Druid Spirit Wolf; Assassin Psychic Hammer; Warlock Goatman |
+| Final closing repairs | Bash flat damage, near-cursor Find Item and native Leap/broken-throw edge rules qualified and installed |
+| Installed delivery | Matching content and 45-patch client; native server unchanged; Integration absent from production |
+| Existing world | 4,698 items + 572 mobiles loaded without saving; 38 original save files, 20 configs and client settings/data/profiles unchanged |
+| Art | Separate 240-entry effects/audio and talent/hotkey icon registers; identified placeholders remain |
+| Uncertainty | Exact unavailable modern callback parity and unsupported native/item contexts remain explicit; no claim of universal unpublished D2R equivalence |
 
-The old implementation percentage is no longer an estimate of unfinished talents. The [implementation checkpoint](class-skills-implementation-checkpoint.md) records all240routes. The [status ledger](../data/Sanctuary/Balance/class-skill-status.json) marks every route `handler-present` with `partial-native-coverage`; that deliberately does not assert exact modern parity. An empty `completedClasses` list is a strict certification result, not evidence that the classes lack their skills.
+The current class-skill goal can be closed. Final artwork, world monster conversion/classification, density/players-5 balancing, PvP expansion and future crafting/charged gear belong to smaller subsequent goals. Charms and runewords remain excluded. No new goal starts automatically.
 
-Recent Paladin and Barbarian work added missing real input tests and retained existing mechanics. Their production DLL and numerical data were unchanged. Necromancer and Sorceress refreshes also reused the accepted production build. These are verification milestones, not newly implemented classes or another twenty percent of unwritten skills.
-
-Remaining work must be bounded by the original class-skill objective:
-
-1. All eight classes now have current combined input/lifecycle evidence. The final Warlock/Witch composition passes906results across three saves and two reloads,with26active input routes and four passive consumers. Reuse the archived scopes;do not rerun unchanged class cohorts solely for another checkpoint. Use focused checks for newly demonstrated defects or uncovered requirements.
-2. Resolve or explicitly defer individual unsupported mechanics, with their exact effect on play recorded. Find Item's retained chance curve is explicitly approved;its separate targeting and special-treasure contexts remain documented. Sentinel's Stealskull/Health Link delivery defect is repaired using the existing ordinary-NPC contract,while exact modern flat-drain semantics remain uncertain. Impale's paid shield/avoidance policy is explicitly approved and included in the current809-result Amazon qualification. Passing unrelated tests does not resolve other gaps.
-3. Fix demonstrated defects in the intended ordinary class routes and their required shared combat services. Preserve approved Sanctuary rules; do not invent uncertain source behavior or reopen settled approvals.
-4. The [installed matching package](class-skills-installed-checkpoint.md) now loads the original world and preserves its saves. Reviewed histories are consolidated. Finish the explicit completion audit and report unsupported mechanics and graphical/asset work without treating narrow checks as full parity.
-
-The user has clarified that the shared integration and regression work should be completed and that there is no time pressure. Required item,damage,pet,persistence and input interactions remain part of mechanical correctness;240handlers alone is not completion. Report each task's concrete functionality,defect or verified requirement clearly. Global UO-monster spell conversion remains its separately designated project. Missing final artwork stays separately tracked rather than blocking mechanics; unsupported modern-reference and recipient contexts remain explicit.
-
-Do not repeat an unchanged source matrix or full class cohort solely for another checkpoint. Use focused evidence for a new defect, shared-code change or uncovered requirement. Keep historical receipts tied to their exact artifacts; a new test count alone is not new gameplay functionality.
-
-Current evidence: [Necromancer](necromancer-lifecycle-acceptance-checkpoint.md), [Sorceress](sorceress-lifecycle-acceptance-checkpoint.md), [Paladin](paladin-lifecycle-acceptance-checkpoint.md), [Barbarian](barbarian-lifecycle-acceptance-checkpoint.md), [Amazon](amazon-lifecycle-acceptance-checkpoint.md), [Assassin](assassin-lifecycle-acceptance-checkpoint.md), [Druid](druid-lifecycle-acceptance-checkpoint.md). [Warlock/Witch](warlock-lifecycle-acceptance-checkpoint.md). Separate asset lists: [effects/audio](skill-effects.md), [icons](skill-icons.md).
-
-Later gear-skill design discussion requested by the user: items with skill charges and original skills granted by equipment, potentially obtained through crafting, could add character-building depth. Reuse existing skill mechanics where appropriate. This note does not choose eligible skills/classes, skill ranks, charge costs/replenishment, crafting recipes, balance or acquisition rules; discuss those later. It does not authorize charms or runewords, which remain excluded.
-
-The requested main consolidation is complete. All reviewed branch histories are retained,and the [installed package](class-skills-installed-checkpoint.md) matches verified source and staging caches. Original submodule edits and installed-world rollback files remain preserved. The [final audit](class-skill-completion-audit.md) now records exact coverage and concrete gaps;it does not turn partial native evidence into a full modern-parity certificate.
+Recheck with `python3 tools/verify_class_skill_release.py --check` and `python3 tools/build_skill_roadmap.py --check`. Older C1 audits and pending descriptions are retained historical evidence, not the current completion ledger.

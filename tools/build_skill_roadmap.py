@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Describe actual registered skill handlers without treating a handler as full verification."""
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import re
@@ -960,13 +961,45 @@ def build():
             complete=False,remaining=planned_content_remaining(remaining))
         if excluded:entry['excludedDependencies']=excluded
         result.append(entry)
+    completed=[]
+    release_path=ROOT/'tools/reference/class-mechanics-release-policy.json'
+    release=None
+    if release_path.exists():
+        release=json.loads(release_path.read_text())
+        assert release['referenceVersion']=='3.3.93847'
+        assert release['completedClasses']==ORDER
+        assert set(release['talentIds'])=={r['talentId'] for r in result}
+        for name,digest in release['productionSources'].items():
+            assert hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==digest,('Release evidence needs review',name)
+        assert all(r['implementation']=='handler-present' for r in result)
+        for entry in result:
+            entry['historicalReferenceNotes']=entry['remaining']
+            entry['verification']='mechanically-qualified-with-adaptations'
+            entry['complete']=True
+            entry['remaining']='Final effects/audio and icons are tracked separately. Exact unpublished D2R parity and unsupported world/item contexts remain documented in class-mechanics-supported-contexts.md.'
+            entry['qualificationScope']='approved-sanctuary-pve'
+        completed=ORDER[:]
     return dict(schemaVersion=1,referenceVersion='3.3.93847',classOrder=ORDER,
         completionRule='A source catalogue or handler is not class completion. All talents need dedicated mechanics/lifecycle checks; approved Sanctuary deviations override source. Missing final art is tracked separately. Charms and runewords are excluded from planned content;charm-only Sunder inheritance is not a class blocker.',
         contentScope=dict(charms=False,runewords=False,decision='tools/reference/item-content-scope-decision.json'),
-        completedClasses=[],skills=result)
+        completedClasses=completed,mechanicsRelease='tools/reference/class-mechanics-release-policy.json' if release else None,skills=result)
 
 
 def render(data):
+    if data.get('mechanicsRelease'):
+        lines=['# Class skill roadmap','',
+            '| Order | Class | Handlers present | Individually blocked | Pending | Class completion |',
+            '| --- | --- | ---: | ---: | ---: | --- |']
+        for index,character in enumerate(ORDER,1):
+            lines.append(f'| {index} | {character} | 30 / 30 | 0 | 0 | Qualified Sanctuary mechanics |')
+        for character in ORDER:
+            lines += ['', '## '+character,'',
+                '| Skill | Source ID | Implementation | Remaining acceptance work or blocker |',
+                '| --- | ---: | --- | --- |']
+            for row in data['skills']:
+                if row['characterClass']==character:
+                    lines.append(f"| {row['name']} | {row['sourceId']} | {row['verification']} | {row['remaining']} |")
+        return '\n'.join(lines)
     lines=['# Class skill roadmap','',
         'The [NPC firebolt Health Link checkpoint](hostile-bolt-link-checkpoint.md) verifies settled fire delivery with the existing captured Slow Missiles payload, damage-draw/avoidance order, shields, terrain, original flights and two reloads. This is a shared receiver repair; legacy UO timers and mixed elite aura/death paths remain separate.','',
         'Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and deviations](skill-mechanical-reference.md). '

@@ -1,5 +1,7 @@
 # Class-skill completion audit
 
+**Superseded by the [final mechanical release](class-skills-complete.md).** `tools/verify_class_skill_release.py` joins all preserved class scopes, installed changes, client representatives and metadata-only completion-ledger promotion. This document and the older C1 audit artifact retain their historical scope; pending text below is not the current completion state.
+
 **Current delivery:** the [combined closing package](class-closing-package-checkpoint.md) is installed and separately audited by `tools/audit_class_closing_package.py`. Bash, Find Item and the remaining native Barbarian edge rules are resolved within their documented scopes. The original audit artifact and reader below remain historical C1 evidence; they are not regenerated against changed production sources. The current bridge retains all eight original class cohorts and explicitly qualifies the three changed content files and client patch 0045.
 
 Audit started2026-11-18JST after the matching package was installed and all reviewed branch histories reached main. Reference remains **D2R Reign of the Warlock3.3.93847**,approved Sanctuary deviations first. The [audit artifact](../tools/reference/class-skill-completion-audit.json) joins all240talent identities to their preserved class input evidence and retains each exact remaining-work entry. This is a requirements audit,not a new native test run or a class-completion certificate.
