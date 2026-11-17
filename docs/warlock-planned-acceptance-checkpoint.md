@@ -1,5 +1,7 @@
 # Warlock/Witch mechanical checkpoint
 
+**Historical 26-route checkpoint.** The four later approved talents are implemented and individually/ jointly verified in the [final-four checkpoint](warlock-final-talents-checkpoint.md). The [current all-thirty composition](warlock-lifecycle-acceptance-checkpoint.md) combines those scopes with later integration work. Pending-gate statements below describe the preserved historical artifacts,not current admission or open decisions.
+
 Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. **Charms and runewords are excluded.** [Thirty-talent inventory](warlock-coverage-matrix.md). Current implementation has26 handlers and four frozen pending talents. All26 implemented routes now have scoped subgroup validation; the class and full goal remain incomplete.
 
 | Accepted group | Routes | Exact results | Actual inputs | Connections | Saves / reloads |

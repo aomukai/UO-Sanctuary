@@ -74,9 +74,9 @@ public static class BindDemonLearnedChecks
             Require(!WarlockCombat.Available(p,CombatAbility.BindDemon)&&!SkillBindings.Instance.Assign(p,false,CombatAbility.BindDemon),"Untrained Bind was available");
             var helmet=PoisonDaggerChecks.Named(p,"Tarnhelm");ClassGear.Refresh(p);Require(!WarlockCombat.Available(p,CombatAbility.BindDemon),"Soft item bonuses bypassed required hard training");
             ClassSkillChecks.Train(p,"warlock.binddemon");Bindings(p);SkillHealth.SetBalance256(p,SkillHealth.Maximum256(p)/2-17);NecromancerEffects.SetMana256(p,90*256);
-            Require(!EngorgeEffects.Approved&&!BloodBoilPrepared.Approved&&!WarlockCombat.Implemented(CombatAbility.Consume)&&!WarlockCombat.Implemented(CombatAbility.BloodOath),"Bind approval enabled another pending skill");
+            Require(EngorgeEffects.Approved&&BloodBoilPrepared.Approved&&WarlockCombat.Implemented(CombatAbility.Consume)&&WarlockCombat.Implemented(CombatAbility.BloodOath),"Bind fixture lost the separately approved final four talents");
             File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(0,p.Serial.Value,helmet.Serial.Value,SkillHealth.Balance256(p),NecromancerEffects.ManaBalance256(p),[])));kept=true;
-            Log.Information("Bind learned:ordinary hard training and approved availability enable right/quick assignments;left/untrained/one-shot/start-release bypasses refuse;four other pending skills remain gated;original owner/gear/resources staged");
+            Log.Information("Bind learned:ordinary hard training and approved availability enable right/quick assignments;left/untrained/one-shot/start-release bypasses refuse;the final four talents retain their separate approval;original owner/gear/resources staged");
         }
         finally{network.Mobile=null;p.NetState=null;account[0]=null;network.Account=null;account.Delete();if(!kept){p.Delete();}}
     }

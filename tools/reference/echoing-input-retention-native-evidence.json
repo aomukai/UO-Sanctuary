@@ -1,0 +1,57 @@
+{
+  "component": "Echoing original Warlock/Witch source-input inspection retains real Hex and saved resources",
+  "referenceVersion": "3.3.93847",
+  "nativeMarkers": 12,
+  "markers": {
+    "echoing-strike-inputs-check": 1,
+    "echoing-strike-inputs-reload-check": 2,
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2
+  },
+  "boots": 3,
+  "saves": 3,
+  "reloads": 2,
+  "wireInputs": 0,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
+    "Assemblies/Sanctuary.Content.dll": "279d7216ecd05447605a61f89d02041edc5b6876bfad45d00080d714f1c21c28",
+    "Assemblies/Sanctuary.Integration.dll": "7936505b391500362e7808e4216b121935cd72c4a32c1f6abddcc2e9b2534094"
+  },
+  "productionCodeChanged": false,
+  "runtimeDataChanged": false,
+  "integrationBuild": 2,
+  "classCertified": false,
+  "goalComplete": false,
+  "installed": false,
+  "protection": {
+    "installedArtifacts": 106,
+    "saves": 38,
+    "configuration": 20,
+    "clientPatches": 44
+  },
+  "limits": "Original two-gender unique-weapon,helmet,poison equipment,hard/soft-rank,immutable source and fractional-resource assertions retain. Inspection extends only the real Bane deadline;capture,life,mana,durability,other buffs/debuffs are explicitly unchanged. Normal156second Bane expiry remains. Bind final-four assertion is compiled in Integration2 but not exercised by this focused family;full Warlock qualification remains separate.",
+  "files": {
+    ".local/class-skills/echoing-input-retention/accepted-assemblies-1.tar.gz": "04f0c846daa981155fbc02426d9fae6a1f5035b2bcf6f50fa9009df78f02584d",
+    ".local/class-skills/echoing-input-retention/birth-inputs.json": "4ca9532245e102176c1caf82d038128dea64ced3a041eb7992c1677eee6056a0",
+    ".local/class-skills/echoing-input-retention/birth-native-checks.log": "a8be881ec81edc28ac67abb4db25550135c4e4f4e27fda7e47c4b5a34c12776a",
+    ".local/class-skills/echoing-input-retention/echoing-strike-inputs-fixtures.json": "d05c64c9bcddc636ab8b0340bdc9a62ed46f9f08e13ab00ed489f32b763baa90",
+    ".local/class-skills/echoing-input-retention/iron-golem-items-fixtures.json": "54e830102e20f1c08e22f092995dfaa2368e34b6df13d255ccec5215093ad218",
+    ".local/class-skills/echoing-input-retention/native-run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/echoing-input-retention/npc-resource-callbacks-fixtures.json": "62042204e87c2baf0517a175844725b25951ba321087ed93bee9e06dbbf34f20",
+    ".local/class-skills/echoing-input-retention/source-snapshot-1.json": "a1001267ecde665000b936c965b7fbcc8640882fa8f37ede5b8e6a6f1869309b",
+    ".local/class-skills/warlock-lifecycle-acceptance/failed-native-2.tar.gz": "a0bb1a08ab511e967340031138d9313aa0d595e263ea7f38d3614efb3ec27827",
+    ".local/class-skills/warlock-lifecycle-acceptance/integration-build-2.log": "5ff012f2db9ac8e928e9d7c93f32391155852052268ca3ef7b438754ecc9bc2f",
+    ".local/class-skills/warlock-lifecycle-acceptance/source-snapshot-3.json": "a1001267ecde665000b936c965b7fbcc8640882fa8f37ede5b8e6a6f1869309b",
+    "docs/class-skill-roadmap.md": "a8fc2998fb2967cbb7e2fc8300cd619c21219b62373e3e2efccd2768a223c967",
+    "docs/warlock-lifecycle-acceptance-checkpoint.md": "24b383a6c7b6980f88d6b41ae557abd372219b7f9036462b4f28569bcc47143f",
+    "tests/Sanctuary.Integration/BindDemonLearnedChecks.cs": "156ad1a4e46e238c3522335da4165b1ec6c9bf146fdd3be18fe258d23e465136",
+    "tests/Sanctuary.Integration/EchoingStrikeInputChecks.cs": "8a030e58b5d914465115e5b22847a5aad7673fefa60508e34608e97ea0e740bf",
+    "tests/check_echoing_input_retention.py": "cea9caff48c18b7178d6e889a41b29e8b3f8e356beb70b0b33f86a2804dd4464",
+    "tools/record_echoing_input_retention.py": "160ad8289729aed5ffc604b038f84e2b96aa4509b0edd5a52f0bef8877c083f9"
+  }
+}

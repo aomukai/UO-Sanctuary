@@ -55,7 +55,9 @@ def configuration():
     assert len(rows) == 30
     assert all(next(row for row in rows if row['name'] == name)['implementation']
         == 'handler-present' for name in ROUTES)
-    assert sum(row['implementation'] == 'pending' for row in rows) == 4
+    approval = json.loads((ROOT/'tools/reference/warlock-final-talents-approval.json').read_text())
+    assert approval['approved'] and len(approval['approvedTalents']) == 4
+    assert all(row['implementation'] == 'handler-present' for row in rows)
     assert status['contentScope']['charms'] is False and status['contentScope']['runewords'] is False
     return dict(stage=STAGE, extra_files=files, extra_families=FAMILIES,
         extra_manifest_names={'miasma-packets': 'miasma-packet-fixtures.json'},

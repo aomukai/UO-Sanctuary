@@ -79,6 +79,14 @@ public static class EchoingStrikeInputChecks
             Require(p.EquipItem(weapon)&&p.EquipItem(helm),"Original source gear restore");ClassGear.Refresh(p);
             NecromancerEffects.SetMana256(p,p.ManaMax*256);Require(HexBane.CastPrepared(p,true),"Restore source Hex");
             SkillHealth.SetBalance256(p,SkillHealth.Maximum256(p)-513);NecromancerEffects.SetMana256(p,p.ManaMax*256-17);
+            // Retain the real captured Hex for the saved-input inspection.
+            var input=EchoingStrikeInputs.Capture(p);int life=SkillHealth.Balance256(p),mana=NecromancerEffects.ManaBalance256(p);
+            var hex=HexBane.Buff(p);var surrounding=HexBane.Snapshot();var retained=hex with{UntilUtc=hex.UntilUtc.Add(FixtureSpace.Retention)};
+            HexBane.Restore(surrounding with{Buffs=surrounding.Buffs.Select(b=>b.Owner==p.Serial.Value?retained:b).ToArray()});
+            Require(HexBane.Buff(p)==retained&&retained.Values==hex.Values&&EchoingStrikeInputs.Capture(p)==input
+                &&SkillHealth.Balance256(p)==life&&NecromancerEffects.ManaBalance256(p)==mana&&weapon.HitPoints==durability
+                &&JsonSerializer.Serialize(HexBane.Snapshot().Buffs.Where(b=>b.Owner!=p.Serial.Value))==JsonSerializer.Serialize(surrounding.Buffs.Where(b=>b.Owner!=p.Serial.Value))
+                &&HexBane.Snapshot().Debuffs.SequenceEqual(surrounding.Debuffs),"Inspection hold changed captured Hex,inputs,resources,weapon or unrelated states");
             rows[index++]=new(p.Serial.Value,weapon.Serial.Value,helm.Serial.Value,poisonItems.Select(x=>x.Serial.Value).ToArray(),female,EchoingStrikeInputs.Capture(p),SkillHealth.Balance256(p),NecromancerEffects.ManaBalance256(p),weapon.HitPoints);
             Require(SkillBindings.Instance.Assign(p,true,CombatAbility.EchoingStrike)==EchoingStrikeWorld.Approved&&SkillBindings.Instance.AssignQuick(p,7,CombatAbility.EchoingStrike)==EchoingStrikeWorld.Approved,"Input collector enabled learned binding");
         }

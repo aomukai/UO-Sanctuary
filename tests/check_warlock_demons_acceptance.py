@@ -66,8 +66,10 @@ def configuration():
     assert len(talents) == 30
     assert all(next(row for row in talents if row['name'] == name)['implementation']
         == 'handler-present' for name in ROUTES)
+    approval = json.loads((ROOT/'tools/reference/warlock-final-talents-approval.json').read_text())
+    assert approval['approved'] and len(approval['approvedTalents']) == 4
     assert all(next(row for row in talents if row['name'] == name)['implementation']
-        == 'pending' for name in FROZEN)
+        == 'handler-present' for name in FROZEN)
     assert status['contentScope']['charms'] is False and status['contentScope']['runewords'] is False
     return dict(stage=STAGE, extra_files=files, extra_families=FAMILIES,
         extra_checks=('levitation-validation-check',),
@@ -84,7 +86,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     config = configuration()
     if args.plan:
-        print(json.dumps(dict(routes=ROUTES, frozenPending=FROZEN,
+        print(json.dumps(dict(routes=ROUTES, laterApprovedTalents=FROZEN,
             fixtureFamilies=len(FAMILIES), sharedChecks=1,
             currentInputCommands=len(INPUTS), bindWireSequencesPerBoot=2,
             cachedReferenceFiles=len(config['extra_files']),

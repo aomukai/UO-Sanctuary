@@ -55,10 +55,13 @@ def collect(character,stages,negative_prefixes=(),held=None,legacy=None,basic_co
             assert held['availabilityGuard']in guard.read_text()
             ability=next(a for a,s in active.items()if s['talentId']==held['talentId'])
             for label in held['labels']:
-                starts=re.findall(r' '+re.escape(label)+r': ready ability=(\d+) x=',log)
+                starts=re.findall(r' '+re.escape(label)+held.get('readyPattern',r': ready ability=(\d+) x='),log)
                 assert starts==[str(ability)]*3 and passed[label+'-result']==3
-                assert log.count(label+': pressed')==log.count(label+': burning')==3
-                found[ability][label]=dict(stage=stage.name,successfulHeldSequences=3,evidence='actual held ability/press/burning/result;class from compiled owner and availability guard')
+                if 'phases' in held:
+                    for phase in held['phases']:
+                        assert len(re.findall(r' '+re.escape(label+': '+phase)+r'(?:\s|$)',log))==3,(label,phase)
+                else:assert log.count(label+': pressed')==log.count(label+': burning')==3
+                found[ability][label]=dict(stage=stage.name,successfulHeldSequences=3,evidence=held.get('evidence','actual held ability/press/burning/result;class from compiled owner and availability guard'))
                 held_count+=3
             files.extend((owner_source,guard))
         files.extend((path,born_path))
