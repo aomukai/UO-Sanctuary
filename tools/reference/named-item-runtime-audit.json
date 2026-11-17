@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "5aa63c9d8c4129dfc39eada3f46f4543db7c590abf192609d39049003e2505c1",
+  "ContentAssemblySha256": "d129afee68fdbee0434369d24a36fd7e23dcd7b6f89a61cc1f8f92b332004645",
   "NativeAssemblySha256": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
   "InputHashes": {
     "data/Sanctuary/Balance/abyss-route.json": "6c823249f73d320ba6ba4b2c538d419bc54a8cb8aaad8a605f5abf18d5911e18",
@@ -748,7 +748,7 @@
     "src/Sanctuary.Content/GamblingGump.cs": "981fd914f31393de5b58ce920e0c7540ffc6b61fbd133de0c3921f3d7d29d61f",
     "src/Sanctuary.Content/GearDetails.cs": "b299a31211d8f99e923f8ce279b829bc0a41617968d5cff01f5070c27658b308",
     "src/Sanctuary.Content/GearDrops.cs": "fd5613e9586adfd244b74a11294b5f57e43d209d75e2731d39077f86ba26fff8",
-    "src/Sanctuary.Content/GearEffects.cs": "fcfc318b54c78ff666e0508db9895fdacba21e8c416e53815d877870a1e63731",
+    "src/Sanctuary.Content/GearEffects.cs": "05e17f7f5185f0ad9c96aa23a70eda8d9899d386cecc65927ca3605817a6a296",
     "src/Sanctuary.Content/GearProfiles.cs": "4f2f1642a60fbb2c4ada05a279011366d8e58978ccfd2c3fd19fd8cfba8be113",
     "src/Sanctuary.Content/GemCombat.cs": "4c907e1c0a885f7e60e372c6a6fbb97e66129fd3a6235e3529a825e5f67aa922",
     "src/Sanctuary.Content/GemInsertionGump.cs": "938c5ab7087dfbeaa118d82d1b12c6baea37f44b1d2f41631eabd58d4b1d7fa0",

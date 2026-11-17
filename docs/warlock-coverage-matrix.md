@@ -1,5 +1,7 @@
 # Warlock/Witch acceptance inventory
 
+**General weapon integration — 2026-11-17 JST.** [Checkpoint](gear-strike-link-checkpoint.md) and [receipt](../tools/reference/gear-strike-link-native-evidence.json):51results/six actual inputs/two reloads. Health Link accepts known general weapon parts and explicit poison additions,excluding poison from copies. Unknown/truncated totals remain explicit scalar refusals with primary damage intact. Sixteen controlled cases repeat per boot. No class certificate or full legacy/PvP claim.
+
 **Elite direct/periodic integration — 2026-11-17 JST.** [Checkpoint](elite-damage-link-checkpoint.md) and [receipt](../tools/reference/elite-damage-link-native-evidence.json):45results/nineteen controlled contexts per boot/two reloads. Existing discrete elite packets now reach Health Link;all three actual damaging aura emitters retain damage without initiating direct sharing. Native encounter,shield,Amplify,slow-bolt and original-save scopes retain. No class certificate.
 
 **NPC firebolt integration — 2026-11-17 JST.** [Checkpoint](hostile-bolt-link-checkpoint.md) and [receipt](../tools/reference/hostile-bolt-link-native-evidence.json):33results/six connected contexts/three saves/two reloads. Existing NPC fire components now reach Health Link, retaining draw/avoidance/mitigation order and captured Slow Missiles. Five controlled receiver cases repeat per boot; actual Lich casting, flight/terrain/shield and original-save tests remain separately covered. No class certificate or new NPC-to-NPC target-selection claim.

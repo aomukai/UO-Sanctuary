@@ -224,7 +224,14 @@ public static class GearEffects
         int normalBefore = target.Hits;
         if (total > 0 && target.Alive && !target.Deleted)
         {
-            SkillHealth.Damage(player,target,NamedElements.To256(total));
+            int life256=NamedElements.To256(total),parts256=NamedElements.To256(parts.Total);
+            var direct=DirectDamageParts.From(parts);
+            // An override may add its explicitly prepared poison tick. Never
+            // infer an element for an unexplained or truncated life budget.
+            bool known=packet.LifeDamage256 is null || packet.LifeDamage256==parts256
+                || packet.AllocatedPoison is{Rate256:>=0} poison && (long)parts256+poison.Rate256==packet.LifeDamage256;
+            if(known&&direct.Total<=life256){SkillHealth.TypedDamage(player,target,life256,direct);}
+            else{SkillHealth.Damage(player,target,life256);}
             if (target is BaseCreature creature)
             {
                 int reactionDamage=Math.Max(0,before-target.Hits);
