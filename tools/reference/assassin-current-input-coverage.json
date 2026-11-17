@@ -1,0 +1,495 @@
+{
+  "referenceVersion": "3.3.93847",
+  "characterClass": "Assassin",
+  "classId": 107,
+  "talents": 30,
+  "activeTalents": 28,
+  "passiveTalents": 2,
+  "verifiedActiveInputRoutes": 28,
+  "ordinaryInputCases": 150,
+  "negativeInputCasesSeparatelyExcluded": 18,
+  "heldInputSequences": 9,
+  "foreignInputCasesSeparatelyExcluded": 30,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
+    "Assemblies/Sanctuary.Content.dll": "279d7216ecd05447605a61f89d02041edc5b6876bfad45d00080d714f1c21c28",
+    "Assemblies/Sanctuary.Integration.dll": "c27ecec0e3ddecf596c1bcffd321d1fd81f23dc96f95f1f2671f26c256f302b1"
+  },
+  "skills": [
+    {
+      "talentId": "assassin.tigerstrike",
+      "ability": 182,
+      "routes": {
+        "assassin-weapon-tiger-quick": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "assassin-weapon-tiger-right": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "assassin.dragontalon",
+      "ability": 183,
+      "routes": {
+        "dragon-talon-left": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "dragon-talon-quick": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "dragon-talon-right": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "assassin.dragonclaw",
+      "ability": 184,
+      "routes": {
+        "dragon-claw-left": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "dragon-claw-quick": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "dragon-claw-right": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "assassin.fistsoffire",
+      "ability": 185,
+      "routes": {
+        "assassin-weapon-fire-quick": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "assassin-weapon-fire-right": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "assassin.cobrastrike",
+      "ability": 186,
+      "routes": {
+        "assassin-weapon-cobra-quick": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "assassin-weapon-cobra-right": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "assassin.dragontail",
+      "ability": 187,
+      "routes": {
+        "dragon-tail-left": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "dragon-tail-quick": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "dragon-tail-right": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "assassin.clawsofthunder",
+      "ability": 188,
+      "routes": {
+        "assassin-weapon-thunder-quick": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "assassin-weapon-thunder-right": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "assassin.bladesofice",
+      "ability": 189,
+      "routes": {
+        "assassin-weapon-ice-quick": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "assassin-weapon-ice-right": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "assassin.dragonflight",
+      "ability": 190,
+      "routes": {
+        "dragon-flight-left": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "dragon-flight-quick": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "dragon-flight-right": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "assassin.phoenixstrike",
+      "ability": 191,
+      "routes": {
+        "assassin-weapon-phoenix-quick": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "assassin-weapon-phoenix-right": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "assassin.psychichammer",
+      "ability": 193,
+      "routes": {
+        "psychic-hammer-input": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulLegacySequences": 3,
+          "evidence": "actual legacy Cast ability/check/result;class from compiled fixture ownership/default"
+        }
+      }
+    },
+    {
+      "talentId": "assassin.burstofspeed",
+      "ability": 194,
+      "routes": {
+        "assassin-cast-clock-right": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "assassin.cloakofshadows",
+      "ability": 195,
+      "routes": {
+        "cloak-input": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulLegacySequences": 3,
+          "evidence": "actual legacy Cast ability/check/result;class from compiled fixture ownership/default"
+        }
+      }
+    },
+    {
+      "talentId": "assassin.fade",
+      "ability": 197,
+      "routes": {
+        "fade-input": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulLegacySequences": 3,
+          "evidence": "actual legacy Cast ability/check/result;class from compiled fixture ownership/default"
+        }
+      }
+    },
+    {
+      "talentId": "assassin.shadowwarrior",
+      "ability": 198,
+      "routes": {
+        "shadow-cast-right": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "assassin.mindblast",
+      "ability": 199,
+      "routes": {
+        "mind-blast-input": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulLegacySequences": 3,
+          "evidence": "actual legacy Cast ability/check/result;class from compiled fixture ownership/default"
+        }
+      }
+    },
+    {
+      "talentId": "assassin.venom",
+      "ability": 200,
+      "routes": {
+        "venom-input": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulLegacySequences": 3,
+          "evidence": "actual legacy Cast ability/check/result;class from compiled fixture ownership/default"
+        }
+      }
+    },
+    {
+      "talentId": "assassin.shadowmaster",
+      "ability": 201,
+      "routes": {
+        "shadow-cast-quick": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "assassin.fireblast",
+      "ability": 202,
+      "routes": {
+        "fire-blast-input": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulLegacySequences": 3,
+          "evidence": "actual legacy Cast ability/check/result;class from compiled fixture ownership/default"
+        }
+      }
+    },
+    {
+      "talentId": "assassin.shockweb",
+      "ability": 203,
+      "routes": {
+        "shock-web-input": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulLegacySequences": 3,
+          "evidence": "actual legacy Cast ability/check/result;class from compiled fixture ownership/default"
+        }
+      }
+    },
+    {
+      "talentId": "assassin.bladesentinel",
+      "ability": 204,
+      "routes": {
+        "blade-cast-quick": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "blade-cast-right": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "sentinel-stealskull-onehand": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "sentinel-stealskull-onehand-immune": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "sentinel-stealskull-twohand": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "sentinel-stealskull-twohand-immune": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "assassin.chargedboltsentry",
+      "ability": 205,
+      "routes": {
+        "sentry-learned-quick": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "sentry-learned-right": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "assassin.wakeoffire",
+      "ability": 206,
+      "routes": {
+        "wake-learned-quick": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "wake-learned-right": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "assassin.bladefury",
+      "ability": 207,
+      "routes": {
+        "fury-held-wire-0": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulHeldSequences": 3,
+          "evidence": "actual held ability/press/burning/result;class from compiled owner and availability guard"
+        },
+        "fury-held-wire-1": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulHeldSequences": 3,
+          "evidence": "actual held ability/press/burning/result;class from compiled owner and availability guard"
+        },
+        "fury-held-wire-9": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulHeldSequences": 3,
+          "evidence": "actual held ability/press/burning/result;class from compiled owner and availability guard"
+        }
+      }
+    },
+    {
+      "talentId": "assassin.lightningsentry",
+      "ability": 208,
+      "routes": {
+        "lightning-learned-quick": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "lightning-learned-right": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "assassin.wakeofinferno",
+      "ability": 209,
+      "routes": {
+        "inferno-learned-quick": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "inferno-learned-right": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "assassin.deathsentry",
+      "ability": 210,
+      "routes": {
+        "death-learned-quick": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "death-learned-right": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "assassin.bladeshield",
+      "ability": 211,
+      "routes": {
+        "assassin-cast-clock-quick": {
+          "stage": "assassin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    }
+  ],
+  "passiveSkills": [
+    {
+      "talentId": "assassin.clawmastery",
+      "ability": 192
+    },
+    {
+      "talentId": "assassin.weaponblock",
+      "ability": 196
+    }
+  ],
+  "classCertified": false,
+  "limits": "Every admitted route has successful input results on three boots. Negative controls do not establish a positive cast. Held class context comes from compiled owner/guard evidence rather than an invented log field. Passive mechanics remain separate birth/stat evidence. This is input accounting,not whole-class mechanics or exact engine/client/PvP certification.",
+  "files": {
+    ".local/class-skills/assassin-lifecycle-acceptance/birth-inputs.json": "c41874e8854b389c555b8bae38573cff0a943697b88b8d68c583a440836eb3f8",
+    ".local/class-skills/assassin-lifecycle-acceptance/birth-native-checks.log": "46aae7122678430bdd4c571a42261c8e580c6a0992731372034c19e4899efb3f",
+    "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
+    "shared/DiabloClass.cs": "735cddd18c8e4397a4d5e73ec0a26bc7165056e5f571c87121b3609f820db075",
+    "src/Sanctuary.Content/PlayerInfernoInput.cs": "e459de834240253ba07024c2b3710f80d8d3dea52226a518e32232b8a54ff4d5",
+    "tests/Sanctuary.Integration/BladeFuryHeldInputChecks.cs": "e7a396db26b19412ec5e39f9e1e6e4b6eb75d2c7cd5f4567332c4b1625b27f8d",
+    "tests/Sanctuary.Integration/CloakChecks.cs": "53cc14dae7b12164c1f11eb46a04a90dcf4ec472ac6a2eb0962244bc3c630998",
+    "tests/Sanctuary.Integration/FadeChecks.cs": "eb1aa07f4512249ebf9392c5608efed8ac060304bf33c2d418b2a9c1033ad370",
+    "tests/Sanctuary.Integration/FireBlastChecks.cs": "6735f7f62134ab2b6198a9f5c6e4737f00e9d9514718e1a84891f025c1ccb146",
+    "tests/Sanctuary.Integration/MindBlastChecks.cs": "974b8d1e279d13d7cff3084710b9c52eea5a92a1acd95b3307e0a15163ac38c1",
+    "tests/Sanctuary.Integration/PsychicHammerChecks.cs": "be47451113f37a7d7421a57bef282ce59c8e53b78db4383023c68fc39f33b052",
+    "tests/Sanctuary.Integration/ShockWebChecks.cs": "431c77c18e0e49fd89f09c4ea930f7ea0200594fe5b8f74d98377e68de1c02fe",
+    "tests/Sanctuary.Integration/VenomChecks.cs": "242b67c80069c42b585fde0ea1d84d2f839ab8d8e2499ae3cba1202ae913e382",
+    "tools/class_input_coverage.py": "c7d1519c2bf3c83bd5bbc1e1da772da49692783b8b5847a43d598b248e01a6b1",
+    "tools/review_assassin_input_coverage.py": "e07cfaf0d8e5c140c6059e375051d4a0d49bcfd418ea7dcc71e65ee512cc09ce",
+    "tests/Sanctuary.Integration/BladeBodyChecks.cs": "29535a4cabb5ee64a411854b8cfeb6c99d7804d73078c731eb4efed47af0fb3d",
+    "src/Sanctuary.Content/AssassinCombat.cs": "989466e52cc3a8ae97ff0446ed103e1e629ff297568ae00eba65fc9883a68003"
+  },
+  "legacyInputSequences": 21,
+  "basicAttackControlsSeparatelyExcluded": 6,
+  "totalRetainedLegacySequences": 42,
+  "legacyLimits": "Seven spell/buff routes use actual legacy Cast input. Their class comes from the compiled fixture default/assignment,not a packet class byte. Fourteen legacy scenarios total42sequences;claw phases/heartbeats,Cobra finisher and Cloak refusal/unlock are not inflated into extra scenarios."
+}
