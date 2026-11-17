@@ -79,7 +79,7 @@ public static class BarbarianContactChecks
                     Require(rate==0?poison==null:poison?.PoisonClock?.Rate256==rate&&poison.PoisonMs==4000,"Captured source poison initial rate/clock differs");
                     if(hit)
                     {
-                        Require(visits[0].Phase=="domeleedamage"&&visits[0].Packet.Poison256==rate&&visits[0].Packet.Physical256==NamedElements.To256(contact.Impact.Parts.Physical),"Damage phase lost poison or postallocation physical field");
+                        Require(visits[0].Phase=="domeleedamage"&&visits[0].Packet.Poison256==rate&&visits[0].Packet.Physical256==NamedElements.To256(contact.Impact.Parts.Physical),"Damage phase lost poison or allocated physical field");
                         if(ability==CombatAbility.Stun){Require(CombatStuns.Remaining(t)>0,"Captured Stun did not reach recipient");}
                         if(ability==CombatAbility.Bash){Require((visits[0].Packet.ResultFlags&8)!=0&&visits[0].Packet.HitClass==112,"Bash source knockback/hit class lost");}
                     }

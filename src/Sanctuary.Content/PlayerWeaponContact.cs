@@ -59,7 +59,7 @@ internal static class PlayerWeaponContact
     // For skills which let AllocCombat fill ordinary weapon lanes. A consumer
     // chooses its allocation phase; Zeal allocates anew at every do13 event.
     internal static PlayerWeaponContactPrepared PrepareOrdinary(PlayerMobile source,BaseCreature target,int attackPercent,int skillPhysicalPercent,
-        Func<bool> inRange,Func<double> hitRoll,Func<double> elementRoll,Func<int,int> physicalRoll,Func<int,int> poisonRoll,Random effects,bool allowNative=false,int physicalToMagicPercent=0,Func<PreparedWeaponImpact> captured=null,int capturedColdFrames=0,PlayerWeaponDrain? capturedDrain=null,int? crushingDivisor=null,bool suppressWear=false)
+        Func<bool> inRange,Func<double> hitRoll,Func<double> elementRoll,Func<int,int> physicalRoll,Func<int,int> poisonRoll,Random effects,bool allowNative=false,int physicalToMagicPercent=0,Func<PreparedWeaponImpact> captured=null,int capturedColdFrames=0,PlayerWeaponDrain? capturedDrain=null,int? crushingDivisor=null,bool suppressWear=false,Func<int,int> physicalAfterCritical=null)
     {
         RequireOrdinary(source,target,allowNative);
         int flags=SourceMeleeResult.Resolve(new OrdinaryResult(source,target,inRange,hitRoll,Metadata(target,allowNative)==null),attackPercent);
@@ -75,7 +75,8 @@ internal static class PlayerWeaponContact
             var damage=GearEffects.Damage(source,roll,target,skillPhysicalPercent,physicalRoll,poisonRoll,
                 ()=>WeaponPoisonPackets.Melee(WeaponPoisonPackets.AddVenom(BowLaunch.RawPoison(source,CombatTiming.Equipped(source)),Venoms.State(source)),
                     NamedElements.MasteryPercent(source,"pois"),128,poisonRoll,overrideFrames:Venoms.State(source)?.Frames??0));
-            impact=GearEffects.PrepareWeaponImpact(source,target,roll,effects,damage,physicalToMagicPercent:physicalToMagicPercent);
+            impact=GearEffects.PrepareWeaponImpact(source,target,roll,effects,damage,physicalToMagicPercent:physicalToMagicPercent,
+                physicalAfterCritical:physicalAfterCritical);
             var poison=PoisonJavelins.PreparePoison(source,target,damage.SourcePoison.Rate256,damage.SourcePoison.Frames);
             impact=impact with{LifeDamage256=checked(NamedElements.To256(impact.Parts.Total)+poison.Rate256),AllocatedPoison=poison};
             if(damage.Cold>0)

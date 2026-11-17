@@ -37,16 +37,17 @@ public static class BarbarianMelee
         int ar=(int)(row.SourceFields.ContainsKey("ToHitCalc")&&row.Text("ToHitCalc").Length>0?values.Eval("ToHitCalc"):values.Formula("toht"));
         // Start32/start39 allocate once. Accuracy,shield,setup,critical,typed
         // lanes,poison mitigation and leech stay captured across the windup.
-        double roll=0;
+        double roll=0;int bashFlat256=ability==CombatAbility.Bash?checked((int)values.Eval("calc2")*256):0;
         var contact=PlayerWeaponContact.PrepareOrdinary(owner,target,ar,(int)values.Eval("calc1"),
             ()=>ValidTarget(owner,ability,selected),HitRoll,()=>roll=ElementRoll(),PhysicalRoll,PoisonRoll,Effects,true,
-            physicalToMagicPercent:ability is CombatAbility.Concentrate or CombatAbility.Berserk?(int)values.Eval("calc4"):0);
+            physicalToMagicPercent:ability is CombatAbility.Concentrate or CombatAbility.Berserk?(int)values.Eval("calc4"):0,
+            physicalAfterCritical:ability==CombatAbility.Bash?physical=>checked(physical+bashFlat256):null);
         bool hit=(contact.Flags&SourceMeleeResult.Successful)!=0;var packet=contact.Impact;
-        // Start32 appends flat physical AFTER AllocCombat has stored total,
-        // even on a miss. Keep the event field separate from life damage;
-        // exact modern handling of this old stale total remains unverified.
+        // Approved Sanctuary Bash rule: its flat bonus participates in typed
+        // mitigation and life allocation,after weapon critical. Other start32
+        // rows retain their original zero flat field; Berserk calc2 is duration.
         packet=packet with{LifeDamage256=packet.LifeDamage256??NamedElements.To256(packet.Parts.Total),
-            Parts=packet.Parts with{Physical=packet.Parts.Physical+(ability==CombatAbility.Berserk?0:values.Eval("calc2"))},
+            Parts=packet.Parts with{Physical=packet.Parts.Physical+(ability is CombatAbility.Bash or CombatAbility.Berserk?0:values.Eval("calc2"))},
             SourceStunFrames=hit&&ability==CombatAbility.Stun?values.DurationFrames:packet.SourceStunFrames};
         contact=contact with{Impact=packet,Flags=contact.Flags|(hit?row.Number("ResultFlags"):0),HitClass=hit?row.Number("HitClass"):0,
             HitFlags=hit?(uint)row.Number("HitFlags"):0u,SkillKnockback=ability==CombatAbility.Bash,StunRoll=CombatStuns.Roll,ControlStun=ability==CombatAbility.Stun,AttemptScoped=true};

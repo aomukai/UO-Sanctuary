@@ -1,0 +1,11 @@
+# Bash flat damage adopted and qualified
+
+The user approved the [flat-damage rule](class-mechanics-intent-decisions.md) on 2026-11-18 JST. Learned Bash now captures its flat amount and passes it through the existing post-critical hook before mitigation and absorption. Physical damage and life loss use the same allocated result. Misses and blocked contacts never allocate the addition. Mana, cancellation, knockback, poison and other attack rules retain their existing paths.
+
+Only two production files change: the ordinary contact adapter forwards an optional hook, and Bash supplies it instead of appending the old stale physical event field. Existing callers use the null default. The shared hook itself is unchanged. The earlier tested proposal and older class receipts remain historical evidence for their original binaries.
+
+The [focused native evidence](../tools/reference/bash-flat-adoption-native-evidence.json) passes **64 results across three saves and two reloads**, including 24 authenticated right/quick inputs across Bash, Stun, Concentrate and Berserk. Learned Bash checks retain critical/resistance ordering, actual health, immunity, misses, payment, changed stats after capture, named elemental equipment, saved bindings and original items. The four-attack mixed-item suite retains poison, original proc state, block, misses, cancellations, low-mana fallback and post-capture changes. Existing Iron birth/item/resource prerequisites also pass. The plain physical expectation explicitly checks the new life budget; it is not inferred solely from whatever packet the implementation produced.
+
+Content1 and Integration1 build with zero warnings/errors. The first native attempt passed its first-boot mechanics and wire inputs, then the runner tried the wrong legacy save-manifest filename. Exact sources, assemblies, data and logs are frozen. Correcting that driver mapping required no gameplay change or rebuild; run2 completed both reloads.
+
+The candidate is qualified but **not installed**: the working runtime still uses the preserved C1 package. Keep the current class audit bound to that installed generation until final promotion. Combine the approved Find Item changes next, then install and verify the matching final package. No numerical reference data or final assets changed.

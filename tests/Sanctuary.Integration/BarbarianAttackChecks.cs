@@ -139,7 +139,9 @@ public static class BarbarianAttackChecks
                 var first=new Rolls(true);BarbarianMelee.Effects=first;int hp=Life(enemy);
                 Ready(owner);int balance=NecromancerEffects.ManaBalance256(owner);Require(ClassCombat.Perform(owner,ability,enemy,enemy.Location,Core.TickCount),"Snapshot attack begin");var state=ClassCombat.For(owner);var packet=state.BarbarianAttack;
                 int expected=packet.Impact.LifeDamage256.Value;
-                Require(packet.Hit && packet.Impact.Parts.Physical==raw.Physical+values.Eval("calc2") && first.Calls==1 && Life(enemy)==hp,"Prepared critical/resistance/flat order");
+                double expectedPhysical=raw.Physical+(ability==CombatAbility.Bash?values.Eval("calc2")/2.0:values.Eval("calc2"));
+                Require(packet.Hit && packet.Impact.Parts.Physical==expectedPhysical && first.Calls==1 && Life(enemy)==hp,"Prepared critical/resistance/flat order");
+                Require(packet.Impact.LifeDamage256==NamedElements.To256(expectedPhysical),"Flat physical and actual life budgets diverged");
                 // Prepared source data is retained even if stats/resistance change before the event.
                 Resist(enemy,100);int strength=owner.RawStr;owner.RawStr+=50;ClassCombat.ReleaseCast(owner);
                 Require(ClassCombat.ResolveAction(owner,state.EffectAt) && hp-Life(enemy)==expected && first.Calls==1 && NecromancerEffects.ManaBalance256(owner)==balance-512,"Prepared packet rerolled/resisted/paid at impact");owner.RawStr=strength;TimedEffects.ClearGear(enemy);
@@ -147,7 +149,7 @@ public static class BarbarianAttackChecks
                 int loss=Cast(owner,enemy,ability,input);Require(loss>0,"Actual attack delivered no damage");TimedEffects.ClearGear(enemy);
             }
             Resist(enemy,100);Mana(owner);BarbarianMelee.Effects=new Rolls(true);
-            int immune=Cast(owner,enemy,ability);Require(immune==0,"Postallocation flat physical field incorrectly increased stored life damage, or Stun pierced immunity");
+            int immune=Cast(owner,enemy,ability);Require(immune==0,"Flat physical or Stun pierced immunity");
             Resist(enemy,0);Mana(owner);BarbarianMelee.Effects=new Rolls();BarbarianMelee.HitRoll=()=>1;
             int rolls=0;BarbarianMelee.ElementRoll=()=>{rolls++;return 0;};int hpMiss=Life(enemy);
             Require(Cast(owner,enemy,ability)==0 && Life(enemy)==hpMiss && rolls==0,"Miss dealt damage or rolled elements");BarbarianMelee.HitRoll=()=>0;BarbarianMelee.ElementRoll=()=>0;
