@@ -1,5 +1,7 @@
 # Amazon acceptance map
 
+**Approved shared player Pierce enabled for fourteen Amazon routes — 2026-11-17 JST.** [Checkpoint](pierce-action-adoption-checkpoint.md),[approval](../tools/reference/pierce-action-policy-approval.json),[receipt](../tools/reference/pierce-action-adoption-native-evidence.json). Ordinary players now use the saved action counter:one commit per emitted fan/Strafe series,temporary source seed and no launch/world/item RNG borrowing. C1/I1/S1/N1 passes33results,all14routed talents,six right/quick inputs and two reloads,including original counters/flights/resources. No candidate enrollment is used in current tests. No failures/save warnings,new serializer/field or class certificate. Other producers and full-class/client limits remain explicit;installed build/saves and separate assets retain.
+
 Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Charms and runewords are excluded. All 30 talents have handlers; the following existing checks establish only their named scopes, not a completed class or full modern executable parity.
 
 The last [combined driver](../tests/check_amazon_planned_acceptance.py) acceptance covered all existing class fixtures on its recorded historical binaries:334results,72casts,84connections and two reloads;[receipt](../tools/reference/amazon-planned-acceptance-native-evidence.json). It predates later shared contact changes and does not establish class-wide acceptance of current binaries.

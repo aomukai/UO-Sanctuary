@@ -19,11 +19,11 @@ public sealed class PlayerPierceProfiles:GenericPersistence
     {if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown player Pierce index version");}PlayerPierceActions.Restore(JsonSerializer.Deserialize<PlayerPierceIndex[]>(reader.ReadString()));}
 }
 
-// Explicit candidate for the new-protocol owner-index mapping. Saved counter
-// rows never enroll an owner;online admission requires a separate approval.
+// Approved Sanctuary player action-index mapping. Current Amazon callers
+// share one captured index per emitted fan/series;other producers stay separate.
 internal static class PlayerPierceActions
 {
-    internal static bool Approved=>false;
+    internal static bool Approved=>true;
     private static Dictionary<uint,PlayerPierceIndex> Rows=new();
     private static readonly HashSet<uint> Candidates=[];
     public static void Configure()=>_=new PlayerPierceProfiles();

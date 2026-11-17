@@ -867,6 +867,10 @@ for _talent in ('assassin.chargedboltsentry','assassin.lightningsentry','assassi
 for _talent in ('assassin.fireblast','assassin.shockweb','assassin.psychichammer','assassin.mindblast'):
     CAVEATS[_talent]+=' Direct spell contact now publishes settled components through the shared typed health API for approved Defiler Health Link,including potion elements while excluding its immediate poison from sharing. Existing ground/area/NHD,targeting,mana,stun/knockback and damage-before-conversion rules retain. Fourteen linked cases per boot and retained original flight/field/motion/allegiance,learned input and reload controls are scoped in assassin-spell-link-checkpoint.md;this is shared-event compatibility,not full class certification.'
 
+# Approved ranged-action counter now applies to ordinary Amazon players.
+for _talent in ('amazon.magicarrow','amazon.multipleshot','amazon.firearrow','amazon.coldarrow','amazon.explodingarrow','amazon.icearrow','amazon.guidedarrow','amazon.freezingarrow','amazon.immolationarrow','amazon.strafe','amazon.poisonjavelin','amazon.lightningbolt','amazon.plaguejavelin','amazon.lightningfury','amazon.pierce'):
+    CAVEATS[_talent]+=' The approved shared player Pierce policy now captures one saved unsigned index per emitted ranged action,shared across fans/Strafe,using the verified temporary source seed without launch/world/item RNG draws. Ordinary-player14route,index/wrap,cancel/stale ticket,saved flight/resource and right/quick checks are scoped in pierce-action-adoption-checkpoint.md. Mana/ammo,passive chance and current skill/contact rules retain;other player/NPC producers remain separate. Exact D2R input/index initialization is an explicit approved Sanctuary adaptation.'
+
 def planned_content_remaining(text):
     """Keep excluded charm-only mechanics out of active talent blockers."""
     if not re.search('sunder',text,re.I):return text

@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "f55d19d7f0e46bc4f1ea5387d79e5b15b714ea53af7f35e76dfb04c1d3050fa9",
+  "ContentAssemblySha256": "5e00b8f133df17548d51600cc279576468f5f476837413997c520e9b9520d386",
   "NativeAssemblySha256": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
   "InputHashes": {
     "data/Sanctuary/Balance/abyss-route.json": "6c823249f73d320ba6ba4b2c538d419bc54a8cb8aaad8a605f5abf18d5911e18",
@@ -14,7 +14,7 @@
     "data/Sanctuary/Balance/blind-ai-rules.json": "744926507cc56ee2192a184deeaa7b7632a355503af43c74cb2438b9805ed876",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "d075f808f62f4241b2e270112803afffd01cc41c45536f8ea1af259e8d1e42c4",
+    "data/Sanctuary/Balance/class-skill-status.json": "acb9e40e5019051134b203b3c155c4e8a7aa3dbec3c8ce6fd6b36a2a9f900b77",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "77dc2142ca806a9d6e6ed39f274ecdac247dcd5c60388512c17f5bc3e4c79c49",
@@ -1106,7 +1106,7 @@
     "src/Sanctuary.Content/PlayerItemSpellCasts.cs": "ddbcad067d5938bd5255dc293fd2611b2ec1e04602ac4667255b31c6d0fe3e6b",
     "src/Sanctuary.Content/PlayerMeleeGeometry.cs": "22fa9fcd2ab728bdfc16b20e68b4cf630e53542ba4536ae70088c57c6b05a42f",
     "src/Sanctuary.Content/PlayerMeleeReturn.cs": "e26ce78ce7e8c15a7029d7cf5ae642329f4346602237ad8458d80420ca2120a1",
-    "src/Sanctuary.Content/PlayerPierceActions.cs": "7015eba3b0157536f4d9261a15c2cdfc3b9227a4585bb7b1e05d5b8832c2797d",
+    "src/Sanctuary.Content/PlayerPierceActions.cs": "c771e5dadc210f5869afec7eddfb24ceafd325c0d1452d443f4eb634f7fc221a",
     "src/Sanctuary.Content/PlayerWeaponContact.cs": "a29b88af73854007c85a88c3e7928d70eb58d57d7202cb6c1930045712929662",
     "src/Sanctuary.Content/PlayerWeaponMissileContact.cs": "db7e1b384166293bac5d0c6a4ea0cbf53836349a46b5da410920b08b9c3a66f2",
     "src/Sanctuary.Content/PlayerWeaponSequences.cs": "0b1c9f6741bceb4cee2faeae0b94188378a2b2212f90a2150c8193b530fbb307",

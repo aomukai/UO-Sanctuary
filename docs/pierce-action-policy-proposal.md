@@ -1,6 +1,6 @@
 # Player ranged-action Pierce index proposal
 
-Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. **Approved by the user on 2026-11-17; ordinary-route enablement and verification are next.** The [approval](../tools/reference/pierce-action-policy-approval.json) preserves the exact proposal hash and decision. The candidate/runtime status below describes the tested pre-adoption artifact. This defines a new-protocol mapping, rather than claiming that the older D2 packet counter is the current executable's exact behavior.
+Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. **Approved and enabled for the fourteen wired Amazon routes on 2026-11-17.** [Ordinary-player adoption checks](pierce-action-adoption-checkpoint.md) pass;other producers remain separate. The [approval](../tools/reference/pierce-action-policy-approval.json) preserves the exact proposal hash and decision. The candidate/runtime status below describes the tested pre-adoption artifact. This defines a new-protocol mapping, rather than claiming that the older D2 packet counter is the current executable's exact behavior.
 
 Proposed shared player rule:
 
