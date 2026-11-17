@@ -1,5 +1,7 @@
 # Skill effects
 
+**Sorceress lifecycle/input requalification — 2026-11-17 JST.** [Checkpoint](sorceress-lifecycle-acceptance-checkpoint.md) creates no artwork/audio. Existing spell travel,armor/reaction,ground fields,Hydra,Inferno,terrain/contact and shatter placeholders remain mechanically usable;final effects/audio stay separately missing. No imagegen.
+
 **Necromancer lifecycle/input acceptance — 2026-11-17 JST.** [Checkpoint](necromancer-lifecycle-acceptance-checkpoint.md) adds no visual/audio asset. All27 active input routes and three passive mechanical scopes remain separate from final art. Existing summon/projectile/curse/shatter effects and audio are still identified placeholders;no imagegen.
 
 **Approved ordinary-chill shatter rule — 2026-11-17 JST.** [Activation checkpoint](ordinary-cold-corpse-adoption-checkpoint.md). Final shatter visuals/audio remain separately missing;existing corpse body/flag presentation is an identified mechanical placeholder. Loot remains intact. No artwork/imagegen is created.

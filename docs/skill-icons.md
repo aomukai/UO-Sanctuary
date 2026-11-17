@@ -1,5 +1,7 @@
 # Skill icons
 
+**Sorceress lifecycle/input requalification — 2026-11-17 JST.** [Checkpoint](sorceress-lifecycle-acceptance-checkpoint.md) adds no talent or binding. The26active/four-passive catalogue retains its existing talent/mouse/hotkey icon requirements and identified placeholders. No artwork/imagegen.
+
 **Necromancer active-input accounting — 2026-11-17 JST.** [Checkpoint](necromancer-lifecycle-acceptance-checkpoint.md) verifies actual input routes for all27 active talents;this creates no final icon. The three passive talent icons and active talent/hotkey artwork remain separately pending with identified placeholders. No new binding or imagegen.
 
 **Approved ordinary-chill shatter rule — 2026-11-17 JST.** [Activation checkpoint](ordinary-cold-corpse-adoption-checkpoint.md). No new talent or binding is added,so no new icon is required. Existing skill-tree/hotkey icon requirements remain separately pending;no artwork/imagegen.

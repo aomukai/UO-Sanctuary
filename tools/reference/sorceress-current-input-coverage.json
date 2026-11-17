@@ -1,0 +1,543 @@
+{
+  "referenceVersion": "3.3.93847",
+  "characterClass": "Sorceress",
+  "classId": 102,
+  "talents": 30,
+  "activeTalents": 26,
+  "passiveTalents": 4,
+  "verifiedActiveInputRoutes": 26,
+  "ordinaryInputCases": 216,
+  "negativeInputCasesSeparatelyExcluded": 24,
+  "heldInputSequences": 9,
+  "foreignInputCasesSeparatelyExcluded": 0,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
+    "Assemblies/Sanctuary.Content.dll": "8650a6825fc6855608e4596cac7a9e97f3d00be7ed617a8212998acefb506553",
+    "Assemblies/Sanctuary.Integration.dll": "bb27e2c6ef8c5927f377ce00f30629c58f69688ff20f8d2a8940785801099510"
+  },
+  "skills": [
+    {
+      "talentId": "sorceress.teleport",
+      "ability": 4,
+      "routes": {
+        "player-teleport-left": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "player-teleport-quick": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "player-teleport-right": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "sorceress-cast-clock-quick": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "sorceress.icebolt",
+      "ability": 35,
+      "routes": {
+        "ice-bolt-quick": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "ice-bolt-right": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "sorceress.frozenarmor",
+      "ability": 36,
+      "routes": {
+        "cold-armor-frozen-quick": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "cold-armor-frozen-right": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "sorceress-cast-clock-right": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "sorceress.frostnova",
+      "ability": 37,
+      "routes": {
+        "frost-nova-quick": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "frost-nova-right": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "sorceress.iceblast",
+      "ability": 38,
+      "routes": {
+        "ice-blast-quick": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "ice-blast-right": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "sorceress.shiverarmor",
+      "ability": 39,
+      "routes": {
+        "cold-armor-shiver-quick": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "cold-armor-shiver-right": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "sorceress.glacialspike",
+      "ability": 40,
+      "routes": {
+        "explosive-terrain-glacial-quick": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "explosive-terrain-glacial-right": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "glacial-spike-quick": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "glacial-spike-right": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "sorceress.blizzard",
+      "ability": 41,
+      "routes": {
+        "player-blizzard-quick": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "player-blizzard-right": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "sorceress.chillingarmor",
+      "ability": 42,
+      "routes": {
+        "cold-armor-chilling-quick": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "cold-armor-chilling-right": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "sorceress.frozenorb",
+      "ability": 43,
+      "routes": {
+        "player-frozen-orb-left": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "player-frozen-orb-quick": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "player-frozen-orb-right": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "sorceress.chargedbolt",
+      "ability": 45,
+      "routes": {
+        "charged-flight-quick": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "charged-flight-right": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "sorceress.telekinesis",
+      "ability": 46,
+      "routes": {
+        "telekinesis-combat-quick": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "telekinesis-combat-right": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "telekinesis-item-quick": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "telekinesis-item-right": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "telekinesis-mobile-quick": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "telekinesis-mobile-right": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "sorceress.staticfield",
+      "ability": 47,
+      "routes": {
+        "static-field-quick": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "static-field-right": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "sorceress.lightning",
+      "ability": 48,
+      "routes": {
+        "lightning-flight-quick": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "lightning-flight-right": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "sorceress.nova",
+      "ability": 49,
+      "routes": {
+        "nova-quick": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "nova-right": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "sorceress.chainlightning",
+      "ability": 50,
+      "routes": {
+        "player-chain-quick": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "player-chain-right": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "sorceress.thunderstorm",
+      "ability": 51,
+      "routes": {
+        "storm-pulse-quick": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "storm-pulse-right": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "sorceress.energyshield",
+      "ability": 52,
+      "routes": {
+        "energy-shield-quick": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "energy-shield-right": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "sorceress.firebolt",
+      "ability": 54,
+      "routes": {
+        "fire-bolt-quick": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "fire-bolt-right": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "sorceress.inferno",
+      "ability": 56,
+      "routes": {
+        "inferno-held-wire-0": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulHeldSequences": 3,
+          "evidence": "actual held ability/press/burning/result;class from compiled owner and availability guard"
+        },
+        "inferno-held-wire-1": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulHeldSequences": 3,
+          "evidence": "actual held ability/press/burning/result;class from compiled owner and availability guard"
+        },
+        "inferno-held-wire-9": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulHeldSequences": 3,
+          "evidence": "actual held ability/press/burning/result;class from compiled owner and availability guard"
+        }
+      }
+    },
+    {
+      "talentId": "sorceress.blaze",
+      "ability": 57,
+      "routes": {
+        "blaze-quick": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "blaze-right": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "sorceress.fireball",
+      "ability": 58,
+      "routes": {
+        "explosive-terrain-fireball-quick": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "explosive-terrain-fireball-right": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "fire-ball-quick": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "fire-ball-right": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "sorceress.firewall",
+      "ability": 59,
+      "routes": {
+        "fire-wall-quick": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "fire-wall-right": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "sorceress.enchant",
+      "ability": 60,
+      "routes": {
+        "enchant-ally-quick": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "enchant-ally-right": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "enchant-self-quick": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "enchant-self-right": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "sorceress.meteor",
+      "ability": 61,
+      "routes": {
+        "player-meteor-quick": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "player-meteor-right": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "sorceress.hydra",
+      "ability": 63,
+      "routes": {
+        "hydra-world-quick": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "hydra-world-right": {
+          "stage": "sorceress-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    }
+  ],
+  "passiveSkills": [
+    {
+      "talentId": "sorceress.coldmastery",
+      "ability": 44
+    },
+    {
+      "talentId": "sorceress.lightningmastery",
+      "ability": 53
+    },
+    {
+      "talentId": "sorceress.warmth",
+      "ability": 55
+    },
+    {
+      "talentId": "sorceress.firemastery",
+      "ability": 62
+    }
+  ],
+  "classCertified": false,
+  "limits": "Every admitted route has successful input results on three boots. Negative controls do not establish a positive cast. Held class context comes from compiled owner/guard evidence rather than an invented log field. Passive mechanics remain separate birth/stat evidence. This is input accounting,not whole-class mechanics or exact engine/client/PvP certification.",
+  "files": {
+    ".local/class-skills/sorceress-lifecycle-acceptance/birth-inputs.json": "24e855803a8d0ef822e4fac8c4c6d6f6222b0eff7b92c93801310e87750c2915",
+    ".local/class-skills/sorceress-lifecycle-acceptance/birth-native-checks.log": "c5e8560e8d08f1366ddb70a45c02737f913a7c2cbebe69d99718e5a59e315401",
+    "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
+    "shared/DiabloClass.cs": "735cddd18c8e4397a4d5e73ec0a26bc7165056e5f571c87121b3609f820db075",
+    "src/Sanctuary.Content/PlayerInfernoInput.cs": "e459de834240253ba07024c2b3710f80d8d3dea52226a518e32232b8a54ff4d5",
+    "tests/Sanctuary.Integration/InfernoHeldInputChecks.cs": "6def0f362a53a3500177c366226e4881b55e5653b05de7d572e2123dadfe7067",
+    "tools/class_input_coverage.py": "9b17725ba225a5e6f742bf6bb6f0e91efaff4fbfe3a2dd894c9a6e37cb77fe43",
+    "tools/review_sorceress_input_coverage.py": "eb1ead10f081afffcca65aa8012f005c16dbec142283f7410254e5961b45af93"
+  }
+}
