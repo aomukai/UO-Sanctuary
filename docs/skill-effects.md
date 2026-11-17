@@ -1,5 +1,7 @@
 # Skill effects
 
+**Approved ordinary-chill shatter rule — 2026-11-17 JST.** [Activation checkpoint](ordinary-cold-corpse-adoption-checkpoint.md). Final shatter visuals/audio remain separately missing;existing corpse body/flag presentation is an identified mechanical placeholder. Loot remains intact. No artwork/imagegen is created.
+
 **Ordinary cold shatter candidate — 2026-11-17 JST.** The [proposed corpse rule](ordinary-cold-corpse-proposal.md) creates no artwork. Shatter visuals/audio remain missing, with existing body/flag presentation an identified mechanical placeholder. Candidate verification is separate from activation and final graphics. No imagegen.
 
 **Mage post-death lifetime — 2026-11-17 JST.** Existing bolt, impact, cold/lightning, Meteor warning and burning-ground effects continue to their original mechanical expiry after Mage death. Final artwork/audio remains missing and the existing visuals are identified placeholders; this lifetime checkpoint creates no assets or imagegen work. [Mechanical evidence](mage-projectile-lifetime-checkpoint.md).

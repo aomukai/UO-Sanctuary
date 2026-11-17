@@ -29,7 +29,7 @@ public static class CorpseShatterGuardChecks
         var t=new GraveyardSkeleton{Frozen=true,CantWalk=true,NoKillAwards=true,Fame=1000};t.SetResistance(ResistanceType.Cold,0);t.MoveToWorld(new(p.X+dx,p.Y,p.Z),p.Map);t.AIObject.AITimer.Stop();
         if(mode=="freeze"){Require(FreezeStates.Commit(p,t,500,true,1,Core.TickCount),"Actual freeze marker");}
         if(mode=="holy"){PaladinHolyFreeze.Restore(PaladinHolyFreeze.Snapshot().Append(new HolyFreezeLease(t.Serial.Value,p.Serial.Value,1,30,30,30,true,TimedEffects.Now.AddSeconds(20))).ToArray());}
-        if(mode=="chill"){Require(ColdStates.Commit(p,t,500,true,-50,1,Core.TickCount),"Actual ordinary cold marker");}
+        if(mode=="chill"){ColdCorpseRules.SetRoll(t,()=>99);Require(ColdStates.Commit(p,t,500,true,-50,1,Core.TickCount),"Actual ordinary cold marker");}
         t.Kill();Require(t.Corpse is Corpse,"Corpse creation");var c=(Corpse)t.Corpse;c.BeginDecay(FixtureSpace.Retention);c.DropItem(new Gold(17));Require(CorpseSkillRules.Shattered(c)==(mode is "freeze" or "holy"),"Existing shatter capture: "+mode);
         if(mode=="reserved"){Require(CorpseSkillRules.Reserve(c),"Actual corpse reservation");}return c;
     }
@@ -67,7 +67,7 @@ public static class CorpseShatterGuardChecks
             var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));generation=s.Generation+1;p=(PlayerMobile)World.FindMobile((Serial)s.Owner);bodies=s.Bodies.Select(x=>(Corpse)World.FindItem((Serial)x.Corpse)).ToArray();Require(generation<=2&&SkillHealth.Balance256(p)==s.Life&&NecromancerEffects.ManaBalance256(p)==s.Mana,"Original caster wounds/mana");
             foreach(var entry in s.Bodies){var c=(Corpse)World.FindItem((Serial)entry.Corpse);Require(c is{Deleted:false,Animated:false,SanctuaryConsumed:false}&&Json(CorpseSkillRules.Profiles.Find(c))==Json(entry.Record)&&Items(c).SequenceEqual(entry.Items)&&c.ItemID==entry.Art&&c.Hue==entry.Hue,"Original corpse flags/identity/loot changed through reload");}p.MoveToWorld(s.Point,Map.Trammel);
         }
-        var lich=Lich(p);foreach(var c in bodies.Take(3)){Blocked(p,lich,c);}Require(!CorpseSkillRules.Shattered(bodies[3])&&!CorpseSkillRules.NoSelect(bodies[3])&&CorpseRecoveryHooks.CanAnimate(bodies[3])&&lich.CanRaise(bodies[3]),"Ordinary chill acquired an invented shatter policy or plain raising was disabled");lich.Delete();NativePositive(p);
+        var lich=Lich(p);foreach(var c in bodies.Take(3)){Blocked(p,lich,c);}Require(!CorpseSkillRules.Shattered(bodies[3])&&!CorpseSkillRules.NoSelect(bodies[3])&&CorpseRecoveryHooks.CanAnimate(bodies[3])&&lich.CanRaise(bodies[3]),"Ordinary chill's nonshatter result or plain raising was disabled");lich.Delete();NativePositive(p);
         var unknown=Body(p,11,"plain");CorpseSkillRules.Profiles.Remove(unknown);Require(CorpseRecoveryHooks.CanAnimate(unknown),"Legacy missing metadata was reclassified");unknown.Delete();
         var positive=Body(p,6,"plain");var pending=Body(p,7,"plain");var a=Lich(p);var b=Lich(p,5);var prior=World.Mobiles.Keys.ToHashSet();var positiveItems=Items(positive);var pendingItems=Items(pending);
         // New wild casters retain their normal three-second startup cooldown.

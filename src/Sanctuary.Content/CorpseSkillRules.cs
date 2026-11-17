@@ -103,7 +103,7 @@ public static class CorpseSkillRules
         int level=CreatureProfiles.Level(creature);
         string issue=native is{ReviveAiSource:null}?native.ReviveIssue:null;
         var revive=known&&_selectable[key]&&issue==null?ReviveCreatureSnapshots.TryCapture(creature,key,out issue):null;
-        Profiles.Store(new(corpse.Serial.Value,known?key:null,known && _selectable[key],creature.Controlled || creature.Summoned || creature is BaseVendor,ColdCorpseProposal.Resolve(creature,PaladinHolyFreeze.Shattered(creature) || FreezeStates.Shattered(creature)),false,Treasure(creature),
+        Profiles.Store(new(corpse.Serial.Value,known?key:null,known && _selectable[key],creature.Controlled || creature.Summoned || creature is BaseVendor,ColdCorpseRules.Resolve(creature,PaladinHolyFreeze.Shattered(creature) || FreezeStates.Shattered(creature)),false,Treasure(creature),
             known && _selectable[key]?CorpseBaseSnapshots.Capture(creature,key):null,level>0?level:null,
             revive,issue));
     }

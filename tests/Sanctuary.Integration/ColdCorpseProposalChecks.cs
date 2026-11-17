@@ -19,14 +19,14 @@ public static class ColdCorpseProposalChecks
     {
         foreach(bool again in new[]{false,true})
         {bool reload=again;string name=reload?"cold-corpse-proposal-reload-check":"cold-corpse-proposal-check";
-            ConsoleInputHandler.RegisterCommand(name,"Candidate ordinary-chill corpse rule;default behavior remains unchanged",_=>Core.LoopContext.Post(()=>
+            ConsoleInputHandler.RegisterCommand(name,"Approved ordinary-chill corpse rule, shared guards and original saves",_=>Core.LoopContext.Post(()=>
             {try{Run(reload);Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));}
     }
     private static uint[] Items(Corpse c)=>c.Items.Select(i=>i.Serial.Value).OrderBy(i=>i).ToArray();
-    private static Corpse Make(PlayerMobile p,int roll,string state="cold",bool enroll=true)
+    private static Corpse Make(PlayerMobile p,int roll,string state="cold",bool supplied=true)
     {
         var m=new GraveyardSkeleton{Frozen=true,CantWalk=true,NoKillAwards=true};m.MoveToWorld(new(p.X+3,p.Y,p.Z),p.Map);m.AIObject?.AITimer.Stop();m.SetResistance(ResistanceType.Cold,0);
-        int calls=0;if(enroll){ColdCorpseProposal.Enroll(m,()=>{calls++;return roll;});}
+        int calls=0;if(supplied){ColdCorpseRules.SetRoll(m,()=>{calls++;return roll;});}
         if(state is "cold" or "expired" or "removed" or "freeze" or "holy")
         {Require(ColdStates.Commit(p,m,state=="expired"?1:500,true,-50,1,Core.TickCount-(state=="expired"?1000:0)),"Cold setup:"+state);}
         if(state=="removed"){Require(ColdStates.Remove(m,TimedEffects.Now),"Remove cold");}
@@ -34,10 +34,10 @@ public static class ColdCorpseProposalChecks
         if(state=="holy"){PaladinHolyFreeze.Restore(PaladinHolyFreeze.Snapshot().Append(new HolyFreezeLease(m.Serial.Value,p.Serial.Value,1,30,30,30,true,TimedEffects.Now.AddSeconds(20))).ToArray());}
         SkillCombat.HitParts(p,m,new(100000,0,0,0,0),recover:false);
         var c=m.Corpse as Corpse;Require(c is{Deleted:false},"Actual cold corpse creation");c.DropItem(new Gold(17));c.BeginDecay(FixtureSpace.Retention);
-        bool existing=state is "freeze" or "holy",eligible=enroll&&state=="cold";
-        Require(CorpseSkillRules.Shattered(c)==(existing||eligible&&roll<20)&&calls==(eligible?1:0),$"Candidate corpse result:{state},roll={roll},enroll={enroll},calls={calls}");
+        bool existing=state is "freeze" or "holy",eligible=state=="cold";
+        Require((!supplied||CorpseSkillRules.Shattered(c)==(existing||eligible&&roll<20))&&calls==(eligible&&supplied?1:0),$"Approved corpse result:{state},roll={roll},supplied={supplied},calls={calls}");
         var record=CorpseSkillRules.Profiles.Find(c);CorpseSkillRules.Capture(m,c);
-        Require(CorpseSkillRules.Profiles.Find(c)==record&&calls==(eligible?1:0)&&c.Items.OfType<Gold>().Any(g=>g.Amount==17),"Duplicate capture rerolled or loot changed");return c;
+        Require(CorpseSkillRules.Profiles.Find(c)==record&&calls==(eligible&&supplied?1:0)&&c.Items.OfType<Gold>().Any(g=>g.Amount==17),"Duplicate capture rerolled or loot changed");return c;
     }
     private static void Denied(PlayerMobile p,Corpse c)
     {
@@ -76,9 +76,32 @@ public static class ColdCorpseProposalChecks
         for(int roll=0;roll<100;roll++){var c=Make(p,roll);if(CorpseSkillRules.Shattered(c)){shattered++;}c.Delete();}
         Require(shattered==20,"Candidate must accept exactly20 of100 roll values");
         foreach(string state in new[]{"plain","expired","removed","freeze","holy"}){var c=Make(p,0,state);c.Delete();}
-        var unchanged=Make(p,0,enroll:false);Require(CorpseSkillRules.Available(unchanged),"Ordinary unenrolled cold behavior changed");unchanged.Delete();
+        var ordinary=Make(p,0,supplied:false);Require(CorpseSkillRules.Available(ordinary)!=CorpseSkillRules.Shattered(ordinary),"Default native-RNG corpse availability disagrees with its stored decision");ordinary.Delete();
+        MageKills();
         var positive=Make(p,99);NativeCorpseChecks.Cast(p,CombatAbility.CorpseExplosion,positive);positive.Delete();
         ClassCombat.Stop(p);var point=p.Location;SkillHealth.SetBalance256(p,SkillHealth.Maximum256(p)/2+17);NecromancerEffects.SetMana256(p,17);p.Internalize();
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(generation,p.Serial.Value,point,SkillHealth.Balance256(p),NecromancerEffects.ManaBalance256(p),retained.Select(c=>new Body(c.Serial.Value,CorpseSkillRules.Profiles.Find(c),Items(c))).ToArray())));
+    }
+    private static void MageKills()
+    {
+        var owner=MagePetBuffChecks.Owner(1);
+        try
+        {
+            foreach(int roll in new[]{0,20})
+            {
+                var mage=MagePetBuffChecks.Pet(owner,1);var target=new GraveyardSkeleton{Frozen=true,CantWalk=true,NoKillAwards=true};
+                target.MoveToWorld(new(mage.X+5,mage.Y,mage.Z),mage.Map);target.AIObject?.AITimer.Stop();target.SetResistance(ResistanceType.Cold,0);TimedEffects.PreventHealing(target,TimedEffects.Now);SkillHealth.SetBalance256(target,1);
+                int calls=0;ColdCorpseRules.SetRoll(target,()=>{calls++;return roll;});int mana=NecromancerEffects.ManaBalance256(owner);long id=NecromancerMageMissiles.Launch(mage,target,TimedEffects.Now);
+                try
+                {
+                    Require(id>0&&NecromancerMageMissiles.Snapshot().Bolts.Single(b=>b.Id==id).Packet.Spell==CombatAbility.IceBolt,"Actual Mage Ice Bolt release");
+                    for(int frame=0;frame<100&&NecromancerMageMissiles.Snapshot().Bolts.SingleOrDefault(b=>b.Id==id)is{} shot;frame++){NecromancerMageMissiles.Tick(shot.NextUtc,true,id);}
+                    Require(!target.Alive&&target.Corpse is Corpse,"Actual Mage cold kill created no corpse");var c=(Corpse)target.Corpse;c.DropItem(new Gold(17));
+                    Require(calls==1&&CorpseSkillRules.Shattered(c)==(roll<20)&&CorpseSkillRules.Available(c)==(roll>=20)&&NecromancerEffects.ManaBalance256(owner)==mana&&c.Items.OfType<Gold>().Any(g=>g.Amount==17),"Mage Ice Bolt cold-kill decision,availability,loot or owner mana");c.Delete();
+                }
+                finally{mage.Delete();target.Delete();}
+            }
+        }
+        finally{owner.Delete();}
     }
 }

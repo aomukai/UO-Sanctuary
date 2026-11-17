@@ -1,8 +1,8 @@
-# Ordinary chilled corpse rule — proposed Sanctuary adaptation
+# Ordinary chilled corpse rule — approved Sanctuary adaptation
 
-**Pending user decision.** Reference: D2R Reign of the Warlock **3.3.93847**. The saved reference establishes ordinary cold duration/slow and existing freeze behavior, but does not establish a reliable current ordinary-chill corpse destruction chance. The older raw SHATTER/deadCol branch is not treated as proof. No newer executable or CASC is inspected.
+**Approved by the user — 2026-11-17 JST.** [Approval](../tools/reference/ordinary-cold-corpse-approval.json), [activation evidence](ordinary-cold-corpse-adoption-checkpoint.md). Reference: D2R Reign of the Warlock **3.3.93847**. The saved reference establishes ordinary cold duration/slow and existing freeze behavior, but does not establish a reliable current ordinary-chill corpse destruction chance. The older raw SHATTER/deadCol branch is not treated as proof. No newer executable or CASC is inspected.
 
-Proposed rule:
+Approved rule:
 
 - When a monster actually creates a corpse while its ordinary `ColdStates` chill is active, roll once with a **20%** chance to mark that corpse shattered. The killing blow can use any damage type. Existing immunity, Cannot Be Frozen, duration and expiry rules decide whether the chill exists; this adds no new chill.
 - Existing frozen and Holy Freeze shatter rules retain their result and take no extra roll. Expired/removed chill and unchilled deaths take no roll. This rule covers ordinary chill represented by the shared state service, not unidentified legacy slow effects.
@@ -13,6 +13,6 @@ Proposed rule:
 
 The 20% chance, death-time roll and killing-blow independence are **explicit design choices**, not claimed recovered D2R behavior. This closes the playable ordinary-chill rule without guessing silently. Frozen/Holy Freeze producers remain separate.
 
-The candidate is implemented through an explicit per-creature enrollment used only by integration fixtures. **Ordinary play remains unenrolled and unchanged until approval.** The candidate does not expose a new talent, item, menu or button. After approval, normal-route activation and an actual Mage cold-kill check will be qualified separately; current proposal tests must not be presented as an enabled gameplay rule.
+The original tested candidate used per-creature enrollment. After approval, ordinary corpse creation now uses the rule directly; per-actor fixture overrides only supply rolls. Actual Mage cold-kill and normal-route checks pass in the adoption checkpoint. No new talent, item, menu or button is exposed.
 
 Verification is recorded in the [candidate checkpoint](ordinary-cold-corpse-checkpoint.md). Source limits remain in the [original reference-gap record](../tools/reference/cold-corpse-reference-gap.json), which is historical evidence and is not rewritten to imply a recovered current chance.

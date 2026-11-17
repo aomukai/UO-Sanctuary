@@ -1,0 +1,14 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "decision": "Adopt the tested 20% rule",
+  "userAnswer": "Adopt the tested 20% rule (Recommended)",
+  "approvedOn": "2026-11-17 JST",
+  "proposal": "docs/ordinary-cold-corpse-proposal.md",
+  "proposalSha256AtDecision": "97216e5b6e0825ad8d46f2bae2e34998fdcf0578016a13413c12b90fae75488e",
+  "candidateReceipt": "tools/reference/cold-corpse-proposal-native-evidence.json",
+  "candidateCommit": "2efa73a22d62554b77c6dd94c4e60aa536ba8b06",
+  "implementationVerifiedAtDecision": false,
+  "exactD2RChanceVerified": false,
+  "rule": "Once-only20percent shatter at actual corpse creation with active shared ordinary chill,regardless of killing damage type;existing freeze/HolyFreeze precedence,no roll for absent/expired/removed chill;preserve loot,existing corpse consumer guards and recorded historical results."
+}

@@ -1,5 +1,7 @@
 # Skill icons
 
+**Approved ordinary-chill shatter rule — 2026-11-17 JST.** [Activation checkpoint](ordinary-cold-corpse-adoption-checkpoint.md). No new talent or binding is added,so no new icon is required. Existing skill-tree/hotkey icon requirements remain separately pending;no artwork/imagegen.
+
 **Ordinary cold shatter candidate — 2026-11-17 JST.** The [proposal](ordinary-cold-corpse-proposal.md) adds no talent or binding and needs no new icon. Existing skill-tree/hotkey icon requirements remain separately pending; no artwork/imagegen.
 
 **Mage post-death lifetime — 2026-11-17 JST.** No new talent or hotkey is introduced. Raise Skeletal Mage talent-tree/hotkey artwork remains separately missing with existing identified placeholders. No artwork/imagegen. [Mechanical evidence](mage-projectile-lifetime-checkpoint.md).
