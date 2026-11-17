@@ -1,5 +1,7 @@
 # Skill icons
 
+**Amazon integration/approved Impale — 2026-11-17 JST.** [Checkpoint](amazon-lifecycle-acceptance-checkpoint.md) verifies24active input routes and six separate passive scopes without adding a talent or binding. Active talent/mouse/hotkey and passive talent-tree icons retain their separately listed missing artwork and identified placeholders. No imagegen.
+
 **Barbarian lifecycle/input qualification — 2026-11-17 JST.** [Checkpoint](barbarian-lifecycle-acceptance-checkpoint.md) verifies20active input routes;ten passives retain talent-tree icon requirements without active bindings. Existing active talent/mouse/hotkey icons remain separately missing with identified placeholders. No talent,binding or generated artwork is added.
 
 **Paladin lifecycle/input qualification — 2026-11-17 JST.** [Checkpoint](paladin-lifecycle-acceptance-checkpoint.md) verifies input for all30active talents without adding a talent or binding. Existing talent-tree/mouse/hotkey icons remain separately missing with identified placeholders. No artwork/imagegen.

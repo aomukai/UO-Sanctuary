@@ -1,0 +1,517 @@
+{
+  "referenceVersion": "3.3.93847",
+  "characterClass": "Amazon",
+  "classId": 101,
+  "talents": 30,
+  "activeTalents": 24,
+  "passiveTalents": 6,
+  "verifiedActiveInputRoutes": 24,
+  "ordinaryInputCases": 153,
+  "negativeInputCasesSeparatelyExcluded": 0,
+  "heldInputSequences": 0,
+  "foreignInputCasesSeparatelyExcluded": 42,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
+    "Assemblies/Sanctuary.Content.dll": "8650a6825fc6855608e4596cac7a9e97f3d00be7ed617a8212998acefb506553",
+    "Assemblies/Sanctuary.Integration.dll": "31c25205247120964f50a84ecdec3de1c2642778bf17ad6b672f081300c238cd"
+  },
+  "skills": [
+    {
+      "talentId": "amazon.jab",
+      "ability": 5,
+      "routes": {
+        "amazon-sequence-contact-jab-quick": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "amazon-sequence-contact-jab-right": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "amazon.powerstrike",
+      "ability": 6,
+      "routes": {
+        "amazon-thrust-contact-powerstrike-quick": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "amazon-thrust-contact-powerstrike-right": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "amazon.poisonjavelin",
+      "ability": 7,
+      "routes": {
+        "poison-javelin-contact-quick": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "poison-javelin-contact-right": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "amazon.impale",
+      "ability": 8,
+      "routes": {
+        "impale-contact-quick": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "impale-contact-right": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "amazon.lightningbolt",
+      "ability": 9,
+      "routes": {
+        "lightning-bolt-contact-quick": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "lightning-bolt-contact-right": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "amazon.chargedstrike",
+      "ability": 10,
+      "routes": {
+        "charged-strike-contact-quick": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "charged-strike-contact-right": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "amazon.plaguejavelin",
+      "ability": 11,
+      "routes": {
+        "plague-javelin-contact-quick": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "plague-javelin-contact-right": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "amazon.fend",
+      "ability": 12,
+      "routes": {
+        "amazon-sequence-contact-fend-quick": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "amazon-sequence-contact-fend-right": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "amazon.lightningstrike",
+      "ability": 13,
+      "routes": {
+        "lightning-strike-contact-quick": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "lightning-strike-contact-right": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "lightning-strike-quick": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "lightning-strike-right": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "amazon.lightningfury",
+      "ability": 14,
+      "routes": {
+        "lightning-fury-contact-quick": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "lightning-fury-contact-right": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "amazon.innersight",
+      "ability": 15,
+      "routes": {
+        "amazon-cast-clock-right": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "amazon.slowmissiles",
+      "ability": 18,
+      "routes": {
+        "slow-missiles-learned-fcr-quick": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "slow-missiles-learned-quick": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "slow-missiles-learned-right": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "amazon.decoy",
+      "ability": 21,
+      "routes": {
+        "amazon-cast-clock-quick": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "amazon.valkyrie",
+      "ability": 23,
+      "routes": {
+        "valkyrie-cast-quick": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "valkyrie-cast-right": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "amazon.magicarrow",
+      "ability": 25,
+      "routes": {
+        "magic-arrow-contact-quick": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "magic-arrow-contact-right": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "amazon.firearrow",
+      "ability": 26,
+      "routes": {
+        "elemental-arrow-fire-quick": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "elemental-arrow-fire-right": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "amazon.coldarrow",
+      "ability": 27,
+      "routes": {
+        "elemental-arrow-cold-quick": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "elemental-arrow-cold-right": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "amazon.multipleshot",
+      "ability": 28,
+      "routes": {
+        "multiple-shot-contact-quick": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "multiple-shot-contact-right": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "pierce-action-quick": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "pierce-action-right": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "amazon.explodingarrow",
+      "ability": 29,
+      "routes": {
+        "explosive-arrow-fire-quick": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "explosive-arrow-fire-right": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "amazon.icearrow",
+      "ability": 30,
+      "routes": {
+        "ice-arrow-contact-quick": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "ice-arrow-contact-right": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "amazon.guidedarrow",
+      "ability": 31,
+      "routes": {
+        "guided-arrow-contact-quick": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "guided-arrow-contact-right": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "amazon.immolationarrow",
+      "ability": 32,
+      "routes": {
+        "immolation-contact-quick": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "immolation-contact-right": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "amazon.strafe",
+      "ability": 33,
+      "routes": {
+        "strafe-contact-quick": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "strafe-contact-right": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "amazon.freezingarrow",
+      "ability": 34,
+      "routes": {
+        "explosive-arrow-freeze-quick": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "explosive-arrow-freeze-right": {
+          "stage": "amazon-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    }
+  ],
+  "passiveSkills": [
+    {
+      "talentId": "amazon.criticalstrike",
+      "ability": 16
+    },
+    {
+      "talentId": "amazon.dodge",
+      "ability": 17
+    },
+    {
+      "talentId": "amazon.avoid",
+      "ability": 19
+    },
+    {
+      "talentId": "amazon.penetrate",
+      "ability": 20
+    },
+    {
+      "talentId": "amazon.evade",
+      "ability": 22
+    },
+    {
+      "talentId": "amazon.pierce",
+      "ability": 24
+    }
+  ],
+  "classCertified": false,
+  "limits": "Every admitted route has successful input results on three boots. Negative controls do not establish a positive cast. Held class context comes from compiled owner/guard evidence rather than an invented log field. Passive mechanics remain separate birth/stat evidence. This is input accounting,not whole-class mechanics or exact engine/client/PvP certification.",
+  "files": {
+    ".local/class-skills/amazon-lifecycle-acceptance/birth-inputs.json": "70816d5d1c4618b483742898aea8997348bcaf84a75d8d5fbd433957885dbe75",
+    ".local/class-skills/amazon-lifecycle-acceptance/birth-native-checks.log": "99da8ce9f5caa14e6d2fbed037e7644910cb47bb3936f429117525d608fd805c",
+    "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
+    "shared/DiabloClass.cs": "735cddd18c8e4397a4d5e73ec0a26bc7165056e5f571c87121b3609f820db075",
+    "tools/class_input_coverage.py": "9b17725ba225a5e6f742bf6bb6f0e91efaff4fbfe3a2dd894c9a6e37cb77fe43",
+    "tools/review_amazon_input_coverage.py": "e0a94a487f7b23bbcef1be0e9061d2f55fb20c61c5328e9883eb2c4eda3d7ecd"
+  },
+  "legacyCastCases": 45,
+  "legacyAbilityControls": {
+    "magic-arrow": {
+      "ability": 25,
+      "successfulCases": 3
+    },
+    "multiple-shot": {
+      "ability": 28,
+      "successfulCases": 3
+    },
+    "fire-arrow": {
+      "ability": 26,
+      "successfulCases": 3
+    },
+    "cold-arrow": {
+      "ability": 27,
+      "successfulCases": 3
+    },
+    "ice-arrow": {
+      "ability": 30,
+      "successfulCases": 3
+    },
+    "exploding-arrow": {
+      "ability": 29,
+      "successfulCases": 3
+    },
+    "guided-arrow": {
+      "ability": 31,
+      "successfulCases": 3
+    },
+    "immolation-arrow": {
+      "ability": 32,
+      "successfulCases": 3
+    },
+    "strafe": {
+      "ability": 33,
+      "successfulCases": 3
+    },
+    "freezing-arrow": {
+      "ability": 34,
+      "successfulCases": 3
+    },
+    "poison-javelin": {
+      "ability": 7,
+      "successfulCases": 3
+    },
+    "lightning-bolt": {
+      "ability": 9,
+      "successfulCases": 3
+    },
+    "plague-javelin": {
+      "ability": 11,
+      "successfulCases": 3
+    },
+    "lightning-fury": {
+      "ability": 14,
+      "successfulCases": 3
+    }
+  },
+  "legacyLimits": "Fourteen logged legacy ability routes and three Decoy Cast/expiry controls omit a class byte;they are counted separately. All24active routes already have current explicit class/ability input evidence. Legacy controls do not add active talents or prove another input protocol."
+}

@@ -1,5 +1,7 @@
 # Skill effects
 
+**Amazon integration/approved Impale — 2026-11-17 JST.** [Checkpoint](amazon-lifecycle-acceptance-checkpoint.md) adds no artwork/audio. Existing thrust,slow,arrow/javelin travel,poison/lightning/cold/burning fields,Decoy/Valkyrie and shatter effects remain identified mechanical placeholders. Final effects/audio stay separately missing;no imagegen.
+
 **Barbarian lifecycle/input qualification — 2026-11-17 JST.** [Checkpoint](barbarian-lifecycle-acceptance-checkpoint.md) creates no artwork/audio. Shout waves,curse overlays,corpse searches,Leap/Whirlwind movement,throwing projectiles and melee impacts keep identified mechanical placeholders. Final effects/audio remain separately missing;no imagegen.
 
 **Paladin lifecycle/input qualification — 2026-11-17 JST.** [Checkpoint](paladin-lifecycle-acceptance-checkpoint.md) creates no artwork/audio. Verified aura pulses,recipient overlays,projectiles,shields and corpse recovery still use identified mechanical placeholders. Final effects/audio remain separately missing;no imagegen.

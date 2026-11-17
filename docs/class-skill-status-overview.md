@@ -6,7 +6,7 @@ Status at commit `2b8dd736`, 2026-11-17 JST. Reference: D2R Reign of the Warlock
 | --- | --- |
 | Talent implementation | 240/240 routes across eight classes, including Warlock/Witch; 30 per class |
 | Existing mechanical tests | All 240 have scoped native coverage; all eight classes have earlier combined or grouped acceptance evidence |
-| Latest consolidated input/lifecycle refresh | Necromancer, Sorceress, Paladin and Barbarian refreshed; Amazon, Assassin, Druid and Warlock retain older evidence plus later targeted checks |
+| Latest consolidated input/lifecycle refresh | Necromancer, Sorceress, Paladin, Barbarian and Amazon refreshed; Assassin, Druid and Warlock retain older evidence plus later targeted checks |
 | Effects/audio | Separate missing-asset register; identified placeholders remain |
 | Talent/hotkey icons | Separate missing-asset register; identified placeholders remain |
 | Playable-build handoff | Latest work is committed and tested in isolated builds; the protected installed build and existing saves have not been replaced |
@@ -18,7 +18,7 @@ Recent Paladin and Barbarian work added missing real input tests and retained ex
 Remaining work must be bounded by the original class-skill objective:
 
 1. Reuse existing evidence and fixtures to close concrete ordinary talent input/lifecycle gaps in the remaining classes. Amazon already has current725-result combined evidence and existing contact fixtures for the four active talents absent from its class-ID readiness inventory. Do not rebuild those mechanics merely to add their existing input tests.
-2. Resolve or explicitly defer individual unsupported mechanics, with their exact effect on play recorded. Examples already documented are Find Item's disputed chance/special treasure contexts and Blade Sentinel's additional flat NPC item-drain context. Impale's paid shield/avoidance policy is now explicitly approved; current focused qualification is next. Passing unrelated tests does not resolve other gaps.
+2. Resolve or explicitly defer individual unsupported mechanics, with their exact effect on play recorded. Examples already documented are Find Item's disputed chance/special treasure contexts and Blade Sentinel's additional flat NPC item-drain context. Impale's paid shield/avoidance policy is now explicitly approved and included in the current809-result Amazon qualification. Passing unrelated tests does not resolve other gaps.
 3. Fix demonstrated defects in the intended ordinary class routes and their required shared combat services. Preserve approved Sanctuary rules; do not invent uncertain source behavior or reopen settled approvals.
 4. Assemble and verify the current playable server/client package using the protected-build and save-preservation procedure. Report what can be played, outstanding limitations and assets, and provide a concrete handoff.
 
