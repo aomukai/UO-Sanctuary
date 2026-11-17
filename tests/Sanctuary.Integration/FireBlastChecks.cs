@@ -23,7 +23,7 @@ public static class FireBlastChecks
     public static void Configure()
     {
         Rates();Register("fire-blast-check",Check);Register("fire-blast-reload-check",Reload);Register("fire-blast-input-check",Input);
-        EventSink.WorldLoad+=()=>{if(File.Exists(Manifest)){var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));if(World.FindMobile((Serial)s.Target) is BaseCreature c){Stop(c);}}};
+        EventSink.WorldLoad+=()=>{if(File.Exists(Manifest)){var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));if(World.FindMobile((Serial)s.Target) is BaseCreature c){c.Frozen=true;c.CantWalk=true;Stop(c);}}};
     }
     [CallPriority(int.MaxValue)]public static void Initialize()=>Rates();
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Fire Blast S2 lob, damage snapshots and persistent phases",_=>Core.LoopContext.Post(()=>{try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
@@ -51,7 +51,7 @@ public static class FireBlastChecks
     private static void Stop(BaseCreature t){t.Combatant=null;t.FocusMob=null;t.AIObject?.AITimer.Stop();}
     private static Skeleton Target(PlayerMobile p,int dx=4,int dy=0)
     {
-        Skeleton t;_creating=true;try{t=new Skeleton{Name="FireBlastFixtureTarget",NoKillAwards=true};}finally{_creating=false;}
+        Skeleton t;_creating=true;try{t=new Skeleton{Name="FireBlastFixtureTarget",NoKillAwards=true,Frozen=true,CantWalk=true};}finally{_creating=false;}
         t.MoveToWorld(new(p.X+dx,p.Y+dy,p.Z),p.Map);Stop(t);t.SetHits(20000);t.SetResistance(ResistanceType.Fire,0);return t;
     }
     private static void Ready(PlayerMobile p){ClassCombat.Stop(p);var s=ClassCombat.For(p);s.NextAction=s.RecoveryUntil=Core.TickCount;p.Frozen=p.Paralyzed=false;NecromancerEffects.SetMana256(p,p.ManaMax*256);}
@@ -175,7 +175,7 @@ public static class FireBlastChecks
         p.MoveToWorld(new((int)s.Air.X,(int)s.Air.Y,s.Air.Z),Map.Maps[s.Air.Map]); // Saved offline players are internalized; resume after returning to their saved world.
         var old=FireBlasts.Roll;try
         {
-            FireBlasts.Roll=_=>0;var due=s.Ground with{NextUtc=TimedEffects.Now};FireBlasts.Restore(FireBlasts.Snapshot().Where(x=>x.Id!=due.Id && x.Id!=s.Air.Id).Append(due).ToArray());Run(p,due);
+            FireBlasts.Roll=_=>0;var due=s.Ground with{NextUtc=TimedEffects.Now};FireBlasts.Restore(FireBlasts.Snapshot().Where(x=>x.Id!=due.Id && x.Id!=s.Air.Id).Append(due).ToArray());Require(t.Frozen&&t.CantWalk&&t.Location==FireBlasts.Point(due)&&FireBlasts.Recipient(p,t,due),$"Saved Fire Blast recipient unavailable:position={t.Location},center={FireBlasts.Point(due)},alive={t.Alive},frozen={t.Frozen},cantWalk={t.CantWalk},eligible={FireBlasts.Recipient(p,t,due)}");Run(p,due);
             Require(SkillHealth.Balance256(t)==s.Health-s.Ground.Min256, $"Resumed saved ground packet: actual={SkillHealth.Balance256(t)}, expected={s.Health-s.Ground.Min256}, map={p.Map}, fire={t.FireResistance}");SkillHealth.SetBalance256(t,s.Health);
             var air=s.Air with{NextUtc=TimedEffects.Now};FireBlasts.Restore(FireBlasts.Snapshot().Append(air).ToArray());Run(p,air);Require(SkillHealth.Balance256(t)==s.Health-s.Ground.Min256,"Resumed saved air creates fresh landed packet");SkillHealth.SetBalance256(t,s.Health);
             FireBlasts.Restore(FireBlasts.Snapshot().Append(s.Air).Append(s.Ground).ToArray());

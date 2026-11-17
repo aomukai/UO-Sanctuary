@@ -50,7 +50,7 @@ public static class MindBlasts
         // Current3.3.93847 observation supersedes the older success/no-damage
         // branch. Commit while hostile, then transfer allegiance; never bypass
         // global friendly protection. Modern damage/scaling order is still open.
-        int loss=SkillHealth.Damage(owner,target,NamedElements.To256(parts.Total));
+        int loss=SkillHealth.TypedDamage(owner,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));
         if(convert)
         {
             if(target is{Alive:true,Deleted:false}){PaladinConversion.ApplyMindBlast(owner,target,frames);}

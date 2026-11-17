@@ -60,7 +60,7 @@ public static class PsychicHammers
         if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
         var raw=Damage(values,NamedElements.MasteryPercent(owner,"mag"),Roll);
         owner.DoHarmful(target,true);var parts=SkillCombat.MitigatePrepared(owner,target,Potion(owner,raw));
-        int loss=SkillHealth.Damage(owner,target,NamedElements.To256(parts.Total));
+        int loss=SkillHealth.TypedDamage(owner,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));
         // Source events commit damage before do33 rolls the chance. Roll even
         // when that damage killed the target; no new knockback may start on a corpse.
         int chance=Chance(owner,target,values);bool knockback=chance>0 && Roll(100)<chance;

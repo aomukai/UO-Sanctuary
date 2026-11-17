@@ -97,7 +97,7 @@ public static class FireBlasts
         {
             if(!Recipient(owner,target,b) || ClassAvoidance.Missile(target)){continue;}
             owner.DoHarmful(target,true);var parts=SkillCombat.MitigatePrepared(owner,target,raw);
-            int loss=SkillHealth.Damage(owner,target,NamedElements.To256(parts.Total));CreatureHitRecovery.Apply(target,owner,loss);
+            int loss=SkillHealth.TypedDamage(owner,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));CreatureHitRecovery.Apply(target,owner,loss);
         }
         Effects.SendLocationEffect(Point(b),owner.Map,0x36BD,15,10,0x489,0); // Identified explosion placeholder.
     }

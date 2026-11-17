@@ -1,0 +1,12 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "answer": "Adopt the tested shared rule (Recommended)",
+  "approvedUtc": "2026-11-17T04:27:06.227173+00:00",
+  "proposal": "docs/pierce-action-policy-proposal.md",
+  "proposalAtApprovalSha256": "78a6293b902a13013250dadbd0ee43dbc44eab094950d4d9a58db8b5ab9fa295",
+  "testedEvidence": "tools/reference/pierce-action-policy-native-evidence.json",
+  "testedCommit": "3dcd8c4bfb627a075022ec1e2686a9c9fd93c7f1",
+  "scope": "Approve saved per-character unsigned action counter initially0,commit once after successful ranged emission,fan/Strafe capture,verified temporary source seed,unchanged mana/ammo and saved budgets. Initial zero,persistence,wrap and action-release mapping are explicit Sanctuary adaptations. Reuse for other player producers only after separate wiring/verification;NPC index remains distinct.",
+  "implementation": "Approved;do not reask. Runtime gate is still false while the independent Assassin spell regression completes. Next enable and verify the14already-wired Amazon ranged talents through ordinary learned owners. No additional producer is claimed."
+}

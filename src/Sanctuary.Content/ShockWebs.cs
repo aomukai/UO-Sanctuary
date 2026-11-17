@@ -110,7 +110,7 @@ public static class ShockWebs
         var raw=Packet(shard,WeaponMissileDamage.RollValue(shard.Min256,shard.Max256,0,Roll));
         if(ClassAvoidance.Missile(target)){return;}
         owner.DoHarmful(target,true);var parts=SkillCombat.MitigatePrepared(owner,target,raw);
-        SkillHealth.Damage(owner,target,NamedElements.To256(parts.Total)); // SoftHit: no ordinary get-hit/recovery request.
+        SkillHealth.TypedDamage(owner,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts)); // SoftHit: no ordinary get-hit/recovery request.
     }
     private static ShockShard Land(PlayerMobile owner,ShockShard shard)
     {

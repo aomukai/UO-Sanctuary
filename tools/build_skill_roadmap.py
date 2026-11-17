@@ -863,6 +863,10 @@ CAVEATS['assassin.deathsentry']+=' Corpse explosions now publish their settled p
 for _talent in ('assassin.chargedboltsentry','assassin.lightningsentry','assassin.deathsentry','assassin.wakeofinferno','assassin.wakeoffire'):
     CAVEATS[_talent]+=' Shared sentry missile contacts now publish their settled lightning/fire channel through the existing typed health API for approved Defiler Health Link. Each source row retains its own damage-rate scaling,immunity/pierce,absorption,source RNG,avoidance,recovery and saved flight rules. Fifteen link cases per boot,all five projectile/lifecycle and learned-input/original-save cohorts are scoped in sentry-missile-link-checkpoint.md;this is a shared-event repair,not full class certification.'
 
+# Preserve the four Assassin spell contacts' known components at health delivery.
+for _talent in ('assassin.fireblast','assassin.shockweb','assassin.psychichammer','assassin.mindblast'):
+    CAVEATS[_talent]+=' Direct spell contact now publishes settled components through the shared typed health API for approved Defiler Health Link,including potion elements while excluding its immediate poison from sharing. Existing ground/area/NHD,targeting,mana,stun/knockback and damage-before-conversion rules retain. Fourteen linked cases per boot and retained original flight/field/motion/allegiance,learned input and reload controls are scoped in assassin-spell-link-checkpoint.md;this is shared-event compatibility,not full class certification.'
+
 def planned_content_remaining(text):
     """Keep excluded charm-only mechanics out of active talent blockers."""
     if not re.search('sunder',text,re.I):return text
