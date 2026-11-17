@@ -7,7 +7,7 @@ Status: 2026-11-18 JST; current milestones are linked below. Reference: D2R Reig
 | Talent implementation | 240/240 routes across eight classes, including Warlock/Witch; 30 per class |
 | Character creation | All eight rendered choices and both appearance variants checked; Warlock and Witch creation, native titles/rendered talent headings and save/reload pass in disposable worlds |
 | Existing mechanical tests | All 240 have scoped native coverage; all eight classes have earlier combined or grouped acceptance evidence |
-| Approved pet changes | Necromancer's 22 requirements map to actual consumers and scoped native evidence, including current birth snapshots; Druid review remains separate |
+| Approved pet changes | Necromancer's 22 requirements and Druid's 11 policy groups map to actual consumers and scoped native evidence; current birth snapshots and ten-type Druid parking are distinguished |
 | Latest consolidated input/lifecycle refresh | All eight classes have current scoped evidence; Warlock/Witch passes906results,26active routes and four separate passive consumers |
 | Effects/audio | Separate missing-asset register; identified placeholders remain |
 | Talent/hotkey icons | Separate missing-asset register; identified placeholders remain |

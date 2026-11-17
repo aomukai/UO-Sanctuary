@@ -129,12 +129,18 @@ def audit(check=False):
     assert pets['actualReloads'] == 2 and not pets['gameplayChanged'] and not pets['classCertified']
     for path, digest in pets['files'].items():
         assert e.sha(ROOT / path) == digest, path
+    druid_path = ROOT / 'tools/reference/druid-pet-policy-audit.json'
+    druid = e.load(druid_path)
+    assert druid['reviewedRequirements'] == 11 and druid['preparedSpeciesParked'] == 10
+    assert druid['safeAreaReloads'] == 2 and not druid['productionChanged'] and not druid['classCertified']
+    for path, digest in druid['files'].items():
+        assert e.sha(ROOT / path) == digest, path
     files.extend([install_path, original_path,
                   ROOT / 'tools/reference/class-skills-installation-evidence.json',
                   ROOT / 'data/Sanctuary/Balance/skill-effects.json',
                   ROOT / 'data/Sanctuary/Balance/skill-icons.json',
                   ROOT / 'tools/reference/find-item-chance-approval.json',
-                  ROOT / approval['proposal']['path'], roster_path, pets_path,
+                  ROOT / approval['proposal']['path'], roster_path, pets_path, druid_path,
                   ROOT / 'docs/class-skill-completion-audit.md', Path(__file__)])
     result = dict(referenceVersion='3.3.93847', talents=240, classes=classes,
         activeRoutes=210, passiveConsumers=30, effectsRegisterEntries=240, iconRegisterEntries=240,
@@ -143,9 +149,10 @@ def audit(check=False):
         findItemChanceApproved=True, runtimeOrNumericalDataChanged=False,
         renderedWarlockWitchCreationVerified=True,
         necromancerApprovedPetConsumersReviewed=True,
+        druidApprovedPetConsumersReviewed=True,
         strictCompletedClasses=ledger['completedClasses'], classCertified=False, goalComplete=False,
         remainingRequirements=['Resolve or explicitly qualify concrete ordinary-skill targeting/damage and special-recipient gaps',
-            'Continue Druid and other shared pet-consumer review;Necromancer approved pet consumers have explicit scoped evidence',
+            'Keep remaining shared summon contexts explicit;Necromancer and Druid selected pet changes have scoped consumer evidence',
             'Keep unsupported world services,legacy monster conversion and future gear design distinct',
             'Graphical gameplay remains unverified;final effects/audio and icons remain separately tracked'],
         skills=talents)

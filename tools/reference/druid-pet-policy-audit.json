@@ -1,0 +1,323 @@
+{
+  "referenceVersion": "3.3.93847",
+  "requirements": [
+    {
+      "requirement": "spirit-wolf",
+      "approvedRule": "Hard 10 grants Open Wounds; hard 20 grants ordinary cold immunity; retain cold-only attacks and baseline unchillability.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/SpiritWolfUpgrades.cs",
+        "src/Sanctuary.Content/NpcOpenWounds.cs",
+        "src/Sanctuary.Content/DruidSpiritWolfHit.cs",
+        "src/Sanctuary.Content/DruidSpiritWolfBody.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/SpiritWolfUpgradeChecks.cs",
+      "retainedNativeMarkers": {
+        "spirit-wolf-mode-check": 1,
+        "spirit-wolf-mode-reload-check": 2,
+        "spirit-wolf-upgrades-check": 1,
+        "spirit-wolf-upgrades-live-check": 3,
+        "spirit-wolf-upgrades-live-result": 3,
+        "spirit-wolf-upgrades-reload-check": 2
+      },
+      "currentNativeMarkers": {},
+      "status": "verified-scoped"
+    },
+    {
+      "requirement": "dire-wolf",
+      "approvedRule": "Hard 10 grants existing movement-only Extra Fast; hard 20 grants existing Extra Strong.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/DireWolfUpgrades.cs",
+        "src/Sanctuary.Content/DruidDireWolfHit.cs",
+        "src/Sanctuary.Content/DruidDireWolfBody.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/DireWolfUpgradeChecks.cs",
+      "retainedNativeMarkers": {
+        "dire-wolf-upgrades-check": 1,
+        "dire-wolf-upgrades-live-check": 3,
+        "dire-wolf-upgrades-live-result": 3,
+        "dire-wolf-upgrades-reload-check": 2
+      },
+      "currentNativeMarkers": {},
+      "status": "verified-scoped"
+    },
+    {
+      "requirement": "grizzly",
+      "approvedRule": "Ordinary hits at hard 10 stun normal mobs 50%/3 seconds and bosses 10%/1 second; no passive stun on Smite. Hard 20 grants 10% Crushing Blow.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/GrizzlyUpgrades.cs",
+        "src/Sanctuary.Content/DruidGrizzlyHit.cs",
+        "src/Sanctuary.Content/NpcCrushing.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/GrizzlyUpgradeChecks.cs",
+      "retainedNativeMarkers": {
+        "grizzly-upgrades-check": 1,
+        "grizzly-upgrades-live-check": 3,
+        "grizzly-upgrades-live-result": 3,
+        "grizzly-upgrades-reload-check": 2
+      },
+      "currentNativeMarkers": {},
+      "status": "verified-scoped"
+    },
+    {
+      "requirement": "creeper-damage",
+      "approvedRule": "Scale the existing curve to 2000 average base damage over four seconds at rank 20, then apply the sole hard-Rabies synergy.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/DruidCreeperPoison.cs",
+        "src/Sanctuary.Content/DruidCreeperStats.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/CreeperBalanceChecks.cs",
+      "retainedNativeMarkers": {
+        "creeper-balance-check": 1,
+        "creeper-balance-reload-check": 2
+      },
+      "currentNativeMarkers": {},
+      "status": "verified-scoped"
+    },
+    {
+      "requirement": "creeper-snapshot",
+      "approvedRule": "Current summon captures rank and hard Rabies; existing fields retain their original packets. Owner poison gear is excluded; unsupported sunder remains refused.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/DruidCreeperStats.cs",
+        "src/Sanctuary.Content/DruidCreeperPoison.cs",
+        "src/Sanctuary.Content/DruidCreeperGround.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/CreeperLearnedChecks.cs",
+      "retainedNativeMarkers": {
+        "creeper-learned-check": 1,
+        "creeper-learned-live-result": 3,
+        "creeper-learned-quick-check": 3,
+        "creeper-learned-quick-result": 3,
+        "creeper-learned-reload-check": 2,
+        "creeper-learned-right-check": 3,
+        "creeper-learned-right-result": 3
+      },
+      "currentNativeMarkers": {},
+      "status": "verified-scoped"
+    },
+    {
+      "requirement": "vine-vulnerability",
+      "approvedRule": "All three vines remain vulnerable; no underground exposure immunity is introduced.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/DruidCreeperBody.cs",
+        "src/Sanctuary.Content/DruidRecyclerBody.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/RecyclerLearnedChecks.cs",
+      "retainedNativeMarkers": {
+        "creeper-body-check": 1,
+        "creeper-body-reload-check": 2,
+        "creeper-learned-check": 1,
+        "creeper-learned-live-result": 3,
+        "creeper-learned-quick-check": 3,
+        "creeper-learned-quick-result": 3,
+        "creeper-learned-reload-check": 2,
+        "creeper-learned-right-check": 3,
+        "creeper-learned-right-result": 3,
+        "recycler-body-check": 1,
+        "recycler-body-reload-check": 2,
+        "recycler-learned-check": 1,
+        "recycler-learned-live-result": 3,
+        "recycler-learned-reload-check": 2
+      },
+      "currentNativeMarkers": {},
+      "status": "verified-scoped"
+    },
+    {
+      "requirement": "recyclers",
+      "approvedRule": "Carrion Vine keeps baseline recovery; Solar uses the approved current table values with whole-point rounding.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/DruidRecyclerRecovery.cs",
+        "src/Sanctuary.Content/DruidRecyclerBody.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/RecyclerRecoveryChecks.cs",
+      "retainedNativeMarkers": {
+        "recycler-learned-check": 1,
+        "recycler-learned-live-result": 3,
+        "recycler-learned-reload-check": 2,
+        "recycler-model-check": 3,
+        "recycler-recovery-check": 1,
+        "recycler-recovery-reload-check": 2
+      },
+      "currentNativeMarkers": {},
+      "status": "verified-scoped"
+    },
+    {
+      "requirement": "spirits",
+      "approvedRule": "Oak Sage, Heart of Wolverine and Spirit of Barbs retain baseline behavior and their captured birth stats.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/DruidSpiritStats.cs",
+        "src/Sanctuary.Content/DruidOakBody.cs",
+        "src/Sanctuary.Content/DruidWolverineBody.cs",
+        "src/Sanctuary.Content/DruidBarbsBody.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/OakCastingChecks.cs",
+      "retainedNativeMarkers": {
+        "barbs-casting-check": 1,
+        "barbs-casting-reload-check": 2,
+        "oak-casting-check": 1,
+        "oak-casting-reload-check": 2,
+        "wolverine-casting-check": 1,
+        "wolverine-casting-reload-check": 2
+      },
+      "currentNativeMarkers": {},
+      "status": "verified-scoped"
+    },
+    {
+      "requirement": "raven",
+      "approvedRule": "Retain baseline budget and retarget behavior; born stats and already-issued packets are preserved.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/DruidRavenBody.cs",
+        "src/Sanctuary.Content/DruidRavenStats.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/RavenSnapshotChecks.cs",
+      "retainedNativeMarkers": {
+        "raven-casting-check": 1,
+        "raven-casting-reload-check": 2,
+        "raven-snapshot-check": 1,
+        "raven-snapshot-live-result": 3,
+        "raven-snapshot-reload-check": 2
+      },
+      "currentNativeMarkers": {},
+      "status": "verified-scoped"
+    },
+    {
+      "requirement": "beast-snapshots",
+      "approvedRule": "Current public Wolf/Grizzly births retain inherited ranks, hard unlocks, resources and future attack-entry packets through training, gear, respec and reload.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/DruidBeastAttackStats.cs",
+        "src/Sanctuary.Content/SummonUpgradeSnapshots.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/DruidSnapshotChecks.cs",
+      "retainedNativeMarkers": {
+        "druid-snapshot-check": 1,
+        "druid-snapshot-reload-check": 2
+      },
+      "currentNativeMarkers": {},
+      "status": "verified-scoped"
+    },
+    {
+      "requirement": "safe-area",
+      "approvedRule": "All ten prepared Druid summon types park in actual safe regions, retain wounds/resources/identity, suppress recovery, and return without slot or Raven-budget resets.",
+      "productionConsumers": [
+        "src/Sanctuary.Content/MinionSafeAreas.cs",
+        "src/Sanctuary.Content/PersistentMinions.cs",
+        "src/Sanctuary.Content/TimedEffects.cs"
+      ],
+      "fixture": "tests/Sanctuary.Integration/DruidSafeAreaChecks.cs",
+      "retainedNativeMarkers": {},
+      "currentNativeMarkers": {
+        "iron-golem-birth-check": 3,
+        "iron-golem-items-check": 1,
+        "iron-golem-items-reload-check": 2,
+        "npc-resource-callbacks-check": 1,
+        "npc-resource-callbacks-reload-check": 2,
+        "druid-safe-area-check": 1,
+        "druid-safe-area-reload-check": 2
+      },
+      "status": "verified-scoped"
+    }
+  ],
+  "reviewedRequirements": 11,
+  "currentNativeMarkers": {
+    "iron-golem-birth-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2,
+    "druid-safe-area-check": 1,
+    "druid-safe-area-reload-check": 2
+  },
+  "preparedSpeciesParked": 10,
+  "safeAreaSaves": 3,
+  "safeAreaReloads": 2,
+  "currentPublicBirthSnapshotActorsReused": 12,
+  "retainedDruidResults": 1139,
+  "retainedCountsNotAddedAgain": true,
+  "productionChanged": false,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
+    "Assemblies/Sanctuary.Content.dll": "279d7216ecd05447605a61f89d02041edc5b6876bfad45d00080d714f1c21c28",
+    "Assemblies/Sanctuary.Integration.dll": "79bb94d5799276242bd2399015bcda49bc1eb5540f7b5ae9de17e1169fc8f4c6"
+  },
+  "failure": "Temporary test region used Internal instead of saved world facet after offline reload; Integration2 corrects only that fixture.",
+  "limits": [
+    "Parking controls use real prepared bodies and offline explicit return admission; authenticated learned casts and public-birth snapshots retain their existing separate proofs.",
+    "No new cross-facet rescaling, healer/companion, arbitrary region or graphical combat claim is made by these parking controls.",
+    "Unsupported sunder, legacy profiles and modern source/geometry limitations remain explicit. Final effects/audio/icons remain separately tracked."
+  ],
+  "classCertified": false,
+  "goalComplete": false,
+  "files": {
+    ".local/class-skills/druid-lifecycle-acceptance/druid-snapshot-fixtures.json": "3265ebe16311718d887c9f9e9a7d0616091600275c7b968fae509e3eeb89fa55",
+    ".local/class-skills/druid-safe-area/before-source.json": "6dec487d65c735c103db10d34f2ba1d61439c6dd16a806a67b3a41e39b1b9af2",
+    ".local/class-skills/druid-safe-area/birth-inputs.json": "344b66b211a818c5383b9fd20431c650d6575ffdb42534f08c861b17ef0463b5",
+    ".local/class-skills/druid-safe-area/birth-native-checks.log": "153214d6fafc02d96f5d055ad6e25ff3d85591771bc2dd381341ad8c5d70fb5e",
+    ".local/class-skills/druid-safe-area/build-1.log": "24657fa60bb68798830a2f3788ed89e53cfde156f5b1637586a6ef48a3f2122d",
+    ".local/class-skills/druid-safe-area/build-2.log": "29bb866b4e230005b5125eb59bb5edba9cfe14130fbe8c9b273124f17463e7b1",
+    ".local/class-skills/druid-safe-area/druid-safe-area-fixtures.json": "801d7af20544f515805759e146bd5b36bc0918cc072ea3cd92e9bf4e55ff6bd3",
+    ".local/class-skills/druid-safe-area/failed-run-1/artifacts/ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    ".local/class-skills/druid-safe-area/failed-run-1/artifacts/Sanctuary.Content.dll": "279d7216ecd05447605a61f89d02041edc5b6876bfad45d00080d714f1c21c28",
+    ".local/class-skills/druid-safe-area/failed-run-1/artifacts/Sanctuary.Integration.dll": "db43c3b5af2c6b82d741804074852c11ee5e26731850816c1244c90f0ae89c8e",
+    ".local/class-skills/druid-safe-area/failed-run-1/artifacts/Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    ".local/class-skills/druid-safe-area/failed-run-1/artifacts/UOContent.dll": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
+    ".local/class-skills/druid-safe-area/failed-run-1/before-source.json": "6dec487d65c735c103db10d34f2ba1d61439c6dd16a806a67b3a41e39b1b9af2",
+    ".local/class-skills/druid-safe-area/failed-run-1/birth-inputs.json": "0f2b499406b733a3d69597fe7e1c720ef07da6fdb8a04c0f4d66262b94db81e5",
+    ".local/class-skills/druid-safe-area/failed-run-1/birth-native-checks.log": "a1d3c4ebde950886c6f744807935e7285c2dbb71f2bc2cc336be1a3a6bfd3a33",
+    ".local/class-skills/druid-safe-area/failed-run-1/build-1.log": "24657fa60bb68798830a2f3788ed89e53cfde156f5b1637586a6ef48a3f2122d",
+    ".local/class-skills/druid-safe-area/failed-run-1/druid-safe-area-fixtures.json": "efd4f5329390891b5ef40b6a1edfbe4bbd6d5ff67f23a06628386ba61e958210",
+    ".local/class-skills/druid-safe-area/failed-run-1/frozen-hashes.json": "09d042246f48d1c20091cddb030c76d664454f544504d92ad0dbd844d21de046",
+    ".local/class-skills/druid-safe-area/failed-run-1/iron-golem-items-fixtures.json": "8462704db8d01c7075fa2f7033b6275e30221670c7005ca4ac5eb8451f29c1bf",
+    ".local/class-skills/druid-safe-area/failed-run-1/npc-resource-callbacks-fixtures.json": "ca0d8162aca5d174aab06532379d00a6d335845d212c0aab5fb8ea2771b827bf",
+    ".local/class-skills/druid-safe-area/failed-run-1/run-1.log": "e401501f9f32298e79acfb6215507d2715555a43b30d0eb8b81ab3fdc8b9b43f",
+    ".local/class-skills/druid-safe-area/failed-run-1/source-inputs-1.json": "e554941f071f831368118eb3781e2c8c9d8b77a26a6e536bce09416fd830f893",
+    ".local/class-skills/druid-safe-area/failed-run-1/sources-1.tar.gz": "2e2aa3ed2b042b32ca2ae66eac435637cacb27f1928786815fc95d64ae0a8a84",
+    ".local/class-skills/druid-safe-area/integration-2/Sanctuary.Integration.dll": "79bb94d5799276242bd2399015bcda49bc1eb5540f7b5ae9de17e1169fc8f4c6",
+    ".local/class-skills/druid-safe-area/run-2.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/druid-safe-area/source-inputs-2.json": "bc6d32102ef13224bb9f85603e2ca5e8bd60ee249d30d0f6ca6995b16a08ed14",
+    ".local/class-skills/druid-safe-area/sources-2.tar.gz": "63e14b66e251ee2be7c3a7a760e97caaf834ab6f0f1a216433768d8318c9bc09",
+    "docs/druid-pet-policy-audit.md": "e33227a4140565f4cdf0c03a7faf5e99264a597da97f16c74976010bc5cdf645",
+    "docs/pet-adjustment-review.md": "7ea0f6beb1b888aa0fdf7eb7c4f91ff2d09d75d9a44ed2852254b9f66e949186",
+    "src/Sanctuary.Content/DireWolfUpgrades.cs": "7d19edce431d94bce93cb287e7cddfc1032c1111705d56790bf37344208a4064",
+    "src/Sanctuary.Content/DruidBarbsBody.cs": "d76828d398d2dd748560b28675af569f624462224d310d9dad0b83a2e84208ca",
+    "src/Sanctuary.Content/DruidBeastAttackStats.cs": "fa070d8c669769ee5a80b3d57f2219924c4fa5c005ee734c60ed734d1f4de2ee",
+    "src/Sanctuary.Content/DruidCreeperBody.cs": "63726d3ceaf7b5998718be1f3565526ef7d60d7bf6966a0517d481767d3b1404",
+    "src/Sanctuary.Content/DruidCreeperGround.cs": "b911f6f7f7440eb1803f5b41666c9d42a39904b1aa62ae5a49802be5d8cb833c",
+    "src/Sanctuary.Content/DruidCreeperPoison.cs": "442b43323ad91de1579ee76affd8279da2130e517d15b69cc3c67ccf2b85f716",
+    "src/Sanctuary.Content/DruidCreeperStats.cs": "f1604e35be4ad6d01e66870537e7e45d9342d6b203f062a06ad401072f01c910",
+    "src/Sanctuary.Content/DruidDireWolfBody.cs": "66e34850d1c8d4fedcd8d9112b40b2fdec0a4c00791492b8bf6e7e30115918b9",
+    "src/Sanctuary.Content/DruidDireWolfHit.cs": "323b8b7a3435e4e378a0fa3116bcddfc72e02ac519c788dd264fae58c78fba60",
+    "src/Sanctuary.Content/DruidGrizzlyHit.cs": "98399980eba87e139be97ad0c73f66f7b4beae245ca34017d5506a854a7b373a",
+    "src/Sanctuary.Content/DruidOakBody.cs": "0c20ea3bd98bd0047f9cda6648e09d1d3da5be3963608f1387382c35999c5398",
+    "src/Sanctuary.Content/DruidRavenBody.cs": "aa53ef2666d65ae8cdc42586c9c07d31035bec65494e146b70b4dd2f2a2b4a27",
+    "src/Sanctuary.Content/DruidRavenStats.cs": "1392061116327514708ac45d5cfdb7ac42b906b41a02baa713eae5c06077ca3d",
+    "src/Sanctuary.Content/DruidRecyclerBody.cs": "2e0eda76c57b9b287df660dba435e636cfba1dd51989826c361a2809c3255a9d",
+    "src/Sanctuary.Content/DruidRecyclerRecovery.cs": "d5a9bbd6df5a1bbeca5390b17aa2a2575a351014f38efe343008de8849f01021",
+    "src/Sanctuary.Content/DruidSpiritStats.cs": "96b527c9685bf5351e84184886f7b6ba355c6c96a357b769ddf9737c94633dfd",
+    "src/Sanctuary.Content/DruidSpiritWolfBody.cs": "ad9bbf6eaac282e62c6a91d3b7dec859642996ff4679db049c91fd6eed28e781",
+    "src/Sanctuary.Content/DruidSpiritWolfHit.cs": "c7162b84efabad9ac5bfc6020d9eedfb17182fbdf6dafef0fcd726d52dd78ba0",
+    "src/Sanctuary.Content/DruidWolverineBody.cs": "fd0873a1550f06911a74dfec852a25d55bfd3e3a59c1c8e74f2d897388144fd6",
+    "src/Sanctuary.Content/GrizzlyUpgrades.cs": "702d8fef2e1d83e63ffc22533bb921b0b4f6df2877ed2669a9367c6b8bed810e",
+    "src/Sanctuary.Content/MinionSafeAreas.cs": "78d69b1d5c81f78f67286b3d7be973f8ece467cfe8bfa9588d66bab4247c74a0",
+    "src/Sanctuary.Content/NpcCrushing.cs": "0b87128f9f3bbe7ccb5dd746f9ebb4a21a741807fc649484f4beedbf55860c5e",
+    "src/Sanctuary.Content/NpcOpenWounds.cs": "f495c590e2a2fcd0a982c5e1955e704b6c6787c86ecc9ade84a2a958db0917d9",
+    "src/Sanctuary.Content/PersistentMinions.cs": "04b1d5bf1c949f506328e32a844041b33c73ca374f890dd1890f732a0f40e423",
+    "src/Sanctuary.Content/SpiritWolfUpgrades.cs": "9bee2da4e3c346c2a710b347bb8ec9718566146c46931baf2411154ab93e9af0",
+    "src/Sanctuary.Content/SummonUpgradeSnapshots.cs": "70cab49186bf78a0214b380c1e1c9d4b35b24edca0622529eb461cdd1f1c9e59",
+    "src/Sanctuary.Content/TimedEffects.cs": "ffeef8bf6f2a36b56fc78ab34c4d7967ec6f0620826d7c376376d62d12759786",
+    "tests/Sanctuary.Integration/CreeperBalanceChecks.cs": "89542b234a869150118e0c5b2650ba9a914260860e29ef0a7d7a4d2732d32c3b",
+    "tests/Sanctuary.Integration/CreeperLearnedChecks.cs": "ad4173d7fa205c37e8a2ab41a51582e1c52b69b1c8e17c9ec68c4f83a20d8390",
+    "tests/Sanctuary.Integration/DireWolfUpgradeChecks.cs": "af9ad82cc1fb6135786523e21a39bb6cb53492fd07e78e6b1f9c08349bf36206",
+    "tests/Sanctuary.Integration/DruidSafeAreaChecks.cs": "a55dc85445b99513d465fffe1f0adb48b71822bd8d0ff9d5c30ca3c42260ad96",
+    "tests/Sanctuary.Integration/DruidSnapshotChecks.cs": "19f08440f14c1c1f772ad8bf183f88030913c090910f64392b6db8ed012ce3a2",
+    "tests/Sanctuary.Integration/GrizzlyUpgradeChecks.cs": "e4bbb03f199a310070d3ee1a528af95645a6a252b2d7ac2d0ca2873cc12903e1",
+    "tests/Sanctuary.Integration/OakCastingChecks.cs": "08e85e8013c0cde64dd87f61a8c4702175957071b16d6b54a863e513b42ac96d",
+    "tests/Sanctuary.Integration/RavenSnapshotChecks.cs": "7aff17a2b2e1febd405e9cf2b5096e2803d814138b649c4acc2dd2d1a02bff7a",
+    "tests/Sanctuary.Integration/RecyclerLearnedChecks.cs": "a0eea41fb3f22d643c7e764b035efeb71ab656bd756dc7ed54a7260515413c2d",
+    "tests/Sanctuary.Integration/RecyclerRecoveryChecks.cs": "6f98320d5183a06407dc6861099c93e38e8cd820db30698336b482647dc4d173",
+    "tests/Sanctuary.Integration/SpiritWolfUpgradeChecks.cs": "d50caa33c90f07e50f7f14e8dfad44ae2f52a1a25148084d3093e9cdc2e7e676",
+    "tests/check_druid_safe_area.py": "6e68954a03e83d60f5f1cf2b9bb24dbbdb2bea3adc3b4b7f05714ce30987942e",
+    "tools/record_druid_pet_policy.py": "70935e0f41e824d3a575f904971960d295b4c1c65e647864ca2f154d41022da9",
+    "tools/reference/druid-lifecycle-acceptance-native-evidence.json": "48d1a52bc051523a1a3dc561bf058ae7bfeb13e40f2fd64213c4dc0d473902de"
+  }
+}
