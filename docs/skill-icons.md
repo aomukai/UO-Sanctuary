@@ -1,5 +1,7 @@
 # Skill icons
 
+**Ordinary cold shatter candidate — 2026-11-17 JST.** The [proposal](ordinary-cold-corpse-proposal.md) adds no talent or binding and needs no new icon. Existing skill-tree/hotkey icon requirements remain separately pending; no artwork/imagegen.
+
 **Mage post-death lifetime — 2026-11-17 JST.** No new talent or hotkey is introduced. Raise Skeletal Mage talent-tree/hotkey artwork remains separately missing with existing identified placeholders. No artwork/imagegen. [Mechanical evidence](mage-projectile-lifetime-checkpoint.md).
 
 **Saved player proc host — 2026-11-16 JST.** Saved item proc providers and player RNG create no active binding or new icon. Existing learned Fire Ball talent/hotkey requirements remain unchanged. [Checkpoint](player-item-proc-host-checkpoint.md).
