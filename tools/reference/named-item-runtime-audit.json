@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "7dc721ac1138a55c84edd680e5294b2d32349eee4530de6a02c5668936bdc335",
+  "ContentAssemblySha256": "afb2b977f3cbaa0cd497ff850b4b16ab1ab284a3e67faf1f539f926bca100d2f",
   "NativeAssemblySha256": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
   "InputHashes": {
     "data/Sanctuary/Balance/abyss-route.json": "6c823249f73d320ba6ba4b2c538d419bc54a8cb8aaad8a605f5abf18d5911e18",
@@ -14,7 +14,7 @@
     "data/Sanctuary/Balance/blind-ai-rules.json": "744926507cc56ee2192a184deeaa7b7632a355503af43c74cb2438b9805ed876",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "3dd252d8168298735bd8bf0cae6e03d21b0b64126debed058dcbb87dcac4db37",
+    "data/Sanctuary/Balance/class-skill-status.json": "3e58827eed47e11f7d66e2afc3511043d895fd34daa4bb1347cf4f9a0316a06e",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "77dc2142ca806a9d6e6ed39f274ecdac247dcd5c60388512c17f5bc3e4c79c49",
@@ -429,7 +429,7 @@
     "src/Sanctuary.Content/BarbarianShout.cs": "5180e7d04c9d88b3b46c5a28f02d358ed11526db559fff1e2fac7db44493d43f",
     "src/Sanctuary.Content/BarbarianTaunt.cs": "f4a0c577156695062364de936f9160a6354be159ba6ddfb418eb7f183fa7be8e",
     "src/Sanctuary.Content/BarbarianThrowing.cs": "b15d481cebdf30b578a325e908fdae7e148468faff5fa82fc7e07a40c5ff9db4",
-    "src/Sanctuary.Content/BarbarianWarCry.cs": "74e5171d83eac0f17e1dd1850b9fce11457778121a15eae71cebbcf16c22a5ac",
+    "src/Sanctuary.Content/BarbarianWarCry.cs": "5c708316d9fb2af73d3f8ef2ed9c8c2f31b91a5e6d9d773e1e16ddb562f2fa31",
     "src/Sanctuary.Content/BarbarianWhirlwind.cs": "0c5465098138c12d423c6de2d6e8f42a5525ec588da1b9473255f73a74657486",
     "src/Sanctuary.Content/BasicMissileUpdate.cs": "e4a9646715853aad9685d8df10ece84dc6b2133a2e57f3819944bd9709938705",
     "src/Sanctuary.Content/BattleCommand.cs": "fa4875c7b0807d2158b01c58c19a3962ea9c1c50ecadb9e4c8a0a7809dd2927f",

@@ -1,5 +1,7 @@
 # Barbarian acceptance map
 
+The [War Cry/shared landing checkpoint](warcry-link-checkpoint.md) passes 57 focused results, nine existing Leap inputs and two reloads. Settled physical components now reach Health Link while War Cry preserves its block/immunity/stun order. Its missing T29 potion additions are explicitly unfinished integration, not an approved exclusion. Verify with `python3 tools/record_warcry_link.py --check`.
+
 Mechanical reference: **D2R Reign of the Warlock 3.3.93847**. Approved Sanctuary rules take precedence. All thirty talents have handlers, but handler presence and a combined native run do not certify exact modern behavior or class completion. Detailed per-skill limits remain in [the status ledger](../data/Sanctuary/Balance/class-skill-status.json).
 
 The current planned-content driver is [check_barbarian_planned_acceptance.py](../tests/check_barbarian_planned_acceptance.py), composing the earlier current-class driver with selected-weapon-hand, SC/FCR input and natural Find Potion release checks. It exercises existing fixture families together on reused gameplay C1, including natural loops and original saved state. Charms and runewords are excluded. No fixture grants a completed-class status. The final accepted command inventory, source hashes and build identity belong to the accompanying checkpoint receipt, rather than to this mapping alone.

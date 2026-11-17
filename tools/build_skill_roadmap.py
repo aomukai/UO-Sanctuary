@@ -898,6 +898,13 @@ for _talent in ('druid.summonspiritwolf','druid.summondirewolf','druid.summongri
 _notes=BLOCKERS if 'druid.armageddon' in BLOCKERS else CAVEATS
 _notes['druid.armageddon']=_notes.get('druid.armageddon','')+' Terminal blast damage now reaches approved Defiler Health Link through existing settled non-poison components;ground damage retains its Periodic exclusion. Eight direct/ground contexts per boot cover potion,recipient resistance,immunity and independent child capture;focused source/real-input/natural-weather/original-save scopes are in armageddon-link-checkpoint.md. Existing damage,RNG,child capture,timing,geometry and payment retain;no whole-class or asset certificate.'
 
+# War Cry and approved Leap landing reuse the same settled physical receiver.
+for _talent in ('barbarian.warcry','barbarian.leapattack'):
+    _notes=BLOCKERS if _talent in BLOCKERS else CAVEATS
+    _notes[_talent]=_notes.get(_talent,'')+' Known physical spell components now reach approved Defiler Health Link through the existing shared War Cry/Leap landing receiver. Ten controlled contexts per boot retain primary/recipient resistance,block,immunity and stun-before-health rules;existing War Cry cast/ray/source/save and Leap actual landing/input/sequence scopes are in warcry-link-checkpoint.md. Damage,RNG,timing and payment retain;no whole-class or asset certificate.'
+_notes=BLOCKERS if 'barbarian.warcry' in BLOCKERS else CAVEATS
+_notes['barbarian.warcry']+=' Known remaining T29 integration gap:War Cry currently adds no Magical Penetration components despite the generic spell rule;this is not an approved exclusion. Its potion integration must be separate from the shared Leap weapon-skill recipient.'
+
 def planned_content_remaining(text):
     """Keep excluded charm-only mechanics out of active talent blockers."""
     if not re.search('sunder',text,re.I):return text

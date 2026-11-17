@@ -49,7 +49,7 @@ public static class BarbarianWarCry
         // ExecuteEvents reaches stun even when physical resistance removes all
         // damage. A blocked hit never enters that event path.
         beforeHealth?.Invoke(creature);
-        int loss=SkillHealth.Damage(owner,target,NamedElements.To256(parts.Total));
+        int loss=SkillHealth.TypedDamage(owner,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));
         CreatureHitRecovery.Apply(creature,owner,loss);
         return true;
     }
