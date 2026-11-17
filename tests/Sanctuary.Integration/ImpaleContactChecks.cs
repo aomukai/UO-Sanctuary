@@ -55,10 +55,18 @@ public static class ImpaleContactChecks
         try
         {
             PlayerItemProcWorld.Observed=v=>{if(v.Owner==p.Serial.Value){visits.Add(v);if(v.Phase=="domeleedamage"){Require(rolls.WearCounter.Calls==0,"Ordinary wear preceded damage events");}else if((v.Packet.ResultFlags&1)!=0){Require(rolls.WearCounter.Calls==1,"Ordinary wear missing before attack event");}}};
-            foreach(string scenario in new[]{"hit","change","immune","range","cancel","low-hit","low-miss","low-block"})
+            foreach(string scenario in new[]{"hit","change","immune","range","cancel","paid-defenses","low-hit","low-miss","low-block"})
             {
                 Ready(p);var t=Target(p);bool basic=scenario.StartsWith("low-");if(scenario=="immune"){t.SetResistance(ResistanceType.Poison,100);}if(basic){NecromancerEffects.SetMana256(p,17);}
-                int hitRolls=0;AmazonImpale.HitRoll=()=>{hitRolls++;return scenario=="low-miss"?1:0;};SourceBlocking.BlockRoll=n=>scenario=="low-block"?0:n-1;
+                int hitRolls=0;AmazonImpale.HitRoll=()=>{hitRolls++;if(scenario=="paid-defenses"){throw new InvalidOperationException("Paid Impale consulted accuracy");}return scenario=="low-miss"?1:0;};SourceBlocking.BlockRoll=n=>scenario=="low-block"?0:n-1;
+                if(scenario=="paid-defenses")
+                {
+                    // A real eligible shield must block through the ordinary
+                    // adapter before the paid skill is tested without it.
+                    SourceBlocking.Restore(SourceBlocking.Snapshot().Where(x=>x.Actor!=t.Serial.Value).Append(new(t.Serial.Value,CreatureProfiles.Definition(t).Reference,1)).ToArray());
+                    SourceBlocking.BlockRoll=_=>0;Require(SourceBlocking.TryRate(t,out int rate,out _)&&rate>0&&NpcBlockOrDodge.Try(t,false,true,out int blocked,out _)&&(blocked&SourceAvoidance.Block)!=0,"Paid-defense control has no working ordinary shield");
+                    SourceBlocking.BlockRoll=_=>throw new InvalidOperationException("Paid Impale consulted shield/avoidance");
+                }
                 visits.Clear();rolls.SpecialCounter.Calls=rolls.WearCounter.Calls=0;int before=SkillHealth.Balance256(t),mana=NecromancerEffects.ManaBalance256(p),cost=basic?0:768;string profile=Json(Own(p,weapon));var world=NpcWorldAllocation.Capture();
                 try
                 {

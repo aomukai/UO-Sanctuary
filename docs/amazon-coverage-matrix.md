@@ -45,6 +45,8 @@ The fourteen existing bow/javelin Cast packet controls run once per boot; Decoy 
 
 ## Approved rules and remaining limits
 
+The [paid Impale defense proposal](impale-defense-policy-proposal.md) has a supplemental123-result/nine-scenario/36-input/two-reload qualification on unchanged gameplay. It proves the existing paid forced-success/no-defense-roll path against an active mapped shield,while low-mana ordinary miss/block remain. Explicit adoption is pending;this does not establish modern D2R shield/dodge behavior or admit additional pet/player recipients.
+
 Lightning Strike uses the explicitly approved chaining adaptation; the hidden first-bolt/primary re-hit path remains unresolved. Slow Missiles uses its approved recipient, damage/speed and scoped native-projectile rule; instantaneous legacy UO ranged hits, old spell/breath timers and broader monster spell conversion remain separate.
 
 Original Valkyrie snapshots, equipment/resources/RNG, safe-area parking without recovery, persistent injuries and source-owned combat retain their existing dedicated proofs. Her shared native two-tile placement is a Sanctuary mapping, not a recovered D2 room-search order. Unsupported item/proc/foreign-class or injected nonzero Sunder contexts remain guarded; charm-only Sunder acquisition is excluded from planned content.

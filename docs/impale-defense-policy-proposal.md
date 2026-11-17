@@ -1,0 +1,18 @@
+# Impale paid-hit defense proposal
+
+**Pending approval.** Reference: D2R Reign of the Warlock **3.3.93847**, approved Sanctuary deviations first. This proposal formalizes the existing implementation; it does not claim that modern D2R shield or avoidance behavior has been recovered.
+
+Proposed Sanctuary rule:
+
+- A paid Impale uses automatic accuracy and does not roll shield block, Dodge, Avoid or Weapon Block. Its prepared result remains Successful/GetHit with HitFlags1.
+- Resistance, absorption, immunity, recipient admission, range/LOS and owner/target validity keep their existing checks. This grants no new PvP or unsupported-recipient route.
+- Existing startup payment, pre-special-wear physical capture, post-wear other damage, separate ordinary wear, uninterruptible action, cancellation and slow-before-release-range behavior remain unchanged. No refund is added after startup payment.
+- With insufficient mana, Impale remains one ordinary attack: normal accuracy and supported defenses apply, with no skill mana, special wear or Impale slow.
+
+The [existing source review](../tools/reference/impale-contact-source-review.json) binds the complete older start7/fill/allocation/drain bodies. Older start7 calls the ordinary result resolver; the implementation already applies modern forced-success corrections. The exact modern replacement of that path remains unverified. This is therefore a deliberate Sanctuary decision, not a conclusion from the older code or a new D2R playtest claim.
+
+The prepared test adds an explicit defense case to the existing Impale contact matrix. It first proves a real mapped monster has an active shield and blocks through the ordinary shared adapter. It then makes the skill's accuracy and block-roll delegates throw if consulted. The paid start/release must still deliver the captured contact with the existing once-only mana, special/ordinary wear, poison, procs and slow. Existing low-mana miss/block controls remain. Nine scenarios per boot cover hit, changed gear/resistance, immunity, departed range, cancellation, paid defense bypass and three low-mana outcomes. Original gear, saved proc stream, wounds, mana and durability remain checked through two reloads; retained right/quick casts and source schedule/wear/depletion/expiry checks remain in the focused cohort.
+
+Native dodge-bearing player/pet recipients are not newly admitted or claimed as tested. The bypass of the shared defense resolver is established by the existing forced-result source branch; the native negative control specifically exercises a mapped monster shield.
+
+Integration build1/source snapshot1/native run1 passed **123 results,36 retained wire inputs,38 connections,three saves and two reloads**,with zero build warnings/errors and no failed attempt. One existing WardrobeSet deletion-at-save warning remains recorded. [Native receipt](../tools/reference/impale-defense-policy-native-evidence.json). The concrete rule remains **pending explicit approval**;preparation leaves gameplay unchanged. Accepted assemblies and immutable evidence are durably archived under `/home/aomukai/Sanctuary-checkpoint-archives/revive-respec/impale-defense-policy`. Final effects/audio and talent/hotkey icons remain the existing separately listed placeholders. No production C#, runtime data, persistence version, installed build or existing saves are changed by preparing this proposal.
