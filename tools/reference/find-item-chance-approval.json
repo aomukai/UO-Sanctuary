@@ -1,0 +1,50 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "approvedOn": "2026-11-18",
+  "exactUserAnswer": "Adopt the existing chance curve (Recommended)",
+  "scope": "Find Item chance only",
+  "formula": "5 + floor(55 * min(100, floor(110 * effectiveRank / (effectiveRank + 6))) / 100) + hardFindPotionPoints",
+  "baseRank1To20": [
+    13,
+    19,
+    24,
+    29,
+    32,
+    35,
+    37,
+    39,
+    41,
+    42,
+    44,
+    45,
+    46,
+    47,
+    47,
+    49,
+    49,
+    50,
+    50,
+    51
+  ],
+  "proposal": {
+    "path": "tools/reference/find-item-chance-reviewed-proposal.md",
+    "sha256": "da4defaf20d0e56a230a229728b9da093144ec3bb346a782c9dfd1fcb4b52578"
+  },
+  "sourceHashes": {
+    "src/Sanctuary.Content/SkillMechanics.cs": "c609cf5bc21194f4a356794070f44601b648783b28d119c8bba77d72809750a4",
+    "src/Sanctuary.Content/BarbarianFindItem.cs": "d14ff3c5376bd14effe09db3b6bb0fd3e965e3239b5693e072d70038f3f3f1f6",
+    "tools/reference/find-item-engine-evidence.json": "0f1969fc12c8e6893f2e8a29c317c0910f5b824d832fc5cbff7ed005a2a6ac13"
+  },
+  "gameplayChanged": false,
+  "installedBehaviorAlreadyMatches": true,
+  "modernExecutableChanceVerified": false,
+  "notCovered": [
+    "auto-approach",
+    "ground acquisition",
+    "range",
+    "special quest/boss/elite/changed-level treasure",
+    "wider item generation"
+  ],
+  "currentDocumentation": "docs/find-item-chance-proposal.md"
+}
