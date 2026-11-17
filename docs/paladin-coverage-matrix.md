@@ -1,6 +1,6 @@
 # Paladin mechanical acceptance map
 
-Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Charms and runewords are excluded. This identifies actual checks in `tests/check_paladin_planned_acceptance.py` and the existing dedicated evidence; the current [combined checkpoint](paladin-planned-acceptance-checkpoint.md) passes 601 exact results across three boots and two reloads. Handler presence and declared coverage do not certify the class.
+Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Charms and runewords are excluded. The current [lifecycle/input checkpoint](paladin-lifecycle-acceptance-checkpoint.md) retains all601 earlier results and passes750 exact markers with258Paladin inputs/two reloads. Its [actual class/ability audit](../tools/reference/paladin-current-input-coverage.json) covers all30active talents,including the twelve remaining auras. Nine foreign Teleport inputs remain separate. Production code/data are unchanged during this qualification. The rows below retain their component scopes;handler presence and input coverage do not certify the class.
 
 | Talent | Mechanical scope | Included native families |
 | --- | --- | --- |

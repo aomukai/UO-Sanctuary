@@ -1,5 +1,7 @@
 # Skill effects
 
+**Paladin lifecycle/input qualification — 2026-11-17 JST.** [Checkpoint](paladin-lifecycle-acceptance-checkpoint.md) creates no artwork/audio. Verified aura pulses,recipient overlays,projectiles,shields and corpse recovery still use identified mechanical placeholders. Final effects/audio remain separately missing;no imagegen.
+
 **Sorceress lifecycle/input requalification — 2026-11-17 JST.** [Checkpoint](sorceress-lifecycle-acceptance-checkpoint.md) creates no artwork/audio. Existing spell travel,armor/reaction,ground fields,Hydra,Inferno,terrain/contact and shatter placeholders remain mechanically usable;final effects/audio stay separately missing. No imagegen.
 
 **Necromancer lifecycle/input acceptance — 2026-11-17 JST.** [Checkpoint](necromancer-lifecycle-acceptance-checkpoint.md) adds no visual/audio asset. All27 active input routes and three passive mechanical scopes remain separate from final art. Existing summon/projectile/curse/shatter effects and audio are still identified placeholders;no imagegen.

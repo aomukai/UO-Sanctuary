@@ -1,0 +1,643 @@
+{
+  "referenceVersion": "3.3.93847",
+  "characterClass": "Paladin",
+  "classId": 104,
+  "talents": 30,
+  "activeTalents": 30,
+  "passiveTalents": 0,
+  "verifiedActiveInputRoutes": 30,
+  "ordinaryInputCases": 258,
+  "negativeInputCasesSeparatelyExcluded": 0,
+  "heldInputSequences": 0,
+  "foreignInputCasesSeparatelyExcluded": 9,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
+    "Assemblies/Sanctuary.Content.dll": "8650a6825fc6855608e4596cac7a9e97f3d00be7ed617a8212998acefb506553",
+    "Assemblies/Sanctuary.Integration.dll": "eb6c1b9ea9c658926daa46cd069369d189e4cbb4a640241d34125e87b96251d4"
+  },
+  "skills": [
+    {
+      "talentId": "paladin.prayer",
+      "ability": 92,
+      "routes": {
+        "resource-aura-prayer-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "resource-aura-prayer-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "paladin.resistfire",
+      "ability": 93,
+      "routes": {
+        "remaining-aura-resistfire-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-aura-resistfire-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "paladin.resistcold",
+      "ability": 94,
+      "routes": {
+        "remaining-aura-resistcold-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-aura-resistcold-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "paladin.resistlightning",
+      "ability": 95,
+      "routes": {
+        "remaining-aura-resistlightning-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-aura-resistlightning-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "paladin.defiance",
+      "ability": 96,
+      "routes": {
+        "defiance-aura-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "defiance-aura-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "paladin.cleansing",
+      "ability": 97,
+      "routes": {
+        "resource-aura-cleansing-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "resource-aura-cleansing-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "paladin.vigor",
+      "ability": 98,
+      "routes": {
+        "remaining-aura-vigor-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-aura-vigor-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "paladin.meditation",
+      "ability": 99,
+      "routes": {
+        "resource-aura-meditation-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "resource-aura-meditation-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "paladin.redemption",
+      "ability": 100,
+      "routes": {
+        "remaining-aura-redemption-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-aura-redemption-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "paladin.salvation",
+      "ability": 101,
+      "routes": {
+        "remaining-aura-salvation-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-aura-salvation-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "paladin.might",
+      "ability": 102,
+      "routes": {
+        "might-aura-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "might-aura-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "paladin.holyfire",
+      "ability": 103,
+      "routes": {
+        "remaining-aura-holyfire-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-aura-holyfire-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "paladin.thorns",
+      "ability": 104,
+      "routes": {
+        "remaining-aura-thorns-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-aura-thorns-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "paladin.blessedaim",
+      "ability": 105,
+      "routes": {
+        "blessed-aim-aura-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "blessed-aim-aura-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "paladin.concentration",
+      "ability": 106,
+      "routes": {
+        "offensive-aura-concentration-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "offensive-aura-concentration-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "paladin.holyfreeze",
+      "ability": 107,
+      "routes": {
+        "remaining-aura-holyfreeze-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-aura-holyfreeze-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "paladin.holyshock",
+      "ability": 108,
+      "routes": {
+        "remaining-aura-holyshock-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-aura-holyshock-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "paladin.sanctuary",
+      "ability": 109,
+      "routes": {
+        "remaining-aura-sanctuary-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-aura-sanctuary-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "paladin.fanaticism",
+      "ability": 110,
+      "routes": {
+        "offensive-aura-fanaticism-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "offensive-aura-fanaticism-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "paladin.conviction",
+      "ability": 111,
+      "routes": {
+        "remaining-aura-conviction-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-aura-conviction-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "paladin.sacrifice",
+      "ability": 112,
+      "routes": {
+        "sacrifice-allocation-left": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "sacrifice-allocation-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "sacrifice-allocation-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "paladin.smite",
+      "ability": 113,
+      "routes": {
+        "smite-contact-left": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "smite-contact-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "smite-contact-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "paladin.holybolt",
+      "ability": 114,
+      "routes": {
+        "holy-bolt-damage-left": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "holy-bolt-damage-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "holy-bolt-damage-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "holy-bolt-flight-left": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "holy-bolt-flight-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "holy-bolt-flight-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "paladin.zeal",
+      "ability": 115,
+      "routes": {
+        "zeal-contact-left": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "zeal-contact-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "zeal-contact-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "paladin.charge",
+      "ability": 116,
+      "routes": {
+        "charge-contact-left": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "charge-contact-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "charge-contact-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "charge-ground-left": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "charge-ground-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "charge-ground-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "paladin.vengeance",
+      "ability": 117,
+      "routes": {
+        "vengeance-contact-left": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "vengeance-contact-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "vengeance-contact-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "paladin.blessedhammer",
+      "ability": 118,
+      "routes": {
+        "blessed-hammer-damage-left": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "blessed-hammer-damage-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "blessed-hammer-damage-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "blessed-hammer-flight-left": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "blessed-hammer-flight-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "blessed-hammer-flight-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "paladin-cast-clock-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "paladin.conversion",
+      "ability": 119,
+      "routes": {
+        "conversion-allegiance-left": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "conversion-allegiance-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "conversion-allegiance-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "conversion-contact-left": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "conversion-contact-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "conversion-contact-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "paladin.holyshield",
+      "ability": 120,
+      "routes": {
+        "holy-shield-cast-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "holy-shield-cast-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "paladin-cast-clock-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "paladin.fistoftheheavens",
+      "ability": 121,
+      "routes": {
+        "heaven-bolt-left": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "heaven-bolt-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "heaven-bolt-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "heaven-fist-damage-left": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "heaven-fist-damage-quick": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "heaven-fist-damage-right": {
+          "stage": "paladin-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    }
+  ],
+  "passiveSkills": [],
+  "classCertified": false,
+  "limits": "Every admitted route has successful input results on three boots. Negative controls do not establish a positive cast. Held class context comes from compiled owner/guard evidence rather than an invented log field. Passive mechanics remain separate birth/stat evidence. This is input accounting,not whole-class mechanics or exact engine/client/PvP certification.",
+  "files": {
+    ".local/class-skills/paladin-lifecycle-acceptance/birth-inputs.json": "b83b1c0785b6d27620089843b8b500153e281ae77fc3e8b65c95ea09bb32860b",
+    ".local/class-skills/paladin-lifecycle-acceptance/birth-native-checks.log": "1d8f18ba5eb33e5f17fadf97fc6a80a08225cf821673c0f3f3bea4d7d9513019",
+    "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
+    "shared/DiabloClass.cs": "735cddd18c8e4397a4d5e73ec0a26bc7165056e5f571c87121b3609f820db075",
+    "tools/class_input_coverage.py": "9b17725ba225a5e6f742bf6bb6f0e91efaff4fbfe3a2dd894c9a6e37cb77fe43",
+    "tools/review_paladin_input_coverage.py": "e8f5ccecf2e8b80dcca1235a9010088e5b3999365fd19828f8c53e489a5b83f3"
+  }
+}
