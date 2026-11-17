@@ -1,5 +1,7 @@
 # Skill icons
 
+**Mage post-death lifetime — 2026-11-17 JST.** No new talent or hotkey is introduced. Raise Skeletal Mage talent-tree/hotkey artwork remains separately missing with existing identified placeholders. No artwork/imagegen. [Mechanical evidence](mage-projectile-lifetime-checkpoint.md).
+
 **Saved player proc host — 2026-11-16 JST.** Saved item proc providers and player RNG create no active binding or new icon. Existing learned Fire Ball talent/hotkey requirements remain unchanged. [Checkpoint](player-item-proc-host-checkpoint.md).
 
 **Player proc frames — 2026-11-16 JST.** Item proc callbacks still create no active binding or extra hotkey icon. Existing Fire Ball talent/hotkey icon requirements remain separate from proc audio and projectile effects. [Checkpoint](player-item-proc-frames-checkpoint.md).

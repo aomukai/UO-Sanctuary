@@ -28,8 +28,8 @@ internal static class GlacialSpikes
         var packet=state.Packet with{Minimum256=raw,Maximum256=raw};
         foreach(var target in SkillCombat.Targets(actor,owner,center,Radius(MagePetBuffs.Values(CombatAbility.GlacialSpike,10,actor.Level))))
         {
-            if(!actor.Alive||actor.Deleted){break;}
-            if(target is not{Alive:true,Deleted:false}||!actor.CanBeHarmful(target,false)){continue;}
+            if(!MageProjectileRetirement.Present(actor)){break;}
+            if(target is not{Alive:true,Deleted:false}||!MageProjectileRetirement.CanAffect(actor,target)){continue;}
             NecromancerMageMissiles.ImpactSpell(actor,target,packet,state.Owner,seed,state.NextUtc);
         }
         Effects.SendLocationEffect(center,actor.Map,0x36E4,8,10,0x480,0); // Identified explosion placeholder.

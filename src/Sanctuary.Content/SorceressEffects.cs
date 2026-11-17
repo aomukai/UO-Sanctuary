@@ -28,7 +28,15 @@ public sealed class SorceressEffectProfiles : GenericPersistence
     public SorceressEffectProfiles() : base("SanctuarySorceressEffects", 113) { }
     public SorceressState Find(Mobile actor) => actor is { Alive: true, Deleted: false } ? _states.GetValueOrDefault(actor.Serial) : null;
     public void Store(Mobile actor, SorceressState state) => _states[actor.Serial] = state;
-    public void Clear(Mobile actor) { _states.Remove(actor.Serial); ThunderStorm.Cancel(actor.Serial); FireGround.Cancel(actor); Blizzards.Cancel(actor); FrozenOrbs.Cancel(actor); Hydras.Cancel(actor); InfernoFlames.Cancel(actor); ChainLightning.Cancel(actor); SorceressSpellMissiles.Cancel(actor); HolyBoltFlights.Cancel(actor); BlessedHammerFlights.Cancel(actor); HeavenFists.Cancel(actor); }
+    public void Clear(Mobile actor)
+    {
+        _states.Remove(actor.Serial);ThunderStorm.Cancel(actor.Serial);
+        // Death still clears the Mage's buffs. Its already-released effects
+        // keep their original controllers until the retained emitter expires.
+        if(actor is not NecromancerMinion mage||!MageProjectileRetirement.DefersDelete(mage))
+        {FireGround.Cancel(actor);ChainLightning.Cancel(actor);}
+        Blizzards.Cancel(actor);FrozenOrbs.Cancel(actor);Hydras.Cancel(actor);InfernoFlames.Cancel(actor);SorceressSpellMissiles.Cancel(actor);HolyBoltFlights.Cancel(actor);BlessedHammerFlights.Cancel(actor);HeavenFists.Cancel(actor);
+    }
     public override void Serialize(IGenericWriter writer)
     {
         Prune(); writer.Write(0); writer.Write(_states.Count);

@@ -10,10 +10,11 @@ namespace Sanctuary;
 public static partial class FireGround
 {
     internal static Point2D[] MeteorOffsets()=>[new(2,-2),new(-2,-2),new(0,2),new(0,5),new(-3,3),new(0,3),new(3,3),new(-1,2),new(1,1),new(-1,-1),new(2,-1),new(-4,-2),new(-3,-2),new(-1,-3),new(0,-4),new(1,-3),new(3,-3),new(4,-2)];
+    internal static bool PendingMage(uint actor)=>System.Linq.Enumerable.Any(_meteors.Values,m=>m.NpcCaster==actor)||System.Linq.Enumerable.Any(_patches.Values,p=>p.NpcCaster==actor);
     private static NecromancerMinion NpcSource(uint caster,uint owner,int map,bool? actions)
     {
         var actor=World.FindMobile((Serial)caster) as NecromancerMinion;var player=World.FindMobile((Serial)owner) as PlayerMobile;
-        return NecromancerMageMissiles.Fighting(actor,player,map,actions)?actor:null;
+        return MageProjectileRetirement.Fighting(actor,player,map,actions)?actor:null;
     }
     internal static long CastNpcMeteor(NecromancerMinion actor,Mobile target,DateTime at)
     {
@@ -41,11 +42,11 @@ public static partial class FireGround
         var packet=new MageMissilePacket("meteorcenter","fire",10,raw,raw,0){Spell=CombatAbility.Meteor};
         foreach(var target in SkillCombat.Targets(actor,owner,center,meteor.Radius))
         {
-            if(!actor.Alive||actor.Deleted){break;}
-            if(target is{Alive:true,Deleted:false}&&actor.CanBeHarmful(target,false))
+            if(!MageProjectileRetirement.Present(actor)){break;}
+            if(target is{Alive:true,Deleted:false}&&MageProjectileRetirement.CanAffect(actor,target))
             {NecromancerMageMissiles.ImpactSpell(actor,target,packet,meteor.Owner,seed,at);}
         }
-        if(actor.Deleted||!actor.Alive||actor.Map.MapID!=meteor.Map){return;}
+        if(!MageProjectileRetirement.Present(actor)||actor.Map.MapID!=meteor.Map){return;}
         var values=MagePetBuffs.Values(CombatAbility.Meteor,10,actor.Level);int frames=SkillMechanics.For(CombatAbility.Meteor).Parameter(3)+9*SkillMechanics.For(CombatAbility.Meteor).Parameter(4);
         foreach(var offset in MeteorOffsets())
         {

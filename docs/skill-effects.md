@@ -1,5 +1,7 @@
 # Skill effects
 
+**Mage post-death lifetime — 2026-11-17 JST.** Existing bolt, impact, cold/lightning, Meteor warning and burning-ground effects continue to their original mechanical expiry after Mage death. Final artwork/audio remains missing and the existing visuals are identified placeholders; this lifetime checkpoint creates no assets or imagegen work. [Mechanical evidence](mage-projectile-lifetime-checkpoint.md).
+
 **Saved player proc host — 2026-11-16 JST.** Saving proc providers/streams and changing equipment creates no new visual effect. The existing item-cast sound and Fire Ball travel/explosion placeholders remain on their separate effect/audio entries. [Checkpoint](player-item-proc-host-checkpoint.md).
 
 **Player proc frames — 2026-11-16 JST.** The protected player item frame now emits the shared 0x1E5 item-cast audio placeholder after an accepted source execution. Fire Ball travel/explosion placeholders are reused. Final effects/audio remain in their existing entries; no generated asset is added. [Checkpoint](player-item-proc-frames-checkpoint.md).

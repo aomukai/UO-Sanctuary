@@ -199,7 +199,8 @@ public static class ChainLightning
         && ClassCreation.Profiles.TryGet(player.Serial, out var profile) && profile.Class == (flight.NpcCaster!=0?DiabloClass.Necromancer:flight.StrikeContext!=null?DiabloClass.Amazon:DiabloClass.Sorceress)
         && (player.Map == Map.Internal || player.Map.MapID == flight.Map && !SpellHelper.IsTown(player.Location, player)) ? player : null;
     private static bool ActiveNpc(ChainFlight flight,NecromancerMinion actor,PlayerMobile owner,bool? actions)
-        =>actor is{Alive:true,Deleted:false,IsMage:true}&&owner!=null&&actor.ControlMaster==owner&&actor.Map==owner.Map&&actor.Map?.MapID==flight.Map
+        =>MageProjectileRetirement.Retiring(actor)?MageProjectileRetirement.Fighting(actor,owner,flight.Map,actions)&&NecromancerMageMissiles.ActorSeed(actor)?.Owner==flight.Owner
+            :actor is{Alive:true,Deleted:false,IsMage:true}&&owner!=null&&actor.ControlMaster==owner&&actor.Map==owner.Map&&actor.Map?.MapID==flight.Map
             &&actor.Permitted(owner)&&PersistentMinions.Active(owner,actor)&&!SpellHelper.IsTown(actor.Location,actor)
             &&NecromancerMageMissiles.ActorSeed(actor) is{} seed&&seed.Owner==flight.Owner
             &&(actions??owner.NetState is{Running:true});
@@ -364,7 +365,7 @@ public static class ChainLightning
             foreach(var t in caster.Map.GetMobilesInRange<Mobile>(new Point3D((cell.X+1)/2,(cell.Y+1)/2,flight.Z),3))
             {
                 if(t is not{Alive:true,Deleted:false,Blessed:false}||t.Serial.Value==flight.StrikeContext?.OpeningPrimary||Math.Abs(t.Z-flight.Z)>=16||Delayed(flight,t.Serial.Value,flight.NextUtc)
-                    ||!ClassCombat.IsHostile(owner,t)||!caster.CanBeHarmful(t,false)||flight.OriginalNpc!=null&&ClassCombat.Friendly(caster,t)||SpellHelper.IsTown(t.Location,owner)){continue;}
+                    ||!ClassCombat.IsHostile(owner,t)||!(caster is NecromancerMinion mage?MageProjectileRetirement.CanAffect(mage,t):caster.CanBeHarmful(t,false))||flight.OriginalNpc!=null&&ClassCombat.Friendly(caster,t)||SpellHelper.IsTown(t.Location,owner)){continue;}
                 int size=t is BaseCreature creature?CreatureProfiles.For(creature).Traits.Size??2:2;
                 if(CombatHitboxes.SourceTouches(2,size,cell.X-t.X*2,cell.Y-t.Y*2)){return t;}
             }return null;
@@ -375,6 +376,7 @@ public static class ChainLightning
         return new(x,y,steps,first,update.Result==2&&first==null);
     }
     private static ChainFlight Copy(ChainFlight f)=>f with{Delays=f.Delays.ToArray(),PlayerPacket=f.PlayerPacket is{} p?p with{Steps=new(p.Steps.Cells.ToArray())}:null,OriginalNpc=f.OriginalNpc is{} n?n with{Steps=new(n.Steps.Cells.ToArray())}:null};
+    internal static bool PendingMage(uint actor)=>_flights.Values.Any(f=>f.NpcCaster==actor);
     public static ChainFlight[] Snapshot()=>_flights.Values.OrderBy(x=>x.Cast).Select(Copy).ToArray();
     private static void ValidatePlayer(ChainFlight f)
     {

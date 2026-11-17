@@ -7,3 +7,5 @@ An already-fired Skeletal Mage projectile continues flying and damaging until it
 The decision is recorded while the current combined Necromancer run is live. Its binaries/source must remain fixed until that exact run is terminal. Implementation and focused verification follow; this file is an approval record, not a claim that the changed behavior is already enabled or tested.
 
 [Decision record](../tools/reference/mage-projectile-lifetime-approval.json).
+
+Subsequently implemented and verified in the [lifetime checkpoint](mage-projectile-lifetime-checkpoint.md): 57 results, 15 retained live-cast sessions and two reloads. The decision record above remains a point-in-time approval, separate from that implementation evidence.
