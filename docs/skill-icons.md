@@ -1,5 +1,7 @@
 # Skill icons
 
+**Barbarian lifecycle/input qualification — 2026-11-17 JST.** [Checkpoint](barbarian-lifecycle-acceptance-checkpoint.md) verifies20active input routes;ten passives retain talent-tree icon requirements without active bindings. Existing active talent/mouse/hotkey icons remain separately missing with identified placeholders. No talent,binding or generated artwork is added.
+
 **Paladin lifecycle/input qualification — 2026-11-17 JST.** [Checkpoint](paladin-lifecycle-acceptance-checkpoint.md) verifies input for all30active talents without adding a talent or binding. Existing talent-tree/mouse/hotkey icons remain separately missing with identified placeholders. No artwork/imagegen.
 
 **Sorceress lifecycle/input requalification — 2026-11-17 JST.** [Checkpoint](sorceress-lifecycle-acceptance-checkpoint.md) adds no talent or binding. The26active/four-passive catalogue retains its existing talent/mouse/hotkey icon requirements and identified placeholders. No artwork/imagegen.

@@ -26,7 +26,7 @@ public static class BarbarianCastClockChecks
     private static void Register(string name,Action run)=>ConsoleInputHandler.RegisterCommand(name,"Barbarian SC/FCR, dual gear and original payment phases",_=>Core.LoopContext.Post(()=>
     {try{run();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     private static void Require(bool b,string why){if(!b){throw new InvalidOperationException(why);}}
-    private static PlayerMobile Owner()
+    internal static PlayerMobile Owner()
     {
         PlayerMobile p;_creating=true;try{p=ClassSkillChecks.Player(DiabloClass.Barbarian);}finally{_creating=false;}p.Name="BarbarianCastClockFixture";
         if(p.Backpack==null){p.AddItem(new Backpack());}
@@ -61,7 +61,7 @@ public static class BarbarianCastClockChecks
         var wave=BarbarianShout.Snapshot();BarbarianShout.Restore(wave with{Rays=wave.Rays.Where(r=>r.Owner!=p.Serial.Value).ToArray()});
         if(enemy!=null){NecromancerEffects.Profiles.Clear(enemy);}
     }
-    private static void Clean(PlayerMobile p,BaseCreature enemy=null)
+    internal static void Clean(PlayerMobile p,BaseCreature enemy=null)
     {ClassCombat.Stop(p);ClearEffects(p,enemy);enemy?.Delete();p.Delete();}
     private static void Check()
     {

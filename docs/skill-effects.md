@@ -1,5 +1,7 @@
 # Skill effects
 
+**Barbarian lifecycle/input qualification — 2026-11-17 JST.** [Checkpoint](barbarian-lifecycle-acceptance-checkpoint.md) creates no artwork/audio. Shout waves,curse overlays,corpse searches,Leap/Whirlwind movement,throwing projectiles and melee impacts keep identified mechanical placeholders. Final effects/audio remain separately missing;no imagegen.
+
 **Paladin lifecycle/input qualification — 2026-11-17 JST.** [Checkpoint](paladin-lifecycle-acceptance-checkpoint.md) creates no artwork/audio. Verified aura pulses,recipient overlays,projectiles,shields and corpse recovery still use identified mechanical placeholders. Final effects/audio remain separately missing;no imagegen.
 
 **Sorceress lifecycle/input requalification — 2026-11-17 JST.** [Checkpoint](sorceress-lifecycle-acceptance-checkpoint.md) creates no artwork/audio. Existing spell travel,armor/reaction,ground fields,Hydra,Inferno,terrain/contact and shatter placeholders remain mechanically usable;final effects/audio stay separately missing. No imagegen.

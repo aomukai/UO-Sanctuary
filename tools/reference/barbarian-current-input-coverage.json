@@ -1,0 +1,434 @@
+{
+  "referenceVersion": "3.3.93847",
+  "characterClass": "Barbarian",
+  "classId": 105,
+  "talents": 30,
+  "activeTalents": 20,
+  "passiveTalents": 10,
+  "verifiedActiveInputRoutes": 20,
+  "ordinaryInputCases": 144,
+  "negativeInputCasesSeparatelyExcluded": 0,
+  "heldInputSequences": 0,
+  "foreignInputCasesSeparatelyExcluded": 0,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
+    "Assemblies/Sanctuary.Content.dll": "8650a6825fc6855608e4596cac7a9e97f3d00be7ed617a8212998acefb506553",
+    "Assemblies/Sanctuary.Integration.dll": "054c33d411c8d19b0c7913c373c1dd6c9774debadc7513455403b14402898a01"
+  },
+  "skills": [
+    {
+      "talentId": "barbarian.howl",
+      "ability": 122,
+      "routes": {
+        "remaining-barbarian-howl-quick": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-barbarian-howl-right": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "barbarian.findpotion",
+      "ability": 123,
+      "routes": {
+        "remaining-barbarian-findpotion-quick": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-barbarian-findpotion-right": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "barbarian.shout",
+      "ability": 124,
+      "routes": {
+        "barbarian-cast-clock-right": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "barbarian.taunt",
+      "ability": 125,
+      "routes": {
+        "remaining-barbarian-taunt-quick": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-barbarian-taunt-right": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "barbarian.battlecry",
+      "ability": 126,
+      "routes": {
+        "remaining-barbarian-battlecry-quick": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-barbarian-battlecry-right": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "barbarian.finditem",
+      "ability": 127,
+      "routes": {
+        "remaining-barbarian-finditem-quick": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-barbarian-finditem-right": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "barbarian.battleorders",
+      "ability": 128,
+      "routes": {
+        "remaining-barbarian-battleorders-quick": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-barbarian-battleorders-right": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "barbarian.grimward",
+      "ability": 129,
+      "routes": {
+        "grim-ward-quick": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "grim-ward-right": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "barbarian.warcry",
+      "ability": 130,
+      "routes": {
+        "remaining-barbarian-warcry-quick": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-barbarian-warcry-right": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "barbarian.battlecommand",
+      "ability": 131,
+      "routes": {
+        "barbarian-cast-clock-quick": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "barbarian.bash",
+      "ability": 142,
+      "routes": {
+        "remaining-barbarian-bash-left": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-barbarian-bash-quick": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-barbarian-bash-right": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "barbarian.doubleswing",
+      "ability": 143,
+      "routes": {
+        "double-swing-left": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "double-swing-quick": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "double-swing-right": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "barbarian.leap",
+      "ability": 144,
+      "routes": {
+        "remaining-barbarian-leap-left": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-barbarian-leap-quick": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-barbarian-leap-right": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "barbarian.doublethrow",
+      "ability": 145,
+      "routes": {
+        "remaining-barbarian-doublethrow-left": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-barbarian-doublethrow-quick": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-barbarian-doublethrow-right": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "barbarian.stun",
+      "ability": 146,
+      "routes": {
+        "remaining-barbarian-stun-left": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-barbarian-stun-quick": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-barbarian-stun-right": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "barbarian.leapattack",
+      "ability": 147,
+      "routes": {
+        "leap-attack-left": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "leap-attack-quick": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "leap-attack-right": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "barbarian.concentrate",
+      "ability": 148,
+      "routes": {
+        "remaining-barbarian-concentrate-left": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-barbarian-concentrate-quick": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-barbarian-concentrate-right": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "barbarian.frenzy",
+      "ability": 149,
+      "routes": {
+        "frenzy-left": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "frenzy-quick": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "frenzy-right": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "barbarian.whirlwind",
+      "ability": 150,
+      "routes": {
+        "remaining-barbarian-whirlwind-left": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-barbarian-whirlwind-quick": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-barbarian-whirlwind-right": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "barbarian.berserk",
+      "ability": 151,
+      "routes": {
+        "remaining-barbarian-berserk-left": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-barbarian-berserk-quick": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "remaining-barbarian-berserk-right": {
+          "stage": "barbarian-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    }
+  ],
+  "passiveSkills": [
+    {
+      "talentId": "barbarian.swordmastery",
+      "ability": 132
+    },
+    {
+      "talentId": "barbarian.axemastery",
+      "ability": 133
+    },
+    {
+      "talentId": "barbarian.macemastery",
+      "ability": 134
+    },
+    {
+      "talentId": "barbarian.polearmmastery",
+      "ability": 135
+    },
+    {
+      "talentId": "barbarian.throwingmastery",
+      "ability": 136
+    },
+    {
+      "talentId": "barbarian.spearmastery",
+      "ability": 137
+    },
+    {
+      "talentId": "barbarian.increasedstamina",
+      "ability": 138
+    },
+    {
+      "talentId": "barbarian.ironskin",
+      "ability": 139
+    },
+    {
+      "talentId": "barbarian.increasedspeed",
+      "ability": 140
+    },
+    {
+      "talentId": "barbarian.naturalresistance",
+      "ability": 141
+    }
+  ],
+  "classCertified": false,
+  "limits": "Every admitted route has successful input results on three boots. Negative controls do not establish a positive cast. Held class context comes from compiled owner/guard evidence rather than an invented log field. Passive mechanics remain separate birth/stat evidence. This is input accounting,not whole-class mechanics or exact engine/client/PvP certification.",
+  "files": {
+    ".local/class-skills/barbarian-lifecycle-acceptance/birth-inputs.json": "dd87b8228e6dec7b9ba3f0fbb5aac27c0ea1fcaae09e0d4c34ebebf3ae17a30c",
+    ".local/class-skills/barbarian-lifecycle-acceptance/birth-native-checks.log": "a341a9e57fc50fa04fe5285b7d555ae6180d62a370ce2cde02209dd9a429443c",
+    "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
+    "shared/DiabloClass.cs": "735cddd18c8e4397a4d5e73ec0a26bc7165056e5f571c87121b3609f820db075",
+    "tools/class_input_coverage.py": "9b17725ba225a5e6f742bf6bb6f0e91efaff4fbfe3a2dd894c9a6e37cb77fe43",
+    "tools/review_barbarian_input_coverage.py": "49686c06072b26aabd6f8980e42ac3059294caeb1b350424ae55962e824669f2"
+  }
+}
