@@ -859,6 +859,10 @@ CAVEATS['necromancer.skeletalmage']+=' Current Fire Bolt/Ice Bolt/Charged Bolt,G
 # Death Sentry keeps its existing post-defense physical/fire corpse split.
 CAVEATS['assassin.deathsentry']+=' Corpse explosions now publish their settled physical/fire components through shared typed health delivery,so approved Defiler Health Link shares those channels without faulting. The existing split-radius clipping,immunities,fire pierce,absorption,once-only corpse/seed/loot and NPC mana isolation retain. Five linked-explosion scenarios per boot and retained source packet/AI/controller/learned input/original-save checks are scoped in sentry-explosion-link-checkpoint.md;this is a shared-event repair,not a new damage formula or class certificate.'
 
+# All five stationary sentry missiles retain their settled element.
+for _talent in ('assassin.chargedboltsentry','assassin.lightningsentry','assassin.deathsentry','assassin.wakeofinferno','assassin.wakeoffire'):
+    CAVEATS[_talent]+=' Shared sentry missile contacts now publish their settled lightning/fire channel through the existing typed health API for approved Defiler Health Link. Each source row retains its own damage-rate scaling,immunity/pierce,absorption,source RNG,avoidance,recovery and saved flight rules. Fifteen link cases per boot,all five projectile/lifecycle and learned-input/original-save cohorts are scoped in sentry-missile-link-checkpoint.md;this is a shared-event repair,not full class certification.'
+
 def planned_content_remaining(text):
     """Keep excluded charm-only mechanics out of active talent blockers."""
     if not re.search('sunder',text,re.I):return text

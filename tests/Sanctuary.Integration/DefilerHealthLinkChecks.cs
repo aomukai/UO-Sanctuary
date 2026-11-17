@@ -70,6 +70,7 @@ public static class DefilerHealthLinkChecks
             NecromancerSpells(p,b,linked[0],victim,pct);
             MageSpells(p,b,linked[0],victim,pct);
             SentryExplosions(p,b,linked[0],victim,pct);
+            SentryMissiles(p,b,linked[0],victim,pct);
             before=linked.Select(SkillHealth.Balance256).ToArray();SkillHealth.Damage(p,linked[0],257);
             Require(before[0]-SkillHealth.Balance256(linked[0])==257&&before[1]==SkillHealth.Balance256(victim)
                 &&b.Prepared.Links.Fault=="Direct damage lacks settled typed components", $"Untyped damage mismatch:primary={before[0]-SkillHealth.Balance256(linked[0])},secondary={before[1]-SkillHealth.Balance256(victim)},fault={b.Prepared.Links.Fault},bodyMap={b.Map},ownerMap={p.Map}");
@@ -233,6 +234,47 @@ public static class DefilerHealthLinkChecks
         finally
         {
             primary.MoveToWorld(original,owner.Map);receiver.MoveToWorld(received,owner.Map);primary.SetResistance(ResistanceType.Physical,0);primary.SetResistance(ResistanceType.Fire,0);receiver.SetResistance(ResistanceType.Physical,0);receiver.SetResistance(ResistanceType.Fire,0);actor.Delete();caster.Delete();
+        }
+    }
+    private static void SentryMissiles(PlayerMobile owner,WarlockDefilerBody body,BaseCreature primary,BaseCreature receiver,int percent)
+    {
+        var caster=ClassSkillChecks.Player(DiabloClass.Assassin);caster.AddItem(new Backpack());ClassCreation.Profiles.AdvanceLevel(caster,99);caster.MoveToWorld(new(owner.X-1,owner.Y,owner.Z),owner.Map);int cases=0;
+        var routes=new[]{(CombatAbility.ChargedBoltSentry,"sentrychargedbolt","ltng"),(CombatAbility.LightningSentry,"sentrylightningbolt","ltng"),(CombatAbility.DeathSentry,"sentrylightningbolt2","ltng"),(CombatAbility.WakeOfInferno,"inferno sentry 1","fire"),(CombatAbility.WakeOfFire,"wake of destruction","fire")};
+        try
+        {
+            foreach(var (ability,missile,element) in routes)
+            {
+                DeathSentryExplosionChecks.Train(caster,ability,6);var actor=AssassinSentryBody.CreatePrepared(caster,new(caster.X+2,caster.Y,caster.Z),TimedEffects.Now.AddHours(1),SourceRandom.InitLow(23),ability);
+                try
+                {
+                    var captured=actor.Prepared;var endpoints=element=="fire"?AssassinSentryCreation.Fire(captured.Creation):AssassinSentryCreation.Lightning(captured.Creation);int rate=NecromancerSummons.Source(missile,"DamageRate"),pierce=captured.Creation.Passive(element=="fire"?"passive_fire_pierce":"passive_ltng_pierce");
+                    foreach(string mode in new[]{"normal","receiver-resisted","primary-immune"})
+                    {
+                        primary.SetResistance(ResistanceType.Fire,mode=="primary-immune"&&element=="fire"?100:0);primary.SetResistance(ResistanceType.Energy,mode=="primary-immune"&&element=="ltng"?100:0);
+                        bool resisted=mode=="receiver-resisted";receiver.SetResistance(ResistanceType.Fire,resisted?50:0);receiver.SetResistance(ResistanceType.Energy,resisted?75:0);
+                        ulong seed=SourceRandom.InitLow(31337),advanced=seed;int raw=WeaponMissileDamage.RollValue(endpoints.Min,endpoints.Max,0,n=>(int)SourceRandom.Limited(ref advanced,n));
+                        var settled=NamedElements.Resolve256(actor,primary,raw,element,enhance:false,damageRate:rate,pierceOverride:pierce);
+                        var parts=element=="fire"?new DirectDamageParts(0,0,settled.Damage256,0,0):new(0,0,0,0,settled.Damage256);var shared=parts.Fraction(percent);
+                        int expected=resisted?shared.Fire256/2+shared.Lightning256/4:checked((int)shared.Total),aLife=SkillHealth.Balance256(primary),bLife=SkillHealth.Balance256(receiver),displayed=primary.Hits,events=0,mana=NecromancerEffects.ManaBalance256(caster),npcMana=actor.Mana;SkillDamageContact observed=default;
+                        void Observe(SkillDamageContact contact){events++;observed=contact;}
+                        SkillDamageEvents.BeforeDirectDamage+=Observe;
+                        try
+                        {
+                            var hit=AssassinSentryBolts.Impact(actor,primary,missile,endpoints.Min,endpoints.Max,pierce,seed,element,rate);
+                            Require(body.Prepared.Links.Fault==null&&aLife-SkillHealth.Balance256(primary)==settled.Damage256&&bLife-SkillHealth.Balance256(receiver)==expected&&hit.WholeLoss==displayed-primary.Hits&&hit.Seed==advanced
+                                &&events==(settled.Damage256>0?1:0)&&(events==0||observed.Source==actor&&observed.Target==primary&&observed.Parts==parts)&&actor.Prepared==captured&&NecromancerEffects.ManaBalance256(caster)==mana&&actor.Mana==npcMana,
+                                $"Sentry {ability}/{mode} typed link:fault={body.Prepared.Links.Fault};primary={aLife-SkillHealth.Balance256(primary)}/{settled.Damage256};secondary={bLife-SkillHealth.Balance256(receiver)}/{expected};events={events};typed={observed.Parts!=null}");cases++;
+                        }
+                        finally{SkillDamageEvents.BeforeDirectDamage-=Observe;}
+                    }
+                }
+                finally{actor.Delete();}
+            }
+            Require(cases==15,"Incomplete sentry missile/link matrix");
+        }
+        finally
+        {
+            primary.SetResistance(ResistanceType.Fire,0);primary.SetResistance(ResistanceType.Energy,0);receiver.SetResistance(ResistanceType.Fire,0);receiver.SetResistance(ResistanceType.Energy,0);caster.Delete();
         }
     }
     private static void Reload(NetState network)

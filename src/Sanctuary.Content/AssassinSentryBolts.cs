@@ -150,7 +150,8 @@ public static class AssassinSentryBolts
         body.DoHarmful(target,true);
         var result=NamedElements.Resolve256(body,target,raw,element,enhance:false,damageRate:damageRate,pierceOverride:pierce);
         if(result.Absorbed256>0){SkillHealth.Heal(target,result.Absorbed256);}
-        int loss=SkillHealth.Damage(body,target,result.Damage256);CreatureHitRecovery.Apply(target,body,loss);CombatDamage.Finish(target,body);return(loss,stream);
+        var parts=element=="fire"?new DirectDamageParts(0,0,result.Damage256,0,0):new(0,0,0,0,result.Damage256);
+        int loss=SkillHealth.TypedDamage(body,target,result.Damage256,parts);CreatureHitRecovery.Apply(target,body,loss);CombatDamage.Finish(target,body);return(loss,stream);
     }
     internal static SentryBoltSave Snapshot()=>new(Bolts.Values.OrderBy(x=>x.Id).ToArray(),_nextId);
     internal static void Restore(SentryBoltSave saved)

@@ -1,0 +1,57 @@
+{
+  "reason": "Git staging failed with FILES disk full;preserve inactive disposable failure worlds on system disk before retrying.",
+  "originalFilesystem": "exfat",
+  "recoveredAvailableMiB": 263,
+  "fileVerification": "Every archived regular file was compared by SHA256 to its source,before source removal.Original paths retain ARCHIVE-LOCATION.json pointers.Original per-file manifests and compressed archives were fsynced.",
+  "installedServerTouched": false,
+  "worlds": [
+    {
+      "original": "/media/aomukai/FILES/Sanctuary/.local/class-skills/inferno-sentry/clock-collision-world",
+      "archive": "/home/aomukai/Sanctuary-checkpoint-archives/legacy-inferno-failure-worlds-2026-11-17/clock-collision-world.tar.gz",
+      "archiveSha256": "fd00ee904481e0cb1f4af0b639ee6173bddde2ac54daf569ccfc71d776f71d05",
+      "manifest": "/home/aomukai/Sanctuary-checkpoint-archives/legacy-inferno-failure-worlds-2026-11-17/clock-collision-world-manifest.json",
+      "manifestSha256": "c4345c4d07d2dc28056213c21eeac0f5db41ccfd21bbc5f573efddd837f87031",
+      "files": 142
+    },
+    {
+      "original": "/media/aomukai/FILES/Sanctuary/.local/class-skills/inferno-sentry/failure-world",
+      "archive": "/home/aomukai/Sanctuary-checkpoint-archives/legacy-inferno-failure-worlds-2026-11-17/failure-world.tar.gz",
+      "archiveSha256": "86ac2edb4f9b3dc1796d2ef75b29bf3e8b7a0531857efd4039118b43f28a5c45",
+      "manifest": "/home/aomukai/Sanctuary-checkpoint-archives/legacy-inferno-failure-worlds-2026-11-17/failure-world-manifest.json",
+      "manifestSha256": "57fd5f93bb611115aa286e14aa763f200f146c5865f00ca6947616fc12736985",
+      "files": 272
+    },
+    {
+      "original": "/media/aomukai/FILES/Sanctuary/.local/class-skills/inferno-sentry/first-full-failure-world",
+      "archive": "/home/aomukai/Sanctuary-checkpoint-archives/legacy-inferno-failure-worlds-2026-11-17/first-full-failure-world.tar.gz",
+      "archiveSha256": "381e87c393b9c6b2d766bda9ce3c5a8a61176420fdef3fed0a23a56cc8e43ae0",
+      "manifest": "/home/aomukai/Sanctuary-checkpoint-archives/legacy-inferno-failure-worlds-2026-11-17/first-full-failure-world-manifest.json",
+      "manifestSha256": "046c993f0ca635a2b618e2a3a7d8edbbd0d858cb6b4c1ebd950df8a7c6bfcce9",
+      "files": 272
+    },
+    {
+      "original": "/media/aomukai/FILES/Sanctuary/.local/class-skills/inferno-sentry/fourth-full-failure-world",
+      "archive": "/home/aomukai/Sanctuary-checkpoint-archives/legacy-inferno-failure-worlds-2026-11-17/fourth-full-failure-world.tar.gz",
+      "archiveSha256": "80d42f6dde2f2b675e676bb8917b59655004f039a38664b8b96d12ee217fd6ef",
+      "manifest": "/home/aomukai/Sanctuary-checkpoint-archives/legacy-inferno-failure-worlds-2026-11-17/fourth-full-failure-world-manifest.json",
+      "manifestSha256": "185a7f732a423b34c0538aa4f68559e0c67696cd0ee02078cc62f9911d8f773d",
+      "files": 272
+    },
+    {
+      "original": "/media/aomukai/FILES/Sanctuary/.local/class-skills/inferno-sentry/second-full-failure-world",
+      "archive": "/home/aomukai/Sanctuary-checkpoint-archives/legacy-inferno-failure-worlds-2026-11-17/second-full-failure-world.tar.gz",
+      "archiveSha256": "dbc78ea8c3f0a78e07582659aadc041182567fb84d5451868862884c90b8da78",
+      "manifest": "/home/aomukai/Sanctuary-checkpoint-archives/legacy-inferno-failure-worlds-2026-11-17/second-full-failure-world-manifest.json",
+      "manifestSha256": "c3448fe781b4fe862f5d0185c63556ab5b42c4b625e0108294ff9dc7fd12cd05",
+      "files": 272
+    },
+    {
+      "original": "/media/aomukai/FILES/Sanctuary/.local/class-skills/inferno-sentry/third-full-failure-world",
+      "archive": "/home/aomukai/Sanctuary-checkpoint-archives/legacy-inferno-failure-worlds-2026-11-17/third-full-failure-world.tar.gz",
+      "archiveSha256": "1b1fd24d6e4f2c533147a5b174210789cd7e0abd072c432de9aee38ea037223d",
+      "manifest": "/home/aomukai/Sanctuary-checkpoint-archives/legacy-inferno-failure-worlds-2026-11-17/third-full-failure-world-manifest.json",
+      "manifestSha256": "4418a94cda29bd67ad40dec4bbdd6c621c154b7975ec9ba44565e548e990d6d6",
+      "files": 272
+    }
+  ]
+}
