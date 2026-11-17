@@ -1,5 +1,7 @@
 # Skill effects
 
+**Druid/Assassin current integration — 2026-11-18 JST.** [Druid](druid-lifecycle-acceptance-checkpoint.md) and [Assassin](assassin-lifecycle-acceptance-checkpoint.md) qualify existing melee,spell,pet,trap,weather,channel and saved-effect mechanics without creating artwork/audio. Their named mechanical placeholders retain the separately listed missing effects and sounds. No imagegen.
+
 **Amazon integration/approved Impale — 2026-11-17 JST.** [Checkpoint](amazon-lifecycle-acceptance-checkpoint.md) adds no artwork/audio. Existing thrust,slow,arrow/javelin travel,poison/lightning/cold/burning fields,Decoy/Valkyrie and shatter effects remain identified mechanical placeholders. Final effects/audio stay separately missing;no imagegen.
 
 **Barbarian lifecycle/input qualification — 2026-11-17 JST.** [Checkpoint](barbarian-lifecycle-acceptance-checkpoint.md) creates no artwork/audio. Shout waves,curse overlays,corpse searches,Leap/Whirlwind movement,throwing projectiles and melee impacts keep identified mechanical placeholders. Final effects/audio remain separately missing;no imagegen.

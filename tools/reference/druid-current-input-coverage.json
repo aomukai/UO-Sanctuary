@@ -1,0 +1,661 @@
+{
+  "referenceVersion": "3.3.93847",
+  "characterClass": "Druid",
+  "classId": 106,
+  "talents": 30,
+  "activeTalents": 29,
+  "passiveTalents": 1,
+  "verifiedActiveInputRoutes": 29,
+  "ordinaryInputCases": 225,
+  "negativeInputCasesSeparatelyExcluded": 0,
+  "heldInputSequences": 9,
+  "foreignInputCasesSeparatelyExcluded": 78,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
+    "Assemblies/Sanctuary.Content.dll": "279d7216ecd05447605a61f89d02041edc5b6876bfad45d00080d714f1c21c28",
+    "Assemblies/Sanctuary.Integration.dll": "bf6a5ac6ffc29e197bf001270acf0cb574c63dfecdeeb60006e030094a2fa7f3"
+  },
+  "skills": [
+    {
+      "talentId": "druid.firestorm",
+      "ability": 152,
+      "routes": {
+        "firestorm-input": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulLegacySequences": 3,
+          "evidence": "actual legacy Cast ability/check/result;class from compiled fixture ownership/default"
+        }
+      }
+    },
+    {
+      "talentId": "druid.moltenboulder",
+      "ability": 153,
+      "routes": {
+        "molten-boulder-input": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulLegacySequences": 3,
+          "evidence": "actual legacy Cast ability/check/result;class from compiled fixture ownership/default"
+        }
+      }
+    },
+    {
+      "talentId": "druid.arcticblast",
+      "ability": 154,
+      "routes": {
+        "arctic-held-wire-0": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulHeldSequences": 3,
+          "evidence": "actual held ability/press/burning/result;class from compiled owner and availability guard"
+        },
+        "arctic-held-wire-1": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulHeldSequences": 3,
+          "evidence": "actual held ability/press/burning/result;class from compiled owner and availability guard"
+        },
+        "arctic-held-wire-9": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulHeldSequences": 3,
+          "evidence": "actual held ability/press/burning/result;class from compiled owner and availability guard"
+        }
+      }
+    },
+    {
+      "talentId": "druid.fissure",
+      "ability": 155,
+      "routes": {
+        "fissure-input": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulLegacySequences": 3,
+          "evidence": "actual legacy Cast ability/check/result;class from compiled fixture ownership/default"
+        }
+      }
+    },
+    {
+      "talentId": "druid.cyclonearmor",
+      "ability": 156,
+      "routes": {
+        "cyclone-armor-input": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulLegacySequences": 3,
+          "evidence": "actual legacy Cast ability/check/result;class from compiled fixture ownership/default"
+        },
+        "druid-human-cast-clock-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "druid.twister",
+      "ability": 157,
+      "routes": {
+        "twister-input": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulLegacySequences": 3,
+          "evidence": "actual legacy Cast ability/check/result;class from compiled fixture ownership/default"
+        }
+      }
+    },
+    {
+      "talentId": "druid.volcano",
+      "ability": 158,
+      "routes": {
+        "volcano-input": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulLegacySequences": 3,
+          "evidence": "actual legacy Cast ability/check/result;class from compiled fixture ownership/default"
+        }
+      }
+    },
+    {
+      "talentId": "druid.tornado",
+      "ability": 159,
+      "routes": {
+        "tornado-input": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulLegacySequences": 3,
+          "evidence": "actual legacy Cast ability/check/result;class from compiled fixture ownership/default"
+        }
+      }
+    },
+    {
+      "talentId": "druid.hurricane",
+      "ability": 160,
+      "routes": {
+        "hurricane-input": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulLegacySequences": 3,
+          "evidence": "actual legacy Cast ability/check/result;class from compiled fixture ownership/default"
+        }
+      }
+    },
+    {
+      "talentId": "druid.armageddon",
+      "ability": 161,
+      "routes": {
+        "armageddon-input": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulLegacySequences": 3,
+          "evidence": "actual legacy Cast ability/check/result;class from compiled fixture ownership/default"
+        }
+      }
+    },
+    {
+      "talentId": "druid.werewolf",
+      "ability": 162,
+      "routes": {
+        "form-wolf-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "form-wolf-unshift-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "druid.werebear",
+      "ability": 164,
+      "routes": {
+        "form-bear-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "form-bear-unshift-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "druid.maul",
+      "ability": 165,
+      "routes": {
+        "druid-captured-proc-maul-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "druid-captured-proc-maul-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "druid-setup-items-maul-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "druid-setup-items-maul-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "druid-weapon-poison-maul-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "druid-weapon-poison-maul-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "maul-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "maul-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "druid.feralrage",
+      "ability": 166,
+      "routes": {
+        "druid-captured-proc-feral-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "druid-captured-proc-feral-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "feral-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "feral-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "druid.fireclaws",
+      "ability": 167,
+      "routes": {
+        "druid-captured-proc-fire-bear-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "druid-captured-proc-fire-bear-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "druid-captured-proc-fire-wolf-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "druid-captured-proc-fire-wolf-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "fire-claws-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "fire-claws-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "druid.rabies",
+      "ability": 168,
+      "routes": {
+        "druid-action-proc-rabies-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "druid-action-proc-rabies-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "druid-setup-items-rabies-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "druid-setup-items-rabies-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "druid-weapon-poison-rabies-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "druid-weapon-poison-rabies-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "rabies-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "rabies-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "druid.shockwave",
+      "ability": 169,
+      "routes": {
+        "shock-wave-left": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "shock-wave-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "shock-wave-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "druid.hunger",
+      "ability": 170,
+      "routes": {
+        "druid-action-proc-hunger-bear-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "druid-action-proc-hunger-bear-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "druid-action-proc-hunger-wolf-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "druid-action-proc-hunger-wolf-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "druid-setup-items-hunger-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "druid-setup-items-hunger-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "druid-weapon-poison-hunger-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "druid-weapon-poison-hunger-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "hunger-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "hunger-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "druid.fury",
+      "ability": 171,
+      "routes": {
+        "druid-action-proc-fury-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "druid-action-proc-fury-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "druid-setup-items-fury-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "druid-setup-items-fury-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "druid-weapon-poison-fury-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "druid-weapon-poison-fury-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "fury-left": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "fury-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "fury-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "druid.raven",
+      "ability": 172,
+      "routes": {
+        "bear-interrupt-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "druid-human-cast-clock-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "raven-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "raven-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "druid.poisoncreeper",
+      "ability": 173,
+      "routes": {
+        "creeper-learned-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "creeper-learned-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "druid.oaksage",
+      "ability": 174,
+      "routes": {
+        "oak-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "oak-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "druid.summonspiritwolf",
+      "ability": 175,
+      "routes": {
+        "spirit-wolf-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "spirit-wolf-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "druid.carrionvine",
+      "ability": 176,
+      "routes": {
+        "carrion-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "carrion-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "druid.heartofwolverine",
+      "ability": 177,
+      "routes": {
+        "wolverine-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "wolverine-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "druid.summondirewolf",
+      "ability": 178,
+      "routes": {
+        "dire-wolf-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "dire-wolf-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "druid.solarcreeper",
+      "ability": 179,
+      "routes": {
+        "solar-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "solar-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "druid.spiritofbarbs",
+      "ability": 180,
+      "routes": {
+        "barbs-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "barbs-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "druid.summongrizzly",
+      "ability": 181,
+      "routes": {
+        "grizzly-quick": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "grizzly-right": {
+          "stage": "druid-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    }
+  ],
+  "passiveSkills": [
+    {
+      "talentId": "druid.lycanthropy",
+      "ability": 163
+    }
+  ],
+  "classCertified": false,
+  "limits": "Every admitted route has successful input results on three boots. Negative controls do not establish a positive cast. Held class context comes from compiled owner/guard evidence rather than an invented log field. Passive mechanics remain separate birth/stat evidence. This is input accounting,not whole-class mechanics or exact engine/client/PvP certification.",
+  "files": {
+    ".local/class-skills/druid-lifecycle-acceptance/birth-inputs.json": "82fe71e63c25034a1cbd425e5811a1468fa0ac6f42574b59a22caef5163e2e71",
+    ".local/class-skills/druid-lifecycle-acceptance/birth-native-checks.log": "94e051cec9192617457aa139825f69fabf3190837079e89e2924d53349ed8fee",
+    "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
+    "shared/DiabloClass.cs": "735cddd18c8e4397a4d5e73ec0a26bc7165056e5f571c87121b3609f820db075",
+    "src/Sanctuary.Content/PlayerInfernoInput.cs": "e459de834240253ba07024c2b3710f80d8d3dea52226a518e32232b8a54ff4d5",
+    "tests/Sanctuary.Integration/ArcticHeldInputChecks.cs": "8bd84a9f9e8a7a518f3fbd6030c4f719a259bd090fbc7899e5b9713f4b941f40",
+    "tests/Sanctuary.Integration/ArmageddonChecks.cs": "1bd60c047fd53a20b1bcf594b0c7f47c623122acec9ae41fbb51dfcd474cbe53",
+    "tests/Sanctuary.Integration/CycloneArmorChecks.cs": "a207b89af5caba88ab7f44e0f4fc1b3e0ebade08140f43234295b2f39ca1efe0",
+    "tests/Sanctuary.Integration/FirestormChecks.cs": "5aaa84d7ba3669d73d24c74d62022bf9abaf41dc5ef794113599b5c468f3b179",
+    "tests/Sanctuary.Integration/FissureChecks.cs": "a5ec68a74179516308618164cdea0552bfb5c5910ff713768009dcfcc3eae024",
+    "tests/Sanctuary.Integration/HurricaneChecks.cs": "b4c91b9794d507f105cd4dd93eb04847caa8ecda0b1494d6aea0cea85d23623c",
+    "tests/Sanctuary.Integration/MoltenBoulderChecks.cs": "9062336715f12a8dbf3f9e2bc020bd1cd29e1f5128173cf10031c6f7dce46d2c",
+    "tests/Sanctuary.Integration/TornadoChecks.cs": "9e7ba30589ecaf6fd47ac674d81f73baf1366ddbd5c755d69242c70bb03247b7",
+    "tests/Sanctuary.Integration/TwisterChecks.cs": "2b4250cccf41d1e84be4674cbe5b6c6e6c786e63e776a0ffec245ad7d40eaa9c",
+    "tests/Sanctuary.Integration/VolcanoChecks.cs": "87ead6e73ea63a2055916bca311b77c4ee951ace51a0a3e7e2e6221eaa261ac4",
+    "tools/class_input_coverage.py": "c7d1519c2bf3c83bd5bbc1e1da772da49692783b8b5847a43d598b248e01a6b1",
+    "tools/review_druid_input_coverage.py": "29c13f32de2b07581dce0e8b79a90145b8576be4e9f77f42f08c2c319860ee05"
+  },
+  "legacyInputSequences": 27,
+  "basicAttackControlsSeparatelyExcluded": 18,
+  "legacyLimits": "Nine actual legacy elemental Cast scenarios per boot omit a class byte;compiled original fixture ownership plus observed ability/check/result establish context. Cyclone Armor also has explicit-class input. These27sequences are separate from ordinary inputs and nine held Arctic sequences;heartbeats and save stages are not new talent routes."
+}
