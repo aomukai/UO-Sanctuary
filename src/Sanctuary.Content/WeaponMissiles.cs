@@ -451,7 +451,7 @@ public static class WeaponMissiles
         if(ClassAvoidance.Missile(target,flight.Missile)){return;}
         source.DoHarmful(target,true);
         var parts=SkillCombat.MitigatePrepared(source,target,damage);
-        int loss=SkillHealth.Damage(source,target,NamedElements.To256(parts.Total));
+        int loss=SkillHealth.TypedDamage(source,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));
         if(target is PlayerMobile player){HitRecovery.Apply(player,loss,Core.TickCount);}
         else if(target is BaseCreature creature){CreatureHitRecovery.Apply(creature,source,loss);}
         CombatDamage.Finish(target,source);

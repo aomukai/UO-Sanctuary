@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "03b6ad0fadeedeed6ef76ca3a53abe0f518c159b6f794c563c11b862236b4891",
+  "ContentAssemblySha256": "fa9267b2ce06b6691bf08636bf22407fe239b6783a3467be3789e70ac9f3604d",
   "NativeAssemblySha256": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
   "InputHashes": {
     "data/Sanctuary/Balance/abyss-route.json": "6c823249f73d320ba6ba4b2c538d419bc54a8cb8aaad8a605f5abf18d5911e18",
@@ -1405,7 +1405,7 @@
     "src/Sanctuary.Content/WeaponLandedEvents.cs": "53e34f47bda1eb0dcbe572270ba7329d622b8f19fbf44290f60b046470162c13",
     "src/Sanctuary.Content/WeaponLeech.cs": "8e51d0e8c6ad1e85bc5bc747bbdb128197c952094154c5814bd3319f4b055426",
     "src/Sanctuary.Content/WeaponMasteries.cs": "988d0d0e0407c511a67a366ea9155b36f87aaad3ae5bf68a02b0ccfa1c3b9e14",
-    "src/Sanctuary.Content/WeaponMissiles.cs": "1232d1941e25a6ccc92145843f3a4d5e3bf4468fd3718e0bad36a04a31e43e19",
+    "src/Sanctuary.Content/WeaponMissiles.cs": "507c122e1eb37d7f97ee91e770ee7fd11e897e511a38948b103fb2cfbfa1bc6d",
     "src/Sanctuary.Content/WeaponPoisonPackets.cs": "c8d23c250715c0abdff8561664738171284080336f2bc14aaa79d828a7811a29",
     "src/Sanctuary.Content/WeaponStartEffects.cs": "23d233ae5a191d5d483bc93c4ee9f35912a959b843ad05aab36d424ee44fa389",
     "tests/Sanctuary.Integration/NamedGearChecks.cs": "5d4edd339cc75b17a5c1c71f8e1d441e97d4d248e5872a67374aa5869b253656",

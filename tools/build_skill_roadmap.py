@@ -963,6 +963,7 @@ def build():
 
 def render(data):
     lines=['# Class skill roadmap','',
+        'The [NPC firebolt Health Link checkpoint](hostile-bolt-link-checkpoint.md) verifies settled fire delivery with the existing captured Slow Missiles payload, damage-draw/avoidance order, shields, terrain, original flights and two reloads. This is a shared receiver repair; legacy UO timers and mixed elite aura/death paths remain separate.','',
         'Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and deviations](skill-mechanical-reference.md). '
         'The user authorized work past individually blocked skills. Missing final art does not block mechanics. '
         '**No class is marked complete at this checkpoint.** Handler counts are implementation coverage, not parity or full verification.','',
