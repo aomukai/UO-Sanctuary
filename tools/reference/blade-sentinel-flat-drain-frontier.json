@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "referenceVersion": "3.3.93847",
+  "status": "reachable-unresolved",
+  "evidenceKind": "Current source and admitted data;not a newly executed native capture/cast",
+  "item": "unique/203",
+  "itemAvailable": true,
+  "lifeStealPercent": 5,
+  "sourceDamage": 96,
+  "examples": [
+    {
+      "twoHanded": false,
+      "effectiveSourceDamage": 96,
+      "capturedDrain": 3
+    },
+    {
+      "twoHanded": true,
+      "effectiveSourceDamage": 48,
+      "capturedDrain": 1
+    }
+  ],
+  "currentPositiveDrainBehavior": "Separate FP256 extra primary damage and NPC leech remain;scalar contact explicitly faults an active Health Link",
+  "channelEstablished": false,
+  "mechanicsChanged": false,
+  "decisionRequested": false,
+  "files": {
+    "src/Sanctuary.Content/BladeSentinelLaunch.cs": "a5d3241870cc857c07919d38938c1ba376b60b9b9e963b2e6978b0de3bf07930",
+    "src/Sanctuary.Content/BladeSentinelPackets.cs": "c5aa529987c37b4581f45bab1eea41dc59e7bd97268ae4ea3cb1c6a1cd42e4d1",
+    "src/Sanctuary.Content/BowLaunch.cs": "cc965538d9974575cbd776b9b58f1a38f96e2daeb50595aa16811a7ef5fb5b03",
+    "src/Sanctuary.Content/MissileSourceStats.cs": "652a8a36185c17f3bb53a27e9044c38457b5611715abfa4a8859883c2823aad7",
+    "src/Sanctuary.Content/BladeSentinelMissiles.cs": "8df046a3237f1fcc646085a02f96fee78570d3a30bbb8098b28298f5c636ccb8",
+    "src/Sanctuary.Content/WeaponLeech.cs": "8e51d0e8c6ad1e85bc5bc747bbdb128197c952094154c5814bd3319f4b055426",
+    "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
+    "data/Sanctuary/Balance/unique-items.json": "0c50d618909ca62fcd2f79c1b19e0e49790ca02073a5343c89dfa0c13a3404b0",
+    "tools/reference/named-item-runtime-audit.json": "58efd2648e2ddb16e0959447dcfea308e8b293fb367132dcfc02658a47887227"
+  }
+}

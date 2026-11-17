@@ -68,8 +68,8 @@ public static class MissileHistoryChecks
             var p=Fresh(ability,true);var a=Target(p);var b=Target(p);
             try
             {
-                int ah=SkillHealth.Balance256(a),bh=SkillHealth.Balance256(b);var f=Cast(p,ability,a);
-                Require(f.Pierces==4,"Actual Pierce continuation supplier");
+                int ah=SkillHealth.Balance256(a),bh=SkillHealth.Balance256(b);uint pierceIndex=PlayerPierceFixtures.NextBudget(p,4);var f=Cast(p,ability,a);
+                Require(f.Pierces==4&&PlayerPierceActions.Index(p)==pierceIndex,"Actual indexed Pierce continuation supplier");
                 for(int frame=0;frame<20&&SkillHealth.Balance256(a)==ah&&SkillHealth.Balance256(b)==bh;frame++)
                 {
                     var current=WeaponMissiles.State(f.Id);Require(current!=null,"Parent disappeared before its first contact");

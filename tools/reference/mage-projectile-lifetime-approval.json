@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "status": "approved-pending-implementation",
+  "decisionDate": "2026-11-17",
+  "userAnswer": "Keep already-fired projectiles active (Recommended)",
+  "rule": "Already-fired Skeletal Mage projectiles continue flying and damaging to their existing expiry after their Mage dies. Necromancer death,logout and facet restrictions still apply.",
+  "referenceUncertainty": "Pinned current D2R caster-removal behavior is unverified;this is an explicit Sanctuary adaptation.",
+  "installed": false,
+  "document": "docs/mage-projectile-lifetime-decision.md",
+  "implementationVerifiedAtDecision": false,
+  "answer": "Keep already-fired projectiles active (Recommended)"
+}
