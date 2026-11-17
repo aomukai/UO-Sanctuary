@@ -16,6 +16,7 @@ public static class PlagueJavelins
 {
     private static readonly Dictionary<long,PlagueCloud> _clouds=new();
     private static long _next;
+    private static readonly HashSet<string> Unsupported=[];
     internal static FanRay[] Pattern()=>PoisonCloudGeometry.Pattern(NecromancerSummons.Source("plaguejavelin","sHitPar2"),
         NecromancerSummons.Source("plaguejavelin","sHitPar1"),NecromancerSummons.Source("plaguejavelin","sHitPar3"));
     internal static void Burst(PlayerMobile owner,WeaponFlight parent,Mobile target,DateTime at)
@@ -70,7 +71,8 @@ public static class PlagueJavelins
             if(Recipient(owner,next) is BaseCreature target && target.Serial.Value!=cloud.LastCollision)
             {
                 _clouds[cloud.Id]=next=next with{LastCollision=target.Serial.Value};int rate=WeaponMissileDamage.RollValue(cloud.Damage.Elements.PoisonMin,cloud.Damage.Elements.PoisonMax,0,WeaponMissiles.DamageRoll);
-                owner.DoHarmful(target,true);PoisonJavelins.Poison(owner,target,rate,cloud.Damage.Elements.PoisonImpactFrames,cloud.NextUtc);
+                if(!PlayerWeaponMissileContact.TryPoison(owner,target,rate,cloud.Damage.Elements.PoisonImpactFrames,cloud.NextUtc,out string reason,hitClass:0)&&Unsupported.Add(reason))
+                {Server.Logging.LogFactory.GetLogger(typeof(PlagueJavelins)).Warning("Plague Javelin cloud unsupported context: {Reason}",reason);}
             }
             if(frame%5==0){Effects.SendLocationEffect(point,owner.Map,0x374A,2,10,0x3F,0);} // Identified poison placeholder.
             if(next.NextUtc<=at){queue.Enqueue(next,(next.NextUtc,next.Id));}

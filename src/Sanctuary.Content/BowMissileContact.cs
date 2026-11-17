@@ -5,7 +5,7 @@ namespace Sanctuary;
 
 internal static class BowMissileContact
 {
-    internal static bool Handles(CombatAbility ability)=>ability is CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.IceArrow or CombatAbility.GuidedArrow or CombatAbility.ExplodingArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow or CombatAbility.Strafe or CombatAbility.LightningBolt or CombatAbility.LightningFury or CombatAbility.PoisonJavelin;
+    internal static bool Handles(CombatAbility ability)=>ability is CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.IceArrow or CombatAbility.GuidedArrow or CombatAbility.ExplodingArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow or CombatAbility.Strafe or CombatAbility.LightningBolt or CombatAbility.LightningFury or CombatAbility.PoisonJavelin or CombatAbility.PlagueJavelin;
     internal static bool Handles(WeaponFlight flight)=>flight is{HostileSpell:false,Npc:null,Mirrored:null,Throwing:null}
         &&(flight.Ability==CombatAbility.MagicArrow&&flight.Missile=="magicarrow"
             ||flight.Ability==CombatAbility.MultipleShot&&flight.Missile is "multipleshotarrow" or "multipleshotbolt"
@@ -19,14 +19,15 @@ internal static class BowMissileContact
             ||flight.Ability==CombatAbility.Strafe&&flight.Missile is "strafearrow" or "strafebolt"
             ||flight.Ability==CombatAbility.LightningBolt&&flight.Missile=="lightningjavelin"&&flight.Damage.LightningJavelinPercent==100
             ||flight.Ability==CombatAbility.LightningFury&&flight.Missile=="lightningfury"
-            ||flight.Ability==CombatAbility.PoisonJavelin&&flight.Missile=="poisonjav");
+            ||flight.Ability==CombatAbility.PoisonJavelin&&flight.Missile=="poisonjav"
+            ||flight.Ability==CombatAbility.PlagueJavelin&&flight.Missile=="plaguejavelin");
     private static string Row(CombatAbility ability)=>ability switch
-    {CombatAbility.MagicArrow=>"magicarrow",CombatAbility.FireArrow=>"firearrow",CombatAbility.ColdArrow=>"coldarrow",CombatAbility.IceArrow=>"icearrow",CombatAbility.GuidedArrow=>"guidedarrow",CombatAbility.ExplodingArrow=>"explodingarrow",CombatAbility.FreezingArrow=>"freezingarrow",CombatAbility.ImmolationArrow=>"immolationarrow",CombatAbility.LightningBolt=>"lightningjavelin",CombatAbility.LightningFury=>"lightningfury",CombatAbility.PoisonJavelin=>"poisonjav",_=>throw new NotSupportedException("Unqualified bow impact")};
+    {CombatAbility.MagicArrow=>"magicarrow",CombatAbility.FireArrow=>"firearrow",CombatAbility.ColdArrow=>"coldarrow",CombatAbility.IceArrow=>"icearrow",CombatAbility.GuidedArrow=>"guidedarrow",CombatAbility.ExplodingArrow=>"explodingarrow",CombatAbility.FreezingArrow=>"freezingarrow",CombatAbility.ImmolationArrow=>"immolationarrow",CombatAbility.LightningBolt=>"lightningjavelin",CombatAbility.LightningFury=>"lightningfury",CombatAbility.PoisonJavelin=>"poisonjav",CombatAbility.PlagueJavelin=>"plaguejavelin",_=>throw new NotSupportedException("Unqualified bow impact")};
     internal static void Require(PlayerMobile owner,CombatAbility ability)
     {
         foreach(string missile in ability==CombatAbility.MultipleShot?new[]{"multipleshotarrow","multipleshotbolt"}:ability==CombatAbility.Strafe?new[]{"strafearrow","strafebolt"}:new[]{Row(ability)})
         {
-            foreach(var(field,value)in new[]{("GetHit",1),("HitClass",ability==CombatAbility.PoisonJavelin?6:ability is CombatAbility.LightningBolt or CombatAbility.LightningFury?64:ability is CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.IceArrow or CombatAbility.ExplodingArrow or CombatAbility.FreezingArrow?0:10),("pSrvDoFunc",ability==CombatAbility.PoisonJavelin?2:ability==CombatAbility.GuidedArrow?7:1),("pSrvDmgFunc",ability==CombatAbility.LightningBolt?12:ability is CombatAbility.MultipleShot or CombatAbility.GuidedArrow or CombatAbility.ExplodingArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow or CombatAbility.Strafe or CombatAbility.LightningFury or CombatAbility.PoisonJavelin?0:ability==CombatAbility.IceArrow?2:1),("ToHit",ability is CombatAbility.GuidedArrow or CombatAbility.LightningBolt or CombatAbility.LightningFury?0:1)})
+            foreach(var(field,value)in new[]{("GetHit",1),("HitClass",ability is CombatAbility.PoisonJavelin or CombatAbility.PlagueJavelin?6:ability is CombatAbility.LightningBolt or CombatAbility.LightningFury?64:ability is CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.IceArrow or CombatAbility.ExplodingArrow or CombatAbility.FreezingArrow?0:10),("pSrvDoFunc",ability==CombatAbility.PlagueJavelin?3:ability==CombatAbility.PoisonJavelin?2:ability==CombatAbility.GuidedArrow?7:1),("pSrvDmgFunc",ability==CombatAbility.LightningBolt?12:ability is CombatAbility.MultipleShot or CombatAbility.GuidedArrow or CombatAbility.ExplodingArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow or CombatAbility.Strafe or CombatAbility.LightningFury or CombatAbility.PoisonJavelin or CombatAbility.PlagueJavelin?0:ability==CombatAbility.IceArrow?2:1),("ToHit",ability is CombatAbility.GuidedArrow or CombatAbility.LightningBolt or CombatAbility.LightningFury?0:1)})
             {if(NecromancerSummons.Source(missile,field)!=value){throw new NotSupportedException("Bow contact row conflict: "+missile+"/"+field);}}
         }
         if(ability==CombatAbility.IceArrow&&NecromancerSummons.Source("icearrow","dParam1")!=100){throw new NotSupportedException("Ice Arrow freeze percentage is not qualified");}
@@ -65,6 +66,12 @@ internal static class BowMissileContact
             foreach(var(missile,field,value)in new[]{("poisonjav","pSrvHitFunc",0),("poisonjav","Range",25),("poisonjav","LastCollide",1),("poisonjavcloud","SrcDamage",-1),("poisonjavcloud","pSrvDoFunc",3),("poisonjavcloud","GetHit",0),("poisonjavcloud","HitClass",6),("poisonjavcloud","ToHit",0),("poisonjavcloud","Range",60),("poisonjavcloud","Size",2),("poisonjavcloud","LastCollide",1)})
             {if(NecromancerSummons.Source(missile,field)!=value){throw new NotSupportedException("Poison Javelin contact row conflict: "+missile+"/"+field);}}
             if(SkillMechanics.For(ability).Number("SrcDam")!=128){throw new NotSupportedException("Poison Javelin weapon source changed");}
+        }
+        if(ability==CombatAbility.PlagueJavelin)
+        {
+            foreach(var(missile,field,value)in new[]{("plaguejavelin","pSrvHitFunc",2),("plaguejavelin","Range",15),("plaguejavelin","AlwaysExplode",1),("plaguejavelin","LastCollide",1),("plaguejavcloud","SrcDamage",-1),("plaguejavcloud","pSrvDoFunc",3),("plaguejavcloud","GetHit",0),("plaguejavcloud","HitClass",0),("plaguejavcloud","ToHit",0),("plaguejavcloud","Range",60),("plaguejavcloud","Size",2),("plaguejavcloud","LastCollide",1)})
+            {if(NecromancerSummons.Source(missile,field)!=value){throw new NotSupportedException("Plague Javelin contact row conflict: "+missile+"/"+field);}}
+            if(SkillMechanics.For(ability).Number("SrcDam")!=128){throw new NotSupportedException("Plague Javelin weapon source changed");}
         }
         WeaponStartEffects.Require(owner);
     }

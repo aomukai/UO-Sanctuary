@@ -31,14 +31,14 @@ internal static class PlayerWeaponMissileContact
         =>TryElementalCore(owner,target,damage256,false,0,at,1|(soft?16384:0),0,32,damageRate,SkillDamageKind.Periodic,out reason);
     internal static bool TryLightning(PlayerMobile owner,BaseCreature target,int damage256,DateTime at,out string reason)
         =>TryElementalCore(owner,target,damage256,false,0,at,5,0,64,0,SkillDamageKind.Direct,out reason,lightning:true);
-    internal static bool TryPoison(PlayerMobile owner,BaseCreature target,int rate256,int frames,DateTime at,out string reason)
+    internal static bool TryPoison(PlayerMobile owner,BaseCreature target,int rate256,int frames,DateTime at,out string reason,int hitClass=6)
     {
         if(!ElementalAdmission(owner,target,out bool contact,out reason)){return false;}
         if(!contact){return true;}
         var poison=PoisonJavelins.PreparePoison(owner,target,rate256,frames);
         var impact=new PreparedWeaponImpact(default,default,0)with{LifeDamage256=poison.Rate256,AllocatedPoison=poison};
         var packet=new PlayerWeaponContactPrepared(SourceMeleeResult.Successful,impact,new(0,0),0,0,WeaponMissiles.ItemEffects,
-            HitClass:6,HitFlags:0,SuppressWear:true);
+            HitClass:hitClass,HitFlags:0,SuppressWear:true);
         PlayerWeaponContact.ReleaseMissile(owner,target,packet,at,true);return true;
     }
     private static bool ElementalAdmission(PlayerMobile owner,BaseCreature target,out bool contact,out string reason)

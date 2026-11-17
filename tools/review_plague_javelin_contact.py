@@ -1,0 +1,22 @@
+#!/usr/bin/env python3
+"""Bind Plague Javelin weapon parent,hit02 burst and source0 moving-cloud events."""
+import argparse,hashlib,json
+from review_weapon_event_order import ROOT,STAGE,function
+from review_poison_javelin_contact import record as parent
+
+def record(check=False):
+    parent(True);tree=json.loads((STAGE/'d2moo-source-tree.json').read_text());records={}
+    for path,names in {'source/D2Game/src/MISSILES/MissMode.cpp':['MISSMODE_CreatePoisonCloudHitSubmissiles','MISSMODE_SrvHit02_PlagueJavelin_PoisonPotion','MISSMODE_SrvDo03_PoisonCloud_Blizzard_ThunderStorm_HandOfGod','MISSMODE_SetDamageFlags','MISSMODE_SrvDmgHitHandler'],'source/D2Game/src/UNIT/SUnitDmg.cpp':['SUNITDMG_CalculateTotalDamage','SUNITDMG_ExecuteEvents','SUNITDMG_ExecuteMissileDamage']}.items():
+        raw=(STAGE/'d2moo-pinned-source'/path).read_bytes();assert hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()==next(x['sha']for x in tree['tree']if x['path']==path)
+        for name in names:body=function(raw.decode(),name);records[name]=dict(path=path,sha256=hashlib.sha256(body.encode()).hexdigest())
+    cache=ROOT/'tools/reference/d2r-named-equipment';manifest=json.loads((cache/'sources.json').read_text());p=cache/'json/missiles.json';sha=hashlib.sha256(p.read_bytes()).hexdigest();assert sha==manifest['files']['json/missiles.json']['sha256'];rows=json.loads(p.read_text());runtime={r['key']:r['fields']for r in json.loads((ROOT/'data/Sanctuary/Balance/necromancer-summons.json').read_text())};fields={}
+    for name,wanted in {'plaguejavelin':dict(pSrvDoFunc=3,pSrvHitFunc=2,pSrvDmgFunc=0,ToHit=1,HitClass=6,GetHit=1,ResultFlags=4,HitFlags=0,Range=15,Size=1,CollideKill=1,Pierce=1,LastCollide=1,AlwaysExplode=1),'plaguejavcloud':dict(pSrvDoFunc=3,pSrvHitFunc=0,pSrvDmgFunc=0,ToHit=0,HitClass=0,GetHit=0,ResultFlags=0,HitFlags=0,SrcDamage=-1,Range=60,Size=2,CollideKill=0,Pierce=0,LastCollide=1)}.items():
+        assert all(rows[name].get(k,0)==v and runtime[name].get(k,0)==v for k,v in wanted.items());fields[name]=wanted
+    p=ROOT/'tools/reference/plague-javelin-engine-evidence.json';source=json.loads(p.read_text());probe=ROOT/source['probe']['path'];assert hashlib.sha256(probe.read_bytes()).hexdigest()==source['probe']['sha256'];assert source['pinnedSkill']['SrcDam']==128 and source['pinnedSkill']['usemanaondo']==1
+    result=dict(referenceVersion='3.3.93847',legacyCommit=tree['sha'],functions=records,currentMissilesSha256=sha,missileFields=fields,skillSourceDamage=128,retainedSourceEvidence={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest()},established=['Source128 parent retains the existing released weapon/item/skill poison packet and uses HitFlags32. ToHit1 applies accuracy PMH before physical blocking. Existing release-time payment and one quantity remain independent from impact.','Hit02 emits23clouds before direct contact,including physical shield block,and AlwaysExplode retains miss/null expiry emission. Parent Pierce and later independent groups remain. Source0 clouds use Successful1/GetHit0/HitClass0/HitFlags0,not Poison Javelin clouds HitClass6.','Clouds reuse the shared mitigated initial-rate HP hit then ordinary poison clock without weapon callbacks,Crushing Blow,leech,slow,armor,accuracy,shield rolls or proc-stream allocation. Strongest poison/cure semantics remain shared.','Retain8+15ordered ring velocities,87-frame factory life,source-step motion/LastCollide,captured parent rank/live hard Poison synergy/mastery at birth. User explicitly retained weapon-skill Magical Penetration exclusion.'],remaining=['Archived current rows and complete older functions/probes establish scoped delivery,not exact modern initial-rate/AR-transfer/startup/stat/seed/provider/owner/callback/global-phase/initial-cloud-grid or room geometry parity.','Slow/returnfire,depleted providers,exceptional/uninterruptible/death-delay/hireling/PvP and other missile callers remain unverified.','Whole named acquisition,full class/client and separate effect/audio/icon acceptance remain open.'])
+    out=ROOT/'tools/reference/plague-javelin-contact-source-review.json';encoded=json.dumps(result,indent=2)+'\n'
+    if check:assert out.read_text()==encoded
+    else:out.write_text(encoded)
+    print('Plague Javelin source128/hit02 and source0 moving-cloud flags bound;release payment and existing rings retained.')
+if __name__=='__main__':
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--check',action='store_true');record(p.parse_args().check)

@@ -1,0 +1,88 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "functions": {
+    "MISSMODE_CreatePoisonCloudHitSubmissiles": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "43ff83085265c1e40292812b98878053104f9ec2352fe5aab42e4870261fb762"
+    },
+    "MISSMODE_SrvHit02_PlagueJavelin_PoisonPotion": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "40eeffaeef6842b3ee217aa3cfacf62faef6bc365b9bca6852c574b70dd1950d"
+    },
+    "MISSMODE_SrvDo03_PoisonCloud_Blizzard_ThunderStorm_HandOfGod": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "306501ecd3ab733337b122d79b17f2fce2062730dbe8c4a4dd930cd1ae0ae415"
+    },
+    "MISSMODE_SetDamageFlags": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "e45650c089a89c9f2db72a953ea9f09b8ea823f0a2bcf7b65dfd130c6b476280"
+    },
+    "MISSMODE_SrvDmgHitHandler": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "ea4d1c52db64fe810d2404b578ab7aa3ba4a375e9fc6f0bb20b559ccb308f329"
+    },
+    "SUNITDMG_CalculateTotalDamage": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "sha256": "ee329c7d8429c54de7366b2dcecef33d1ed4dacc1690a8986ac5e1c0a3b4fb4e"
+    },
+    "SUNITDMG_ExecuteEvents": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "sha256": "29d79fe1ff916cce3da9b78493564f9438ea99718e99d208f4412a07c3898c55"
+    },
+    "SUNITDMG_ExecuteMissileDamage": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "sha256": "1fdd8c096d3c9c6d688f29f1888e88df7c98a9fb13214c65b1099c4b3b3f6f3f"
+    }
+  },
+  "currentMissilesSha256": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+  "missileFields": {
+    "plaguejavelin": {
+      "pSrvDoFunc": 3,
+      "pSrvHitFunc": 2,
+      "pSrvDmgFunc": 0,
+      "ToHit": 1,
+      "HitClass": 6,
+      "GetHit": 1,
+      "ResultFlags": 4,
+      "HitFlags": 0,
+      "Range": 15,
+      "Size": 1,
+      "CollideKill": 1,
+      "Pierce": 1,
+      "LastCollide": 1,
+      "AlwaysExplode": 1
+    },
+    "plaguejavcloud": {
+      "pSrvDoFunc": 3,
+      "pSrvHitFunc": 0,
+      "pSrvDmgFunc": 0,
+      "ToHit": 0,
+      "HitClass": 0,
+      "GetHit": 0,
+      "ResultFlags": 0,
+      "HitFlags": 0,
+      "SrcDamage": -1,
+      "Range": 60,
+      "Size": 2,
+      "CollideKill": 0,
+      "Pierce": 0,
+      "LastCollide": 1
+    }
+  },
+  "skillSourceDamage": 128,
+  "retainedSourceEvidence": {
+    "tools/reference/plague-javelin-engine-evidence.json": "9b37bff86052281b7f24e9f8cf57880de79f55f7ba0805ce7f8702cef0a3545f"
+  },
+  "established": [
+    "Source128 parent retains the existing released weapon/item/skill poison packet and uses HitFlags32. ToHit1 applies accuracy PMH before physical blocking. Existing release-time payment and one quantity remain independent from impact.",
+    "Hit02 emits23clouds before direct contact,including physical shield block,and AlwaysExplode retains miss/null expiry emission. Parent Pierce and later independent groups remain. Source0 clouds use Successful1/GetHit0/HitClass0/HitFlags0,not Poison Javelin clouds HitClass6.",
+    "Clouds reuse the shared mitigated initial-rate HP hit then ordinary poison clock without weapon callbacks,Crushing Blow,leech,slow,armor,accuracy,shield rolls or proc-stream allocation. Strongest poison/cure semantics remain shared.",
+    "Retain8+15ordered ring velocities,87-frame factory life,source-step motion/LastCollide,captured parent rank/live hard Poison synergy/mastery at birth. User explicitly retained weapon-skill Magical Penetration exclusion."
+  ],
+  "remaining": [
+    "Archived current rows and complete older functions/probes establish scoped delivery,not exact modern initial-rate/AR-transfer/startup/stat/seed/provider/owner/callback/global-phase/initial-cloud-grid or room geometry parity.",
+    "Slow/returnfire,depleted providers,exceptional/uninterruptible/death-delay/hireling/PvP and other missile callers remain unverified.",
+    "Whole named acquisition,full class/client and separate effect/audio/icon acceptance remain open."
+  ]
+}
