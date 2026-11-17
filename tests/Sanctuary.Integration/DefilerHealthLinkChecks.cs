@@ -67,6 +67,7 @@ public static class DefilerHealthLinkChecks
             var state=b.Prepared;string text=b.SavedText;bool refused=false;
             try{b.RestorePrepared(state with{Links=group with{Owner=p.Serial.Value+1}});}catch(InvalidDataException){refused=true;}
             Require(refused&&b.SavedText==text,"Malformed link ownership partially restored");
+            NecromancerSpells(p,b,linked[0],victim,pct);
             before=linked.Select(SkillHealth.Balance256).ToArray();SkillHealth.Damage(p,linked[0],257);
             Require(before[0]-SkillHealth.Balance256(linked[0])==257&&before[1]==SkillHealth.Balance256(victim)
                 &&b.Prepared.Links.Fault=="Direct damage lacks settled typed components", $"Untyped damage mismatch:primary={before[0]-SkillHealth.Balance256(linked[0])},secondary={before[1]-SkillHealth.Balance256(victim)},fault={b.Prepared.Links.Fault},bodyMap={b.Map},ownerMap={p.Map}");
@@ -101,6 +102,44 @@ public static class DefilerHealthLinkChecks
         {
             network.Mobile=null;p.NetState=null;account[0]=null;network.Account=null;account.Delete();
             if(!kept){foreach(var t in targets){t?.Delete();}b?.Delete();p.Delete();}
+        }
+    }
+    private static void NecromancerSpells(PlayerMobile owner,WarlockDefilerBody body,BaseCreature primary,BaseCreature receiver,int percent)
+    {
+        var caster=ClassSkillChecks.Player(DiabloClass.Necromancer);caster.AddItem(new Backpack());ClassCreation.Profiles.AdvanceLevel(caster,99);caster.MoveToWorld(new(owner.X-1,owner.Y,owner.Z),owner.Map);
+        foreach(var ability in new[]{CombatAbility.Teeth,CombatAbility.BoneSpear,CombatAbility.BoneSpirit}){ClassSkillChecks.Train(caster,SkillMechanics.For(ability).TalentId);}
+        int cases=0;
+        try
+        {
+            foreach(string mode in new[]{"normal","potion","receiver-resisted"})
+            {
+                if(mode=="potion"){Require(CombatPotions.Apply(caster,3),"Spell link potion setup");}
+                foreach(var ability in new[]{CombatAbility.Teeth,CombatAbility.BoneSpear,CombatAbility.BoneSpirit})
+                {
+                    if(mode=="primary-magic-immune"&&ability!=CombatAbility.BoneSpear){continue;}
+                    bool resisted=mode=="receiver-resisted";receiver.SetResistance(ResistanceType.Physical,0);receiver.SetResistance(ResistanceType.Fire,resisted?50:0);receiver.SetResistance(ResistanceType.Cold,resisted?75:0);receiver.SetResistance(ResistanceType.Energy,resisted?100:0);
+                    ClassCombat.Stop(caster);var action=ClassCombat.For(caster);action.NextAction=action.RecoveryUntil=Core.TickCount;caster.Frozen=caster.Paralyzed=false;NecromancerEffects.SetMana256(caster,caster.ManaMax*256);var values=SkillMechanics.Values(caster,ability);int mana=NecromancerEffects.ManaBalance256(caster);
+                    Require(ClassCombat.Perform(caster,ability,primary,primary.Location,Core.TickCount),"Spell link learned start");ClassCombat.ReleaseCast(caster);Require(ClassCombat.ResolveAction(caster,ClassCombat.For(caster).EffectAt)&&NecromancerEffects.ManaBalance256(caster)==mana-values.Mana256,"Spell link learned release/payment");
+                    var flight=NecromancerSpellMissiles.Snapshot().Flights.First(f=>f.Owner==caster.Serial.Value);ulong expectedSeed=flight.Seed;int raw=WeaponMissileDamage.RollValue(flight.Minimum256,flight.Maximum256,0,n=>(int)SourceRandom.Limited(ref expectedSeed,n));
+                    var parts=SkillCombat.MitigatePrepared(caster,primary,NecromancerSpellMissiles.Packet(flight,raw,CombatPotions.BonusAt(caster,"magical-penetration",flight.NextUtc)));var shared=DirectDamageParts.From(parts).Fraction(percent);
+                    int expected=resisted?shared.Magic256+shared.Fire256/2+shared.Cold256/4:checked((int)shared.Total),aLife=SkillHealth.Balance256(primary),bLife=SkillHealth.Balance256(receiver),events=0;SkillDamageContact observed=default;
+                    void Observe(SkillDamageContact contact){events++;observed=contact;}
+                    SkillDamageEvents.BeforeDirectDamage+=Observe;
+                    try
+                    {
+                        ulong actualSeed=NecromancerSpellMissiles.Impact(caster,primary,flight);
+                        Require(body.Prepared.Links.Fault==null&&aLife-SkillHealth.Balance256(primary)==NamedElements.To256(parts.Total)&&bLife-SkillHealth.Balance256(receiver)==expected&&events==1&&observed.Source==caster&&observed.Target==primary&&observed.Parts==DirectDamageParts.From(parts)&&actualSeed==expectedSeed,
+                            $"Necromancer {ability}/{mode} typed link: fault={body.Prepared.Links.Fault};primary={aLife-SkillHealth.Balance256(primary)}/{NamedElements.To256(parts.Total)};secondary={bLife-SkillHealth.Balance256(receiver)}/{expected};events={events};typed={observed.Parts!=null}");
+                        if(mode!="normal"){Require(parts.Poison>0&&shared.Total<NamedElements.To256(parts.Total),"Potion poison was lost or included in shared non-poison channels");}cases++;
+                    }
+                    finally{SkillDamageEvents.BeforeDirectDamage-=Observe;NecromancerSpellMissiles.Cancel(caster);}
+                }
+            }
+            Require(cases==9,"Incomplete magic missile/link matrix");
+        }
+        finally
+        {
+            receiver.SetResistance(ResistanceType.Physical,0);receiver.SetResistance(ResistanceType.Fire,0);receiver.SetResistance(ResistanceType.Cold,0);receiver.SetResistance(ResistanceType.Energy,0);NecromancerSpellMissiles.Cancel(caster);ClassCombat.Stop(caster);caster.Delete();
         }
     }
     private static void Reload(NetState network)

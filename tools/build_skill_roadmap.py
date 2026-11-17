@@ -849,6 +849,10 @@ NATIVE_PARTIAL.update((
 for _talent in ('amazon.icearrow','amazon.freezingarrow'):
     CAVEATS[_talent]+=' Existing captured shattered-corpse metadata now also blocks native Animate Dead initial/delayed gates and wild Lich selection/revalidation through the shared corpse guard. Actual frozen/Holy Freeze records,retained loot,ordinary positive controls and original corpse reloads are qualified separately in corpse-shatter-guard-checkpoint.md;no ordinary-cold destruction chance is inferred.'
 
+# Publish existing spell components to the approved shared direct-damage events.
+for _talent in ('necromancer.teeth','necromancer.bonespear','necromancer.bonespirit'):
+    CAVEATS[_talent]+=' Direct impacts now publish their already-settled typed components through the shared health API,so approved Defiler Health Link shares non-poison components without disabling its group. Primary damage,rolls,potion additions,recovery and poison/tick routes retain their previous rules. Reproduced scalar-baseline failure,learned spell/link components,recipient defenses,no-recursion and retained flight/input/reload controls are recorded in necro-spell-link-checkpoint.md.'
+
 def planned_content_remaining(text):
     """Keep excluded charm-only mechanics out of active talent blockers."""
     if not re.search('sunder',text,re.I):return text

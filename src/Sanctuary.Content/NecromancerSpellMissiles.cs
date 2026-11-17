@@ -253,7 +253,7 @@ internal static class NecromancerSpellMissiles
             PoisonStates.Drain(owner,target,prepared.Rate256);return seed;
         }
         var parts=SkillCombat.MitigatePrepared(owner,target,Packet(s,raw,CombatPotions.BonusAt(owner,"magical-penetration",s.NextUtc)));
-        int loss=SkillHealth.Damage(owner,target,NamedElements.To256(parts.Total));
+        int loss=SkillHealth.TypedDamage(owner,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));
         if(target is BaseCreature creature){CreatureHitRecovery.Apply(creature,owner,loss);}CombatDamage.Finish(target,owner);return seed;
     }
     private static void Validate(NecromancerSpellFlight s)
