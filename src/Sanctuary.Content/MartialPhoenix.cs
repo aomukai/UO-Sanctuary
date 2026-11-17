@@ -120,7 +120,7 @@ public static partial class MartialPhoenix
         owner.DoHarmful(target,true);var reduced=NamedElements.Resolve256(owner,target,damage,f.Cold?"cold":"ltng",enhance:false,pierceOverride:f.Pierce);
         if(reduced.Absorbed256>0){SkillHealth.Heal(target,reduced.Absorbed256);}
         if(f.Cold){long tick=Core.TickCount+(long)(f.NextUtc-TimedEffects.Now).TotalMilliseconds;FreezeStates.Apply(owner,target,f.ColdFrames,tick,f.Pierce);} // damage2 clears ordinary chill.
-        int loss=SkillHealth.Damage(owner,target,reduced.Damage256);CreatureHitRecovery.Apply(target,owner,loss);CombatDamage.Finish(target,owner);return f with{Seed=seed};
+        int loss=SkillHealth.TypedDamage(owner,target,reduced.Damage256,f.Cold?new(0,0,0,reduced.Damage256,0):new(0,0,0,0,reduced.Damage256));CreatureHitRecovery.Apply(target,owner,loss);CombatDamage.Finish(target,owner);return f with{Seed=seed};
     }
     internal static void Tick(DateTime at,bool? allowActions=null,uint? onlyNpcActor=null)
     {

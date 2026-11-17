@@ -74,7 +74,7 @@ public static partial class MartialCold
         // Separate source duration lanes survive flat magic damage reduction.
         ColdStates.Apply(owner,target,coldFrames,tick,pierce);
         FreezeStates.Apply(owner,target,freezeFrames,tick,pierce);
-        int loss=SkillHealth.Damage(owner,target,reduced.Damage256);CreatureHitRecovery.Apply(target,owner,loss);CombatDamage.Finish(target,owner);return loss;
+        int loss=SkillHealth.TypedDamage(owner,target,reduced.Damage256,new(0,0,0,reduced.Damage256,0));CreatureHitRecovery.Apply(target,owner,loss);CombatDamage.Finish(target,owner);return loss;
     }
     internal static void AfterParent(PlayerMobile owner,Mobile target,Point3D fallback,Map map,IcePacket packet,DateTime at)
     {

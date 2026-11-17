@@ -158,7 +158,7 @@ public static partial class MartialLightning
         ulong seed=s.Seed;int damage=WeaponMissileDamage.RollValue(s.Min256,s.Max256,0,n=>(int)SourceRandom.Limited(ref seed,n));
         owner.DoHarmful(target,true);var reduced=NamedElements.Resolve256(owner,target,damage,"ltng",enhance:false,pierceOverride:s.Pierce);
         if(reduced.Absorbed256>0){SkillHealth.Heal(target,reduced.Absorbed256);}
-        int loss=SkillHealth.Damage(owner,target,reduced.Damage256);CreatureHitRecovery.Apply(target,owner,loss);CombatDamage.Finish(target,owner);return(loss,seed);
+        int loss=SkillHealth.TypedDamage(owner,target,reduced.Damage256,new(0,0,0,0,reduced.Damage256));CreatureHitRecovery.Apply(target,owner,loss);CombatDamage.Finish(target,owner);return(loss,seed);
     }
     internal static void Tick(DateTime at,bool? allowActions=null,uint? onlyNpcActor=null)
     {

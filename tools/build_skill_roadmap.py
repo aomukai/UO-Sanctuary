@@ -871,6 +871,10 @@ for _talent in ('assassin.fireblast','assassin.shockweb','assassin.psychichammer
 for _talent in ('amazon.magicarrow','amazon.multipleshot','amazon.firearrow','amazon.coldarrow','amazon.explodingarrow','amazon.icearrow','amazon.guidedarrow','amazon.freezingarrow','amazon.immolationarrow','amazon.strafe','amazon.poisonjavelin','amazon.lightningbolt','amazon.plaguejavelin','amazon.lightningfury','amazon.pierce'):
     CAVEATS[_talent]+=' The approved shared player Pierce policy now captures one saved unsigned index per emitted ranged action,shared across fans/Strafe,using the verified temporary source seed without launch/world/item RNG draws. Ordinary-player14route,index/wrap,cancel/stale ticket,saved flight/resource and right/quick checks are scoped in pierce-action-adoption-checkpoint.md. Mana/ammo,passive chance and current skill/contact rules retain;other player/NPC producers remain separate. Exact D2R input/index initialization is an explicit approved Sanctuary adaptation.'
 
+# Known Martial elemental contacts retain their final cold/lightning lane.
+for _talent in ('assassin.bladesofice','assassin.clawsofthunder','assassin.phoenixstrike'):
+    CAVEATS[_talent]+=' Existing player Ice/Thunder/Phoenix cold/lightning contacts now publish their settled component through shared typed health delivery,so approved Defiler Health Link shares it without faulting. Primary damage,absorption,cold/freeze,projectile RNG,hit delay,charge/parent timing and NPC paths retain. Fifteen elemental/link cases per boot and retained release/live/original-save scopes are in martial-element-link-checkpoint.md;no new charge rule or full class certification is claimed.'
+
 def planned_content_remaining(text):
     """Keep excluded charm-only mechanics out of active talent blockers."""
     if not re.search('sunder',text,re.I):return text
