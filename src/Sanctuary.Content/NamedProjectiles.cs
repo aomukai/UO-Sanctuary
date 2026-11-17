@@ -9,11 +9,22 @@ public static class NamedProjectiles
 {
     internal static int PierceChance(PlayerMobile source)=>ClassGear.Bonus(source,"pierce")+AmazonCombat.PiercePercent(source)
         +BarbarianMasteries.Throwing(source,CombatTiming.Equipped(source),4);
-    public static int PierceBudget(int chance, Random random)
+    private static int RollBudget(int chance,Func<int> percentage)
     {
         int budget = 0;
-        while (budget < 4 && chance > 0 && random.Next(100) < Math.Min(100, chance)) { budget++; }
+        while (budget < 4 && chance > 0 && percentage() < Math.Min(100, chance)) { budget++; }
         return budget;
+    }
+    public static int PierceBudget(int chance, Random random)=>RollBudget(chance,()=>random.Next(100));
+    // Exact supplied-index creation primitive. Online callers retain their
+    // existing RNG until the new-protocol owner-index policy is resolved.
+    internal static (int Budget,int Draws,ulong? Seed) SeededPierceBudget(int chance,int ownerIndex)
+    {
+        if(chance<0){throw new ArgumentOutOfRangeException(nameof(chance));}
+        if(chance==0){return(0,0,null);}
+        ulong seed=SourceRandom.InitLow(ownerIndex);int draws=0;
+        int budget=RollBudget(chance,()=>{draws++;return (int)SourceRandom.Limited(ref seed,100);});
+        return(budget,draws,seed);
     }
     public static int Budget(PlayerMobile source, Random random = null) => NamedCombat.Ranged(source)
         ? PierceBudget(PierceChance(source), random ?? Random.Shared) : 0;

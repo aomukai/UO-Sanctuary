@@ -1,0 +1,93 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourceRole": "Supplementary older engine;modern D2R packet/index producer remains unverified.",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceFiles": {
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5",
+    "source/D2Common/src/D2Seed.cpp": "c6172f34388f30948bae5331606bffab16149d3ea016e4b0920899ddc07e5b91",
+    "source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f",
+    "source/D2Game/src/ITEMS/Items.cpp": "3355722a346046252d30bda74c413c6e5b8d67004a606437d60c1cb22a0ca7c4",
+    "source/D2Game/src/PLAYER/PlrMsg.cpp": "ffeff8d5a1448ed72f250fe647d3ee8ae53034cf47e6dd29cae11878d5d63056",
+    "source/D2Game/src/UNIT/SUnitMsg.cpp": "6538baf1e25ddd4ae1ad671888ce5ac25e0ca2b5d3dfd58efff0605d8bcb9da8"
+  },
+  "functions": {
+    "SEED_InitLowSeed": {
+      "sha256": "f7874e2973b0d9d702a171456414056062949077a0d4cdaa010c789dea5095b8"
+    },
+    "SEED_RollRandomNumber": {
+      "sha256": "52781199df49817a386318b464b081fa1b62b17df726ed0239d9bf5d03d2dfdc"
+    },
+    "ITEMS_RollRandomNumber": {
+      "sha256": "602c9b711d18635c3122dd3e68187f3d34425363380a904f22f3f5a3e40552fa"
+    },
+    "D2GAME_PACKETCALLBACK_Rcv0x05_ShiftLeftClickSkill_6FC832B0": {
+      "sha256": "01331b7a810cdbce78877ba7e03b1d82becd7a6fea71b4fcab2c0d2bf34217ec"
+    },
+    "D2GAME_PACKETCALLBACK_Rcv0x06_LeftSkillOnUnit_6FC83550": {
+      "sha256": "bc02887bbcf2530498a0372d60b7a632cea3b9498360b4c4a30b8a0a5331cf03"
+    },
+    "D2GAME_PACKETCALLBACK_Rcv0x07_ShiftLeftSkillOnUnit_6FC83890": {
+      "sha256": "577e58967d39891402f56186d8cb95c8b4537f29ca2e139832841f0138d942c3"
+    },
+    "D2GAME_PACKETCALLBACK_Rcv0x08_ShiftLeftSkillHold_6FC83A10": {
+      "sha256": "a270aac1a254803ca8dffac175977e39ca6ab36f0a1d48d78c14e6e470cbf192"
+    },
+    "D2GAME_PACKETCALLBACK_Rcv0x09_LeftSkillOnUnitHold_6FC83AC0": {
+      "sha256": "35ea25cb74c218145182702489de27d670cbd0c360eeefe0669e7ce02af15e2d"
+    },
+    "D2GAME_PACKETCALLBACK_Rcv0x0A_ShiftLeftSkillOnUnitHold_6FC83D40": {
+      "sha256": "6061102e8cb05f995ebe7f33ee6660f0e875da4825df589d4eb5fdf8dbb151de"
+    },
+    "D2GAME_PACKETCALLBACK_Rcv0x0C_RightSkill_6FC83EF0": {
+      "sha256": "e28885a626c2b7d96f5877a361131b05986c43bcc18a566641c9ca4d14b80dec"
+    },
+    "D2GAME_PACKETCALLBACK_Rcv0x0D_RightSkillOnUnit_6FC83F80": {
+      "sha256": "dfab30ff91362a868e69df602d9a2e87d16ca455199217ce84a10c5ec06003d3"
+    },
+    "D2GAME_PACKETCALLBACK_Rcv0x0E_ShiftRightSkillOnUnit_6FC84100": {
+      "sha256": "329ab1e718f9296f5b653649b629c4007216c8a56fe1833ac8f92bafc2d8a28a"
+    },
+    "D2GAME_PACKETCALLBACK_Rcv0x0F_RightSkillHold_6FC84280": {
+      "sha256": "788835b05360ff21e4af3471c7babd0829227ffd910bd7152f02e07950204bdc"
+    },
+    "D2GAME_PACKETCALLBACK_Rcv0x10_RightSkillOnUnitHold_6FC84330": {
+      "sha256": "4a267a9c899ee8d327033a47b4260c2a89863de5d0d47dc95f8d453c9cd6c4de"
+    },
+    "D2GAME_PACKETCALLBACK_Rcv0x11_ShiftRightSkillOnUnitHold_6FC844D0": {
+      "sha256": "e5e416268eed18146827634dd3dfa23243771f921e4a80bf3b7682b324077aae"
+    },
+    "D2GAME_SUNITMSG_FirstFn_6FCC5520": {
+      "sha256": "09de6ae743fea443bf63aeaaeae63094d1362dad6769702dbc5bcce20c30ad88"
+    }
+  },
+  "creationBlockSha256": "612b312f454cd82a99c6c1fa77cfab2a4b8864e3243516ef758130944fc910b6",
+  "sourceChanges": [
+    "MSVC i64 integer suffix translated to standard ULL;calling-convention macro blank. Seed union layout declared with fixed-width fields.",
+    "The unchanged item RNG wrapper calls a transparent observation wrapper around the unchanged seed-roll body;only call count/final seed are observed.",
+    "Owner/stat/native allocation services are declared;full input callback/global factory execution is source-reviewed,not compiled."
+  ],
+  "indexWriters": [
+    "D2GAME_PACKETCALLBACK_Rcv0x05_ShiftLeftClickSkill_6FC832B0",
+    "D2GAME_PACKETCALLBACK_Rcv0x06_LeftSkillOnUnit_6FC83550",
+    "D2GAME_PACKETCALLBACK_Rcv0x07_ShiftLeftSkillOnUnit_6FC83890",
+    "D2GAME_PACKETCALLBACK_Rcv0x08_ShiftLeftSkillHold_6FC83A10",
+    "D2GAME_PACKETCALLBACK_Rcv0x09_LeftSkillOnUnitHold_6FC83AC0",
+    "D2GAME_PACKETCALLBACK_Rcv0x0A_ShiftLeftSkillOnUnitHold_6FC83D40",
+    "D2GAME_PACKETCALLBACK_Rcv0x0C_RightSkill_6FC83EF0",
+    "D2GAME_PACKETCALLBACK_Rcv0x0D_RightSkillOnUnit_6FC83F80",
+    "D2GAME_PACKETCALLBACK_Rcv0x0E_ShiftRightSkillOnUnit_6FC84100",
+    "D2GAME_PACKETCALLBACK_Rcv0x0F_RightSkillHold_6FC84280",
+    "D2GAME_PACKETCALLBACK_Rcv0x10_RightSkillOnUnitHold_6FC84330",
+    "D2GAME_PACKETCALLBACK_Rcv0x11_ShiftRightSkillOnUnitHold_6FC844D0"
+  ],
+  "established": [
+    "Factory uses a new temporary seed initialized from owner base STAT_PIERCE_IDX,not owner combat RNG. Each missile with the same supplied index/chance gets the same budget.",
+    "Chance0 does not read the owner index or draw;nonnegative chance>=100 still draws four times. A failure draw counts.",
+    "Twelve older player skill-input callbacks increment the owner base index before entering skill dispatch;the coordinate-sum initializer in FirstFn is specifically in UNIT_MONSTER,not the player branch.",
+    "The existing Random.Shared/LaunchRandom budget adapter does not implement this owner-index supplier or its same-index fan correlation."
+  ],
+  "limits": [
+    "No current3.3.93847 executable certificate. New-protocol input/hold/release mapping,initial player index and saved owner-index policy remain to be implemented and explicitly resolved.",
+    "Only nonnegative total pierce is supported;negative/overflow stat contexts are not silently assigned a rule. Existing online consumers remain unchanged."
+  ]
+}

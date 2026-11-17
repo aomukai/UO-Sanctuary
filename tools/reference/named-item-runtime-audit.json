@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "a2fd885d1203d0eaf588e89363fa5a2769bf20d17a36f0973fd46c3dbe7cbed8",
+  "ContentAssemblySha256": "d81ee933ff773b8d0fadaaa84d0ee0927f84ee0fcbfc695c2132ba3613e952f2",
   "NativeAssemblySha256": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
   "InputHashes": {
     "data/Sanctuary/Balance/abyss-route.json": "6c823249f73d320ba6ba4b2c538d419bc54a8cb8aaad8a605f5abf18d5911e18",
@@ -979,7 +979,7 @@
     "src/Sanctuary.Content/NamedGear.cs": "3930c6b2a0545841851fe415b8d90bd812a1f32bdc7cf5d8732419a49c2c623d",
     "src/Sanctuary.Content/NamedItemProcs.cs": "634a07c1ff1149de84104c5bce84fd3d3bb8a43a778479f67da30bf273ad4ea0",
     "src/Sanctuary.Content/NamedMaintenance.cs": "d3c6afab506c9507da88f188209c4bf7aa428cbcd37b27c87da39bb1d9ff7a0b",
-    "src/Sanctuary.Content/NamedProjectiles.cs": "243b6d4c0b54b47abf69b82766de960661faabf8078b75c19d7366680c54fe5e",
+    "src/Sanctuary.Content/NamedProjectiles.cs": "509b1eb2d9ebf8eff2632d64fca2feb84cdf4cd7967095f26c349820fe3bd1d7",
     "src/Sanctuary.Content/NamedPropertyRuntime.cs": "b536509115d22aad43f1c28f0caf79eb45a8d9b2830c482c28b35efdd6fb4491",
     "src/Sanctuary.Content/NamedSetVisuals.cs": "843a8659a109c0819fec4aed7832621bc43471dbf06c76de2d85c57c71f25ad3",
     "src/Sanctuary.Content/NamedSkills.cs": "a00452d06b463a5df0e8bfeb9bb056761b02dc3af2711b3114b0818ee7fee08a",

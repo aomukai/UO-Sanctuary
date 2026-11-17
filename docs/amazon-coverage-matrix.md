@@ -45,6 +45,8 @@ The fourteen existing bow/javelin Cast packet controls run once per boot; Decoy 
 
 ## Approved rules and remaining limits
 
+The [supplied-index Pierce checkpoint](pierce-source-seed-checkpoint.md) adds936real source RNG vectors and18focused native results with two reloads. It establishes the temporary seed calculation and same-index fan correlation while retaining existing learned Pierce lifecycle checks. Online launch RNG is unchanged;initial owner index,new-protocol input/hold/release mapping and saved capture policy remain unresolved.
+
 The [paid Impale defense proposal](impale-defense-policy-proposal.md) has a supplemental123-result/nine-scenario/36-input/two-reload qualification on unchanged gameplay. It proves the existing paid forced-success/no-defense-roll path against an active mapped shield,while low-mana ordinary miss/block remain. Explicit adoption is pending;this does not establish modern D2R shield/dodge behavior or admit additional pet/player recipients.
 
 Lightning Strike uses the explicitly approved chaining adaptation; the hidden first-bolt/primary re-hit path remains unresolved. Slow Missiles uses its approved recipient, damage/speed and scoped native-projectile rule; instantaneous legacy UO ranged hits, old spell/breath timers and broader monster spell conversion remain separate.
