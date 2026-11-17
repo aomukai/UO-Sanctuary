@@ -1,8 +1,8 @@
 # Sorceress mechanical acceptance map
 
-Reference: **D2R Reign of the Warlock 3.3.93847**, with approved Sanctuary deviations first. Charms and runewords are excluded. All 30 handlers exist, including approved held Inferno. The current combined run passes 738 exact results across three boots and two reloads; see the [receipt](../tools/reference/sorceress-planned-acceptance-native-evidence.json). This maps that declared scope and existing dedicated evidence; it does not certify the class or remove the explicit limits below.
+Reference: **D2R Reign of the Warlock 3.3.93847**, with approved Sanctuary deviations first. Charms and runewords are excluded. All 30 handlers exist, including approved held Inferno. The current combined run passes 759 exact results across three boots and two reloads; see the [receipt](../tools/reference/sorceress-spell-link-native-evidence.json). This maps that declared scope and existing dedicated evidence; it does not certify the class or remove the explicit limits below.
 
-The current driver is `tests/check_sorceress_planned_acceptance.py`. Its [checkpoint](sorceress-planned-acceptance-checkpoint.md) identifies the tested candidate and result. Family names below identify actual checks included in that driver, rather than treating a visually similar NPC spell as player acceptance.
+The current compatibility driver is `tests/check_sorceress_spell_link.py`, which retains the full planned Sorceress cohort. Its [checkpoint](sorceress-spell-link-checkpoint.md) identifies the tested candidate and result. Family names below identify actual checks included in that driver, rather than treating a visually similar NPC spell as player acceptance.
 
 | Talent | Mechanical scope | Included native families |
 | --- | --- | --- |
@@ -38,6 +38,8 @@ The current driver is `tests/check_sorceress_planned_acceptance.py`. Its [checkp
 | Hydra | Original head actors, captured birth stats, autonomous bolts and finite retirement | `hydra-world`, `hydra-prepared`, `hydra` |
 
 Shared `sorceress-binding` checks cover all 30 pinned mouse policies, passive refusal, quick slots and saved normalization. `sorceress-cast-clock-check` covers the 23 ordinary SC routes and keeps Lightning/Chain Lightning, Inferno, passives and weapon timing separate. The held Inferno wire callback tests real left/right/quick press, duplicate delivery, heartbeat, release and stale-heartbeat refusal. The combined save stages held Inferno and an unpaid Teleport action before one save, preserving emitted effects while transient input/actions must not replay.
+
+The Health Link checkpoint adds 67 controlled cases per boot for 14 direct/shared missile keys, two actual copied explosion callbacks and final clipped Static Field lightning. Known non-poison channels now reach approved links while primary totals,status,source RNG,resources and NPC routes retain. Arctic Blast,Ring of Fire and Flame Wave share the repaired receiver and have retained world controls. The new matrix is contact-level;the existing204ordinary inputs,nine held sequences and original saves remain independent coverage. Static Field potion semantics are unchanged and remain separately bounded. The transcript retains14known wardrobe save-pruning warnings and documented ground/root event refusals. No whole-class certificate is implied.
 
 ## Explicit remaining limits
 

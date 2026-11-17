@@ -378,7 +378,7 @@ internal static partial class SorceressSpellMissiles
         var parts=SkillCombat.MitigatePrepared(owner,target,DruidMoltenBoulder.Potion(modifiers,packet),damageRate);
         if(freeze){FreezeStates.Apply(owner,target,coldFrames,TimedEffects.TickAt(at));}
         else if(element=="cold"){ColdStates.Apply(owner,target,coldFrames,TimedEffects.TickAt(at));}
-        int loss=SkillHealth.Damage(owner,target,NamedElements.To256(parts.Total));
+        int loss=SkillHealth.TypedDamage(owner,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));
         if(target is BaseCreature creature){CreatureHitRecovery.Apply(creature,owner,loss);}
         CombatDamage.Finish(target,owner);return loss;
     }
@@ -411,7 +411,7 @@ internal static partial class SorceressSpellMissiles
         {
             owner.DoHarmful(target,true);var parts=SkillCombat.MitigatePrepared(owner,target,packet);
             if(frames>0){FreezeStates.Apply(owner,target,frames,TimedEffects.TickAt(flight.NextUtc));}
-            int loss=SkillHealth.Damage(owner,target,NamedElements.To256(parts.Total));
+            int loss=SkillHealth.TypedDamage(owner,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));
             if(target is BaseCreature creature){CreatureHitRecovery.Apply(creature,owner,loss);}CombatDamage.Finish(target,owner);
         });
         Effects.SendLocationEffect(center,owner.Map,profile.Element=="fire"?0x36BD:0x36E4,8,10,profile.Element=="fire"?0x489:0x480,0); // Identified shared explosion placeholders.

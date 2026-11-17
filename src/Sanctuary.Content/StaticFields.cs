@@ -45,7 +45,7 @@ internal static class StaticFields
             // precompensation and full modern Static event order remain open.
             var parts=SkillCombat.MitigatePrepared(caster,target,new(0,0,0,raw/256.0,0));
             int loss=Limit256(SkillHealth.Balance256(target),maximum,floor,NamedElements.To256(parts.Total));
-            if(loss>0){SkillHealth.Damage(caster,target,loss);}
+            if(loss>0){SkillHealth.TypedDamage(caster,target,loss,new(0,0,0,0,loss));}
         }
         caster.FixedEffect(0x3818,10,10,0x482,0); // Identified Static Field placeholder.
         return true;

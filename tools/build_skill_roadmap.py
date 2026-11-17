@@ -879,6 +879,11 @@ for _talent in ('assassin.bladesofice','assassin.clawsofthunder','assassin.phoen
 for _talent in ('assassin.bladeshield','assassin.bladesentinel','assassin.bladefury'):
     CAVEATS[_talent]+=' Known direct components now reach approved Defiler Health Link through typed health delivery. Blade Shield opts its root direct event into notification while retaining item/result32 suppression;secondary shares remain suppressed. Sentinel extra positive flat NPC LifeDrain retains explicit scalar refusal until a channel is established;ordinary packets qualify. Nine Blade link cases per boot plus an unclassified-drain negative,retained actual blade/Fury flight,Shield event and learned Sentinel/input/original-save scopes are in blade-link-checkpoint.md. Existing poison,leech,accuracy,mitigation,timing and assets retain;no full class certification.'
 
+# Shared spell/area receivers and final Static lightning retain known components.
+for _talent in ('sorceress.firebolt', 'sorceress.inferno', 'sorceress.chargedbolt', 'sorceress.lightning', 'sorceress.icebolt', 'sorceress.iceblast', 'sorceress.nova', 'sorceress.frostnova', 'sorceress.chillingarmor', 'sorceress.chainlightning', 'sorceress.thunderstorm', 'sorceress.fireball', 'sorceress.glacialspike', 'sorceress.staticfield', 'druid.arcticblast', 'warlock.ringoffire', 'warlock.flamewave'):
+    _notes=BLOCKERS if _talent in BLOCKERS else CAVEATS
+    _notes[_talent]=_notes.get(_talent,'')+' Shared direct spell/area impacts now publish settled non-poison components to approved Defiler Health Link;Static Field publishes only its final clipped lightning loss. Primary totals,live/captured modifiers,poison additions,shield/status,source RNG,hit delays,geometry,resources and NPC routes retain. Sixty-seven controlled spell/link cases per boot plus retained Sorceress and shared-caller/input/original-save scopes are in sorceress-spell-link-checkpoint.md;this does not certify the whole current class or add new Static potion semantics.'
+
 def planned_content_remaining(text):
     """Keep excluded charm-only mechanics out of active talent blockers."""
     if not re.search('sunder',text,re.I):return text

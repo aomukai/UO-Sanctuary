@@ -1,0 +1,21 @@
+# Sorceress spell impacts and Health Link
+
+Reference: **D2R Reign of the Warlock 3.3.93847**, with approved Sanctuary deviations first. This connects existing known damage components to the approved [Health Link rule](defiler-health-link-rule-proposal.md); it does not change spell formulas.
+
+The accepted parent DLL reproduced the bug on Fire Bolt: primary damage remained 4,096 FP256, but the marked secondary received 0 instead of 2,170. The direct event carried no components and correctly faulted the link rather than guessing them. That baseline was archived before repair.
+
+Two shared player receivers in `SorceressSpellMissiles` now publish their existing settled physical/magic/fire/cold/lightning components through typed health delivery. This includes copied Fire Ball/Glacial Spike explosions and the existing Chain Lightning, Thunder Storm, Arctic Blast, Ring of Fire and Flame Wave callers. Static Field separately publishes only its final, difficulty-floor-clipped lightning loss. Its percentage calculation and existing potion behavior are retained; this checkpoint does not establish a new potion rule for percentage-life damage.
+
+Poison remains in the original primary total and outside Health Link's non-poison components. Existing modifiers, live impact-time potion capture, rate scaling, cold/freeze, avoidance/reactions, recovery, source RNG, geometry, collision delays and resource payment retain their current paths. The dedicated NPC explosion branch is unchanged.
+
+The new matrix contains **67 cases per boot**: 14 direct/shared missile keys in normal, potion, resistant-secondary and immune-primary contexts; two actual prepared explosion callbacks in the same four contexts; and three Static Field contexts. Assertions cover full primary FP256 loss, exact independent secondary mitigation, one typed root event without recursive sharing, zero immune-hit events, poison exclusion, source/target identity and no extra contact-level mana debit. These controlled receiver checks are distinct from new input tests.
+
+The driver retains the complete existing Sorceress cohort and adds shared-caller Arctic potion, Ring and Flame Wave world checks plus Defiler/readiness controls. Existing inputs include 204 ordinary actions and 9 held-Inferno wire sequences. The connected Teleport save and Inferno save staging are preserved; original flights, effects, resources and bindings retain their reload checks.
+
+**Content 1 / Integration 2 / source 2 / native 1 passed 759 exact results, 302 connections, three saves and two reloads.** Both accepted builds have zero warnings/errors. The first corrected native run passed without repair. A roadmap generator lookup failed before writing data and was frozen before correction; the old-DLL failure is a separate negative baseline. The transcript retains 14 known WardrobeSet save-pruning warnings, six deliberate scalar-link refusal warnings (two per boot), three documented Fire Wall maker-context refusals and one Frozen Orb root-context refusal. It also retains the existing synthetic TeleportScroll stack warning. These are explicit limits, not a warning-free save or full-event certificate.
+
+Only remaining-description text changes for 14 Sorceress talents and the three cross-class callers. All 240 handlers, numerical tables, completed-class count and 573 named-definition outcomes retain. No new save field/version, native/client build or asset is introduced. Installed artifacts, saves, configuration and client patches remain protected. Effects/audio and talent/hotkey icons remain separately tracked placeholders.
+
+This is a compatibility checkpoint, not a full-class certificate. Legacy/scalar producers, unqualified ground/root event subscribers, exact engine ordering, special/PvP recipients, Static potion policy and graphical acceptance remain explicitly bounded by their dedicated records. The separately pending Impale, Lightning Strike potion and ordinary-cold corpse questions are unaffected.
+
+[Receipt](../tools/reference/sorceress-spell-link-native-evidence.json), [matrix](../tests/Sanctuary.Integration/SorceressSpellLinkChecks.cs), [driver](../tests/check_sorceress_spell_link.py). Durable baseline, accepted assemblies and immutable evidence: `/home/aomukai/Sanctuary-checkpoint-archives/revive-respec/sorceress-spell-link`.
