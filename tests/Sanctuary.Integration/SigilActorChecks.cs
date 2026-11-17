@@ -90,10 +90,34 @@ public static class SigilActorChecks
         }
         finally{SigilActors.Pulse-=Pulse;}
     }
+    // A larger integration cohort can outlast the original 204-second marker.
+    // Inspect its real UTC deadline; never extend it or create a replacement.
+    internal static bool ExpiredOriginal(SigilActor original,SigilOwnerState state=null)
+    {
+        var at=TimedEffects.Now;var deadline=original.BornUtc.AddMilliseconds(original.Frames*40L);
+        if(at<deadline){return false;}
+        Require(original is{Rank:200,Frames:5100}&&(state==null||state.EventUtc==deadline),"Saved Sigil deadline/context changed");
+        int pulses=0;void Pulse(SigilActor actor,PlayerMobile owner,DateTime now){if(actor.Owner==original.Owner){pulses++;}}
+        SigilActors.Pulse+=Pulse;
+        try
+        {
+            SigilActors.Tick(at);SigilActors.Tick(at);var expired=SigilActors.Snapshot();
+            Require(pulses==0&&World.FindItem((Serial)original.Marker)==null
+                &&!expired.Actors.Any(a=>a.Owner==original.Owner||a.Marker==original.Marker)
+                &&!expired.Owners.Any(o=>o.Owner==original.Owner),"Expired original Sigil survived,restarted,pulsed or retained its owner roster");
+        }
+        finally{SigilActors.Pulse-=Pulse;}
+        Log.Information("Sigil expiry:original {Ability} 204second deadline elapsed;marker and owner roster removed without replacement,clock reset or new pulses",original.Ability);
+        return true;
+    }
     private static void Reload(NetState network)
     {
         var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=World.FindMobile((Serial)saved.Owner)as PlayerMobile;
         Require(p!=null&&saved.Generation<2,"Saved Sigil owner/generation missing");FixtureNetwork.Authenticate(network,p,"SigilReload");
+        if(ExpiredOriginal(saved.Actor,saved.State))
+        {
+            File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Generation=saved.Generation+1}));return;
+        }
         var actor=Actor(saved.Actor.Marker);var state=State(p);
         Require(actor.Marker==saved.Actor.Marker&&actor.BornUtc==saved.Actor.BornUtc&&actor.Origin==saved.Actor.Origin&&actor.Frames==5100&&actor.Rank==200
             &&World.FindItem((Serial)actor.Marker)is{Deleted:false}item&&item.Map.MapID==actor.Map&&item.Location==actor.Origin

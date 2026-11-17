@@ -13,7 +13,7 @@ namespace Sanctuary.Integration;
 public static class ConsumeAuraChecks
 {
     private static readonly Server.Logging.ILogger Log=Server.Logging.LogFactory.GetLogger(typeof(ConsumeAuraChecks));
-    private sealed record Saved(int Generation,uint Owner,uint Ally,uint Enemy,ConsumeEffect State,int Life,int AllyLife);
+    private sealed record Saved(int Generation,uint Owner,uint Ally,uint Enemy,ConsumeEffect State,int Life,int AllyLife,int Maximum);
     private static string Manifest=>Path.Join(Core.BaseDirectory,"consume-aura-fixtures.json");
     private static PaladinAuraLease[] Loaded=[];
     private static bool Creating;
@@ -108,7 +108,7 @@ public static class ConsumeAuraChecks
                     var text=JsonSerializer.Serialize(lease);var node=JsonNode.Parse(text).AsObject();node.Remove("ProviderOwner");node.Remove("ProviderOrder");var old=node.Deserialize<PaladinAuraLease>();Require(old.ProviderOwner==0&&old.ProviderOrder==0,"Old aura JSON defaults broke");
                     var intact=PaladinAuras.Snapshot();bool bad=false;try{PaladinAuras.Restore(intact with{Leases=intact.Leases.Append(lease with{Target=paladin.Serial.Value,ProviderOrder=-1}).ToArray()});}catch(InvalidDataException){bad=true;}Require(bad&&PaladinAuras.Snapshot().Leases.SequenceEqual(intact.Leases),"Invalid provider metadata mutated aura state");
                     SkillHealth.SetBalance256(p,SkillHealth.Maximum256(p)-513);SkillHealth.SetBalance256(ally,SkillHealth.Maximum256(ally)-257);
-                    File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(0,p.Serial.Value,ally.Serial.Value,enemy.Serial.Value,saved,SkillHealth.Balance256(p),SkillHealth.Balance256(ally))));kept=true;
+                    File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(0,p.Serial.Value,ally.Serial.Value,enemy.Serial.Value,saved,SkillHealth.Balance256(p),SkillHealth.Balance256(ally),SkillHealth.Maximum256(p))));kept=true;
                     Log.Information("Consume aura:stronger/equal ordinary selected aura ownership survives provider cleanup;optional old JSON/atomic invalid provenance controls pass;actual allied provided lease saved under existing aura profile");Log.Information("consume-aura-check-result: passed");
                 }
                 catch(Exception e){Log.Error(e,"consume-aura-check-result: failed");}
@@ -117,12 +117,32 @@ public static class ConsumeAuraChecks
         }
         finally{if(!pending){Finish(false);}}
     }
+    private static bool ExpiredSaved(Saved saved,PlayerMobile owner,PlayerMobile ally)
+    {
+        var now=TimedEffects.Now;if(now<saved.State.UntilUtc){return false;}
+        // Use normal expiry and the captured original maximum; no deadline
+        // extension, replacement buff, healing or new provider is permitted.
+        ConsumeEffects.Prune(now);ConsumeAuras.Tick(owner,saved.State,now);
+        int maximum=SkillHealth.Maximum256(owner);
+        Require(saved.Maximum>0&&ConsumeEffects.State(owner)==null
+            &&!ConsumeEffects.Snapshot().Any(s=>s.Owner==saved.Owner)
+            &&PaladinAuras.Effect(owner,CombatAbility.Meditation)==null&&PaladinAuras.Effect(ally,CombatAbility.Meditation)==null
+            &&SkillHealth.Balance256(owner)==BattleOrders.Rescale256(saved.Life,saved.Maximum,maximum)
+            &&SkillHealth.Balance256(ally)==saved.AllyLife,"Expired original Consume retained its buff/aura or changed relative wounds");
+        Log.Information("Consume saved expiry:original seven-minute buff and provider ended;relative owner wounds and exact allied wounds retained without replacement or clock reset");
+        return true;
+    }
     private static void BeforeSave(NetState network)
     {
         var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)s.Owner);var ally=(PlayerMobile)World.FindMobile((Serial)s.Ally);
         var account=FixtureNetwork.Authenticate(network,p,"consume-aura-save-");
         try
         {
+            if(ExpiredSaved(s,p,ally))
+            {
+                File.WriteAllText(Manifest,JsonSerializer.Serialize(s with{Life=SkillHealth.Balance256(p),Maximum=SkillHealth.Maximum256(p)}));
+                ally.Internalize();Log.Information("consume-aura-save-check: passed");return;
+            }
             ally.MoveToWorld(new(p.X+2,p.Y,p.Z),p.Map);ConsumeAuras.Stop(p,s.State.Order);ConsumeAuras.Tick(p,s.State,TimedEffects.Now);
             var lease=PaladinAuras.Effect(ally,CombatAbility.Meditation);
             Require(ConsumeEffects.State(p)==s.State&&lease?.ProviderOrder==s.State.Order&&lease.ProviderOwner==s.Owner
@@ -135,6 +155,10 @@ public static class ConsumeAuraChecks
     private static void Reload(NetState network)
     {
         var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));Require(s.Generation<2,"Too many Consume aura reloads");var p=(PlayerMobile)World.FindMobile((Serial)s.Owner);var ally=(PlayerMobile)World.FindMobile((Serial)s.Ally);
+        if(ExpiredSaved(s,p,ally))
+        {
+            File.WriteAllText(Manifest,JsonSerializer.Serialize(s with{Generation=s.Generation+1,Life=SkillHealth.Balance256(p),Maximum=SkillHealth.Maximum256(p)}));return;
+        }
         string providers=string.Join(';',Loaded.Where(l=>l.ProviderOrder>0).Select(l=>l.Target+"/"+l.ProviderOwner+"/"+l.ProviderOrder+"/"+l.Ability));
         Require(ConsumeEffects.State(p)==s.State&&SkillHealth.Balance256(p)==s.Life&&SkillHealth.Balance256(ally)==s.AllyLife
             &&Loaded.Any(l=>l.Target==s.Ally&&l.Ability==CombatAbility.Meditation&&l.ProviderOwner==s.Owner&&l.ProviderOrder==s.State.Order),
@@ -148,7 +172,7 @@ public static class ConsumeAuraChecks
             var own=PaladinAuras.Effect(p,CombatAbility.Meditation);ConsumeAuras.Stop(p,s.State.Order);Require(PaladinAuras.Effect(p,CombatAbility.Meditation)==null,"Offline/source-stop did not remove own provider");
             ConsumeAuras.Tick(p,s.State,TimedEffects.Now);Require(PaladinAuras.Effect(p,CombatAbility.Meditation)!=null&&ConsumeEffects.State(p).UntilUtc==s.State.UntilUtc,"Resume reset buff deadline");
             ConsumeAuras.Tick(p,s.State,s.State.UntilUtc);Require(PaladinAuras.Effect(p,CombatAbility.Meditation)==null,"Expired Consume source kept own aura");
-            ConsumeAuras.Tick(p,s.State,TimedEffects.Now);File.WriteAllText(Manifest,JsonSerializer.Serialize(s with{Generation=s.Generation+1,Life=SkillHealth.Balance256(p),AllyLife=SkillHealth.Balance256(ally)}));
+            ConsumeAuras.Tick(p,s.State,TimedEffects.Now);File.WriteAllText(Manifest,JsonSerializer.Serialize(s with{Generation=s.Generation+1,Life=SkillHealth.Balance256(p),AllyLife=SkillHealth.Balance256(ally),Maximum=SkillHealth.Maximum256(p)}));
             Log.Information("Consume aura:actual saved provider tags parse through unchanged aura profile;fixed11NormalMeditation550resumes once at zero mana with original deadline,source stop/expiry clears own effect without resetting state");
         }
         finally{network.Mobile=null;p.NetState=null;account[0]=null;network.Account=null;account.Delete();}

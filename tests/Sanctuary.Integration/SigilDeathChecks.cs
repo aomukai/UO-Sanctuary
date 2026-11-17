@@ -143,6 +143,14 @@ public static class SigilDeathChecks
                 SigilActor actor;
                 if(reload)
                 {
+                    Require(p!=null&&t!=null&&SigilDeathProposal.State(t)==old.Mark&&SkillHealth.Balance256(t)==old.Life,"Original Death recipient mark/stream/wounds changed");
+                    if(SigilActorChecks.ExpiredOriginal(old.Actor))
+                    {
+                        Require(SigilDeathProposal.State(t)==old.Mark&&SkillHealth.Balance256(t)==old.Life,"Expired Death marker changed held recipient mark/stream/wounds");
+                        FixtureNetwork.Authenticate(network,p,"DeathExpired");
+                        File.WriteAllText(Manifest,JsonSerializer.Serialize(old with{Generation=old.Generation+1}));
+                        Log.Information("{Name}: passed",result);return;
+                    }
                     actor=Actor(old.Actor.Marker);Require(actor.BornUtc==old.Actor.BornUtc&&actor.DeathModifiers==old.Actor.DeathModifiers&&actor.DeathPulse==old.Actor.DeathPulse
                         &&SigilDeathProposal.State(t)==old.Mark&&SkillHealth.Balance256(t)==old.Life,"Original Death actor/cursor/mark/stream/wounds changed");
                 }

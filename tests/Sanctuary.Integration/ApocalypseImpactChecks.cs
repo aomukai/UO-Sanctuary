@@ -59,7 +59,7 @@ public static class ApocalypseImpactChecks
     private static void Check()
     {
         Source();var owner=ClassSkillChecks.Player(DiabloClass.Warlock);FixtureSpace.Corridor(owner,6400,30,2700);var target=FireBoltChecks.Target(owner,6);
-        var curse=new NecromancerCurse(CombatAbility.Weaken,owner.Serial.Value,1,TimedEffects.Now.AddMinutes(3),target.X,target.Y);
+        var curse=new NecromancerCurse(CombatAbility.Weaken,owner.Serial.Value,1,TimedEffects.Now.Add(FixtureSpace.Retention),target.X,target.Y);
         NecromancerEffects.Profiles.Store(target,new(Curse:curse));Impacts(owner,target);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,target.Serial.Value,curse,owner.Location,owner.Map.MapID,0)));
         Log.Information("Apocalypse receiver:142 current resistance leaf comparisons/255 pinned penalties;actual HP,temporary-only fire reduction,full/one-fifth immunity,break-before-item-pierce,zero/allocation controls and existing curse coexistence. Enhanced packet/area/launch remain caller-owned;no learned admission.");

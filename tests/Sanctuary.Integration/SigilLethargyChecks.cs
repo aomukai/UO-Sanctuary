@@ -97,8 +97,9 @@ public static class SigilLethargyChecks
     private static void Reload(NetState network)
     {
         Source();var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=World.FindMobile((Serial)saved.Owner)as PlayerMobile;var target=World.FindMobile((Serial)saved.Target)as BaseCreature;
+        bool expired=SigilActorChecks.ExpiredOriginal(saved.Actor);
         Require(saved.Generation<2&&p!=null&&target!=null&&SigilLethargy.State(target)==saved.Status&&SigilLethargy.Attack(target)==-50
-            &&SigilLethargy.Defense(target)==-232&&World.FindItem((Serial)saved.Actor.Marker)is{Deleted:false},"Original held recipient/creator/rank/expiry or marker lost on reload");
+            &&SigilLethargy.Defense(target)==-232&&(expired||World.FindItem((Serial)saved.Actor.Marker)is{Deleted:false}),"Original held recipient/creator/rank/expiry or marker lost on reload");
         FixtureNetwork.Authenticate(network,p,"LethargyReload");p.MoveToWorld(new(saved.Actor.Origin.X-3,saved.Actor.Origin.Y,saved.Actor.Origin.Z),Map.Maps[saved.Actor.Map]);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Generation=saved.Generation+1}));
     }

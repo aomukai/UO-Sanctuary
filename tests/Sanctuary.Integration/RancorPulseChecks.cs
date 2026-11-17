@@ -98,7 +98,15 @@ public static class RancorPulseChecks
         Exercise(network);PlayerMobile p;CleaveActionTarget target;SigilActor actor;int generation=0;
         if(reload)
         {
-            var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));generation=s.Generation+1;p=World.FindMobile((Serial)s.Owner)as PlayerMobile;target=World.FindMobile((Serial)s.Target)as CleaveActionTarget;actor=Actor(s.Actor.Marker);
+            var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));generation=s.Generation+1;p=World.FindMobile((Serial)s.Owner)as PlayerMobile;target=World.FindMobile((Serial)s.Target)as CleaveActionTarget;
+            Require(p!=null&&target!=null&&NecromancerEffects.Profiles.Find(target)==s.State&&SkillHealth.Balance256(target)==s.Life256,"Original Rancor recipient RNG/wounds changed");
+            if(SigilActorChecks.ExpiredOriginal(s.Actor))
+            {
+                Require(NecromancerEffects.Profiles.Find(target)==s.State&&SkillHealth.Balance256(target)==s.Life256,"Expired Rancor marker changed held recipient RNG/wounds");
+                FixtureNetwork.Authenticate(network,p,"RancorExpired");Detach(network,p);
+                File.WriteAllText(Manifest,JsonSerializer.Serialize(s with{Generation=generation}));return;
+            }
+            actor=Actor(s.Actor.Marker);
             Require(p!=null&&target!=null&&actor.BornUtc==s.Actor.BornUtc&&actor.Frames==s.Actor.Frames&&actor.RancorPulse==s.Actor.RancorPulse
                 &&NecromancerEffects.Profiles.Find(target)==s.State&&SkillHealth.Balance256(target)==s.Life256,"Original marker/cursor/recipient RNG/wounds changed");
         }

@@ -102,7 +102,9 @@ public static class SigilFamilyChecks
         var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));Require(saved.Generation<2&&saved.Entries.Length==3,"Missing family save generation");
         foreach(var entry in saved.Entries)
         {
-            var owner=World.FindMobile((Serial)entry.Owner)as PlayerMobile;var actor=Actor(entry.Actor.Marker);var state=State(owner);
+            var owner=World.FindMobile((Serial)entry.Owner)as PlayerMobile;Require(owner!=null,"Saved family owner missing");
+            if(SigilActorChecks.ExpiredOriginal(entry.Actor,entry.State)){continue;}
+            var actor=Actor(entry.Actor.Marker);var state=State(owner);
             Require(actor with{LastPulse=entry.Actor.LastPulse}==entry.Actor&&actor.Ability==entry.Actor.Ability
                 &&World.FindItem((Serial)actor.Marker)is{Deleted:false} item&&item.Location==actor.Origin&&item.Map.MapID==actor.Map
                 &&state.EpochUtc==entry.State.EpochUtc&&state.EventUtc==entry.State.EventUtc&&state.Expiry==entry.State.Expiry
@@ -115,6 +117,6 @@ public static class SigilFamilyChecks
         }
         // A successful resumed Rancor pulse advances its saved application cursor.
         // Preserve that exact post-pulse actor for the next reload comparison.
-        File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Generation=saved.Generation+1,Entries=saved.Entries.Select(e=>e with{Actor=Actor(e.Actor.Marker)}).ToArray()}));
+        File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Generation=saved.Generation+1,Entries=saved.Entries.Select(e=>e with{Actor=SigilActors.Snapshot().Actors.SingleOrDefault(a=>a.Marker==e.Actor.Marker)??e.Actor}).ToArray()}));
     }
 }
