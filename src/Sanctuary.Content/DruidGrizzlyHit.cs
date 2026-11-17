@@ -90,7 +90,10 @@ internal static class DruidGrizzlyHit
         NecromancerEffects.LifeTap(body,target,packet.Physical256);
         int clipped=Math.Min(Math.Max(0,packet.Physical256),Math.Max(0,SkillHealth.Balance256(target)));
         if(packet.AbsorbedLife256>0){SkillHealth.Heal(target,packet.AbsorbedLife256);}
-        int lost=SkillHealth.Damage(body,target,packet.Total256);
+        // The cached total predates BearSmite's extra physical field. Its
+        // unchanged elemental lanes leave exactly the committed physical loss.
+        var direct=new DirectDamageParts(checked(packet.Total256-packet.Fire256-packet.Cold256-packet.Lightning256),0,packet.Fire256,packet.Cold256,packet.Lightning256);
+        int lost=SkillHealth.TypedDamage(body,target,packet.Total256,direct);
         try{GrizzlyUpgrades.Stun(body,target,smite,Limited);}finally{seed=current;}
         if(packet.ColdFrames>0){ColdStates.Commit(body,target,packet.ColdFrames,true,ColdStates.Effect(target),NecromancerEffects.DifficultyDivisor(target),Core.TickCount);}
         SorceressEffects.MeleeAttempt(body,target);

@@ -889,6 +889,11 @@ for _talent in ('druid.twister','druid.fissure','druid.volcano','druid.tornado',
     _notes=BLOCKERS if _talent in BLOCKERS else CAVEATS
     _notes[_talent]=_notes.get(_talent,'')+' Existing settled non-poison spell components now reach approved Defiler Health Link through typed health delivery. Molten Boulder ground remains Periodic with no link event or copied damage. Thirty-two direct and four periodic-control cases per boot retain primary totals,independent secondary mitigation,potion poison exclusion,source RNG and no extra contact mana debit. Existing Druid source/input/original-save scopes are retained in druid-element-link-checkpoint.md;no pet-melee or whole-class certification is implied.'
 
+# Pet melee publishes actual NPC channels; BearSmite keeps the cached HP total.
+for _talent in ('druid.summonspiritwolf','druid.summondirewolf','druid.summongrizzly'):
+    _notes=BLOCKERS if _talent in BLOCKERS else CAVEATS
+    _notes[_talent]=_notes.get(_talent,'')+' Pet melee now publishes settled non-poison components to approved Defiler Health Link with the actual NPC source and owner credit. Grizzly shares its cached health total and never the later BearSmite physical-field addition. Thirty-two current pet/link contexts per boot include ordinary/smite,Enchant,primary/secondary defenses,critical,immune,miss and shield-block controls;retained Druid source/action/input/original-save scopes remain in druid-pet-link-checkpoint.md. Existing snapshots,RNG,upgrades,leech,return,knockback and resources retain;no whole-class or asset certification.'
+
 def planned_content_remaining(text):
     """Keep excluded charm-only mechanics out of active talent blockers."""
     if not re.search('sunder',text,re.I):return text

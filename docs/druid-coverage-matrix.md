@@ -6,6 +6,8 @@ Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations
 
 The [elemental Health Link checkpoint](druid-element-link-checkpoint.md) adds 32 direct contexts and four periodic-ground controls per boot for six spells. Settled non-poison channels now reach linked recipients; Boulder ground remains periodic, and pet melee remains separate. Verify the current receipt with `python3 tools/record_druid_element_link.py --check`.
 
+The [pet Health Link checkpoint](druid-pet-link-checkpoint.md) retains that cohort and adds 32 actual-NPC contexts per boot for Spirit Wolf, Dire Wolf, ordinary Grizzly and BearSmite, including native owner credit. Grizzly shares the cached health total without its later physical-field addition. Current receipt: `python3 tools/record_druid_pet_link.py --check`.
+
 | Talent | Mechanical scope | Existing fixture |
 | --- | --- | --- |
 | Firestorm | Paid SC cast, distinct stream delay, travelling fire and saved emission | `firestorm` |
@@ -39,7 +41,7 @@ The [elemental Health Link checkpoint](druid-element-link-checkpoint.md) adds 32
 | Spirit of Barbs | Paid shared-spirit summon and captured flat-return aura | `barbs-casting` and retained spirit consumers |
 | Summon Grizzly | Paid original bear, captured synergies/normal-hit stun/Crushing Blow and saved combat state | `grizzly-casting`, `druid-snapshot`, `grizzly-upgrades`, `grizzly-world` |
 
-The [current driver](../tests/check_druid_element_link.py) retains the planned Druid cohort and adds Defiler/readiness controls, for 59 fixture families, 23 shared checks, 43 current input commands, four natural live commands, nine elemental wire sequences, three held Arctic sequences and sixteen pre-save snapshot/expiry commands per boot. The existing paid Fury staging command runs on its own connection immediately before saving. Its naturally expiring form is not staged prematurely while unrelated casts run.
+The [current driver](../tests/check_druid_pet_link.py) retains the planned Druid cohort and adds Defiler/readiness controls, for 59 fixture families, 23 shared checks, 43 current input commands, four natural live commands, nine elemental wire sequences, three held Arctic sequences and sixteen pre-save snapshot/expiry commands per boot. The existing paid Fury staging command runs on its own connection immediately before saving. Its naturally expiring form is not staged prematurely while unrelated casts run.
 
 ## Approved behavior retained
 

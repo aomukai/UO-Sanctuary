@@ -100,7 +100,7 @@ internal static class DruidSpiritWolfHit
         // apply), but cannot supply physical leech, Life Tap or percent return.
         PreparedWeaponEvents.BeforeReturn(body,target,0,false);
         if(packet.Cold256>0){ColdStates.Apply(body,target,packet.ColdFrames,Core.TickCount);}
-        int loss=SkillHealth.Damage(body,target,NamedElements.To256(parts.Total));
+        int loss=SkillHealth.TypedDamage(body,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));
         CreatureHitRecovery.Apply(target,body,loss);CombatDamage.Finish(target,body);
         return new(SpiritWolfHitOutcome.Hit,id,chance,packet.Cold256,packet.Fire256,packet.Lightning256,packet.ColdFrames,packet.Critical,loss);
     }
