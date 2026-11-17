@@ -1,5 +1,7 @@
 # Skill icons
 
+**Warlock combined integration — 2026-11-18 JST.** The [906-result checkpoint](warlock-lifecycle-acceptance-checkpoint.md) adds no final talent/hotkey icons or new asset identities. Existing missing assets and identified placeholders remain in this separate register; mechanical qualification does not imply graphical acceptance.
+
 **Druid/Assassin current integration — 2026-11-18 JST.** [Druid](druid-lifecycle-acceptance-checkpoint.md) verifies29active routes plus passive Lycanthropy;[Assassin](assassin-lifecycle-acceptance-checkpoint.md) verifies28active routes plus two passives. Existing talent-tree/mouse/hotkey icons remain separately missing with identified placeholders. No talent,binding or generated icon is added.
 
 **Amazon integration/approved Impale — 2026-11-17 JST.** [Checkpoint](amazon-lifecycle-acceptance-checkpoint.md) verifies24active input routes and six separate passive scopes without adding a talent or binding. Active talent/mouse/hotkey and passive talent-tree icons retain their separately listed missing artwork and identified placeholders. No imagegen.

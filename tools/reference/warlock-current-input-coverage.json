@@ -1,0 +1,575 @@
+{
+  "referenceVersion": "3.3.93847",
+  "characterClass": "Warlock",
+  "classId": 108,
+  "talents": 30,
+  "activeTalents": 26,
+  "passiveTalents": 4,
+  "verifiedActiveInputRoutes": 26,
+  "ordinaryInputCases": 213,
+  "negativeInputCasesSeparatelyExcluded": 0,
+  "heldInputSequences": 6,
+  "foreignInputCasesSeparatelyExcluded": 6,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
+    "Assemblies/Sanctuary.Content.dll": "279d7216ecd05447605a61f89d02041edc5b6876bfad45d00080d714f1c21c28",
+    "Assemblies/Sanctuary.Integration.dll": "6bd9d0319910beb73dec064aca2c20a51bda9be189b56da98983a31099c9f79e"
+  },
+  "skills": [
+    {
+      "talentId": "warlock.summongoatman",
+      "ability": 213,
+      "routes": {
+        "goatman-cast-quick": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "goatman-cast-right": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "warlock.deathmark",
+      "ability": 215,
+      "routes": {
+        "death-mark-input-left": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "death-mark-input-quick": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "death-mark-input-right": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "warlock.summontainted",
+      "ability": 216,
+      "routes": {
+        "tainted-cast-quick": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "tainted-cast-right": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "warlock.bloodboil",
+      "ability": 217,
+      "routes": {
+        "blood-boil-learned-left": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "blood-boil-learned-quick": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "blood-boil-learned-right": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "warlock.summondefiler",
+      "ability": 218,
+      "routes": {
+        "defiler-cast-quick": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "defiler-cast-right": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "warlock.engorge",
+      "ability": 219,
+      "routes": {
+        "engorge-learned-ground": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "engorge-learned-left": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "engorge-learned-quick": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "engorge-learned-right": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "warlock.consume",
+      "ability": 220,
+      "routes": {
+        "consume-learned-defiler": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "consume-learned-menu": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "consume-learned-quick": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "consume-learned-right": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "warlock.binddemon",
+      "ability": 221,
+      "routes": {
+        "bind-learned-wire-1": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulHeldSequences": 3,
+          "evidence": "actual held Bind ability/free-start/free-release/new-press/bound/finish result;class from compiled original owner and binding/class guard"
+        },
+        "bind-learned-wire-9": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulHeldSequences": 3,
+          "evidence": "actual held Bind ability/free-start/free-release/new-press/bound/finish result;class from compiled original owner and binding/class guard"
+        }
+      }
+    },
+    {
+      "talentId": "warlock.hexbane",
+      "ability": 223,
+      "routes": {
+        "bane-cast-quick": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "bane-cast-right": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "warlock.cleave",
+      "ability": 224,
+      "routes": {
+        "cleave-cast-left": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "cleave-cast-quick": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "cleave-cast-right": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "warlock.echoingstrike",
+      "ability": 225,
+      "routes": {
+        "echoing-strike-cast-left": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "echoing-strike-cast-quick": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "echoing-strike-cast-right": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "warlock.hexpurge",
+      "ability": 226,
+      "routes": {
+        "purge-cast-quick": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "purge-cast-right": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "warlock.bladewarp",
+      "ability": 227,
+      "routes": {
+        "blade-warp-left": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "blade-warp-quick": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "blade-warp-right": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "warlock.psychicward",
+      "ability": 228,
+      "routes": {
+        "ward-cast-quick": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "ward-cast-right": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "warlock.eldritchblast",
+      "ability": 229,
+      "routes": {
+        "eldritch-blast-cast-left": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "eldritch-blast-cast-quick": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "eldritch-blast-cast-right": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "warlock.hexsiphon",
+      "ability": 230,
+      "routes": {
+        "siphon-cast-quick": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "siphon-cast-right": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "warlock.mirroredblades",
+      "ability": 231,
+      "routes": {
+        "mirrored-cast-left": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "mirrored-cast-quick": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "mirrored-cast-right": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "mirrored-crossbow-quick": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "warlock.miasmabolt",
+      "ability": 232,
+      "routes": {
+        "miasma-cast-left": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "miasma-cast-quick": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "miasma-cast-right": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "warlock.ringoffire",
+      "ability": 233,
+      "routes": {
+        "ring-cast-left": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "ring-cast-quick": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "ring-cast-right": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "warlock.sigillethargy",
+      "ability": 234,
+      "routes": {
+        "sigil-cast-left": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "sigil-cast-quick": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "sigil-cast-right": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "warlock.sigilrancor",
+      "ability": 235,
+      "routes": {
+        "rancor-cast-left": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "rancor-cast-quick": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "rancor-cast-right": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "warlock.miasmachain",
+      "ability": 236,
+      "routes": {
+        "miasma-chain-cast-left": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "miasma-chain-cast-quick": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "miasma-chain-cast-right": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "warlock.flamewave",
+      "ability": 237,
+      "routes": {
+        "flame-wave-cast-left": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "flame-wave-cast-quick": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "flame-wave-cast-right": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "warlock.sigildeath",
+      "ability": 238,
+      "routes": {
+        "death-cast-left": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "death-cast-quick": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "death-cast-right": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "warlock.apocalypse",
+      "ability": 240,
+      "routes": {
+        "apocalypse-cast-left": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "apocalypse-cast-quick": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "apocalypse-cast-right": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    },
+    {
+      "talentId": "warlock.abyss",
+      "ability": 241,
+      "routes": {
+        "abyss-cast-left": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "abyss-cast-quick": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        },
+        "abyss-cast-right": {
+          "stage": "warlock-lifecycle-acceptance",
+          "successfulInputs": 3,
+          "evidence": "actual ready class/ability plus successful check/result"
+        }
+      }
+    }
+  ],
+  "passiveSkills": [
+    {
+      "talentId": "warlock.demonicmastery",
+      "ability": 212
+    },
+    {
+      "talentId": "warlock.bloodoath",
+      "ability": 214
+    },
+    {
+      "talentId": "warlock.levitationmastery",
+      "ability": 222
+    },
+    {
+      "talentId": "warlock.enhancedentropy",
+      "ability": 239
+    }
+  ],
+  "classCertified": false,
+  "limits": "Every admitted route has successful input results on three boots. Negative controls do not establish a positive cast. Held class context comes from compiled owner/guard evidence rather than an invented log field. Passive mechanics remain separate birth/stat evidence. This is input accounting,not whole-class mechanics or exact engine/client/PvP certification.",
+  "files": {
+    ".local/class-skills/warlock-lifecycle-acceptance/birth-inputs.json": "29187a4ac14c6fb8a743dbe356c37dcbc2b226d8b3239872a0927b07c0c867b3",
+    ".local/class-skills/warlock-lifecycle-acceptance/birth-native-checks.log": "80037f71318038e06cf6fbbfb6cb954e7340bf915ee06aff01ba9d618f551efe",
+    "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
+    "shared/DiabloClass.cs": "735cddd18c8e4397a4d5e73ec0a26bc7165056e5f571c87121b3609f820db075",
+    "src/Sanctuary.Content/BindDemonInput.cs": "447240b4126e7b84e345cd5c3dee49d881800ef0f5b0059061a7173d7b5339d3",
+    "tests/Sanctuary.Integration/BindDemonLearnedChecks.cs": "156ad1a4e46e238c3522335da4165b1ec6c9bf146fdd3be18fe258d23e465136",
+    "tools/class_input_coverage.py": "32cc534c72159b80e7779eaf89d639dc4e9e1d01af6f607a0110e72b0f7d4bff",
+    "tools/review_warlock_input_coverage.py": "9e421eb3c7d676c908198ba567f0986927bf8fc61bfc17bb81663c4a284b6496"
+  },
+  "heldLimits": "Six actual right/quick Bind sequences include free early release,fresh windup,pinned target,mana and successful original native binding. Source9 uses the female Witch owner. Held packets omit a class byte;compiled ownership and ordinary class/binding/hard-training guards establish context. Repeated heartbeats are not extra casts.",
+  "passiveLimits": "Demonic Mastery,Blood Oath,Levitation Mastery and Enhanced Entropy retain their separate learned/stat/equipment/summon/recipient consumers;no active binding is invented."
+}

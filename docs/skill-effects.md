@@ -1,5 +1,7 @@
 # Skill effects
 
+**Warlock combined integration — 2026-11-18 JST.** The [906-result checkpoint](warlock-lifecycle-acceptance-checkpoint.md) adds no final effects/audio or new asset identities. Existing missing assets and identified placeholders remain in this separate register; mechanical qualification does not imply graphical acceptance.
+
 **Druid/Assassin current integration — 2026-11-18 JST.** [Druid](druid-lifecycle-acceptance-checkpoint.md) and [Assassin](assassin-lifecycle-acceptance-checkpoint.md) qualify existing melee,spell,pet,trap,weather,channel and saved-effect mechanics without creating artwork/audio. Their named mechanical placeholders retain the separately listed missing effects and sounds. No imagegen.
 
 **Amazon integration/approved Impale — 2026-11-17 JST.** [Checkpoint](amazon-lifecycle-acceptance-checkpoint.md) adds no artwork/audio. Existing thrust,slow,arrow/javelin travel,poison/lightning/cold/burning fields,Decoy/Valkyrie and shatter effects remain identified mechanical placeholders. Final effects/audio stay separately missing;no imagegen.

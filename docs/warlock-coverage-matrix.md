@@ -1,5 +1,7 @@
 # Warlock/Witch acceptance inventory
 
+**Current all-thirty lifecycle/input qualification — 2026-11-18 JST.** [Checkpoint](warlock-lifecycle-acceptance-checkpoint.md),[receipt](../tools/reference/warlock-lifecycle-acceptance-native-evidence.json):906exact results/378connections/three saves/two reloads retain the five prior subgroup inventories on the current build. All26active routes have213explicit-class inputs and six held Bind sequences;four passives retain their separate consumers. Focused78results preserve positive saved-effect checks;the full composition verifies normal Sigil/Consume expiry without clock resets or healing. Production/native/runtime data are unchanged. The scopes below remain partial modern-reference qualifications,with explicit unsupported contexts and separate assets;no whole-engine parity certificate is claimed.
+
 **General weapon integration — 2026-11-17 JST.** [Checkpoint](gear-strike-link-checkpoint.md) and [receipt](../tools/reference/gear-strike-link-native-evidence.json):51results/six actual inputs/two reloads. Health Link accepts known general weapon parts and explicit poison additions,excluding poison from copies. Unknown/truncated totals remain explicit scalar refusals with primary damage intact. Sixteen controlled cases repeat per boot. No class certificate or full legacy/PvP claim.
 
 **Elite direct/periodic integration — 2026-11-17 JST.** [Checkpoint](elite-damage-link-checkpoint.md) and [receipt](../tools/reference/elite-damage-link-native-evidence.json):45results/nineteen controlled contexts per boot/two reloads. Existing discrete elite packets now reach Health Link;all three actual damaging aura emitters retain damage without initiating direct sharing. Native encounter,shield,Amplify,slow-bolt and original-save scopes retain. No class certificate.
@@ -12,7 +14,7 @@
 
 **Current four-talent review — 2026-11-16 JST.** The [consolidated release proposal](warlock-final-talents-release-proposal.md) binds the four original rules and their later qualified bound/numeric/aura extensions. The [current checkpoint](warlock-remaining-review-checkpoint.md) passes75 results/33connections/three saves/two reloads using exact reused C4/I4/native0075artifacts,with no C#/data/gate change. There are zero learned socket ability inputs in this review. Original frozen pairs/receipts are unchanged;this prepares a release decision rather than claiming completion.
 
-Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. **Charms and runewords are excluded.** Druid combined acceptance has passed; this inventory records scoped subgroup results and grants no whole-class certificate.
+Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. **Charms and runewords are excluded.** Warlock combined integration has passed; this inventory retains the scoped subgroup evidence and grants no whole-engine parity certificate.
 
 Current status has **30 handlers;all four approved talents now admitted**. Existing component/learned fixtures are listed below for reuse. A fixture filename is an evidence entry point, not a claim that every modern mechanic or the combined class has passed.
 
