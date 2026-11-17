@@ -63,16 +63,16 @@ public static class AmazonBow
         string missile=multiple?(BowAmmunition.AmmoType(owner,CombatTiming.Equipped(owner))==typeof(Arrow)?"multipleshotarrow":"multipleshotbolt"):ability==CombatAbility.ExplodingArrow?"explodingarrow":ability==CombatAbility.IceArrow?"icearrow":ability==CombatAbility.FreezingArrow?"freezingarrow":ability==CombatAbility.ImmolationArrow?"immolationarrow":ability==CombatAbility.GuidedArrow?"guidedarrow":ability==CombatAbility.FireArrow?"firearrow":ability==CombatAbility.ColdArrow?"coldarrow":"magicarrow";
         var rays=multiple?FanGeometry.Create(dx,dy,(int)values.Eval("calc1"),(int)values.Eval("calc3"),(int)values.Eval("calc2"))
             :new[]{new FanRay(dx,dy,33,NecromancerSummons.Source(missile,"Activate"))};
-        long cast=WeaponMissiles.NewCast();int created=0;
+        long cast=WeaponMissiles.NewCast();int created=0;var pierce=PlayerPierceActions.Capture(owner);
         foreach(var ray in rays)
         {
-            // Keep critical selection per created missile. The existing bounded
-            // pierce helper is a port adapter; exact source seed correlation
-            // across the fan remains explicitly unverified.
+            // Critical stays per missile. The explicit index candidate shares
+            // its Pierce seed;ordinary callers retain the previous adapter
+            // until the new-protocol mapping is approved.
             bool critical=NamedCombat.ProjectileCritical(owner,LaunchRandom);
             var damage=BowLaunch.Capture(owner,ability,critical,preparedValues:values);
             bool guided=ability==CombatAbility.GuidedArrow;
-            int pierces=guided?0:NamedProjectiles.PierceBudget(WeaponMissiles.CurrentPierce(owner),LaunchRandom);
+            int pierces=guided?0:PlayerPierceActions.Budget(pierce,WeaponMissiles.CurrentPierce(owner),LaunchRandom);
             var guidance=guided?GuidedArrows.Capture(owner,ClassCombat.IsHostile(owner,target)?target:null,point,dx,dy):null;
             var launchRay=guided?ray with{Flags=guidance.Mode==1?0x20u:0x420u}:ray;
             int frames=guided?Math.Max(1,guidance.Remaining):NecromancerSummons.Source(missile,"Range");
@@ -80,6 +80,7 @@ public static class AmazonBow
                 NecromancerSummons.Source(missile,"NextHit")!=0?NecromancerSummons.Source(missile,"NextDelay"):0,missile,values.Rank,guidance)>0){created++;}
         }
         if(created==0){return false;}
+        pierce?.Commit();
         if(ability!=CombatAbility.MagicArrow)
         {
             // Legacy do8/generic missile emission has no second quiver gate; its wrapper decrements

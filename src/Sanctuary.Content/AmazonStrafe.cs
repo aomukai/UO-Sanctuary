@@ -12,7 +12,8 @@ namespace Sanctuary;
 public static class AmazonStrafe
 {
     internal sealed record Series(Serial Weapon,Serial Target,Map Map,Point3D Origin,long Cast,int Remaining,int Released,
-        int StartFrame,int Advance,int EventFrames,long EffectAt,long Until,bool Finished=false);
+        int StartFrame,int Advance,int EventFrames,long EffectAt,long Until,bool Finished=false)
+    {internal PlayerPierceActions.Ticket Pierce{get;init;}}
     internal static ActionTiming Timing(AttackFamily family,int advance,int start=0)=>AmazonBow.Timing(family,advance,start);
     internal static (int[] Events,int End) Schedule(AttackFamily family,int advance,int count)
     {
@@ -82,9 +83,11 @@ public static class AmazonStrafe
         var values=SkillMechanics.Values(owner,CombatAbility.Strafe);string missile=BowAmmunition.AmmoType(owner,CombatTiming.Equipped(owner))==typeof(Arrow)?"strafearrow":"strafebolt";
         var damage=BowLaunch.Capture(owner,CombatAbility.Strafe,NamedCombat.ProjectileCritical(owner,AmazonBow.LaunchRandom),preparedValues:values);
         int dx=(target.X-owner.X)*2,dy=(target.Y-owner.Y)*2;
-        WeaponMissiles.Launch(owner,CombatAbility.Strafe,new FanRay(dx,dy,0x21,NecromancerSummons.Source(missile,"Activate")),damage,series.Cast,
-            NamedProjectiles.PierceBudget(WeaponMissiles.CurrentPierce(owner),AmazonBow.LaunchRandom),NecromancerSummons.Source(missile,"Vel"),NecromancerSummons.Source(missile,"Range"),
+        var pierce=series.Pierce??PlayerPierceActions.Capture(owner);
+        long projectile=WeaponMissiles.Launch(owner,CombatAbility.Strafe,new FanRay(dx,dy,0x21,NecromancerSummons.Source(missile,"Activate")),damage,series.Cast,
+            PlayerPierceActions.Budget(pierce,WeaponMissiles.CurrentPierce(owner),AmazonBow.LaunchRandom),NecromancerSummons.Source(missile,"Vel"),NecromancerSummons.Source(missile,"Range"),
             NecromancerSummons.Source(missile,"NextDelay"),missile,values.Rank);
+        if(projectile>0&&pierce!=null){pierce.Commit();series=series with{Pierce=pierce};}
         owner.PlaySound(0x238); // Identified ordinary bow sound placeholder.
         series=series with{Remaining=series.Remaining-1,Released=series.Released+1};
         if(!Valid(owner,series)){Cancel(owner);return true;}

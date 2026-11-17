@@ -1,0 +1,25 @@
+# Player ranged-action Pierce index proposal
+
+Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. **Pending explicit adoption.** This defines a new-protocol mapping, rather than claiming that the older D2 packet counter is the current executable's exact behavior.
+
+Proposed shared player rule:
+
+- Each character has a saved unsigned 32-bit Pierce action counter, initially zero. A new ranged action proposes the next index; it commits once after at least one missile is allocated. Failed validation, cancelled windup and allocation with no missile do not advance it. Zero Pierce chance and Guided Arrow still count as released actions; Guided Arrow itself retains zero Pierce.
+- A fan shares one captured index. Strafe captures on its first emitted arrow and reuses that index for the entire series. A later released action, including a repeated held action, gets the next index. Current skill/item Pierce chance is still evaluated at each existing launch point.
+- Each eligible missile uses the already-qualified temporary source seed and four-success budget calculation. Pierce consumes no draws from the launch provider used for critical selection, item procs, the world or NPCs. Critical selection retains its existing per-missile rules.
+- Counter wrap is unsigned and preserves index zero. Gear changes, respecs, class history, death and logout do not reset it. Pending actions are transient; already-created missiles retain their saved budgets and do not advance the counter on impact or reload.
+- Existing mana, ammunition, timing, damage, hit delay, collision and cancellation rules remain. This rule adds no refund to an already-paid action.
+
+The tested candidate currently wires Amazon's **nine bow talents, Strafe and four javelin talents**. Basic attacks, Barbarian throwing, Mirrored Blades and NPC producers retain their existing providers until separately wired and verified. The same shared player rule can be reused for other player weapon-missile actions where it fits; this checkpoint does not certify those unwired paths. NPC index ownership remains a distinct reference question.
+
+The [source calculation checkpoint](pierce-source-seed-checkpoint.md) proves the older factory's temporary owner-index seed and same-index correlation. Its twelve older input callbacks increment before skill dispatch, including paths that may later fail. Sanctuary instead proposes an action-based commit because its mouse/quick/held protocol differs. Initial zero, persistence and fan/series capture are explicit adaptations. Exact current D2R index initialization and callback mapping remain unverified.
+
+The candidate is held behind `PlayerPierceActions.Approved=false`; only explicit isolated test owners enter it. Saved rows never enable the feature. A new additive `SanctuaryPlayerPierce` profile at priority258 stores owner/index pairs with format0; existing profile versions and released-flight formats are unchanged. Duplicate/invalid restore is atomic, and stale action tickets cannot overwrite a newer counter.
+
+Accepted Content1/Integration2/source snapshot2/native run1 passed **33 results, six real right/quick inputs, three saves and two reloads**. Both accepted builds have zero warnings/errors; there are no failed native attempts or save-deletion warnings. One earlier integration build failed on a duplicate account variable in the fixture and was frozen before repair. Gameplay C1 was unchanged by that repair.
+
+The component checks cover all fourteen routed talents, same-index fans, a multi-arrow Strafe series, cancelled windup, invalid aim, stale/repeated tickets, invalid-restore preservation and unsigned wrap. An unapproved ordinary fan retains its previous launch-RNG behavior. Candidate launches use critical-only launch-provider draws without touching saved proc/world streams. Original owner/gear/proc state, injured life, fractional mana, ammunition, saved index and an existing flight are checked through two reloads; resumed flights do not advance the index or repay resources, and fresh actions continue with the next index. Right and quick casts use the actual network and normal action clock. Fault-injected allocation refusal, every held/left-input variant and additional producer types are not claimed as native-tested here; the commit-after-success guards are also source-bound.
+
+[Native receipt](../tools/reference/pierce-action-policy-native-evidence.json), [fixture](../tests/Sanctuary.Integration/PierceActionChecks.cs), [shared counter](../src/Sanctuary.Content/PlayerPierceActions.cs). Sources, build failure, accepted assemblies and immutable evidence are retained under `/home/aomukai/Sanctuary-checkpoint-archives/revive-respec/pierce-action-policy`.
+
+Installed build, existing saves, configuration and client remain protected. No current client/process/CASC read, new protocol field, final art or new talent is involved. Existing effects/audio and talent/hotkey icons remain separately listed placeholders. Named outcomes and class-completion counts are unchanged. Modern executable, owner/RNG/PvP/world and other previously recorded limits remain explicit.

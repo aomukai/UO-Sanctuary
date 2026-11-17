@@ -50,10 +50,12 @@ public static class AmazonJavelins
         var packet=BowLaunch.Capture(owner,ability,NamedCombat.ProjectileCritical(owner,AmazonBow.LaunchRandom),preparedValues:values);
         string missile=ability==CombatAbility.LightningFury?"lightningfury":ability==CombatAbility.LightningBolt?"lightningjavelin":ability==CombatAbility.PlagueJavelin?"plaguejavelin":"poisonjav";
         int dx=(point.X-owner.X)*2,dy=(point.Y-owner.Y)*2;
+        var pierce=PlayerPierceActions.Capture(owner);
         long id=WeaponMissiles.Launch(owner,ability,new(dx,dy,0x21,0),packet,WeaponMissiles.NewCast(),
-            NamedProjectiles.PierceBudget(WeaponMissiles.CurrentPierce(owner),AmazonBow.LaunchRandom),
+            PlayerPierceActions.Budget(pierce,WeaponMissiles.CurrentPierce(owner),AmazonBow.LaunchRandom),
             NecromancerSummons.Source(missile,"Vel"),NecromancerSummons.Source(missile,"Range"),0,missile,values.Rank);
         if(id<=0){return false;}
+        pierce?.Commit();
         if(ability==CombatAbility.PlagueJavelin){NecromancerEffects.Pay(owner,values.Mana256);}
         NamedAmmunition.Consume(CombatTiming.Equipped(owner),TimedEffects.Now);FireGround.Delay(owner,ability);
         owner.PlaySound(0x238); // Identified ordinary throw sound placeholder.

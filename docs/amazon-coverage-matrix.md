@@ -45,6 +45,8 @@ The fourteen existing bow/javelin Cast packet controls run once per boot; Decoy 
 
 ## Approved rules and remaining limits
 
+The [shared player action-index proposal](pierce-action-policy-proposal.md) has33native results across all14Amazon ranged talents,six right/quick inputs and two reloads. Candidate fans/Strafe share an action index,the counter survives saves,and emitted flights do not advance it again. A new additive profile stores the counter;ordinary gameplay keeps its previous RNG while explicit adoption is pending. The supplied seed math is source-qualified;initial index,new-protocol mapping and persistence are proposed adaptations. Other player producers and NPC index ownership remain outside this wiring.
+
 The [supplied-index Pierce checkpoint](pierce-source-seed-checkpoint.md) adds936real source RNG vectors and18focused native results with two reloads. It establishes the temporary seed calculation and same-index fan correlation while retaining existing learned Pierce lifecycle checks. Online launch RNG is unchanged;initial owner index,new-protocol input/hold/release mapping and saved capture policy remain unresolved.
 
 The [paid Impale defense proposal](impale-defense-policy-proposal.md) has a supplemental123-result/nine-scenario/36-input/two-reload qualification on unchanged gameplay. It proves the existing paid forced-success/no-defense-roll path against an active mapped shield,while low-mana ordinary miss/block remain. Explicit adoption is pending;this does not establish modern D2R shield/dodge behavior or admit additional pet/player recipients.
