@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "d3585be5d024920751763c8f503117c9efdfdf64f2c0013b69852fa137665b93",
+  "ContentAssemblySha256": "7dc721ac1138a55c84edd680e5294b2d32349eee4530de6a02c5668936bdc335",
   "NativeAssemblySha256": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
   "InputHashes": {
     "data/Sanctuary/Balance/abyss-route.json": "6c823249f73d320ba6ba4b2c538d419bc54a8cb8aaad8a605f5abf18d5911e18",
@@ -14,7 +14,7 @@
     "data/Sanctuary/Balance/blind-ai-rules.json": "744926507cc56ee2192a184deeaa7b7632a355503af43c74cb2438b9805ed876",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "9bf693c2ca0b0d6a4e1f9d3b9002a375c42ee3ee3461b3dce7db068b96cc58a9",
+    "data/Sanctuary/Balance/class-skill-status.json": "3dd252d8168298735bd8bf0cae6e03d21b0b64126debed058dcbb87dcac4db37",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "77dc2142ca806a9d6e6ed39f274ecdac247dcd5c60388512c17f5bc3e4c79c49",
@@ -593,7 +593,7 @@
     "src/Sanctuary.Content/DragonTalons.cs": "356f46429f01dff1067398f643ce1b83ef47ba65e04bae2e82164ca5e3178255",
     "src/Sanctuary.Content/DruidArcticModes.cs": "fdfad739b36ab38a832c96333f785e4f2f07e18105544da561f738576a8fd8d4",
     "src/Sanctuary.Content/DruidArcticStream.cs": "4962e805f64705ef6c6ae7e0ad513eeb0e1fe132eff00ad3508028e3b9f10a6b",
-    "src/Sanctuary.Content/DruidArmageddon.cs": "48eafbf5ae56a9ce8fd3ac266b8b6da292c4ff74509cacbd1f65e67369420d07",
+    "src/Sanctuary.Content/DruidArmageddon.cs": "803f6ceeebd3f2d32bc74d7c1090a61690ef6df38b99d84f0d2da84d9320c9bb",
     "src/Sanctuary.Content/DruidAttackChargeModel.cs": "76cf94228cc7501be2d40dbf4964459c31fd72febd1c3a7df8b4da18ccdeae8e",
     "src/Sanctuary.Content/DruidAttackCharges.cs": "6de72f80bbfca8095f8bee8d1a3649ac156d706c3d1efe36b8c63d09e3c982ae",
     "src/Sanctuary.Content/DruidBarbsBody.cs": "d76828d398d2dd748560b28675af569f624462224d310d9dad0b83a2e84208ca",

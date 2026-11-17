@@ -8,6 +8,8 @@ The [elemental Health Link checkpoint](druid-element-link-checkpoint.md) adds 32
 
 The [pet Health Link checkpoint](druid-pet-link-checkpoint.md) retains that cohort and adds 32 actual-NPC contexts per boot for Spirit Wolf, Dire Wolf, ordinary Grizzly and BearSmite, including native owner credit. Grizzly shares the cached health total without its later physical-field addition. Current receipt: `python3 tools/record_druid_pet_link.py --check`.
 
+The [Armageddon link checkpoint](armageddon-link-checkpoint.md) closes the remaining known Druid direct-hit component gap with 33 focused results, three wire casts, three natural-weather checks and two reloads. Its eight terminal/ground contexts retain independent child capture and periodic exclusion. It reuses the current shared matrices and Armageddon-specific source/save tests; the unchanged full form/vine cohort is not repeated. Verify with `python3 tools/record_armageddon_link.py --check`.
+
 | Talent | Mechanical scope | Existing fixture |
 | --- | --- | --- |
 | Firestorm | Paid SC cast, distinct stream delay, travelling fire and saved emission | `firestorm` |

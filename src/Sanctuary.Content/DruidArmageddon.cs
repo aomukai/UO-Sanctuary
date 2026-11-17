@@ -183,7 +183,7 @@ public static class DruidArmageddon
         {
             if (!SourceDamageAreas.Recipient(owner, target, actor.Map, actor.X, actor.Y, actor.Z, 4) || ClassAvoidance.Missile(target)) { continue; }
             owner.DoHarmful(target, true); var parts = SkillCombat.MitigatePrepared(owner, target, packet);
-            int loss = SkillHealth.Damage(owner, target, NamedElements.To256(parts.Total));
+            int loss = SkillHealth.TypedDamage(owner,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));
             if (!Uninterruptible(target)) { CreatureHitRecovery.Apply(target, owner, loss); }
         }
         // Child reads current owner synergies/gear at retained rank; parent

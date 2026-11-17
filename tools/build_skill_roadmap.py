@@ -894,6 +894,10 @@ for _talent in ('druid.summonspiritwolf','druid.summondirewolf','druid.summongri
     _notes=BLOCKERS if _talent in BLOCKERS else CAVEATS
     _notes[_talent]=_notes.get(_talent,'')+' Pet melee now publishes settled non-poison components to approved Defiler Health Link with the actual NPC source and owner credit. Grizzly shares its cached health total and never the later BearSmite physical-field addition. Thirty-two current pet/link contexts per boot include ordinary/smite,Enchant,primary/secondary defenses,critical,immune,miss and shield-block controls;retained Druid source/action/input/original-save scopes remain in druid-pet-link-checkpoint.md. Existing snapshots,RNG,upgrades,leech,return,knockback and resources retain;no whole-class or asset certification.'
 
+# Armageddon terminal physical/fire health retains settled components.
+_notes=BLOCKERS if 'druid.armageddon' in BLOCKERS else CAVEATS
+_notes['druid.armageddon']=_notes.get('druid.armageddon','')+' Terminal blast damage now reaches approved Defiler Health Link through existing settled non-poison components;ground damage retains its Periodic exclusion. Eight direct/ground contexts per boot cover potion,recipient resistance,immunity and independent child capture;focused source/real-input/natural-weather/original-save scopes are in armageddon-link-checkpoint.md. Existing damage,RNG,child capture,timing,geometry and payment retain;no whole-class or asset certificate.'
+
 def planned_content_remaining(text):
     """Keep excluded charm-only mechanics out of active talent blockers."""
     if not re.search('sunder',text,re.I):return text
