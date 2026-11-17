@@ -191,7 +191,7 @@ public static class EliteAuras
                     || Level(target, source.Aura, true) != level || !HighestEmitter(source, target, source.Aura, level)) { continue; }
                 int amount = ElementDamage(source.Aura, level, Random.Shared);
                 EliteCombat.Damage(source, target, fire: source.Aura == EliteAura.HolyFire ? amount : 0,
-                    cold: source.Aura == EliteAura.HolyFreeze ? amount : 0, lightning: source.Aura == EliteAura.HolyShock ? amount : 0);
+                    cold: source.Aura == EliteAura.HolyFreeze ? amount : 0, lightning: source.Aura == EliteAura.HolyShock ? amount : 0, kind: SkillDamageKind.Periodic);
             }
         }
         _sources.Clear();

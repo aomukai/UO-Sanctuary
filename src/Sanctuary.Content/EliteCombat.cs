@@ -21,22 +21,24 @@ public static class EliteCombat
     internal static int MagicResistance(Mobile target) => NamedElements.MagicResistance(target);
     // One composite hit reaches PlayerMobile once, so Protection and hit recovery are not multiplied by its component count.
     internal static int Damage(EncounterCreature source, Mobile target, double physical = 0, double fire = 0,
-        double cold = 0, double lightning = 0, double magic = 0, bool weapon = false, bool ranged = false, bool death = false)
+        double cold = 0, double lightning = 0, double magic = 0, bool weapon = false, bool ranged = false, bool death = false,
+        SkillDamageKind kind = SkillDamageKind.Direct)
     {
         if (!Enemy(source, target, 18, death)) { return 0; }
         var armored=DefensiveArmors.Absorb(target,new(physical,fire,cold,lightning,0,Magic:magic));
         physical=armored.Physical;fire=armored.Fire;cold=armored.Cold;lightning=armored.Lightning;magic=armored.Magic;
         double preparedPhysical=GemCombat.Component(target,physical,target.PhysicalResistance,false);
-        double total = preparedPhysical
-            + NamedElements.Damage(source, target, fire, "fire")
-            + NamedElements.Damage(source, target, cold, "cold")
-            + NamedElements.Damage(source, target, lightning, "ltng")
-            + NamedElements.Damage(source, target, magic, "mag");
+        var parts = new GearDamage(preparedPhysical,
+            NamedElements.Damage(source, target, fire, "fire"),
+            NamedElements.Damage(source, target, cold, "cold"),
+            NamedElements.Damage(source, target, lightning, "ltng"), 0,
+            Magic: NamedElements.Damage(source, target, magic, "mag"));
+        double total = parts.Total;
         int amount256=NamedElements.To256(total),amount=amount256/256,before=target.Hits;
         if(weapon){PreparedWeaponEvents.BeforeReturn(source,target,NamedElements.To256(preparedPhysical),ranged);}
         if (amount256 > 0)
         {
-            source.DoHarmful(target);SkillHealth.Damage(source,target,amount256);
+            source.DoHarmful(target);SkillHealth.TypedDamage(source,target,amount256,DirectDamageParts.From(parts),kind);
             int loss = Math.Max(0, before - target.Hits);
             if (target is BaseCreature creature) { CreatureHitRecovery.Apply(creature, source, loss, weapon); }
             if (target is PlayerMobile player)
