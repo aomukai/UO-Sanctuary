@@ -1,0 +1,65 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "functions": {
+    "MISSMODE_SetDamageFlags": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "e45650c089a89c9f2db72a953ea9f09b8ea823f0a2bcf7b65dfd130c6b476280"
+    },
+    "MISSMODE_SrvDmgHitHandler": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "ea4d1c52db64fe810d2404b578ab7aa3ba4a375e9fc6f0bb20b559ccb308f329"
+    },
+    "SUNITDMG_ExecuteEvents": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "sha256": "29d79fe1ff916cce3da9b78493564f9438ea99718e99d208f4412a07c3898c55"
+    },
+    "SUNITDMG_ExecuteMissileDamage": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "sha256": "1fdd8c096d3c9c6d688f29f1888e88df7c98a9fb13214c65b1099c4b3b3f6f3f"
+    },
+    "SKILLS_SrvDo011_ChargedStrike": {
+      "path": "source/D2Game/src/SKILLS/SkillAma.cpp",
+      "sha256": "8d0719607b7bd37b306d79fca083941f4c1c359c6bf5f45a1b912b89a34d47b6"
+    },
+    "SKILLS_MissileInit_ChargedBolt": {
+      "path": "source/D2Game/src/SKILLS/SkillSor.cpp",
+      "sha256": "8dd87886775f5508d0e52152f56c162a658bb61850a97cb0a12a79dbb853c30d"
+    }
+  },
+  "currentMissilesSha256": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+  "missileFields": {
+    "pSrvDoFunc": 1,
+    "pSrvHitFunc": 0,
+    "pSrvDmgFunc": 0,
+    "ToHit": 0,
+    "HitClass": 0,
+    "GetHit": 1,
+    "ResultFlags": 4,
+    "HitFlags": 0,
+    "SrcDamage": 0,
+    "Range": 98,
+    "Size": 1,
+    "CollideKill": 1,
+    "LastCollide": 1,
+    "InitSteps": 1,
+    "Activate": 3,
+    "CanSlow": 1
+  },
+  "retainedSourceEvidence": {
+    "tools/reference/charged-strike-engine-evidence.json": "9e4ceef93c28d663ad0f9e8477a38d4e5ec0d4d47c83f1509f5a3a11912d6c50",
+    "tools/reference/charged-strike-velocity-source-evidence.json": "9f09f6d9f12a68af5e2d394016fd1ad213522d7bdabd60861fed99f28c8b0fc4",
+    "tools/reference/amazon-thrust-contact-source-review.json": "3e9d8151374590e43d5ccad1b030d9b9730fa2c95b741a21c6aed51a76dfdc10",
+    ".local/class-skills/charged-strike-source-probe.json": "d6a218dfc3a4c14f5476b71773cb83c8bdbe96a479f67b9731bbf292829cc003"
+  },
+  "established": [
+    "Missing skill SrcDam remains0 in missile creation and excludes weapon stats;the melee FillDamageValues zero-to128 default belongs only to the separately qualified thrust.",
+    "Source0 bolt uses Successful1/GetHit4/HitClass0/HitFlags0,so elemental HP/absorb/credit/kill/native return apply without weapon hit/attack callbacks,Crushing Blow,drain,poison,cold,slow,armor or proc RNG allocation. No accuracy or physical shield roll belongs to this packet.",
+    "Retain current source initializer seed,curved path,first-collision removal,77frame cap and optional factory-speed snapshots/legacy normal-speed fallback. Per-bolt contacts remain independent. Melee miss/block/lethal emission and startup payment remain unchanged."
+  ],
+  "remaining": [
+    "This binds archived current flags and complete older functions/probes,not exact modern damage callbacks,geometry/Size/shotgun/activation/global scheduling,seed/stat/owner/provider/PvP equivalence.",
+    "Slow Missiles damage capture/order remains explicitly unresolved;this increment preserves existing damage endpoints and fixes their delivery only.",
+    "Exceptional/uninterruptible/death-delay/hireling contexts,Lightning Strike chain delivery,full named/class/client and separate effects/audio/icons remain open."
+  ]
+}

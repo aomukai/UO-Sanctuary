@@ -29,8 +29,8 @@ internal static class PlayerWeaponMissileContact
         =>TryElementalCore(owner,target,damage256,freeze,rawFrames,at,5,2,0,0,SkillDamageKind.Direct,out reason);
     internal static bool TryFireFrame(PlayerMobile owner,BaseCreature target,int damage256,int damageRate,bool soft,DateTime at,out string reason)
         =>TryElementalCore(owner,target,damage256,false,0,at,1|(soft?16384:0),0,32,damageRate,SkillDamageKind.Periodic,out reason);
-    internal static bool TryLightning(PlayerMobile owner,BaseCreature target,int damage256,DateTime at,out string reason)
-        =>TryElementalCore(owner,target,damage256,false,0,at,5,0,64,0,SkillDamageKind.Direct,out reason,lightning:true);
+    internal static bool TryLightning(PlayerMobile owner,BaseCreature target,int damage256,DateTime at,out string reason,int hitClass=64)
+        =>TryElementalCore(owner,target,damage256,false,0,at,5,0,hitClass,0,SkillDamageKind.Direct,out reason,lightning:true);
     internal static bool TryPoison(PlayerMobile owner,BaseCreature target,int rate256,int frames,DateTime at,out string reason,int hitClass=6)
     {
         if(!ElementalAdmission(owner,target,out bool contact,out reason)){return false;}

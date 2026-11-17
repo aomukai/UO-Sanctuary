@@ -2,7 +2,9 @@
 
 Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Charms and runewords are excluded. All 30 talents have handlers; the following existing checks establish only their named scopes, not a completed class or full modern executable parity.
 
-The [current driver](../tests/check_amazon_planned_acceptance.py) combines existing skill fixtures, the six-fixture original Valkyrie casting cohort, shared weapon-rate/chain/Slow Missiles checks, old real Cast packets and current right/quick input routes. The combined native run passes 334 exact results, 72 real cast inputs and 84 connections across three boots/saves and two reloads; [receipt](../tools/reference/amazon-planned-acceptance-native-evidence.json). This is scoped acceptance, not a full class certificate. Cached reference files and reused gameplay/integration binaries avoid repeating source compiler matrices.
+The last [combined driver](../tests/check_amazon_planned_acceptance.py) acceptance covered all existing class fixtures on its recorded historical binaries:334results,72casts,84connections and two reloads;[receipt](../tools/reference/amazon-planned-acceptance-native-evidence.json). It predates later shared contact changes and does not establish class-wide acceptance of current binaries.
+
+The latest [Charged Strike contact pass](charged-strike-contact-checkpoint.md) runs442results,132wire inputs and two reloads on its own captured current artifacts. It adds source0 bolt delivery to the earlier [Plague Javelin](plague-javelin-contact-checkpoint.md),[Poison Javelin](poison-javelin-contact-checkpoint.md),[Lightning Fury](lightning-fury-contact-checkpoint.md) and preceding ranged-contact cohorts. These incremental checks include their retained scopes;they do not replace every passive,Valkyrie,Decoy or full-class check. Historical source receipts and recorder inputs remain pinned to their original artifacts. Full current class requalification remains pending after the remaining delivery work.
 
 | Talent | Mechanical scope | Existing fixture |
 | --- | --- | --- |
@@ -11,7 +13,7 @@ The [current driver](../tests/check_amazon_planned_acceptance.py) combines exist
 | Poison Javelin | Paid throw, quantity, parent/cloud poison, independent saved flights | `poison-javelin` |
 | Impale | Uninterruptible guaranteed-accuracy strike, special wear/depletion, slow and expiry | `impale` |
 | Lightning Bolt | Paid javelin conversion, independent item callbacks, quantity and travel | `lightning-bolt` |
-| Charged Strike | Melee contact then captured bolts, natural expiry, Slow Missiles launch-speed snapshot | `charged-strike`, `charged-strike-velocity` |
+| Charged Strike | Prepared melee, source0 elemental bolt HP/return without weapon callbacks, source speed capture and original saves | `charged-strike`, `charged-strike-velocity`, `charged-strike-contact` |
 | Plague Javelin | Release-time payment, poison burst/moving clouds, quantity, snapshots and saved delay | `plague-javelin` |
 | Fend | Paid multi-contact series, live targets and per-contact stats, actual connected loop | `fend`, `fend-loop` |
 | Lightning Strike | Approved melee lightning followed by chains from the struck monster; no chain when alone | `lightning-strike`, `chain-child-search` |

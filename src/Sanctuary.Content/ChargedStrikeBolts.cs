@@ -35,6 +35,7 @@ public static class ChargedStrikeBolts
     private static readonly Dictionary<long,Point2D[]> _paths=new();
     private static readonly List<long> _keys=new();
     private static long _next;
+    private static readonly HashSet<string> Unsupported=[];
     internal static Func<int,int> DamageRoll=Utility.Random;
     public static ChargedStrikeProfiles Profiles{get;private set;}
     public static int Frames=>Math.Min(77,NecromancerSummons.Source("chargedstrikebolt","Range"));
@@ -44,7 +45,9 @@ public static class ChargedStrikeBolts
     {
         int M(string key)=>NecromancerSummons.Source("chargedstrikebolt",key);
         if(M("Vel")!=12||M("MaxVel")!=12||M("VelLev")!=0||M("Range")!=98||M("LevRange")!=0||M("CanSlow")!=1
-            ||M("pSrvDoFunc")!=1||M("InitSteps")!=1||M("Activate")!=3)
+            ||M("pSrvDoFunc")!=1||M("InitSteps")!=1||M("Activate")!=3
+            ||M("pSrvHitFunc")!=0||M("pSrvDmgFunc")!=0||M("GetHit")!=1||M("ResultFlags")!=4
+            ||M("HitFlags")!=0||M("HitClass")!=0||M("ToHit")!=0||M("SrcDamage")!=0)
         {throw new NotSupportedException("Unmapped Charged Strike missile factory/motion route");}
     }
     private static int Velocity(int rank,int percent)=>SlowMissilePayload.VelocityFp8(12,0,rank,33,0,true,percent);
@@ -108,7 +111,12 @@ public static class ChargedStrikeBolts
             }
             Remove(id);SorceressEffects.MissileHit(owner,first,"chargedstrikebolt");
             int span=Math.Max(1,flight.Max256-flight.Min256),rolled=flight.Min256+Math.Clamp(DamageRoll(span),0,span-1);
-            SkillCombat.LightningImpact(owner,first,rolled);
+            if(first is BaseCreature creature)
+            {
+                if(!PlayerWeaponMissileContact.TryLightning(owner,creature,rolled,flight.NextUtc,out string reason,hitClass:0)&&Unsupported.Add(reason))
+                {Server.Logging.LogFactory.GetLogger(typeof(ChargedStrikeBolts)).Warning("Charged Strike bolt unsupported context: {Reason}",reason);}
+            }
+            else{SkillCombat.LightningImpact(owner,first,rolled);} // Prior player-recipient compatibility remains separate.
         }
     }
     public static ChargedStrikeFlight[] Snapshot()=>new List<ChargedStrikeFlight>(_flights.Values).ToArray();
