@@ -57,7 +57,7 @@ These decisions are in the linked individual checkpoints and exact decision reco
 ## Remaining mechanical acceptance
 
 - Current executable timing, IAS/WSM, animation/event ownership, snapshot and RNG ordering remain bounded per skill. Supplied-rate older source comparisons establish only their named contracts.
-- Bash's old post-allocation flat physical-event addition leaves its stored health total unchanged. That legacy behavior is implemented and tested, but its current D2R counterpart remains unverified.
+- Bash's old post-allocation flat physical-event addition leaves its stored health total unchanged. That legacy behavior is implemented and tested, but its current D2R counterpart remains unverified. A [tested post-critical/pre-mitigation candidate](bash-flat-damage-proposal.md) awaits an explicit Sanctuary decision; learned Bash remains unchanged.
 - Find Item's retained two-stage chance curve is now an [explicitly approved Sanctuary rule](find-item-chance-proposal.md). Special/quest/boss/elite/changed-level treasure contexts remain gated. Native corpse footprint,ground acquisition and auto-approach remain separate input limits;modern executable chance provenance remains unverified.
 - War Cry follows the existing shared Unique-only roll; native Unique leaders additionally retain the encounter boss-immunity mapping. This characterization does not establish full D2R equivalence.
 - Unknown control species, native terrain/room/footprint/subtile mapping, dynamic landing, zero-distance Leap Attack, delayed-dead landing damage, unsupported gear/recipient combinations, one-broken-hand spin continuation and full dual-throw snapshots remain explicit limits.

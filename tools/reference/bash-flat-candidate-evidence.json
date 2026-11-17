@@ -1,0 +1,65 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "tested-pending-user-decision",
+  "approved": false,
+  "learnedRouteChanged": false,
+  "productionChanged": false,
+  "installedGameplayChanged": false,
+  "currentD2RCallbackVerified": false,
+  "distinctCandidateCases": 16,
+  "markers": {
+    "iron-golem-birth-check": 3,
+    "bash-flat-candidate-check": 3,
+    "iron-golem-items-check": 1,
+    "iron-golem-items-reload-check": 2,
+    "npc-resource-callbacks-check": 1,
+    "npc-resource-callbacks-reload-check": 2
+  },
+  "saves": 3,
+  "reloads": 2,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
+    "Assemblies/Sanctuary.Content.dll": "279d7216ecd05447605a61f89d02041edc5b6876bfad45d00080d714f1c21c28",
+    "Assemblies/Sanctuary.Integration.dll": "d755b1ea9b38e315ea6be52c550477f1216ef9e9115ac7afd7067089d06cb63f"
+  },
+  "proposalSha256": "6c0966b00d929b45664df96db25f9e4bfc87966ed5fc0ccd6c77c9aba23b8719",
+  "verified": [
+    "Existing post-critical hook before mitigation",
+    "Rank1/rank20 flat table values",
+    "Ordinary/critical weapon contribution",
+    "Physical resistance -50/0/50/100",
+    "Actual contact health matches mitigated physical component",
+    "Miss skips allocation callback"
+  ],
+  "notQualified": [
+    "Learned Bash candidate startup/release",
+    "All shield/dodge/avoidance recipients",
+    "Item leech/proc and poison combinations",
+    "Saved pending-candidate actions",
+    "Modern D2R equivalence"
+  ],
+  "classCertified": false,
+  "goalComplete": false,
+  "files": {
+    ".local/class-skills/bash-flat-candidate/before-source.json": "3ccb7e377e1ec7d4ffa9bb16b4936ed6916709a435313362de06edb3c9495d42",
+    ".local/class-skills/bash-flat-candidate/birth-inputs.json": "2e6f15d93df8e88b9cb440530241fdb59720f465f12647defa63692905cb5c57",
+    ".local/class-skills/bash-flat-candidate/birth-native-checks.log": "5dcf8371206d2a22831e087cc5753aeab4056d5b3e27b9bc5d931dc0ef8fb7cc",
+    ".local/class-skills/bash-flat-candidate/build-1.log": "17e6dcda73ff1fc83267b5e3c9a3fe0e486d39a081747b0ca75143052abf4202",
+    ".local/class-skills/bash-flat-candidate/integration/Sanctuary.Integration.dll": "d755b1ea9b38e315ea6be52c550477f1216ef9e9115ac7afd7067089d06cb63f",
+    ".local/class-skills/bash-flat-candidate/run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/bash-flat-candidate/source-inputs-1.json": "67379180097ba832f9a75b4fd67f2dfdb82d2300430e20e7438cbebc2290999f",
+    ".local/class-skills/bash-flat-candidate/sources-1.tar.gz": "51756265500c7e6d04f93cef1f2055c928ef95565ae7ee3a53144bdfb5a60c04",
+    "docs/bash-flat-damage-proposal.md": "6c0966b00d929b45664df96db25f9e4bfc87966ed5fc0ccd6c77c9aba23b8719",
+    "src/Sanctuary.Content/BarbarianMelee.cs": "0f345832a6ff5ffd326a83f9320c25800d8dd1064b9cf6d6a7d2c5b6dd65a156",
+    "src/Sanctuary.Content/GearEffects.cs": "05e17f7f5185f0ad9c96aa23a70eda8d9899d386cecc65927ca3605817a6a296",
+    "src/Sanctuary.Content/PlayerWeaponContact.cs": "a29b88af73854007c85a88c3e7928d70eb58d57d7202cb6c1930045712929662",
+    "tests/Sanctuary.Integration/BashFlatCandidateChecks.cs": "6f4f05ad062e5b7983429d999489d49844257384669f4c16962c2be535d5c732",
+    "tests/check_bash_flat_candidate.py": "91d5bff1175c5cd29f1e7f9d646c175e37724adccc2b794ccc104e86fcd15a92",
+    "tools/record_bash_flat_candidate.py": "bef2b73b86c913817f9b432551d3988ad059fa07379af0d7697d5b3465e5e0e2",
+    "tools/reference/barbarian-attack-engine-evidence.json": "a740f64ca1c28b9533b4f3e779b12c2989a786617e0e5425bc5b4121d673bcfc",
+    "tools/reference/barbarian-contact-source-review.json": "1bfc387d81377d981592e57519e0295a7fecab15ffb45e4d959aceae9941da8a",
+    "tools/reference/bash-flat-reviewed-proposal.md": "6c0966b00d929b45664df96db25f9e4bfc87966ed5fc0ccd6c77c9aba23b8719"
+  }
+}
