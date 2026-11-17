@@ -1,0 +1,37 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "date": "2026-11-18",
+  "userAnswers": {
+    "1": "yes",
+    "2": "find item in d2 requires you to click a corpse, not the ground near a corpse. it also usually happens when everything is dead, so it's no hasty clicking on the go. on sanctuary though i'd say let's use our target helper, since it already exists, and it's better QoL",
+    "3": "adopt",
+    "4": "yes"
+  },
+  "bash": {
+    "approved": true,
+    "proposal": "tools/reference/bash-flat-reviewed-proposal.md",
+    "proposalSha256": "6c0966b00d929b45664df96db25f9e4bfc87966ed5fc0ccd6c77c9aba23b8719",
+    "rule": "Add captured calc2 after weapon ED/critical,before mitigation and absorption;successful unblocked contacts only;consistent physical and life budgets."
+  },
+  "findItem": {
+    "approved": true,
+    "cursorRadiusTiles": 2,
+    "casterRangeTiles": 8,
+    "autoApproach": false,
+    "rule": "Reuse nearest eligible corpse helper with LOS/safety;no acquisition cost on failure. Use captured supported loot context;exclude quest and explicitly designated boss corpses;refuse missing/unsupported context without mana cost;allow champion/unique corpses only with proper context.",
+    "d2rObservation": "User reports direct corpse click,not ground acquisition;Sanctuary near-click behavior is an explicit QoL adaptation."
+  },
+  "delegatedAdaptations": {
+    "approved": true,
+    "rule": "Where1:1mapping cannot be established,use intent and the closest existing verified Sanctuary mechanic;document and test the adaptation. Preserve approved rules and pinned numerical values;ask about substantial balance changes."
+  },
+  "futureWorldBalance": {
+    "implemented": false,
+    "discussionRequired": true,
+    "note": "UO world scale/density may call for ordinary monsters roughly as strong as D2unique minions without unique attributes,with matching XP/drops. A later global ordinary-monster modifier may affect boss-killer versus density-cleaner balance. Strength does not by itself grant boss/unique flags.",
+    "playersSettingOption": 5
+  },
+  "productionChanged": false,
+  "finishExistingGoalFirst": true
+}

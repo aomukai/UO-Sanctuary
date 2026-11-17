@@ -165,7 +165,10 @@
   "renderedWarlockWitchCreationVerified": true,
   "necromancerApprovedPetConsumersReviewed": true,
   "druidApprovedPetConsumersReviewed": true,
-  "bashFlatCandidateTestedButUnadopted": true,
+  "bashFlatRuleApprovedImplementationPending": true,
+  "findItemTargetingEligibilityApprovedImplementationPending": true,
+  "intentBasedMinorAdaptationAuthority": true,
+  "renderedNecromancerRepresentativeCombatVerified": true,
   "strictCompletedClasses": [],
   "classCertified": false,
   "goalComplete": false,
@@ -173,7 +176,7 @@
     "Resolve or explicitly qualify concrete ordinary-skill targeting/damage and special-recipient gaps",
     "Keep remaining shared summon contexts explicit;Necromancer and Druid selected pet changes have scoped consumer evidence",
     "Keep unsupported world services,legacy monster conversion and future gear design distinct",
-    "Graphical gameplay remains unverified;final effects/audio and icons remain separately tracked"
+    "Finish remaining representative rendered combat checks;Necromancer F1/F2/pet combat has scoped client evidence;final effects/audio and icons stay separate"
   ],
   "skills": [
     {
@@ -6546,8 +6549,9 @@
     "data/Sanctuary/Balance/class-skill-status.json": "a98eaff48be4edc9726c550b86fbed8eb9013daef16223ea2b152d3409679847",
     "data/Sanctuary/Balance/skill-effects.json": "86a1bdba6f654d88cf8962e061b368fa2c78950c398a8968abc0eb23b8ebaf6f",
     "data/Sanctuary/Balance/skill-icons.json": "53793aeb89e289643c6bccb3d35d9e34ad6681f70b0a4c4fa207c783f47b8240",
-    "docs/class-skill-completion-audit.md": "df0882efe1dedcb17225faa8b09bd9195fa7dd3ad52da07d49360068594b58ee",
-    "tools/audit_class_skill_completion.py": "4feadd647d92c9833a1520ec2e8f93075e3d545806215ebfa7fabcf7cf32ccf3",
+    "docs/class-mechanics-intent-decisions.md": "9fb5285fffb1543a42fa9dc376d94156b698aeef990159436559a40938a0b18b",
+    "docs/class-skill-completion-audit.md": "0fc5b0fd3ecd21eca716863a41db093ad0bb59af61de284472f760a299e86bbd",
+    "tools/audit_class_skill_completion.py": "238e62ac90502ea060fc5a1cf8bb8e08e7ecf2bc3c76ae967b86d83d40e3efbd",
     "tools/reference/amazon-current-input-coverage.json": "583c17d2d6f58b892d422b1aa9d5ca1d9c80e2300bad4d7b9339779a763d24a3",
     "tools/reference/amazon-lifecycle-acceptance-native-evidence.json": "0b74d5ede580611171a7cd1a03cb7046e967723a72bda3896f4deaddc15ab243",
     "tools/reference/assassin-current-input-coverage.json": "5042a4bbca2bb1dba747d9ca6941bc4f1ad6235b2131a7185cde37e00aad68df",
@@ -6555,6 +6559,7 @@
     "tools/reference/barbarian-current-input-coverage.json": "cc603834a6d0989c802b8c244a9182743805996a8336cf16a6fbc1131fdeca3f",
     "tools/reference/barbarian-lifecycle-acceptance-native-evidence.json": "b266db48164231cb27d68abe88d715e9c9e234736e992a9fd40e3e75fb4ca9c3",
     "tools/reference/bash-flat-candidate-evidence.json": "c1b5e346e4d3529699a47c90a2105385896570d2dbfc131b46b9f1ef8f271309",
+    "tools/reference/class-mechanics-intent-decision.json": "0849ad72b29f8253a09bbd17bc09409d44fb57a0a78a74ad808e7c29324a0b4c",
     "tools/reference/class-roster-ui-evidence.json": "e5dfa1ed946c0bc33784d8f7503de49bc2afaa3abc699718bf280db27fce1458",
     "tools/reference/class-skills-installation-evidence.json": "022a7e12d88164c82af7a7a2eb946a78d7526b82057cc9ef3804eb9c5d7420d3",
     "tools/reference/druid-current-input-coverage.json": "795ab9d292f4006308c177a2a9b8fca7636af7aedb9f4f6443f3a5524e3b4577",
@@ -6565,6 +6570,7 @@
     "tools/reference/necromancer-current-input-coverage.json": "9749c771300db4586cbfd1f3b54c39e033e56ba6ed222d025b1af3b60cefbfeb",
     "tools/reference/necromancer-lifecycle-acceptance-native-evidence.json": "af96df56068a917a5cf822c85826d71b69ab5c9b0f9d6836d539b126697ee29e",
     "tools/reference/necromancer-pet-policy-audit.json": "bcecf7ed44cde3bddbd5c1aad3547f0b709b03a9a168d7765194a6af84b68037",
+    "tools/reference/necromancer-rendered-evidence.json": "b39913aa55e4cec86f2083b85efa7f1b7682969444f2c9132c8cc53434d2d69d",
     "tools/reference/paladin-current-input-coverage.json": "f62fc8b8054cb515cd290a1e0e2c264dbd5986d8c1c9a9a3b68c5d62640b82fa",
     "tools/reference/paladin-lifecycle-acceptance-native-evidence.json": "7b8aada7751e05921f6541a305f53bf657851070fa5869e3a82bb63a941a79fb",
     "tools/reference/sentinel-stealskull-link-native-evidence.json": "6e9d08adc65f74fe09031b9aee642155867fab556c74947dabeead28e3176f56",

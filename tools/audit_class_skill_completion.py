@@ -141,12 +141,25 @@ def audit(check=False):
     assert not bash['learnedRouteChanged'] and not bash['installedGameplayChanged']
     for path, digest in bash['files'].items():
         assert e.sha(ROOT / path) == digest, path
+    intent_path = ROOT / 'tools/reference/class-mechanics-intent-decision.json'
+    intent = e.load(intent_path)
+    assert intent['approved'] and intent['bash']['approved'] and intent['findItem']['approved']
+    assert intent['delegatedAdaptations']['approved'] and not intent['futureWorldBalance']['implemented']
+    assert e.sha(ROOT / intent['bash']['proposal']) == intent['bash']['proposalSha256']
+    rendered_path = ROOT / 'tools/reference/necromancer-rendered-evidence.json'
+    rendered = e.load(rendered_path)
+    assert rendered['realClient'] and rendered['learnedF1Raise'] and rendered['learnedF2TeethDamage']
+    assert rendered['naturalOriginalWarriorCombat'] and not rendered['productionChanged']
+    for path, digest in rendered['files'].items():
+        assert e.sha(ROOT / path) == digest, path
     files.extend([install_path, original_path,
                   ROOT / 'tools/reference/class-skills-installation-evidence.json',
                   ROOT / 'data/Sanctuary/Balance/skill-effects.json',
                   ROOT / 'data/Sanctuary/Balance/skill-icons.json',
                   ROOT / 'tools/reference/find-item-chance-approval.json',
-                  ROOT / approval['proposal']['path'], roster_path, pets_path, druid_path, bash_path,
+                  ROOT / approval['proposal']['path'], roster_path, pets_path, druid_path, bash_path, intent_path,
+                  rendered_path,
+                  ROOT / 'docs/class-mechanics-intent-decisions.md',
                   ROOT / 'docs/class-skill-completion-audit.md', Path(__file__)])
     result = dict(referenceVersion='3.3.93847', talents=240, classes=classes,
         activeRoutes=210, passiveConsumers=30, effectsRegisterEntries=240, iconRegisterEntries=240,
@@ -156,12 +169,15 @@ def audit(check=False):
         renderedWarlockWitchCreationVerified=True,
         necromancerApprovedPetConsumersReviewed=True,
         druidApprovedPetConsumersReviewed=True,
-        bashFlatCandidateTestedButUnadopted=True,
+        bashFlatRuleApprovedImplementationPending=True,
+        findItemTargetingEligibilityApprovedImplementationPending=True,
+        intentBasedMinorAdaptationAuthority=True,
+        renderedNecromancerRepresentativeCombatVerified=True,
         strictCompletedClasses=ledger['completedClasses'], classCertified=False, goalComplete=False,
         remainingRequirements=['Resolve or explicitly qualify concrete ordinary-skill targeting/damage and special-recipient gaps',
             'Keep remaining shared summon contexts explicit;Necromancer and Druid selected pet changes have scoped consumer evidence',
             'Keep unsupported world services,legacy monster conversion and future gear design distinct',
-            'Graphical gameplay remains unverified;final effects/audio and icons remain separately tracked'],
+            'Finish remaining representative rendered combat checks;Necromancer F1/F2/pet combat has scoped client evidence;final effects/audio and icons stay separate'],
         skills=talents)
     e.write('class-skill-completion-audit.json', result, files, check)
     print('Completion audit:240identities/210active routes/30passives/240effects+icons;old evidence and Sentinel bridge attributed;strict completion remains unproven.')
