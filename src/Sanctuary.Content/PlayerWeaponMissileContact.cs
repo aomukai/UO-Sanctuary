@@ -41,6 +41,12 @@ internal static class PlayerWeaponMissileContact
             HitClass:hitClass,HitFlags:0,SuppressWear:true);
         PlayerWeaponContact.ReleaseMissile(owner,target,packet,at,true);return true;
     }
+    internal static bool TryElementalPacket(PlayerMobile owner,BaseCreature target,GearDamage damage,DateTime at,out string reason,int hitClass=64)
+    {
+        if(!ElementalAdmission(owner,target,out bool contact,out reason)){return false;}
+        if(contact){CommitElemental(owner,target,damage,false,0,at,5,0,hitClass,0,SkillDamageKind.Direct);}
+        return true;
+    }
     private static bool ElementalAdmission(PlayerMobile owner,BaseCreature target,out bool contact,out string reason)
     {
         contact=false;reason=null;
@@ -59,14 +65,20 @@ internal static class PlayerWeaponMissileContact
         if(!ElementalAdmission(owner,target,out bool contact,out reason)){return false;}
         if(!contact){return true;}
         var damage=lightning?new GearDamage(0,0,0,damage256/256.0,0):freeze?new GearDamage(0,0,damage256/256.0,0,0):new GearDamage(0,damage256/256.0,0,0,0);
+        CommitElemental(owner,target,damage,freeze,rawFrames,at,flags,hitFlags,hitClass,damageRate,kind);return true;
+    }
+    private static void CommitElemental(PlayerMobile owner,BaseCreature target,GearDamage damage,bool freeze,int rawFrames,DateTime at,int flags,uint hitFlags,int hitClass,int damageRate,SkillDamageKind kind)
+    {
         var parts=SkillCombat.MitigatePrepared(owner,target,damage,out int absorbed,damageRate);int cold=0,frozen=0;
         if(freeze){(cold,frozen)=DragonTails.ColdLengths(owner,target,0,rawFrames);}
-        var impact=new PreparedWeaponImpact(damage,parts,absorbed)with{LifeDamage256=NamedElements.To256(parts.Total)};
+        // A potion's immediate poison component has zero status duration; it
+        // belongs in the typed packet but must not replace an existing clock.
+        var impact=new PreparedWeaponImpact(damage,parts,absorbed)with{LifeDamage256=NamedElements.To256(parts.Total),
+            AllocatedPoison=parts.Poison>0?new PreparedPoison(NamedElements.To256(parts.Poison),0):null};
         var packet=new PlayerWeaponContactPrepared(flags,impact,new(0,0),cold,0,WeaponMissiles.ItemEffects,
             HitClass:hitClass,FreezeFrames:frozen,HitFlags:hitFlags,SuppressWear:true,DamageKind:kind);
         PlayerWeaponContact.ReleaseMissile(owner,target,packet,at,true);
         if(target.Alive&&(cold>0||frozen>0)){target.FixedEffect(0x374A,10,15,0x480,0);} // Identified shared cold/freeze placeholder.
-        return true;
     }
 
 }

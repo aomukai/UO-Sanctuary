@@ -1,0 +1,66 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "functions": {
+    "MISSMODE_SrvHit12_ChainLightning_LightningStrike": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "9d6aeaf71d3ac7b7d3746b9c3c1e3add0b9ff01988946fc4a0b853653153c249"
+    },
+    "MISSMODE_SetDamageFlags": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "e45650c089a89c9f2db72a953ea9f09b8ea823f0a2bcf7b65dfd130c6b476280"
+    },
+    "MISSMODE_SrvDmgHitHandler": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "ea4d1c52db64fe810d2404b578ab7aa3ba4a375e9fc6f0bb20b559ccb308f329"
+    },
+    "SUNITDMG_ExecuteEvents": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "sha256": "29d79fe1ff916cce3da9b78493564f9438ea99718e99d208f4412a07c3898c55"
+    },
+    "SUNITDMG_ExecuteMissileDamage": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "sha256": "1fdd8c096d3c9c6d688f29f1888e88df7c98a9fb13214c65b1099c4b3b3f6f3f"
+    },
+    "SKILLS_SrvDo014_LightningStrike": {
+      "path": "source/D2Game/src/SKILLS/SkillAma.cpp",
+      "sha256": "161fedf51a2255d1875917423df0f237184020efec2d3924f7d2507ba9356280"
+    }
+  },
+  "currentMissilesSha256": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+  "missileFields": {
+    "pSrvDoFunc": 1,
+    "pSrvHitFunc": 12,
+    "pSrvDmgFunc": 0,
+    "ToHit": 0,
+    "GetHit": 1,
+    "ResultFlags": 4,
+    "HitFlags": 0,
+    "HitClass": 64,
+    "SrcDamage": 0,
+    "Range": 25,
+    "Size": 2,
+    "CollideKill": 1,
+    "LastCollide": 1,
+    "NextHit": 1,
+    "NextDelay": 4,
+    "ReturnFire": 1
+  },
+  "retainedSourceEvidence": {
+    "tools/reference/lightning-strike-engine-evidence.json": "01397cb84a290db825ce1e5615d8c4ebc4e01d4269684afb5b7ef9d1a3d8d3f7",
+    "tools/reference/lightning-strike-damage-source-evidence.json": "c74bef246d8fd1b5fc411a60d70f44af6b2ce93aea7ca0a4ffc427d2074b3889",
+    "tools/reference/lightning-strike-sanctuary-decision.json": "acc37159414c8bbed65aba62b271ea1db33d5ca5d5977e212cc0980f792dbd39",
+    "tools/reference/amazon-thrust-contact-source-review.json": "3e9d8151374590e43d5ccad1b030d9b9730fa2c95b741a21c6aed51a76dfdc10",
+    ".local/class-skills/lightning-strike-source-probe.json": "7bfa9a734c9c000878c4a973458a66f3dffd2de986d71df1fd83b2fd993834e9"
+  },
+  "established": [
+    "Source0 chain receives Successful1/GetHit4/HitClass64/HitFlags0. Elemental HP/absorb/credit/kill/native return apply without weapon damage/attack callbacks,proc allocation,Crushing Blow,drain,poison/cold status,slow or armor.",
+    "The user-approved opening remains:melee lightning then a different neighbor;no outgoing chain when alone and no invented hidden opening primary re-hit. Existing identity search,four-frame target leases,finite budget,source path and per-hop recapture are retained.",
+    "Existing impact-time spell-potion components remain pending a nonblocking scope question. Immediate added poison uses zero status frames and must not replace ongoing poison;added cold has no chill. This is a Sanctuary potion rule,not a D2R source claim.",
+    "The shared Sorceress/Mage/NPC/legacy compatibility branches stay unchanged;Lightning Strike records missing required player-packet metadata remain refused."
+  ],
+  "remaining": [
+    "Complete older bodies and archived current rows do not establish exact modern events/stat/RNG/owner/room/grid/NHD/scheduler or current executable parity.",
+    "Potion classification is a nonblocking user question;current behavior is preserved pending reply. Modern literal calc1ED20 overlap,exceptional/uninterruptible/death-delay/hireling/PvP and full named/class/client/asset acceptance remain open."
+  ]
+}

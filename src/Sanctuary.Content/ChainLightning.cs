@@ -53,6 +53,7 @@ public static class ChainLightning
     private static readonly Dictionary<long, ChainFlight> _flights = new();
     private static readonly List<long> _keys = new();
     private static long _nextCast;
+    private static readonly HashSet<string> StrikeUnsupported=[];
     private static readonly HashSet<long> Loaded=new();
     internal static Func<int> SeedLow=()=>unchecked((int)Random.Shared.NextInt64(1L<<32));
     public static ChainLightningProfiles Profiles { get; private set; }
@@ -145,7 +146,8 @@ public static class ChainLightning
             ||row.Number("Param1")!=20||row.Number("Param3")!=2||row.Number("Param4")!=1||row.Number("calc1")!=20
             ||M("pSrvDoFunc")!=1||M("pSrvHitFunc")!=12||M("pSrvDmgFunc")!=0||M("Vel")!=30||M("MaxVel")!=30||M("Range")!=25
             ||M("Size")!=2||M("CollideType")!=3||M("CollideKill")!=1||M("LastCollide")!=1||M("NextHit")!=1||M("NextDelay")!=4
-            ||M("InitSteps")!=0||M("Activate")!=0||M("CanSlow")!=1||M("SrcDamage")!=0||M("ToHit")!=0||M("Pierce")!=0)
+            ||M("InitSteps")!=0||M("Activate")!=0||M("CanSlow")!=1||M("SrcDamage")!=0||M("ToHit")!=0||M("Pierce")!=0
+            ||M("ReturnFire")!=1||M("GetHit")!=1||M("ResultFlags")!=4||M("HitFlags")!=0||M("HitClass")!=64)
         {throw new NotSupportedException("Unmapped Lightning Strike chain route");}
     }
     internal static long CastLightningStrike(PlayerMobile owner,Mobile primary,Point3D origin,SkillValues values,DateTime at)
@@ -334,7 +336,15 @@ public static class ChainLightning
             else if(flight.PlayerPacket is{} playerPacket)
             {
                 int raw=SorceressSpellMissiles.Roll(flight.Min256,flight.Max256,playerPacket.Seed,out _);
-                SorceressSpellMissiles.ImpactPrepared(owner,first,Missile(flight),"ltng",raw,playerPacket.Modifiers,flight.NextUtc);
+                if(flight.StrikeContext!=null&&first is BaseCreature creature)
+                {
+                    SorceressEffects.MissileHit(owner,first,"lightningstrike");
+                    var mods=playerPacket.Modifiers with{Potion=CombatPotions.BonusAt(owner,"magical-penetration",flight.NextUtc)};
+                    var damage=DruidMoltenBoulder.Potion(mods,new(0,0,0,raw/256.0,0));
+                    if(!PlayerWeaponMissileContact.TryElementalPacket(owner,creature,damage,flight.NextUtc,out string reason)&&StrikeUnsupported.Add(reason))
+                    {Log.Warning("Lightning Strike chain unsupported context: {Reason}",reason);}
+                }
+                else{SorceressSpellMissiles.ImpactPrepared(owner,first,Missile(flight),"ltng",raw,playerPacket.Modifiers,flight.NextUtc);}
             }
             else
             {

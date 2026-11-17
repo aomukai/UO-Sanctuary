@@ -16,7 +16,7 @@ public static class ChargedStrikeContactChecks
     private const CombatAbility Ability=CombatAbility.ChargedStrike;
     private sealed class High:Random{public override int Next(int n)=>n-1;}
     private sealed class NoWeaponEffects:Random{public override int Next(int n)=>throw new InvalidOperationException("Charged Strike source0 bolt requested weapon effects");}
-    private sealed class Rolls:IDisposable
+    internal sealed class Rolls:IDisposable
     {
         private readonly MagicArrowContactChecks.Rolls Missiles=new();
         private readonly Func<double> Hit=AmazonMelee.HitRoll,Element=AmazonMelee.ElementRoll;
@@ -41,17 +41,17 @@ public static class ChargedStrikeContactChecks
         {string label="charged-strike-contact-"+mode;ConsoleInputHandler.RegisterCommand(label+"-check","Authenticated Charged Strike miss still emits independent source0 damage",_=>Core.LoopContext.Post(()=>
             {try{FixtureNetwork.Connected(label+"-result",n=>Input(n,label));Log.Information("{Label}-check: passed",label);}catch(Exception e){Log.Error(e,"{Label}-check: failed",label);}}));}
     }
-    private static PlayerMobile Owner(int row,out BaseWeapon w,out Item[] gear)
+    internal static PlayerMobile Owner(int row,out BaseWeapon w,out Item[] gear)
     {var p=HellslayerChecks.Owner(DiabloClass.Amazon,row);ClassSkillChecks.Train(p,SkillMechanics.For(Ability).TalentId);w=(BaseWeapon)PlayerItemProcWorldChecks.Carrier(p,new Spear());gear=new[]{DruidSetupItemChecks.Named(p,"Venom Grip"),DruidSetupItemChecks.Named(p,"Blackhorn's Face")};ClassGear.Refresh(p);Require(SkillBindings.Instance.Assign(p,false,Ability)&&SkillBindings.Instance.AssignQuick(p,7,Ability),"Charged Strike bindings");return p;}
-    private static BaseCreature Target(PlayerMobile p,int dx=1)
+    internal static BaseCreature Target(PlayerMobile p,int dx=1)
     {var t=new ExplosiveArrowContactChecks.AreaRecipient();t.SetHits(60000);t.MoveToWorld(new(p.X+dx,p.Y,p.Z),p.Map);t.AIObject.AITimer.Stop();foreach(var r in Enum.GetValues<ResistanceType>()){t.SetResistance(r,100);}t.SetResistance(ResistanceType.Energy,0);return t;}
-    private static void Ready(PlayerMobile p){AmazonMelee.Cancel(p);MagicArrowContactChecks.Ready(p);}
-    private static void Clean(PlayerMobile p,params BaseCreature[] targets){ChargedStrikeBolts.Cancel(p);MagicArrowContactChecks.Clean(p,targets);}
+    internal static void Ready(PlayerMobile p){AmazonMelee.Cancel(p);MagicArrowContactChecks.Ready(p);}
+    internal static void Clean(PlayerMobile p,params BaseCreature[] targets){ChargedStrikeBolts.Cancel(p);MagicArrowContactChecks.Clean(p,targets);}
     private static void Keep(PlayerMobile p,params ChargedStrikeFlight[] flights)
         =>ChargedStrikeBolts.Restore(ChargedStrikeBolts.Snapshot().Where(x=>x.Owner!=p.Serial.Value).Concat(flights).ToArray());
     // Actual learned miss emits the original three factory-created bolts. The
     // separately qualified on-attack Fire Ball is cancelled before bolt isolation.
-    private static ChargedStrikeFlight[] Birth(PlayerMobile p,BaseWeapon w,bool successful=false)
+    internal static ChargedStrikeFlight[] Birth(PlayerMobile p,BaseWeapon w,bool successful=false)
     {
         Ready(p);var savedHit=AmazonMelee.HitRoll;AmazonMelee.HitRoll=()=>successful?0:1;var t=Target(p);int mana=NecromancerEffects.ManaBalance256(p),cost=SkillMechanics.Values(p,Ability).Mana256,dur=w.HitPoints,quantity=NamedAmmunition.Remaining(w);
         try{Require(ClassCombat.Perform(p,Ability,t,t.Location,Core.TickCount)&&NecromancerEffects.ManaBalance256(p)==mana-cost,"Charged Strike start payment");ClassCombat.ReleaseCast(p);Require(ClassCombat.ResolveAction(p,ClassCombat.For(p).EffectAt),"Charged Strike do11 release");var f=Flights(p);Require(f.Length==3&&f.All(x=>x.Frame==0&&x.FactoryMotion==new ChargedStrikeFactoryMotion(2304,100))&&NecromancerEffects.ManaBalance256(p)==mana-cost&&(successful||w.HitPoints==dur)&&NamedAmmunition.Remaining(w)==quantity&&NativeMonsterReturn.Session(t).Packets==1,"Charged Strike missed parent/emission/resource split");return f;}

@@ -4,7 +4,7 @@ Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations
 
 The last [combined driver](../tests/check_amazon_planned_acceptance.py) acceptance covered all existing class fixtures on its recorded historical binaries:334results,72casts,84connections and two reloads;[receipt](../tools/reference/amazon-planned-acceptance-native-evidence.json). It predates later shared contact changes and does not establish class-wide acceptance of current binaries.
 
-The latest [Charged Strike contact pass](charged-strike-contact-checkpoint.md) runs442results,132wire inputs and two reloads on its own captured current artifacts. It adds source0 bolt delivery to the earlier [Plague Javelin](plague-javelin-contact-checkpoint.md),[Poison Javelin](poison-javelin-contact-checkpoint.md),[Lightning Fury](lightning-fury-contact-checkpoint.md) and preceding ranged-contact cohorts. These incremental checks include their retained scopes;they do not replace every passive,Valkyrie,Decoy or full-class check. Historical source receipts and recorder inputs remain pinned to their original artifacts. Full current class requalification remains pending after the remaining delivery work.
+The latest [Lightning Strike contact pass](lightning-strike-contact-checkpoint.md) runs483results,144wire inputs and two reloads on its own captured current artifacts. It retains the [Charged Strike contact pass](charged-strike-contact-checkpoint.md) and adds current shared Sorceress/Mage chain controls. It adds source0 bolt delivery to the earlier [Plague Javelin](plague-javelin-contact-checkpoint.md),[Poison Javelin](poison-javelin-contact-checkpoint.md),[Lightning Fury](lightning-fury-contact-checkpoint.md) and preceding ranged-contact cohorts. These incremental checks include their retained scopes;they do not replace every passive,Valkyrie,Decoy or full-class check. Historical source receipts and recorder inputs remain pinned to their original artifacts. Full current class requalification remains pending after the remaining delivery work.
 
 | Talent | Mechanical scope | Existing fixture |
 | --- | --- | --- |
@@ -16,7 +16,7 @@ The latest [Charged Strike contact pass](charged-strike-contact-checkpoint.md) r
 | Charged Strike | Prepared melee, source0 elemental bolt HP/return without weapon callbacks, source speed capture and original saves | `charged-strike`, `charged-strike-velocity`, `charged-strike-contact` |
 | Plague Javelin | Release-time payment, poison burst/moving clouds, quantity, snapshots and saved delay | `plague-javelin` |
 | Fend | Paid multi-contact series, live targets and per-contact stats, actual connected loop | `fend`, `fend-loop` |
-| Lightning Strike | Approved melee lightning followed by chains from the struck monster; no chain when alone | `lightning-strike`, `chain-child-search` |
+| Lightning Strike | Approved neighbor-only opening, source0 typed chain HP/return, finite hops, recipient delay and original saved return | `lightning-strike`, `lightning-strike-contact` |
 | Lightning Fury | Paid throw, child fan, source-zero bolts and saved parent/children | `lightning-fury` |
 | Inner Sight | SC cast, defense debuff, duration/radius and saved recipients | `inner-sight`, `amazon-cast-clock` |
 | Critical Strike | Shared physical critical ordering, actual gear and saved passive | `amazon-critical` |
