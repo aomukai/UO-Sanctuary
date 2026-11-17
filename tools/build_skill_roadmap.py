@@ -884,6 +884,11 @@ for _talent in ('sorceress.firebolt', 'sorceress.inferno', 'sorceress.chargedbol
     _notes=BLOCKERS if _talent in BLOCKERS else CAVEATS
     _notes[_talent]=_notes.get(_talent,'')+' Shared direct spell/area impacts now publish settled non-poison components to approved Defiler Health Link;Static Field publishes only its final clipped lightning loss. Primary totals,live/captured modifiers,poison additions,shield/status,source RNG,hit delays,geometry,resources and NPC routes retain. Sixty-seven controlled spell/link cases per boot plus retained Sorceress and shared-caller/input/original-save scopes are in sorceress-spell-link-checkpoint.md;this does not certify the whole current class or add new Static potion semantics.'
 
+# Preserve known Druid elemental parts; existing periodic ground stays periodic.
+for _talent in ('druid.twister','druid.fissure','druid.volcano','druid.tornado','druid.shockwave','druid.moltenboulder'):
+    _notes=BLOCKERS if _talent in BLOCKERS else CAVEATS
+    _notes[_talent]=_notes.get(_talent,'')+' Existing settled non-poison spell components now reach approved Defiler Health Link through typed health delivery. Molten Boulder ground remains Periodic with no link event or copied damage. Thirty-two direct and four periodic-control cases per boot retain primary totals,independent secondary mitigation,potion poison exclusion,source RNG and no extra contact mana debit. Existing Druid source/input/original-save scopes are retained in druid-element-link-checkpoint.md;no pet-melee or whole-class certification is implied.'
+
 def planned_content_remaining(text):
     """Keep excluded charm-only mechanics out of active talent blockers."""
     if not re.search('sunder',text,re.I):return text

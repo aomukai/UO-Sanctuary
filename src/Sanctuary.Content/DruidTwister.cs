@@ -176,7 +176,7 @@ public static class DruidTwister
             // damage9 raw Param2 fallback. Read live hard Arctic Blast points
             // at retained missile rank, separately from captured physical damage.
             CombatStuns.Apply(target, checked((int)SkillMechanics.Values(owner, CombatAbility.Twister, missile.Rank).Eval("calc2")), missile.NextUtc);
-            loss = SkillHealth.Damage(owner, target, NamedElements.To256(parts.Total));
+            loss = SkillHealth.TypedDamage(owner,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));
         }
         if (!guard && target is { Alive: true, Deleted: false })
         {

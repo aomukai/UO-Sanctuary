@@ -157,7 +157,7 @@ public static class DruidTornado
             // Copied-area defense uses arguments1/0, separately from the
             // physical direct missile's shield attempt and knockback roll.
             owner.DoHarmful(target,true);var parts=SkillCombat.MitigatePrepared(owner,target,packet);
-            int loss=SkillHealth.Damage(owner,target,NamedElements.To256(parts.Total));
+            int loss=SkillHealth.TypedDamage(owner,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));
             if(!Uninterruptible(target)){CreatureHitRecovery.Apply(target,owner,loss);}
             target.FixedEffect(0x37CC,3,4,0x481,0); // Identified periodic contact placeholder.
         }
@@ -195,7 +195,7 @@ public static class DruidTornado
         {
             var damage = DruidMoltenBoulder.Potion(missile.Modifiers, new(raw / 256.0, 0, 0, 0, 0));
             var parts = SkillCombat.MitigatePrepared(owner, target, damage);
-            loss = SkillHealth.Damage(owner, target, NamedElements.To256(parts.Total));
+            loss = SkillHealth.TypedDamage(owner,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));
         }
         if (!guard && target is { Alive: true, Deleted: false })
         {

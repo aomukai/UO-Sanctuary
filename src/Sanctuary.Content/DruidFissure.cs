@@ -220,7 +220,7 @@ public static class DruidFissure
             {
                 owner.DoHarmful(target, true);
                 var parts = SkillCombat.MitigatePrepared(owner, target, DruidFirestorm.Packet(crack.Modifiers, raw));
-                int loss = SkillHealth.Damage(owner, target, NamedElements.To256(parts.Total));
+                int loss = SkillHealth.TypedDamage(owner,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));
                 if (!BarbarianLeap.Uninterruptible(target) && target is BaseCreature survivor)
                 { CreatureHitRecovery.Apply(survivor, owner, loss); }
             }

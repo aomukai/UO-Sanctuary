@@ -2,7 +2,9 @@
 
 **Native shield producer update — 2026-11-16 JST.** [Qualified checkpoint](unresisted-shields-checkpoint.md):33 checks/six actual Energy Shield casts/two reloads now cover normalized native armor-ignore channels through the existing Energy/Bone/Cyclone pipeline. This corrects a missing producer without new shield formulas or priority policy. Unknown direct/remainder inputs and Ward/Energy overlap remain refused; source monster drains and special native/PvP/event ordering remain open. Older scopes and receipts below retain their historical binaries/source inventories.
 
-Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Charms and runewords are excluded. All 30 talents have handlers; the combined cohort passes 675 exact results across three saves/two reloads. A handler or passing subset does not certify complete modern D2R parity.
+Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Charms and runewords are excluded. All 30 talents have handlers; the current compatibility cohort passes 684 exact results across three saves/two reloads. A handler or passing subset does not certify complete modern D2R parity.
+
+The [elemental Health Link checkpoint](druid-element-link-checkpoint.md) adds 32 direct contexts and four periodic-ground controls per boot for six spells. Settled non-poison channels now reach linked recipients; Boulder ground remains periodic, and pet melee remains separate. Verify the current receipt with `python3 tools/record_druid_element_link.py --check`.
 
 | Talent | Mechanical scope | Existing fixture |
 | --- | --- | --- |
@@ -37,7 +39,7 @@ Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations
 | Spirit of Barbs | Paid shared-spirit summon and captured flat-return aura | `barbs-casting` and retained spirit consumers |
 | Summon Grizzly | Paid original bear, captured synergies/normal-hit stun/Crushing Blow and saved combat state | `grizzly-casting`, `druid-snapshot`, `grizzly-upgrades`, `grizzly-world` |
 
-The [current driver](../tests/check_druid_planned_acceptance.py) composes 57 fixture families, 23 shared checks, 43 current input commands, four natural live commands, nine elemental wire sequences, three held Arctic sequences and sixteen pre-save snapshot/expiry commands per boot. The existing paid Fury staging command runs on its own connection immediately before saving. Its naturally expiring form is not staged prematurely while unrelated casts run.
+The [current driver](../tests/check_druid_element_link.py) retains the planned Druid cohort and adds Defiler/readiness controls, for 59 fixture families, 23 shared checks, 43 current input commands, four natural live commands, nine elemental wire sequences, three held Arctic sequences and sixteen pre-save snapshot/expiry commands per boot. The existing paid Fury staging command runs on its own connection immediately before saving. Its naturally expiring form is not staged prematurely while unrelated casts run.
 
 ## Approved behavior retained
 

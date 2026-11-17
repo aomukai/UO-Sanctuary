@@ -140,7 +140,7 @@ public static class DruidShockWave
         // DAMAGE_VS_MONTYPE item layers have no native producer/consumer yet;
         // the named-item gate retains that separately unsupported branch.
         var parts=SkillCombat.MitigatePrepared(owner,target,DruidMoltenBoulder.Potion(wave.Modifiers,new(raw/256.0,0,0,0,0)));
-        int loss=SkillHealth.Damage(owner,target,NamedElements.To256(parts.Total));
+        int loss=SkillHealth.TypedDamage(owner,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));
         // Complete ExecuteEvents commits HP first,even when immunity yields0.
         // Native synchronous death/reentrant context changes remain explicit.
         if(target is{Alive:true,Deleted:false}&&owner is{Alive:true,Deleted:false}&&owner.Map==target.Map)

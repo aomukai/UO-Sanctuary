@@ -165,7 +165,7 @@ public static class DruidVolcano
         if(reaction.Damage)
         {
             var raw=DruidMoltenBoulder.Potion(actor.Modifiers,new(physical/256.0,fire/256.0,0,0,0));
-            var parts=SkillCombat.MitigatePrepared(owner,target,raw);loss=SkillHealth.Damage(owner,target,NamedElements.To256(parts.Total));
+            var parts=SkillCombat.MitigatePrepared(owner,target,raw);loss=SkillHealth.TypedDamage(owner,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));
         }
         if(!guard && target is{Alive:true,Deleted:false})
         {if(!(reaction.Push&&SourceKnockbacks.Begin(owner,target))&&reaction.Damage){CreatureHitRecovery.Apply(target,owner,loss);}}
