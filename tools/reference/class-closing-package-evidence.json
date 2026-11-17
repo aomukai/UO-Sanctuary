@@ -1,0 +1,178 @@
+{
+  "referenceVersion": "3.3.93847",
+  "installed": true,
+  "classes": [
+    {
+      "characterClass": "necromancer",
+      "activeRoutes": 27,
+      "passiveEntries": 3,
+      "sourceChanges": [
+        "src/Sanctuary.Content/BarbarianFindItem.cs",
+        "src/Sanctuary.Content/BarbarianMelee.cs",
+        "src/Sanctuary.Content/BladeSentinelMissiles.cs",
+        "src/Sanctuary.Content/PlayerWeaponContact.cs"
+      ],
+      "retainedNativeResults": 953
+    },
+    {
+      "characterClass": "sorceress",
+      "activeRoutes": 26,
+      "passiveEntries": 4,
+      "sourceChanges": [
+        "src/Sanctuary.Content/BarbarianFindItem.cs",
+        "src/Sanctuary.Content/BarbarianMelee.cs",
+        "src/Sanctuary.Content/BladeSentinelMissiles.cs",
+        "src/Sanctuary.Content/PlayerWeaponContact.cs"
+      ],
+      "retainedNativeResults": 801
+    },
+    {
+      "characterClass": "paladin",
+      "activeRoutes": 30,
+      "passiveEntries": 0,
+      "sourceChanges": [
+        "src/Sanctuary.Content/BarbarianFindItem.cs",
+        "src/Sanctuary.Content/BarbarianMelee.cs",
+        "src/Sanctuary.Content/BladeSentinelMissiles.cs",
+        "src/Sanctuary.Content/PlayerWeaponContact.cs"
+      ],
+      "retainedNativeResults": 750
+    },
+    {
+      "characterClass": "barbarian",
+      "activeRoutes": 20,
+      "passiveEntries": 10,
+      "sourceChanges": [
+        "src/Sanctuary.Content/BarbarianFindItem.cs",
+        "src/Sanctuary.Content/BarbarianMelee.cs",
+        "src/Sanctuary.Content/BladeSentinelMissiles.cs",
+        "src/Sanctuary.Content/PlayerWeaponContact.cs"
+      ],
+      "retainedNativeResults": 473
+    },
+    {
+      "characterClass": "amazon",
+      "activeRoutes": 24,
+      "passiveEntries": 6,
+      "sourceChanges": [
+        "src/Sanctuary.Content/BarbarianFindItem.cs",
+        "src/Sanctuary.Content/BarbarianMelee.cs",
+        "src/Sanctuary.Content/BladeSentinelMissiles.cs",
+        "src/Sanctuary.Content/PlayerWeaponContact.cs"
+      ],
+      "retainedNativeResults": 809
+    },
+    {
+      "characterClass": "assassin",
+      "activeRoutes": 28,
+      "passiveEntries": 2,
+      "sourceChanges": [
+        "src/Sanctuary.Content/BarbarianFindItem.cs",
+        "src/Sanctuary.Content/BarbarianMelee.cs",
+        "src/Sanctuary.Content/PlayerWeaponContact.cs"
+      ],
+      "retainedNativeResults": 909
+    },
+    {
+      "characterClass": "druid",
+      "activeRoutes": 29,
+      "passiveEntries": 1,
+      "sourceChanges": [
+        "src/Sanctuary.Content/BarbarianFindItem.cs",
+        "src/Sanctuary.Content/BarbarianMelee.cs",
+        "src/Sanctuary.Content/PlayerWeaponContact.cs"
+      ],
+      "retainedNativeResults": 1139
+    },
+    {
+      "characterClass": "warlock",
+      "activeRoutes": 26,
+      "passiveEntries": 4,
+      "sourceChanges": [
+        "src/Sanctuary.Content/BarbarianFindItem.cs",
+        "src/Sanctuary.Content/BarbarianMelee.cs",
+        "src/Sanctuary.Content/PlayerWeaponContact.cs"
+      ],
+      "retainedNativeResults": 906
+    }
+  ],
+  "handlers": 240,
+  "activeRoutes": 210,
+  "passiveEntries": 30,
+  "bridgedProductionChanges": [
+    "src/Sanctuary.Content/BarbarianFindItem.cs",
+    "src/Sanctuary.Content/BarbarianMelee.cs",
+    "src/Sanctuary.Content/PlayerWeaponContact.cs"
+  ],
+  "sentinelBridgeRetained": true,
+  "currentContentSha256": "828c47202bc1f70f568557809af31681bbbd2be8bbe4d04c3f4e18d51fbbc985",
+  "clientPatches": 45,
+  "bashQualified": true,
+  "findItemQualified": true,
+  "barbarianClosingEdgeResults": 12,
+  "edgeProductionChanges": false,
+  "originalEntitiesLoaded": 5290,
+  "originalSaveFilesUnchanged": 38,
+  "originalConfigurationFilesUnchanged": 20,
+  "finalAssetsPending": true,
+  "remaining": [
+    "Finish representative rendered combat checks for six other classes",
+    "Reconcile supported equipment/native-species boundaries and final completion ledger"
+  ],
+  "goalComplete": false,
+  "files": {
+    ".local/class-skills/amazon-lifecycle-acceptance/birth-inputs.json": "70816d5d1c4618b483742898aea8997348bcaf84a75d8d5fbd433957885dbe75",
+    ".local/class-skills/amazon-lifecycle-acceptance/birth-native-checks.log": "99da8ce9f5caa14e6d2fbed037e7644910cb47bb3936f429117525d608fd805c",
+    ".local/class-skills/assassin-lifecycle-acceptance/birth-inputs.json": "c41874e8854b389c555b8bae38573cff0a943697b88b8d68c583a440836eb3f8",
+    ".local/class-skills/assassin-lifecycle-acceptance/birth-native-checks.log": "46aae7122678430bdd4c571a42261c8e580c6a0992731372034c19e4899efb3f",
+    ".local/class-skills/barbarian-closing-edges/birth-inputs.json": "80c79fca987232861be2c8db40a6440d5753155aad715fd8969e43b5b3832a7e",
+    ".local/class-skills/barbarian-closing-edges/birth-native-checks.log": "7b5e8de04e732b8cbba0d1b903420884c609b01e952a1a06dddc251aa1d97117",
+    ".local/class-skills/barbarian-closing-edges/build-2.log": "456a233fe61acbf1e959507ed86ed855cb65e9ec5d9f6d40ad2c5310d822e049",
+    ".local/class-skills/barbarian-closing-edges/integration/Sanctuary.Integration.dll": "2187ed33dc79f32435dbd34c78cc6e879c2688c76ce1e3eb39c6e7e940437ea9",
+    ".local/class-skills/barbarian-closing-edges/run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/barbarian-closing-edges/source-inputs-2.json": "e83b0a96ee8e1cf7af9337aa62dcab5b0bf9b23e570e116bc6109ce2989d8dbc",
+    ".local/class-skills/barbarian-closing-edges/sources-2.tar.gz": "5813268005a4803f115fad0faf681d5528a6394858c8fb249d995ce79de7da28",
+    ".local/class-skills/barbarian-lifecycle-acceptance/birth-inputs.json": "dd87b8228e6dec7b9ba3f0fbb5aac27c0ea1fcaae09e0d4c34ebebf3ae17a30c",
+    ".local/class-skills/barbarian-lifecycle-acceptance/birth-native-checks.log": "a341a9e57fc50fa04fe5285b7d555ae6180d62a370ce2cde02209dd9a429443c",
+    ".local/class-skills/class-closing-installation/installed-world-smoke.log": "5f68fb2a08fce02d6777b63f2f376384c41a603914149a2817024f53ed1d5b06",
+    ".local/class-skills/class-closing-installation/installed.json": "03e37816332354c1b16c49e0fca6ea714646ca6ac2823c25ccd0039055d15e0c",
+    ".local/class-skills/class-closing-installation/plan.json": "78f9815fc2f4d5fda352ebadd5590d87963a40be88d5b16c4abd667dc4948829",
+    ".local/class-skills/druid-lifecycle-acceptance/birth-inputs.json": "82fe71e63c25034a1cbd425e5811a1468fa0ac6f42574b59a22caef5163e2e71",
+    ".local/class-skills/druid-lifecycle-acceptance/birth-native-checks.log": "94e051cec9192617457aa139825f69fabf3190837079e89e2924d53349ed8fee",
+    ".local/class-skills/necromancer-lifecycle-acceptance/birth-inputs.json": "ea62b26c4b0467816ebd71a4a224356dee4b96054ef3adee447c0ff69e466b96",
+    ".local/class-skills/necromancer-lifecycle-acceptance/birth-native-checks.log": "6e8c7f6507e9577132a8c2da2b2f79b44ef310a4ea740986ce95af1ed253c262",
+    ".local/class-skills/paladin-lifecycle-acceptance/birth-inputs.json": "b83b1c0785b6d27620089843b8b500153e281ae77fc3e8b65c95ea09bb32860b",
+    ".local/class-skills/paladin-lifecycle-acceptance/birth-native-checks.log": "1d8f18ba5eb33e5f17fadf97fc6a80a08225cf821673c0f3f3bea4d7d9513019",
+    ".local/class-skills/sorceress-lifecycle-acceptance/birth-inputs.json": "24e855803a8d0ef822e4fac8c4c6d6f6222b0eff7b92c93801310e87750c2915",
+    ".local/class-skills/sorceress-lifecycle-acceptance/birth-native-checks.log": "c5e8560e8d08f1366ddb70a45c02737f913a7c2cbebe69d99718e5a59e315401",
+    ".local/class-skills/warlock-lifecycle-acceptance/birth-inputs.json": "29187a4ac14c6fb8a743dbe356c37dcbc2b226d8b3239872a0927b07c0c867b3",
+    ".local/class-skills/warlock-lifecycle-acceptance/birth-native-checks.log": "80037f71318038e06cf6fbbfb6cb954e7340bf915ee06aff01ba9d618f551efe",
+    "docs/class-closing-package-checkpoint.md": "a2b06bcf3c5358a9c2d40393455e4e9a0bde03d0e21157abeffe36dbdc0c017e",
+    "src/Sanctuary.Content/BarbarianFindItem.cs": "ca075f05d291723ef22ab69adc2dd831add39a938ec81ab6ada3221dd3bbdae6",
+    "src/Sanctuary.Content/BarbarianMelee.cs": "609ef00f3a62e2a2b20b534b11602dfd1154ee6e7d1d6b841a189f1a37780616",
+    "src/Sanctuary.Content/BladeSentinelMissiles.cs": "ca59ce60b50e6ddb4d28ce6aff80a1edf7a6f527eb84c3d97e15666878bd82e6",
+    "src/Sanctuary.Content/PlayerWeaponContact.cs": "c19c7e58155961223e0a3370bf43ba437b13fe3f2c4a944da9625ca7baeb0ec3",
+    "tests/Sanctuary.Integration/BarbarianClosingEdgesChecks.cs": "8b3479d025251e46f04db4fbf1b449a6cbc6a0c74c38280a4a36968405d9fcdc",
+    "tests/check_barbarian_closing_edges.py": "4c70678f2ba1456ebc37748ba28a5ff32e747a821e64913882208d0d1a6f0709",
+    "tools/audit_class_closing_package.py": "00182da69969484b758a4d6db620c958846e067735cb0758ab43336b28b85de5",
+    "tools/install_class_closing_changes.py": "6d303d42dbac0dbba1ed1f66b2d0faac9e0000d36be27992dc0888a3171d88d5",
+    "tools/reference/amazon-current-input-coverage.json": "583c17d2d6f58b892d422b1aa9d5ca1d9c80e2300bad4d7b9339779a763d24a3",
+    "tools/reference/amazon-lifecycle-acceptance-native-evidence.json": "0b74d5ede580611171a7cd1a03cb7046e967723a72bda3896f4deaddc15ab243",
+    "tools/reference/assassin-current-input-coverage.json": "5042a4bbca2bb1dba747d9ca6941bc4f1ad6235b2131a7185cde37e00aad68df",
+    "tools/reference/assassin-lifecycle-acceptance-native-evidence.json": "7fd4442d650bd96b2027d72ade9b6dad7bf8af74269db34fe35b0f8ccf8d8cef",
+    "tools/reference/barbarian-current-input-coverage.json": "cc603834a6d0989c802b8c244a9182743805996a8336cf16a6fbc1131fdeca3f",
+    "tools/reference/barbarian-lifecycle-acceptance-native-evidence.json": "b266db48164231cb27d68abe88d715e9c9e234736e992a9fd40e3e75fb4ca9c3",
+    "tools/reference/bash-flat-adoption-native-evidence.json": "e60a027f389071f52dc000fe5407ffcbf3bf7e9bdeb025019d0094f6224710f6",
+    "tools/reference/druid-current-input-coverage.json": "795ab9d292f4006308c177a2a9b8fca7636af7aedb9f4f6443f3a5524e3b4577",
+    "tools/reference/druid-lifecycle-acceptance-native-evidence.json": "48d1a52bc051523a1a3dc561bf058ae7bfeb13e40f2fd64213c4dc0d473902de",
+    "tools/reference/find-item-adoption-evidence.json": "32d421bd34a6b0507d632c9ed37951a555cc9322794f608d42c8fa6df76027bf",
+    "tools/reference/necromancer-current-input-coverage.json": "9749c771300db4586cbfd1f3b54c39e033e56ba6ed222d025b1af3b60cefbfeb",
+    "tools/reference/necromancer-lifecycle-acceptance-native-evidence.json": "af96df56068a917a5cf822c85826d71b69ab5c9b0f9d6836d539b126697ee29e",
+    "tools/reference/paladin-current-input-coverage.json": "f62fc8b8054cb515cd290a1e0e2c264dbd5986d8c1c9a9a3b68c5d62640b82fa",
+    "tools/reference/paladin-lifecycle-acceptance-native-evidence.json": "7b8aada7751e05921f6541a305f53bf657851070fa5869e3a82bb63a941a79fb",
+    "tools/reference/sorceress-current-input-coverage.json": "36d94955fc63f4aab7ecbd090587e4d43637485e6d9bf2ee1729f7ea41a04d4d",
+    "tools/reference/sorceress-lifecycle-acceptance-native-evidence.json": "6892d8b93524c718f89ecf70130f0bf5000449d109bf59d2ef8a0524ee4dbc7f",
+    "tools/reference/warlock-current-input-coverage.json": "81bd3c4b0173bc06db31633e7f0563a8c490ab6ef992b82dce4e87915c835097",
+    "tools/reference/warlock-lifecycle-acceptance-native-evidence.json": "c8e0272421d45785f03459ba3a855ffb67f63d8b94bf78fba1eb7cf08c812b21"
+  }
+}

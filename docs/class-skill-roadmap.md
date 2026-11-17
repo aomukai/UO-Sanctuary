@@ -1,6 +1,9 @@
+# Class skill roadmap
+
+**Combined closing package installed — 2026-11-18 JST.** [Checkpoint](class-closing-package-checkpoint.md): approved Bash/Find Item content and the 45-patch client are installed with rollback copies. The original world loads 5,290 entities without saving; 38 save files/20 configurations/client settings are unchanged. Twelve focused results settle the remaining native Leap/Double Throw edge rules across two reloads, retaining existing War Cry/deferred-death evidence. All eight historical class cohorts are preserved through an explicit three-file content bridge. Remaining: six representative rendered class checks and final supported-context/completion-ledger reconciliation.
+
 **Find Item approved targeting implemented and qualified — 2026-11-18 JST.** [Checkpoint](find-item-adoption-checkpoint.md): shared two-tile near-cursor/eight-tile owner reach, explicit quest/context eligibility, no auto-walk or invalid-target payment. Server checks pass 37 results/six authenticated ground inputs/two reloads with retained loot and adopted Bash contacts. The fresh 45-patch client passes actual right-mouse/F1 ground casts and three scene checks. Original saves remain unchanged; combined installation is next. Historical entries below retain their original scope and may describe superseded pending states.
 
-# Class skill roadmap
 
 **Approved Bash fix qualified — 2026-11-18 JST.** [Checkpoint](bash-flat-adoption-checkpoint.md), [receipt](../tools/reference/bash-flat-adoption-native-evidence.json): learned Bash now includes its flat damage after critical and before mitigation, with consistent physical/life budgets. Content1/Integration1/run2 passes 64 results, 24 authenticated inputs and two reloads, retaining Stun/Concentrate/Berserk mixed-item contacts. A frozen first-run export filename failure required only a driver mapping correction. No reference numerical data changed. The installed C1 package is preserved while the approved Find Item changes are combined; existing class receipts retain their original generations.
 
