@@ -93,7 +93,7 @@ public static class DruidSetupItemChecks
             Cancel(p,c.Ability);SourceBlocking.BlockRoll=n=>n-1;
             Rolls.Hit(true);SourceBlocking.BlockRoll=n=>n-1;Ready(p);var t=Target(p);Require(ClassCombat.Perform(p,c.Ability,t,t.Location,Core.TickCount),"Saved setup start");long at=ClassCombat.For(p).EffectAt;
             Require(ClassCombat.ResolveAction(p,at),"Saved setup release");ClassCombat.Stop(p);DiscardRabies(p);
-            var point=p.Location;p.Internalize();PoisonDaggerChecks.Freeze(t);
+            DruidFormWorldChecks.RetainForInspection(p);var point=p.Location;p.Internalize();PoisonDaggerChecks.Freeze(t);
             saved[i]=new(p.Serial.Value,weapon.Serial.Value,helm.Serial.Value,t.Serial.Value,c.Ability,c.Form,Until(t),TimedEffects.DefenseLoss(t),ClassStats.Defense(t),SkillHealth.Balance256(t),Json(new[]{ClassGear.State(weapon),ClassGear.State(helm)}),Json(DruidPlayerForms.State(p)));
         }
         File.WriteAllText(Manifest,Json(saved));

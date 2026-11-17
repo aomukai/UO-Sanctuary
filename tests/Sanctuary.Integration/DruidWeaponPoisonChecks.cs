@@ -98,7 +98,7 @@ public static class DruidWeaponPoisonChecks
                 var s=saved[i];generation=s.Generation+1;p=(PlayerMobile)World.FindMobile((Serial)s.Owner);weapon=World.FindItem((Serial)s.Weapon);gloves=World.FindItem((Serial)s.Gloves);t=(PoisonDaggerContactChecks.Recipient)World.FindMobile((Serial)s.Target);
                 Require(generation<=2&&s.Ability==c.Ability&&s.Form==c.Form&&weapon.Parent==p&&gloves.Parent==p&&Json(new[]{ClassGear.State(weapon),ClassGear.State(gloves)})==s.Gear&&Json(DruidPlayerForms.State(p))==s.Shape&&Json(Poison(t))==s.Poison&&SkillHealth.Balance256(p)==s.Life&&NecromancerEffects.ManaBalance256(p)==s.Mana&&SkillHealth.Balance256(t)==s.TargetLife,"Saved poison clock/originals/form/resources/wounds changed");p.MoveToWorld(s.Point,Map.Trammel);Cast(p,gloves,c.Ability,0).Delete();
             }
-            ClearRabies(p);var point=p.Location;p.Internalize();saved[i]=new(p.Serial.Value,weapon.Serial.Value,gloves.Serial.Value,t.Serial.Value,c.Ability,c.Form,point,Json(new[]{ClassGear.State(weapon),ClassGear.State(gloves)}),Json(DruidPlayerForms.State(p)),Json(Poison(t)),SkillHealth.Balance256(p),NecromancerEffects.ManaBalance256(p),SkillHealth.Balance256(t),generation);
+            ClearRabies(p);DruidFormWorldChecks.RetainForInspection(p);var point=p.Location;p.Internalize();saved[i]=new(p.Serial.Value,weapon.Serial.Value,gloves.Serial.Value,t.Serial.Value,c.Ability,c.Form,point,Json(new[]{ClassGear.State(weapon),ClassGear.State(gloves)}),Json(DruidPlayerForms.State(p)),Json(Poison(t)),SkillHealth.Balance256(p),NecromancerEffects.ManaBalance256(p),SkillHealth.Balance256(t),generation);
         }
         File.WriteAllText(Manifest,Json(saved));
     }

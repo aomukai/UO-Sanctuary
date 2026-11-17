@@ -111,7 +111,7 @@ public static class DruidCapturedProcChecks
                 var s=saved[i];generation=s.Generation+1;p=(PlayerMobile)World.FindMobile((Serial)s.Owner);item=World.FindItem((Serial)s.Item);
                 Require(generation<=2&&s.Ability==c.Ability&&s.Form==c.Form&&item.Parent==p&&Json(ClassGear.State(item))==s.Gear&&Json(Own(p,item))==s.Profile&&Json(DruidPlayerForms.State(p))==s.Shape&&SkillHealth.Balance256(p)==s.Life&&NecromancerEffects.ManaBalance256(p)==s.Mana,"Saved captured-skill original/form/profile/wounds/payment changed");p.MoveToWorld(s.Point,Map.Trammel);
             }
-            Play(p,item,c.Ability);Poison(p);DruidAttackCharges.Clear(p);SkillHealth.SetBalance256(p,SkillHealth.Balance256(p)-257);var point=p.Location;p.Internalize();
+            Play(p,item,c.Ability);Poison(p);DruidAttackCharges.Clear(p);SkillHealth.SetBalance256(p,SkillHealth.Balance256(p)-257);DruidFormWorldChecks.RetainForInspection(p);var point=p.Location;p.Internalize();
             saved[i]=new(p.Serial.Value,item.Serial.Value,c.Ability,c.Form,point,Json(ClassGear.State(item)),Json(Own(p,item)),Json(DruidPlayerForms.State(p)),SkillHealth.Balance256(p),NecromancerEffects.ManaBalance256(p),generation);
         }
         File.WriteAllText(Manifest,Json(saved));
