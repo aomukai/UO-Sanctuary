@@ -32,7 +32,7 @@ public static class PlayerItemProcWorldChecks
             {try{FixtureNetwork.Connected(label+"-result",n=>Input(n,label));Log.Information("{Label}-check: passed",label);}catch(Exception e){Log.Error(e,"{Label}-check: failed",label);}}));}
     }
     public static void Initialize()=>ConsoleInputHandler.RegisterCommand("player-item-proc-world-save-check","Bind final shared world seed after all component allocations",_=>Core.LoopContext.Post(()=>
-    {try{var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));File.WriteAllText(Manifest,Json(saved with{World=NpcWorldAllocation.Capture()}));Log.Information("player-item-proc-world-save-check: passed");}catch(Exception e){Log.Error(e,"player-item-proc-world-save-check: failed");}}));
+    {try{var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var final=NpcWorldAllocation.Capture();File.WriteAllText(Manifest,Json(saved with{World=final}));NpcWorldAllocationChecks.Checked(final);Log.Information("player-item-proc-world-save-check: passed");}catch(Exception e){Log.Error(e,"player-item-proc-world-save-check: failed");}}));
     private static PlayerProcSave Own(PlayerMobile p,Item item)
     {var all=PlayerItemProcs.Capture();return all with{Items=all.Items.Where(i=>i.Item==item.Serial.Value).ToArray(),Owners=all.Owners.Where(o=>o.Actor==p.Serial.Value).ToArray()};}
     private static ulong Seed(PlayerMobile p)=>PlayerItemProcs.Capture().Owners.Single(o=>o.Actor==p.Serial.Value).Seed;
@@ -68,7 +68,7 @@ public static class PlayerItemProcWorldChecks
             p=(PlayerMobile)World.FindMobile((Serial)s.Owner);item=World.FindItem((Serial)s.Item);t=(IronGolemFireBallChecks.Recipient)World.FindMobile((Serial)s.Target);
             Require(item.Parent==p&&Json(ClassGear.State(item))==s.Gear,"Saved native proc original/gear changed");
             Require(Json(Own(p,item))==s.Profile,"Saved player proc profile differs: actual="+Json(Own(p,item))+" expected="+s.Profile);
-            Require(NpcWorldAllocation.Capture()==s.World,"Saved shared world differs: actual="+Json(NpcWorldAllocation.Capture())+" expected="+Json(s.World));
+            Require(NpcWorldAllocationChecks.LoadedWorld==s.World,"Saved shared world differs: loaded="+Json(NpcWorldAllocationChecks.LoadedWorld)+" expected="+Json(s.World));
             Require(SkillHealth.Balance256(p)==s.Life&&NecromancerEffects.ManaBalance256(p)==s.Mana&&SkillHealth.Balance256(t)==s.TargetLife,
                 "Saved health/mana differs: owner="+SkillHealth.Balance256(p)+"/"+s.Life+" mana="+NecromancerEffects.ManaBalance256(p)+"/"+s.Mana+" target="+SkillHealth.Balance256(t)+"/"+s.TargetLife);
             p.MoveToWorld(s.Point,Map.Trammel);
@@ -117,6 +117,9 @@ public static class PlayerItemProcWorldChecks
         finally{SourceBlocking.BlockRoll=block;PaladinZeal.HitRoll=hit;PlayerItemProcWorld.Observed=observer;ClassCombat.Stop(p);}
         var point=p.Location;p.Internalize();
         File.WriteAllText(Manifest,Json(new Saved(p.Serial.Value,item.Serial.Value,t.Serial.Value,point,Json(ClassGear.State(item)),Json(Own(p,item)),NpcWorldAllocation.Capture(),SkillHealth.Balance256(p),NecromancerEffects.ManaBalance256(p),SkillHealth.Balance256(t),generation)));
+        // Publish this family's checked endpoint;other legitimate users can
+        // then continue the shared stream without resetting or reseeding it.
+        NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());
     }
     private static void Input(NetState network,string label)
     {
