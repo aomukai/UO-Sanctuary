@@ -12,11 +12,11 @@ import time
 import xml.etree.ElementTree as ET
 from PIL import ImageGrab
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(os.environ.get("SANCTUARY_TEST_RUNTIME_ROOT", Path(__file__).resolve().parents[1]))
 
 
 def check(port, combat=False):
-    logs = ROOT / ".local/logs"
+    logs = Path(os.environ.get("SANCTUARY_TEST_LOG_DIR", ROOT / ".local/logs"))
     logfile = logs / "creation-ui-client.log"
     with tempfile.TemporaryDirectory(prefix="sanctuary-creation-ui-", dir="/dev/shm") as temp:
         folder = Path(temp)

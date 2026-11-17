@@ -116,20 +116,28 @@ def audit(check=False):
     next(row for row in talents if row['talentId'] == 'barbarian.finditem')['approvedPolicyOverrides'] = [
         dict(path='tools/reference/find-item-chance-approval.json', scope='chance only',
              overridesHistoricalPendingChanceText=True)]
+    roster_path = ROOT / 'tools/reference/class-roster-ui-evidence.json'
+    roster = e.load(roster_path)
+    assert roster['renderedCreationVerified'] and roster['createdWireClass'] == 108
+    assert roster['nativeChecks'] == 6 and roster['originalFilesUnchanged'] == 109
+    assert not roster['installedGameplayChanged'] and not roster['combatVerified']
+    for path, digest in roster['files'].items():
+        assert e.sha(ROOT / path) == digest, path
     files.extend([install_path, original_path,
                   ROOT / 'tools/reference/class-skills-installation-evidence.json',
                   ROOT / 'data/Sanctuary/Balance/skill-effects.json',
                   ROOT / 'data/Sanctuary/Balance/skill-icons.json',
                   ROOT / 'tools/reference/find-item-chance-approval.json',
-                  ROOT / approval['proposal']['path'], ROOT / 'docs/class-skill-completion-audit.md', Path(__file__)])
+                  ROOT / approval['proposal']['path'], roster_path,
+                  ROOT / 'docs/class-skill-completion-audit.md', Path(__file__)])
     result = dict(referenceVersion='3.3.93847', talents=240, classes=classes,
         activeRoutes=210, passiveConsumers=30, effectsRegisterEntries=240, iconRegisterEntries=240,
         installedArtifactsVerified=True, historicalEvidencePreserved=True,
         productionBridge='One existing Sentinel typed-component repair bridges the five earlier cohorts;its own focused/retained evidence remains separate.',
         findItemChanceApproved=True, runtimeOrNumericalDataChanged=False,
+        renderedWarlockWitchCreationVerified=True,
         strictCompletedClasses=ledger['completedClasses'], classCertified=False, goalComplete=False,
         remainingRequirements=['Resolve or explicitly qualify concrete ordinary-skill targeting/damage and special-recipient gaps',
-            'Extend the existing seven-choice rendered creation test to verify Warlock/Witch selection and submission',
             'Verify original pet design consumers and shared safe-area/snapshot rules against current evidence',
             'Keep unsupported world services,legacy monster conversion and future gear design distinct',
             'Graphical gameplay remains unverified;final effects/audio and icons remain separately tracked'],

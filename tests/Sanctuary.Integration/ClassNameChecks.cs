@@ -153,11 +153,17 @@ public static class ClassNameChecks
         Require(player != null, "No GUI-created character");
         Require(ClassCreation.Profiles.TryGet(player.Serial, out var profile), "No GUI-created class profile");
         bool female = Environment.GetEnvironmentVariable("SANCTUARY_TEST_CLASS_NAMES_FEMALE") == "1";
-        byte id = female ? (byte)106 : (byte)102;
+        byte id = byte.TryParse(Environment.GetEnvironmentVariable("SANCTUARY_TEST_CLASS_NAMES_ID"), out byte selected)
+            ? selected : female ? (byte)106 : (byte)102;
+        Require(id is >= 101 and <= 108, "Invalid GUI fixture class");
         Require((byte)profile.Class == id && player.Female == female && profile.Level == 1
             && player.Title == $"Level 1 {Expected(id, female)}", "GUI submitted wrong class/sex/title");
         Require((player.NetState == null || player.FindGump<TalentGump>() != null)
             && TalentStrings(player, profile).Contains($"{Expected(id, female)} — Level 1"),
             "GUI did not open the matching talent heading");
+        var trees = TalentCatalog.ForClass(profile.Class).Trees;
+        Require(trees.Length == 3 && trees.All(tree => tree.Skills.Length == 10)
+            && trees.SelectMany(tree => tree.Skills).Select(skill => skill.Id).Distinct().Count() == 30,
+            "GUI-created class does not own three complete talent trees");
     }
 }

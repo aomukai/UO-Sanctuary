@@ -4,7 +4,7 @@ from pathlib import Path
 import subprocess
 import time
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(os.environ.get('SANCTUARY_TEST_RUNTIME_ROOT', Path(__file__).resolve().parents[1]))
 
 
 def exercise(window, click, capture, character, wait_for):
@@ -13,7 +13,7 @@ def exercise(window, click, capture, character, wait_for):
     def choose(index):
         click(210 + 200 * (index % 2), 205 + 55 * (index // 2))
 
-    for index in range(7):
+    for index in range(8):
         choose(index)
         click(435, 445)  # Native Male radio.
         capture(f't03-creation-{101 + index}-male.png')
@@ -25,7 +25,10 @@ def exercise(window, click, capture, character, wait_for):
         click(596, 455)
 
     female = os.environ.get('SANCTUARY_TEST_CLASS_NAMES_FEMALE') == '1'
-    choose(5 if female else 1)  # Druidess or Sorcerer, exercising non-enum titles.
+    default_id = 106 if female else 102
+    class_id = int(os.environ.get('SANCTUARY_TEST_CLASS_NAMES_ID', default_id))
+    assert 101 <= class_id <= 108
+    choose(class_id - 101)
     click(435, 465 if female else 445)
     click(320, 82)
     subprocess.run(['xdotool', 'key', '--window', window, 'ctrl+a'], check=True)
@@ -38,7 +41,7 @@ def exercise(window, click, capture, character, wait_for):
     click(320, 263)  # Real paperdoll Class button.
     time.sleep(.4)
     capture(f't03-talents-{suffix}.png')
-    log = ROOT / '.local/logs/britain-baseline-check.log'
+    log = Path(os.environ.get('SANCTUARY_TEST_LOG', ROOT / '.local/logs/britain-baseline-check.log'))
     offset = log.stat().st_size
     os.write(int(os.environ['SANCTUARY_TEST_CONSOLE_FD']), b'class-names-ui-check\n')
     deadline = time.monotonic() + 6
@@ -47,8 +50,8 @@ def exercise(window, click, capture, character, wait_for):
         if 'class-names-ui-check: failed' in output:
             raise AssertionError(output[-2500:])
         if 'class-names-ui-check: passed' in output:
-            print('Actual client: all seven class choices, Male/Female toggles, Back/reselection; submitted '
-                  + ('Druidess' if female else 'Sorcerer') + ' with matching paperdoll/talent heading.', flush=True)
+            print(f'Actual client: all eight class choices, Male/Female toggles, Back/reselection; submitted '
+                  f'wire class {class_id}, female={female}, with matching paperdoll/talent heading.', flush=True)
             return
         time.sleep(.05)
     raise AssertionError('Missing class-names-ui-check response')
