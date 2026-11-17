@@ -138,7 +138,7 @@ public static class BladeShields
             if(absorbed>0){SkillHealth.Heal(target,absorbed);}
             int loss;
             using(CombatItemEvents.Suppress(owner,target))
-            {loss=SkillHealth.Damage(owner,target,NamedElements.To256(parts.Total));CombatDamage.Finish(target,owner);}
+            {loss=SkillHealth.TypedDamage(owner,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts),notifySuppressedDirect:true);CombatDamage.Finish(target,owner);}
             CreatureHitRecovery.Apply(target,owner,loss); // Pinned hit class3 uses divisor16, independent of weapon family.
             if(target is{Alive:true,Deleted:false})
             {

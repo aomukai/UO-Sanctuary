@@ -875,6 +875,10 @@ for _talent in ('amazon.magicarrow','amazon.multipleshot','amazon.firearrow','am
 for _talent in ('assassin.bladesofice','assassin.clawsofthunder','assassin.phoenixstrike'):
     CAVEATS[_talent]+=' Existing player Ice/Thunder/Phoenix cold/lightning contacts now publish their settled component through shared typed health delivery,so approved Defiler Health Link shares it without faulting. Primary damage,absorption,cold/freeze,projectile RNG,hit delay,charge/parent timing and NPC paths retain. Fifteen elemental/link cases per boot and retained release/live/original-save scopes are in martial-element-link-checkpoint.md;no new charge rule or full class certification is claimed.'
 
+# Preserve known Blade direct fields without inventing a flat NPC drain channel.
+for _talent in ('assassin.bladeshield','assassin.bladesentinel','assassin.bladefury'):
+    CAVEATS[_talent]+=' Known direct components now reach approved Defiler Health Link through typed health delivery. Blade Shield opts its root direct event into notification while retaining item/result32 suppression;secondary shares remain suppressed. Sentinel extra positive flat NPC LifeDrain retains explicit scalar refusal until a channel is established;ordinary packets qualify. Nine Blade link cases per boot plus an unclassified-drain negative,retained actual blade/Fury flight,Shield event and learned Sentinel/input/original-save scopes are in blade-link-checkpoint.md. Existing poison,leech,accuracy,mitigation,timing and assets retain;no full class certification.'
+
 def planned_content_remaining(text):
     """Keep excluded charm-only mechanics out of active talent blockers."""
     if not re.search('sunder',text,re.I):return text

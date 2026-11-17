@@ -73,6 +73,7 @@ public static class DefilerHealthLinkChecks
             SentryMissiles(p,b,linked[0],victim,pct);
             AssassinSpellLinkChecks.Run(p,b,linked[0],victim,pct);
             MartialElementLinkChecks.Run(p,b,linked[0],victim,pct);
+            BladeLinkChecks.Run(p,b,linked[0],victim,pct);
             before=linked.Select(SkillHealth.Balance256).ToArray();SkillHealth.Damage(p,linked[0],257);
             Require(before[0]-SkillHealth.Balance256(linked[0])==257&&before[1]==SkillHealth.Balance256(victim)
                 &&b.Prepared.Links.Fault=="Direct damage lacks settled typed components", $"Untyped damage mismatch:primary={before[0]-SkillHealth.Balance256(linked[0])},secondary={before[1]-SkillHealth.Balance256(victim)},fault={b.Prepared.Links.Fault},bodyMap={b.Map},ownerMap={p.Map}");

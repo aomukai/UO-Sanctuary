@@ -130,7 +130,8 @@ public static class BladeSentinelMissiles
             // to direct damage separately from physical resistance/reduction.
             // Its modern acceptance remains an explicit legacy-source gap.
             int direct=checked(NamedElements.To256(parts.Total)+Math.Max(0,state.Damage.Elements.LifeDrain));
-            int loss=SkillHealth.Damage(body,target,direct);CreatureHitRecovery.Apply(target,body,loss);
+            // Preserve scalar refusal while the extra flat NPC drain has no established channel.
+            int loss=state.Damage.Elements.LifeDrain>0?SkillHealth.Damage(body,target,direct):SkillHealth.TypedDamage(body,target,direct,DirectDamageParts.From(parts));CreatureHitRecovery.Apply(target,body,loss);
             if(target is{Alive:true,Deleted:false} && poisonRate>0)
             {
                 int resistance=NamedElements.Resistance(body,target,"pois",target.PoisonResistance,pierceOverride:0);

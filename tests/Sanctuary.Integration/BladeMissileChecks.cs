@@ -94,13 +94,13 @@ public static class BladeMissileChecks
         var t=new BladeMissileTarget{NoKillAwards=true,Frozen=true,CantWalk=true};t.MoveToWorld(new(p.X+dx,p.Y,p.Z),p.Map);t.AIObject.AITimer.Stop();t.SetHits(50000);t.Hits=t.HitsMax;t.SetMana(1000);t.Mana=t.ManaMax;
         foreach(var type in new[]{ResistanceType.Physical,ResistanceType.Fire,ResistanceType.Cold,ResistanceType.Poison,ResistanceType.Energy}){t.SetResistance(type,0);}return t;
     }
-    private static BladeSentinelBody Body(PlayerMobile p,DateTime at,bool command)
+    internal static BladeSentinelBody Body(PlayerMobile p,DateTime at,bool command)
     {
         int x=p.X*2,y=p.Y*2;var pose=new ActorMotionState((uint)((x<<16)+32768),(uint)((y<<16)+32768),[],new(0,0),0,2304,2304,0,0,new(0,0),new(0,0),20,0x800,0,[],0);
         var body=BladeSentinelBody.CreatePrepared(p,BladeBodyChecks.Creation(p),pose,p.Z);body.StartPreparedController(new(x+8,y),2304,SourceRandom.InitLow(19),at,command);return body;
     }
     private static BladeMissileState Missile(BladeSentinelBody b)=>BladeSentinelMissiles.Snapshot().Missiles.Single(x=>x.Owner==b.Serial.Value);
-    private static void Frames(BladeSentinelBody b,int count)
+    internal static void Frames(BladeSentinelBody b,int count)
     {
         for(int i=0;i<count;i++){DateTime at=b.Prepared.NextFrameUtc;BladeSentinelMissiles.TickFrame(at);b.AdvanceController(at);}
     }

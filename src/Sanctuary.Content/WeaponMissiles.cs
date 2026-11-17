@@ -417,7 +417,7 @@ public static class WeaponMissiles
             }
             PreparedPoison? sourcePoison=flight.Throwing!=null?PoisonJavelins.PreparePoison(player,creature,poisonRate256,flight.Damage.Elements.PoisonImpactFrames):null;
             int loss=flight.Throwing!=null?SkillHealth.TypedDamage(owner,selected,checked(NamedElements.To256(parts.Total)+sourcePoison.Value.Rate256),DirectDamageParts.From(parts))
-                :SkillHealth.Damage(owner,selected,NamedElements.To256(parts.Total));CreatureHitRecovery.Apply(creature,owner,loss);
+                :SkillHealth.TypedDamage(owner,selected,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));CreatureHitRecovery.Apply(creature,owner,loss);
             if(selected.Alive && !selected.Deleted)
             {
                 if(sourcePoison is{} allocatedPoison){allocatedPoison.Commit(player,creature,flight.NextUtc);}

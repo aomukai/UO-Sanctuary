@@ -13,11 +13,11 @@ internal readonly record struct SkillDamageContact(Mobile Source,Mobile Target,i
 internal static class SkillDamageEvents
 {
     internal static event Action<SkillDamageContact> BeforeDirectDamage;
-    internal static bool Notify(Mobile source,Mobile target,int damage256,SkillDamageKind kind,DirectDamageParts? parts=null)
+    internal static bool Notify(Mobile source,Mobile target,int damage256,SkillDamageKind kind,DirectDamageParts? parts=null,bool notifySuppressedDirect=false)
     {
         var notify=BeforeDirectDamage;
         if(notify!=null&&kind==SkillDamageKind.Direct&&!SkillHealth.IsSelfCost(source,target)
-            &&CombatItemEvents.Allowed(source,target))
+            &&(notifySuppressedDirect||CombatItemEvents.Allowed(source,target)))
         {notify(new(source,target,damage256,parts));return true;}
         return false;
     }

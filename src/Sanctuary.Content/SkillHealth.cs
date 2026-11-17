@@ -104,15 +104,15 @@ public static class SkillHealth
         =>Damage(source,target,damage256,SkillDamageKind.Direct);
     public static int Damage(Mobile source, Mobile target, int damage256, SkillDamageKind kind)
         =>DamageCore(source,target,damage256,kind,null);
-    internal static int TypedDamage(Mobile source,Mobile target,int damage256,DirectDamageParts parts,SkillDamageKind kind=SkillDamageKind.Direct)
-        =>DamageCore(source,target,damage256,kind,parts);
-    private static int DamageCore(Mobile source,Mobile target,int damage256,SkillDamageKind kind,DirectDamageParts? parts)
+    internal static int TypedDamage(Mobile source,Mobile target,int damage256,DirectDamageParts parts,SkillDamageKind kind=SkillDamageKind.Direct,bool notifySuppressedDirect=false)
+        =>DamageCore(source,target,damage256,kind,parts,notifySuppressedDirect);
+    private static int DamageCore(Mobile source,Mobile target,int damage256,SkillDamageKind kind,DirectDamageParts? parts,bool notifySuppressedDirect=false)
     {
         if (damage256 <= 0 || target is not { Alive: true, Deleted: false } || !target.CanBeDamaged()) { return 0; }
         // A reaction may kill/remove the recipient or change its life. Read
         // the live fractional balance only after that reaction has completed.
         // With no reaction, preserve the original single admission check.
-        if(SkillDamageEvents.Notify(source,target,damage256,kind,parts)
+        if(SkillDamageEvents.Notify(source,target,damage256,kind,parts,notifySuppressedDirect)
             &&(target is not{Alive:true,Deleted:false}||!target.CanBeDamaged())){return 0;}
         if(BloodOathDamageProposal.ManagedPrepared(target))
         {
