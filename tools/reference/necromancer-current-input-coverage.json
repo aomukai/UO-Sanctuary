@@ -1,0 +1,440 @@
+{
+  "referenceVersion": "3.3.93847",
+  "classId": 103,
+  "talents": 30,
+  "activeTalents": 27,
+  "passiveTalents": 3,
+  "verifiedActiveInputRoutes": 27,
+  "successfulNecromancerInputs": 168,
+  "foreignInputsSeparatelyExcluded": 3,
+  "bootsPerCohort": 3,
+  "reloadsPerCohort": 2,
+  "artifacts": {
+    "ModernUO.dll": "942dfd33012ce63e29d30aae26bf3036310dc352e5d7ba956248737f8a0b848d",
+    "Server.dll": "635031badccbad7dd42e648e60ff4173e21f0fa6979496839843d6a0e3bdaf20",
+    "Assemblies/UOContent.dll": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
+    "Assemblies/Sanctuary.Content.dll": "8650a6825fc6855608e4596cac7a9e97f3d00be7ed617a8212998acefb506553",
+    "Assemblies/Sanctuary.Integration.dll": "bb27e2c6ef8c5927f377ce00f30629c58f69688ff20f8d2a8940785801099510"
+  },
+  "skills": [
+    {
+      "talentId": "necromancer.teeth",
+      "ability": 2,
+      "routes": {
+        "teeth-quick": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        },
+        "teeth-right": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        }
+      }
+    },
+    {
+      "talentId": "necromancer.raiseskeleton",
+      "ability": 3,
+      "routes": {
+        "skeleton-birth-quick": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        },
+        "skeleton-birth-right": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        }
+      }
+    },
+    {
+      "talentId": "necromancer.claygolem",
+      "ability": 65,
+      "routes": {
+        "clay-golem-world-quick": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        },
+        "clay-golem-world-right": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        }
+      }
+    },
+    {
+      "talentId": "necromancer.skeletalmage",
+      "ability": 67,
+      "routes": {
+        "mage-world-quick": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        },
+        "mage-world-right": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        }
+      }
+    },
+    {
+      "talentId": "necromancer.bloodgolem",
+      "ability": 68,
+      "routes": {
+        "blood-golem-birth-quick": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        },
+        "blood-golem-birth-right": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        }
+      }
+    },
+    {
+      "talentId": "necromancer.irongolem",
+      "ability": 70,
+      "routes": {
+        "iron-golem-quick": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        },
+        "iron-golem-right": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        }
+      }
+    },
+    {
+      "talentId": "necromancer.firegolem",
+      "ability": 71,
+      "routes": {
+        "fire-golem-birth-quick": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        },
+        "fire-golem-birth-right": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        }
+      }
+    },
+    {
+      "talentId": "necromancer.revive",
+      "ability": 72,
+      "routes": {
+        "native-lich-revive-hell-quick": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        },
+        "native-lich-revive-nightmare-right": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        },
+        "native-lich-revive-normal-quick": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        },
+        "native-lich-revive-normal-right": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        }
+      }
+    },
+    {
+      "talentId": "necromancer.bonearmor",
+      "ability": 73,
+      "routes": {
+        "bone-armor-quick": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        },
+        "bone-armor-right": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        }
+      }
+    },
+    {
+      "talentId": "necromancer.poisondagger",
+      "ability": 74,
+      "routes": {
+        "poison-dagger-quick": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        },
+        "poison-dagger-right": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        }
+      }
+    },
+    {
+      "talentId": "necromancer.corpseexplosion",
+      "ability": 75,
+      "routes": {
+        "native-corpse-ce-right": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        },
+        "native-corpse-nightmare-ce-right": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        }
+      }
+    },
+    {
+      "talentId": "necromancer.bonewall",
+      "ability": 76,
+      "routes": {
+        "bone-wall-target-right": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        }
+      }
+    },
+    {
+      "talentId": "necromancer.poisonexplosion",
+      "ability": 77,
+      "routes": {
+        "native-corpse-hell-poison-quick": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        },
+        "native-corpse-poison-quick": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        },
+        "poison-explosion-quick": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        },
+        "poison-explosion-right": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        }
+      }
+    },
+    {
+      "talentId": "necromancer.bonespear",
+      "ability": 78,
+      "routes": {
+        "bone-spear-quick": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        },
+        "bone-spear-right": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        }
+      }
+    },
+    {
+      "talentId": "necromancer.boneprison",
+      "ability": 79,
+      "routes": {
+        "bone-prison-self-quick": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        }
+      }
+    },
+    {
+      "talentId": "necromancer.poisonnova",
+      "ability": 80,
+      "routes": {
+        "poison-nova-quick": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        },
+        "poison-nova-right": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        }
+      }
+    },
+    {
+      "talentId": "necromancer.bonespirit",
+      "ability": 81,
+      "routes": {
+        "bone-spirit-quick": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        },
+        "bone-spirit-right": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        }
+      }
+    },
+    {
+      "talentId": "necromancer.amplifydamage",
+      "ability": 82,
+      "routes": {
+        "amplify-damage-quick": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        },
+        "amplify-damage-right": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        }
+      }
+    },
+    {
+      "talentId": "necromancer.dimvision",
+      "ability": 83,
+      "routes": {
+        "dim-vision-cast-quick": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        },
+        "dim-vision-cast-right": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        }
+      }
+    },
+    {
+      "talentId": "necromancer.weaken",
+      "ability": 84,
+      "routes": {
+        "weaken-quick": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        },
+        "weaken-right": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        }
+      }
+    },
+    {
+      "talentId": "necromancer.ironmaiden",
+      "ability": 85,
+      "routes": {
+        "iron-maiden-quick": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        },
+        "iron-maiden-right": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        }
+      }
+    },
+    {
+      "talentId": "necromancer.terror",
+      "ability": 86,
+      "routes": {
+        "terror-cast-quick": {
+          "stage": "necromancer-terror-input",
+          "successfulInputs": 3
+        },
+        "terror-cast-right": {
+          "stage": "necromancer-terror-input",
+          "successfulInputs": 3
+        }
+      }
+    },
+    {
+      "talentId": "necromancer.confuse",
+      "ability": 87,
+      "routes": {
+        "confuse-cast-quick": {
+          "stage": "necromancer-terror-input",
+          "successfulInputs": 3
+        },
+        "confuse-cast-right": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        }
+      }
+    },
+    {
+      "talentId": "necromancer.lifetap",
+      "ability": 88,
+      "routes": {
+        "life-tap-cast-quick": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        },
+        "life-tap-cast-right": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        }
+      }
+    },
+    {
+      "talentId": "necromancer.attract",
+      "ability": 89,
+      "routes": {
+        "attract-cast-quick": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        },
+        "attract-cast-right": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        }
+      }
+    },
+    {
+      "talentId": "necromancer.decrepify",
+      "ability": 90,
+      "routes": {
+        "decrepify-quick": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        },
+        "decrepify-right": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        }
+      }
+    },
+    {
+      "talentId": "necromancer.lowerresist",
+      "ability": 91,
+      "routes": {
+        "lower-resist-quick": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        },
+        "lower-resist-right": {
+          "stage": "necromancer-lifecycle-acceptance",
+          "successfulInputs": 3
+        }
+      }
+    }
+  ],
+  "passiveSkills": [
+    {
+      "talentId": "necromancer.skeletonmastery",
+      "ability": 64,
+      "left": false,
+      "right": false
+    },
+    {
+      "talentId": "necromancer.golemmastery",
+      "ability": 66,
+      "left": false,
+      "right": false
+    },
+    {
+      "talentId": "necromancer.summonresist",
+      "ability": 69,
+      "left": false,
+      "right": false
+    }
+  ],
+  "classCertified": false,
+  "limits": "Readiness fields are matched to successful real input-result markers on all three boots and to the pinned catalogue ability/class IDs. Cohorts must share exact binaries/data. Passive mechanics require their separate birth/recipient evidence;they receive no invented cast. This accounts for active input routes,not all mechanics,current-engine/PvP/client parity or whole-class completion.",
+  "files": {
+    ".local/class-skills/necromancer-lifecycle-acceptance/birth-inputs.json": "ea62b26c4b0467816ebd71a4a224356dee4b96054ef3adee447c0ff69e466b96",
+    ".local/class-skills/necromancer-lifecycle-acceptance/birth-native-checks.log": "6e8c7f6507e9577132a8c2da2b2f79b44ef310a4ea740986ce95af1ed253c262",
+    ".local/class-skills/necromancer-lifecycle-acceptance/native-run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    ".local/class-skills/necromancer-terror-input/birth-inputs.json": "0597d9becb45bf747c679016e6a9c65f9f23d70980262bb387cc37dfa1994c6c",
+    ".local/class-skills/necromancer-terror-input/birth-native-checks.log": "b54c894b9b0e9a9dffb79ef3c4744f31dfe8ef5eeea7350a69c282f9af4bd95b",
+    ".local/class-skills/necromancer-terror-input/native-run-1.log": "37796f37f605ac61fd0700474297842d8f30ca70c838b216725683aa7ddc09c3",
+    "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
+    "shared/DiabloClass.cs": "735cddd18c8e4397a4d5e73ec0a26bc7165056e5f571c87121b3609f820db075",
+    "tools/review_necromancer_input_coverage.py": "4907e4b5e399b5a4ec0ca69e28dd6cff17d69c4e4b5d18cef4b562d8b7af0401"
+  }
+}

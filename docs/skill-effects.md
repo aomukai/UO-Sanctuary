@@ -1,5 +1,7 @@
 # Skill effects
 
+**Necromancer lifecycle/input acceptance — 2026-11-17 JST.** [Checkpoint](necromancer-lifecycle-acceptance-checkpoint.md) adds no visual/audio asset. All27 active input routes and three passive mechanical scopes remain separate from final art. Existing summon/projectile/curse/shatter effects and audio are still identified placeholders;no imagegen.
+
 **Approved ordinary-chill shatter rule — 2026-11-17 JST.** [Activation checkpoint](ordinary-cold-corpse-adoption-checkpoint.md). Final shatter visuals/audio remain separately missing;existing corpse body/flag presentation is an identified mechanical placeholder. Loot remains intact. No artwork/imagegen is created.
 
 **Ordinary cold shatter candidate — 2026-11-17 JST.** The [proposed corpse rule](ordinary-cold-corpse-proposal.md) creates no artwork. Shatter visuals/audio remain missing, with existing body/flag presentation an identified mechanical placeholder. Candidate verification is separate from activation and final graphics. No imagegen.
