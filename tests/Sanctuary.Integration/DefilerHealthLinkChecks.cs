@@ -69,6 +69,7 @@ public static class DefilerHealthLinkChecks
             Require(refused&&b.SavedText==text,"Malformed link ownership partially restored");
             NecromancerSpells(p,b,linked[0],victim,pct);
             MageSpells(p,b,linked[0],victim,pct);
+            SentryExplosions(p,b,linked[0],victim,pct);
             before=linked.Select(SkillHealth.Balance256).ToArray();SkillHealth.Damage(p,linked[0],257);
             Require(before[0]-SkillHealth.Balance256(linked[0])==257&&before[1]==SkillHealth.Balance256(victim)
                 &&b.Prepared.Links.Fault=="Direct damage lacks settled typed components", $"Untyped damage mismatch:primary={before[0]-SkillHealth.Balance256(linked[0])},secondary={before[1]-SkillHealth.Balance256(victim)},fault={b.Prepared.Links.Fault},bodyMap={b.Map},ownerMap={p.Map}");
@@ -188,6 +189,50 @@ public static class DefilerHealthLinkChecks
         finally
         {
             receiver.SetResistance(ResistanceType.Fire,0);receiver.SetResistance(ResistanceType.Cold,0);receiver.SetResistance(ResistanceType.Energy,0);caster.Delete();
+        }
+    }
+    private static void SentryExplosions(PlayerMobile owner,WarlockDefilerBody body,BaseCreature primary,BaseCreature receiver,int percent)
+    {
+        var caster=ClassSkillChecks.Player(DiabloClass.Assassin);caster.AddItem(new Backpack());ClassCreation.Profiles.AdvanceLevel(caster,99);caster.MoveToWorld(new(owner.X+12,owner.Y+2,owner.Z),owner.Map);
+        DeathSentryExplosionChecks.Train(caster,CombatAbility.DeathSentry,6);var original=primary.Location;var received=receiver.Location;
+        var actor=AssassinSentryBody.CreatePrepared(caster,new(caster.X+1,caster.Y,caster.Z),TimedEffects.Now.AddHours(1),SourceRandom.InitLow(23),CombatAbility.DeathSentry);int cases=0;
+        try
+        {
+            foreach(string mode in new[]{"mixed","primary-physical-immune","primary-fire-immune","receiver-resisted","outer-fire"})
+            {
+                var corpse=DeathSentryExplosionChecks.Body(caster,new(caster.X+3,caster.Y,caster.Z));
+                try
+                {
+                    primary.MoveToWorld(new(corpse.X+(mode=="outer-fire"?4:1),corpse.Y,corpse.Z),corpse.Map);receiver.MoveToWorld(new(caster.X+15,caster.Y,caster.Z),caster.Map);
+                    primary.SetResistance(ResistanceType.Physical,mode=="primary-physical-immune"?100:0);primary.SetResistance(ResistanceType.Fire,mode=="primary-fire-immune"?100:0);
+                    bool resisted=mode=="receiver-resisted";receiver.SetResistance(ResistanceType.Physical,resisted?25:0);receiver.SetResistance(ResistanceType.Fire,resisted?50:0);
+                    Require(actor.TrapTarget(caster,primary),$"Sentry link eligibility:visible={actor.CanSee(primary)},enemy={primary.IsEnemy(caster)},harm={actor.CanBeHarmful(primary,false,true)},conversion={PaladinConversion.Active(primary)},fight={primary.FightMode},master={primary.GetMaster()},blessed={primary.Blessed},town={Server.Spells.SpellHelper.IsTown(primary.Location,primary)}");
+                    var before=CorpseSkillRules.Profiles.Find(corpse);var c=actor.Prepared.Creation;var values=SentryNpcSkills.Values(312,c.Rank,c.Level,c.Skill);ulong expectedSeed=before.BaseLife.Seed.Value;
+                    var packet=CorpseExplosionPackets.Create(before.BaseLife.Base256,c.Level,before.BaseLife.Level,(int)values.Eval("aurarangecalc"),(int)values.Eval("calc1"),(int)values.Eval("calc2"),(int)values.Eval("calc3"),n=>(int)SourceRandom.Limited(ref expectedSeed,n));
+                    var hit=packet.Recipient(mode=="outer-fire"?64:4);int physical=NamedElements.Resolve256(actor,primary,hit.Physical256,"physical",enhance:false,pierceOverride:0).Damage256;
+                    int fire=NamedElements.Resolve256(actor,primary,hit.Fire256,"fire",enhance:false,pierceOverride:c.Passive("passive_fire_pierce")).Damage256;
+                    var parts=new DirectDamageParts(physical,0,fire,0,0);var shared=parts.Fraction(percent);int expected=resisted?shared.Physical256*75/100+shared.Fire256/2:checked((int)shared.Total);
+                    int aLife=SkillHealth.Balance256(primary),bLife=SkillHealth.Balance256(receiver),displayed=primary.Hits,events=0,mana=NecromancerEffects.ManaBalance256(caster);SkillDamageContact observed=default;
+                    void Observe(SkillDamageContact contact){events++;observed=contact;}
+                    SkillDamageEvents.BeforeDirectDamage+=Observe;
+                    try
+                    {
+                        var result=AssassinDeathSentryCorpses.Explode(actor,corpse);
+                        Require(body.Prepared.Links.Fault==null&&result.Status==DeathExplosionStatus.Success&&result.Targets==1&&result.Packet==packet&&result.AdvancedSeed==expectedSeed&&result.WholeLoss==displayed-primary.Hits
+                            &&aLife-SkillHealth.Balance256(primary)==parts.Total&&bLife-SkillHealth.Balance256(receiver)==expected&&events==1&&observed.Source==actor&&observed.Target==primary&&observed.Parts==parts&&NecromancerEffects.ManaBalance256(caster)==mana,
+                            $"Death Sentry/{mode} typed link:fault={body.Prepared.Links.Fault};primary={aLife-SkillHealth.Balance256(primary)}/{parts.Total};secondary={bLife-SkillHealth.Balance256(receiver)}/{expected};events={events};typed={observed.Parts!=null};targets={result.Targets}");
+                        Require(corpse.SanctuaryConsumed&&corpse.GetAmount(typeof(Gold))==1&&CorpseSkillRules.Profiles.Find(corpse).BaseLife.Seed==expectedSeed
+                            &&AssassinDeathSentryCorpses.Explode(actor,corpse).Status==DeathExplosionStatus.NotEligible&&bLife-SkillHealth.Balance256(receiver)==expected,"Linked explosion lost atomic corpse/seed/loot or fired twice");cases++;
+                    }
+                    finally{SkillDamageEvents.BeforeDirectDamage-=Observe;}
+                }
+                finally{corpse.Delete();}
+            }
+            Require(cases==5,"Incomplete Death Sentry/link matrix");
+        }
+        finally
+        {
+            primary.MoveToWorld(original,owner.Map);receiver.MoveToWorld(received,owner.Map);primary.SetResistance(ResistanceType.Physical,0);primary.SetResistance(ResistanceType.Fire,0);receiver.SetResistance(ResistanceType.Physical,0);receiver.SetResistance(ResistanceType.Fire,0);actor.Delete();caster.Delete();
         }
     }
     private static void Reload(NetState network)

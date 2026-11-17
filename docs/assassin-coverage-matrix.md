@@ -1,5 +1,7 @@
 # Assassin acceptance map
 
+**Death Sentry corpse-explosion Health Link compatibility repaired — 2026-11-17 JST.** [Checkpoint](sentry-explosion-link-checkpoint.md), [receipt](../tools/reference/sentry-explosion-link-native-evidence.json). The old accepted DLL reproduced full630630FP256primary damage but shared0instead of334232and faulted the link. One gameplay line now retains settled physical/fire fields through typed health delivery. C1/I4/S4/N2 passes51results,five new linked-explosion cases per boot,nine retained left/right/quick inputs and two reloads;source packet/area/AI/controller/original-save controls retain. Initial placement and whole-HP-versus-FP256 fixture failures are frozen separately. Final run has no WardrobeSet save warnings;three scalar-refusal controls are intentional. Damage formulas,corpse transaction,installed build/saves and separate assets retain. No class is certified.
+
 Reference: **D2R Reign of the Warlock 3.3.93847**, approved Sanctuary deviations first. Charms and runewords are excluded. All 30 talents have handlers; each fixture below proves only its named scope. Current combined acceptance passes 655 exact results across 189 connections, three saves and two reloads; [receipt](../tools/reference/assassin-planned-acceptance-native-evidence.json). The inputs include 102 current spell attempts, 42 legacy wire sequences and nine held-Fury sequences. No full class certificate is claimed.
 
 | Talent | Mechanical scope | Existing fixture |

@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "36db741c46e789ef8026a6f60995c6ea458630955152ca01f63f1003a52665f1",
+  "ContentAssemblySha256": "58bd9b883ca130fc0554e1be126ecadf6e177e7d828940730c8b06b0e61a2ff6",
   "NativeAssemblySha256": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
   "InputHashes": {
     "data/Sanctuary/Balance/abyss-route.json": "6c823249f73d320ba6ba4b2c538d419bc54a8cb8aaad8a605f5abf18d5911e18",
@@ -14,7 +14,7 @@
     "data/Sanctuary/Balance/blind-ai-rules.json": "744926507cc56ee2192a184deeaa7b7632a355503af43c74cb2438b9805ed876",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "d508b65371cd741f778aadf3991edd092ca72f5e23d5d2626ad9726d9a6c1d7b",
+    "data/Sanctuary/Balance/class-skill-status.json": "b8cf1931d294607f92e90dbcc541dcc47c70ac3c8a0a73b908280e7c187ed328",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "77dc2142ca806a9d6e6ed39f274ecdac247dcd5c60388512c17f5bc3e4c79c49",
@@ -373,7 +373,7 @@
     "src/Sanctuary.Content/AssassinCombat.cs": "989466e52cc3a8ae97ff0446ed103e1e629ff297568ae00eba65fc9883a68003",
     "src/Sanctuary.Content/AssassinDeathSentryAi.cs": "5aaf2160681fa1a666508eada36388c5f38113abd93861674a0246dc227c4913",
     "src/Sanctuary.Content/AssassinDeathSentryControl.cs": "4774e6954b6f89f5ba05d48cafbd1bf2140cc9068d0393893596d2c582eb0415",
-    "src/Sanctuary.Content/AssassinDeathSentryCorpses.cs": "55bd7ded7f2c4dacb3d8608714abe70cceed018a7eccb081a3a0d740a0593d1e",
+    "src/Sanctuary.Content/AssassinDeathSentryCorpses.cs": "e77b72ecf62184c8582f4851c4562f9e156b7621dc0b8352eb6d3ca8771053ae",
     "src/Sanctuary.Content/AssassinInfernoBurst.cs": "136f9e64496e6668c2fc25d2d11b6962434f81f0e23a1119c21f2b394402a7bf",
     "src/Sanctuary.Content/AssassinInfernoControl.cs": "2c925a33cf566375da684dd6b98c4d2b3813b64dd4ad23fb6756228eee61abc2",
     "src/Sanctuary.Content/AssassinSentryAi.cs": "ebd9e8d77bfef51094d1b4f777816dd07a1faf478f285f464bad89d5f406e669",

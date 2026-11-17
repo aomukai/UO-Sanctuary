@@ -78,7 +78,7 @@ internal static class AssassinDeathSentryCorpses
             var physical=NamedElements.Resolve256(actor,target,hit.Physical256,"physical",enhance:false,pierceOverride:0);
             var fire=NamedElements.Resolve256(actor,target,hit.Fire256,"fire",enhance:false,pierceOverride:firePierce);
             if(fire.Absorbed256>0){SkillHealth.Heal(target,fire.Absorbed256);}
-            int loss=SkillHealth.Damage(actor,target,checked(physical.Damage256+fire.Damage256));
+            int loss=SkillHealth.TypedDamage(actor,target,checked(physical.Damage256+fire.Damage256),new(physical.Damage256,0,fire.Damage256,0,0));
             CreatureHitRecovery.Apply(target,actor,loss);CombatDamage.Finish(target,actor);targets++;totalLoss=checked(totalLoss+loss);
         }
         Effects.SendLocationEffect(center,map,0x36BD,15); // Identified explosion placeholder.

@@ -856,6 +856,9 @@ for _talent in ('necromancer.teeth','necromancer.bonespear','necromancer.bonespi
 # Current and saved Mage spells retain their settled elemental channels.
 CAVEATS['necromancer.skeletalmage']+=' Current Fire Bolt/Ice Bolt/Charged Bolt,Glacial Spike and historical elemental bolt impacts now publish their settled channels through the shared typed health API for approved Defiler Health Link. Primary damage,intrinsic critical stream,freeze/chill,poison periodic exclusion and saved packets retain. The reproduced old-DLL failure and14normal/critical/resistant linked-Mage scenarios per boot,with retained basic/legacy/Glacial flight/original-save controls,are scoped in mage-spell-link-checkpoint.md;this does not certify the whole current class.'
 
+# Death Sentry keeps its existing post-defense physical/fire corpse split.
+CAVEATS['assassin.deathsentry']+=' Corpse explosions now publish their settled physical/fire components through shared typed health delivery,so approved Defiler Health Link shares those channels without faulting. The existing split-radius clipping,immunities,fire pierce,absorption,once-only corpse/seed/loot and NPC mana isolation retain. Five linked-explosion scenarios per boot and retained source packet/AI/controller/learned input/original-save checks are scoped in sentry-explosion-link-checkpoint.md;this is a shared-event repair,not a new damage formula or class certificate.'
+
 def planned_content_remaining(text):
     """Keep excluded charm-only mechanics out of active talent blockers."""
     if not re.search('sunder',text,re.I):return text
