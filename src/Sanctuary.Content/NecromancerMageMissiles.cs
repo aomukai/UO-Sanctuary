@@ -222,7 +222,7 @@ internal static class NecromancerMageMissiles
             var damage=SkillCombat.MitigatePrepared(actor,target,parts,damageRate);
             if(packet.Spell==CombatAbility.GlacialSpike){FreezeStates.Apply(actor,target,packet.ElementFrames,TimedEffects.TickAt(at));}
             else if(packet.Element=="cold"){ColdStates.Apply(actor,target,packet.ElementFrames,TimedEffects.TickAt(at));}
-            int loss=SkillHealth.Damage(actor,target,NamedElements.To256(damage.Total));if(recover&&target is BaseCreature creature){CreatureHitRecovery.Apply(creature,actor,loss);}CombatDamage.Finish(target,actor);
+            int loss=SkillHealth.TypedDamage(actor,target,NamedElements.To256(damage.Total),DirectDamageParts.From(damage));if(recover&&target is BaseCreature creature){CreatureHitRecovery.Apply(creature,actor,loss);}CombatDamage.Finish(target,actor);
         }
         return Math.Max(0,before-SkillHealth.Balance256(target));
     }

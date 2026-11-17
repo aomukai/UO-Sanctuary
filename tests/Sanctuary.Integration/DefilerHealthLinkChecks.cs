@@ -68,6 +68,7 @@ public static class DefilerHealthLinkChecks
             try{b.RestorePrepared(state with{Links=group with{Owner=p.Serial.Value+1}});}catch(InvalidDataException){refused=true;}
             Require(refused&&b.SavedText==text,"Malformed link ownership partially restored");
             NecromancerSpells(p,b,linked[0],victim,pct);
+            MageSpells(p,b,linked[0],victim,pct);
             before=linked.Select(SkillHealth.Balance256).ToArray();SkillHealth.Damage(p,linked[0],257);
             Require(before[0]-SkillHealth.Balance256(linked[0])==257&&before[1]==SkillHealth.Balance256(victim)
                 &&b.Prepared.Links.Fault=="Direct damage lacks settled typed components", $"Untyped damage mismatch:primary={before[0]-SkillHealth.Balance256(linked[0])},secondary={before[1]-SkillHealth.Balance256(victim)},fault={b.Prepared.Links.Fault},bodyMap={b.Map},ownerMap={p.Map}");
@@ -140,6 +141,53 @@ public static class DefilerHealthLinkChecks
         finally
         {
             receiver.SetResistance(ResistanceType.Physical,0);receiver.SetResistance(ResistanceType.Fire,0);receiver.SetResistance(ResistanceType.Cold,0);receiver.SetResistance(ResistanceType.Energy,0);NecromancerSpellMissiles.Cancel(caster);ClassCombat.Stop(caster);caster.Delete();
+        }
+    }
+    private static void MageSpells(PlayerMobile owner,WarlockDefilerBody body,BaseCreature primary,BaseCreature receiver,int percent)
+    {
+        var caster=ClassSkillChecks.Player(DiabloClass.Necromancer);caster.AddItem(new Backpack());ClassCreation.Profiles.AdvanceLevel(caster,99);caster.MoveToWorld(new(owner.X-1,owner.Y,owner.Z),owner.Map);
+        MagePetBuffChecks.Train(caster,"necromancer.skeletalmage",10);MagePetBuffChecks.Train(caster,"necromancer.skeletonmastery",5);int cases=0;
+        try
+        {
+            foreach(int element in new[]{1,2,3})
+            {
+                var mage=MagePetBuffChecks.Pet(caster,element);
+                try
+                {
+                    foreach(string route in element==1?new[]{"basic","legacy","glacial"}:new[]{"basic","legacy"})
+                    foreach(bool critical in new[]{false,true})
+                    {
+                        receiver.SetResistance(ResistanceType.Fire,critical?50:0);receiver.SetResistance(ResistanceType.Cold,critical?75:0);receiver.SetResistance(ResistanceType.Energy,critical?100:0);
+                        long id=route=="basic"?NecromancerMageMissiles.Launch(mage,primary,TimedEffects.Now):route=="legacy"?NecromancerMageMissiles.LaunchLegacy(mage,primary,TimedEffects.Now):NecromancerMageMissiles.LaunchGlacial(mage,primary,TimedEffects.Now);
+                        Require(id>0,"Mage link real flight allocation");var flight=NecromancerMageMissiles.Snapshot().Bolts.Single(x=>x.Id==id);
+                        ulong chosen=1,nextCritical=0;for(;chosen<10000;chosen++){nextCritical=chosen;if((SourceRandom.Roll(ref nextCritical)%100<5)==critical){break;}}
+                        Require(chosen<10000,"Mage link critical witness");NecromancerMageMissiles.SetActorSeed(mage,chosen);ulong damageSeed=flight.Seed;
+                        int raw=WeaponMissileDamage.RollValue(flight.Packet.Minimum256,flight.Packet.Maximum256,0,n=>(int)SourceRandom.Limited(ref damageSeed,n));if(critical){raw=checked(raw*2);}
+                        var input=flight.Packet.Element switch{"fire"=>new GearDamage(0,raw/256.0,0,0,0),"cold"=>new(0,0,raw/256.0,0,0),"ltng"=>new(0,0,0,raw/256.0,0),_=>throw new InvalidOperationException("Mage link element")};
+                        var settled=SkillCombat.MitigatePrepared(mage,primary,input);var share=DirectDamageParts.From(settled).Fraction(percent);
+                        int expected=critical?share.Fire256/2+share.Cold256/4:checked((int)share.Total),aLife=SkillHealth.Balance256(primary),bLife=SkillHealth.Balance256(receiver),events=0,ownerMana=NecromancerEffects.ManaBalance256(caster);SkillDamageContact observed=default;
+                        void Observe(SkillDamageContact contact){events++;observed=contact;}
+                        SkillDamageEvents.BeforeDirectDamage+=Observe;
+                        try
+                        {
+                            int loss=NecromancerMageMissiles.Impact(mage,primary,flight);
+                            Require(body.Prepared.Links.Fault==null&&loss==NamedElements.To256(settled.Total)&&aLife-SkillHealth.Balance256(primary)==loss&&bLife-SkillHealth.Balance256(receiver)==expected
+                                &&events==1&&observed.Source==mage&&observed.Target==primary&&observed.Parts==DirectDamageParts.From(settled)&&NecromancerMageMissiles.ActorSeed(mage).Seed==nextCritical&&NecromancerEffects.ManaBalance256(caster)==ownerMana,
+                                $"Mage {element}/{route}/critical={critical} typed link:fault={body.Prepared.Links.Fault};primary={aLife-SkillHealth.Balance256(primary)}/{NamedElements.To256(settled.Total)};secondary={bLife-SkillHealth.Balance256(receiver)}/{expected};events={events};typed={observed.Parts!=null}");cases++;
+                        }
+                        finally
+                        {
+                            SkillDamageEvents.BeforeDirectDamage-=Observe;var all=NecromancerMageMissiles.Snapshot();NecromancerMageMissiles.Restore(all with{Bolts=all.Bolts.Where(x=>x.Actor!=mage.Serial.Value).ToArray()});
+                        }
+                    }
+                }
+                finally{mage.Delete();}
+            }
+            Require(cases==14,"Incomplete Mage/link matrix");
+        }
+        finally
+        {
+            receiver.SetResistance(ResistanceType.Fire,0);receiver.SetResistance(ResistanceType.Cold,0);receiver.SetResistance(ResistanceType.Energy,0);caster.Delete();
         }
     }
     private static void Reload(NetState network)

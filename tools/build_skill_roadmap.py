@@ -853,6 +853,9 @@ for _talent in ('amazon.icearrow','amazon.freezingarrow'):
 for _talent in ('necromancer.teeth','necromancer.bonespear','necromancer.bonespirit'):
     CAVEATS[_talent]+=' Direct impacts now publish their already-settled typed components through the shared health API,so approved Defiler Health Link shares non-poison components without disabling its group. Primary damage,rolls,potion additions,recovery and poison/tick routes retain their previous rules. Reproduced scalar-baseline failure,learned spell/link components,recipient defenses,no-recursion and retained flight/input/reload controls are recorded in necro-spell-link-checkpoint.md.'
 
+# Current and saved Mage spells retain their settled elemental channels.
+CAVEATS['necromancer.skeletalmage']+=' Current Fire Bolt/Ice Bolt/Charged Bolt,Glacial Spike and historical elemental bolt impacts now publish their settled channels through the shared typed health API for approved Defiler Health Link. Primary damage,intrinsic critical stream,freeze/chill,poison periodic exclusion and saved packets retain. The reproduced old-DLL failure and14normal/critical/resistant linked-Mage scenarios per boot,with retained basic/legacy/Glacial flight/original-save controls,are scoped in mage-spell-link-checkpoint.md;this does not certify the whole current class.'
+
 def planned_content_remaining(text):
     """Keep excluded charm-only mechanics out of active talent blockers."""
     if not re.search('sunder',text,re.I):return text

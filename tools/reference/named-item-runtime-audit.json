@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "1f9b05f58c37072ff8509807dc4d5c2d92e3597143f2ea9d55cb1ef17f521440",
+  "ContentAssemblySha256": "36db741c46e789ef8026a6f60995c6ea458630955152ca01f63f1003a52665f1",
   "NativeAssemblySha256": "78773b8c96f3833c43d0d7c357903b3cbd95936eeec7d5c63c855a09532cf545",
   "InputHashes": {
     "data/Sanctuary/Balance/abyss-route.json": "6c823249f73d320ba6ba4b2c538d419bc54a8cb8aaad8a605f5abf18d5911e18",
@@ -14,7 +14,7 @@
     "data/Sanctuary/Balance/blind-ai-rules.json": "744926507cc56ee2192a184deeaa7b7632a355503af43c74cb2438b9805ed876",
     "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
     "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086",
-    "data/Sanctuary/Balance/class-skill-status.json": "c1dad9c9d2440eed0f971a9c7413a2da7bb14988e67d8be64601396c2395b424",
+    "data/Sanctuary/Balance/class-skill-status.json": "d508b65371cd741f778aadf3991edd092ca72f5e23d5d2626ad9726d9a6c1d7b",
     "data/Sanctuary/Balance/class-skills.json": "eb9d8ddfdb2809183ea8dd431b09dd2b33b823f5a8c6529994435347ee83a9d6",
     "data/Sanctuary/Balance/class-states.json": "46fc314c225f5d7413d032b495508ec1d2ff756df2b98ce0940db21f6ba70065",
     "data/Sanctuary/Balance/class-weapon-properties.json": "77dc2142ca806a9d6e6ed39f274ecdac247dcd5c60388512c17f5bc3e4c79c49",
@@ -1000,7 +1000,7 @@
     "src/Sanctuary.Content/NecromancerGolems.cs": "d53b69e32d16df200da9d8a501d0d34454694c04c9853630773536823b0955c7",
     "src/Sanctuary.Content/NecromancerGroundWorld.cs": "88c1d1cb2e04de0401f18f9e47f19c057e374eedabf33e8d62d2866f4649d9d3",
     "src/Sanctuary.Content/NecromancerMageBirth.cs": "67408668f43a428e3807665a53e2965ff30cac47c9af9a27ddd0ccf67d6ae8d5",
-    "src/Sanctuary.Content/NecromancerMageMissiles.cs": "e0db53713579d9145b7820efc3347daf76b737141a0ede866776c13c4c203f41",
+    "src/Sanctuary.Content/NecromancerMageMissiles.cs": "0b3f2e40aafe21009624d87948a0b7ca222d44b4bad706a1aeab2e7a4ac65776",
     "src/Sanctuary.Content/NecromancerPetAi.cs": "e833ed2a968b519a015d158db971074da421a64ae321685f571c5e50f07a8541",
     "src/Sanctuary.Content/NecromancerPetTargets.cs": "3e35f93ca197b822c06050891ec2f759390128b6252133bd351ea8cd7c0e40b0",
     "src/Sanctuary.Content/NecromancerSkeletonBirth.cs": "bb8b3f6ba5722744dd7cb907b50ff409b31dc1ec77befa8b5d2e5c407257b940",
