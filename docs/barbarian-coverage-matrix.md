@@ -1,6 +1,6 @@
 # Barbarian acceptance map
 
-The [War Cry/shared landing checkpoint](warcry-link-checkpoint.md) passes 57 focused results, nine existing Leap inputs and two reloads. Settled physical components now reach Health Link while War Cry preserves its block/immunity/stun order. Its missing T29 potion additions are explicitly unfinished integration, not an approved exclusion. Verify with `python3 tools/record_warcry_link.py --check`.
+The [War Cry/shared landing checkpoint](warcry-link-checkpoint.md) passes 57 focused results, nine existing Leap inputs and two reloads. Settled physical components now reach Health Link while War Cry preserves its block/immunity/stun order. The later [T29 checkpoint](warcry-potion-checkpoint.md) passes 60 results and two reloads with release-captured modifiers, live potion and original unequipped gear; legacy active-potion rays without a capture are explicitly refused. Verify with `python3 tools/record_warcry_potion.py --check`. Verify with `python3 tools/record_warcry_link.py --check`.
 
 Mechanical reference: **D2R Reign of the Warlock 3.3.93847**. Approved Sanctuary rules take precedence. All thirty talents have handlers, but handler presence and a combined native run do not certify exact modern behavior or class completion. Detailed per-skill limits remain in [the status ledger](../data/Sanctuary/Balance/class-skill-status.json).
 

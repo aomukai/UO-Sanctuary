@@ -79,6 +79,7 @@ public static class DefilerHealthLinkChecks
             DruidPetLinkChecks.Run(p,b,linked[0],victim,pct);
             ArmageddonLinkChecks.Run(p,b,linked[0],victim,pct);
             WarCryLinkChecks.Run(p,b,linked[0],victim,pct);
+            WarCryPotionChecks.Links(p,b,linked[0],victim,pct);
             before=linked.Select(SkillHealth.Balance256).ToArray();SkillHealth.Damage(p,linked[0],257);
             Require(before[0]-SkillHealth.Balance256(linked[0])==257&&before[1]==SkillHealth.Balance256(victim)
                 &&b.Prepared.Links.Fault=="Direct damage lacks settled typed components", $"Untyped damage mismatch:primary={before[0]-SkillHealth.Balance256(linked[0])},secondary={before[1]-SkillHealth.Balance256(victim)},fault={b.Prepared.Links.Fault},bodyMap={b.Map},ownerMap={p.Map}");

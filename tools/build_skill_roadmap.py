@@ -903,7 +903,7 @@ for _talent in ('barbarian.warcry','barbarian.leapattack'):
     _notes=BLOCKERS if _talent in BLOCKERS else CAVEATS
     _notes[_talent]=_notes.get(_talent,'')+' Known physical spell components now reach approved Defiler Health Link through the existing shared War Cry/Leap landing receiver. Ten controlled contexts per boot retain primary/recipient resistance,block,immunity and stun-before-health rules;existing War Cry cast/ray/source/save and Leap actual landing/input/sequence scopes are in warcry-link-checkpoint.md. Damage,RNG,timing and payment retain;no whole-class or asset certificate.'
 _notes=BLOCKERS if 'barbarian.warcry' in BLOCKERS else CAVEATS
-_notes['barbarian.warcry']+=' Known remaining T29 integration gap:War Cry currently adds no Magical Penetration components despite the generic spell rule;this is not an approved exclusion. Its potion integration must be separate from the shared Leap weapon-skill recipient.'
+_notes['barbarian.warcry']+=' T29 potion integration now uses release-captured elemental modifiers and live contact-time potion,with independently mitigated additions and no added chill/poison status. Shared Leap landing remains unchanged. Old v0 rays omit the optional capture and retain pure physical behavior without the potion;active-potion contacts lacking old mastery are explicitly refused before damage/stun. New-field invalid restores preflight atomically. Original unequipped gear/captured ray,wounds/fractional mana and two reloads are in warcry-potion-checkpoint.md;exact modern/general old-binary upgrades remain separate.'
 
 def planned_content_remaining(text):
     """Keep excluded charm-only mechanics out of active talent blockers."""

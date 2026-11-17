@@ -8,6 +8,7 @@ namespace Sanctuary;
 
 public static class BarbarianWarCry
 {
+    private static readonly Server.Logging.ILogger Log=Server.Logging.LogFactory.GetLogger(typeof(BarbarianWarCry));
     internal static Func<int,int> Roll=Utility.Random;
     public static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now)=>SkillCombat.Begin(owner,CombatAbility.WarCry,selected,point,now,(p,_,_,_)=>BarbarianShout.ValidCast(p));
     public static bool Release(PlayerMobile owner)
@@ -26,12 +27,16 @@ public static class BarbarianWarCry
     internal static bool Hit(PlayerMobile owner,Mobile target,ShoutRay ray)
     {
         if(ray.MinDamage256 is not{} min||ray.MaxDamage256 is not{} max){return false;}
+        int potion=CombatPotions.BonusAt(owner,"magical-penetration",ray.NextUtc);
+        if(ray.Modifiers==null&&potion!=0)
+        {Log.Warning("Legacy War Cry ray {Id} lacks captured mastery for active Magical Penetration;contact refused",ray.Id);return false;}
+        var modifiers=ray.Modifiers is{} captured?captured with{Potion=potion}:null;
         return PhysicalHit(owner,target,min,max,Roll,creature=>
-            CombatStuns.Apply(creature,(int)SkillMechanics.Values(owner,CombatAbility.WarCry,ray.Rank).Eval("calc4"),ray.NextUtc));
+            CombatStuns.Apply(creature,(int)SkillMechanics.Values(owner,CombatAbility.WarCry,ray.Rank).Eval("calc4"),ray.NextUtc),modifiers);
     }
     // Shared weapon-independent physical spell path; optional control occurs
     // after block/absorption and before health,retaining War Cry's event order.
-    internal static bool PhysicalHit(PlayerMobile owner,Mobile target,int min,int max,Func<int,int> roll,Action<BaseCreature> beforeHealth=null)
+    internal static bool PhysicalHit(PlayerMobile owner,Mobile target,int min,int max,Func<int,int> roll,Action<BaseCreature> beforeHealth=null,FirestormModifiers modifiers=null)
     {
         // PvP, unmapped monsters and nonzero passive dodge/weapon-block adapters
         // remain acceptance work; do not infer them from native UO armor.
@@ -45,7 +50,9 @@ public static class BarbarianWarCry
         // Reuse prepared mitigation/FP health; SrcDam0 supplies no weapon/ED,
         // critical, crushing, leech, enchantment or on-strike proc component.
         // DAMAGE_VS_MONTYPE layers are a separately recorded unsupported branch.
-        var parts=SkillCombat.MitigatePrepared(owner,target,new(damage/256.0,0,0,0,0));
+        var packet=new GearDamage(damage/256.0,0,0,0,0);
+        if(modifiers!=null){packet=DruidMoltenBoulder.Potion(modifiers,packet);}
+        var parts=SkillCombat.MitigatePrepared(owner,target,packet);
         // ExecuteEvents reaches stun even when physical resistance removes all
         // damage. A blocked hit never enters that event path.
         beforeHealth?.Invoke(creature);

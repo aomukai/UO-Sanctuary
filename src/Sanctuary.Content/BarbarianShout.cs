@@ -10,7 +10,12 @@ using Server.Spells;
 namespace Sanctuary;
 
 public sealed record ShoutState(uint Recipient,uint Creator,uint Supplier,int Rank,int DefensePercent,DateTime UntilUtc);
-public sealed record ShoutRay(long Id,uint Owner,int Map,int Rank,int Ray,double X,double Y,int Z,int Frame,int Velocity,int AccelerationCounter,DateTime UntilUtc,DateTime NextUtc,CombatAbility Ability=CombatAbility.Shout,uint LastCollision=0,int? Acceleration=null,int? MinDamage256=null,int? MaxDamage256=null);
+public sealed record ShoutRay(long Id,uint Owner,int Map,int Rank,int Ray,double X,double Y,int Z,int Frame,int Velocity,int AccelerationCounter,DateTime UntilUtc,DateTime NextUtc,CombatAbility Ability=CombatAbility.Shout,uint LastCollision=0,int? Acceleration=null,int? MinDamage256=null,int? MaxDamage256=null)
+{
+    // Missing in older v0 rays; never infer historical elemental bonuses.
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public FirestormModifiers Modifiers{get;init;}
+}
 public sealed record WarcryDelay(CombatAbility Ability,uint Recipient,DateTime UntilUtc);
 public sealed record ShoutSave(ShoutState[] States,ShoutRay[] Rays,WarcryDelay[] Delays=null);
 public sealed class ShoutProfiles:GenericPersistence
@@ -67,13 +72,14 @@ public static class BarbarianShout
     }
     internal static void Cast(PlayerMobile owner,SkillValues values,DateTime at,CombatAbility ability=CombatAbility.Shout)
     {
+        var modifiers=ability==CombatAbility.WarCry?DruidFirestorm.Modifiers(owner) with{Potion=0}:null;
         for(int ray=0;ray<64;ray++)
         {
             long id=++_next;
             _rays.Add(id,new(id,owner.Serial.Value,owner.Map.MapID,values.Rank,ray,owner.X,owner.Y,owner.Z,0,
                 ((NecromancerSummons.Source(Missile(ability),"Vel")+(ability==CombatAbility.Howl?(int)values.Eval("calc1"):0))<<8)*75/100,0,at.AddMilliseconds(NecromancerSummons.Source(Missile(ability),"Range")*40),at,ability,
                 NecromancerSummons.Source(Missile(ability),"LastCollide")!=0?owner.Serial.Value:0,null,
-                ability==CombatAbility.WarCry?values.PhysicalDamage256(false):null,ability==CombatAbility.WarCry?values.PhysicalDamage256(true):null));
+                ability==CombatAbility.WarCry?values.PhysicalDamage256(false):null,ability==CombatAbility.WarCry?values.PhysicalDamage256(true):null){Modifiers=modifiers});
         }
         if(ability==CombatAbility.BattleCommand){BattleCommand.Apply(owner,owner,values.Rank,at);}else if(ability==CombatAbility.BattleOrders){BattleOrders.Apply(owner,owner,values.Rank,at);}else if(ability==CombatAbility.Shout){Apply(owner,owner,values.Rank,at);}
         owner.FixedEffect(0x375A,10,10,0x481,0);owner.PlaySound(0x1E5); // Identified UO placeholders; final cry/wave/state assets pending.
@@ -167,6 +173,9 @@ public static class BarbarianShout
     public static void Restore(ShoutSave saved)
     {
         if(saved?.States==null || saved.Rays==null){throw new InvalidDataException("Missing Shout state");}
+        // Preflight the optional supplement before changing any active pool.
+        foreach(var ray in saved.Rays)
+        {if(ray?.Modifiers is{} modifiers&&(ray.Ability!=CombatAbility.WarCry||modifiers.Potion!=0)){throw new InvalidDataException("Invalid War Cry potion capture");}}
         _states.Clear();_rays.Clear();_delays.Clear();_next=0;
         foreach(var state in saved.States)
         {if(state.Recipient==0 || state.Creator==0 || state.Supplier==0 || state.Rank<1 || state.DefensePercent<0 || !_states.TryAdd(state.Recipient,state)){throw new InvalidDataException("Invalid Shout recipient");}}
