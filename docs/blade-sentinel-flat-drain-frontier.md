@@ -1,5 +1,7 @@
 # Blade Sentinel flat-drain boundary
 
+**Typed-contact compatibility repaired — 2026-11-17 JST.** Actual Stealskull learned casts reproduced the missing Health Link share. Sentinel now follows the existing ordinary-NPC contract: preserve the full primary total, publish only known settled components, and leave extra flat drain unclassified and outside the copied packet. Focused48 and retained147 results with two reloads qualify this repair. Exact modern drain semantics remain uncertain. See the [current checkpoint](sentinel-stealskull-link-checkpoint.md). The source audit and text below are the preserved pre-fix finding, not current runtime behavior.
+
 **Reachable, unresolved — 2026-11-17 JST.** This is a current production-data audit, not a new mechanical approval or a native cast receipt. The mechanical reference remains D2R 3.3.93847; the newer installed client/CASC was not read.
 
 The player-stage collector in `BladeSentinelLaunch.Capture` calls `BowLaunch.WeaponElements`. That collector includes the player's `life-steal%` and stealing-potion bonus in `MissileSourceStats.LifeDrain`. `BladeSentinelPackets.FromSource` and `BowLaunch.FromSource` then apply the pinned SrcDam value, including the existing two-handed division. `MissileSourceStats.Scale` scales the drain field as well as the damage fields.

@@ -59,7 +59,8 @@ internal static class BladeLinkChecks
             var state=body.Prepared;var unknown=missile with{Damage=missile.Damage with{Elements=missile.Damage.Elements with{LifeDrain=7}}};int before=SkillHealth.Balance256(receiver),hp=SkillHealth.Balance256(primary);var expectedRaw=unknown.Damage.Roll(primary,_=>0,out _);var expectedParts=SkillCombat.MitigatePrepared(blade,primary,expectedRaw with{Poison=0});
             try
             {
-                Sentinel(blade,primary,unknown);Require(body.Prepared.Links.Fault=="Direct damage lacks settled typed components"&&SkillHealth.Balance256(receiver)==before&&hp-SkillHealth.Balance256(primary)==NamedElements.To256(expectedParts.Total)+7,"Unclassified flat NPC LifeDrain invented a shared channel or changed primary damage");
+                var typed=DirectDamageParts.From(expectedParts);int shared=checked((int)typed.Fraction(percent).Total);
+                Sentinel(blade,primary,unknown);Require(body.Prepared.Links.Fault==null&&before-SkillHealth.Balance256(receiver)==shared&&hp-SkillHealth.Balance256(primary)==NamedElements.To256(expectedParts.Total)+7,"Known Sentinel components failed to share or flat NPC drain changed its primary total/classification");
             }
             finally{body.RestorePrepared(state);TimedEffects.Clear(primary);}
             Require(cases==9,"Incomplete Blade link matrix");
