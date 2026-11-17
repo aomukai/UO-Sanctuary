@@ -52,7 +52,7 @@ public static class MultipleShotContactChecks
             {
                 Ready(p);var t=MagicArrowContactChecks.Target(p);var second=name=="pierce"?MagicArrowContactChecks.Target(p,6):null;Item belt=null;
                 if(name=="immune"){t.SetResistance(ResistanceType.Poison,100);}if(name=="physical"){t.SetResistance(ResistanceType.Physical,0);}WeaponMissiles.HitRoll=()=>name=="miss"?1:0;SourceBlocking.BlockRoll=n=>{Require(!TimedEffects.CanRegenerateHits(t),"Fan accuracy PMH did not precede block");return name=="block"?0:n-1;};
-                if(name=="pierce"){belt=DruidSetupItemChecks.Named(p,"Razortail");AmazonBow.LaunchRandom=new Minimum();}
+                if(name=="pierce"){belt=DruidSetupItemChecks.Named(p,"Razortail");AmazonBow.LaunchRandom=new Minimum();PlayerPierceFixtures.NextBudget(p,4);}
                 visits.Clear();expected.Clear();NpcWorldAllocation.RequireStream();var world=NpcWorldAllocation.Capture();var profile=Own(p,bow);int mana=NecromancerEffects.ManaBalance256(p),before=SkillHealth.Balance256(t),quantity=Ammo(p).Amount,cost=SkillMechanics.Values(p,CombatAbility.MultipleShot).Mana256;
                 try
                 {

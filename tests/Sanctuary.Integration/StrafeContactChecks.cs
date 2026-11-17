@@ -58,7 +58,7 @@ public static class StrafeContactChecks
             foreach(string name in new[]{"hit","miss","block","immune","removed","physical","lethal","armor","pierce","gap-delay","gap-expiry","independent-casts"})
             {
                 Ready(p);var launchRandom=AmazonBow.LaunchRandom;var t=MagicArrowContactChecks.Target(p);var second=name=="pierce"?MagicArrowContactChecks.Target(p,6):null;Item belt=null;if(name=="immune"){t.SetResistance(ResistanceType.Poison,100);}if(name=="physical"){t.SetResistance(ResistanceType.Physical,0);}if(name=="lethal"){SkillHealth.SetBalance256(t,1);}WeaponMissiles.HitRoll=()=>name=="miss"?1:0;SourceBlocking.BlockRoll=n=>name=="block"?0:n-1;
-                if(name=="pierce"){belt=DruidSetupItemChecks.Named(p,"Razortail");AmazonBow.LaunchRandom=new Minimum();}
+                if(name=="pierce"){belt=DruidSetupItemChecks.Named(p,"Razortail");AmazonBow.LaunchRandom=new Minimum();PlayerPierceFixtures.NextBudget(p,4);}
                 int before=SkillHealth.Balance256(t),mana=NecromancerEffects.ManaBalance256(p),quantity=Ammo(p).Amount,cost=SkillMechanics.Values(p,Ability).Mana256;visits.Clear();expected.Clear();NpcWorldAllocation.RequireStream();var world=NpcWorldAllocation.Capture();var profile=Own(p,bow);
                 try
                 {

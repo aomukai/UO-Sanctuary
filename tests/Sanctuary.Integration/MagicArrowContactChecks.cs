@@ -73,7 +73,7 @@ public static class MagicArrowContactChecks
                 Ready(p);var t=Target(p);var second=scenario=="pierce"?Target(p,6):null;Item belt=null;bool armor=scenario.Contains("armor"),blocked=scenario is "block" or "blocked-armor",suppressed=scenario.StartsWith("suppressed");
                 if(scenario=="immune"){t.SetResistance(ResistanceType.Poison,100);}if(scenario=="physical"){t.SetResistance(ResistanceType.Physical,0);t.SetResistance(ResistanceType.Energy,100);}
                 if(scenario=="lethal"){SkillHealth.SetBalance256(t,1);}WeaponMissiles.HitRoll=()=>scenario=="miss"?1:0;SourceBlocking.BlockRoll=n=>{Require(!TimedEffects.CanRegenerateHits(t),"Accuracy PMH did not precede block");return blocked?0:n-1;};
-                if(scenario=="pierce"){belt=DruidSetupItemChecks.Named(p,"Razortail");AmazonBow.LaunchRandom=new Low();}
+                if(scenario=="pierce"){belt=DruidSetupItemChecks.Named(p,"Razortail");AmazonBow.LaunchRandom=new Low();PlayerPierceFixtures.NextBudget(p,4);}
                 visits.Clear();expectedTargets.Clear();NpcWorldAllocation.RequireStream();var world=NpcWorldAllocation.Capture();var profile=Own(p,bow);int mana=NecromancerEffects.ManaBalance256(p),before=SkillHealth.Balance256(t),cost=SkillMechanics.Values(p,CombatAbility.MagicArrow).Mana256;
                 try
                 {

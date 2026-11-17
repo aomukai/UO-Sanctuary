@@ -1,0 +1,13 @@
+{
+  "referenceVersion": "3.3.93847",
+  "approved": true,
+  "answer": "Adopt the tested Impale rule (Recommended)",
+  "approvedUtc": "2026-11-17T13:07:17.874777+00:00",
+  "questionItemId": "[\"request_user_input_async\",\"call_a1bbb110ff71429491defb6045a5c1d1\",0]",
+  "proposal": "docs/impale-defense-policy-proposal.md",
+  "proposalAtApprovalSha256": "ccc3dd6c522864a5f16e70d09e6c14ee662f1b205f10b1aa77a6a7692f1cace4",
+  "proposalCommitAtApproval": "c8bb26521445938664546587331806ff9dba2e48",
+  "testedCandidateEvidence": "tools/reference/impale-defense-policy-native-evidence.json",
+  "testedCandidateEvidenceSha256": "e62843ab0cb8fc5aa180bf244d90cf368c9717146700664992353f23b43d30ed",
+  "scope": "Paid Impale bypasses accuracy and shield/Dodge/Avoid/Weapon Block resolution. Resistance,absorption,immunity,recipient admission,range/LOS and target/source validity remain. Existing start payment,pre/post special-wear capture,ordinary wear,uninterruptible action,cancellation and slow order retain;no refund. Insufficient mana uses ordinary accuracy and supported defenses,without Impale cost/special wear/slow. No additional recipient or PvP route is admitted. This adopts existing tested behavior;exact D2R defense handling remains unverified."
+}

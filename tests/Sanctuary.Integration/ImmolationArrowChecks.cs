@@ -154,7 +154,7 @@ public static class ImmolationArrowChecks
             var wall=new Static(0x80);target=Enemy(p,4);try{var shot=Cast(p);wall.MoveToWorld(new(p.X+2,p.Y,p.Z),p.Map);int hp=SkillHealth.Balance256(target);Contact(p);Require(Own(p).Length==0 && SkillHealth.Balance256(target)==hp-shot.Damage.Elements.FireMin,"Wall AlwaysExplode immediate area/source no LOS");}finally{wall.Delete();Clean(p);target.Delete();}
             Mana(p);var last=Cast(p);Contact(p);Require(Own(p).Length==0 && Fields(p).Any(x=>Math.Abs(x.X-(Math.Floor((p.X+last.Vx*40)*2)/2))<.01),"Lifetime disc position");Clean(p);
             Train(p,CombatAbility.Pierce);Mana(p);var first=Enemy(p,5);var second=Enemy(p,8);try
-            {var shot=Cast(p);Require(shot.Pierces==4,"Learned Pierce budget");for(int i=0;i<100 && Own(p).Length>0;i++){WeaponMissiles.Tick(Own(p)[0].NextUtc);}Require(Fields(p).Length==87,"Pierce contacts/lifetime did not emit independent29-cell discs");}
+            {uint pierceIndex=PlayerPierceFixtures.NextBudget(p,4);var shot=Cast(p);Require(shot.Pierces==4&&PlayerPierceActions.Index(p)==pierceIndex,"Learned Pierce budget/index");for(int i=0;i<100 && Own(p).Length>0;i++){WeaponMissiles.Tick(Own(p)[0].NextUtc);}Require(Fields(p).Length==87,"Pierce contacts/lifetime did not emit independent29-cell discs");}
             finally{Clean(p);first.Delete();second.Delete();}
         }finally{Clean(p);p.Delete();}
     }

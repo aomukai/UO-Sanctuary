@@ -1,8 +1,8 @@
 # Impale paid-hit defense proposal
 
-**Pending approval.** Reference: D2R Reign of the Warlock **3.3.93847**, approved Sanctuary deviations first. This proposal formalizes the existing implementation; it does not claim that modern D2R shield or avoidance behavior has been recovered.
+**Approved — 2026-11-17 JST.** [Decision record](../tools/reference/impale-defense-policy-approval.json). Reference: D2R Reign of the Warlock **3.3.93847**, approved Sanctuary deviations first. This proposal formalizes the existing implementation; it does not claim that modern D2R shield or avoidance behavior has been recovered.
 
-Proposed Sanctuary rule:
+Approved Sanctuary rule:
 
 - A paid Impale uses automatic accuracy and does not roll shield block, Dodge, Avoid or Weapon Block. Its prepared result remains Successful/GetHit with HitFlags1.
 - Resistance, absorption, immunity, recipient admission, range/LOS and owner/target validity keep their existing checks. This grants no new PvP or unsupported-recipient route.
@@ -15,4 +15,4 @@ The prepared test adds an explicit defense case to the existing Impale contact m
 
 Native dodge-bearing player/pet recipients are not newly admitted or claimed as tested. The bypass of the shared defense resolver is established by the existing forced-result source branch; the native negative control specifically exercises a mapped monster shield.
 
-Integration build1/source snapshot1/native run1 passed **123 results,36 retained wire inputs,38 connections,three saves and two reloads**,with zero build warnings/errors and no failed attempt. One existing WardrobeSet deletion-at-save warning remains recorded. [Native receipt](../tools/reference/impale-defense-policy-native-evidence.json). The concrete rule remains **pending explicit approval**;preparation leaves gameplay unchanged. Accepted assemblies and immutable evidence are durably archived under `/home/aomukai/Sanctuary-checkpoint-archives/revive-respec/impale-defense-policy`. Final effects/audio and talent/hotkey icons remain the existing separately listed placeholders. No production C#, runtime data, persistence version, installed build or existing saves are changed by preparing this proposal.
+Integration build1/source snapshot1/native run1 passed **123 results,36 retained wire inputs,38 connections,three saves and two reloads**,with zero build warnings/errors and no failed attempt. One existing WardrobeSet deletion-at-save warning remains recorded. [Native receipt](../tools/reference/impale-defense-policy-native-evidence.json). The user has adopted this concrete rule. Existing gameplay already implements it; no activation gate or combat-code change is required. Current-build focused qualification follows under the approved rule. Accepted assemblies and immutable evidence are durably archived under `/home/aomukai/Sanctuary-checkpoint-archives/revive-respec/impale-defense-policy`. Final effects/audio and talent/hotkey icons remain the existing separately listed placeholders. No production C#, runtime data, persistence version, installed build or existing saves are changed by preparing this proposal.

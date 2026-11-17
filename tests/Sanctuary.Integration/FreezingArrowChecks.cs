@@ -159,7 +159,7 @@ public static class FreezingArrowChecks
             Mana(p);var lifetime=Cast(p);var end=Contact(p);Require(Own(p).Length==0 && Math.Abs(end.X-(p.X+lifetime.Vx*lifetime.Frames))<.01,$"Lifetime explosion position: end={end.X},{end.Y} expected={p.X+lifetime.Vx*lifetime.Frames},{p.Y+lifetime.Vy*lifetime.Frames}");WeaponMissiles.Cancel(p);
             Train(p,CombatAbility.Pierce);Mana(p);var first=Enemy(p,5);var second=Enemy(p,8);try
             {
-                var shot=Cast(p);Require(shot.Pierces==4,"Pierce preroll cap");var ids=new System.Collections.Generic.HashSet<long>();
+                uint pierceIndex=PlayerPierceFixtures.NextBudget(p,4);var shot=Cast(p);Require(shot.Pierces==4&&PlayerPierceActions.Index(p)==pierceIndex,"Pierce budget/index");var ids=new System.Collections.Generic.HashSet<long>();
                 for(int i=0;i<100 && Own(p).Length>0;i++){WeaponMissiles.Tick(Own(p)[0].NextUtc);foreach(var b in Blasts(p)){ids.Add(b.Id);}}
                 Require(ids.Count==3,"Piercing contacts/lifetime did not create separate children");
             }finally{WeaponMissiles.Cancel(p);first.Delete();second.Delete();}
