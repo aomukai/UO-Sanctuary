@@ -35,7 +35,7 @@ internal static class ApocalypseImpact
         int damage=NamedElements.To256(parts.Total);
         owner.DoHarmful(target,true);
         if(absorbed>0){SkillHealth.Heal(target,absorbed);}
-        int lost=SkillHealth.Damage(owner,target,damage);
+        int lost=SkillHealth.TypedDamage(owner,target,damage,DirectDamageParts.From(parts));
         if(!target.Deleted){target.FixedEffect(0x36D4,10,10);} // Identified Apocalypse recipient placeholder.
         return new(true,lost,damage);
     }

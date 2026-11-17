@@ -905,6 +905,11 @@ for _talent in ('barbarian.warcry','barbarian.leapattack'):
 _notes=BLOCKERS if 'barbarian.warcry' in BLOCKERS else CAVEATS
 _notes['barbarian.warcry']+=' T29 potion integration now uses release-captured elemental modifiers and live contact-time potion,with independently mitigated additions and no added chill/poison status. Shared Leap landing remains unchanged. Old v0 rays omit the optional capture and retain pure physical behavior without the potion;active-potion contacts lacking old mastery are explicitly refused before damage/stun. New-field invalid restores preflight atomically. Original unequipped gear/captured ray,wounds/fractional mana and two reloads are in warcry-potion-checkpoint.md;exact modern/general old-binary upgrades remain separate.'
 
+# Preserve the last known Warlock direct packets,including suppressed roots.
+for _talent in ('warlock.apocalypse','warlock.bladewarp','warlock.hexpurge','warlock.sigildeath'):
+    _notes=BLOCKERS if _talent in BLOCKERS else CAVEATS
+    _notes[_talent]=_notes.get(_talent,'')+' Existing settled non-poison components now reach approved Defiler Health Link. Purge and Sigil Death opt their root direct health notifications into delivery inside existing item suppression;secondary shares and Purge/item recursion remain suppressed. Eighteen controlled contexts per boot plus affected source/cast/input/corpse/charge/loot/original-save scopes are in warlock-direct-link-checkpoint.md. Primary damage,capture/RNG,temporary resistance,absorption,once-only claims,resources and assets retain;no whole-class certificate.'
+
 def planned_content_remaining(text):
     """Keep excluded charm-only mechanics out of active talent blockers."""
     if not re.search('sunder',text,re.I):return text

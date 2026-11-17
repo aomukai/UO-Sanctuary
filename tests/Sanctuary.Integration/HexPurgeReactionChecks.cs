@@ -62,7 +62,12 @@ public static class HexPurgeReactionChecks
         var targets=new[]{Enemy(owner,8),Enemy(owner,10),Enemy(owner,11),Enemy(owner,10,1),Enemy(owner,8,2),Enemy(owner,16),Enemy(owner,8,1)};
         var t=targets[0];var near=targets[1];var attacker=targets[5];var witch=Fresh(true,owner);
         var walls=new List<Item>();HexPurgeBurst last=default;int notifications=0;bool actions=true;
-        void Contact(SkillDamageContact c){notifications++;last=HexPurgeReactionProposal.OnDamagePrepared(c,TimedEffects.Now,actions);}
+        void Contact(SkillDamageContact c)
+        {
+            if(!CombatItemEvents.Allowed(c.Source,c.Target))
+            {Require(!HexPurgeReactionProposal.OnDamagePrepared(c,TimedEffects.Now,actions).Triggered,"Suppressed typed health notification recursively reacted");return;}
+            notifications++;last=HexPurgeReactionProposal.OnDamagePrepared(c,TimedEffects.Now,actions);
+        }
         SkillDamageEvents.BeforeDirectDamage+=Contact;
         try
         {

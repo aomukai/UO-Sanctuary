@@ -115,7 +115,7 @@ internal static class SigilDeathProposal
             // Consumption can delete an empty corpse; keep the captured center.
             if(!SourceDamageAreas.Recipient(owner,t,map.MapID,center.X*2,center.Y*2,center.Z,8,true,center)){continue;}
             using(CombatItemEvents.Suppress(owner,t))
-            {owner.DoHarmful(t,true);var parts=SkillCombat.MitigatePrepared(owner,t,raw);SkillHealth.Damage(owner,t,NamedElements.To256(parts.Total));}
+            {owner.DoHarmful(t,true);var parts=SkillCombat.MitigatePrepared(owner,t,raw);SkillHealth.TypedDamage(owner,t,NamedElements.To256(parts.Total),DirectDamageParts.From(parts),notifySuppressedDirect:true);}
             applied++;
         }
         Effects.SendLocationEffect(center,map,0x36BD,15); // Identified Death explosion placeholder.

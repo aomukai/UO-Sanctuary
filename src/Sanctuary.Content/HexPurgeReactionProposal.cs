@@ -88,7 +88,7 @@ internal static class HexPurgeReactionProposal
             using(CombatItemEvents.Suppress(owner,recipient))
             {
                 owner.DoHarmful(recipient,true);var parts=SkillCombat.MitigatePrepared(owner,recipient,raw);
-                SkillHealth.Damage(owner,recipient,NamedElements.To256(parts.Total));
+                SkillHealth.TypedDamage(owner,recipient,NamedElements.To256(parts.Total),DirectDamageParts.From(parts),notifySuppressedDirect:true);
                 if(!recipient.Deleted){recipient.FixedEffect(0x375A,5,5,0x48E,0);} // Identified explosion placeholder.
             }
             applied++;

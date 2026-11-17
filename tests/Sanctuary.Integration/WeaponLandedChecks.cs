@@ -41,6 +41,8 @@ public static class WeaponLandedChecks
         }
         void Damage(SkillDamageContact c)
         {
+            if(!CombatItemEvents.Allowed(c.Source,c.Target))
+            {Require(!HexPurgeReactionProposal.OnDamagePrepared(c,TimedEffects.Now,true).Triggered,"Suppressed health notification triggered a landed reaction");return;}
             if(!expectMark){Require(HexPurge.Debuff(target)==null,"Unrelated spell attached a mark");damage++;return;}
             Require(c.Target==target&&HexPurge.Debuff(target)?.Reaction!=null,"Damage arrived before the applying hit's mark");
             trace.Add("damage");damage++;packet256=c.Damage256;burst=HexPurgeReactionProposal.OnDamagePrepared(c,TimedEffects.Now,true);

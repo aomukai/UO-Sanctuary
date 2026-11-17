@@ -80,14 +80,14 @@ public static class HexPurgeCastChecks
     private static void Events(PlayerMobile p,CleaveActionTarget target)
     {
         var near=Enemy(p,3);var hit=CleaveActionProposal.HitRoll;var block=SourceBlocking.BlockRoll;var seed=HexPurgeEvents.InitialSeed;
-        int seedCalls=0,packets=0,packet256=0;HexPurgeEvents.InitialSeed=()=>{seedCalls++;return Seed(0);};CleaveActionProposal.HitRoll=()=>0;SourceBlocking.BlockRoll=n=>n-1;
-        void Observe(SkillDamageContact c){if(c.Target==target){packets++;packet256=c.Damage256;}}
+        int seedCalls=0,packets=0,suppressedPackets=0,packet256=0;HexPurgeEvents.InitialSeed=()=>{seedCalls++;return Seed(0);};CleaveActionProposal.HitRoll=()=>0;SourceBlocking.BlockRoll=n=>n-1;
+        void Observe(SkillDamageContact c){if(c.Target==target){if(!CombatItemEvents.Allowed(c.Source,c.Target)){suppressedPackets++;return;}packets++;packet256=c.Damage256;}}
         SkillDamageEvents.BeforeDirectDamage+=Observe;
         try
         {
             HexPurge.ClearDebuff(target);int hp=SkillHealth.Balance256(target),other=SkillHealth.Balance256(near);Ready(p);
             var a=CleaveActionProposal.BeginPrepared(p,target.Serial,target.Location,Core.TickCount);Require(a!=null,"Purge Cleave start");CleaveActionProposal.Advance(a,a.EffectAt);ClassCombat.Stop(p);
-            Require(a.Fault==null&&a.Successful==1&&packets==1&&packet256>0&&hp-SkillHealth.Balance256(target)>packet256&&SkillHealth.Balance256(near)<other
+            Require(a.Fault==null&&a.Successful==1&&packets==1&&suppressedPackets==1&&packet256>0&&hp-SkillHealth.Balance256(target)>packet256&&SkillHealth.Balance256(near)<other
                 &&HexPurge.Debuff(target)?.Reaction.RemainingCharges==2&&seedCalls==1,
                 $"Automatic Cleave applying-hit reaction/order/one charge: fault={a.Fault}, hits={a.Successful}, packets={packets}, packet={packet256}, loss={hp-SkillHealth.Balance256(target)}, near={other-SkillHealth.Balance256(near)}, charges={HexPurge.Debuff(target)?.Reaction.RemainingCharges}, seeds={seedCalls}");
             var mark=HexPurge.Debuff(target);Require(mark.Plan.Rank==HexPurge.Buff(p).Rank&&mark.Reaction.Modifiers==DruidFirestorm.Modifiers(p)&&mark.Reaction.MagicMastery==NamedElements.MasteryPercent(p,"mag"),"Purge attachment capture");

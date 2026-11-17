@@ -80,7 +80,7 @@ internal static class BladeWarp
         {
             if(!Enemy(p,target,center.Z)||ClassAvoidance.Missile(target)){continue;}
             p.DoHarmful(target,true);var parts=SkillCombat.MitigatePrepared(p,target,raw);
-            int loss=SkillHealth.Damage(p,target,NamedElements.To256(parts.Total));
+            int loss=SkillHealth.TypedDamage(p,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));
             if(target is BaseCreature npc){CreatureHitRecovery.Apply(npc,p,loss);}
         }
         Effects.SendLocationEffect(center,map,0x36BD,12,10,0x48D,0); // Blade Warp magic impact placeholder.
