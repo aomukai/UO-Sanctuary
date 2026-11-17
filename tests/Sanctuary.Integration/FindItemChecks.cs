@@ -30,7 +30,7 @@ public static class FindItemChecks
     {try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     private static void Require(bool value,string why){if(!value){throw new InvalidOperationException(why);}}
     private static void Later(int ms,Action action)=>Timer.StartTimer(TimeSpan.FromMilliseconds(Math.Max(1,ms)),()=>{try{action();}catch(Exception e){Log.Error(e,"find-item-result: failed");}});
-    private static PlayerMobile Fresh()
+    internal static PlayerMobile Fresh()
     {
         PlayerMobile owner;_creating=true;try{owner=new PlayerMobile{Body=0x190,Name="FindItemFixture",Player=true};}finally{_creating=false;}
         owner.AddItem(new Backpack());ClassCreation.Profiles.Assign(owner,DiabloClass.Barbarian);ClassCreation.Profiles.AdvanceLevel(owner,99);

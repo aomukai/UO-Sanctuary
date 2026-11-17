@@ -14,14 +14,22 @@ public static class BarbarianFindItem
     internal static bool ValidTarget(PlayerMobile owner,Serial selected)
     {
         var corpse=World.FindItem(selected) as Corpse;
-        // Retains the current shared native corpse-access footprint. Modern
-        // input/auto-approach and exact h2h/shift range remain acceptance work.
-        return CorpseSkillRules.Usable(owner,corpse,SkeletonPets.Range)
+        // Approved Sanctuary reach and eligibility. Capture already excludes
+        // source/native bosses and unsupported encounter/loot contexts.
+        return corpse is{QuestItem:false} && CorpseSkillRules.Usable(owner,corpse,SkeletonPets.Range)
             && CorpseSkillRules.Profiles.Find(corpse).Treasure is{} context && CreatureGold.HasTreasureClass(context.TreasureClass)
             && SpellHelper.CheckTown(owner.Location,owner) && SpellHelper.CheckTown(corpse.Location,owner);
     }
+    internal static Corpse Acquire(PlayerMobile owner,Point3D cursor)
+        =>NearClickTargets.AcquireCorpse(owner,cursor,CorpseCastTargets.NearClickTiles,
+            corpse=>ValidTarget(owner,corpse.Serial),stableTies:true);
     public static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now)
     {
+        if(selected==Serial.Zero)
+        {
+            if(Acquire(owner,point) is not{} corpse){return false;}
+            selected=corpse.Serial;point=corpse.Location;
+        }
         if(!ValidTarget(owner,selected) || !SkillCombat.Begin(owner,CombatAbility.FindItem,selected,((Corpse)World.FindItem(selected)).Location,now,(p,_,id,_)=>ValidTarget(p,id))){return false;}
         // Source start34 pays on successful start. The later chance failure or
         // cancellation cannot refund this payment or debit it a second time.
@@ -36,8 +44,8 @@ public static class BarbarianFindItem
         var corpse=(Corpse)World.FindItem(selected);var context=CorpseSkillRules.Profiles.Find(corpse).Treasure;
         if(!CorpseSkillRules.Reserve(corpse)){return false;}
         // Both success and failure consume the attempt without hiding the body
-        // or touching its existing contents. Keep the current shared DM model
-        // pending the separately recorded modern reference disagreement.
+        // or touching its existing contents. The retained DM curve is an
+        // approved Sanctuary rule; modern provenance remains documented.
         int chance=(int)SkillMechanics.Values(owner,CombatAbility.FindItem).Eval("calc1");
         owner.PlaySound(0x1E5);Effects.SendLocationEffect(corpse.Location,corpse.Map,0x375A,5,10,0x481,0); // Identified cry/search placeholders.
         if(Math.Clamp(Roll(100),0,99)>=chance){return false;}
