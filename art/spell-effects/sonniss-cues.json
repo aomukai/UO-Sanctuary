@@ -535,6 +535,21 @@
     "DefilerArrival": {"source": "ghost-whisper", "start": 0.177, "duration": 0.45, "fadeIn": 0.016, "fadeOut": 0.154, "highpass": 258, "peakDb": -17},
     "DefilerDeparture": {"source": "ghost-whisper", "start": 0.352, "duration": 0.34, "fadeIn": 0.044, "fadeOut": 0.131, "highpass": 586, "peakDb": -24},
     "DefilerLinkCast": {"source": "arcane-doppler", "start": 0.373, "duration": 0.32, "fadeIn": 0.032, "fadeOut": 0.099, "highpass": 591, "peakDb": -21},
-    "DefilerLinkContact": {"source": "electric-crackle", "start": 0.503, "duration": 0.219, "fadeIn": 0.008, "fadeOut": 0.069, "highpass": 679, "peakDb": -23}
+    "DefilerLinkContact": {"source": "electric-crackle", "start": 0.503, "duration": 0.219, "fadeIn": 0.008, "fadeOut": 0.069, "highpass": 679, "peakDb": -23},
+    "DeathMarkCast": {"source": "arcane-doppler", "start": 0.191, "duration": 0.34, "fadeIn": 0.023, "fadeOut": 0.118, "highpass": 452, "peakDb": -18},
+    "DeathMarkWarp": {"source": "air", "start": 0.381, "duration": 0.341, "fadeIn": 0.019, "fadeOut": 0.138, "highpass": 377, "peakDb": -21},
+    "DeathMarkGlyph": {"source": "metal-hit", "start": 0.167, "duration": 0.17, "fadeIn": 0.013, "fadeOut": 0.072, "highpass": 733, "peakDb": -23},
+    "BloodBoilCast": {"source": "acid-soak", "start": 0.32, "duration": 0.319, "fadeIn": 0.03, "fadeOut": 0.106, "highpass": 420, "peakDb": -21},
+    "BloodBoilBurst": {"source": "close-thunder", "start": 1.856, "duration": 0.465, "fadeIn": 0.013, "fadeOut": 0.155, "highpass": 178, "peakDb": -17},
+    "BloodBoilHit": {"source": "liquid-pour", "start": 0.487, "duration": 0.165, "fadeIn": 0.008, "fadeOut": 0.051, "highpass": 686, "peakDb": -27},
+    "EngorgeCast": {"source": "ghost-whisper", "start": 0.151, "duration": 0.378, "fadeIn": 0.041, "fadeOut": 0.122, "highpass": 418, "peakDb": -21},
+    "EngorgeSource": {"source": "acid-soak", "start": 0.21, "duration": 0.38, "fadeIn": 0.02, "fadeOut": 0.132, "highpass": 188, "peakDb": -21},
+    "EngorgeHeal": {"source": "bright-ward", "start": 0.165, "duration": 0.36, "fadeIn": 0.028, "fadeOut": 0.155, "highpass": 414, "peakDb": -23},
+    "ConsumeCast": {"source": "ghost-whisper", "start": 0.236, "duration": 0.396, "fadeIn": 0.049, "fadeOut": 0.118, "highpass": 259, "peakDb": -19},
+    "ConsumeSource": {"source": "air", "start": 0.468, "duration": 0.32, "fadeIn": 0.028, "fadeOut": 0.122, "highpass": 271, "peakDb": -22},
+    "ConsumeFade": {"source": "ghost-whisper", "start": 0.48, "duration": 0.27, "fadeIn": 0.044, "fadeOut": 0.112, "highpass": 608, "peakDb": -26},
+    "BindDemonStart": {"source": "metal-hit", "start": 0.147, "duration": 0.255, "fadeIn": 0.015, "fadeOut": 0.081, "highpass": 500, "peakDb": -21},
+    "BindDemonAttempt": {"source": "electric-crackle", "start": 0.39, "duration": 0.245, "fadeIn": 0.017, "fadeOut": 0.086, "highpass": 870, "peakDb": -24},
+    "BindDemonSuccess": {"source": "arcane-doppler", "start": 0.23, "duration": 0.44, "fadeIn": 0.019, "fadeOut": 0.144, "highpass": 246, "peakDb": -18}
   }
 }

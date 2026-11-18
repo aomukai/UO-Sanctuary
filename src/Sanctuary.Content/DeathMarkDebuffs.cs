@@ -27,7 +27,7 @@ internal static class DeathMarkDebuffs
 {
     private static ImmutableDictionary<uint,DeathMarkDebuff> _states=ImmutableDictionary<uint,DeathMarkDebuff>.Empty;
     public static void Configure()=>_=new DeathMarkDebuffProfiles();
-    public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(250),TimeSpan.FromMilliseconds(250),Prune);
+    public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(250),TimeSpan.FromMilliseconds(250),RefreshVisuals);
     internal static DeathMarkDebuff State(Mobile target,DateTime? at=null)=>target is{Alive:true,Deleted:false}
         &&_states.TryGetValue(target.Serial.Value,out var s)&&s.UntilUtc>(at??TimedEffects.Now)?s:null;
     internal static int Armor(Mobile target)=>State(target)is{} s?checked(-50-35*(s.Rank-1)):0;
@@ -56,11 +56,25 @@ internal static class DeathMarkDebuffs
         if(state?.Target!=target?.Serial.Value){throw new NotSupportedException("Prepared Death Mark recipient changed");}
         _states=_states.SetItem(target.Serial.Value,state);
         owner.DoHarmful(target,true);target.Delta(MobileDelta.Stat);
-        target.FixedEffect(0x375A,10,15,0x48A,0); // Identified prepared Death Mark target placeholder.
+        var now=TimedEffects.Now;
+        if(WarlockRitualVisuals.Renew(target,SpellEffectGraphics.DeathMarkGlyph,now,state.UntilUtc))
+        {target.PlaySound(SpellEffectSounds.DeathMarkGlyph);}
     }
     internal static void WriteCastId(Mobile target,int castId)
     {if(State(target)is not{} state){throw new NotSupportedException("Death Mark metadata needs the bound recipient");}_states=_states.SetItem(state.Target,state with{CastId=castId});}
-    internal static void Clear(Mobile target){if(target!=null){_states=_states.Remove(target.Serial.Value);target.Delta(MobileDelta.Stat);}}
+    internal static void Clear(Mobile target)
+    {
+        if(target==null){return;}
+        _states=_states.Remove(target.Serial.Value);target.Delta(MobileDelta.Stat);
+        WarlockRitualVisuals.Clear(target,SpellEffectGraphics.DeathMarkGlyph);
+    }
+    private static void RefreshVisuals()
+    {
+        Prune();
+        var now=TimedEffects.Now;
+        foreach(var state in _states.Values)
+        {WarlockRitualVisuals.Renew(World.FindMobile((Serial)state.Target),SpellEffectGraphics.DeathMarkGlyph,now,state.UntilUtc);}
+    }
     internal static void Prune()
     {foreach(var s in _states.Values){var target=World.FindMobile((Serial)s.Target);if(State(target)==null){_states=_states.Remove(s.Target);target?.Delta(MobileDelta.Stat);}}}
     internal static DeathMarkDebuff[] Snapshot()=>_states.Values.OrderBy(s=>s.Target).ToArray();

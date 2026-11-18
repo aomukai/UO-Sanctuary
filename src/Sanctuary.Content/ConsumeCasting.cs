@@ -66,6 +66,8 @@ internal static class ConsumeCasting
         catch(Exception e)when(e is NotSupportedException or System.IO.InvalidDataException or ArgumentException)
         {Log.Warning("Consume preflight refused: {Reason}",e.Message);return empty with{Fault=e.Message};}
         if(!NecromancerEffects.Pay(owner,state.Suppliers.Mana256)){return empty;}
+        var origin=body.Location;var map=body.Map;
+        bool visibleSource=map==owner.Map&&!body.Hidden;
         bool consumed=false;
         try
         {
@@ -73,10 +75,20 @@ internal static class ConsumeCasting
             // contexts were refused above. Do not create corpses,rewards or
             // death-triggered attacks,and never return it from town parking.
             if(BoundDemonHosts.Active(body)){BoundDemonHosts.RetirePrepared(body);}
-            else{DeathMarkWorld.Remove((SkeletonGuardian)body);body.Delete();}consumed=true;
+            else
+            {
+                WarlockDemonVisuals.Depart(body,show:false);
+                DeathMarkWorld.Remove((SkeletonGuardian)body);body.Delete();
+            }
+            consumed=true;
+            if(visibleSource)
+            {
+                WarlockRitualVisuals.Ground(map,origin,SpellEffectGraphics.ConsumeSource,SpellEffectSounds.ConsumeSource);
+                if(!owner.Hidden&&owner.Map==map)
+                {WarlockRitualVisuals.Trail(map,origin,owner.Location,SpellEffectGraphics.ConsumeTravel);}
+            }
             ConsumeEffects.ApplyPrepared(owner,state);WarlockGoatmanWorld.Enforce(owner);
-            owner.FixedEffect(0x376A, 10, 15, 0x26, 0);
-            owner.PlaySound(0x1FB);
+            WarlockRitualVisuals.Attached(owner,SpellEffectGraphics.ConsumeCast,SpellEffectSounds.ConsumeCast);
             return new(true,state.Suppliers.Mana256,state);
         }
         catch(Exception e)when(e is NotSupportedException or System.IO.InvalidDataException)

@@ -399,6 +399,21 @@ public static class SpellEffectSounds
     public const int DefilerDeparture = 60393;
     public const int DefilerLinkCast = 60394;
     public const int DefilerLinkContact = 60395;
+    public const int DeathMarkCast = 60396;
+    public const int DeathMarkWarp = 60397;
+    public const int DeathMarkGlyph = 60398;
+    public const int BloodBoilCast = 60399;
+    public const int BloodBoilBurst = 60400;
+    public const int BloodBoilHit = 60401;
+    public const int EngorgeCast = 60402;
+    public const int EngorgeSource = 60403;
+    public const int EngorgeHeal = 60404;
+    public const int ConsumeCast = 60405;
+    public const int ConsumeSource = 60406;
+    public const int ConsumeFade = 60407;
+    public const int BindDemonStart = 60408;
+    public const int BindDemonAttempt = 60409;
+    public const int BindDemonSuccess = 60410;
 
     public static int Fallback(int sound) => sound switch
     {
@@ -434,6 +449,9 @@ public static class SpellEffectSounds
         DeathSentryBurst => 0x307,
         ShadowWarriorCast or ShadowMasterCast => 0x1FB,
         GoatmanCast or TaintedCast or DefilerCast => 0x1E5,
+        DeathMarkCast or BloodBoilCast or EngorgeCast or ConsumeCast or BindDemonStart => 0x1E5,
+        DeathMarkWarp => 0x1FE,
+        BloodBoilBurst => 0x307,
         BlizzardRelease or FrozenOrbRelease or MeteorRelease or TeethRelease or BoneSpiritRelease or AbyssOpen => 0x1E5,
         AmazonBowRelease or AmazonCrossbowRelease or JavelinThrow => 0x238,
         SpearThrust or HeavySpearThrust => 0x238,

@@ -1025,6 +1025,74 @@ def warlock_demon_summons():
     ))
 
 
+def warlock_rituals():
+    death = "warlock-death-mark"
+    boil = "warlock-blood-boil"
+    consume = "warlock-consume"
+    bind = "warlock-bind-demon"
+    death_cast, departure, arrival, glyph = load_grid(death, (1536, 1024))
+    boil_cast, ring, hit, boil_source = load_grid(boil, (1536, 1024))
+    consume_cast, consume_source, consume_trail, consume_ward = load_grid(consume, (1536, 1024))
+    bind_cast, bind_trail, bind_seal, bind_success = load_grid(bind, (1536, 1024))
+    for name, graphic, row, scale, pivot, padding, cutoffs in (
+        (death, 61200, death_cast, .181, (194, 132), 46, (217, 216, 218, 196)),
+        (death, 61204, departure, .211, (198, 198), 24, (211, 214, 215, 181)),
+        (death, 61208, arrival, .203, (197, 174), 24, (171, 209, 215, 208)),
+        (death, 61212, glyph, .117, (191, 124), 55, (214, 216, 215, 212)),
+        (boil, 61220, boil_cast, .167, (191, 138), 47, (214, 212, 215, 197)),
+        (boil, 61228, hit, .151, (174, 177), 38, (208, 211, 213, 196)),
+        (boil, 61232, boil_source, .194, (179, 128), 33, (211, 204, 192, 90)),
+        (consume, 61000, consume_cast, .148, (195, 136), 48, (217, 215, 213, 30)),
+        (consume, 61004, consume_source, .194, (195, 201), 24, (213, 211, 208, 190)),
+        (consume, 61040, consume_ward, .161, (194, 127), 25, (211, 211, 209, 208)),
+        (bind, 61300, bind_cast, .151, (195, 147), 46, (216, 216, 218, 215)),
+        (bind, 61336, bind_seal, .171, (193, 195), 24, (213, 215, 214, 213)),
+        (bind, 61340, bind_success, .184, (190, 141), 33, (217, 218, 215, 209)),
+    ):
+        write_group(name, graphic, (
+            frame(cell, scale, pivot, (98, 106), padding, cutoff)
+            for cell, cutoff in zip(row, cutoffs)
+        ))
+    write_group(boil, 61224, (
+        holy_ring(cell, (234, 124), (240, 132), 66, cutoff, light)
+        for cell, cutoff, light in zip(ring, (209, 213, 215, 211), (1.08, 1.08, 1.03, .95))
+    ))
+    write_group(consume, 61008, directional_flight(consume_trail,
+        ((347, 132), (331, 128), (324, 132), (317, 130)), .136, (98, 106), 26, 205))
+    write_group(bind, 61304, directional_flight(bind_trail,
+        ((332, 124), (325, 123), (326, 125), (300, 121)), .113, (98, 106), 27, 190))
+    write_group(consume, 61044, (
+        frame(ImageEnhance.Brightness(cell).enhance(light), scale, (194, 127), (98, 106), 25, cutoff)
+        for cell, scale, cutoff, light in zip(consume_ward, (.16, .13, .096, .064), (208, 205, 194, 174),
+                                             (1.02, .90, .79, .68))
+    ))
+
+
+def warlock_engorge():
+    name = "warlock-engorge"
+    with Image.open(ART / name / "sheet.png") as sheet:
+        cast, source, trail, heal = (
+            [sheet.crop((x, top, x + 384, bottom)) for x in range(0, 1536, 384)]
+            for top, bottom in ((0, 271), (271, 539), (539, 706), (706, 1024))
+        )
+    for graphic, row, scale, pivot, padding, cutoffs in (
+        (61100, cast, .176, (193, 156), 47, (213, 211, 213, 211)),
+        (61104, source, .195, (195, 172), 24, (215, 209, 181, 155)),
+        (61140, heal, .190, (193, 222), 38, (214, 209, 215, 200)),
+    ):
+        write_group(name, graphic, (
+            frame(cell, scale, pivot, (98, 106), padding, cutoff)
+            for cell, cutoff in zip(row, cutoffs)
+        ))
+    write_group(name, 61108, directional_flight(trail,
+        ((348, 85), (310, 86), (250, 86), (222, 86)), .131, (98, 106), 28, 186))
+    write_group(name, 61144, (
+        frame(ImageEnhance.Brightness(cell.crop((0, 191, 384, 291))).enhance(.86),
+              .163, (193, 44), (98, 106), 25, cutoff)
+        for cell, cutoff in zip(heal, (204, 203, 199, 184))
+    ))
+
+
 def necromancer_curses():
     cells = [cell for row in load_grid("necromancer-curses", (1448, 1086), rows=3) for cell in row]
     for cell in cells[:10]:
@@ -1867,3 +1935,5 @@ if __name__ == "__main__":
     assassin_sentry_skills()
     assassin_shadow_summons()
     warlock_demon_summons()
+    warlock_rituals()
+    warlock_engorge()

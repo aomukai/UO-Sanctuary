@@ -51,13 +51,20 @@ internal static class EngorgeCasting
         // Single main-loop commitment:reservation prevents competing corpse
         // consumers. Preserve loot and never resurrect a spent corpse if a
         // later native recipient callback fails.
+        var origin=corpse.Location;var map=corpse.Map;
         NecromancerCombat.Consume(corpse);int paid=0,applied=0;
         try
         {
             if(!NecromancerEffects.Pay(owner,captured.Mana256)){throw new NotSupportedException("Engorge mana changed during corpse commitment");}
             paid=captured.Mana256;
-            foreach(var body in bodies){EngorgeEffects.ApplyPrepared(body,owner,captured,at);applied++;}
-            owner.PlaySound(0x202);
+            WarlockRitualVisuals.Attached(owner,SpellEffectGraphics.EngorgeCast,SpellEffectSounds.EngorgeCast);
+            WarlockRitualVisuals.Ground(map,origin,SpellEffectGraphics.EngorgeSource,SpellEffectSounds.EngorgeSource);
+            foreach(var body in bodies)
+            {
+                EngorgeEffects.ApplyPrepared(body,owner,captured,at);applied++;
+                if(!body.Hidden&&body.Map==map)
+                {WarlockRitualVisuals.Trail(map,origin,body.Location,SpellEffectGraphics.EngorgeTravel);}
+            }
             return new(true,applied,paid);
         }
         catch(Exception e)when(e is NotSupportedException or System.IO.InvalidDataException)

@@ -51,7 +51,8 @@ internal static class EngorgeEffects
         var state=new EngorgeEffect(owner.Serial.Value,at,at.AddMilliseconds(40L*captured.DurationFrames),captured);
         Validate(state,owner.Serial.Value);Store(body,state);
         SkillHealth.Heal(body,EngorgePrepared.Healing256(captured,SkillHealth.Maximum256(body),SkillHealth.Balance256(body)));
-        body.FixedEffect(0x376A,10,10,0x26,0); // Identified shared heal/buff placeholder.
+        WarlockRitualVisuals.Attached(body,SpellEffectGraphics.EngorgeHeal,SpellEffectSounds.EngorgeHeal);
+        WarlockRitualVisuals.Engorge(body,TimedEffects.Now);
     }
     // Count only active source-frame instants in a bulk recovery call. No
     // offline interval is paid back and expiry cannot donate extra frames.

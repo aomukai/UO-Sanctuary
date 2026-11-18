@@ -84,7 +84,11 @@ public static class WarlockGoatmanWorld
                 // Suspension/load/placement observations skip the whole
                 // inactive interval before joining active frame ordering.
                 if(loaded||!online||host.NeedsObservation){host.Advance(at);Store(body,host);}
-                if(online&&!body.Deleted){active.Add(body);WarlockDemonVisuals.Track(body);}
+                if(online&&!body.Deleted)
+                {
+                    active.Add(body);WarlockDemonVisuals.Track(body);
+                    WarlockRitualVisuals.Engorge(body,at);
+                }
             }
             catch(Exception e){Fault(body,e);}
         }

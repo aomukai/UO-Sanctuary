@@ -160,6 +160,10 @@ The Warlock's Goatman rises from rust-red rubble, throws sparks on melee contact
 
 Muted ClassicUO checks rendered all 52 new frames and decoded twelve Sonniss edits. The tests covered one-time mana payment, shared-cap replacement, a protected-area return with the original Tainted, Goatman melee and Berserk, the Tainted's red flare and resistance lease, typed damage sharing between two Defiler marks, and marker cleanup after the Defiler died. All three casts were checked on male and female Humans, Elves, and Gargoyles. Native summon and Health Link checks passed across a save and reload. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
 
+Death Mark opens violet tears where demons depart and land, and marks the target for the duration of the debuff. Blood Boil blooms around each donor and draws a ring at the actual damage radius. Engorge draws crimson threads from the corpse to each affected demon and leaves a ward while the buff lasts. Consume dissolves the selected demon and transfers a ward to the caster until the sacrifice slot clears. Bind Demon sends indigo chains on paid attempts and seals the original creature on success. [Death Mark](../art/spell-effects/warlock-death-mark) · [Blood Boil](../art/spell-effects/warlock-blood-boil) · [Engorge](../art/spell-effects/warlock-engorge) · [Consume](../art/spell-effects/warlock-consume) · [Bind Demon](../art/spell-effects/warlock-bind-demon)
+
+Muted ClassicUO checks covered Death Mark's relocation and expiry, Blood Boil's two donor centers and damage radius, Engorge healing two wounded demons from one corpse, and Consume clearing the ward when the shared cap replaces its slot. Bind Demon exercised a free interruption, a paid failure, and a later successful bind on the same creature. Separate native save-and-reload checks passed for all five skills, including Bind Demon holds through the right mouse and quick-slot routes. ClassicUO decoded fifteen new Sonniss edits. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
 Charged Bolt skitters along its existing paths, Lightning travels in a straight streak, and Chain Lightning sends violet arcs between targets. Static Field expands along the ground and Thunder Storm flashes above the caster at release and on its recurring strike schedule. The player casts were checked in ClassicUO with audio disabled. Nine Sonniss edits cover their cast and impact cues. Each cue has passed format and level checks and awaits a listening pass. [Cue recipes](../art/spell-effects/sonniss-cues.json)
 
 Ice Bolt travels as a thin shard, Ice Blast as a compact comet, and Glacial Spike as a heavier crystal with an area burst. Frost Nova expands across the ground. The shared cold overlays follow the affected target and clear with the game status. Thaw and cold corpse shatter reuse the Ice Blast fragments. The player effects were checked in ClassicUO with audio disabled. Eight Sonniss edits cover releases, impacts, and the shared cold corpse shatter. Their listening pass is queued. [Cold status sprite source](../art/spell-effects/cold-status/sheet.png) · [Cue recipes](../art/spell-effects/sonniss-cues.json)
@@ -1335,13 +1339,13 @@ Inherited NPC item absorption now changes life mechanically. Final Iron Golem ab
 | Warlock | Demonic Mastery | not-applicable | demonic_mastery |
 | Warlock | Summon Goatman | custom | Native Gargoyle with rubble summon and melee effects, plus the shared Berserk loop. |
 | Warlock | Blood Oath | not-applicable | bloodoath |
-| Warlock | Death Mark | needed | warlock_death_mark_pet, warlock_fire_cast_1 |
+| Warlock | Death Mark | custom | Violet warp at both ends and a timed target glyph. |
 | Warlock | Summon Tainted | custom | Approved Succubus and red flare with an ember summon and fire resistance ward. |
-| Warlock | Blood Boil | native | Native explosion, heal and buff graphics with matching sounds. |
+| Warlock | Blood Boil | custom | Donor blooms, radius-scaled rings, and enemy damage flashes. |
 | Warlock | Summon Defiler | custom | Native Gazer with burgundy summon effects and recipient Health Link marks. |
-| Warlock | Engorge | native | Native explosion, heal and buff graphics with matching sounds. |
-| Warlock | Consume | native | Native explosion, heal and buff graphics with matching sounds. |
-| Warlock | Bind Demon | needed | binddemonchannelmaker, bind_demon, warlock_shadow_cast_2 |
+| Warlock | Engorge | custom | Corpse-to-demon tethers, heal flashes, and timed recipient wards. |
+| Warlock | Consume | custom | Demon dissolve, owner tether, and a ward that fades when its slot clears. |
+| Warlock | Bind Demon | custom | Channel rune, paid attempt chain, and a seal on the successfully bound demon. |
 | Warlock | Levitation Mastery | not-applicable | levitate_mastery |
 | Warlock | Hex: Bane | needed | hexbane, warlock_psychic_cast_2 |
 | Warlock | Cleave | needed | warlock_psychic_cast_1 |

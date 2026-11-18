@@ -40,8 +40,8 @@ internal static class DeathMarkBoundWorld
         Require(owner,body);DeathMarkControlStates.Require(body,directive,at);
         if(directive.ClearControl&&(body.Frozen||body.Paralyzed))
         {throw new NotSupportedException("UO freeze/paralysis has no qualified Death Mark source control list");}
-        int before=directive.Remaining;Mobile target=null;
-        var services=new DeathMarkPetServices(point=>Place(owner,body,point),_=>body.FixedEffect(0x3728,10,15),
+        int before=directive.Remaining;Mobile target=null;var origin=body.Location;
+        var services=new DeathMarkPetServices(point=>Place(owner,body,point),_=>WarlockRitualVisuals.Warp(body,origin),
             (kind,id)=>
             {
                 target=World.FindMobile((Serial)unchecked((uint)id));

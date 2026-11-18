@@ -1,0 +1,78 @@
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -208,6 +208,7 @@
+                         _ when SpellEffectGraphics.IsAssassinShadowAnimation(Graphic) => SpellEffectGraphics.AssassinShadowFrames,
+                         _ when SpellEffectGraphics.IsShadowSummonAnimation(Graphic) => SpellEffectGraphics.AssassinShadowFrames,
+                         _ when SpellEffectGraphics.IsWarlockDemonAnimation(Graphic) => SpellEffectGraphics.WarlockDemonFrames,
++                        _ when SpellEffectGraphics.IsWarlockRitualAnimation(Graphic) => SpellEffectGraphics.WarlockRitualFrames,
+                         _ when SpellEffectGraphics.IsAssassinLobAnimation(Graphic) => SpellEffectGraphics.AssassinLobFrames,
+                         SpellEffectGraphics.DeathSentryBurst => SpellEffectGraphics.SentryFrames,
+                         _ when SpellEffectGraphics.IsSentryFlash(Graphic) => SpellEffectGraphics.SentryFrames,
+@@ -235,6 +236,7 @@
+                             && !SpellEffectGraphics.IsAssassinShadowLoop(Graphic)
+                             && !SpellEffectGraphics.IsShadowSummonVeil(Graphic)
+                             && !SpellEffectGraphics.IsWarlockDemonLoop(Graphic)
++                            && !SpellEffectGraphics.IsWarlockRitualLoop(Graphic)
+                             && Graphic is not (SpellEffectGraphics.WhirlwindSpin or SpellEffectGraphics.FrenzySpeed or SpellEffectGraphics.BladeShieldRing
+                                 or SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow
+                                 or SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.PoisonAfflicted
+@@ -369,6 +371,9 @@
+                             _ when SpellEffectGraphics.IsWarlockDemonCast(Graphic)
+                                 || Graphic is SpellEffectGraphics.GoatmanContact or SpellEffectGraphics.DefilerLinkContact => 65,
+                             _ when SpellEffectGraphics.IsWarlockDemonAnimation(Graphic) => 104,
++                            _ when SpellEffectGraphics.IsWarlockRitualLoop(Graphic) => 128,
++                            SpellEffectGraphics.BloodBoilHit or SpellEffectGraphics.BloodBoilSource => 64,
++                            _ when SpellEffectGraphics.IsWarlockRitualAnimation(Graphic) => 88,
+                             SpellEffectGraphics.ShockWebField => 95,
+                             _ when SpellEffectGraphics.IsAssassinLobAnimation(Graphic) => 66,
+                             _ when SpellEffectGraphics.IsSentryFlash(Graphic) => 60,
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -109,7 +109,7 @@
+                 (SpellEffectGraphics.IsCurseMark(Graphic) || Graphic is SpellEffectGraphics.CurseFade or SpellEffectGraphics.RavenBlind
+                     or SpellEffectGraphics.ConvictionMark or SpellEffectGraphics.ConvictionContact
+                     or SpellEffectGraphics.ConversionMark or SpellEffectGraphics.ConversionLock or SpellEffectGraphics.ConversionFade
+-                    or SpellEffectGraphics.DefilerLinkMark))
++                    or SpellEffectGraphics.DefilerLinkMark or SpellEffectGraphics.DeathMarkGlyph))
+             {
+                 if (marked.IsDead) { return false; }
+                 // Place the mark in the upper body on targets of different heights.
+@@ -131,9 +131,11 @@
+             bool shadowTorso = SpellEffectGraphics.IsAssassinShadowTorso(Graphic) || SpellEffectGraphics.IsShadowSummonCast(Graphic);
+             bool shadowVeil = SpellEffectGraphics.IsShadowSummonVeil(Graphic);
+             bool demonCast = SpellEffectGraphics.IsWarlockDemonCast(Graphic);
++            bool ritualTorso = SpellEffectGraphics.IsWarlockRitualTorso(Graphic);
+             bool trapThrow = Graphic is SpellEffectGraphics.FireBlastThrow or SpellEffectGraphics.ShockWebThrow;
+             if ((bladeAttached || trapThrow || shadowVeil || SpellEffectGraphics.IsShadowSummonCast(Graphic)
+                     || demonCast || SpellEffectGraphics.IsWarlockDemonLoop(Graphic)
++                    || SpellEffectGraphics.IsWarlockRitualAnimation(Graphic)
+                     || SpellEffectGraphics.IsAssassinShadowAnimation(Graphic))
+                 && Source is Mobile effectOwner && (effectOwner.IsDead || effectOwner.IsHidden))
+             {
+@@ -150,6 +152,7 @@
+                     || bladeAttached
+                     || shadowTorso
+                     || demonCast
++                    || ritualTorso
+                     || trapThrow
+                     || Graphic is SpellEffectGraphics.FindPotionCast or SpellEffectGraphics.FindItemCast
+                     || Graphic is SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.BoneArmorBreak
+@@ -171,7 +174,7 @@
+                         or Sanctuary.SpellEffectGraphics.TelekinesisCast or Sanctuary.SpellEffectGraphics.TelekinesisContact))
+             {
+                 // These close-in melee effects are centered on the airborne torso.
+-                posY -= barbarianTorsoEffect || martialSwing || bladeAttached || shadowTorso || trapThrow || demonCast ? 12 : 44;
++                posY -= barbarianTorsoEffect || martialSwing || bladeAttached || shadowTorso || trapThrow || demonCast || ritualTorso ? 12 : 44;
+             }
+
+             if (Graphic == SpellEffectGraphics.DruidHungerMana)
+--- a/src/ClassicUO.Client/Game/Managers/EffectManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+@@ -132,6 +132,7 @@
+                     || SpellEffectGraphics.IsAssassinShadowLoop(graphic)
+                     || SpellEffectGraphics.IsShadowSummonVeil(graphic)
+                     || SpellEffectGraphics.IsWarlockDemonLoop(graphic)
++                    || SpellEffectGraphics.IsWarlockRitualLoop(graphic)
+                     || SpellEffectGraphics.IsBarbarianCryWard(graphic)
+                     || SpellEffectGraphics.IsBarbarianStrikeStatus(graphic)
+                     || graphic is SpellEffectGraphics.WhirlwindSpin or SpellEffectGraphics.FrenzySpeed or SpellEffectGraphics.BladeShieldRing

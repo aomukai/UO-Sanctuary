@@ -54,13 +54,13 @@ internal static class WarlockDemonVisuals
         if (DemonNativeState.Learned(body) && Visible(body)) { Present.Add(body.Serial); }
     }
 
-    internal static void Depart(BaseCreature actor)
+    internal static void Depart(BaseCreature actor, bool show = true)
     {
         if (!Present.Remove(actor.Serial) || actor is not SkeletonGuardian body || !PaladinAuraVisuals.InWorld(body))
         { return; }
         if (body is WarlockTaintedBody) { PaladinAuraVisuals.Clear(body, SpellEffectGraphics.TaintedFireWard); }
         if (body is WarlockGoatmanBody) { BarbarianStrikeVisuals.ClearBerserk(body.Serial.Value, body); }
-        if (body.Hidden) { return; }
+        if (!show || body.Hidden) { return; }
         var style = Art(body);
         Effects.SendLocationEffect(body, style.Departure, 10);
         Effects.PlaySound(body.Location, body.Map, style.DepartureCue);

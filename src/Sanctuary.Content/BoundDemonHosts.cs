@@ -73,7 +73,10 @@ internal static class BoundDemonHosts
         public DiabloClass SummonClass=>DiabloClass.Warlock;
         public bool Permitted(PlayerMobile owner)=>State(actor)is{} row&&row.Owner==owner.Serial.Value&&Trained(owner);
         public void SuspendActions()
-        {BoundDemonAuras.Stop(actor,State(actor)?.Order??BattleCommand.PetOrder(actor));EngorgeEffects.ForgetNative(actor.Serial.Value);actor.AIObject?.AITimer.Stop();if(actor.Spell is Server.Spells.Spell spell){spell.Disturb(Server.Spells.DisturbType.Kill);}actor.Blessed=true;}
+        {
+            WarlockRitualVisuals.Clear(actor,SpellEffectGraphics.BindDemonSeal);
+            BoundDemonAuras.Stop(actor,State(actor)?.Order??BattleCommand.PetOrder(actor));EngorgeEffects.ForgetNative(actor.Serial.Value);actor.AIObject?.AITimer.Stop();if(actor.Spell is Server.Spells.Spell spell){spell.Disturb(Server.Spells.DisturbType.Kill);}actor.Blessed=true;
+        }
         public void ResumeActions(){if(CanAct(actor)){actor.Blessed=false;actor.AIObject?.AITimer.Start();}}
     }
     private static IPersistentMinion Behavior(BaseCreature actor)=>State(actor)!=null?new NativeBehavior(actor):null;
@@ -181,7 +184,13 @@ internal static class BoundDemonHosts
         ApplyBody(body,state);BattleOrders.Change(body,resources,preserveSummonLifeRatio:true);PersistentMinions.Profiles.Track(body);
         foreach(var prior in For(owner).Where(b=>b!=body))
         {BoundDemonAuras.Stop(prior,State(prior).Order);prior.Delete();States=States.Remove(prior.Serial.Value);EngorgeEffects.ForgetNative(prior.Serial.Value);}
-        WarlockGoatmanWorld.Enforce(owner);body.IssueOrder(OrderType.Guard,null);Behavior(body)?.ResumeActions();BoundDemonAuras.Tick(body,TimedEffects.Now);issue=null;return true;
+        WarlockGoatmanWorld.Enforce(owner);body.IssueOrder(OrderType.Guard,null);Behavior(body)?.ResumeActions();BoundDemonAuras.Tick(body,TimedEffects.Now);
+        if(CanAct(body))
+        {
+            WarlockRitualVisuals.Ground(body.Map,body.Location,SpellEffectGraphics.BindDemonSuccess,SpellEffectSounds.BindDemonSuccess);
+            WarlockRitualVisuals.Renew(body,SpellEffectGraphics.BindDemonSeal,TimedEffects.Now);
+        }
+        issue=null;return true;
     }
     internal static void Sync(PlayerMobile owner)
     {
@@ -216,7 +225,13 @@ internal static class BoundDemonHosts
             if(body.ControlMaster is not PlayerMobile{Alive:true,Deleted:false} owner){body.Delete();EngorgeEffects.ForgetNative(old.Actor);BoundDemonAuras.Forget(old.Actor);States=States.Remove(old.Actor);continue;}
             Sync(owner);
             if(!CanAct(body)&&body.Map!=Map.Internal){PersistentMinions.Suspend(body);}
-            EngorgeEffects.RecoverNative(body,TimedEffects.Now);BoundDemonAuras.Tick(body,TimedEffects.Now);
+            var at=TimedEffects.Now;
+            EngorgeEffects.RecoverNative(body,at);BoundDemonAuras.Tick(body,at);
+            if(CanAct(body))
+            {
+                WarlockRitualVisuals.Renew(body,SpellEffectGraphics.BindDemonSeal,at);
+                WarlockRitualVisuals.Engorge(body,at);
+            }
         }
     }
     internal static BoundDemonState[] SaveSnapshot()=>States.Values.Where(s=>World.FindMobile((Serial)s.Actor)is BaseCreature{Alive:true,Deleted:false} body&&State(body)==s)

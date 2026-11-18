@@ -204,9 +204,9 @@ internal static class DeathMarkWorld
         if(!_actors.TryGetValue(id,out var actor)||!_worlds.TryGetValue(actor.Map,out var world)){throw new NotSupportedException("Demon controller path is not registered");}
         var unit=world.Unit(id);var path=world.Member(id).Path;world.Require(body,unit,path);GenericPetNativePlacement.RequireActor(body,unit,path);
         DeathMarkControlStates.Require(body,directive,at);
-        var view=GenericPetPathTargets.Bind(actor.Selector);int before=directive.Remaining;
+        var view=GenericPetPathTargets.Bind(actor.Selector);int before=directive.Remaining;var origin=body.Location;
         var services=new DeathMarkPetServices(point=>new GenericPetNativePlacement(body,unit,path,point,view,world).Place(),_=>
-            body.FixedEffect(0x3728,10,15), // Identified Death Mark pet/landing placeholder.
+            WarlockRitualVisuals.Warp(body,origin),
             null,ticks=>
             {
                 ChangeMode(body,1);

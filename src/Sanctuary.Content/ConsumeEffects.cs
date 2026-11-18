@@ -66,6 +66,8 @@ internal static class ConsumeEffects
         if(before is{} pools){BattleOrders.Change(owner,pools);}else if(!owner.Deleted){ClassStats.Refresh(owner);}
         if(!owner.Deleted){owner.UpdateResistances();}
         ConsumeAuras.Changed(owner,previous,null);
+        if(WarlockRitualVisuals.Clear(owner,SpellEffectGraphics.ConsumeWard))
+        {WarlockRitualVisuals.Attached(owner,SpellEffectGraphics.ConsumeFade,SpellEffectSounds.ConsumeFade);}
         return true;
     }
     internal static void ApplyPrepared(PlayerMobile owner,ConsumeEffect state)
@@ -76,6 +78,7 @@ internal static class ConsumeEffects
         BattleOrders.Change(owner,before);
         owner.UpdateResistances();
         ConsumeAuras.Changed(owner,previous,state);
+        WarlockRitualVisuals.Renew(owner,SpellEffectGraphics.ConsumeWard,TimedEffects.Now,state.UntilUtc);
     }
     private static void Moved(Mobile mobile)
     {if(!World.Loading&&mobile is PlayerMobile p){Sync(p,TimedEffects.Now);}}
@@ -96,7 +99,13 @@ internal static class ConsumeEffects
         if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Consume clock must be UTC");}
         foreach(var state in States.Values.ToArray())
         {
-            if(World.FindMobile((Serial)state.Owner)is PlayerMobile owner){Sync(owner,at);ConsumeAuras.Tick(owner,State(owner),at);}
+            if(World.FindMobile((Serial)state.Owner)is PlayerMobile owner)
+            {
+                Sync(owner,at);
+                var current=State(owner);
+                ConsumeAuras.Tick(owner,current,at);
+                if(current!=null){WarlockRitualVisuals.Renew(owner,SpellEffectGraphics.ConsumeWard,at,current.UntilUtc);}
+            }
             else{ConsumeAuras.Forget(state.Owner);States=States.Remove(state.Owner);}
         }
     }

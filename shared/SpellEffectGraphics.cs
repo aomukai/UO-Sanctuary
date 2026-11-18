@@ -196,6 +196,38 @@ public static class SpellEffectGraphics
     public static bool IsWarlockDemonCast(ushort graphic) => graphic is GoatmanCast or TaintedCast or DefilerCast;
     public static bool IsWarlockDemonLoop(ushort graphic) => graphic is TaintedFireWard or DefilerLinkMark;
 
+    public const int WarlockRitualFrames = 4;
+    public const ushort ConsumeCast = 61000;
+    public const ushort ConsumeSource = 61004;
+    public const ushort ConsumeTravel = 61008;
+    public const ushort ConsumeWard = 61040;
+    public const ushort ConsumeFade = 61044;
+    public const ushort EngorgeCast = 61100;
+    public const ushort EngorgeSource = 61104;
+    public const ushort EngorgeTravel = 61108;
+    public const ushort EngorgeHeal = 61140;
+    public const ushort EngorgeWard = 61144;
+    public const ushort DeathMarkCast = 61200;
+    public const ushort DeathMarkDeparture = 61204;
+    public const ushort DeathMarkArrival = 61208;
+    public const ushort DeathMarkGlyph = 61212;
+    public const ushort BloodBoilCast = 61220;
+    public const ushort BloodBoilRing = 61224;
+    public const ushort BloodBoilHit = 61228;
+    public const ushort BloodBoilSource = 61232;
+    public const ushort BindDemonChannel = 61300;
+    public const ushort BindDemonTravel = 61304;
+    public const ushort BindDemonSeal = 61336;
+    public const ushort BindDemonSuccess = 61340;
+    public static bool IsWarlockRitualAnimation(ushort graphic) => graphic is ConsumeCast or ConsumeSource or ConsumeWard
+        or ConsumeFade or EngorgeCast or EngorgeSource or EngorgeHeal or EngorgeWard or DeathMarkCast or DeathMarkDeparture
+        or DeathMarkArrival or DeathMarkGlyph or BloodBoilCast or BloodBoilRing or BloodBoilHit or BloodBoilSource
+        or BindDemonChannel or BindDemonSeal or BindDemonSuccess;
+    public static bool IsWarlockRitualLoop(ushort graphic) => graphic is ConsumeWard or EngorgeWard or DeathMarkGlyph
+        or BindDemonChannel or BindDemonSeal;
+    public static bool IsWarlockRitualTorso(ushort graphic) => graphic is ConsumeCast or EngorgeCast or EngorgeHeal
+        or DeathMarkCast or DeathMarkGlyph or BloodBoilCast or BindDemonChannel;
+
     public const int AssassinLobFrames = 4;
     public const int FireBlastRadiusSubtiles = 5;
     public const ushort FireBlastThrow = 62764;
@@ -544,7 +576,7 @@ public static class SpellEffectGraphics
     public static bool IsRadiusPulse(ushort graphic) =>
         graphic is HolyFirePulse or HolyFreezePulse or HolyShockPulse or SanctuaryPulse or GrimWardPulse
             or LeapLanding or LeapAttackLanding or MartialFireRing or MartialThunderRing or MartialIceRing
-            or DragonTailBurst or CloakWave or MindBlastWave or DeathSentryBurst;
+            or DragonTailBurst or CloakWave or MindBlastWave or DeathSentryBurst or BloodBoilRing;
 
     public static bool IsPaladinAuraLoop(ushort graphic) => graphic is HolyFireAura or HolyFreezeAura or HolyShockAura or HolyFreezeSlow
         || IsPaladinResistanceWard(graphic) || IsPaladinRecoveryLoop(graphic) || IsPaladinOffenseLoop(graphic)
@@ -723,6 +755,8 @@ public static class SpellEffectGraphics
             or >= ShockWebFlight and <= ShockWebField or ShockWebFade
             or >= SentryWakeFlight and < DeathSentryBurst
             or >= SentryLightningFlight and < SentryLightningFlight + 8 * SentryFrames
+            or >= ConsumeTravel and < ConsumeWard or >= EngorgeTravel and < EngorgeHeal
+            or >= BindDemonTravel and < BindDemonSeal
             || IsBarbarianThrowFlight(graphic);
 
     public static bool IsHydraHeadFrame(ushort graphic) => graphic is >= HydraHeadRight and <= HydraHeadGone;

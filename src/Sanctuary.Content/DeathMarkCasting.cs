@@ -70,7 +70,7 @@ internal static class DeathMarkCasting
             if(action.Result.Result==0){return false;}
             if(!NecromancerEffects.Pay(p,values.Mana256)){throw new NotSupportedException("Death Mark mana changed during committed world callbacks");}
             action.ManaPaid256=values.Mana256;FireGround.Delay(p,CombatAbility.DeathMark,at);
-            p.PlaySound(0x1E5); // Identified shared cast placeholder.
+            WarlockRitualVisuals.Attached(p,SpellEffectGraphics.DeathMarkCast,SpellEffectSounds.DeathMarkCast);
             return true;
         }
         catch(NotSupportedException e)

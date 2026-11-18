@@ -24,7 +24,11 @@ internal static class BindDemonChannel
     internal const int Cost256=9*256;
     public static void Configure(){EventSink.Disconnected+=Cancel;EventSink.Logout+=Cancel;}
     internal static BindDemonChannelState State(Mobile owner)=>owner==null?null:Casts.GetValueOrDefault(owner.Serial.Value);
-    internal static void Cancel(Mobile owner){if(owner!=null){Casts.Remove(owner.Serial.Value);}}
+    internal static void Cancel(Mobile owner)
+    {
+        if(owner!=null&&Casts.Remove(owner.Serial.Value))
+        {WarlockRitualVisuals.Clear(owner,SpellEffectGraphics.BindDemonChannel);}
+    }
     internal static void EndHeld(PlayerMobile owner,int source)
     {if(source>=0&&State(owner)is{} state&&state.Source==source){Cancel(owner);}}
     internal static void EquipmentChanged(PlayerMobile owner)
@@ -65,7 +69,10 @@ internal static class BindDemonChannel
         if(!BoundDemonHosts.Qualify(owner,target,out _,out issue)){return false;}
         Casts.Add(owner.Serial.Value,new(++_nextId,owner.Serial.Value,target.Serial.Value,owner.Map.MapID,owner.Location,
             CombatTiming.Equipped(owner)?.Serial.Value??0,at.AddSeconds(1),at,0,source,at.AddMilliseconds(CombatProtocol.HoldLeaseMs)){InputBound=inputBound});
-        owner.Direction=owner.GetDirectionTo(target);if(inputBound){BindDemonInput.Pose(owner);}issue=null;return true;
+        owner.Direction=owner.GetDirectionTo(target);if(inputBound){BindDemonInput.Pose(owner);}
+        if(WarlockRitualVisuals.Renew(owner,SpellEffectGraphics.BindDemonChannel,TimedEffects.Now))
+        {owner.PlaySound(SpellEffectSounds.BindDemonStart);}
+        issue=null;return true;
     }
     internal static bool RenewPrepared(PlayerMobile owner,int source,DateTime at)
     {
@@ -96,6 +103,12 @@ internal static class BindDemonChannel
         if(!NecromancerEffects.Pay(owner,Cost256)){return Stop(owner,next,"Bind payment failed.");}
         if(!Same(owner,next)){return Stop(owner,next,"Bind interrupted during payment.",true);}
         if(next.InputBound){owner.Direction=owner.GetDirectionTo(target);BindDemonInput.Pose(owner);}
+        WarlockRitualVisuals.Renew(owner,SpellEffectGraphics.BindDemonChannel,TimedEffects.Now);
+        if(!owner.Hidden&&!target.Hidden)
+        {
+            WarlockRitualVisuals.Trail(owner.Map,owner.Location,target.Location,SpellEffectGraphics.BindDemonTravel);
+            owner.PlaySound(SpellEffectSounds.BindDemonAttempt);
+        }
         int hp=BindDemonChance.HealthPercent(SkillHealth.Balance256(target),SkillHealth.Maximum256(target));
         var chance=BindDemonChance.Evaluate(BindDemonPrepared.Monster(plan.Monster),plan.Birth,12,hp,0,SkillHealth.Maximum256(target));
         // Only ordinary qualified original bodies reach this host. Native

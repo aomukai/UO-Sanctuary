@@ -66,6 +66,7 @@ internal static class BloodBoilPrepared
         catch(NotSupportedException e){Log.Warning("Blood Boil recipient preflight refused: {Reason}",e.Message);return empty with{Fault=e.Message};}
         ulong seed=SourceRandom.InitLow(SeedLow()),initial=seed;var bursts=new List<BloodBoilBurst>();
         if(!NecromancerEffects.Pay(owner,numbers.Mana256)){return empty;}
+        WarlockRitualVisuals.Attached(owner,SpellEffectGraphics.BloodBoilCast,SpellEffectSounds.BloodBoilCast);
         try
         {
             foreach(var body in roster)
@@ -82,14 +83,18 @@ internal static class BloodBoilPrepared
                     if(!BloodBoilCasting.Actor(owner)||owner.Map!=castMap){throw new NotSupportedException("Blood Boil owner retired during recipient callbacks");}
                     if(!Ready(owner,target.Serial.Value,at)){continue;}TaintedFireBallMissiles.RequireOrdinaryRecipient(owner,target);
                     Delays[(owner.Serial.Value,target.Serial.Value)]=at.AddMilliseconds(40L*numbers.DelayFrames);
-                    SkillCombat.HitParts(owner,target,new(physical/256.0,fire/256.0,0,0,0),true,spell:true);
+                    var contact=target.Location;
+                    int loss=SkillCombat.HitParts(owner,target,new(physical/256.0,fire/256.0,0,0,0),true,spell:true);
+                    if(loss>0)
+                    {
+                        WarlockRitualVisuals.Ground(map,contact,SpellEffectGraphics.BloodBoilHit,-1,6);
+                        SpellAreaSounds.Pulse(owner.Serial.Value,SpellEffectSounds.BloodBoilHit,contact,map,at,120);
+                    }
                     recipients.Add(target.Serial.Value);
                 }
                 bursts.Add(new(body.Serial.Value,center,paid,physical,fire,recipients.ToArray()));
-                Effects.SendLocationEffect(center, map, 0x36BD, 10, 10, 0x26, 0);
-                Effects.PlaySound(center, map, 0x307);
+                WarlockRitualVisuals.Boil(map,center,numbers.Radius);
             }
-            owner.PlaySound(0x1FB);
             return new(true,numbers.Mana256,roster.Length,initial,seed,bursts.ToArray());
         }
         catch(Exception e)when(e is NotSupportedException or System.IO.InvalidDataException)

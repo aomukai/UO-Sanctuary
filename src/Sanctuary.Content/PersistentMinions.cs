@@ -129,6 +129,7 @@ public static class PersistentMinions
             DruidSummonVisuals.Depart(pet);
             if (pet is AssassinShadowBody shadow) { shadow.PresentDeparture(); }
             WarlockDemonVisuals.Depart(pet);
+            WarlockRitualVisuals.Clear(pet,SpellEffectGraphics.EngorgeWard);
             pet.Internalize();
         }
     }
