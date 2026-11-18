@@ -1,127 +1,108 @@
 # Sanctuary
 
-Diablo II combat and itemisation in a persistent Ultima Online world. The design baseline is [the kickoff brief](Britannia-Diablo-Project-Kickoff.md). Agreed direction and candidate mechanics remain distinct.
+**Diablo II character builds and combat in the persistent world of Ultima Online.**
 
-The class-skill implementation goal is **mechanically qualified for all eight classes and 240 talents**, including Warlock/Witch, under the approved Sanctuary rules and current supported PvE/world catalogue. Reference: **D2R Reign of the Warlock 3.3.93847**. The [final handoff](docs/class-skills-complete.md) links the retained 210 active-input/30 passive entries, dedicated lifecycle scopes, approved pet-policy checks and actual client representatives for all eight classes. The matching content and **45-patch client** are installed; the original world loads **5,290 entities**, with all **38 save files** and configuration/client settings unchanged. [Explicit support limits](docs/class-mechanics-supported-contexts.md) distinguish unknown modern parity and deferred world/item systems from missing class handlers. Final [effects/audio](docs/skill-effects.md) and [icons](docs/skill-icons.md) remain separately tracked placeholders. [Main consolidation](docs/main-consolidation-plan.md) retains the reviewed branch histories. Earlier dated checkpoints below are historical. Historical raw run archives have since been [retired](docs/class-skill-history-retirement.md); current checks use committed release information and fresh test runs.
+Sanctuary is a solo-developed game set in Britannia, combining Diablo-style classes, loot and progression with UO's gathering, crafting, towns and player housing. The aim is a world where adventuring and making a home both matter.
 
-The earlier [T46 mercenary care](docs/t46-mercenary-preparation.md) and [T47 profession](docs/t47-profession-coverage.md) checkpoints record isolated preparation and13profession routes to120. Their T45 installation status is historical. Full mercenary work,final T49 integration and T48 gameplay balance retain their separate roadmaps.
+## Current state
 
-The [22 October build checkpoint](docs/checkpoint-2026-10-22.md) records that date’s implementation, settled choices, verification and the return list for classes, mercenaries and final integration.
+All **eight classes and their 240 talents** have mechanical implementations, including **Warlock / Witch**. The mechanical reference is **Diablo II: Resurrected — Reign of the Warlock, version 3.3.93847**, with deliberate Sanctuary adaptations for the persistent world.
 
-The [complete Unique/Set catalogue](docs/named-equipment-catalogue.md) now contains every pinned D2R named-item/set row, including newer expansion entries, with full properties and bonus definitions. Shared [T49 integration](docs/set-unique-audit.md) is staged for245 Unique variants and88 Set pieces; the [held item return list](docs/named-item-readiness.md) follows its class/mercenary prerequisites. Its T45 production note describes the historical catalogue checkpoint.
+The current build is a **PvE development build**. Britain and its graveyard provide a small playable test area; the wider world, dungeon progression and overall balance are still being developed. Many skill effects use existing UO graphics, and talent/hotkey icons currently use text placeholders.
 
-**Start here for the next implementation:** the [crafting/economy roadmap](docs/implementation-roadmap.md) orders small tasks by dependency and playable loop, with current code entry points, open-decision gates and acceptance checks. Pick one ready task rather than implementing the whole design at once.
+### Classes
 
-The [allied movement rule](docs/allied-movement.md) allows transit through friends while preserving the incumbent’s actions; only passing units must walk clear, with safe delayed pet regroup and no chain retreat.
+Each class has three talent trees with ten talents each.
 
-The [T01 working baseline](docs/t01-working-baseline.md) records the comparison build verified on 19 October. The [T02 reference cohort](docs/t02-reference-cohort.md) adds eight base mappings, five physical materials and audited affix pools. [T03](docs/t03-class-names.md) implements and verifies the confirmed cosmetic class names. [T04](docs/t04-item-state.md) versions gear metadata with deterministic legacy defaults and preserves it through native item paths. [T05](docs/t05-professions.md) adds first-profession confirmation, server activation checks, paid training and no-output practice. The [matching T01–T09 builds are deployed](docs/deployment-t01-t09.md); completed profession/crafting features are enabled in the installed runtime by user request. [T06](docs/t06-crafting.md) adds guarded native tool crafting, persisted tool quality/uses, configurable pricing and shared public town facilities. [T07](docs/t07-processing.md) adds canonical material weights, portable generic scrap processing and atomic direct native conversions, with existing stacks and vendor exclusions checked in disposable worlds. [T08](docs/t08-white-bases.md) adds603 white-equipment recipes across201 standard-material identities and Normal/Exceptional/Elite, including gloves, boots and potion tabards, with persistent quality, sockets, maker marks and durability. These profession changes are deployed and active. [T09](docs/t09-effective-gear.md) activates material resistance/typed damage, cold chill, poison over time, stacking Verite regeneration and FHR rolls, with consistent broken gear and cosmetic cloth clothing. These gear changes are deployed too. The [ordinary recipe book](docs/t08-recipe-book.md) is complete for the agreed scope; ten exotic recipes are explicitly deferred. [T10](docs/t10-rewards.md) adds D2-derived manual corpse gold, active Gold Find and one saved reward claim per life; it is deployed. [T11](docs/t11-vendors.md) adds persistent equipment stock and resale quotes, supplies and all thirteen trainers across Britannian towns; it is deployed. Prices are configurable. [T12](docs/t12-repairs.md) adds full resource-based repairs, repair tools, NPC services and partial/full native-wand recharge; it is deployed. [T13](docs/t13-death-gold.md) applies flat20% backpack-gold death loss with aggregate downward rounding and a saved once-only corpse claim; it is deployed. [T14](docs/t14-recognition.md) adds permanent recognition/wardrobe/housing rights, named certificates and one bookshelf wardrobe across22 civic offices. Its second ceremony unlocks5,000gold active-class respec, preserving level/XP/trades and closing the UI after refund; it is deployed. [T15](docs/t15-wardrobe.md) adds free switching among all ten crafts at public wardrobes after either ceremony, retaining every trained skill and current class state; it is deployed. [T16](docs/t16-salvage.md) provides corresponding-tool salvage without skill/use/gold cost, retains independent recovery rolls and safely destroys filled contents without extra yield; it is deployed. [T17](docs/t17-imbuing.md) adds tiered Imbuing, native gain checks and the five white ring/amulet grades. [T18](docs/t18-identification.md) adds craftable/purchasable single-use Identify scrolls and hidden-item information boundaries. Both are deployed. [T19](docs/t19-gear-drops.md) adds mapped Normal gear drops and active Magic Find; it is deployed. The [Nightmare/Hell extension](docs/t19-difficulties.md) adds persistent variants with matching numeric stats, XP and loot; world placement is deferred. [T20](docs/t20-sockets.md) adds guarded empty-socket creation, destructive failures, crafted tool bonuses and the free-intuition retry/abort choice; it is deployed. [T21](docs/t21-moulds.md) adds eight mould tiers and15 known percentage-stat families, with source-frequency weights and one independent0.1% drop roll alongside ordinary loot; it is deployed. [T22](docs/t22-runebark.md) adds eight stackable Runebark tiers, one5% roll per successful wood extraction, trained Base unlocks, full-pack delivery at feet and10–80gold vendor purchase prices; it is deployed. [T23](docs/t23-runes.md) adds declared-stat rune crafting from a mould, suitable Runebark and a scribe’s pen, with native success/gain checks, distinct rune quality gates and guarded confirmation; it is deployed. [T24](docs/t24-gems.md) adds nine mining-gem families, five saved qualities, decorative legacy gems and guarded Tinkering upgrades. [T25](docs/t25-rune-sockets.md) adds permanent rune installation, working additive bonuses and filled-socket level requirements. Both are deployed. [T26](docs/t26-gem-sockets.md) adds permanent gem insertion, mixed rune/gem requirements and working slot effects, including elemental damage, drain, reflection, regeneration and flat magic reduction; it is deployed. [T27](docs/t27-timed-effects.md) adds shared timed-state persistence, offline advancement, death clearing and independent potion/food/map slots; it is deployed. [T28](docs/t28-alchemy-restoratives.md) adds four crafted instant mixtures, Vitality/Energy-based double restoration and the existing heal/mana treasure outcomes; it is deployed. [T29](docs/t29-combat-potions.md) adds five crafted combat potions with active speed, physical/spell damage, leech and protection. [T30](docs/t30-cooking.md) adds18 named meals, real food effects and unusual cooking ingredients. [T31](docs/t31-carpentry.md) adds66 furniture/station/keg recipes, safe native house placement and manual100-dose identity-preserving potion kegs. [T32](docs/t32-map-surveys.md) adds five crafted30-minute map effects: purchase discounts, treasure-search tolerance and named-dungeon Magic Find. [T33](docs/t33-teleport.md) adds the learned Teleport effect and shared inventory/belt scroll targeting. [T34](docs/t34-inscription.md) adds fourteen scroll/tome recipes, consumable charges, owner-only two-way Town Portals, scribe supplies and the1% full-tome Teleport bonus. [T35](docs/t35-encounters.md) adds champion packs, random uniques with five minions, named dungeon super-uniques, the full elite modifier/aura roster, grade-specific rewards and bounded level60–99 dungeon profiles. Permanent encounter placement remains world-authoring work. [T36](docs/t36-fortification.md) adds wild arachnid chitin, Alchemy powder crafting and maximum-only durability restoration to the natural equipment ceiling, including crafted bonuses. Ordinary repairs fill current durability afterward. [T37](docs/t37-treasure-hunts.md) adds spacious private treasure dungeons, five difficulty bands, deciphered immunity disclosure, matching skeleton keys, tiered chest rewards and permanent rare-recipe learning. [T38](docs/t38-power-scrolls.md) adds rare skill-specific boss Power Scrolls and permanent ordered cap upgrades for all thirteen professions, retaining trained values and skill locks. [T39](docs/t39-class-histories.md) migrates the character save to independent class histories and per-class bindings while retaining shared resources, possessions and timed effects. It also adds an S skill panel and twelve per-class F1–F12 quick-cast slots, including hover assignment and left/right mouse binding. [T40](docs/t40-wardrobe-transactions.md) enables full free wardrobe swaps with real per-class equipment storage, retrieval, class summon parking, follower accounting and immediate binding/stat/belt refresh. [T41](docs/t41-earned-titles.md) adds permanent class-99 prefixes and skill-100/110/120 suffixes, independently selectable or hidden across class/craft swaps.
-
-[T42 housing](docs/t42-housing.md) adds one home per account, account-wide housing eligibility/access, native architects and GM-authored town properties. Use **[MarkHouse** for editable floor/garden measurements and sale setup. Buildings are private by default; gardens admit visitors, with separate storage permissions. Town properties support native trading and50% empty-property buyback. Town-hall replacement wardrobes cost **1,000gold**. The local deployment preserves existing characters, items and client preferences.
-
-[T43 equipment insurance](docs/t43-insurance.md) adds bank-paid protection for identified White, Magic and Rare equipment. Use **[Insurance** or the character's insurance menu, review the charge, then confirm. Each premium covers one death without expiry; optional renewal defaults off. Covered items stay in your backpack. Set and Unique support is deferred.
-
-[T44 corpse escrow](docs/t44-corpse-escrow.md) keeps player corpses for24 real hours, then preserves remaining belongings in private escrow. Say **recover** to a banker or use **[Recover** nearby to review and pay for whole-claim bank recovery. Closing, insufficient funds and a full bank preserve the claim; only separately confirmed forfeiture deletes its contents.
-
-[T45](docs/t45-gambling.md) adds tavern gambling with hidden stock, guarded purchases, loot-eligible real gear and refunded deferred outcomes. Source, installed, client and save/restart checks passed; deployed. The required [T49 Set/Unique pass](docs/implementation-roadmap.md) follows the current implementation roadmap and precedes further class work.
-
-
-
-The [balance foundation](docs/balance-foundations.md) defines the players-1 level 1–99 monster curve, converted normal gear and cosmetic extra UO slots, running penalties, magic/rare affix rules and persisted rolls, class growth, and solo XP. Native ordinary loot is suppressed; the mapped Normal reward roster now uses authored shared gold/gear treasure draws. Unsupported branches and successful Set/Unique rolls remain empty. T35 encounter profiles and T37 treasure tiers supply dungeon resistance and immunity rules; permanent world layouts remain later authoring work.
-
-The [equipment economy prototype](docs/economy.md) reduces NPC gear resale and adds randomized salvage into Magic Essence and physical materials, plus essence-funded white-base imbuing. Vendor-origin equipment cannot be salvaged or imbued. Prices, yields and chances are provisional tuning data.
-
-The [first-implementation crafting/economy specification](docs/crafting.md) reconciles the completed player decisions. It describes the next target and is separate from the installed comparison build; the [decision tracker](docs/economy-open-questions.md) records remaining details.
-
-The [reviewed monster XP roster](docs/creature-reward-roster.md) covers every common creature type, with D2 counterpart rewards and consistent combat/XP levels. Normal is live; Nightmare/Hell rewards are prepared data. [Reward rules and limitations](docs/creature-experience.md).
-
-The local foundation is installed with Classic Client data **7.0.117.1**. Both upstream projects compile. The server boots, authenticates the local owner account, saves, and authenticates again after restart. Andy confirmed successful desktop login, entry into the game world, working doors, banker interaction, equipping a dagger, and returning it to the backpack. Andy has also confirmed the mouse combat prototype in play, including killing a skeleton with Teeth. Bank item transfers and the original GM inventory persistence round trip remain separate checks.
-
-## Pinned foundation
-
-| Dependency | Revision |
+| Class | Play styles |
 | --- | --- |
-| ModernUO | `eff9de028136b11e544fd81375d1e0e710e22dd6` |
-| Desktop ClassicUO | `ee79d7ebc1cc0e53ff84fe6cae17d389e2737f93` |
-| .NET SDK | `10.0.201`, installed locally in `.tools/dotnet` |
+| Amazon | Bows, crossbows, javelins and spears |
+| Sorceress | Fire, cold and lightning magic |
+| Necromancer | Skeletons, golems, revives, curses, bone and poison magic |
+| Paladin | Auras, holy magic, shields and weapon combat |
+| Barbarian | Weapon combat, dual wielding, war cries and movement skills |
+| Druid | Animal companions, spirits, vines, elemental magic and shapeshifting |
+| Assassin | Martial arts, traps and shadow disciplines |
+| Warlock / Witch | Demons, Hexes, Sigils, Entropy magic and weapon skills |
 
-The server and client are Git submodules under `upstream/`. ClassicUO's nested dependencies are pinned by its own submodules. Project content lives in [Sanctuary.Content](src/Sanctuary.Content/). Small server patches expose [character-creation hooks](patches/ModernUO/0001-character-creation-hooks.patch), [class-combat hooks](patches/ModernUO/0002-class-combat-hooks.patch), [equipment running penalties](patches/ModernUO/0008-equipment-running-penalty-hooks.patch), and [converted gear and disabled monster drops](patches/ModernUO/0009-converted-gear-and-disabled-drops.patch); [item origin persistence](patches/ModernUO/0010-persist-item-origins.patch) adds Vendor/Drop/Crafted to every base Item, with origin-preserving stacks and vendor/craft creation tagging. The [client patch stack](patches/ClassicUO/) covers startup compatibility, class selection, paperdoll and talent controls, combat, corpse looting, class stats, level-up notifications, and equipment movement timing. The password patch accepts up to 30 characters, matching the login packet, and logs login-state transitions without credentials. `setup` and builds apply the patches idempotently and reject conflicting edits. Git therefore reports both submodules as modified; the patch files record those intentional differences. Project build overrides live in `build/`; runtime files, saves, accounts, and logs live in ignored `.local/`.
+Sanctuary makes its own choices where D2's rules do not suit a persistent UO world. These include persistent summons, safe-area summon parking, improvements to Necromancer and Druid pets, and targeting assistance for selected skills. Charms and runewords are not planned.
 
-## Linux setup
+### Other systems already in place
 
-Prerequisites: Python 3.10 or later, Git, Bash, and network access for initial source and NuGet downloads. Native server dependencies on Ubuntu/Pop!_OS 24.04 are `libicu74`, `libdeflate0`, `libargon2-1`, and `tzdata`. They were already installed on the initial development machine. The client bundles its FNA graphics/audio libraries and also needs a working desktop graphics driver.
+- Character levels, attributes, talent points, equipment bonuses and potion belts.
+- Equipment drops, magical properties, sockets, materials and crafting.
+- Gathering and crafting trades, town merchants, banking and repairs.
+- Housing, equipment insurance, death penalties and corpse recovery.
+- Persistent characters, inventories and supported companions across server restarts.
+
+Full mercenary recruitment and combat, broader monster ability conversion, world population and progression, remaining item-effect delivery, and final skill artwork/audio are still ahead.
+
+## Playing
+
+New characters begin near **West Britain Bank**. Open the paperdoll's **Class** panel to spend talent points and assign learned skills; **Skills** opens the retained UO trades.
+
+| Control | Action |
+| --- | --- |
+| Left-click / hold on the ground | Move / steer |
+| Left-click / hold on an enemy | Approach and attack with the assigned left action |
+| Shift + left-click / hold | Attack while standing in place |
+| Right-click / hold | Use the assigned right action |
+| F1–F12 | Use assigned quick skills |
+| 1–4 | Drink from the potion belt |
+| Tab | Toggle Run / Walk |
+| Enter | Enter chat |
+
+Available bindings depend on the skill. Running trades defense for movement speed, so positioning and the Run / Walk choice matter in combat.
+
+## Running locally
+
+The development installation uses **ClassicUO**, **ModernUO** and separately installed UO client data. From a configured checkout, start the installed server:
+
+```bash
+./dev doctor
+./dev server --installed
+```
+
+Then start the client in another terminal:
+
+```bash
+./dev client
+```
+
+At the server console, use `save` and wait for it to finish before `shutdown`.
+
+<details>
+<summary>Build and configure a local installation</summary>
+
+You need Git, Bash, Python 3.10 or later, a working graphics driver and network access for the initial downloads. `./dev setup` manages the project's pinned .NET SDK **10.0.201**. On Ubuntu / Pop!_OS 24.04, native server dependencies include `libicu74`, `libdeflate0`, `libargon2-1` and `tzdata`.
 
 ```bash
 ./dev setup
 ./dev build
 ./dev install-data
-./dev doctor
-python3 -m unittest discover -s tests -v
 ```
 
-`setup` installs the project SDK without changing the system .NET installation. `build` creates Debug binaries, stages them into `.local/server` and `.local/client`, and writes logs to `.local/logs/`. It preserves existing runtime configuration and saves. The client launcher adds its bundled native-library directory to its own library search path. `doctor` returns a nonzero status while required setup is incomplete.
-
-Server builds also build the project content assembly. For content-only changes, use `./dev build content`; the next `./dev server` launch installs it and its data. Builds refuse to replace a running server or client's binaries. Save the world and close the server before restarting it to load content changes.
-
-The server build pins transitive `System.Security.Cryptography.Pkcs` to `10.0.13` via [our MSBuild override](build/ModernUO.targets). The unmodified upstream restore fails on vulnerability advisories for `10.0.0`; NuGet auditing remains enabled. See [Microsoft's advisory](https://github.com/advisories/GHSA-846f-f764-76mx).
-
-For these shallow Debug checkouts, the server build uses `NBGV_GitEngine=Disabled` and `PublicRelease=false`. Assembly version metadata therefore does not identify the source commit; use the submodule hashes above or `./dev doctor`. This follows [Nerdbank's documented shallow-clone option](https://dotnet.github.io/Nerdbank.GitVersioning/docs/shallow-cloning-agents.html). This is a development build, not a release publishing pipeline.
-
-The client compiles with upstream warnings, including ImageSharp package vulnerability advisories. They are retained in its build log; a successful build does not mean those advisories are resolved.
-
-## UO data and first local session
-
-The data is installed in `.local/uo-data`. The official Windows installer is retained in `.local/downloads/`; its source is the [official download page](https://uo.com/client-download/). ClassicUO uses this separate installation's art and maps.
-
-For a fresh Linux setup, `./dev install-data` uses [UO Patcher](https://github.com/andrezaiats/uo-patcher) at commit `e7e890334705032f66b2ed99eee08e5cace6db93`, verifies its source hash, and downloads from the publisher's patch servers. It excludes unavailable patch-note web pages and checks game-file sizes and archive entries against the manifests. The initial installation verified 420 game files and 44,200 game archive entries. Asset data follows the publisher's current manifest, so future downloads may have a different client version.
-
-The helper stages temporary chunks in `/dev/shm` to avoid slow small-file writes on this exFAT project drive. It needs at least 5 GiB free there; set `SANCTUARY_ASSET_SCRATCH` to another suitable staging directory when needed. Finished files stay on the project drive, and temporary staging is removed.
-
-On this machine, the data path and actual version are already configured. The provisional test era is `SA`, with Felucca and Trammel enabled. This does not settle the eventual world or expansion. To configure a fresh checkout after installing data:
+UO art and maps are downloaded separately; they are not included in this repository. Configure a fresh installation using the version that matches its installed client data. The development installation currently uses **7.0.117.1**, with `SA` as its provisional era:
 
 ```bash
 ./dev configure .local/uo-data --client-version 7.0.117.1 --expansion SA
+./dev doctor
 ```
 
-Use the version matching the installed `client.exe` if downloading newer data. On this machine, start directly with:
+Existing installations do not need to be configured again. The server console handles initial owner-account setup. The default server is local-only at `127.0.0.1:2593`.
 
-```bash
-./dev server
-# In a second terminal:
-./dev client
-```
+For content changes, close the server, run `./dev build content`, then start with `./dev server` to stage the updated content and data. `--installed` starts the existing installed package without restaging it. Runtime configuration, saves and client settings live under `.local/`.
 
-`configure` checks a few required asset files; it does not certify a complete installation. It refuses to overwrite existing configuration. Edit `.local/server/Configuration/` and `.local/client/settings.json` for later changes.
+</details>
 
-The generated server listens on `127.0.0.1:2593` and disables public-address detection. The ping listener also binds to loopback. Account auto-creation is disabled. This installation has an owner account; its username and generated password are stored in `~/.config/sanctuary/owner-login.json` with mode `0600`. No credentials are stored in the repository or command arguments. On a fresh installation, create an owner account at the server's interactive console.
+## Work ahead
 
-New characters choose one of eight Diablo II classes,including Warlock/Witch, customise their appearance, and enter the world near West Britain Bank as an ordinary level-1 player with zero XP. There is no custom profession, skill allocation, or city screen. Class and level appear on the paperdoll. Its **Class** button (or `[Class`) opens three talent trees with ten skills each; its **Skills** button opens the UO skills window filtered to gathering, crafting, and Cartography. Talent ranks, requirements, point spending, and save migration are implemented. A [mouse combat prototype](docs/combat-prototype.md) adds repeated basic attacks and reagent-free, dagger-granted Teeth for Necromancers. All240talent routes have mechanical implementations and scoped class verification;final effects and icons remain separately tracked. Graveyard kills award combat XP. See [character creation](docs/character-creation.md) and [talents and trades](docs/class-talents-and-trades.md).
+The next phase will use smaller goals, with one complete, playable result at a time:
 
-Existing characters are preserved, including the original GM character that started in **Green Acres**. From that staff character, enter `[SanctuaryTest` in game chat to reach West Britain Bank. `[SanctuaryTest vendor` goes to the provisioner/cobbler, and `[SanctuaryTest smith` goes to the armorer/weaponsmith. `[Where` reports the current location. These are in-game staff commands, not server-console commands. A new class character on the owner account receives player access; the owner account and existing GM retain their privileges.
+- Skill icons, spell effects, animations and sound.
+- D2-style ability repertoires for UO monsters, followed by encounter and dungeon authoring.
+- Mercenary recruitment, equipment and combat built on the existing companion systems.
+- Remaining equipment effects and later designs for charged or crafted skill-granting gear.
+- World difficulty, rewards, combat balance and targeted control improvements.
 
-The project content installs a small Felucca neighbourhood, bounded by `(1400, 1620)` through `(1490, 1720)`, using bundled ModernUO data: 330 decorations including eight doors, and three spawners maintaining six NPCs. A saved invisible marker makes decoration installation happen once; vendor spawners retain their existing NPCs across restarts. The Britain graveyard now also has six undead across three spawners; the rest of the world is still unpopulated. This is a baseline test area, not the combat prototype or a full world-generation pass.
-
-At the server console, `sanctuary-status` reports the area's doors and population. With the game data installed, `python3 tests/check_britain.py` exercises a disposable world on a separate loopback port, checks its doors and residents, saves it, and verifies the same object identities after restart. It does not use your accounts or saves.
-
-Doors, opening the bank, and equipping/unequipping a dagger are confirmed in game. Equip a weapon by dragging it onto the paperdoll; double-clicking a dagger invokes its bladed-tool targeting action. For the remaining baseline play checks, verify walking/running and transferring items between backpack and bank. Use the upstream `[Save` command as owner, stop the server cleanly, restart it, and verify the same character, equipment, backpack, and bank contents return. At the server console, `save` writes a save and `shutdown` stops the server; shutdown alone should not replace an explicit save. Record outcomes in [the baseline audit](docs/baseline-audit.md).
-
-The current [combat prototype](docs/combat-prototype.md) supplies hostile click-to-approach/repeated attacks, ground click-to-stop/move with continuous steering while held, Shift + left-click/hold swings in place (including empty swings), and dagger-granted Teeth on right click (hold to repeat at the casting rate), with no reagents or war-mode toggle. The former paperdoll toggle and **Tab** select Run/Walk, and the choice applies to ground movement and enemy approach. Running steps disable defense/parrying; standing still retains defense. Teeth currently reaches 16 tiles for play testing. Hostile picking prefers visible sprite pixels, then uses filled body bounds; physical projectile collision is separate. Class regeneration bypasses Meditation/Focus, and UO skill gains are limited to the 13 retained trades. Enter `[CombatTest` on a class character for two practice targets, and `[CombatTest return` to leave. Play feedback on controls, timing and the recovery prototype is still needed; FHR equipment and species-specific approach behavior remain separate follow-ups. Most ability effects, further economy rules, and NPC dialogue remain ahead.
-
-
-A [movement smoothness comparison](docs/movement-smoothness.md) improves responsive tile paths and removes the client turn pause while retaining the existing protocol, collision and controls. That report records the remaining tile limitations and a proposed fractional-position prototype. The [melee comparison](docs/melee-reach.md) adds responsive pursuit and provisional halberd reach; [hit recovery](docs/hit-recovery.md) covers the separate recovery rules and monster reaction findings.
-
-Class characters also have [nearby corpse looting](docs/loot-prototype.md): single-click a monster corpse for one combined grid within five tiles, then click an icon to take its whole stack. Empty bodies turn grey and remain usable; successfully harvested bodies disappear only after their remaining contents are taken. Eligible kill gold goes to the backpack, leaving any stack that cannot fit in its corpse. Tooltip simplification and explicit Diablo rarity colours remain ahead.
-
-
-[Attack and casting timing](docs/combat-timing.md) now uses class/weapon-family profiles and frame breakpoints for IAS/FCR. Actions have a windup, one hit/release point and a full-cycle deadline; equipment changes cannot refund it. Weapon Speed tooltips show Diablo-style labels, with class and actual cycle time when equipped. Weapon damage and projectile travel remain provisional.
-
-[Character attributes and graveyard combat](docs/character-stats.md) add four spendable attributes, five points per level, class-specific life/mana/stamina growth, physical Attack Rating and Defense, weapon stat scaling, and IAS/FCR in the expanded status window. Level-up notifications include Stats and Talents buttons while points are available. The test graveyard currently spawns three skeletons and two slow zombies using [early D2 Normal combat stats and attack timelines](docs/early-normal-monsters.md); mobs have a home leash and abandon prolonged chases. The Firebolt-casting lich and its repeated revival behavior remain implemented for later world building. Only the first death grants rewards, with persistent corpse flags preserving this rule across restarts. Graveyard kills award XP, including kills by skeleton guardians.
-
-The current progression, resurrection, corpse recovery, skill assignment and Raise Skeleton controls are described in [death and pets](docs/death-and-pets.md).
-
-For equipment upkeep, use a repair tool at your public profession workshop or choose **Repair Item** on a matching town merchant. `[Repair` selects an available tool for your active craft. The confirmation shows resources, NPC fee and durability-loss risk. Charged wands also offer quantity/fill recharge and combined work. See [repair and recharge](docs/t12-repairs.md).
-
-Wild graveyard skeletons and zombies now have [separate notice and approach behavior](docs/monster-reactions.md), preserving their walking rates. A [common creature profile](docs/creature-profiles.md) covers all 726 built-in UO creature types and four project types, with Normal/Nightmare/Hell fields and monster hit recovery. Unconverted stats remain native; creative analogues such as fire dragons are recorded as disabled proposals until their abilities are converted and tested.
-
-Class characters now have a [four-column potion belt](docs/potion-belt.md) in the existing tabard slot, with 1–4 hotkeys and mandatory Enter-to-chat. This comparison adds real persisted belt storage, healing/mana restoration and a 20% empty-bottle recovery chance. GM comparison kits are explicit; drop tables and profession recipes remain separate. The same document records short clutch potion buffs versus hour-long convenience meals as the direction for the later alchemy/cooking pass.
-
-[Kill experience](docs/creature-experience.md) now uses enabled common creature-profile rewards, retaining the original D2 level curve, pet-owner credit and persistent suppression of repeat revived-monster XP. Unreviewed/disabled reward entries remain zero.
+The [design outline](Britannia-Diablo-Project-Kickoff.md) describes the broader game direction.
