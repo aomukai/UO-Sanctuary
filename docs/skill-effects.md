@@ -156,6 +156,10 @@ Shadow Warrior arrives in blue-violet wisps. Shadow Master emerges through a mag
 
 Muted ClassicUO checks rendered all 32 new frames and decoded six new Sonniss edits. The tests covered the accepted placements, follow movement, a protected-area return on the same actor, replacement, cancelled casting, and death nova delay and damage on a supported target. Both spells used their native casting poses on male and female Human, Elf, and Gargoyle bodies. Native save and reload checks exercised the learned summon transaction and pending and emitted death novas. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
 
+The Warlock's Goatman rises from rust-red rubble, throws sparks on melee contact, and shares the existing Berserk effect while that state is active. Tainted keeps its approved Succubus sprites and red flare. Embers mark its arrival, its fire resistance aura, and its departure. The Defiler retains its native Gazer and marks each accepted Health Link recipient. A separate impact flashes when damage transfers, and the marks clear when the link ends. [Goatman art and prompt](../art/spell-effects/warlock-goatman) · [Tainted art and prompt](../art/spell-effects/warlock-tainted) · [Defiler art and prompt](../art/spell-effects/warlock-defiler)
+
+Muted ClassicUO checks rendered all 52 new frames and decoded twelve Sonniss edits. The tests covered one-time mana payment, shared-cap replacement, a protected-area return with the original Tainted, Goatman melee and Berserk, the Tainted's red flare and resistance lease, typed damage sharing between two Defiler marks, and marker cleanup after the Defiler died. All three casts were checked on male and female Humans, Elves, and Gargoyles. Native summon and Health Link checks passed across a save and reload. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
 Charged Bolt skitters along its existing paths, Lightning travels in a straight streak, and Chain Lightning sends violet arcs between targets. Static Field expands along the ground and Thunder Storm flashes above the caster at release and on its recurring strike schedule. The player casts were checked in ClassicUO with audio disabled. Nine Sonniss edits cover their cast and impact cues. Each cue has passed format and level checks and awaits a listening pass. [Cue recipes](../art/spell-effects/sonniss-cues.json)
 
 Ice Bolt travels as a thin shard, Ice Blast as a compact comet, and Glacial Spike as a heavier crystal with an area burst. Frost Nova expands across the ground. The shared cold overlays follow the affected target and clear with the game status. Thaw and cold corpse shatter reuse the Ice Blast fragments. The player effects were checked in ClassicUO with audio disabled. Eight Sonniss edits cover releases, impacts, and the shared cold corpse shatter. Their listening pass is queued. [Cold status sprite source](../art/spell-effects/cold-status/sheet.png) · [Cue recipes](../art/spell-effects/sonniss-cues.json)
@@ -1329,12 +1333,12 @@ Inherited NPC item absorption now changes life mechanically. Final Iron Golem ab
 | Assassin | Death Sentry | custom | Bone and iron altar, lightning, radius-scaled corpse blast and collapse. |
 | Assassin | Blade Shield | custom | Raising blades, attached orbit, periodic cut, deflection and expiry. |
 | Warlock | Demonic Mastery | not-applicable | demonic_mastery |
-| Warlock | Summon Goatman | native | Native Gargoyle and Gazer with summon effects. |
+| Warlock | Summon Goatman | custom | Native Gargoyle with rubble summon and melee effects, plus the shared Berserk loop. |
 | Warlock | Blood Oath | not-applicable | bloodoath |
 | Warlock | Death Mark | needed | warlock_death_mark_pet, warlock_fire_cast_1 |
-| Warlock | Summon Tainted | needed | warlockdemonground, warbighead, warlock_shadow_cast_2 |
+| Warlock | Summon Tainted | custom | Approved Succubus and red flare with an ember summon and fire resistance ward. |
 | Warlock | Blood Boil | native | Native explosion, heal and buff graphics with matching sounds. |
-| Warlock | Summon Defiler | native | Native Gargoyle and Gazer with summon effects. |
+| Warlock | Summon Defiler | custom | Native Gazer with burgundy summon effects and recipient Health Link marks. |
 | Warlock | Engorge | native | Native explosion, heal and buff graphics with matching sounds. |
 | Warlock | Consume | native | Native explosion, heal and buff graphics with matching sounds. |
 | Warlock | Bind Demon | needed | binddemonchannelmaker, bind_demon, warlock_shadow_cast_2 |

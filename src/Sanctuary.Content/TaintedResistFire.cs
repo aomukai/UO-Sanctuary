@@ -67,7 +67,7 @@ internal static class TaintedResistFire
         PaladinAuras.ApplyNpcResistance(body,body,420,aura.Rank,aura.Percent,at,until);
         foreach(var target in body.Map.GetMobilesInRange<Mobile>(body.Location,(aura.Radius+1)/2))
         {if(Recipient(body,owner,target,aura.Radius)){PaladinAuras.ApplyNpcResistance(body,target,420,aura.Rank,aura.Percent,at,until);}}
-        body.FixedEffect(0x375A,10,10,0x489,0); // Identified resistance-aura placeholder.
+        WarlockDemonVisuals.TaintedWard(body,at,until);
         return true;
     }
     internal static GenericPetActionServices Bind(WarlockTaintedBody body,GenericPetActionServices outer,Func<DateTime> now)

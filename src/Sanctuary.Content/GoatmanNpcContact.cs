@@ -62,7 +62,14 @@ internal static class GoatmanNpcContact
             ()=>ClassCombat.IsHostile(owner,target),n=>NpcEquipmentRandom.Limited(body,n)));
     }
     internal static MonsterContactResult ReleaseBasic(WarlockGoatmanBody body,PlayerMobile owner,BaseCreature target,IronGolemContact.Prepared prepared,DateTime at)
-    {Context(body,owner,target,at);return ReviveMeleeGeometry.Release(body,owner,target,prepared,at);}
+    {
+        Context(body,owner,target,at);
+        var point=target.Location;
+        var map=target.Map;
+        var result=ReviveMeleeGeometry.Release(body,owner,target,prepared,at);
+        WarlockDemonVisuals.GoatmanHit(body,target,point,map,result,at);
+        return result;
+    }
     internal static MonsterContactResult Release(WarlockGoatmanBody body,PlayerMobile owner,BaseCreature target,int skill,
         IronGolemContact.Prepared prepared,DateTime at)
     {
@@ -72,7 +79,11 @@ internal static class GoatmanNpcContact
         int rank=Rank(body,skill);
         if(rank<1){throw new NotSupportedException("Captured Goatman release skill is locked");}
         if(skill is 416 or 418){GoatmanNpcMelee.RefreshForRelease(body,skill,rank,at);}
-        return IronGolemContact.Release(body,owner,target,prepared,b=>ReviveMeleeGeometry.Within(body,target,b),at);
+        var point=target.Location;
+        var map=target.Map;
+        var result=IronGolemContact.Release(body,owner,target,prepared,b=>ReviveMeleeGeometry.Within(body,target,b),at);
+        WarlockDemonVisuals.GoatmanHit(body,target,point,map,result,at);
+        return result;
     }
     internal sealed class World(WarlockGoatmanBody body,PlayerMobile owner,Func<DateTime> clock,Func<bool> actionActive=null):GoatmanNpcActionProposal.Services
     {

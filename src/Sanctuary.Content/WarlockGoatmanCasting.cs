@@ -36,14 +36,7 @@ public static class WarlockGoatmanCasting
         // server loop cannot tick the new,untracked body between these steps.
         if(!NecromancerEffects.Pay(owner,values.Mana256)){DeathMarkWorld.Remove(body);body.Delete();return false;}
         WarlockGoatmanWorld.Admit(body);WarlockGoatmanWorld.Enforce(owner);FireGround.Delay(owner,ability);
-        if (ability == CombatAbility.SummonTainted)
-        {
-            owner.PlaySound(0x1E5);
-        }
-        else
-        {
-            UoSkillVisuals.Summon(body, WarlockDemonAppearance.For(ability).Sound);
-        }
+        WarlockDemonVisuals.Release(owner,body);
         return true;
     }
 }

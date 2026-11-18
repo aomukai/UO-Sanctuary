@@ -369,6 +369,7 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
     {
         UndeadSummonVisuals.Depart(this);
         DruidSummonVisuals.Depart(this);
+        WarlockDemonVisuals.Depart(this);
         NpcItemProcs.Forget(this);
         SummonUpgradeSnapshots.Forget(this);
         SuspendActions();

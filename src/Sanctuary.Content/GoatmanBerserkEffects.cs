@@ -42,7 +42,10 @@ internal static class GoatmanBerserkEffects
         Clock(at);if(!Eligible(actor)){throw new ArgumentException("NPC Berserk needs a living creature",nameof(actor));}
         var old=At(actor,at);var projected=GoatmanNpcMelee.StartBerserk(0,rank,old==null?null:new(old.Flags,0,old.Rank,0,old.DefenseOverride),true);
         var state=new GoatmanBerserkEffect(actor.Serial.Value,projected.Rank,projected.Flags,projected.ArmorOverride,at.AddMilliseconds(checked(projected.UntilFrame*40)));
-        States[actor.Serial.Value]=state;return state;
+        States[actor.Serial.Value]=state;
+        if(actor is WarlockGoatmanBody body && DemonNativeState.Learned(body))
+        {BarbarianStrikeVisuals.Berserk(body,state.UntilUtc.Value,at);}
+        return state;
     }
     internal static GoatmanBerserkEffect Impact(BaseCreature actor,int rank,DateTime at)
     {
@@ -56,13 +59,27 @@ internal static class GoatmanBerserkEffects
     }
     internal static void ModeChanged(Mobile actor,int previous,int next)
     {
-        if(previous!=next&&actor!=null&&States.TryGetValue(actor.Serial.Value,out var state)&&(state.Flags&4)!=0){States.Remove(actor.Serial.Value);}
+        if(previous!=next&&actor!=null&&States.TryGetValue(actor.Serial.Value,out var state)&&(state.Flags&4)!=0){Clear(actor);}
     }
-    internal static void Clear(Mobile actor){if(actor!=null){States.Remove(actor.Serial.Value);}}
+    internal static void Clear(Mobile actor)
+    {
+        if(actor!=null && States.Remove(actor.Serial.Value) && actor is WarlockGoatmanBody body)
+        {BarbarianStrikeVisuals.ClearBerserk(body.Serial.Value,body);}
+    }
     private static void Prune(DateTime at)
     {
         foreach(var state in States.Values.ToArray())
-        {if(!Eligible(World.FindMobile((Serial)state.Actor))||state.UntilUtc is{} until&&at>=until){States.Remove(state.Actor);}}
+        {
+            var actor=World.FindMobile((Serial)state.Actor);
+            if(!Eligible(actor)||state.UntilUtc is{} until&&at>=until)
+            {
+                if(actor==null){States.Remove(state.Actor);}
+                else{Clear(actor);}
+            }
+            else if(actor is WarlockGoatmanBody body && DemonNativeState.Learned(body)
+                && state.UntilUtc is{} expiry && PaladinAuraVisuals.InWorld(body) && !body.Hidden)
+            {BarbarianStrikeVisuals.Berserk(body,expiry,at);}
+        }
     }
     internal static GoatmanBerserkEffect[] Snapshot()
     {

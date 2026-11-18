@@ -387,6 +387,18 @@ public static class SpellEffectSounds
     public const int ShadowMasterCast = 60381;
     public const int ShadowMasterArrival = 60382;
     public const int ShadowMasterDeparture = 60383;
+    public const int GoatmanCast = 60384;
+    public const int GoatmanArrival = 60385;
+    public const int GoatmanContact = 60386;
+    public const int GoatmanDeparture = 60387;
+    public const int TaintedCast = 60388;
+    public const int TaintedArrival = 60389;
+    public const int TaintedDeparture = 60390;
+    public const int DefilerCast = 60391;
+    public const int DefilerArrival = 60392;
+    public const int DefilerDeparture = 60393;
+    public const int DefilerLinkCast = 60394;
+    public const int DefilerLinkContact = 60395;
 
     public static int Fallback(int sound) => sound switch
     {
@@ -421,6 +433,7 @@ public static class SpellEffectSounds
         SentryChargedRelease or SentryLightningRelease or DeathSentryRelease => 0x29,
         DeathSentryBurst => 0x307,
         ShadowWarriorCast or ShadowMasterCast => 0x1FB,
+        GoatmanCast or TaintedCast or DefilerCast => 0x1E5,
         BlizzardRelease or FrozenOrbRelease or MeteorRelease or TeethRelease or BoneSpiritRelease or AbyssOpen => 0x1E5,
         AmazonBowRelease or AmazonCrossbowRelease or JavelinThrow => 0x238,
         SpearThrust or HeavySpearThrust => 0x238,

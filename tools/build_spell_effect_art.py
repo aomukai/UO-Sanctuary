@@ -986,6 +986,45 @@ def assassin_shadow_summons():
         ))
 
 
+def warlock_demon_summons():
+    for name, graphic, recipes in (
+        ("warlock-goatman", 61400, (
+            (.194, (193, 145), 47, (213, 213, 215, 210)),
+            (.22, (194, 203), 24, (216, 215, 213, 207)),
+            (.20, (206, 172), 37, (214, 217, 216, 206)),
+            (.216, (190, 154), 24, (215, 212, 205, 184)),
+        )),
+        ("warlock-tainted", 61416, (
+            (.194, (192, 147), 48, (210, 214, 211, 177)),
+            (.22, (192, 179), 24, (208, 212, 213, 161)),
+            (.225, (193, 145), 24, (194, 199, 201, 191)),
+            (.216, (191, 157), 24, (208, 203, 188, 159)),
+        )),
+        ("warlock-defiler", 61432, (
+            (.194, (193, 145), 48, (211, 212, 212, 204)),
+            (.22, (195, 196), 24, (198, 207, 215, 199)),
+            (.20, (192, 123), 46, (209, 218, 219, 209)),
+            (.216, (190, 204), 24, (211, 188, 112, 125)),
+        )),
+    ):
+        rows = load_grid(name, (1536, 1024))
+        write_group(name, graphic, (
+            frame(cell, scale, pivot, (96, 96), padding, cutoff)
+            for cells, (scale, pivot, padding, cutoffs) in zip(rows, recipes)
+            for cell, cutoff in zip(cells, cutoffs)
+        ))
+
+    # The same link shape expands and dims when damage actually transfers.
+    marks = load_grid("warlock-defiler", (1536, 1024))[2]
+    write_group("warlock-defiler", 61448, (
+        frame(ImageEnhance.Brightness(marks[index]).enhance(light),
+              scale, (192, 123), (96, 96), 42, cutoff)
+        for index, scale, light, cutoff in (
+            (1, .22, 1.06, 217), (2, .29, 1.08, 216), (2, .32, .73, 224), (3, .34, .76, 213)
+        )
+    ))
+
+
 def necromancer_curses():
     cells = [cell for row in load_grid("necromancer-curses", (1448, 1086), rows=3) for cell in row]
     for cell in cells[:10]:
@@ -1827,3 +1866,4 @@ if __name__ == "__main__":
     assassin_lob_skills()
     assassin_sentry_skills()
     assassin_shadow_summons()
+    warlock_demon_summons()

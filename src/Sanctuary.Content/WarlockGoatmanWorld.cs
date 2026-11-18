@@ -67,6 +67,7 @@ public static class WarlockGoatmanWorld
     internal static void Tick(DateTime at)
     {
         DefilerHealthLink.Tick(at);
+        DefilerHealthLink.PresentMarks(at);
         var active=new List<SkeletonGuardian>();var owners=new HashSet<PlayerMobile>();
         foreach(var body in Bodies.ToArray())
         {
@@ -83,7 +84,7 @@ public static class WarlockGoatmanWorld
                 // Suspension/load/placement observations skip the whole
                 // inactive interval before joining active frame ordering.
                 if(loaded||!online||host.NeedsObservation){host.Advance(at);Store(body,host);}
-                if(online&&!body.Deleted){active.Add(body);}
+                if(online&&!body.Deleted){active.Add(body);WarlockDemonVisuals.Track(body);}
             }
             catch(Exception e){Fault(body,e);}
         }

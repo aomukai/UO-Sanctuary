@@ -25,6 +25,9 @@ internal static class DefilerHealthLink
     private sealed record Entry(WarlockDefilerBody Body,DefilerLinkMark Mark);
     private sealed record Pending(WarlockDefilerBody Body,DefilerLinkMark Mark,DirectDamageParts Parts);
     private static readonly Dictionary<uint,Entry> Index=new();
+    private record struct MarkVisual(DateTime Until,DateTime Renew,Map Map);
+    private static readonly Dictionary<uint,MarkVisual> MarkVisuals=new();
+    private static DateTime _presentationAt;
     private static readonly Queue<Pending> Queue=new();
     private static bool Delivering;
     public static void Initialize()=>SkillDamageEvents.BeforeDirectDamage+=Damage;
@@ -105,8 +108,35 @@ internal static class DefilerHealthLink
     {
         var candidates=Select(b,first,at);if(candidates.Length==0){return false;}
         Store(b,new(b.Prepared.Owner,(b.Prepared.Links?.Marks??[]).Concat(candidates).ToArray()));Tick(at);
-        foreach(var m in candidates){World.FindMobile((Serial)m.Target)?.FixedEffect(0x375A,10,15,0x489,0);} // Identified link placeholder.
+        WarlockDemonVisuals.DefilerLinkRelease(b);
+        if(DemonNativeState.Learned(b))
+        {
+            foreach(var m in candidates){PresentMark(World.FindMobile((Serial)m.Target),m,at);}
+        }
         return true;
+    }
+    private static void PresentMark(Mobile target,DefilerLinkMark mark,DateTime at)
+    {
+        if(!PaladinAuraVisuals.InWorld(target)||target.Hidden){return;}
+        if(MarkVisuals.TryGetValue(mark.Target,out var current)
+            && current.Until==mark.UntilUtc && current.Map==target.Map && current.Renew>at){return;}
+        var leaseEnd=at.AddMilliseconds(900);
+        if(PaladinAuraVisuals.Attach(target,SpellEffectGraphics.DefilerLinkMark,mark.UntilUtc<leaseEnd?mark.UntilUtc:leaseEnd,at))
+        {MarkVisuals[mark.Target]=new(mark.UntilUtc,at.AddMilliseconds(425),target.Map);}
+    }
+    internal static void PresentMarks(DateTime at)
+    {
+        if(at<_presentationAt){return;}
+        _presentationAt=at.AddMilliseconds(200);
+        foreach(var id in Index.Keys.Concat(MarkVisuals.Keys).Distinct().ToArray())
+        {
+            var target=World.FindMobile((Serial)id);
+            if(Index.TryGetValue(id,out var entry)&&DemonNativeState.Learned(entry.Body)
+                &&entry.Body.Prepared.Links is{Fault:null}&&Recipient(entry.Body,target as BaseCreature,false))
+            {PresentMark(target,entry.Mark,at);}
+            else if(MarkVisuals.Remove(id,out var old)&&target?.Map==old.Map)
+            {PaladinAuraVisuals.Clear(target,SpellEffectGraphics.DefilerLinkMark);}
+        }
     }
     private static void Fault(WarlockDefilerBody body,string reason)
     {
@@ -147,7 +177,10 @@ internal static class DefilerHealthLink
         var packet=new PreparedMonsterDamagePacket(parts.Physical256,checked((int)parts.Total),0,0,33,45,true,
             Magic256:parts.Magic256,Fire256:parts.Fire256,Cold256:parts.Cold256,Lightning256:parts.Lightning256);
         var services=new InstantSpellNpcDamage(owner,target,metadata,null,at,"Health Link",()=>TelekinesisCombat.DefenderRoll(),emitter:b,npcMitigation:Mitigate);
-        PreparedMonsterDamage.ReleaseMissile(b,target,packet,new(NamedCombat.Elite(target),()=>false,()=>metadata?.Velocity??0,()=>target is BaseHire),
+        var point=target.Location;
+        var map=target.Map;
+        var result=PreparedMonsterDamage.ReleaseMissile(b,target,packet,new(NamedCombat.Elite(target),()=>false,()=>metadata?.Velocity??0,()=>target is BaseHire),
             max=>NpcEquipmentRandom.Limited(b,max),services,at);
+        if(result.AfterHealth256<result.Before256){WarlockDemonVisuals.DefilerLinkImpact(b,target,point,map,at);}
     }
 }

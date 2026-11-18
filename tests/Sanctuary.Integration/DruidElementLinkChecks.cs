@@ -75,7 +75,7 @@ internal static class DruidElementLinkChecks
                         long id=DruidMoltenBoulder.Create(caster,aim,1,at);var m=DruidMoltenBoulder.Snapshot().Missiles.Single(x=>x.Id==id)with{Missile=periodic?455:route=="boulder"?452:453,Modifiers=mods,Seed=seed};
                         var model=DruidMoltenBoulder.Model(primary);
                         if(route=="boulder"&&(model?.Small==true||model?.Large!=true)){SourceRandom.Roll(ref expectedSeed);}
-                        object[] arguments=[caster,primary,m,raw,route=="boulder",seed];Call(typeof(DruidMoltenBoulder),"Impact",arguments);Require((ulong)arguments[5]==expectedSeed,"Boulder link changed source knockback draw");
+                        object[] arguments=[caster,primary,m,raw,route=="boulder",seed,false];Call(typeof(DruidMoltenBoulder),"Impact",arguments);Require((ulong)arguments[5]==expectedSeed,"Boulder link changed source knockback draw");
                     }
                     Require(body.Prepared.Links.Fault==null&&before-SkillHealth.Balance256(primary)==NamedElements.To256(settled.Total)&&secondary-SkillHealth.Balance256(receiver)==expected&&events==(!periodic&&settled.Total>0?1:0)
                         &&(events==0||observed.Source==caster&&observed.Target==primary&&observed.Parts==typed)&&NecromancerEffects.ManaBalance256(caster)==mana,

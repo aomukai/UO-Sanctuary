@@ -1180,9 +1180,18 @@ def products():
         'warlock.abyss': dict(customArtwork='verified', customAudio='listening-pending',
             customArtworkPhases=['opening tear', 'persistent vortex', 'pull pulse', 'collapse'],
             customAudioPhases=['opening', 'active pull', 'terminal collapse']),
-        'warlock.summontainted': dict(customArtwork='partial', customAudio='listening-pending',
-            customArtworkPhases=['approved summon model', 'red flare flight', 'red flare impact'],
-            customAudioPhases=['red flare release', 'red flare impact']),
+        'warlock.summongoatman': dict(customArtwork='verified', customAudio='listening-pending', customCharacterAnimation='reuse-native',
+            inGameVerification='verified', placeholder='Rust-red stone frames the original Gargoyle on arrival. Rock chips mark accepted melee hits and the shared Berserk glow follows its active state.',
+            customArtworkPhases=['cast', 'arrival and return', 'melee contact', 'shared Berserk and fade', 'departure'],
+            customAudioPhases=['cast', 'arrival and return', 'melee contact', 'shared Berserk and fade', 'departure']),
+        'warlock.summontainted': dict(customArtwork='verified', customAudio='listening-pending', customCharacterAnimation='reuse-native',
+            inGameVerification='verified', placeholder='Embers frame the approved Succubus on arrival and circle its feet while it emits fire resistance. The pet fires the approved red flare.',
+            customArtworkPhases=['cast', 'arrival and return', 'approved Succubus sprites', 'fire resistance ward', 'red flare flight and impact', 'departure'],
+            customAudioPhases=['cast', 'arrival and return', 'red flare release and impact', 'departure']),
+        'warlock.summondefiler': dict(customArtwork='verified', customAudio='listening-pending', customCharacterAnimation='reuse-native',
+            inGameVerification='verified', placeholder='Burgundy plumes frame the original Gazer. Health Link marks actual recipients and flashes at the target when typed damage transfers.',
+            customArtworkPhases=['cast', 'arrival and return', 'link release', 'recipient link mark and clear', 'transferred damage contact', 'departure'],
+            customAudioPhases=['cast', 'arrival and return', 'link release', 'transferred damage contact', 'departure']),
     }
     for effect, row in zip(effects, rows, strict=True):
         talent = effect['talentId']

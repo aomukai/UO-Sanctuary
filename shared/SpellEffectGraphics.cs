@@ -177,6 +177,25 @@ public static class SpellEffectGraphics
     public static bool IsShadowSummonCast(ushort graphic) => graphic is ShadowWarriorCast or ShadowMasterCast;
     public static bool IsShadowSummonVeil(ushort graphic) => graphic is ShadowWarriorVeil or ShadowMasterVeil;
 
+    public const int WarlockDemonFrames = 4;
+    public const ushort GoatmanCast = 61400;
+    public const ushort GoatmanArrival = 61404;
+    public const ushort GoatmanContact = 61408;
+    public const ushort GoatmanDeparture = 61412;
+    public const ushort TaintedCast = 61416;
+    public const ushort TaintedArrival = 61420;
+    public const ushort TaintedFireWard = 61424;
+    public const ushort TaintedDeparture = 61428;
+    public const ushort DefilerCast = 61432;
+    public const ushort DefilerArrival = 61436;
+    public const ushort DefilerLinkMark = 61440;
+    public const ushort DefilerDeparture = 61444;
+    public const ushort DefilerLinkContact = 61448;
+    public static bool IsWarlockDemonAnimation(ushort graphic) => graphic is >= GoatmanCast and <= DefilerLinkContact
+        && (graphic - GoatmanCast) % WarlockDemonFrames == 0;
+    public static bool IsWarlockDemonCast(ushort graphic) => graphic is GoatmanCast or TaintedCast or DefilerCast;
+    public static bool IsWarlockDemonLoop(ushort graphic) => graphic is TaintedFireWard or DefilerLinkMark;
+
     public const int AssassinLobFrames = 4;
     public const int FireBlastRadiusSubtiles = 5;
     public const ushort FireBlastThrow = 62764;

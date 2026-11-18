@@ -523,6 +523,18 @@
     "ShadowWarriorDeparture": {"source": "ghost-whisper", "start": 0.35, "duration": 0.35, "fadeIn": 0.042, "fadeOut": 0.164, "highpass": 551, "peakDb": -25},
     "ShadowMasterCast": {"source": "arcane-doppler", "start": 0.17, "duration": 0.38, "fadeIn": 0.026, "fadeOut": 0.096, "highpass": 372, "peakDb": -19},
     "ShadowMasterArrival": {"source": "ghost-whisper", "start": 0.194, "duration": 0.48, "fadeIn": 0.020, "fadeOut": 0.162, "highpass": 236, "peakDb": -17},
-    "ShadowMasterDeparture": {"source": "arcane-doppler", "start": 0.426, "duration": 0.34, "fadeIn": 0.058, "fadeOut": 0.157, "highpass": 668, "peakDb": -24}
+    "ShadowMasterDeparture": {"source": "arcane-doppler", "start": 0.426, "duration": 0.34, "fadeIn": 0.058, "fadeOut": 0.157, "highpass": 668, "peakDb": -24},
+    "GoatmanCast": {"source": "fire", "start": 0.265, "duration": 0.35, "fadeIn": 0.023, "fadeOut": 0.114, "highpass": 296, "peakDb": -19},
+    "GoatmanArrival": {"source": "metal-hit", "start": 0.15, "duration": 0.33, "fadeIn": 0.008, "fadeOut": 0.125, "highpass": 183, "peakDb": -17},
+    "GoatmanContact": {"source": "snap", "start": 0.14, "duration": 0.229, "fadeIn": 0.005, "fadeOut": 0.067, "highpass": 462, "peakDb": -21},
+    "GoatmanDeparture": {"source": "metal-hit", "start": 0.243, "duration": 0.30, "fadeIn": 0.025, "fadeOut": 0.128, "highpass": 468, "peakDb": -25},
+    "TaintedCast": {"source": "fire", "start": 0.388, "duration": 0.33, "fadeIn": 0.035, "fadeOut": 0.094, "highpass": 522, "peakDb": -20},
+    "TaintedArrival": {"source": "fire", "start": 0.601, "duration": 0.42, "fadeIn": 0.008, "fadeOut": 0.151, "highpass": 278, "peakDb": -18},
+    "TaintedDeparture": {"source": "fire", "start": 0.843, "duration": 0.35, "fadeIn": 0.040, "fadeOut": 0.153, "highpass": 707, "peakDb": -25},
+    "DefilerCast": {"source": "arcane-doppler", "start": 0.146, "duration": 0.31, "fadeIn": 0.021, "fadeOut": 0.106, "highpass": 374, "peakDb": -18},
+    "DefilerArrival": {"source": "ghost-whisper", "start": 0.177, "duration": 0.45, "fadeIn": 0.016, "fadeOut": 0.154, "highpass": 258, "peakDb": -17},
+    "DefilerDeparture": {"source": "ghost-whisper", "start": 0.352, "duration": 0.34, "fadeIn": 0.044, "fadeOut": 0.131, "highpass": 586, "peakDb": -24},
+    "DefilerLinkCast": {"source": "arcane-doppler", "start": 0.373, "duration": 0.32, "fadeIn": 0.032, "fadeOut": 0.099, "highpass": 591, "peakDb": -21},
+    "DefilerLinkContact": {"source": "electric-crackle", "start": 0.503, "duration": 0.219, "fadeIn": 0.008, "fadeOut": 0.069, "highpass": 679, "peakDb": -23}
   }
 }
