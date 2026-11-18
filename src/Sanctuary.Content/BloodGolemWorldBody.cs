@@ -24,9 +24,9 @@ public partial class BloodGolemWorldBody:BloodGolemBody,IUnarmedGroundPet
     public BloodGolemWorldBody(){CantWalk=true;AIObject?.AITimer.Stop();}
     public override void OnThink(){AIObject?.AITimer.Stop();Combatant=null;FocusMob=null;Warmode=false;}
     public override TimeSpan BeginMelee(Mobile target)=>TimeSpan.FromMilliseconds(SourceAttackClock.End*40);
-    internal void BeginWorld(PlayerMobile owner,DateTime at,ulong seed){Name="Blood Golem [placeholder]";Ground.Initialize(owner,at,seed);}
+    internal void BeginWorld(PlayerMobile owner,DateTime at,ulong seed){Name="Blood Golem";Ground.Initialize(owner,at,seed);}
     public override void SuspendActions(){base.SuspendActions();Ground.Suspend();}
     internal override void InterruptForRecovery(){base.InterruptForRecovery();Ground.Suspend();}
     public override void OnAfterDelete(){Ground.Cancel();IronGolems.Forget(this);base.OnAfterDelete();}
-    [AfterDeserialization]private void AfterBloodWorldLoad(){Name="Blood Golem [placeholder]";Ground.Load();}
+    [AfterDeserialization]private void AfterBloodWorldLoad(){Name="Blood Golem";Ground.Load();}
 }

@@ -91,6 +91,21 @@ public static partial class Hydras
         long id = ++_nextId;
         _bolts.Add(id, new(id, head.Id, head.Owner, head.Map, head.X, head.Y, head.Z, velocity.X, velocity.Y,
             0, head.Min256, head.Max256, head.Pierce, now.AddMilliseconds(NecromancerSummons.Source("hydra", "Range") * 40), now));
+        Effects.PlaySound(new Point3D((int)Math.Round(head.X), (int)Math.Round(head.Y), head.Z), owner.Map, SpellEffectSounds.HydraDischarge);
+    }
+    private static Point3D BoltPosition(HydraBolt bolt) =>
+        new((int)Math.Round(bolt.X), (int)Math.Round(bolt.Y), bolt.Z);
+
+    private static void BoltVisual(HydraBolt bolt, Map map)
+    {
+        int graphic = SorceressVisuals.DirectionalFrame(SpellEffectGraphics.HydraBoltFlight, bolt.Vx, bolt.Vy, bolt.Frame / 2);
+        Effects.SendLocationEffect(BoltPosition(bolt), map, graphic, 2);
+    }
+
+    private static void BoltImpact(Point3D point, Map map)
+    {
+        Effects.SendLocationEffect(point, map, SpellEffectGraphics.HydraBoltContact, SpellEffectGraphics.UtilityFrames);
+        Effects.PlaySound(point, map, SpellEffectSounds.HydraImpact);
     }
     private static void Tick()
     {
@@ -111,7 +126,13 @@ public static partial class Hydras
             }
             if (head.DecisionUtc <= now)
             {
-                if (head.UntilUtc < now) { _heads.Remove(id); continue; }
+                if (head.UntilUtc < now)
+                {
+                    _heads.Remove(id);
+                    Effects.SendLocationEffect(new Point3D((int)Math.Round(head.X), (int)Math.Round(head.Y), head.Z),
+                        owner.Map, SpellEffectGraphics.HydraHeadRight + 3 * SpellEffectGraphics.HydraPoseFrames, 3);
+                    continue;
+                }
                 var target = Target(owner, head); ulong seed=head.Seed;int chance=target==null?100:HydraControl.Percentage(ref seed);
                 if (Decide(false, target != null, target == null ? 25 : 0, chance) == HydraDecision.Shoot)
                 {
@@ -123,7 +144,11 @@ public static partial class Hydras
             }
             if (_heads.ContainsKey(id)) { _heads[id] = head; }
             if ((now.Ticks / TimeSpan.TicksPerMillisecond / 40) % 5 == 0)
-            { Effects.SendLocationEffect(new Point3D((int)Math.Round(head.X), (int)Math.Round(head.Y), head.Z), owner.Map, 0x398C, 6, 10, 0x489, 0); } // Placeholder untargetable/nonblocking Hydra head.
+            {
+                int phase = (int)(now.Ticks / TimeSpan.TicksPerMillisecond / 200 % SpellEffectGraphics.HydraPoseFrames);
+                int graphic = SpellEffectGraphics.HydraHeadRight + SpellEffectGraphics.HydraPoseFrames + phase;
+                Effects.SendLocationEffect(new Point3D((int)Math.Round(head.X), (int)Math.Round(head.Y), head.Z), owner.Map, graphic, 4);
+            }
         }
         _keys.Clear(); _keys.AddRange(_bolts.Keys);
         foreach (long id in _keys)
@@ -136,7 +161,11 @@ public static partial class Hydras
             double x = bolt.X + bolt.Vx, y = bolt.Y + bolt.Vy;
             var from = new Point3D((int)Math.Round(bolt.X), (int)Math.Round(bolt.Y), bolt.Z + 12); var to = new Point3D((int)Math.Round(x), (int)Math.Round(y), bolt.Z + 12);
             if (x < 0 || y < 0 || x >= owner.Map.Width || y >= owner.Map.Height || !owner.Map.LineOfSight(from, to)
-                || bolt.Frame + 1 >= NecromancerSummons.Source("hydra", "Range")) { _bolts.Remove(id); continue; }
+                || bolt.Frame + 1 >= NecromancerSummons.Source("hydra", "Range"))
+            {
+                BoltImpact(BoltPosition(bolt), owner.Map);
+                _bolts.Remove(id); continue;
+            }
             Mobile first = null; double nearest = double.MaxValue;
             foreach (var target in SkillCombat.Targets(owner, new(to.X, to.Y, bolt.Z), 2))
             {
@@ -147,10 +176,14 @@ public static partial class Hydras
             {
                 SorceressEffects.MissileHit(owner, first, "hydra");
                 int damage = bolt.Max256 <= bolt.Min256 ? bolt.Min256 : Utility.RandomMinMax(bolt.Min256, bolt.Max256 - 1);
-                SkillCombat.FireImpact(owner, first, damage, bolt.Pierce); _bolts.Remove(id); continue;
+                var point = first.Location;
+                SkillCombat.FireImpact(owner, first, damage, bolt.Pierce);
+                BoltImpact(point, owner.Map);
+                _bolts.Remove(id); continue;
             }
-            _bolts[id] = bolt with { X = x, Y = y, Frame = bolt.Frame + 1, NextUtc = bolt.NextUtc.AddMilliseconds(40) };
-            Effects.SendLocationEffect(new(to.X, to.Y, bolt.Z), owner.Map, 0x36D4, 3, 10, 0x489, 0); // Placeholder Hydra bolt.
+            var next = bolt with { X = x, Y = y, Frame = bolt.Frame + 1, NextUtc = bolt.NextUtc.AddMilliseconds(40) };
+            _bolts[id] = next;
+            if (next.Frame % 2 == 0) { BoltVisual(next, owner.Map); }
         }
     }
     public static HydraSave Snapshot() => new(_heads.Values.OrderBy(x=>x.Id).ToArray(), _bolts.Values.OrderBy(x=>x.Id).ToArray())

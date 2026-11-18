@@ -25,7 +25,7 @@ public static class EliteCombat
         SkillDamageKind kind = SkillDamageKind.Direct)
     {
         if (!Enemy(source, target, 18, death)) { return 0; }
-        var armored=DefensiveArmors.Absorb(target,new(physical,fire,cold,lightning,0,Magic:magic));
+        var armored=DefensiveArmors.Absorb(target,new(physical,fire,cold,lightning,0,Magic:magic),source);
         physical=armored.Physical;fire=armored.Fire;cold=armored.Cold;lightning=armored.Lightning;magic=armored.Magic;
         double preparedPhysical=GemCombat.Component(target,physical,target.PhysicalResistance,false);
         var parts = new GearDamage(preparedPhysical,

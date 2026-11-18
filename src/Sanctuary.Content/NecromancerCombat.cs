@@ -103,9 +103,9 @@ public static class NecromancerCombat
             return NecromancerSummons.CreatePaid(owner,ability,selected,point,values.Mana256);
         }
         if (!NecromancerEffects.Pay(owner, values.Mana256)) { return false; }
-        owner.PlaySound(0x1E5); // Existing UO cast sound, pending skill-specific asset pass.
         if (NecromancerEffects.IsCurse(ability))
         {
+            owner.PlaySound(UoSkillVisuals.CurseSound(ability));
             double radius = Math.Max(0.5, SkillGeometry.Tiles(values.Eval("aurarangecalc")));
             foreach (var target in SkillCombat.Targets(owner, point, radius)) { NecromancerEffects.Apply(owner, target, ability, values.Rank); }
             return true;

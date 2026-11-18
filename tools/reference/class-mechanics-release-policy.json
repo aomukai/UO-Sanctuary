@@ -1422,6 +1422,10 @@
     "src/Sanctuary.Content/WeaponPoisonPackets.cs": "c8d23c250715c0abdff8561664738171284080336f2bc14aaa79d828a7811a29",
     "src/Sanctuary.Content/WeaponStartEffects.cs": "23d233ae5a191d5d483bc93c4ee9f35912a959b843ad05aab36d424ee44fa389"
   },
+  "presentationSourceBridges": {
+    "src/Sanctuary.Content/SkillBindings.cs": "7eea2ebb65926af43bb66584864fc98cfe17ade2c8c811dd2c72ef462834e56b",
+    "src/Sanctuary.Content/TalentGump.cs": "d8db2a726fd1f6c05ae8729c20771bbe0a443a49802a65534b06d67901029b9c"
+  },
   "installedContentSha256": "828c47202bc1f70f568557809af31681bbbd2be8bbe4d04c3f4e18d51fbbc985",
   "historicalLedgerSha256": "a98eaff48be4edc9726c550b86fbed8eb9013daef16223ea2b152d3409679847",
   "historicalLedger": ".local/class-skills/class-skill-release/before/data/Sanctuary/Balance/class-skill-status.json",

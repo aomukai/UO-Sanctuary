@@ -62,13 +62,20 @@ public static class BattleCommand
         uint creator=_states.TryGetValue(recipient.Serial.Value,out var old)?old.Creator:supplier.Serial.Value;
         _states[recipient.Serial.Value]=new(recipient.Serial.Value,creator,supplier.Serial.Value,rank,(int)values.Eval("aurastatcalc1"),at.AddMilliseconds(values.Eval("auralencalc")*40));
         Refresh(recipient,before);
+        BarbarianWardVisuals.Apply(supplier, recipient, CombatAbility.BattleCommand, _states[recipient.Serial.Value].UntilUtc, old?.UntilUtc ?? default, at);
     }
     public static void Clear(Mobile actor)
     {
         if(actor==null){return;}
-        if(!Alive(actor)){_states.Remove(actor.Serial.Value);return;}
+        if(!Alive(actor)){Drop(actor.Serial.Value, actor);return;}
         if(!_states.ContainsKey(actor.Serial.Value)){return;}
         var before=BattleOrders.Capture(actor);_states.Remove(actor.Serial.Value);Refresh(actor,before);
+        BarbarianWardVisuals.Clear(actor.Serial.Value, actor, CombatAbility.BattleCommand);
+    }
+    private static void Drop(uint serial, Mobile actor)
+    {
+        _states.Remove(serial);
+        BarbarianWardVisuals.Clear(serial, actor, CombatAbility.BattleCommand);
     }
     // New summons record successful creation order. Historical summons predating
     // this ledger get a deterministic serial fallback; their original FIFO is unknown.
@@ -89,8 +96,9 @@ public static class BattleCommand
         foreach(var pair in _states.ToArray())
         {
             var actor=World.FindMobile((Serial)pair.Key);
-            if(!Alive(actor)){_states.Remove(pair.Key);}
+            if(!Alive(actor)){Drop(pair.Key, actor);}
             else if(pair.Value.UntilUtc<=now){Clear(actor);}
+            else { BarbarianWardVisuals.Refresh(actor, CombatAbility.BattleCommand, pair.Value.UntilUtc, now); }
         }
         foreach(uint id in _pets.Keys.ToArray()){if(World.FindMobile((Serial)id) is not BaseCreature{Deleted:false}){_pets.Remove(id);}}
     }

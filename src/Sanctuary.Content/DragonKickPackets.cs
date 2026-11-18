@@ -9,7 +9,7 @@ using Server.Logging;
 namespace Sanctuary;
 
 internal sealed record PreparedKickPacket(KickDamageInput Input,PreparedWeaponImpact Impact,PlayerWeaponDrain Drain,
-    int? ColdFrames,int FreezeFrames,bool SoftHit);
+    int? ColdFrames,int FreezeFrames,bool SoftHit,bool CobraCharged);
 
 // Prepared kick damage and Tail's distinct fire consumer. Learned action,
 // charged hit/block, payment and charge consumption remain separate gates.
@@ -56,7 +56,7 @@ public static class DragonKickPackets
         // then copies that skill length into freeze (current Param5 is one).
         int cold=ice?.Frames??damage.ColdMs/40;
         int freeze=ice?.Count==3?cold/SkillMechanics.For(CombatAbility.BladesOfIce).Number("Param5"):0;
-        return new(input,impact,drain,cold>0?cold:null,freeze,fire!=null || thunder!=null || ice!=null);
+        return new(input,impact,drain,cold>0?cold:null,freeze,fire!=null || thunder!=null || ice!=null,cobra!=null);
     }
     internal static int TailFire256(int physical256,SkillValues values,int mastery)
     {
@@ -91,11 +91,15 @@ public static class DragonKickPackets
             {
                 if(!TailRecipient(owner,target,out string reason))
                 {if(BurstGaps.Add(reason)){Log.Warning("Dragon Tail burst recipient unsupported: {Reason}",reason);}continue;}
+                var point = target.Location;
                 var result=TailImpact(owner,target,fire,TimedEffects.Now);
+                if (result.Packet is { ReactionSettled: false })
+                { Effects.SendLocationEffect(point, map, SpellEffectGraphics.DragonTailEmbers, 6); }
                 loss=checked(loss+Math.Max(0,result.Before256-result.AfterHealth256));
             }
         }
-        Effects.SendLocationEffect(center,map,0x36BD,10,10,0x489,0); // Identified fire-burst placeholder.
+        AssassinMartialVisuals.Ring(center, map, SpellEffectGraphics.DragonTailBurst,
+            SpellEffectSounds.DragonTailBurst, SkillGeometry.Tiles(radius));
         return loss;
     }
     internal static bool TailRecipient(PlayerMobile owner,BaseCreature target,out string reason)
@@ -121,7 +125,7 @@ public static class DragonKickPackets
         // GETHIT for admitted interruptible NPCs. No weapon/missile events,
         // Thorns, item procs, source critical or mastery application is added.
         var services=new InstantSpellNpcDamage(owner,target,metadata,null,at,"Dragon Tail",()=>TelekinesisCombat.DefenderRoll(),
-            knockback:SourceKnockbacks.BeginPrepared,playerMitigation:Mitigate);
+            knockback:SourceKnockbacks.BeginDragonTail,playerMitigation:Mitigate);
         return PreparedMonsterDamage.ReleaseMissile(owner,target,new(0,fire256,0,0,13,Fire256:fire256),
             new(NamedCombat.Elite(target),()=>false,()=>metadata?.Velocity??0,()=>false),
             _=>throw new InvalidOperationException("Tail burst has no timed Stun"),services,at);

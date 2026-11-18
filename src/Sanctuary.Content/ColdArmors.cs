@@ -34,7 +34,7 @@ internal static class ColdArmors
         // do18 clears the state group including the same member before list
         // allocation. A weaker recast replaces its earlier stronger instance.
         SorceressEffects.ApplyArmor(owner, prepared);
-        owner.PlaySound(0x1E5); return true; // Identified cast placeholder.
+        owner.PlaySound(SorceressVisuals.CastSound(values.Ability)); return true;
     }
     internal static int FreezeFrames(PlayerMobile owner, ColdArmorState armor)
     {
@@ -48,6 +48,9 @@ internal static class ColdArmors
             || attacker is not { Alive: true, Deleted: false } || attacker.Map != owner.Map
             || !ClassCombat.IsHostile(owner, attacker)
             || SorceressEffects.Armor(owner) is not { Ability: CombatAbility.FrozenArmor } armor) { return false; }
-        return FreezeStates.Apply(owner, attacker, FreezeFrames(owner, armor), Core.TickCount);
+        if (!FreezeStates.Apply(owner, attacker, FreezeFrames(owner, armor), Core.TickCount)) { return false; }
+        owner.FixedEffect(SpellEffectGraphics.FrozenArmorReply, 10, SpellEffectGraphics.WardFrames);
+        owner.PlaySound(SpellEffectSounds.IceBoltContact);
+        return true;
     }
 }

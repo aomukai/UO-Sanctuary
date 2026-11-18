@@ -1,0 +1,49 @@
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -104,18 +104,26 @@
+                         SpellEffectGraphics.BoneSpearShatter => SpellEffectGraphics.BoneSpearShatterFrames,
+                         SpellEffectGraphics.MeteorWarning or SpellEffectGraphics.MeteorImpact or SpellEffectGraphics.MeteorFire
+                             => SpellEffectGraphics.MeteorFrames,
++                        SpellEffectGraphics.BlizzardFall => SpellEffectGraphics.BlizzardFallFrames,
++                        SpellEffectGraphics.BlizzardContact or SpellEffectGraphics.FrozenOrbBurst
++                            or SpellEffectGraphics.FrozenOrbContact => SpellEffectGraphics.ColdFrames,
+                         _ => 0
+                     };
+                     if (spellFrames > 0)
+                     {
+-                        bool oneShot = Graphic is SpellEffectGraphics.BoneSpearShatter or SpellEffectGraphics.MeteorImpact;
++                        bool oneShot = Graphic is not (SpellEffectGraphics.MeteorWarning or SpellEffectGraphics.MeteorFire);
+                         AnimationGraphic = (ushort)(Graphic + AnimIndex);
+                         if (AnimIndex < spellFrames - 1) { AnimIndex++; }
+                         else if (!oneShot) { AnimIndex = 0; }
+ 
+-                        int speed = Graphic is SpellEffectGraphics.MeteorWarning or SpellEffectGraphics.MeteorImpact
+-                            ? 2 : 1;
+-                        NextChangeFrameTime = (long)Time.Ticks + speed * Constants.ITEM_EFFECT_ANIMATION_DELAY;
++                        int interval = Graphic switch
++                        {
++                            SpellEffectGraphics.BlizzardFall => 40,
++                            SpellEffectGraphics.MeteorWarning or SpellEffectGraphics.MeteorImpact
++                                => 2 * Constants.ITEM_EFFECT_ANIMATION_DELAY,
++                            _ => Constants.ITEM_EFFECT_ANIMATION_DELAY
++                        };
++                        NextChangeFrameTime = (long)Time.Ticks + interval;
+                         return;
+                     }
+ 
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -122,6 +122,13 @@
+                 depth = Source.CalculateDepthZ() + 1f;
+             }
+ 
++            if (Graphic == Sanctuary.SpellEffectGraphics.BlizzardFall)
++            {
++                int phase = (AnimationGraphic - Graphic) % Sanctuary.SpellEffectGraphics.ColdFrames;
++                DrawStaticRotated(batcher, (ushort)(Sanctuary.SpellEffectGraphics.BlizzardFrost + phase),
++                    posX, posY, 0, hueVec, depth - 0.1f);
++            }
++
+             switch (Blend)
+             {
+                 case GraphicEffectBlendMode.Multiply:

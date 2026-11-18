@@ -1,0 +1,21 @@
+diff --git a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -185,6 +185,7 @@
+                             => SpellEffectGraphics.DruidEruptionFrames,
+                         _ when SpellEffectGraphics.IsDruidAnimalAnimation(Graphic) => SpellEffectGraphics.DruidAnimalFrames,
+                         _ when SpellEffectGraphics.IsDruidSpiritAnimation(Graphic) => SpellEffectGraphics.DruidSpiritFrames,
++                        _ when SpellEffectGraphics.IsDruidVineAnimation(Graphic) => SpellEffectGraphics.DruidVineFrames,
+                         _ when SpellEffectGraphics.IsEnchantAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ when SpellEffectGraphics.IsWardAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ => 0
+@@ -281,6 +282,9 @@
+                             SpellEffectGraphics.BarbsRetaliation => 68,
+                             _ when SpellEffectGraphics.IsDruidSpiritAura(Graphic) => 150,
+                             _ when SpellEffectGraphics.IsDruidSpiritAnimation(Graphic) => 105,
++                            SpellEffectGraphics.CreeperPoison => 65,
++                            SpellEffectGraphics.VineCorpse or SpellEffectGraphics.CarrionRecovery or SpellEffectGraphics.SolarRecovery => 110,
++                            _ when SpellEffectGraphics.IsDruidVineAnimation(Graphic) => 102,
+                             _ when SpellEffectGraphics.IsDruidCharge(Graphic) => 115,
+                             _ when SpellEffectGraphics.IsDruidFormEffect(Graphic) => 105,
+                             SpellEffectGraphics.ClayGolemContact or SpellEffectGraphics.IronGolemSpark => 65,

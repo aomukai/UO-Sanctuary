@@ -166,12 +166,14 @@ public static class ChainLightning
         var (damage,packet)=PlayerDamage(owner,values,new([new(origin.X*2,origin.Y*2)]));
         int dx=next.X-origin.X,dy=next.Y-origin.Y;if(dx==0&&dy==0){dx=dy=1;}
         var vector=MissileVectors.VelocityFp8(dx,dy,packet.VelocityFp8);
-        return CommitPlayer(flight with{AimTarget=next.Serial.Value,Vx=vector.X,Vy=vector.Y,Min256=damage.Min,Max256=damage.Max,PlayerPacket=packet});
+        long id=CommitPlayer(flight with{AimTarget=next.Serial.Value,Vx=vector.X,Vy=vector.Y,Min256=damage.Min,Max256=damage.Max,PlayerPacket=packet});
+        AmazonMeleeEffects.EmitLightning(owner,origin,SpellEffectSounds.ChainLightningRelease);
+        return id;
     }
     internal static bool Release(PlayerMobile owner,Point3D aim,SkillValues values)
     {
         var flight=PreparePlayer(owner,aim,values,TimedEffects.Now);if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
-        CommitPlayer(flight);owner.PlaySound(0x1E5);return true; // Identified cast placeholder.
+        CommitPlayer(flight);owner.PlaySound(SorceressVisuals.CastSound(CombatAbility.ChainLightning));return true;
     }
     internal static long CastNpc(NecromancerMinion actor,Point3D aim,SkillValues values,DateTime at)
     {
@@ -302,8 +304,9 @@ public static class ChainLightning
                 { first = target; nearest = entry; }
             }
             }
-            var to = new Point3D((int)Math.Round(x),(int)Math.Round(y),flight.Z+12);
-            Effects.SendLocationEffect(new(to.X, to.Y, flight.Z), caster.Map, 0x3818, 3, 10, 0x482, 0); // Placeholder chain segment.
+            int graphic = SorceressVisuals.DirectionalFrame(SpellEffectGraphics.ChainLightningFlight,
+                flight.Vx, flight.Vy, flight.Frame / 2);
+            Effects.SendLocationEffect(new Point3D((int)Math.Round(x), (int)Math.Round(y), flight.Z), caster.Map, graphic, 3);
             if (first == null)
             { _flights[id] = flight with { X = x, Y = y, Frame = flight.Frame + 1, NextUtc = flight.NextUtc.AddMilliseconds(40) }; continue; }
             var delays = new List<ChainDelay>();
@@ -333,7 +336,11 @@ public static class ChainLightning
 
             }
             if(npc!=null)
-            {NecromancerMageMissiles.ImpactSpell(npc,first,new("chainlightning","ltng",flight.Rank,flight.Min256,flight.Max256,0),flight.Owner,flight.NpcSeed,flight.NextUtc);}
+            {
+                int loss = NecromancerMageMissiles.ImpactSpell(npc, first,
+                    new("chainlightning", "ltng", flight.Rank, flight.Min256, flight.Max256, 0), flight.Owner, flight.NpcSeed, flight.NextUtc);
+                if (loss > 0) { SorceressVisuals.Impact(first, CombatAbility.ChainLightning); }
+            }
             else if(flight.PlayerPacket is{} playerPacket)
             {
                 int raw=SorceressSpellMissiles.Roll(flight.Min256,flight.Max256,playerPacket.Seed,out _);
@@ -342,10 +349,17 @@ public static class ChainLightning
                     SorceressEffects.MissileHit(owner,first,"lightningstrike");
                     var mods=playerPacket.Modifiers with{Potion=CombatPotions.BonusAt(owner,"magical-penetration",flight.NextUtc)};
                     var damage=DruidMoltenBoulder.Potion(mods,new(0,0,0,raw/256.0,0));
-                    if(!PlayerWeaponMissileContact.TryElementalPacket(owner,creature,damage,flight.NextUtc,out string reason)&&StrikeUnsupported.Add(reason))
-                    {Log.Warning("Lightning Strike chain unsupported context: {Reason}",reason);}
+                    if (!PlayerWeaponMissileContact.TryLightningStrike(owner, creature, damage, flight.NextUtc, out string reason)
+                        && StrikeUnsupported.Add(reason))
+                    {
+                        Log.Warning("Lightning Strike chain unsupported context: {Reason}", reason);
+                    }
                 }
-                else{SorceressSpellMissiles.ImpactPrepared(owner,first,Missile(flight),"ltng",raw,playerPacket.Modifiers,flight.NextUtc);}
+                else if (SorceressSpellMissiles.ImpactPrepared(owner, first, Missile(flight), "ltng", raw,
+                    playerPacket.Modifiers, flight.NextUtc) > 0)
+                {
+                    SorceressVisuals.Impact(first, CombatAbility.ChainLightning);
+                }
             }
             else
             {

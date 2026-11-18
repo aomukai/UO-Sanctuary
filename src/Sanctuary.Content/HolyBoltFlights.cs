@@ -52,14 +52,19 @@ internal static class HolyBoltFlights
         {
             var row=SkillMechanics.For(flight.Ability);
             if(target is PlayerMobile?row.Number("TargetAlly")==0:row.Number("TargetPet")==0){return seed;}
-            var heal=HolyBolts.Healing(owner,flight.Rank);SkillHealth.Heal(target,Sample(heal.Min,heal.Max));
-            target.FixedEffect(0x376A,10,10,0x481,0);return seed; // Identified healing placeholder.
+            var heal=HolyBolts.Healing(owner,flight.Rank);
+            if (SkillHealth.Heal(target, Sample(heal.Min, heal.Max)) > 0) { PaladinSpellVisuals.BoltHeal(target); }
+            return seed;
         }
         if(!HolyBolts.FullDamage(target)){return seed;}
         if(!HolyBoltDamage.Supported(owner,target,out string reason)){throw new NotSupportedException(reason);}
         string missile=HolyBolts.Missile(flight.Ability);
         SorceressEffects.MissileHit(owner,target,missile);if(ClassAvoidance.Missile(target,missile)){return seed;}
-        HolyBoltDamage.Deliver(owner,(BaseCreature)target,Sample(flight.Min256,flight.Max256),flight.Captured,at,flight.Ability);return seed;
+        var point = target.Location;
+        var map = target.Map;
+        var applied = HolyBoltDamage.Deliver(owner,(BaseCreature)target,Sample(flight.Min256,flight.Max256),flight.Captured,at,flight.Ability);
+        if (applied.AfterHealth256 < applied.Before256) { PaladinSpellVisuals.BoltContact(owner, point, map, at); }
+        return seed;
     }
     private static void Advance(HolyBoltFlight f,DateTime at,bool? actions)
     {
@@ -105,9 +110,14 @@ internal static class HolyBoltFlights
         var result=BasicMissileUpdate.Run(new(true,true,f.Motion.VelocityFp8,50-f.Frame,2,50-NecromancerSummons.Source(HolyBolts.Missile(f.Ability),"Activate"),true),
             new(Move,_=>{},()=>true,()=>true,()=>2,()=>next.Motion.Steps.Cells,
                 cell=>Wall(cell)?4:Find(cell)!=null?1:0,cell=>Wall(cell)?0:Find(cell)?.Serial.Value??0,Hit));
-        if(removed||barrier||result.Result==2){HolyBolts.Remove(f.Id);return;}
+        if(removed||barrier||result.Result==2)
+        {
+            HolyBolts.Remove(f.Id);
+            PaladinSpellVisuals.End(owner, barrier ? f.X : next.X, barrier ? f.Y : next.Y, f.Z, false, f.NextUtc);
+            return;
+        }
         if(HolyBolts.State(f.Id)!=null){HolyBolts.Update(next);}
-        if(next.Frame%2==0){Effects.SendLocationEffect(new((int)Math.Round(next.X),(int)Math.Round(next.Y),f.Z),map,0x36E4,2,10,0x481,0);} // Identified holy travel placeholder.
+        if(next.Frame%2==0){PaladinSpellVisuals.BoltTravel(map, next);}
     }
     internal static void TickFlight(long id,DateTime at,bool? actions=null)
     {

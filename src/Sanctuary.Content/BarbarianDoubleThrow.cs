@@ -64,7 +64,6 @@ public static class BarbarianDoubleThrow
             if(release is{} thrown)
             {
                 DoubleThrowMissiles.Launch(owner,aim,thrown,TimedEffects.Now);
-                owner.PlaySound(0x238); // Identified native throwing sound placeholder.
             }
             // No srv-start: the legacy wrapper consumes after each successful
             // do74, even if quantity/allocation failed, and ignores debit failure.

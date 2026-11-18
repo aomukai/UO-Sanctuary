@@ -27,10 +27,15 @@ public sealed class SorceressEffectProfiles : GenericPersistence
     private Dictionary<Serial, SorceressState> _states = new();
     public SorceressEffectProfiles() : base("SanctuarySorceressEffects", 113) { }
     public SorceressState Find(Mobile actor) => actor is { Alive: true, Deleted: false } ? _states.GetValueOrDefault(actor.Serial) : null;
-    public void Store(Mobile actor, SorceressState state) => _states[actor.Serial] = state;
+    public void Store(Mobile actor, SorceressState state)
+    {
+        _states[actor.Serial] = state;
+        SorceressWardVisuals.Track(actor, state);
+    }
     public void Clear(Mobile actor)
     {
         _states.Remove(actor.Serial);ThunderStorm.Cancel(actor.Serial);
+        SorceressWardVisuals.Clear(actor);
         // Death still clears the Mage's buffs. Its already-released effects
         // keep their original controllers until the retained emitter expires.
         if(actor is not NecromancerMinion mage||!MageProjectileRetirement.DefersDelete(mage))
@@ -72,7 +77,10 @@ public sealed class SorceressEffectProfiles : GenericPersistence
     {
         Prune();
         foreach (var (serial, state) in _states)
-        { if (state.Storm != null) { ThunderStorm.Schedule(serial, state.Storm); } }
+        {
+            if (state.Storm != null) { ThunderStorm.Schedule(serial, state.Storm); }
+            if (World.FindMobile(serial) is { } actor) { SorceressWardVisuals.Track(actor, state); }
+        }
     }
 }
 
@@ -110,7 +118,11 @@ public static class SorceressEffects
             // values/deadline refresh, but the list's original owner survives.
             existing?.Rank == values.Rank ? existing.Caster : caster.Serial.Value);
         Profiles.Store(target, (Profiles.Find(target) ?? new()) with { Enchantment = enchant });
-        target.FixedEffect(0x375A, 10, 15, 0x489, 0); // Placeholder Enchant weapon glow.
+        target.FixedEffect(SpellEffectGraphics.EnchantCast, 10, SpellEffectGraphics.WardOneShot);
+        if (caster is PlayerMobile && target != caster)
+        {
+            caster.FixedEffect(SpellEffectGraphics.EnchantCast, 10, SpellEffectGraphics.WardOneShot);
+        }
     }
     public static double EnchantFire(Mobile actor, double roll) => Enchantment(actor) is { } enchant
         ? (enchant.Min256 + (enchant.Max256 - enchant.Min256) * Math.Clamp(roll, 0, 1)) / 256 : 0;
@@ -124,18 +136,20 @@ public static class SorceressEffects
     {
         DefensiveArmors.ClearGroup(owner);
         Profiles.Store(owner, (Profiles.Find(owner) ?? new()) with { Armor = armor });
-        owner.FixedEffect(0x375A, 10, 15, 0x480, 0); // Placeholder cold armor.
+        SorceressVisuals.Armor(owner, armor.Ability);
     }
     internal static ColdArmorState PrepareColdArmor(CombatAbility ability,SkillValues values,DateTime until)
         =>new(ability,until,(int)values.Eval("aurastatcalc1"),ability==CombatAbility.FrozenArmor?(int)values.Eval("calc1"):0,
             values.Damage256(false),values.Damage256(true),values.DurationFrames) { Rank = values.Rank };
     public static void CastShield(PlayerMobile owner, SkillValues values)
         =>EnergyShields.Apply(owner,EnergyShields.Prepare(values,TimedEffects.Now));
-    public static GearDamage Absorb(Mobile target, GearDamage damage)
+    public static GearDamage Absorb(Mobile target, GearDamage damage) => Absorb(target, damage, null);
+
+    internal static GearDamage Absorb(Mobile target, GearDamage damage, Mobile source)
     {
         damage=DruidCycloneArmor.Absorb(target,damage);
         if (target is not PlayerMobile owner || Shield(owner) is not { } shield) { return damage; }
-        return EnergyShields.Absorb(owner,damage,shield);
+        return EnergyShields.Absorb(owner,damage,shield,source);
     }
     private static bool Hostile(Mobile attacker, Mobile defender, out PlayerMobile owner)
     {

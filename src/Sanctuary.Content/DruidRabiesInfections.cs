@@ -54,7 +54,15 @@ public static class DruidRabiesInfections
         _pool.Seeds.OrderBy(x=>x.Key).Select(x=>new RabiesCasterSeed(x.Key,x.Value)).ToArray(),_pool.NextId){Markers=_pool.Markers.Values.OrderBy(x=>x.Id).ToArray()};
     internal static RabiesMarker Infection(Mobile host)=>host!=null&&_pool.Markers.TryGetValue(host.Serial.Value,out var state)?state:null;
     internal static RabiesEmitter[] Emitters(uint caster)=>_pool.Emitters.Values.Where(x=>x.Caster==caster).OrderBy(x=>x.Id).ToArray();
-    private static void PruneMarkers(DateTime at,uint? casterScope=null)=>_pool=_pool with{Markers=_pool.Markers.RemoveRange(_pool.Markers.Values.Where(x=>x.UntilUtc<=at&&(!casterScope.HasValue||x.Caster==casterScope.Value)).Select(x=>x.Host))};
+    private static void PruneMarkers(DateTime at,uint? casterScope=null)
+    {
+        foreach (var marker in _pool.Markers.Values)
+        {
+            if (marker.UntilUtc > at || casterScope.HasValue && marker.Caster != casterScope.Value) { continue; }
+            _pool = _pool with { Markers = _pool.Markers.Remove(marker.Host) };
+            DruidRabiesVisuals.Clear(marker, fade: true);
+        }
+    }
     internal static RabiesContagion[] Children(uint caster)=>_pool.Contagions.Values.Where(x=>x.Caster==caster).OrderBy(x=>x.Id).ToArray();
     private static PlayerMobile Caster(uint serial)=>World.FindMobile((Serial)serial) as PlayerMobile;
     private static bool Utc(DateTime value)=>value.Kind==DateTimeKind.Utc;
@@ -69,7 +77,7 @@ public static class DruidRabiesInfections
             ||F("rabiescontagion","NextHit")!=0||F("rabiescontagion","CollideKill")!=0)
         {throw new NotSupportedException("Unsupported Rabies infection route");}
     }
-    internal static RabiesMarker Mark(PlayerMobile owner,BaseCreature host,int rank,int frames,DateTime at)
+    internal static RabiesMarker Mark(PlayerMobile owner,BaseCreature host,int rank,int frames,DateTime at,bool spread=false)
     {
         Routes();
         if(owner is not{Deleted:false,Alive:true}||host is not{Deleted:false,Alive:true}||rank is <1 or >255||frames<1||frames>Length(owner,rank)
@@ -83,7 +91,10 @@ public static class DruidRabiesInfections
         Validate(state,id);
         var seeds=_pool.Seeds.ContainsKey(state.Caster)?_pool.Seeds:_pool.Seeds.Add(state.Caster,SourceRandom.InitLow(SeedLow()));
         var marker=new RabiesMarker(id,state.Caster,state.Host,state.Rank,state.Map,state.TotalFrames,state.StartedUtc,state.UntilUtc);
-        Validate(marker,id);_pool=_pool with{Emitters=_pool.Emitters.Add(id,state),Markers=_pool.Markers.SetItem(marker.Host,marker),Seeds=seeds,NextId=id};return marker;
+        Validate(marker,id);_pool=_pool with{Emitters=_pool.Emitters.Add(id,state),Markers=_pool.Markers.SetItem(marker.Host,marker),Seeds=seeds,NextId=id};
+        DruidRabiesVisuals.Refresh(marker, at);
+        if (spread) { DruidRabiesVisuals.Spread(host, marker, at); }
+        return marker;
     }
     // Exact offline/facet/dead-caster behavior is not established. Unsupported
     // contexts are explicitly recorded and age without replaying attacks.
@@ -153,7 +164,7 @@ public static class DruidRabiesInfections
         if(!ClassCombat.IsHostile(owner,target)){return true;}
         long remaining=(child.InfectionUntilUtc-at).Ticks/FrameTicks;
         if(!DruidRabiesPackets.TryInfectionLength(remaining,0,Length(owner,child.Rank),out int frames)){return false;}
-        Mark(owner,target,child.Rank,frames,at); // Marker precedes poison; existing marker is not refreshed.
+        Mark(owner,target,child.Rank,frames,at,spread:true); // Marker precedes poison; existing marker is not refreshed.
         ulong seed=child.Seed;var p=child.Damage.Elements;
         int rate=WeaponMissileDamage.RollValue(p.PoisonMin,p.PoisonMax,0,n=>(int)SourceRandom.Limited(ref seed,n));next=next with{Seed=seed};
         owner.DoHarmful(target,true);PoisonJavelins.Poison(owner,target,rate,frames,at);return true;
@@ -182,7 +193,15 @@ public static class DruidRabiesInfections
         {
             var infection=_pool.Emitters.Values.Where(x=>x.NextUtc<=at&&(!casterScope.HasValue||x.Caster==casterScope.Value)).OrderBy(x=>x.NextUtc).ThenBy(x=>x.Id).FirstOrDefault();
             var child=_pool.Contagions.Values.Where(x=>x.NextUtc<=at&&(!casterScope.HasValue||x.Caster==casterScope.Value)).OrderBy(x=>x.NextUtc).ThenBy(x=>x.Id).FirstOrDefault();
-            if(infection==null&&child==null){PruneMarkers(at,casterScope);return;}
+            if(infection==null&&child==null)
+            {
+                PruneMarkers(at,casterScope);
+                foreach (var marker in _pool.Markers.Values)
+                {
+                    if (!casterScope.HasValue || marker.Caster == casterScope.Value) { DruidRabiesVisuals.Refresh(marker, at); }
+                }
+                return;
+            }
             PruneMarkers(infection!=null&&(child==null||infection.NextUtc<=child.NextUtc)?infection.NextUtc:child.NextUtc,casterScope);
             // Stable local queue; exact modern global unit/event tie order is unverified.
             if(infection!=null&&(child==null||infection.NextUtc<=child.NextUtc)){Advance(infection,at,actions);}else{Advance(child,at,actions);}

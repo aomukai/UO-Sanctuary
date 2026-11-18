@@ -1,0 +1,96 @@
+diff --git a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -166,6 +166,9 @@
+                         _ when SpellEffectGraphics.IsGolemEffect(Graphic) => SpellEffectGraphics.GolemEffectFrames,
+                         SpellEffectGraphics.WoundActive or SpellEffectGraphics.WoundFade => SpellEffectGraphics.WoundFrames,
+                         _ when SpellEffectGraphics.IsDruidFormEffect(Graphic) => SpellEffectGraphics.DruidFormEffectFrames,
++                        SpellEffectGraphics.ShockWaveImpact or SpellEffectGraphics.ShockWaveRelease or SpellEffectGraphics.CombatStun
++                            or SpellEffectGraphics.RabiesBite or SpellEffectGraphics.RabiesCarrier
++                            or SpellEffectGraphics.RabiesSpread or SpellEffectGraphics.RabiesFade => SpellEffectGraphics.DruidStatusEffectFrames,
+                         _ when SpellEffectGraphics.IsEnchantAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ when SpellEffectGraphics.IsWardAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ => 0
+@@ -181,7 +184,8 @@
+                             && !SpellEffectGraphics.IsDruidCharge(Graphic)
+                             && Graphic is not (SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow
+                                 or SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.PoisonAfflicted
+-                                or SpellEffectGraphics.GolemSlow or SpellEffectGraphics.WoundActive);
++                                or SpellEffectGraphics.GolemSlow or SpellEffectGraphics.WoundActive
++                                or SpellEffectGraphics.CombatStun or SpellEffectGraphics.RabiesCarrier);
+                         AnimationGraphic = (ushort)(Graphic + AnimIndex);
+                         if (AnimIndex < spellFrames - 1) { AnimIndex++; }
+                         else if (!oneShot) { AnimIndex = 0; }
+@@ -230,6 +234,9 @@
+                             SpellEffectGraphics.DruidFireClaws or SpellEffectGraphics.DruidHungerBite => 70,
+                             SpellEffectGraphics.DruidHungerMana => 100,
+                             SpellEffectGraphics.DruidFuryImpact => 45,
++                            SpellEffectGraphics.ShockWaveImpact or SpellEffectGraphics.RabiesBite or SpellEffectGraphics.RabiesSpread => 75,
++                            SpellEffectGraphics.ShockWaveRelease or SpellEffectGraphics.RabiesFade => 90,
++                            SpellEffectGraphics.CombatStun or SpellEffectGraphics.RabiesCarrier => 130,
+                             _ when SpellEffectGraphics.IsDruidCharge(Graphic) => 115,
+                             _ when SpellEffectGraphics.IsDruidFormEffect(Graphic) => 105,
+                             SpellEffectGraphics.ClayGolemContact or SpellEffectGraphics.IronGolemSpark => 65,
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -142,6 +142,20 @@
+                 posX += 23;
+             }
+ 
++            if (Graphic == SpellEffectGraphics.CombatStun && Source is Mobile stunned)
++            {
++                if (stunned.IsDead) { return false; }
++                posY -= Math.Clamp(stunned.FrameInfo.Y - 45, 0, 45);
++            }
++
++            if (Graphic is SpellEffectGraphics.RabiesCarrier or SpellEffectGraphics.RabiesSpread or SpellEffectGraphics.RabiesFade
++                && Source is Mobile carrier)
++            {
++                if (carrier.IsDead) { return false; }
++                posX += 19;
++                posY -= Math.Clamp((carrier.FrameInfo.Y - 45) / 2, 0, 26);
++            }
++
+             ushort hue = Hue;
+ 
+             if (ProfileManager.CurrentProfile.NoColorObjectsOutOfRange && Distance > World.ClientViewRange)
+diff --git a/src/ClassicUO.Client/Game/Managers/EffectManager.cs b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+--- a/src/ClassicUO.Client/Game/Managers/EffectManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+@@ -83,12 +83,12 @@
+                 return;
+             }
+ 
+-            Vector3 poisonOffset = Vector3.Zero;
+-            if (type == GraphicEffectType.FixedXYZ && SpellEffectGraphics.IsPoisonTravel(graphic))
++            Vector3 groundOffset = Vector3.Zero;
++            if (type == GraphicEffectType.FixedXYZ && SpellEffectGraphics.HasFractionalGroundPosition(graphic))
+             {
+                 // These visual samples carry their fractional tile origin in the speed and hue fields.
+-                poisonOffset = new Vector3(speed - SpellEffectGraphics.PoisonPositionBias,
+-                    hue - SpellEffectGraphics.PoisonPositionBias, 0);
++                groundOffset = new Vector3(speed - SpellEffectGraphics.GroundEffectPositionBias,
++                    hue - SpellEffectGraphics.GroundEffectPositionBias, 0);
+                 hue = 0;
+             }
+ 
+@@ -113,7 +113,8 @@
+                     || SpellEffectGraphics.IsDruidCharge(graphic)
+                     || graphic is SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow
+                         or SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.PoisonAfflicted
+-                        or SpellEffectGraphics.GolemSlow or SpellEffectGraphics.WoundActive);
++                        or SpellEffectGraphics.GolemSlow or SpellEffectGraphics.WoundActive
++                        or SpellEffectGraphics.CombatStun or SpellEffectGraphics.RabiesCarrier);
+             bool renewField = type == GraphicEffectType.FixedXYZ
+                 && (SpellEffectGraphics.IsFireField(graphic) || SpellEffectGraphics.IsJavelinCloud(graphic)
+                     || graphic == SpellEffectGraphics.BoneBarrierConnector);
+@@ -303,7 +304,7 @@
+             }
+ 
+ 
+-            if (poisonOffset != Vector3.Zero) { effect.Offset = poisonOffset; }
++            if (groundOffset != Vector3.Zero) { effect.Offset = groundOffset; }
+             PushToBack(effect);
+         }
+ 

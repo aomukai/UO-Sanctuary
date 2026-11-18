@@ -1,0 +1,24 @@
+--- a/src/ClassicUO.Assets/ArtLoader.cs
++++ b/src/ClassicUO.Assets/ArtLoader.cs
+@@ -76,6 +76,9 @@
+             _ourStatics.Clear();
+             _ourLand.Clear();
+ 
++            Gather(Path.Combine(AppContext.BaseDirectory, "Data", "Sanctuary", "Art", "Statics"),
++                   _ourStatics, MAX_STATIC_DATA_INDEX_COUNT - MAX_LAND_DATA_INDEX_COUNT);
++
+             // Two folders and not one, keyed by the numbers a shard author actually types - the
+             // item id a `new Item(0x2818)` uses, and the land tile id. The archive's own indexing
+             // puts statics 0x4000 along from land in a single run, and nobody thinks in those.
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -37,6 +37,9 @@
+              CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+     <Content Include="../../../../art/succubus/succubus.idx;../../../../art/succubus/succubus.mul"
+              Link="Data/Sanctuary/Animations/%(Filename)%(Extension)"
++             CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
++    <Content Include="../../../../art/succubus/statics/65000.art"
++             Link="Data/Sanctuary/Art/Statics/%(Filename)%(Extension)"
+              CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+     <Compile Include="../../../../shared/TitleProtocol.cs" Link="TitleProtocol.cs" />
+     <Compile Include="../../../../shared/SkillBindingProtocol.cs" Link="SkillBindingProtocol.cs" />

@@ -35,7 +35,9 @@ internal static class ShadowPsychicHammers
         // return phase owns actual knockback/death with the real NPC emitter.
         bool knock=chance>0&&NpcEquipmentRandom.Limited(body,100)<chance;
         NpcDirectSpellHit.Finish(pending,knock?8:0);
-        body.PlaySound(0x1E5);target.FixedEffect(0x374A,10,15,0x481,0);target.PlaySound(0x1F1); // Existing identified Hammer presentation placeholders.
+        body.PlaySound(0x1F1);
+        target.FixedEffect(0x3709, 10, 15, 0x482, 0);
+        target.PlaySound(0x213); // Existing identified Hammer presentation placeholders.
         return 1;
     }
 }

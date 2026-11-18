@@ -52,7 +52,9 @@ internal static class DruidOakAuras
         var key=(target.Serial.Value,control);
         var next=Replacement(_leases.GetValueOrDefault(key),target.Serial.Value,source.Serial.Value,rank,DruidOakStats.Aura(rank).LifePercent,at,control);
         if(next==null){return false;}
-        var before=BattleOrders.Capture(target);_leases[key]=next;BattleOrders.Change(target,before);return true;
+        var before=BattleOrders.Capture(target);_leases[key]=next;BattleOrders.Change(target,before);
+        DruidSpiritVisuals.Aura(target, CombatAbility.OakSage, next.UntilUtc);
+        return true;
     }
     internal static bool Recipient(DruidOakBody source,PlayerMobile owner,Mobile target,int radius)
     {
@@ -75,8 +77,6 @@ internal static class DruidOakAuras
         {if(Recipient(source,owner,target,aura.Radius)){targets.Add(target);}}
         targets.Sort((a,b)=>a.Serial.CompareTo(b.Serial));
         foreach(var target in targets){Apply(source,target,rank,at);}
-        // No gameplay-visible final effect is asserted. XW and oak_sage art,
-        // control visuals and summon/spirit audio remain separate assets.
         return true;
     }
     internal static void Schedule(DruidOakBody source,DateTime at)
@@ -99,7 +99,11 @@ internal static class DruidOakAuras
         if(target==null){return;}
         var before=Alive(target)?BattleOrders.Capture(target):default;
         bool changed=_leases.Remove((target.Serial.Value,false));changed=_leases.Remove((target.Serial.Value,true))||changed;
-        if(changed&&Alive(target)){BattleOrders.Change(target,before);}
+        if (changed)
+        {
+            if (Alive(target)) { BattleOrders.Change(target, before); }
+            DruidSpiritVisuals.ClearAura(target, CombatAbility.OakSage);
+        }
     }
     internal static void Expire(DateTime at)
     {
@@ -111,6 +115,8 @@ internal static class DruidOakAuras
             var target=World.FindMobile((Serial)lease.Recipient);var before=Alive(target)?BattleOrders.Capture(target):default;
             _leases.Remove((lease.Recipient,lease.Control));
             if(Alive(target)){BattleOrders.Change(target,before);}
+            if (!_leases.ContainsKey((lease.Recipient, !lease.Control)))
+            { DruidSpiritVisuals.ClearAura(target, CombatAbility.OakSage); }
         }
         foreach(uint id in _emitters.Keys.ToArray())
         {if(World.FindMobile((Serial)id) is not DruidOakBody{Alive:true,Deleted:false}){_emitters.Remove(id);}}

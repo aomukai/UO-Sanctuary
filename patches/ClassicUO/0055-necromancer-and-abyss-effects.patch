@@ -1,0 +1,53 @@
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -107,11 +107,16 @@
+                         SpellEffectGraphics.BlizzardFall => SpellEffectGraphics.BlizzardFallFrames,
+                         SpellEffectGraphics.BlizzardContact or SpellEffectGraphics.FrozenOrbBurst
+                             or SpellEffectGraphics.FrozenOrbContact => SpellEffectGraphics.ColdFrames,
++                        SpellEffectGraphics.TeethContact or SpellEffectGraphics.BoneSpiritBurst
++                            => SpellEffectGraphics.NecromancerFrames,
++                        SpellEffectGraphics.AbyssOpen or SpellEffectGraphics.AbyssField or SpellEffectGraphics.AbyssPull
++                            or SpellEffectGraphics.AbyssCollapse => SpellEffectGraphics.AbyssFrames,
+                         _ => 0
+                     };
+                     if (spellFrames > 0)
+                     {
+-                        bool oneShot = Graphic is not (SpellEffectGraphics.MeteorWarning or SpellEffectGraphics.MeteorFire);
++                        bool oneShot = Graphic is not (SpellEffectGraphics.MeteorWarning or SpellEffectGraphics.MeteorFire
++                            or SpellEffectGraphics.AbyssField);
+                         AnimationGraphic = (ushort)(Graphic + AnimIndex);
+                         if (AnimIndex < spellFrames - 1) { AnimIndex++; }
+                         else if (!oneShot) { AnimIndex = 0; }
+@@ -121,6 +126,8 @@
+                             SpellEffectGraphics.BlizzardFall => 40,
+                             SpellEffectGraphics.MeteorWarning or SpellEffectGraphics.MeteorImpact
+                                 => 2 * Constants.ITEM_EFFECT_ANIMATION_DELAY,
++                            SpellEffectGraphics.AbyssOpen or SpellEffectGraphics.AbyssField
++                                => SpellEffectGraphics.AbyssPulseMilliseconds / SpellEffectGraphics.AbyssFrames,
+                             _ => Constants.ITEM_EFFECT_ANIMATION_DELAY
+                         };
+                         NextChangeFrameTime = (long)Time.Ticks + interval;
+--- a/src/ClassicUO.Client/Game/Managers/EffectManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+@@ -4,6 +4,7 @@
+ using ClassicUO.Game.Data;
+ using ClassicUO.Game.GameObjects;
+ using ClassicUO.Utility.Logging;
++using Sanctuary;
+ 
+ namespace ClassicUO.Game.Managers
+ {
+@@ -165,6 +166,13 @@
+                         return;
+                     }
+ 
++                    // Bone Spirit gets a position sample every 80 ms. Avoid rendering two
++                    // full skulls while the previous sample times out at the native 100 ms.
++                    if (graphic is >= SpellEffectGraphics.BoneSpiritFlight and < SpellEffectGraphics.BoneSpiritBurst)
++                    {
++                        duration = 75;
++                    }
++
+                     effect = new FixedEffect
+                     (
+                         _world,

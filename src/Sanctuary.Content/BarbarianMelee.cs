@@ -50,7 +50,8 @@ public static class BarbarianMelee
             Parts=packet.Parts with{Physical=packet.Parts.Physical+(ability is CombatAbility.Bash or CombatAbility.Berserk?0:values.Eval("calc2"))},
             SourceStunFrames=hit&&ability==CombatAbility.Stun?values.DurationFrames:packet.SourceStunFrames};
         contact=contact with{Impact=packet,Flags=contact.Flags|(hit?row.Number("ResultFlags"):0),HitClass=hit?row.Number("HitClass"):0,
-            HitFlags=hit?(uint)row.Number("HitFlags"):0u,SkillKnockback=ability==CombatAbility.Bash,StunRoll=CombatStuns.Roll,ControlStun=ability==CombatAbility.Stun,AttemptScoped=true};
+            HitFlags=hit?(uint)row.Number("HitFlags"):0u,SkillKnockback=ability==CombatAbility.Bash,StunRoll=CombatStuns.Roll,ControlStun=ability==CombatAbility.Stun,AttemptScoped=true,
+            BashTrail=ability==CombatAbility.Bash};
         if(!NecromancerEffects.Pay(owner,values.Mana256)){session.PendingAbility=CombatAbility.None;return false;}
         if(ability==CombatAbility.Concentrate){BarbarianConcentrate.Begin(owner,values);}
         if(ability==CombatAbility.Berserk){BarbarianBerserk.Begin(owner,values,now);}
@@ -66,12 +67,19 @@ public static class BarbarianMelee
         if(ability==CombatAbility.Berserk){BarbarianBerserk.Impact(owner,now);}
         if(!ValidTarget(owner,ability,selected)){return false;}
         if(ability==CombatAbility.Concentrate){BarbarianConcentrate.Impact(owner,now);}
-        var target=(BaseCreature)World.FindMobile(selected);owner.DoHarmful(target,true);owner.PlaySound(0x238); // Existing weapon sound/animation placeholders.
+        var target=(BaseCreature)World.FindMobile(selected);owner.DoHarmful(target,true);
+        BarbarianStrikeVisuals.Swing(owner, ability);
         using var attempt=PaladinThorns.Attempt(owner,target,false);
         if(prepared.Contact==null){throw new NotSupportedException("Missing captured Barbarian contact");}
         // The outer scope owns the attempt. Even misses and shield blocks
         // release their captured attempt packet; never reroll at action time.
-        try{PlayerWeaponContact.Release(owner,target,prepared.Contact with{AttemptScoped=true},TimedEffects.Now,true);}
+        try
+        {
+            var point = target.Location;
+            var map = target.Map;
+            var outcome = PlayerWeaponContact.Release(owner,target,prepared.Contact with{AttemptScoped=true},TimedEffects.Now,true);
+            BarbarianStrikeVisuals.Impact(target, point, map, ability, outcome.Commit);
+        }
         catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}
         return true;
     }

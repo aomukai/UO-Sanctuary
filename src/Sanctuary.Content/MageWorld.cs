@@ -19,7 +19,7 @@ internal sealed class MageWorld(NecromancerMinion body,Func<string> read,Action<
     private static void Require(NecromancerMinion actor)
     {if(!actor.IsMage||GenericPetMetadata.Table.Skill(338)?.Name!="NecromageMissile"){throw new NotSupportedException("Mage world needs pinned NPC338");}}
     internal void Begin(PlayerMobile owner,DateTime at,ulong seed)
-    {Require(body);body.Name="Skeletal Mage [placeholder]";World.Initialize(owner,at,()=>NecromancerMageMissiles.SetActorSeed(body,seed));}
+    {Require(body);body.Name="Skeletal Mage";World.Initialize(owner,at,()=>NecromancerMageMissiles.SetActorSeed(body,seed));}
     internal static bool TryAdopt(NecromancerMinion actor,DateTime at)
     {
         if(actor is MageWorldBody||actor is not{Alive:true,Deleted:false,IsMage:true,ControlMaster:PlayerMobile{Alive:true,Deleted:false} owner}

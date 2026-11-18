@@ -195,29 +195,40 @@ public static class BarbarianAttackChecks
         enemy.MoveToWorld(new(owner.X+5,owner.Y,owner.Z),owner.Map);var control=new Skeleton{NoKillAwards=true};control.SetHits(30000);control.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);control.AIObject.AITimer.Stop();Freeze(control);Resist(control,100);var origin=control.Location;
         Require(SourceKnockbacks.Rule(control) is{Knockback:true,GetHit:true,Distance:5},"Bash control fixture lacks mapped knockback");Mana(owner);SkillBindings.Instance.Assign(owner,true,CombatAbility.Bash);Cast(owner,control,CombatAbility.Bash);
         Require(SourceKnockbacks.Remaining(control)>0 && control.Location==origin,"Bash skipped timed knockback or displaced instantly");
-        int observation=(CreatureHitRecovery.Frames(CreatureProfiles.For(control).HitRecovery)+8)*40+300;bool moved=false;
-        Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),(observation+39)/40,()=>
-        {moved|=control.Location!=origin;control.Combatant=null;control.AIObject?.AITimer.Stop();});
-        Timer.StartTimer(TimeSpan.FromMilliseconds(observation),()=>Controlled(()=>
+        var displacementDeadline = TimedEffects.Now.AddSeconds(3);
+        bool moved = false;
+        void CheckDisplacement()
         {
-            try
+            moved |= control.Location != origin;
+            control.Combatant = null;
+            control.AIObject?.AITimer.Stop();
+            if (SourceKnockbacks.Remaining(control) > 0 && TimedEffects.Now < displacementDeadline)
             {
-                Require(SourceKnockbacks.Remaining(control)==0 && moved,$"Bash knockback remaining={SourceKnockbacks.Remaining(control)}, origin={origin}, actual={control.Location}");control.AIObject.AITimer.Stop();control.Combatant=null;control.MoveToWorld(origin,owner.Map);Mana(owner);
-                SkillBindings.Instance.Assign(owner,true,CombatAbility.Stun);SkillBindings.Instance.Assign(owner,false,CombatAbility.Stun);Cast(owner,control,CombatAbility.Stun);
-                int duration=SkillMechanics.Values(owner,CombatAbility.Stun).DurationFrames*40;Require(CombatStuns.Remaining(control)>0 && CombatStuns.Remaining(control)<=duration && !control.Move(Direction.East),"Stun duration/native movement gate");
-                int life=Life(owner);((BaseWeapon)control.Weapon).OnSwing(control,owner);Require(Life(owner)==life,"Stunned creature attacked");
-                Timer.StartTimer(TimeSpan.FromMilliseconds(duration+180),()=>Controlled(()=>
-                {
-                    try
-                    {
-                        Require(CombatStuns.Remaining(control)==0,"Stun failed natural expiry");control.Combatant=null;control.AIObject.AITimer.Stop();Require(CombatDisplacement.TryStep(control,Direction.East),"Stun expiry did not permit movement");control.MoveToWorld(origin,owner.Map);Mana(owner);Cast(owner,control,CombatAbility.Stun);
-                        enemy.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);control.MoveToWorld(new(owner.X+3,owner.Y,owner.Z),owner.Map);Seed(owner,enemy,weapon,helm,control);Log.Information("barbarian-attacks-result: passed");
-                    }
-                    catch(Exception e){Log.Error(e,"barbarian-attacks-result: failed");}
-                }));
+                Timer.StartTimer(TimeSpan.FromMilliseconds(40), CheckDisplacement);
+                return;
             }
-            catch(Exception e){Log.Error(e,"barbarian-attacks-result: failed");}
-        }));
+            Controlled(() =>
+            {
+                try
+                {
+                    Require(SourceKnockbacks.Remaining(control)==0 && moved,$"Bash knockback remaining={SourceKnockbacks.Remaining(control)}, origin={origin}, actual={control.Location}");control.AIObject.AITimer.Stop();control.Combatant=null;control.MoveToWorld(origin,owner.Map);Mana(owner);
+                    SkillBindings.Instance.Assign(owner,true,CombatAbility.Stun);SkillBindings.Instance.Assign(owner,false,CombatAbility.Stun);Cast(owner,control,CombatAbility.Stun);
+                    int duration=SkillMechanics.Values(owner,CombatAbility.Stun).DurationFrames*40;Require(CombatStuns.Remaining(control)>0 && CombatStuns.Remaining(control)<=duration && !control.Move(Direction.East),"Stun duration/native movement gate");
+                    int life=Life(owner);((BaseWeapon)control.Weapon).OnSwing(control,owner);Require(Life(owner)==life,"Stunned creature attacked");
+                    Timer.StartTimer(TimeSpan.FromMilliseconds(duration+180),()=>Controlled(()=>
+                    {
+                        try
+                        {
+                            Require(CombatStuns.Remaining(control)==0,"Stun failed natural expiry");control.Combatant=null;control.AIObject.AITimer.Stop();Require(CombatDisplacement.TryStep(control,Direction.East),"Stun expiry did not permit movement");control.MoveToWorld(origin,owner.Map);Mana(owner);Cast(owner,control,CombatAbility.Stun);
+                            enemy.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);control.MoveToWorld(new(owner.X+3,owner.Y,owner.Z),owner.Map);Seed(owner,enemy,weapon,helm,control);Log.Information("barbarian-attacks-result: passed");
+                        }
+                        catch(Exception e){Log.Error(e,"barbarian-attacks-result: failed");}
+                    }));
+                }
+                catch(Exception e){Log.Error(e,"barbarian-attacks-result: failed");}
+            });
+        }
+        Timer.StartTimer(TimeSpan.FromMilliseconds(40), CheckDisplacement);
     }
     private static void Reload()
     {

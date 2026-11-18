@@ -95,7 +95,7 @@ public static class DruidTornado
         try { prepared = Prepare(owner, point, values, TimedEffects.Now); }
         catch (NotSupportedException) { owner.SendMessage(0x22, "Tornado cannot be used in this context yet."); return false; }
         if (prepared.Length != 1 || !NecromancerEffects.Pay(owner, values.Mana256)) { return false; }
-        Commit(prepared); owner.PlaySound(0x655); // Identified wind-cast audio placeholder.
+        Commit(prepared); DruidWindVisuals.Release(owner, SpellEffectSounds.TornadoRelease);
         return true;
     }
     internal static long[] Create(PlayerMobile owner, Point3D aim, SkillValues values, DateTime at) => Commit(Prepare(owner, aim, values, at));
@@ -144,6 +144,7 @@ public static class DruidTornado
         => SourceDamageAreas.Recipient(owner,target,missile.Map,(int)Math.Floor(missile.X*2+.5),(int)Math.Floor(missile.Y*2+.5),missile.Z,radius);
     private static TornadoMissile Pulse(PlayerMobile owner,TornadoMissile missile,int radius)
     {
+        if (missile.Frame > 0) { DruidWindVisuals.TornadoPulse(owner.Map, missile); }
         ulong seed=missile.Seed;
         int raw=WeaponMissileDamage.RollValue(missile.Min256,missile.Max256,0,n=>(int)SourceRandom.Limited(ref seed,n));
         var packet=DruidMoltenBoulder.Potion(missile.Modifiers,new(raw/256.0,0,0,0,0));
@@ -157,9 +158,11 @@ public static class DruidTornado
             // Copied-area defense uses arguments1/0, separately from the
             // physical direct missile's shield attempt and knockback roll.
             owner.DoHarmful(target,true);var parts=SkillCombat.MitigatePrepared(owner,target,packet);
+            var hitPoint = target.Location;
+            var hitMap = target.Map;
             int loss=SkillHealth.TypedDamage(owner,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));
             if(!Uninterruptible(target)){CreatureHitRecovery.Apply(target,owner,loss);}
-            target.FixedEffect(0x37CC,3,4,0x481,0); // Identified periodic contact placeholder.
+            if (loss > 0) { DruidWindVisuals.Contact(missile.Owner, hitMap, hitPoint, missile.NextUtc); }
         }
         return missile with{Seed=seed};
     }
@@ -193,15 +196,17 @@ public static class DruidTornado
         owner.DoHarmful(target, true); int loss = 0;
         if (plan.Damage)
         {
+            var point = target.Location;
+            var map = target.Map;
             var damage = DruidMoltenBoulder.Potion(missile.Modifiers, new(raw / 256.0, 0, 0, 0, 0));
             var parts = SkillCombat.MitigatePrepared(owner, target, damage);
             loss = SkillHealth.TypedDamage(owner,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));
+            if (loss > 0) { DruidWindVisuals.Contact(missile.Owner, map, point, missile.NextUtc); }
         }
         if (!guard && target is { Alive: true, Deleted: false })
         {
             if (!(plan.Push && SourceKnockbacks.Begin(owner, target)) && plan.Damage) { CreatureHitRecovery.Apply(target, owner, loss); }
         }
-        target.FixedEffect(0x37CC, 3, 4, 0x481, 0); // Identified wind-contact placeholder.
         return missile with { Seed = seed, LastTarget = target.Serial.Value };
     }
     private static void Advance(TornadoMissile missile, bool? actions)
@@ -220,24 +225,27 @@ public static class DruidTornado
         int interval=Math.Max(1,(int)values.Eval("calc4")),radius=Math.Max(1,(int)values.Eval("aurarangecalc"));
         if(missile.Frame%interval==0){missile=Pulse(owner,missile,radius);}
         // Do27's area precedes generic movement/expiry and direct contact.
-        if(missile.NextUtc>=missile.UntilUtc){_pool=_pool with{Missiles=_pool.Missiles.Remove(missile.Id)};return;}
+        if(missile.NextUtc>=missile.UntilUtc)
+        { _pool = _pool with { Missiles = _pool.Missiles.Remove(missile.Id) }; Disperse(missile, owner.Map); return; }
         var next = missile with { Frame = missile.Frame + 1, NextUtc = missile.NextUtc.AddMilliseconds(40) };
         var moved = ChargedBolts.Advance(missile.Path, missile.OriginX, missile.OriginY, missile.X, missile.Y, missile.Next,
             SkillGeometry.Tiles(missile.Velocity256 / 4096.0));
         var steps = SourceMissileSteps.Advance(missile.X, missile.Y, moved.X - missile.X, moved.Y - missile.Y, missile.Steps);
         if (moved.Next >= missile.Path.Length || moved.X <= 0 || moved.Y <= 0 || moved.X >= owner.Map.Width || moved.Y >= owner.Map.Height)
-        { _pool = _pool with { Missiles = _pool.Missiles.Remove(missile.Id) }; return; }
+        { _pool = _pool with { Missiles = _pool.Missiles.Remove(missile.Id) }; Disperse(missile, owner.Map); return; }
         foreach (var cell in steps.Cells)
         {
             if (Recipient(owner, missile, new([cell])) is { } target)
             { next = Impact(owner, target, next with { NextUtc = missile.NextUtc }); break; }
             if (DruidFirestorm.CellBlocked(owner.Map, missile.Z, missile.X, missile.Y, cell.X, cell.Y))
-            { _pool = _pool with { Missiles = _pool.Missiles.Remove(missile.Id) }; return; }
+            { _pool = _pool with { Missiles = _pool.Missiles.Remove(missile.Id) }; Disperse(missile, owner.Map); return; }
         }
         next = next with { X = moved.X, Y = moved.Y, Next = moved.Next, Steps = steps, NextUtc = missile.NextUtc.AddMilliseconds(40) };
         _pool = _pool with { Missiles = _pool.Missiles.SetItem(missile.Id, next) };
-        if (next.Frame % 3 == 0) { Effects.SendLocationEffect(new((int)Math.Round(next.X), (int)Math.Round(next.Y), missile.Z), owner.Map, 0x37CC, 3, 8, 0x481, 0); } // Identified flight placeholder.
+        DruidWindVisuals.Travel(owner.Map, next.X, next.Y, missile.Z, SpellEffectGraphics.TornadoTravel, next.Frame);
     }
+    private static void Disperse(TornadoMissile missile, Map map)
+        => DruidWindVisuals.Disperse(map, missile.X, missile.Y, missile.Z, SpellEffectGraphics.TornadoFade);
     internal static void Tick(DateTime at, bool? actions = null)
     {
         if (at.Kind != DateTimeKind.Utc) { throw new ArgumentException("Tornado clock must be UTC"); }

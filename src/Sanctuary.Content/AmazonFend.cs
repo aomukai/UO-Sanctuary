@@ -89,11 +89,11 @@ public static class AmazonFend
         if(target!=null)
         {
             using var mode=WeaponHands.UseMelee(owner,CombatTiming.Equipped(owner));
-            owner.Direction=owner.GetDirectionTo(target);owner.DoHarmful(target,true);owner.PlaySound(0x238); // Identified native melee placeholder.
+            owner.Direction=owner.GetDirectionTo(target);owner.DoHarmful(target,true);AmazonMeleeEffects.Thrust(owner,CombatAbility.Fend,series.Basic);
             using var attempted=PaladinThorns.Attempt(owner,target,false);
             var values=SkillMechanics.Values(owner,CombatAbility.Fend);
             if(target is BaseCreature creature)
-            {AmazonSequenceContact.Release(owner,creature,series.Basic?0:(int)values.Formula("toht"),series.Basic?0:(int)values.Eval("calc2"),HitRoll,ElementRoll,PhysicalRoll,PoisonRoll,Effects,WearRoll);}
+            {AmazonSequenceContact.Release(owner,creature,CombatAbility.Fend,series.Basic,series.Basic?0:(int)values.Formula("toht"),series.Basic?0:(int)values.Eval("calc2"),HitRoll,ElementRoll,PhysicalRoll,PoisonRoll,Effects,WearRoll);}
         }
         series=series with{Remaining=series.Remaining-1,Released=series.Released+1};
         if(!Valid(owner,series)){Cancel(owner);ClassCombat.SendState(owner,session);return true;}

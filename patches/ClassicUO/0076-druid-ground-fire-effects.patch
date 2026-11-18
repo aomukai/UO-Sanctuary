@@ -1,0 +1,22 @@
+diff --git a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -169,6 +169,8 @@
+                         SpellEffectGraphics.ShockWaveImpact or SpellEffectGraphics.ShockWaveRelease or SpellEffectGraphics.CombatStun
+                             or SpellEffectGraphics.RabiesBite or SpellEffectGraphics.RabiesCarrier
+                             or SpellEffectGraphics.RabiesSpread or SpellEffectGraphics.RabiesFade => SpellEffectGraphics.DruidStatusEffectFrames,
++                        SpellEffectGraphics.FirestormRelease or SpellEffectGraphics.FissureOpening
++                            or SpellEffectGraphics.BoulderBurst or SpellEffectGraphics.BoulderContact => SpellEffectGraphics.DruidGroundFireFrames,
+                         _ when SpellEffectGraphics.IsEnchantAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ when SpellEffectGraphics.IsWardAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ => 0
+@@ -237,6 +239,9 @@
+                             SpellEffectGraphics.ShockWaveImpact or SpellEffectGraphics.RabiesBite or SpellEffectGraphics.RabiesSpread => 75,
+                             SpellEffectGraphics.ShockWaveRelease or SpellEffectGraphics.RabiesFade => 90,
+                             SpellEffectGraphics.CombatStun or SpellEffectGraphics.RabiesCarrier => 130,
++                            SpellEffectGraphics.FirestormRelease or SpellEffectGraphics.BoulderContact => 70,
++                            SpellEffectGraphics.BoulderBurst => 95,
++                            SpellEffectGraphics.FissureOpening => 110,
+                             _ when SpellEffectGraphics.IsDruidCharge(Graphic) => 115,
+                             _ when SpellEffectGraphics.IsDruidFormEffect(Graphic) => 105,
+                             SpellEffectGraphics.ClayGolemContact or SpellEffectGraphics.IronGolemSpark => 65,

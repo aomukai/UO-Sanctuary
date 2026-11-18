@@ -69,6 +69,7 @@ public static class BarbarianShout
         uint creator=_states.TryGetValue(recipient.Serial.Value,out var old) && old.UntilUtc>at?old.Creator:supplier.Serial.Value;
         _states[recipient.Serial.Value]=new(recipient.Serial.Value,creator,supplier.Serial.Value,rank,(int)values.Eval("aurastatcalc1"),at.AddMilliseconds(values.Eval("auralencalc")*40));
         Refresh(recipient);
+        BarbarianWardVisuals.Apply(supplier, recipient, CombatAbility.Shout, _states[recipient.Serial.Value].UntilUtc, old?.UntilUtc ?? default, at);
     }
     internal static void Cast(PlayerMobile owner,SkillValues values,DateTime at,CombatAbility ability=CombatAbility.Shout)
     {
@@ -82,7 +83,7 @@ public static class BarbarianShout
                 ability==CombatAbility.WarCry?values.PhysicalDamage256(false):null,ability==CombatAbility.WarCry?values.PhysicalDamage256(true):null){Modifiers=modifiers});
         }
         if(ability==CombatAbility.BattleCommand){BattleCommand.Apply(owner,owner,values.Rank,at);}else if(ability==CombatAbility.BattleOrders){BattleOrders.Apply(owner,owner,values.Rank,at);}else if(ability==CombatAbility.Shout){Apply(owner,owner,values.Rank,at);}
-        owner.FixedEffect(0x375A,10,10,0x481,0);owner.PlaySound(0x1E5); // Identified UO placeholders; final cry/wave/state assets pending.
+        BarbarianCryVisuals.Cast(owner, ability, at);
     }
     internal static bool Candidate(PlayerMobile owner,Mobile target)=>Alive(target) && !target.Blessed && target is not BaseVendor
         && target.Map==owner.Map && (target==owner || ClassCombat.Friendly(owner,target) || ClassCombat.IsHostile(owner,target));
@@ -99,7 +100,8 @@ public static class BarbarianShout
     private static void Step(PlayerMobile owner,ShoutRay ray,Map map)
     {
         string missile=Missile(ray.Ability);int frame=ray.Frame+1;
-        if(frame>=NecromancerSummons.Source(missile,"Range")){_rays.Remove(ray.Id);return;} // SrvDo1 decrements Range before testing collision.
+        int range = NecromancerSummons.Source(missile, "Range");
+        if(frame>=range){_rays.Remove(ray.Id);return;} // SrvDo1 decrements Range before testing collision.
         var motion=Advance(ray.Ray,ray.Velocity,ray.AccelerationCounter,ray.Ability,ray.Acceleration);
         double x=ray.X+motion.X,y=ray.Y+motion.Y;
         var from=new Point3D((int)Math.Round(ray.X),(int)Math.Round(ray.Y),ray.Z+12);
@@ -127,14 +129,18 @@ public static class BarbarianShout
             else if(first==owner || ClassCombat.Friendly(owner,first))
             {if(ray.Ability==CombatAbility.BattleCommand){BattleCommand.Apply(owner,first,ray.Rank,ray.NextUtc);}else if(ray.Ability==CombatAbility.BattleOrders){BattleOrders.Apply(owner,first,ray.Rank,ray.NextUtc);}else{Apply(owner,first,ray.Rank,ray.NextUtc);}}
         }
-        if(ray.Ray%8==0){Effects.SendLocationEffect(new(to.X,to.Y,ray.Z),map,0x375A,2,10,0x481,0);} // Sparse placeholder travelling wave.
+        BarbarianCryVisuals.Wave(map, ray, x, y, frame, range);
     }
     private static void Tick()
     {
         var now=TimedEffects.Now;
         _expired.Clear();foreach(var pair in _states)
-        {if(pair.Value.UntilUtc<=now || !Alive(World.FindMobile((Serial)pair.Key))){_expired.Add(pair.Key);}}
-        foreach(uint serial in _expired){Clear(World.FindMobile((Serial)serial));_states.Remove(serial);}
+        {
+            var recipient = World.FindMobile((Serial)pair.Key);
+            if(pair.Value.UntilUtc<=now || !Alive(recipient)){_expired.Add(pair.Key);}
+            else { BarbarianWardVisuals.Refresh(recipient, CombatAbility.Shout, pair.Value.UntilUtc, now); }
+        }
+        foreach(uint serial in _expired){Clear(serial, World.FindMobile((Serial)serial));}
         // Catch up in scheduled frame order across rays/casts. A delayed tick must
         // not let an older ray refresh a recipient after a newer scheduled hit.
         var due=new PriorityQueue<(PlayerMobile Owner,Map Map,long Id),(DateTime At,long Id)>();
@@ -164,7 +170,14 @@ public static class BarbarianShout
     }
 
     public static void Clear(Mobile recipient)
-    {if(recipient!=null && _states.Remove(recipient.Serial.Value)){Refresh(recipient);}}
+    {if(recipient!=null){Clear(recipient.Serial.Value, recipient);}}
+
+    private static void Clear(uint serial, Mobile recipient)
+    {
+        if (!_states.Remove(serial)) { return; }
+        Refresh(recipient);
+        BarbarianWardVisuals.Clear(serial, recipient, CombatAbility.Shout);
+    }
     public static ShoutSave Snapshot()
     {
         var delays=new List<WarcryDelay>();foreach(var pair in _delays){delays.Add(new(pair.Key.Item1,pair.Key.Item2,pair.Value));}

@@ -35,6 +35,8 @@ internal static class BoneBarrierCasts
         // Sanctuary's shared action framework settles once at release. Legacy
         // Prison start19 settles earlier; phase/cancel parity remains separate.
         if(!BoneBarriers.Create(owner,ability,point,values)){return false;}
-        return NecromancerEffects.Pay(owner,values.Mana256);
+        if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
+        Effects.PlaySound(point, owner.Map, SpellEffectSounds.BoneBarrierRise);
+        return true;
     }
 }

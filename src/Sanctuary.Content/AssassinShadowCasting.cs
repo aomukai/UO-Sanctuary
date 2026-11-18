@@ -59,7 +59,8 @@ internal static class AssassinShadowCasting
             if(!NecromancerEffects.Pay(owner,cost)){return false;}paid=true;
             candidate.RestorePrepared(candidate.Prepared with{LearnedCast=true});committed=true;created=candidate;
             foreach(var previous in For(owner).Where(b=>b!=candidate).OrderBy(BattleCommand.PetOrder).ThenBy(b=>b.Serial.Value).ToArray()){previous.Delete();}
-            FireGround.Delay(owner,ability,at);owner.PlaySound(0x1E5);candidate.FixedEffect(0x376A,10,16,0x455,0); // Identified shared summon placeholders.
+            FireGround.Delay(owner,ability,at);
+            UoSkillVisuals.Summon(candidate, 0x1FB, ability == CombatAbility.ShadowMaster ? 0x482 : 0x455);
             return true;
         }
         catch(Exception e)when(e is NotSupportedException or InvalidDataException or OverflowException or ArgumentException)

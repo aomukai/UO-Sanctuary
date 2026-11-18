@@ -66,7 +66,13 @@ public static partial class MartialPhoenix
         var center=target is{Deleted:false} && target.Map==map?target.Location:fallback;
         if(SpellHelper.IsTown(center,owner)){return 0;}Tables();int rank=Math.Max(charge.InitialRank,SkillMechanics.Rank(owner,CombatAbility.PhoenixStrike));long cast=checked(++_nextCast);
         if(charge.Count==1)
-        {long id=checked(++_nextId);Drops.Add(id,new(id,cast,owner.Serial.Value,map.MapID,rank,center.X,center.Y,center.Z,0,at.AddMilliseconds(40)));Effects.SendLocationEffect(center,map,0x3709,60,10,0x489,0);return cast;}
+        {
+            long id=checked(++_nextId);
+            Drops.Add(id,new(id,cast,owner.Serial.Value,map.MapID,rank,center.X,center.Y,center.Z,0,at.AddMilliseconds(40)));
+            Effects.SendLocationEffect(center, map, SpellEffectGraphics.MeteorWarning, 48);
+            Effects.PlaySound(center, map, SpellEffectSounds.MeteorRelease);
+            return cast;
+        }
         ulong stream=SourceRandom.InitLow(SeedLow());bool cold=charge.Count==3;int count=cold?16:7;
         for(int i=0;i<count;i++)
         {
@@ -99,7 +105,8 @@ public static partial class MartialPhoenix
             values=SkillMechanics.Values(owner,CombatAbility.PhoenixStrike,drop.Rank);var fire=MartialPhoenixPackets.Capture("royalstrikemeteorfire",values,NamedElements.MasteryPercent(owner,"fire"));
             FireGround.AddPhoenix(owner,drop.Rank,x,y,drop.Z,fire.Minimum256,fire.Maximum256,at);
         }
-        Effects.SendLocationEffect(center,owner.Map,0x36BD,10,10,0x489,0); // Identified meteor impact placeholder.
+        Effects.SendLocationEffect(center, owner.Map, SpellEffectGraphics.MeteorImpact, SpellEffectGraphics.MeteorImpactDuration);
+        Effects.PlaySound(center, owner.Map, SpellEffectSounds.MeteorImpact);
     }
     internal static bool Ready(long cast,uint target,DateTime at)=>!Leases.TryGetValue((cast,target),out var lease) || lease.UntilUtc<=at;
     internal static BaseCreature Recipient(PlayerMobile owner,PhoenixFlight f,SourceMissileCell cell)
@@ -116,7 +123,9 @@ public static partial class MartialPhoenix
     {
         Leases[(f.Cast,target.Serial.Value)]=new(f.Cast,target.Serial.Value,f.NextUtc.AddMilliseconds(160));
         if(f.Npc!=null){return NpcImpact(owner,target,f);}
-        if(ClassAvoidance.Missile(target)){return f;}ulong seed=f.Seed;int damage=WeaponMissileDamage.RollValue(f.Minimum256,f.Maximum256,0,n=>(int)SourceRandom.Limited(ref seed,n));
+        if(ClassAvoidance.Missile(target)){return f;}
+        AssassinMartialVisuals.Contact(owner, target.Location, target.Map, CombatAbility.PhoenixStrike, f.NextUtc);
+        ulong seed=f.Seed;int damage=WeaponMissileDamage.RollValue(f.Minimum256,f.Maximum256,0,n=>(int)SourceRandom.Limited(ref seed,n));
         owner.DoHarmful(target,true);var reduced=NamedElements.Resolve256(owner,target,damage,f.Cold?"cold":"ltng",enhance:false,pierceOverride:f.Pierce);
         if(reduced.Absorbed256>0){SkillHealth.Heal(target,reduced.Absorbed256);}
         if(f.Cold){long tick=Core.TickCount+(long)(f.NextUtc-TimedEffects.Now).TotalMilliseconds;FreezeStates.Apply(owner,target,f.ColdFrames,tick,f.Pierce);} // damage2 clears ordinary chill.
@@ -134,6 +143,8 @@ public static partial class MartialPhoenix
                 if(!Drops.TryGetValue(due.Id,out var d) || d.NextUtc!=due.Next){continue;}
                 var owner=SourceOwner(d.Owner,d.Map,d.Npc);if(owner==null&&d.Npc==null){Drops.Remove(d.Id);continue;}
                 var next=d with{Frame=d.Frame+1,NextUtc=d.NextUtc.AddMilliseconds(40)};
+                if (d.Npc == null && next.Frame == 60 - SpellEffectGraphics.MeteorFallMilliseconds / 40 && Active(owner, allowActions))
+                { Effects.PlaySound(new Point3D(d.X, d.Y, d.Z), owner.Map, SpellEffectSounds.MeteorDescent); }
                 if(d.Npc!=null&&NpcActor(owner,d.Npc,d.Map,allowActions)==null){next=next with{Npc=d.Npc with{Dormant=true}};}
                 if(next.Frame>=60){Drops.Remove(d.Id);if(d.Fault==null){try{if(d.Npc!=null){if(NpcActor(owner,next.Npc,d.Map,allowActions)is{} actor){NpcMeteorImpact(actor,d,d.NextUtc);}}else if(Active(owner,allowActions)){MeteorImpact(owner,d,d.NextUtc);}}catch(Exception e){Log.Error(e,"Phoenix meteor suspended: {Id}",d.Id);}}}
                 else{Drops[d.Id]=next;if(next.NextUtc<=at){queue.Enqueue((d.Id,true,next.NextUtc),(next.NextUtc,-d.Id));}}
@@ -177,7 +188,12 @@ public static partial class MartialPhoenix
             if(!map.LineOfSight(new Point3D((int)Math.Round(f.X),(int)Math.Round(f.Y),f.Z+12),new Point3D((cell.X+1)/2,(cell.Y+1)/2,f.Z+12))){Flights.Remove(f.Id);return;}
         }
         Flights[f.Id]=next;
-        if(next.Frame%3==0){Effects.SendLocationEffect(new Point3D((int)Math.Round(x),(int)Math.Round(y),f.Z),map,f.Cold?0x374A:0x3818,3,10,f.Cold?0x480:0x482,0);} // Identified travel placeholder.
+        if (active && next.Frame % 2 == 0)
+        {
+            int graphic = SorceressVisuals.DirectionalFrame(f.Cold ? SpellEffectGraphics.IceBlastFlight
+                : SpellEffectGraphics.ChainLightningFlight, x - f.X, y - f.Y, next.Frame / 2);
+            Effects.SendLocationEffect(new Point3D((int)Math.Round(x), (int)Math.Round(y), f.Z), map, graphic, 2);
+        }
     }
     private static void Validate(PhoenixFlight f)
     {

@@ -20,11 +20,14 @@ public static class PaladinSanctuary
         // Preserve the inspected supplier-stat threshold without charging idle/push
         // pulses. Pinned-build user checks confirm knockback still works at zero mana.
         bool stats=NecromancerEffects.CanPay(owner,values.Mana256);
+        var until = now.AddMilliseconds((frames + 1) * 40);
         PaladinAuras.ElementalWeapon(new(owner.Serial.Value,owner.Serial.Value,CombatAbility.Sanctuary,values.Rank,
-            stats?(int)values.Eval("passivecalc1"):0,now.AddMilliseconds((frames+1)*40),AttackPercent:stats?(int)values.Eval("passivecalc2"):0));
-        if(SpellHelper.IsTown(owner.Location,owner)){return;}
+            stats?(int)values.Eval("passivecalc1"):0,until,AttackPercent:stats?(int)values.Eval("passivecalc2"):0));
+        if(SpellHelper.IsTown(owner.Location,owner))
+        { PaladinHostileAuraVisuals.ClearSupplier(owner, CombatAbility.Sanctuary); return; }
         int min=(int)Math.Clamp(NamedElements.Enhance(owner,values.Damage256(false),"mag"),0,int.MaxValue),max=(int)Math.Clamp(NamedElements.Enhance(owner,values.Damage256(true),"mag"),0,int.MaxValue);
         int damage=min+(max>min?Roll(max-min):0);double radius=SkillGeometry.Tiles(values.Eval("aurarangecalc"));
+        PaladinHostileAuraVisuals.SanctuaryPulse(owner, radius, until, now);
         using var targets=PooledRefList<BaseCreature>.Create();
         foreach(var target in owner.Map.GetMobilesInRange<BaseCreature>(owner.Location,(int)Math.Ceiling(radius)))
         {
@@ -36,10 +39,15 @@ public static class PaladinSanctuary
         {
             if(owner is not{Alive:true,Deleted:false}){break;}if(target is not{Alive:true,Deleted:false}){continue;}
             double dx=target.X-owner.X,dy=target.Y-owner.Y;
+            var point = target.Location;
+            var map = target.Map;
+            int before = SkillHealth.Balance256(target);
             int loss=SkillCombat.AuraElement(owner,target,(int)Math.Clamp(Math.Floor(damage*PaladinElements.Proximity(Math.Sqrt(dx*dx+dy*dy),radius)),0,int.MaxValue),"mag");
-            if(target is{Alive:true,Deleted:false} && !SourceKnockbacks.Begin(owner,target) && SourceKnockbacks.Rule(target) is{Knockback:false,GetHit:true})
+            bool pushed = target is { Alive: true, Deleted: false } && SourceKnockbacks.Begin(owner, target);
+            if(target is{Alive:true,Deleted:false} && !pushed && SourceKnockbacks.Rule(target) is{Knockback:false,GetHit:true})
             {CreatureHitRecovery.Apply(target,owner,loss);}
+            if (pushed || SkillHealth.Balance256(target) < before)
+            { PaladinHostileAuraVisuals.SanctuaryContact(owner, point, map, now); }
         }
-        owner.FixedEffect(0x375A,10,10,0x481,0); // Placeholder Sanctuary pulse; final ring/bolts/impact art tracked separately.
     }
 }

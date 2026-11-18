@@ -126,13 +126,12 @@ public static class AmazonImpale
             if(eligible && owner.InRange(target,reach) && owner.InLOS(target) && Math.Abs(owner.Z-target.Z)<16)
             {
                 using var melee=WeaponHands.UseMelee(owner,weapon);using var attempt=PaladinThorns.Attempt(owner,target,false);
-                owner.DoHarmful(target,true);owner.PlaySound(0x238); // Identified native thrust/sound placeholder.
+                owner.DoHarmful(target,true);AmazonMeleeEffects.Thrust(owner,CombatAbility.Impale,attack.Basic);
                 if(target is BaseCreature creature&&attack.Contact is{} contact)
                 {
                     contact=contact with{RangeCheck=_=>owner.Map==creature.Map&&owner.InRange(creature,reach)&&owner.InLOS(creature)&&Math.Abs(owner.Z-creature.Z)<16};
-                    try{PlayerWeaponContact.Release(owner,creature,contact,TimedEffects.Now,true);}
+                    try{AmazonMeleeEffects.ReleaseContact(owner,creature,contact,CombatAbility.Impale,attack.Basic);}
                     catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);}
-                    if(attack.Hit&&!attack.Basic){target.FixedEffect(0x374A,10,5,0x480,0);} // Identified impact/slow placeholder.
                 }
             }
             if(attack.Basic){Cancel(owner);ClassCombat.SendState(owner,session);return processed;}

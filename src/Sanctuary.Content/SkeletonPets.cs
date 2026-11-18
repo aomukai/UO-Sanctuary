@@ -115,8 +115,7 @@ public static class SkeletonPets
         corpse.SanctuaryConsumed = true;
         corpse.Animated = true;
         ClassLoot.RemoveHarvestedIfEmpty(corpse);
-        pet.FixedParticles(0x376A, 9, 20, 5024, EffectLayer.Waist);
-        pet.PlaySound(0x1FB);
+        UndeadSummonVisuals.Arrive(pet);
         return true;
     }
     public static void Dismiss(PlayerMobile owner)
@@ -368,6 +367,8 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
     }
     public override void OnDelete()
     {
+        UndeadSummonVisuals.Depart(this);
+        DruidSummonVisuals.Depart(this);
         NpcItemProcs.Forget(this);
         SummonUpgradeSnapshots.Forget(this);
         SuspendActions();

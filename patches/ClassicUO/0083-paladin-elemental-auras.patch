@@ -1,0 +1,137 @@
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -64,6 +64,7 @@
+         public float AngleToTarget;
+         public GraphicEffectBlendMode Blend;
+         public long Duration = -1;
++        public float HolyAuraRadius;
+         public uint IntervalInMs;
+         public bool IsEnabled;
+         public long NextChangeFrameTime;
+@@ -186,6 +187,7 @@
+                         _ when SpellEffectGraphics.IsDruidAnimalAnimation(Graphic) => SpellEffectGraphics.DruidAnimalFrames,
+                         _ when SpellEffectGraphics.IsDruidSpiritAnimation(Graphic) => SpellEffectGraphics.DruidSpiritFrames,
+                         _ when SpellEffectGraphics.IsDruidVineAnimation(Graphic) => SpellEffectGraphics.DruidVineFrames,
++                        _ when SpellEffectGraphics.IsHolyAuraAnimation(Graphic) => SpellEffectGraphics.HolyAuraFrames,
+                         _ when SpellEffectGraphics.IsEnchantAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ when SpellEffectGraphics.IsWardAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ => 0
+@@ -200,6 +202,7 @@
+                             && !SpellEffectGraphics.IsColdStatus(Graphic) && !SpellEffectGraphics.IsSorceressWard(Graphic)
+                             && !SpellEffectGraphics.IsDruidCharge(Graphic)
+                             && !SpellEffectGraphics.IsDruidSpiritAura(Graphic)
++                            && !SpellEffectGraphics.IsHolyAuraLoop(Graphic)
+                             && Graphic is not (SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow
+                                 or SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.PoisonAfflicted
+                                 or SpellEffectGraphics.GolemSlow or SpellEffectGraphics.WoundActive
+@@ -285,6 +288,9 @@
+                             SpellEffectGraphics.CreeperPoison => 65,
+                             SpellEffectGraphics.VineCorpse or SpellEffectGraphics.CarrionRecovery or SpellEffectGraphics.SolarRecovery => 110,
+                             _ when SpellEffectGraphics.IsDruidVineAnimation(Graphic) => 102,
++                            _ when SpellEffectGraphics.IsHolyAuraLoop(Graphic) => 145,
++                            _ when SpellEffectGraphics.IsHolyAuraPulse(Graphic) => 90,
++                            _ when SpellEffectGraphics.IsHolyAuraAnimation(Graphic) => 69,
+                             _ when SpellEffectGraphics.IsDruidCharge(Graphic) => 115,
+                             _ when SpellEffectGraphics.IsDruidFormEffect(Graphic) => 105,
+                             SpellEffectGraphics.ClayGolemContact or SpellEffectGraphics.IronGolemSpark => 65,
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -148,6 +148,11 @@
+                 posY -= Math.Clamp(stunned.FrameInfo.Y - 45, 0, 45);
+             }
+ 
++            if (SpellEffectGraphics.IsHolyAuraLoop(Graphic) && Source is Mobile { IsDead: true })
++            {
++                return false;
++            }
++
+             if (Graphic is SpellEffectGraphics.RabiesCarrier or SpellEffectGraphics.RabiesSpread or SpellEffectGraphics.RabiesFade
+                 && Source is Mobile carrier)
+             {
+@@ -189,6 +194,18 @@
+                 or Sanctuary.SpellEffectGraphics.NovaRing)
+             {
+                 DrawGroundRing(batcher, posX + 22, posY + 12, hueVec, depth);
++                return true;
++            }
++
++            if (HolyAuraRadius > 0)
++            {
++                float progress = (AnimationGraphic - Graphic + 1) / (float)SpellEffectGraphics.HolyAuraFrames;
++                // ClassicUO maps a world tile to a (22, ±22) screen vector.
++                float diameter = 44 * MathF.Sqrt(2f) * HolyAuraRadius * progress;
++                DrawGroundRing(batcher, posX + 22, posY + 12, hueVec, depth,
++                    SpellEffectGraphics.HolyAuraRingHeight / 2 + 4,
++                    diameter / SpellEffectGraphics.HolyAuraRingWidth,
++                    diameter / SpellEffectGraphics.HolyAuraRingHeight);
+                 return true;
+             }
+ 
+@@ -346,7 +363,8 @@
+             return true;
+         }
+ 
+-        private void DrawGroundRing(UltimaBatcher2D batcher, int x, int y, Vector3 hue, float depth)
++        private void DrawGroundRing(UltimaBatcher2D batcher, int x, int y, Vector3 hue, float depth,
++            int belowPivot = 116, float xScale = 1, float yScale = 1)
+         {
+             ref readonly var art = ref Client.Game.UO.Arts.GetArt(AnimationGraphic);
+             if (art.Texture == null)
+@@ -356,16 +374,18 @@
+ 
+             const int pixelsPerDepthTile = 22;
+             const int stripHeight = 8;
+-            // The packed ground pivot leaves 116 px below center for the front of the ring.
+-            int pivot = art.UV.Height - 116;
+-            int left = x - art.UV.Width / 2;
++            int pivot = art.UV.Height - belowPivot;
++            int width = (int)MathF.Round(art.UV.Width * xScale);
++            int left = x - width / 2;
+             for (int row = 0; row < art.UV.Height; row += stripHeight)
+             {
+                 int height = Math.Min(stripHeight, art.UV.Height - row);
+-                int relativeY = row - pivot;
++                int relativeY = (int)MathF.Round((row - pivot) * yScale);
++                int nextY = (int)MathF.Round((row + height - pivot) * yScale);
++                if (nextY <= relativeY) { continue; }
+                 // Place each strip above its own ground row so forward terrain does not erase the ring.
+-                float surfaceDepth = depth + (relativeY + height / 2f) / pixelsPerDepthTile + 1.1f;
+-                batcher.Draw(art.Texture, new Rectangle(left, y + relativeY, art.UV.Width, height),
++                float surfaceDepth = depth + (relativeY + nextY) / (2f * pixelsPerDepthTile) + 1.1f;
++                batcher.Draw(art.Texture, new Rectangle(left, y + relativeY, width, nextY - relativeY),
+                     new Rectangle(art.UV.X, art.UV.Y + row, art.UV.Width, height), hue, 0f,
+                     Vector2.Zero, SpriteEffects.None, surfaceDepth);
+             }
+--- a/src/ClassicUO.Client/Game/Managers/EffectManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+@@ -92,6 +92,14 @@
+                 hue = 0;
+             }
+ 
++            float holyAuraRadius = 0;
++            if (type == GraphicEffectType.FixedXYZ && SpellEffectGraphics.IsHolyAuraPulse(graphic))
++            {
++                // Holy pulses carry a radius in the hue field. They use the source art colors.
++                holyAuraRadius = hue / (float)SpellEffectGraphics.HolyAuraRadiusUnitsPerTile;
++                hue = 0;
++            }
++
+             if (hue != 0)
+             {
+                 hue++;
+@@ -112,6 +120,7 @@
+                     || SpellEffectGraphics.IsCurseMark(graphic)
+                     || SpellEffectGraphics.IsDruidCharge(graphic)
+                     || SpellEffectGraphics.IsDruidSpiritAura(graphic)
++                    || SpellEffectGraphics.IsHolyAuraLoop(graphic)
+                     || graphic is SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow or SpellEffectGraphics.HurricaneCore
+                         or SpellEffectGraphics.CycloneArmorWard or SpellEffectGraphics.ArmageddonAura
+                         or SpellEffectGraphics.DireWolfRage or SpellEffectGraphics.RavenBlind
+@@ -308,6 +317,7 @@
+ 
+ 
+             if (groundOffset != Vector3.Zero) { effect.Offset = groundOffset; }
++            effect.HolyAuraRadius = holyAuraRadius;
+             PushToBack(effect);
+         }
+ 

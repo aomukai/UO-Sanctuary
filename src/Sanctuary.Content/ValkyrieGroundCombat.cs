@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
 using System.Linq;
+using Server;
 using Server.Mobiles;
 namespace Sanctuary;
 
@@ -31,7 +32,14 @@ internal static class ValkyrieGroundCombat
         if(state is not{Mode:4}||state.ActionAt!=state.Frame||state.Target!=target?.Serial.Value)
         {throw new NotSupportedException("Original Valkyrie contact requires its owned current A1 action event");}
         var contact=ValkyrieEquipmentContact.Prepare(body,owner,target,bonus=>IronGolemWorld.Melee(body,state,target,bonus),at);
+        var point=target.Location;var map=target.Map;
         var result=IronGolemContact.Release(body,owner,target,contact,bonus=>IronGolemWorld.Melee(body,state,target,bonus),at);
+        if(body.Prepared?.LearnedCast==true)
+        {
+            body.PlaySound(SpellEffectSounds.SpearThrust);
+            if(result.Commit!=null)
+            {AmazonUtilityEffects.Present(map,point,SpellEffectGraphics.FendContact,SpellEffectSounds.SpearContact,SpellEffectGraphics.ThrustEffectFrames);}
+        }
         return(result.Packet.ResultFlags&SourceMeleeResult.Successful)!=0;
     }
 }

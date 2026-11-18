@@ -92,7 +92,7 @@ public partial class FireGolemDeathBody:FireGolemBody
             int amount=critical?200:100;
             SkillCombat.ResolveHitParts(this,target,new(amount,amount,0,0,0),recover:false,enhanceBase:false);
         }
-        Effects.SendLocationEffect(center,map,0x36BD,15); // Identified explosion placeholder.
+        GolemEffects.FireDeath(center, map);
     }
     public override void OnAfterDelete(){_deathTimer.Cancel();base.OnAfterDelete();}
     [AfterDeserialization]private void AfterRetirementLoad()

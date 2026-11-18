@@ -26,7 +26,11 @@ internal static class AssassinWeaponContact
             // even against elemental/physical immunity. A miss still drains
             // its own attempt packet without gaining or refreshing charges.
             if((prepared.Flags&SourceMeleeResult.Successful)!=0){AssassinCharges.Gain(owner,values);}
+            var point = target.Location;
+            var map = target.Map;
             var result=PlayerWeaponContact.Release(owner,target,prepared,TimedEffects.Now,true);
+            if (result.Commit is { Packet.ReactionSettled: false })
+            { AssassinMartialVisuals.Contact(owner, point, map, values.Ability, TimedEffects.Now); }
             return result.Commit!=null&&(result.Packet.ResultFlags&1)!=0;
         }
         catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}
@@ -37,7 +41,8 @@ internal static class AssassinWeaponContact
         {
             var states=AssassinCharges.Finisher(owner);var tiger=states.FirstOrDefault(x=>x.Ability==CombatAbility.TigerStrike);
             int ed=AssassinCharges.TigerPercent(tiger,SkillMechanics.Rank(owner,CombatAbility.TigerStrike));
-            var drain=WeaponLeech.Capture(owner,AssassinCharges.CobraDrain(states.FirstOrDefault(x=>x.Ability==CombatAbility.CobraStrike),SkillMechanics.Rank(owner,CombatAbility.CobraStrike)));
+            var cobra = states.FirstOrDefault(x => x.Ability == CombatAbility.CobraStrike);
+            var drain=WeaponLeech.Capture(owner,AssassinCharges.CobraDrain(cobra,SkillMechanics.Rank(owner,CombatAbility.CobraStrike)));
             FistsFirePacket fire=null;ThunderPacket lightning=null;IcePacket ice=null;
             int cold=0,freeze=0;
             var prepared=PlayerWeaponContact.PrepareOrdinary(owner,target,states.Sum(x=>x.AttackPercent),ed,
@@ -62,12 +67,15 @@ internal static class AssassinWeaponContact
                 },capturedDrain:drain) with{AttemptScoped=true};
             bool hit=(prepared.Flags&SourceMeleeResult.Successful)!=0;
             prepared=prepared with{ColdFrames=cold,FreezeFrames=freeze,HitFlags=hit?2u:0u,
+                PresentLeech = cobra == null ? null : DruidFormEffects.HungerRecovery,
                 Flags=prepared.Flags|((fire!=null||lightning!=null||ice!=null)?0x4000:0)};
             var center=target.Location;var map=target.Map;
             if(hit){foreach(var state in states){AssassinCharges.Consume(owner,state,CommonMeleeSkills.Attack.Number("prgchargesconsumed"));}}
             var result=PlayerWeaponContact.Release(owner,target,prepared,TimedEffects.Now,true);
             if(hit)
             {
+                foreach (var state in states)
+                { AssassinMartialVisuals.Contact(owner, center, map, state.Ability, TimedEffects.Now); }
                 FistsFireRelease.AfterParent(owner,center,map,fire,TimedEffects.Now);
                 MartialLightning.AfterParent(owner,center,map,lightning,TimedEffects.Now);
                 MartialCold.AfterParent(owner,target,center,map,ice,TimedEffects.Now);

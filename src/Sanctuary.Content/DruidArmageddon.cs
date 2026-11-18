@@ -44,9 +44,15 @@ public static class DruidArmageddon
     public static void Clear(Mobile owner)
     {
         if (owner == null) { return; }
-        _pool = _pool with { Weather = _pool.Weather.Remove(owner.Serial.Value) };
+        RemoveWeather(owner.Serial.Value, owner);
         // Released impacts/fields have their own expiry; class/death owner
         // validation still removes their unsupported old-class actors.
+    }
+    private static void RemoveWeather(uint serial, Mobile owner)
+    {
+        if (!_pool.Weather.ContainsKey(serial)) { return; }
+        _pool = _pool with { Weather = _pool.Weather.Remove(serial) };
+        ArmageddonVisuals.Clear(owner);
     }
     internal static ArmageddonSave Snapshot() => new(_pool.Weather.Values.OrderBy(x => x.Owner).ToArray(), _pool.Actors.Values.OrderBy(x => x.Id).ToArray(), _pool.NextId);
     internal static void Restore(ArmageddonSave saved)
@@ -112,7 +118,8 @@ public static class DruidArmageddon
         try { state = Prepare(owner, values, TimedEffects.Now); }
         catch (NotSupportedException) { owner.SendMessage(0x22, "Armageddon cannot be used in this context yet."); return false; }
         if (!NecromancerEffects.Pay(owner, values.Mana256)) { return false; }
-        _pool = _pool with { Weather = _pool.Weather.SetItem(state.Owner, state) }; owner.PlaySound(0x1E5); // Identified fire-cast audio placeholder.
+        _pool = _pool with { Weather = _pool.Weather.SetItem(state.Owner, state) };
+        ArmageddonVisuals.Release(owner);
         return true;
     }
     internal static ArmageddonState Prepare(PlayerMobile owner, SkillValues values, DateTime at)
@@ -163,7 +170,6 @@ public static class DruidArmageddon
         var actor = new ArmageddonActor(id, owner.Serial.Value, owner.Map.MapID, rank, missile, x, y, z, frames, ends, mods,
             SourceRandom.InitLow(SeedLow()), at.AddMilliseconds(40), at.AddMilliseconds(frames * 40)); Validate(actor);
         _pool = _pool with { Actors = _pool.Actors.Add(id, actor), NextId = id };
-        Effects.SendLocationEffect(new((x + 1) / 2, (y + 1) / 2, z), owner.Map, missile == 577 ? 0x36D4 : 0x398C, 5, 10, 0x489, 0); // Identified fall/fire placeholders.
         return id;
     }
     private static GearDamage Roll(ArmageddonActor actor, ref ulong seed)
@@ -189,7 +195,7 @@ public static class DruidArmageddon
         // Child reads current owner synergies/gear at retained rank; parent
         // damage and child packet are not the same captured payload.
         Add(owner, 623, actor.Rank, actor.X, actor.Y, actor.Z, actor.NextUtc);
-        Effects.SendLocationEffect(point, owner.Map, 0x3709, 8, 10, 0x489, 0); // Identified terminal blast placeholder.
+        ArmageddonVisuals.Impact(owner.Map, actor);
     }
     private static void Advance(ArmageddonActor actor, bool? actions)
     {
@@ -204,16 +210,25 @@ public static class DruidArmageddon
         }
         var next = actor with { Remaining = remaining, NextUtc = actor.NextUtc.AddMilliseconds(40) };
         _pool = _pool with { Actors = _pool.Actors.SetItem(actor.Id, next) };
-        if (!fighting || actor.Missile != 623) { return; }
+        if (!fighting) { return; }
         var point = new Point3D((actor.X + 1) / 2, (actor.Y + 1) / 2, actor.Z);
+        if (actor.Missile == 577)
+        {
+            if (!SpellHelper.IsTown(point, owner)) { ArmageddonVisuals.Approach(owner.Map, next, actor.NextUtc); }
+            return;
+        }
         if (SpellHelper.IsTown(point, owner) || !owner.Map.CanFit(point, 1, false, false, false) || LobProjectiles.Barrier(owner.Map, point))
         { _pool = _pool with { Actors = _pool.Actors.Remove(actor.Id) }; return; }
+        DruidFireVisuals.FireBed(actor.Owner, owner.Map, actor.X, actor.Y, actor.Z, 37 - remaining, remaining, actor.NextUtc);
         var patch = new FirePatch(actor.Id, actor.Owner, CombatAbility.Armageddon, actor.Map, actor.X / 2.0, actor.Y / 2.0, actor.Z, 0, 0, 41, actor.UntilUtc, actor.NextUtc, 2);
         if (ImmolationArrows.Recipient(owner, patch) is not BaseCreature target || ClassAvoidance.Missile(target)) { return; }
         ulong seed = actor.Seed; var packet = Roll(actor, ref seed);
         _pool = _pool with { Actors = _pool.Actors.SetItem(actor.Id, next with { Seed = seed }) };
         owner.DoHarmful(target, true); var parts = SkillCombat.MitigatePrepared(owner, target, packet, damageRate: 41);
-        SkillHealth.Damage(owner, target, NamedElements.To256(parts.Total),SkillDamageKind.Periodic); // No GetHit, knockback or source weapon callbacks.
+        var hitPoint = target.Location;
+        var hitMap = target.Map;
+        int loss = SkillHealth.Damage(owner, target, NamedElements.To256(parts.Total),SkillDamageKind.Periodic); // No GetHit, knockback or source weapon callbacks.
+        if (loss > 0) { DruidFireVisuals.Contact(actor.Owner, target.Serial.Value, hitPoint, hitMap, actor.NextUtc); }
     }
     internal static void Tick(DateTime at, bool? actions = null)
     {
@@ -221,11 +236,12 @@ public static class DruidArmageddon
         // Retain source event order among due native clocks; expired/offline
         // weather never replays historical emissions on reconnect.
         foreach (var state in _pool.Weather.Values.Where(x => Owner(x.Owner) == null || x.UntilUtc <= at).ToArray())
-        { _pool = _pool with { Weather = _pool.Weather.Remove(state.Owner) }; }
+        { RemoveWeather(state.Owner, World.FindMobile((Serial)state.Owner)); }
         while (true)
         {
             var due = _pool.Weather.Values.Select(x => x.NextUtc).Concat(_pool.Actors.Values.Select(x => x.NextUtc)).DefaultIfEmpty(DateTime.MaxValue).Min();
             if (due > at) { return; }
+            DruidFireVisuals.BeginFrame(due);
             foreach (var saved in _pool.Weather.Values.Where(x => x.NextUtc == due).OrderBy(x => x.Owner).ToArray())
             {
                 var owner = Owner(saved.Owner); bool fighting = owner?.Map != null && owner.Map != Map.Internal && (actions ?? owner.NetState is { Running: true });
@@ -234,9 +250,10 @@ public static class DruidArmageddon
                     long missed = (at.Ticks - saved.NextUtc.Ticks) / TimeSpan.FromMilliseconds(240).Ticks + 1;
                     _pool = _pool with { Weather = _pool.Weather.SetItem(saved.Owner, saved with { NextUtc = saved.NextUtc.AddTicks(missed * TimeSpan.FromMilliseconds(240).Ticks) }) }; continue;
                 }
-                if (!DruidWeather.Outdoors(owner)) { _pool = _pool with { Weather = _pool.Weather.Remove(saved.Owner) }; continue; }
+                if (!DruidWeather.Outdoors(owner)) { RemoveWeather(saved.Owner, owner); continue; }
                 var emitted = Emit(owner, saved);
                 _pool = _pool with { Weather = _pool.Weather.SetItem(saved.Owner, emitted) };
+                ArmageddonVisuals.Sustain(owner, saved);
             }
             foreach (var actor in _pool.Actors.Values.Where(x => x.NextUtc == due).OrderByDescending(x => x.Id).ToArray())
             { if (_pool.Actors.ContainsKey(actor.Id)) { Advance(actor, actions); } }

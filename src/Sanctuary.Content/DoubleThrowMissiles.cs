@@ -28,7 +28,7 @@ internal static class DoubleThrowMissiles
         if(rows[0].Weapons.Values.Any(v=>!rows[0].Missiles.ContainsKey(v))){throw new InvalidDataException("Unknown weapon missile mapping");}return rows[0];
     });
     internal static int HitClass(string missile)=>Catalog.Value.Missiles.TryGetValue(missile,out var row)&&row.TryGetValue("HitClass",out int value)&&value>0?value:throw new NotSupportedException("Missing pinned throwing missile hit class");
-    internal static void Contact(PlayerMobile owner,BaseCreature target,WeaponFlight flight,GearDamage damage,int rate256)
+    internal static PreparedMonsterDamageResult Contact(PlayerMobile owner,BaseCreature target,WeaponFlight flight,GearDamage damage,int rate256)
         =>PlayerWeaponMissileContact.Release(owner,target,flight,damage,rate256,HitClass(flight.Missile));
     internal static string Missile(BaseWeapon weapon)=>ClassGear.Base(weapon) is{} basis&&Catalog.Value.Weapons.TryGetValue(basis.Code,out string missile)
         ?missile:throw new NotSupportedException("This throwable has no pinned ordinary missile mapping");

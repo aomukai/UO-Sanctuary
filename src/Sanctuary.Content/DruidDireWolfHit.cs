@@ -63,7 +63,10 @@ internal static class DruidDireWolfHit
             lightning.Min,lightning.Max,cold.Min,cold.Max,0,NecromancerSummons.Source("fenris","Crit"),Limited,Raw);seed=current;
         var parts=SkillCombat.MitigatePrepared(body,target,new(packet.Physical256/256.0,packet.Fire256/256.0,packet.Cold256/256.0,packet.Lightning256/256.0,0),out int absorbed);
         PreparedWeaponEvents.BeforeReturn(body,target,NamedElements.To256(parts.Physical),false,absorbedLife256:absorbed);
+        var point = target.Location;
+        var map = target.Map;
         int loss=SkillHealth.TypedDamage(body,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));CreatureHitRecovery.Apply(target,body,loss,true);CombatDamage.Finish(target,body);
+        if (loss > 0) { DruidSummonVisuals.Contact(body, point, map); }
         return new(DireWolfHitOutcome.Hit,id,chance,packet.Physical256,packet.Cold256,packet.Fire256,packet.Lightning256,packet.Critical,loss);
     }
 }

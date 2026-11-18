@@ -96,6 +96,8 @@ public sealed record WeaponFlight(long Id,long Cast,uint Owner,int Map,CombatAbi
     public PlayerThrowSource Throwing{get;init;}
     public int SkillRank{get;init;}
     public GuidedFlight Guided{get;init;}
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    public bool CrossbowVisual { get; init; }
     public bool HostileSpell{get;init;}
     public string Missile{get;init;}
     public SlowMissilePayload? Slow{get;init;}
@@ -169,7 +171,14 @@ public static class WeaponMissiles
         var v=ability==CombatAbility.DoubleThrow?DoubleThrowMissiles.Velocity(ray,skillRank,slow??SlowMissilePayload.Normal):ability==CombatAbility.BladeFury?BladeFuryMissiles.Velocity(ray,skillRank,slow.Value):FanGeometry.Velocity(ray,velocity);long id=++_nextId;
         var created=new WeaponFlight(id,cast,owner.Serial.Value,owner.Map.MapID,ability,owner.X,owner.Y,owner.Z,v.X,v.Y,0,frames,
             ray.ActivationFrame,nextDelay,Math.Clamp(pierces,0,4),0,ray.Flags,damage,throwingAt??mirroredAt??bladeFuryPhase??TimedEffects.Now){Throwing=throwing,Mirrored=mirrored,Missile=missile,SkillRank=skillRank,Guided=guided,Slow=slow,MechanicalProfile=mechanicalProfile,SourceSteps=ability is CombatAbility.LightningBolt or CombatAbility.LightningFury or CombatAbility.BladeFury or CombatAbility.DoubleThrow?new([new(owner.X*2,owner.Y*2)]):null};
-        if(throwing!=null&&!DoubleThrowMissiles.Valid(created)||mirrored!=null&&!MirroredBladesContacts.Valid(created)){return 0;}_flights.Add(id,created);return id;
+        if(throwing!=null&&!DoubleThrowMissiles.Valid(created)||mirrored!=null&&!MirroredBladesContacts.Valid(created)){return 0;}
+        if ((AmazonBow.Handles(ability) || ability == CombatAbility.Strafe) && BowAmmunition.AmmoType(owner, CombatTiming.Equipped(owner)) == typeof(Bolt))
+        {
+            created = created with { CrossbowVisual = true };
+        }
+        _flights.Add(id,created);
+        if (throwing != null) { BarbarianPairedVisuals.ThrowLaunch(owner, created); }
+        return id;
     }
     internal static long LaunchNpcFury(AssassinShadowBody body,NpcFuryMissileSource source,Point3D aim,int rank,WeaponMissileDamage damage,SlowMissilePayload slow,DateTime at)
     {
@@ -252,6 +261,7 @@ public static class WeaponMissiles
             while(_flights.TryGetValue(id,out flight) && flight.NextUtc<=at){if(flight.Mirrored!=null&&(owner is not PlayerMobile mirror||!MirroredBladesAction.FlightOwner(mirror,flight.Map))){_flights.Remove(id);break;}BowExplosions.Tick(flight.NextUtc);PoisonJavelins.Tick(flight.NextUtc);PlagueJavelins.Tick(flight.NextUtc);Step(owner,flight);}
         }
         BowExplosions.Tick(at);PoisonJavelins.Tick(at);PlagueJavelins.Tick(at);Prune();
+        AmazonJavelinEffects.RetireClouds(at);
     }
     private static void Step(Mobile owner,WeaponFlight flight)
     {
@@ -260,10 +270,19 @@ public static class WeaponMissiles
         var next=flight with{X=flight.X+flight.Vx,Y=flight.Y+flight.Vy,Frame=flight.Frame+1,NextUtc=flight.NextUtc.AddMilliseconds(40)};
         if(flight.Ability==CombatAbility.PoisonJavelin)
         {next=next with{PathChanged=(int)Math.Floor(flight.X*2+.5)!=(int)Math.Floor(next.X*2+.5)||(int)Math.Floor(flight.Y*2+.5)!=(int)Math.Floor(next.Y*2+.5)};}
-        if(flight.Guided==null && next.Frame>=flight.Frames || next.X<0 || next.Y<0 || next.X>=owner.Map.Width || next.Y>=owner.Map.Height
+        bool expires = flight.Guided == null && next.Frame >= flight.Frames;
+        bool leavesMap = next.X < 0 || next.Y < 0 || next.X >= owner.Map.Width || next.Y >= owner.Map.Height;
+        if(expires || leavesMap
             || !owner.Map.LineOfSight(new Point3D((int)Math.Round(flight.X),(int)Math.Round(flight.Y),flight.Z+12),
                 new Point3D((int)Math.Round(next.X),(int)Math.Round(next.Y),flight.Z+12)))
-        {if(!flight.HostileSpell&&flight.Npc==null){BowExplosions.Create((PlayerMobile)owner,next,flight.NextUtc);PlagueJavelins.Burst((PlayerMobile)owner,next,null,flight.NextUtc);AmazonLightningFury.Burst((PlayerMobile)owner,next,flight.NextUtc);} _flights.Remove(flight.Id);return;}
+        {
+            if (flight.Throwing != null && !expires && !leavesMap)
+            {
+                var point = new Point3D((int)Math.Round(flight.X), (int)Math.Round(flight.Y), flight.Z);
+                BarbarianPairedVisuals.ThrowImpact(point, owner.Map);
+            }
+            if(!flight.HostileSpell&&flight.Npc==null){BowExplosions.Create((PlayerMobile)owner,next,flight.NextUtc);PlagueJavelins.Burst((PlayerMobile)owner,next,null,flight.NextUtc);AmazonLightningFury.Burst((PlayerMobile)owner,next,flight.NextUtc);} _flights.Remove(flight.Id);return;
+        }
         if(flight.Guided is{} guidance)
         {
             next=next with{Guided=guidance with{Remaining=guidance.Remaining-1}};
@@ -316,7 +335,16 @@ public static class WeaponMissiles
                 {selected=segment;nearest=entry;}
             }
         }
-        if(next.Frame%2==0){Effects.SendLocationEffect(end,owner.Map,flight.HostileSpell?0x36D4:0xF42,2);}
+        bool javelin = AmazonJavelins.Handles(flight.Ability);
+        if (flight.Throwing != null)
+        {
+            if (next.Frame % 2 == 0 && selected == null) { BarbarianPairedVisuals.ThrowFlight(owner.Map, next); }
+        }
+        else if (javelin || next.Frame % 2 == 0)
+        {
+            var (graphic, hue) = UoSkillVisuals.WeaponFlight(next);
+            Effects.SendLocationEffect(end, owner.Map, graphic, javelin ? 1 : 2, 10, hue, 0);
+        }
         if(selected==null){return;}
         if(flight.HostileSpell)
         {
@@ -389,6 +417,11 @@ public static class WeaponMissiles
         bool blocked;
         if(!((flight.Throwing!=null||BowMissileContact.Handles(flight))?DoubleThrowMissiles.Block(creature,damage.Physical>0,out blocked):SourceBlocking.TryBlock(creature,damage.Physical>0,out blocked)))
         {_flights.Remove(flight.Id);return;}
+        if (!blocked)
+        {
+            if (javelin) { AmazonJavelinEffects.Contact(player, creature, flight.Ability); }
+            else { AmazonBowEffects.Contact(player, creature, flight.Ability); }
+        }
         if(BowMissileContact.Handles(flight))
         {
             if(!blocked){BowMissileContact.Contact(player,creature,flight,damage,poisonRate256);}
@@ -398,7 +431,16 @@ public static class WeaponMissiles
         }
         if(flight.Throwing is{} thrownSource)
         {
-            if(!blocked){DoubleThrowMissiles.Contact(player,creature,flight,damage,poisonRate256);}
+            if (!blocked)
+            {
+                var point = creature.Location;
+                var map = creature.Map;
+                if (DoubleThrowMissiles.Contact(player, creature, flight, damage, poisonRate256)
+                    is { Packet.ReactionSettled: false })
+                {
+                    BarbarianPairedVisuals.ThrowImpact(point, map);
+                }
+            }
             if(creature is{Alive:true,Deleted:false}&&creature is not BaseHire&&thrownSource.ArmorDelta!=0)
             {WeaponStartEffects.ApplyArmorDelta(creature,thrownSource.ArmorDelta,flight.NextUtc);}
             if(!pierce){_flights.Remove(flight.Id);}return;

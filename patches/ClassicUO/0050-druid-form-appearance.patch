@@ -1,0 +1,313 @@
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -45,6 +45,7 @@
+     <Compile Include="../../../../shared/TitleProtocol.cs" Link="TitleProtocol.cs" />
+     <Compile Include="../../../../shared/SkillBindingProtocol.cs" Link="SkillBindingProtocol.cs" />
+     <Compile Include="../../../../shared/NamedVisualProtocol.cs" Link="NamedVisualProtocol.cs" />
++    <Compile Include="../../../../shared/DruidFormVisualProtocol.cs" Link="DruidFormVisualProtocol.cs" />
+     <Compile Include="../../../../shared/StatProtocol.cs" Link="Game/Data/StatProtocol.cs" />
+     <Compile Include="../../../../shared/BeltProtocol.cs" Link="Game/Data/BeltProtocol.cs" />
+     <Compile Include="../../../../shared/LootProtocol.cs" Link="Game/Data/LootProtocol.cs" />
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -4127,6 +4127,19 @@
+         {
+             ushort cmd = p.ReadUInt16BE();
+ 
++            if (cmd == Sanctuary.DruidFormVisualProtocol.SubCommand)
++            {
++                if (world.InGame && p.Remaining == 6 && p.ReadUInt8() == Sanctuary.DruidFormVisualProtocol.Version)
++                {
++                    uint serial = p.ReadUInt32BE();
++                    byte form = p.ReadUInt8();
++                    if (world.Mobiles.TryGetValue(serial, out var mobile))
++                    {
++                        mobile.SetDruidFormAppearance(form);
++                    }
++                }
++                return;
++            }
+             if (cmd == Sanctuary.NamedVisualProtocol.SubCommand)
+             {
+                 NamedVisualsClient.Receive(world, ref p);
+--- a/src/ClassicUO.Client/Game/GameObjects/MobileAnimation.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/MobileAnimation.cs
+@@ -50,9 +50,34 @@
+             0
+         };
+ 
++        private ushort _druidFormBody;
++        private ushort DruidFormBody => IsDead ? (ushort)0 : _druidFormBody;
++        private float DruidFormScale => DruidFormBody == 0 ? 1f : 1.2f;
++
++        internal void SetDruidFormAppearance(byte form)
++        {
++            ushort body = form switch
++            {
++                Sanctuary.DruidFormVisualProtocol.Human => 0,
++                Sanctuary.DruidFormVisualProtocol.Wolf => 0xE1,
++                Sanctuary.DruidFormVisualProtocol.Bear => 0xD4,
++                _ => _druidFormBody
++            };
++            if (_druidFormBody != body)
++            {
++                _druidFormBody = body;
++                SetAnimation(0xFF);
++            }
++        }
++
+         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+         public override ushort GetGraphicForAnimation()
+         {
++            if (DruidFormBody != 0)
++            {
++                return DruidFormBody;
++            }
++
+             ushort g = Graphic;
+ 
+             switch (g)
+@@ -530,6 +555,25 @@
+             if (graphic == 0)
+             {
+                 graphic = mobile.GetGraphicForAnimation();
++            }
++
++            if (mobile.DruidFormBody != 0 && graphic == mobile.DruidFormBody)
++            {
++                if (mobile.AnimationFromServer && mobile._animationGroup != 0xFF)
++                {
++                    // The server still sends player actions. These animals have
++                    // native attacks and fidgets in place of human casting poses.
++                    return (byte)(mobile._animationGroup switch
++                    {
++                        9 => LowAnimationGroup.Fidget1,
++                        10 or 20 or 21 => LowAnimationGroup.Fidget2,
++                        16 or 17 => LowAnimationGroup.Fidget1,
++                        _ => LowAnimationGroup.Attack1
++                    });
++                }
++
++                return (byte)(mobile.Steps.Count == 0 ? LowAnimationGroup.Stand
++                    : mobile.Steps.Front().Run ? LowAnimationGroup.Run : LowAnimationGroup.Walk);
+             }
+ 
+             var animations = Client.Game.UO.Animations;
+--- a/src/ClassicUO.Client/Game/GameObjects/Mobile.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Mobile.cs
+@@ -529,7 +529,7 @@
+         {
+             if (
+                 ProfileManager.CurrentProfile.EnableFootstepsSound
+-                && IsHuman
++                && IsHuman && DruidFormBody == 0
+                 && !IsHidden
+                 && !IsDead
+                 && !IsFlying
+@@ -609,7 +609,7 @@
+                     if (AnimationFromServer)
+                     {
+                         currentDelay += currentDelay * (_animationInterval + 1);
+-                        currentDelay = ClassCombatClient.AnimationDelay(Serial, action,
++                        currentDelay = ClassCombatClient.AnimationDelay(Serial, DruidFormBody != 0 ? _animationGroup : action,
+                             AnimationFrameCount == 0 ? fc : AnimationFrameCount, currentDelay);
+ 
+                         if (AnimationFrameCount == 0)
+@@ -948,7 +948,7 @@
+             {
+                 p.Y -= 22;
+             }
+-            else if (!IsMounted)
++            else if (!IsMounted || DruidFormBody != 0)
+             {
+                 p.Y += 22;
+             }
+@@ -970,7 +970,7 @@
+             );
+ 
+             p.X += (int)Offset.X + 22;
+-            p.Y += (int)(Offset.Y - Offset.Z - (height + centerY + 8));
++            p.Y += (int)(Offset.Y - Offset.Z - ((height + centerY) * DruidFormScale + 8));
+             p = Client.Game.Scene.Camera.WorldToScreen(p, true);
+ 
+             if (ObjectHandlesStatus == ObjectHandlesStatus.DISPLAYING)
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+@@ -69,10 +69,10 @@
+                 );
+             }
+ 
+-            bool isHuman = IsHuman;
++            bool isHuman = IsHuman && DruidFormBody == 0;
+ 
+             bool isGargoyle =
+-                Client.Game.UO.Version >= ClientVersion.CV_7000
++                DruidFormBody == 0 && Client.Game.UO.Version >= ClientVersion.CV_7000
+                 && (Graphic == 666 || Graphic == 667 || Graphic == 0x02B7 || Graphic == 0x02B6);
+ 
+             Vector3 hueVec = ShaderHueTranslator.GetHueVector(0, false, AlphaHue / 255f * NamedOpacity / 255f);
+@@ -706,6 +706,10 @@
+ 
+             ref var spriteInfo = ref frames[frameIndex % frames.Length];
+ 
++            bool druidForm = entity == null && id == owner.DruidFormBody;
++            float scale = druidForm ? owner.DruidFormScale : 1f;
++            int anchorX = (int)Math.Round((mirror ? spriteInfo.UV.Width - spriteInfo.Center.X : spriteInfo.Center.X) * scale);
++            int anchorY = (int)Math.Round((spriteInfo.UV.Height + spriteInfo.Center.Y) * scale);
+             if (spriteInfo.Texture == null)
+             {
+                 if (!(charIsSitting && entity == null && !hasShadow))
+@@ -716,16 +720,8 @@
+                 goto SKIP;
+             }
+ 
+-            if (mirror)
+-            {
+-                x -= spriteInfo.UV.Width - spriteInfo.Center.X;
+-            }
+-            else
+-            {
+-                x -= spriteInfo.Center.X;
+-            }
+-
+-            y -= spriteInfo.UV.Height + spriteInfo.Center.Y;
++            x -= anchorX;
++            y -= anchorY;
+ 
+             SKIP:
+ 
+@@ -736,7 +732,8 @@
+                     new Vector2(x, y),
+                     spriteInfo.UV,
+                     mirror,
+-                    depth
++                    depth,
++                    scale
+                 );
+             }
+             else
+@@ -746,7 +743,7 @@
+ 
+                 if (hue == 0)
+                 {
+-                    hue = entity?.Hue ?? owner.Hue;
++                    hue = druidForm ? (ushort)0 : entity?.Hue ?? owner.Hue;
+                     partialHue = !isMount && entity != null && entity.ItemData.IsPartialHue;
+ 
+                     if ((hue & 0x8000) != 0)
+@@ -810,25 +807,22 @@
+                                 hueVec,
+                                 0f,
+                                 Vector2.Zero,
+-                                1f,
++                                scale,
+                                 mirror ? SpriteEffects.FlipHorizontally : SpriteEffects.None,
+                                 depth + 1f + (i * tiles)
+                             );
+ 
+-                            pos.Y += rect.Height;
++                            pos.Y += rect.Height * scale;
+                             rect.Y += rect.Height;
+                             rect.Height = remains;
+                             remains -= rect.Height;
+                         }
+                     }
+ 
+-                    int xx = -spriteInfo.Center.X;
+-                    int yy = -(spriteInfo.UV.Height + spriteInfo.Center.Y + 3);
+-
+-                    if (mirror)
+-                    {
+-                        xx = -(spriteInfo.UV.Width - spriteInfo.Center.X);
+-                    }
++                    int xx = -anchorX;
++                    int yy = -anchorY - 3;
++                    int width = (int)Math.Ceiling(spriteInfo.UV.Width * scale);
++                    int height = (int)Math.Ceiling(spriteInfo.UV.Height * scale);
+ 
+                     if (xx < owner.FrameInfo.X)
+                     {
+@@ -840,14 +834,14 @@
+                         owner.FrameInfo.Y = yy;
+                     }
+ 
+-                    if (owner.FrameInfo.Width < xx + spriteInfo.UV.Width)
+-                    {
+-                        owner.FrameInfo.Width = xx + spriteInfo.UV.Width;
+-                    }
+-
+-                    if (owner.FrameInfo.Height < yy + spriteInfo.UV.Height)
+-                    {
+-                        owner.FrameInfo.Height = yy + spriteInfo.UV.Height;
++                    if (owner.FrameInfo.Width < xx + width)
++                    {
++                        owner.FrameInfo.Width = xx + width;
++                    }
++
++                    if (owner.FrameInfo.Height < yy + height)
++                    {
++                        owner.FrameInfo.Height = yy + height;
+                     }
+                 }
+ 
+@@ -997,9 +991,9 @@
+                 return false;
+             }
+ 
+-            bool isHuman = IsHuman;
++            bool isHuman = IsHuman && DruidFormBody == 0;
+             bool isGargoyle =
+-                Client.Game.UO.Version >= ClientVersion.CV_7000
++                DruidFormBody == 0 && Client.Game.UO.Version >= ClientVersion.CV_7000
+                 && (Graphic == 666 || Graphic == 667 || Graphic == 0x02B7 || Graphic == 0x02B6);
+ 
+             var animations = Client.Game.UO.Animations;
+@@ -1081,10 +1075,12 @@
+ 
+             if (GetTexture(graphic, animGroup, ref animIndex, dir, out spriteInfo, out isUop))
+             {
+-                int x =
+-                    position.X
+-                    - (isFlipped ? spriteInfo.UV.Width - spriteInfo.Center.X : spriteInfo.Center.X);
+-                int y = position.Y - (spriteInfo.UV.Height + spriteInfo.Center.Y);
++                float scale = DruidFormScale;
++                int x = position.X - (int)Math.Round((isFlipped ? spriteInfo.UV.Width - spriteInfo.Center.X : spriteInfo.Center.X) * scale);
++                int y = position.Y - (int)Math.Round((spriteInfo.UV.Height + spriteInfo.Center.Y) * scale);
++                var mouse = SelectedObject.TranslatedMousePositionByViewport;
++                int pixelX = (int)Math.Floor((mouse.X - x) / scale);
++                int pixelY = (int)Math.Floor((mouse.Y - y) / scale);
+ 
+                 if (
+                     animations.PixelCheck(
+@@ -1093,12 +1089,8 @@
+                         dir,
+                         isUop,
+                         animIndex,
+-                        isFlipped
+-                            ? x
+-                                + spriteInfo.UV.Width - mirrorPixelOffset
+-                                - SelectedObject.TranslatedMousePositionByViewport.X
+-                            : SelectedObject.TranslatedMousePositionByViewport.X - x,
+-                        SelectedObject.TranslatedMousePositionByViewport.Y - y
++                        isFlipped ? spriteInfo.UV.Width - mirrorPixelOffset - pixelX : pixelX,
++                        pixelY
+                     )
+                 )
+                 {
+--- a/src/ClassicUO.Renderer/Batcher2D.cs
++++ b/src/ClassicUO.Renderer/Batcher2D.cs
+@@ -305,10 +305,10 @@
+             PushSprite(texture);
+         }
+ 
+-        public void DrawShadow(Texture2D texture, Vector2 position, Rectangle sourceRect, bool flip, float depth)
+-        {
+-            float width = sourceRect.Width;
+-            float height = sourceRect.Height * 0.5f;
++        public void DrawShadow(Texture2D texture, Vector2 position, Rectangle sourceRect, bool flip, float depth, float scale = 1f)
++        {
++            float width = sourceRect.Width * scale;
++            float height = sourceRect.Height * 0.5f * scale;
+             float translatedY = position.Y + height - 10;
+             float ratio = height / width;
+ 

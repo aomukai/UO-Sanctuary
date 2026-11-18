@@ -1,0 +1,50 @@
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -189,6 +189,7 @@
+                         _ when SpellEffectGraphics.IsDruidVineAnimation(Graphic) => SpellEffectGraphics.DruidVineFrames,
+                         _ when SpellEffectGraphics.IsHolyAuraAnimation(Graphic) => SpellEffectGraphics.HolyAuraFrames,
+                         _ when SpellEffectGraphics.IsPaladinSpellAnimation(Graphic) => SpellEffectGraphics.PaladinSpellFrames,
++                        _ when SpellEffectGraphics.IsPaladinResistanceWard(Graphic) => SpellEffectGraphics.HolyAuraFrames,
+                         _ when SpellEffectGraphics.IsEnchantAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ when SpellEffectGraphics.IsWardAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ => 0
+@@ -203,7 +204,7 @@
+                             && !SpellEffectGraphics.IsColdStatus(Graphic) && !SpellEffectGraphics.IsSorceressWard(Graphic)
+                             && !SpellEffectGraphics.IsDruidCharge(Graphic)
+                             && !SpellEffectGraphics.IsDruidSpiritAura(Graphic)
+-                            && !SpellEffectGraphics.IsHolyAuraLoop(Graphic)
++                            && !SpellEffectGraphics.IsPaladinAuraLoop(Graphic)
+                             && Graphic is not (SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow
+                                 or SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.PoisonAfflicted
+                                 or SpellEffectGraphics.GolemSlow or SpellEffectGraphics.WoundActive
+@@ -289,7 +290,7 @@
+                             SpellEffectGraphics.CreeperPoison => 65,
+                             SpellEffectGraphics.VineCorpse or SpellEffectGraphics.CarrionRecovery or SpellEffectGraphics.SolarRecovery => 110,
+                             _ when SpellEffectGraphics.IsDruidVineAnimation(Graphic) => 102,
+-                            _ when SpellEffectGraphics.IsHolyAuraLoop(Graphic) => 145,
++                            _ when SpellEffectGraphics.IsPaladinAuraLoop(Graphic) => 145,
+                             _ when SpellEffectGraphics.IsHolyAuraPulse(Graphic) => 90,
+                             _ when SpellEffectGraphics.IsHolyAuraAnimation(Graphic) => 69,
+                             SpellEffectGraphics.HeavenFistWarning => 95,
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -149,7 +149,7 @@
+                 posY -= Math.Clamp(stunned.FrameInfo.Y - 45, 0, 45);
+             }
+ 
+-            if (SpellEffectGraphics.IsHolyAuraLoop(Graphic) && Source is Mobile { IsDead: true })
++            if (SpellEffectGraphics.IsPaladinAuraLoop(Graphic) && Source is Mobile { IsDead: true })
+             {
+                 return false;
+             }
+--- a/src/ClassicUO.Client/Game/Managers/EffectManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+@@ -120,7 +120,7 @@
+                     || SpellEffectGraphics.IsCurseMark(graphic)
+                     || SpellEffectGraphics.IsDruidCharge(graphic)
+                     || SpellEffectGraphics.IsDruidSpiritAura(graphic)
+-                    || SpellEffectGraphics.IsHolyAuraLoop(graphic)
++                    || SpellEffectGraphics.IsPaladinAuraLoop(graphic)
+                     || graphic is SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow or SpellEffectGraphics.HurricaneCore
+                         or SpellEffectGraphics.CycloneArmorWard or SpellEffectGraphics.ArmageddonAura
+                         or SpellEffectGraphics.DireWolfRage or SpellEffectGraphics.RavenBlind

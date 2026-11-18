@@ -68,6 +68,7 @@ public static class ChargedStrikeBolts
                 origin.X,origin.Y,1,0,damage.Min,damage.Max,now.AddMilliseconds(Frames*40),now){FactoryMotion=motion};
             _flights.Add(id,flight);_paths.Add(id,ChargedBolts.Path(seed,direction,Frames));
         }
+        AmazonMeleeEffects.EmitLightning(owner,origin,SpellEffectSounds.ChargedBoltRelease);
     }
     private static void Remove(long id){_flights.Remove(id);_paths.Remove(id);}
     public static void Cancel(Mobile owner)
@@ -103,7 +104,9 @@ public static class ChargedStrikeBolts
                 if(CombatHitboxes.Intersect(before,after,target.Location,out double entry) && entry<nearest)
                 {first=target;nearest=entry;}
             }
-            Effects.SendLocationEffect(after,owner.Map,0x3818,3,10,0x482,0); // Identified travelling lightning placeholder.
+            int graphic = SorceressVisuals.DirectionalFrame(SpellEffectGraphics.ChargedBoltFlight,
+                next.X-flight.X,next.Y-flight.Y,flight.Frame/2);
+            Effects.SendLocationEffect(after,owner.Map,graphic,2);
             if(first==null)
             {
                 _flights[id]=flight with{X=next.X,Y=next.Y,NextPoint=next.Next,Frame=flight.Frame+1,NextUtc=flight.NextUtc.AddMilliseconds(40)};
@@ -116,7 +119,8 @@ public static class ChargedStrikeBolts
                 if(!PlayerWeaponMissileContact.TryLightning(owner,creature,rolled,flight.NextUtc,out string reason,hitClass:0)&&Unsupported.Add(reason))
                 {Server.Logging.LogFactory.GetLogger(typeof(ChargedStrikeBolts)).Warning("Charged Strike bolt unsupported context: {Reason}",reason);}
             }
-            else{SkillCombat.LightningImpact(owner,first,rolled);} // Prior player-recipient compatibility remains separate.
+            else if(SkillCombat.LightningImpact(owner,first,rolled)>0)
+            {SorceressVisuals.Impact(first,CombatAbility.ChargedBolt);} // Existing player-recipient compatibility.
         }
     }
     public static ChargedStrikeFlight[] Snapshot()=>new List<ChargedStrikeFlight>(_flights.Values).ToArray();

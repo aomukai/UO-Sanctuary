@@ -36,6 +36,6 @@ internal static class IronMaiden
         // for the legacy callback's unusual post-return healing tail.
         if(defender is NecromancerMinion{Kind:CombatAbility.BloodGolem,ControlMaster:null})
         {Log.Warning("Iron Maiden enemy Blood Golem healing tail remains uncorroborated: {Target}",defender.Serial.Value);}
-        PaladinThorns.Retaliate(defender,attacker,amount);
+        PaladinThorns.Retaliate(defender,attacker,amount,NecromancerCurseVisuals.IronMaidenReturn);
     }
 }

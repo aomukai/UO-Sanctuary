@@ -78,9 +78,15 @@ public sealed class TalentGump : DynamicGump
                 : _profile.Level < talent.RequiredLevel ? "#A0A0A0" : "#FFFFFF";
             builder.AddBackground(x, y, 114, 46, 5120);
             builder.AddButton(x + 3, y + 28, 4005, 4007, 100 + index);
-            builder.AddHtml(x + 5, y + 3, 104, 27,
+            var icon = ClassSkillIcons.ForTalent(talent.Id);
+            if (icon != 0)
+            {
+                builder.AddImage(x + 1, y + 1, icon);
+            }
+            var textX = x + (icon == 0 ? 5 : 47);
+            builder.AddHtml(textX, y + 1, x + 112 - textX, 31,
                 $"<BASEFONT COLOR={color}>{talent.Name}</BASEFONT>", size: 2, background: false, scrollbar: false);
-            builder.AddLabel(x + 32, y + 29, 0x47E, $"{rank}/{TalentCatalog.MaxRank}  L{talent.RequiredLevel}");
+            builder.AddLabel(textX, y + 29, 0x47E, $"{rank}/{TalentCatalog.MaxRank} L{talent.RequiredLevel}");
         }
 
         builder.AddBackground(384, 108, 210, 291, 5120);
@@ -108,10 +114,10 @@ public sealed class TalentGump : DynamicGump
         bool implemented = skill != null && (NecromancerCombat.Implemented(skill.Ability) || SorceressCombat.Implemented(skill.Ability) || PaladinCombat.Implemented(skill.Ability) || BarbarianCombat.Implemented(skill.Ability) || AmazonCombat.Implemented(skill.Ability) || AssassinCombat.Implemented(skill.Ability) || DruidCombat.Implemented(skill.Ability) || WarlockCombat.Implemented(skill.Ability));
         string detail = !implemented ? "Not yet available." : skill.Passive ? "Passive effect. No hotkey needed."
             : skill.Ability==CombatAbility.BindDemon ? "Hold to bind: 9 mana per second. First attempt after 1 second; release stops."
-            : PaladinCombat.IsAura(skill.Ability) ? skill.Ability==CombatAbility.Prayer ? "Right-slot aura. Mana is spent on healing pulses. Icon and effects use placeholders." : "Active in the right mouse slot. No mana cost. Icon and aura effects use placeholders."
+            : PaladinCombat.IsAura(skill.Ability) ? skill.Ability==CombatAbility.Prayer ? "Right-slot aura. Mana is spent on healing pulses." : "Active in the right mouse slot. No mana cost."
             : effective > 0 && World.FindMobile(_owner) is PlayerMobile caster
-                ? $"Mana {SkillMechanics.Values(caster, skill.Ability).Mana256 / 256.0:0.##}. Skill icon and effects use placeholders."
-                : "Learn to unlock. Skill icon and effects use placeholders.";
+                ? $"Mana {SkillMechanics.Values(caster, skill.Ability).Mana256 / 256.0:0.##}."
+                : "Learn to unlock.";
         if(skill?.Ability is CombatAbility.RaiseSkeletalMage or CombatAbility.Revive)
         {detail=$"Maximum summons: {NecromancerArmyLimits.ForRank(skill.Ability,effective)}. "+detail;}
         builder.AddHtml(395, 366, 188, 35, $"<BASEFONT COLOR=#C4C4C4>{detail}</BASEFONT>", size: 2, background: false, scrollbar: true);

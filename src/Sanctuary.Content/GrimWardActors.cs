@@ -71,7 +71,7 @@ internal static class GrimWardActors
             },_=>(species.Large,species.Small),()=>1000,spawn=>
             {
                 var origin=Ground(new(spawn.X,spawn.Y))??throw new NotSupportedException("Ward lost its accepted ground");
-                var marker=new Static(0x1B7A){Name="Grim Ward startup (placeholder)",Movable=false};marker.MoveToWorld(origin,map);
+                var marker=new Static(0x1B7A){Name="Grim Ward startup",Movable=false};marker.MoveToWorld(origin,map);
                 created=new(marker.Serial.Value,owner.Serial.Value,corpse.Serial.Value,map.MapID,origin,spawn.Missile,spawn.Missile+1,
                     spawn.Missile==249?5:8,context.Rank,hard,profile.Level,at,WardPhase.Start);
                 _states=_states.Add(marker.Serial.Value,created);return unchecked((int)marker.Serial.Value);
@@ -79,7 +79,9 @@ internal static class GrimWardActors
             null,null,null,null,null);
         // The real corpse remains lootable. Source nodraw affects presentation;
         // NoSelect is the existing shared mechanical one-consumer reservation.
-        return GrimWardLifecycle.Place(unchecked((int)owner.Serial.Value),150,context.Rank,services)?created:null;
+        if (!GrimWardLifecycle.Place(unchecked((int)owner.Serial.Value), 150, context.Rank, services)) { return null; }
+        GrimWardVisuals.Rise(World.FindItem((Serial)created.Marker), created);
+        return created;
     }
     private static GrimWardActor StartBody(GrimWardActor s,Item start)
     {
@@ -87,7 +89,7 @@ internal static class GrimWardActors
         var services=new GrimWardLifecycleServices(_=>new(252,249,255),null,null,null,null,null,null,spawn=>
         {
             if(spawn.Missile!=s.BodyClass||spawn.Range!=1000){throw new NotSupportedException("Ward active child changed");}
-            var body=new Static(0x1B7A){Name="Grim Ward active totem (placeholder)",Movable=false};body.MoveToWorld(s.Origin,start.Map);
+            var body=new Static(0x1B7A){Name="Grim Ward active totem",Movable=false};body.MoveToWorld(s.Origin,start.Map);
             next=s with{Marker=body.Serial.Value,Phase=WardPhase.Body};return unchecked((int)body.Serial.Value);
         },null,null,null,_=>new(s.BodyClass,0,6,30),_=>unchecked((int)s.Owner),(_,_,_)=>checked((int)Values(s).Eval("calc1")),null,null);
         GrimWardLifecycle.StartHit(new(unchecked((int)s.Marker),3,s.StartClass,s.Origin.X*2,s.Origin.Y*2,150,s.Rank),services);
@@ -110,7 +112,12 @@ internal static class GrimWardActors
             if(frame>=s.StartFrames+1009){Remove(s);continue;}
             if(frame>=s.StartFrames+1000)
             {
-                if(s.Phase!=WardPhase.End){_states=_states.SetItem(s.Marker,s with{Phase=WardPhase.End});marker.Name="Grim Ward expiry (placeholder)";}
+                if (s.Phase != WardPhase.End)
+                {
+                    _states = _states.SetItem(s.Marker, s with { Phase = WardPhase.End });
+                    marker.Name = "Grim Ward expiry";
+                    GrimWardVisuals.Fall(marker, s);
+                }
                 continue;
             }
             if(frame<s.StartFrames){continue;}
@@ -120,6 +127,7 @@ internal static class GrimWardActors
             // Advance before callbacks. Offline/other-facet intervals expire
             // normally and cannot be replayed as a burst on return or reload.
             var next=s with{LastPulse=pulse};_states=_states.SetItem(s.Marker,next);
+            GrimWardVisuals.Body(marker, s, pulse);
             if(!Fighting(s,owner)){continue;}
             GrimWardWorldPulse.Step(marker,owner,s.BodyClass,s.Rank,1000,1000-pulse,()=>Values(s),()=>1,at,owner.Serial.Value);
         }

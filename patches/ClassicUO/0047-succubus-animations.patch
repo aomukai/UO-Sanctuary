@@ -1,0 +1,188 @@
+diff --git a/src/ClassicUO.Assets/AnimationsLoader.cs b/src/ClassicUO.Assets/AnimationsLoader.cs
+index f81e705..6c69335 100644
+--- a/src/ClassicUO.Assets/AnimationsLoader.cs
++++ b/src/ClassicUO.Assets/AnimationsLoader.cs
+@@ -21,11 +21,17 @@ namespace ClassicUO.Assets
+         public const int MAX_ACTIONS = 80; // gargoyle is like 78
+         public const int MAX_DIRECTIONS = 5;
+ 
++        private const ushort SuccubusBody = 149;
++        // The override has its own file index, outside the regular anim*.mul range.
++        private const int SuccubusFileIndex = 10;
++        private UOFileMul _succubusAnimations;
++        private AnimationDirection[] _succubusDirections;
++
+ 
+         [ThreadStatic]
+         private static FrameInfo[] _frames;
+ 
+-        private readonly UOFileMul[] _files = new UOFileMul[10];
++        private readonly UOFileMul[] _files = new UOFileMul[SuccubusFileIndex];
+         private readonly UOFileUop[] _filesUop = new UOFileUop[10];
+ 
+         private readonly Dictionary<ushort, Dictionary<ushort, EquipConvData>> _equipConv = new Dictionary<ushort, Dictionary<ushort, EquipConvData>>();
+@@ -55,6 +61,7 @@ namespace ClassicUO.Assets
+         {
+             // the verdata.mul patch map (FileID 6) is rebuilt on every file load
+             _verdataAnimationBlocks = null;
++            LoadSuccubusAnimations();
+ 
+             for (int i = 0; i < _files.Length; i++)
+             {
+@@ -214,6 +221,44 @@ namespace ClassicUO.Assets
+             ProcessCorpseDef();
+         }
+ 
++        public bool HasSuccubusAnimationOverride(ushort body) =>
++            body == SuccubusBody && _succubusDirections != null;
++
++        private void LoadSuccubusAnimations()
++        {
++            ClearResources();
++            string path = Path.Combine(AppContext.BaseDirectory, "Data", "Sanctuary", "Animations", "succubus");
++            var index = new FileInfo(path + ".idx");
++            var data = new FileInfo(path + ".mul");
++            if (!index.Exists || !data.Exists)
++            {
++                return;
++            }
++
++            const int directionCount = (int)HighAnimationGroup.AnimationCount * MAX_DIRECTIONS;
++            if (index.Length != directionCount * sizeof(AnimIdxBlock) || data.Length == 0)
++            {
++                Log.Warn("Invalid Sanctuary succubus animation files");
++                return;
++            }
++
++            var file = new UOFileMul(data.FullName, index.FullName);
++            var directions = ReadMulIndices(file.IdxFile, 0, directionCount);
++            foreach (var direction in directions)
++            {
++                // 512 palette bytes, a frame count, and at least one frame offset.
++                if (direction.Size < 520 || (long)direction.Position + direction.Size > file.Length)
++                {
++                    file.Dispose();
++                    Log.Warn("Invalid Sanctuary succubus animation entry");
++                    return;
++                }
++            }
++
++            _succubusAnimations = file;
++            _succubusDirections = directions;
++        }
++
+         public bool ReplaceBody(ref ushort body, ref ushort hue)
+         {
+             if (_bodyInfos.TryGetValue(body, out var bodyInfo))
+@@ -274,6 +319,14 @@ namespace ClassicUO.Assets
+             out AnimationGroupsType animType
+         )
+         {
++            if (HasSuccubusAnimationOverride(body))
++            {
++                flags = AnimationFlags.Found;
++                fileIndex = SuccubusFileIndex;
++                animType = AnimationGroupsType.Monster;
++                return _succubusDirections;
++            }
++
+             fileIndex = 0;
+             animType = AnimationGroupsType.Unknown;
+ 
+@@ -352,9 +405,21 @@ namespace ClassicUO.Assets
+             }
+ 
+ 
+-            fileIdx.Seek(offsetAddress, SeekOrigin.Begin);
++            var directions = ReadMulIndices(fileIdx, offsetAddress, actionCount * MAX_DIRECTIONS);
++
++            // verdata.mul patches (FileID 6) are applied to anim.mul only: the other
++            // animation files have their own block numbering.
++            if (fileIndex == 0)
++            {
++                ApplyVerdataPatches(directions, offsetAddress / sizeof(AnimIdxBlock));
++            }
++
++            return directions;
++        }
+ 
+-            var size = actionCount * MAX_DIRECTIONS;
++        private static AnimationDirection[] ReadMulIndices(UOFile fileIdx, long offsetAddress, int size)
++        {
++            fileIdx.Seek(offsetAddress, SeekOrigin.Begin);
+ 
+             var indicesBuf = ArrayPool<AnimIdxBlock>.Shared.Rent(size);
+             fileIdx.Read(MemoryMarshal.AsBytes(indicesBuf.AsSpan(0, size)));
+@@ -372,13 +437,6 @@ namespace ClassicUO.Assets
+ 
+             ArrayPool<AnimIdxBlock>.Shared.Return(indicesBuf);
+ 
+-            // verdata.mul patches (FileID 6) are applied to anim.mul only: the other
+-            // animation files have their own block numbering.
+-            if (fileIndex == 0)
+-            {
+-                ApplyVerdataPatches(directions, offsetAddress / sizeof(AnimIdxBlock));
+-            }
+-
+             return directions;
+         }
+ 
+@@ -1007,7 +1065,12 @@ namespace ClassicUO.Assets
+                     : AnimationGroupsType.Human;
+         }
+ 
+-        public override void ClearResources() { }
++        public override void ClearResources()
++        {
++            _succubusAnimations?.Dispose();
++            _succubusAnimations = null;
++            _succubusDirections = null;
++        }
+ 
+ 
+         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+@@ -1456,7 +1519,7 @@ namespace ClassicUO.Assets
+ 
+         public Span<FrameInfo> ReadMULAnimationFrames(int fileIndex, AnimationDirection index, bool isVerdata = false)
+         {
+-            if (!isVerdata && (fileIndex < 0 || fileIndex >= _files.Length))
++            if (!isVerdata && (fileIndex < 0 || fileIndex > SuccubusFileIndex))
+             {
+                 return Span<FrameInfo>.Empty;
+             }
+@@ -1473,7 +1536,9 @@ namespace ClassicUO.Assets
+ 
+             // Blocks that came from a verdata.mul patch are read from verdata.mul itself:
+             // anim*.mul contains no bytes for them at all.
+-            var file = isVerdata ? FileManager.Verdata?.File : _files[fileIndex];
++            var file = isVerdata
++                ? FileManager.Verdata?.File
++                : (fileIndex == SuccubusFileIndex ? _succubusAnimations : _files[fileIndex]);
+ 
+             if (file == null || index.Position + index.Size > file.Length)
+             {
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -34,6 +34,9 @@
+     <Compile Include="../../../../shared/ClassAbilities.cs" Link="Game/Data/ClassAbilities.cs" />
+     <Compile Include="../../../../shared/ClassSkillIcons.cs" Link="Game/Data/ClassSkillIcons.cs" />
+     <Content Include="../../../../art/skill-icons/gumps/*.gump" Link="Data/Sanctuary/Gumps/%(Filename)%(Extension)"
++             CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
++    <Content Include="../../../../art/succubus/succubus.idx;../../../../art/succubus/succubus.mul"
++             Link="Data/Sanctuary/Animations/%(Filename)%(Extension)"
+              CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+     <Compile Include="../../../../shared/TitleProtocol.cs" Link="TitleProtocol.cs" />
+     <Compile Include="../../../../shared/SkillBindingProtocol.cs" Link="SkillBindingProtocol.cs" />
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+@@ -52,7 +52,9 @@
+                 Client.Game.GetScene<GameScene>().AddMealLight(drawX, drawY, ClassStatsClient.Get(Sanctuary.StatField.FoodLight));
+             }
+ 
+-            bool hasShadow = !IsDead && !IsHidden && ProfileManager.CurrentProfile.ShadowsEnabled;
++            // The replacement frames already include their own ground shadow.
++            bool hasShadow = !IsDead && !IsHidden && ProfileManager.CurrentProfile.ShadowsEnabled
++                && !Client.Game.UO.FileManager.Animations.HasSuccubusAnimationOverride(Graphic);
+ 
+             if (World.AuraManager.IsEnabled)
+             {

@@ -1,0 +1,48 @@
+diff --git a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -171,6 +171,10 @@
+                             or SpellEffectGraphics.RabiesSpread or SpellEffectGraphics.RabiesFade => SpellEffectGraphics.DruidStatusEffectFrames,
+                         SpellEffectGraphics.FirestormRelease or SpellEffectGraphics.FissureOpening
+                             or SpellEffectGraphics.BoulderBurst or SpellEffectGraphics.BoulderContact => SpellEffectGraphics.DruidGroundFireFrames,
++                        SpellEffectGraphics.DruidWindRelease or SpellEffectGraphics.DruidWindContact
++                            or SpellEffectGraphics.TwisterFade or SpellEffectGraphics.TornadoFade or SpellEffectGraphics.TornadoPulse
++                            or SpellEffectGraphics.HurricaneRelease or SpellEffectGraphics.HurricaneCore or SpellEffectGraphics.HurricaneFade
++                            => SpellEffectGraphics.DruidWindFrames,
+                         _ when SpellEffectGraphics.IsEnchantAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ when SpellEffectGraphics.IsWardAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ => 0
+@@ -187,7 +191,8 @@
+                             && Graphic is not (SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow
+                                 or SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.PoisonAfflicted
+                                 or SpellEffectGraphics.GolemSlow or SpellEffectGraphics.WoundActive
+-                                or SpellEffectGraphics.CombatStun or SpellEffectGraphics.RabiesCarrier);
++                                or SpellEffectGraphics.CombatStun or SpellEffectGraphics.RabiesCarrier
++                                or SpellEffectGraphics.HurricaneCore);
+                         AnimationGraphic = (ushort)(Graphic + AnimIndex);
+                         if (AnimIndex < spellFrames - 1) { AnimIndex++; }
+                         else if (!oneShot) { AnimIndex = 0; }
+@@ -242,6 +247,11 @@
+                             SpellEffectGraphics.FirestormRelease or SpellEffectGraphics.BoulderContact => 70,
+                             SpellEffectGraphics.BoulderBurst => 95,
+                             SpellEffectGraphics.FissureOpening => 110,
++                            SpellEffectGraphics.DruidWindContact or SpellEffectGraphics.TornadoPulse
++                                or SpellEffectGraphics.TwisterFade or SpellEffectGraphics.TornadoFade => 65,
++                            SpellEffectGraphics.DruidWindRelease or SpellEffectGraphics.HurricaneRelease
++                                or SpellEffectGraphics.HurricaneFade => 100,
++                            SpellEffectGraphics.HurricaneCore => 150,
+                             _ when SpellEffectGraphics.IsDruidCharge(Graphic) => 115,
+                             _ when SpellEffectGraphics.IsDruidFormEffect(Graphic) => 105,
+                             SpellEffectGraphics.ClayGolemContact or SpellEffectGraphics.IronGolemSpark => 65,
+diff --git a/src/ClassicUO.Client/Game/Managers/EffectManager.cs b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+--- a/src/ClassicUO.Client/Game/Managers/EffectManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+@@ -111,7 +111,7 @@
+                     || SpellEffectGraphics.IsAmazonUtilityLoop(graphic)
+                     || SpellEffectGraphics.IsCurseMark(graphic)
+                     || SpellEffectGraphics.IsDruidCharge(graphic)
+-                    || graphic is SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow
++                    || graphic is SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow or SpellEffectGraphics.HurricaneCore
+                         or SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.PoisonAfflicted
+                         or SpellEffectGraphics.GolemSlow or SpellEffectGraphics.WoundActive
+                         or SpellEffectGraphics.CombatStun or SpellEffectGraphics.RabiesCarrier);

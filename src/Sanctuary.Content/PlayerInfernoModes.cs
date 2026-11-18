@@ -73,9 +73,17 @@ internal static class PlayerInfernoModes
             {
                 var values=SkillMechanics.Values(owner,cast.Ability,rank);
                 if(Math.Max(1,(int)values.Eval("calc1"))!=frames){throw new NotSupportedException("Player channel/factory lifetime mismatch");}
-                if(cast.Ability==CombatAbility.ArcticBlast){return DruidArcticStream.Create(owner,new(aim.X*2,aim.Y*2),values,phase)>0;}
+                if(cast.Ability==CombatAbility.ArcticBlast)
+                {
+                    if (DruidArcticStream.Create(owner, new(aim.X * 2, aim.Y * 2), values, phase) <= 0) { return false; }
+                    ArcticBlastVisuals.Emission(owner, phase);
+                    return true;
+                }
                 var flight=SorceressSpellMissiles.PrepareInferno(owner,new(aim.X*2,aim.Y*2),values,phase);
-                return flight!=null&&SorceressSpellMissiles.Commit(flight)>0;
+                if (flight == null || SorceressSpellMissiles.Commit(flight) <= 0) { return false; }
+                SpellAreaSounds.Pulse(owner.Serial.Value, SpellEffectSounds.InfernoJet, owner.Location, owner.Map,
+                    TimedEffects.Now, 700);
+                return true;
             });
     }
     internal static bool BeginPrepared(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,DateTime at)
@@ -89,7 +97,9 @@ internal static class PlayerInfernoModes
             CombatTiming.Equipped(owner)?.Serial.Value??0,selected.Value,point,at,null,ability);
         var step=PlayerInfernoSequence.EnterFresh(0,ability,rank,PlayerInfernoCostModel.CurrentTablePerInvocation,Services(owner,cast,rank,at));
         if(!step.Success){return false;}
-        Casts.Add(cast.Owner,cast with{Sequence=step.State});return true;
+        Casts.Add(cast.Owner,cast with{Sequence=step.State});
+        if (ability == CombatAbility.ArcticBlast) { ArcticBlastVisuals.Release(owner, target?.Location ?? point); }
+        return true;
     }
     internal static bool BeginHeld(PlayerMobile owner,int source,Serial selected,Point3D point,DateTime at,CombatAbility ability=CombatAbility.Inferno)
     {

@@ -302,6 +302,7 @@ internal static class DruidDireWolfWorld
                     if(s.Feeding)
                     {
                         var result=DruidDireWolfCorpses.Consume(body,World.FindItem((Serial)s.FeedingCorpse) as Server.Items.Corpse,()=>{s=Rage(s);return true;});
+                        if (result.Consumed) { DruidSummonVisuals.RageStarted(body); }
                         s=s with{ActionAt=0,Fed=checked(s.Fed+(result.Consumed?1:0))};
                     }
                     else
@@ -328,6 +329,7 @@ internal static class DruidDireWolfWorld
                 else{s=Think(body,owner,s,frameAt);}
             }
             Store(body,s);body.AIObject?.AITimer.Stop();
+            DruidSummonVisuals.ObserveRage(body, s);
         }
     }
     internal static void Fault(DruidDireWolfBody body,string reason)

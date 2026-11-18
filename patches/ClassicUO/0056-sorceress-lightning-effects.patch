@@ -1,0 +1,73 @@
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -111,6 +111,11 @@
+                             => SpellEffectGraphics.NecromancerFrames,
+                         SpellEffectGraphics.AbyssOpen or SpellEffectGraphics.AbyssField or SpellEffectGraphics.AbyssPull
+                             or SpellEffectGraphics.AbyssCollapse => SpellEffectGraphics.AbyssFrames,
++                        SpellEffectGraphics.ChargedBoltContact or SpellEffectGraphics.LightningContact
++                            or SpellEffectGraphics.ChainLightningContact or SpellEffectGraphics.StaticFieldSmall
++                            or SpellEffectGraphics.StaticFieldMedium or SpellEffectGraphics.StaticFieldLarge
++                            or SpellEffectGraphics.StaticFieldContact or SpellEffectGraphics.ThunderStormCharge
++                            or SpellEffectGraphics.ThunderStormStrike => SpellEffectGraphics.LightningFrames,
+                         _ => 0
+                     };
+                     if (spellFrames > 0)
+@@ -128,6 +133,10 @@
+                                 => 2 * Constants.ITEM_EFFECT_ANIMATION_DELAY,
+                             SpellEffectGraphics.AbyssOpen or SpellEffectGraphics.AbyssField
+                                 => SpellEffectGraphics.AbyssPulseMilliseconds / SpellEffectGraphics.AbyssFrames,
++                            SpellEffectGraphics.StaticFieldSmall or SpellEffectGraphics.StaticFieldMedium
++                                or SpellEffectGraphics.StaticFieldLarge or SpellEffectGraphics.ThunderStormStrike
++                                => 2 * Constants.ITEM_EFFECT_ANIMATION_DELAY,
++                            SpellEffectGraphics.ThunderStormCharge => 3 * Constants.ITEM_EFFECT_ANIMATION_DELAY,
+                             _ => Constants.ITEM_EFFECT_ANIMATION_DELAY
+                         };
+                         NextChangeFrameTime = (long)Time.Ticks + interval;
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -117,6 +117,13 @@
+ 
+             Vector3 hueVec = ShaderHueTranslator.GetHueVector(hue, data.IsPartialHue, data.IsTranslucent ? .5f : 1f, effect: true);
+ 
++            if (Graphic is Sanctuary.SpellEffectGraphics.StaticFieldSmall or Sanctuary.SpellEffectGraphics.StaticFieldMedium
++                or Sanctuary.SpellEffectGraphics.StaticFieldLarge)
++            {
++                DrawGroundRing(batcher, posX + 22, posY + 12, hueVec, depth);
++                return true;
++            }
++
+             if (Source != null)
+             {
+                 depth = Source.CalculateDepthZ() + 1f;
+@@ -271,6 +278,31 @@
+             return true;
+         }
+ 
++        private void DrawGroundRing(UltimaBatcher2D batcher, int x, int y, Vector3 hue, float depth)
++        {
++            ref readonly var art = ref Client.Game.UO.Arts.GetArt(AnimationGraphic);
++            if (art.Texture == null)
++            {
++                return;
++            }
++
++            const int pixelsPerDepthTile = 22;
++            const int stripHeight = 8;
++            // The packed ground pivot leaves 116 px below center for the front of the ring.
++            int pivot = art.UV.Height - 116;
++            int left = x - art.UV.Width / 2;
++            for (int row = 0; row < art.UV.Height; row += stripHeight)
++            {
++                int height = Math.Min(stripHeight, art.UV.Height - row);
++                int relativeY = row - pivot;
++                // Place each strip above its own ground row so forward terrain does not erase the ring.
++                float surfaceDepth = depth + (relativeY + height / 2f) / pixelsPerDepthTile + 1.1f;
++                batcher.Draw(art.Texture, new Rectangle(left, y + relativeY, art.UV.Width, height),
++                    new Rectangle(art.UV.X, art.UV.Y + row, art.UV.Width, height), hue, 0f,
++                    Vector2.Zero, SpriteEffects.None, surfaceDepth);
++            }
++        }
++
+         public override bool CheckMouseSelection()
+         {
+             return false;

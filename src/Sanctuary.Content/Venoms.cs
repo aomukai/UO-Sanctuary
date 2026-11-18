@@ -49,7 +49,8 @@ public static class Venoms
         var next=Capture(owner.Serial.Value,values,NamedElements.MasteryPercent(owner,"pois"),TimedEffects.Now);
         if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
         _states[owner.Serial.Value]=next;
-        owner.FixedEffect(0x373A,10,15,0x3F,0);owner.PlaySound(0x1E5); // Identified Venom cast/venomclaws/audio placeholders.
+        owner.FixedEffect(0x374A, 10, 15, 0x3F, 0);
+        owner.PlaySound(0x205);
 
         return true;
     }

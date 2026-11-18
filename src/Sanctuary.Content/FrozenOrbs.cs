@@ -59,7 +59,36 @@ public static partial class FrozenOrbs
     {
         int step = Math.Max(1, NecromancerSummons.Source("frozenorb", "sHitPar1"));
         for (int index = 0; index < 64; index += step) { Child(owner, orb, FrozenKind.Nova, index, now); }
+        PresentBurst(owner.Map, orb);
     }
+
+    private static Point3D VisualPoint(FrozenMissile missile) =>
+        new((int)Math.Round(missile.X), (int)Math.Round(missile.Y), missile.Z);
+
+    private static void PresentBurst(Map map, FrozenMissile orb)
+    {
+        var point = VisualPoint(orb);
+        Effects.SendLocationEffect(point, map, SpellEffectGraphics.FrozenOrbBurst, SpellEffectGraphics.ColdFrames);
+        Effects.PlaySound(point, map, SpellEffectSounds.FrozenOrbBurst);
+    }
+
+    private static void PresentContact(PlayerMobile owner, Point3D point, DateTime now)
+    {
+        Effects.SendLocationEffect(point, owner.Map, SpellEffectGraphics.FrozenOrbContact, SpellEffectGraphics.ColdFrames);
+        SpellAreaSounds.Pulse(owner.Serial.Value, SpellEffectSounds.IceBoltContact, point, owner.Map, now, 120);
+    }
+
+    private static void PresentFlight(Map map, FrozenMissile missile)
+    {
+        if (missile.Frame % 2 != 0) { return; }
+        int phase = missile.Frame / 2 % SpellEffectGraphics.ColdFrames;
+        int graphic = missile.Kind == FrozenKind.Orb
+            ? SpellEffectGraphics.FrozenOrb + phase
+            : SpellEffectGraphics.FrozenOrbBolt + phase
+                + SpellEffectGraphics.ColdFrames * SpellEffectGraphics.ProjectileFacing(missile.Vx, missile.Vy);
+        Effects.SendLocationEffect(VisualPoint(missile), map, graphic, 2);
+    }
+
     private static PlayerMobile Owner(FrozenMissile missile) => World.FindMobile((Serial)missile.Owner) is PlayerMobile { Alive: true, Deleted: false } player
         && ClassCreation.Profiles.TryGet(player.Serial, out var profile) && profile.Class == DiabloClass.Sorceress
         && (player.Map == Map.Internal || player.Map.MapID == missile.Map && !SpellHelper.IsTown(player.Location, player)) ? player : null;
@@ -134,13 +163,19 @@ public static partial class FrozenOrbs
                 if (missile.Kind != FrozenKind.Orb)
                 {
                     int damage = missile.Max256 <= missile.Min256 ? missile.Min256 : Utility.RandomMinMax(missile.Min256, missile.Max256 - 1);
-                    SkillCombat.ColdImpact(owner, first, damage, missile.ColdFrames); _missiles.Remove(id); return;
+                    var contact = first.Location;
+                    if (SkillCombat.ColdImpact(owner, first, damage, missile.ColdFrames) > 0)
+                    {
+                        PresentContact(owner, contact, now);
+                    }
+                    _missiles.Remove(id);
+                    return;
                 }
                 missile = missile with { LastCollision = first.Serial.Value }; // Orb callback only; its source row carries no direct damage/chill.
             }
-            if (_missiles.ContainsKey(id))
-            { _missiles[id] = missile with { X = x, Y = y, Frame = frame, NextUtc = missile.NextUtc.AddMilliseconds(40) }; }
-            Effects.SendLocationEffect(point, owner.Map, missile.Kind == FrozenKind.Orb ? 0x375A : 0x36E4, 3, 10, 0x480, 0); // Placeholder orb/ice shard.
+            var next = missile with { X = x, Y = y, Frame = frame, NextUtc = missile.NextUtc.AddMilliseconds(40) };
+            if (_missiles.ContainsKey(id)) { _missiles[id] = next; }
+            PresentFlight(owner.Map, next);
     }
     public static FrozenMissile[] Snapshot() => new List<FrozenMissile>(_missiles.Values).ToArray();
     public static void Restore(FrozenMissile[] saved,bool loaded=false)

@@ -30,6 +30,8 @@ public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum,INec
     private ValkyrieCreationStats _numbers;
     private GeneratedNpcStatGraph _equipmentNumbers;
     private NecromancerGroundWorld _ground;
+    private TimerExecutionToken _auraTimer;
+    private bool _retiredVisuals;
     private ValkyrieBodyState State=>_state??(_saved=="{}"?null:_state=JsonSerializer.Deserialize<ValkyrieBodyState>(_saved));
     internal ValkyrieBodyState Prepared=>State==null?null:State with{Equipment=ValkyrieEquipment.Copy(State.Equipment),GroundMotion=ValkyrieGroundMotion.Copy(State.GroundMotion)};
     internal NecromancerGroundWorld Ground=>_ground??=new(this,ValkyrieGroundMotion.Profile,
@@ -83,7 +85,32 @@ public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum,INec
         if(_saved!=null&&_saved!="{}"){_=EquipmentNumbers?.Read(36);}
         return base.GetResistance(type);
     }
-    public AmazonValkyrieBody(){Name="Valkyrie [appearance placeholder]";Body=0x191;Hue=0x481;CantWalk=true;ControlSlots=0;AIObject?.AITimer.Stop();SetStr(0);SetDex(0);SetInt(0);SetHits(400);SetDamage(0,0);}
+    public AmazonValkyrieBody(){Name="Valkyrie";Body=0x191;Hue=0x481;CantWalk=true;ControlSlots=0;AIObject?.AITimer.Stop();SetStr(0);SetDex(0);SetInt(0);SetHits(400);SetDamage(0,0);}
+    internal void PresentSummon(PlayerMobile owner)
+    {
+        if(Map==owner.Map){AmazonUtilityEffects.Burst(this,SpellEffectGraphics.ValkyrieArrival,SpellEffectSounds.ValkyrieArrival);}
+        else{owner.PlaySound(SpellEffectSounds.ValkyrieArrival);}
+        StartAura(TimeSpan.FromMilliseconds(360));
+    }
+    private void StartAura(TimeSpan delay)
+    {
+        _auraTimer.Cancel();
+        Timer.StartTimer(delay,TimeSpan.FromMilliseconds(250),()=>
+        {
+            if(Alive && !Deleted){AmazonUtilityEffects.Valkyrie.Refresh(this,TimedEffects.Now,DateTime.MaxValue);}
+        },out _auraTimer);
+    }
+    private void RetireVisuals()
+    {
+        if(_retiredVisuals || State?.LearnedCast!=true){return;}
+        _retiredVisuals=true;_auraTimer.Cancel();AmazonUtilityEffects.Valkyrie.Clear(Serial.Value,this);
+        AmazonUtilityEffects.Burst(this,SpellEffectGraphics.ValkyrieFade,SpellEffectSounds.ValkyrieFade);
+    }
+    public override bool OnBeforeDeath()
+    {if(!base.OnBeforeDeath()){return false;}RetireVisuals();return true;}
+    public override void OnDelete(){RetireVisuals();base.OnDelete();}
+    public override int GetDeathSound()=>State?.LearnedCast==true?-1:base.GetDeathSound();
+    public override int GetHurtSound()=>State?.LearnedCast==true?-1:base.GetHurtSound();
     // As with the source-owned Iron Golem and wolves,Combatant can arm UO's
     // fist timer even with native AI stopped. Only the source conductor hits.
     public override TimeSpan BeginMelee(Mobile target)=>State?.GroundMotion?.AttackRate!=null&&State.EquipmentContactProfile==ValkyrieEquipmentContact.OriginalProfile
@@ -224,5 +251,7 @@ public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum,INec
     public override void SuspendActions(){base.SuspendActions();if(State?.GroundMotion!=null){Ground.Suspend();}}
     internal override void InterruptForRecovery(){base.InterruptForRecovery();if(State?.GroundMotion!=null){Ground.Suspend();}}
     public override void OnAfterDelete(){IronGolems.Forget(this);NpcEquipmentRandom.Forget(this);base.OnAfterDelete();}
-    [AfterDeserialization]private void AfterValkyrieLoad(){AIObject?.AITimer.Stop();_state=JsonSerializer.Deserialize<ValkyrieBodyState>(_saved);Validate(_state);if(_state.Equipment is{} e&&e.Actor!=Serial.Value){throw new InvalidDataException("Saved Valkyrie loadout actor changed");}_numbers=null;_equipmentNumbers=null;if(_state.GroundMotion!=null){Ground.Load();}}
+    [AfterDeserialization]private void AfterValkyrieLoad(){AIObject?.AITimer.Stop();_state=JsonSerializer.Deserialize<ValkyrieBodyState>(_saved);Validate(_state);if(_state.Equipment is{} e&&e.Actor!=Serial.Value){throw new InvalidDataException("Saved Valkyrie loadout actor changed");}_numbers=null;_equipmentNumbers=null;if(_state.GroundMotion!=null){Ground.Load();}
+        if(Name=="Valkyrie [appearance placeholder]"){Name="Valkyrie";}
+        if(_state.LearnedCast&&Alive){StartAura(TimeSpan.FromMilliseconds(250));}}
 }

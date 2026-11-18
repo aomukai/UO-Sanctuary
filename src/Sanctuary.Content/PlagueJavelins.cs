@@ -37,6 +37,7 @@ public static class PlagueJavelins
             _clouds.Add(id,new(id,owner.Serial.Value,parent.Map,x,y,z,v.X,v.Y,parent.SkillRank,
                 PoisonJavelinPackets.Cloud(owner,parent.SkillRank,CombatAbility.PlagueJavelin),0,frames,0,at.AddMilliseconds(40),new([new((int)(x*2),(int)(y*2))])));
         }
+        AmazonJavelinEffects.PlagueBurst(owner,new((int)Math.Round(x),(int)Math.Round(y),z));
     }
     internal static Mobile Recipient(PlayerMobile owner,PlagueCloud cloud)
     {
@@ -74,7 +75,7 @@ public static class PlagueJavelins
                 if(!PlayerWeaponMissileContact.TryPoison(owner,target,rate,cloud.Damage.Elements.PoisonImpactFrames,cloud.NextUtc,out string reason,hitClass:0)&&Unsupported.Add(reason))
                 {Server.Logging.LogFactory.GetLogger(typeof(PlagueJavelins)).Warning("Plague Javelin cloud unsupported context: {Reason}",reason);}
             }
-            if(frame%5==0){Effects.SendLocationEffect(point,owner.Map,0x374A,2,10,0x3F,0);} // Identified poison placeholder.
+            AmazonJavelinEffects.ObserveCloud(owner,point,SpellEffectGraphics.PlagueJavelinCloud,cloud.NextUtc);
             if(next.NextUtc<=at){queue.Enqueue(next,(next.NextUtc,next.Id));}
         }
     }

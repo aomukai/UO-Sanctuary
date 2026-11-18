@@ -1,0 +1,40 @@
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -148,6 +148,9 @@
+                         SpellEffectGraphics.JavelinVenomContact or SpellEffectGraphics.PlagueJavelinBurst
+                             or SpellEffectGraphics.PoisonJavelinCloud or SpellEffectGraphics.PlagueJavelinCloud
+                             => SpellEffectGraphics.JavelinEffectFrames,
++                        SpellEffectGraphics.JabContact or SpellEffectGraphics.FendContact or SpellEffectGraphics.ImpaleContact
++                            or SpellEffectGraphics.PowerStrikeContact or SpellEffectGraphics.ImpaleSlow
++                            => SpellEffectGraphics.ThrustEffectFrames,
+                         _ when SpellEffectGraphics.IsEnchantAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ when SpellEffectGraphics.IsWardAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ => 0
+@@ -158,7 +161,7 @@
+                             or SpellEffectGraphics.AbyssField) && !SpellEffectGraphics.IsFireField(Graphic)
+                             && !SpellEffectGraphics.IsJavelinCloud(Graphic)
+                             && !SpellEffectGraphics.IsColdStatus(Graphic) && !SpellEffectGraphics.IsSorceressWard(Graphic)
+-                            && Graphic != SpellEffectGraphics.EnchantWard;
++                            && Graphic is not (SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow);
+                         AnimationGraphic = (ushort)(Graphic + AnimIndex);
+                         if (AnimIndex < spellFrames - 1) { AnimIndex++; }
+                         else if (!oneShot) { AnimIndex = 0; }
+@@ -187,6 +190,7 @@
+                             SpellEffectGraphics.ImmolationArrowField => 115,
+                             SpellEffectGraphics.PlagueJavelinBurst => 90,
+                             SpellEffectGraphics.PoisonJavelinCloud or SpellEffectGraphics.PlagueJavelinCloud => 125,
++                            SpellEffectGraphics.ImpaleSlow => 120,
+                             SpellEffectGraphics.BlazeCast or SpellEffectGraphics.BlazeFade or SpellEffectGraphics.FireWallFade => 70,
+                             _ when SpellEffectGraphics.IsSorceressWard(Graphic) => 145,
+                             _ => Constants.ITEM_EFFECT_ANIMATION_DELAY
+--- a/src/ClassicUO.Client/Game/Managers/EffectManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+@@ -82,7 +82,7 @@
+ 
+             bool renewStatus = type == GraphicEffectType.FixedFrom
+                 && (SpellEffectGraphics.IsColdStatus(graphic) || SpellEffectGraphics.IsSorceressWard(graphic)
+-                    || graphic == SpellEffectGraphics.EnchantWard);
++                    || graphic is SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow);
+             bool renewField = type == GraphicEffectType.FixedXYZ
+                 && (SpellEffectGraphics.IsFireField(graphic) || SpellEffectGraphics.IsJavelinCloud(graphic));
+             if (renewStatus || renewField)

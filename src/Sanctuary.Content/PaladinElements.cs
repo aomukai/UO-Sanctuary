@@ -54,11 +54,14 @@ public static class PaladinElements
         var until=now.AddMilliseconds((frames+1)*40);if(deadline is{} limit&&until>limit){until=limit;}
         PaladinAuras.ElementalWeapon(new(owner.Serial.Value,owner.Serial.Value,ability,values.Rank,0,until,WeaponMin:range.Min,WeaponMax:range.Max,
             ProviderOwner:providerOrder>0?owner.Serial.Value:0,ProviderOrder:providerOrder));
+        bool fireGolem = owner is NecromancerMinion { Kind: CombatAbility.FireGolem };
+        if (!fireGolem) { PaladinElementVisuals.Active(owner, ability, until, now); }
         if(SpellHelper.IsTown(owner.Location,owner)){return;}
         string element=Element(ability);int min=Enhanced(owner,values.Damage256(false),element),max=Enhanced(owner,values.Damage256(true),element);
         // The legacy routine rolls once before enumerating recipients; the upper endpoint is exclusive.
         int damage=min+(max>min?roll(max-min):0);
         double radius=SkillGeometry.Tiles(values.Eval("aurarangecalc"));
+        if (!fireGolem) { PaladinElementVisuals.Pulse(owner, ability, radius, now); }
         using var targets=PooledRefList<Mobile>.Create();
         foreach(var target in owner.Map.GetMobilesInRange<Mobile>(owner.Location,(int)Math.Ceiling(radius)))
         {
@@ -72,10 +75,15 @@ public static class PaladinElements
             if(target is not {Alive:true,Deleted:false}){continue;}
             double dx=target.X-owner.X,dy=target.Y-owner.Y;
             if(ability==CombatAbility.HolyFreeze){PaladinHolyFreeze.Slow(owner,target,values,now);}
-            SkillCombat.AuraElement(owner,target,(int)Math.Clamp(Math.Floor(damage*Proximity(Math.Sqrt(dx*dx+dy*dy),radius)),0,int.MaxValue),element);
+            var point = target.Location;
+            var map = target.Map;
+            int before = fireGolem ? 0 : SkillHealth.Balance256(target);
+            int loss = SkillCombat.AuraElement(owner,target,(int)Math.Clamp(Math.Floor(damage*Proximity(Math.Sqrt(dx*dx+dy*dy),radius)),0,int.MaxValue),element);
+            if (fireGolem && loss > 0) { GolemEffects.FireContact(point, map); }
+            if (!fireGolem && SkillHealth.Balance256(target) < before) { PaladinElementVisuals.Hit(owner, ability, point, map, now); }
             // The legacy callback executes damage before rerolling the target shatter marker.
             if(ability==CombatAbility.HolyFreeze){PaladinHolyFreeze.RollShatter(target);}
         }
-        owner.FixedEffect(0x375A,10,10,ability==CombatAbility.HolyFire?0x489:0x481,0); // Placeholder elemental aura pulse.
+        if (fireGolem) { GolemEffects.FirePulse(owner); }
     }
 }

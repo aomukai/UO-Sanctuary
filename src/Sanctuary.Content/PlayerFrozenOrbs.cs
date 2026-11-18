@@ -52,7 +52,7 @@ internal static class PlayerFrozenOrbs
     internal static bool Release(PlayerMobile p,Serial selected,Point3D point,SkillValues values)
     {
         if(!ValidAim(p,selected,point,out var aim)||!FireGround.Ready(p,CombatAbility.FrozenOrb)){return false;}var at=TimedEffects.Now;var prepared=Prepare(p,aim,values,at);
-        if(!NecromancerEffects.Pay(p,values.Mana256)){return false;}FrozenOrbs.Commit(prepared);FireGround.Delay(p,CombatAbility.FrozenOrb,at);p.PlaySound(0x1E5);return true; // Identified cast audio placeholder.
+        if(!NecromancerEffects.Pay(p,values.Mana256)){return false;}FrozenOrbs.Commit(prepared);FireGround.Delay(p,CombatAbility.FrozenOrb,at);p.PlaySound(SpellEffectSounds.FrozenOrbRelease);return true;
     }
     internal static PreparedMonsterDamagePacket Roll(FrozenMissile m,ref ulong seed)
     {int raw=SorceressSpellMissiles.Roll(m.Min256,m.Max256,seed,out seed);return new(0,raw,0,m.ColdFrames,5,Cold256:raw);}
@@ -137,7 +137,12 @@ public static partial class FrozenOrbs
         {
             if(m.Kind==FrozenKind.Orb&&remaining==0)
             {
+                int beforeBurst = children.Count;
                 for(int i=0;i<64;i+=4){if(SourceChild(p,next,FrozenKind.Nova,i,m.NextUtc) is{} child){children.Add(child);}}
+                if (children.Count > beforeBurst)
+                {
+                    PresentBurst(p.Map, next);
+                }
             }
             else if(!terminal&&World.FindMobile((Serial)id) is{} t)
             {
@@ -147,7 +152,15 @@ public static partial class FrozenOrbs
                 {
                     if(m.Kind==FrozenKind.Orb){PlayerFrozenOrbs.Gap("Root zero-packet event subscribers need their complete actor adapter;ordinary typed return is retained");}
                     ulong seed=next.Source.Seed;var packet=PlayerFrozenOrbs.Roll(m,ref seed);next=next with{Source=next.Source with{Seed=seed}};
-                    if(!ClassAvoidance.Missile(t,Key(m.Kind))){PlayerBlizzards.Deliver(p,(BaseCreature)t,packet,m.Source.Modifiers,m.NextUtc,"Frozen Orb");}
+                    if (!ClassAvoidance.Missile(t, Key(m.Kind)))
+                    {
+                        var contact = t.Location;
+                        var result = PlayerBlizzards.Deliver(p, (BaseCreature)t, packet, m.Source.Modifiers, m.NextUtc, "Frozen Orb");
+                        if (result.Before256 > result.AfterHealth256)
+                        {
+                            PresentContact(p, contact, at);
+                        }
+                    }
                 }
                 if(m.Kind==FrozenKind.Orb){return 1;}
             }
@@ -157,7 +170,7 @@ public static partial class FrozenOrbs
             cell=>Wall(cell)?4:Find(cell)!=null?1:0,cell=>Find(cell)?.Serial.Value??0,Hit));
         if(removed||barrier||result.Result==2){_missiles.Remove(m.Id);return children;}
         next=next with{NextUtc=m.NextUtc.AddMilliseconds(40)};if(_missiles.ContainsKey(m.Id)){_missiles[m.Id]=next;}
-        if(next.Frame%2==0){Effects.SendLocationEffect(new Point3D((int)Math.Round(next.X),(int)Math.Round(next.Y),next.Z),p.Map,m.Kind==FrozenKind.Orb?0x375A:0x36E4,3,10,0x480,0);} // Identified orb/ice placeholders.
+        PresentFlight(p.Map, next);
         return children;
     }
 }

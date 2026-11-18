@@ -119,8 +119,13 @@ public static class PaladinZeal
             var values=SkillMechanics.Values(owner,CombatAbility.Zeal);
             var prepared=PlayerWeaponContact.PrepareOrdinary(owner,recipient,(int)values.Formula("toht"),(int)values.Eval("calc2"),
                 ()=>PaladinVengeance.ValidTarget(owner,target.Serial),HitRoll,ElementRoll,Roll,PoisonRoll,Effects,true);
-            owner.Direction=owner.GetDirectionTo(target);owner.DoHarmful(target,true);owner.PlaySound(0x238); // Existing weapon sound placeholder.
-            return PlayerWeaponContact.Release(owner,recipient,prepared,TimedEffects.Now,true).Exit==MonsterContactExit.Finished;
+            owner.Direction=owner.GetDirectionTo(target);owner.DoHarmful(target,true);
+            PaladinMeleeVisuals.Swing(owner, CombatAbility.Zeal);
+            var point = target.Location;
+            var map = target.Map;
+            var result = PlayerWeaponContact.Release(owner,recipient,prepared,TimedEffects.Now,true);
+            PaladinMeleeVisuals.Land(owner, point, map, CombatAbility.Zeal, result);
+            return result.Exit==MonsterContactExit.Finished;
         }
         catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}
     }

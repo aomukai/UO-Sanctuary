@@ -86,9 +86,10 @@ internal static class BloodBoilPrepared
                     recipients.Add(target.Serial.Value);
                 }
                 bursts.Add(new(body.Serial.Value,center,paid,physical,fire,recipients.ToArray()));
-                Effects.SendLocationEffect(center,map,0x36BD,10); // Identified shared explosion placeholder.
+                Effects.SendLocationEffect(center, map, 0x36BD, 10, 10, 0x26, 0);
+                Effects.PlaySound(center, map, 0x307);
             }
-            owner.PlaySound(0x1E5); // Identified shared cast placeholder.
+            owner.PlaySound(0x1FB);
             return new(true,numbers.Mana256,roster.Length,initial,seed,bursts.ToArray());
         }
         catch(Exception e)when(e is NotSupportedException or System.IO.InvalidDataException)

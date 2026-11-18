@@ -68,6 +68,7 @@ public static partial class MartialCold
     internal static int Impact(PlayerMobile owner,BaseCreature target,int damage256,int coldFrames,int freezeFrames,int? pierce,long tick)
     {
         if(ClassAvoidance.Missile(target)){return 0;}
+        AssassinMartialVisuals.Contact(owner, target.Location, target.Map, CombatAbility.BladesOfIce, TimedEffects.Now);
         owner.DoHarmful(target,true);
         var reduced=NamedElements.Resolve256(owner,target,damage256,"cold",enhance:false,pierceOverride:pierce);
         if(reduced.Absorbed256>0){SkillHealth.Heal(target,reduced.Absorbed256);}
@@ -85,7 +86,8 @@ public static partial class MartialCold
         int Enhance(int value)=>checked((int)((long)value*Math.Max(0,100+mastery)/100));
         int area=WeaponMissileDamage.RollValue(Enhance(values.Damage256(false)),Enhance(values.Damage256(true)),0,DamageRoll);
         var center=Center(target,fallback,map);int radius=(int)values.Eval("prgcalc2");
-        Effects.SendLocationEffect(center,map,0x374A,3,10,0x480,0); // Identified cold-area placeholder.
+        AssassinMartialVisuals.Ring(center, map, SpellEffectGraphics.MartialIceRing,
+            SpellEffectSounds.MartialIceRelease, SkillGeometry.Tiles(radius));
         foreach(var recipient in SkillCombat.NearbySnapshot<BaseCreature>(map,center,(radius+1)/2))
         {
             // Current filter0x870B adds caster-to-recipient LOS. The shared
@@ -172,7 +174,11 @@ public static partial class MartialCold
                 next=next with{LastCollision=target.Serial.Value};
             }
             else if(LobProjectiles.Barrier(Map.Maps[cube.Map],new Point3D((int)Math.Round(cube.X),(int)Math.Round(cube.Y),cube.Z))){Cubes.Remove(cube.Id);return;}
-            if(frame%5==0){Effects.SendLocationEffect(new Point3D((int)Math.Round(cube.X),(int)Math.Round(cube.Y),cube.Z),Map.Maps[cube.Map],0x374A,2,10,0x480,0);} // Identified stationary cube placeholder.
+            if (frame % 4 == 1)
+            {
+                int graphic = SpellEffectGraphics.MartialIceCube + (frame / 4) % SpellEffectGraphics.MartialFrames;
+                GroundSpellVisuals.Sample(Map.Maps[cube.Map], cube.X, cube.Y, cube.Z, graphic, 4);
+            }
         }
         Cubes[cube.Id]=next;
     }

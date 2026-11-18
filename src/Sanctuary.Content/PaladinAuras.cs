@@ -69,7 +69,7 @@ public static class PaladinAuras
     public static void SelectionChanged(PlayerMobile owner, CombatAbility oldAbility, CombatAbility ability)
     {
         bool wasSuppressed=ManaSuppressed(owner);_emitters.Remove(owner.Serial.Value);
-        if (PaladinCombat.IsAura(oldAbility)) { _leases.Remove((owner.Serial.Value,oldAbility));if(oldAbility==CombatAbility.Vigor){PaladinVigor.Refresh(owner);} }
+        if (PaladinCombat.IsAura(oldAbility)) { RemoveLease((owner.Serial.Value,oldAbility));if(oldAbility==CombatAbility.Vigor){PaladinVigor.Refresh(owner);} }
         if (owner.Alive && PaladinCombat.IsAura(ability) && PaladinCombat.Available(owner,ability))
         {
             var now=TimedEffects.Now;
@@ -86,12 +86,17 @@ public static class PaladinAuras
         if (same && old.UntilUtc>now && old.Rank>rank) { return false; }
         if(ability==CombatAbility.Thorns&&target is IronGolemBody iron){iron.ReplaceIntrinsicThorns();}
         uint source=same && old.UntilUtc>now && old.Rank==rank ? old.Source : owner.Serial.Value;
-        _leases[key]=new(target.Serial.Value,source,ability,rank,value,until,maximumResistance,staminaPercent,velocityPercent,damagePercent,attackPercent,uninterruptChance,
+        var lease = new PaladinAuraLease(target.Serial.Value,source,ability,rank,value,until,maximumResistance,staminaPercent,velocityPercent,damagePercent,attackPercent,uninterruptChance,
             ProviderOwner:providerOrder>0?owner.Serial.Value:0,ProviderOrder:providerOrder);
+        _leases[key] = lease;
+        if (PaladinElementVisuals.IsWard(ability)) { PaladinElementVisuals.WardApplied(target, lease, old, now); }
+        if (PaladinOffenseVisuals.Handles(ability)) { PaladinOffenseVisuals.Pulse(target, lease, old, now); }
+        if (PaladinDefenseVisuals.Handles(ability)) { PaladinDefenseVisuals.Pulse(target, lease, old, now); }
         if(ability==CombatAbility.Vigor && old?.StaminaPercent!=staminaPercent){PaladinVigor.Refresh(target);}
-        bool changed=ability==CombatAbility.Cleansing && value>0 && PaladinCleansing.Apply(target,value,now);
-        if (healing256>0 && SkillHealth.Heal(target,healing256)>0) { changed=true; }
-        return changed || value!=0 && ability is not (CombatAbility.Prayer or CombatAbility.Cleansing);
+        bool purified = ability == CombatAbility.Cleansing && value > 0 && PaladinCleansing.Apply(target, value, now);
+        bool healed = healing256 > 0 && SkillHealth.Heal(target, healing256) > 0;
+        if (PaladinRecoveryVisuals.Handles(ability)) { PaladinRecoveryVisuals.Pulse(target, lease, old, healed, purified, now); }
+        return purified || healed || value!=0 && ability is not (CombatAbility.Prayer or CombatAbility.Cleansing);
     }
     internal static int SourceSkill(PaladinAuraLease lease)=>lease.SourceSkill==0?SkillMechanics.For(lease.Ability).SourceId:lease.SourceSkill;
     internal static bool ApplyNpcResistance(BaseCreature source,Mobile target,int sourceSkill,int rank,int percent,DateTime at,DateTime until)
@@ -105,9 +110,11 @@ public static class PaladinAuras
         uint creator=same&&old.UntilUtc>at&&old.Rank==rank?old.Source:source.Serial.Value;
         // A different skill sharing state3 replaces regardless of rank. NPC420
         // has no maxfireresist stat or Paladin passive-stat payload.
-        _leases[key]=new(target.Serial.Value,creator,CombatAbility.ResistFire,rank,percent,until,SourceSkill:sourceSkill);return true;
+        _leases[key]=new(target.Serial.Value,creator,CombatAbility.ResistFire,rank,percent,until,SourceSkill:sourceSkill);
+        PaladinElementVisuals.ClearWard(target, old);
+        return true;
     }
-    internal static void ClearResistanceState(Mobile target)=>_leases.Remove((target.Serial.Value,CombatAbility.ResistFire));
+    internal static void ClearResistanceState(Mobile target)=>RemoveLease((target.Serial.Value,CombatAbility.ResistFire));
     private static void Pulse(PlayerMobile owner, CombatAbility ability, DateTime now)
         =>PulseCore(owner,ability,SkillMechanics.Values(owner,ability),now,null,0);
     internal static void PulseProvided(PlayerMobile owner,CombatAbility ability,SkillValues values,DateTime now,DateTime deadline,long order)
@@ -162,7 +169,6 @@ public static class PaladinAuras
         int flat=wasSuppressed && suppress && _emitters.TryGetValue(owner.Serial.Value,out var oldEmitter)?oldEmitter.FlatManaNumerator:0;
         if(!provided){_emitters[owner.Serial.Value]=new(owner.Serial.Value,ability,now.AddMilliseconds(frames*40),suppress,flat);}
         if (!provided&&wasSuppressed!=suppress) { owner.CheckStatTimers(); }
-        owner.FixedEffect(0x375A,10,10,0x481,0); // Placeholder aura; final rings/overlays tracked separately.
     }
     private sealed record AuraStats(int Value,int Healing,int Stamina,int Velocity,int Damage,int SelfDamage,int Attack,int Uninterrupt,int Maximum,DateTime Until);
     private static AuraStats StandardValues(CombatAbility ability,SkillValues values,int frames,bool canPay,bool fullSelfDamage,DateTime now,DateTime? deadline)
@@ -215,20 +221,40 @@ public static class PaladinAuras
         var stats=StandardValues(ability,values,frames,true,true,now,null);
         ApplyStats(source,source,ability,values.Rank,stats,true,now,order);
         if(source is{Alive:true,Deleted:false}){StandardAllies(source,allegiance,ability,values,stats,now,order);}
-        source.FixedEffect(0x375A,10,10,0x481,0); // Identified shared aura placeholder.
     }
     internal static void ElementalWeapon(PaladinAuraLease lease)
     {
         if(lease.Ability==CombatAbility.Thorns&&World.FindMobile((Serial)lease.Target) is IronGolemBody iron){iron.ReplaceIntrinsicThorns();}
         _leases[(lease.Target,lease.Ability)]=lease;
     }
+    private static bool RemoveLease((uint Target, CombatAbility Ability) key)
+    {
+        if (!_leases.Remove(key, out var lease)) { return false; }
+        bool elemental = PaladinElements.Handles(key.Ability);
+        bool ward = PaladinElementVisuals.HasWard(lease);
+        bool recovery = PaladinRecoveryVisuals.Active(lease);
+        bool offense = PaladinOffenseVisuals.Active(lease);
+        bool defense = PaladinDefenseVisuals.Active(lease);
+        bool hostileSupplier = PaladinHostileAuraVisuals.IsSupplier(key.Ability);
+        if ((elemental || ward || recovery || offense || defense || hostileSupplier) && World.FindMobile((Serial)key.Target) is { } target)
+        {
+            if (elemental && target is not NecromancerMinion) { PaladinElementVisuals.Clear(target, key.Ability); }
+            if (ward) { PaladinElementVisuals.ClearWard(target, lease); }
+            if (recovery) { PaladinRecoveryVisuals.Clear(target, lease); }
+            if (offense) { PaladinOffenseVisuals.Clear(target, lease); }
+            if (defense) { PaladinDefenseVisuals.Clear(target, lease); }
+            if (hostileSupplier) { PaladinHostileAuraVisuals.ClearSupplier(target, key.Ability); }
+        }
+        return true;
+    }
+
     internal static void ClearProvidedSelf(Mobile owner,long order)
     {
         bool changed=false;
         foreach(var ability in new[]{CombatAbility.HolyFire,CombatAbility.Meditation,CombatAbility.Salvation,CombatAbility.Concentration,CombatAbility.Vigor,CombatAbility.Thorns,CombatAbility.HolyFreeze,CombatAbility.Fanaticism})
         {
             var key=(owner.Serial.Value,ability);
-            if(_leases.TryGetValue(key,out var lease)&&lease.ProviderOwner==owner.Serial.Value&&lease.ProviderOrder==order){changed|=_leases.Remove(key);if(ability==CombatAbility.Vigor&&!owner.Deleted){PaladinVigor.Refresh(owner);}}
+            if(_leases.TryGetValue(key,out var lease)&&lease.ProviderOwner==owner.Serial.Value&&lease.ProviderOrder==order){changed|=RemoveLease(key);if(ability==CombatAbility.Vigor&&!owner.Deleted){PaladinVigor.Refresh(owner);}}
         }
         if(changed&&!owner.Deleted){owner.CheckStatTimers();owner.UpdateResistances();}
     }
@@ -236,7 +262,7 @@ public static class PaladinAuras
     {
         bool suppressed=ManaSuppressed(actor);_emitters.Remove(actor.Serial.Value); _expired.Clear();
         foreach (var key in _leases.Keys) { if (key.Item1==actor.Serial.Value) { _expired.Add(key); } }
-        foreach (var key in _expired) { _leases.Remove(key); }
+        foreach (var key in _expired) { RemoveLease(key); }
         if (suppressed) { actor.CheckStatTimers(); }
         PaladinVigor.Refresh(actor);
         // Recipient stat lists on other actors retain their remaining source lifetime.
@@ -246,7 +272,7 @@ public static class PaladinAuras
         var now=TimedEffects.Now; _expired.Clear();
         foreach (var row in _leases)
         { if (row.Value.UntilUtc<=now || World.FindMobile((Serial)row.Key.Item1) is not { Alive:true,Deleted:false }) { _expired.Add(row.Key); } }
-        foreach (var key in _expired) { _leases.Remove(key);if(key.Item2==CombatAbility.Vigor && World.FindMobile((Serial)key.Item1) is {} target){PaladinVigor.Refresh(target);} }
+        foreach (var key in _expired) { RemoveLease(key);if(key.Item2==CombatAbility.Vigor && World.FindMobile((Serial)key.Item1) is {} target){PaladinVigor.Refresh(target);} }
         _owners.Clear(); _owners.AddRange(_emitters.Keys);
         foreach (uint serial in _owners)
         {
@@ -269,7 +295,7 @@ public static class PaladinAuras
         }
     }
     private static void SelectionChangedOrClear(Mobile actor, CombatAbility ability)
-    { bool suppressed=ManaSuppressed(actor);_emitters.Remove(actor.Serial.Value); _leases.Remove((actor.Serial.Value,ability));if(ability==CombatAbility.Vigor){PaladinVigor.Refresh(actor);}if(suppressed){actor.CheckStatTimers();} }
+    { bool suppressed=ManaSuppressed(actor);_emitters.Remove(actor.Serial.Value); RemoveLease((actor.Serial.Value,ability));if(ability==CombatAbility.Vigor){PaladinVigor.Refresh(actor);}if(suppressed){actor.CheckStatTimers();} }
     public static PaladinAuraSave Snapshot() => new(new List<PaladinEmitter>(_emitters.Values).ToArray(),new List<PaladinAuraLease>(_leases.Values).ToArray());
     public static void Restore(PaladinAuraSave saved)
     {

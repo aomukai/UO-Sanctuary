@@ -97,11 +97,11 @@ public static class AmazonJab
             if(ValidTarget(owner,series.Target) && World.FindMobile(series.Target) is{} target)
             {
                 using var mode=WeaponHands.UseMelee(owner,CombatTiming.Equipped(owner));
-                owner.DoHarmful(target,true);owner.PlaySound(0x238); // Identified native weapon sound/animation placeholder.
+                owner.DoHarmful(target,true);AmazonMeleeEffects.Thrust(owner,CombatAbility.Jab,series.Basic);
                 using var attempt=PaladinThorns.Attempt(owner,target,false);
                 var values=SkillMechanics.Values(owner,CombatAbility.Jab);
                 if(target is BaseCreature creature)
-                {AmazonSequenceContact.Release(owner,creature,series.Basic?0:(int)values.Formula("toht"),series.Basic?0:(int)values.Eval("calc1"),HitRoll,ElementRoll,PhysicalRoll,PoisonRoll,Effects,WearRoll);}
+                {AmazonSequenceContact.Release(owner,creature,CombatAbility.Jab,series.Basic,series.Basic?0:(int)values.Formula("toht"),series.Basic?0:(int)values.Eval("calc1"),HitRoll,ElementRoll,PhysicalRoll,PoisonRoll,Effects,WearRoll);}
             }
             if(!Valid(owner,series)){Cancel(owner);return processed;}
         }

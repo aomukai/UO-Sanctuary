@@ -187,7 +187,7 @@ internal static class NecromancerCurseCasts
     {
         if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
         Area(owner,owner,ability,center,values,TimedEffects.Now);
-        owner.PlaySound(0x1E5); // Identified generic cast-audio placeholder.
+        NecromancerCurseVisuals.Cast(owner);
         return true; // A valid empty or resisted area still spends mana once.
     }
 }

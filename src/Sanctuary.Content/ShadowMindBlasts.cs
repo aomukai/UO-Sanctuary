@@ -53,7 +53,7 @@ internal static class ShadowMindBlasts
             if(convert&&target is{Alive:true,Deleted:false}){_=PaladinConversion.ApplyMindBlast(body,target,frames,at);}
             target.FixedEffect(0x374A,10,15,0x481,0); // Existing identified Mind Blast impact placeholder.
         }
-        body.PlaySound(0x1E5);Effects.SendLocationEffect(point,body.Map,0x373A,15,10,0x481,0); // Existing cast/center/audio placeholders.
+        body.PlaySound(0x213);Effects.SendLocationEffect(point,body.Map,0x373A,15,10,0x481,0); // Existing cast/center/audio placeholders.
         return 1;
     }
 }

@@ -84,7 +84,8 @@ internal static class BarbarianPairedMelee
             ||owner.Map!=series.Map||owner.Location!=series.Origin||Pair(owner) is not{} pair||pair.Primary.Serial!=series.Primary||pair.Secondary.Serial!=series.Secondary)
         {Cancel(owner);return false;}
         if(now<series.Events[series.Released]){return false;}
-        var weapon=WeaponHands.SecondaryForSequence(series.Released,true)?pair.Secondary:pair.Primary;
+        bool secondary = WeaponHands.SecondaryForSequence(series.Released, true);
+        var weapon=secondary?pair.Secondary:pair.Primary;
         using var hand=WeaponHands.Use(owner,weapon);using var melee=MeleeContext(owner,weapon);
         BaseCreature target;
         try
@@ -105,9 +106,14 @@ internal static class BarbarianPairedMelee
             var packet=PlayerWeaponContact.PrepareOrdinary(owner,target,powered?(int)values.Formula("toht"):0,powered?(int)values.Eval("calc1"):0,
                 ()=>InRange(owner,target),rolls.Hit,rolls.Element,rolls.Physical,rolls.Poison,rolls.Effects,true,
                 physicalToMagicPercent:powered&&ability==CombatAbility.Frenzy?checked((int)values.Eval("calc4")):0);
-            owner.Direction=owner.GetDirectionTo(target);owner.DoHarmful(target,true);owner.PlaySound(0x238); // Identified native weapon placeholder.
+            owner.Direction=owner.GetDirectionTo(target);owner.DoHarmful(target,true);
+            if (powered) { BarbarianPairedVisuals.Swing(owner, ability, secondary); }
+            else { owner.PlaySound(0x238); }
             packet=packet with{RangeCheck=bonus=>Recipient(owner,target)&&PlayerMeleeGeometry.Within(owner,target,bonus)};
+            var point = target.Location;
+            var map = target.Map;
             var contact=PlayerWeaponContact.Release(owner,target,packet,TimedEffects.Now,true);
+            if (powered) { BarbarianPairedVisuals.Contact(ability, secondary, point, map, contact.Commit); }
             if(powered&&ability==CombatAbility.Frenzy&&contact.Exit==MonsterContactExit.Finished&&contact.Commit!=null
                 &&(contact.Packet.ResultFlags&SourceMeleeResult.Successful)!=0)
             {BarbarianFrenzyEffects.Gain(owner,values,TimedEffects.Now);}

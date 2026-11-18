@@ -1,0 +1,65 @@
+diff --git a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -165,6 +165,7 @@
+                             or SpellEffectGraphics.ReviveRise or SpellEffectGraphics.UndeadFade => SpellEffectGraphics.UndeadRitualFrames,
+                         _ when SpellEffectGraphics.IsGolemEffect(Graphic) => SpellEffectGraphics.GolemEffectFrames,
+                         SpellEffectGraphics.WoundActive or SpellEffectGraphics.WoundFade => SpellEffectGraphics.WoundFrames,
++                        _ when SpellEffectGraphics.IsDruidFormEffect(Graphic) => SpellEffectGraphics.DruidFormEffectFrames,
+                         _ when SpellEffectGraphics.IsEnchantAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ when SpellEffectGraphics.IsWardAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ => 0
+@@ -177,6 +178,7 @@
+                             && !SpellEffectGraphics.IsAmazonUtilityLoop(Graphic)
+                             && !SpellEffectGraphics.IsCurseMark(Graphic)
+                             && !SpellEffectGraphics.IsColdStatus(Graphic) && !SpellEffectGraphics.IsSorceressWard(Graphic)
++                            && !SpellEffectGraphics.IsDruidCharge(Graphic)
+                             && Graphic is not (SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow
+                                 or SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.PoisonAfflicted
+                                 or SpellEffectGraphics.GolemSlow or SpellEffectGraphics.WoundActive);
+@@ -224,6 +226,9 @@
+                             SpellEffectGraphics.GolemSlow => 120,
+                             SpellEffectGraphics.WoundActive => 135,
+                             SpellEffectGraphics.WoundFade => 95,
++                            SpellEffectGraphics.DruidMaulImpact or SpellEffectGraphics.DruidFeralImpact => 70,
++                            _ when SpellEffectGraphics.IsDruidCharge(Graphic) => 115,
++                            _ when SpellEffectGraphics.IsDruidFormEffect(Graphic) => 105,
+                             SpellEffectGraphics.ClayGolemContact or SpellEffectGraphics.IronGolemSpark => 65,
+                             _ when SpellEffectGraphics.IsGolemEffect(Graphic) => 105,
+                             >= SpellEffectGraphics.InnerSightCast and <= SpellEffectGraphics.ValkyrieFade => 90,
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -148,6 +148,21 @@
+ 
+             Vector3 hueVec = ShaderHueTranslator.GetHueVector(hue, data.IsPartialHue, data.IsTranslucent ? .5f : 1f, effect: true);
+ 
++            if (SpellEffectGraphics.IsDruidCharge(Graphic) && Source is Mobile shifter)
++            {
++                if (shifter.IsDead) { return false; }
++                bool maul = Graphic < SpellEffectGraphics.DruidFeralCharge;
++                const int period = 1560;
++                float phase = (Time.Ticks + shifter.Serial * 13L) % period * (MathHelper.TwoPi / period);
++                float side = MathF.Sin(phase);
++                posX += (int)MathF.Round(MathF.Cos(phase) * (maul ? 39 : 32));
++                posY += (int)MathF.Round(side * 13) - (maul ? 30 : 20);
++                // The outer arc crosses in front of the displayed creature.
++                depth = shifter.CalculateDepthZ() + (side >= 0 ? 1f : -1f);
++                DrawStaticRotated(batcher, AnimationGraphic, posX, posY, 0, hueVec, depth);
++                return true;
++            }
++
+             if (Graphic is Sanctuary.SpellEffectGraphics.StaticFieldSmall or Sanctuary.SpellEffectGraphics.StaticFieldMedium
+                 or Sanctuary.SpellEffectGraphics.StaticFieldLarge or Sanctuary.SpellEffectGraphics.FrostNovaRing
+                 or Sanctuary.SpellEffectGraphics.NovaRing)
+diff --git a/src/ClassicUO.Client/Game/Managers/EffectManager.cs b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+--- a/src/ClassicUO.Client/Game/Managers/EffectManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+@@ -110,6 +110,7 @@
+                 && (SpellEffectGraphics.IsColdStatus(graphic) || SpellEffectGraphics.IsSorceressWard(graphic)
+                     || SpellEffectGraphics.IsAmazonUtilityLoop(graphic)
+                     || SpellEffectGraphics.IsCurseMark(graphic)
++                    || SpellEffectGraphics.IsDruidCharge(graphic)
+                     || graphic is SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow
+                         or SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.PoisonAfflicted
+                         or SpellEffectGraphics.GolemSlow or SpellEffectGraphics.WoundActive);

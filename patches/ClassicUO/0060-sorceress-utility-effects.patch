@@ -1,0 +1,47 @@
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -135,6 +135,10 @@
+                         SpellEffectGraphics.FireBoltContact or SpellEffectGraphics.InfernoContact or SpellEffectGraphics.BlazeCast
+                             or SpellEffectGraphics.BlazeField or SpellEffectGraphics.BlazeFade or SpellEffectGraphics.FireWallFade
+                             => SpellEffectGraphics.FireFrames,
++                        SpellEffectGraphics.NovaRing or SpellEffectGraphics.NovaContact or SpellEffectGraphics.NovaCast
++                            or SpellEffectGraphics.TelekinesisCast or SpellEffectGraphics.TelekinesisContact
++                            or SpellEffectGraphics.TelekinesisObject or SpellEffectGraphics.TeleportDeparture or SpellEffectGraphics.TeleportArrival
++                            => SpellEffectGraphics.UtilityFrames,
+                         _ when SpellEffectGraphics.IsWardAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ => 0
+                     };
+@@ -160,7 +164,9 @@
+                             SpellEffectGraphics.ThunderStormCharge => 3 * Constants.ITEM_EFFECT_ANIMATION_DELAY,
+                             SpellEffectGraphics.GlacialSpikeBurst => 90,
+                             SpellEffectGraphics.ColdCorpseShatter => 80,
+-                            SpellEffectGraphics.FrostNovaRing => 130,
++                            SpellEffectGraphics.NovaRing or SpellEffectGraphics.FrostNovaRing => 130,
++                            SpellEffectGraphics.NovaCast or SpellEffectGraphics.TelekinesisCast or SpellEffectGraphics.TelekinesisContact
++                                or SpellEffectGraphics.TelekinesisObject or SpellEffectGraphics.TeleportDeparture or SpellEffectGraphics.TeleportArrival => 65,
+                             SpellEffectGraphics.Chilled or SpellEffectGraphics.Frozen => 120,
+                             SpellEffectGraphics.BlazeField => 90,
+                             SpellEffectGraphics.BlazeCast or SpellEffectGraphics.BlazeFade or SpellEffectGraphics.FireWallFade => 70,
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -105,7 +105,9 @@
+             posY += (int)(Offset.Z + Offset.Y);
+ 
+             if (Source is Mobile { IsGargoyle: true, IsFlying: true }
+-                && Sanctuary.SpellEffectGraphics.IsWardAnimation(Graphic))
++                && (Sanctuary.SpellEffectGraphics.IsWardAnimation(Graphic)
++                    || Graphic is Sanctuary.SpellEffectGraphics.NovaCast or Sanctuary.SpellEffectGraphics.NovaContact
++                        or Sanctuary.SpellEffectGraphics.TelekinesisCast or Sanctuary.SpellEffectGraphics.TelekinesisContact))
+             {
+                 // Gargoyle flight raises the body two half-tiles above its standing art.
+                 posY -= 44;
+@@ -125,7 +127,8 @@
+             Vector3 hueVec = ShaderHueTranslator.GetHueVector(hue, data.IsPartialHue, data.IsTranslucent ? .5f : 1f, effect: true);
+ 
+             if (Graphic is Sanctuary.SpellEffectGraphics.StaticFieldSmall or Sanctuary.SpellEffectGraphics.StaticFieldMedium
+-                or Sanctuary.SpellEffectGraphics.StaticFieldLarge or Sanctuary.SpellEffectGraphics.FrostNovaRing)
++                or Sanctuary.SpellEffectGraphics.StaticFieldLarge or Sanctuary.SpellEffectGraphics.FrostNovaRing
++                or Sanctuary.SpellEffectGraphics.NovaRing)
+             {
+                 DrawGroundRing(batcher, posX + 22, posY + 12, hueVec, depth);
+                 return true;

@@ -41,9 +41,16 @@ def verify(runtime=None):
     assert sha(authority) == policy['authority']['sha256']
     assert load(authority)['delegatedAdaptations']['approved']
     assert not policy['exactUnpublishedModernParityClaimed']
-    for name, digest in policy['productionSources'].items():
+    source_hashes = policy['productionSources'] | policy.get('presentationSourceBridges', {})
+    for name, digest in source_hashes.items():
         assert sha(ROOT / name) == digest, name
-    assert hashes(ROOT / 'data/Sanctuary') == summary['balanceFiles']
+    balance = hashes(ROOT / 'data/Sanctuary')
+    released_balance = summary['balanceFiles'].copy()
+    # Artwork advances independently of the qualified balance snapshot.
+    icon_path = 'Balance/skill-icons.json'
+    balance.pop(icon_path)
+    released_balance.pop(icon_path)
+    assert balance == released_balance
     assert sha(ROOT / summary['historicalEvidence']) == summary['historicalEvidenceSha256']
     active = passive = 0
     for name in CLASSES:
@@ -55,9 +62,13 @@ def verify(runtime=None):
         assert inputs['activeTalents'] == inputs['verifiedActiveInputRoutes']
         active += inputs['activeTalents']; passive += inputs['passiveTalents']
     assert (active, passive) == (210, 30)
-    for kind in ('skill-effects', 'skill-icons'):
-        rows = load(ROOT / ('data/Sanctuary/Balance/' + kind + '.json'))
-        assert len(rows) == 240 and all(row['placeholder'] for row in rows)
+    effects = load(ROOT / 'data/Sanctuary/Balance/skill-effects.json')
+    icons = load(ROOT / 'data/Sanctuary' / icon_path)
+    assert all(row['placeholder'] for row in effects)
+    assert all(row['clientMapping'] == 'mapped' and row['gumpId'] for row in icons)
+    assert sum(row['hotkeyIcon'] == 'mapped' for row in icons) == active
+    for rows in (effects, icons):
+        assert len(rows) == 240
         assert {row['talentId'] for row in rows} == set(policy['talentIds'])
     if runtime is not None:
         server = runtime / '.local/server'

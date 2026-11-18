@@ -1,0 +1,65 @@
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -43,6 +43,7 @@
+              Link="Data/Sanctuary/Art/Statics/%(Filename)%(Extension)"
+              CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+     <Compile Include="../../../../shared/SpellEffectGraphics.cs" Link="Game/Data/SpellEffectGraphics.cs" />
++    <Compile Include="../../../../shared/SpellEffectSounds.cs" Link="Game/Data/SpellEffectSounds.cs" />
+     <Content Include="../../../../art/spell-effects/*/statics/*.art"
+              Link="Data/Sanctuary/Art/Statics/%(Filename)%(Extension)"
+              CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -177,6 +177,13 @@
+                 effect.SetSource(targetX, targetY, targetZ);
+ 
+                 _manager.PushToBack(effect);
++                if (FlareGraphics.IsFlight(Graphic))
++                {
++                    int sound = Graphic == FlareGraphics.RedFlight
++                        ? SpellEffectSounds.RedFlareImpact
++                        : SpellEffectSounds.BlueFlareImpact;
++                    Client.Game.Audio.PlaySoundWithDistance(World, sound, targetX, targetY);
++                }
+             }
+         }
+ 
+--- a/src/ClassicUO.Client/Game/Managers/AudioManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/AudioManager.cs
+@@ -8,6 +8,7 @@
+ using ClassicUO.Assets;
+ using ClassicUO.Utility.Logging;
+ using Microsoft.Xna.Framework.Audio;
++using Sanctuary;
+ 
+ namespace ClassicUO.Game.Managers
+ {
+@@ -98,7 +99,7 @@
+                 volume = 0;
+             }
+ 
+-            UOSound sound = (UOSound) Client.Game.UO.Sounds.GetSound(index);
++            UOSound sound = GetSound(index);
+ 
+             if (sound != null && sound.Play(Time.Ticks, volume))
+             {
+@@ -146,7 +147,7 @@
+                 volume = 0;
+             }
+ 
+-            UOSound sound = (UOSound)Client.Game.UO.Sounds.GetSound(index);
++            UOSound sound = GetSound(index);
+ 
+             if (sound != null && sound.Play(Time.Ticks, volume, distanceFactor))
+             {
+@@ -157,6 +158,10 @@
+                 _currentSounds.AddLast(sound);
+             }
+         }
++
++        private static UOSound GetSound(int index) =>
++            (UOSound)(Client.Game.UO.Sounds.GetSound(index)
++                ?? Client.Game.UO.Sounds.GetSound(SpellEffectSounds.Fallback(index)));
+ 
+         public void PlayMusic(int music, bool iswarmode = false, bool is_login = false)
+         {

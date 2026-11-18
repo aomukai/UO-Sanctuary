@@ -47,6 +47,7 @@ public static class FreezeStates
         if(existing && old.FreezeUntil>until){until=old.FreezeUntil;}
         actor.Control=old with{FreezeUntil=until,Freeze=new(owner,now.AddMilliseconds((frames+1)*40L))};
         if(target is BaseCreature creature){NamedControl.Interrupt(creature);}
+        ColdStatusVisuals.Refresh(target, actor, TimedEffects.Now);
         return true;
     }
     internal static void Settle(Mobile target,TimedActor actor,DateTime now)
@@ -64,7 +65,9 @@ public static class FreezeStates
     {
         if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Control removal needs UTC");}
         if(!TimedEffects.TryActor(target,out var actor)||actor.Control is not{} control||control.FreezeUntil<=at){return false;}
-        actor.Control=control with{FreezeUntil=at};Settle(target,actor,at);return true;
+        actor.Control=control with{FreezeUntil=at};Settle(target,actor,at);
+        ColdStatusVisuals.Refresh(target, actor, at);
+        return true;
     }
     internal static bool Waiting(Mobile target)
     {
@@ -87,8 +90,6 @@ public static class FreezeStates
         int resistance=NamedElements.Resistance(source,target,"cold",target.ColdResistance,pierceOverride);
         bool cannot=ItemDurationDefenses.CannotFreeze(target),half=ItemDurationDefenses.HalfFreeze(target);
         frames=ColdStates.LengthFrames(frames,resistance,cannot,half);
-        if(!Commit(source,target,frames,monster,NecromancerEffects.DifficultyDivisor(target),tick)){return false;}
-        target.FixedEffect(0x374A,10,15,0x480,0); // Identified native freeze marker.
-        return true;
+        return Commit(source,target,frames,monster,NecromancerEffects.DifficultyDivisor(target),tick);
     }
 }

@@ -95,9 +95,9 @@ public static class NamedControl
         int draw=roll();if(draw is <0 or >=100){throw new ArgumentOutOfRangeException(nameof(roll));}
         int level=BlindLevel(ClassStats.Level(source),ClassStats.Level(target),bonus,ranged,draw);
         if(!AiTarget(target) || NecromancerEffects.Curse(target)?.Ability is CombatAbility.Attract or CombatAbility.Confuse){return false;}
-        return ApplyBlindLevel(target,level);
+        return ApplyBlindLevel(target,level,raven: source is DruidRavenBody);
     }
-    private static bool ApplyBlindLevel(Mobile target,int level)
+    private static bool ApplyBlindLevel(Mobile target,int level,bool raven=false)
     {
         if (level == 0) { return false; }
         var creature = (BaseCreature)target; var now = TimedEffects.Now; TimedEffects.Settle(target, now);
@@ -106,7 +106,10 @@ public static class NamedControl
         // Vision and fear occupy one AI curse lane; neither replaces independent item slow or cold freeze.
         actor.Control = (actor.Control ?? Empty) with { BlindUntil = now.AddMilliseconds((175 + 50 * (level - 1)) * 40 / DifficultyDivisor(creature)), FearUntil = default };
         NecromancerEffects.ClearOrdinaryCurse(target);
-        Interrupt(creature); target.FixedEffect(0x375A, 10, 15, 0x455, 0); return true;
+        Interrupt(creature);
+        if (raven) { DruidSummonVisuals.ApplyBlind(target, actor.Control.BlindUntil); }
+        else { target.FixedEffect(0x375A, 10, 15, 0x455, 0); }
+        return true;
     }
     public static bool ApplyFear(PlayerMobile source, Mobile target, int chance, Random random)
     {

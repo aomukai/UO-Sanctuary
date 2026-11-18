@@ -37,6 +37,14 @@ public static class AmazonLightningFury
     internal static void Burst(PlayerMobile owner,WeaponFlight parent,DateTime at)
     {
         if(parent.Ability!=CombatAbility.LightningFury || IsChild(parent) || owner.Map==null || owner.Map==Map.Internal || parent.X<0 || parent.Y<0 || parent.X>=owner.Map.Width || parent.Y>=owner.Map.Height){return;}
-        foreach(var target in Targets(owner,parent)){WeaponMissiles.LaunchFuryChild(owner,parent,target,at);}
+        bool released = false;
+        foreach (var target in Targets(owner,parent))
+        {
+            released |= WeaponMissiles.LaunchFuryChild(owner,parent,target,at) > 0;
+        }
+        if (released)
+        {
+            AmazonJavelinEffects.FurySplit(owner,new((int)Math.Round(parent.X),(int)Math.Round(parent.Y),parent.Z));
+        }
     }
 }

@@ -68,12 +68,16 @@ public static class NecromancerSummons
             // pet or consuming its corpse. Reentrant mana loss rejects only
             // this candidate; its birth supplement is removed on deletion.
             if(payment!=null&&!payment()){return false;}
-            pet.FixedParticles(0x376A,9,20,5024,EffectLayer.Waist);
-            if(!mage){NecromancerGolems.Commit(owner,pet);}
+            if(!mage)
+            {
+                NecromancerGolems.Commit(owner,pet);
+                UndeadSummonVisuals.Arrive(pet);
+            }
             else
             {
                 NecromancerSkeletons.Commit(owner,pet);
                 NecromancerCombat.Consume(corpse);
+                UndeadSummonVisuals.Arrive(pet);
             }
             committed=true;return true;
         }
@@ -213,7 +217,7 @@ public partial class NecromancerMinion : SkeletonGuardian
     }
     private void Appearance()
     {
-        // Existing UO bodies deliberately serve as placeholders for D2 summons.
+        // Preserve the native bodies and their movement and combat animations.
         Name = IsMage ? "a skeletal mage" : Kind == CombatAbility.ClayGolem ? "a clay golem"
             : Kind == CombatAbility.BloodGolem ? "a blood golem" : "a fire golem";
         Body = IsMage ? 56 : 14; Hue = Kind switch { CombatAbility.ClayGolem => 0x96D, CombatAbility.BloodGolem => 0x21, CombatAbility.FireGolem => 0x489, _ => 0 };
@@ -263,6 +267,8 @@ public partial class NecromancerMinion : SkeletonGuardian
             return;
         }
         SkillHitResult hit;
+        var point = target.Location;
+        var map = target.Map;
         if(NpcEquipmentDamage.TryResolve(this,target,out var equippedHit)){hit=equippedHit;}
         else
         {
@@ -272,6 +278,7 @@ public partial class NecromancerMinion : SkeletonGuardian
             NpcSpectralHit.After(this,target,spectral,TimedEffects.Now);
         }
         if (Kind == CombatAbility.BloodGolem) { HealFromBloodHit(target, hit.Physical, hit.LifeBefore); }
+        if (NecromancerGolems.Ability(Kind)) { UndeadSummonVisuals.MeleeContact(this, map, point); }
     }
     public static int BloodHealingBudget(int physical, int lifeBefore, int drain, int conversion)
         => (int)Math.Clamp(Math.Min((long)Math.Max(0, physical) * Math.Clamp(drain, 0, 100) / 100,
@@ -284,9 +291,13 @@ public partial class NecromancerMinion : SkeletonGuardian
         int healing = BloodHealingBudget(physical, lifeBefore, GemCombat.Drain(creature), (int)values.Eval("calc2"));
         // EventFunc23 allocates the owner's share first, then redirects either recipient's unused healing.
         int ownerShare = (int)((long)healing * values.Param(3) / 100);
-        int remaining = healing - Heal(owner, ownerShare);
-        remaining -= Heal(this, remaining);
-        Heal(owner, remaining);
+        int ownerRestored = Heal(owner, ownerShare);
+        int remaining = healing - ownerRestored;
+        int restored = Heal(this, remaining);
+        remaining -= restored;
+        int overflow = Heal(owner, remaining);
+        if (restored > 0) { GolemEffects.Heal(this); }
+        if (ownerRestored > 0 || overflow > 0) { GolemEffects.Heal(owner); }
     }
     private static int Heal(Mobile recipient, int amount)
     {
@@ -311,6 +322,7 @@ public partial class NecromancerMinion : SkeletonGuardian
             var values = Values(Kind);
             foreach (var target in SkillCombat.Targets(owner, Location, SkillGeometry.Tiles(values.Eval("calc4"))))
             { SkillCombat.HitParts(this, target, new(values.Eval("calc2"), values.Eval("calc3"), 0, 0, 0), true); }
+            GolemEffects.FireDeath(Location, Map);
         }
     }
     public override bool OnBeforeDeath()

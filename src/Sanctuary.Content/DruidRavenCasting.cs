@@ -58,7 +58,7 @@ public static class DruidRavenCasting
         // any failed cast. All of this runs on the server loop.
         if(!NecromancerEffects.Pay(owner,values.Mana256)){body.Delete();return false;}
         DruidRavens.Enforce(owner);if(focus!=null){DruidRavens.Focus(owner,focus);}
-        owner.PlaySound(0x1E5); // Identified druid_summon audio placeholder.
+        DruidSummonVisuals.Arrive(body);
         return true;
     }
 }

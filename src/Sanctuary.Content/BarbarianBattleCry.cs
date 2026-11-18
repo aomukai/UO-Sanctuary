@@ -35,7 +35,7 @@ public static class BarbarianBattleCry
             ?old with{UntilUtc=at.AddMilliseconds(frames*40L)}
             :new NecromancerCurse(CombatAbility.BattleCry,owner.Serial.Value,rank,at.AddMilliseconds(frames*40L),owner.X,owner.Y);
         NecromancerEffects.Profiles.Store(target,state with{Curse=curse});
-        target.FixedEffect(0x375A,10,15,0x481,0); // Identified UO curse marker placeholder.
+        BarbarianCryVisuals.Contact(owner, CombatAbility.BattleCry, target.Location, target.Map, at);
         owner.DoHarmful(target);return true;
     }
 }

@@ -1,0 +1,40 @@
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -190,6 +190,7 @@
+                         _ when SpellEffectGraphics.IsHolyAuraAnimation(Graphic) => SpellEffectGraphics.HolyAuraFrames,
+                         _ when SpellEffectGraphics.IsPaladinSpellAnimation(Graphic) => SpellEffectGraphics.PaladinSpellFrames,
+                         _ when SpellEffectGraphics.IsPaladinResistanceWard(Graphic) => SpellEffectGraphics.HolyAuraFrames,
++                        _ when SpellEffectGraphics.IsPaladinRecoveryAnimation(Graphic) => SpellEffectGraphics.PaladinSpellFrames,
+                         _ when SpellEffectGraphics.IsEnchantAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ when SpellEffectGraphics.IsWardAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ => 0
+@@ -297,6 +298,8 @@
+                             SpellEffectGraphics.HeavenFistStrike => 91,
+                             SpellEffectGraphics.HolyBoltHeal or SpellEffectGraphics.HeavenFistBurst => 88,
+                             _ when SpellEffectGraphics.IsPaladinSpellAnimation(Graphic) => 74,
++                            SpellEffectGraphics.MeditationMana => 63,
++                            _ when SpellEffectGraphics.IsPaladinRecoveryAnimation(Graphic) => 86,
+                             _ when SpellEffectGraphics.IsDruidCharge(Graphic) => 115,
+                             _ when SpellEffectGraphics.IsDruidFormEffect(Graphic) => 105,
+                             SpellEffectGraphics.ClayGolemContact or SpellEffectGraphics.IronGolemSpark => 65,
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -130,6 +130,8 @@
+                         or SpellEffectGraphics.WoundActive or SpellEffectGraphics.WoundFade
+                         or SpellEffectGraphics.DruidHungerMana or SpellEffectGraphics.HolyBoltRelease
+                         or SpellEffectGraphics.HolyBoltHeal or SpellEffectGraphics.BlessedHammerRelease
++                        or SpellEffectGraphics.PrayerHeal or SpellEffectGraphics.CleansingPurify or SpellEffectGraphics.MeditationMana
++                        or SpellEffectGraphics.RedemptionLife or SpellEffectGraphics.RedemptionMana
+                     || Graphic is Sanctuary.SpellEffectGraphics.NovaCast or Sanctuary.SpellEffectGraphics.NovaContact
+                         or Sanctuary.SpellEffectGraphics.TelekinesisCast or Sanctuary.SpellEffectGraphics.TelekinesisContact))
+             {
+@@ -142,6 +144,9 @@
+                 // Keep the mana ribbon visible alongside Hunger's shared life flare.
+                 posX += 23;
+             }
++
++            if (Graphic == SpellEffectGraphics.RedemptionLife) { posX -= 19; }
++            if (Graphic == SpellEffectGraphics.RedemptionMana) { posX += 19; }
+ 
+             if (Graphic == SpellEffectGraphics.CombatStun && Source is Mobile stunned)
+             {

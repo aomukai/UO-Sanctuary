@@ -69,7 +69,9 @@ public static class PsychicHammers
             if(!SourceKnockbacks.Begin(owner,target) && SourceKnockbacks.Rule(target) is{Knockback:false,GetHit:true})
             {CreatureHitRecovery.Apply(target,owner,loss);}
         }
-        owner.PlaySound(0x1E5);target.FixedEffect(0x374A,10,15,0x481,0);target.PlaySound(0x1F1); // Identified Psychic Hammer cast/impact/audio placeholders.
+        owner.PlaySound(0x1F1);
+        target.FixedEffect(0x3709, 10, 15, 0x482, 0);
+        target.PlaySound(0x213); // Identified Psychic Hammer cast/impact/audio placeholders.
         return true;
     }
 }

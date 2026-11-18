@@ -69,7 +69,7 @@ public static class AmazonSlowMissiles
     public static void Initialize()
     {
         var created=CorpseRecoveryHooks.Created;CorpseRecoveryHooks.Created=corpse=>{Clear(corpse.Owner);created?.Invoke(corpse);};
-        Timer.StartTimer(TimeSpan.FromSeconds(1),TimeSpan.FromSeconds(1),Prune);
+        Timer.StartTimer(TimeSpan.FromMilliseconds(250),TimeSpan.FromMilliseconds(250),Tick);
     }
     private static bool Alive(Mobile target)=>target is{Alive:true,Deleted:false,IsDeadBondedPet:false};
     internal static SlowMissilesState State(Mobile target)=>Alive(target) && _states.TryGetValue(target.Serial.Value,out var state) && state.UntilUtc>TimedEffects.Now?state:null;
@@ -93,11 +93,24 @@ public static class AmazonSlowMissiles
         if(speed is <0 or >100 || damage is <0 or >100){return false;}
         var next=Replacement(_states.GetValueOrDefault(target.Serial.Value),target.Serial.Value,creator.Serial.Value,values.Rank,speed,damage,
             at.AddMilliseconds(values.Eval("auralencalc")*40),at);
-        if(next==null){return false;}_states[target.Serial.Value]=next;return true;
+        if(next==null){return false;}_states[target.Serial.Value]=next;
+        AmazonUtilityEffects.SlowMissiles.Refresh(target,at,next.UntilUtc);return true;
     }
-    public static void Clear(Mobile target){if(target!=null){_states.Remove(target.Serial.Value);}}
-    internal static void Prune()
-    {foreach(var pair in _states.ToArray()){if(pair.Value.UntilUtc<=TimedEffects.Now || !Alive(World.FindMobile((Serial)pair.Key))){_states.Remove(pair.Key);}}}
+    public static void Clear(Mobile target){if(target!=null){Remove(target.Serial.Value,target);}}
+    private static void Remove(uint id,Mobile target)
+    {_states.Remove(id);AmazonUtilityEffects.SlowMissiles.Clear(id,target);}
+    internal static void Prune()=>Update(false);
+    private static void Tick()=>Update(true);
+    private static void Update(bool refresh)
+    {
+        var now=TimedEffects.Now;
+        foreach(var (id,state) in _states.ToArray())
+        {
+            var target=World.FindMobile((Serial)id);
+            if(state.UntilUtc<=now || !Alive(target)){Remove(id,target);}
+            else if(refresh){AmazonUtilityEffects.SlowMissiles.Refresh(target,now,state.UntilUtc);}
+        }
+    }
     internal static SlowMissilesState[] Snapshot(){Prune();return _states.Values.OrderBy(x=>x.Target).ToArray();}
     internal static void Restore(SlowMissilesState[] states)
     {
@@ -109,6 +122,7 @@ public static class AmazonSlowMissiles
                 || state.UntilUtc.Kind!=DateTimeKind.Utc
                 || !candidate.TryAdd(state.Target,state)){throw new InvalidDataException("Invalid Slow Missiles state");}
         }
+        foreach(uint id in _states.Keys){AmazonUtilityEffects.SlowMissiles.Clear(id,World.FindMobile((Serial)id));}
         _states.Clear();foreach(var pair in candidate){_states.Add(pair.Key,pair.Value);}
     }
 }

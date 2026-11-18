@@ -92,12 +92,13 @@ public static class AssassinClaws
             {
                 if(s.Ability==CombatAbility.DragonClaw)
                 {
-                    try{DragonClaws.Strike(owner,(BaseCreature)target);}
+                    try{DragonClaws.Strike(owner,(BaseCreature)target,secondary:ordinal==1);}
                     catch(NotSupportedException e){Cancel(owner);owner.SendMessage(0x22,e.Message);return processed;}
                 }
                 else
                 {
-                    owner.DoHarmful(target,true);owner.PlaySound(0x238); // Identified claw pose/contact/audio placeholder.
+                    owner.DoHarmful(target,true);
+                    if (s.Basic) { owner.PlaySound(0x238); }
                     using var attempt=PaladinThorns.Attempt(owner,target,false);
                     if(s.Basic){TigerStrikes.BasicStrike(owner,target);CombatDamage.Finish(target,owner);}
                     else{TigerStrikes.ChargeContact(owner,target,SkillMechanics.Values(owner,s.Ability));}

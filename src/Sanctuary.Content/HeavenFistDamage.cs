@@ -26,7 +26,9 @@ internal static class HeavenFistDamage
     internal static bool Release(PlayerMobile p,Mobile target,SkillValues values)
     {
         var f=HeavenFists.Prepare(p,target,values,Prepare(p,target,values));if(!NecromancerEffects.Pay(p,values.Mana256)){return false;}
-        HeavenFists.Commit(f);FireGround.Delay(p,CombatAbility.FistOfTheHeavens);p.PlaySound(0x1E5);return true; // Identified cast placeholder.
+        HeavenFists.Commit(f);
+        FireGround.Delay(p,CombatAbility.FistOfTheHeavens);
+        return true;
     }
     internal static int Roll(int lo,int hi,ref ulong seed)
     {if(lo<=0||hi<=0){return 0;}if(lo>hi){(lo,hi)=(hi,lo);}return lo+(hi>lo?(int)SourceRandom.Limited(ref seed,hi-lo):0);}

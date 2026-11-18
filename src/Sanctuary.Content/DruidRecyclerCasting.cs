@@ -42,7 +42,7 @@ internal static class DruidRecyclerCasting
         // the existing paid vine. Shared category replacement follows payment.
         if(!Eligible(owner,ability)||!NecromancerEffects.Pay(owner,values.Mana256)){created.Delete();return false;}
         DruidVines.Replace(owner,created);body=created;
-        owner.PlaySound(0x1E5); // Identified druid_summon audio placeholder.
+        DruidSummonVisuals.Arrive(created);
         return true;
     }
 }

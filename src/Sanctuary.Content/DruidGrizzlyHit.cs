@@ -93,14 +93,18 @@ internal static class DruidGrizzlyHit
         // The cached total predates BearSmite's extra physical field. Its
         // unchanged elemental lanes leave exactly the committed physical loss.
         var direct=new DirectDamageParts(checked(packet.Total256-packet.Fire256-packet.Cold256-packet.Lightning256),0,packet.Fire256,packet.Cold256,packet.Lightning256);
+        var point = target.Location;
+        var map = target.Map;
         int lost=SkillHealth.TypedDamage(body,target,packet.Total256,direct);
-        try{GrizzlyUpgrades.Stun(body,target,smite,Limited);}finally{seed=current;}
+        bool stunned;
+        try{stunned=GrizzlyUpgrades.Stun(body,target,smite,Limited);}finally{seed=current;}
         if(packet.ColdFrames>0){ColdStates.Commit(body,target,packet.ColdFrames,true,ColdStates.Effect(target),NecromancerEffects.DifficultyDivisor(target),Core.TickCount);}
         SorceressEffects.MeleeAttempt(body,target);
         PaladinThorns.Prepared(body,target,packet.Physical256,false,clipped);
         bool knocked=smite&&(packet.ResultFlags&DruidBearSmite.Knockback)!=0&&SourceKnockbacks.Begin(body,target);
         if(!knocked){CreatureHitRecovery.Apply(target,body,lost,true);}
         CombatDamage.Finish(target,body);
+        if (lost > 0 || stunned || knocked) { DruidSummonVisuals.Contact(body, point, map, smite); }
         return new(GrizzlyHitOutcome.Hit,id,chance,packet.Physical256,packet.Total256,packet.Cold256,packet.Fire256,
             packet.Lightning256,packet.Critical,lost);
     }

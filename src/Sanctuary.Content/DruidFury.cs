@@ -91,7 +91,8 @@ internal static class DruidFury
         if(target!=null)
         {
             using var melee=CombatTiming.Equipped(owner) is{} weapon?WeaponHands.UseMelee(owner,weapon):null;
-            owner.Direction=owner.GetDirectionTo(target);owner.DoHarmful(target,true);owner.PlaySound(0x238); // Identified melee sound placeholder.
+            owner.Direction=owner.GetDirectionTo(target);owner.DoHarmful(target,true);
+            DruidFormEffects.Swing(owner, CombatAbility.Fury);
             var values=SkillMechanics.Values(owner,CombatAbility.Fury);Route(values);
             bool hit=DruidWeaponContact.RollHit(owner,(BaseCreature)target,(int)values.Formula("toht"),HitRoll);
             bool blocked=false,animation=false;
@@ -106,7 +107,7 @@ internal static class DruidFury
                 impact=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,raw);drain=WeaponLeech.Capture(owner);
             }
             else{hit=false;}
-            DruidWeaponContact.Release(owner,(BaseCreature)target,DruidWeaponContact.Capture(owner,(BaseCreature)target,hit,blocked,impact,drain,Effects),TimedEffects.Now);
+            DruidWeaponContact.Release(owner,(BaseCreature)target,DruidWeaponContact.Capture(owner,(BaseCreature)target,hit,blocked,impact,drain,Effects),TimedEffects.Now,CombatAbility.Fury);
         }
         // Health/item callbacks may deliberately stop,replace or unshift the
         // action. Never resurrect the old series after a reentrant callback.

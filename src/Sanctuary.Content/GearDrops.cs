@@ -182,15 +182,17 @@ public static class GearDrops
         string leaf = CreatureGold.Select(source ?? life.Creature.GetType(), random, life.Difficulty);
         AwardSelection(life,leaf,random);
     }
-    internal static void FindItem(PlayerMobile owner,Corpse corpse,CorpseTreasure context,Random random)
+    internal static bool FindItem(PlayerMobile owner,Corpse corpse,CorpseTreasure context,Random random)
     {
         var life=new RewardLife(null,corpse,owner,context.Level,CreatureGold.GoldFind(owner),MagicFind(owner),context.Difficulty);
-        AwardSelection(life,CreatureGold.SelectTreasureClass(context.TreasureClass,random,true),random);
+        return AwardSelection(life,CreatureGold.SelectTreasureClass(context.TreasureClass,random,true),random);
     }
-    private static void AwardSelection(RewardLife life,string leaf,Random random)
+    private static bool AwardSelection(RewardLife life,string leaf,Random random)
     {
-        if (leaf == "gld") { CreatureGold.Award(life, random); return; }
+        if (leaf == "gld") { return CreatureGold.Award(life, random); }
         var item = AlchemyRestoratives.Drop(leaf) ?? Generate(SelectBase(leaf, random), life.Level, life.MagicFind, random);
-        if (item != null) { life.Corpse.DropItem(item); }
+        if (item == null) { return false; }
+        life.Corpse.DropItem(item);
+        return true;
     }
 }

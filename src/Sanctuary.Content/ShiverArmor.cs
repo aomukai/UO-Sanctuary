@@ -69,7 +69,11 @@ internal static class ShiverArmor
         using var suppressed=CombatItemEvents.Suppress(owner,target);
         var result=PreparedMonsterDamage.ReleaseMissile(owner,target,packet,new(NamedCombat.Elite(target),()=>false,()=>0,()=>false),
             _=>throw new InvalidOperationException("Shiver Armor has no timed stun"),services,at);
-        if(!target.Deleted){target.FixedEffect(0x37B9,10,12,0x480,0);} // Identified hit overlay placeholder, after return.
+        if (!target.Deleted)
+        {
+            target.FixedEffect(SpellEffectGraphics.ShiverArmorReply, 10, SpellEffectGraphics.WardFrames);
+            target.PlaySound(SpellEffectSounds.ShiverArmorReply);
+        }
         return result;
     }
     internal static bool React(PlayerMobile owner,Mobile target,ColdArmorState armor)

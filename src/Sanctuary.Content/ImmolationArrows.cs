@@ -60,7 +60,7 @@ public static class ImmolationArrows
         }
         int fire=WeaponMissileDamage.RollValue(parent.Damage.Elements.FireMin,parent.Damage.Elements.FireMax,0,WeaponMissiles.DamageRoll);
         int area=(int)values.Eval("calc2");var center=new Point3D((int)Math.Round(x/2.0),(int)Math.Round(y/2.0),parent.Z);
-        Effects.SendLocationEffect(center,owner.Map,0x36BD,3); // Identified explosion placeholder.
+        AmazonBowEffects.Burst(owner,CombatAbility.ImmolationArrow,center);
         var targets=new List<Mobile>();
         foreach(var target in owner.Map.GetMobilesInRange<Mobile>(center,(int)Math.Ceiling(SkillGeometry.Tiles(area)+1)))
         {

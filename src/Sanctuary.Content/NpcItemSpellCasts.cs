@@ -83,7 +83,15 @@ internal static class NpcItemSpellCasts
             finally{if(had){ActiveFrames[id]=previous;}else{ActiveFrames.Remove(id);}}
         }
         internal override void NotifyTarget(int skill, int level, int type, int id, int flag)
-        {source.PlaySound(0x1E5);notified?.Invoke(new(type,id,0,0));} // Identified shared item-cast audio placeholder.
+        {
+            if (source is NecromancerMinion { Kind: CombatAbility.BloodGolem }
+                && skill == SkillMechanics.For(CombatAbility.LifeTap).SourceId)
+            {
+                NecromancerCurseVisuals.Cast(source);
+            }
+            else { source.PlaySound(0x1E5); }
+            notified?.Invoke(new(type,id,0,0));
+        }
         internal override void NotifyPosition(int skill, int level, int x, int y, int flag)
         {
             if(!positions){throw new NotSupportedException("NPC ground item curse is not admitted");}

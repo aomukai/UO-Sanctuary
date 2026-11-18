@@ -90,7 +90,7 @@ public static class AmazonBow
         }
         else if(!NecromancerEffects.Pay(owner,values.Mana256)){throw new InvalidOperationException("Bow release lost validated mana within one event");}
         FireGround.Delay(owner,ability);
-        owner.PlaySound(0x238); // Identified ordinary native bow sound placeholder.
+        AmazonBowEffects.Release(owner, ability);
         return true;
     }
 }

@@ -52,6 +52,7 @@ internal static class MageBasicSkills
             }
             long id=NecromancerMageMissiles.LaunchPacket(actor,target,at,packet,ray,motion,initializedSeed);if(first==0){first=id;}
         }
+        if (first > 0) { actor.PlaySound(SorceressVisuals.CastSound(packet.Spell)); }
         return first;
     }
 }

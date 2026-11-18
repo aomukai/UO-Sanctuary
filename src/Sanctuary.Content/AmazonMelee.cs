@@ -85,13 +85,12 @@ public static class AmazonMelee
         if(prepared==null || now<prepared.EffectAt){return false;}session.AmazonAttack=null;
         if(prepared.Ability!=ability || session.PendingTarget!=prepared.Target || !AmazonCombat.Available(owner,ability)
             || !AmazonJab.ValidTarget(owner,prepared.Target) || World.FindMobile(prepared.Target) is not{} target){return false;}
-        using var mode=WeaponHands.UseMelee(owner,CombatTiming.Equipped(owner));owner.DoHarmful(target,true);owner.PlaySound(0x238); // Identified native weapon sound/pose placeholders.
+        using var mode=WeaponHands.UseMelee(owner,CombatTiming.Equipped(owner));owner.DoHarmful(target,true);AmazonMeleeEffects.Thrust(owner,ability,prepared.Basic);
         using var attempt=PaladinThorns.Attempt(owner,target,false);
         if(target is BaseCreature creature&&prepared.Contact is{} contact)
         {
-            try{PlayerWeaponContact.Release(owner,creature,contact,TimedEffects.Now,true);}
+            try{AmazonMeleeEffects.ReleaseContact(owner,creature,contact,ability,prepared.Basic);}
             catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}
-            if(prepared.Hit&&!prepared.Basic){target.FixedEffect(0x374A,10,5,0x481,0);} // Identified weapon lightning-contact placeholder.
         }
         // Source do11 commits melee first, then emits at the resulting target
         // coordinates even on a miss or a lethal strike. The retained target

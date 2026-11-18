@@ -51,8 +51,9 @@ public static class AssassinBuffs
         // applying the new rank. Quickness and Fade share this slot;
         // Venom is independent and has no entry in this group.
         _states[owner.Serial.Value]=Capture(owner.Serial.Value,values,TimedEffects.Now);Refresh(owner);
-        owner.FixedEffect(0x373A,10,15,values.Ability==CombatAbility.Fade?0x835:0x481,0); // Identified quickness/fade cast/overlay placeholders.
-        owner.PlaySound(0x1E5); // Identified assassin_quickness/assassin_fade sound placeholder.
+        bool fade = values.Ability == CombatAbility.Fade;
+        owner.FixedEffect(fade ? 0x373A : 0x376A, 10, 15, fade ? 0x835 : 0x59, 0);
+        owner.PlaySound(fade ? 0x1E9 : 0x1EB);
     }
     public static void Clear(Mobile owner)
     {if(owner!=null && _states.Remove(owner.Serial.Value)){Refresh(owner);}}

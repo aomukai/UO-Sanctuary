@@ -104,7 +104,7 @@ public static class DruidFissure
         catch (NotSupportedException) { owner.SendMessage(0x22, "Fissure cannot be used in this context yet."); return false; }
         if (!NecromancerEffects.Pay(owner, values.Mana256)) { return false; }
         Commit(prepared); FireGround.Delay(owner, CombatAbility.Fissure);
-        owner.PlaySound(0x1E5); // Identified SC cast-audio placeholder.
+        DruidFireVisuals.FissureOpening(point, owner.Map);
         return true;
     }
     private static long Commit(FissureCenter center)
@@ -155,7 +155,6 @@ public static class DruidFissure
             center.NextUtc.AddMilliseconds(40), center.NextUtc.AddMilliseconds(84 * 40));
         Validate(crack);
         _pool = _pool with { NextId = id, Cracks = _pool.Cracks.Add(id, crack) };
-        Effects.SendLocationEffect(Location(x, y, center.Z), Map.Maps[center.Map], 0x398C, 3, 10, 0x489, 0); // Identified crack placeholder.
     }
     internal static bool Ready(long cast, uint target, DateTime at) => !_pool.Leases.TryGetValue((cast, target), out var lease) || lease.UntilUtc <= at;
     internal static Mobile Recipient(PlayerMobile owner, FissureCrack crack)
@@ -205,6 +204,7 @@ public static class DruidFissure
         var point = Location(crack.X, crack.Y, crack.Z);
         if (SpellHelper.IsTown(point, owner) || !Terrain(owner.Map, crack.X, crack.Y, crack.Z))
         { _pool = _pool with { Cracks = _pool.Cracks.Remove(crack.Id) }; return; }
+        DruidFireVisuals.FissureCrack(crack, owner.Map);
         if (Recipient(owner, crack) is { } target)
         {
             // Reuse the existing cast/target lease representation. Its exact
@@ -215,17 +215,18 @@ public static class DruidFissure
             int raw = WeaponMissileDamage.RollValue(crack.Min256, crack.Max256, 0, bound => (int)SourceRandom.Limited(ref seed, bound));
             next = next with { LastTarget = target.Serial.Value, Seed = seed };
             _pool = _pool with { Cracks = _pool.Cracks.SetItem(crack.Id, next), Leases = _pool.Leases.SetItem((crack.Cast, target.Serial.Value), lease) };
-            target.FixedEffect(0x3709, 3, 4, 0x489, 0); // Identified fire_hit placeholder, before defense/health.
             if (!ClassAvoidance.Missile(target, "erruption crack 1"))
             {
                 owner.DoHarmful(target, true);
+                var hitPoint = target.Location;
+                var hitMap = target.Map;
                 var parts = SkillCombat.MitigatePrepared(owner, target, DruidFirestorm.Packet(crack.Modifiers, raw));
                 int loss = SkillHealth.TypedDamage(owner,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));
+                if (loss > 0) { DruidFireVisuals.Contact(crack.Owner, target.Serial.Value, hitPoint, hitMap, crack.NextUtc); }
                 if (!BarbarianLeap.Uninterruptible(target) && target is BaseCreature survivor)
                 { CreatureHitRecovery.Apply(survivor, owner, loss); }
             }
         }
-        if (next.Frame % 5 == 0) { Effects.SendLocationEffect(point, owner.Map, 0x398C, 3, 10, 0x489, 0); } // Identified active-crack placeholder.
     }
     internal static void Tick(DateTime at, bool? actions = null)
     {
@@ -235,6 +236,7 @@ public static class DruidFissure
             var pool = _pool;
             DateTime next = pool.Centers.Values.Select(x => x.NextUtc).Concat(pool.Cracks.Values.Select(x => x.NextUtc)).DefaultIfEmpty(DateTime.MaxValue).Min();
             if (next > at) { PruneLeases(at); return; }
+            DruidFireVisuals.BeginFrame(next);
             // Native projection of newest-first unit lists across both actors.
             var due = pool.Centers.Values.Where(x => x.NextUtc == next).Select(x => (x.Id, Center: true))
                 .Concat(pool.Cracks.Values.Where(x => x.NextUtc == next).Select(x => (x.Id, Center: false))).OrderByDescending(x => x.Id).ToArray();

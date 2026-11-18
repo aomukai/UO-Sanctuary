@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
+using Server;
 using Server.Mobiles;
 
 namespace Sanctuary;
@@ -31,7 +32,7 @@ internal static class EnergyShields
     {
         if(!CanApply(owner,prepared)){return false;}
         SorceressEffects.Profiles.Store(owner,(SorceressEffects.Profiles.Find(owner)??new()) with{Shield=prepared});
-        owner.FixedEffect(0x375A,10,15,0x482,0); // Identified mana-shield placeholder.
+        owner.FixedEffect(SpellEffectGraphics.EnergyShieldCast, 10, SpellEffectGraphics.WardOneShot);
         return true;
     }
     internal static bool Release(PlayerMobile owner,SkillValues values)
@@ -41,7 +42,7 @@ internal static class EnergyShields
         // Refusal cannot replace/extend the old list or charge a new cast.
         if(!CanApply(owner,prepared)||!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
         if(!Apply(owner,prepared)){throw new InvalidOperationException("Energy Shield state changed during synchronous release");}
-        owner.PlaySound(0x1E5);return true; // Identified lightning-cast placeholder.
+        owner.PlaySound(SorceressVisuals.CastSound(CombatAbility.EnergyShield));return true;
     }
     internal static EnergyShieldResult Calculate(EnergyShieldDamage packet,int mana,int percent,int divisor,bool drainEligible)
     {
@@ -66,7 +67,7 @@ internal static class EnergyShields
         int stamina=drainEligible?Part(packet.StaminaDrain):packet.StaminaDrain;
         return new(new(physical,fire,lightning,cold,magic,life,drain,stamina),mana,checked((int)absorbed));
     }
-    internal static GearDamage Absorb(PlayerMobile owner,GearDamage damage,EnergyShieldState shield)
+    internal static GearDamage Absorb(PlayerMobile owner,GearDamage damage,EnergyShieldState shield,Mobile source)
     {
         int rank=shield.Rank;
         var values=rank>0?SkillMechanics.Values(owner,CombatAbility.EnergyShield,rank):null;
@@ -82,7 +83,12 @@ internal static class EnergyShields
             NecromancerEffects.ManaBalance256(owner),percent,divisor,false);
         if(percent==0){return damage;}
         NecromancerEffects.SetMana256(owner,result.Mana);
-        if(result.Mana==0){SorceressEffects.Profiles.Store(owner,SorceressEffects.Profiles.Find(owner) with{Shield=null});}
+        if (result.Absorbed > 0) { SorceressWardVisuals.Catch(owner, source); }
+        if (result.Mana == 0)
+        {
+            SorceressEffects.Profiles.Store(owner, SorceressEffects.Profiles.Find(owner) with { Shield = null });
+            SorceressWardVisuals.Break(owner);
+        }
         // GearDamage supplies no source drain fields or attacking-unit
         // classification. Do not fabricate them from poison/leech. Its five
         // eligible damage lanes are independent of that source qualification.

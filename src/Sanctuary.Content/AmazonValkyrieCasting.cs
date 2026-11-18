@@ -59,7 +59,7 @@ internal static class AmazonValkyrieCasting
             candidate.RestorePrepared(candidate.Prepared with{LearnedCast=true});
             committed=true;created=candidate;
             foreach(var previous in For(owner).Where(b=>b!=candidate).OrderBy(BattleCommand.PetOrder).ThenBy(b=>b.Serial.Value).ToArray()){previous.Delete();}
-            owner.PlaySound(0x1E5);candidate.FixedEffect(0x376A,10,16,0x481,0); // Identified summon/audio placeholders.
+            candidate.PresentSummon(owner);
             return true;
         }
         catch(Exception e)when(e is NotSupportedException or InvalidDataException or OverflowException or ArgumentException)

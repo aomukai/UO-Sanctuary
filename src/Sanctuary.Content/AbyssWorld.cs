@@ -77,7 +77,9 @@ internal static class AbyssWorld
         if(!Aim(p,Serial.Zero,ref point)||!FireGround.Ready(p,CombatAbility.Abyss,at)){return 0;}var b=AbyssBirths.Capture(p);
         if(!NecromancerEffects.CanPay(p,b.Numbers.Mana256)){return 0;}var launch=new Launch(p,point,b,at);
         if(!GroundMissileLaunch.Start14(launch)||!GroundMissileLaunch.Do28(402,b.Numbers.Rank,launch)){return 0;}
-        p.PlaySound(0x1E5);Effects.SendLocationEffect(point,p.Map,0x374A,12,10,0x48D,0);return launch.Created; // Tear/cast placeholders.
+        p.PlaySound(SpellEffectSounds.AbyssOpen);
+        Effects.SendLocationEffect(point, p.Map, SpellEffectGraphics.AbyssOpen, SpellEffectGraphics.AbyssRefreshDuration);
+        return launch.Created;
     }
     internal static void Tick(DateTime at)
     {
@@ -125,7 +127,21 @@ internal static class AbyssWorld
                     if(!ClassAvoidance.Missile(t,reaction:true)){damage=(int)Math.Min(int.MaxValue,(long)damage+MiasmaWorld.Deliver(p,t,raw,true,at));}
                 }
                 if(Fields.ContainsKey(n.Id)){Fields[n.Id]=Fields[n.Id]with{Seed=seed};}
-                Effects.SendLocationEffect(n.Point,p.Map,n.Terminal?0x37B9:0x374A,n.Terminal?3:12,10,0x48D,0); // Pulse/collapse placeholders.
+                if (n.Terminal)
+                {
+                    Effects.SendLocationEffect(n.Point, p.Map, SpellEffectGraphics.AbyssCollapse, SpellEffectGraphics.AbyssFrames);
+                    Effects.PlaySound(n.Point, p.Map, SpellEffectSounds.AbyssCollapse);
+                }
+                else if (Fields.TryGetValue(n.Id, out var refreshed))
+                {
+                    // Refresh the field at its existing pulse boundary. Shorten the final
+                    // sprite's lifetime so it stops with the active field.
+                    int duration = Math.Clamp((int)Math.Ceiling((refreshed.NextUtc - at).TotalMilliseconds / 50), 1,
+                        SpellEffectGraphics.AbyssRefreshDuration);
+                    Effects.SendLocationEffect(n.Point, p.Map, SpellEffectGraphics.AbyssField, duration);
+                    Effects.SendLocationEffect(n.Point, p.Map, SpellEffectGraphics.AbyssPull, Math.Min(duration, SpellEffectGraphics.AbyssFrames));
+                    SpellAreaSounds.Pulse(p.Serial.Value, SpellEffectSounds.AbyssPull, n.Point, p.Map, at, 420);
+                }
             }
             catch(NotSupportedException e){Fields.Remove(n.Id);return new(pulses,pulled,contacts,damage,terminals,e.Message);}
         }

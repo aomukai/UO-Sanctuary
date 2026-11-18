@@ -1,0 +1,54 @@
+diff --git a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -183,6 +183,7 @@
+                         SpellEffectGraphics.VolcanoOpening or SpellEffectGraphics.VolcanoCooling or SpellEffectGraphics.VolcanoLanding
+                             or SpellEffectGraphics.ArmageddonRelease or SpellEffectGraphics.ArmageddonAura or SpellEffectGraphics.ArmageddonImpact
+                             => SpellEffectGraphics.DruidEruptionFrames,
++                        _ when SpellEffectGraphics.IsDruidAnimalAnimation(Graphic) => SpellEffectGraphics.DruidAnimalFrames,
+                         _ when SpellEffectGraphics.IsEnchantAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ when SpellEffectGraphics.IsWardAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ => 0
+@@ -201,7 +202,7 @@
+                                 or SpellEffectGraphics.GolemSlow or SpellEffectGraphics.WoundActive
+                                 or SpellEffectGraphics.CombatStun or SpellEffectGraphics.RabiesCarrier
+                                 or SpellEffectGraphics.HurricaneCore or SpellEffectGraphics.CycloneArmorWard
+-                                or SpellEffectGraphics.ArmageddonAura);
++                                or SpellEffectGraphics.ArmageddonAura or SpellEffectGraphics.DireWolfRage or SpellEffectGraphics.RavenBlind);
+                         AnimationGraphic = (ushort)(Graphic + AnimIndex);
+                         if (AnimIndex < spellFrames - 1) { AnimIndex++; }
+                         else if (!oneShot) { AnimIndex = 0; }
+@@ -271,6 +272,10 @@
+                             SpellEffectGraphics.VolcanoLanding => 68,
+                             SpellEffectGraphics.ArmageddonImpact => 87,
+                             SpellEffectGraphics.ArmageddonAura => 145,
++                            SpellEffectGraphics.DireWolfRage or SpellEffectGraphics.RavenBlind => 130,
++                            SpellEffectGraphics.RavenContact or SpellEffectGraphics.SpiritWolfContact or SpellEffectGraphics.DireWolfContact
++                                or SpellEffectGraphics.GrizzlyContact or SpellEffectGraphics.GrizzlySmite => 65,
++                            _ when SpellEffectGraphics.IsDruidAnimalAnimation(Graphic) => 105,
+                             _ when SpellEffectGraphics.IsDruidCharge(Graphic) => 115,
+                             _ when SpellEffectGraphics.IsDruidFormEffect(Graphic) => 105,
+                             SpellEffectGraphics.ClayGolemContact or SpellEffectGraphics.IronGolemSpark => 65,
+diff --git a/src/ClassicUO.Client/Game/Managers/EffectManager.cs b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+--- a/src/ClassicUO.Client/Game/Managers/EffectManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+@@ -113,6 +113,7 @@
+                     || SpellEffectGraphics.IsDruidCharge(graphic)
+                     || graphic is SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow or SpellEffectGraphics.HurricaneCore
+                         or SpellEffectGraphics.CycloneArmorWard or SpellEffectGraphics.ArmageddonAura
++                        or SpellEffectGraphics.DireWolfRage or SpellEffectGraphics.RavenBlind
+                         or SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.PoisonAfflicted
+                         or SpellEffectGraphics.GolemSlow or SpellEffectGraphics.WoundActive
+                         or SpellEffectGraphics.CombatStun or SpellEffectGraphics.RabiesCarrier);
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -106,7 +106,7 @@
+             posY += (int)(Offset.Z + Offset.Y);
+ 
+             if (Source is Mobile marked &&
+-                (SpellEffectGraphics.IsCurseMark(Graphic) || Graphic == SpellEffectGraphics.CurseFade))
++                (SpellEffectGraphics.IsCurseMark(Graphic) || Graphic is SpellEffectGraphics.CurseFade or SpellEffectGraphics.RavenBlind))
+             {
+                 if (marked.IsDead) { return false; }
+                 // Place the mark in the upper body on targets of different heights.

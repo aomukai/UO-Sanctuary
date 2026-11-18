@@ -21,14 +21,59 @@ public sealed class DruidFormProfiles:GenericPersistence
 }
 
 // Prepared saved stat consumer. Shape restrictions and ordinary form A1
-// consumers read this ledger. Learned transformation casting/payment,direct
-// switching,visual body and other action clocks remain separate.
+// consumers read this ledger. The displayed form is derived from the ledger
+// so the server body and its collision footprint stay independent.
 public static class DruidPlayerForms
 {
     private static ImmutableDictionary<uint,DruidPlayerForm> _states=ImmutableDictionary<uint,DruidPlayerForm>.Empty;
     public static DruidFormProfiles Profiles{get;private set;}
     public static void Configure()=>Profiles=new();
-    public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),()=>Prune(TimedEffects.Now));
+    public static void Initialize()
+    {
+        Timer.StartTimer(TimeSpan.FromMilliseconds(40), TimeSpan.FromMilliseconds(40), () => Prune(TimedEffects.Now));
+        Timer.StartTimer(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1), RefreshVisibleForms);
+    }
+
+    private static void RefreshVisibleForms()
+    {
+        foreach (var (serial, state) in _states)
+        {
+            if (World.FindMobile((Serial)serial) is PlayerMobile owner && Owner(owner))
+            {
+                PublishAppearance(owner, state.Form.Ability);
+            }
+        }
+    }
+
+    private static void PublishAppearance(PlayerMobile owner, CombatAbility ability)
+    {
+        if (owner.Deleted || owner.Map == null || owner.Map == Map.Internal)
+        {
+            return;
+        }
+
+        byte form = ability switch
+        {
+            CombatAbility.Werewolf => DruidFormVisualProtocol.Wolf,
+            CombatAbility.Werebear => DruidFormVisualProtocol.Bear,
+            _ => DruidFormVisualProtocol.Human
+        };
+        Span<byte> packet = stackalloc byte[DruidFormVisualProtocol.Length];
+        var writer = new System.Buffers.SpanWriter(packet);
+        writer.Write((byte)0xBF);
+        writer.Write((ushort)DruidFormVisualProtocol.Length);
+        writer.Write(DruidFormVisualProtocol.SubCommand);
+        writer.Write(DruidFormVisualProtocol.Version);
+        writer.Write(owner.Serial.Value);
+        writer.Write(form);
+        foreach (var state in owner.Map.GetClientsInRange(owner.Location))
+        {
+            if (form == DruidFormVisualProtocol.Human || state.Mobile?.CanSee(owner) == true)
+            {
+                state.Send(packet);
+            }
+        }
+    }
     private static bool Owner(PlayerMobile owner)=>owner is{Alive:true,Deleted:false}
         &&ClassCreation.Profiles?.TryGet(owner.Serial,out var profile)==true&&profile.Class==DiabloClass.Druid;
     internal static DruidPlayerForm State(Mobile owner)=>owner is PlayerMobile player&&Owner(player)
@@ -59,16 +104,21 @@ public static class DruidPlayerForms
         var before=BattleOrders.Capture(owner);
         _states=_states.Add(owner.Serial.Value,state);
         BattleOrders.Change(owner,before);
+        PublishAppearance(owner, ability);
         return true;
     }
-    internal static bool Clear(PlayerMobile owner)
+    internal static bool Clear(PlayerMobile owner) => Clear(owner, present: true);
+
+    internal static bool Clear(PlayerMobile owner, bool present)
     {
-        if(owner==null||!_states.ContainsKey(owner.Serial.Value)){return false;}
+        if(owner==null||!_states.TryGetValue(owner.Serial.Value,out var state)){return false;}
         var before=owner is{Alive:true,Deleted:false}?BattleOrders.Capture(owner):(BattleOrders.Pools?)null;
         _states=_states.Remove(owner.Serial.Value);
+        PublishAppearance(owner, CombatAbility.None);
         DruidAttackCharges.Clear(owner);DruidChargedAttacks.Cancel(owner);DruidFireClaws.Cancel(owner);DruidHunger.Cancel(owner);DruidRabies.Cancel(owner);DruidShockWave.Cancel(owner);DruidFury.Cancel(owner);
         if(before is{} pools){BattleOrders.Change(owner,pools);}
         else if(!owner.Deleted){ClassStats.Refresh(owner);}
+        if(present){DruidFormEffects.Transform(owner,state.Form.Ability,entering:false);}
         return true;
     }
     internal static void Prune(DateTime at)
@@ -78,7 +128,7 @@ public static class DruidPlayerForms
         {
             var owner=World.FindMobile((Serial)pair.Key) as PlayerMobile;
             if(owner==null||!Owner(owner))
-            {_states=_states.Remove(pair.Key);if(owner!=null){DruidAttackCharges.Clear(owner);DruidChargedAttacks.Cancel(owner);DruidFireClaws.Cancel(owner);DruidHunger.Cancel(owner);DruidRabies.Cancel(owner);DruidShockWave.Cancel(owner);DruidFury.Cancel(owner);}continue;}
+            {_states=_states.Remove(pair.Key);if(owner!=null){PublishAppearance(owner,CombatAbility.None);DruidAttackCharges.Clear(owner);DruidChargedAttacks.Cancel(owner);DruidFireClaws.Cancel(owner);DruidHunger.Cancel(owner);DruidRabies.Cancel(owner);DruidShockWave.Cancel(owner);DruidFury.Cancel(owner);}continue;}
             if(pair.Value.UntilUtc<=at){Clear(owner);}
         }
     }

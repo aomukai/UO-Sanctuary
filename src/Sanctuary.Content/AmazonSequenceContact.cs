@@ -5,7 +5,7 @@ namespace Sanctuary;
 
 internal static class AmazonSequenceContact
 {
-    internal static void Release(PlayerMobile owner,BaseCreature target,int attackPercent,int physicalPercent,
+    internal static void Release(PlayerMobile owner,BaseCreature target,CombatAbility ability,bool basic,int attackPercent,int physicalPercent,
         Func<double> hit,Func<double> elements,Func<int,int> physical,Func<int,int> poison,Random effects,Random wear)
     {
         try
@@ -16,7 +16,7 @@ internal static class AmazonSequenceContact
             // The expansion writer replaces native weapon wear at its actual
             // drain phase;it does not add a second roll after return damage.
             contact=contact with{AttemptScoped=true,RangeCheck=_=>AmazonJab.ValidTarget(owner,target.Serial),WeaponWear=()=>AmazonJab.Wear(weapon,wear)};
-            PlayerWeaponContact.Release(owner,target,contact,TimedEffects.Now,true);
+            AmazonMeleeEffects.ReleaseContact(owner,target,contact,ability,basic);
         }
         catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);}
     }

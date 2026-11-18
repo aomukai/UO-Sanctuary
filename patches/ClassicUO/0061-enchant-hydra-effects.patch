@@ -1,0 +1,113 @@
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -139,6 +139,8 @@
+                             or SpellEffectGraphics.TelekinesisCast or SpellEffectGraphics.TelekinesisContact
+                             or SpellEffectGraphics.TelekinesisObject or SpellEffectGraphics.TeleportDeparture or SpellEffectGraphics.TeleportArrival
+                             => SpellEffectGraphics.UtilityFrames,
++                        SpellEffectGraphics.HydraBoltContact => SpellEffectGraphics.UtilityFrames,
++                        _ when SpellEffectGraphics.IsEnchantAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ when SpellEffectGraphics.IsWardAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ => 0
+                     };
+@@ -146,7 +148,8 @@
+                     {
+                         bool oneShot = Graphic is not (SpellEffectGraphics.MeteorWarning or SpellEffectGraphics.MeteorFire
+                             or SpellEffectGraphics.AbyssField or SpellEffectGraphics.BlazeField)
+-                            && !SpellEffectGraphics.IsColdStatus(Graphic) && !SpellEffectGraphics.IsSorceressWard(Graphic);
++                            && !SpellEffectGraphics.IsColdStatus(Graphic) && !SpellEffectGraphics.IsSorceressWard(Graphic)
++                            && Graphic != SpellEffectGraphics.EnchantWard;
+                         AnimationGraphic = (ushort)(Graphic + AnimIndex);
+                         if (AnimIndex < spellFrames - 1) { AnimIndex++; }
+                         else if (!oneShot) { AnimIndex = 0; }
+@@ -165,6 +168,7 @@
+                             SpellEffectGraphics.GlacialSpikeBurst => 90,
+                             SpellEffectGraphics.ColdCorpseShatter => 80,
+                             SpellEffectGraphics.NovaRing or SpellEffectGraphics.FrostNovaRing => 130,
++                            SpellEffectGraphics.EnchantWard => 145,
+                             SpellEffectGraphics.NovaCast or SpellEffectGraphics.TelekinesisCast or SpellEffectGraphics.TelekinesisContact
+                                 or SpellEffectGraphics.TelekinesisObject or SpellEffectGraphics.TeleportDeparture or SpellEffectGraphics.TeleportArrival => 65,
+                             SpellEffectGraphics.Chilled or SpellEffectGraphics.Frozen => 120,
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -106,6 +106,7 @@
+ 
+             if (Source is Mobile { IsGargoyle: true, IsFlying: true }
+                 && (Sanctuary.SpellEffectGraphics.IsWardAnimation(Graphic)
++                    || Sanctuary.SpellEffectGraphics.IsEnchantAnimation(Graphic)
+                     || Graphic is Sanctuary.SpellEffectGraphics.NovaCast or Sanctuary.SpellEffectGraphics.NovaContact
+                         or Sanctuary.SpellEffectGraphics.TelekinesisCast or Sanctuary.SpellEffectGraphics.TelekinesisContact))
+             {
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+@@ -10,6 +10,7 @@
+ using Microsoft.Xna.Framework.Graphics;
+ using System;
+ using System.Collections.Generic;
++using Sanctuary;
+ 
+ namespace ClassicUO.Game.GameObjects
+ {
+@@ -23,11 +24,34 @@
+         private static int _startCharacterFeetY;
+         private static int _characterFrameHeight;
+ 
++        private ushort _hydraFrame;
++        private Point _hydraOffset;
++
++        internal void SetHydraFrame(ushort graphic, int x, int y)
++        {
++            if (graphic == SpellEffectGraphics.HydraHeadGone || Client.Game.UO.Arts.GetArt(graphic).Texture != null)
++            {
++                _hydraFrame = graphic;
++                _hydraOffset = new Point(x, y);
++            }
++        }
++
+         public override bool Draw(UltimaBatcher2D batcher, int posX, int posY, float depth)
+         {
+             if (IsDestroyed || !AllowedToDraw)
+             {
+                 return false;
++            }
++
++            if (_hydraFrame != 0)
++            {
++                if (_hydraFrame != SpellEffectGraphics.HydraHeadGone)
++                {
++                    Vector3 hue = ShaderHueTranslator.GetHueVector(0, false, 1f);
++                    DrawStaticRotated(batcher, _hydraFrame, posX + _hydraOffset.X, posY + _hydraOffset.Y,
++                        0f, hue, depth + _hydraOffset.Y / 44f);
++                }
++                return true;
+             }
+ 
+             bool charSitting = false;
+--- a/src/ClassicUO.Client/Game/Managers/EffectManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+@@ -63,6 +63,16 @@
+ 
+             GameEffect effect;
+ 
++            if (type == GraphicEffectType.FixedFrom && SpellEffectGraphics.IsHydraHeadFrame(graphic))
++            {
++                if (_world.Get(source) is Mobile head)
++                {
++                    // Hydra frame packets carry its projected half-tile position in these two bytes.
++                    head.SetHydraFrame(graphic, speed - 64, duration - 64);
++                }
++                return;
++            }
++
+             if (hue != 0)
+             {
+                 hue++;
+@@ -71,7 +81,8 @@
+             duration *= Constants.ITEM_EFFECT_ANIMATION_DELAY;
+ 
+             bool renewStatus = type == GraphicEffectType.FixedFrom
+-                && (SpellEffectGraphics.IsColdStatus(graphic) || SpellEffectGraphics.IsSorceressWard(graphic));
++                && (SpellEffectGraphics.IsColdStatus(graphic) || SpellEffectGraphics.IsSorceressWard(graphic)
++                    || graphic == SpellEffectGraphics.EnchantWard);
+             bool renewField = type == GraphicEffectType.FixedXYZ && SpellEffectGraphics.IsFireField(graphic);
+             if (renewStatus || renewField)
+             {

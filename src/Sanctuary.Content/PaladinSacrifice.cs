@@ -125,20 +125,28 @@ public static class PaladinSacrifice
         int cost=Cost256(physical256,SkillHealth.Balance256(target),(int)values.Eval("calc2"));
         // Do64 commits direct self damage before DrainItemDurability rechecks
         // contact. Never reapply self resistance or reroll the stored packet.
+        int before = cost > 0 && owner is { Alive: true, Deleted: false } ? SkillHealth.Balance256(owner) : 0;
+        var origin = owner.Location;
+        var originMap = owner.Map;
         SkillHealth.PayLife(owner,cost);
+        if (before > 0 && (!owner.Alive || SkillHealth.Balance256(owner) < before))
+        { PaladinMeleeVisuals.SacrificeCost(owner, origin, originMap); }
         if(owner is not{Alive:true,Deleted:false}){return true;}
         if(checkContact&&!ValidTarget(owner,target.Serial)){return true;}
-        owner.DoHarmful(target,true);owner.PlaySound(0x238); // Existing weapon sound placeholder.
+        owner.DoHarmful(target,true);
+        PaladinMeleeVisuals.Swing(owner, CombatAbility.Sacrifice);
+        var point = target.Location;
+        var map = target.Map;
         if(target is BaseCreature creature&&prepared.Contact!=null)
         {
             var result=PlayerWeaponContact.Release(owner,creature,prepared.Contact,TimedEffects.Now,true);
-            if(owner is{Alive:true,Deleted:false}){owner.FixedEffect(0x37B9,5,5,0x21,0);}
+            PaladinMeleeVisuals.Land(owner, point, map, CombatAbility.Sacrifice, result);
             return result.Exit==MonsterContactExit.Finished;
         }
         using var attempted=PaladinThorns.Attempt(owner,target,false);
         if(!prepared.Hit){return true;}
         GearEffects.Strike(owner,target,prepared.ElementRoll,preparedImpact:prepared.Impact);
-        if(owner is{Alive:true,Deleted:false}){owner.FixedEffect(0x37B9,5,5,0x21,0);} // Placeholder; source blood1 art is separately registered.
+        PaladinMeleeVisuals.Land(owner, point, map, CombatAbility.Sacrifice);
         return true;
     }
 }

@@ -22,6 +22,7 @@ public static class ImpaleSlow
 {
     private static readonly Dictionary<uint,ImpaleSlowState> _states=new();
     private static readonly List<uint> _expired=new();
+    private static readonly Dictionary<uint,DateTime> _visualRefresh=new();
     public static ImpaleSlowProfiles Profiles{get;private set;}
     public static void Configure()=>Profiles=new();
     public static void Initialize()=>Timer.StartTimer(TimeSpan.Zero,TimeSpan.FromMilliseconds(40),Prune);
@@ -38,15 +39,40 @@ public static class ImpaleSlow
         int Field(string field)=>(int)Math.Clamp(-values.Eval(field),0,100);
         // Generic do2 reuses/replaces the same target stat list without rank
         // priority. This state is independent of ordinary curses and cold.
-        _states[target.Serial.Value]=new(target.Serial.Value,source.Serial.Value,values.Rank,Field("aurastatcalc1"),Field("aurastatcalc2"),Field("aurastatcalc3"),
-            TimedEffects.Now.AddMilliseconds(Math.Max(1,values.Eval("auralencalc"))*40));
+        var now=TimedEffects.Now;
+        var state=new ImpaleSlowState(target.Serial.Value,source.Serial.Value,values.Rank,Field("aurastatcalc1"),Field("aurastatcalc2"),Field("aurastatcalc3"),
+            now.AddMilliseconds(Math.Max(1,values.Eval("auralencalc"))*40));
+        _states[target.Serial.Value]=state;
+        RefreshVisual(target,state.UntilUtc,now);
     }
-    public static void Clear(Mobile target){if(target!=null){_states.Remove(target.Serial.Value);}}
+    private static void RefreshVisual(Mobile target,DateTime expiry,DateTime now)
+    {
+        if(target.Map is not {} map || map==Map.Internal || _visualRefresh.GetValueOrDefault(target.Serial.Value)>now){return;}
+        double remaining=(expiry-now).TotalMilliseconds;
+        int duration=(int)Math.Ceiling(Math.Min(remaining,650)/50);
+        target.FixedEffect(SpellEffectGraphics.ImpaleSlow,10,duration);
+        _visualRefresh[target.Serial.Value]=now.AddMilliseconds(Math.Min(remaining,450));
+    }
+    private static void ClearVisual(uint id,Mobile target)
+    {
+        if(_visualRefresh.Remove(id) && target is {Deleted:false,Map:{} map} && map!=Map.Internal)
+        {target.FixedEffect(SpellEffectGraphics.ImpaleSlow,10,0);}
+    }
+    public static void Clear(Mobile target)
+    {
+        if(target==null){return;}
+        _states.Remove(target.Serial.Value);ClearVisual(target.Serial.Value,target);
+    }
     private static void Prune()
     {
-        _expired.Clear();foreach(var pair in _states)
-        {if(pair.Value.UntilUtc<=TimedEffects.Now || World.FindMobile((Serial)pair.Key) is not{Alive:true,Deleted:false}){_expired.Add(pair.Key);}}
-        foreach(uint id in _expired){_states.Remove(id);}
+        var now=TimedEffects.Now;
+        _expired.Clear();
+        foreach(var (id,state) in _states)
+        {
+            if(state.UntilUtc<=now || World.FindMobile((Serial)id) is not{Alive:true,Deleted:false} target){_expired.Add(id);}
+            else{RefreshVisual(target,state.UntilUtc,now);}
+        }
+        foreach(uint id in _expired){_states.Remove(id);ClearVisual(id,World.FindMobile((Serial)id));}
     }
     public static ImpaleSlowState[] Snapshot()=>new List<ImpaleSlowState>(_states.Values).ToArray();
     public static void Restore(ImpaleSlowState[] saved)
@@ -57,6 +83,7 @@ public static class ImpaleSlow
             if(state.Target==0 || state.Source==0 || state.Rank is <1 or >255 || state.Velocity is <0 or >100 || state.Attack is <0 or >100 || state.Other is <0 or >100
                 || state.UntilUtc.Kind!=DateTimeKind.Utc || !restored.TryAdd(state.Target,state)){throw new InvalidDataException("Invalid Impale slow");}
         }
+        foreach(uint id in _states.Keys){ClearVisual(id,World.FindMobile((Serial)id));}
         _states.Clear();foreach(var pair in restored){_states.Add(pair.Key,pair.Value);}
     }
 }

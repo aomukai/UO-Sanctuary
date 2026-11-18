@@ -8,7 +8,7 @@ Sanctuary is a solo-developed game set in Britannia, combining Diablo-style clas
 
 All **eight classes and their 240 talents** have mechanical implementations, including **Warlock / Witch**. The mechanical reference is **Diablo II: Resurrected — Reign of the Warlock, version 3.3.93847**, with deliberate Sanctuary adaptations for the persistent world.
 
-The current build is a **PvE development build**. Britain and its graveyard provide a small playable test area; the wider world, dungeon progression and overall balance are still being developed. Many skill effects use existing UO graphics, and talent/hotkey icons currently use text placeholders.
+The current build is a **PvE development build**. Britain and its graveyard provide a small playable test area. The wider world, dungeon progression and overall balance are still being developed. All talents have UO-style icons that also appear on their available bindings. Many combat effects still use temporary UO graphics.
 
 ### Classes
 
@@ -35,7 +35,7 @@ Sanctuary makes its own choices where D2's rules do not suit a persistent UO wor
 - Housing, equipment insurance, death penalties and corpse recovery.
 - Persistent characters, inventories and supported companions across server restarts.
 
-Full mercenary recruitment and combat, broader monster ability conversion, world population and progression, remaining item-effect delivery, and final skill artwork/audio are still ahead.
+Full mercenary recruitment and combat, broader monster ability conversion, world population and progression, remaining item-effect delivery, and final combat visuals and audio are still ahead.
 
 ## Playing
 
@@ -99,7 +99,7 @@ For content changes, close the server, run `./dev build content`, then start wit
 
 The next phase will use smaller goals, with one complete, playable result at a time:
 
-- Skill icons, spell effects, animations and sound.
+- Spell effects, animations and sound.
 - D2-style ability repertoires for UO monsters, followed by encounter and dungeon authoring.
 - Mercenary recruitment, equipment and combat built on the existing companion systems.
 - Remaining equipment effects and later designs for charged or crafted skill-granting gear.

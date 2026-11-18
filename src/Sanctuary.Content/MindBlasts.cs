@@ -83,7 +83,7 @@ public static class MindBlasts
         {if(Target(owner,target,point,radius)){victims.Add(target);}}
         victims.Sort((a,b)=>a.Serial.CompareTo(b.Serial));
         foreach(var target in victims){Impact(owner,target,values,raw);}
-        owner.PlaySound(0x1E5);Effects.SendLocationEffect(point,owner.Map,0x373A,15,10,0x481,0); // Identified cast/center/audio placeholders.
+        owner.PlaySound(0x213);Effects.SendLocationEffect(point,owner.Map,0x373A,15,10,0x481,0); // Identified cast/center/audio placeholders.
         return true;
     }
 }

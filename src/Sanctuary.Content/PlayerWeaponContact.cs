@@ -11,7 +11,12 @@ namespace Sanctuary;
 // Item processors and native encounter reactions remain explicit adapters.
 internal sealed record PlayerWeaponContactPrepared(int Flags,PreparedWeaponImpact Impact,PlayerWeaponDrain Drain,int ColdFrames,int BaseHitClass,Random Effects,int HitClass=0,
     bool Smite=false,Func<int,int> StunRoll=null,int? MeleeRange=null,bool SkillKnockback=false,Func<int,bool> RangeCheck=null,int FreezeFrames=0,uint HitFlags=0,int? CrushingDivisor=null,bool SuppressWear=false,bool AttemptScoped=false,
-    Action<PlayerMobile,BaseCreature,DateTime> CapturedPoison=null,bool ControlStun=false,Func<bool> UninterruptibleItemCasts=null,Func<bool> ActiveSourceMode=null,Action WeaponWear=null,SkillDamageKind DamageKind=SkillDamageKind.Direct);
+    Action<PlayerMobile,BaseCreature,DateTime> CapturedPoison=null,bool ControlStun=false,Func<bool> UninterruptibleItemCasts=null,Func<bool> ActiveSourceMode=null,Action WeaponWear=null,SkillDamageKind DamageKind=SkillDamageKind.Direct,
+    Action<PlayerMobile,int,int> PresentLeech=null)
+{
+    internal bool BashTrail { get; init; }
+    internal bool TalonTrail { get; init; }
+}
 
 internal static class PlayerWeaponContact
 {
@@ -133,7 +138,8 @@ internal static class PlayerWeaponContact
         internal override void BeforeHealth(PreparedMonsterDamagePacket p)
         {
             if((p.ResultFlags&32)==0&&(!missile||(p.HitFlags&160)==32)){WeaponLandedEvents.Notify(source,target,missile);}
-            scope.Before=SkillHealth.Balance256(target);WeaponLeech.Apply(source,target,p.Physical256,scope.Prepared.Drain);
+            scope.Before=SkillHealth.Balance256(target);
+            WeaponLeech.Apply(source,target,p.Physical256,scope.Prepared.Drain,scope.Prepared.PresentLeech);
         }
         internal override void BeforeHealthCommit(Mobile attacker,BaseCreature recipient,int after256)
         {PreparedMonsterNativeDamage.Notify(attacker,recipient,after256);scope.After=after256;scope.Loss=Math.Max(0,scope.EntryHits-(after256+255)/256);}
@@ -189,8 +195,13 @@ internal static class PlayerWeaponContact
         internal override void Return(ref PreparedMonsterDamagePacket p,Action death)
         {
             if(metadata!=null)
-            {PreparedMonsterReturn.Dispatch(ref p,new NativeMonsterReturn(source,source,target,metadata,death,()=>EliteCombat.OnStruck(target,source,scope.Loss),
-                knockback:scope.Prepared.Smite||scope.Prepared.SkillKnockback?SourceKnockbacks.BeginPrepared:null),true);return;}
+            {
+                Func<Mobile, BaseCreature, bool> knockback = scope.Prepared.BashTrail ? SourceKnockbacks.BeginBash
+                    : scope.Prepared.TalonTrail ? SourceKnockbacks.BeginDragonTalon
+                    : scope.Prepared.Smite || scope.Prepared.SkillKnockback ? SourceKnockbacks.BeginPrepared : null;
+                PreparedMonsterReturn.Dispatch(ref p,new NativeMonsterReturn(source,source,target,metadata,death,
+                    ()=>EliteCombat.OnStruck(target,source,scope.Loss),knockback:knockback),true);return;
+            }
             // Unclassified UO actors retain their existing native recovery.
             // This adapter supplies no invented D2 class/base/mode identity.
             // Death still follows the common HP,kill,attempt and return phases.

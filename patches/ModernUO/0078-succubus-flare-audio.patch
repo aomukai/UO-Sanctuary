@@ -1,0 +1,41 @@
+--- a/Projects/UOContent/UOContent.csproj
++++ b/Projects/UOContent/UOContent.csproj
+@@ -37,6 +37,7 @@
+     </Target>
+     <ItemGroup>
+         <Compile Include="../../../../shared/FlareGraphics.cs" Link="Sanctuary/FlareGraphics.cs" />
++        <Compile Include="../../../../shared/SpellEffectSounds.cs" Link="Sanctuary/SpellEffectSounds.cs" />
+         <ProjectReference Include="..\Logger\Logger.csproj" />
+         <ProjectReference Include="..\Server\Server.csproj" Private="false" PrivateAssets="All" IncludeAssets="None">
+             <IncludeInPackage>false</IncludeInPackage>
+--- a/Projects/UOContent/Spells/Sixth/EnergyBolt.cs
++++ b/Projects/UOContent/Spells/Sixth/EnergyBolt.cs
+@@ -20,6 +20,8 @@
+         public override SpellCircle Circle => SpellCircle.Sixth;
+ 
+         public override bool DelayedDamage => true;
++
++        protected virtual int ReleaseSound => 0x20A;
+ 
+         public void Target(Mobile m)
+         {
+@@ -53,7 +55,7 @@
+                 }
+ 
+                 SendProjectile(source, m);
+-                source.PlaySound(0x20A);
++                source.PlaySound(ReleaseSound);
+ 
+                 DealDamage(m, damage);
+             }
+--- a/Projects/UOContent/Mobiles/Monsters/Humanoid/Magic/Succubus.cs
++++ b/Projects/UOContent/Mobiles/Monsters/Humanoid/Magic/Succubus.cs
+@@ -70,6 +70,8 @@
+ 
+         private sealed class SuccubusFlareSpell(Mobile caster, bool cold) : EnergyBoltSpell(caster)
+         {
++            protected override int ReleaseSound => SpellEffectSounds.FlareRelease;
++
+             public override void OnBeginCast()
+             {
+                 base.OnBeginCast();

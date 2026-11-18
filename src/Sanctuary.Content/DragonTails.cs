@@ -55,7 +55,9 @@ public static class DragonTails
         var contact=new PlayerWeaponContactPrepared(flags,impact,kick?.Drain??default,cold,CreatureHitRecovery.PlayerHitClass(owner),
             ability==CombatAbility.DragonFlight?DragonFlights.Effects:ability==CombatAbility.DragonTalon?DragonTalons.Effects:Effects,
             RangeCheck:bonus=>PlayerMeleeGeometry.Within(owner,target,bonus),FreezeFrames:freeze,
-            SkillKnockback:knockback,HitFlags:ability==CombatAbility.DragonTalon||ability==CombatAbility.DragonFlight&&(flags&1)!=0?3u:0u);
+            SkillKnockback:knockback,HitFlags:ability==CombatAbility.DragonTalon||ability==CombatAbility.DragonFlight&&(flags&1)!=0?3u:0u,
+            PresentLeech: kick is { CobraCharged: true } ? DruidFormEffects.HungerRecovery : null)
+            { TalonTrail = knockback && ability == CombatAbility.DragonTalon };
         return new(target.Serial,flags,kick,contact,effectAt);
     }
     internal static (int Cold,int Freeze) ColdLengths(PlayerMobile owner,BaseCreature target,int rawCold,int rawFreeze)
@@ -104,6 +106,7 @@ public static class DragonTails
                 case CombatAbility.BladesOfIce:MartialCold.AfterParent(owner,target,center,map,MartialCold.Capture(owner,state,rollInline:false),TimedEffects.Now);break;
                 case CombatAbility.ClawsOfThunder:MartialLightning.AfterParent(owner,center,map,MartialLightning.Capture(owner,state,rollInline:false),TimedEffects.Now);break;
             }
+            AssassinMartialVisuals.Contact(owner, center, map, state.Ability, TimedEffects.Now);
             AssassinCharges.Consume(owner,state,SkillMechanics.For(finisher).Number("prgchargesconsumed"));
         }
     }
@@ -121,7 +124,7 @@ public static class DragonTails
             if(target is{Alive:true,Deleted:false}){PlayerWeaponContact.RequireOrdinary(owner,target,true);}
             var values=SkillMechanics.Values(owner,CombatAbility.DragonTail);
             if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
-            owner.PlaySound(0x238); // Identified native kick/contact sound placeholder.
+            AssassinDragonVisuals.Sweep(owner, target, CombatAbility.DragonTail);
             if(target==null||target.Deleted||target.Map!=owner.Map){return true;}
             var center=target.Location;var map=target.Map;
             int copied=prepared.Kick==null?0:NamedElements.To256(prepared.Kick.Impact.Parts.Physical);
@@ -129,7 +132,11 @@ public static class DragonTails
             // Progressive uses bonus0; DrainItemDurability independently uses1.
             if((prepared.Flags&1)!=0&&target is{Alive:true,Deleted:false}&&ClassCombat.IsHostile(owner,target)&&!SpellHelper.IsTown(owner.Location,owner)&&!SpellHelper.IsTown(target.Location,target)&&PlayerMeleeGeometry.Within(owner,target,0))
             {Progressive(owner,target,center,map);}
-            if(target is{Alive:true,Deleted:false}){PlayerWeaponContact.Release(owner,target,prepared.Contact,TimedEffects.Now,true);}
+            if (target is { Alive: true, Deleted: false })
+            {
+                var result = PlayerWeaponContact.Release(owner, target, prepared.Contact, TimedEffects.Now, true);
+                AssassinDragonVisuals.Contact(center, map, CombatAbility.DragonTail, result);
+            }
             if((prepared.Flags&1)!=0&&owner is{Alive:true,Deleted:false}&&SkillHealth.Balance256(owner)>0)
             {
                 if(target is{Deleted:false}&&target.Map==map){center=target.Location;}

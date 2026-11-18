@@ -115,8 +115,11 @@ public static class DruidArcticStream
         // approved T29 lanes using captured masteries and the live potion,
         // then applies defenses/resistance/absorb/DamageRate once per lane.
         // ReturnFire0 and cold length still come from Arctic's own route.
-        SorceressSpellMissiles.ImpactPrepared(owner,target,"arcticblast1","cold",raw,
+        var point = target.Location;
+        var map = target.Map;
+        int loss = SorceressSpellMissiles.ImpactPrepared(owner,target,"arcticblast1","cold",raw,
             s.Modifiers??new(0,0,0,0,0),s.NextUtc,s.Damage.ColdFrames,damageRate:41);
+        if (loss > 0) { ArcticBlastVisuals.Contact(s.Owner, point, map, s.NextUtc); }
         if(owner is not{Alive:true,Deleted:false}||owner.Map?.MapID!=s.Map)
         {next=next with{Fault="Arctic reentrant owner/death/facet chronology remains unverified"};}
         return next;
@@ -139,10 +142,18 @@ public static class DruidArcticStream
         foreach(var cell in steps.Cells)
         {
             if(Recipient(owner,s,cell) is{} target){next=Impact(owner,target,next with{NextUtc=s.NextUtc});break;}
-            if(DruidFirestorm.CellBlocked(map,s.Z,s.X,s.Y,cell.X,cell.Y)){Remove(s.Id);return;}
+            if(DruidFirestorm.CellBlocked(map,s.Z,s.X,s.Y,cell.X,cell.Y))
+            {
+                Remove(s.Id);
+                if (remaining > 1) { ArcticBlastVisuals.Fade(map, s); }
+                return;
+            }
         }
-        _pool=_pool with{Missiles=_pool.Missiles.SetItem(s.Id,next with{X=x,Y=y,Steps=steps,NextUtc=s.NextUtc.AddMilliseconds(40)})};
-        if(remaining%2==0){Effects.SendLocationEffect(new((int)Math.Round(x),(int)Math.Round(y),s.Z),map,0x374A,3,8,0x480,0);} // Identified cold-stream placeholder.
+        next = next with { X = x, Y = y, Steps = steps, NextUtc = s.NextUtc.AddMilliseconds(40) };
+        _pool = _pool with { Missiles = _pool.Missiles.SetItem(s.Id, next) };
+        if (next.Fault != null) { return; }
+        if (remaining == 1) { ArcticBlastVisuals.Fade(map, next); }
+        else if (remaining % 2 == 0) { ArcticBlastVisuals.Travel(map, next); }
     }
     internal static void Tick(DateTime at,bool? actions=null)
     {

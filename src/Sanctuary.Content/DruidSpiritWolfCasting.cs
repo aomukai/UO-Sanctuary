@@ -52,7 +52,7 @@ public static class DruidSpiritWolfCasting
         // Never replace an existing wolf on failed allocation or payment.
         if(!NecromancerEffects.Pay(owner,values.Mana256)){body.Delete();return false;}
         body.RestorePrepared(body.Prepared with{LearnedCast=true});DruidSpiritWolves.Enforce(owner);
-        owner.PlaySound(0x1E5); // Identified druid_summon audio placeholder.
+        DruidSummonVisuals.Arrive(body);
         return true;
     }
 }

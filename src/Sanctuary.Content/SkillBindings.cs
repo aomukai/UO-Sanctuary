@@ -153,9 +153,9 @@ public sealed class BindingGump : DynamicGump
     private readonly PlayerMobile _owner;
     private readonly CombatAbility[] _choices;
     private readonly int _page;
-    private const int PageSize = 8;
+    private const int PageSize = 6;
     public override bool Singleton => true;
-    private BindingGump(PlayerMobile owner, int page) : base(80, 70)
+    private BindingGump(PlayerMobile owner, int page) : base(80, 30)
     {
         _owner = owner;
         var choices = new System.Collections.Generic.List<CombatAbility> { CombatAbility.None };
@@ -172,31 +172,52 @@ public sealed class BindingGump : DynamicGump
     {
         var bindings = SkillBindings.Instance.Get(_owner);
         builder.AddBackground(0, 0, 510, 440, 5054);
-        builder.AddLabel(20, 15, 0x481, "Mouse skills — placeholder labels");
-        builder.AddLabel(20, 42, 0x47E, $"Left: {CombatProtocol.Label(bindings.Left)}    Right: {CombatProtocol.Label(bindings.Right)}");
+        builder.AddLabel(20, 15, 0x481, "Mouse skills");
+        AddSkill(ref builder, 20, 38, bindings.Left, "Left");
+        AddSkill(ref builder, 255, 38, bindings.Right, "Right");
+        ClassCreation.Profiles.TryGet(_owner.Serial, out var profile);
         for (int row = 0; row < PageSize && _page * PageSize + row < _choices.Length; row++)
         {
-            var ability = _choices[_page * PageSize + row]; int y = 80 + row * 35;
-            builder.AddLabel(20, y, 0x47E, CombatProtocol.Label(ability));
-            ClassCreation.Profiles.TryGet(_owner.Serial,out var profile);
+            var ability = _choices[_page * PageSize + row];
+            int y = 87 + row * 45;
+            AddSkill(ref builder, 20, y, ability);
             if(SkillBindings.MouseAllowed(profile.Class,true,ability))
-            {builder.AddButton(300, y, 4005, 4007, 100 + row); builder.AddLabel(335, y, 0x481, "Left");}
+            {builder.AddButton(300, y + 12, 4005, 4007, 100 + row); builder.AddLabel(335, y + 13, 0x481, "Left");}
             if(SkillBindings.MouseAllowed(profile.Class,false,ability))
-            {builder.AddButton(390, y, 4005, 4007, 200 + row); builder.AddLabel(425, y, 0x481, "Right");}
+            {builder.AddButton(390, y + 12, 4005, 4007, 200 + row); builder.AddLabel(425, y + 13, 0x481, "Right");}
         }
         if (_page > 0) { builder.AddButton(20, 370, 4014, 4016, 1); }
         if ((_page + 1) * PageSize < _choices.Length) { builder.AddButton(440, 370, 4005, 4007, 2); }
-        builder.AddLabel(120, 370, 0x47E, $"Page {_page + 1}. S opens quick-cast assignment.");
+        builder.AddLabel(120, 371, 0x47E, $"Page {_page + 1}. S opens quick-cast assignment.");
         builder.AddLabel(20, 408, 0x47E, "Aim at a corpse for corpse skills; aim at ground for summons.");
+    }
+
+    private static void AddSkill(ref DynamicGumpBuilder builder, int x, int y, CombatAbility ability, string side = null)
+    {
+        var icon = ClassSkillIcons.For(ability);
+        if (icon != 0)
+        {
+            builder.AddImage(x, y, icon);
+        }
+        var label = CombatProtocol.Label(ability);
+        builder.AddLabel(x + 50, y + 13, 0x47E, side == null ? label : $"{side}: {label}");
     }
     public override void OnResponse(NetState sender, in RelayInfo info)
     {
         if (sender.Mobile != _owner) { return; }
         if (info.ButtonID is 1 or 2) { DisplayTo(_owner, _page + (info.ButtonID == 1 ? -1 : 1)); return; }
-        int row = info.ButtonID is >= 100 and < 108 ? info.ButtonID - 100 : info.ButtonID is >= 200 and < 208 ? info.ButtonID - 200 : -1;
+        int row = info.ButtonID is >= 100 and < 100 + PageSize ? info.ButtonID - 100
+            : info.ButtonID is >= 200 and < 200 + PageSize ? info.ButtonID - 200 : -1;
         int index = _page * PageSize + row;
         if (row < 0 || index >= _choices.Length) { return; }
-        if (!SkillBindings.Instance.Assign(_owner, info.ButtonID < 200, _choices[index])) { _owner.SendMessage("That skill is unavailable."); }
+        if (SkillBindings.Instance.Assign(_owner, info.ButtonID < 200, _choices[index]))
+        {
+            SkillBindingNetwork.Send(_owner);
+        }
+        else
+        {
+            _owner.SendMessage("That skill is unavailable.");
+        }
         DisplayTo(_owner, _page);
     }
 }

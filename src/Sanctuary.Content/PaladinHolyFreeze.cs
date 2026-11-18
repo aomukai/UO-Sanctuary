@@ -63,7 +63,9 @@ public static class PaladinHolyFreeze
         _leases.TryGetValue(target.Serial.Value,out var previous);var old=Effect(target);
         if(old!=null && old.Rank>values.Rank){return;}
         uint source=old!=null && old.Rank==values.Rank?old.Source:owner.Serial.Value;
-        _leases[target.Serial.Value]=new(target.Serial.Value,source,values.Rank,Cap("aurastatcalc1"),Cap("aurastatcalc2"),Cap("aurastatcalc3"),previous?.Shatter ?? false,now.AddMilliseconds((frames+1)*40));
+        var until = now.AddMilliseconds((frames+1)*40);
+        _leases[target.Serial.Value]=new(target.Serial.Value,source,values.Rank,Cap("aurastatcalc1"),Cap("aurastatcalc2"),Cap("aurastatcalc3"),previous?.Shatter ?? false,until);
+        PaladinElementVisuals.Slow(target, until, now);
     }
     internal static void RollShatter(Mobile target)
     {

@@ -39,7 +39,13 @@ internal static class CorpseExplosionCasts
             SkillCombat.HitParts(owner,target,new(hit.Physical256/256.0,hit.Fire256/256.0,0,0,0),
                 true,spell:true,enhanceBase:false);
         }
-        Effects.SendLocationEffect(center,owner.Map,0x36BD,15); // Identified placeholder.
+        Present(center, owner.Map);
         return true;
+    }
+
+    internal static void Present(Point3D center, Map map)
+    {
+        Effects.SendLocationEffect(center, map, SpellEffectGraphics.CorpseExplosion, 10);
+        Effects.PlaySound(center, map, SpellEffectSounds.CorpseExplosion);
     }
 }

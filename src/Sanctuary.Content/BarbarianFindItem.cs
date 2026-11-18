@@ -47,9 +47,15 @@ public static class BarbarianFindItem
         // or touching its existing contents. The retained DM curve is an
         // approved Sanctuary rule; modern provenance remains documented.
         int chance=(int)SkillMechanics.Values(owner,CombatAbility.FindItem).Eval("calc1");
-        owner.PlaySound(0x1E5);Effects.SendLocationEffect(corpse.Location,corpse.Map,0x375A,5,10,0x481,0); // Identified cry/search placeholders.
-        if(Math.Clamp(Roll(100),0,99)>=chance){return false;}
+        CorpseSearchVisuals.Search(owner, corpse, CombatAbility.FindItem);
+        if (Math.Clamp(Roll(100), 0, 99) >= chance)
+        {
+            CorpseSearchVisuals.Result(corpse, CombatAbility.FindItem, false);
+            return false;
+        }
         _=Roll(100); // Source secondary nParam draw; reviewed wrapper ignores it.
-        GearDrops.FindItem(owner,corpse,context,LootRandom());return true;
+        bool found = GearDrops.FindItem(owner, corpse, context, LootRandom());
+        CorpseSearchVisuals.Result(corpse, CombatAbility.FindItem, found);
+        return true;
     }
 }

@@ -84,6 +84,7 @@ internal static class TaintedFireBallMissiles
         Validate(state);
         if (NpcEquipmentRandom.State(actor) == null) { NpcEquipmentRandom.Set(actor, SourceRandom.InitLow(NpcEquipmentRandom.SeedLow())); }
         Flights.Add(id, state); _nextId = id;
+        actor.PlaySound(SpellEffectSounds.FlareRelease);
         return id;
     }
 
@@ -149,7 +150,8 @@ internal static class TaintedFireBallMissiles
             bool critical = NpcEquipmentCritical.Intrinsic(new(0, 0, 0, chance), () => NpcEquipmentRandom.Raw(actor));
             TaintedFireBallHit.DeliverQualified(actor, target, state.Packet, raw, critical, state.NextUtc.AddMilliseconds(-40));
         }
-        Effects.SendLocationEffect(center, actor.Map, 0x36BD, 10, 10, 0, 0); // Identified interim fire explosion.
+        Effects.SendLocationEffect(center, actor.Map, FlareGraphics.RedBurst, FlareGraphics.BurstFrames);
+        Effects.PlaySound(center, actor.Map, SpellEffectSounds.RedFlareImpact);
     }
 
     private static void Advance(TaintedFireBallFlight state, bool? allowActions)
@@ -189,7 +191,12 @@ internal static class TaintedFireBallMissiles
                 cell => Wall(cell) ? 4 : Find(cell) != null ? 1 : 0, cell => Wall(cell) ? 0 : Find(cell)?.Serial.Value ?? 0, Hit));
         if (removed) { Flights.Remove(state.Id); return; }
         Flights[state.Id] = next;
-        if (next.Frame % 2 == 0) { Effects.SendLocationEffect(new((int)Math.Round(next.X), (int)Math.Round(next.Y), next.Z), map, 0x36D4, 2, 10, 0, 0); } // Interim travel art.
+        if (next.Frame % 2 == 0)
+        {
+            var position = new Point3D((int)Math.Round(next.X), (int)Math.Round(next.Y), next.Z);
+            int frame = (next.Frame / 2 - 1) % FlareGraphics.FlightFrames;
+            Effects.SendLocationEffect(position, map, FlareGraphics.RedFlight + frame, 2);
+        }
     }
 
     private static void Validate(TaintedFireBallFlight s)

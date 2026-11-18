@@ -59,17 +59,22 @@ class ClassSkillCatalogueTests(unittest.TestCase):
             self.assertEqual(actual,expected)
             self.assertIn(123,actual)  # Find Potion's stable saved/wire ID.
 
-    def test_icons_and_effects_are_independent_and_explicitly_unfinished(self):
+    def test_icon_coverage_is_independent_of_effects(self):
         icons=json.loads((ROOT/'data/Sanctuary/Balance/skill-icons.json').read_text())
         effects=json.loads((ROOT/'data/Sanctuary/Balance/skill-effects.json').read_text())
         self.assertEqual({r['talentId'] for r in icons},{r['talentId'] for r in effects})
         self.assertEqual(len(icons),240)
         self.assertTrue(all('effects' not in r and 'talentIcon' in r for r in icons))
         self.assertTrue(all('talentIcon' not in r and 'effects' in r for r in effects))
-        self.assertTrue(all(r['generation']=='pending' and r['clientMapping']=='pending' for r in icons+effects))
+        for row in effects:
+            coverage = ('uo', 'mapped') if row['effects']=='native' else ('pending', 'pending')
+            self.assertEqual((row['generation'], row['clientMapping']), coverage, row['talentId'])
+        self.assertTrue(all(r['generation'] in ('uo', 'imagegen') and r['clientMapping']=='mapped' for r in icons))
+        self.assertEqual(sum(r['hotkeyIcon']=='mapped' for r in icons), 210)
+        self.assertEqual(sum(r['talentIcon']=='mapped' for r in icons), 240)
         by_id={r['talentId']:r for r in icons}
         self.assertEqual(by_id['necromancer.skeletonmastery']['hotkeyIcon'],'not-applicable')
-        self.assertEqual(by_id['necromancer.bonespear']['hotkeyIcon'],'needed')
+        self.assertEqual(by_id['necromancer.bonespear']['hotkeyIcon'],'mapped')
 
     def test_version_and_hashes_are_pinned_with_sanctuary_precedence(self):
         pin=json.loads((ROOT/'data/Sanctuary/skill-reference.json').read_text())

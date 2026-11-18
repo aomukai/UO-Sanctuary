@@ -141,14 +141,31 @@ internal static class NecromancerSpellMissiles
         catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}
         if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
         if(CorpseSkillRules.Profiles.Find(corpse) is{} row){CorpseSkillRules.Profiles.Store(row with{NoSelect=true});}
-        NecromancerCombat.Consume(corpse);foreach(var s in prepared){Commit(s);}owner.PlaySound(0x1E5);return true; // Identified cast placeholder.
+        var origin = corpse.Location;
+        NecromancerCombat.Consume(corpse);foreach(var s in prepared){Commit(s);}
+        NecromancerPoisonVisuals.Release(owner.Map, origin, false);
+        return true;
     }
     internal static bool Release(PlayerMobile owner,Point3D point,SkillValues values,Mobile target=null)
     {
         NecromancerSpellFlight[] prepared;
         try{prepared=Nova(values.Ability)?PrepareRing(owner,values,TimedEffects.Now):Teeth(values.Ability)?PrepareFan(owner,point,values,TimedEffects.Now):[Prepare(owner,point,values,TimedEffects.Now,target:target)];}
         catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}
-        if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}foreach(var s in prepared){Commit(s);}owner.PlaySound(0x1E5);return true; // Identified cast placeholder.
+        if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
+        foreach(var s in prepared){Commit(s);}
+        if (Nova(values.Ability))
+        {
+            NecromancerPoisonVisuals.Release(owner.Map, owner.Location, true);
+            return true;
+        }
+        owner.PlaySound(values.Ability switch
+        {
+            CombatAbility.BoneSpear => SpellEffectSounds.BoneSpearRelease,
+            CombatAbility.Teeth => SpellEffectSounds.TeethRelease,
+            CombatAbility.BoneSpirit => SpellEffectSounds.BoneSpiritRelease,
+            _ => 0x1E5
+        });
+        return true;
     }
     internal static void Cancel(Mobile owner)
     {if(owner!=null){foreach(long id in Flights.Where(x=>x.Value.Owner==owner.Serial.Value).Select(x=>x.Key).ToArray()){Flights.Remove(id);}PruneLeases();}}
@@ -160,10 +177,11 @@ internal static class NecromancerSpellMissiles
     internal static NecromancerSpellFlight State(long id)=>Flights.GetValueOrDefault(id);
     internal static void Tick(DateTime at,bool? actions=null)
     {
+        NecromancerPoisonVisuals.BeginFrame();
         while(true)
         {
             var s=Flights.Values.Where(x=>x.NextUtc<=at).OrderBy(x=>x.NextUtc).ThenByDescending(x=>x.Id).FirstOrDefault();if(s==null){PruneLeases();return;}
-            try{Advance(s,actions);}
+            try{Advance(s,actions,at);}
             catch(Exception e)
             {
                 if(s.Frame+1>=s.Frames){Flights.Remove(s.Id);}else{Flights[s.Id]=s with{Frame=s.Frame+1,NextUtc=s.NextUtc.AddMilliseconds(40),Fault=e.Message};}
@@ -171,7 +189,7 @@ internal static class NecromancerSpellMissiles
             }
         }
     }
-    private static void Advance(NecromancerSpellFlight s,bool? actions)
+    private static void Advance(NecromancerSpellFlight s,bool? actions,DateTime at)
     {
         var owner=Owner(s.Owner);if(owner==null||owner.Map!=Map.Internal&&owner.Map?.MapID!=s.Map){Flights.Remove(s.Id);return;}
         bool spirit=Spirit(s.Ability);if(spirit){s=BoneSpiritGuidance.Steer(owner,s);}
@@ -179,6 +197,8 @@ internal static class NecromancerSpellMissiles
         if(s.Fault!=null||owner.Map==Map.Internal||!(actions??owner.NetState is{Running:true}))
         {if(frame>=s.Frames){Flights.Remove(s.Id);}else{Flights[s.Id]=next;}return;}
         var map=owner.Map;bool barrier=false;
+        bool boneSpear = s.Ability == CombatAbility.BoneSpear;
+        Point3D? blockedAt = null;
         if(SpellHelper.IsTown(new Point3D((int)Math.Round(s.X),(int)Math.Round(s.Y),s.Z),owner)){Flights.Remove(s.Id);return;}
         int Move()
         {
@@ -203,7 +223,15 @@ internal static class NecromancerSpellMissiles
             // round both LOS endpoints into a wall tile and bypass LOS alone.
             bool blocked=Explosion(s.Ability)&&!map.CanFit(new Point3D((cell.X+1)/2,(cell.Y+1)/2,s.Z),1,false,false,false)
                 ||DruidFirestorm.CellBlocked(map,s.Z,s.X,s.Y,cell.X,cell.Y);
-            if(blocked){barrier=true;}return blocked;
+            if (blocked)
+            {
+                barrier = true;
+                if (boneSpear)
+                {
+                    blockedAt ??= new Point3D((cell.X + 1) / 2, (cell.Y + 1) / 2, s.Z);
+                }
+            }
+            return blocked;
         }
         bool removed=false;
         int Hit(uint serial,bool terminal)
@@ -227,9 +255,48 @@ internal static class NecromancerSpellMissiles
         var result=BasicMissileUpdate.Run(new(true,true,s.VelocityFp8,s.Frames-s.Frame,2,s.Frames-s.Activation,true),
             new(Move,_=>{},()=>true,()=>true,()=>2,()=>next.Steps.Cells,
                 cell=>Wall(cell)?4:Find(cell)!=null?1:0,cell=>Wall(cell)?0:Find(cell)?.Serial.Value??0,Hit));
-        if(removed||result.Result==2){Flights.Remove(s.Id);return;}Flights[s.Id]=next;
-        if(frame%2==0){Effects.SendLocationEffect(new((int)Math.Round(next.X),(int)Math.Round(next.Y),s.Z),map,Poison(s.Ability)?0x374A:0x36E4,2);} // Identified spell-flight placeholders.
+        if (removed || result.Result == 2)
+        {
+            Flights.Remove(s.Id);
+            if (boneSpear)
+            {
+                // The next point can be outside the map when Move rejected it.
+                var endpoint = blockedAt ?? (barrier ? VisualPoint(s) : VisualPoint(next));
+                Effects.SendLocationEffect(endpoint, map, SpellEffectGraphics.BoneSpearShatter,
+                    SpellEffectGraphics.BoneSpearShatterFrames);
+                Effects.PlaySound(endpoint, map, SpellEffectSounds.BoneSpearShatter);
+            }
+            return;
+        }
+        Flights[s.Id]=next;
+        if (frame % 2 == 0)
+        {
+            if (Poison(s.Ability))
+            {
+                if ((at - s.NextUtc).TotalMilliseconds <= 100)
+                {
+                    NecromancerPoisonVisuals.Travel(owner, VisualPoint(next), next, at);
+                }
+                return;
+            }
+            int phase = frame / 2 % SpellEffectGraphics.NecromancerFrames;
+            var (graphic, hue) = s.Ability switch
+            {
+                CombatAbility.BoneSpear => (SpellEffectGraphics.BoneSpearFlight
+                    + SpellEffectGraphics.ProjectileFacing(s.Vx, s.Vy), 0),
+                CombatAbility.Teeth => (NecromancerFlightGraphic(SpellEffectGraphics.TeethFlight, s, phase), 0),
+                CombatAbility.BoneSpirit => (NecromancerFlightGraphic(SpellEffectGraphics.BoneSpiritFlight, s, phase), 0),
+                _ => (0x36E4, 0)
+            };
+            Effects.SendLocationEffect(VisualPoint(next), map, graphic, 2, 10, hue, 0);
+        }
     }
+    private static Point3D VisualPoint(NecromancerSpellFlight flight) =>
+        new((int)Math.Round(flight.X), (int)Math.Round(flight.Y), flight.Z);
+
+    private static int NecromancerFlightGraphic(ushort first, NecromancerSpellFlight flight, int phase) =>
+        first + SpellEffectGraphics.NecromancerFrames * SpellEffectGraphics.ProjectileFacing(flight.Vx, flight.Vy) + phase;
+
     internal static GearDamage Packet(NecromancerSpellFlight s,int magic256,int potion=0)
     {
         // Potion eligibility is supplied at impact, as required by T29. These are
@@ -247,13 +314,35 @@ internal static class NecromancerSpellMissiles
         if(Poison(s.Ability))
         {
             var prepared=SpellPoisonTicks.Prepare(owner,target,raw,s.ElementFrames);
-            SpellPoisonTicks.Apply(owner,target,raw,s.ElementFrames,s.Modifiers,s.NextUtc);
+            if (SpellPoisonTicks.Apply(owner,target,raw,s.ElementFrames,s.Modifiers,s.NextUtc) && prepared.Rate256 > 0)
+            {
+                NecromancerPoisonVisuals.PoisonContact(owner, target);
+            }
             // Retain the shared older-source initial-rate bridge explicitly.
             // Modern initial health delivery remains a documented source gap.
             PoisonStates.Drain(owner,target,prepared.Rate256);return seed;
         }
         var parts=SkillCombat.MitigatePrepared(owner,target,Packet(s,raw,CombatPotions.BonusAt(owner,"magical-penetration",s.NextUtc)));
+        var contact = target.Location;
         int loss=SkillHealth.TypedDamage(owner,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));
+        if (loss > 0)
+        {
+            switch (s.Ability)
+            {
+                case CombatAbility.BoneSpear:
+                    Effects.SendLocationEffect(contact, owner.Map, SpellEffectGraphics.BoneSpearContact, 2);
+                    Effects.PlaySound(contact, owner.Map, SpellEffectSounds.BoneSpearContact);
+                    break;
+                case CombatAbility.Teeth:
+                    Effects.SendLocationEffect(contact, owner.Map, SpellEffectGraphics.TeethContact, SpellEffectGraphics.NecromancerFrames);
+                    SpellAreaSounds.Pulse(owner.Serial.Value, SpellEffectSounds.BoneSpearContact, contact, owner.Map, TimedEffects.Now, 130);
+                    break;
+                case CombatAbility.BoneSpirit:
+                    Effects.SendLocationEffect(contact, owner.Map, SpellEffectGraphics.BoneSpiritBurst, SpellEffectGraphics.NecromancerFrames);
+                    Effects.PlaySound(contact, owner.Map, SpellEffectSounds.BoneSpiritImpact);
+                    break;
+            }
+        }
         if(target is BaseCreature creature){CreatureHitRecovery.Apply(creature,owner,loss);}CombatDamage.Finish(target,owner);return seed;
     }
     private static void Validate(NecromancerSpellFlight s)

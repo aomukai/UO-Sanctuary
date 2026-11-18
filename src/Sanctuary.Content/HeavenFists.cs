@@ -82,8 +82,12 @@ public static class HeavenFists
             damage.Minimum256,damage.Maximum256,TimedEffects.Now.AddMilliseconds(400)){Captured=damage.Capture};Validate(f);return f;
     }
     internal static void Commit(HeavenStrike f)
-    {if(f.Id!=checked(_next+1)){throw new InvalidOperationException("Prepared FoH identity changed");}_strikes.Add(f.Id,f);_next=f.Id;
-        World.FindMobile((Serial)f.Target)?.FixedEffect(0x3709,10,10,0x481,0);} // Identified sky warning placeholder.
+    {
+        if(f.Id!=checked(_next+1)){throw new InvalidOperationException("Prepared FoH identity changed");}
+        _strikes.Add(f.Id,f);_next=f.Id;
+        if (World.FindMobile((Serial)f.Owner) is { } owner && World.FindMobile((Serial)f.Target) is { } target)
+        { PaladinSpellVisuals.Warn(owner, target); }
+    }
     internal static void Cancel(Mobile owner)
     {if(owner!=null){foreach(var f in Snapshot().Where(f=>f.Owner==owner.Serial.Value&&f.Captured!=null)){_strikes.Remove(f.Id);}}}
     internal static void RestoreReferences()
@@ -126,6 +130,7 @@ public static class HeavenFists
         }
         if(primary!=null && ClassCombat.IsHostile(owner,primary) && !SpellHelper.IsTown(primary.Location,primary))
         {
+            PaladinSpellVisuals.Strike(primary.Location, primary.Map);
             if(strike.Captured is{} c)
             {
                 if(!HeavenFistDamage.Supported(owner,primary,out string reason)){throw new NotSupportedException(reason);}
@@ -148,7 +153,7 @@ public static class HeavenFists
         foreach(var target in targets)
         {if(strike.Captured==null){HolyBolts.CastSecondaryLegacy(owner,origin,target.Location,values,strike.ImpactUtc);}
             else{HolyBolts.CastSecondary(owner,origin,target.Location,values,strike.ImpactUtc);}}
-        Effects.SendLocationEffect(origin,owner.Map,0x3709,10,10,0x481,0); // Placeholder strike/burst. Native query order is provisional.
+        PaladinSpellVisuals.HeavenBurst(origin, owner.Map);
     }
     public static void CaptureDeath(BaseCreature target,Corpse corpse)
     {

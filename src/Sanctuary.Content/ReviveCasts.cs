@@ -72,8 +72,7 @@ internal static class ReviveCasts
         {owner.SendMessage(0x22,issue);return false;}
         if(!NecromancerEffects.Pay(owner,mana))
         {throw new InvalidOperationException("Revive mana changed during original-actor activation");}
-        actor.FixedParticles(0x376A,9,20,5024,EffectLayer.Waist);
-        owner.PlaySound(0x1E5); // Identified native summon/cast placeholders.
+        UndeadSummonVisuals.Arrive(actor);
         return true;
     }
 }

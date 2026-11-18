@@ -1,0 +1,24 @@
+--- a/Projects/Server/Mobiles/Mobile.cs
++++ b/Projects/Server/Mobiles/Mobile.cs
+@@ -1807,6 +1807,8 @@
+     public static TimeSpan DefaultStamRate { get; set; }
+ 
+     public static RegenRateHandler ManaRegenRateHandler { get; set; }
++
++    public static event Action<Mobile> ManaRegenerated;
+ 
+     public static TimeSpan DefaultManaRate { get; set; }
+ 
+@@ -9017,7 +9019,12 @@
+         {
+             if (m_Owner.CanRegenMana)
+             {
++                int before = m_Owner.Mana;
+                 m_Owner.Mana++;
++                if (m_Owner.Mana > before)
++                {
++                    ManaRegenerated?.Invoke(m_Owner);
++                }
+             }
+ 
+             Delay = Interval = GetManaRegenRate(m_Owner);

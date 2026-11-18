@@ -170,7 +170,7 @@ public static class ReviveNativeActivation
     {
         var owned=Snapshot().Where(s=>s.Owner==owner.Serial.Value&&World.FindMobile((Serial)s.Actor) is BaseCreature{Alive:true,Deleted:false} actor&&actor.ControlMaster==owner).ToArray();
         foreach(var old in owned.Take(Math.Max(0,owned.Length-maximum)))
-        {if(World.FindMobile((Serial)old.Actor) is BaseCreature actor){actor.Delete();}States.Remove(old.Actor);ReviveEquipmentLife.Forget(old.Actor);NpcEquipmentRandom.Forget(old.Actor);}
+        {if(World.FindMobile((Serial)old.Actor) is BaseCreature actor){UndeadSummonVisuals.Depart(actor);actor.Delete();}States.Remove(old.Actor);ReviveEquipmentLife.Forget(old.Actor);NpcEquipmentRandom.Forget(old.Actor);}
     }
     internal static void Enforce(PlayerMobile owner)=>Prune(owner,NecromancerArmyLimits.For(owner,CombatAbility.Revive));
     internal static void AfterLoad()
@@ -193,7 +193,7 @@ public static class ReviveNativeActivation
             var actor=World.FindMobile((Serial)row.Actor) as BaseCreature;
             if(actor is not{Alive:true,Deleted:false}){States.Remove(row.Actor);ReviveEquipmentLife.Forget(row.Actor);NpcEquipmentRandom.Forget(row.Actor);continue;}
             if(actor.ControlMaster?.Serial.Value!=row.Owner||World.FindMobile((Serial)row.Owner) is not PlayerMobile{Alive:true,Deleted:false} owner)
-            {actor.Delete();States.Remove(row.Actor);ReviveEquipmentLife.Forget(row.Actor);NpcEquipmentRandom.Forget(row.Actor);continue;}
+            {UndeadSummonVisuals.Depart(actor);actor.Delete();States.Remove(row.Actor);ReviveEquipmentLife.Forget(row.Actor);NpcEquipmentRandom.Forget(row.Actor);continue;}
             if(!CanAct(actor)&&actor.Map!=Map.Internal){PersistentMinions.Suspend(owner);}
             ReviveRegeneration.Recover(actor,CanAct(actor),Core.TickCount);
         }

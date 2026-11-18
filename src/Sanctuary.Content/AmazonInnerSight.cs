@@ -45,13 +45,12 @@ public sealed class InnerSightProfiles:GenericPersistence
 public static class AmazonInnerSight
 {
     private static readonly Dictionary<uint,InnerSightState> _states=new();
-    private static DateTime _nextMarker;
     public static InnerSightProfiles Profiles{get;private set;}
     public static void Configure(){Profiles=new();EventSink.WorldSave+=Prune;}
     public static void Initialize()
     {
         var created=CorpseRecoveryHooks.Created;CorpseRecoveryHooks.Created=corpse=>{Clear(corpse.Owner);created?.Invoke(corpse);};
-        Timer.StartTimer(TimeSpan.FromSeconds(1),TimeSpan.FromSeconds(1),Tick);
+        Timer.StartTimer(TimeSpan.FromMilliseconds(250),TimeSpan.FromMilliseconds(250),Tick);
     }
     private static bool Alive(Mobile target)=>target is{Alive:true,Deleted:false,IsDeadBondedPet:false};
     internal static InnerSightState State(Mobile target)=>Alive(target) && _states.TryGetValue(target.Serial.Value,out var state) && state.UntilUtc>TimedEffects.Now?state:null;
@@ -88,7 +87,7 @@ public static class AmazonInnerSight
                 && ClassCombat.IsHostile(owner,target) && SourceAuraTargets.Eligible(target) && !SpellHelper.IsTown(target.Location,target)){targets.Add(target);}
         }
         targets.Sort((a,b)=>a.Serial.CompareTo(b.Serial));foreach(var target in targets){Apply(owner,target,values,at);}
-        owner.FixedEffect(0x375A,10,10,0x481,0); // Identified cast_innersight placeholder.
+        AmazonUtilityEffects.Burst(owner,SpellEffectGraphics.InnerSightCast,SpellEffectSounds.InnerSightCast);
         return true; // An empty or weaker-rank cast still spends its once-only mana.
     }
     internal static bool Apply(PlayerMobile owner,Mobile target,SkillValues values,DateTime at)
@@ -96,18 +95,29 @@ public static class AmazonInnerSight
         if(!Alive(target) || values.Rank is <1 or >255){return false;}
         var next=Replacement(_states.GetValueOrDefault(target.Serial.Value),target.Serial.Value,owner.Serial.Value,values.Rank,
             Math.Max(0,-(int)values.Eval("aurastatcalc1")),at.AddMilliseconds(values.Eval("auralencalc")*40),at);
-        if(next==null){return false;}_states[target.Serial.Value]=next;Marker(target);return true;
+        if(next==null){return false;}_states[target.Serial.Value]=next;
+        AmazonUtilityEffects.InnerSight.Refresh(target,at,next.UntilUtc);return true;
     }
-    private static void Marker(Mobile target)=>target.FixedEffect(0x375A,10,20,0x481,0); // Identified innersight mark/light placeholder.
-    public static void Clear(Mobile target){if(target!=null){_states.Remove(target.Serial.Value);}}
-    internal static void Prune()
-    {foreach(var pair in _states.ToArray()){if(pair.Value.UntilUtc<=TimedEffects.Now || !Alive(World.FindMobile((Serial)pair.Key))){_states.Remove(pair.Key);}}}
-    private static void Tick()
-    {Prune();if(TimedEffects.Now<_nextMarker){return;}_nextMarker=TimedEffects.Now.AddSeconds(2);foreach(uint id in _states.Keys){if(World.FindMobile((Serial)id) is{} target){Marker(target);}}}
+    public static void Clear(Mobile target){if(target!=null){Remove(target.Serial.Value,target);}}
+    private static void Remove(uint id,Mobile target)
+    {_states.Remove(id);AmazonUtilityEffects.InnerSight.Clear(id,target);}
+    internal static void Prune()=>Update(false);
+    private static void Tick()=>Update(true);
+    private static void Update(bool refresh)
+    {
+        var now=TimedEffects.Now;
+        foreach(var (id,state) in _states.ToArray())
+        {
+            var target=World.FindMobile((Serial)id);
+            if(state.UntilUtc<=now || !Alive(target)){Remove(id,target);}
+            else if(refresh){AmazonUtilityEffects.InnerSight.Refresh(target,now,state.UntilUtc);}
+        }
+    }
     public static InnerSightState[] Snapshot(){Prune();return _states.Values.OrderBy(x=>x.Target).ToArray();}
     public static void Restore(InnerSightState[] states)
     {
         if(states==null || states.Length>1000000){throw new InvalidDataException("Missing Inner Sight states");}
+        foreach(uint id in _states.Keys){AmazonUtilityEffects.InnerSight.Clear(id,World.FindMobile((Serial)id));}
         _states.Clear();foreach(var state in states)
         {if(!((Serial)state.Target).IsMobile || state.Target==0 || !((Serial)state.Creator).IsMobile || state.Creator==0 || state.Rank is <1 or >255 || state.Reduction is <0 or >1000000 || !_states.TryAdd(state.Target,state)){throw new InvalidDataException("Invalid Inner Sight state");}}
     }

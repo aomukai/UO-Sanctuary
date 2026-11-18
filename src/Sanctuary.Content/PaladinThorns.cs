@@ -16,14 +16,15 @@ public static class PaladinThorns
         ClassCombatHooks.WeaponDamageHealth=PlayerMeleeReturn.Health;
     }
     // Legacy public entry point now consumes the shared physical ATD stat.
-    private readonly record struct ReturnStats(int Flat,int Percent);
+    private readonly record struct ReturnStats(int Flat,int Percent,bool Barbs,bool AuraFlat);
     private static ReturnStats Values(Mobile actor)
     {
         if(actor==null){return default;}var thorns=PaladinAuras.Effect(actor,CombatAbility.Thorns);
-        long flat=(thorns?.Percent??0)+(long)DruidWolverineAuras.FlatDamage(actor);
+        int barbs=DruidWolverineAuras.FlatDamage(actor);
+        long flat=(thorns?.Percent??0)+(long)barbs;
         if(actor is PlayerMobile p && ClassCombat.Enabled(p)){flat+=ClassGear.Bonus(p,"thorns");}
         else{flat+=NpcEquipmentRetaliation.Flat(actor);}
-        return new((int)Math.Clamp(flat,0,int.MaxValue),Math.Max(0,thorns?.DamagePercent??0));
+        return new((int)Math.Clamp(flat,0,int.MaxValue),Math.Max(0,thorns?.DamagePercent??0),barbs>0,thorns?.Percent>0);
     }
     internal static int FlatDamage(Mobile actor)=>Values(actor).Flat;
     public static bool Active(Mobile actor)=>Values(actor) is{Flat:>0} or{Percent:>0};
@@ -48,13 +49,13 @@ public static class PaladinThorns
         long eligiblePhysical=clippedPhysical256 is{} clipped?Math.Clamp(clipped,0,Math.Max(0,physical256)):Math.Min(Math.Max(0,physical256),Math.Max(0,SkillHealth.Balance256(defender)));
         Flat(attacker,defender,stats,scope);
         if(eligiblePhysical>0 && attacker is{Alive:true,Deleted:false})
-        {Retaliate(defender,attacker,eligiblePhysical*Math.Max(0,ReturnedPercent(attacker,stats.Percent))/100);}
+        {Retaliate(defender,attacker,eligiblePhysical*Math.Max(0,ReturnedPercent(attacker,stats.Percent))/100,aura:true);}
     }
     private static void Flat(Mobile attacker,Mobile defender,ReturnStats stats,AttemptScope scope)
     {
         if(scope!=null&&scope.FlatApplied){return;}
         if(scope!=null){scope.FlatApplied=true;}
-        Retaliate(defender,attacker,(long)stats.Flat*256);
+        Retaliate(defender,attacker,(long)stats.Flat*256,barbs:stats.Barbs,aura:stats.AuraFlat);
     }
     // Ordered NPC consumers dispatch the attacked-in-melee event (including
     // misses) separately from the later successful-hit percentage return.
@@ -70,9 +71,9 @@ public static class PaladinThorns
         if(clippedPhysical256<=0||!Eligible(attacker,defender)){return;}
         var scope=_current!=null&&_current.Attacker==attacker&&_current.Defender==defender?_current:null;
         var stats=defender.Alive?Values(defender):scope?.Stats??Values(defender);
-        Retaliate(defender,attacker,(long)clippedPhysical256*Math.Max(0,ReturnedPercent(attacker,stats.Percent))/100);
+        Retaliate(defender,attacker,(long)clippedPhysical256*Math.Max(0,ReturnedPercent(attacker,stats.Percent))/100,aura:true);
     }
-    internal static void Retaliate(Mobile defender,Mobile attacker,long physical256)
+    internal static void Retaliate(Mobile defender,Mobile attacker,long physical256,Action<Mobile> present=null,bool barbs=false,bool aura=false)
     {
         if(physical256<=0 || !Eligible(attacker,defender)){return;}
         // Return damage is a separate physical packet, not an enhanced weapon strike or another melee attempt.
@@ -81,8 +82,16 @@ public static class PaladinThorns
         double value=SkillCombat.MitigatePrepared(defender,attacker,
             new(Math.Min(physical256,int.MaxValue)/256.0,0,0,0,0)).Physical;
         defender.DoHarmful(attacker,true);
-        SkillHealth.Damage(defender,attacker,(int)Math.Clamp(Math.Floor(value*256),0,int.MaxValue),SkillDamageKind.Return);
-        attacker.FixedEffect(0x374A,5,5,0x481,0); // Placeholder retaliation flash; independent effect register.
+        var point = attacker.Location;
+        var map = attacker.Map;
+        int previous = aura ? SkillHealth.Balance256(attacker) : 0;
+        int loss=SkillHealth.Damage(defender,attacker,(int)Math.Clamp(Math.Floor(value*256),0,int.MaxValue),SkillDamageKind.Return);
+        if (aura && SkillHealth.Balance256(attacker) < previous) { PaladinDefenseVisuals.ThornsContact(defender, point, map); }
+        if (present != null) { present(attacker); }
+        else if (barbs) { if (loss > 0) { DruidSpiritVisuals.BarbsContact(defender, point, map); } }
+        else if (defender is IronGolemBody { Prepared: { RosterMember: true, IntrinsicThornsReplaced: false } } && value > 0)
+        { GolemEffects.IronThorns(defender, point, map); }
+        else if (!aura) { attacker.FixedEffect(0x374A,5,5,0x481,0); }
     }
     private sealed class AttemptScope:IDisposable
     {
@@ -101,9 +110,8 @@ public static class PaladinThorns
             {
                 if(!FlatApplied)
                 {
-                    FlatApplied=true;
                     var stats=Defender.Alive?Values(Defender):Stats;
-                    Retaliate(Defender,Attacker,(long)stats.Flat*256);
+                    Flat(Attacker,Defender,stats,this);
                 }
             }
             finally{_disposed=true;_current=_previous;_previous=null;Attacker=Defender=null;Stats=default;}

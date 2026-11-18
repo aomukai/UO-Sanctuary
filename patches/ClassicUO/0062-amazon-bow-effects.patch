@@ -1,0 +1,11 @@
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -140,6 +140,8 @@
+                             or SpellEffectGraphics.TelekinesisObject or SpellEffectGraphics.TeleportDeparture or SpellEffectGraphics.TeleportArrival
+                             => SpellEffectGraphics.UtilityFrames,
+                         SpellEffectGraphics.HydraBoltContact => SpellEffectGraphics.UtilityFrames,
++                        SpellEffectGraphics.ArrowContact or SpellEffectGraphics.MagicArrowContact or SpellEffectGraphics.GuidedArrowContact
++                            => SpellEffectGraphics.ArrowContactFrames,
+                         _ when SpellEffectGraphics.IsEnchantAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ when SpellEffectGraphics.IsWardAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ => 0

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Server;
+using Server.Items;
 using Server.Mobiles;
 
 namespace Sanctuary;
@@ -79,19 +80,31 @@ public static class SorceressCombat
             // outer handler reaches payment. Resolve fallback exactly once.
             if(!SorceressEffects.CanEnchant(recipient,values)||!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
             SorceressEffects.CastEnchant(owner,recipient,values);
-            owner.PlaySound(0x1E5);return true; // Identified cast placeholder.
+            owner.PlaySound(SorceressVisuals.CastSound(ability));return true;
         }
         if (SorceressSpellMissiles.Ring(ability)) { return SorceressSpellMissiles.CastRing(owner,values); }
         if(ability==CombatAbility.Telekinesis&&World.FindMobile(selected)!=null){return TelekinesisCombat.Release(owner,selected,values);}
         if (!NecromancerEffects.Pay(owner, values.Mana256)) { return false; }
         FireGround.Delay(owner, ability);
-        owner.PlaySound(0x1E5); // Placeholder cast sound.
         if (ability == CombatAbility.Telekinesis)
         {
-            if(World.FindItem(selected) is{} item){TelekinesisWorld.Operate(owner,item);return true;}
+            if (World.FindItem(selected) is { } item)
+            {
+                var location = item.Location;
+                if (TelekinesisWorld.Operate(owner, item))
+                {
+                    SorceressVisuals.Telekinesis(owner);
+                    Effects.SendLocationEffect(location, owner.Map, SpellEffectGraphics.TelekinesisObject, SpellEffectGraphics.UtilityDuration);
+                    if (item is not BaseDoor)
+                    {
+                        Effects.PlaySound(location, owner.Map, SpellEffectSounds.TelekinesisContact);
+                    }
+                }
+                return true;
+            }
             throw new InvalidOperationException("Telekinesis target changed during synchronous release");
         }
-        if (ability == CombatAbility.StaticField) { return StaticFields.Cast(owner,owner,values); }
+        if (ability == CombatAbility.StaticField) { owner.PlaySound(SorceressVisuals.CastSound(ability)); return StaticFields.Cast(owner,owner,values); }
         throw new NotSupportedException("Unmapped Sorceress release: "+ability);
     }
 }

@@ -60,8 +60,7 @@ internal static class IronGolemCasting
             if(!NecromancerEffects.Pay(owner,cost)){return false;}paid=true;
             SummonUpgradeSnapshots.Capture(owner,candidate,CombatAbility.IronGolem,candidate.Prepared.Recipe.Hard.GetValueOrDefault(SkillMechanics.For(CombatAbility.IronGolem).SourceKey));
             NecromancerGolems.Commit(owner,candidate);committed=true;created=candidate;
-            candidate.FixedParticles(0x376A,9,20,5024,EffectLayer.Waist);
-            owner.PlaySound(0x1E5); // Identified native summon/audio placeholders.
+            UndeadSummonVisuals.Arrive(candidate);
             return true;
         }
         catch(Exception e)when(e is NotSupportedException or InvalidDataException or OverflowException or ArgumentException)

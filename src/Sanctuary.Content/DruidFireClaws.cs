@@ -65,10 +65,11 @@ internal static class DruidFireClaws
         if(pending==null||now<pending.EffectAt){return false;}session.FireClawAttack=null;
         if(pending.Target!=session.PendingTarget||!ReferenceEquals(pending.Form,DruidPlayerForms.State(owner))
             ||!DruidCombat.Available(owner,CombatAbility.FireClaws)||!DruidFormAttacks.ValidTarget(owner,pending.Target)){return false;}
-        var target=(BaseCreature)World.FindMobile(pending.Target);owner.DoHarmful(target,true);owner.PlaySound(0x238); // Identified contact/audio placeholder.
+        var target=(BaseCreature)World.FindMobile(pending.Target);
+        owner.DoHarmful(target,true);
+        DruidFormEffects.Swing(owner, CombatAbility.FireClaws);
         using var melee=CombatTiming.Equipped(owner) is{} weapon?WeaponHands.UseMelee(owner,weapon):null;
-        if(pending.Hit){target.FixedEffect(0x374A,10,5,0x489,0);} // Identified fire_hit placeholder, preceding do2combat drain.
-        DruidWeaponContact.Release(owner,target,pending.Contact,TimedEffects.Now);
+        DruidWeaponContact.Release(owner,target,pending.Contact,TimedEffects.Now,CombatAbility.FireClaws);
         // Fire Claws has no charge state: preserve existing Maul/Feral count and deadline.
         return true;
     }

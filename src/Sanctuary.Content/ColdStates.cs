@@ -27,7 +27,9 @@ public static class ColdStates
     {
         if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Control removal needs UTC");}
         if(!TimedEffects.TryActor(target,out var actor)||actor.Cold==null||actor.ChillUntil<=at){return false;}
-        actor.ChillUntil=at;actor.ChillPercent=0;Expire(target,actor);return true;
+        actor.ChillUntil=at;actor.ChillPercent=0;Expire(target,actor);
+        ColdStatusVisuals.Refresh(target, actor, at);
+        return true;
     }
     public static int OtherRate(Mobile target)=>TimedEffects.TryActor(target,out var actor) && actor.Cold!=null && actor.ChillUntil>TimedEffects.Now?-actor.ChillPercent:0;
     internal static bool Commit(Mobile source,Mobile target,int mitigatedFrames,bool monster,int effect,int divisor,long tick)
@@ -40,6 +42,7 @@ public static class ColdStates
         TimedEffects.Chill(target,-effect,checked(frames*40),now);
         if(!TimedEffects.TryActor(target,out var actor) || !target.Alive){return false;}
         actor.Cold=new(owner);
+        ColdStatusVisuals.Refresh(target, actor, TimedEffects.Now);
         // The older raw SHATTER/deadCol branch does not establish current
         // corpse destruction. Its compiled helper is component evidence only;
         // no guessed destruction chance or corpse eligibility is enabled here.
@@ -58,8 +61,6 @@ public static class ColdStates
         int resistance=NamedElements.Resistance(source,target,"cold",target.ColdResistance,pierceOverride);
         bool cannot=ItemDurationDefenses.CannotFreeze(target),half=ItemDurationDefenses.HalfFreeze(target);
         frames=LengthFrames(frames,resistance,cannot,half);
-        if(!Commit(source,target,frames,monster,effect,NecromancerEffects.DifficultyDivisor(target),tick)){return false;}
-        target.FixedEffect(0x374A,10,15,0x480,0); // Identified native cold-state marker.
-        return true;
+        return Commit(source,target,frames,monster,effect,NecromancerEffects.DifficultyDivisor(target),tick);
     }
 }

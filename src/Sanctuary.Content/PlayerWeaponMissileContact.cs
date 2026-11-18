@@ -7,7 +7,7 @@ namespace Sanctuary;
 // Actor packet allocation shared by individually qualified weapon missiles.
 internal static class PlayerWeaponMissileContact
 {
-    internal static void Release(PlayerMobile owner,BaseCreature target,WeaponFlight flight,GearDamage damage,int rate256,int hitClass,uint hitFlags=32)
+    internal static PreparedMonsterDamageResult Release(PlayerMobile owner,BaseCreature target,WeaponFlight flight,GearDamage damage,int rate256,int hitClass,uint hitFlags=32)
     {
         var parts=SkillCombat.MitigatePrepared(owner,target,damage with{Poison=0},out int absorbed);
         bool reset=flight.Damage.LightningJavelinPercent is >0;
@@ -22,7 +22,7 @@ internal static class PlayerWeaponMissileContact
         var contact=new PlayerWeaponContactPrepared(SourceMeleeResult.Successful|SourceMeleeResult.GetHit,impact,
             reset?new(0,0):new(flight.Damage.Elements.LifeDrain,flight.Damage.Elements.ManaDrain),cold,0,WeaponMissiles.ItemEffects,HitClass:hitClass,FreezeFrames:freeze,HitFlags:hitFlags,SuppressWear:true,
             UninterruptibleItemCasts:()=>BarbarianWhirlwind.Locked(owner));
-        PlayerWeaponContact.ReleaseMissile(owner,target,contact,flight.NextUtc,true);
+        return PlayerWeaponContact.ReleaseMissile(owner,target,contact,flight.NextUtc,true);
     }
     // Element-only HitFlags2 area packets share HP/status/credit/return,not weapon events.
     internal static bool TryElemental(PlayerMobile owner,BaseCreature target,int damage256,bool freeze,int rawFrames,DateTime at,out string reason)
@@ -30,7 +30,15 @@ internal static class PlayerWeaponMissileContact
     internal static bool TryFireFrame(PlayerMobile owner,BaseCreature target,int damage256,int damageRate,bool soft,DateTime at,out string reason)
         =>TryElementalCore(owner,target,damage256,false,0,at,1|(soft?16384:0),0,32,damageRate,SkillDamageKind.Periodic,out reason);
     internal static bool TryLightning(PlayerMobile owner,BaseCreature target,int damage256,DateTime at,out string reason,int hitClass=64)
-        =>TryElementalCore(owner,target,damage256,false,0,at,5,0,hitClass,0,SkillDamageKind.Direct,out reason,lightning:true);
+    {
+        if(!ElementalAdmission(owner,target,out bool contact,out reason)){return false;}
+        if(!contact){return true;}
+        var point = target.Location;
+        Effects.SendLocationEffect(point, owner.Map, SpellEffectGraphics.ChargedBoltContact, SpellEffectGraphics.LightningFrames);
+        SpellAreaSounds.Pulse(owner.Serial.Value, SpellEffectSounds.ChargedBoltContact, point, owner.Map, TimedEffects.Now, 80);
+        CommitElemental(owner,target,new(0,0,0,damage256/256.0,0),false,0,at,5,0,hitClass,0,SkillDamageKind.Direct);
+        return true;
+    }
     internal static bool TryPoison(PlayerMobile owner,BaseCreature target,int rate256,int frames,DateTime at,out string reason,int hitClass=6)
     {
         if(!ElementalAdmission(owner,target,out bool contact,out reason)){return false;}
@@ -41,10 +49,14 @@ internal static class PlayerWeaponMissileContact
             HitClass:hitClass,HitFlags:0,SuppressWear:true);
         PlayerWeaponContact.ReleaseMissile(owner,target,packet,at,true);return true;
     }
-    internal static bool TryElementalPacket(PlayerMobile owner,BaseCreature target,GearDamage damage,DateTime at,out string reason,int hitClass=64)
+    internal static bool TryLightningStrike(PlayerMobile owner,BaseCreature target,GearDamage damage,DateTime at,out string reason)
     {
         if(!ElementalAdmission(owner,target,out bool contact,out reason)){return false;}
-        if(contact){CommitElemental(owner,target,damage,false,0,at,5,0,hitClass,0,SkillDamageKind.Direct);}
+        if(contact)
+        {
+            SorceressVisuals.Impact(target,CombatAbility.LightningStrike);
+            CommitElemental(owner,target,damage,false,0,at,5,0,64,0,SkillDamageKind.Direct);
+        }
         return true;
     }
     private static bool ElementalAdmission(PlayerMobile owner,BaseCreature target,out bool contact,out string reason)
@@ -60,11 +72,11 @@ internal static class PlayerWeaponMissileContact
         catch(NotSupportedException e){reason=e.Message;return false;}
         contact=!ClassAvoidance.Missile(target);return true;
     }
-    private static bool TryElementalCore(PlayerMobile owner,BaseCreature target,int damage256,bool freeze,int rawFrames,DateTime at,int flags,uint hitFlags,int hitClass,int damageRate,SkillDamageKind kind,out string reason,bool lightning=false)
+    private static bool TryElementalCore(PlayerMobile owner,BaseCreature target,int damage256,bool freeze,int rawFrames,DateTime at,int flags,uint hitFlags,int hitClass,int damageRate,SkillDamageKind kind,out string reason)
     {
         if(!ElementalAdmission(owner,target,out bool contact,out reason)){return false;}
         if(!contact){return true;}
-        var damage=lightning?new GearDamage(0,0,0,damage256/256.0,0):freeze?new GearDamage(0,0,damage256/256.0,0,0):new GearDamage(0,damage256/256.0,0,0,0);
+        var damage=freeze?new GearDamage(0,0,damage256/256.0,0,0):new GearDamage(0,damage256/256.0,0,0,0);
         CommitElemental(owner,target,damage,freeze,rawFrames,at,flags,hitFlags,hitClass,damageRate,kind);return true;
     }
     private static void CommitElemental(PlayerMobile owner,BaseCreature target,GearDamage damage,bool freeze,int rawFrames,DateTime at,int flags,uint hitFlags,int hitClass,int damageRate,SkillDamageKind kind)
@@ -78,7 +90,6 @@ internal static class PlayerWeaponMissileContact
         var packet=new PlayerWeaponContactPrepared(flags,impact,new(0,0),cold,0,WeaponMissiles.ItemEffects,
             HitClass:hitClass,FreezeFrames:frozen,HitFlags:hitFlags,SuppressWear:true,DamageKind:kind);
         PlayerWeaponContact.ReleaseMissile(owner,target,packet,at,true);
-        if(target.Alive&&(cold>0||frozen>0)){target.FixedEffect(0x374A,10,15,0x480,0);} // Identified shared cold/freeze placeholder.
     }
 
 }

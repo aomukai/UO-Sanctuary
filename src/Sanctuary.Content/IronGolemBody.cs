@@ -43,7 +43,7 @@ public partial class IronGolemBody:SkeletonGuardian
     public override bool Permitted(PlayerMobile owner)=>ClassCreation.Profiles.Histories(owner.Serial)
         .Any(x=>x.Profile.Class==DiabloClass.Necromancer&&x.Ranks.GetValueOrDefault("necromancer.irongolem")>0);
     public IronGolemBody()
-    {Name="Iron Golem [prepared placeholder]";Body=14;Hue=0x835;BaseSoundID=-1;CantWalk=true;ControlSlots=0;AIObject?.AITimer.Stop();SetHits(306);SetDamage(0,0);}
+    {Name="Iron Golem";Body=14;Hue=0x835;BaseSoundID=-1;CantWalk=true;ControlSlots=0;AIObject?.AITimer.Stop();SetHits(306);SetDamage(0,0);}
     public override TimeSpan BeginMelee(Mobile target)=>TimeSpan.FromSeconds(1);
     public override void OnThink(){AIObject?.AITimer.Stop();Combatant=null;FocusMob=null;Warmode=false;}
     private void Store(IronGolemBodyState state)
@@ -103,7 +103,13 @@ public partial class IronGolemBody:SkeletonGuardian
         base.RefreshDifficulty();if(Prepared!=null){SetBaseResistances();}
     }
     [AfterDeserialization]private void AfterIronLoad()
-    {AIObject?.AITimer.Stop();var state=JsonSerializer.Deserialize<IronGolemBodyState>(_saved);Store(state);if(state.Controller!=null){ControllerLoaded=true;IronGolems.Track(this);}}
+    {
+        if (Name == "Iron Golem [prepared placeholder]") { Name = "Iron Golem"; }
+        AIObject?.AITimer.Stop();
+        var state = JsonSerializer.Deserialize<IronGolemBodyState>(_saved);
+        Store(state);
+        if (state.Controller != null) { ControllerLoaded = true; IronGolems.Track(this); }
+    }
     public override void SuspendActions()
     {base.SuspendActions();if(Prepared?.Controller is{} controller){RestoreController(IronGolemWorld.Park(controller));}}
     internal override void InterruptForRecovery()

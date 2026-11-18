@@ -1,0 +1,35 @@
+diff --git a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -227,6 +227,9 @@
+                             SpellEffectGraphics.WoundActive => 135,
+                             SpellEffectGraphics.WoundFade => 95,
+                             SpellEffectGraphics.DruidMaulImpact or SpellEffectGraphics.DruidFeralImpact => 70,
++                            SpellEffectGraphics.DruidFireClaws or SpellEffectGraphics.DruidHungerBite => 70,
++                            SpellEffectGraphics.DruidHungerMana => 100,
++                            SpellEffectGraphics.DruidFuryImpact => 45,
+                             _ when SpellEffectGraphics.IsDruidCharge(Graphic) => 115,
+                             _ when SpellEffectGraphics.IsDruidFormEffect(Graphic) => 105,
+                             SpellEffectGraphics.ClayGolemContact or SpellEffectGraphics.IronGolemSpark => 65,
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -128,11 +128,18 @@
+                         or SpellEffectGraphics.BoneArmorCatch
+                         or SpellEffectGraphics.PoisonAfflicted or SpellEffectGraphics.PoisonClear or SpellEffectGraphics.BloodGolemHeal
+                         or SpellEffectGraphics.WoundActive or SpellEffectGraphics.WoundFade
++                        or SpellEffectGraphics.DruidHungerMana
+                     || Graphic is Sanctuary.SpellEffectGraphics.NovaCast or Sanctuary.SpellEffectGraphics.NovaContact
+                         or Sanctuary.SpellEffectGraphics.TelekinesisCast or Sanctuary.SpellEffectGraphics.TelekinesisContact))
+             {
+                 // Gargoyle flight raises the body two half-tiles above its standing art.
+                 posY -= 44;
++            }
++
++            if (Graphic == SpellEffectGraphics.DruidHungerMana)
++            {
++                // Keep the mana ribbon visible alongside Hunger's shared life flare.
++                posX += 23;
+             }
+ 
+             ushort hue = Hue;

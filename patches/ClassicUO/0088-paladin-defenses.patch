@@ -1,0 +1,38 @@
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -193,6 +193,7 @@
+                         _ when SpellEffectGraphics.IsPaladinRecoveryAnimation(Graphic) => SpellEffectGraphics.PaladinSpellFrames,
+                         SpellEffectGraphics.ConcentrationGuard => SpellEffectGraphics.PaladinSpellFrames,
+                         _ when SpellEffectGraphics.IsPaladinOffenseLoop(Graphic) => SpellEffectGraphics.PaladinSpellFrames,
++                        _ when SpellEffectGraphics.IsPaladinDefenseAnimation(Graphic) => SpellEffectGraphics.PaladinSpellFrames,
+                         _ when SpellEffectGraphics.IsEnchantAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ when SpellEffectGraphics.IsWardAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ => 0
+@@ -294,6 +295,7 @@
+                             SpellEffectGraphics.VineCorpse or SpellEffectGraphics.CarrionRecovery or SpellEffectGraphics.SolarRecovery => 110,
+                             _ when SpellEffectGraphics.IsDruidVineAnimation(Graphic) => 102,
+                             SpellEffectGraphics.FanaticismAura => 105,
++                            SpellEffectGraphics.VigorAura => 115,
+                             _ when SpellEffectGraphics.IsPaladinAuraLoop(Graphic) => 145,
+                             _ when SpellEffectGraphics.IsHolyAuraPulse(Graphic) => 90,
+                             _ when SpellEffectGraphics.IsHolyAuraAnimation(Graphic) => 69,
+@@ -304,6 +306,8 @@
+                             SpellEffectGraphics.MeditationMana => 63,
+                             _ when SpellEffectGraphics.IsPaladinRecoveryAnimation(Graphic) => 86,
+                             SpellEffectGraphics.ConcentrationGuard => 68,
++                            SpellEffectGraphics.ThornsContact or SpellEffectGraphics.HolyShieldBlock => 67,
++                            SpellEffectGraphics.HolyShieldRaise or SpellEffectGraphics.HolyShieldFade => 92,
+                             _ when SpellEffectGraphics.IsDruidCharge(Graphic) => 115,
+                             _ when SpellEffectGraphics.IsDruidFormEffect(Graphic) => 105,
+                             SpellEffectGraphics.ClayGolemContact or SpellEffectGraphics.IronGolemSpark => 65,
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -133,6 +133,8 @@
+                         or SpellEffectGraphics.PrayerHeal or SpellEffectGraphics.CleansingPurify or SpellEffectGraphics.MeditationMana
+                         or SpellEffectGraphics.RedemptionLife or SpellEffectGraphics.RedemptionMana
+                         or SpellEffectGraphics.ConcentrationGuard
++                        or SpellEffectGraphics.HolyShieldRaise or SpellEffectGraphics.HolyShieldShell
++                        or SpellEffectGraphics.HolyShieldBlock or SpellEffectGraphics.HolyShieldFade
+                     || Graphic is Sanctuary.SpellEffectGraphics.NovaCast or Sanctuary.SpellEffectGraphics.NovaContact
+                         or Sanctuary.SpellEffectGraphics.TelekinesisCast or Sanctuary.SpellEffectGraphics.TelekinesisContact))
+             {

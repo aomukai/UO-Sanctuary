@@ -81,7 +81,7 @@ internal static class DruidCreeperPoison
             owner.DoHarmful(target,true);
             // Original player is the explicit durable source-credit adapter;
             // removing the pet cannot erase subsequent poison-tick attribution.
-            poison.Commit(owner,target,at);
+            if (poison.Commit(owner,target,at)) { DruidVineVisuals.Poison(owner,target,at); }
         }
         return mat with{Poison=packet with{Seed=seed}};
     }

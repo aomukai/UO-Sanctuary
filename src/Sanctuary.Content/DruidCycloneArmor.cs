@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text.Json;
 using Server;
 using Server.Mobiles;
+using Server.Network;
 namespace Sanctuary;
 public sealed record CycloneArmorState(uint Owner,int Rank,int Remaining256,int Maximum256,int DisplayPercent=0);
 public sealed class CycloneArmorProfiles:GenericPersistence
@@ -23,9 +24,25 @@ public static class DruidCycloneArmor
     private static ImmutableDictionary<uint,CycloneArmorState> _states=ImmutableDictionary<uint,CycloneArmorState>.Empty;
     public static CycloneArmorProfiles Profiles{get;private set;}
     public static void Configure(){Profiles=new CycloneArmorProfiles();EventSink.WorldSave+=Prune;}
+    public static void Initialize() => Timer.StartTimer(TimeSpan.FromMilliseconds(280), TimeSpan.FromMilliseconds(280), RefreshVisuals);
+
+    private static void RefreshVisuals()
+    {
+        if (_states.IsEmpty) { return; }
+        foreach (var connection in NetState.Instances)
+        {
+            if (connection.Running && connection.Mobile is PlayerMobile owner && State(owner) != null)
+            { CycloneArmorVisuals.Refresh(owner); }
+        }
+    }
     internal static CycloneArmorState State(Mobile owner)=>owner is PlayerMobile{Alive:true,Deleted:false}
         && ClassCreation.Profiles.TryGet(owner.Serial,out var p) && p.Class==DiabloClass.Druid?_states.GetValueOrDefault(owner.Serial.Value):null;
-    public static void Clear(Mobile owner){if(owner!=null){_states=_states.Remove(owner.Serial.Value);}}
+    public static void Clear(Mobile owner)
+    {
+        if (owner == null || !_states.ContainsKey(owner.Serial.Value)) { return; }
+        _states = _states.Remove(owner.Serial.Value);
+        CycloneArmorVisuals.Clear(owner);
+    }
     internal static void Prune()
     {foreach(var row in _states.Values){if(World.FindMobile((Serial)row.Owner) is not PlayerMobile p || State(p)==null){_states=_states.Remove(row.Owner);}}}
     internal static CycloneArmorState[] Snapshot()=>_states.Values.OrderBy(x=>x.Owner).ToArray();
@@ -57,7 +74,7 @@ public static class DruidCycloneArmor
         if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
         var state=new CycloneArmorState(owner.Serial.Value,values.Rank,maximum,maximum,previous?.Rank==values.Rank?previous.DisplayPercent:0);Validate(state);
         _states=_states.SetItem(owner.Serial.Value,state);
-        owner.FixedEffect(0x375A,10,15,0x481,0);owner.PlaySound(0x1E5); // Identified cast/audio placeholders.
+        CycloneArmorVisuals.Raise(owner);
         return true;
     }
     public static GearDamage Absorb(Mobile owner,GearDamage damage)
@@ -65,8 +82,16 @@ public static class DruidCycloneArmor
         if(State(owner) is not{} state || damage.Fire<=0 && damage.Cold<=0 && damage.Lightning<=0){return damage;}
         var hit=CycloneArmorPackets.Absorb(new(state.Remaining256,state.Maximum256,state.DisplayPercent),
             NamedElements.To256(damage.Fire),NamedElements.To256(damage.Cold),NamedElements.To256(damage.Lightning));
-        if(hit.Removed){Clear(owner);}
-        else{_states=_states.SetItem(state.Owner,state with{Remaining256=hit.Pool.Remaining256,DisplayPercent=hit.Pool.DisplayPercent});}
+        if (hit.Removed)
+        {
+            Clear(owner);
+            CycloneArmorVisuals.Break(owner);
+        }
+        else
+        {
+            _states = _states.SetItem(state.Owner, state with { Remaining256 = hit.Pool.Remaining256, DisplayPercent = hit.Pool.DisplayPercent });
+            if (hit.Pool.Remaining256 < state.Remaining256) { CycloneArmorVisuals.Catch(owner); }
+        }
         return damage with{Fire=hit.Fire256/256.0,Cold=hit.Cold256/256.0,Lightning=hit.Lightning256/256.0};
     }
 }

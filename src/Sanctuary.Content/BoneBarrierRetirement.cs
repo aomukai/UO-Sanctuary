@@ -57,9 +57,9 @@ internal static class BoneBarrierRetirement
         foreach(var body in group)
         {
             body.ReleaseCollision();body.AIObject?.AITimer.Stop();
-            // Explicit native collapse placeholder; BW DT15 is the timing reference.
-            ClassCombat.SendAnimation(body,4,DurationMs);
+            body.RefreshAppearance(at);
         }
+        Effects.PlaySound(root.Location, root.Map, SpellEffectSounds.BoneBarrierFall);
     }
     internal static bool Advance(BoneBarrierSegment body,IBarrierRetirement retiring,DateTime at)
     {

@@ -39,7 +39,8 @@ public static class DruidOakCasting
         if(created==null){return false;}
         if(created.SpiritAbility!=ability||created.ControlMaster!=owner){created.Delete();return false;}
         if(!NecromancerEffects.Pay(owner,values.Mana256)){created.Delete();return false;}
-        DruidSpirits.Replace(owner,created);body=created;owner.PlaySound(0x1E5); // Identified druid_summon placeholder.
+        DruidSpirits.Replace(owner,created);body=created;
+        DruidSummonVisuals.Arrive(created);
         return true;
     }
     public static bool Release(PlayerMobile owner,CombatAbility ability=CombatAbility.OakSage)

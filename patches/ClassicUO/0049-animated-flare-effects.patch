@@ -1,0 +1,80 @@
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -38,7 +38,8 @@
+     <Content Include="../../../../art/succubus/succubus.idx;../../../../art/succubus/succubus.mul"
+              Link="Data/Sanctuary/Animations/%(Filename)%(Extension)"
+              CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+-    <Content Include="../../../../art/succubus/statics/65000.art"
++    <Compile Include="../../../../shared/FlareGraphics.cs" Link="Game/Data/FlareGraphics.cs" />
++    <Content Include="../../../../art/succubus/statics/*.art"
+              Link="Data/Sanctuary/Art/Statics/%(Filename)%(Extension)"
+              CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+     <Compile Include="../../../../shared/TitleProtocol.cs" Link="TitleProtocol.cs" />
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -6,6 +6,7 @@
+ using ClassicUO.Game.Managers;
+ using ClassicUO.Assets;
+ using ClassicUO.Utility;
++using Sanctuary;
+ 
+ namespace ClassicUO.Game.GameObjects
+ {
+@@ -98,6 +99,20 @@
+                 }
+                 else if (NextChangeFrameTime < Time.Ticks)
+                 {
++                    int flareFrames = Graphic switch
++                    {
++                        FlareGraphics.RedBurst or FlareGraphics.BlueBurst => FlareGraphics.BurstFrames,
++                        FlareGraphics.RedFlight or FlareGraphics.BlueFlight when IsMoving => FlareGraphics.FlightFrames,
++                        _ => 0
++                    };
++                    if (flareFrames > 0)
++                    {
++                        AnimationGraphic = (ushort)(Graphic + AnimIndex);
++                        AnimIndex = (byte)((AnimIndex + 1) % flareFrames);
++                        NextChangeFrameTime = (long)Time.Ticks + FlareGraphics.FrameMilliseconds;
++                        return;
++                    }
++
+                     if (AnimDataFrame.FrameCount != 0)
+                     {
+                         unsafe
+@@ -137,7 +152,16 @@
+             {
+                 (var targetX, var targetY, var targetZ) = GetTarget();
+ 
+-                FixedEffect effect = new FixedEffect(World, _manager, 0x36CB, Hue, 400, 0);
++                ushort graphic = Graphic switch
++                {
++                    FlareGraphics.RedFlight => FlareGraphics.RedBurst,
++                    FlareGraphics.BlueFlight => FlareGraphics.BlueBurst,
++                    _ => 0x36CB
++                };
++                int duration = FlareGraphics.IsFlight(Graphic)
++                    ? FlareGraphics.BurstFrames * FlareGraphics.FrameMilliseconds
++                    : 400;
++                FixedEffect effect = new FixedEffect(World, _manager, graphic, Hue, duration, 0);
+                 effect.Blend = Blend;
+                 effect.SetSource(targetX, targetY, targetZ);
+ 
+--- a/src/ClassicUO.Client/Game/GameObjects/MovingEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/MovingEffect.cs
+@@ -3,6 +3,7 @@
+ using System;
+ using ClassicUO.Game.Managers;
+ using Microsoft.Xna.Framework;
++using Sanctuary;
+ 
+ namespace ClassicUO.Game.GameObjects
+ {
+@@ -141,7 +142,7 @@
+ 
+ 
+             IsPositionChanged = true;
+-            AngleToTarget = (float) Math.Atan2(-offset.Y, -offset.X);
++            AngleToTarget = FlareGraphics.IsFlight(Graphic) ? 0f : (float)Math.Atan2(-offset.Y, -offset.X);
+ 
+             if (newX != sX || newY != sY)
+             {

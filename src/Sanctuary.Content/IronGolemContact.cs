@@ -110,7 +110,12 @@ internal static class IronGolemContact
         internal override PreparedMonsterDamagePacket Killed(PreparedMonsterDamagePacket p)=>scope.TargetEvents.Dispatch("killed",p,target,source,at);
         internal override PreparedMonsterDamagePacket Kill(PreparedMonsterDamagePacket p)=>scope.SourceEvents.Dispatch("kill",p,source,target,at,retained:scope.RetainedTarget);
         internal override void PresentOverlay(int overlay)
-        {target.FixedEffect(0x37B9,10,12,0x481,0);} // Source overlay descriptor retained in packet; identified native placeholder.
+        {
+            if (source is not SkeletonGuardian pet || !NecromancerGolems.Member(pet))
+            {
+                target.FixedEffect(0x37B9,10,12,0x481,0);
+            }
+        }
         internal override int BaseHitClass()=>scope.SourceIdentity.HitClass;
         internal override PreparedMonsterDamagePacket MeleeAttack(PreparedMonsterDamagePacket p)=>scope.SourceEvents.Dispatch("domeleeattack",p,source,target,at,retained:scope.RetainedTarget);
         internal override PreparedMonsterDamagePacket AttackedInMelee(PreparedMonsterDamagePacket p)=>scope.TargetEvents.Dispatch("attackedinmelee",p,target,source,at);
@@ -194,12 +199,15 @@ internal static class IronGolemContact
     internal static MonsterContactResult Release(BaseCreature body,PlayerMobile owner,BaseCreature target,Prepared prepared,Func<int,bool> range,DateTime at)
     {
         var scope=BeginRelease(body,target,prepared,at);if(scope==null){return new(MonsterContactExit.SettledRecipientFreed,prepared.Impact.Packet with{ResultFlags=prepared.Impact.Packet.ResultFlags&~3},null);}var metadata=prepared.Rules.Metadata;
+        var point = target.Location;
+        var map = target.Map;
         var recipient=new PreparedMonsterRecipient(PreparedMonsterStun.IsUnique(target),
             ()=>CreatureProfiles.For(target).Traits.Boss??false,()=>metadata.Velocity,()=>target is BaseHire);
         using var attempted=PaladinThorns.Attempt(body,target,false);
         var result=PreparedMonsterContact.Release(body,target,new Contact(body,owner,range,target,metadata,scope),recipient,
             n=>NpcEquipmentRandom.Limited(body,n),new Damage(body,owner,target,metadata,scope,at),at);
         if(result.Commit is{AfterHealth256:>0}){NpcSpectralHit.After(body,target,prepared.Impact.Spectral,at);}
+        if (result.Commit != null) { UndeadSummonVisuals.MeleeContact(body, map, point, result.Packet, prepared.Impact.Spectral?.Roll); }
         var after=prepared.AfterContact;prepared.AfterContact=null;after?.Invoke();
         return result;
     }

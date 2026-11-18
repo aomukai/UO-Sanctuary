@@ -96,8 +96,15 @@ public static class BarbarianLeapAttack
         var attack=flight.Attack;var values=SkillMechanics.Values(owner,CombatAbility.LeapAttack);
         // Approved Sanctuary adaptation: one physical spell hit per eligible
         // recipient,then the distinct later ordinary weapon contact. No Leap KB.
-        foreach(var target in SkillCombat.Targets(owner,owner.Location,SkillGeometry.Tiles(7)))
-        {BarbarianWarCry.PhysicalHit(owner,target,values.PhysicalDamage256(false),values.PhysicalDamage256(true),AreaRoll);}
+        double radius = SkillGeometry.Tiles(7);
+        BarbarianMotionVisuals.Landing(owner, radius, attack: true);
+        foreach (var target in SkillCombat.Targets(owner, owner.Location, radius))
+        {
+            var point = target.Location;
+            var map = target.Map;
+            if (BarbarianWarCry.PhysicalHit(owner, target, values.PhysicalDamage256(false), values.PhysicalDamage256(true), AreaRoll))
+            { BarbarianMotionVisuals.LeapAreaContact(point, map); }
+        }
         var targetAtLanding=FindTarget(owner,attack.Target);
         if(targetAtLanding==null){return attack with{Target=0,ContactFrame=0,EndFrame=4,Frame=0,Released=true};}
         var p=PlayerWeaponSequences.Profile(14,attack.Code);
@@ -120,8 +127,12 @@ public static class BarbarianLeapAttack
                 ()=>InRange(owner,target),HitRoll,ElementRoll,PhysicalRoll,PoisonRoll,Effects,true);
             if((packet.Flags&SourceMeleeResult.Successful)!=0){packet=packet with{Flags=packet.Flags|8,SkillKnockback=true,HitFlags=0x20};}
             packet=packet with{RangeCheck=bonus=>Recipient(owner,target)&&PlayerMeleeGeometry.Within(owner,target,bonus)};
-            owner.Direction=owner.GetDirectionTo(target);owner.DoHarmful(target,true);owner.PlaySound(0x238);
+            owner.Direction=owner.GetDirectionTo(target);owner.DoHarmful(target,true);
+            BarbarianMotionVisuals.LeapStrike(owner);
+            var point = target.Location;
+            var map = target.Map;
             var result=PlayerWeaponContact.Release(owner,target,packet,TimedEffects.Now,true);
+            BarbarianMotionVisuals.LeapWeaponImpact(point, map, result.Commit);
             if(result.Exit==MonsterContactExit.Finished&&(result.Packet.ResultFlags&SourceMeleeResult.Successful)!=0)
             {CombatStuns.Clear(target);}
         }

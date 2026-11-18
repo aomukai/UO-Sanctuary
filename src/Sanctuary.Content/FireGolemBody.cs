@@ -27,7 +27,10 @@ public partial class FireGolemBody:NecromancerMinion,ISourceLifeMaximum,ISourceU
     {
         // Bypass the historical Minion's separate follow-up fire hit: physical
         // and accrued fire damage now share one packet and intrinsic critical.
+        var point = target.Location;
+        var map = target.Map;
         if(!NpcEquipmentDamage.TryResolve(this,target,out _)){throw new NotSupportedException("Missing Fire Golem unarmed packet");}
+        UndeadSummonVisuals.MeleeContact(this, map, point);
     }
     protected override void RefreshResistances()
     {

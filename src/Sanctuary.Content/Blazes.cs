@@ -23,14 +23,15 @@ internal static class Blazes
     {
         if(!CanApply(owner,state)){return false;}
         SorceressEffects.Profiles.Store(owner,(SorceressEffects.Profiles.Find(owner)??new()) with{Blaze=state});
-        owner.FixedEffect(0x375A,10,10,0x489,0);return true; // Identified Blaze aura placeholder.
+        owner.FixedEffect(SpellEffectGraphics.BlazeCast, 10, 6);
+        return true;
     }
     internal static bool Release(PlayerMobile owner,SkillValues values)
     {
         var prepared=Prepare(owner,values,TimedEffects.Now);
         if(!CanApply(owner,prepared)||!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
         if(!Apply(owner,prepared)){throw new InvalidOperationException("Blaze state changed during synchronous release");}
-        owner.PlaySound(0x1E5);return true; // Identified fire-cast placeholder.
+        owner.PlaySound(SorceressVisuals.CastSound(CombatAbility.Blaze));return true;
     }
     internal static void Moved(PlayerMobile owner)
     {
@@ -104,6 +105,12 @@ public static partial class FireGround
         _patches[patch.Id]=patch with{NextUtc=patch.NextUtc.AddMilliseconds(40)};
         SourceFireFields.Burn(owner,patch,patch.NextUtc,ref seed);
         if(_patches.TryGetValue(patch.Id,out var current)){_patches[patch.Id]=current with{Seed=seed};}
-        if((patch.NextUtc.Ticks/TimeSpan.TicksPerMillisecond/40)%5==0){Effects.SendLocationEffect(point,owner.Map,0x398C,5,10,0x489,0);} // Identified ground-fire placeholder.
+        if (patch.MeteorModifiers != null)
+        {
+            PresentMeteorField(patch, point, owner.Map, at);
+            return;
+        }
+        if (_patches.ContainsKey(patch.Id))
+        { FireFieldVisuals.Observe(patch, point, owner.Map, at); }
     }
 }

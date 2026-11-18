@@ -1,0 +1,40 @@
+diff --git a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -184,6 +184,7 @@
+                             or SpellEffectGraphics.ArmageddonRelease or SpellEffectGraphics.ArmageddonAura or SpellEffectGraphics.ArmageddonImpact
+                             => SpellEffectGraphics.DruidEruptionFrames,
+                         _ when SpellEffectGraphics.IsDruidAnimalAnimation(Graphic) => SpellEffectGraphics.DruidAnimalFrames,
++                        _ when SpellEffectGraphics.IsDruidSpiritAnimation(Graphic) => SpellEffectGraphics.DruidSpiritFrames,
+                         _ when SpellEffectGraphics.IsEnchantAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ when SpellEffectGraphics.IsWardAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ => 0
+@@ -197,6 +198,7 @@
+                             && !SpellEffectGraphics.IsCurseMark(Graphic)
+                             && !SpellEffectGraphics.IsColdStatus(Graphic) && !SpellEffectGraphics.IsSorceressWard(Graphic)
+                             && !SpellEffectGraphics.IsDruidCharge(Graphic)
++                            && !SpellEffectGraphics.IsDruidSpiritAura(Graphic)
+                             && Graphic is not (SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow
+                                 or SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.PoisonAfflicted
+                                 or SpellEffectGraphics.GolemSlow or SpellEffectGraphics.WoundActive
+@@ -276,6 +278,9 @@
+                             SpellEffectGraphics.RavenContact or SpellEffectGraphics.SpiritWolfContact or SpellEffectGraphics.DireWolfContact
+                                 or SpellEffectGraphics.GrizzlyContact or SpellEffectGraphics.GrizzlySmite => 65,
+                             _ when SpellEffectGraphics.IsDruidAnimalAnimation(Graphic) => 105,
++                            SpellEffectGraphics.BarbsRetaliation => 68,
++                            _ when SpellEffectGraphics.IsDruidSpiritAura(Graphic) => 150,
++                            _ when SpellEffectGraphics.IsDruidSpiritAnimation(Graphic) => 105,
+                             _ when SpellEffectGraphics.IsDruidCharge(Graphic) => 115,
+                             _ when SpellEffectGraphics.IsDruidFormEffect(Graphic) => 105,
+                             SpellEffectGraphics.ClayGolemContact or SpellEffectGraphics.IronGolemSpark => 65,
+diff --git a/src/ClassicUO.Client/Game/Managers/EffectManager.cs b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+--- a/src/ClassicUO.Client/Game/Managers/EffectManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+@@ -111,6 +111,7 @@
+                     || SpellEffectGraphics.IsAmazonUtilityLoop(graphic)
+                     || SpellEffectGraphics.IsCurseMark(graphic)
+                     || SpellEffectGraphics.IsDruidCharge(graphic)
++                    || SpellEffectGraphics.IsDruidSpiritAura(graphic)
+                     || graphic is SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow or SpellEffectGraphics.HurricaneCore
+                         or SpellEffectGraphics.CycloneArmorWard or SpellEffectGraphics.ArmageddonAura
+                         or SpellEffectGraphics.DireWolfRage or SpellEffectGraphics.RavenBlind

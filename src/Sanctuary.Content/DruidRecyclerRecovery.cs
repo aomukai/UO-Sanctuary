@@ -80,6 +80,7 @@ public static class DruidRecyclerRecovery
         // immediate Dire Wolf consume transaction.
         if(!Allocate(effect)){return new(true,false,0);}
         Validate(effect,id);_effects=_effects.Add(id,effect);_nextId=id;
+        DruidVineVisuals.Consume(owner, corpse.Location, corpse.Map, at);
         return new(true,true,id);
     }
     internal static RecyclerRecoverySave Snapshot()=>new(_effects.Values.OrderBy(x=>x.Id).ToArray(),_nextId);
@@ -108,12 +109,13 @@ public static class DruidRecyclerRecovery
                 {
                     effect=effect with{Triggered=true};_effects=_effects.SetItem(effect.Id,effect);
                     bool mana=effect.Ability==CombatAbility.SolarCreeper;
-                    var gain=Gain(effect.Ability,effect.Rank,age,mana?NecromancerEffects.ManaBalance256(owner):SkillHealth.Balance256(owner),
+                    int balance=mana?NecromancerEffects.ManaBalance256(owner):SkillHealth.Balance256(owner);
+                    var gain=Gain(effect.Ability,effect.Rank,age,balance,
                         mana?owner.ManaMax*256:SkillHealth.Maximum256(owner),true,owner.Alive,effect.Model);
                     if(gain.Changed)
                     {
                         if(mana){NecromancerEffects.SetMana256(owner,gain.After256);}else{SkillHealth.SetBalance256(owner,gain.After256);}
-                        owner.FixedEffect(0x376A,10,12); // Identified steal-life/mana overlay placeholder.
+                        if (gain.After256 > balance) { DruidVineVisuals.Recover(owner, mana); }
                     }
                     if(!_effects.TryGetValue(effect.Id,out var live)||!ReferenceEquals(live,effect)){break;}
                 }

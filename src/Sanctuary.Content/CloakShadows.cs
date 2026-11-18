@@ -116,7 +116,8 @@ public static class CloakShadows
         int radius=(int)values.Eval("aurarangecalc");var targets=new List<BaseCreature>();
         foreach(var target in owner.Map.GetMobilesInRange<BaseCreature>(owner.Location,(int)Math.Ceiling(SkillGeometry.Tiles(radius)))){if(Target(owner,target,radius)){targets.Add(target);}}
         targets.Sort((a,b)=>a.Serial.CompareTo(b.Serial));foreach(var target in targets){Apply(owner,target,values,at);}
-        owner.FixedEffect(0x373A,10,15,0x455,0);owner.PlaySound(0x1E5); // Identified cast/darkness/audio placeholders; no invented invisibility.
+        owner.FixedEffect(0x373A, 10, 15, 0x455, 0);
+        owner.PlaySound(0x1E9);
         return true;
     }
     internal static void Changed(Mobile actor,NecromancerCurse before,NecromancerCurse after)

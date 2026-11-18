@@ -217,8 +217,11 @@ public partial class DruidRavenBody:SkeletonGuardian
         {
             int min=s.Packet.Minimum256/256,max=s.Packet.Maximum256/256;int damage=checked(min+Next(max-min+1));
             if(Next(100)<NecromancerSummons.Source("druidhawk","Crit")){damage=checked(damage*2);}
-            SkillCombat.ResolveHitParts(this,target,new(damage,0,0,0,0),true,true);
-            NamedControl.ApplySummonBlind(this,target,s.Birth.Blind,false,()=>Next(100));
+            var point = target.Location;
+            var map = target.Map;
+            var contact = SkillCombat.ResolveHitParts(this,target,new(damage,0,0,0,0),true,true);
+            bool blinded = NamedControl.ApplySummonBlind(this,target,s.Birth.Blind,false,()=>Next(100));
+            if (contact.LifeLost > 0 || blinded) { DruidSummonVisuals.Contact(this, point, map); }
         }
         return s with{ActionAt=0,Seed=seed,Hits=checked(s.Hits+(hit?1:0))};
     }

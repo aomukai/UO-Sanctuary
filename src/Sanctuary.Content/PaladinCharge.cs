@@ -70,7 +70,7 @@ public static class PaladinCharge
             Velocity256=Velocity256(9,VelocityPercent(owner),(int)values.Eval("calc2"))};
         session.PendingAbility=CombatAbility.Charge;session.PendingTarget=selected;session.PendingPoint=point;
         session.NextAction=now+40;session.Timing=new(1,1);session.Animation=ClassCombat.AnimationFor(owner,CombatAbility.Charge,CombatTiming.Equipped(owner));
-        owner.RevealingAction();owner.PlaySound(0x238);ClassCombat.SendState(owner,session);return true;
+        owner.RevealingAction();PaladinMeleeVisuals.Swing(owner, CombatAbility.Charge);ClassCombat.SendState(owner,session);return true;
     }
     private static Mobile Nearby(PlayerMobile owner,Serial previous)
     {
@@ -125,9 +125,15 @@ public static class PaladinCharge
                     ()=>PaladinVengeance.ValidTarget(owner,recipient.Serial),HitRoll,ElementRoll,Roll,PoisonRoll,Effects,true);
                 prepared=prepared with{Flags=prepared.Flags|8,HitClass=0x70,SkillKnockback=true};
                 owner.Direction=owner.GetDirectionTo(target);owner.DoHarmful(target,true);
-                bool finished=PlayerWeaponContact.Release(owner,recipient,prepared,TimedEffects.Now,true).Exit==MonsterContactExit.Finished;
-                if(finished){target.FixedEffect(0x374A,10,12);} // Source overlay147 identified placeholder.
-                return finished;
+                var point = target.Location;
+                var map = target.Map;
+                var previousPush = SourceKnockbacks.State(recipient);
+                var result = PlayerWeaponContact.Release(owner,recipient,prepared,TimedEffects.Now,true);
+                var push = SourceKnockbacks.State(recipient);
+                if (push is { Recovering: false } && push != previousPush)
+                { PaladinMeleeVisuals.Land(owner, point, map, CombatAbility.Charge); }
+                else { PaladinMeleeVisuals.Land(owner, point, map, CombatAbility.Charge, result); }
+                return result.Exit==MonsterContactExit.Finished;
             }
             catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}
         }
@@ -147,8 +153,10 @@ public static class PaladinCharge
             bool diagonal=(direction&Direction.Mask) is Direction.Right or Direction.Down or Direction.Left or Direction.Up;
             int cost=diagonal?92682:65536;
             if(flight.Distance16<cost){break;}
+            var previous = owner.Location;
             if(!ChargeMotion.TryStep(owner,direction,p=>PointAllowed(owner,p))){PathEnded(owner,flight,now);break;}
             flight.Distance16-=cost;flight.Position=owner.Location;
+            PaladinMeleeVisuals.ChargeStep(owner, previous);
             aimed=World.FindMobile(flight.Target);
             if(ClassCombat.IsHostile(owner,aimed) && PaladinVengeance.ValidTarget(owner,aimed.Serial)){Arrive(owner,flight,aimed,now);break;}
             if(owner.X==flight.Point.X && owner.Y==flight.Point.Y){PathEnded(owner,flight,now);break;}

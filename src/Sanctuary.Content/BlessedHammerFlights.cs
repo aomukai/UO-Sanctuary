@@ -74,7 +74,11 @@ internal static class BlessedHammerFlights
         if(!BlessedHammerDamage.Supported(p,target,out string reason)){throw new NotSupportedException(reason);}
         SorceressEffects.MissileHit(p,target,"blessedhammer");if(ClassAvoidance.Missile(target,"blessedhammer")){return f.Motion.Seed;}
         ulong seed=f.Motion.Seed;int raw=BlessedHammerDamage.Roll(f.Min256,f.Max256,GemCombat.Undead(target),NamedCombat.Demon(target),n=>(int)SourceRandom.Limited(ref seed,n));
-        BlessedHammerDamage.Deliver(p,(BaseCreature)target,raw,f.Captured,at);return seed;
+        var point = target.Location;
+        var map = target.Map;
+        var applied = BlessedHammerDamage.Deliver(p,(BaseCreature)target,raw,f.Captured,at);
+        if (applied.AfterHealth256 < applied.Before256) { PaladinSpellVisuals.HammerContact(p, point, map, at); }
+        return seed;
     }
     private static void Advance(HammerFlight f,DateTime at,bool? actions)
     {
@@ -114,9 +118,16 @@ internal static class BlessedHammerFlights
         var result=BasicMissileUpdate.Run(new(true,true,f.VelocityQ8,120-f.Frame,2,120,true),
             new(Move,_=>{},()=>true,()=>true,()=>2,()=>next.Motion.Path.SavedSteps.Select(q=>new SourceMissileCell(q.X,q.Y)).ToArray(),
                 cell=>Find(cell)!=null?1:0,cell=>Find(cell)?.Serial.Value??0,Hit));
-        if(removed||result.Result==2){BlessedHammers.Remove(f.Id);return;}
+        double nextX = next.OriginX + next.XFp16 / 131072.0;
+        double nextY = next.OriginY + next.YFp16 / 131072.0;
+        if(removed||result.Result==2)
+        {
+            BlessedHammers.Remove(f.Id);
+            PaladinSpellVisuals.End(p, nextX, nextY, f.Z, true, f.NextUtc);
+            return;
+        }
         BlessedHammers.Update(next);
-        if(next.Frame%2==0){Effects.SendLocationEffect(new(f.OriginX+(int)Math.Round(next.XFp16/131072.0),f.OriginY+(int)Math.Round(next.YFp16/131072.0),f.Z),map,0x36E4,3,10,0x481,0);} // Identified hammer/trail placeholder.
+        if(next.Frame%2==0){PaladinSpellVisuals.HammerTravel(map, next, nextX, nextY);}
     }
     internal static void TickFlight(long id,DateTime at,bool? actions=null)
     {

@@ -93,12 +93,16 @@ public static class DragonTalons
         var current=series with{Released=series.Released+1,Kick=null};session.Talon=current;
         try
         {
-            RequireRecipient(owner,target);owner.Direction=owner.GetDirectionTo(target);owner.PlaySound(0x238); // Identified native kick/contact placeholder.
+            RequireRecipient(owner,target);owner.Direction=owner.GetDirectionTo(target);
+            AssassinDragonVisuals.Sweep(owner, target, CombatAbility.DragonTalon);
             var pair=WeaponHands.Pair(owner);using var primary=pair is{} hands?WeaponHands.Use(owner,hands.Primary):null;
             var weapon=CombatTiming.Equipped(owner);using var melee=weapon!=null?WeaponHands.UseMelee(owner,weapon):null;
             if((series.Kick.Flags&SourceMeleeResult.Successful)!=0&&PlayerMeleeGeometry.Within(owner,target,0))
             {DragonTails.Progressive(owner,target,target.Location,target.Map,CombatAbility.DragonTalon);}
-            PlayerWeaponContact.Release(owner,target,series.Kick.Contact,TimedEffects.Now,true);
+            var point = target.Location;
+            var map = target.Map;
+            var result = PlayerWeaponContact.Release(owner,target,series.Kick.Contact,TimedEffects.Now,true);
+            AssassinDragonVisuals.Contact(point, map, CombatAbility.DragonTalon, result);
             if(!ReferenceEquals(session.Talon,current)){return true;}
             if(!Eligible(owner,current)||!DragonTails.ValidTarget(owner,current.Target)){Cancel(owner);return true;}
             if(current.Released<current.Total)

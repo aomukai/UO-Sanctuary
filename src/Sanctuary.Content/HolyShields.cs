@@ -28,8 +28,11 @@ public static class HolyShields
     internal sealed record Pending(Map Map,Point3D Origin,Serial Weapon,long EffectAt);
     private static readonly Dictionary<uint,HolyShieldState> _states=new();
     private static readonly List<uint> _expired=new();
+    private static readonly Dictionary<uint,(DateTime Until,DateTime Next)> _visible=new();
     public static HolyShieldProfiles Profiles{get;private set;}
     public static void Configure()=>Profiles=new();
+    public static void Initialize() => Timer.StartTimer(TimeSpan.Zero, TimeSpan.FromMilliseconds(100),
+        () => Update(TimedEffects.Now, refresh: true));
     public static HolyShieldState State(Mobile owner)=>owner is{Alive:true,Deleted:false} && _states.TryGetValue(owner.Serial.Value,out var state)
         && state.UntilUtc>TimedEffects.Now?state:null;
     public static Item Shield(PlayerMobile owner)
@@ -74,8 +77,7 @@ public static class HolyShields
             ||owner.Map!=paid.Map||owner.Location!=paid.Origin||(CombatTiming.Equipped(owner)?.Serial??Serial.Zero)!=paid.Weapon){return false;}
         // The generic action/equipment adapter cancels changed equipment.
         // Bare do18 itself has no second shield gate and no second payment.
-        bool applied=Apply(owner,SkillMechanics.Values(owner,CombatAbility.HolyShield),TimedEffects.Now);
-        if(applied){owner.PlaySound(0x1E5);}return applied; // Identified cast placeholder.
+        return Apply(owner,SkillMechanics.Values(owner,CombatAbility.HolyShield),TimedEffects.Now);
     }
     internal static void EquipmentChanged(PlayerMobile owner)
     {if(ClassCombat.For(owner).HolyShieldStart!=null){ClassCombat.Stop(owner);}}
@@ -88,15 +90,61 @@ public static class HolyShields
         // its values/deadline; stronger rank replaces. Cold armor is separate.
         if(State(owner) is{} old&&old.Rank>values.Rank){return false;}
         _states[owner.Serial.Value]=next;
-        owner.FixedEffect(0x373A,10,15,0x481,0); // Placeholder enchanted shield overlay.
+        PaladinDefenseVisuals.ShieldMoment(owner, SpellEffectGraphics.HolyShieldRaise, SpellEffectSounds.HolyShieldRaise, 12, at);
+        Refresh(owner, next, at);
         return true;
     }
-    public static void Clear(Mobile owner)=>_states.Remove(owner.Serial.Value);
+    internal static void Block(PlayerMobile owner)
+    {
+        if (State(owner) != null && Shield(owner) != null)
+        {
+            PaladinDefenseVisuals.ShieldMoment(owner, SpellEffectGraphics.HolyShieldBlock, SpellEffectSounds.HolyShieldBlock, 7, TimedEffects.Now);
+        }
+    }
+    public static void Clear(Mobile owner)
+    {
+        _states.Remove(owner.Serial.Value);
+        Hide(owner.Serial.Value, owner);
+    }
+    private static bool Hide(uint serial, Mobile owner)
+    {
+        if (!_visible.Remove(serial)) { return false; }
+        PaladinAuraVisuals.Clear(owner, SpellEffectGraphics.HolyShieldShell);
+        return true;
+    }
+    private static void Refresh(PlayerMobile owner, HolyShieldState state, DateTime now)
+    {
+        if (Shield(owner) == null || !PaladinAuraVisuals.InWorld(owner))
+        { Hide(state.Owner, owner); return; }
+        if (_visible.TryGetValue(state.Owner, out var visible) && visible.Until == state.UntilUtc && visible.Next > now)
+        { return; }
+        DateTime leaseEnd = now.AddMilliseconds(650);
+        if (state.UntilUtc < leaseEnd) { leaseEnd = state.UntilUtc; }
+        if (PaladinAuraVisuals.Attach(owner, SpellEffectGraphics.HolyShieldShell, leaseEnd, now))
+        { _visible[state.Owner] = (state.UntilUtc, now.AddMilliseconds(400)); }
+    }
+    private static void Update(DateTime now, bool refresh)
+    {
+        if (World.Loading) { return; }
+        _expired.Clear();
+        foreach (var (serial, state) in _states)
+        {
+            var owner = World.FindMobile((Serial)serial);
+            if (state.UntilUtc <= now || owner is not { Alive: true, Deleted: false })
+            {
+                _expired.Add(serial);
+                if (Hide(serial, owner) && owner is PlayerMobile { Alive: true, Deleted: false } player && Shield(player) != null)
+                {
+                    PaladinDefenseVisuals.ShieldMoment(player, SpellEffectGraphics.HolyShieldFade, SpellEffectSounds.HolyShieldFade, 10, now);
+                }
+            }
+            else if (refresh && owner is PlayerMobile player) { Refresh(player, state, now); }
+        }
+        foreach (uint owner in _expired) { _states.Remove(owner); }
+    }
     public static HolyShieldState[] Snapshot()
     {
-        _expired.Clear();foreach(var row in _states)
-        {if(row.Value.UntilUtc<=TimedEffects.Now || World.FindMobile((Serial)row.Key) is not{Alive:true,Deleted:false}){_expired.Add(row.Key);}}
-        foreach(uint owner in _expired){_states.Remove(owner);}
+        Update(TimedEffects.Now, refresh: false);
         return new List<HolyShieldState>(_states.Values).ToArray();
     }
     public static void Restore(HolyShieldState[] saved)
@@ -105,6 +153,10 @@ public static class HolyShields
         var candidate=new Dictionary<uint,HolyShieldState>();
         foreach(var state in saved)
         {Validate(state);if(!candidate.TryAdd(state.Owner,state)){throw new InvalidDataException("Duplicate Holy Shield");}}
+        foreach (var serial in _states.Keys)
+        {
+            if (!candidate.ContainsKey(serial)) { Hide(serial, World.FindMobile((Serial)serial)); }
+        }
         _states.Clear();foreach(var pair in candidate){_states.Add(pair.Key,pair.Value);}
     }
     private static void Validate(HolyShieldState state)

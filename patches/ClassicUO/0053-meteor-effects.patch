@@ -1,0 +1,53 @@
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -99,14 +99,23 @@
+                 }
+                 else if (NextChangeFrameTime < Time.Ticks)
+                 {
+-                    if (Graphic == SpellEffectGraphics.BoneSpearShatter)
+-                    {
++                    int spellFrames = Graphic switch
++                    {
++                        SpellEffectGraphics.BoneSpearShatter => SpellEffectGraphics.BoneSpearShatterFrames,
++                        SpellEffectGraphics.MeteorWarning or SpellEffectGraphics.MeteorImpact or SpellEffectGraphics.MeteorFire
++                            => SpellEffectGraphics.MeteorFrames,
++                        _ => 0
++                    };
++                    if (spellFrames > 0)
++                    {
++                        bool oneShot = Graphic is SpellEffectGraphics.BoneSpearShatter or SpellEffectGraphics.MeteorImpact;
+                         AnimationGraphic = (ushort)(Graphic + AnimIndex);
+-                        if (AnimIndex < SpellEffectGraphics.BoneSpearShatterFrames - 1)
+-                        {
+-                            AnimIndex++;
+-                        }
+-                        NextChangeFrameTime = (long)Time.Ticks + Constants.ITEM_EFFECT_ANIMATION_DELAY;
++                        if (AnimIndex < spellFrames - 1) { AnimIndex++; }
++                        else if (!oneShot) { AnimIndex = 0; }
++
++                        int speed = Graphic is SpellEffectGraphics.MeteorWarning or SpellEffectGraphics.MeteorImpact
++                            ? 2 : 1;
++                        NextChangeFrameTime = (long)Time.Ticks + speed * Constants.ITEM_EFFECT_ANIMATION_DELAY;
+                         return;
+                     }
+ 
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -250,6 +250,17 @@
+                 Client.Game.GetScene<GameScene>().AddLight(Source, Source, posX + 22, posY + 22);
+             }
+ 
++            if (Graphic == Sanctuary.SpellEffectGraphics.MeteorWarning
++                && Duration - Time.Ticks is >= 0 and <= Sanctuary.SpellEffectGraphics.MeteorFallMilliseconds)
++            {
++                int remaining = (int)(Duration - Time.Ticks);
++                int elapsed = Sanctuary.SpellEffectGraphics.MeteorFallMilliseconds - remaining;
++                int frame = Math.Min(Sanctuary.SpellEffectGraphics.MeteorFrames - 1,
++                    elapsed / (Sanctuary.SpellEffectGraphics.MeteorFallMilliseconds / Sanctuary.SpellEffectGraphics.MeteorFrames));
++                int height = remaining / 3;
++                DrawStaticRotated(batcher, (ushort)(Sanctuary.SpellEffectGraphics.MeteorFall + frame),
++                    posX - height, posY - height, 0, hueVec, depth + 1f);
++            }
+             return true;
+         }
+ 

@@ -55,10 +55,15 @@ public sealed class NecromancerEffectProfiles : GenericPersistence
         if(state.EliteCurse!=null&&!EliteAuras.ValidMetadata(state.EliteCurse)){throw new InvalidDataException("Invalid elite curse metadata");}
         _states[actor.Serial]=state;
         SourceTerror.Changed(actor,before?.Curse,state.Curse);CloakShadows.Changed(actor,before?.Curse,state.Curse);SourceBlind.Changed(actor,before?.Curse,state.Curse);SourceMind.Changed(actor,state);
+        NecromancerCurseVisuals.Track(actor, state.Curse ?? state.EliteCurse);
+        if ((before?.BoneArmor > 0) != (state.BoneArmor > 0))
+        {
+            BoneArmorVisuals.Track(actor, state.BoneArmor > 0);
+        }
         if(replacing){EliteAuras.Refresh(actor);}
     }
     public void Clear(Mobile actor)
-    {if(_states.Remove(actor.Serial,out var old)){SourceTerror.Changed(actor,old.Curse,null);if(old.ItemTerror!=null){SourceTerror.Reset(actor);}CloakShadows.Changed(actor,old.Curse,null);SourceBlind.Changed(actor,old.Curse,null);SourceMind.Changed(actor,null);if(old.EliteCurse!=null){EliteAuras.Curses.Clear(actor.Serial);EliteAuras.Refresh(actor);}}}
+    {if(_states.Remove(actor.Serial,out var old)){SourceTerror.Changed(actor,old.Curse,null);if(old.ItemTerror!=null){SourceTerror.Reset(actor);}CloakShadows.Changed(actor,old.Curse,null);SourceBlind.Changed(actor,old.Curse,null);SourceMind.Changed(actor,null);NecromancerCurseVisuals.Track(actor,null);BoneArmorVisuals.Track(actor,false);if(old.EliteCurse!=null){EliteAuras.Curses.Clear(actor.Serial);EliteAuras.Refresh(actor);}}}
     public override void Serialize()
     {SourceBlind.CaptureMovement();Prune();_snapshot=new(_states);base.Serialize();}
     public override void Serialize(IGenericWriter writer)
@@ -100,7 +105,22 @@ public sealed class NecromancerEffectProfiles : GenericPersistence
         { if (World.FindMobile(serial) is not { Alive: true, Deleted: false }) { removed.Add(serial); } }
         foreach (var serial in removed) { _states.Remove(serial); }
     }
-    public override void PostDeserialize(){Prune();SourceTerror.AfterLoad(_states);CloakShadows.AfterLoad(_states);SourceBlind.AfterLoad(_states);SourceMind.AfterLoad(_states);}
+    public override void PostDeserialize()
+    {
+        Prune();
+        SourceTerror.AfterLoad(_states);
+        CloakShadows.AfterLoad(_states);
+        SourceBlind.AfterLoad(_states);
+        SourceMind.AfterLoad(_states);
+        foreach (var (serial, state) in _states)
+        {
+            if (World.FindMobile(serial) is { } actor)
+            {
+                NecromancerCurseVisuals.Track(actor, state.Curse ?? state.EliteCurse);
+                BoneArmorVisuals.Track(actor, state.BoneArmor > 0);
+            }
+        }
+    }
 }
 
 public static class NecromancerEffects
@@ -164,7 +184,11 @@ public static class NecromancerEffects
         { actor.Control = control with { BlindUntil = default, FearUntil = default }; }
         if (target is BaseCreature creature)
         { creature.AIObject?.ResetApproachState(); creature.AIObject?.ClearMoveIntent(); creature.AIObject?.AITimer.Prod(); }
-        target.FixedEffect(0x375A, 10, 15, 0x455, 0); // Placeholder curse marker.
+        var ability = Curse(target)?.Ability ?? Profiles.Find(target)?.EliteCurse?.Ability ?? CombatAbility.None;
+        if (!IsCurse(ability) && ability != CombatAbility.GrimWard)
+        {
+            target.FixedEffect(0x375A, 10, 15, 0x455, 0);
+        }
         owner.DoHarmful(target,indirect);
     }
     internal static NecromancerMotion CaptureMotion(BaseCreature creature)
@@ -294,6 +318,7 @@ public static class NecromancerEffects
         var pool=step.Remaining256==0?null:state.BoneArmorPool is{} saved?saved with{Remaining256=step.Remaining256}
             :new BoneArmorState(null,step.Remaining256,null); // Legacy rank/max were not saved;do not invent them.
         Profiles.Store(target,state with{BoneArmor=(int)((step.Remaining256+255L)/256),BoneArmorPool=pool});
+        BoneArmorVisuals.Absorbed(target, step);
         return step.Damage256/256.0;
     }
     public static void BoneArmor(PlayerMobile owner, SkillValues values)
@@ -306,7 +331,7 @@ public static class NecromancerEffects
         {throw new NotSupportedException("Unmapped Bone Armor pool");}
         DefensiveArmors.ClearGroup(owner);
         Profiles.Store(owner, (Profiles.Find(owner) ?? new()) with { BoneArmor=(int)((amount+255L)/256),BoneArmorPool=new(values.Rank,amount,amount) });
-        owner.FixedEffect(0x375A, 10, 15, 0x481, 0); // Placeholder shield marker.
+        owner.PlaySound(SpellEffectSounds.BoneArmorRaise);
     }
     internal static int ManaMaximum256(Mobile owner)=>NpcEquipmentResources.Maximum256(owner,2)??owner.ManaMax*256;
     internal static int RawManaBalance256(Mobile owner)=>checked(owner.Mana*256+(Profiles.Find(owner)?.ManaFraction??0));
@@ -354,7 +379,7 @@ public static class NecromancerEffects
         // The defender event precedes ordinary leech's victim-life cap and has no
         // monster drain/difficulty reduction. Pinned calc1=ln56 is50% at all ranks.
         int healed=SkillHealth.Heal(attacker,LifeTapHealing256(physical256,Values(tap).Linear(5,6)));
-        attacker.FixedEffect(0x376A,10,10,0x26,0); // Life Tap steallife recovery placeholder.
+        if (healed > 0) { NecromancerCurseVisuals.LifeTapHeal(attacker); }
         return healed;
     }
     internal static void PreparedNativeWeaponHit(Mobile attacker,Mobile target,int physical256,bool ranged)

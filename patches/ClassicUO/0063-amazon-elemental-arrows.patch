@@ -1,0 +1,31 @@
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -141,6 +141,9 @@
+                             => SpellEffectGraphics.UtilityFrames,
+                         SpellEffectGraphics.HydraBoltContact => SpellEffectGraphics.UtilityFrames,
+                         SpellEffectGraphics.ArrowContact or SpellEffectGraphics.MagicArrowContact or SpellEffectGraphics.GuidedArrowContact
++                            or SpellEffectGraphics.FireArrowContact or SpellEffectGraphics.ColdArrowContact or SpellEffectGraphics.IceArrowContact
++                            or SpellEffectGraphics.ExplodingArrowBurst or SpellEffectGraphics.FreezingArrowBurst
++                            or SpellEffectGraphics.ImmolationArrowIgnition or SpellEffectGraphics.ImmolationArrowField
+                             => SpellEffectGraphics.ArrowContactFrames,
+                         _ when SpellEffectGraphics.IsEnchantAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ when SpellEffectGraphics.IsWardAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+@@ -149,7 +152,7 @@
+                     if (spellFrames > 0)
+                     {
+                         bool oneShot = Graphic is not (SpellEffectGraphics.MeteorWarning or SpellEffectGraphics.MeteorFire
+-                            or SpellEffectGraphics.AbyssField or SpellEffectGraphics.BlazeField)
++                            or SpellEffectGraphics.AbyssField) && !SpellEffectGraphics.IsFireField(Graphic)
+                             && !SpellEffectGraphics.IsColdStatus(Graphic) && !SpellEffectGraphics.IsSorceressWard(Graphic)
+                             && Graphic != SpellEffectGraphics.EnchantWard;
+                         AnimationGraphic = (ushort)(Graphic + AnimIndex);
+@@ -175,6 +178,9 @@
+                                 or SpellEffectGraphics.TelekinesisObject or SpellEffectGraphics.TeleportDeparture or SpellEffectGraphics.TeleportArrival => 65,
+                             SpellEffectGraphics.Chilled or SpellEffectGraphics.Frozen => 120,
+                             SpellEffectGraphics.BlazeField => 90,
++                            SpellEffectGraphics.ExplodingArrowBurst or SpellEffectGraphics.FreezingArrowBurst
++                                or SpellEffectGraphics.ImmolationArrowIgnition => 90,
++                            SpellEffectGraphics.ImmolationArrowField => 115,
+                             SpellEffectGraphics.BlazeCast or SpellEffectGraphics.BlazeFade or SpellEffectGraphics.FireWallFade => 70,
+                             _ when SpellEffectGraphics.IsSorceressWard(Graphic) => 145,
+                             _ => Constants.ITEM_EFFECT_ANIMATION_DELAY

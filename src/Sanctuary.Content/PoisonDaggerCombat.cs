@@ -104,8 +104,21 @@ internal static class PoisonDaggerCombat
         session.PoisonDaggerAttack=null;
         if(prepared.Target!=selected||!NecromancerCombat.Available(owner,CombatAbility.PoisonDagger)
             ||!ValidTarget(owner,selected)){return false;}
-        var target=(BaseCreature)World.FindMobile(selected);owner.DoHarmful(target,true);owner.PlaySound(0x238); // Native weapon placeholder.
-        try{return PoisonDaggerContact.Release(owner,target,prepared,TimedEffects.Now).Exit==MonsterContactExit.Finished;}
+        var target=(BaseCreature)World.FindMobile(selected);
+        var point=target.Location;
+        var map=target.Map;
+        owner.DoHarmful(target,true);
+        owner.PlaySound(SpellEffectSounds.PoisonDaggerSwing);
+        try
+        {
+            var result=PoisonDaggerContact.Release(owner,target,prepared,TimedEffects.Now);
+            if (result.Commit != null)
+            {
+                Server.Effects.SendLocationEffect(point, map, SpellEffectGraphics.PoisonDaggerContact, 6);
+                Server.Effects.PlaySound(point, map, SpellEffectSounds.PoisonDaggerContact);
+            }
+            return result.Exit==MonsterContactExit.Finished;
+        }
         catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}
     }
     internal static void Cancel(PlayerMobile owner)

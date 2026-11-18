@@ -57,7 +57,9 @@ internal static class DruidWolverineAuras
     {
         if(!Alive(source) || !Alive(target)){return false;}
         var key=(target.Serial.Value,control,source.SpiritAbility);var next=Replacement(_leases.GetValueOrDefault(key),target.Serial.Value,source.Serial.Value,rank,at,control,source.SpiritAbility);
-        if(next==null){return false;}_leases[key]=next;return true;
+        if(next==null){return false;}_leases[key]=next;
+        DruidSpiritVisuals.Aura(target, next.Ability, next.UntilUtc);
+        return true;
     }
     internal static bool Pulse(DruidOakBody source,DateTime at)
     {
@@ -85,12 +87,22 @@ internal static class DruidWolverineAuras
     }
     internal static void Stop(DruidOakBody source){if(source!=null){_emitters.Remove(source.Serial.Value);}}
     internal static void Clear(Mobile target)
-    {if(target!=null){foreach(var key in _leases.Keys.Where(k=>k.Item1==target.Serial.Value).ToArray()){_leases.Remove(key);}}}
+    {
+        if (target == null) { return; }
+        foreach (var key in _leases.Keys.Where(k => k.Item1 == target.Serial.Value).ToArray())
+        { Remove(key, target); }
+    }
+    private static void Remove((uint Recipient, bool Control, CombatAbility Ability) key, Mobile target)
+    {
+        _leases.Remove(key);
+        if (!_leases.ContainsKey((key.Recipient, !key.Control, key.Ability)))
+        { DruidSpiritVisuals.ClearAura(target, key.Ability); }
+    }
     internal static void Expire(DateTime at)
     {
         if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Wolverine expiry clock must be UTC");}
         foreach(var lease in _leases.Values.Where(l=>l.UntilUtc<=at||!Alive(World.FindMobile((Serial)l.Recipient))).ToArray())
-        {_leases.Remove((lease.Recipient,lease.Control,lease.Ability));}
+        { Remove((lease.Recipient, lease.Control, lease.Ability), World.FindMobile((Serial)lease.Recipient)); }
         foreach(uint id in _emitters.Keys.ToArray())
         {if(World.FindMobile((Serial)id) is not DruidOakBody{Alive:true,Deleted:false,SpiritAbility:CombatAbility.HeartOfWolverine or CombatAbility.SpiritOfBarbs}){_emitters.Remove(id);}}
     }

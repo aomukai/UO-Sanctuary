@@ -48,7 +48,7 @@ internal static class AmazonSlowMissilesCast
         { if(Target(owner,target,radius,candidate)) { targets.Add(target); } }
         targets.Sort((a,b)=>a.Serial.CompareTo(b.Serial));
         foreach(var target in targets) { AmazonSlowMissiles.Apply(owner,target,values.Rank,at); }
-        owner.FixedEffect(0x375A,10,10,0x481,0); // Identified cast_slowmissiles placeholder.
+        AmazonUtilityEffects.Burst(owner,SpellEffectGraphics.SlowMissilesCast,SpellEffectSounds.SlowMissilesCast);
         return true; // Empty searches and refused weaker states still pay once.
     }
 }

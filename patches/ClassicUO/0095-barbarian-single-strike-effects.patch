@@ -1,0 +1,81 @@
+diff --git a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -198,6 +198,7 @@
+                         _ when SpellEffectGraphics.IsPaladinMeleeAnimation(Graphic) => SpellEffectGraphics.PaladinSpellFrames,
+                         _ when SpellEffectGraphics.IsBarbarianCryAnimation(Graphic) => SpellEffectGraphics.BarbarianCryFrames,
+                         _ when SpellEffectGraphics.IsBarbarianCorpseAnimation(Graphic) => SpellEffectGraphics.BarbarianCryFrames,
++                        _ when SpellEffectGraphics.IsBarbarianStrikeAnimation(Graphic) => SpellEffectGraphics.BarbarianStrikeFrames,
+                         _ when SpellEffectGraphics.IsEnchantAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ when SpellEffectGraphics.IsWardAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ => 0
+@@ -215,6 +216,7 @@
+                             && !SpellEffectGraphics.IsPaladinAuraLoop(Graphic)
+                             && !SpellEffectGraphics.IsBarbarianCryWard(Graphic)
+                             && !SpellEffectGraphics.IsGrimWardBody(Graphic)
++                            && !SpellEffectGraphics.IsBarbarianStrikeStatus(Graphic)
+                             && Graphic is not (SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow
+                                 or SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.PoisonAfflicted
+                                 or SpellEffectGraphics.GolemSlow or SpellEffectGraphics.WoundActive
+@@ -326,6 +328,8 @@
+                             _ when SpellEffectGraphics.IsGrimWardBody(Graphic) => 140,
+                             SpellEffectGraphics.GrimWardRise => 46,
+                             _ when SpellEffectGraphics.IsBarbarianCorpseAnimation(Graphic) => 67,
++                            _ when SpellEffectGraphics.IsBarbarianStrikeStatus(Graphic) => 145,
++                            _ when SpellEffectGraphics.IsBarbarianStrikeAnimation(Graphic) => 65,
+                             _ when SpellEffectGraphics.IsDruidCharge(Graphic) => 115,
+                             _ when SpellEffectGraphics.IsDruidFormEffect(Graphic) => 105,
+                             SpellEffectGraphics.ClayGolemContact or SpellEffectGraphics.IronGolemSpark => 65,
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -127,6 +127,7 @@
+                     || Sanctuary.SpellEffectGraphics.IsEnchantAnimation(Graphic)
+                     || Sanctuary.SpellEffectGraphics.IsAmazonAvoidance(Graphic)
+                     || SpellEffectGraphics.IsBarbarianCryAnimation(Graphic)
++                    || SpellEffectGraphics.IsBarbarianStrikeAttached(Graphic)
+                     || Graphic is SpellEffectGraphics.FindPotionCast or SpellEffectGraphics.FindItemCast
+                     || Graphic is SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.BoneArmorBreak
+                         or SpellEffectGraphics.BoneArmorCatch
+@@ -146,8 +147,8 @@
+                     || Graphic is Sanctuary.SpellEffectGraphics.NovaCast or Sanctuary.SpellEffectGraphics.NovaContact
+                         or Sanctuary.SpellEffectGraphics.TelekinesisCast or Sanctuary.SpellEffectGraphics.TelekinesisContact))
+             {
+-                // Gargoyle flight raises the body two half-tiles above its standing art.
+-                posY -= 44;
++                // These close-in melee effects are centered on the airborne torso.
++                posY -= SpellEffectGraphics.IsBarbarianStrikeAttached(Graphic) ? 12 : 44;
+             }
+ 
+             if (Graphic == SpellEffectGraphics.DruidHungerMana)
+@@ -165,7 +166,8 @@
+                 posY -= Math.Clamp(stunned.FrameInfo.Y - 45, 0, 45);
+             }
+ 
+-            if ((SpellEffectGraphics.IsPaladinAuraLoop(Graphic) || SpellEffectGraphics.IsBarbarianCryWard(Graphic))
++            if ((SpellEffectGraphics.IsPaladinAuraLoop(Graphic) || SpellEffectGraphics.IsBarbarianCryWard(Graphic)
++                || SpellEffectGraphics.IsBarbarianStrikeStatus(Graphic))
+                 && Source is Mobile { IsDead: true })
+             {
+                 return false;
+@@ -237,7 +239,8 @@
+                 depth = Source.CalculateDepthZ() + 1f;
+             }
+             else if (Graphic is SpellEffectGraphics.SacrificeImpact or SpellEffectGraphics.SmiteImpact or SpellEffectGraphics.VengeanceImpact
+-                or SpellEffectGraphics.ZealImpact or SpellEffectGraphics.ChargeImpact or SpellEffectGraphics.WarCryImpact)
++                or SpellEffectGraphics.ZealImpact or SpellEffectGraphics.ChargeImpact or SpellEffectGraphics.WarCryImpact
++                || SpellEffectGraphics.IsBarbarianStrikeImpact(Graphic))
+             {
+                 // Keep the impact on its contact tile and in front of the target's body.
+                 posY -= 11;
+diff --git a/src/ClassicUO.Client/Game/Managers/EffectManager.cs b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+--- a/src/ClassicUO.Client/Game/Managers/EffectManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+@@ -123,6 +123,7 @@
+                     || SpellEffectGraphics.IsDruidSpiritAura(graphic)
+                     || SpellEffectGraphics.IsPaladinAuraLoop(graphic)
+                     || SpellEffectGraphics.IsBarbarianCryWard(graphic)
++                    || SpellEffectGraphics.IsBarbarianStrikeStatus(graphic)
+                     || wardBody
+                     || graphic is SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow or SpellEffectGraphics.HurricaneCore
+                         or SpellEffectGraphics.CycloneArmorWard or SpellEffectGraphics.ArmageddonAura

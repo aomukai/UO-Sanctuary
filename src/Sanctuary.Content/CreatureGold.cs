@@ -160,14 +160,16 @@ public static class CreatureGold
         int basis = level + random.Next(5 * level);
         return checked((int)((long)basis * (100L + goldFind) / 100));
     }
-    internal static void Award(RewardLife life, Random random)
+    internal static bool Award(RewardLife life, Random random)
     {
         int amount = Amount(life.Level, life.GoldFind, random);
+        bool awarded = amount > 0;
         while (amount > 0)
         {
             int stack = Math.Min(amount, 60000);
             life.Corpse.DropItem(new Gold(stack));
             amount -= stack;
         }
+        return awarded;
     }
 }

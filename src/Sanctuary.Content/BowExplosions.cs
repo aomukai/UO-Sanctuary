@@ -63,7 +63,7 @@ public static class BowExplosions
                     && !SpellHelper.IsTown(target.Location,owner)){targets.Add(target);}
             }
             targets.Sort((a,b)=>a.Serial.CompareTo(b.Serial));
-            Effects.SendLocationEffect(center,owner.Map,0x36BD,3); // Identified explosion placeholder.
+            AmazonBowEffects.Burst(owner,blast.FreezeColdLength?CombatAbility.FreezingArrow:CombatAbility.ExplodingArrow,center);
             foreach(var target in targets)
             {
                 if(target is BaseCreature creature)

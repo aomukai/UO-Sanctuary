@@ -1,0 +1,394 @@
+{
+  "customBase": 62000,
+  "basicAttack": "0x5204",
+  "native": {
+    "amazon.criticalstrike": "0x5201",
+    "amazon.decoy": "0x5211",
+    "amazon.dodge": "0x08C8",
+    "amazon.evade": "0x08C0",
+    "amazon.innersight": "0x08C2",
+    "amazon.magicarrow": "0x08C4",
+    "amazon.multipleshot": "0x520C",
+    "amazon.penetrate": "0x5215",
+    "amazon.pierce": "0x5209",
+    "amazon.strafe": "0x5218",
+    "assassin.burstofspeed": "0x08C0",
+    "assassin.cloakofshadows": "0x08EB",
+    "assassin.fade": "0x08E3",
+    "assassin.mindblast": "0x08E4",
+    "assassin.psychichammer": "0x59DA",
+    "assassin.venom": "0x08D3",
+    "barbarian.bash": "0x08CF",
+    "barbarian.concentrate": "0x5105",
+    "barbarian.doubleswing": "0x5206",
+    "barbarian.finditem": "0x08CD",
+    "barbarian.frenzy": "0x5203",
+    "barbarian.increasedspeed": "0x08C0",
+    "barbarian.increasedstamina": "0x08C1",
+    "barbarian.ironskin": "0x5216",
+    "barbarian.leap": "0x59DF",
+    "barbarian.shout": "0x08F7",
+    "barbarian.whirlwind": "0x521D",
+    "druid.shockwave": "0x08F4",
+    "druid.tornado": "0x5DCE",
+    "necromancer.amplifydamage": "0x5008",
+    "necromancer.bonespirit": "0x500D",
+    "necromancer.confuse": "0x5007",
+    "necromancer.decrepify": "0x5002",
+    "necromancer.dimvision": "0x08C9",
+    "necromancer.ironmaiden": "0x08E6",
+    "necromancer.lifetap": "0x5001",
+    "necromancer.lowerresist": "0x500E",
+    "necromancer.raiseskeleton": "0x5000",
+    "necromancer.skeletonmastery": "0x5006",
+    "necromancer.terror": "0x500A",
+    "necromancer.weaken": "0x08C7",
+    "paladin.charge": "0x5109",
+    "paladin.cleansing": "0x08C3",
+    "paladin.concentration": "0x5105",
+    "paladin.conversion": "0x08F5",
+    "paladin.defiance": "0x08D9",
+    "paladin.meditation": "0x08E2",
+    "paladin.prayer": "0x5106",
+    "paladin.redemption": "0x08FA",
+    "paladin.sacrifice": "0x5101",
+    "paladin.sanctuary": "0x5108",
+    "paladin.smite": "0x5200",
+    "sorceress.chainlightning": "0x08F0",
+    "sorceress.chargedbolt": "0x08E0",
+    "sorceress.enchant": "0x59DB",
+    "sorceress.fireball": "0x08D1",
+    "sorceress.lightning": "0x5DC0",
+    "sorceress.meteor": "0x5DCD",
+    "sorceress.nova": "0x08E9",
+    "sorceress.staticfield": "0x08F1",
+    "sorceress.telekinesis": "0x08D4",
+    "sorceress.teleport": "0x08D5",
+    "sorceress.thunderstorm": "0x08DD",
+    "sorceress.warmth": "0x08C5",
+    "warlock.eldritchblast": "0x5DC6"
+  },
+  "atlases": {
+    "amazon": {
+      "columns": 4,
+      "rows": 4,
+      "cells": [
+        "amazon.jab",
+        "amazon.powerstrike",
+        "amazon.poisonjavelin",
+        "amazon.impale",
+        "amazon.chargedstrike",
+        "amazon.plaguejavelin",
+        "amazon.fend",
+        "amazon.lightningfury",
+        "amazon.slowmissiles",
+        "amazon.avoid",
+        "amazon.valkyrie",
+        "amazon.firearrow",
+        "amazon.coldarrow",
+        "amazon.icearrow",
+        "amazon.immolationarrow",
+        "amazon.freezingarrow"
+      ]
+    },
+    "assassin": {
+      "columns": 5,
+      "rows": 5,
+      "cells": [
+        "assassin.tigerstrike",
+        null,
+        "assassin.dragonclaw",
+        "assassin.fistsoffire",
+        "assassin.cobrastrike",
+        "assassin.dragontail",
+        "assassin.clawsofthunder",
+        "assassin.bladesofice",
+        "assassin.dragonflight",
+        "assassin.phoenixstrike",
+        "assassin.clawmastery",
+        "assassin.weaponblock",
+        "assassin.shadowwarrior",
+        "assassin.shadowmaster",
+        "assassin.fireblast",
+        "assassin.shockweb",
+        "assassin.bladesentinel",
+        null,
+        "assassin.wakeoffire",
+        "assassin.bladefury",
+        "assassin.lightningsentry",
+        null,
+        "assassin.deathsentry",
+        "assassin.bladeshield"
+      ],
+      "crops": {
+        "2": [
+          510,
+          0,
+          752,
+          250
+        ],
+        "5": [
+          0,
+          250,
+          260,
+          501
+        ],
+        "6": [
+          260,
+          250,
+          501,
+          501
+        ],
+        "18": [
+          744,
+          752,
+          1003,
+          1003
+        ],
+        "22": [
+          515,
+          1003,
+          752,
+          1254
+        ]
+      }
+    },
+    "barbarian": {
+      "columns": 4,
+      "rows": 4,
+      "cells": [
+        "barbarian.howl",
+        "barbarian.findpotion",
+        "barbarian.taunt",
+        "barbarian.battlecry",
+        "barbarian.battleorders",
+        "barbarian.grimward",
+        "barbarian.warcry",
+        "barbarian.battlecommand",
+        "barbarian.swordmastery",
+        "barbarian.axemastery",
+        "barbarian.macemastery",
+        "barbarian.polearmmastery",
+        "barbarian.throwingmastery",
+        "barbarian.spearmastery",
+        "barbarian.doublethrow",
+        "barbarian.leapattack"
+      ],
+      "crops": {
+        "4": [
+          0,
+          313,
+          313,
+          636
+        ],
+        "8": [
+          0,
+          636,
+          313,
+          940
+        ]
+      }
+    },
+    "druid": {
+      "columns": 5,
+      "rows": 5,
+      "cells": [
+        "druid.firestorm",
+        "druid.moltenboulder",
+        "druid.arcticblast",
+        "druid.fissure",
+        "druid.cyclonearmor",
+        "druid.volcano",
+        "druid.hurricane",
+        "druid.armageddon",
+        "druid.werewolf",
+        "druid.lycanthropy",
+        "druid.werebear",
+        "druid.maul",
+        "druid.feralrage",
+        "druid.fireclaws",
+        "druid.rabies",
+        "druid.hunger",
+        "druid.poisoncreeper",
+        "druid.oaksage",
+        "druid.summonspiritwolf",
+        "druid.carrionvine",
+        "druid.heartofwolverine",
+        null,
+        "druid.solarcreeper",
+        "druid.spiritofbarbs",
+        "druid.summongrizzly"
+      ],
+      "crops": {
+        "23": [
+          752,
+          1003,
+          985,
+          1254
+        ],
+        "24": [
+          985,
+          1003,
+          1254,
+          1254
+        ]
+      }
+    },
+    "necromancer": {
+      "columns": 4,
+      "rows": 4,
+      "cells": [
+        "necromancer.teeth",
+        "necromancer.bonespear",
+        "necromancer.bonearmor",
+        "necromancer.bonewall",
+        "necromancer.boneprison",
+        "necromancer.corpseexplosion",
+        "necromancer.poisonexplosion",
+        "necromancer.poisonnova",
+        "necromancer.skeletalmage",
+        "necromancer.claygolem",
+        "necromancer.irongolem",
+        "necromancer.firegolem",
+        "necromancer.bloodgolem",
+        "necromancer.golemmastery",
+        "necromancer.summonresist",
+        "necromancer.poisondagger"
+      ]
+    },
+    "paladin": {
+      "columns": 4,
+      "rows": 4,
+      "cells": [
+        "paladin.resistfire",
+        "paladin.resistcold",
+        "paladin.resistlightning",
+        "paladin.vigor",
+        "paladin.might",
+        "paladin.holyfire",
+        "paladin.thorns",
+        "paladin.blessedaim",
+        "paladin.holyfreeze",
+        "paladin.holyshock",
+        "paladin.fanaticism",
+        "paladin.conviction",
+        "paladin.zeal",
+        "paladin.vengeance",
+        "paladin.blessedhammer",
+        "paladin.fistoftheheavens"
+      ]
+    },
+    "sorceress": {
+      "columns": 4,
+      "rows": 4,
+      "cells": [
+        "sorceress.icebolt",
+        "sorceress.frozenarmor",
+        "sorceress.frostnova",
+        "sorceress.iceblast",
+        "sorceress.shiverarmor",
+        "sorceress.glacialspike",
+        "sorceress.blizzard",
+        "sorceress.chillingarmor",
+        "sorceress.frozenorb",
+        "sorceress.coldmastery",
+        "sorceress.energyshield",
+        "sorceress.inferno",
+        "sorceress.blaze",
+        "sorceress.firewall",
+        "sorceress.firemastery",
+        "sorceress.hydra"
+      ],
+      "crops": {
+        "15": [
+          936,
+          940,
+          1254,
+          1254
+        ]
+      }
+    },
+    "warlock": {
+      "columns": 5,
+      "rows": 5,
+      "cells": [
+        "warlock.demonicmastery",
+        "warlock.summongoatman",
+        "warlock.bloodoath",
+        "warlock.deathmark",
+        "warlock.summontainted",
+        "warlock.bloodboil",
+        "warlock.summondefiler",
+        "warlock.engorge",
+        "warlock.binddemon",
+        "warlock.levitationmastery",
+        "warlock.hexbane",
+        "warlock.echoingstrike",
+        "warlock.hexpurge",
+        "warlock.bladewarp",
+        "warlock.psychicward",
+        "warlock.hexsiphon",
+        "warlock.mirroredblades",
+        "warlock.miasmabolt",
+        "warlock.ringoffire",
+        "warlock.sigillethargy",
+        "warlock.sigilrancor",
+        "warlock.miasmachain",
+        "warlock.sigildeath",
+        "warlock.enhancedentropy",
+        "warlock.abyss"
+      ],
+      "crops": {
+        "12": [
+          501,
+          501,
+          752,
+          760
+        ],
+        "17": [
+          501,
+          760,
+          752,
+          1003
+        ]
+      }
+    },
+    "refinements": {
+      "columns": 3,
+      "rows": 3,
+      "cells": [
+        "assassin.wakeofinferno",
+        "sorceress.firebolt",
+        "necromancer.attract",
+        "warlock.cleave",
+        "amazon.guidedarrow",
+        "amazon.lightningbolt",
+        "warlock.flamewave",
+        "warlock.consume",
+        "warlock.apocalypse"
+      ]
+    },
+    "review-revisions": {
+      "columns": 4,
+      "rows": 4,
+      "cells": [
+        "necromancer.revive",
+        "amazon.explodingarrow",
+        "amazon.lightningstrike",
+        "sorceress.lightningmastery",
+        "paladin.holybolt",
+        "paladin.holyshield",
+        "paladin.salvation",
+        "barbarian.naturalresistance",
+        "barbarian.berserk",
+        "barbarian.stun",
+        "druid.raven",
+        "druid.twister",
+        "druid.fury",
+        "druid.summondirewolf",
+        "assassin.dragontalon",
+        "assassin.chargedboltsentry"
+      ]
+    }
+  }
+}

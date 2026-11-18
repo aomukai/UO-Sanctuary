@@ -45,7 +45,7 @@ public static class LightningStrikeContactChecks
     private static int Raw(ChainFlight f)=>SorceressSpellMissiles.Roll(f.Min256,f.Max256,f.PlayerPacket.Seed,out _);
     private static void PacketClock(PlayerMobile p,BaseWeapon w)
     {
-        var t=Target(p,6);try{t.SetResistance(ResistanceType.Poison,0);var at=TimedEffects.Now;Require(TimedEffects.PoisonFrames(p,t,64,200,at),"Prior poison clock");var old=State(t);int hp=SkillHealth.Balance256(t);var profile=Json(Own(p,w));var world=NpcWorldAllocation.Capture();Require(PlayerWeaponMissileContact.TryElementalPacket(p,t,new(0,0,0,0,1),at,out string reason),reason);Require(hp-SkillHealth.Balance256(t)==256&&State(t).PoisonClock==old.PoisonClock&&State(t).PoisonMs==old.PoisonMs&&Json(Own(p,w))==profile&&NpcWorldAllocation.Capture()==world,"Immediate zero-length poison replaced an existing clock or allocated weapon RNG");}finally{t.Delete();}
+        var t=Target(p,6);try{t.SetResistance(ResistanceType.Poison,0);var at=TimedEffects.Now;Require(TimedEffects.PoisonFrames(p,t,64,200,at),"Prior poison clock");var old=State(t);int hp=SkillHealth.Balance256(t);var profile=Json(Own(p,w));var world=NpcWorldAllocation.Capture();Require(PlayerWeaponMissileContact.TryLightningStrike(p,t,new(0,0,0,0,1),at,out string reason),reason);Require(hp-SkillHealth.Balance256(t)==256&&State(t).PoisonClock==old.PoisonClock&&State(t).PoisonMs==old.PoisonMs&&Json(Own(p,w))==profile&&NpcWorldAllocation.Capture()==world,"Immediate zero-length poison replaced an existing clock or allocated weapon RNG");}finally{t.Delete();}
     }
     private static void Cases(PlayerMobile p,BaseWeapon w,Item[] gear)
     {

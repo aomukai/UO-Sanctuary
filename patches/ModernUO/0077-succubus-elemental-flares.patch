@@ -1,0 +1,72 @@
+--- a/Projects/UOContent/UOContent.csproj
++++ b/Projects/UOContent/UOContent.csproj
+@@ -36,6 +36,7 @@
+         <Delete Files="..\..\Distribution\Assemblies\ModernUO.CodeGeneratedEvents.Generator.dll" ContinueOnError="true" />
+     </Target>
+     <ItemGroup>
++        <Compile Include="../../../../shared/FlareGraphics.cs" Link="Sanctuary/FlareGraphics.cs" />
+         <ProjectReference Include="..\Logger\Logger.csproj" />
+         <ProjectReference Include="..\Server\Server.csproj" Private="false" PrivateAssets="All" IncludeAssets="None">
+             <IncludeInPackage>false</IncludeInPackage>
+--- a/Projects/UOContent/Mobiles/Monsters/Humanoid/Magic/Succubus.cs
++++ b/Projects/UOContent/Mobiles/Monsters/Humanoid/Magic/Succubus.cs
+@@ -1,4 +1,5 @@
+ using ModernUO.Serialization;
++using Sanctuary;
+ using Server.Spells;
+ using Server.Spells.Sixth;
+ 
+@@ -7,8 +8,6 @@
+     [SerializationGenerator(0, false)]
+     public partial class Succubus : BaseCreature
+     {
+-        public const int BoltGraphic = 0xFDE8;
+-
+         [Constructible]
+         public Succubus() : base(AIType.AI_Mage)
+         {
+@@ -66,10 +65,10 @@
+                 caster.RangeFight = 6;
+             }
+ 
+-            public override Spell ChooseSpell(Mobile target) => new SuccubusBoltSpell(Mobile);
++            public override Spell ChooseSpell(Mobile target) => new SuccubusFlareSpell(Mobile, Utility.RandomBool());
+         }
+ 
+-        private sealed class SuccubusBoltSpell(Mobile caster) : EnergyBoltSpell(caster)
++        private sealed class SuccubusFlareSpell(Mobile caster, bool cold) : EnergyBoltSpell(caster)
+         {
+             public override void OnBeginCast()
+             {
+@@ -78,7 +77,11 @@
+             }
+ 
+             protected override void SendProjectile(Mobile source, Mobile target) =>
+-                Effects.SendMovingEffect(source, target, BoltGraphic, 7, 0);
++                Effects.SendMovingEffect(source, target, cold ? FlareGraphics.BlueFlight : FlareGraphics.RedFlight,
++                    7, 0, explodes: true);
++
++            protected override void DealDamage(Mobile target, double damage) =>
++                SpellHelper.Damage(this, target, damage, 0, cold ? 0 : 100, cold ? 100 : 0, 0, 0);
+         }
+     }
+ }
+--- a/Projects/UOContent/Spells/Sixth/EnergyBolt.cs
++++ b/Projects/UOContent/Spells/Sixth/EnergyBolt.cs
+@@ -55,12 +55,15 @@
+                 SendProjectile(source, m);
+                 source.PlaySound(0x20A);
+ 
+-                SpellHelper.Damage(this, m, damage, 0, 0, 0, 0, 100);
++                DealDamage(m, damage);
+             }
+         }
+ 
+         protected virtual void SendProjectile(Mobile source, Mobile target) =>
+             source.MovingParticles(target, 0x379F, 7, 0, false, true, 0, 0, 3043, 4043, 0x211, EffectLayer.RightHand, 0);
++
++        protected virtual void DealDamage(Mobile target, double damage) =>
++            SpellHelper.Damage(this, target, damage, 0, 0, 0, 0, 100);
+ 
+         public override void OnCast()
+         {

@@ -98,12 +98,17 @@ public static class BarbarianFindPotion
         var corpse = (Corpse)World.FindItem(selected);
         if (!CorpseSkillRules.Reserve(corpse)) { return false; }
         var values = SkillMechanics.Values(owner,CombatAbility.FindPotion);
-        // Identified search-cry/flash placeholders, independent of potion output.
-        owner.PlaySound(0x1E5); Effects.SendLocationEffect(corpse.Location,corpse.Map,0x375A,5,10,0x481,0);
-        if(Roll()%100>=(int)values.Eval("calc1")){return true;}
+        CorpseSearchVisuals.Search(owner, corpse, CombatAbility.FindPotion);
+        if (Roll() % 100 >= (int)values.Eval("calc1"))
+        {
+            CorpseSearchVisuals.Result(corpse, CombatAbility.FindPotion, false);
+            return true;
+        }
         uint code=PotionLevelBands.Code(PotionLevelBands.For(level),Roll(),
             SkillMechanics.For(CombatAbility.FindPotion).Parameter(3),SkillMechanics.For(CombatAbility.FindPotion).Parameter(4));
-        corpse.DropItem(CreatePotion(code));return true;
+        corpse.DropItem(CreatePotion(code));
+        CorpseSearchVisuals.Result(corpse, CombatAbility.FindPotion, true);
+        return true;
     }
     internal static RestorationPotion CreatePotion(uint code)
     {

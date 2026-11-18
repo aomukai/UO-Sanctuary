@@ -50,6 +50,6 @@ internal static class DragonFlightLanding
         if(!Destination(owner,target,out destination)||!Target(owner,target)||owner.Map!=map||owner.Location!=origin
             ||!Teleportation.Space(map,destination,owner)){return false;}
         if(claim?.Invoke(destination)==false){return false;}
-        Teleportation.CommitTransfer(owner,destination,origin,map);return true;
+        Teleportation.CommitTransfer(owner,destination,origin,map,AssassinDragonVisuals.Transfer);return true;
     }
 }

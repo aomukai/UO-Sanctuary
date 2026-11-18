@@ -104,7 +104,8 @@ public static class DruidVolcano
         try{vent=Prepare(owner,point,values.Rank,TimedEffects.Now);}
         catch(NotSupportedException){owner.SendMessage(0x22,"Volcano cannot be used in this context yet.");return false;}
         if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
-        Add(vent);FireGround.Delay(owner,CombatAbility.Volcano);owner.PlaySound(0x1E5); // Identified cast-audio placeholder.
+        Add(vent);FireGround.Delay(owner,CombatAbility.Volcano);
+        VolcanoVisuals.Opening(point, owner.Map);
         return true;
     }
     internal static long Create(PlayerMobile owner,Point3D point,int rank,DateTime at)=>Add(Prepare(owner,point,rank,at));
@@ -164,12 +165,14 @@ public static class DruidVolcano
         owner.DoHarmful(target,true);int loss=0;
         if(reaction.Damage)
         {
+            var point = target.Location;
+            var map = target.Map;
             var raw=DruidMoltenBoulder.Potion(actor.Modifiers,new(physical/256.0,fire/256.0,0,0,0));
             var parts=SkillCombat.MitigatePrepared(owner,target,raw);loss=SkillHealth.TypedDamage(owner,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));
+            if (loss > 0) { DruidFireVisuals.Contact(actor.Owner, target.Serial.Value, point, map, actor.NextUtc); }
         }
         if(!guard && target is{Alive:true,Deleted:false})
         {if(!(reaction.Push&&SourceKnockbacks.Begin(owner,target))&&reaction.Damage){CreatureHitRecovery.Apply(target,owner,loss);}}
-        target.FixedEffect(0x3709,3,4,0x489,0); // Identified contact placeholder.
         return actor with{LastTarget=target.Serial.Value,Seed=seed};
     }
     private static void Advance(VolcanoActor actor,bool? actions)
@@ -191,7 +194,10 @@ public static class DruidVolcano
             if(next.Remaining==0)
             {
                 _pool=_pool with{Actors=_pool.Actors.Remove(actor.Id)};
-                Add(Capture(owner,checked(_pool.NextId+1),actor.Cast,483,actor.Rank,Cell(x)/2.0,Cell(y)/2.0,actor.Z,0,0,18,actor.NextUtc));
+                var lava = Capture(owner, checked(_pool.NextId + 1), actor.Cast, 483, actor.Rank, Cell(x) / 2.0, Cell(y) / 2.0,
+                    actor.Z, 0, 0, 18, actor.NextUtc);
+                Add(lava);
+                VolcanoVisuals.Landing(map, lava, actor.NextUtc);
                 return;
             }
         }
@@ -208,17 +214,36 @@ public static class DruidVolcano
                     next=next with{Memory=emit.Memory,Seed=emit.Seed};
                     var flight=VolcanoPatterns.Flight(Cell(actor.X),Cell(actor.Y),emit.X,emit.Y,actor.Rank);
                     if(flight!=null)
-                    {Add(Capture(owner,checked(_pool.NextId+1),actor.Cast,481,actor.Rank,actor.X,actor.Y,actor.Z,flight.Vx,flight.Vy,flight.Remaining,actor.NextUtc));}
+                    {
+                        Add(Capture(owner,checked(_pool.NextId+1),actor.Cast,481,actor.Rank,actor.X,actor.Y,actor.Z,flight.Vx,flight.Vy,flight.Remaining,actor.NextUtc));
+                        VolcanoVisuals.Erupt(actor.Owner, Point(actor), map, actor.NextUtc);
+                    }
                 }
             }
             // Emission precedes generic expiry; stationary actor contact does not.
-            if(next.Remaining==0){_pool=_pool with{Actors=_pool.Actors.Remove(actor.Id)};return;}
+            if(next.Remaining==0)
+            {
+                _pool = _pool with { Actors = _pool.Actors.Remove(actor.Id) };
+                if (actor.Missile == 479) { VolcanoVisuals.Cooling(Point(actor), map); }
+                return;
+            }
             if(Recipient(owner,actor) is{} target){next=Impact(owner,target,next with{NextUtc=actor.NextUtc});}
             else if(LobProjectiles.Barrier(map,Point(actor))){_pool=_pool with{Actors=_pool.Actors.Remove(actor.Id)};return;}
             next=next with{NextUtc=actor.NextUtc.AddMilliseconds(40)};
         }
         _pool=_pool with{Actors=_pool.Actors.SetItem(actor.Id,next)};
-        if(next.Remaining%5==0){Effects.SendLocationEffect(Point(next),map,actor.Missile==481?0x36D4:0x398C,3,10,0x489,0);} // Identified vent/air/lava placeholders.
+        switch (next.Missile)
+        {
+            case 479:
+                VolcanoVisuals.Vent(map, next);
+                break;
+            case 481:
+                VolcanoVisuals.Debris(map, next, _pool.Actors.GetValueOrDefault(next.Cast));
+                break;
+            case 483:
+                DruidFireVisuals.FireBed(next.Owner, map, Cell(next.X), Cell(next.Y), next.Z, 18 - next.Remaining, next.Remaining, actor.NextUtc);
+                break;
+        }
     }
     internal static void Tick(DateTime at,bool? actions=null)
     {
@@ -227,6 +252,7 @@ public static class DruidVolcano
         {
             var due=_pool.Actors.Values.Select(x=>x.NextUtc).DefaultIfEmpty(DateTime.MaxValue).Min();
             if(due>at){Prune(at);return;}
+            DruidFireVisuals.BeginFrame(due);
             foreach(var actor in _pool.Actors.Values.Where(x=>x.NextUtc==due).OrderByDescending(x=>x.Id).ToArray())
             {if(_pool.Actors.ContainsKey(actor.Id)){Advance(actor,actions);}}
         }

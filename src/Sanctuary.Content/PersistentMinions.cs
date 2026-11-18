@@ -125,6 +125,8 @@ public static class PersistentMinions
         // Retain the native control master/follower relationship so ownership is saved.
         if (pet.Map != Map.Internal)
         {
+            UndeadSummonVisuals.Depart(pet);
+            DruidSummonVisuals.Depart(pet);
             pet.Internalize();
         }
     }
@@ -198,7 +200,11 @@ public static class PersistentMinions
                 Profiles.Store(pet, state with { Parked = false });
             }
             if (returning)
-            { pet.MoveToWorld(point, owner.Map); pet.IssueOrder(OrderType.Guard, null); }
+            {
+                pet.MoveToWorld(point, owner.Map); pet.IssueOrder(OrderType.Guard, null);
+                UndeadSummonVisuals.Arrive(pet);
+                DruidSummonVisuals.Arrive(pet);
+            }
             if(pet.Map==owner.Map&&pet.Map!=Map.Internal){if(pet is NecromancerMinion mage){MageWorld.TryAdopt(mage,DateTime.UtcNow);}minion.ResumeActions();}
         }
     }

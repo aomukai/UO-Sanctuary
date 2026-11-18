@@ -50,6 +50,16 @@ internal static class DruidWeaponContact
         return new(flags,impact,drain,cold,CreatureHitRecovery.PlayerHitClass(source),effects,
             MeleeRange:DruidFormAttacks.Reach(source),CapturedPoison:poison);
     }
-    internal static MonsterContactResult Release(PlayerMobile source,BaseCreature target,PlayerWeaponContactPrepared captured,DateTime at)
-        =>PlayerWeaponContact.Release(source,target,captured,at,true);
+    internal static MonsterContactResult Release(PlayerMobile source, BaseCreature target, PlayerWeaponContactPrepared captured,
+        DateTime at, CombatAbility presentation = CombatAbility.None)
+    {
+        var point = target.Location;
+        var map = target.Map;
+        var result = PlayerWeaponContact.Release(source, target, captured, at, true);
+        if (presentation != CombatAbility.None && result.Commit != null && (result.Packet.ResultFlags & SourceMeleeResult.Successful) != 0)
+        {
+            DruidFormEffects.Impact(presentation, point, map);
+        }
+        return result;
+    }
 }

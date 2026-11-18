@@ -132,9 +132,12 @@ public static class PaladinVengeance
         {
             Require(owner,target);
             if(!NecromancerEffects.Pay(owner,SkillMechanics.Values(owner,CombatAbility.Vengeance).Mana256)){return false;}
-            owner.DoHarmful(target,true);owner.PlaySound(0x238); // Existing weapon/contact placeholders.
+            owner.DoHarmful(target,true);
+            PaladinMeleeVisuals.Swing(owner, CombatAbility.Vengeance);
+            var point = target.Location;
+            var map = target.Map;
             var result=PlayerWeaponContact.Release(owner,target,prepared.Contact,TimedEffects.Now,true);
-            if(target is{Alive:true,Deleted:false}){target.FixedEffect(0x374A,10,10,0x480,0);}
+            PaladinMeleeVisuals.Land(owner, point, map, CombatAbility.Vengeance, result);
             return result.Exit==MonsterContactExit.Finished;
         }
         catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}
@@ -159,12 +162,15 @@ public static class PaladinVengeance
     }
     public static bool Strike(PlayerMobile owner,Mobile target,SkillValues values)
     {
-        owner.DoHarmful(target,true);owner.PlaySound(0x238); // Existing weapon sound placeholder.
+        owner.DoHarmful(target,true);
+        PaladinMeleeVisuals.Swing(owner, CombatAbility.Vengeance);
         using var attempted=PaladinThorns.Attempt(owner,target,false);
         if(ClassStats.CheckHit(owner,target,(int)values.Formula("toht"),HitRoll)!=true){return true;}
         var bonus=Elements(owner,values);
+        var point = target.Location;
+        var map = target.Map;
         GearEffects.Strike(owner,target,PhysicalRoll(),skillElements:bonus.Damage);
-        if(target is{Alive:true,Deleted:false}){target.FixedEffect(0x374A,10,10,0x480,0);} // Placeholder elemental strike.
+        PaladinMeleeVisuals.Land(owner, point, map, CombatAbility.Vengeance);
         return true;
     }
 }

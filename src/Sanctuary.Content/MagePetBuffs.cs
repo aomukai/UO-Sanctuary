@@ -25,11 +25,14 @@ internal static class MagePetBuffs
     {
         if(actor.MageElement!=2||HardRank(actor)<20||!actor.Alive||actor.Map!=owner.Map||SpellHelper.IsTown(actor.Location,owner)){return;}
         var values=Values(CombatAbility.Enchant,20,actor.Level);
+        bool applied = false;
         foreach(var ally in actor.Map.GetMobilesInRange<Mobile>(actor.Location,CombatProtocol.TeethRange))
         {
             if(ally is not{Alive:true,Deleted:false}||Math.Abs(ally.Z-actor.Z)>=16||!actor.InRange(ally,CombatProtocol.TeethRange)
                 ||ally!=owner&&!ClassCombat.Friendly(owner,ally)||!actor.InLOS(ally)||SorceressEffects.Enchantment(ally)!=null){continue;}
             SorceressEffects.CastNpcEnchant(actor,ally,values);
+            applied = true;
         }
+        if (applied) { actor.PlaySound(SpellEffectSounds.EnchantRaise); }
     }
 }

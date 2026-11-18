@@ -106,7 +106,11 @@ public static class HitRecovery
         {
             return false;
         }
-        if(PaladinOffense.PreventRecovery(player,now)){return false;}
+        if (PaladinOffense.PreventRecovery(player, now))
+        {
+            PaladinOffenseVisuals.Guard(player);
+            return false;
+        }
         ClassCreation.Profiles.TryGet(player.Serial, out var profile);
         var session = ClassCombat.For(player);
         int duration = (DruidFormReactionClock.Current(player,false)?.NativeFrames ?? Frames(profile.Class, Fhr(player), CombatTiming.Equipped(player))) * ActionTiming.FrameMs;

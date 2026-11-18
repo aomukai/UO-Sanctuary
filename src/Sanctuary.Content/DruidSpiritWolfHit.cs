@@ -99,9 +99,12 @@ internal static class DruidSpiritWolfHit
         // Pure cold still makes an ordinary melee attempt (flat Thorns may
         // apply), but cannot supply physical leech, Life Tap or percent return.
         PreparedWeaponEvents.BeforeReturn(body,target,0,false);
-        if(packet.Cold256>0){ColdStates.Apply(body,target,packet.ColdFrames,Core.TickCount);}
+        var point = target.Location;
+        var map = target.Map;
+        bool chilled = packet.Cold256 > 0 && ColdStates.Apply(body,target,packet.ColdFrames,Core.TickCount);
         int loss=SkillHealth.TypedDamage(body,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));
         CreatureHitRecovery.Apply(target,body,loss);CombatDamage.Finish(target,body);
+        if (loss > 0 || chilled) { DruidSummonVisuals.Contact(body, point, map); }
         return new(SpiritWolfHitOutcome.Hit,id,chance,packet.Cold256,packet.Fire256,packet.Lightning256,packet.ColdFrames,packet.Critical,loss);
     }
 }

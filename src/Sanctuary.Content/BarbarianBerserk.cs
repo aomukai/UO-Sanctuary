@@ -42,6 +42,7 @@ public static class BarbarianBerserk
     {
         int frames=(int)values.Eval("calc2");if(frames<=0){frames=10;}
         CancelMode(owner);_states[owner.Serial.Value]=new(owner.Serial.Value,values.Rank,(int)values.Eval("aurastatcalc2"),TimedEffects.TimeAt(now).AddMilliseconds(frames*40));Refresh(owner);
+        RefreshVisual(owner);
     }
     internal static void Impact(PlayerMobile owner,long now)
     {
@@ -50,24 +51,53 @@ public static class BarbarianBerserk
         // flag4/TEMPONLY instead. It ends with this animation, not another timed buff.
         _states.Remove(owner.Serial.Value);var action=ClassCombat.For(owner);
         action.BerserkMode=new(action.PendingWeapon,action.ActionOrigin,action.ActionMap,action.NextAction,(int)SkillMechanics.Values(owner,CombatAbility.Berserk).Eval("aurastatcalc2"));Refresh(owner);
+        RefreshVisual(owner);
     }
     internal static void CancelMode(PlayerMobile owner)
     {
         if(ClassCombat.Existing(owner) is not{} action || action.BerserkMode==null){return;}
         action.BerserkMode=null;Refresh(owner);
+        RefreshVisual(owner);
     }
     internal static void Tick(PlayerMobile owner,long now)
-    {if(ClassCombat.Existing(owner)?.BerserkMode is{} mode && !Valid(owner,mode,now)){CancelMode(owner);}}
+    {
+        if (ClassCombat.Existing(owner)?.BerserkMode is not { } mode) { return; }
+        if (!Valid(owner, mode, now)) { CancelMode(owner); }
+        else { RefreshVisual(owner); }
+    }
+    private static void RefreshVisual(PlayerMobile owner)
+    {
+        var now = TimedEffects.Now;
+        var mode = ClassCombat.Existing(owner)?.BerserkMode;
+        var until = StateAt(owner, now)?.UntilUtc
+            ?? (Valid(owner, mode, Core.TickCount) ? TimedEffects.TimeAt(mode.Until) : default);
+        BarbarianStrikeVisuals.Berserk(owner, until, now);
+    }
     public static void Clear(Mobile owner)
     {
         if(owner==null){return;}bool had=_states.Remove(owner.Serial.Value);
         if(owner is PlayerMobile player){CancelMode(player);if(had){Refresh(player);}}
+        BarbarianStrikeVisuals.ClearBerserk(owner.Serial.Value, owner);
     }
     private static void Prune()
     {
+        var now = TimedEffects.Now;
         _expired.Clear();foreach(var pair in _states)
-        {if(pair.Value.UntilUtc<=TimedEffects.Now || !Eligible(World.FindMobile((Serial)pair.Key))){_expired.Add(pair.Key);}}
-        foreach(uint serial in _expired){Clear(World.FindMobile((Serial)serial));_states.Remove(serial);}
+        {
+            var owner = World.FindMobile((Serial)pair.Key);
+            if (pair.Value.UntilUtc <= now || !Eligible(owner)) { _expired.Add(pair.Key); }
+            else { BarbarianStrikeVisuals.Berserk(owner, pair.Value.UntilUtc, now); }
+        }
+        foreach(uint serial in _expired)
+        {
+            var owner = World.FindMobile((Serial)serial);
+            if (owner != null) { Clear(owner); }
+            else
+            {
+                _states.Remove(serial);
+                BarbarianStrikeVisuals.ClearBerserk(serial, null);
+            }
+        }
     }
     public static BerserkState[] Snapshot()
     {

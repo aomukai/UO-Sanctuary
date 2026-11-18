@@ -31,6 +31,7 @@ internal static class DragonClaws
         PlayerWeaponContact.RequireOrdinary(owner,target,true);
         int flags=DragonTailPreparation.ResultFlags(owner,target,()=>PlayerMeleeGeometry.Within(owner,target,1),HitRoll,CombatAbility.DragonClaw);
         PreparedWeaponImpact impact=default;PlayerWeaponDrain drain=default;int cold=0,freeze=0;
+        bool cobraCharged = false;
         if((flags&SourceMeleeResult.Successful)!=0)
         {
             WeaponStartEffects.PrepareDamage(owner,target);
@@ -46,7 +47,9 @@ internal static class DragonClaws
             impact=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,damage,extra,physicalToFirePercent:fire?.ConversionPercent??0);
             var poison=PoisonJavelins.PreparePoison(owner,target,damage.SourcePoison.Rate256,damage.SourcePoison.Frames);
             impact=impact with{LifeDamage256=checked(NamedElements.To256(impact.Parts.Total)+poison.Rate256),AllocatedPoison=poison};
-            drain=WeaponLeech.Capture(owner,AssassinCharges.CobraDrain(states.FirstOrDefault(x=>x.Ability==CombatAbility.CobraStrike),SkillMechanics.Rank(owner,CombatAbility.CobraStrike)));
+            var cobra = states.FirstOrDefault(x => x.Ability == CombatAbility.CobraStrike);
+            cobraCharged = cobra != null;
+            drain=WeaponLeech.Capture(owner,AssassinCharges.CobraDrain(cobra,SkillMechanics.Rank(owner,CombatAbility.CobraStrike)));
             if(damage.ColdMs%40!=0){throw new NotSupportedException("Dragon Claw cold duration has no exact source-frame projection");}
             // Progressive cold replaces the item length after weapon filling.
             int rawCold=ice?.Frames??damage.ColdMs/40;
@@ -57,14 +60,22 @@ internal static class DragonClaws
         // Source Claw hit flags2 retain ordinary weapon critical; kick flags3
         // must not leak here. Selected primary/secondary scope stays with caller.
         return new(flags,impact,drain,cold,CreatureHitRecovery.PlayerHitClass(owner),Effects,
-            RangeCheck:bonus=>PlayerMeleeGeometry.Within(owner,target,bonus),FreezeFrames:freeze,HitFlags:(flags&SourceMeleeResult.Successful)!=0?2u:0u);
+            RangeCheck:bonus=>PlayerMeleeGeometry.Within(owner,target,bonus),FreezeFrames:freeze,HitFlags:(flags&SourceMeleeResult.Successful)!=0?2u:0u,
+            PresentLeech: cobraCharged ? DruidFormEffects.HungerRecovery : null);
     }
-    internal static void Strike(PlayerMobile owner,BaseCreature target)
+    internal static void Strike(PlayerMobile owner,BaseCreature target,bool secondary)
     {
         var weapon=CombatTiming.Equipped(owner);using var melee=WeaponHands.UseMelee(owner,weapon);
-        var prepared=Prepare(owner,target);owner.PlaySound(0x238); // Identified claw/contact audio placeholder.
+        var prepared=Prepare(owner,target);
+        AssassinDragonVisuals.Sweep(owner, target, CombatAbility.DragonClaw, secondary);
         if((prepared.Flags&SourceMeleeResult.Successful)!=0&&PlayerMeleeGeometry.Within(owner,target,0))
         {DragonTails.Progressive(owner,target,target.Location,target.Map,CombatAbility.DragonClaw);}
-        if(!target.Deleted){PlayerWeaponContact.Release(owner,target,prepared,TimedEffects.Now,true);}
+        if (!target.Deleted)
+        {
+            var point = target.Location;
+            var map = target.Map;
+            var result = PlayerWeaponContact.Release(owner, target, prepared, TimedEffects.Now, true);
+            AssassinDragonVisuals.Contact(point, map, CombatAbility.DragonClaw, result, secondary);
+        }
     }
 }

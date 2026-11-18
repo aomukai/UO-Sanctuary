@@ -145,7 +145,7 @@ public static partial class FireGround
         for(int i=0;i<offsets.Length;i+=step)
         {Add(owner,CombatAbility.Meteor,meteor.X+SkillGeometry.Tiles(offsets[i].X),meteor.Y+SkillGeometry.Tiles(offsets[i].Y),meteor.Z,
             fire.Min,fire.Max,frames>0?frames:NecromancerSummons.Source("meteorfire","Range"),now);}
-        Effects.SendLocationEffect(center, owner.Map, 0x36BD, 20, 10, 0x489, 0); // Placeholder impact.
+        PresentMeteorImpact(center, owner.Map);
     }
     public static void CastWall(PlayerMobile owner, Point3D target, SkillValues values)
         =>CommitWall(owner,FireWalls.Prepare(owner,target,values,TimedEffects.Now));
@@ -225,11 +225,23 @@ public static partial class FireGround
                 if (dx * dx + dy * dy <= radius * radius)
                 { SkillCombat.FireFrame(owner, target, Roll(patch.Min256, patch.Max256), patch.DamageRate); }
             }
-            if ((now.Ticks / TimeSpan.TicksPerMillisecond / 40) % 5 == 0)
-            { Effects.SendLocationEffect(point, owner.Map, 0x398C, 5, 10, 0x489, 0); } // Placeholder ground flame.
+            if (FireFieldVisuals.IsField(patch.Ability))
+            { FireFieldVisuals.Observe(patch, point, owner.Map, now); }
+            else if (patch.Ability == CombatAbility.Meteor)
+            { PresentMeteorField(patch, point, owner.Map, now); }
+            else if ((now.Ticks / TimeSpan.TicksPerMillisecond / 40) % 5 == 0)
+            { Effects.SendLocationEffect(point, owner.Map, 0x398C, 5, 10, FieldHue(patch.Ability), 0); }
         }
         TickSourceFields(now,allowActions,onlyNpcCaster);
+        if (!onlyNpcCaster.HasValue)
+        {
+            FireFieldVisuals.Retire(now);
+            SpellAreaSounds.Prune(now);
+        }
     }
+    private static int FieldHue(CombatAbility ability) =>
+        ability is CombatAbility.Blaze or CombatAbility.FireWall ? 0 : 0x489;
+
     private static void TickSourceFields(DateTime at,bool? allowActions,uint? onlyNpcCaster)
     {
         var queue=new PriorityQueue<(long Id,int Kind),(DateTime At,long Id)>();
@@ -292,8 +304,10 @@ public static partial class FireGround
                 {ImmolationArrows.FireFrame(owner,target,patch,damage,ImmolationArrows.SoftHitRoll(128)<NecromancerSummons.Source("immolationfire","dParam1"));}
                 else{SkillCombat.FireFrame(owner,target,damage,patch.DamageRate);}
             }
-            if((patch.NextUtc.Ticks/TimeSpan.TicksPerMillisecond/40)%5==0)
-            {Effects.SendLocationEffect(point,owner.Map,0x398C,3,10,0x489,0);} // Identified flame placeholder.
+            if(FireFieldVisuals.IsField(patch.Ability))
+            {FireFieldVisuals.Observe(patch,point,owner.Map,at);}
+            else if((patch.NextUtc.Ticks/TimeSpan.TicksPerMillisecond/40)%5==0)
+            {Effects.SendLocationEffect(point,owner.Map,0x398C,3,10,FieldHue(patch.Ability),0);}
             if(_patches.TryGetValue(patch.Id,out var next) && next.NextUtc<=at){queue.Enqueue((next.Id,0),(next.NextUtc,next.Id));}
         }
     }

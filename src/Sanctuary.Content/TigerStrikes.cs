@@ -49,7 +49,8 @@ public static class TigerStrikes
         var session=ClassCombat.For(owner);var pending=session.TigerAttack;
         if(pending==null || now<pending.EffectAt){return false;}session.TigerAttack=null;
         if(pending.Ability!=ability || pending.Target!=selected || !AssassinCombat.Available(owner,ability) || !ValidTarget(owner,selected)){return false;}
-        var target=World.FindMobile(selected);owner.DoHarmful(target,true);owner.PlaySound(0x238); // Identified weapon pose/sound placeholder.
+        var target=World.FindMobile(selected);owner.DoHarmful(target,true);
+        if (pending.Basic) { owner.PlaySound(0x238); }
         using var attempt=PaladinThorns.Attempt(owner,target,false);
         if(pending.Basic){BasicStrike(owner,target);CombatDamage.Finish(target,owner);return true;}
         var values=SkillMechanics.Values(owner,ability);
@@ -57,6 +58,7 @@ public static class TigerStrikes
     }
     internal static bool ChargeContact(PlayerMobile owner,Mobile target,SkillValues values)
     {
+        AssassinMartialVisuals.Swing(owner, values.Ability);
         if(target is BaseCreature creature){return AssassinWeaponContact.Builder(owner,creature,values);}
         // Player recipients retain their separate compatibility route.
         // Unlike the ordinary finisher, charge builder uses only its own skill AR.
@@ -64,7 +66,11 @@ public static class TigerStrikes
         double roll=ElementRoll();var raw=GearEffects.Damage(owner,roll,target,0,PhysicalRoll);
         var packet=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,raw);
         AssassinCharges.Gain(owner,values); // after allocation, before durability/health commit, even against immunity.
-        GearEffects.Strike(owner,target,roll,Effects,preparedImpact:packet,sourceDrain:WeaponLeech.Capture(owner));CombatDamage.Finish(target,owner);return true;
+        var point = target.Location;
+        var map = target.Map;
+        GearEffects.Strike(owner,target,roll,Effects,preparedImpact:packet,sourceDrain:WeaponLeech.Capture(owner));
+        AssassinMartialVisuals.Contact(owner, point, map, values.Ability, TimedEffects.Now);
+        CombatDamage.Finish(target,owner);return true;
     }
     private static bool Successful(PlayerMobile owner,Mobile target,int ar)
     {
@@ -92,7 +98,14 @@ public static class TigerStrikes
         var center=target.Location;var map=target.Map;
         var policy=CommonMeleeSkills.Attack;
         GearEffects.Strike(owner,target,roll,Effects,preparedImpact:packet,sourceDrain:WeaponLeech.Capture(owner,drain),softHit:fire!=null || lightning!=null || ice!=null,sourceColdFrames:ice?.Frames,sourceFreezeFrames:ice?.Count==3?ice.Frames:0,
-            beforeCommit:states.Length==0?null:_=>{foreach(var state in states){AssassinCharges.Consume(owner,state,policy.Number("prgchargesconsumed"));}return true;});
+            beforeCommit:states.Length==0?null:_=>{
+                foreach(var state in states)
+                {
+                    AssassinMartialVisuals.Contact(owner, center, map, state.Ability, TimedEffects.Now);
+                    AssassinCharges.Consume(owner,state,policy.Number("prgchargesconsumed"));
+                }
+                return true;
+            });
         FistsFireRelease.AfterParent(owner,center,map,fire,TimedEffects.Now);
         MartialLightning.AfterParent(owner,center,map,lightning,TimedEffects.Now);
         MartialCold.AfterParent(owner,target,center,map,ice,TimedEffects.Now);

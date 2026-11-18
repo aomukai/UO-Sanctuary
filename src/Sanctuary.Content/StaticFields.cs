@@ -34,7 +34,8 @@ internal static class StaticFields
         if(definition.SourceId!=42||definition.Number("srvdofunc")!=20||definition.Text("EType")!="ltng")
         {throw new NotSupportedException("Unmapped Static Field route");}
         int floor=FloorPercent(SummonDifficulties.For(caster.Map));
-        foreach(var target in SkillCombat.Targets(caster,allegiance,caster.Location,SkillGeometry.Tiles(values.Eval("aurarangecalc"))))
+        double radius = SkillGeometry.Tiles(values.Eval("aurarangecalc"));
+        foreach(var target in SkillCombat.Targets(caster,allegiance,caster.Location,radius))
         {
             if(SpellHelper.IsTown(target.Location,target)||ClassCombat.Friendly(caster,target)){continue;}
             int life=SkillHealth.Balance256(target),maximum=SkillHealth.Maximum256(target);
@@ -45,9 +46,19 @@ internal static class StaticFields
             // precompensation and full modern Static event order remain open.
             var parts=SkillCombat.MitigatePrepared(caster,target,new(0,0,0,raw/256.0,0));
             int loss=Limit256(SkillHealth.Balance256(target),maximum,floor,NamedElements.To256(parts.Total));
-            if(loss>0){SkillHealth.TypedDamage(caster,target,loss,new(0,0,0,0,loss));}
+            if (loss > 0)
+            {
+                target.FixedEffect(SpellEffectGraphics.StaticFieldContact, 10, SpellEffectGraphics.LightningFrames);
+                SkillHealth.TypedDamage(caster,target,loss,new(0,0,0,0,loss));
+            }
         }
-        caster.FixedEffect(0x3818,10,10,0x482,0); // Identified Static Field placeholder.
+        int graphic = radius switch
+        {
+            <= 3 => SpellEffectGraphics.StaticFieldSmall,
+            <= 5 => SpellEffectGraphics.StaticFieldMedium,
+            _ => SpellEffectGraphics.StaticFieldLarge
+        };
+        Effects.SendLocationEffect(caster.Location, caster.Map, graphic, SpellEffectGraphics.StaticFieldDuration);
         return true;
     }
 }

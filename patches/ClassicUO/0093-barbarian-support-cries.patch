@@ -1,0 +1,43 @@
+diff --git a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -212,6 +212,7 @@
+                             && !SpellEffectGraphics.IsDruidCharge(Graphic)
+                             && !SpellEffectGraphics.IsDruidSpiritAura(Graphic)
+                             && !SpellEffectGraphics.IsPaladinAuraLoop(Graphic)
++                            && !SpellEffectGraphics.IsBarbarianCryWard(Graphic)
+                             && Graphic is not (SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow
+                                 or SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.PoisonAfflicted
+                                 or SpellEffectGraphics.GolemSlow or SpellEffectGraphics.WoundActive
+@@ -318,6 +319,7 @@
+                             SpellEffectGraphics.ConversionLock or SpellEffectGraphics.ConversionFade => 90,
+                             _ when SpellEffectGraphics.IsPaladinMeleeAnimation(Graphic) => 76,
+                             SpellEffectGraphics.WarCryImpact => 63,
++                            _ when SpellEffectGraphics.IsBarbarianCryWard(Graphic) => 155,
+                             _ when SpellEffectGraphics.IsBarbarianCryAnimation(Graphic) => 79,
+                             _ when SpellEffectGraphics.IsDruidCharge(Graphic) => 115,
+                             _ when SpellEffectGraphics.IsDruidFormEffect(Graphic) => 105,
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -164,7 +164,8 @@
+                 posY -= Math.Clamp(stunned.FrameInfo.Y - 45, 0, 45);
+             }
+ 
+-            if (SpellEffectGraphics.IsPaladinAuraLoop(Graphic) && Source is Mobile { IsDead: true })
++            if ((SpellEffectGraphics.IsPaladinAuraLoop(Graphic) || SpellEffectGraphics.IsBarbarianCryWard(Graphic))
++                && Source is Mobile { IsDead: true })
+             {
+                 return false;
+             }
+diff --git a/src/ClassicUO.Client/Game/Managers/EffectManager.cs b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+--- a/src/ClassicUO.Client/Game/Managers/EffectManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+@@ -121,6 +121,7 @@
+                     || SpellEffectGraphics.IsDruidCharge(graphic)
+                     || SpellEffectGraphics.IsDruidSpiritAura(graphic)
+                     || SpellEffectGraphics.IsPaladinAuraLoop(graphic)
++                    || SpellEffectGraphics.IsBarbarianCryWard(graphic)
+                     || graphic is SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow or SpellEffectGraphics.HurricaneCore
+                         or SpellEffectGraphics.CycloneArmorWard or SpellEffectGraphics.ArmageddonAura
+                         or SpellEffectGraphics.DireWolfRage or SpellEffectGraphics.RavenBlind

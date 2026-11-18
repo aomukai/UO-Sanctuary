@@ -1,0 +1,43 @@
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -312,6 +312,9 @@
+                             SpellEffectGraphics.HolyShieldRaise or SpellEffectGraphics.HolyShieldFade => 92,
+                             SpellEffectGraphics.SanctuaryContact or SpellEffectGraphics.ConvictionContact => 67,
+                             SpellEffectGraphics.SacrificeSwing or SpellEffectGraphics.SmiteSwing or SpellEffectGraphics.VengeanceSwing => 65,
++                            SpellEffectGraphics.ZealSwing or SpellEffectGraphics.ZealImpact => 47,
++                            SpellEffectGraphics.ChargeTrail => 45,
++                            SpellEffectGraphics.ConversionLock or SpellEffectGraphics.ConversionFade => 90,
+                             _ when SpellEffectGraphics.IsPaladinMeleeAnimation(Graphic) => 76,
+                             _ when SpellEffectGraphics.IsDruidCharge(Graphic) => 115,
+                             _ when SpellEffectGraphics.IsDruidFormEffect(Graphic) => 105,
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -107,7 +107,8 @@
+ 
+             if (Source is Mobile marked &&
+                 (SpellEffectGraphics.IsCurseMark(Graphic) || Graphic is SpellEffectGraphics.CurseFade or SpellEffectGraphics.RavenBlind
+-                    or SpellEffectGraphics.ConvictionMark or SpellEffectGraphics.ConvictionContact))
++                    or SpellEffectGraphics.ConvictionMark or SpellEffectGraphics.ConvictionContact
++                    or SpellEffectGraphics.ConversionMark or SpellEffectGraphics.ConversionLock or SpellEffectGraphics.ConversionFade))
+             {
+                 if (marked.IsDead) { return false; }
+                 // Place the mark in the upper body on targets of different heights.
+@@ -138,6 +139,8 @@
+                         or SpellEffectGraphics.HolyShieldBlock or SpellEffectGraphics.HolyShieldFade
+                         or SpellEffectGraphics.ConvictionMark or SpellEffectGraphics.ConvictionContact
+                         or SpellEffectGraphics.SacrificeSwing or SpellEffectGraphics.SmiteSwing or SpellEffectGraphics.VengeanceSwing
++                        or SpellEffectGraphics.ZealSwing or SpellEffectGraphics.ChargeLaunch or SpellEffectGraphics.ConversionSwing
++                        or SpellEffectGraphics.ConversionMark or SpellEffectGraphics.ConversionLock or SpellEffectGraphics.ConversionFade
+                     || Graphic is Sanctuary.SpellEffectGraphics.NovaCast or Sanctuary.SpellEffectGraphics.NovaContact
+                         or Sanctuary.SpellEffectGraphics.TelekinesisCast or Sanctuary.SpellEffectGraphics.TelekinesisContact))
+             {
+@@ -230,7 +233,8 @@
+             {
+                 depth = Source.CalculateDepthZ() + 1f;
+             }
+-            else if (Graphic is SpellEffectGraphics.SacrificeImpact or SpellEffectGraphics.SmiteImpact or SpellEffectGraphics.VengeanceImpact)
++            else if (Graphic is SpellEffectGraphics.SacrificeImpact or SpellEffectGraphics.SmiteImpact or SpellEffectGraphics.VengeanceImpact
++                or SpellEffectGraphics.ZealImpact or SpellEffectGraphics.ChargeImpact)
+             {
+                 // Keep the impact on its contact tile and in front of the target's body.
+                 posY -= 11;

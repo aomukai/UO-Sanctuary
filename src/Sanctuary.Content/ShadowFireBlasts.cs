@@ -64,7 +64,8 @@ internal static class ShadowFireBlasts
             if(!FireBlasts.Recipient(owner,target,b)||ClassCombat.Friendly(body,target)||ClassAvoidance.Missile(target)){continue;}
             NpcElementSpellHit.Deliver(body,owner,target,"fire",raw,0,b.NextUtc,"Shadow Fire Blast",hitFlags:2,pierce:e=>e=="fire"?b.Npc.FirePierce:0);
         }
-        Effects.SendLocationEffect(FireBlasts.Point(b),body.Map,0x36BD,15,10,0x489,0); // Existing identified Fire Blast explosion placeholder.
+        Effects.SendLocationEffect(FireBlasts.Point(b), body.Map, 0x36BD, 15);
+        Effects.PlaySound(FireBlasts.Point(b), body.Map, 0x307); // Existing identified Fire Blast explosion placeholder.
     }
     private static FireBomb Age(FireBomb b)
     {
@@ -81,7 +82,7 @@ internal static class ShadowFireBlasts
         {if(b.Remaining<=1){Impact(body,owner,b);return null;}return b with{Remaining=b.Remaining-1,NextUtc=b.NextUtc.AddMilliseconds(40)};}
         var moved=LobProjectiles.Advance(body.Map,b.X,b.Y,b.Z,b.Vx,b.Vy,b.Remaining);var next=b with{X=moved.X,Y=moved.Y};
         next=moved.Landed?Land(body,next):next with{Remaining=b.Remaining-1,NextUtc=b.NextUtc.AddMilliseconds(40)};
-        if(next!=null){Effects.SendLocationEffect(FireBlasts.Point(next),body.Map,0x36E4,2,10,0x489,0);} // Existing identified bomb/landing placeholder.
+        if(next!=null){Effects.SendLocationEffect(FireBlasts.Point(next),body.Map,0x36D4,2);} // Existing identified bomb/landing placeholder.
         return next;
     }
 }

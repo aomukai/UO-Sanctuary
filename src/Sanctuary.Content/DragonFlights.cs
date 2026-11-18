@@ -93,11 +93,18 @@ public static class DragonFlights
         {
             Require(owner,recipient);var pair=WeaponHands.Pair(owner);using var hand=pair is{} hands?WeaponHands.Use(owner,hands.Primary):null;
             var weapon=CombatTiming.Equipped(owner);using var melee=weapon!=null?WeaponHands.UseMelee(owner,weapon):null;
-            owner.Direction=owner.GetDirectionTo(recipient);owner.PlaySound(0x238); // Identified kick/contact placeholder.
+            owner.Direction=owner.GetDirectionTo(recipient);
+            AssassinDragonVisuals.Sweep(owner, recipient, CombatAbility.DragonFlight);
             var kick=DragonTails.PrepareKick(owner,recipient,flight.KickAt,CombatAbility.DragonFlight);
             if((kick.Flags&SourceMeleeResult.Successful)!=0&&PlayerMeleeGeometry.Within(owner,recipient,0))
             {DragonTails.Progressive(owner,recipient,recipient.Location,recipient.Map,CombatAbility.DragonFlight);}
-            if(!recipient.Deleted){PlayerWeaponContact.Release(owner,recipient,kick.Contact,TimedEffects.Now,true);}
+            if (!recipient.Deleted)
+            {
+                var point = recipient.Location;
+                var map = recipient.Map;
+                var result = PlayerWeaponContact.Release(owner, recipient, kick.Contact, TimedEffects.Now, true);
+                AssassinDragonVisuals.Contact(point, map, CombatAbility.DragonFlight, result);
+            }
             if(ReferenceEquals(s.Flight,current)&&(!Valid(owner,current)||now>=current.Until)){Cancel(owner);}
             ClassCombat.SendState(owner,s);return true;
         }

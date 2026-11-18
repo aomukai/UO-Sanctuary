@@ -38,7 +38,7 @@ public static class DruidGrizzlyCasting
         // cast must not remove an existing paid bear or change its FIFO order.
         if(!NecromancerEffects.Pay(owner,values.Mana256)){created.Delete();return false;}
         created.RestorePrepared(created.Prepared with{LearnedCast=true});DruidGrizzlies.Enforce(owner);body=created;
-        owner.PlaySound(0x1E5); // Identified druid_summon audio placeholder.
+        DruidSummonVisuals.Arrive(created);
         return true;
     }
     public static bool Release(PlayerMobile owner)

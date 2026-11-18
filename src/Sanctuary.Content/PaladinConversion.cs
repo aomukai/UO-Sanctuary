@@ -53,7 +53,7 @@ public static class PaladinConversion
     }
     public static void Initialize()
     {
-        Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),Prune);
+        Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),()=>Update(refresh: true));
         ClassMapHooks.LocationChanged+=mobile=>
         {
             if(mobile is PlayerMobile owner&&ClassCombat.Existing(owner) is{} action&&action.Conversion!=null
@@ -208,11 +208,16 @@ public static class PaladinConversion
         try
         {
             PlayerWeaponContact.RequireOrdinary(owner,target);
+            PaladinMeleeVisuals.Swing(owner, CombatAbility.Conversion);
             // Do79 tests combat-record presence, not its successful-hit bit.
             // Success bypasses damage,leech,attempt/return and weapon wear.
             if(Eligible(owner,target)&&ChanceRoll(100)<values.Eval("calc1")&&ApplyAllegiance(owner,target,(int)values.Eval("auralencalc"))){return true;}
-            owner.DoHarmful(target,true);owner.PlaySound(0x238); // Ordinary weapon sound placeholder.
-            return PlayerWeaponContact.Release(owner,target,prepared.Contact,TimedEffects.Now).Exit==MonsterContactExit.Finished;
+            owner.DoHarmful(target,true);
+            var point = target.Location;
+            var map = target.Map;
+            var result = PlayerWeaponContact.Release(owner,target,prepared.Contact,TimedEffects.Now);
+            PaladinMeleeVisuals.Land(owner, point, map, CombatAbility.Conversion, result);
+            return result.Exit==MonsterContactExit.Finished;
         }
         catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}
     }
@@ -220,7 +225,9 @@ public static class PaladinConversion
     {
         Prune();
         if(frames<=0 || !Eligible(owner,target)){return false;}
-        _states[target.Serial.Value]=new(target.Serial.Value,owner.Serial.Value,TimedEffects.Now.AddMilliseconds(frames*40L));
+        var now = TimedEffects.Now;
+        var lease = new ConversionAllegiance(target.Serial.Value, owner.Serial.Value, now.AddMilliseconds(frames * 40L));
+        _states[target.Serial.Value] = lease;
         ResetTargeting(target);
         // The converting attack relinquishes its old enemy; committed projectiles
         // still run through the ordinary friendly-damage gates at delivery time.
@@ -228,6 +235,7 @@ public static class PaladinConversion
         // Do79 removes aura stat lists after alignment/AI and caster target
         // changes. Ordinary non-aura effects (including Enchant) survive.
         ClearAuras(target);
+        PaladinConversionVisuals.Begin(target, lease, now);
         return true;
     }
     private static void ResetTargeting(BaseCreature creature)
@@ -238,16 +246,24 @@ public static class PaladinConversion
         if(creature.AIObject is{} ai){ai.Action=ActionType.Wander;}
         // Preserve the species' timer/cooldown. Allegiance expiry has no invented grace period.
     }
-    public static void Prune()
+    public static void Prune() => Update(refresh: false);
+    private static void Update(bool refresh)
     {
+        var now = TimedEffects.Now;
         _expired.Clear();
         foreach(var state in _states.Values)
-        {if(state.UntilUtc<=TimedEffects.Now || World.FindMobile((Serial)state.Target) is not BaseCreature{Alive:true,Deleted:false}){_expired.Add(state.Target);}}
+        {
+            var mobile = World.FindMobile((Serial)state.Target);
+            if (state.UntilUtc <= now || mobile is not BaseCreature { Alive: true, Deleted: false }) { _expired.Add(state.Target); }
+            else if (refresh && state.Skill == CombatAbility.Conversion) { PaladinConversionVisuals.Refresh(mobile, state, now); }
+        }
         foreach(uint serial in _expired)
         {
             var state=_states[serial];var target=World.FindMobile((Serial)serial) as BaseCreature;
             int restored=state.Life!=null && target is{Alive:true,Deleted:false}?RestoredLife256(state.Life,SkillHealth.Maximum256(target),SkillHealth.Balance256(target)):-1;
             _states.Remove(serial);
+            if (state.Skill == CombatAbility.Conversion)
+            { PaladinConversionVisuals.End(serial, target, state.UntilUtc <= now); }
             if(target is{Alive:true,Deleted:false})
             {
                 if(restored>=0){SkillHealth.SetBalance256(target,restored);target.Delta(MobileDelta.Hits);}
@@ -270,6 +286,12 @@ public static class PaladinConversion
                     || life.OriginalMaximum is <1 or >65000 || life.Maximum256 is <1 or >65000*256
                     || life.Maximum256!=Math.Max(1,(long)life.OriginalMaximum*life.Level/life.OriginalLevel*256))
                 || !next.TryAdd(row.Target,row)){throw new InvalidDataException("Invalid Conversion allegiance");}
+        }
+        foreach (var state in _states.Values)
+        {
+            if (state.Skill == CombatAbility.Conversion &&
+                (!next.TryGetValue(state.Target, out var updated) || updated.Skill != CombatAbility.Conversion))
+            { PaladinConversionVisuals.End(state.Target, World.FindMobile((Serial)state.Target), false); }
         }
         _states.Clear();foreach(var row in next){_states.Add(row.Key,row.Value);}
     }

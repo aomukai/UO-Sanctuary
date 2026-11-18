@@ -24,6 +24,7 @@ public static class BarbarianConcentrate
         var action=ClassCombat.For(owner);
         action.Concentrate=new(action.PendingWeapon,action.ActionOrigin,action.ActionMap,action.NextAction,(int)values.Eval("aurastatcalc1"));
         ClassStats.Refresh(owner);StatNetwork.Send(owner);
+        BarbarianStrikeVisuals.Concentrate(owner, action.Concentrate.Until);
     }
     internal static void Impact(PlayerMobile owner,long now)
     {
@@ -36,7 +37,11 @@ public static class BarbarianConcentrate
     {
         var action=ClassCombat.For(owner);bool had=action.Concentrate!=null;action.Concentrate=null;
         if(action.PendingAbility==CombatAbility.Concentrate){action.PendingAbility=CombatAbility.None;action.BarbarianAttack=null;}
-        if(had){ClassStats.Refresh(owner);StatNetwork.Send(owner);}
+        if(had)
+        {
+            ClassStats.Refresh(owner);StatNetwork.Send(owner);
+            PaladinAuraVisuals.Clear(owner, SpellEffectGraphics.ConcentrateFocus);
+        }
     }
     internal static void Tick(PlayerMobile owner,long now)
     {if(ClassCombat.For(owner).Concentrate is{} mode && !Valid(owner,mode,now)){Cancel(owner);}}

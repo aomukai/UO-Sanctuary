@@ -60,8 +60,11 @@ internal static class TelekinesisCombat
         var prepared=Prepare(owner,values);
         if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
         ulong seed=SourceRandom.InitLow(SeedLow());var packet=Roll(prepared,ref seed);
+        SorceressVisuals.Telekinesis(owner);
+        target.FixedEffect(SpellEffectGraphics.TelekinesisContact, 10, SpellEffectGraphics.UtilityDuration);
         Deliver(owner,target,packet,prepared.Modifiers,TimedEffects.Now);
-        owner.PlaySound(0x1E5);return true; // Identified cast/audio placeholder.
+        if (!target.Deleted) { target.PlaySound(SpellEffectSounds.TelekinesisContact); }
+        return true;
     }
     internal static PreparedMonsterDamageResult Deliver(PlayerMobile owner,BaseCreature target,PreparedMonsterDamagePacket packet,FirestormModifiers modifiers,DateTime at)
     {

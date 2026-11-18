@@ -32,7 +32,7 @@ public static partial class FireGround
             {NpcCaster=actor.Serial.Value,Seed=SourceRandom.InitLow(NecromancerMageMissiles.SeedLow())};
         if(!ValidNpc(meteor)){throw new NotSupportedException("Invalid NPC Meteor placement");}
         _meteors.Add(id,meteor);Delay(actor,CombatAbility.Meteor,at);
-        Effects.SendLocationEffect(target.Location,actor.Map,0x3709,60,10,0x489,0); // Identified warning placeholder.
+        PresentMeteorWarning(actor, meteor);
         return id;
     }
     private static void NpcMeteorImpact(NecromancerMinion actor,MeteorDrop meteor,DateTime at)
@@ -57,7 +57,7 @@ public static partial class FireGround
                 {NpcCaster=meteor.NpcCaster,SkillRank=10,Seed=SourceRandom.InitLow(NecromancerMageMissiles.SeedLow())};
             if(!ValidNpc(patch)){throw new NotSupportedException("Invalid NPC Meteor field");}_patches.Add(id,patch);
         }
-        Effects.SendLocationEffect(center,actor.Map,0x36BD,20,10,0x489,0); // Identified impact placeholder.
+        PresentMeteorImpact(center, actor.Map);
     }
     private static void NpcMeteorField(NecromancerMinion actor,FirePatch patch)
     {
@@ -75,8 +75,7 @@ public static partial class FireGround
             NecromancerMageMissiles.ImpactSpell(actor,target,packet,patch.Owner,seed,patch.NextUtc,recover:false,damageRate:patch.DamageRate);
         }
         else{_patches[patch.Id]=next;}
-        if((patch.NextUtc.Ticks/TimeSpan.TicksPerMillisecond/40)%5==0)
-        {Effects.SendLocationEffect(point,actor.Map,0x398C,5,10,0x489,0);} // Identified ground-fire placeholder.
+        PresentMeteorField(patch, point, actor.Map, TimedEffects.Now);
     }
     private static bool NpcPosition(uint caster,uint owner,int map,double x,double y,int z)=>((Serial)caster).IsMobile&&((Serial)owner).IsMobile
         &&map>=0&&map<Map.Maps.Length&&Map.Maps[map]!=null&&Map.Maps[map]!=Map.Internal&&z is >=-128 and <=127

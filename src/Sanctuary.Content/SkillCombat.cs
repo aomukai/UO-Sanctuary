@@ -30,7 +30,7 @@ public static class SkillCombat
         }
         else
         {
-            double magic=SorceressEffects.Absorb(target,new(0,0,0,0,0,Magic:enhanced256/256.0)).Magic;
+            double magic=SorceressEffects.Absorb(target,new(0,0,0,0,0,Magic:enhanced256/256.0),source).Magic;
             value=NamedElements.Damage(source,target,magic,"mag",enhance:false);
         }
         int amount=NamedElements.To256(value);int loss=SkillHealth.TypedDamage(source,target,amount,new(0,amount,0,0,0));
@@ -42,7 +42,7 @@ public static class SkillCombat
         if(element is not ("fire" or "ltng" or "cold" or "mag")){throw new NotSupportedException("Unsupported elemental aura damage: "+element);}
         if(target is not {Alive:true,Deleted:false} || ClassCombat.Friendly(source,target)){return 0;}
         source.DoHarmful(target,true);
-        var parts=SorceressEffects.Absorb(target,element=="fire"?new(0,enhanced256/256.0,0,0,0):element=="cold"?new(0,0,enhanced256/256.0,0,0):element=="mag"?new(0,0,0,0,0,Magic:enhanced256/256.0):new(0,0,0,enhanced256/256.0,0));
+        var parts=SorceressEffects.Absorb(target,element=="fire"?new(0,enhanced256/256.0,0,0,0):element=="cold"?new(0,0,enhanced256/256.0,0,0):element=="mag"?new(0,0,0,0,0,Magic:enhanced256/256.0):new(0,0,0,enhanced256/256.0,0),source);
         double value=NamedElements.Damage(source,target,element=="fire"?parts.Fire:element=="cold"?parts.Cold:element=="mag"?parts.Magic:parts.Lightning,element,enhance:false);
         // Source SOFTHIT pulse: no ordinary attack check, block, weapon proc or get-hit request.
         return SkillHealth.Damage(source,target,(int)Math.Clamp(Math.Floor(value*256),0,int.MaxValue),SkillDamageKind.Periodic);
@@ -52,7 +52,7 @@ public static class SkillCombat
         if (target is not { Alive: true, Deleted: false } || ClassCombat.Friendly(source, target)) { return 0; }
         if(ClassAvoidance.Missile(target)){return 0;}
         source.DoHarmful(target, true);
-        double lightning = SorceressEffects.Absorb(target, new(0, 0, 0, enhanced256 / 256.0, 0)).Lightning;
+        double lightning = SorceressEffects.Absorb(target, new(0, 0, 0, enhanced256 / 256.0, 0), source).Lightning;
         lightning = NamedElements.Damage(source, target, lightning, "ltng", enhance: false);
         int amount=NamedElements.To256(lightning);int loss = SkillHealth.TypedDamage(source,target,amount,new(0,0,0,0,amount));
         if (target is BaseCreature creature) { CreatureHitRecovery.Apply(creature, source, loss); }
@@ -67,7 +67,7 @@ public static class SkillCombat
         if (target is not { Alive: true, Deleted: false } || ClassCombat.Friendly(source, target)) { return 0; }
         if(ClassAvoidance.Missile(target)){return 0;}
         source.DoHarmful(target, true);
-        double cold = SorceressEffects.Absorb(target, new(0, 0, enhanced256 / 256.0, 0, 0)).Cold;
+        double cold = SorceressEffects.Absorb(target, new(0, 0, enhanced256 / 256.0, 0, 0), source).Cold;
         cold = NamedElements.Damage(source, target, cold, "cold", enhance: false);
         // Native damage commits death synchronously. Apply source freeze first
         // so its current hide/shatter/udead state participates in that commit.
@@ -89,7 +89,7 @@ public static class SkillCombat
         if (target is not { Alive: true, Deleted: false } || ClassCombat.Friendly(source, target)) { return 0; }
         if(ClassAvoidance.Missile(target)){return 0;}
         source.DoHarmful(target, true);
-        double fire = SorceressEffects.Absorb(target, new(0, enhanced256 / 256.0, 0, 0, 0)).Fire;
+        double fire = SorceressEffects.Absorb(target, new(0, enhanced256 / 256.0, 0, 0, 0), source).Fire;
         fire = NamedElements.Damage(source, target, fire, "fire", enhance: false, damageRate: damageRate, pierceOverride: pierceOverride);
         int amount=NamedElements.To256(fire);return SkillHealth.TypedDamage(source,target,amount,new(0,0,amount,0,0),kind);
     }
@@ -190,7 +190,7 @@ public static class SkillCombat
         double physicalBase=damage*physical/100.0;int originalPhysical=NamedElements.To256(physicalBase);
         int raw=boundWeapon?NamedElements.To256((physicalBase+BoundDemonHosts.FlatDamage(source))*PaladinAuras.NativeWeaponMultiplier(source,true)):originalPhysical;
         var ward=PsychicWardReactionProposal.Capture(source,target,raw,weapon&&!ranged,weapon);
-        var parts=typed is{} channels?DefensiveArmors.Absorb(target,channels with{Physical=raw/256.0})
+        var parts=typed is{} channels?DefensiveArmors.Absorb(target,channels with{Physical=raw/256.0},source)
             :new GearDamage(PsychicWard.AbsorbPhysical(target,NecromancerEffects.AbsorbPhysical(target,raw/256.0)),0,0,0,0);
         int remaining=NamedElements.To256(parts.Physical);
         var spectral=BoundDemonUpgrades.Capture(source,target,weapon,ranged,damage);
@@ -232,7 +232,7 @@ public static class SkillCombat
     }
     internal static GearDamage MitigatePrepared(Mobile source,Mobile target,GearDamage damage,out int absorbed256,int damageRate=0,Func<string,int?> pierceOverride=null,Func<string,int> skillResistanceDelta=null)
     {
-        var raw = DefensiveArmors.Absorb(target, damage);
+        var raw = DefensiveArmors.Absorb(target, damage, source);
         long healing256=0;
         double Channel(double value,string element)
         {

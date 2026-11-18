@@ -55,6 +55,11 @@ internal sealed class TimedActor(DateTime now)
     internal int? SlowAttackPercent;
     internal NamedControlState Control;
     internal SourceColdState Cold;
+    internal ushort ColdVisualGraphic;
+    internal DateTime ColdVisualRefresh;
+    internal DateTime PoisonVisualRefresh;
+    internal DateTime SlowVisualRefresh;
+    internal DateTime WoundVisualRefresh;
     internal readonly RestorationLane Life = new(), Mana = new();
     internal readonly Dictionary<TimedEffectCategory, TimedBuff> Buffs = new();
 }
@@ -91,8 +96,12 @@ public static class TimedEffects
     }
     public static void Clear(Mobile owner)
     {
-        if (owner != null && _actors.Remove(owner.Serial, out var actor) && actor.Buffs.ContainsKey(TimedEffectCategory.Food)
-            && owner is PlayerMobile p) { FoodEffects.Refresh(p); }
+        if (owner == null || !_actors.Remove(owner.Serial, out var actor)) { return; }
+        ColdStatusVisuals.Clear(owner, actor);
+        PoisonStatusVisuals.Clear(owner, actor);
+        GolemEffects.ClearSlow(owner, actor);
+        WoundStatusVisuals.Clear(owner, actor);
+        if (actor.Buffs.ContainsKey(TimedEffectCategory.Food) && owner is PlayerMobile p) { FoodEffects.Refresh(p); }
     }
     public static void ClearRestoration(Mobile owner)
     { if (owner != null && _actors.TryGetValue(owner.Serial, out var a)) { a.Life.Clear(); a.Mana.Clear(); } }
@@ -113,6 +122,10 @@ public static class TimedEffects
     {
         if (owner != null && _actors.TryGetValue(owner.Serial, out var a))
         {
+            ColdStatusVisuals.Clear(owner, a);
+            PoisonStatusVisuals.Clear(owner, a);
+            GolemEffects.ClearSlow(owner, a);
+            WoundStatusVisuals.Clear(owner, a);
             a.Cold=null; a.ChillUntil = a.Updated; a.ChillPercent = a.PoisonMs = 0; a.PoisonRate = a.PoisonFraction = 0; a.PoisonClock = null; a.NpcPoisonElapsedMs=null; a.SpellPoison=null;
             a.BleedMs = 0; a.BleedRate = a.BleedFraction = 0; a.HealBlockedUntil = a.Updated;
             a.SlowUntil = a.Updated; a.SlowPercent = a.DefenseLoss = a.RunningRemainder = 0; a.SlowAttackPercent=null; a.Control = null;
@@ -231,6 +244,10 @@ public static class TimedEffects
         if (a.ChillUntil <= now) { ColdStates.Expire(owner,a); a.ChillPercent = 0; }
         if (a.SlowUntil <= now) { a.SlowPercent = 0; a.SlowAttackPercent=null; }
         FreezeStates.Settle(owner,a,now);
+        ColdStatusVisuals.Refresh(owner, a, now);
+        PoisonStatusVisuals.Refresh(owner, a, now);
+        GolemEffects.RefreshSlow(owner, a, now);
+        WoundStatusVisuals.Refresh(owner, a, now);
         if (a.Control is { } control && control.FreezeUntil <= now && control.BlindUntil <= now && control.FearUntil <= now
             && (control.Freeze==null || control.Freeze.AiUntilUtc<=now))
         { a.Control = null; }
@@ -284,6 +301,7 @@ public static class TimedEffects
         if(!owner.Alive||owner.Deleted||owner.IsDeadBondedPet){return;}
         var a=Actor(owner,now);if(now>=a.SlowUntil||a.SlowPercent==0){a.SlowPercent=percent;}
         a.SlowAttackPercent=percent;a.SlowUntil=now.AddSeconds(30);
+        GolemEffects.RefreshSlow(owner, a, now);
     }
     public static int SlowCap(Mobile owner) => owner switch
     {
@@ -301,6 +319,7 @@ public static class TimedEffects
         var a = Actor(owner, now);
         // The latest successful hit replaces this state, rather than adding another slow stack.
         a.SlowPercent = Math.Clamp(percent, 0, SlowCap(owner)); a.SlowAttackPercent=null; a.SlowUntil = now.AddSeconds(30);
+        GolemEffects.ClearSlow(owner, a);
     }
     public static int DefenseLoss(Mobile owner) => owner is { Alive: true, Deleted: false }
         && _actors.TryGetValue(owner.Serial, out var a) ? a.DefenseLoss : 0;
@@ -331,7 +350,9 @@ public static class TimedEffects
         if (clock != null && target is PlayerMobile && a.PoisonClock is { } prior) { clock = clock with { ElapsedMs = prior.ElapsedMs }; }
         if (a.PoisonMs == 0) { a.PoisonSource = source.Serial; }
         a.PoisonRate = rate; a.PoisonMs = duration; a.PoisonClock = clock; a.SpellPoison=null;
-        a.NpcPoisonElapsedMs=clock==null&&(NpcEquipmentRegeneration.Handles(target)||a.NpcPoisonElapsedMs!=null)?0:null;return true;
+        a.NpcPoisonElapsedMs=clock==null&&(NpcEquipmentRegeneration.Handles(target)||a.NpcPoisonElapsedMs!=null)?0:null;
+        PoisonStatusVisuals.Refresh(target, a, now);
+        return true;
     }
     public static bool CleansePoison(Mobile target, int remainingPercent, DateTime now)
     {
@@ -341,6 +362,7 @@ public static class TimedEffects
         if(actor.SpellPoison is{} exposure)
         {int left=exposure.RemainingMs/40*Math.Clamp(remainingPercent,0,100)/100*40;actor.SpellPoison=left>0?exposure with{RemainingMs=left}:null;}
         if (actor.PoisonMs==0) { actor.PoisonRate=actor.PoisonFraction=0; actor.PoisonClock=null; actor.NpcPoisonElapsedMs=null; }
+        PoisonStatusVisuals.Refresh(target, actor, now);
         return true;
     }
     public static bool Bleed(Mobile source, Mobile target, double total, DateTime now)
@@ -364,7 +386,10 @@ public static class TimedEffects
         if(a.Updated<at){throw new InvalidOperationException("NPC wound receiver was not settled before entering prepared hit events");}
         if(a.BleedMs>0){a.BleedMs=8000;return true;}
         int phase=a.PoisonClock?.ElapsedMs??a.NpcPoisonElapsedMs??a.SpellPoison?.ElapsedMs??0;
-        a.BleedSource=source.Serial;a.BleedMs=8000;a.BleedRate=rate256/10240.0;a.BleedFraction=0;a.OpenWounds=new(rate256,phase,creditOwner);return true;
+        a.BleedSource=source.Serial;a.BleedMs=8000;a.BleedRate=rate256/10240.0;a.BleedFraction=0;a.OpenWounds=new(rate256,phase,creditOwner);
+        WoundStatusVisuals.Refresh(target, a, at);
+        SpellAreaSounds.Pulse(source.Serial.Value, SpellEffectSounds.WoundOpen, target.Location, target.Map, at, 290);
+        return true;
     }
     public static void PreventHealing(Mobile target, DateTime now)
     {

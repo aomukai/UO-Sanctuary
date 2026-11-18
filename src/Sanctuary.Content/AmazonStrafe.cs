@@ -88,7 +88,7 @@ public static class AmazonStrafe
             PlayerPierceActions.Budget(pierce,WeaponMissiles.CurrentPierce(owner),AmazonBow.LaunchRandom),NecromancerSummons.Source(missile,"Vel"),NecromancerSummons.Source(missile,"Range"),
             NecromancerSummons.Source(missile,"NextDelay"),missile,values.Rank);
         if(projectile>0&&pierce!=null){pierce.Commit();series=series with{Pierce=pierce};}
-        owner.PlaySound(0x238); // Identified ordinary bow sound placeholder.
+        if (projectile > 0) { AmazonBowEffects.Release(owner, CombatAbility.Strafe); }
         series=series with{Remaining=series.Remaining-1,Released=series.Released+1};
         if(!Valid(owner,series)){Cancel(owner);return true;}
         if(series.Remaining>0 && Target(owner,target.Serial,true) is{} next)

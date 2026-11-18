@@ -16,10 +16,13 @@ public static class PaladinRedemption
         if(SpellHelper.IsTown(owner.Location,owner) || corpse!=null && SpellHelper.IsTown(corpse.Location,owner) || !CorpseSkillRules.Usable(owner,corpse,SkillGeometry.Tiles(values.Eval("aurarangecalc")))
             || roll>=values.Eval("calc1")){return false;}
         // Reserve the one-use corpse before applying either resource gain; retained loot stays in its container.
+        var point = corpse.Location;
+        var map = corpse.Map;
         NecromancerCombat.Consume(corpse);
-        SkillHealth.Heal(owner,(int)values.Eval("calc2")*256);
+        bool life = SkillHealth.Heal(owner,(int)values.Eval("calc2")*256) > 0;
+        int before = NecromancerEffects.ManaBalance256(owner);
         NecromancerEffects.AddMana(owner,(int)values.Eval("calc3")*256);
-        owner.FixedEffect(0x375A,10,10,0x481,0); // Placeholder redemption/healing effect.
+        PaladinRecoveryVisuals.Redeemed(owner, point, map, life, NecromancerEffects.ManaBalance256(owner) > before);
         return true;
     }
     public static void Pulse(PlayerMobile owner,SkillValues values)

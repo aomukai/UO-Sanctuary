@@ -1,0 +1,100 @@
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -99,6 +99,18 @@
+                 }
+                 else if (NextChangeFrameTime < Time.Ticks)
+                 {
++                    if (Graphic == SpellEffectGraphics.FireWallField)
++                    {
++                        bool lighting = AnimIndex < SpellEffectGraphics.FireFrames;
++                        AnimationGraphic = (ushort)(SpellEffectGraphics.FireWallIgnite + AnimIndex++);
++                        if (AnimIndex == 2 * SpellEffectGraphics.FireFrames)
++                        {
++                            AnimIndex = SpellEffectGraphics.FireFrames;
++                        }
++                        NextChangeFrameTime = Time.Ticks + (lighting ? 50 : 90);
++                        return;
++                    }
++
+                     int spellFrames = Graphic switch
+                     {
+                         SpellEffectGraphics.BoneSpearShatter => SpellEffectGraphics.BoneSpearShatterFrames,
+@@ -120,12 +132,16 @@
+                             or SpellEffectGraphics.StaticFieldMedium or SpellEffectGraphics.StaticFieldLarge
+                             or SpellEffectGraphics.StaticFieldContact or SpellEffectGraphics.ThunderStormCharge
+                             or SpellEffectGraphics.ThunderStormStrike => SpellEffectGraphics.LightningFrames,
++                        SpellEffectGraphics.FireBoltContact or SpellEffectGraphics.InfernoContact or SpellEffectGraphics.BlazeCast
++                            or SpellEffectGraphics.BlazeField or SpellEffectGraphics.BlazeFade or SpellEffectGraphics.FireWallFade
++                            => SpellEffectGraphics.FireFrames,
+                         _ => 0
+                     };
+                     if (spellFrames > 0)
+                     {
+                         bool oneShot = Graphic is not (SpellEffectGraphics.MeteorWarning or SpellEffectGraphics.MeteorFire
+-                            or SpellEffectGraphics.AbyssField) && !SpellEffectGraphics.IsColdStatus(Graphic);
++                            or SpellEffectGraphics.AbyssField or SpellEffectGraphics.BlazeField)
++                            && !SpellEffectGraphics.IsColdStatus(Graphic);
+                         AnimationGraphic = (ushort)(Graphic + AnimIndex);
+                         if (AnimIndex < spellFrames - 1) { AnimIndex++; }
+                         else if (!oneShot) { AnimIndex = 0; }
+@@ -145,6 +161,8 @@
+                             SpellEffectGraphics.ColdCorpseShatter => 80,
+                             SpellEffectGraphics.FrostNovaRing => 130,
+                             SpellEffectGraphics.Chilled or SpellEffectGraphics.Frozen => 120,
++                            SpellEffectGraphics.BlazeField => 90,
++                            SpellEffectGraphics.BlazeCast or SpellEffectGraphics.BlazeFade or SpellEffectGraphics.FireWallFade => 70,
+                             _ => Constants.ITEM_EFFECT_ANIMATION_DELAY
+                         };
+                         NextChangeFrameTime = (long)Time.Ticks + interval;
+--- a/src/ClassicUO.Client/Game/Managers/EffectManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+@@ -70,27 +70,30 @@
+ 
+             duration *= Constants.ITEM_EFFECT_ANIMATION_DELAY;
+ 
+-            if (type == GraphicEffectType.FixedFrom && SpellEffectGraphics.IsColdStatus(graphic))
+-            {
+-                // Renew the existing attachment without restarting its animation.
+-                for (GameEffect attached = (GameEffect)Items; attached != null; attached = (GameEffect)attached.Next)
++            bool renewStatus = type == GraphicEffectType.FixedFrom && SpellEffectGraphics.IsColdStatus(graphic);
++            bool renewField = type == GraphicEffectType.FixedXYZ && SpellEffectGraphics.IsFireField(graphic);
++            if (renewStatus || renewField)
++            {
++                // Keep the animation phase across renewals from the same actor or fire tile.
++                for (GameEffect live = (GameEffect)Items; live != null; live = (GameEffect)live.Next)
+                 {
+-                    if (attached.Graphic == graphic && !attached.IsDestroyed
+-                        && attached.Source is Entity entity && entity.Serial == source)
++                    if (live.Graphic == graphic && !live.IsDestroyed
++                        && (renewStatus ? live.Source is Entity entity && entity.Serial == source
++                            : live.Source == null && live.X == srcX && live.Y == srcY && live.Z == srcZ))
+                     {
+                         if (duration > 0)
+                         {
+-                            attached.Duration = Time.Ticks + duration;
++                            live.Duration = Time.Ticks + duration;
+                         }
+                         else
+                         {
+-                            attached.Destroy();
++                            live.Destroy();
+                         }
+                         return;
+                     }
+                 }
+ 
+-                if (duration == 0 || _world.Get(source) is not Mobile)
++                if (duration == 0 || renewStatus && _world.Get(source) is not Mobile)
+                 {
+                     return;
+                 }
+@@ -192,8 +195,7 @@
+                         return;
+                     }
+ 
+-                    // Bone Spirit gets a position sample every 80 ms. Avoid rendering two
+-                    // full skulls while the previous sample times out at the native 100 ms.
++                    // Avoid simultaneous full sprites from adjacent flight samples.
+                     if (graphic is >= SpellEffectGraphics.BoneSpiritFlight and < SpellEffectGraphics.BoneSpiritBurst
+                         || SpellEffectGraphics.IsColdProjectile(graphic))
+                     {

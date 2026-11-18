@@ -1,0 +1,60 @@
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -200,6 +200,7 @@
+                         _ when SpellEffectGraphics.IsBarbarianCorpseAnimation(Graphic) => SpellEffectGraphics.BarbarianCryFrames,
+                         _ when SpellEffectGraphics.IsBarbarianStrikeAnimation(Graphic) => SpellEffectGraphics.BarbarianStrikeFrames,
+                         _ when SpellEffectGraphics.IsBarbarianMotionAnimation(Graphic) => SpellEffectGraphics.BarbarianMotionFrames,
++                        _ when SpellEffectGraphics.IsBarbarianPairedAnimation(Graphic) => SpellEffectGraphics.BarbarianPairedFrames,
+                         _ when SpellEffectGraphics.IsEnchantAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ when SpellEffectGraphics.IsWardAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ => 0
+@@ -218,7 +219,8 @@
+                             && !SpellEffectGraphics.IsBarbarianCryWard(Graphic)
+                             && !SpellEffectGraphics.IsGrimWardBody(Graphic)
+                             && !SpellEffectGraphics.IsBarbarianStrikeStatus(Graphic)
+-                            && Graphic is not (SpellEffectGraphics.WhirlwindSpin or SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow
++                            && Graphic is not (SpellEffectGraphics.WhirlwindSpin or SpellEffectGraphics.FrenzySpeed
++                                or SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow
+                                 or SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.PoisonAfflicted
+                                 or SpellEffectGraphics.GolemSlow or SpellEffectGraphics.WoundActive
+                                 or SpellEffectGraphics.CombatStun or SpellEffectGraphics.RabiesCarrier
+@@ -333,6 +335,8 @@
+                             _ when SpellEffectGraphics.IsBarbarianStrikeAnimation(Graphic) => 65,
+                             SpellEffectGraphics.WhirlwindSpin or SpellEffectGraphics.WhirlwindImpact => 60,
+                             _ when SpellEffectGraphics.IsBarbarianMotionAnimation(Graphic) => 67,
++                            SpellEffectGraphics.FrenzySpeed => 118,
++                            _ when SpellEffectGraphics.IsBarbarianPairedAnimation(Graphic) => 52,
+                             _ when SpellEffectGraphics.IsDruidCharge(Graphic) => 115,
+                             _ when SpellEffectGraphics.IsDruidFormEffect(Graphic) => 105,
+                             SpellEffectGraphics.ClayGolemContact or SpellEffectGraphics.IronGolemSpark => 65,
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -123,6 +123,7 @@
+             }
+ 
+             bool barbarianTorsoEffect = SpellEffectGraphics.IsBarbarianStrikeAttached(Graphic)
++                || SpellEffectGraphics.IsBarbarianPairedAttached(Graphic)
+                 || Graphic is SpellEffectGraphics.LeapAttackSwing or SpellEffectGraphics.WhirlwindSpin;
+             if (Source is Mobile { IsGargoyle: true, IsFlying: true }
+                 && (Sanctuary.SpellEffectGraphics.IsWardAnimation(Graphic)
+@@ -169,7 +170,8 @@
+             }
+ 
+             if ((SpellEffectGraphics.IsPaladinAuraLoop(Graphic) || SpellEffectGraphics.IsBarbarianCryWard(Graphic)
+-                || SpellEffectGraphics.IsBarbarianStrikeStatus(Graphic) || Graphic == SpellEffectGraphics.WhirlwindSpin)
++                || SpellEffectGraphics.IsBarbarianStrikeStatus(Graphic)
++                || Graphic is SpellEffectGraphics.WhirlwindSpin or SpellEffectGraphics.FrenzySpeed)
+                 && Source is Mobile { IsDead: true })
+             {
+                 return false;
+--- a/src/ClassicUO.Client/Game/Managers/EffectManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+@@ -124,7 +124,7 @@
+                     || SpellEffectGraphics.IsPaladinAuraLoop(graphic)
+                     || SpellEffectGraphics.IsBarbarianCryWard(graphic)
+                     || SpellEffectGraphics.IsBarbarianStrikeStatus(graphic)
+-                    || graphic == SpellEffectGraphics.WhirlwindSpin
++                    || graphic is SpellEffectGraphics.WhirlwindSpin or SpellEffectGraphics.FrenzySpeed
+                     || wardBody
+                     || graphic is SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow or SpellEffectGraphics.HurricaneCore
+                         or SpellEffectGraphics.CycloneArmorWard or SpellEffectGraphics.ArmageddonAura

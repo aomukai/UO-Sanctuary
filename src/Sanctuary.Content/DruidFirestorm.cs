@@ -64,7 +64,7 @@ public static class DruidFirestorm
         catch(NotSupportedException){owner.SendMessage(0x22,"Firestorm cannot be used in this context yet.");return false;}
         if(prepared.Length==0 || !NecromancerEffects.Pay(owner,values.Mana256)){return false;}
         Commit(prepared);FireGround.Delay(owner,CombatAbility.Firestorm);
-        owner.PlaySound(0x1E5); // Identified cast-audio placeholder.
+        DruidFireVisuals.FirestormRelease(owner);
         return true;
     }
     private static long[] Commit(FirestormEmitter[] prepared)
@@ -145,6 +145,7 @@ public static class DruidFirestorm
         {
             DateTime next=_pool.Emitters.Values.Select(x=>x.NextUtc).Concat(_pool.Patches.Values.Select(x=>x.NextUtc)).DefaultIfEmpty(DateTime.MaxValue).Min();
             if(next>at){return;}
+            DruidFireVisuals.BeginFrame(next);
             foreach(var maker in _pool.Emitters.Values.Where(x=>x.NextUtc==next).OrderByDescending(x=>x.Id).ToArray()){Advance(maker,actions);}
             foreach(var patch in _pool.Patches.Values.Where(x=>x.NextUtc==next).OrderByDescending(x=>x.Id).ToArray()){Burn(patch,actions);}
         }
@@ -172,7 +173,7 @@ public static class DruidFirestorm
         if(frame>=40 || blocked || s.Charged && waypoint>=s.Path.Length || x<0 || y<0 || x>=owner.Map.Width || y>=owner.Map.Height)
         {_pool=_pool with{Emitters=_pool.Emitters.Remove(s.Id)};return;}
         next=next with{X=x,Y=y,Next=waypoint,CellX=cx,CellY=cy,CellChanged=cx!=s.CellX || cy!=s.CellY};_pool=_pool with{Emitters=_pool.Emitters.SetItem(s.Id,next)};
-        if(frame%4==0){Effects.SendLocationEffect(new((int)Math.Round(x),(int)Math.Round(y),s.Z),owner.Map,0x398C,3,10,0x489,0);} // Identified emitter placeholder.
+        DruidFireVisuals.FirestormTravel(next, owner.Map, x - s.X, y - s.Y);
     }
     private static void Burn(FirestormPatch s,bool? actions)
     {
@@ -185,6 +186,8 @@ public static class DruidFirestorm
         if(!Fighting(owner,s.Map,actions)){return;}
         var point=new Point3D((s.X+1)/2,(s.Y+1)/2,s.Z);
         if(!owner.Map.CanFit(point,1,false,false,false)){_pool=_pool with{Patches=_pool.Patches.Remove(s.Id)};return;}
+        int framesLeft = (int)((s.UntilUtc - s.NextUtc).TotalMilliseconds / 40);
+        DruidFireVisuals.FireBed(s.Owner, owner.Map, s.X, s.Y, s.Z, 15 - framesLeft, framesLeft, s.NextUtc);
         var projected=new FirePatch(s.Id,s.Owner,CombatAbility.Firestorm,s.Map,s.X/2.0,s.Y/2.0,s.Z,s.Min256,s.Max256,41,s.UntilUtc,s.NextUtc,2){SkillRank=s.Rank};
         if(ImmolationArrows.Recipient(owner,projected) is{} target)
         {
@@ -193,10 +196,12 @@ public static class DruidFirestorm
             if(!ClassAvoidance.Missile(target))
             {
                 owner.DoHarmful(target,true);var parts=SkillCombat.MitigatePrepared(owner,target,Packet(s.Modifiers,raw),damageRate:41);
-                SkillHealth.Damage(owner,target,NamedElements.To256(parts.Total),SkillDamageKind.Periodic); // No GETHIT, weapon procs, drain or extra19/128 callback.
+                var hitPoint = target.Location;
+                var hitMap = target.Map;
+                int loss = SkillHealth.Damage(owner,target,NamedElements.To256(parts.Total),SkillDamageKind.Periodic); // No GETHIT, weapon procs, drain or extra19/128 callback.
+                if (loss > 0) { DruidFireVisuals.Contact(s.Owner, target.Serial.Value, hitPoint, hitMap, s.NextUtc); }
             }
         }
-        if((s.NextUtc.Ticks/TimeSpan.TicksPerMillisecond/40)%5==0){Effects.SendLocationEffect(point,owner.Map,0x398C,3,10,0x489,0);} // Identified burning-patch placeholder.
     }
     private static void Common(long id,uint owner,int map,int rank,int z,DateTime at)
     {

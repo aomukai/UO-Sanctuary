@@ -34,7 +34,7 @@ internal static class Meteors
         if(!ValidAim(owner,selected,point,out var aim)||!FireGround.Ready(owner,CombatAbility.Meteor)){return false;}
         var at=TimedEffects.Now;var prepared=Prepare(owner,aim,values,at);
         if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
-        FireGround.CommitMeteor(owner,prepared);FireGround.Delay(owner,CombatAbility.Meteor,at);owner.PlaySound(0x1E5);return true; // Identified cast sound placeholder.
+        FireGround.CommitMeteor(owner,prepared);FireGround.Delay(owner,CombatAbility.Meteor,at);return true;
     }
     internal static PreparedMonsterDamagePacket Roll(MeteorDrop meteor,ref ulong seed)
     {
@@ -78,7 +78,33 @@ public static partial class FireGround
     internal static void CommitMeteor(PlayerMobile owner,MeteorDrop prepared)
     {
         var m=prepared with{Id=checked(++_nextId),Seed=SourceRandom.InitLow(Blazes.SeedLow())};if(!Meteors.Valid(m)){throw new NotSupportedException("Invalid Meteor placement");}_meteors.Add(m.Id,m);
-        Effects.SendLocationEffect(new Point3D(m.X,m.Y,m.Z),owner.Map,0x3709,60,10,0x489,0); // Identified warning placeholder.
+        PresentMeteorWarning(owner, m);
+    }
+
+    private static void PresentMeteorWarning(Mobile caster, MeteorDrop meteor)
+    {
+        var point = new Point3D(meteor.X, meteor.Y, meteor.Z);
+        var map = caster.Map;
+        caster.PlaySound(SpellEffectSounds.MeteorRelease);
+        Effects.SendLocationEffect(point, map, SpellEffectGraphics.MeteorWarning, SpellEffectGraphics.MeteorWarningDuration);
+        var delay = meteor.ImpactUtc.AddMilliseconds(-SpellEffectGraphics.MeteorFallMilliseconds) - TimedEffects.Now;
+        if (delay <= TimeSpan.Zero) { return; }
+
+        Timer.StartTimer(delay, () =>
+        {
+            if (!_meteors.TryGetValue(meteor.Id, out var pending) || !ReferenceEquals(pending, meteor)
+                || caster.Map != map || TimedEffects.Now >= pending.ImpactUtc) { return; }
+            bool active = meteor.NpcCaster == 0
+                ? Owner(meteor.Owner)?.NetState is { Running: true }
+                : NpcSource(meteor.NpcCaster, meteor.Owner, meteor.Map, null) == caster;
+            if (active) { Effects.PlaySound(point, map, SpellEffectSounds.MeteorDescent); }
+        });
+    }
+
+    private static void PresentMeteorImpact(Point3D center, Map map)
+    {
+        Effects.SendLocationEffect(center, map, SpellEffectGraphics.MeteorImpact, SpellEffectGraphics.MeteorImpactDuration);
+        Effects.PlaySound(center, map, SpellEffectSounds.MeteorImpact);
     }
     internal static void AdvanceMeteor(PlayerMobile owner,DateTime at,bool actions)
     {
@@ -114,6 +140,25 @@ public static partial class FireGround
                 {SkillRank=m.Rank,MeteorModifiers=mods,Seed=SourceRandom.InitLow(Blazes.SeedLow())};
             if(!Meteors.Valid(p)){throw new NotSupportedException("Invalid Meteor field");}_patches.Add(p.Id,p);children.Add(p);
         }
-        Effects.SendLocationEffect(center,owner.Map,0x36BD,20,10,0x489,0);return children.ToArray(); // Identified impact placeholder.
+        PresentMeteorImpact(center, owner.Map);
+        foreach (var point in children.Select(p => new Point3D((int)Math.Round(p.X), (int)Math.Round(p.Y), p.Z)).Distinct())
+        {
+            ShowMeteorFire(point, owner.Map);
+        }
+        return children.ToArray();
+    }
+
+    private static void ShowMeteorFire(Point3D point, Map map) =>
+        Effects.SendLocationEffect(point, map, SpellEffectGraphics.MeteorFire, SpellEffectGraphics.MeteorFireDuration);
+
+    private static void PresentMeteorField(FirePatch patch, Point3D point, Map map, DateTime now)
+    {
+        if (now >= patch.UntilUtc) { return; }
+        if ((patch.UntilUtc - patch.NextUtc).Ticks / (40 * TimeSpan.TicksPerMillisecond) % 5 == 0)
+        {
+            ShowMeteorFire(point, map);
+        }
+        uint source = patch.NpcCaster != 0 ? patch.NpcCaster : patch.Owner;
+        SpellAreaSounds.Pulse(source, SpellEffectSounds.GroundFire, point, map, now, 1150);
     }
 }

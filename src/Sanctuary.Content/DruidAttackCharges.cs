@@ -51,16 +51,21 @@ internal static class DruidAttackCharges
     internal static bool Gain(PlayerMobile owner,SkillValues values)
     {
         if(!Owner(owner)||DruidPlayerForms.State(owner)==null||!ShapeRestrictions.Allowed(owner,values.Ability)){return false;}
-        var next=DruidAttackChargeModel.Gain(State(owner,values.Ability),values,TimedEffects.Now,Allocate);
+        var now=TimedEffects.Now;
+        var next=DruidAttackChargeModel.Gain(State(owner,values.Ability),values,now,Allocate);
         if(next==null){return false;}
         var owned=new OwnedDruidAttackCharge(owner.Serial.Value,next);_states=_states.SetItem((owned.Owner,next.Ability),owned);
-        owner.FixedEffect(0x375A,5,5,0x481,0); // Identified charge flash; source maul/feralrage orb front/back art remains pending.
+        DruidFormEffects.RefreshCharge(owner,next,now);
         StatNetwork.Send(owner);return true;
     }
     internal static void Clear(PlayerMobile owner)
     {
         if(owner==null){return;}
-        foreach(var key in _states.Keys.Where(key=>key.Item1==owner.Serial.Value).ToArray()){_states=_states.Remove(key);}
+        foreach(var key in _states.Keys.Where(key=>key.Item1==owner.Serial.Value).ToArray())
+        {
+            _states=_states.Remove(key);
+            DruidFormEffects.ClearCharge(owner,key.Item1,key.Item2);
+        }
     }
     internal static void Prune(DateTime at)
     {
@@ -69,7 +74,15 @@ internal static class DruidAttackCharges
         {
             var owner=World.FindMobile((Serial)pair.Value.Owner) as PlayerMobile;
             if(!Owner(owner)||DruidPlayerForms.State(owner)==null||!ShapeRestrictions.Allowed(owner,pair.Value.Charge.Ability)||pair.Value.Charge.UntilUtc<=at)
-            {_states=_states.Remove(pair.Key);if(owner is{Deleted:false}){StatNetwork.Send(owner);}}
+            {
+                _states=_states.Remove(pair.Key);
+                DruidFormEffects.ClearCharge(owner,pair.Key.Item1,pair.Key.Item2);
+                if(owner is{Deleted:false}){StatNetwork.Send(owner);}
+            }
+            else
+            {
+                DruidFormEffects.RefreshCharge(owner,pair.Value.Charge,at);
+            }
         }
     }
     internal static OwnedDruidAttackCharge[] Snapshot()=>_states.Values.OrderBy(state=>state.Owner).ThenBy(state=>state.Charge.Ability).ToArray();

@@ -1,0 +1,38 @@
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -194,6 +194,7 @@
+                         SpellEffectGraphics.ConcentrationGuard => SpellEffectGraphics.PaladinSpellFrames,
+                         _ when SpellEffectGraphics.IsPaladinOffenseLoop(Graphic) => SpellEffectGraphics.PaladinSpellFrames,
+                         _ when SpellEffectGraphics.IsPaladinDefenseAnimation(Graphic) => SpellEffectGraphics.PaladinSpellFrames,
++                        _ when SpellEffectGraphics.IsPaladinHostileAuraAnimation(Graphic) => SpellEffectGraphics.HolyAuraFrames,
+                         _ when SpellEffectGraphics.IsEnchantAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ when SpellEffectGraphics.IsWardAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ => 0
+@@ -308,6 +309,7 @@
+                             SpellEffectGraphics.ConcentrationGuard => 68,
+                             SpellEffectGraphics.ThornsContact or SpellEffectGraphics.HolyShieldBlock => 67,
+                             SpellEffectGraphics.HolyShieldRaise or SpellEffectGraphics.HolyShieldFade => 92,
++                            SpellEffectGraphics.SanctuaryContact or SpellEffectGraphics.ConvictionContact => 67,
+                             _ when SpellEffectGraphics.IsDruidCharge(Graphic) => 115,
+                             _ when SpellEffectGraphics.IsDruidFormEffect(Graphic) => 105,
+                             SpellEffectGraphics.ClayGolemContact or SpellEffectGraphics.IronGolemSpark => 65,
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -106,7 +106,8 @@
+             posY += (int)(Offset.Z + Offset.Y);
+ 
+             if (Source is Mobile marked &&
+-                (SpellEffectGraphics.IsCurseMark(Graphic) || Graphic is SpellEffectGraphics.CurseFade or SpellEffectGraphics.RavenBlind))
++                (SpellEffectGraphics.IsCurseMark(Graphic) || Graphic is SpellEffectGraphics.CurseFade or SpellEffectGraphics.RavenBlind
++                    or SpellEffectGraphics.ConvictionMark or SpellEffectGraphics.ConvictionContact))
+             {
+                 if (marked.IsDead) { return false; }
+                 // Place the mark in the upper body on targets of different heights.
+@@ -135,6 +136,7 @@
+                         or SpellEffectGraphics.ConcentrationGuard
+                         or SpellEffectGraphics.HolyShieldRaise or SpellEffectGraphics.HolyShieldShell
+                         or SpellEffectGraphics.HolyShieldBlock or SpellEffectGraphics.HolyShieldFade
++                        or SpellEffectGraphics.ConvictionMark or SpellEffectGraphics.ConvictionContact
+                     || Graphic is Sanctuary.SpellEffectGraphics.NovaCast or Sanctuary.SpellEffectGraphics.NovaContact
+                         or Sanctuary.SpellEffectGraphics.TelekinesisCast or Sanctuary.SpellEffectGraphics.TelekinesisContact))
+             {

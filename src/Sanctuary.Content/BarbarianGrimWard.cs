@@ -22,8 +22,6 @@ public static class BarbarianGrimWard
         var action=ClassCombat.For(owner);bool paid=selected!=Serial.Zero&&action.GrimWardTarget==selected;action.GrimWardTarget=Serial.Zero;
         if(!paid||!BarbarianCombat.Available(owner,CombatAbility.GrimWard)||!ValidTarget(owner,selected)){return false;}
         var state=GrimWardActors.CreatePrepared(owner,(Corpse)World.FindItem(selected),SkillMechanics.Values(owner,CombatAbility.GrimWard),TimedEffects.Now);
-        if(state==null){return false;}
-        owner.PlaySound(0x1E5); // Identified cry placeholder; final Ward audio pending.
-        return true;
+        return state != null;
     }
 }

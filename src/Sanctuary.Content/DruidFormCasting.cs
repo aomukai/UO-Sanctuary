@@ -57,11 +57,11 @@ public static class DruidFormCasting
             if(!NecromancerEffects.CanPay(owner,values.Mana256)){return false;}
             if(!Apply(owner,ability,TimedEffects.Now)){return false;}
             if(!NecromancerEffects.Pay(owner,values.Mana256))
-            {DruidPlayerForms.Clear(owner);throw new InvalidOperationException("Form payment changed inside one server turn");}
+            {DruidPlayerForms.Clear(owner,present:false);throw new InvalidOperationException("Form payment changed inside one server turn");}
+            DruidFormEffects.Transform(owner,ability,entering:true);
         }
         FireGround.DelayForms(owner);
         DruidFormInterruption.Capture(owner,now);
-        owner.FixedEffect(0x373A,10,10);owner.PlaySound(0x1E5); // Identified transform/audio placeholders; human body remains.
         return true;
     }
 }

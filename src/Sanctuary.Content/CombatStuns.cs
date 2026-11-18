@@ -26,6 +26,7 @@ public sealed class CombatStunProfiles:GenericPersistence
 public static class CombatStuns
 {
     private static readonly Dictionary<uint,CombatStunState> _states=new();
+    private static readonly Dictionary<uint,DateTime> _visuals=new();
     public static CombatStunProfiles Profiles{get;private set;}
     internal static Func<int,int> Roll=Utility.Random;
     public static void Configure()=>Profiles=new();
@@ -33,8 +34,14 @@ public static class CombatStuns
     {
         var created=CorpseRecoveryHooks.Created;
         CorpseRecoveryHooks.Created=corpse=>{Clear(corpse.Owner);created?.Invoke(corpse);};
+        Timer.StartTimer(TimeSpan.FromMilliseconds(125), TimeSpan.FromMilliseconds(125), RefreshVisuals);
     }
-    public static void Clear(Mobile target){if(target!=null){_states.Remove(target.Serial.Value);}}
+    public static void Clear(Mobile target)
+    {
+        if (target == null) { return; }
+        _states.Remove(target.Serial.Value);
+        EndVisual(target.Serial.Value);
+    }
     public static int Remaining(Mobile target)
     {
         if(target is not BaseCreature{Alive:true,Deleted:false} || !_states.TryGetValue(target.Serial.Value,out var state)){return 0;}
@@ -95,8 +102,42 @@ public static class CombatStuns
         else if(target is SkeletonGuardian guardian){guardian.InterruptForRecovery();}
         if(target.Spell is Spell spell){spell.Disturb(DisturbType.Hurt);}
         target.AIObject?.ResetApproachState();target.AIObject?.AITimer.Prod();
-        target.FixedEffect(0x375A,5,5,0x481,0); // Identified placeholder for source stunned-state presentation.
+        RefreshVisual(target, until, TimedEffects.Now);
         return true;
+    }
+
+    private static bool Visible(Mobile target) =>
+        !World.Loading && target is { Alive: true, Deleted: false, Map: { } map } && map != Map.Internal;
+
+    private static void RefreshVisual(Mobile target, DateTime until, DateTime now)
+    {
+        if (!Visible(target) || _visuals.GetValueOrDefault(target.Serial.Value) > now) { return; }
+        int remaining = (int)Math.Clamp(Math.Ceiling((until - now).TotalMilliseconds), 1, 700);
+        target.FixedEffect(SpellEffectGraphics.CombatStun, 10, (remaining + 49) / 50);
+        _visuals[target.Serial.Value] = now.AddMilliseconds(Math.Min(remaining, 450));
+    }
+
+    private static void EndVisual(uint id)
+    {
+        if (!_visuals.Remove(id)) { return; }
+        var target = World.FindMobile((Serial)id);
+        if (Visible(target)) { target.FixedEffect(SpellEffectGraphics.CombatStun, 10, 0); }
+    }
+
+    private static void RefreshVisuals()
+    {
+        var now = TimedEffects.Now;
+        foreach (var (id, state) in _states.ToArray())
+        {
+            if (state.UntilUtc > now) { RefreshVisual(World.FindMobile((Serial)id), state.UntilUtc, now); }
+        }
+        foreach (var id in _visuals.Keys.ToArray())
+        {
+            if (!_states.TryGetValue(id, out var state) || state.UntilUtc <= now || !Visible(World.FindMobile((Serial)id)))
+            {
+                EndVisual(id);
+            }
+        }
     }
     public static CombatStunState[] Snapshot()
     {

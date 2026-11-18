@@ -32,7 +32,7 @@ internal static class GlacialSpikes
             if(target is not{Alive:true,Deleted:false}||!MageProjectileRetirement.CanAffect(actor,target)){continue;}
             NecromancerMageMissiles.ImpactSpell(actor,target,packet,state.Owner,seed,state.NextUtc);
         }
-        Effects.SendLocationEffect(center,actor.Map,0x36E4,8,10,0x480,0); // Identified explosion placeholder.
+        Burst(center, actor.Map);
     }
     internal static void PlayerExplosion(PlayerMobile owner,Point3D center,SkillValues values)
     {
@@ -45,6 +45,12 @@ internal static class GlacialSpikes
     private static void PlayerRecipients(PlayerMobile owner,Point3D center,double radius,Action<Mobile> impact)
     {
         SkillCombat.CopiedArea(owner,center,radius,impact);
-        Effects.SendLocationEffect(center,owner.Map,0x36E4,8,10,0x480,0); // Identified explosion placeholder.
+        Burst(center, owner.Map);
+    }
+
+    internal static void Burst(Point3D center, Map map)
+    {
+        Effects.SendLocationEffect(center, map, SpellEffectGraphics.GlacialSpikeBurst, SpellEffectGraphics.GlacialSpikeBurstDuration);
+        Effects.PlaySound(center, map, SpellEffectSounds.GlacialSpikeBurst);
     }
 }

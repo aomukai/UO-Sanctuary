@@ -54,7 +54,7 @@ public static class DruidShockWave
         try{Create(owner,point,values,TimedEffects.Now);}
         catch(NotSupportedException){owner.SendMessage(0x22,"Shock Wave cannot be used in this context yet.");return false;}
         if(!NecromancerEffects.Pay(owner,values.Mana256)){_pool=before;return false;}
-        owner.PlaySound(0x655); // Identified cast-audio placeholder.
+        ShockWaveVisuals.Release(owner);
         return true;
     }
     internal static void Cancel(PlayerMobile owner)
@@ -140,6 +140,8 @@ public static class DruidShockWave
         // DAMAGE_VS_MONTYPE item layers have no native producer/consumer yet;
         // the named-item gate retains that separately unsupported branch.
         var parts=SkillCombat.MitigatePrepared(owner,target,DruidMoltenBoulder.Potion(wave.Modifiers,new(raw/256.0,0,0,0,0)));
+        var impactPoint = target.Location;
+        var impactMap = target.Map;
         int loss=SkillHealth.TypedDamage(owner,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));
         // Complete ExecuteEvents commits HP first,even when immunity yields0.
         // Native synchronous death/reentrant context changes remain explicit.
@@ -149,7 +151,7 @@ public static class DruidShockWave
             CreatureHitRecovery.Apply(target,owner,loss);
         }
         else{next=next with{Fault="Shock Wave lethal/reentrant post-health stun chronology remains unverified"};}
-        target.FixedEffect(0x37CC,3,4,0x481,0); // Identified contact placeholder.
+        ShockWaveVisuals.Contact(owner.Serial.Value, impactPoint, impactMap);
         return next;
     }
     private static void Remove(long id){_pool=_pool with{Missiles=_pool.Missiles.Remove(id)};_loaded.Remove(id);}
@@ -174,11 +176,12 @@ public static class DruidShockWave
         }
         next=next with{X=x,Y=y,Steps=steps,NextUtc=wave.NextUtc.AddMilliseconds(40),Fault=next.Fault};
         _pool=_pool with{Missiles=_pool.Missiles.SetItem(wave.Id,next)};
-        if(remaining%2==0){Effects.SendLocationEffect(new((int)Math.Round(x),(int)Math.Round(y),wave.Z),map,0x37CC,3,8,0x481,0);} // Identified wave placeholder.
+        if(remaining%2==0){ShockWaveVisuals.Travel(next,map);}
     }
     internal static void Tick(DateTime at,bool? actions=null)
     {
         if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Shock Wave clock must be UTC");}
+        ShockWaveVisuals.BeginFrame();
         while(true)
         {
             var wave=_pool.Missiles.Values.Where(x=>x.NextUtc<=at).OrderBy(x=>x.NextUtc).ThenByDescending(x=>x.Id).FirstOrDefault();

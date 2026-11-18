@@ -1,0 +1,33 @@
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -40,6 +40,10 @@
+              CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+     <Compile Include="../../../../shared/FlareGraphics.cs" Link="Game/Data/FlareGraphics.cs" />
+     <Content Include="../../../../art/succubus/statics/*.art"
++             Link="Data/Sanctuary/Art/Statics/%(Filename)%(Extension)"
++             CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
++    <Compile Include="../../../../shared/SpellEffectGraphics.cs" Link="Game/Data/SpellEffectGraphics.cs" />
++    <Content Include="../../../../art/spell-effects/*/statics/*.art"
+              Link="Data/Sanctuary/Art/Statics/%(Filename)%(Extension)"
+              CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+     <Compile Include="../../../../shared/TitleProtocol.cs" Link="TitleProtocol.cs" />
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -99,6 +99,17 @@
+                 }
+                 else if (NextChangeFrameTime < Time.Ticks)
+                 {
++                    if (Graphic == SpellEffectGraphics.BoneSpearShatter)
++                    {
++                        AnimationGraphic = (ushort)(Graphic + AnimIndex);
++                        if (AnimIndex < SpellEffectGraphics.BoneSpearShatterFrames - 1)
++                        {
++                            AnimIndex++;
++                        }
++                        NextChangeFrameTime = (long)Time.Ticks + Constants.ITEM_EFFECT_ANIMATION_DELAY;
++                        return;
++                    }
++
+                     int flareFrames = Graphic switch
+                     {
+                         FlareGraphics.RedBurst or FlareGraphics.BlueBurst => FlareGraphics.BurstFrames,

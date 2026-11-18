@@ -61,7 +61,8 @@ public static partial class FistsFireRelease
         // Dragon Tail before contact). A
         // distinct skill roll is shared by the area's individually reduced hits.
         int area=WeaponMissileDamage.RollValue(packet.Min256,packet.Max256,0,DamageRoll);
-        Effects.SendLocationEffect(center,map,0x36BD,3); // Identified Fists explosion placeholder.
+        AssassinMartialVisuals.Ring(center, map, SpellEffectGraphics.MartialFireRing,
+            SpellEffectSounds.MartialFireRelease, SkillGeometry.Tiles(packet.Radius));
         foreach(var target in SkillCombat.NearbySnapshot<Mobile>(map,center,(packet.Radius+1)/2))
         {
             // Default filter0x583 has no optional LOS or NOAURA check. Native

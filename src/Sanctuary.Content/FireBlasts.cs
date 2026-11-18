@@ -99,7 +99,8 @@ public static class FireBlasts
             owner.DoHarmful(target,true);var parts=SkillCombat.MitigatePrepared(owner,target,raw);
             int loss=SkillHealth.TypedDamage(owner,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));CreatureHitRecovery.Apply(target,owner,loss);
         }
-        Effects.SendLocationEffect(Point(b),owner.Map,0x36BD,15,10,0x489,0); // Identified explosion placeholder.
+        Effects.SendLocationEffect(Point(b), owner.Map, 0x36BD, 15);
+        Effects.PlaySound(Point(b), owner.Map, 0x307); // Identified explosion placeholder.
     }
     private static FireBomb Land(PlayerMobile owner,FireBomb b,DateTime at)
     {
@@ -144,7 +145,7 @@ public static class FireBlasts
                 var advance=LobProjectiles.Advance(owner.Map,b.X,b.Y,b.Z,b.Vx,b.Vy,b.Remaining);
                 var moved=b with{X=advance.X,Y=advance.Y};
                 next=advance.Landed?Land(owner,moved,b.NextUtc):moved with{Remaining=b.Remaining-1,NextUtc=b.NextUtc.AddMilliseconds(40)};
-                if(next!=null){Effects.SendLocationEffect(Point(next),owner.Map,0x36E4,2,10,0x489,0);} // Identified bomb/landing placeholder.
+                if(next!=null){Effects.SendLocationEffect(Point(next),owner.Map,0x36D4,2);} // Identified bomb/landing placeholder.
             }
             if(next==null){_bombs.Remove(b.Id);continue;}_bombs[b.Id]=next;
             if(next.NextUtc<=now){queue.Enqueue(next,(next.NextUtc,next.Id));}

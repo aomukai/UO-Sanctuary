@@ -27,5 +27,5 @@ public partial class MageWorldBody:NecromancerMinion,INecromancerGroundActor
     internal void BeginWorld(PlayerMobile owner,DateTime at,ulong seed)=>Ranged.Begin(owner,at,seed);
     internal NecromancerPetAiTarget Primary(PlayerMobile owner,IronGolemWorldState state)=>Ranged.Primary(owner,state);
     internal bool Launch(PlayerMobile owner,Mobile target,DateTime at)=>Ranged.Launch(owner,target,at);
-    [AfterDeserialization]private void AfterMageWorldLoad(){Name="Skeletal Mage [placeholder]";Ground.Load();}
+    [AfterDeserialization]private void AfterMageWorldLoad(){Name="Skeletal Mage";Ground.Load();}
 }

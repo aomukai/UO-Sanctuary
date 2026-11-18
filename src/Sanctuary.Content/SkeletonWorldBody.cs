@@ -24,7 +24,7 @@ public partial class SkeletonWorldBody:RaisedSkeleton,IUnarmedGroundPet
     internal SkeletonWorldState WorldState=>Ground.State;
     internal IronGolemContact.Prepared WorldContact=>Ground.Contact;
     public override bool UsesNativeSummonTimer=>false;
-    public SkeletonWorldBody(){Name="Skeleton Warrior [placeholder]";CantWalk=true;AIObject?.AITimer.Stop();}
+    public SkeletonWorldBody(){Name="Skeleton Warrior";CantWalk=true;AIObject?.AITimer.Stop();}
     public override void OnThink(){AIObject?.AITimer.Stop();Combatant=null;FocusMob=null;Warmode=false;}
     public override TimeSpan BeginMelee(Mobile target)=>TimeSpan.FromMilliseconds(SourceAttackClock.End*40);
     internal void StoreWorld(IronGolemWorldState state)=>Ground.Store(state);
@@ -47,5 +47,10 @@ public partial class SkeletonWorldBody:RaisedSkeleton,IUnarmedGroundPet
     public override void SuspendActions(){base.SuspendActions();Ground.Suspend();}
     internal override void InterruptForRecovery(){base.InterruptForRecovery();Ground.Suspend();}
     public override void OnAfterDelete(){Ground.Cancel();IronGolems.Forget(this);base.OnAfterDelete();}
-    [AfterDeserialization]private void AfterWorldLoad()=>Ground.Load();
+    [AfterDeserialization]
+    private void AfterWorldLoad()
+    {
+        if (Name == "Skeleton Warrior [placeholder]") { Name = "Skeleton Warrior"; }
+        Ground.Load();
+    }
 }

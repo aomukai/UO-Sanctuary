@@ -199,11 +199,29 @@ internal static class NecromancerMageMissiles
             new(Move,_=>{},()=>true,()=>true,()=>2,()=>next.Steps.Cells,
                 cell=>Wall(cell)?4:Find(cell)!=null?1:0,cell=>Wall(cell)?0:Find(cell)?.Serial.Value??0,Hit));
         if(removed){Bolts.Remove(s.Id);return;}Bolts[s.Id]=next;
-        if(frame%2==0){Effects.SendLocationEffect(new((int)Math.Round(next.X),(int)Math.Round(next.Y),s.Z),map,
-            s.Packet.Element=="cold"?0x36E4:s.Packet.Element=="fire"?0x36D4:s.Packet.Element=="pois"?0x36BD:0x3818,2,10,0,0);} // Identified placeholders.
+        if (frame % 2 == 0)
+        {
+            int graphic = SorceressVisuals.ProjectileGraphic(s.Packet.Spell, next.Vx, next.Vy, frame / 2) ?? (s.Packet.Element switch
+            {
+                "cold" => 0x36E4,
+                "fire" => 0x36D4,
+                "pois" => 0x36BD,
+                "ltng" when s.Packet.Spell == CombatAbility.ChargedBolt => SorceressVisuals.DirectionalFrame(
+                    SpellEffectGraphics.ChargedBoltFlight, next.X - s.X, next.Y - s.Y, frame / 2),
+                _ => 0x3818
+            });
+            Effects.SendLocationEffect(new((int)Math.Round(next.X), (int)Math.Round(next.Y), s.Z), map, graphic, 2);
+        }
     }
     internal static int Impact(NecromancerMinion actor,Mobile target,MageMissileState s)
-        =>ImpactSpell(actor,target,s.Packet,s.Owner,s.Seed,s.NextUtc);
+    {
+        int loss = ImpactSpell(actor, target, s.Packet, s.Owner, s.Seed, s.NextUtc);
+        if (loss > 0 && s.Packet.Spell is CombatAbility.ChargedBolt or CombatAbility.IceBolt or CombatAbility.FireBolt)
+        {
+            SorceressVisuals.Impact(target, s.Packet.Spell);
+        }
+        return loss;
+    }
     internal static int ImpactSpell(NecromancerMinion actor,Mobile target,MageMissilePacket packet,uint owner,ulong stream,DateTime at,bool recover=true,int damageRate=0)
     {
         SorceressEffects.MissileHit(actor,target,packet.Missile);

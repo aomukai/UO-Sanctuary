@@ -90,7 +90,8 @@ public static class PaladinSmite
     public static bool Strike(PlayerMobile owner,BaseCreature target,SkillValues values)
     {
         if(!Ready(owner,target)){return false;}
-        owner.DoHarmful(target,true);owner.PlaySound(0x238); // Existing sound/weapon animation placeholders; S1 deadlines are distinct.
+        owner.DoHarmful(target,true);
+        PaladinMeleeVisuals.Swing(owner, CombatAbility.Smite);
         var range=DamageRange256(owner,values);int span=Math.Max(1,range.Max-range.Min);
         int raw=range.Min+Math.Clamp(Roll(span),0,span-1);
         // Do150 rolls the ordinary result after its shield damage,then forces
@@ -99,6 +100,10 @@ public static class PaladinSmite
         int flags=SourceMeleeResult.Resolve(new Result(owner,target,PlayerWeaponContact.Metadata(target,true)==null))|1|SkillMechanics.For(CombatAbility.Smite).Number("ResultFlags");
         var parts=SkillCombat.MitigatePrepared(owner,target,new(NamedElements.Enhance(owner,raw/256.0,"physical"),0,0,0,0),out int absorbed);
         var impact=new PreparedWeaponImpact(new(raw/256.0,0,0,0,0),parts,absorbed){SourceStunFrames=(int)values.Eval("calc2")};
-        return PlayerWeaponContact.Release(owner,target,new(flags,impact,default,0,0,Effects,0x65,Smite:true,StunRoll:CombatStuns.Roll,MeleeRange:Range(owner)),TimedEffects.Now,true).Exit==MonsterContactExit.Finished;
+        var point = target.Location;
+        var map = target.Map;
+        var result = PlayerWeaponContact.Release(owner,target,new(flags,impact,default,0,0,Effects,0x65,Smite:true,StunRoll:CombatStuns.Roll,MeleeRange:Range(owner)),TimedEffects.Now,true);
+        PaladinMeleeVisuals.Land(owner, point, map, CombatAbility.Smite, result);
+        return result.Exit==MonsterContactExit.Finished;
     }
 }

@@ -135,6 +135,9 @@ public static partial class MartialLightning
         foreach(var spawn in Pattern(2,0)){Add(spawn);}
         // Stacked callback37 draws only after callback36 has made its rays.
         if(packet.Count==3){foreach(var spawn in Pattern(3,lowSeed()).Where(s=>s.Bolt)){Add(spawn);}}
+        // The wave's rays and the charged bolts continue along the live paths.
+        AssassinMartialVisuals.Ring(center, map, SpellEffectGraphics.MartialThunderRing,
+            SpellEffectSounds.MartialThunderRelease, 1.65);
         return cast;
     }
     internal static bool Ready(long cast,uint target,DateTime at)=>!Leases.TryGetValue((cast,target),out var lease) || lease.UntilUtc<=at;
@@ -155,6 +158,7 @@ public static partial class MartialLightning
         if(s.Npc!=null){return NpcImpact(owner,target,s);}
         if(ClassAvoidance.Missile(target)){return(0,s.Seed);}
         SorceressEffects.MissileHit(owner,target,s.Bolt?"clawsofthunderbolt":"clawsofthundernova");
+        AssassinMartialVisuals.Contact(owner, target.Location, target.Map, CombatAbility.ClawsOfThunder, s.NextUtc);
         ulong seed=s.Seed;int damage=WeaponMissileDamage.RollValue(s.Min256,s.Max256,0,n=>(int)SourceRandom.Limited(ref seed,n));
         owner.DoHarmful(target,true);var reduced=NamedElements.Resolve256(owner,target,damage,"ltng",enhance:false,pierceOverride:s.Pierce);
         if(reduced.Absorbed256>0){SkillHealth.Heal(target,reduced.Absorbed256);}
@@ -212,9 +216,14 @@ public static partial class MartialLightning
             {Flights.Remove(s.Id);return;}
         }
         Flights[s.Id]=next;
-        // Sample the temporary nova markers:64mechanical rays plus16bolts
+        // Sample the nova and charged bolts: 64 mechanical rays plus 16 bolts
         // must not enqueue80particle packets in one server phase.
-        if(frame%2==0 && (s.Bolt || s.Id%8==0)){Effects.SendLocationEffect(new Point3D((int)Math.Round(x),(int)Math.Round(y),s.Z),map,0x3818,3,10,0x482,0);} // Identified lightning trail placeholder.
+        if (active && frame % 2 == 0 && (s.Bolt || s.Id % 8 == 0))
+        {
+            int graphic = SorceressVisuals.DirectionalFrame(s.Bolt ? SpellEffectGraphics.ChargedBoltFlight
+                : SpellEffectGraphics.LightningFlight, x - s.X, y - s.Y, frame / 2);
+            Effects.SendLocationEffect(new Point3D((int)Math.Round(x), (int)Math.Round(y), s.Z), map, graphic, 2);
+        }
     }
     private static void Validate(ThunderFlight s)
     {

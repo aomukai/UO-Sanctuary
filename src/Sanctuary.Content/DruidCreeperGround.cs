@@ -50,7 +50,9 @@ public static class DruidCreeperGround
         {throw new NotSupportedException("Invalid Creeper field supplier");}
         if(heads?.Length==0){return 0;}
         var fields=DruidCreeperFields.Launch(DruidCreeperFields.Empty(),rank,heads,AmazonSlowMissiles.Capture(body,true).VelocityPercent,body.Z);
-        return Add(body.Serial.Value,owner.Serial.Value,body.Map.MapID,rank,fields,at.AddMilliseconds(40),DruidCreeperPoison.Capture(body.Prepared.Snapshot));
+        long id=Add(body.Serial.Value,owner.Serial.Value,body.Map.MapID,rank,fields,at.AddMilliseconds(40),DruidCreeperPoison.Capture(body.Prepared.Snapshot));
+        DruidVineVisuals.Launch(body, at);
+        return id;
     }
     private static long Add(uint actor,uint owner,int map,int rank,CreeperFields fields,DateTime next,CreeperPoisonContext poison=null)
     {
@@ -100,13 +102,15 @@ public static class DruidCreeperGround
         return DruidCreeperFields.Step(s.Fields,true,(x,y,z)=>x<=0||y<=0||x>=map.Width||y>=map.Height
             || !map.CanFit(new Point3D((int)Math.Round(x),(int)Math.Round(y),z),1,false,false,false),Recipient,_=>true,Child,hasOwner,
             mat=>s.PoisonContext==null?mat:DruidCreeperPoison.Initialize(mat,s.PoisonContext,AmazonSlowMissiles.Capture(actor,true).DamagePercent),
-            (mat,id)=>DruidCreeperPoison.Deliver(owner,World.FindMobile((Serial)id) as BaseCreature,mat,s.NextUtc));
+            (mat,id)=>DruidCreeperPoison.Deliver(owner,World.FindMobile((Serial)id) as BaseCreature,mat,s.NextUtc),
+            (head,dx,dy)=>DruidVineVisuals.Head(map,head,dx,dy));
     }
     // Optional owner scope isolates injected fixture clocks. The ordinary
     // always-running conductor advances every owner without supplying it.
     internal static void Tick(DateTime at,bool? actions=null,uint? ownerScope=null)
     {
         if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Creeper field clock must be UTC");}
+        DruidVineVisuals.BeginFrame();
         foreach(var original in _flights.Values.Where(x=>x.NextUtc<=at&&(!ownerScope.HasValue||x.Owner==ownerScope.Value)).OrderBy(x=>x.NextUtc).ThenByDescending(x=>x.Id).ToArray())
         {
             var owner=World.FindMobile((Serial)original.Owner) as PlayerMobile;
@@ -125,11 +129,13 @@ public static class DruidCreeperGround
                 {
                     while(s.NextUtc<=at && (s.Fields.Heads.Length!=0 || s.Fields.Mats.Length!=0))
                     {s=s with{Fields=Step(s,owner),NextUtc=s.NextUtc.AddMilliseconds(40)};}
+                    DruidVineVisuals.CollectGround(Map.Maps[s.Map], s.Fields);
                 }
                 catch(Exception e){s=s with{Fault=e.Message};Log.Error(e,"Creeper field flight refused unsupported context: {Id}",s.Id);}
             }
             if(s.Fields.Heads.Length==0 && s.Fields.Mats.Length==0){Remove(s.Id);}else{_flights=_flights.SetItem(s.Id,s);}
         }
+        DruidVineVisuals.DrawGround();
     }
     private static void Validate(CreeperGround s,long nextId)
     {

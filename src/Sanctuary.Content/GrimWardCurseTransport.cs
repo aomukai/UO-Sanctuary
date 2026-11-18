@@ -83,6 +83,7 @@ internal static class GrimWardCurseTransport
         NecromancerEffects.Profiles.Store(target,(NecromancerEffects.Profiles.Find(target)??state) with{Curse=next});
         target.AIObject?.AITimer.Prod();
         NecromancerEffects.CurseApplied(owner,target);
+        if (!retained && initialFear != 0) { GrimWardVisuals.Mark(missile, target, at); }
         return true;
     }
 }

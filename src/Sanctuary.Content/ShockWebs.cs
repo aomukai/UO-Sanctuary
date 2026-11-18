@@ -151,13 +151,13 @@ public static class ShockWebs
                 if(recipient!=null){Hit(owner,recipient,s);}
                 else if(LobProjectiles.Barrier(owner.Map,new((int)Math.Round(s.X),(int)Math.Round(s.Y),s.Z))){_shards.Remove(s.Id);continue;}
                 next=s with{Remaining=s.Remaining-1,NextUtc=s.NextUtc.AddMilliseconds(40)};
-                if(s.Remaining%5==0){Effects.SendLocationEffect(new((int)Math.Round(s.X),(int)Math.Round(s.Y),s.Z),owner.Map,0x374A,2,10,0x481,0);} // Identified electric-field placeholder.
+                if(s.Remaining%5==0){Effects.SendLocationEffect(new((int)Math.Round(s.X),(int)Math.Round(s.Y),s.Z),owner.Map,0x3818,2,10,0x482,0);} // Identified electric-field placeholder.
             }
             else
             {
                 var move=LobProjectiles.Advance(owner.Map,s.X,s.Y,s.Z,s.Vx,s.Vy,s.Remaining);var moved=s with{X=move.X,Y=move.Y};
                 next=move.Landed?Land(owner,moved):moved with{Remaining=s.Remaining-1,NextUtc=s.NextUtc.AddMilliseconds(40)};
-                if(next!=null){Effects.SendLocationEffect(new((int)Math.Round(next.X),(int)Math.Round(next.Y),next.Z),owner.Map,0x36E4,2,10,0x481,0);} // Identified caltrop/lob placeholder.
+                if(next!=null){Effects.SendLocationEffect(new((int)Math.Round(next.X),(int)Math.Round(next.Y),next.Z),owner.Map,0x379F,2,10,0x482,0);} // Identified caltrop/lob placeholder.
             }
             if(next==null){_shards.Remove(s.Id);continue;}_shards[s.Id]=next;
             if(next.NextUtc<=at){queue.Enqueue(next,(next.NextUtc,next.Id));}

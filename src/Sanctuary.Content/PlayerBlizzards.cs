@@ -32,7 +32,7 @@ internal static class PlayerBlizzards
     {
         if(!ValidAim(owner,selected,point,out var aim)||!FireGround.Ready(owner,CombatAbility.Blizzard)){return false;}
         var at=TimedEffects.Now;var prepared=Prepare(owner,aim,values,at);if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
-        Blizzards.Commit(prepared);FireGround.Delay(owner,CombatAbility.Blizzard,at);owner.PlaySound(0x1E5);return true; // Identified cast audio placeholder.
+        Blizzards.Commit(prepared);FireGround.Delay(owner,CombatAbility.Blizzard,at);owner.PlaySound(SpellEffectSounds.BlizzardRelease);return true;
     }
     internal static PreparedMonsterDamagePacket Roll(BlizzardShard shard,ref ulong seed)
     {int raw=SorceressSpellMissiles.Roll(shard.Min256,shard.Max256,seed,out seed);return new(0,raw,0,shard.ColdFrames,5,Cold256:raw);}
@@ -102,7 +102,7 @@ public static partial class Blizzards
                 child=new(checked(++_nextId),s.Owner,s.Map,x,y,s.Z,ends.Min,ends.Max,v.DurationFrames,9,0,s.NextUtc.AddMilliseconds(360),s.NextUtc.AddMilliseconds(40))
                     {Rank=s.Rank,Modifiers=mods,Seed=SourceRandom.InitLow(Blazes.SeedLow())};
                 if(!PlayerBlizzards.Valid(child)){throw new NotSupportedException("Invalid source Blizzard shard");}_shards.Add(child.Id,child);
-                Effects.SendLocationEffect(point,p.Map,0x376A,9,10,0x480,0); // Identified falling ice placeholder.
+                PresentShard(p, point, at);
             }
         }
         // The source do10 emits before the shared lifetime decrement.
@@ -129,7 +129,15 @@ public static partial class Blizzards
             else
             {
                 ulong seed=s.Seed;var packet=PlayerBlizzards.Roll(s,ref seed);next=next with{Seed=seed};
-                if(!ClassAvoidance.Missile(target,"blizzard1")){PlayerBlizzards.Deliver(p,(BaseCreature)target,packet,s.Modifiers,s.NextUtc);}
+                if (!ClassAvoidance.Missile(target, "blizzard1"))
+                {
+                    var contact = target.Location;
+                    var result = PlayerBlizzards.Deliver(p, (BaseCreature)target, packet, s.Modifiers, s.NextUtc);
+                    if (result.Before256 > result.AfterHealth256)
+                    {
+                        PresentContact(p, contact, at);
+                    }
+                }
             }
         }
         if(_shards.ContainsKey(s.Id)){_shards[s.Id]=next;}

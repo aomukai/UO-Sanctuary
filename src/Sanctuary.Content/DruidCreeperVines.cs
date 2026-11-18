@@ -9,6 +9,7 @@ internal readonly record struct CreeperTrailContact(bool Damage,bool Remove,bool
 // world recipient selection and the learned actor are deliberately separate.
 internal static class DruidCreeperVines
 {
+    internal static int InactiveTrailFrames => NecromancerSummons.Source("plague vines trail", "sHitPar1");
     internal static CreeperHeadRequest[] Heads(int rank,int targetX,int targetY)
     {
         if(rank is <1 or >255){throw new ArgumentOutOfRangeException(nameof(rank));}
@@ -53,7 +54,7 @@ internal static class DruidCreeperVines
         // Full hit50/router permits early contacts and excludes the last15
         // frames. Its misleading RemainingFrames getter returns elapsed age.
         // LastCollide has already changed, including on inactive/refused hits.
-        bool damage=victim!=0 && (long)ageFrames<(long)totalFrames-NecromancerSummons.Source("plague vines trail","sHitPar1");
+        bool damage=victim!=0 && (long)ageFrames<(long)totalFrames-InactiveTrailFrames;
         return new(damage,ending,true,lastCollision);
     }
 }

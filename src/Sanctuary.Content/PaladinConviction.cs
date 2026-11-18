@@ -66,33 +66,41 @@ public static class PaladinConviction
         var old=Effect(target);
         if(old!=null && old.Rank>values.Rank){return false;}
         int Delta(string element,int native)=>ImmunityDelta(target,native-EliteAuras.ConvictionOffset(target,element),(int)values.Eval("aurastatcalc2"));
-        _leases[target.Serial.Value]=new(target.Serial.Value,old?.Rank==values.Rank?old.Source:owner.Serial.Value,values.Rank,
+        ConvictionLease lease = new(target.Serial.Value,old?.Rank==values.Rank?old.Source:owner.Serial.Value,values.Rank,
             -(int)values.Eval("aurastatcalc1"),Delta("fire",target.FireResistance),Delta("cold",target.ColdResistance),Delta("ltng",target.EnergyResistance),until);
+        _leases[target.Serial.Value] = lease;
+        PaladinHostileAuraVisuals.ConvictionRecipient(target, lease, TimedEffects.Now, old == null || old.Rank < lease.Rank);
         return true;
     }
     internal static void Pulse(PlayerMobile owner,SkillValues values,DateTime now)
     {
         int frames=Math.Max(5,(int)values.Eval("perdelay"));var until=now.AddMilliseconds((frames+1)*40);
+        bool starting = ClassSupplierRank(owner) == 0;
         // The supplier's zero-stat state participates in the same skill-level replacement comparison.
         PaladinAuras.ElementalWeapon(new(owner.Serial.Value,owner.Serial.Value,CombatAbility.Conviction,values.Rank,0,until));
-        if(Effect(owner) is{} own && own.Rank<values.Rank){_leases.Remove(owner.Serial.Value);}
-        if(SpellHelper.IsTown(owner.Location,owner)){return;}
+        if(Effect(owner) is{} own && own.Rank<values.Rank){Remove(owner.Serial.Value);}
+        if(SpellHelper.IsTown(owner.Location,owner))
+        { PaladinHostileAuraVisuals.ClearSupplier(owner, CombatAbility.Conviction); return; }
+        PaladinHostileAuraVisuals.ConvictionSupplier(owner, until, now, starting);
         double radius=SkillGeometry.Tiles(values.Eval("aurarangecalc"));
         foreach(var target in owner.Map.GetMobilesInRange<Mobile>(owner.Location,(int)Math.Ceiling(radius)))
         {
             double dx=target.X-owner.X,dy=target.Y-owner.Y;
             if(ClassCombat.IsHostile(owner,target) && CorpseSkillRules.AllowsAura(target) && Math.Abs(target.Z-owner.Z)<16
-                && dx*dx+dy*dy<=radius*radius && !SpellHelper.IsTown(target.Location,target) && Apply(owner,target,values,until))
-            {target.FixedEffect(0x376A,5,5,0x481,0);} // Placeholder hostile aura overlay.
+                && dx*dx+dy*dy<=radius*radius && !SpellHelper.IsTown(target.Location,target))
+            { Apply(owner,target,values,until); }
         }
-        owner.FixedEffect(0x375A,10,10,0x481,0); // Placeholder supplier aura ring.
+    }
+    private static void Remove(uint serial)
+    {
+        if (_leases.Remove(serial)) { PaladinHostileAuraVisuals.ClearConviction(World.FindMobile((Serial)serial)); }
     }
     private static void Tick()
     {
         _expired.Clear();
         foreach(var row in _leases)
         {if(row.Value.UntilUtc<=TimedEffects.Now || World.FindMobile((Serial)row.Key) is not{Alive:true,Deleted:false}){_expired.Add(row.Key);}}
-        foreach(uint target in _expired){_leases.Remove(target);}
+        foreach(uint target in _expired){Remove(target);}
     }
     public static ConvictionLease[] Snapshot()=>new List<ConvictionLease>(_leases.Values).ToArray();
     public static void Restore(ConvictionLease[] saved)
@@ -104,6 +112,20 @@ public static class PaladinConviction
             if(lease==null || lease.Target==0 || lease.Source==0 || lease.Rank<1 || lease.DefensePercent is <0 or >100
                 || lease.Fire is < -150 or >0 || lease.Cold is < -150 or >0 || lease.Lightning is < -150 or >0 || !candidate.TryAdd(lease.Target,lease))
             {throw new InvalidDataException("Invalid Conviction lease");}
+        }
+        if (!World.Loading)
+        {
+            var now = TimedEffects.Now;
+            foreach (var serial in _leases.Keys)
+            {
+                if (!candidate.TryGetValue(serial, out var next) || next.UntilUtc <= now)
+                { PaladinHostileAuraVisuals.ClearConviction(World.FindMobile((Serial)serial)); }
+            }
+            foreach (var (serial, next) in candidate)
+            {
+                if (next != _leases.GetValueOrDefault(serial))
+                { PaladinHostileAuraVisuals.ConvictionRecipient(World.FindMobile((Serial)serial), next, now, false); }
+            }
         }
         _leases.Clear();foreach(var row in candidate){_leases.Add(row.Key,row.Value);}
     }

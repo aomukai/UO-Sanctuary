@@ -58,7 +58,7 @@ internal static class AttractCasts
     internal static bool Release(PlayerMobile owner,Mobile target,SkillValues values)
     {
         if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
-        owner.PlaySound(0x1E5); // Identified generic cast-audio placeholder.
+        NecromancerCurseVisuals.Cast(owner);
         return Apply(owner,target,values.Rank);
     }
 }

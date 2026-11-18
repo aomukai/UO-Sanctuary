@@ -186,7 +186,10 @@ public abstract partial class GraveyardUndead : BaseCreature
                 {
                     damage *= 2;
                 }
+                var point = target.Location;
+                var map = target.Map;
                 Deal(target, damage, false);
+                UndeadSummonVisuals.MeleeContact(this, map, point);
             }
             else
             {
@@ -386,6 +389,7 @@ public abstract partial class GraveyardUndead : BaseCreature
     }
     public override void OnDelete()
     {
+        UndeadSummonVisuals.Depart(this);
         RaisedMinions.RemoveFor(this);
         StopCombatActions();
         base.OnDelete();

@@ -1,0 +1,38 @@
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -196,6 +196,7 @@
+                         _ when SpellEffectGraphics.IsPaladinDefenseAnimation(Graphic) => SpellEffectGraphics.PaladinSpellFrames,
+                         _ when SpellEffectGraphics.IsPaladinHostileAuraAnimation(Graphic) => SpellEffectGraphics.HolyAuraFrames,
+                         _ when SpellEffectGraphics.IsPaladinMeleeAnimation(Graphic) => SpellEffectGraphics.PaladinSpellFrames,
++                        _ when SpellEffectGraphics.IsBarbarianCryAnimation(Graphic) => SpellEffectGraphics.BarbarianCryFrames,
+                         _ when SpellEffectGraphics.IsEnchantAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ when SpellEffectGraphics.IsWardAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ => 0
+@@ -316,6 +317,8 @@
+                             SpellEffectGraphics.ChargeTrail => 45,
+                             SpellEffectGraphics.ConversionLock or SpellEffectGraphics.ConversionFade => 90,
+                             _ when SpellEffectGraphics.IsPaladinMeleeAnimation(Graphic) => 76,
++                            SpellEffectGraphics.WarCryImpact => 63,
++                            _ when SpellEffectGraphics.IsBarbarianCryAnimation(Graphic) => 79,
+                             _ when SpellEffectGraphics.IsDruidCharge(Graphic) => 115,
+                             _ when SpellEffectGraphics.IsDruidFormEffect(Graphic) => 105,
+                             SpellEffectGraphics.ClayGolemContact or SpellEffectGraphics.IronGolemSpark => 65,
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -126,6 +126,7 @@
+                 && (Sanctuary.SpellEffectGraphics.IsWardAnimation(Graphic)
+                     || Sanctuary.SpellEffectGraphics.IsEnchantAnimation(Graphic)
+                     || Sanctuary.SpellEffectGraphics.IsAmazonAvoidance(Graphic)
++                    || SpellEffectGraphics.IsBarbarianCryAnimation(Graphic)
+                     || Graphic is SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.BoneArmorBreak
+                         or SpellEffectGraphics.BoneArmorCatch
+                         or SpellEffectGraphics.PoisonAfflicted or SpellEffectGraphics.PoisonClear or SpellEffectGraphics.BloodGolemHeal
+@@ -234,7 +235,7 @@
+                 depth = Source.CalculateDepthZ() + 1f;
+             }
+             else if (Graphic is SpellEffectGraphics.SacrificeImpact or SpellEffectGraphics.SmiteImpact or SpellEffectGraphics.VengeanceImpact
+-                or SpellEffectGraphics.ZealImpact or SpellEffectGraphics.ChargeImpact)
++                or SpellEffectGraphics.ZealImpact or SpellEffectGraphics.ChargeImpact or SpellEffectGraphics.WarCryImpact)
+             {
+                 // Keep the impact on its contact tile and in front of the target's body.
+                 posY -= 11;

@@ -90,13 +90,13 @@ internal static class ShadowShockWebs
             if(target!=null&&!ClassCombat.Friendly(body,target)&&body.CanBeHarmful(target,false)){s=Hit(body,owner,target,s);}
             else if(LobProjectiles.Barrier(body.Map,new((int)Math.Round(s.X),(int)Math.Round(s.Y),s.Z))){return null;}
             next=s with{Remaining=s.Remaining-1,NextUtc=s.NextUtc.AddMilliseconds(40)};
-            if(s.Remaining%5==0){Effects.SendLocationEffect(new((int)Math.Round(s.X),(int)Math.Round(s.Y),s.Z),body.Map,0x374A,2,10,0x481,0);} // Existing field placeholder.
+            if(s.Remaining%5==0){Effects.SendLocationEffect(new((int)Math.Round(s.X),(int)Math.Round(s.Y),s.Z),body.Map,0x3818,2,10,0x482,0);} // Existing field placeholder.
         }
         else
         {
             var move=LobProjectiles.Advance(body.Map,s.X,s.Y,s.Z,s.Vx,s.Vy,s.Remaining);var moved=s with{X=move.X,Y=move.Y};
             next=move.Landed?Land(body,moved):moved with{Remaining=s.Remaining-1,NextUtc=s.NextUtc.AddMilliseconds(40)};
-            if(next!=null){Effects.SendLocationEffect(new((int)Math.Round(next.X),(int)Math.Round(next.Y),next.Z),body.Map,0x36E4,2,10,0x481,0);} // Existing lob placeholder.
+            if(next!=null){Effects.SendLocationEffect(new((int)Math.Round(next.X),(int)Math.Round(next.Y),next.Z),body.Map,0x379F,2,10,0x482,0);} // Existing lob placeholder.
         }
         return next;
     }

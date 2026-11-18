@@ -179,13 +179,21 @@ public static class BattleOrders
         uint creator=_states.TryGetValue(recipient.Serial.Value,out var prior)?prior.Creator:supplier.Serial.Value;
         _states[recipient.Serial.Value]=new(recipient.Serial.Value,creator,supplier.Serial.Value,rank,(int)values.Eval("aurastatcalc1"),at.AddMilliseconds(values.Eval("auralencalc")*40));
         Change(recipient,before);
+        BarbarianWardVisuals.Apply(supplier, recipient, CombatAbility.BattleOrders, _states[recipient.Serial.Value].UntilUtc, prior?.UntilUtc ?? default, at);
     }
     public static void Clear(Mobile recipient)
     {
         if(recipient==null){return;}
-        if(!Alive(recipient)){_states.Remove(recipient.Serial.Value);_resources.Remove(recipient.Serial.Value);return;}
+        if(!Alive(recipient)){Drop(recipient.Serial.Value, recipient);return;}
         if(!_states.ContainsKey(recipient.Serial.Value)){return;}
         var before=Capture(recipient);_states.Remove(recipient.Serial.Value);Change(recipient,before);
+        BarbarianWardVisuals.Clear(recipient.Serial.Value, recipient, CombatAbility.BattleOrders);
+    }
+    private static void Drop(uint serial, Mobile recipient)
+    {
+        _states.Remove(serial);
+        _resources.Remove(serial);
+        BarbarianWardVisuals.Clear(serial, recipient, CombatAbility.BattleOrders);
     }
     private static void Tick()
     {
@@ -194,8 +202,10 @@ public static class BattleOrders
         foreach(uint key in _keys)
         {
             var actor=World.FindMobile((Serial)key);
-            if(!Alive(actor)){_states.Remove(key);_resources.Remove(key);continue;}
-            if(_states.TryGetValue(key,out var state) && state.UntilUtc<=now){Clear(actor);}
+            if(!Alive(actor)){Drop(key, actor);continue;}
+            if (!_states.TryGetValue(key, out var state)) { continue; }
+            if (state.UntilUtc<=now) { Clear(actor); }
+            else { BarbarianWardVisuals.Refresh(actor, CombatAbility.BattleOrders, state.UntilUtc, now); }
         }
         // Existing equipment/history rules retain their own pool policy. Merely
         // observing a changed maximum must not rescale that already-handled change again.

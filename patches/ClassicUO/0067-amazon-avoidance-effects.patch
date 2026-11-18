@@ -1,0 +1,100 @@
+diff --git a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -153,6 +153,7 @@
+                             => SpellEffectGraphics.ThrustEffectFrames,
+                         >= SpellEffectGraphics.InnerSightCast and <= SpellEffectGraphics.ValkyrieFade
+                             => SpellEffectGraphics.AmazonUtilityFrames,
++                        _ when SpellEffectGraphics.IsAmazonAvoidance(Graphic) => SpellEffectGraphics.AmazonAvoidanceFrames,
+                         _ when SpellEffectGraphics.IsEnchantAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ when SpellEffectGraphics.IsWardAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ => 0
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -107,6 +107,7 @@
+             if (Source is Mobile { IsGargoyle: true, IsFlying: true }
+                 && (Sanctuary.SpellEffectGraphics.IsWardAnimation(Graphic)
+                     || Sanctuary.SpellEffectGraphics.IsEnchantAnimation(Graphic)
++                    || Sanctuary.SpellEffectGraphics.IsAmazonAvoidance(Graphic)
+                     || Graphic is Sanctuary.SpellEffectGraphics.NovaCast or Sanctuary.SpellEffectGraphics.NovaContact
+                         or Sanctuary.SpellEffectGraphics.TelekinesisCast or Sanctuary.SpellEffectGraphics.TelekinesisContact))
+             {
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+@@ -27,6 +27,36 @@
+         private ushort _hydraFrame;
+         private Point _hydraOffset;
+ 
++        private const int AvoidanceMilliseconds = 200;
++        private uint _avoidanceStart;
++        private Vector2 _avoidanceOffset;
++
++        internal void BeginAvoidance(ushort graphic)
++        {
++            if (IsDead || FindItemByLayer(Layer.Mount) != null)
++            {
++                return;
++            }
++
++            int turn = graphic == SpellEffectGraphics.DodgeFlash ? 4 : 2;
++            double angle = ((int)(Direction & Direction.Mask) + turn - 1) * Math.PI / 4;
++            _avoidanceOffset = new Vector2((float)(Math.Cos(angle) * 9), (float)(Math.Sin(angle) * 5));
++            _avoidanceStart = Time.Ticks;
++        }
++
++        private Point GetAvoidanceOffset()
++        {
++            uint elapsed = Time.Ticks - _avoidanceStart;
++            if (elapsed >= AvoidanceMilliseconds || IsDead || Steps.Count > 0)
++            {
++                return Point.Zero;
++            }
++
++            double amount = Math.Sin(Math.PI * elapsed / AvoidanceMilliseconds);
++            return new Point((int)Math.Round(_avoidanceOffset.X * amount),
++                (int)Math.Round(_avoidanceOffset.Y * amount));
++        }
++
+         internal void SetHydraFrame(ushort graphic, int x, int y)
+         {
+             if (graphic == SpellEffectGraphics.HydraHeadGone || Client.Game.UO.Arts.GetArt(graphic).Texture != null)
+@@ -178,6 +208,11 @@
+                     overridedHue = Notoriety.GetHue(NotorietyFlag);
+                 }
+             }
++
++            // Carry the body and all equipment layers together within the native animation frame.
++            Point avoidance = GetAvoidanceOffset();
++            drawX += avoidance.X;
++            drawY += avoidance.Y;
+ 
+             ProcessSteps(out byte dir);
+             byte layerDir = dir;
+@@ -999,7 +1034,7 @@
+ 
+         public override bool CheckMouseSelection()
+         {
+-            Point position = RealScreenPosition;
++            Point position = RealScreenPosition + GetAvoidanceOffset();
+             position.Y -= 3;
+             position.X += (int)Offset.X + 22;
+             position.Y += (int)(Offset.Y - Offset.Z) + 22;
+diff --git a/src/ClassicUO.Client/Game/Managers/EffectManager.cs b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+--- a/src/ClassicUO.Client/Game/Managers/EffectManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+@@ -80,6 +80,13 @@
+ 
+             duration *= Constants.ITEM_EFFECT_ANIMATION_DELAY;
+ 
++            if (type == GraphicEffectType.FixedFrom && duration > 0
++                && graphic is SpellEffectGraphics.DodgeFlash or SpellEffectGraphics.AvoidFlash
++                && _world.Get(source) is Mobile defender)
++            {
++                defender.BeginAvoidance(graphic);
++            }
++
+             bool renewStatus = type == GraphicEffectType.FixedFrom
+                 && (SpellEffectGraphics.IsColdStatus(graphic) || SpellEffectGraphics.IsSorceressWard(graphic)
+                     || SpellEffectGraphics.IsAmazonUtilityLoop(graphic)

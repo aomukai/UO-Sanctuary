@@ -1,0 +1,54 @@
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -135,13 +135,14 @@
+                         SpellEffectGraphics.FireBoltContact or SpellEffectGraphics.InfernoContact or SpellEffectGraphics.BlazeCast
+                             or SpellEffectGraphics.BlazeField or SpellEffectGraphics.BlazeFade or SpellEffectGraphics.FireWallFade
+                             => SpellEffectGraphics.FireFrames,
++                        _ when SpellEffectGraphics.IsWardAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ => 0
+                     };
+                     if (spellFrames > 0)
+                     {
+                         bool oneShot = Graphic is not (SpellEffectGraphics.MeteorWarning or SpellEffectGraphics.MeteorFire
+                             or SpellEffectGraphics.AbyssField or SpellEffectGraphics.BlazeField)
+-                            && !SpellEffectGraphics.IsColdStatus(Graphic);
++                            && !SpellEffectGraphics.IsColdStatus(Graphic) && !SpellEffectGraphics.IsSorceressWard(Graphic);
+                         AnimationGraphic = (ushort)(Graphic + AnimIndex);
+                         if (AnimIndex < spellFrames - 1) { AnimIndex++; }
+                         else if (!oneShot) { AnimIndex = 0; }
+@@ -163,6 +164,7 @@
+                             SpellEffectGraphics.Chilled or SpellEffectGraphics.Frozen => 120,
+                             SpellEffectGraphics.BlazeField => 90,
+                             SpellEffectGraphics.BlazeCast or SpellEffectGraphics.BlazeFade or SpellEffectGraphics.FireWallFade => 70,
++                            _ when SpellEffectGraphics.IsSorceressWard(Graphic) => 145,
+                             _ => Constants.ITEM_EFFECT_ANIMATION_DELAY
+                         };
+                         NextChangeFrameTime = (long)Time.Ticks + interval;
+--- a/src/ClassicUO.Client/Game/Managers/EffectManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+@@ -70,7 +70,8 @@
+ 
+             duration *= Constants.ITEM_EFFECT_ANIMATION_DELAY;
+ 
+-            bool renewStatus = type == GraphicEffectType.FixedFrom && SpellEffectGraphics.IsColdStatus(graphic);
++            bool renewStatus = type == GraphicEffectType.FixedFrom
++                && (SpellEffectGraphics.IsColdStatus(graphic) || SpellEffectGraphics.IsSorceressWard(graphic));
+             bool renewField = type == GraphicEffectType.FixedXYZ && SpellEffectGraphics.IsFireField(graphic);
+             if (renewStatus || renewField)
+             {
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -104,6 +104,13 @@
+             posX += (int)Offset.X;
+             posY += (int)(Offset.Z + Offset.Y);
+ 
++            if (Source is Mobile { IsGargoyle: true, IsFlying: true }
++                && Sanctuary.SpellEffectGraphics.IsWardAnimation(Graphic))
++            {
++                // Gargoyle flight raises the body two half-tiles above its standing art.
++                posY -= 44;
++            }
++
+             ushort hue = Hue;
+ 
+             if (ProfileManager.CurrentProfile.NoColorObjectsOutOfRange && Distance > World.ClientViewRange)

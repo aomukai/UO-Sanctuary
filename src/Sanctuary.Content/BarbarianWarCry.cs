@@ -31,8 +31,12 @@ public static class BarbarianWarCry
         if(ray.Modifiers==null&&potion!=0)
         {Log.Warning("Legacy War Cry ray {Id} lacks captured mastery for active Magical Penetration;contact refused",ray.Id);return false;}
         var modifiers=ray.Modifiers is{} captured?captured with{Potion=potion}:null;
-        return PhysicalHit(owner,target,min,max,Roll,creature=>
+        var point = target?.Location ?? default;
+        var map = target?.Map;
+        bool contact = PhysicalHit(owner,target,min,max,Roll,creature=>
             CombatStuns.Apply(creature,(int)SkillMechanics.Values(owner,CombatAbility.WarCry,ray.Rank).Eval("calc4"),ray.NextUtc),modifiers);
+        if (contact) { BarbarianCryVisuals.Contact(owner, CombatAbility.WarCry, point, map, ray.NextUtc); }
+        return contact;
     }
     // Shared weapon-independent physical spell path; optional control occurs
     // after block/absorption and before health,retaining War Cry's event order.

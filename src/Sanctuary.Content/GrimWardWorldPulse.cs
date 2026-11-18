@@ -45,6 +45,8 @@ internal static class GrimWardWorldPulse
                 if(context?.Ability!=CombatAbility.GrimWard||context.Rank!=rank)
                 {throw new NotSupportedException("Ward body requires its explicit current formula context");}
                 var packet=GrimWardCurseOperation.Packet(context,SummonDifficulties.For(owner.Map));
+                if (initialFear != 0 && (total - current) % 30 == 0)
+                { GrimWardVisuals.Pulse(body, packet.Radius, at); }
                 var targets=new List<BaseCreature>();
                 foreach(var target in body.Map.GetMobilesInRange<BaseCreature>(body.Location,(int)Math.Ceiling(SkillGeometry.Tiles(packet.Radius))))
                 {

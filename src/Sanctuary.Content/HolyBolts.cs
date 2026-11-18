@@ -100,6 +100,7 @@ public static class HolyBolts
             0,ends.Min,ends.Max,0,now.AddMilliseconds(Frames*40),now.AddMilliseconds(40)){Captured=new(modifiers,slow),
             Motion=new(speed,SourceRandom.InitLow(HolyBoltFlights.SeedLow()),new([new(owner.X*2,owner.Y*2)]))};
         HolyBoltFlights.Validate(flight);_flights.Add(id,flight);
+        PaladinSpellVisuals.BoltRelease(owner);
     }
     internal static void Impact(PlayerMobile owner,Mobile target,HolyBoltFlight flight)
     {
@@ -108,21 +109,29 @@ public static class HolyBolts
             var skill=SkillMechanics.For(flight.Ability);
             // Missile heal flag alone is insufficient: FoH's parent skill has neither TargetAlly nor TargetPet.
             if(target is PlayerMobile?skill.Number("TargetAlly")==0:skill.Number("TargetPet")==0){return;}
-            var heal=Healing(owner,flight.Rank);SkillHealth.Heal(target,Sample(heal.Min,heal.Max));
-            target.FixedEffect(0x376A,10,10,0x481,0);return; // Placeholder healing overlay; no damage or harmful event.
+            var heal=Healing(owner,flight.Rank);
+            if (SkillHealth.Heal(target, Sample(heal.Min, heal.Max)) > 0) { PaladinSpellVisuals.BoltHeal(target); }
+            return;
         }
         if(!FullDamage(target)){return;} // Pinned sHitPar2=3, dParam1=0: normal beasts take zero damage and do not stop the bolt.
+        var point = target.Location;
+        var map = target.Map;
+        var now = TimedEffects.Now;
         if(flight.Captured is{} captured)
         {
             if(!HolyBoltDamage.Supported(owner,target,out string reason))
             {owner.SendMessage(0x22,reason);return;}
             string capturedMissile=Missile(flight.Ability);SorceressEffects.MissileHit(owner,target,capturedMissile);
             if(ClassAvoidance.Missile(target,capturedMissile)){return;}
-            HolyBoltDamage.Deliver(owner,(BaseCreature)target,Sample(flight.Min256,flight.Max256),captured,TimedEffects.Now,flight.Ability);return;
+            var applied = HolyBoltDamage.Deliver(owner,(BaseCreature)target,Sample(flight.Min256,flight.Max256),captured,now,flight.Ability);
+            if (applied.AfterHealth256 < applied.Before256) { PaladinSpellVisuals.BoltContact(owner, point, map, now); }
+            return;
         }
         string missile=Missile(flight.Ability);SorceressEffects.MissileHit(owner,target,missile);
         int holy=NecromancerSummons.Source(missile,"Holy");
+        int before = SkillHealth.Balance256(target);
         SkillCombat.HolyImpact(owner,target,Sample(flight.Min256,flight.Max256),(holy&1)!=0 && GemCombat.Undead(target) || (holy&2)!=0 && NamedCombat.Demon(target));
+        if (SkillHealth.Balance256(target) < before) { PaladinSpellVisuals.BoltContact(owner, point, map, now); }
     }
     private static PlayerMobile Owner(HolyBoltFlight flight)=>World.FindMobile((Serial)flight.Owner) is PlayerMobile {Alive:true,Deleted:false} owner
         && ClassCreation.Profiles.TryGet(owner.Serial,out var profile) && profile.Class==DiabloClass.Paladin
@@ -139,19 +148,21 @@ public static class HolyBolts
             if(owner.Map==Map.Internal){continue;}
             // Bound catch-up by the source frame count, including due frames before absolute expiry.
             while(_flights.TryGetValue(id,out flight) && flight.NextUtc<=now && flight.NextUtc<flight.UntilUtc){Step(owner,flight);}
-            if(_flights.TryGetValue(id,out flight) && flight.UntilUtc<=now){_flights.Remove(id);}
+            if(_flights.TryGetValue(id,out flight) && flight.UntilUtc<=now)
+            { _flights.Remove(id); PaladinSpellVisuals.End(owner, flight.X, flight.Y, flight.Z, false, now); }
         }
     }
     private static void Step(PlayerMobile owner,HolyBoltFlight flight)
     {
         int frame=flight.Frame+1;
         string missile=Missile(flight.Ability);
-        if(frame>=NecromancerSummons.Source(missile,"Range")){_flights.Remove(flight.Id);return;} // SrvDo1 decrements before collision.
+        if(frame>=NecromancerSummons.Source(missile,"Range"))
+        { _flights.Remove(flight.Id); PaladinSpellVisuals.End(owner, flight.X, flight.Y, flight.Z, false, flight.NextUtc); return; }
         double x=flight.X+flight.Vx,y=flight.Y+flight.Vy;
         var from=new Point3D((int)Math.Round(flight.X),(int)Math.Round(flight.Y),flight.Z+12);
         var to=new Point3D((int)Math.Round(x),(int)Math.Round(y),flight.Z+12);
         if(x<0 || y<0 || x>=owner.Map.Width || y>=owner.Map.Height || !owner.Map.LineOfSight(from,to))
-        {_flights.Remove(flight.Id);return;}
+        { _flights.Remove(flight.Id); PaladinSpellVisuals.End(owner, flight.X, flight.Y, flight.Z, false, flight.NextUtc); return; }
         Mobile first=null;double nearest=double.MaxValue;
         foreach(var target in owner.Map.GetMobilesInRange<Mobile>(new Point3D(to.X,to.Y,flight.Z),2))
         {
@@ -160,8 +171,9 @@ public static class HolyBolts
                 && (entry<nearest || entry==nearest && target.Serial.Value<(first?.Serial.Value ?? uint.MaxValue)))
             {first=target;nearest=entry;}
         }
-        _flights[flight.Id]=flight with{X=x,Y=y,Frame=frame,NextUtc=flight.NextUtc.AddMilliseconds(40),LastCollision=first?.Serial.Value ?? flight.LastCollision};
-        Effects.SendLocationEffect(new(to.X,to.Y,flight.Z),owner.Map,0x36E4,3,10,0x481,0); // Placeholder holy bolt; no impact consumes this piercing missile.
+        var next = flight with{X=x,Y=y,Frame=frame,NextUtc=flight.NextUtc.AddMilliseconds(40),LastCollision=first?.Serial.Value ?? flight.LastCollision};
+        _flights[flight.Id] = next;
+        if (frame % 2 == 0) { PaladinSpellVisuals.BoltTravel(owner.Map, next); }
         if(first!=null){Impact(owner,first,flight);}
     }
     private static HolyBoltFlight Copy(HolyBoltFlight f)=>f.Motion is{} m?f with{Motion=m with{Steps=new(m.Steps.Cells.ToArray())}}:f;

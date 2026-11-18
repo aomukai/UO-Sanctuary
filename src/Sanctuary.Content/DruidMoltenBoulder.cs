@@ -107,7 +107,9 @@ public static class DruidMoltenBoulder
         }
         catch(NotSupportedException){owner.SendMessage(0x22,"Molten Boulder cannot be used in this context yet.");return false;}
         if(prepared==null || !NecromancerEffects.Pay(owner,values.Mana256)){return false;}
-        Commit(prepared);FireGround.Delay(owner,CombatAbility.MoltenBoulder);owner.PlaySound(0x1E5); // Identified cast-audio placeholder.
+        Commit(prepared);FireGround.Delay(owner,CombatAbility.MoltenBoulder);
+        DruidFireVisuals.Boulder(prepared, owner.Map, TimedEffects.Now);
+        owner.PlaySound(SpellEffectSounds.BoulderRelease);
         return true;
     }
     private static long Add(PlayerMobile owner,DruidEmitterRequest request,int z,DateTime at)
@@ -147,6 +149,7 @@ public static class DruidMoltenBoulder
         while(true)
         {
             var next=_pool.Missiles.Values.Select(x=>x.NextUtc).DefaultIfEmpty(DateTime.MaxValue).Min();if(next>at){return;}
+            DruidFireVisuals.BeginFrame(next);
             foreach(var state in _pool.Missiles.Values.Where(x=>x.NextUtc==next).OrderByDescending(x=>x.Id).ToArray())
             {if(_pool.Missiles.ContainsKey(state.Id)){Advance(state,actions);}}
         }
@@ -186,8 +189,6 @@ public static class DruidMoltenBoulder
             next=next with{X=x,Y=y,CellX=cx,CellY=cy,CellChanged=cx!=s.CellX || cy!=s.CellY,Steps=steps};
         }
         bool terminal=blocked || remaining<=0;
-        if(!terminal && (s.Remaining&3)==0)
-        {Effects.SendLocationEffect(new((next.CellX+1)/2,(next.CellY+1)/2,s.Z),owner.Map,s.Missile==455?0x398C:0x36D4,3,10,0x489,0);} // Identified field/travel placeholders.
         Mobile target=null;
         if(!terminal)
         {
@@ -200,9 +201,18 @@ public static class DruidMoltenBoulder
             }
         }
         if(target==null && !terminal)
-        {_pool=_pool with{Missiles=_pool.Missiles.SetItem(s.Id,next)};return;}
+        {
+            _pool=_pool with{Missiles=_pool.Missiles.SetItem(s.Id,next)};
+            DruidFireVisuals.Boulder(next, owner.Map, s.NextUtc);
+            return;
+        }
         if(s.Missile==452 && target is BaseCreature creature && Model(creature) is not{Small:not null,Large:not null})
-        {Remove(s.Id);owner.SendMessage(0x22,"Molten Boulder cannot affect that creature yet.");return;}
+        {
+            Remove(s.Id);
+            DruidFireVisuals.BoulderBurst(next, owner.Map);
+            owner.SendMessage(0x22,"Molten Boulder cannot affect that creature yet.");
+            return;
+        }
         bool large=target is BaseCreature c && Model(c)?.Large==true;
         var contact=new BoulderContactInput(true,true,true,target==null?null:target is BaseCreature?1:0,true,large,true,0,7,1,455,
             next.CellX,next.CellY,s.Rank,2,5,0,0,true);
@@ -215,12 +225,18 @@ public static class DruidMoltenBoulder
             {Impact(owner,victim,next,raw,false,ref seed);}
         }
         if(route.DirectDamage && target!=null)
-        {var raw=Roll(next,ref seed);Impact(owner,target,next,raw,s.Missile==452,ref seed);}
+        {var raw=Roll(next,ref seed);Impact(owner,target,next,raw,s.Missile==452,ref seed,route.Result!=2);}
         foreach(var request in route.Requests){Add(owner,request,s.Z,s.NextUtc);}
-        if(route.Result==2){Remove(s.Id);}else{_pool=_pool with{Missiles=_pool.Missiles.SetItem(s.Id,next with{Seed=seed})};}
-        // All visible art here is explicitly provisional; mechanical children
-        // retain their independent lifetimes when this marker ends.
-        if(s.Missile!=455){Effects.SendLocationEffect(new((next.CellX+1)/2,(next.CellY+1)/2,s.Z),owner.Map,0x36BD,3,10,0x489,0);}
+        if (route.Result == 2)
+        {
+            Remove(s.Id);
+            if (s.Missile == 452) { DruidFireVisuals.BoulderBurst(next, owner.Map); }
+        }
+        else
+        {
+            _pool=_pool with{Missiles=_pool.Missiles.SetItem(s.Id,next with{Seed=seed})};
+            DruidFireVisuals.Boulder(next, owner.Map, s.NextUtc);
+        }
     }
     private static GearDamage Roll(BoulderMissile s,ref ulong seed)
     {
@@ -236,7 +252,7 @@ public static class DruidMoltenBoulder
             Cold=raw.Cold+added*Math.Max(0,100+mods.ColdMastery)/100,Lightning=raw.Lightning+added*Math.Max(0,100+mods.LightningMastery)/100,
             Poison=raw.Poison+added*Math.Max(0,100+mods.PoisonMastery)/100};
     }
-    private static void Impact(PlayerMobile owner,Mobile target,BoulderMissile s,GearDamage raw,bool knockback,ref ulong seed)
+    private static void Impact(PlayerMobile owner,Mobile target,BoulderMissile s,GearDamage raw,bool knockback,ref ulong seed,bool continues=false)
     {
         var kind=knockback?BoulderImpactKind.Rolling:s.Missile==455?BoulderImpactKind.Ground:BoulderImpactKind.Area;
         var model=target is BaseCreature creature?Model(creature):null;bool uninterruptible=Uninterruptible(target);
@@ -254,8 +270,12 @@ public static class DruidMoltenBoulder
         int loss=0;
         if(plan.Damage)
         {
+            var hitPoint = target.Location;
+            var hitMap = target.Map;
             var parts=SkillCombat.MitigatePrepared(owner,target,Potion(s.Modifiers,raw),damageRate:s.Missile==455?41:0);
             loss=SkillHealth.TypedDamage(owner,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts),s.Missile==455?SkillDamageKind.Periodic:SkillDamageKind.Direct);
+            if (loss > 0 && (s.Missile == 455 || knockback && continues))
+            { DruidFireVisuals.Contact(s.Owner, target.Serial.Value, hitPoint, hitMap, s.NextUtc.AddMilliseconds(-40), knockback); }
         }
         if(!uninterruptible && target is BaseCreature survivor && s.Missile!=455)
         {

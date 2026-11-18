@@ -58,7 +58,7 @@ public static class AmazonJavelins
         pierce?.Commit();
         if(ability==CombatAbility.PlagueJavelin){NecromancerEffects.Pay(owner,values.Mana256);}
         NamedAmmunition.Consume(CombatTiming.Equipped(owner),TimedEffects.Now);FireGround.Delay(owner,ability);
-        owner.PlaySound(0x238); // Identified ordinary throw sound placeholder.
+        AmazonJavelinEffects.Release(owner,ability);
         return true;
     }
     internal static void EquipmentChanged(PlayerMobile owner)

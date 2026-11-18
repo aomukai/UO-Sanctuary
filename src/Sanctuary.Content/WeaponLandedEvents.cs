@@ -15,6 +15,14 @@ internal static class WeaponLandedEvents
     internal static event Action<WeaponLandedContact> BeforeDamage;
     internal static bool Notify(Mobile source,Mobile target,bool ranged)
     {
+        PaladinElementVisuals.WeaponContact(source, target);
+        PaladinHostileAuraVisuals.SanctuaryWeapon(source, target);
+        if (SorceressEffects.Enchantment(source) is { Max256: > 0 } && target is { Alive: true, Deleted: false }
+            && target.CanBeDamaged() && source.Map is { } map && map != Map.Internal && map == target.Map)
+        {
+            target.FixedEffect(SpellEffectGraphics.EnchantContact, 10, SpellEffectGraphics.UtilityFrames);
+            target.PlaySound(SpellEffectSounds.EnchantContact);
+        }
         var notify=BeforeDamage;
         if(notify==null||source is not PlayerMobile{Alive:true,Deleted:false} owner
             ||target is not BaseCreature{Alive:true,Deleted:false} npc||!target.CanBeDamaged()

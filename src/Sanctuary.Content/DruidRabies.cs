@@ -60,6 +60,7 @@ internal static class DruidRabies
             session.RabiesFault="Lost-contact Rabies attachment is unverified";return false;
         }
         var target=(BaseCreature)World.FindMobile(pending.Target);owner.DoHarmful(target,true);
+        DruidFormEffects.Swing(owner, CombatAbility.Rabies);
         using var melee=CombatTiming.Equipped(owner) is{} weapon?WeaponHands.UseMelee(owner,weapon):null;
         // Source do121 allocates/drains a distinct ordinary transformed attack.
         // Its legacy extra-AR argument incorrectly uses Rabies rank; whether
@@ -90,9 +91,8 @@ internal static class DruidRabies
         // contributes once to initial HP, independently of strongest DoT.
         var skillPoison=PoisonJavelins.PreparePoison(owner,target,rate,Math.Max(10,values.DurationFrames));
         var poisonImpact=new PreparedWeaponImpact(default,default,0,skillPoison.Rate256){AllocatedPoison=skillPoison};
-        PlayerWeaponContact.Release(owner,target,new(SourceMeleeResult.Successful,poisonImpact,default,0,
-            CreatureHitRecovery.PlayerHitClass(owner),Effects,MeleeRange:DruidFormAttacks.Reach(owner),HitFlags:2),at,true);
-        owner.PlaySound(0x238); // Identified bite/contact audio placeholder.
+        DruidWeaponContact.Release(owner,target,new(SourceMeleeResult.Successful,poisonImpact,default,0,
+            CreatureHitRecovery.PlayerHitClass(owner),Effects,MeleeRange:DruidFormAttacks.Reach(owner),HitFlags:2),at,CombatAbility.Rabies);
         return true;
     }
     internal static void Cancel(PlayerMobile owner)

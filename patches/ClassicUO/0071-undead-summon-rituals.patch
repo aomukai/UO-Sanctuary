@@ -1,0 +1,21 @@
+diff --git a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -161,6 +161,8 @@
+                         SpellEffectGraphics.PoisonAfflicted or SpellEffectGraphics.PoisonDaggerContact
+                             or SpellEffectGraphics.PoisonExplosionBloom or SpellEffectGraphics.PoisonNovaCast
+                             or SpellEffectGraphics.PoisonClear => SpellEffectGraphics.PoisonFrames,
++                        SpellEffectGraphics.SkeletonRise or SpellEffectGraphics.SkeletalMageRise
++                            or SpellEffectGraphics.ReviveRise or SpellEffectGraphics.UndeadFade => SpellEffectGraphics.UndeadRitualFrames,
+                         _ when SpellEffectGraphics.IsEnchantAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ when SpellEffectGraphics.IsWardAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ => 0
+@@ -214,6 +216,8 @@
+                             SpellEffectGraphics.PoisonDaggerContact => 60,
+                             SpellEffectGraphics.PoisonExplosionBloom or SpellEffectGraphics.PoisonNovaCast
+                                 or SpellEffectGraphics.PoisonClear => 75,
++                            SpellEffectGraphics.SkeletonRise or SpellEffectGraphics.SkeletalMageRise
++                                or SpellEffectGraphics.ReviveRise or SpellEffectGraphics.UndeadFade => 105,
+                             >= SpellEffectGraphics.InnerSightCast and <= SpellEffectGraphics.ValkyrieFade => 90,
+                             SpellEffectGraphics.BlazeCast or SpellEffectGraphics.BlazeFade or SpellEffectGraphics.FireWallFade => 70,
+                             _ when SpellEffectGraphics.IsSorceressWard(Graphic) => 145,

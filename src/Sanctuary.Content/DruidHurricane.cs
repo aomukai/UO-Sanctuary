@@ -31,6 +31,7 @@ public sealed class HurricaneProfiles : GenericPersistence
 // seed/event ordering, native room/LOS and unrepresented targets remain open.
 public static class DruidHurricane
 {
+    private const int Radius = 9;
     private static ImmutableDictionary<uint, HurricaneState> _states = ImmutableDictionary<uint, HurricaneState>.Empty;
     internal static Func<int> SeedLow = () => Utility.Random(int.MaxValue);
     public static HurricaneProfiles Profiles { get; private set; }
@@ -39,7 +40,12 @@ public static class DruidHurricane
     private static PlayerMobile Owner(uint serial) => World.FindMobile((Serial)serial) is PlayerMobile { Alive: true, Deleted: false } p
         && ClassCreation.Profiles.TryGet(p.Serial, out var profile) && profile.Class == DiabloClass.Druid ? p : null;
     public static HurricaneState State(Mobile owner) => owner != null && Owner(owner.Serial.Value) == owner ? _states.GetValueOrDefault(owner.Serial.Value) : null;
-    public static void Clear(Mobile owner) { if (owner != null) { _states = _states.Remove(owner.Serial.Value); } }
+    public static void Clear(Mobile owner)
+    {
+        if (owner == null) { return; }
+        _states = _states.Remove(owner.Serial.Value);
+        HurricaneVisuals.Retire(owner.Serial.Value, owner, fade: false);
+    }
     internal static HurricaneState[] Snapshot() => _states.Values.OrderBy(x => x.Owner).ToArray();
     internal static void Restore(HurricaneState[] rows)
     {
@@ -72,7 +78,7 @@ public static class DruidHurricane
             || row.Text("aurastate") != "hurricane" || row.Number("aurafilter") != 42883 || row.Text("anim") != "SC"
             || row.Number("Param4") != 20 || row.Number("ResultFlags") != 1 || row.Number("HitFlags") != 2
             || row.Number("localdelay") != 0 || row.Number("SrcDam") != 0 || row.Text("EType") != "cold"
-            || row.Number("intown") != 0 || values.Mana256 != 30 * 256 || values.Eval("aurarangecalc") != 9 || values.DurationFrames != 50)
+            || row.Number("intown") != 0 || values.Mana256 != 30 * 256 || values.Eval("aurarangecalc") != Radius || values.DurationFrames != 50)
         { throw new NotSupportedException("Unsupported Hurricane route"); }
     }
     public static bool Begin(PlayerMobile owner, Serial selected, Point3D point, long now)
@@ -85,7 +91,7 @@ public static class DruidHurricane
         catch (NotSupportedException) { owner.SendMessage(0x22, "Hurricane cannot be used in this context yet."); return false; }
         if (!NecromancerEffects.Pay(owner, values.Mana256)) { return false; }
         _states = _states.SetItem(state.Owner, state);
-        owner.FixedEffect(0x37CC, 10, 15, 0x480, 0); owner.PlaySound(0x655); // Identified wind-cast/audio placeholders.
+        HurricaneVisuals.Release(owner);
         return true;
     }
     internal static HurricaneState Prepare(PlayerMobile owner, SkillValues values, DateTime at)
@@ -117,12 +123,13 @@ public static class DruidHurricane
             if (!Recipient(owner, target, radius) || ClassAvoidance.Missile(target)) { continue; }
             owner.DoHarmful(target, true);
             var parts = SkillCombat.MitigatePrepared(owner, target, packet);
-            ColdStates.Apply(owner, target, values.DurationFrames, TimedEffects.TickAt(state.NextUtc));
-            SkillHealth.Damage(owner, target, NamedElements.To256(parts.Total),SkillDamageKind.Periodic);
+            var point = target.Location;
+            var map = target.Map;
+            bool chilled = ColdStates.Apply(owner, target, values.DurationFrames, TimedEffects.TickAt(state.NextUtc));
+            int loss = SkillHealth.Damage(owner, target, NamedElements.To256(parts.Total),SkillDamageKind.Periodic);
             // ResultFlags1 has no generic GETHIT4, stun or knockback request.
-            target.FixedEffect(0x37CC, 3, 4, 0x480, 0); // Identified periodic wind/cold marker.
+            if (chilled || loss > 0) { DruidWindVisuals.Contact(state.Owner, map, point, state.NextUtc, cold: true); }
         }
-        Effects.SendLocationEffect(owner.Location, owner.Map, 0x37CC, 8, 5, 0x480, 0); // Weather marker; not its mechanical clock.
         return state with { Seed = seed };
     }
     internal static void Tick(DateTime at, bool? actions = null)
@@ -134,21 +141,38 @@ public static class DruidHurricane
             var owner = Owner(saved.Owner);
             // Explicit native equal-deadline policy: expiry wins. Complete
             // modern remove-state/active-event ordering remains unverified.
-            if (owner == null || state.UntilUtc <= at) { _states = _states.Remove(state.Owner); continue; }
-            if (at < state.NextUtc) { continue; }
-            bool fighting = owner.Map != null && owner.Map != Map.Internal && (actions ?? owner.NetState is { Running: true });
+            bool fighting = owner?.Map != null && owner.Map != Map.Internal && (actions ?? owner.NetState is { Running: true });
+            if (owner == null || state.UntilUtc <= at)
+            {
+                _states = _states.Remove(state.Owner);
+                HurricaneVisuals.Retire(state.Owner, owner, fade: fighting);
+                continue;
+            }
             if (!fighting)
             {
+                HurricaneVisuals.Retire(state.Owner, owner, fade: false);
+                if (at < state.NextUtc) { continue; }
                 // Offline time ages the state without damage or replaying
                 // missed attacks on reconnect. Lifetime is never extended.
                 long missed = (at.Ticks - state.NextUtc.Ticks) / TimeSpan.FromMilliseconds(800).Ticks + 1;
                 _states = _states.SetItem(state.Owner, state with { NextUtc = state.NextUtc.AddTicks(missed * TimeSpan.FromMilliseconds(800).Ticks) });
                 continue;
             }
-            if (!DruidWeather.Outdoors(owner)) { _states = _states.Remove(state.Owner); continue; }
+            if (at < state.NextUtc)
+            {
+                HurricaneVisuals.Observe(owner, state, at, SkillGeometry.Tiles(Radius));
+                continue;
+            }
+            if (!DruidWeather.Outdoors(owner))
+            {
+                _states = _states.Remove(state.Owner);
+                HurricaneVisuals.Retire(state.Owner, owner, fade: true);
+                continue;
+            }
             while (state.NextUtc <= at && state.NextUtc < state.UntilUtc)
             { state = Pulse(owner, state); state = state with { NextUtc = state.NextUtc.AddMilliseconds(800) }; }
             _states = _states.SetItem(state.Owner, state);
+            HurricaneVisuals.Observe(owner, state, at, SkillGeometry.Tiles(Radius));
         }
     }
 }

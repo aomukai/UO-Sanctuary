@@ -51,13 +51,18 @@ internal static class BarbarianFrenzyEffects
     {
         if(!Eligible(owner)||values?.Ability!=CombatAbility.Frenzy||values.Rank is <1 or >255||at.Kind!=DateTimeKind.Utc){return false;}
         int frames=checked((int)values.Eval("auralencalc"));if(frames<1){throw new NotSupportedException("Unmapped Frenzy duration");}
-        int charges=Math.Min(values.Rank,(StateAt(owner,at)?.Charges??0)+1);
-        _states=_states.SetItem(owner.Serial.Value,new(owner.Serial.Value,values.Rank,charges,at.AddMilliseconds(frames*40L)));
+        int previousCharges = StateAt(owner, at)?.Charges ?? 0;
+        int charges=Math.Min(values.Rank,previousCharges+1);
+        var state = new FrenzySpeedState(owner.Serial.Value, values.Rank, charges, at.AddMilliseconds(frames * 40L));
+        _states=_states.SetItem(owner.Serial.Value,state);
+        BarbarianPairedVisuals.RefreshFrenzy(owner, state, at, renewed: true);
+        if (charges > previousCharges && !owner.Hidden) { owner.PlaySound(SpellEffectSounds.FrenzyCharge); }
         StatNetwork.Send(owner);return true;
     }
     internal static void Clear(Mobile owner)
     {
         if(owner==null){return;}bool had=_states.ContainsKey(owner.Serial.Value);_states=_states.Remove(owner.Serial.Value);
+        BarbarianPairedVisuals.ClearFrenzy(owner.Serial.Value, owner, expired: false);
         if(had&&owner is PlayerMobile{Deleted:false} p){StatNetwork.Send(p);}
     }
     internal static void Prune(DateTime at)
@@ -66,7 +71,14 @@ internal static class BarbarianFrenzyEffects
         foreach(var pair in _states)
         {
             var actor=World.FindMobile((Serial)pair.Key);
-            if(!Eligible(actor)||pair.Value.UntilUtc<=at){_states=_states.Remove(pair.Key);if(actor is PlayerMobile{Deleted:false} p){StatNetwork.Send(p);}}
+            bool eligible = Eligible(actor);
+            if (!eligible || pair.Value.UntilUtc <= at)
+            {
+                _states = _states.Remove(pair.Key);
+                BarbarianPairedVisuals.ClearFrenzy(pair.Key, actor, expired: eligible);
+                if (actor is PlayerMobile { Deleted: false } p) { StatNetwork.Send(p); }
+            }
+            else { BarbarianPairedVisuals.RefreshFrenzy(actor, pair.Value, at); }
         }
     }
     // Immutable state is safe on the persistence worker; pruning and network

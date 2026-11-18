@@ -18,6 +18,10 @@ public sealed record SourceKnockbackState(uint Target,int Map,Point3D Position,P
     // Optional V0 extension. Historical trajectories retain their behavior.
     [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
     public bool PauseFrozen{get;init;}
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    public bool BashTrail { get; init; }
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    public CombatAbility DragonTrail { get; init; }
 }
 public sealed class SourceKnockbackProfiles:GenericPersistence
 {
@@ -58,7 +62,12 @@ public static class SourceKnockbacks
     public static bool Begin(Mobile source,BaseCreature target)
         =>Begin(source,target,false);
     internal static bool BeginPrepared(Mobile source,BaseCreature target)=>Begin(source,target,true);
-    private static bool Begin(Mobile source,BaseCreature target,bool prepared)
+    internal static bool BeginBash(Mobile source, BaseCreature target) => Begin(source, target, true, bashTrail: true);
+    internal static bool BeginDragonTalon(Mobile source, BaseCreature target)
+        => Begin(source, target, true, dragonTrail: CombatAbility.DragonTalon);
+    internal static bool BeginDragonTail(Mobile source, BaseCreature target)
+        => Begin(source, target, true, dragonTrail: CombatAbility.DragonTail);
+    private static bool Begin(Mobile source,BaseCreature target,bool prepared,bool bashTrail=false,CombatAbility dragonTrail=CombatAbility.None)
     {
         if(target is not{Alive:true,Deleted:false} || !prepared&&(target.Frozen||target.Paralyzed) || source is not{Deleted:false}
             || source.Map!=target.Map || target.Map==null || target.Map==Map.Internal || Rule(target) is not{Knockback:true,GetHit:true,Distance:5} rule){return false;}
@@ -72,7 +81,8 @@ public static class SourceKnockbacks
         }
         var offset=Offset(dx,dy,rule.Distance);if(offset.Length16==0){return false;}
         var now=TimedEffects.Now;
-        _states[target.Serial.Value]=new(target.Serial.Value,target.Map.MapID,target.Location,new(target.X+offset.X,target.Y+offset.Y,target.Z),offset.Length16,0,0,now.AddMilliseconds(40),false,default){PauseFrozen=prepared};
+        _states[target.Serial.Value]=new(target.Serial.Value,target.Map.MapID,target.Location,new(target.X+offset.X,target.Y+offset.Y,target.Z),offset.Length16,0,0,now.AddMilliseconds(40),false,default)
+        {PauseFrozen=prepared,BashTrail=bashTrail,DragonTrail=dragonTrail};
         if(target is GraveyardUndead undead){undead.InterruptForRecovery();}
         else if(target is SkeletonGuardian guardian){guardian.InterruptForRecovery();}
         if(target.Spell is Spell spell){spell.Disturb(DisturbType.Hurt);}
@@ -80,6 +90,7 @@ public static class SourceKnockbacks
         return true;
     }
     public static void Clear(Mobile target){if(target!=null){_states.Remove(target.Serial.Value);}}
+    internal static SourceKnockbackState State(BaseCreature target) => _states.GetValueOrDefault(target.Serial.Value);
     public static int Remaining(Mobile target)
     {
         if(target is not BaseCreature{Alive:true,Deleted:false} || !_states.TryGetValue(target.Serial.Value,out var state)){return 0;}
@@ -123,6 +134,9 @@ public static class SourceKnockbacks
                 if(state.Budget16>=cost)
                 {
                     if(!CombatDisplacement.TryStep(target,direction)){Recover(target,state,now);continue;}
+                    if (state.BashTrail) { BarbarianStrikeVisuals.BashStep(target, state.Position, now); }
+                    if (state.DragonTrail != CombatAbility.None)
+                    { AssassinDragonVisuals.Displaced(target, state.Position, state.DragonTrail, now); }
                     state=state with{Position=target.Location,Budget16=state.Budget16-cost};
                 }
             }
@@ -136,6 +150,7 @@ public static class SourceKnockbacks
         var candidate=new Dictionary<uint,SourceKnockbackState>();foreach(var state in states)
         {
             if(state==null || state.Map is <0 or >255 || state.Length16<=0 || state.Travel16<0 || state.Budget16<0 || state.NextUtc.Kind!=DateTimeKind.Utc
+                || state.DragonTrail is not (CombatAbility.None or CombatAbility.DragonTalon or CombatAbility.DragonTail)
                 || state.Recovering && state.UntilUtc.Kind!=DateTimeKind.Utc || !candidate.TryAdd(state.Target,state)){throw new InvalidDataException("Invalid source knockback state");}
         }
         _states.Clear();foreach(var row in candidate){_states.Add(row.Key,row.Value);}

@@ -50,9 +50,11 @@ internal static class DruidChargedAttacks
         if(pending==null||now<pending.EffectAt){return false;}session.DruidChargeAttack=null;
         if(pending.Ability!=ability||pending.Target!=session.PendingTarget||!ReferenceEquals(pending.Form,DruidPlayerForms.State(owner))
             ||!DruidCombat.Available(owner,ability)||!ValidTarget(owner,ability,pending.Target)){return false;}
-        var target=World.FindMobile(pending.Target);owner.DoHarmful(target,true);owner.PlaySound(0x238); // Identified contact/audio placeholder.
+        var target=World.FindMobile(pending.Target);
+        owner.DoHarmful(target,true);
+        DruidFormEffects.Swing(owner, ability);
         using var melee=CombatTiming.Equipped(owner) is{} weapon?WeaponHands.UseMelee(owner,weapon):null;
-        var result=DruidWeaponContact.Release(owner,(BaseCreature)target,pending.Contact,TimedEffects.Now);
+        var result=DruidWeaponContact.Release(owner,(BaseCreature)target,pending.Contact,TimedEffects.Now,ability);
         if(result.Commit==null||(result.Packet.ResultFlags&SourceMeleeResult.Successful)==0){return true;}
         // do120 drains combat/durability before aura gain. Reentrant death or
         // form removal cannot resurrect a stale group's state after that commit.

@@ -117,7 +117,8 @@ public static class ShoutChecks
         Goldens();var owner=Fresh();var ally=Fresh(owner,DiabloClass.Sorceress);Synchronous(owner,ally);Lifecycle(owner);Gear(owner);
         var pet=new GraveyardSkeleton();pet.MoveToWorld(new(owner.X,owner.Y+4,owner.Z),owner.Map);Require(pet.SetControlMaster(ally),"Shout pet master");Stop(pet);
         var enemy=new Ogre{NoKillAwards=true};enemy.MoveToWorld(new(owner.X-4,owner.Y,owner.Z),owner.Map);Stop(enemy);
-        var far=Fresh(owner,DiabloClass.Paladin);far.MoveToWorld(new(owner.X+4,owner.Y,owner.Z),owner.Map);
+        // Start within the wave's reach with enough travel time to step out.
+        var far=Fresh(owner,DiabloClass.Paladin);far.MoveToWorld(new(owner.X+7,owner.Y,owner.Z),owner.Map);
         var moving=Fresh(owner,DiabloClass.Sorceress);moving.MoveToWorld(new(owner.X+12,owner.Y+2,owner.Z),owner.Map);
         var expiring=Fresh(owner);expiring.MoveToWorld(new(owner.X+20,owner.Y,owner.Z),owner.Map);BarbarianShout.Apply(owner,expiring,1,TimedEffects.Now);Replace(BarbarianShout.State(expiring) with{UntilUtc=TimedEffects.Now.AddMilliseconds(50)});
         ally.MoveToWorld(new(owner.X+3,owner.Y,owner.Z),owner.Map);int enemyHp=enemy.Hits,allyDefense=ClassStats.Defense(ally),petDefense=ClassStats.Defense(pet);

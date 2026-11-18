@@ -80,7 +80,7 @@ public static class PoisonJavelins
                 if(!PlayerWeaponMissileContact.TryPoison(owner,target,rate,cloud.Damage.Elements.PoisonImpactFrames,cloud.NextUtc,out string reason)&&Unsupported.Add(reason))
                 {Server.Logging.LogFactory.GetLogger(typeof(PoisonJavelins)).Warning("Poison Javelin cloud unsupported context: {Reason}",reason);}
             }
-            if(frame%5==0){Effects.SendLocationEffect(new Point3D((int)Math.Round(cloud.X),(int)Math.Round(cloud.Y),cloud.Z),owner.Map,0x374A,2,10,0x3F,0);} // Identified green poison placeholder.
+            AmazonJavelinEffects.ObserveCloud(owner,point,SpellEffectGraphics.PoisonJavelinCloud,cloud.NextUtc);
             if(next.NextUtc<=at){queue.Enqueue(next,(next.NextUtc,next.Id));}
         }
     }

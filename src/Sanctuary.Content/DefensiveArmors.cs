@@ -8,9 +8,9 @@ internal static class DefensiveArmors
 {
     // Shared pre-resistance shield entry. Preserve the existing class-damage
     // order; this is not a complete source event registry/priority model.
-    internal static GearDamage Absorb(Mobile target,GearDamage damage)
+    internal static GearDamage Absorb(Mobile target,GearDamage damage,Mobile source)
     {
-        var raw=SorceressEffects.Absorb(target,damage);
+        var raw=SorceressEffects.Absorb(target,damage,source);
         return raw with{Physical=PsychicWard.AbsorbPhysical(target,NecromancerEffects.AbsorbPhysical(target,raw.Physical))};
     }
     internal static void ClearGroup(PlayerMobile owner)

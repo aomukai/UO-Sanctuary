@@ -47,7 +47,7 @@ internal static class TelekinesisWorld
         if(Pickup(item)){return TakeGround(owner,item);}
         // Older do21 leaves non-whitelisted items on the ground. Preserve
         // identity/ownership rather than emulating its engine refresh flags.
-        item.InvalidateProperties();owner.PlaySound(0x1F5);return true; // Identified native placeholder.
+        item.InvalidateProperties();return true;
     }
 
     private static bool TakeGround(PlayerMobile owner,Item item)

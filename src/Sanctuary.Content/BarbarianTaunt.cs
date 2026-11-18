@@ -47,8 +47,9 @@ public static class BarbarianTaunt
             || Target(owner,selected) is not BaseCreature target || !SupportedState(owner,target)){return false;}
         var values=SkillMechanics.Values(owner,CombatAbility.Taunt);
         if(!NecromancerEffects.CanPay(owner,values.Mana256)){return false;}
-        Apply(owner,target,values.Rank,TimedEffects.Now);NecromancerEffects.Pay(owner,values.Mana256);
-        owner.PlaySound(0x1E5);target.FixedEffect(0x375A,10,15,0x481,0); // Identified UO sound/taunt overlay placeholders.
+        var now = TimedEffects.Now;
+        BarbarianCryVisuals.Cast(owner, CombatAbility.Taunt, now);
+        Apply(owner,target,values.Rank,now);NecromancerEffects.Pay(owner,values.Mana256);
         owner.DoHarmful(target);return true;
     }
     internal static bool Apply(PlayerMobile owner,BaseCreature target,int rank,DateTime at)
@@ -71,6 +72,8 @@ public static class BarbarianTaunt
         var phase=new TerrorAi(CombatAbility.Taunt,rank,target.Map.MapID,false,owner.Serial.Value,0,at.AddMilliseconds(40));
         var curse=old is{Ability:CombatAbility.Taunt} && old.Rank==rank?old with{Terror=phase}
             :new NecromancerCurse(CombatAbility.Taunt,owner.Serial.Value,rank,DateTime.MaxValue,owner.X,owner.Y,Terror:phase);
-        NecromancerEffects.Profiles.Store(target,state with{Curse=curse});target.AIObject?.AITimer.Prod();return true;
+        NecromancerEffects.Profiles.Store(target,state with{Curse=curse});target.AIObject?.AITimer.Prod();
+        BarbarianCryVisuals.Contact(owner, CombatAbility.Taunt, target.Location, target.Map, at);
+        return true;
     }
 }

@@ -26,12 +26,20 @@ internal static class MageOffensiveSkills
         // or reallocating another secondary's probability interval.
         var choice=Select(actor.MageElement,MagePetBuffs.HardRank(actor),ability=>ability is CombatAbility.StaticField or CombatAbility.ChainLightning or CombatAbility.GlacialSpike || ability==CombatAbility.Meteor&&FireGround.Ready(actor,ability,at),
             ()=>NecromancerMageMissiles.ActorLimited(actor,100));
-        if(choice==CombatAbility.Meteor){return FireGround.CastNpcMeteor(actor,target,at)>0;}
-        if(choice==CombatAbility.GlacialSpike){return NecromancerMageMissiles.LaunchGlacial(actor,target,at)>0;}
-        if(choice==CombatAbility.ChainLightning)
-        {return ChainLightning.CastNpc(actor,target.Location,MagePetBuffs.Values(CombatAbility.ChainLightning,10,actor.Level),at)>0;}
-        if(choice==CombatAbility.StaticField)
-        {return StaticFields.Cast(actor,owner,MagePetBuffs.Values(CombatAbility.StaticField,5,actor.Level));}
-        return NecromancerMageMissiles.Launch(actor,target,at)>0;
+        if (choice == CombatAbility.None) { return NecromancerMageMissiles.Launch(actor, target, at) > 0; }
+        bool released = choice switch
+        {
+            CombatAbility.Meteor => FireGround.CastNpcMeteor(actor, target, at) > 0,
+            CombatAbility.GlacialSpike => NecromancerMageMissiles.LaunchGlacial(actor, target, at) > 0,
+            CombatAbility.ChainLightning => ChainLightning.CastNpc(actor, target.Location,
+                MagePetBuffs.Values(CombatAbility.ChainLightning, 10, actor.Level), at) > 0,
+            _ => StaticFields.Cast(actor, owner, MagePetBuffs.Values(CombatAbility.StaticField, 5, actor.Level))
+        };
+        // Meteor's shared warning already plays its release cue.
+        if (released && choice != CombatAbility.Meteor)
+        {
+            actor.PlaySound(SorceressVisuals.CastSound(choice));
+        }
+        return released;
     }
 }

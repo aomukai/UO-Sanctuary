@@ -30,7 +30,7 @@ internal static class PlayerHydras
         if(NecromancerEffects.ManaBalance256(owner)<values.Mana256){return false;}
         if(!Hydras.Commit(owner,aim,birth,TimedEffects.Now)){return false;}
         if(!NecromancerEffects.Pay(owner,values.Mana256)){throw new InvalidOperationException("Hydra mana changed during synchronous creation");}
-        owner.PlaySound(0x1E5);return true; // Identified cast placeholder; no local delay.
+        owner.PlaySound(SpellEffectSounds.HydraSummon);return true;
     }
     internal static PreparedMonsterDamageResult Deliver(HydraBody body,BaseCreature target,int raw,DateTime at)
     {
@@ -64,7 +64,7 @@ public static partial class Hydras
                 {Source=new(body.Serial.Value,birth,HydraControl.Start(250,seed),at.AddMilliseconds(40),new(0,0))};
             var oldest=_heads.Values.Where(x=>x.Owner==owner.Serial.Value&&x.Source?.NpcOwner==null).OrderBy(x=>x.Id).ToArray();
             foreach(var old in oldest.Take(Math.Max(0,oldest.Length+1-birth.MaximumHeads))){Retire(old,at);}
-            _heads.Add(id,head);any=true;
+            _heads.Add(id,head);body.Present(head,at);any=true;
         }
         return any;
     }
@@ -132,6 +132,12 @@ public static partial class Hydras
         {
             if(ResponsibleOwner(h)==null||h.Source.RetireUtc<=at&&!_bolts.Values.Any(x=>x.Head==h.Id))
             {RemoveSource(h);}
+            else if (World.FindMobile((Serial)h.Source.Actor) is HydraBody body) { body.Present(h, at); }
+        }
+        foreach (var h in _heads.Values)
+        {
+            if (h.Source != null && (!onlyOwner.HasValue || h.Owner == onlyOwner)
+                && World.FindMobile((Serial)h.Source.Actor) is HydraBody body) { body.Present(h, at); }
         }
     }
     private static HydraBolt StepHead(HydraHead head,DateTime at,bool? actions)
@@ -182,7 +188,9 @@ public static partial class Hydras
         var v=MissileVectors.VelocityFp8(dx,dy,velocity);var ends=HydraCreation.Fire(head.Source.Birth,slow);
         var bolt=new HydraBolt(checked(++_nextId),head.Id,head.Owner,head.Map,head.X,head.Y,head.Z,v.X,v.Y,0,ends.Min,ends.Max,head.Pierce,at.AddMilliseconds(1200),at.AddMilliseconds(40))
             {Source=new(body.Serial.Value,new([new((int)(head.X*2),(int)(head.Y*2))]),slow,head.Source.NpcOwner==null?SourceRandom.InitLow(Blazes.SeedLow()):NpcWorldAllocation.UnitSeed(),body.Serial.Value,velocity)};
-        _bolts.Add(bolt.Id,bolt);return bolt;
+        _bolts.Add(bolt.Id,bolt);
+        body.PlaySound(SpellEffectSounds.HydraDischarge);
+        return bolt;
     }
     private static void StepBolt(HydraBolt bolt,DateTime at,bool? actions)
     {
@@ -219,15 +227,21 @@ public static partial class Hydras
                 next=next with{Source=next.Source with{LastCollision=target}};SorceressEffects.MissileHit(body,t,"hydra");
                 if(!SourceBlocking.TryBlock(t,false,out bool blocked)){throw new NotSupportedException("Hydra recipient spell-block supplier is not mapped");}
                 ulong seed=next.Source.Seed;int raw=SorceressSpellMissiles.Roll(bolt.Min256,bolt.Max256,seed,out seed);next=next with{Source=next.Source with{Seed=seed}};
-                if(!blocked&&!ClassAvoidance.Missile(t,"hydra")){PlayerHydras.Deliver(body,t,raw,bolt.NextUtc);}
+                if(!blocked&&!ClassAvoidance.Missile(t,"hydra"))
+                {
+                    var point = t.Location;
+                    PlayerHydras.Deliver(body,t,raw,bolt.NextUtc);
+                    BoltImpact(point, body.Map);
+                }
             }
+            else { BoltImpact(BoltPosition(bolt), body.Map); }
             return 2;
         }
         var result=BasicMissileUpdate.Run(new(true,true,s.VelocityFp8,remaining,2,30,true),new(Move,r=>{remaining=r;next=next with{Frame=30-r};},()=>true,()=>true,()=>64,()=>next.Source.Steps.Cells,
             cell=>Wall(cell)?4:Find(cell)!=null?1:0,cell=>Find(cell)?.Serial.Value??0,Hit));
         if(removed||barrier||result.Result==2){_bolts.Remove(bolt.Id);return;}
         _bolts[bolt.Id]=next with{NextUtc=bolt.NextUtc.AddMilliseconds(40)};
-        if(next.Frame%2==0){Effects.SendLocationEffect(new Point3D((int)Math.Round(next.X),(int)Math.Round(next.Y),next.Z),body.Map,0x36D4,3,10,0x489,0);} // Identified bolt placeholder.
+        if(next.Frame%2==0){BoltVisual(next,body.Map);}
     }
     private static bool Position(uint owner,int map,double x,double y,int z)=>((Serial)owner).IsMobile&&map>=0&&map<Map.Maps.Length&&Map.Maps[map]!=null&&Map.Maps[map]!=Map.Internal
         &&double.IsFinite(x+y)&&x>0&&y>0&&x<Map.Maps[map].Width&&y<Map.Maps[map].Height&&z is >=-128 and <=127;

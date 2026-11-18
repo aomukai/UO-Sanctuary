@@ -969,7 +969,8 @@ def build():
         assert release['referenceVersion']=='3.3.93847'
         assert release['completedClasses']==ORDER
         assert set(release['talentIds'])=={r['talentId'] for r in result}
-        for name,digest in release['productionSources'].items():
+        source_hashes = release['productionSources'] | release.get('presentationSourceBridges', {})
+        for name,digest in source_hashes.items():
             assert hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==digest,('Release evidence needs review',name)
         assert all(r['implementation']=='handler-present' for r in result)
         for entry in result:
@@ -1133,10 +1134,12 @@ def assets(kind):
         'This register is independent of mechanical completion. No final assets have been generated or installed in this pass. '
         'Keep the original prompt/source image, transparency, scale/directional frames, timing, client mapping and actual-client verification with each eventual asset.','']
     if kind=='icons':
-        lines += ['Text labels are explicitly marked placeholders in the talent/skill panels and hotkey tooltips. '
-                  'Each talent needs a unique icon; passives do not need hotkey icons.','',
-                  '| Class | Skill | Talent tree icon | Hotkey icon |','| --- | --- | --- | --- |']
-        lines += [f"| {r['characterClass']} | {r['name']} | {r['talentIcon']} | {r['hotkeyIcon']} |" for r in rows]
+        lines += ['| Class | Skill | Artwork | Gump | Binding icon |','| --- | --- | --- | --- | --- |']
+        lines += [
+            f"| {r['characterClass']} | {r['name']} | {'UO' if r['generation'] == 'uo' else 'ImageGen'} "
+            f"| `{r['gumpId']}` | {'Yes' if r['hotkeyIcon'] == 'mapped' else 'Passive'} |"
+            for r in rows
+        ]
         lines += ['', 'Summon Tainted needs its talent-tree and right/quick-hotkey artwork. Internal Tainted Resist Fire (NPC420) and Tainted Fire Ball (NPC422) share the summon identity; they are not player-bindable and add no separate hotkey icons. Prepared numerical suppliers do not imply final icons or learned casting.']
     else:
         lines += ['Sanctuary presentation preference: visible damaging effects should match their active damaging lifetime. This is user taste, not D2R reference evidence; final assets must communicate the supported mechanics. See [reference precedence and recorded preference](skill-mechanical-reference.md#sanctuary-decisions-retained).','']
@@ -1146,8 +1149,14 @@ def assets(kind):
         lines += ['Existing UO bone/magic-arrow, cloud, curse-marker and summon bodies are temporary placeholders. '
                   'Names, damage type and mechanics are authoritative independently of their placeholder appearance. '
                   'Effect concepts for unimplemented skills are a source-derived backlog, not an implementation claim.','',
-                  '| Class | Skill | Effect work | Source cues |','| --- | --- | --- | --- |']
-        lines += [f"| {r['characterClass']} | {r['name']} | {r['effects']} | {', '.join(str(v) for v in r['sourceEffects'].values()) or ('Passive; no active effect' if r['effects']=='not-applicable' else 'No source effect cue; final presentation pending')} |" for r in rows]
+                  '| Class | Skill | Effect work | Current presentation or source cues |','| --- | --- | --- | --- |']
+        for row in rows:
+            cues = ', '.join(str(v) for v in row['sourceEffects'].values())
+            if row['effects'] == 'native':
+                cues = row['placeholder']
+            elif not cues:
+                cues = 'Passive; no active effect' if row['effects'] == 'not-applicable' else 'No source effect cue; final presentation pending'
+            lines.append(f"| {row['characterClass']} | {row['name']} | {row['effects']} | {cues} |")
         lines += ['', 'Smite currently uses ordinary UO weapon animation/sound and native get-hit animation20 as identified placeholders; final shield impact, stun and knockback presentation are pending. '
                   'Zeal currently uses ordinary UO weapon animation/sound for its timed series and approved low-mana ordinary attacks; final series accents and impacts are pending. '
                   'Both still need talent-tree and hotkey icons in the independent icon register. Leap currently uses native cast pose16/sound0x238 and mapped get-hit/knockback motion as identified placeholders; its final jump arc/landing effects and talent/hotkey icons remain separate pending assets. Double Throw uses native0xF42 projectile/0x238 sound placeholders pending per-weapon flight/impact effects and its separate talent/hotkey icon. Whirlwind uses native animation11/sound0x238 placeholders; final spinning body/trail/weapon impacts and its separate talent/hotkey icon remain pending.']

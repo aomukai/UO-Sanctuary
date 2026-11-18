@@ -50,6 +50,7 @@ internal static class DruidHunger
         // Refuse it rather than silently copying the old ignored-debit quirk.
         if(!NecromancerEffects.CanPay(owner,values.Mana256)){return false;}
         var target=(BaseCreature)World.FindMobile(pending.Target);owner.DoHarmful(target,true);
+        DruidFormEffects.Swing(owner, CombatAbility.Hunger);
         using var melee=CombatTiming.Equipped(owner) is{} weapon?WeaponHands.UseMelee(owner,weapon):null;
         bool hit=DruidWeaponContact.RollHit(owner,target,(int)values.Formula("toht"),HitRoll);
         bool blocked=false,blockAnimation=false;if(hit&&SourceBlocking.TryRoll(target,true,out blocked,out blockAnimation)&&blocked){hit=false;}
@@ -60,9 +61,12 @@ internal static class DruidHunger
             double roll=ElementRoll();var raw=DruidWeaponContact.Damage(owner,target,roll,physicalRoll:PhysicalRoll);
             packet=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,raw,physicalAfterCritical:ReducePhysical);
             drain=WeaponLeech.Capture(owner,new((int)values.Eval("calc2"),(int)values.Eval("calc3")));
-            owner.PlaySound(0x238); // Identified bite/contact audio placeholder; leech effect uses the shared placeholder.
         }
-        DruidWeaponContact.Release(owner,target,DruidWeaponContact.Capture(owner,target,hit,blocked,packet,drain,Effects),TimedEffects.Now);
+        var contact = DruidWeaponContact.Capture(owner,target,hit,blocked,packet,drain,Effects) with
+        {
+            PresentLeech = DruidFormEffects.HungerRecovery
+        };
+        DruidWeaponContact.Release(owner,target,contact,TimedEffects.Now,CombatAbility.Hunger);
         // No-start handler consumes mana after do122, so a full mana pool
         // cannot bank this bite's leech against its own payment.
         NecromancerEffects.Pay(owner,values.Mana256);

@@ -187,7 +187,10 @@ internal static partial class SorceressSpellMissiles
         var values=armor.Rank>0?SkillMechanics.Values(owner,CombatAbility.ChillingArmor,armor.Rank)
             :new SkillValues(SkillMechanics.For(CombatAbility.ChillingArmor),_=>1,_=>0,ClassStats.Level(owner));
         var prepared=Prepare(owner,point,values,TimedEffects.Now,reaction:armor);
-        Commit(prepared);return true; // Reactive emission has no additional mana.
+        Commit(prepared);
+        owner.FixedEffect(SpellEffectGraphics.ChillingArmorReply, 10, SpellEffectGraphics.WardFrames);
+        owner.PlaySound(SpellEffectSounds.IceBoltRelease);
+        return true; // Reactive emission has no additional mana.
     }
     // The child-seed factory is explicit: current original-item callback RNG
     // allocation is not inferred from the player/Mage SeedLow adapters.
@@ -296,6 +299,11 @@ internal static partial class SorceressSpellMissiles
         var pool=before.Flights;
         foreach(var flight in flights){pool=pool.Add(flight.Id,Copy(flight));}
         if(attempts!=0){_pool=new(pool,checked(before.NextId+attempts));}
+        if (ring && flights.Count > 0)
+        {
+            var origin = flights[0];
+            ShowRing(ability, new Point3D((int)origin.X, (int)origin.Y, origin.Z), actor.Map);
+        }
         return new(result,attempts,flights.Select(f=>f.Id).ToArray());
     }
     internal static void CommitValkyrie(SorceressSpellFlight[] flights)
@@ -312,6 +320,11 @@ internal static partial class SorceressSpellMissiles
             pool=pool.Add(f.Id,Copy(f));
         }
         _pool=new(pool,flights[^1].Id);
+        if (Ring(flights[0].Ability))
+        {
+            var origin = flights[0];
+            ShowRing(origin.Ability, new Point3D((int)origin.X, (int)origin.Y, origin.Z), Map.Maps[origin.Map]);
+        }
     }
     internal static long Commit(SorceressSpellFlight flight)
     {
@@ -336,20 +349,33 @@ internal static partial class SorceressSpellMissiles
     {
         var prepared=PrepareCharged(owner,point,values,TimedEffects.Now);
         if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
-        foreach(var flight in prepared){Commit(flight);}owner.PlaySound(0x1E5);return true;
+        foreach(var flight in prepared){Commit(flight);}owner.PlaySound(SorceressVisuals.CastSound(values.Ability));return true;
     }
     internal static bool CastRing(PlayerMobile owner,SkillValues values)
     {
         var prepared=PrepareRing(owner,values,TimedEffects.Now);
         if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
-        foreach(var flight in prepared){Commit(flight);}owner.PlaySound(0x1E5);return true; // Identified cast placeholder.
+        foreach (var flight in prepared) { Commit(flight); }
+        ShowRing(values.Ability, owner.Location, owner.Map);
+        if (values.Ability == CombatAbility.Nova)
+        {
+            owner.FixedEffect(SpellEffectGraphics.NovaCast, 10, SpellEffectGraphics.UtilityDuration);
+        }
+        owner.PlaySound(SorceressVisuals.CastSound(values.Ability));
+        return true;
+    }
+    private static void ShowRing(CombatAbility ability, Point3D origin, Map map)
+    {
+        bool frost = ability == CombatAbility.FrostNova;
+        Effects.SendLocationEffect(origin, map, frost ? SpellEffectGraphics.FrostNovaRing : SpellEffectGraphics.NovaRing,
+            frost ? SpellEffectGraphics.FrostNovaDuration : SpellEffectGraphics.NovaDuration);
     }
     internal static bool Cast(PlayerMobile owner,Point3D point,SkillValues values)
     {
         // Preparation publishes no flight;lost mana cannot emit a packet.
         var flight=Prepare(owner,point,values,TimedEffects.Now);
         if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
-        Commit(flight);owner.PlaySound(0x1E5);return true; // Identified cast placeholder.
+        Commit(flight);owner.PlaySound(SorceressVisuals.CastSound(values.Ability));return true;
     }
     private static SorceressSpellFlight Copy(SorceressSpellFlight s)=>s with{Steps=new(s.Steps.Cells.ToArray()),Charged=s.Charged is{} c?c with{Path=c.Path.ToArray()}:null};
     internal static SorceressSpellSave Snapshot()
@@ -361,10 +387,21 @@ internal static partial class SorceressSpellMissiles
     internal static bool Ready(long cast,uint target,DateTime at)=>!Leases.TryGetValue((cast,target),out var lease)||lease.UntilUtc<=at;
     internal static int Impact(PlayerMobile owner,Mobile target,SorceressSpellFlight flight,out ulong seed)
     {
-        if(flight.Npc!=null){return NpcItemSpellFlights.Impact(owner,target,flight,out seed);}
+        if (flight.Npc != null)
+        {
+            int npcLoss = NpcItemSpellFlights.Impact(owner, target, flight, out seed);
+            if (npcLoss > 0 && flight.Ability is CombatAbility.ChargedBolt or CombatAbility.IceBolt or CombatAbility.FrostNova
+                or CombatAbility.FireBolt or CombatAbility.Nova)
+            {
+                SorceressVisuals.Impact(target, flight.Ability);
+            }
+            return npcLoss;
+        }
         int raw=Roll(flight,out seed);
         var profile=Profile(flight.Ability);
-        return ImpactPrepared(owner,target,profile.Key,profile.Element,raw,flight.Modifiers,flight.NextUtc,flight.ColdFrames,profile.DamageFunction==4,profile.DamageRate);
+        int loss = ImpactPrepared(owner,target,profile.Key,profile.Element,raw,flight.Modifiers,flight.NextUtc,flight.ColdFrames,profile.DamageFunction==4,profile.DamageRate);
+        if (loss > 0) { SorceressVisuals.Impact(target, flight.Ability); }
+        return loss;
     }
     internal static int ImpactPrepared(PlayerMobile owner,Mobile target,string key,string element,int raw,FirestormModifiers captured,DateTime at,int coldFrames=0,bool freeze=false,int damageRate=0,bool? missileReaction=null)
     {
@@ -414,7 +451,14 @@ internal static partial class SorceressSpellMissiles
             int loss=SkillHealth.TypedDamage(owner,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));
             if(target is BaseCreature creature){CreatureHitRecovery.Apply(creature,owner,loss);}CombatDamage.Finish(target,owner);
         });
-        Effects.SendLocationEffect(center,owner.Map,profile.Element=="fire"?0x36BD:0x36E4,8,10,profile.Element=="fire"?0x489:0x480,0); // Identified shared explosion placeholders.
+        if (flight.Ability == CombatAbility.GlacialSpike)
+        {
+            GlacialSpikes.Burst(center, owner.Map);
+        }
+        else
+        {
+            Effects.SendLocationEffect(center, owner.Map, 0x36BD, 8, 10, 0x489);
+        }
     }
     private static void Advance(SorceressSpellFlight flight,DateTime at,bool? actions)
     {
@@ -493,7 +537,40 @@ internal static partial class SorceressSpellMissiles
         if(removed||barrier||result.Result==2){Remove(flight.Id);return;}
         // A reactive consumer may have cleared the owner's flights.
         if(_pool.Flights.ContainsKey(flight.Id)){_pool=_pool with{Flights=_pool.Flights.SetItem(flight.Id,next)};}
-        if(frame%2==0&&(!ring||flight.RadialIndex%8==0)){bool cold=Profile(flight.Ability).Element=="cold",lightning=Profile(flight.Ability).Element=="ltng";Effects.SendLocationEffect(new((int)Math.Round(next.X),(int)Math.Round(next.Y),flight.Z),map,lightning?0x3818:cold?0x36E4:0x36D4,2,10,lightning?0x482:cold?0x480:0x489,0);} // Identified shared bolt placeholders.
+        var visiblePoint = new Point3D((int)Math.Round(next.X), (int)Math.Round(next.Y), flight.Z);
+        if (flight.Ability == CombatAbility.Lightning)
+        {
+            int graphic = SorceressVisuals.DirectionalFrame(SpellEffectGraphics.LightningFlight, next.Vx, next.Vy, frame / 2);
+            Effects.SendLocationEffect(visiblePoint, map, graphic, 3);
+        }
+        else if (frame % 2 == 0 && flight.Ability == CombatAbility.ChargedBolt)
+        {
+            int graphic = SorceressVisuals.DirectionalFrame(SpellEffectGraphics.ChargedBoltFlight,
+                next.X - flight.X, next.Y - flight.Y, frame / 2);
+            Effects.SendLocationEffect(visiblePoint, map, graphic, 2);
+        }
+        else if (flight.Ability == CombatAbility.FireBolt)
+        {
+            int graphic = SorceressVisuals.DirectionalFrame(SpellEffectGraphics.FireBoltFlight, next.Vx, next.Vy, frame / 2);
+            Effects.SendLocationEffect(visiblePoint, map, graphic, 1);
+        }
+        else if (frame % 2 == 0 && !ring)
+        {
+            if (SorceressVisuals.ProjectileGraphic(flight.Ability, next.Vx, next.Vy, frame / 2) is { } projectile)
+            {
+                int duration = flight.Ability == CombatAbility.Inferno ? 3 : 2;
+                Effects.SendLocationEffect(visiblePoint, map, projectile, duration);
+                return;
+            }
+            string element = Profile(flight.Ability).Element;
+            var (graphic, hue) = element switch
+            {
+                "cold" => (0x36E4, 0x480),
+                "ltng" => (0x3818, 0x482),
+                _ => (0x36D4, 0x489)
+            };
+            Effects.SendLocationEffect(visiblePoint, map, graphic, 2, 10, hue);
+        }
     }
     internal static void Tick(DateTime at,bool? actions=null,long? onlyId=null)
     {

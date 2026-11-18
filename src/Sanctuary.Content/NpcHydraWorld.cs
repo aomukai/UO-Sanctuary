@@ -54,13 +54,17 @@ public static partial class Hydras
             if(!Position(owner.Serial.Value,map.MapID,x,y,request.Z)||!map.CanFit(tile,1,false,false,true)){return false;}
             var allocation=allocate?.Invoke(request)??new NpcItemSpellAllocation(true,NpcWorldAllocation.UnitSeed());
             if(!allocation.Allocated){return false;}if(allocation.Seed==0){throw new NotSupportedException("NPC Hydra needs its explicit nonzero private head seed");}
-            original??=birth;if(group==0){group=checked(++_nextId);}long id=checked(++_nextId);var body=new HydraBody();body.Attach(id,caster);
+            bool first = group == 0;
+            original??=birth;if(first){group=checked(++_nextId);}long id=checked(++_nextId);var body=new HydraBody();body.Attach(id,caster);
             try{body.MoveToWorld(tile,map);}catch{body.Delete();throw;}if(body.Deleted){return false;}
             var ends=HydraCreation.Fire(birth.Birth,SlowMissilePayload.Normal);var source=new HydraHeadSource(body.Serial.Value,birth.Birth,HydraControl.Start(250,allocation.Seed),at.AddMilliseconds(40),new(0,0))
                 {NpcOwner=new(birth.Caster,birth.Binding)};
             var head=new HydraHead(id,group,request.Index,owner.Serial.Value,birth.Birth.Rank,map.MapID,x,y,request.Z,ends.Min,ends.Max,
                 birth.Birth.Passive("passive_fire_pierce"),allocation.Seed,request.ExpiryUtc,at.AddMilliseconds(1000),default,0){Source=source};
-            ValidateSource(head);_heads.Add(id,head);return true;
+            ValidateSource(head);_heads.Add(id,head);
+            body.Present(head, at);
+            if (first) { caster.PlaySound(SpellEffectSounds.HydraSummon); }
+            return true;
         };
     }
 }

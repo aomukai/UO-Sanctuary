@@ -153,7 +153,8 @@ public static class SourceTerror
         var ai=new TerrorAi(CombatAbility.Howl,rank,target.Map.MapID,false,source.Serial.Value,0,at.AddMilliseconds(40));
         NecromancerEffects.Profiles.Store(target,state with{Curse=new(CombatAbility.Terror,source.Serial.Value,1,at.AddMilliseconds(frames*40L),source.X,source.Y,Terror:ai)});
         if(TimedEffects.TryActor(target,out var actor) && actor.Control is{} control){actor.Control=control with{BlindUntil=default,FearUntil=default};}
-        target.AIObject?.AITimer.Prod();target.FixedEffect(0x375A,10,15,0x21,0); // Identified fear marker placeholder.
+        target.AIObject?.AITimer.Prod();
+        BarbarianCryVisuals.Contact(source, CombatAbility.Howl, target.Location, target.Map, at);
         source.DoHarmful(target);return true;
     }
     internal static (int X,int Y) Fallback(int branch,int offset,bool flipX,bool flipY)

@@ -46,7 +46,7 @@ internal static class DruidCreeperCasting
         if(created==null){return false;}
         if(!NecromancerEffects.Pay(owner,values.Mana256)){created.Delete();return false;}
         DruidVines.Replace(owner,created);body=created;
-        owner.PlaySound(0x1E5); // Identified druid_summon audio placeholder.
+        DruidSummonVisuals.Arrive(created);
         return true;
     }
 }

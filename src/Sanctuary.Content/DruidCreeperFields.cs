@@ -74,7 +74,8 @@ internal static class DruidCreeperFields
     }
     internal static CreeperFields Step(CreeperFields state,bool actions,Func<double,double,int,bool> blocked,
         Func<CreeperMat,uint> recipient,Func<uint,bool> hostile,Func<CreeperHead,bool> createMat=null,bool hasOwner=true,
-        Func<CreeperMat,CreeperMat> initializeMat=null,Func<CreeperMat,uint,CreeperMat> deliver=null)
+        Func<CreeperMat,CreeperMat> initializeMat=null,Func<CreeperMat,uint,CreeperMat> deliver=null,
+        Action<CreeperHead,double,double> observeHead=null)
     {
         Validate(state);state=Current(state);Route();ArgumentNullException.ThrowIfNull(blocked);ArgumentNullException.ThrowIfNull(recipient);ArgumentNullException.ThrowIfNull(hostile);
         var heads=new List<CreeperHead>();var mats=new List<CreeperMat>();var created=new List<CreeperMat>();
@@ -111,7 +112,11 @@ internal static class DruidCreeperFields
             var trace=SourceMissileSteps.Advance(head.X,head.Y,x-head.X,y-head.Y,new([]));
             bool wall=trace.Cells.Any(cell=>blocked(cell.X/2.0,cell.Y/2.0,head.Z));
             if(remaining>0 && !wall && moved.Next<head.Path.Length)
-            {heads.Add(head with{X=x,Y=y,Next=moved.Next,Remaining=remaining});}
+            {
+                var next=head with{X=x,Y=y,Next=moved.Next,Remaining=remaining};
+                heads.Add(next);
+                observeHead?.Invoke(next, x - head.X, y - head.Y);
+            }
         }
         mats.AddRange(created);var result=state with{Heads=heads.ToArray(),Mats=mats.ToArray(),NextId=id,Contacts=contacts,LastVictim=victim};Validate(result);return result;
     }

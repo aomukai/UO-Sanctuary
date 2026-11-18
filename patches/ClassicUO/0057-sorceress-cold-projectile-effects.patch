@@ -1,0 +1,91 @@
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -106,7 +106,11 @@
+                             => SpellEffectGraphics.MeteorFrames,
+                         SpellEffectGraphics.BlizzardFall => SpellEffectGraphics.BlizzardFallFrames,
+                         SpellEffectGraphics.BlizzardContact or SpellEffectGraphics.FrozenOrbBurst
+-                            or SpellEffectGraphics.FrozenOrbContact => SpellEffectGraphics.ColdFrames,
++                            or SpellEffectGraphics.FrozenOrbContact or SpellEffectGraphics.IceBoltContact
++                            or SpellEffectGraphics.IceBlastContact or SpellEffectGraphics.GlacialSpikeBurst
++                            or SpellEffectGraphics.FrostNovaRing or SpellEffectGraphics.FrostNovaContact
++                            or SpellEffectGraphics.Chilled or SpellEffectGraphics.Frozen or SpellEffectGraphics.ColdCorpseShatter
++                            or SpellEffectGraphics.Thaw => SpellEffectGraphics.ColdFrames,
+                         SpellEffectGraphics.TeethContact or SpellEffectGraphics.BoneSpiritBurst
+                             => SpellEffectGraphics.NecromancerFrames,
+                         SpellEffectGraphics.AbyssOpen or SpellEffectGraphics.AbyssField or SpellEffectGraphics.AbyssPull
+@@ -121,7 +125,7 @@
+                     if (spellFrames > 0)
+                     {
+                         bool oneShot = Graphic is not (SpellEffectGraphics.MeteorWarning or SpellEffectGraphics.MeteorFire
+-                            or SpellEffectGraphics.AbyssField);
++                            or SpellEffectGraphics.AbyssField) && !SpellEffectGraphics.IsColdStatus(Graphic);
+                         AnimationGraphic = (ushort)(Graphic + AnimIndex);
+                         if (AnimIndex < spellFrames - 1) { AnimIndex++; }
+                         else if (!oneShot) { AnimIndex = 0; }
+@@ -137,6 +141,10 @@
+                                 or SpellEffectGraphics.StaticFieldLarge or SpellEffectGraphics.ThunderStormStrike
+                                 => 2 * Constants.ITEM_EFFECT_ANIMATION_DELAY,
+                             SpellEffectGraphics.ThunderStormCharge => 3 * Constants.ITEM_EFFECT_ANIMATION_DELAY,
++                            SpellEffectGraphics.GlacialSpikeBurst => 90,
++                            SpellEffectGraphics.ColdCorpseShatter => 80,
++                            SpellEffectGraphics.FrostNovaRing => 130,
++                            SpellEffectGraphics.Chilled or SpellEffectGraphics.Frozen => 120,
+                             _ => Constants.ITEM_EFFECT_ANIMATION_DELAY
+                         };
+                         NextChangeFrameTime = (long)Time.Ticks + interval;
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -118,7 +118,7 @@
+             Vector3 hueVec = ShaderHueTranslator.GetHueVector(hue, data.IsPartialHue, data.IsTranslucent ? .5f : 1f, effect: true);
+ 
+             if (Graphic is Sanctuary.SpellEffectGraphics.StaticFieldSmall or Sanctuary.SpellEffectGraphics.StaticFieldMedium
+-                or Sanctuary.SpellEffectGraphics.StaticFieldLarge)
++                or Sanctuary.SpellEffectGraphics.StaticFieldLarge or Sanctuary.SpellEffectGraphics.FrostNovaRing)
+             {
+                 DrawGroundRing(batcher, posX + 22, posY + 12, hueVec, depth);
+                 return true;
+--- a/src/ClassicUO.Client/Game/Managers/EffectManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+@@ -70,6 +70,32 @@
+ 
+             duration *= Constants.ITEM_EFFECT_ANIMATION_DELAY;
+ 
++            if (type == GraphicEffectType.FixedFrom && SpellEffectGraphics.IsColdStatus(graphic))
++            {
++                // Renew the existing attachment without restarting its animation.
++                for (GameEffect attached = (GameEffect)Items; attached != null; attached = (GameEffect)attached.Next)
++                {
++                    if (attached.Graphic == graphic && !attached.IsDestroyed
++                        && attached.Source is Entity entity && entity.Serial == source)
++                    {
++                        if (duration > 0)
++                        {
++                            attached.Duration = Time.Ticks + duration;
++                        }
++                        else
++                        {
++                            attached.Destroy();
++                        }
++                        return;
++                    }
++                }
++
++                if (duration == 0 || _world.Get(source) is not Mobile)
++                {
++                    return;
++                }
++            }
++
+             switch (type)
+             {
+                 case GraphicEffectType.Moving:
+@@ -168,7 +194,8 @@
+ 
+                     // Bone Spirit gets a position sample every 80 ms. Avoid rendering two
+                     // full skulls while the previous sample times out at the native 100 ms.
+-                    if (graphic is >= SpellEffectGraphics.BoneSpiritFlight and < SpellEffectGraphics.BoneSpiritBurst)
++                    if (graphic is >= SpellEffectGraphics.BoneSpiritFlight and < SpellEffectGraphics.BoneSpiritBurst
++                        || SpellEffectGraphics.IsColdProjectile(graphic))
+                     {
+                         duration = 75;
+                     }

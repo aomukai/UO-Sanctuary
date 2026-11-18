@@ -106,21 +106,26 @@ public static class BarbarianWhirlwind
             weapons.Primary,weapons.Secondary,0,3,false,6*256,0,false,false,TimedEffects.Now.AddMilliseconds(40));
         _flights.Add(owner.Serial.Value,state);action.PendingAbility=CombatAbility.Whirlwind;action.PendingPoint=aim;action.PendingTarget=Serial.Zero;
         action.Animation=11;action.Timing=new(Math.Max(1,path.Length*6),3);action.NextAction=now+40;
-        owner.RevealingAction();owner.Direction=owner.GetDirectionTo(aim);owner.PlaySound(0x238); // Identified native spin/sound placeholders.
+        owner.RevealingAction();owner.Direction=owner.GetDirectionTo(aim);
+        BarbarianMotionVisuals.WhirlwindSpin(owner, state.Frame);
         ClassCombat.SendAnimation(owner,11,action.Timing.DurationMs);owner.Animate(11,5,1,true,true,0);ClassCombat.SendState(owner,action);return true;
     }
     private static void Clear(PlayerMobile owner,WhirlwindFlight state)
     {
         _flights.Remove(state.Owner);
         if(World.FindMobile((Serial)state.Reservation) is SkillLandingReservation marker && marker.Owner==state.Owner){marker.Delete();}
-        if(owner is not{Deleted:false}){return;}var action=ClassCombat.For(owner);
+        if(owner is not{Deleted:false}){return;}
+        BarbarianMotionVisuals.WhirlwindClear(owner);
+        var action=ClassCombat.For(owner);
         if(action.PendingAbility==CombatAbility.Whirlwind){action.PendingAbility=CombatAbility.None;action.NextAction=Core.TickCount;}
         owner.NetState?.ResetMovementState();ClassCombat.SendState(owner,action);
     }
     private static void End(PlayerMobile owner,WhirlwindFlight state)
     {
         if(_flights.TryGetValue(state.Owner,out var current) && current.DelayedDeath){state=state with{DelayedDeath=true};}
-        Clear(owner,state);if(state.DelayedDeath && owner is{Alive:true,Deleted:false}){owner.Kill();}
+        Clear(owner,state);
+        if (state.DelayedDeath && owner is { Alive: true, Deleted: false }) { owner.Kill(); }
+        else { BarbarianMotionVisuals.WhirlwindEnd(owner, state); }
     }
     internal static void ExternalMove(PlayerMobile owner)
     {if(!ChargeMotion.Active(owner) && State(owner) is{} state){End(owner,state);}}
@@ -169,7 +174,12 @@ public static class BarbarianWhirlwind
                         contact=contact with{Flags=contact.Flags|(hit?SkillMechanics.For(CombatAbility.Whirlwind).Number("ResultFlags"):0),
                             HitClass=hit?SkillMechanics.For(CombatAbility.Whirlwind).Number("HitClass"):0,HitFlags=hit?(uint)SkillMechanics.For(CombatAbility.Whirlwind).Number("HitFlags"):0u,
                             AttemptScoped=true,UninterruptibleItemCasts=active,ActiveSourceMode=active};
-                        PlayerWeaponContact.Release(owner,target,contact,TimedEffects.Now,true);
+                        var point = target.Location;
+                        var map = target.Map;
+                        var at = TimedEffects.Now;
+                        var result = PlayerWeaponContact.Release(owner, target, contact, at, true);
+                        if (result.Commit is { Packet.ReactionSettled: false })
+                        { BarbarianMotionVisuals.WhirlwindImpact(owner, point, map, at); }
                     }
                     catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);}
                 }
@@ -180,7 +190,12 @@ public static class BarbarianWhirlwind
                     owner.DoHarmful(other,true);var values=SkillMechanics.Values(owner,CombatAbility.Whirlwind);
                     using var attempted=PaladinThorns.Attempt(owner,other,false);
                     if(ClassStats.CheckHit(owner,other,(int)values.Formula("toht"),HitRoll)==true)
-                    {GearEffects.Strike(owner,other,ElementRoll(),Effects,skillPhysicalPercent:(int)values.Eval("calc1"),physicalRoll:PhysicalRoll);}
+                    {
+                        var point = other.Location;
+                        var map = other.Map;
+                        if (GearEffects.Strike(owner,other,ElementRoll(),Effects,skillPhysicalPercent:(int)values.Eval("calc1"),physicalRoll:PhysicalRoll) > 0)
+                        { BarbarianMotionVisuals.WhirlwindImpact(owner, point, map, TimedEffects.Now); }
+                    }
                 }
             }
             finally{scope?.Dispose();}
@@ -208,6 +223,7 @@ public static class BarbarianWhirlwind
             {End(owner,state);continue;}
             if(now<state.NextUtc){continue;}
             state=state with{Frame=state.Frame+1,NextUtc=now.AddMilliseconds(40),Distance16=state.Distance16+(long)state.Velocity256*8};_flights[id]=state;
+            BarbarianMotionVisuals.WhirlwindSpin(owner, state.Frame);
             var action=ClassCombat.For(owner);action.PendingAbility=CombatAbility.Whirlwind;action.NextAction=Core.TickCount+40;
             if(state.Frame>=state.NextHit)
             {state=Pulse(owner,state);if(!_flights.ContainsKey(id)){continue;}_flights[id]=state;}
@@ -217,6 +233,7 @@ public static class BarbarianWhirlwind
                 var next=state.Path[state.Index];int cost=next.X!=owner.X && next.Y!=owner.Y?92682:65536;
                 if(state.Distance16<cost){break;}
                 if(!ChargeMotion.TryStep(owner,owner.GetDirectionTo(next),p=>p==next && LeapTerrain.Allowed(owner,owner.Map,p),true)){blocked=true;break;}
+                BarbarianMotionVisuals.WhirlwindWake(owner, state.Position, now);
                 if(_flights.TryGetValue(id,out var current)){state=state with{DelayedDeath=current.DelayedDeath};}
                 state=state with{Position=owner.Location,Index=state.Index+1,Distance16=state.Distance16-cost};_flights[id]=state;
             }

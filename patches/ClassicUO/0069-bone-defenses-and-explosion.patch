@@ -1,0 +1,129 @@
+diff --git a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -156,6 +156,8 @@
+                         _ when SpellEffectGraphics.IsAmazonAvoidance(Graphic) => SpellEffectGraphics.AmazonAvoidanceFrames,
+                         >= SpellEffectGraphics.CurseAmplify and <= SpellEffectGraphics.IronMaidenReturn
+                             => SpellEffectGraphics.CurseFrames,
++                        SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.BoneArmorBreak or SpellEffectGraphics.CorpseExplosion
++                            => SpellEffectGraphics.BoneEffectFrames,
+                         _ when SpellEffectGraphics.IsEnchantAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ when SpellEffectGraphics.IsWardAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ => 0
+@@ -168,7 +170,8 @@
+                             && !SpellEffectGraphics.IsAmazonUtilityLoop(Graphic)
+                             && !SpellEffectGraphics.IsCurseMark(Graphic)
+                             && !SpellEffectGraphics.IsColdStatus(Graphic) && !SpellEffectGraphics.IsSorceressWard(Graphic)
+-                            && Graphic is not (SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow);
++                            && Graphic is not (SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow
++                                or SpellEffectGraphics.BoneArmorWard);
+                         AnimationGraphic = (ushort)(Graphic + AnimIndex);
+                         if (AnimIndex < spellFrames - 1) { AnimIndex++; }
+                         else if (!oneShot) { AnimIndex = 0; }
+@@ -201,6 +204,9 @@
+                             _ when SpellEffectGraphics.IsAmazonUtilityLoop(Graphic) => 155,
+                             _ when SpellEffectGraphics.IsCurseMark(Graphic) => 130,
+                             >= SpellEffectGraphics.CurseCast and <= SpellEffectGraphics.IronMaidenReturn => 75,
++                            SpellEffectGraphics.BoneArmorWard => 145,
++                            SpellEffectGraphics.BoneArmorBreak => 80,
++                            SpellEffectGraphics.CorpseExplosion => 100,
+                             >= SpellEffectGraphics.InnerSightCast and <= SpellEffectGraphics.ValkyrieFade => 90,
+                             SpellEffectGraphics.BlazeCast or SpellEffectGraphics.BlazeFade or SpellEffectGraphics.FireWallFade => 70,
+                             _ when SpellEffectGraphics.IsSorceressWard(Graphic) => 145,
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -117,6 +117,8 @@
+                 && (Sanctuary.SpellEffectGraphics.IsWardAnimation(Graphic)
+                     || Sanctuary.SpellEffectGraphics.IsEnchantAnimation(Graphic)
+                     || Sanctuary.SpellEffectGraphics.IsAmazonAvoidance(Graphic)
++                    || Graphic is SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.BoneArmorBreak
++                        or SpellEffectGraphics.BoneArmorCatch
+                     || Graphic is Sanctuary.SpellEffectGraphics.NovaCast or Sanctuary.SpellEffectGraphics.NovaContact
+                         or Sanctuary.SpellEffectGraphics.TelekinesisCast or Sanctuary.SpellEffectGraphics.TelekinesisContact))
+             {
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+@@ -26,6 +26,15 @@
+ 
+         private ushort _hydraFrame;
+         private Point _hydraOffset;
++        private ushort _boneBarrierGraphic;
++
++        internal void SetBoneBarrierAppearance(ushort graphic)
++        {
++            if (Client.Game.UO.Arts.GetArt(graphic).Texture != null)
++            {
++                _boneBarrierGraphic = graphic;
++            }
++        }
+ 
+         private const int AvoidanceMilliseconds = 200;
+         private uint _avoidanceStart;
+@@ -81,6 +90,15 @@
+                     DrawStaticRotated(batcher, _hydraFrame, posX + _hydraOffset.X, posY + _hydraOffset.Y,
+                         0f, hue, depth + _hydraOffset.Y / 44f);
+                 }
++                return true;
++            }
++
++            if (_boneBarrierGraphic != 0)
++            {
++                ref readonly var art = ref Client.Game.UO.Arts.GetArt(_boneBarrierGraphic);
++                FrameInfo = new Rectangle(art.UV.Width / 2, art.UV.Height - 25, art.UV.Width, art.UV.Height);
++                Vector3 hue = ShaderHueTranslator.GetHueVector(0, false, AlphaHue / 255f);
++                DrawStaticRotated(batcher, _boneBarrierGraphic, posX, posY, 0, hue, depth);
+                 return true;
+             }
+ 
+@@ -1034,6 +1052,16 @@
+ 
+         public override bool CheckMouseSelection()
+         {
++            if (_boneBarrierGraphic != 0)
++            {
++                if (_boneBarrierGraphic == SpellEffectGraphics.BoneBarrierRubble) { return false; }
++                var arts = Client.Game.UO.Arts;
++                ref readonly var art = ref arts.GetArt(_boneBarrierGraphic);
++                Point origin = RealScreenPosition + new Point(22 - art.UV.Width / 2, 44 - art.UV.Height);
++                Point mouse = SelectedObject.TranslatedMousePositionByViewport;
++                return arts.PixelCheck(_boneBarrierGraphic, mouse.X - origin.X, mouse.Y - origin.Y);
++            }
++
+             Point position = RealScreenPosition + GetAvoidanceOffset();
+             position.Y -= 3;
+             position.X += (int)Offset.X + 22;
+diff --git a/src/ClassicUO.Client/Game/Managers/EffectManager.cs b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+--- a/src/ClassicUO.Client/Game/Managers/EffectManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+@@ -73,6 +73,15 @@
+                 return;
+             }
+ 
++            if (type == GraphicEffectType.FixedFrom && SpellEffectGraphics.IsBoneBarrierBodyArt(graphic))
++            {
++                if (_world.Get(source) is Mobile barrier)
++                {
++                    barrier.SetBoneBarrierAppearance(graphic);
++                }
++                return;
++            }
++
+             if (hue != 0)
+             {
+                 hue++;
+@@ -91,9 +100,11 @@
+                 && (SpellEffectGraphics.IsColdStatus(graphic) || SpellEffectGraphics.IsSorceressWard(graphic)
+                     || SpellEffectGraphics.IsAmazonUtilityLoop(graphic)
+                     || SpellEffectGraphics.IsCurseMark(graphic)
+-                    || graphic is SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow);
++                    || graphic is SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow
++                        or SpellEffectGraphics.BoneArmorWard);
+             bool renewField = type == GraphicEffectType.FixedXYZ
+-                && (SpellEffectGraphics.IsFireField(graphic) || SpellEffectGraphics.IsJavelinCloud(graphic));
++                && (SpellEffectGraphics.IsFireField(graphic) || SpellEffectGraphics.IsJavelinCloud(graphic)
++                    || graphic == SpellEffectGraphics.BoneBarrierConnector);
+             if (renewStatus || renewField)
+             {
+                 // Keep the animation phase across renewals from the same actor or ground tile.

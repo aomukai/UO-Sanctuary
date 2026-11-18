@@ -111,19 +111,27 @@ public static class Teleportation
         // revive an old fractional remainder after native regeneration capped.
         if (q.Scroll == Serial.Zero) { if(!NecromancerEffects.Pay(p,ManaCost(q.Rank)*256)){return false;} }
         else { World.FindItem(q.Scroll).Consume(); if (q.Cell >= 0) { PotionBelts.Compact(p, q.Cell % 4); } }
-        CommitTransfer(p,q.Destination,q.Origin,q.Map);
+        CommitTransfer(p,q.Destination,q.Origin,q.Map,SorceressVisuals.Teleport);
         if (q.Cell >= 0) { PotionBeltNetwork.Send(p); }
         return true;
     }
     // Caller has already claimed its action and validated the destination.
     // Preserve the existing move/delta/pet/effect/arrival-field order.
-    internal static void CommitTransfer(PlayerMobile p,Point3D destination,Point3D origin,Map map)
+    internal static void CommitTransfer(PlayerMobile p,Point3D destination,Point3D origin,Map map,
+        Action<Mobile, Point3D, Map> present = null)
     {
         p.Location=destination;p.ProcessDelta();
         PetOwnerRoutes.Teleported(p,TimedEffects.Now);
-        Effects.SendLocationParticles(EffectItem.Create(origin,map,EffectItem.DefaultDuration),0x3728,10,10,2023);
-        Effects.SendLocationParticles(EffectItem.Create(p.Location, p.Map, EffectItem.DefaultDuration), 0x3728, 10, 10, 5023);
-        p.PlaySound(0x1FE);
+        if (present != null)
+        {
+            present(p, origin, map);
+        }
+        else
+        {
+            Effects.SendLocationParticles(EffectItem.Create(origin,map,EffectItem.DefaultDuration),0x3728,10,10,2023);
+            Effects.SendLocationParticles(EffectItem.Create(p.Location, p.Map, EffectItem.DefaultDuration), 0x3728, 10, 10, 5023);
+            p.PlaySound(0x1FE);
+        }
         ArrivalFields(p);
     }
     internal static void ArrivalFields(Mobile p)

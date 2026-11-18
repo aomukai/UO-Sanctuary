@@ -57,7 +57,7 @@ internal static class EngorgeCasting
             if(!NecromancerEffects.Pay(owner,captured.Mana256)){throw new NotSupportedException("Engorge mana changed during corpse commitment");}
             paid=captured.Mana256;
             foreach(var body in bodies){EngorgeEffects.ApplyPrepared(body,owner,captured,at);applied++;}
-            owner.PlaySound(0x1E5); // Identified shared cast placeholder.
+            owner.PlaySound(0x202);
             return new(true,applied,paid);
         }
         catch(Exception e)when(e is NotSupportedException or System.IO.InvalidDataException)

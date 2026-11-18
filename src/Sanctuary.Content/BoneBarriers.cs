@@ -108,6 +108,9 @@ public partial class BoneBarrierSegment : BaseCreature
     [SerializableField(13, setter: "private")] private int _life;
     private TimerExecutionToken _timer;
     private long _lastRegen = Core.TickCount, _regenFraction;
+    private DateTime _appearanceStart;
+    private DateTime _appearanceRefresh;
+    private ushort _appearance;
     public override bool Commandable => false;
     public override bool IsBondable => false;
     public override bool IsDispellable => false;
@@ -120,7 +123,7 @@ public partial class BoneBarrierSegment : BaseCreature
     [Constructible]
     public BoneBarrierSegment() : base(AIType.AI_Melee, FightMode.None, 0)
     {
-        Name = "bone barrier [placeholder]"; Body = 50; Hue = 0x481;
+        Name = "bone barrier"; Body = 50; Hue = 0x481;
         CantWalk = true; Summoned = true; ControlSlots = 0; NoKillAwards = true;
         SetStr(1); SetDex(0); SetInt(0); SetMana(0); SetStam(0); SetDamage(0, 0);
         AIObject?.AITimer.Stop();
@@ -160,7 +163,10 @@ public partial class BoneBarrierSegment : BaseCreature
         segment.SetResistance(ResistanceType.Cold, NecromancerSummons.Source("bonewall", "ResCo"));
         segment.SetResistance(ResistanceType.Poison, NecromancerSummons.Source("bonewall", "ResPo"));
         if(prepared!=null){segment.ApplyBirth(prepared.Numbers);SkillHealth.SetBalance256(segment,prepared.Numbers.Life256);}
+        segment.Name = ability == CombatAbility.BoneWall ? "bone wall" : "bone prison";
+        segment._appearanceStart = TimedEffects.Now;
         segment.MoveToWorld(point, owner.Map); segment.AddTile(point); segment.Start();
+        segment.RefreshAppearance(segment._appearanceStart);
         if(root is BoneWallMakerBody maker){maker.Made(segment);}return segment;
     }
     internal void ApplyBirth(BarrierBirthStats stats)
@@ -172,6 +178,10 @@ public partial class BoneBarrierSegment : BaseCreature
     internal void AddTile(Point3D point)
     {
         var tile = new BoneBarrierTile(this); _tiles.Add(tile); tile.MoveToWorld(point, Map);
+        if (point != Location)
+        {
+            Effects.SendLocationEffect(point, Map, SpellEffectGraphics.BoneBarrierConnector, 14);
+        }
     }
     internal void Grow(double x, double y, int count) { _growX = x; _growY = y; _armLimit = count; }
     private void Start()
@@ -183,6 +193,7 @@ public partial class BoneBarrierSegment : BaseCreature
     {
         if (Deleted) { _timer.Cancel(); return; }
         var at=TimedEffects.Now;
+        RefreshAppearance(at);
         if(AdvanceRetirement(at)){return;}
         if(!Alive||LifetimeExpired(at)){RequestRetirement(at);return;}
         if (_child && _root is not { Alive: true, Deleted: false }
@@ -193,7 +204,47 @@ public partial class BoneBarrierSegment : BaseCreature
     protected virtual bool AdvanceRetirement(DateTime at)=>false;
     protected virtual void RequestRetirement(DateTime at)=>Delete();
     internal void ReleaseCollision()
-    {foreach(var tile in _tiles){tile?.Delete();}_tiles.Clear();}
+    {
+        foreach (var tile in _tiles)
+        {
+            if (tile == null || tile.Deleted) { continue; }
+            if (!World.Loading && Map != null && Map != Map.Internal && tile.Location != Location)
+            {
+                Effects.SendLocationEffect(tile.Location, Map, SpellEffectGraphics.BoneBarrierConnector, 0);
+                if (this is IBarrierRetirement { Retirement: not null })
+                {
+                    Effects.SendLocationEffect(tile.Location, Map, SpellEffectGraphics.BoneBarrierRubble,
+                        (int)Math.Ceiling(BoneBarrierRetirement.DurationMs / 50.0));
+                }
+            }
+            tile.Delete();
+        }
+        _tiles.Clear();
+    }
+
+    internal void RefreshAppearance(DateTime at)
+    {
+        if (World.Loading || Map == null || Map == Map.Internal) { return; }
+        bool retiring = this is IBarrierRetirement { Retirement: not null };
+        int start = _ability == CombatAbility.BoneWall ? SpellEffectGraphics.BoneWallRise : SpellEffectGraphics.BonePrisonRise;
+        double age = (at - _appearanceStart).TotalMilliseconds;
+        int frame = (int)Math.Clamp(age / 45, 0, SpellEffectGraphics.BoneBarrierRiseFrames - 1);
+        ushort graphic = retiring ? SpellEffectGraphics.BoneBarrierRubble : (ushort)(start + frame);
+        if (_appearance == graphic && _appearanceRefresh > at) { return; }
+        _appearance = graphic;
+        _appearanceRefresh = at.AddMilliseconds(420);
+        FixedEffect(graphic, 10, 1);
+        if (!retiring)
+        {
+            foreach (var tile in _tiles)
+            {
+                if (tile is { Deleted: false } && tile.Location != Location)
+                {
+                    Effects.SendLocationEffect(tile.Location, Map, SpellEffectGraphics.BoneBarrierConnector, 14);
+                }
+            }
+        }
+    }
     protected virtual bool LifetimeExpired(DateTime at)=>at>=_expiresUtc;
     protected virtual void AdvanceGrowth()
     {
@@ -223,6 +274,14 @@ public partial class BoneBarrierSegment : BaseCreature
         Spawn(owner, _ability, point, null, this);
     }
     public override void GenerateLoot(bool spawning) { }
+    public override void OnDamage(int amount, Mobile from, bool willKill)
+    {
+        base.OnDamage(amount, from, willKill);
+        if (amount <= 0 || amount >= Hits || willKill || Map == null || Map == Map.Internal) { return; }
+        FixedEffect(SpellEffectGraphics.BoneSpearContact, 10, 3);
+        SpellAreaSounds.Pulse((Root ?? this).Serial.Value, SpellEffectSounds.BoneArmorCatch,
+            Location, Map, TimedEffects.Now, 170);
+    }
     public override bool OnBeforeDeath() { Delete(); return false; }
     public override void OnDelete()
     {
@@ -240,6 +299,7 @@ public partial class BoneBarrierSegment : BaseCreature
     [AfterDeserialization]
     private void AfterLoad()
     {
+        if(Name == "bone barrier [placeholder]") { Name = _ability == CombatAbility.BoneWall ? "bone wall" : "bone prison"; }
         AIObject?.AITimer.Stop(); _lastRegen = Core.TickCount;
         // Let the zero-delay tick run after all derived saved fields restore.
         // A derived AI clock may still be alive past its nominal deadline.
@@ -252,7 +312,7 @@ public partial class BoneBarrierTile : Item
 {
     [SerializableField(0, setter: "private")] private BoneBarrierSegment _segment;
     public override bool BlocksFit => true;
-    [Constructible] public BoneBarrierTile() : base(0x21A4) { Movable = false; Name = "bone barrier collision [placeholder]"; }
+    [Constructible] public BoneBarrierTile() : base(0x21A4) { Movable = false; Name = "bone barrier"; }
     public BoneBarrierTile(BoneBarrierSegment segment) : this() { _segment = segment; }
     public override bool OnMoveOver(Mobile mobile) => false;
     public override void OnDelete() { _segment = null; base.OnDelete(); }

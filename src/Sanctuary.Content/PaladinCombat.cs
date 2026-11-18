@@ -64,7 +64,7 @@ public static class PaladinCombat
         if(ability==CombatAbility.Smite)
         {try{return PaladinSmite.Strike(owner,World.FindMobile(selected) as BaseCreature,values);}catch(System.NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}
         HolyBolts.Cast(owner,point,values);
-        owner.PlaySound(0x1E5);return true; // Placeholder cast sound.
+        return true;
     }
 }
 

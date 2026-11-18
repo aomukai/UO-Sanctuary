@@ -183,7 +183,12 @@ public static class ClassStats
         if (hit && classDefense && ClassGear.BlockChance((PlayerMobile)defender) is > 0 and var chance)
         {
             hit = roll() * 100 >= chance;
-            if (!hit) { HitRecovery.Block((PlayerMobile)defender, Core.TickCount); }
+            if (!hit)
+            {
+                var blocker = (PlayerMobile)defender;
+                HitRecovery.Block(blocker, Core.TickCount);
+                HolyShields.Block(blocker);
+            }
         }
         if(hit && classDefense && ClassAvoidance.Weapon((PlayerMobile)defender,projectile,Core.TickCount)){hit=false;}
         if(hit&&npcDefense&&defender is AssassinShadowBody shadowTarget&&ShadowEquipmentDefense.Active(shadowTarget))

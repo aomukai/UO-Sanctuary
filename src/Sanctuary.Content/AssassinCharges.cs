@@ -28,7 +28,7 @@ public static class AssassinCharges
     private static readonly Dictionary<(uint,CombatAbility),MartialCharge> States=new();
     public static MartialChargeProfiles Profiles{get;private set;}
     public static void Configure(){Profiles=new();EventSink.WorldSave+=Prune;}
-    public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),Prune);
+    public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),Tick);
     internal static bool Owner(Mobile owner)=>owner is{Alive:true,Deleted:false}
         && (owner is AssassinShadowBody{Prepared:not null}
             ||ClassCreation.Profiles?.TryGet(owner.Serial,out var p)==true && p.Class==DiabloClass.Assassin);
@@ -49,9 +49,10 @@ public static class AssassinCharges
     {
         if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Martial charge gain needs UTC");}
         if(!Owner(owner)){return;}
-        var state=Build(States.GetValueOrDefault((owner.Serial.Value,values.Ability)),owner.Serial.Value,values,at);States[(state.Owner,state.Ability)]=state;
-        // Identified generic marker; final tigerstrike1/cobrastrike1 charge1/2/3 orbiting art/audio pending.
-        owner.FixedEffect(0x375A,5,5,values.Ability==CombatAbility.BladesOfIce?0x480:values.Ability==CombatAbility.FistsOfFire?0x489:values.Ability==CombatAbility.CobraStrike?0x26:0x481,0);if(owner is PlayerMobile player){StatNetwork.Send(player);}
+        var previous = States.GetValueOrDefault((owner.Serial.Value, values.Ability));
+        var state=Build(previous,owner.Serial.Value,values,at);States[(state.Owner,state.Ability)]=state;
+        AssassinMartialVisuals.Gain(owner, state, at, previous == null || previous.UntilUtc <= at || previous.Count < state.Count);
+        if(owner is PlayerMobile player){StatNetwork.Send(player);}
     }
     internal static int TigerPercent(MartialCharge state,int currentRank)
     {
@@ -82,12 +83,46 @@ public static class AssassinCharges
     {
         if(captured==null || State(owner,captured.Ability)!=captured){return;}
         var next=Consumed(captured,count);var key=(captured.Owner,captured.Ability);
-        if(next==null){States.Remove(key);}else{States[key]=next;}if(owner is PlayerMobile player){StatNetwork.Send(player);}
+        var now = TimedEffects.Now;
+        if(next==null)
+        {
+            States.Remove(key);
+            AssassinMartialVisuals.Clear(owner, captured, now, expired: false);
+        }
+        else
+        {
+            States[key] = next;
+            AssassinMartialVisuals.Refresh(owner, next, now, renewed: true);
+        }
+        if(owner is PlayerMobile player){StatNetwork.Send(player);}
     }
     public static void Clear(Mobile owner)
-    {if(owner==null){return;}foreach(var key in States.Keys.Where(x=>x.Item1==owner.Serial.Value).ToArray()){States.Remove(key);}}
+    {
+        if(owner==null){return;}
+        var now = TimedEffects.Now;
+        foreach (var key in States.Keys.Where(x => x.Item1 == owner.Serial.Value).ToArray())
+        {
+            if (States.Remove(key, out var state))
+            { AssassinMartialVisuals.Clear(owner, state, now, expired: false); }
+        }
+    }
     internal static void Prune()
-    {foreach(var pair in States.ToArray()){if(pair.Value.UntilUtc<=TimedEffects.Now || !Owner(World.FindMobile((Serial)pair.Value.Owner))){States.Remove(pair.Key);}}}
+        => Prune(TimedEffects.Now, refresh: false);
+    private static void Tick() => Prune(TimedEffects.Now, refresh: true);
+    private static void Prune(DateTime now, bool refresh)
+    {
+        foreach (var pair in States.ToArray())
+        {
+            var owner = World.FindMobile((Serial)pair.Value.Owner);
+            bool eligible = Owner(owner);
+            if (pair.Value.UntilUtc <= now || !eligible)
+            {
+                States.Remove(pair.Key);
+                AssassinMartialVisuals.Clear(owner, pair.Value, now, expired: eligible);
+            }
+            else if (refresh) { AssassinMartialVisuals.Refresh(owner, pair.Value, now); }
+        }
+    }
     public static MartialCharge[] Snapshot(){Prune();return States.Values.OrderBy(x=>x.Owner).ThenBy(x=>x.Ability).ToArray();}
     public static void Restore(MartialCharge[] saved)
     {

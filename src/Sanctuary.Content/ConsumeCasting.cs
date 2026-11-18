@@ -75,7 +75,8 @@ internal static class ConsumeCasting
             if(BoundDemonHosts.Active(body)){BoundDemonHosts.RetirePrepared(body);}
             else{DeathMarkWorld.Remove((SkeletonGuardian)body);body.Delete();}consumed=true;
             ConsumeEffects.ApplyPrepared(owner,state);WarlockGoatmanWorld.Enforce(owner);
-            owner.FixedEffect(0x375A,10,15,0x48E,0);owner.PlaySound(0x1E5); // Identified shared buff/cast placeholders.
+            owner.FixedEffect(0x376A, 10, 15, 0x26, 0);
+            owner.PlaySound(0x1FB);
             return new(true,state.Suppliers.Mana256,state);
         }
         catch(Exception e)when(e is NotSupportedException or System.IO.InvalidDataException)

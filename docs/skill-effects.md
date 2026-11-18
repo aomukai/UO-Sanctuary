@@ -1,5 +1,191 @@
 # Skill effects
 
+The register covers all eight classes and records the UO baseline as `native` where one shipped. Werewolf and Werebear use the Timber Wolf and Grizzly Bear sprites at 120% visual scale. Both keep the player's existing collision footprint. Sorceress Fireball keeps its existing presentation.
+
+The [per-skill asset register](../data/Sanctuary/Balance/skill-effects.json) tracks custom art and audio independently. In ClassicUO, a learned Bone Spear pierced two targets with a small contact flash and shatter at the end of its flight. Meteor has a ground warning, falling stone, impact, and fire on its active field tiles. The first Sonniss edits cover Bone Spear and the red and blue flares. Their listening pass is queued. The [cue recipes](../art/spell-effects/sonniss-cues.json) record the GDC 2019 archive parts and source filenames. `python3 tools/install_spell_audio.py` converts the downloaded WAVs into ClassicUO's local Sounds directory.
+
+Blizzard shows frost beneath its falling shards, an impact when they land, and a small flash when they damage a target. Frozen Orb rotates as it travels and emits directional bolts, with a burst at the existing terminal nova. Both were verified in ClassicUO with audio disabled. [Blizzard sprite source](../art/spell-effects/blizzard/sheet.png) · [Frozen Orb sprite source](../art/spell-effects/frozen-orb/sheet.png)
+
+Teeth fans out directional bone shards that chip on contact. Bone Spirit uses a trailing skull and a burst on damage. Abyss opens as a ground tear, holds a vortex through its pull pulses, then collapses with the terminal hit. These effects were checked in ClassicUO with audio disabled. [Teeth sprite source](../art/spell-effects/teeth/sheet.png) · [Bone Spirit sprite source](../art/spell-effects/bone-spirit/sheet.png) · [Abyss sprite source](../art/spell-effects/abyss/sheet.png)
+
+All ten Necromancer curses share a violet release ring and have distinct animated marks on affected targets. The mark follows its target until the curse is replaced or clears. Iron Maiden flashes on the attacker when damage is returned. Life Tap shows rising red ribbons on the attacker when it restores life. [ImageGen sprite sheet](../art/spell-effects/necromancer-curses/sheet.png) · [Prompt](../art/spell-effects/necromancer-curses/prompt.txt)
+
+Muted ClassicUO checks covered each learned curse, an empty cast, multiple recipients, replacement, movement and natural Amplify Damage expiry. Attract marked the selected enemy and preserved its neighbor's existing curse. Native melee damage exercised Iron Maiden reflection and Life Tap healing. The client decoded the four Sonniss cues at release, expiry, reflection and healing. Listening remains queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Bone Armor orbits the caster while its physical absorption pool is active. It sparks when it catches a hit and shatters when the pool runs out. Corpse Explosion erupts at the consumed corpse. Bone Wall grows in raised ivory ribs, and Bone Prison shows hooked ribs at its twelve anchors plus four low connector sprites. Both barriers throw off chips on a surviving hit and show rubble during their existing retirement. The sprites follow the same blocking tiles and selection continues to use the visible live ribs. [Armor and explosion sheet](../art/spell-effects/bone-armor-explosion/sheet.png) · [Armor and explosion prompt](../art/spell-effects/bone-armor-explosion/prompt.txt) · [Barrier sheet](../art/spell-effects/bone-barriers/sheet.png) · [Barrier prompt](../art/spell-effects/bone-barriers/prompt.txt)
+
+Muted ClassicUO checks covered partial absorption and depletion, one-time corpse consumption with loot retained, and the existing explosion damage radius. A growing Bone Wall blocked movement, intercepted a projectile route, and remained selectable. Wall damage and natural Prison expiry cleared collision and retired all affected art. The client decoded six Sonniss cues. Listening remains queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Poison Dagger uses the native knife pose and an acid-green contact slash. Poison Explosion blooms at the consumed corpse and sends eight clouds along their existing paths. It reuses the custom poison javelin mist. Poison Nova expands in directional wisps tied to the surviving rays. Both spells place their traveling art at fractional tile positions. Active Sanctuary poison adds rising droplets that follow the affected actor and dissipate at expiry or cleanse. [ImageGen sheet](../art/spell-effects/necromancer-poison/sheet.png) · [Prompt](../art/spell-effects/necromancer-poison/prompt.txt) · [Shared mist source](../art/spell-effects/javelin-venom/sheet.png)
+
+Muted ClassicUO checked knife hits and misses, poison immunity, movement and natural expiry. Nova emitted 64 rays and cleared its poison overlay on cleanse. Poison Explosion retained loot, emitted eight clouds, poisoned a target in their path, and retired the clouds and status at their existing limits. The client decoded five new Sonniss edits and two shared poison cues. Listening remains queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Raise Skeleton forms a ring of rising bones, Skeletal Mage arrives through violet trails, and Revive sends an emerald spirit up from the corpse. The summons use their native bodies and animations. Revive keeps the original creature’s body and hue. The three rituals share an ash fade on departure and play the arrival effect again when a parked summon returns. [ImageGen sheet](../art/spell-effects/undead-summons/sheet.png) · [Prompt](../art/spell-effects/undead-summons/prompt.txt)
+
+Muted ClassicUO checks covered the Skeleton Warrior’s landed melee, parking, return and dismissal. All three Mage variants used their elemental volleys. Their Glacial Spike, Meteor, Chain Lightning, Static Field, Frozen Armor and Enchant use the shared Sorceress effects. The Mage and revived Graveyard Lich faded on death. A revived Graveyard Skeleton kept its original body and flashed on a landed melee hit. Each ritual paid mana once and retained the corpse loot. The client decoded four new Sonniss cues at the corresponding events. Listening remains queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+The four golems keep their native bodies and have separate arrival effects in clay, scarlet ribbons, iron slivers and embers. Clay’s slow follows the target. Blood’s healing flare appears on each recipient that gains life, and high-rank Blood adds the shared Life Tap effects and an Open Wounds overlay. Iron throws sparks on strikes and retaliation, and uses the matching elemental effect on Spectral hits. Fire’s Holy Fire ring marks the pulse, and its eruption plays at the existing delayed death burst. The golems share rubble on ordinary departure. [Arrival sheet and prompt](../art/spell-effects/golem-arrivals) · [Combat sheet and prompt](../art/spell-effects/golem-combat) · [Fire sheet and prompt](../art/spell-effects/golem-fire) · [Open Wounds sheet and prompt](../art/spell-effects/open-wounds)
+
+Muted ClassicUO checks covered all four arrivals, Clay’s slow in both directions and its return after parking, Blood’s two-recipient healing and rank-20 Life Tap and Open Wounds, Iron’s returned damage and five Spectral channels, and Fire’s pulse and delayed burst. Wounds expired independently of Life Tap. Each cast paid mana once and Iron retained its source item until replacement. ClassicUO loaded ten new Sonniss cues. Listening remains queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Werewolf transitions use silver-blue wisps. Werebear brings up amber leaves and earth, which settle on return. The forms use their native animations and draw the transformation art around the current body. Maul scatters stones on contact and leaves an amber orb. Feral Rage rakes with red-orange trails and leaves a red ember. The orbs pass in front of and behind the forms and grow across the first three charges. [Transition sheet and prompt](../art/spell-effects/druid-form-transitions) · [Charge sheet and prompt](../art/spell-effects/druid-form-charges)
+
+Muted ClassicUO checks rendered both transformations and returns on both genders of Human, Elf and Gargoyle. Entry charged mana once, return was free, and the server kept the same body and tile fit. A moving caster canceled a pending shift, and a wolf that reached its saved deadline returned with the same effect. Feral Rage’s ember followed movement and cleared on unshift. Maul charged only on successful hits and its orb cleared at the real 20-second expiry. ClassicUO loaded eight new Sonniss cues. Listening remains queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Fire Claws leaves a gold-orange rake on a landed contact. Hunger closes a pair of crescents at the target and shows a separate red flare and blue ribbon when it restores life and mana. Fury uses a brief silver slash at the recipient of each landed strike. The attacks use their native form animations. [ImageGen sheet](../art/spell-effects/druid-melee/sheet.png) · [Prompt](../art/spell-effects/druid-melee/prompt.txt)
+
+Muted ClassicUO checks covered Fire Claws and Hunger in wolf and bear form. The Fire Claws fixture isolated fire damage and exercised an accuracy miss and a real shield block. Hunger showed both recovery effects, either one alone, and the bite alone with full pools. Rank-four Fury landed five alternating strikes on two targets over about one second from first contact to last. Misses played the swing cue. Movement after the first strike ended the series. ClassicUO loaded seven new Sonniss cues. Listening remains queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Rabies shows an olive bite flash and a small flare when it spreads to a new carrier. The carrier’s chartreuse motes follow the independent infection timer, including through a poison cleanse, and disperse at its own expiry. Shock Wave breaks into ground pressure crests along the five existing paths, with chips on contact and a shared overhead stun marker. [Rabies sheet and prompt](../art/spell-effects/druid-rabies) · [Shock Wave sheet and prompt](../art/spell-effects/druid-shock-wave)
+
+Muted ClassicUO checks covered a missed Rabies start, a paid bite, natural spread to a second target, movement and poison cleanse, and both infection expiries. Shock Wave rendered its fan in two directions with fractional tile positions. Its waves stopped at terrain, and a real shield block kept the native block reaction. The stun marker followed the target, appeared on a physically immune target that was stunned, and retired at the actual deadline. ClassicUO loaded six new Sonniss cues. Listening remains queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Firestorm runs three directional tongues of flame along the existing paths and leaves low fire on the active cells. Molten Boulder forms in sparks, sheds chips on a continuing hit, and shatters once at the end of its roll. The ball's visible center sits behind its collision point, and the fire trail can outlast the ball. Fissure opens at the accepted aim point, then scattered cracks glow while their hazards are active. All three share a small fire flash on damaging ground contact. [Firestorm and Fissure sheet and prompt](../art/spell-effects/druid-ground-fire) · [Molten Boulder sheet and prompt](../art/spell-effects/druid-boulder)
+
+Muted ClassicUO checks covered a damaging Firestorm with three emitters, a continuing Boulder hit and separate wall impact, and damage from a live Fissure crack. Each cast paid mana once and its fields retired on their existing timers. ClassicUO decoded six new Sonniss edits and two shared fire cues. The boulder's rolling cue uses a trimmed thunder rumble pending the listening pass. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Twister sends three low silver eddies along the existing paths. It marks committed contact and shares the overhead stun effect. Tornado is a taller blue-gray funnel with a short ground sweep on the recurring area pulse. Both shrink into drifting dust when their missiles retire. Hurricane opens in frost, then keeps a thin ring at the caster's feet while icy wisps circle the active storm. Cold contact flashes at the target and shares the existing chill overlay. [Twister and Tornado sheets and prompt](../art/spell-effects/druid-wind-missiles) · [Hurricane sheet and prompt](../art/spell-effects/druid-hurricane)
+
+Muted ClassicUO checks rendered all three Twister paths, landed damage and stun, and dissipation where a wall stopped the eddies. Tornado showed direct damage, recurring pulse effects, and natural dissipation. Hurricane moved with the caster and damaged and chilled eligible targets at the two locations. The core cleared at the source deadline and the wisps stopped. Each cast paid mana once. ClassicUO decoded seven new Sonniss edits and the shared ice contact cue. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Arctic Blast opens with a narrow frost gust and draws a continuous stream from its directional segments. It sparks with ice chips on damaging contact and shares the existing chill overlay. Each segment retains its trajectory through an aim change and disperses into snow when it ends. Cyclone Armor wraps the caster in an open wind shell. The rim flashes when it absorbs elemental damage and unravels at depletion. Both use the existing player poses. [Arctic Blast sheet and prompt](../art/spell-effects/druid-arctic-blast) · [Cyclone Armor sheet and prompt](../art/spell-effects/druid-cyclone-armor)
+
+Muted ClassicUO checks held Arctic Blast with a quick-slot key, aimed it across two lanes, and chilled both targets. Key release ended new emissions and mana charges while existing segments finished. Cyclone Armor followed caster movement, passed physical damage without spending absorption, caught a fire hit, and depleted on cold and lightning damage. Excess damage reached the caster and the shield cleared at depletion. Recasting restored the shell, and explicit state cleanup removed it. ClassicUO decoded all six new Sonniss cues. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Volcano rises from the accepted tile and cools when the vent retires. Its glowing rocks arc along the existing airborne paths and leave small fire beds where they land. Armageddon puts a ring of cinders around the caster while it selects new landings. A heat ripple marks each accepted cell before a rock falls. Each impact uses a scaled version of the custom Meteor burst and lights the live ground fire. [Volcano sheet and prompt](../art/spell-effects/druid-volcano) · [Armageddon sheet and prompt](../art/spell-effects/druid-armageddon)
+
+Muted ClassicUO checks covered Volcano rejecting a wall placement, its vent and landed fire separately dealing damage, and natural cooling. Armageddon warned and landed at the committed locations. Its terminal area and ground fire dealt damage separately. The cinder ring followed the caster and cleared at the weather deadline while already released rocks and fires finished. Both spells paid mana once. ClassicUO decoded six new Sonniss edits and two shared fire cues. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+The animal summons use their native bodies. Raven arrives through violet feathers and leaves a dedicated mark when it blinds. Spirit Wolf rises in frost and shows icy jaws on a landed bite, with the shared chill marker. Dire Wolf arrives through copper leaves and gains a warm aura when a corpse meal activates rage. Grizzly rises through earth and dust. Its ordinary swipe flashes gold, and Bear Smite uses the shared heavy stone impact. [Animal arrival sheet and prompt](../art/spell-effects/druid-animal-arrivals) · [Combat sheet and prompt](../art/spell-effects/druid-animal-contacts)
+
+Muted ClassicUO checks covered all four learned arrivals and contacts. Raven's mark cleared with the blindness state. Spirit Wolf faded on parking and used its arrival again when the same body returned. Dire Wolf preserved corpse loot, hit during rage, and lost its aura at the real deadline. A replacement Grizzly retired the previous bear, landed Bear Smite with knockback, and faded on death. ClassicUO decoded ten new Sonniss edits and the shared Maul impact cue. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+The three spirits keep their native wisp bodies. Oak Sage raises green leaves and marks each recipient of its maximum-life bonus. Heart of Wolverine arrives in copper wisps and marks recipients of its attack rating and damage bonuses. Spirit of Barbs raises violet thorns, then marks recipients with an angular ring and flashes at the attacker on returned damage. Each spirit dissipates into silver wisps on departure. [Spirit arrivals and thorn contact](../art/spell-effects/druid-spirit-arrivals) · [Aura and departure sprites](../art/spell-effects/druid-spirit-auras)
+
+Muted ClassicUO checks covered all three learned arrivals, native aura bonuses on the caster, the spirit and an allied wolf, and replacement across the three skills. The wolf lost Oak's life aura outside its range and regained it upon returning. Heart's ring followed caster movement. Barbs flashed on melee return damage, with no flash for ranged damage or physical immunity. The same spirit returned after parking and the last recipient markers cleared on dismissal. ClassicUO decoded five new Sonniss cues. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+The three vines use the native corpser body with distinct arrival and departure effects. Poison Creeper sends directional thorns along the existing subtiles, flashes on committed poison, and leaves mats that wither on their own timers. Carrion Vine and Solar Creeper mark the reserved corpse, which remains lootable. Carrion flashes red when life is restored, and Solar flashes blue when mana is restored. [Vine arrivals and thorns](../art/spell-effects/druid-vine-arrivals) · [Ground mats and recovery](../art/spell-effects/druid-vine-ground)
+
+Muted ClassicUO checks covered all three learned arrivals, Poison Creeper's live damage and trail fade, and replacement across the three skills. The venom trail continued after its vine was replaced. Both recyclers reserved a real corpse and applied their own resource gain after the existing delay. A second Solar recovery reached a player who had already refilled mana and emitted only the corpse effect. The last vine faded on dismissal. ClassicUO decoded all eight new Sonniss edits and the shared departure cue. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Holy Fire, Holy Freeze, and Holy Shock keep gold, icy blue, and violet rings at the caster's feet for the active aura lease. On each scheduled pulse, a ring expands to the live damage radius. Pulse damage and landed aura-imbued weapon hits show short elemental flashes. Holy Freeze adds its own frost seal when it applies a slow and uses the shared cold burst for committed corpse shatters. [Holy aura sheet and prompt](../art/spell-effects/paladin-holy-auras) · [Contact sheet and prompt](../art/spell-effects/paladin-holy-contacts)
+
+Muted ClassicUO checks covered the first pulse delay, caster movement, switching and disabling auras, pulse immunity and range, and all three landed weapon accents. Holy Freeze marked a cold-immune target when the slow applied, then cleared the frost seal at expiry. A separate death triggered the shared corpse shatter. Holy Shock reached three tiles at rank one and six and a half at rank eight. ClassicUO decoded the six edited Sonniss cues and the shared shatter. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Holy Bolt follows the existing piercing path with an ivory-gold core. Real healing raises green wisps and damage throws a small star. Blessed Hammer spins on its existing curve and sheds gold chips on damaging contact. Both have a separate terminal effect. Fist of the Heavens warns at the target's feet and drops lightning at the target's live position. The saved position flashes and emits silver-blue bolts, which share Holy Bolt's damage and fade effects. [Holy Bolt and secondary bolt sheet and prompt](../art/spell-effects/paladin-holy-bolt) · [Hammer and sky strike sheet and prompt](../art/spell-effects/paladin-hammer-heavens)
+
+Muted ClassicUO checks covered Holy Bolt healing an ally and piercing two undead, the full-health case, and both wall and natural expiry for the two projectile types. Blessed Hammer dealt damage twice along the same flight before it dissipated. Fist of the Heavens followed a moving primary target while its bolts started at the saved position. When the primary died during the warning, the corpse kept the secondary burst live. Each cast paid mana once. ClassicUO decoded ten new Sonniss cues. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Resist Fire circles the recipient in copper shields, Resist Cold uses ice shields, and Resist Lightning uses gold forks with violet sparks. Salvation forms a wider ivory ring with jade edging. The four ring sizes let them appear together when their resistance bonuses stack. Each ring follows its recipient for the applied lease. Cues play on new applications, with one nearby cue per source on simultaneous applications. Ordinary renewals are quiet. [Shield-ring sprites and prompt](../art/spell-effects/paladin-resistance-wards)
+
+Muted ClassicUO checks covered all four wards on player and pet recipients, native fire mitigation, out-of-range expiry, and all four rings active at once. A weaker caster left the stronger Fire lease in place. An NPC Fire aura replaced the Paladin ward on the pet, and the next valid Paladin pulse restored it. A timed Salvation provider cleared its own ward on removal, and the issued ally wards lasted through their scheduled deadline. ClassicUO decoded all four new Sonniss edits. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Prayer gives active recipients a small copper loop and raises amber ribbons on actual life gain. Cleansing uses violet filaments when it shortens poison or a curable curse. Cleansing and Meditation share Prayer's ribbons for their healing synergy. Meditation's blue ring follows player recipients, and a blue spark marks a real native mana gain. Redemption circles its caster in ochre, then flashes at each claimed corpse and shows a brief jade thread to the caster when life or mana is restored. Separate red and blue flashes show which resources rose. [Recovery aura sheet and prompt](../art/spell-effects/paladin-recovery-auras) · [Redemption sheet and prompt](../art/spell-effects/paladin-redemption)
+
+Muted ClassicUO checks covered Prayer's first-pulse delay, caster, ally and pet healing, a single payment, and quiet pulses at full life or with insufficient mana. Cleansing shortened both poison and a curable curse on the affected ally. Meditation applied to players and marked two real mana gains each on the caster and ally. Redemption kept the original chance and corpse eligibility checks, retained loot, gave a corpse-only flash with full pools, and gave just a blue receipt for mana-only recovery. ClassicUO decoded all five new Sonniss cues. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Might raises copper pennants. Blessed Aim marks its active accuracy aura with teal arrowheads. Concentration uses amethyst standards and flashes a separate brace on successful interruption prevention. Fanaticism moves its crimson pennants faster. The four designs follow affected players and pets and use distinct widths so their circles can stack. [Aura sprites and prompt](../art/spell-effects/paladin-offense-auras) · [Concentration guard sprites and prompt](../art/spell-effects/paladin-concentration)
+
+Muted ClassicUO checks covered pet weapon damage under Might, attack rating under Blessed Aim and its inactive passive, Concentration's Hammer bonus and both sides of its interruption roll, and Fanaticism's zero-mana caster and party bonuses. A pending attack kept its original timing through Fanaticism activation. The recipient effects followed movement, expired after a range exit, and rendered together under four providers. A bound demon granted the same Concentration banners and stopped renewing them when parked. ClassicUO decoded all five new Sonniss edits. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Defiance circles active recipients with steel-blue crenellations, Vigor moves a loop of mint leaves, and Thorns uses plum hooks. The Thorns burst rises at the attacker when returned damage lands. Holy Shield gathers gold light into paired braces, flashes on a successful block, and breaks apart at timed expiry. The braces disappear while the shield is stowed and return on re-equip for the remaining duration. [Defensive aura sprites and prompt](../art/spell-effects/paladin-defense-auras) · [Holy Shield sprites and prompt](../art/spell-effects/holy-shield)
+
+Muted ClassicUO checks covered all 32 frames, allied range expiry, Defiance's defense bonus, and Vigor's stamina and pet speed bonuses. Thorns showed the original first-pulse delay and the flat damage on a native melee miss. A successful physical attack returned both the flat and percentage damage. Ranged attacks and physical immunity left the return burst quiet. Holy Shield paid mana once, flashed on a successful shield roll, and kept the original buff deadline through stowing and re-equipping. ClassicUO decoded seven new Sonniss edits. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Sanctuary circles the Paladin in ivory lanterns and sends a blue-white wave out to the active pulse radius. A small star strikes undead when they take damage or receive a knockback. Landed undead weapon hits share the star with their own cue. Conviction circles the caster in garnet and brass. When it applies or replaces a weaker debuff, a ruby flash settles into an open mark that follows the affected enemy for its remaining duration. [Sanctuary sprites and prompt](../art/spell-effects/paladin-sanctuary) · [Conviction sprites and prompt](../art/spell-effects/paladin-conviction)
+
+Muted ClassicUO checks covered all 24 frames, the delayed first pulses, an actual 2.5-tile Sanctuary wave, zero-mana undead damage and knockback, and physical-immunity bypass on a landed weapon hit. The pulse left allies, living monsters and a magic-immune target without a knockback rule unaffected. Conviction reduced enemy defense and resistance, rejected a lower-rank application, and flashed again when a stronger pulse replaced the debuff. The marks kept their scheduled expiry through movement and aura deselection. ClassicUO decoded all five Sonniss edits. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Sacrifice uses a garnet swing arc, red ribbons for the actual life payment, and a separate slash at the target. Smite uses an ivory shield sweep and a steel-and-gold impact. Its existing stun marker follows the target through the timed knockback. Vengeance opens with a braided swing, then splits into amber fire, blue frost and violet lightning on contact. Applied cold uses the shared chill marker. [Sacrifice sprites and prompt](../art/spell-effects/paladin-sacrifice) · [Smite sprites and prompt](../art/spell-effects/paladin-smite) · [Vengeance sprites and prompt](../art/spell-effects/paladin-vengeance)
+
+Muted ClassicUO checks covered all 28 new frames. Sacrifice paid fractional life on a damaging hit and omitted the payment effect on a miss or against physical immunity. A lethal payment consumed the action before the blow. Smite stunned a physically immune target, and its marker followed the native knockback before expiring. Vengeance applied three elemental damage components and cold with one mana debit. Both Sacrifice and Vengeance played only their swing on a miss. ClassicUO decoded seven Sonniss edits. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Zeal uses a short bronze arc for each swing and a separate spark at each landed target. Charge flares teal on launch and leaves an afterimage where a completed step started. Landing a hit or triggering a mapped knockback produces the impact. Conversion begins with a jade swing. A successful conversion ties a knot on the creature, and the knot breaks when allegiance returns to normal. A failed conversion uses the shared bronze spark if its ordinary blow lands. [Zeal sprites and prompt](../art/spell-effects/paladin-zeal) · [Charge sprites and prompt](../art/spell-effects/paladin-charge) · [Conversion sprites and prompt](../art/spell-effects/paladin-conversion)
+
+Muted ClassicUO checks covered all 36 frames, five Zeal swings split across two targets, one miss, and the original single mana payment. Charge stopped at an intervening obstacle and left afterimages only on completed steps. A Charge miss still flashed when it displaced a knockback-eligible skeleton. Low-mana Zeal and adjacent Charge used their ordinary attack presentation. Conversion succeeded despite a missed weapon roll, preserved the creature's life, and moved its mark with the creature until the natural allegiance expiry. Its failed conversion delivered the ordinary contact. ClassicUO decoded all eight Sonniss edits. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Howl sends a steel-blue wave and marks enemies while they flee. Taunt opens with a copper flare and keeps a rose mark on the enemy while its penalties remain. Battle Cry follows the live rays with amber wave fronts and marks enemies with a broken shield until their penalties expire. War Cry uses an ivory-blue wave and a separate impact at each qualified contact. Its stun uses the shared attached mark. [Howl sprites and prompt](../art/spell-effects/barbarian-howl) · [Taunt sprites and prompt](../art/spell-effects/barbarian-taunt) · [Battle Cry sprites and prompt](../art/spell-effects/barbarian-battle-cry) · [War Cry sprites and prompt](../art/spell-effects/barbarian-war-cry)
+
+Muted ClassicUO checks covered all 128 frames, retreat, approach, Taunt replacement, and natural expiry for Howl and Battle Cry. Howl's wave stopped at the test wall. War Cry still stunned through physical immunity, and a successful shield block prevented damage and stun while showing the existing block effect. ClassicUO decoded twelve Sonniss edits for male and female casts and applied effects. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Shout uses steel-blue shield braces for defense. Battle Orders uses red, blue, and green lights for life, mana, and stamina. Battle Command uses gold and lilac chevrons for the skill-rank bonus. Each release sends a wave along the live rays. The buff effects can stack on the caster, allies, and pets, and each fades when its own buff ends. [Shout sprites and prompt](../art/spell-effects/barbarian-shout) · [Battle Orders sprites and prompt](../art/spell-effects/barbarian-battle-orders) · [Battle Command sprites and prompt](../art/spell-effects/barbarian-battle-command)
+
+Muted ClassicUO checks covered all 132 frames, an immediate self-buff, travelling applications to an ally and pet, one mana debit per cast, and the original defense, resource, and effective-rank changes. The three effects followed the ally and faded independently as each buff expired. A test wall blocked Shout's wave and its ally application. ClassicUO decoded ten Sonniss edits. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Find Potion uses a green search sweep and flashes a vial when a potion is added. Find Item uses an amber sweep and flashes a gold gleam when loot is added. Empty searches leave a short dust effect. Grim Ward raises one of three sizes of bone totem, sends a violet pulse across the active area, and marks affected enemies with thorns. At expiry the totem falls, and the curse marker clears when its own effect ends. [Find Potion sprites and prompt](../art/spell-effects/barbarian-find-potion) · [Find Item sprites and prompt](../art/spell-effects/barbarian-find-item) · [Grim Ward sprites and prompts](../art/spell-effects/barbarian-grim-ward)
+
+Muted ClassicUO checks covered all 76 new frames, successful and empty searches, interrupted casts, retained existing loot, and one mana payment per attempt. All three totem sizes rose and collapsed at the ward's accepted site. The native marker kept its original art ID and collision. Grim Ward's mark followed an affected enemy and cleared separately from the totem. ClassicUO decoded nine new Sonniss edits and the shared curse fade cue. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Bash has an amber swing and impact, with a dust skid at completed knockback steps. Stun has a steel-blue impact and a spiral when the target is stunned, followed by the shared stun marker for the status duration. Concentrate frames the caster with jade braces for its defense window. Berserk surrounds the caster with a violet ring for its zero-defense state, bursts into shards on magic contact, and breaks away when defense returns. [Bash sprites and prompt](../art/spell-effects/barbarian-bash) · [Stun sprites and prompt](../art/spell-effects/barbarian-stun) · [Concentrate sprites and prompt](../art/spell-effects/barbarian-concentrate) · [Berserk sprites and prompt](../art/spell-effects/barbarian-berserk)
+
+Muted ClassicUO checks covered 52 new frames, Bash against open ground and a wall, Stun on a landed hit and a shield block, and Stun's low-mana fallback. Concentrate cleared on recovery and invalidation, and its native poses and effects rendered on male and female Humans, Elves, and flying Gargoyles. Berserk applied zero defense and retained its deadline after a miss. ClassicUO decoded twelve new Sonniss edits and the shared fade cue. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Leap throws sand at takeoff, traces the flight in eight directions, and spreads a dust ring over the landing's knockback radius. Interrupted flight uses a small dust settle. Leap Attack adds a copper landing ring, debris at enemies hit by the area damage, and a separate sweep and spark for the later weapon strike. Whirlwind's blue ring follows the caster, leaving a wake at completed steps and sparks on landed hits. The last reached tile gets a short fade. [Leap sprites and prompt](../art/spell-effects/barbarian-leap) · [Leap Attack sprites and prompt](../art/spell-effects/barbarian-leap-attack) · [Whirlwind sprites and prompt](../art/spell-effects/barbarian-whirlwind)
+
+Muted ClassicUO checks covered 76 frames, every Leap heading, traversal over a walking obstacle, zero-damage knockback, and an interrupted flight. Leap Attack rendered the 3.5-tile landing area and the later weapon swing, with separate hit and miss cases. Whirlwind hit multiple enemies and stopped its wake and spin at a wall. Server checks also passed across two reloads. ClassicUO decoded ten new Sonniss edits. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Double Swing has opposing gold and steel sweeps and a separate contact flash for each hand. Frenzy has copper sweeps and sparks. Its speed charges light a low ring that follows the caster and fades when the speed bonus expires. Double Throw shows the weapon launched by each hand. Knives and axes spin, while the three polearm silhouettes point along the flight. A small spark marks the actual target or terrain contact. [Double Swing sprites and prompt](../art/spell-effects/barbarian-double-swing) · [Frenzy sprites and prompt](../art/spell-effects/barbarian-frenzy) · [Double Throw sprites and prompts](../art/spell-effects/barbarian-double-throw)
+
+Muted ClassicUO checks covered 152 frames, two Double Swing targets, misses, the ordinary low-mana fallback, and both genders across Human, Elf, and Gargoyle bodies. Frenzy's ring moved with the caster and faded as the speed bonus ended. Equipped knives, axes, and glaives rendered through the learned Double Throw, including direct contact and terrain obstruction. The javelin and pilum source rows were exercised as captured flights because their ordinary Barbarian equipment paths are unavailable. All three polearm silhouettes rendered in eight directions. Gameplay checks passed across two server reloads. ClassicUO decoded thirteen new Sonniss edits. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Tiger Strike, Cobra Strike, and the four elemental builders have distinct claw sweeps, contact flashes, and orbiting motes. The motes show the actual number of charges and follow the caster until spent or expired. Cobra Strike shares the recovery ribbons when the common finisher restores life or mana. Fists of Fire opens a flame ring and lights its accepted scatter tiles. Claws of Thunder pairs its nova ring with moving rays and charged bolts. Blades of Ice scatters crystals along the accepted ground cells. Phoenix Strike spends its first tier on a meteor, second on chain lightning, and third on chaos ice. Its meteor reuses the existing warning, descent, and impact graphics. [ImageGen sprite sheets and prompts](../art/spell-effects/assassin-martial-arts)
+
+Muted ClassicUO checks covered 126 frames, all three charge counts for every family, actual misses, both claw releases, a Dragon Talon charge expenditure, and the active motes following movement and clearing on expiry. The learned builders were exercised across male and female Human, Elf, and Gargoyle bodies. Normal weapon finishers exercised the area, field, crystal, projectile, and recovery branches, including all three Phoenix Strike tiers. Native mechanics checks for the builders, their payloads, and all four Dragon finishers passed across two reloads. ClassicUO decoded seventeen new Sonniss edits. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Dragon Talon has amber kicks, contact sparks, and dust on completed final knockback. Dragon Claw uses lilac and blue sweeps for its two hands, with separate flashes on landed strikes. Dragon Tail gives the direct kick a copper sweep and marks the actual fire radius with an expanding ring. Embers mark affected enemies and follow completed displacement. Dragon Flight closes indigo ribbons at departure and opens a blue ring at the accepted landing. The kick follows on its own event. [Dragon Talon sprites and prompt](../art/spell-effects/assassin-dragon-talon) · [Dragon Claw sprites and prompt](../art/spell-effects/assassin-dragon-claw) · [Dragon Tail sprites and prompt](../art/spell-effects/assassin-dragon-tail) · [Dragon Flight sprites and prompt](../art/spell-effects/assassin-dragon-flight)
+
+Muted ClassicUO checks covered all 204 frames, all eight directions, both genders on Human, Elf and Gargoyle bodies, four kicks against one target, and shield deflection. Talon's dust stopped at blocked terrain. Tail marked the live fire radius and affected enemies. Flight showed the accepted destination before the kick, with separate miss and interrupted-transfer cases. The two Claw hands spent their individual charges and rendered actual Cobra recovery. Mechanics and save checks passed across two server reloads. ClassicUO decoded sixteen new Sonniss edits. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Charged Bolt skitters along its existing paths, Lightning travels in a straight streak, and Chain Lightning sends violet arcs between targets. Static Field expands along the ground and Thunder Storm flashes above the caster at release and on its recurring strike schedule. The player casts were checked in ClassicUO with audio disabled. Nine Sonniss edits cover their cast and impact cues. Each cue has passed format and level checks and awaits a listening pass. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Ice Bolt travels as a thin shard, Ice Blast as a compact comet, and Glacial Spike as a heavier crystal with an area burst. Frost Nova expands across the ground. The shared cold overlays follow the affected target and clear with the game status. Thaw and cold corpse shatter reuse the Ice Blast fragments. The player effects were checked in ClassicUO with audio disabled. Eight Sonniss edits cover releases, impacts, and the shared cold corpse shatter. Their listening pass is queued. [Cold status sprite source](../art/spell-effects/cold-status/sheet.png) · [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Fire Bolt is a narrow ember dart, and Inferno is a flame stream that tracks held aim. Blaze puts low flames behind accepted movement, while Fire Wall rises and spreads from its center. The fields animate on their existing burn tiles and fade at expiry. The muted ClassicUO checks covered Fire Bolt contact, Inferno steering and release, and field damage and expiry. Six Sonniss edits passed format and level checks and await listening. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Frozen Armor, Shiver Armor, and Chilling Armor use blue, violet, and teal wards. Energy Shield adds a separate amber shell that sparks on the side taking damage. The wards follow the active buffs and fade at expiry. Chilling Armor shares the Ice Bolt flight and contact art. Muted ClassicUO checks covered reactions, expiry, and overlapping wards on male and female Human, Elf, and Gargoyle bodies, including Gargoyle flight. Nine Sonniss edits passed format and level checks and await listening. [ImageGen sheets and prompts](../art/spell-effects) · [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Nova sends an electric ring across the floor and flashes on damaging contact. Telekinesis uses a caster flash and shows violet force around enemies or on the tile of a remote interaction. Teleport leaves a closing crease at the origin and opens a matching one where the caster lands. Muted ClassicUO checks covered Nova's reach, Telekinesis damage and displacement, remote gold pickup and door use, and both learned and scroll Teleport. Four Sonniss edits passed format and level checks and await listening. [Nova](../art/spell-effects/nova/sheet.png) · [Telekinesis](../art/spell-effects/telekinesis/sheet.png) · [Teleport](../art/spell-effects/teleport/sheet.png)
+
+Enchant uses copper runes at application, a pair of active embers, and a brief slash of sparks on landed contact. Hydra's three heads emerge, aim, and fire on their existing clocks. The head sprites stay distinct even when the emitters occupy the same native tile. Muted ClassicUO checks covered self and ally Enchant, its bonus damage and expiry, and Hydra's three firing heads, hit damage, nonblocking tiles, and retirement. Six Sonniss edits passed format and level checks and await listening. [Enchant](../art/spell-effects/enchant/sheet.png) · [Hydra](../art/spell-effects/hydra/sheet.png) · [Hydra bolt](../art/spell-effects/hydra-bolt/sheet.png)
+
+The muted client decoded the new Sonniss cues for Blizzard, Frozen Orb, Meteor, Teeth, Bone Spirit, and Abyss at their existing events. The Meteor descent cue starts with the falling rock, about 400 ms before impact. The Fire Mage shares Meteor's falling stone, impact, and ground fire. Frozen Orb shares the Ice Bolt contact cue, and Teeth shares the bone-chip impact. The listening pass is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+For the later GM test arena, Green Acres is available on Trammel and Felucca at `5445, 1153, 0`. The requested setup gives the GM every class at max level with all spells available, unlimited mana, and targets with unlimited health and AI disabled. Test characters and targets should be isolated from the normal world. [Trammel location](../upstream/ModernUO/Distribution/Data/Locations/trammel.json#L189)
+
+### Player animation coverage
+
+Verify every custom player-body animation in ClassicUO on all six living player bodies. This includes passive reactions such as Amazon Dodge and Avoid. Check the directions the action supports and confirm that equipment stays aligned. Check airborne Gargoyles for actions they can use in flight. Keep the existing mechanical timing and collision for each action.
+
+Magic Arrow uses violet flight and contact effects, and Guided Arrow uses gold sprites that turn with the projectile. Multiple Shot shares Strafe’s directional arrows, bolts, and physical contact burst. All four use native bow and crossbow poses. [Arcane arrow sprite source](../art/spell-effects/amazon-arcane-arrows/sheet.png) · [Contact sprite source](../art/spell-effects/amazon-arrow-impact/sheet.png) · [Strafe sprite source](../art/spell-effects/strafe/sheet.png)
+
+Muted ClassicUO tests covered both weapons, distinct arrow and bolt art, the nine-projectile rank 8 Multiple Shot fan, and Guided Arrow turning to hit a moving target. Rank 12 Strafe turned between two targets and released five shots over 0.48 seconds with a bow and 1.00 second with a heavy crossbow. The client decoded all seven Sonniss cues at the release or contact events. The listening pass is queued. [Strafe firing sequence](../src/Sanctuary.Content/AmazonStrafe.cs) · [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+The Amazon’s six elemental shots have distinct bow and crossbow flight sprites. Fire Arrow and Cold Arrow flash on a landed contact. Ice Arrow freezes a single target, while Freezing Arrow bursts and freezes targets in its existing area. Exploding Arrow bursts at its area damage event. Immolation Arrow ignites its existing ground cells and fades when they expire. The custom fire and ice cues use the Sonniss recordings, with two new edits for the fire bursts. [Fire flight](../art/spell-effects/amazon-fire-flight/sheet.png) · [Fire impact](../art/spell-effects/amazon-fire-impact/sheet.png) · [Frost flight](../art/spell-effects/amazon-cold-flight/sheet.png) · [Frost impact](../art/spell-effects/amazon-cold-impact/sheet.png) · [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Muted ClassicUO checks covered all six elemental shots on a bow and heavy crossbow. They verified chill, freeze and thaw, and all 29 Immolation damage cells through ground fire expiry. Exploding, Freezing, and Immolation Arrow also displayed their area effects when the parent shot missed its attack roll. The client decoded the release, impact, and field cues. Listening remains queued.
+
+Lightning Bolt and Lightning Fury use distinct electrified javelins. Fury flashes where the secondary bolts originate and shares Sanctuary’s small charged bolt sprites and impact sparks. Poison Javelin leaves a green trail along the throw. Plague Javelin bursts into an ochre cloud that follows its moving damage cells. Both clouds clear when their cells expire. The native throwing pose remains in use. [Javelin ImageGen sheet](../art/spell-effects/javelin-flight/sheet.png) · [Venom ImageGen sheet](../art/spell-effects/javelin-venom/sheet.png)
+
+In muted ClassicUO, Lightning Bolt hit its selected target and Fury sent secondary bolts through three targets. Poison Javelin’s trail poisoned a target that entered after the javelin landed. All 23 Plague Javelin cloud emitters spawned and expired on both a direct hit and a missed attack roll. The client decoded the throw, impact, burst, and cloud cues at their associated effects. The listening pass is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Jab flashes on each landed thrust and Fend shows a silver crescent at each successive target. Impale uses a heavier amber impact and a copper marker that follows its target for the slow’s 12-second duration. Power Strike has a cobalt impact. Charged Strike and Lightning Strike share the Sorceress’s bolt and chain art and cue their secondary release where it begins. These skills use their existing weapon poses. [Thrust ImageGen sheet](../art/spell-effects/amazon-thrust-effects/sheet.png) · [Impale slow ImageGen sheet](../art/spell-effects/impale-slow/sheet.png)
+
+Muted ClassicUO checks covered all six melee skills with a spear and a javelin. Jab played three thrust cues on a missed sequence and only showed impact flashes on landed thrusts. Fend struck three nearby targets. Impale’s marker followed a moving target and cleared at natural expiry. Charged Strike’s bolts continued after a lethal opening thrust, and Lightning Strike reached nearby targets and gave no chain release cue in a single-target fight. Four new Sonniss thrust and contact edits loaded in the client. Listening remains queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Inner Sight casts a gold ring and marks affected targets with an eye. Slow Missiles casts a violet ring and marks affected targets with three violet streaks. The two marks can appear together and each clears on its own expiry. Decoy emerges in blue mirror facets, shimmers during its stationary lifetime, and dissolves at expiry. Valkyrie has gold emergence, a persistent aura on her native body, shared spear contact effects, and a dissolve on replacement or death. [Debuff ImageGen sheet](../art/spell-effects/amazon-marks/sheet.png) · [Decoy ImageGen sheet](../art/spell-effects/decoy-mirror/sheet.png) · [Valkyrie ImageGen sheet](../art/spell-effects/valkyrie-gold/sheet.png)
+
+Muted ClassicUO checks covered overlapping marks on a moving enemy and their separate natural expiry at ranks with eight- and twelve-second durations. A newly fired hostile bolt traveled at 68% of its normal speed after Slow Missiles. The Decoy dissolved at its ten-second expiry. The Valkyrie’s aura followed her into combat and retired when she was replaced or killed. The client decoded the six new Sonniss cues. Listening remains queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+| Race | Male body | Female body |
+| --- | --- | --- |
+| Human | 400 | 401 |
+| Elf | 605 | 606 |
+| Gargoyle | 666 | 667 |
+
+Dodge shows an amber sweep with a brief backward recoil. Avoid shows a cyan streak with a brief sidestep. The client shifts the native body and its equipment together and uses the same offset for mouse selection. Mounted actors use the flash and cue. Evade shows an olive trail during the native walk cycle. These effects leave collision, movement, recovery and attack timing in the existing gameplay code. [Reaction sprite sheet](../art/spell-effects/amazon-avoidance/sheet.png) · [Amazon avoidance implementation](../src/Sanctuary.Content/AmazonAvoidance.cs)
+
+Muted ClassicUO checks rendered all four frames of each reaction on both genders of Human, Elf and Gargoyle, including both Gargoyles in flight. Standing checks covered all eight facings across the body matrix. Evade used accepted client movement and the failed avoidance rolls produced no reaction. Three Sonniss cues loaded with sound and music disabled. Listening remains queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
 **Warlock combined integration — 2026-11-18 JST.** The [906-result checkpoint](warlock-lifecycle-acceptance-checkpoint.md) adds no final effects/audio or new asset identities. Existing missing assets and identified placeholders remain in this separate register; mechanical qualification does not imply graphical acceptance.
 
 **Druid/Assassin current integration — 2026-11-18 JST.** [Druid](druid-lifecycle-acceptance-checkpoint.md) and [Assassin](assassin-lifecycle-acceptance-checkpoint.md) qualify existing melee,spell,pet,trap,weather,channel and saved-effect mechanics without creating artwork/audio. Their named mechanical placeholders retain the separately listed missing effects and sounds. No imagegen.
@@ -42,7 +228,7 @@
 
 **Prepared barrier-collapse placeholder — 2026-11-16 JST.** The pending Wall/Prison world rule uses native action4 for a600ms collapse marker. Final BW death/collapse/removal animation and audio are still needed; collision release is mechanical and does not wait for final artwork. See [candidate](bone-barrier-retirement-checkpoint.md). Talent/hotkey icon requirements remain separately recorded in [icons](skill-icons.md).
 
-Abyss uses identified UO tear/pulse0x374A and collapse0x37B9 magic markers,plus cast sound0x1E5. Final source709center,visual714tear,715collapse and cast/audio are pending independently of mechanics. No694shard effect is invented for this graph. Talent/hotkey artwork remains in the separate icon register.
+Abyss uses custom art and Sonniss cues for its opening, pull pulses, and terminal collapse. The active field remains visible between pull pulses.
 
 Flame Wave needs final revealing-wall708,rolling-front690,short-tail695,static-fire716/240,termination29 and cast/audio assets. Current UO flames and sound are identified placeholders;mechanical lifetimes are independent of final art.
 
@@ -675,55 +861,57 @@ The [Paladin baseline/binding checkpoint](paladin-baseline-checkpoint.md) retain
 
 The [Sorceress coverage/binding review](sorceress-coverage-review.md) changes mouse-slot admission and saved normalization only. It introduces no new particle, body animation or audio asset. Existing per-skill placeholders and missing-effects entries remain authoritative.
 
-[Teleport input and resource acceptance](sorceress-player-teleport-checkpoint.md) retains departure/arrival effect `0x3728`, particle variants `2023`/`5023`, pose `16` and sound `0x1FE` as identified placeholders. Final cast, departure, arrival, body feedback and audio remain pending. The shared mana-payment correction adds no effect requirement; talent and hotkey icons stay separate.
+[Teleport](sorceress-player-teleport-checkpoint.md) uses the existing cast pose. On successful transfer, a cyan crease closes at departure and a second one opens at the landing point. Learned casts and scrolls share this effect and its transfer cue. [ImageGen sheet](../art/spell-effects/teleport/sheet.png)
 
-The [Hydra native head/bolt checkpoint](hydra-world-checkpoint.md) uses native body `0x9C`/hue `0x489`, bolt `0x36D4` and cast sound `0x1E5` as **identified placeholders**. Final three-head emergence, targeting/attack, fire travel/contact, retirement/death and audio remain pending. Current animation metadata supplies mechanical timing; final art does not block implementation. Talent/hotkey icons remain separate.
+The [Hydra](hydra-world-checkpoint.md) summons three fire serpents that rise from embers, turn toward their targets, open their jaws at release, and sink at retirement. ClassicUO positions each sprite from its projected head location. The server keeps its existing nonblocking emitters. The fire bolts use their own directional travel and ember burst. [Hydra sheet](../art/spell-effects/hydra/sheet.png) · [Bolt sheet](../art/spell-effects/hydra-bolt/sheet.png)
 
-Player Frozen Orb reuses orb `0x375A`, ice `0x36E4`, hue `0x480` and fire cast sound `0x1E5` as **identified placeholders**. Final orb/trail/terminal/contact/expiry feedback and cold cast/travel/hit audio remain pending; mechanical implementation does not wait for art. See [checkpoint](sorceress-player-frozen-orb-checkpoint.md).
+Frozen Orb uses a rotating core and directional ice bolts. The shared cold contact cue accompanies successful bolt hits, and a fuller shatter marks the terminal burst. [Frozen Orb](sorceress-player-frozen-orb-checkpoint.md)
 
-Player Blizzard reuses falling ice `0x376A`, cold-state `0x374A` and the current fire-cast audio as **identified placeholders**. Final fall/landing/contact/size/expiry feedback and cold cast/loop/hit audio remain pending; the source controller does not wait for art.
+Blizzard cues its release, plays wind while shards are falling, and plays an ice tick on damaging shard contact. Wind and contact cues have separate repeat intervals.
 
-Player Meteor reuses the Mage/Phoenix warning, falling meteor, impact and burning-ground placeholders (`0x3709`, `0x36BD`, `0x398C`, hue `0x489`), plus fire cast audio. Final timing/contact presentation and audio are pending; mechanical work uses the shared controller.
+Meteor and the Fire Mage's Meteor share a ground warning, falling stone, impact, and flames on active ground tiles. Both use the same cast, descent, impact, and fire cues.
 
-[Fire Wall](sorceress-fire-wall-native-checkpoint.md) reuses ground fire `0x398C`/hue `0x489` and cast sound `0x1E5` as identified placeholders. Final cast, growing wall, sustained field/contact, expiry and audio remain pending. Makers are mechanical emitters and do not gain invented contact damage for presentation. Tree/hotkey icons stay separate.
+[Fire Wall](sorceress-fire-wall-native-checkpoint.md) ignites each cell as its emitters reach it. The flames loop and die down according to each cell's lifetime. Visuals on overlapping cells share one animation. [Fire Wall sprite source](../art/spell-effects/fire-wall/sheet.png)
 
-[Blaze](sorceress-blaze-checkpoint.md) uses aura `0x375A`, ground fire `0x398C`/hue `0x489` and cast sound `0x1E5` as identified placeholders. Final cast, movement trail, sustained ground/contact, expiry and audio remain pending; reuse fire assets where suitable. Mechanical field duration and damage do not wait for image generation. Talent/hotkey icons stay separate.
+[Blaze](sorceress-blaze-checkpoint.md) starts with a swirl at the caster's feet. Accepted movement leaves low burning patches that settle to embers as their damage window expires. [Blaze sprite source](../art/spell-effects/blaze/sheet.png)
 
-[Enchant failed-release payment](sorceress-buff-payment-checkpoint.md) reuses the existing Enchant presentation. No new effect is introduced; final cast/recipient/weapon/contact/expiry feedback and audio remain pending, with current glows and sound as identified placeholders. Tree/hotkey icons stay separate.
+[Enchant release](sorceress-buff-payment-checkpoint.md) triggers its cast effects on successful application, after the existing rank and payment checks.
 
-[Energy Shield](sorceress-energy-shield-checkpoint.md) retains shield `0x375A`/hue `0x482` and cast sound `0x1E5` as identified placeholders. Final cast, persistent shield, directional absorption/contact, depletion/expiry and audio remain pending. Reuse shared lightning/shield assets where suitable; talent/hotkey icons stay separate.
+[Energy Shield](sorceress-energy-shield-checkpoint.md) wraps the caster in amber arcs and sparks on the side of an absorbed hit. The shield breaks when absorption drains the caster's mana and fades when the buff expires. The existing cold armor can remain active through either event. [Energy Shield sprite source](../art/spell-effects/energy-shield/sheet.png)
 
-[Shiver retaliation](sorceress-shiver-armor-checkpoint.md) uses post-return contact `0x37B9`, cold status `0x374A`, armor `0x375A`, hue `0x480` and sound `0x1E5` as identified placeholders. Final cast, persistent armor, reaction/contact, expiry and audio remain pending; reuse cold assets where suitable. Talent/hotkey icons stay separate.
+[Shiver Armor](sorceress-shiver-armor-checkpoint.md) forms a violet ward. A violet flash marks the melee attacker when the cold retaliation lands, and the shared chill overlay follows that attacker. [Shiver Armor sprite source](../art/spell-effects/shiver-armor/sheet.png)
 
-[Saved Chilling Armor return bolts](sorceress-chilling-bolt-checkpoint.md) reuse cold travel `0x36E4`/hue `0x480`, cold status `0x374A`/hue `0x480`, armor `0x375A` and sound `0x1E5` as identified placeholders. Final armor, return emission/travel/contact/expiry overlays and audio remain pending; share existing cold assets where suitable. Talent/hotkey icons stay separate.
+[Chilling Armor](sorceress-chilling-bolt-checkpoint.md) forms a teal ward and pulses when it releases a return bolt. The bolt shares Ice Bolt's flight, contact, and chill effects. [Chilling Armor sprite source](../art/spell-effects/chilling-armor/sheet.png)
 
-[Cold armor casts and Frozen Armor reaction](sorceress-cold-armor-checkpoint.md) reuse armor `0x375A`/hue `0x480`, freeze `0x374A`/hue `0x480`, legacy return travel `0x36E4` and sound `0x1E5` as identified placeholders. Final Frozen/Shiver/Chilling cast, persistent body armor, reaction/travel/contact/expiry overlays and audio remain pending. Share cold/Mage effects where suitable; tree/hotkey icons stay separate.
+[Frozen Armor](sorceress-cold-armor-checkpoint.md) forms a pale blue ward that flashes when a melee hit freezes the attacker. The attacker uses the shared freeze overlay. Casting another cold armor replaces the active cold ward. [Frozen Armor sprite source](../art/spell-effects/frozen-armor/sheet.png)
 
-[Enchant casting](sorceress-enchant-cast-checkpoint.md) retains buff/weapon glow `0x375A`/hue `0x489` and cast sound `0x1E5` as identified placeholders. Final player/Mage Enchant cast, recipient/weapon glow, hit/expiry feedback and audio remain pending; share the spell presentation where suitable. Talent/hotkey icons stay separate.
+[Enchant](sorceress-enchant-cast-checkpoint.md) marks application with rising copper runes, keeps paired embers around the recipient during the buff, flashes on landed weapon contact, and fades at expiry. The Mage's automatic application shares the recipient art and cast cue. [Enchant sheet](../art/spell-effects/enchant/sheet.png)
 
-[Thunder Storm pulses](sorceress-storm-pulse-checkpoint.md) retain aura `0x375A`/hue `0x482`, lightning `BoltEffect(0x482)` and cast sound `0x1E5` as identified placeholders. Final thunderstorm aura/strike/cast overlays and sorceress thunder cast/bolt audio remain pending, sharing elemental feedback with existing lightning skills. Talent/hotkey icons stay separate.
+[Thunder Storm pulses](sorceress-storm-pulse-checkpoint.md) show a cloud on the caster and a vertical strike on the selected target. The charge and strike have Sonniss cues. [Storm sprite source](../art/spell-effects/thunder-storm/sheet.png)
 
-[Prepared player Chain Lightning](sorceress-player-chain-checkpoint.md) retains travelling `0x3818`/hue `0x482` and cast sound `0x1E5` as identified placeholders. Final root/child lightning travel/contact, typed potion feedback, return-fire cues and cast/travel/impact audio remain pending. Existing Mage assets should share these elemental effects; tree/hotkey icons stay separate.
+[Player Chain Lightning](sorceress-player-chain-checkpoint.md) uses violet arcs for the opening flight and jumps, with flashes on damage. Mage Chain Lightning and Amazon Lightning Strike share the arc and contact sprites. [Chain sprite source](../art/spell-effects/chain-lightning/sheet.png)
 
-[Player Charged Bolt](sorceress-charged-flight-checkpoint.md) now uses saved independent paths. Travelling `0x3818`/hue `0x482` and cast sound `0x1E5` remain identified placeholders; final ChargedBolt travel/contact, return-fire feedback and sorceress cast/travel/impact audio remain pending. Talent and hotkey icons stay in the separate register.
+[Charged Bolt](sorceress-charged-flight-checkpoint.md) uses directional ground sparks and contact crackle along its independent paths. The Skeletal Mage and original-item Charged Bolt reuse these flight and contact sprites. [Bolt sprite source](../art/spell-effects/charged-bolt/sheet.png)
 
-Player Lightning now shares the saved spell flight controller; travelling `0x3818`/hue `0x482` and cast sound `0x1E5` remain explicitly identified placeholders. Final Lightning travel/contact, return-fire feedback and cast/travel/impact audio are pending. See [mechanical checkpoint](sorceress-lightning-flight-checkpoint.md); icons stay separate.
+[Lightning](sorceress-lightning-flight-checkpoint.md) uses narrow segments to show a continuous streak and flashes at damage contacts along its route. [Lightning sprite source](../art/spell-effects/lightning/sheet.png)
 
 The [four-passive increment](sorceress-passives-checkpoint.md) creates no active cast or projectile. Existing fire/lightning/cold/recovery cues remain identified placeholders for status feedback. Final passive/affected-target feedback and audio, where useful, stay pending and should share elemental/recovery assets. Missing art does not block passive suppliers. Talent icons remain in their separate register.
 
-The [player Static Field increment](sorceress-static-field-checkpoint.md) retains caster `0x3818`/hue `0x482` and sound `0x1E5` as identified placeholders. Final cast/area/recipient feedback and audio remain pending and should share the approved Mage Static assets. This instant area pulse adds no projectile art. Talent/hotkey artwork stays in the separate register.
+[Static Field](sorceress-static-field-checkpoint.md) uses an expanding ground ring and small shocks at the feet of damaged targets. Three visual ring sizes communicate the pulse as skill radius grows. The shared Mage cast uses the same sprites. [Static Field sprite source](../art/spell-effects/static-field/sheet.png)
 
-The [saved Nova/Frost Nova increment](sorceress-nova-checkpoint.md) uses lightning `0x3818`/hue `0x482`, cold `0x36E4`/hue `0x480`, shared cold markers and sound `0x1E5` as identified placeholders. Eight sampled markers represent64 mechanical rays. Final cast/ring/travel/contact/chill/expiry and audio remain pending; share matching martial Nova, Poison Nova and cold assets where presentation fits. Missing art does not block mechanical rays. Tree and hotkey artwork stays in the separate register.
+Frost Nova spreads a frost ring and shows the shared chill overlay on damaging contact. Nova uses an electric ring, caster sparks, and a separate electric contact flash. Original item emissions share the corresponding ring and contact art. [Nova mechanics](sorceress-nova-checkpoint.md) · [Frost Nova sprite source](../art/spell-effects/frost-nova/sheet.png) · [Nova sprite source](../art/spell-effects/nova/sheet.png)
 
 The [saved player Fire Ball increment](sorceress-fire-ball-checkpoint.md) uses travel `0x36D4`/hue `0x489`, explosion `0x36BD`/hue `0x489` and sound `0x1E5` as identified placeholders. Final cast/travel/contact/explosion/expiry presentation and audio remain pending. Share matching Mage and fire-area assets; visual wall placement must follow the eventual shared geometry correction. Tree and hotkey artwork stays in the separate icon register.
 
-The [saved player Glacial Spike increment](sorceress-glacial-spike-checkpoint.md) retains cold travel/explosion `0x36E4`/hue `0x480`, freeze marker `0x374A`/hue `0x480` and sound `0x1E5` as identified placeholders. Final cast/travel/terminal or contact explosion/freeze/thaw/shatter and audio remain pending; share the existing Mage Glacial/cold assets. Offline expiry creates no replay effect. Talent/hotkey icons remain separate.
+Glacial Spike shows a directional crystal and an area burst at the resolved impact. The burst plays for a target, a wall, or the end of an open flight. The Mage flight and area spell share the same graphics. [Glacial Spike mechanics](sorceress-glacial-spike-checkpoint.md) · [Sprite source](../art/spell-effects/glacial-spike/sheet.png)
 
-The [player Ice Blast increment](sorceress-ice-blast-checkpoint.md) uses travel `0x36E4`/hue `0x480`, freeze marker `0x374A`/hue `0x480`, and sound `0x1E5` as identified placeholders. Final cast/travel/contact/freeze/thaw/shatter and audio remain pending; share the existing cold/Mage assets where presentation matches. Its client impact effect must not imply a server splash. Icons remain separate.
+Ice Blast uses a compact crystal comet and a burst at the struck target. Successful freeze shows an ice collar through the actual status duration, followed by a brief thaw. [Ice Blast mechanics](sorceress-ice-blast-checkpoint.md) · [Sprite source](../art/spell-effects/ice-blast/sheet.png)
 
-The [player Ice Bolt increment](sorceress-ice-bolt-checkpoint.md) uses travel `0x36E4`/hue `0x480`, the shared cold-state marker `0x374A`/hue `0x480`, and cast sound `0x1E5` as identified placeholders. Final cast/travel/contact/chill/expiry feedback and audio remain pending; share Mage Ice Bolt assets. Visual collision must not imply a server explosion. Icons remain in their separate register.
+Ice Bolt uses a thin directional shard and a small chip flash on contact. Its chill overlay follows the affected target. The Mage and original item bolt paths share the art. [Ice Bolt mechanics](sorceress-ice-bolt-checkpoint.md) · [Sprite source](../art/spell-effects/ice-bolt/sheet.png)
 
-The [player Fire Bolt increment](sorceress-fire-bolt-checkpoint.md) uses travel `0x36D4`, hue `0x489`, and cast sound `0x1E5` as identified placeholders. Final cast/travel/contact/impact/expiry feedback and audio remain pending; share the Mage Fire Bolt assets. Visual impact must not imply an unimplemented server splash. Missing artwork does not block the mechanical path; icons stay separate.
+[Fire Bolt](sorceress-fire-bolt-checkpoint.md) uses a directional dart and compact contact flash. The Mage flight and original-item spell share the same art. [Fire Bolt sprite source](../art/spell-effects/fire-bolt/sheet.png)
+
+[Inferno](player-inferno-modes-checkpoint.md) draws its stream from the emitted flames and flashes on damaging contact. Releasing the held input ends new emissions, and existing flames retire with their flight. [Inferno sprite source](../art/spell-effects/inferno/sheet.png)
 
 The [combined Necromancer acceptance](necromancer-acceptance-checkpoint.md) verifies mechanics and adds no final artwork. Existing summon, cast, curse, projectile, cloud, impact, barrier, parking and audio requirements remain pending with identified UO placeholders. Reuse shared Sorceress/encounter assets where the presentation matches; missing art does not block mechanics. Talent and hotkey icons stay in the separate icon register.
 
@@ -761,7 +949,7 @@ The [Mage Chain secondary](mage-chain-checkpoint.md) shares segment `0x3818`/hue
 
 The [Mage Static secondary](mage-static-checkpoint.md) uses caster effect `0x3818`/hue`0x482` as an identified placeholder. Final Static area/cast/recipient feedback and audio remain pending; share the eventual Sorceress Static Field assets rather than creating a separate duplicate.
 
-The [Mage hard20 buffs](mage-pet-buffs-checkpoint.md) reuse Enchant glow `0x375A`/hue`0x489` and freeze marker `0x374A`/hue`0x480` as identified placeholders. Final Mage automatic-buff, intrinsic armor and retaliation feedback/audio remain pending; reuse the existing Enchant/Frozen Armor asset work.
+The fire Mage's [automatic Enchant](mage-pet-buffs-checkpoint.md) shares the player's application and active embers. The ice Mage's intrinsic armor and retaliation presentation still need their asset pass.
 
 The [learned Mage world controller](mage-world-checkpoint.md) retains `Skeletal Mage [placeholder]`, the existing native skeleton body, casting animation4 and summon/elemental missile/contact particles/audio. Final emergence, movement/casting/recovery/death and elemental/upgraded spell feedback/audio remain pending. Reuse the existing Mage effects entry; no final art is generated.
 
@@ -831,11 +1019,11 @@ The [Poison Explosion moving-cloud path](poison-explosion-checkpoint.md) uses ca
 
 The [Poison Nova saved-ring path](poison-nova-checkpoint.md) uses cast sound0x1E5 and travel marker0x374A as identified placeholders. Final poisonNova directional travel/contact/state effects and cast/travel/impact/expiry audio remain pending independently of the64rays and poison ticks.
 
-The [Bone Spirit saved-guidance path](bone-spirit-checkpoint.md) retains cast sound0x1E5 and travel marker0x36E4 as identified placeholders. Final BoneSpirit eight-direction loop/travel, bonespiritexplode and cast/travel/impact/expiry audio remain pending independently of saved guidance and damage.
+Bone Spirit renders a custom directional skull along its [saved-guidance path](bone-spirit-checkpoint.md) and bursts on a damaging hit. The native cast sound `0x1E5` remains a placeholder.
 
-The [Teeth saved-flight path](teeth-checkpoint.md) retains native cast sound0x1E5 and travel marker0x36E4 as identified placeholders. Final teethMissile directional travel, bonecast, teethexplode impact and cast/travel/hit/expiry audio remain pending independently of damage and persistence.
+Teeth renders custom directional shards along its [saved-flight path](teeth-checkpoint.md) and chips on a damaging hit. The native cast sound `0x1E5` remains a placeholder.
 
-The [Bone Spear flight path](bone-spear-checkpoint.md) uses native cast sound0x1E5 and travel marker0x36E4 as identified placeholders. Final BoneSpear directional sprite, bonespeartrail, bonespearexplode/teethexplode impact presentation and cast/travel/hit/expiry audio remain pending. Collision/damage and saved flight do not depend on that art.
+Bone Spear uses custom directional flight art, a flash on piercing contact and a full shatter at the end of its [flight path](bone-spear-checkpoint.md). Its Sonniss cues await a listening pass.
 
 The [Bone Armor correction](bone-armor-checkpoint.md) retains the native0x375A shield marker and shared cast sound as identified placeholders. Final orbiting-bone, absorption/break/state effects and audio remain pending; exact shield arithmetic does not depend on those assets.
 
@@ -908,138 +1096,138 @@ Inherited item resistances need no new independent active effect. Iron Golem sti
 Inherited NPC item absorption now changes life mechanically. Final Iron Golem absorption/contact/audio presentation remains pending; existing UO contact art is an identified placeholder. No source-specific absorption overlay is certified by this adapter. Keep any eventual cue synchronized with the actual absorbed hit.
 
 <!-- BEGIN GENERATED: skill-effects -->
-| Class | Skill | Effect work | Source cues |
+| Class | Skill | Effect work | Current presentation or source cues |
 | --- | --- | --- | --- |
-| Amazon | Jab | needed | No source effect cue; final presentation pending |
-| Amazon | Power Strike | needed | No source effect cue; final presentation pending |
-| Amazon | Poison Javelin | needed | poisonjav, poisonjav |
-| Amazon | Impale | needed | No source effect cue; final presentation pending |
+| Amazon | Jab | native | Native weapon thrusts and contact audio. |
+| Amazon | Power Strike | native | Native weapon thrusts and lightning effects. |
+| Amazon | Poison Javelin | native | Native spear and Poison Field graphics. |
+| Amazon | Impale | native | Native weapon thrusts and contact audio. |
 | Amazon | Lightning Bolt | needed | lightningjavelin, lightningjavelin |
-| Amazon | Charged Strike | needed | chargedstrikebolt, chargedstrikebolt, chargedstrikebolt, chargedstrikebolt, chargedstrikebolt, chargedstrikebolt |
-| Amazon | Plague Javelin | needed | plaguejavelin, plaguejavelin |
-| Amazon | Fend | needed | No source effect cue; final presentation pending |
-| Amazon | Lightning Strike | needed | lightningstrike, lightningstrike, lightningstrike, lightningstrike, lightningstrike, lightningstrike |
+| Amazon | Charged Strike | native | Native weapon thrusts and lightning effects. |
+| Amazon | Plague Javelin | native | Native spear and Poison Field graphics. |
+| Amazon | Fend | native | Native weapon thrusts and contact audio. |
+| Amazon | Lightning Strike | native | Native weapon thrusts and lightning effects. |
 | Amazon | Lightning Fury | needed | lightningfury, lightningfury |
-| Amazon | Inner Sight | needed | cast_innersight, cast_innersight |
+| Amazon | Inner Sight | native | Native spell flashes and target feedback. |
 | Amazon | Critical Strike | not-applicable | criticalstrike |
 | Amazon | Dodge | needed | dodge, S1, amazon_dodge_1, 2 |
-| Amazon | Slow Missiles | needed | cast_slowmissiles, cast_slowmissiles, slowmissiles, amazon_handofathena, innersight |
+| Amazon | Slow Missiles | native | Native spell flashes and target feedback. |
 | Amazon | Avoid | needed | avoid, S1, amazon_dodge_1, 2 |
 | Amazon | Penetrate | not-applicable | penetrate |
-| Amazon | Decoy | needed | dopplezon, dopplezon, dopllezon_appear |
-| Amazon | Evade | needed | evade, S1, block_arrow_1, amazon_dodge_1 |
-| Amazon | Valkyrie | needed | valkyrie |
+| Amazon | Decoy | native | Native humanoid bodies and summon effects. |
+| Amazon | Evade | native | Native Evade sound. |
+| Amazon | Valkyrie | native | Native humanoid bodies and summon effects. |
 | Amazon | Pierce | not-applicable | pierce |
-| Amazon | Magic Arrow | needed | magicarrow, magicarrow |
-| Amazon | Fire Arrow | needed | firearrow, firearrow |
-| Amazon | Cold Arrow | needed | coldarrow, coldarrow |
-| Amazon | Multiple Shot | needed | multipleshotarrow, multipleshotbolt, multipleshotarrow, multipleshotbolt |
-| Amazon | Exploding Arrow | needed | explodingarrow, explodingarrow |
-| Amazon | Ice Arrow | needed | icearrow, icearrow |
-| Amazon | Guided Arrow | needed | guidedarrow, guidedarrow, guidedarrow, guidedarrow, guidedarrow, guidedarrow |
-| Amazon | Immolation Arrow | needed | immolationarrow, immolationarrow |
-| Amazon | Strafe | needed | strafearrow, strafebolt, multipleshotarrow, multipleshotbolt |
+| Amazon | Magic Arrow | native | Native arrows, bolts, spell flashes and fire fields as applicable. |
+| Amazon | Fire Arrow | native | Native arrows, bolts, spell flashes and fire fields as applicable. |
+| Amazon | Cold Arrow | native | Native arrows, bolts, spell flashes and fire fields as applicable. |
+| Amazon | Multiple Shot | native | Native arrows, bolts, spell flashes and fire fields as applicable. |
+| Amazon | Exploding Arrow | native | Native arrows, bolts, spell flashes and fire fields as applicable. |
+| Amazon | Ice Arrow | native | Native arrows, bolts, spell flashes and fire fields as applicable. |
+| Amazon | Guided Arrow | native | Native arrows, bolts, spell flashes and fire fields as applicable. |
+| Amazon | Immolation Arrow | native | Native arrows, bolts, spell flashes and fire fields as applicable. |
+| Amazon | Strafe | native | Native arrows, bolts, spell flashes and fire fields as applicable. |
 | Amazon | Freezing Arrow | needed | freezingarrow, freezingarrow |
-| Sorceress | Ice Bolt | needed | icebolt, ice_cast_1, icebolt |
-| Sorceress | Frozen Armor | needed | frozenarmor, ice_cast_1, frozenarmor_hit, ice_cast_1 |
-| Sorceress | Frost Nova | needed | frostnova, frostnova, frostnova, ice_cast_2, frostnova |
-| Sorceress | Ice Blast | needed | iceblast, ice_cast_1, iceblast |
-| Sorceress | Shiver Armor | needed | shiverarmor, ice_cast_2, shiverarmor_hit, sparkle, ice_cast_3 |
-| Sorceress | Glacial Spike | needed | glacialspike, ice_cast_2, glacialspike |
+| Sorceress | Ice Bolt | native | Native spell projectiles and frost-tinted effects. |
+| Sorceress | Frozen Armor | native | Native ward flashes and retaliation effects. |
+| Sorceress | Frost Nova | native | Native spell projectiles and frost-tinted effects. |
+| Sorceress | Ice Blast | native | Native spell projectiles and frost-tinted effects. |
+| Sorceress | Shiver Armor | native | Native ward flashes and retaliation effects. |
+| Sorceress | Glacial Spike | native | Native spell projectiles and frost-tinted effects. |
 | Sorceress | Blizzard | needed | blizzardcenter, blizzardcenter, blizzardcenter, ice_cast_3, blizzardcenter, ice_cast_3 |
-| Sorceress | Chilling Armor | needed | chillingarmorbolt, chillingarmor, ice_cast_3, chillarmor_hit, chillingarmorbolt |
+| Sorceress | Chilling Armor | native | Native ward flashes and retaliation effects. |
 | Sorceress | Frozen Orb | needed | frozenorb, ice_cast_3, frozenorb |
 | Sorceress | Cold Mastery | not-applicable | coldmastery |
-| Sorceress | Charged Bolt | needed | chargedbolt, chargedbolt, chargedbolt, light_cast_1, chargedbolt |
-| Sorceress | Telekinesis | needed | light_cast_2 |
-| Sorceress | Static Field | needed | light_cast_1 |
-| Sorceress | Lightning | needed | lightningbolt, light_cast_1, lightningbolt |
-| Sorceress | Nova | needed | nova, nova, nova, light_cast_1, nova |
-| Sorceress | Chain Lightning | needed | chainlightning, chainlightning, chainlightning, light_cast_1, chainlightning, chainlightning, chainlightning |
-| Sorceress | Teleport | needed | teleport, teleport |
-| Sorceress | Thunder Storm | needed | thunderstorm1, thunderstorm, lightning, light_cast_2, thunderstorm1 |
-| Sorceress | Energy Shield | needed | energyshield, energyshieldhit0, light_cast_2 |
+| Sorceress | Charged Bolt | native | Native lightning effects and sounds. |
+| Sorceress | Telekinesis | native | Native spell flashes and sounds. |
+| Sorceress | Static Field | native | Native lightning effects and sounds. |
+| Sorceress | Lightning | native | Native lightning effects and sounds. |
+| Sorceress | Nova | native | Native lightning effects and sounds. |
+| Sorceress | Chain Lightning | native | Native lightning effects and sounds. |
+| Sorceress | Teleport | native | Native spell flashes and sounds. |
+| Sorceress | Thunder Storm | native | Native lightning effects and sounds. |
+| Sorceress | Energy Shield | native | Native ward flashes and retaliation effects. |
 | Sorceress | Lightning Mastery | not-applicable | lightningmastery |
-| Sorceress | Fire Bolt | needed | firebolt, fire_cast_1, firebolt |
+| Sorceress | Fire Bolt | native | Native fire projectiles, fields and flashes as applicable. |
 | Sorceress | Warmth | not-applicable | warmth |
 | Sorceress | Inferno | needed | infernoflame1, infernoflame1, infernoflame1, infernoflame1, infernoflame2 |
-| Sorceress | Blaze | needed | blaze, blaze, blaze, blaze, fire_cast_2, blaze, firewall, firesmall, firemedium |
+| Sorceress | Blaze | native | Native fire projectiles, fields and flashes as applicable. |
 | Sorceress | Fireball | needed | fireball, fire_cast_2, fireball |
-| Sorceress | Fire Wall | needed | firewallmaker, firewall, fire_cast_2, firewallmaker |
-| Sorceress | Enchant | needed | enchant |
+| Sorceress | Fire Wall | native | Native fire projectiles, fields and flashes as applicable. |
+| Sorceress | Enchant | native | Native fire projectiles, fields and flashes as applicable. |
 | Sorceress | Meteor | needed | meteorcenter, meteorcenter, meteorcenter, fire_cast_2, meteorcenter, fire_cast_2 |
 | Sorceress | Fire Mastery | not-applicable | firemastery |
 | Sorceress | Hydra | needed | hydra1, fire_cast_2, fire_cast_2 |
-| Necromancer | Raise Skeleton | needed | necroskeleton, corpseexplosion |
+| Necromancer | Raise Skeleton | native | Native creature bodies and summon effects. Revive keeps the original creature. |
 | Necromancer | Skeleton Mastery | not-applicable | skel_mastery |
-| Necromancer | Clay Golem | needed | ClayGolem |
+| Necromancer | Clay Golem | native | Native creature bodies and summon effects. Revive keeps the original creature. |
 | Necromancer | Golem Mastery | not-applicable | golem_mastery |
-| Necromancer | Raise Skeletal Mage | needed | necromage, corpseexplosion |
-| Necromancer | Blood Golem | needed | BloodGolem |
+| Necromancer | Raise Skeletal Mage | native | Native creature bodies and summon effects. Revive keeps the original creature. |
+| Necromancer | Blood Golem | native | Native creature bodies and summon effects. Revive keeps the original creature. |
 | Necromancer | Summon Resist | not-applicable | summonresist |
-| Necromancer | Iron Golem | needed | thorns, IronGolem |
-| Necromancer | Fire Golem | needed | monstercorpseexplode, FireGolem |
-| Necromancer | Revive | needed | revivemedium, revivesmall, revivelarge |
+| Necromancer | Iron Golem | native | Native creature bodies and summon effects. Revive keeps the original creature. |
+| Necromancer | Fire Golem | native | Native creature bodies and summon effects. Revive keeps the original creature. |
+| Necromancer | Revive | native | Native creature bodies and summon effects. Revive keeps the original creature. |
 | Necromancer | Teeth | needed | teeth, teeth, teeth, bonecast |
 | Necromancer | Bone Armor | needed | bonearmor |
-| Necromancer | Poison Dagger | needed | No source effect cue; final presentation pending |
-| Necromancer | Corpse Explosion | needed | corpseexplosion, explodingarrowexp, redlightmissile |
+| Necromancer | Poison Dagger | native | Native weapon and poison effects as applicable. |
+| Necromancer | Corpse Explosion | native | Native Explosion graphics and sound. |
 | Necromancer | Bone Wall | needed | bonewallmaker, bonewall |
-| Necromancer | Poison Explosion | needed | poisonexplosioncloud, poisoncorpseexplosion, poisonexplosioncloud, greenlightmissile |
+| Necromancer | Poison Explosion | native | Native weapon and poison effects as applicable. |
 | Necromancer | Bone Spear | needed | bonespear, bonespear, bonecast |
 | Necromancer | Bone Prison | needed | bonewall |
-| Necromancer | Poison Nova | needed | poisonnova, poisonnova |
+| Necromancer | Poison Nova | native | Native weapon and poison effects as applicable. |
 | Necromancer | Bone Spirit | needed | bonespirit, bonespirit, bonespirit |
-| Necromancer | Amplify Damage | needed | curseamplifydamage, cursecast |
-| Necromancer | Dim Vision | needed | cursedimvision, cursecast |
-| Necromancer | Weaken | needed | curseweaken, cursecast |
-| Necromancer | Iron Maiden | needed | curseironmaiden, cursecast |
-| Necromancer | Terror | needed | curseterror, cursecast |
-| Necromancer | Confuse | needed | curseconfuse, cursecast |
-| Necromancer | Life Tap | needed | steallife, cursereversevampire, cursecast |
-| Necromancer | Attract | needed | curseattract, cursecast |
-| Necromancer | Decrepify | needed | cursedecrepify, cursecast |
-| Necromancer | Lower Resist | needed | curselowerresist, cursecast |
-| Paladin | Prayer | needed | prayer |
-| Paladin | Resist Fire | needed | resistfire, passive_resistfire |
-| Paladin | Resist Cold | needed | resistcold, passive_resistcold |
-| Paladin | Resist Lightning | needed | resistlight, passive_resistltng |
-| Paladin | Defiance | needed | defiance |
-| Paladin | Cleansing | needed | cleansing |
-| Paladin | Vigor | needed | stamina |
-| Paladin | Meditation | needed | meditation |
-| Paladin | Redemption | needed | redemption, redemption |
-| Paladin | Salvation | needed | resistall |
-| Paladin | Might | needed | might |
-| Paladin | Holy Fire | needed | holyfire |
-| Paladin | Thorns | needed | thorns |
-| Paladin | Blessed Aim | needed | blessedaim, penetrate |
-| Paladin | Concentration | needed | concentration |
-| Paladin | Holy Freeze | needed | holywind |
-| Paladin | Holy Shock | needed | holyshock |
-| Paladin | Sanctuary | needed | sanctuary, cast_undead, sanctuarybolt |
-| Paladin | Fanaticism | needed | fanaticism |
-| Paladin | Conviction | needed | conviction |
-| Paladin | Sacrifice | needed | blood1 |
-| Paladin | Smite | needed | No source effect cue; final presentation pending |
-| Paladin | Holy Bolt | needed | holybolt, cast_undead, holybolt, cast_undead |
-| Paladin | Zeal | needed | No source effect cue; final presentation pending |
-| Paladin | Charge | needed | No source effect cue; final presentation pending |
-| Paladin | Vengeance | needed | No source effect cue; final presentation pending |
-| Paladin | Blessed Hammer | needed | blessedhammer, blessedhammer |
-| Paladin | Conversion | needed | No source effect cue; final presentation pending |
-| Paladin | Holy Shield | needed | holyshield |
-| Paladin | Fist of the Heavens | needed | fistoftheheavensdelay, handofgod, fistoftheheavensdelay |
-| Barbarian | Howl | needed | howl, howl |
-| Barbarian | Find Potion | needed | No source effect cue; final presentation pending |
-| Barbarian | Shout | needed | shout, shout, shout |
-| Barbarian | Taunt | needed | No source effect cue; final presentation pending |
-| Barbarian | Battle Cry | needed | battlecry, battlecry |
-| Barbarian | Find Item | needed | No source effect cue; final presentation pending |
-| Barbarian | Battle Orders | needed | battleorders, battleorders, battleorders |
-| Barbarian | Grim Ward | needed | grimwardmediumstart, grimwardsmallstart, grimwardlargestart, grimwardmediumstart, grimwardsmallstart, grimwardlargestart |
-| Barbarian | War Cry | needed | warcry, warcry, warcry |
-| Barbarian | Battle Command | needed | battlecommand, battlecommand, battlecommand |
+| Necromancer | Amplify Damage | native | Native curse graphics and sounds. |
+| Necromancer | Dim Vision | native | Native curse graphics and sounds. |
+| Necromancer | Weaken | native | Native curse graphics and sounds. |
+| Necromancer | Iron Maiden | native | Native curse graphics and sounds. |
+| Necromancer | Terror | native | Native curse graphics and sounds. |
+| Necromancer | Confuse | native | Native curse graphics and sounds. |
+| Necromancer | Life Tap | native | Native curse graphics and sounds. |
+| Necromancer | Attract | native | Native curse graphics and sounds. |
+| Necromancer | Decrepify | native | Native curse graphics and sounds. |
+| Necromancer | Lower Resist | native | Native curse graphics and sounds. |
+| Paladin | Prayer | custom | Copper loops on active recipients and amber ribbons on actual healing. |
+| Paladin | Resist Fire | custom | Copper shields follow the active recipient lease. |
+| Paladin | Resist Cold | custom | Ice shields follow the active recipient lease. |
+| Paladin | Resist Lightning | custom | Gold and violet arcs follow the active recipient lease. |
+| Paladin | Defiance | custom | Steel-blue crenellations follow active defense recipients. |
+| Paladin | Cleansing | custom | Violet purification on status shortening and shared Prayer healing. |
+| Paladin | Vigor | custom | Moving mint leaves follow active stamina and movement recipients. |
+| Paladin | Meditation | custom | Blue player aura, native mana gain sparks, and shared Prayer healing. |
+| Paladin | Redemption | custom | Caster ring, corpse flash, jade transfer thread, and distinct life and mana receipts. |
+| Paladin | Salvation | custom | Three gold and jade shields follow each protected recipient. |
+| Paladin | Might | custom | Copper pennants follow the damage-bonus recipients. |
+| Paladin | Holy Fire | custom | Gold aura ring, radius-scaled pulse, and fire contacts. |
+| Paladin | Thorns | custom | Plum hooks follow the recipient, with a separate burst at the attacker on damaging return. |
+| Paladin | Blessed Aim | custom | Teal arrowheads follow the active accuracy recipients. |
+| Paladin | Concentration | custom | Amethyst standards and a flash when the attack withstands interruption. |
+| Paladin | Holy Freeze | custom | Frost aura ring, radius-scaled pulse, cold contacts, timed slow seal, and shared shatter. |
+| Paladin | Holy Shock | custom | Violet aura ring, radius-scaled pulse, and lightning contacts. |
+| Paladin | Sanctuary | custom | Caster lanterns, a range-scaled wave, an undead damage or knockback flash and a landed weapon spark. |
+| Paladin | Fanaticism | custom | Fast crimson pennants follow the caster and allies with the bonuses. |
+| Paladin | Conviction | custom | Garnet caster ring, a debuff application flash and a timed mark that follows affected enemies. |
+| Paladin | Sacrifice | custom | Garnet swing, separate actual life payment and confirmed contact effects. |
+| Paladin | Smite | custom | Steel-and-ivory shield sweep and impact, with the shared timed stun marker. |
+| Paladin | Holy Bolt | custom | Ivory directional flight, green healing, piercing contacts, and terminal fade. |
+| Paladin | Zeal | custom | Fast bronze arcs per swing and landed sparks that follow the chosen targets. |
+| Paladin | Charge | custom | Teal launch, afterimages on completed steps, and a hit or knockback impact. |
+| Paladin | Vengeance | custom | Three-element swing and contact, plus the shared marker on actual chill. |
+| Paladin | Blessed Hammer | custom | Spinning hammer along the live curve, gold chip contacts, and terminal fade. |
+| Paladin | Conversion | custom | Jade release, success knot, moving allegiance mark and timed breakaway. |
+| Paladin | Holy Shield | custom | Gold cast, equipped braces, successful block flash, and timed breakaway. |
+| Paladin | Fist of the Heavens | custom | Tracked warning and strike, saved-position burst, and silver-blue secondary bolts. |
+| Barbarian | Howl | custom | Steel-blue cast and wave, attached fear mark, and shared expiry fade. |
+| Barbarian | Find Potion | custom | Green cast and corpse sweep, then a vial on actual yield or dust on empty search. |
+| Barbarian | Shout | custom | Steel-blue release, travelling wave, defense braces, and expiry fade. |
+| Barbarian | Taunt | custom | Copper cast and an attached rose mark for the untimed attack and damage penalties. |
+| Barbarian | Battle Cry | custom | Amber cast and wave, attached broken shield, and shared expiry fade. |
+| Barbarian | Find Item | custom | Amber cast and corpse sweep, then a gold flash on added loot or dust on empty search. |
+| Barbarian | Battle Orders | custom | Three-color release and wave, attached resource lights, and expiry fade. |
+| Barbarian | Grim Ward | custom | Three totem sizes, radius-scaled pulse, violet curse mark, and collapse. |
+| Barbarian | War Cry | custom | Ivory-blue cast and wave, qualified contact flash, and shared stun feedback. |
+| Barbarian | Battle Command | custom | Gold and lilac release and wave, attached skill-rank ring, and expiry fade. |
 | Barbarian | Blade Mastery | not-applicable | blademastery |
 | Barbarian | Axe Mastery | not-applicable | axemastery |
 | Barbarian | Mace Mastery | not-applicable | macemastery |
@@ -1050,29 +1238,29 @@ Inherited NPC item absorption now changes life mechanically. Final Iron Golem ab
 | Barbarian | Iron Skin | not-applicable | ironskin |
 | Barbarian | Increased Speed | not-applicable | increasedspeed |
 | Barbarian | Natural Resistance | not-applicable | naturalresistance |
-| Barbarian | Bash | needed | No source effect cue; final presentation pending |
-| Barbarian | Double Swing | needed | No source effect cue; final presentation pending |
-| Barbarian | Leap | needed | leapknockback |
-| Barbarian | Double Throw | needed | No source effect cue; final presentation pending |
-| Barbarian | Stun | needed | No source effect cue; final presentation pending |
-| Barbarian | Leap Attack | needed | leapattack, bash, leapattack |
-| Barbarian | Concentrate | needed | doubledamage1, concentrate |
-| Barbarian | Frenzy | needed | frenzy |
-| Barbarian | Whirlwind | needed | whirlwind |
-| Barbarian | Berserk | needed | berserk |
-| Druid | Firestorm | needed | firestormmaker, druid_fire_cast_1, firestormmaker, druid_fire_cast_1 |
-| Druid | Molten Boulder | needed | moltenboulderemerge, druid_fire_cast_1, moltenboulderemerge, druid_fire_cast_1 |
-| Druid | Arctic Blast | needed | arcticblast1, arctic_blast_cast, arcticblast1, arcticblast2 |
-| Druid | Fissure | needed | erruption center, druid_fire_cast_2, erruption center, druid_fire_cast_2 |
-| Druid | Cyclone Armor | needed | cyclonearmor |
-| Druid | Twister | needed | twister, twister |
-| Druid | Volcano | needed | volcano, druid_fire_cast_2, volcano, volcano overlay fire, druid_fire_cast_2 |
-| Druid | Tornado | needed | tornado, tornado |
-| Druid | Hurricane | needed | hurricane, hurricaneswoosh, hurricanerock, hurricanetree |
-| Druid | Armageddon | needed | armageddoncontrol, armageddoncontrol, armageddoncontrol, armageddon, druid_fire_cast_2, armageddontail, armageddonrock |
-| Druid | Werewolf | needed | wolf, wolf_into, wolf_undo |
+| Barbarian | Bash | custom | Amber swing and impact, with dust on completed knockback steps. |
+| Barbarian | Double Swing | custom | Opposing hand sweeps and separate confirmed contact flashes. |
+| Barbarian | Leap | custom | Dust takeoff and airborne trail, radius-scaled knockback ring, and interrupted landing settle. |
+| Barbarian | Double Throw | custom | Per-hand flight, spinning blades, directional polearms, and contact sparks. |
+| Barbarian | Stun | custom | Blue swing and impact, an applied-stun spiral, and the shared stun marker. |
+| Barbarian | Leap Attack | custom | Shared airborne trail, area impact and separate weapon sweep and contact. |
+| Barbarian | Concentrate | custom | Jade swing and impact, with braces throughout the action's defense window. |
+| Barbarian | Frenzy | custom | Paired copper slashes, contact sparks, and an active speed ring with an expiry fade. |
+| Barbarian | Whirlwind | custom | Caster spin, completed-step wake, landed sparks and fade. |
+| Barbarian | Berserk | custom | Violet swing and magic impact, vulnerability ring, and expiry fade. |
+| Druid | Firestorm | custom | Directional traveling flames, ground fire and damaging contact. |
+| Druid | Molten Boulder | custom | Formation, rolling, contact chips, terminal shatter and independent fire trail. |
+| Druid | Arctic Blast | custom | Directional windup, held frost stream, ice contact, chill and vapor fade. |
+| Druid | Fissure | custom | Opening eruption, active scattered cracks and damaging contact. |
+| Druid | Cyclone Armor | custom | Rising and sustained wind shell, absorption flare and depletion. |
+| Druid | Twister | custom | Three low traveling eddies, contact, shared stun and dissipation. |
+| Druid | Volcano | custom | Vent opening, flying debris, lava beds, contact and cooling. |
+| Druid | Tornado | custom | Traveling funnel, timed area pulse, contact and dissipation. |
+| Druid | Hurricane | custom | Frost opening, attached storm, orbiting wisps, cold contact, chill and expiry. |
+| Druid | Armageddon | custom | Moving weather aura, warning, rock descent, impact and independent ground fire. |
+| Druid | Werewolf | native | Native Timber Wolf sprite at 120% scale in the client. |
 | Druid | Lycanthropy | not-applicable | Passive; no active effect |
-| Druid | Werebear | needed | bear, bear_into, bear_undo |
+| Druid | Werebear | native | Native Grizzly Bear sprite at 120% scale in the client. |
 | Druid | Maul | needed | maul |
 | Druid | Feral Rage | needed | feralrage |
 | Druid | Fire Claws | needed | fire_hit |
@@ -1080,38 +1268,38 @@ Inherited NPC item absorption now changes life mechanically. Final Iron Golem ab
 | Druid | Shock Wave | needed | shockwave, shockwave, shockwave, shockwave |
 | Druid | Hunger | needed | No source effect cue; final presentation pending |
 | Druid | Fury | needed | No source effect cue; final presentation pending |
-| Druid | Raven | needed | druidhawk |
-| Druid | Poison Creeper | needed | vine_beast, plaguepoppy |
-| Druid | Oak Sage | needed | oaksage |
-| Druid | Summon Spirit Wolf | needed | spiritwolf |
-| Druid | Carrion Vine | needed | vine_beast, cycleoflife |
-| Druid | Heart of Wolverine | needed | heartofwolverine |
-| Druid | Summon Dire Wolf | needed | fenris |
-| Druid | Solar Creeper | needed | vine_beast, vinecreature |
-| Druid | Spirit of Barbs | needed | spiritofbarbs |
-| Druid | Summon Grizzly | needed | druidbear |
-| Assassin | Tiger Strike | needed | progressive_damage, assassinfootimpact, tigerstrike1 |
-| Assassin | Dragon Talon | needed | No source effect cue; final presentation pending |
-| Assassin | Dragon Claw | needed | No source effect cue; final presentation pending |
-| Assassin | Fists of Fire | needed | fistsoffirefirewall, progressive_fire, fistsoffireexplode, fistsoffirefirewall |
-| Assassin | Cobra Strike | needed | progressive_steal, cobrastrike1 |
-| Assassin | Dragon Tail | needed | dragontail missile, dragontail missile |
-| Assassin | Claws of Thunder | needed | clawsofthundernova, clawsofthunderbolt, progressive_lightning, clawsofthundernova, clawsofthunderbolt |
-| Assassin | Blades of Ice | needed | bladesoficecubes, progressive_cold, bladesoficeexplode, bladesoficecubes |
-| Assassin | Dragon Flight | needed | dragonflight |
-| Assassin | Phoenix Strike | needed | royalstrikemeteorcenter, royalstrikechainlightning, royalstrikechaosice, progressive_other, royalstrikemeteorcenter, royalstrikechainlightning, royalstrikechaosice |
+| Druid | Raven | custom | Feather arrival, talon contact, attached blindness and departure. |
+| Druid | Poison Creeper | custom | Native vine, directional thorns, poison mat and wither, and committed poison flash. |
+| Druid | Oak Sage | custom | Green arrival, life aura on each recipient, and shared spirit departure. |
+| Druid | Summon Spirit Wolf | custom | Frost arrival, cold bite, shared chill, departure and return. |
+| Druid | Carrion Vine | custom | Native vine, copper arrival, corpse feeding, and delayed life flash. |
+| Druid | Heart of Wolverine | custom | Copper arrival, attached attack aura, and shared spirit departure. |
+| Druid | Summon Dire Wolf | custom | Copper arrival, physical bite, feeding rage and departure. |
+| Druid | Solar Creeper | custom | Native vine, blue arrival, corpse feeding, and delayed mana flash. |
+| Druid | Spirit of Barbs | custom | Thorn arrival, attached reflection aura, retaliation, and shared spirit departure. |
+| Druid | Summon Grizzly | custom | Earth arrival, ordinary swipe, heavy Bear Smite and departure. |
+| Assassin | Tiger Strike | custom | Amber sweep, gold contact, and up to three tiger-eye motes. |
+| Assassin | Dragon Talon | custom | Directional kicks, landed contacts, deflection and completed knockback dust. |
+| Assassin | Dragon Claw | custom | Lilac and blue directional hand sweeps, independent contact effects and shared charge payloads. |
+| Assassin | Fists of Fire | custom | Copper sweeps, ember motes, ground pulse, and active scatter fire. |
+| Assassin | Cobra Strike | custom | Green claws, serpent-scale sparks, charge motes, and recovery ribbons. |
+| Assassin | Dragon Tail | custom | Copper kick, fire ring over the confirmed area and embers on completed displacement. |
+| Assassin | Claws of Thunder | custom | Charged claw arcs and motes, nova ring, moving rays and charged bolts. |
+| Assassin | Blades of Ice | custom | Cyan claws and motes, shard ring, ice crystals and shared cold statuses. |
+| Assassin | Dragon Flight | custom | Committed departure and landing, directional kick and landed contact. |
+| Assassin | Phoenix Strike | custom | Feather sweeps and motes, meteor and ground fire, chain lightning, and chaos ice. |
 | Assassin | Claw Mastery | not-applicable | clawmastery |
-| Assassin | Psychic Hammer | needed | psychic_hammer_hit, psychic_hammer_curse |
-| Assassin | Burst of Speed | needed | quickness |
-| Assassin | Cloak of Shadows | needed | cloak_of_shadows |
+| Assassin | Psychic Hammer | native | Native spell graphics and audio for cast, status or impact feedback. |
+| Assassin | Burst of Speed | native | Native spell graphics and audio for cast, status or impact feedback. |
+| Assassin | Cloak of Shadows | native | Native spell graphics and audio for cast, status or impact feedback. |
 | Assassin | Weapon Block | needed | weaponblock, SC |
-| Assassin | Fade | needed | fade |
-| Assassin | Shadow Warrior | needed | shadowwarrior, shadowwarrior |
-| Assassin | Mind Blast | needed | fist_will_cast, mindblast center, mindblast hit |
-| Assassin | Venom | needed | venomclaws |
-| Assassin | Shadow Master | needed | shadowwarrior, shadowmaster |
-| Assassin | Fire Blast | needed | bomb in air, bomb in air |
-| Assassin | Shock Web | needed | shock field in air, shock field in air |
+| Assassin | Fade | native | Native spell graphics and audio for cast, status or impact feedback. |
+| Assassin | Shadow Warrior | native | Native humanoid models and summon effects. |
+| Assassin | Mind Blast | native | Native spell graphics and audio for cast, status or impact feedback. |
+| Assassin | Venom | native | Native spell graphics and audio for cast, status or impact feedback. |
+| Assassin | Shadow Master | native | Native humanoid models and summon effects. |
+| Assassin | Fire Blast | native | Native fire and lightning projectiles, impacts and fields. |
+| Assassin | Shock Web | native | Native fire and lightning projectiles, impacts and fields. |
 | Assassin | Blade Sentinel | needed | blade creeper, bladecreeper |
 | Assassin | Charged Bolt Sentry | needed | chargeboltsentry |
 | Assassin | Wake Of Fire | needed | wakeofdestruction |
@@ -1121,14 +1309,14 @@ Inherited NPC item absorption now changes life mechanically. Final Iron Golem ab
 | Assassin | Death Sentry | needed | deathsentry |
 | Assassin | Blade Shield | needed | blade shield attachment, bladeshield |
 | Warlock | Demonic Mastery | not-applicable | demonic_mastery |
-| Warlock | Summon Goatman | needed | warlockdemonground, wargoatman, warlock_shadow_cast_2 |
+| Warlock | Summon Goatman | native | Native Gargoyle and Gazer with summon effects. |
 | Warlock | Blood Oath | not-applicable | bloodoath |
 | Warlock | Death Mark | needed | warlock_death_mark_pet, warlock_fire_cast_1 |
 | Warlock | Summon Tainted | needed | warlockdemonground, warbighead, warlock_shadow_cast_2 |
-| Warlock | Blood Boil | needed | warlock_fire_cast_1, bloodboilexplode |
-| Warlock | Summon Defiler | needed | warlockdemonground, warputriddefiler, warlock_shadow_cast_2 |
-| Warlock | Engorge | needed | engorgecast, engorge, warlock_shadow_cast_2, engorge, engorgecorpseeffect |
-| Warlock | Consume | needed | consume, warlock_shadow_cast_2 |
+| Warlock | Blood Boil | native | Native explosion, heal and buff graphics with matching sounds. |
+| Warlock | Summon Defiler | native | Native Gargoyle and Gazer with summon effects. |
+| Warlock | Engorge | native | Native explosion, heal and buff graphics with matching sounds. |
+| Warlock | Consume | native | Native explosion, heal and buff graphics with matching sounds. |
 | Warlock | Bind Demon | needed | binddemonchannelmaker, bind_demon, warlock_shadow_cast_2 |
 | Warlock | Levitation Mastery | not-applicable | levitate_mastery |
 | Warlock | Hex: Bane | needed | hexbane, warlock_psychic_cast_2 |
@@ -1152,13 +1340,13 @@ Inherited NPC item absorption now changes life mechanically. Final Iron Golem ab
 | Warlock | Abyss | needed | abysscenter, warlock_shadow_cast_1, abysscenter, fire_cast_2 |
 <!-- END GENERATED: skill-effects -->
 
-Smite currently uses ordinary UO weapon animation/sound and native get-hit animation20 as identified placeholders; final shield impact, stun and knockback presentation are pending. Zeal currently uses ordinary UO weapon animation/sound for its timed series and approved low-mana ordinary attacks; final series accents and impacts are pending. Both still need talent-tree and hotkey icons in the independent icon register. Leap currently uses native cast pose16/sound0x238 and mapped get-hit/knockback motion as identified placeholders; its final jump arc/landing effects and talent/hotkey icons remain separate pending assets. Double Throw uses native0xF42 projectile/0x238 sound placeholders pending per-weapon flight/impact effects and its separate talent/hotkey icon. Whirlwind uses native animation11/sound0x238 placeholders; final spinning body/trail/weapon impacts and its separate talent/hotkey icon remain pending.
+Smite and Zeal pair their custom impacts with native character animations. Their talent-tree and hotkey icons are tracked in the icon register. Leap and Whirlwind use native character poses with custom movement and contact effects. Their talent and quick-slot icons are tracked in the icon register. Double Throw keeps its native character poses and adds custom per-weapon flight and contact effects. Its talent and quick-slot icons are tracked in the icon register.
 
 Blade Shield uses native cast/attachment flash0x373A, hue0x481, contact0x37B9 and sound0x1E5 as identified placeholders. Its persistent blade ring, motion, impact/audio and separate talent/hotkey icons remain pending; these assets do not own its gameplay damage.
 
 Shared weapon leech: life/mana overlays151/152 still need final recovery effects. Native0x376A with life hue0x26 or mana hue0x489 is an identified placeholder. No separate talent/hotkey icon is required for this shared item effect; each actual skill retains its own icon row.
 
-Molten Boulder: native travel0x36D4, ground fire0x398C and contact/blast0x36BD hue0x489, shared SC pose and cast sound0x1E5 are identified placeholders. Final source453emergence/452roll/454blast/456flyingrocks/455fire, druid_fire_cast_1 and audio remain pending. Talent/left/right/quick icons stay in the separate register. Current installation status is in molten-boulder-native-evidence.json.
+Molten Boulder uses a native cast pose with custom formation, rolling rock, chips, shatter and ground flames. The source-path mechanics are tracked in `molten-boulder-native-evidence.json`. Talent and quick-slot icons are tracked in the icon register.
 
 Shared Crushing Blow: overlay147 still needs its final impact effect. Native0x376A with hue0x21 is an identified placeholder. This item effect has no separate talent/hotkey icon.
 
@@ -1173,36 +1361,6 @@ Heart of Wolverine: silent UO wisp0x3A/red hue0x21 and Heart of Wolverine [place
 Oak Sage: silent UO wisp body0x3A is named Oak Sage [placeholder]. Learned casting uses shared SC pose/sound0x1E5 as identified placeholders. Final XW body/emergence/walk/hurt/death, oak_sage recipient and control overlays, spirit/summon audio remain pending. Talent/right/quick icons remain separate text-label placeholders. The life aura functions independently of final presentation.
 
 Spirit Wolf: prepared silent UO body0xE1 is named Spirit Wolf [placeholder]; cold state uses temporary0x374A/hue0x480. Final wolf model/emergence, walk/run, bite/cold contact, intrinsic critical hit-class0x10/overlay54, teleport, hurt/death and wolf/summon audio remain pending. Talent-tree/right/quick icons stay in the separate icon row. Learned casting uses the shared SC/summon-sound placeholders; exact mechanical parity remains unfinished.
-
-Decoy entity: static UO sex silhouette/hue0x481 and0x376A appear marker are identified placeholders. Final model/owner resemblance, dopllezon_appear/overlay171 and amazon_valkyrie_cast audio remain pending. Talent and right-hotkey icons remain separate. Free-ground casting is enabled; blocked-cell fallback remains individually unsupported.
-
-Slow Missiles: logical slowed encounter-bolt positions use identified UO0xF42/0x36D4/0x3818 markers; final missile presentation remains pending. Cast_slowmissiles, the innersight target overlay and amazon_handofathena audio still need final assets and a cast/target consumer. Talent and right-hotkey icons are tracked separately. Full skill availability is pending the remaining mechanics.
-
-Poison Javelin uses logical throw0xF42, sound0x238 and green0x374A cloud markers as identified placeholders. Final Javelin/PoisonSparks/poisonpuff trail/contact and amazon_cast_poison/weapon_throw_1/object_poison_loop audio remain pending. The handler is active; talent/hotkey icons remain separate. Mechanical cloud lifetime does not certify final animation timing.
-
-Evade uses native0x1A4 sound as an identified placeholder with no S1 animation/visual marker or movement lock. Final block_arrow_1/amazon_dodge_1 audio remains pending; a bitmap visual is not established by row animS1. Its passive talent icon is separate; no active hotkey icon.
-
-Avoid uses native0x375A hue0x481 as an identified successful-avoidance marker. Final interruptible S1 lean-back animation and amazon_dodge_1 sound remain pending. Its talent icon is separate; this passive has no active hotkey icon.
-
-Dodge uses native0x375A hue0x481 as an identified successful-avoidance marker. Final interruptible S1 lean-back animation and amazon_dodge_1 sound remain pending. Its talent icon is separate; this passive has no active hotkey icon.
-
-Fend uses the existing native melee/thrust animation and sound0x238 as identified placeholders. Final sweeping thrust/weapon contact presentation and its talent/hotkey icon remain separately pending.
-
-Impale uses native thrust/weapon pose and sound0x238 plus contact/slow0x374A hue0x480 as identified placeholders. Final thrust, impact/slow presentation and its talent/hotkey icon remain separately pending.
-
-Charged Strike uses native weapon pose/sound0x238, lightning-contact0x374A hue0x481 and travelling bolt0x3818 hue0x482 as identified placeholders. Final spear lightning, ground bolts/contact and talent/hotkey icon remain separately pending.
-
-Power Strike uses native weapon pose/sound0x238 and lightning-contact0x374A hue0x481 as identified placeholders. Final weapon lightning/contact effects and its talent/hotkey icon remain separately pending.
-
-Jab uses the existing native weapon animation and sound0x238 as identified placeholders. Final rapid thrust/weapon contact presentation and its talent/hotkey icon remain separately pending.
-
-Inner Sight: native0x375A hue0x481 is the identified cast_innersight/innersight cast and repeating target-mark placeholder. Final target illumination/overlay and cast visuals remain pending; the talent/hotkey icon is recorded separately. Actual graphical/light comparison is still required.
-
-Lightning Bolt uses logical projectile0xF42 and throw sound0x238 as identified placeholders. Final LightningJavelin travel/contact, lightning overlay and amazon_lightning_1 audio remain pending. Talent/L/R/quick-hotkey icons remain separate.
-
-Plague Javelin uses logical throw0xF42, sound0x238 and green0x374A cloud markers as identified placeholders. Final Javelin/PoisonSparks/poisonpuff moving impact clouds, contact/cast/explosion/loop audio remain pending. Talent/L/R/quick-hotkey icons remain separate.
-
-Lightning Fury uses logical projectile0xF42 and throw sound0x238 as identified placeholders. Final LightningJavelin parent and LightningStrike secondary travel/contact, amazon_lightning_1 and sorceress_lightning_1 audio remain pending. Talent/L/R/quick-hotkey icons stay in the separate register.
 
 Fire Claws uses human Wrestle,weapon sound0x238 and fire contact0x374A/hue0x489 as identified placeholders. Final fire_hit,both player-form A1/contact/cast audio and independent talent/left/right/quick icons remain pending.
 

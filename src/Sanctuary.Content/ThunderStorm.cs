@@ -30,16 +30,18 @@ public static class ThunderStorm
     private static void Commit(PlayerMobile owner,ThunderStormState storm)
     {
         SorceressEffects.Profiles.Store(owner,(SorceressEffects.Profiles.Find(owner)??new()) with{Storm=storm});Schedule(owner.Serial,storm);
-        owner.FixedEffect(0x375A,10,15,0x482,0); // Identified storm aura placeholder.
+        Charge(owner);
     }
     public static void Cast(PlayerMobile owner,SkillValues values)=>Commit(owner,Prepare(values,TimedEffects.Now));
     internal static bool Release(PlayerMobile owner,SkillValues values)
     {
         var storm=Prepare(values,TimedEffects.Now);if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
-        Commit(owner,storm);owner.PlaySound(0x1E5);return true;
+        Commit(owner,storm);owner.PlaySound(SorceressVisuals.CastSound(CombatAbility.ThunderStorm));return true;
     }
     internal static void Cancel(Serial serial)
     { if (_timers.Remove(serial, out var timer)) { timer.Cancel(); } }
+    private static void Charge(PlayerMobile owner) =>
+        owner.FixedEffect(SpellEffectGraphics.ThunderStormCharge, 10, SpellEffectGraphics.ThunderStormChargeDuration);
     internal static void Schedule(Serial serial, ThunderStormState storm)
     {
         if(!Valid(storm)){throw new ArgumentException("Invalid Thunder Storm schedule");}
@@ -81,14 +83,19 @@ public static class ThunderStorm
         storm = storm with { NextStrikeUtc = now.AddMilliseconds(storm.IntervalFrames * 40), LastTarget = selected?.Serial.Value ?? 0 };
         SorceressEffects.Profiles.Store(owner, state with { Storm = storm });
         Schedule(serial, storm); // Missed/offline periods never replay a burst of strikes.
-        if (selected == null || SpellHelper.IsTown(owner.Location, owner) || SpellHelper.IsTown(selected.Location, owner)) { return; }
+        if (SpellHelper.IsTown(owner.Location, owner)) { return; }
+        Charge(owner);
+        if (selected == null || SpellHelper.IsTown(selected.Location, owner)) { return; }
         var values = SkillMechanics.Values(owner, CombatAbility.ThunderStorm, storm.Rank);
         // do29 creates a fresh instantaneous missile at retained rank. Reuse
         // the supported live creation modifiers/slow payload and typed impact.
         var modifiers=DruidFirestorm.Modifiers(owner);var slow=AmazonSlowMissiles.Capture(owner,false);
         var ends=DruidFirestorm.Endpoints(values,modifiers.LightningMastery,slow);
         ulong seed=SourceRandom.InitLow(SorceressSpellMissiles.SeedLow());int raw=SorceressSpellMissiles.Roll(ends.Min,ends.Max,seed,out _);
+        var impact = selected.Location;
         SorceressSpellMissiles.ImpactPrepared(owner,selected,"thunderstorm1","ltng",raw,modifiers,now);
-        selected.BoltEffect(0x482); // Placeholder lightning strike.
+        Effects.SendLocationEffect(impact, owner.Map, SpellEffectGraphics.ThunderStormStrike,
+            SpellEffectGraphics.ThunderStormStrikeDuration);
+        Effects.PlaySound(impact, owner.Map, SpellEffectSounds.ThunderStormStrike);
     }
 }

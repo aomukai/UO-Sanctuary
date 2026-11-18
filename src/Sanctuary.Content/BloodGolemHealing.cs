@@ -57,14 +57,28 @@ internal static class BloodGolemHealing
     }
     private sealed class Native(BloodGolemBody body,BaseCreature target,PlayerMobile owner):BloodHealingServices
     {
+        private bool _restoredOwner, _restoredGolem;
+
         internal override bool Attacker=>!body.Deleted;internal override bool Target=>!target.Deleted;internal override bool Damage=>true;
         internal override int TargetKind=>1;internal override int Drain=>GemCombat.Drain(target);internal override int Alignment=>BloodGolemHealing.Alignment(target);
         internal override bool Owner=>owner!=null&&!owner.Deleted;internal override bool OwnerDead=>owner is not{Alive:true,Deleted:false};internal override bool AttackerDead=>!body.Alive;
         internal override int Rank=>body.Rank;internal override int Share=>30;
         private Mobile Unit(bool useOwner)=>useOwner?owner:body;
         internal override int Life(bool useOwner)=>SkillHealth.Balance256(Unit(useOwner));internal override int Maximum(bool useOwner)=>SkillHealth.Maximum256(Unit(useOwner));
-        internal override void SetLife(bool useOwner,int value)=>SkillHealth.SetBalance256(Unit(useOwner),value);
-        internal override void Overlay(bool useOwner)=>Unit(useOwner).FixedEffect(0x376A,9,20,0x21,0); // Identified native placeholder for source151.
+        internal override void SetLife(bool useOwner, int value)
+        {
+            var unit = Unit(useOwner);
+            int before = SkillHealth.Balance256(unit);
+            SkillHealth.SetBalance256(unit, value);
+            if (SkillHealth.Balance256(unit) <= before) { return; }
+            if (useOwner) { _restoredOwner = true; }
+            else { _restoredGolem = true; }
+        }
+
+        internal override void Overlay(bool useOwner)
+        {
+            if (useOwner ? _restoredOwner : _restoredGolem) { GolemEffects.Heal(Unit(useOwner)); }
+        }
     }
     internal static void Dealt(BloodGolemBody body,BaseCreature target,PreparedMonsterDamagePacket packet)
     {

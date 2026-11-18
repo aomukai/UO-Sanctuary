@@ -1,0 +1,42 @@
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -195,6 +195,7 @@
+                         _ when SpellEffectGraphics.IsPaladinOffenseLoop(Graphic) => SpellEffectGraphics.PaladinSpellFrames,
+                         _ when SpellEffectGraphics.IsPaladinDefenseAnimation(Graphic) => SpellEffectGraphics.PaladinSpellFrames,
+                         _ when SpellEffectGraphics.IsPaladinHostileAuraAnimation(Graphic) => SpellEffectGraphics.HolyAuraFrames,
++                        _ when SpellEffectGraphics.IsPaladinMeleeAnimation(Graphic) => SpellEffectGraphics.PaladinSpellFrames,
+                         _ when SpellEffectGraphics.IsEnchantAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ when SpellEffectGraphics.IsWardAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ => 0
+@@ -310,6 +311,8 @@
+                             SpellEffectGraphics.ThornsContact or SpellEffectGraphics.HolyShieldBlock => 67,
+                             SpellEffectGraphics.HolyShieldRaise or SpellEffectGraphics.HolyShieldFade => 92,
+                             SpellEffectGraphics.SanctuaryContact or SpellEffectGraphics.ConvictionContact => 67,
++                            SpellEffectGraphics.SacrificeSwing or SpellEffectGraphics.SmiteSwing or SpellEffectGraphics.VengeanceSwing => 65,
++                            _ when SpellEffectGraphics.IsPaladinMeleeAnimation(Graphic) => 76,
+                             _ when SpellEffectGraphics.IsDruidCharge(Graphic) => 115,
+                             _ when SpellEffectGraphics.IsDruidFormEffect(Graphic) => 105,
+                             SpellEffectGraphics.ClayGolemContact or SpellEffectGraphics.IronGolemSpark => 65,
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -137,6 +137,7 @@
+                         or SpellEffectGraphics.HolyShieldRaise or SpellEffectGraphics.HolyShieldShell
+                         or SpellEffectGraphics.HolyShieldBlock or SpellEffectGraphics.HolyShieldFade
+                         or SpellEffectGraphics.ConvictionMark or SpellEffectGraphics.ConvictionContact
++                        or SpellEffectGraphics.SacrificeSwing or SpellEffectGraphics.SmiteSwing or SpellEffectGraphics.VengeanceSwing
+                     || Graphic is Sanctuary.SpellEffectGraphics.NovaCast or Sanctuary.SpellEffectGraphics.NovaContact
+                         or Sanctuary.SpellEffectGraphics.TelekinesisCast or Sanctuary.SpellEffectGraphics.TelekinesisContact))
+             {
+@@ -229,6 +230,12 @@
+             {
+                 depth = Source.CalculateDepthZ() + 1f;
+             }
++            else if (Graphic is SpellEffectGraphics.SacrificeImpact or SpellEffectGraphics.SmiteImpact or SpellEffectGraphics.VengeanceImpact)
++            {
++                // Keep the impact on its contact tile and in front of the target's body.
++                posY -= 11;
++                depth += 0.25f;
++            }
+ 
+             if (Graphic == Sanctuary.SpellEffectGraphics.BlizzardFall)
+             {

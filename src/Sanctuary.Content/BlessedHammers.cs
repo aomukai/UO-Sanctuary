@@ -92,12 +92,17 @@ public static class BlessedHammers
     internal static int Impact(PlayerMobile owner,Mobile target,HammerFlight flight)
     {
         if(!ClassCombat.IsHostile(owner,target)){return 0;}
+        var point = target.Location;
+        var map = target.Map;
+        var now = TimedEffects.Now;
         if(flight.Captured is{} captured)
         {
             if(!BlessedHammerDamage.Supported(owner,target,out string reason)){owner.SendMessage(0x22,reason);return 0;}
             SorceressEffects.MissileHit(owner,target,"blessedhammer");if(ClassAvoidance.Missile(target,"blessedhammer")){return 0;}
             int raw=BlessedHammerDamage.Roll(flight.Min256,flight.Max256,GemCombat.Undead(target),NamedCombat.Demon(target),Roll),before=target.Hits;
-            BlessedHammerDamage.Deliver(owner,(BaseCreature)target,raw,captured,TimedEffects.Now);return Math.Max(0,before-target.Hits);
+            var applied = BlessedHammerDamage.Deliver(owner,(BaseCreature)target,raw,captured,now);
+            if (applied.AfterHealth256 < applied.Before256) { PaladinSpellVisuals.HammerContact(owner, point, map, now); }
+            return Math.Max(0,before-target.Hits);
         }
         int range=flight.Max256-flight.Min256;
         // SrvDmg05 rerolls the magic value populated by FillDamageParams; retain both exclusive-upper draws.
@@ -108,7 +113,10 @@ public static class BlessedHammers
         if(NamedCombat.Demon(target)){total+=(long)damage*NecromancerSummons.Source("blessedhammer","dParam2")/100;}
         SorceressEffects.MissileHit(owner,target,"blessedhammer");
         // Holy=0: species damage bonus does not bypass magic resistance/immunity and supplies no weapon leech/proc.
-        return SkillCombat.HolyImpact(owner,target,(int)Math.Clamp(total,0,int.MaxValue),false);
+        int life = SkillHealth.Balance256(target);
+        int loss = SkillCombat.HolyImpact(owner,target,(int)Math.Clamp(total,0,int.MaxValue),false);
+        if (SkillHealth.Balance256(target) < life) { PaladinSpellVisuals.HammerContact(owner, point, map, now); }
+        return loss;
     }
     private static void Tick()
     {
@@ -122,18 +130,25 @@ public static class BlessedHammers
             {_flights.Remove(id);continue;}
             if(owner.Map==Map.Internal){if(flight.UntilUtc<=now){_flights.Remove(id);}continue;}
             while(_flights.TryGetValue(id,out flight) && flight.NextUtc<=now && flight.NextUtc<flight.UntilUtc){Step(owner,flight);}
-            if(_flights.TryGetValue(id,out flight) && flight.UntilUtc<=now){_flights.Remove(id);}
+            if(_flights.TryGetValue(id,out flight) && flight.UntilUtc<=now)
+            {
+                _flights.Remove(id);
+                PaladinSpellVisuals.End(owner, flight.OriginX + flight.XFp16 / 131072.0,
+                    flight.OriginY + flight.YFp16 / 131072.0, flight.Z, true, now);
+            }
         }
     }
     private static void Step(PlayerMobile owner,HammerFlight before)
     {
-        int frame=before.Frame+1;if(frame>=Frames){_flights.Remove(before.Id);return;}
-        var flight=Move(before) with{Frame=frame,NextUtc=before.NextUtc.AddMilliseconds(40)};
         double x0=before.OriginX+before.XFp16/131072.0,y0=before.OriginY+before.YFp16/131072.0;
+        int frame=before.Frame+1;
+        if(frame>=Frames)
+        { _flights.Remove(before.Id); PaladinSpellVisuals.End(owner, x0, y0, before.Z, true, before.NextUtc); return; }
+        var flight=Move(before) with{Frame=frame,NextUtc=before.NextUtc.AddMilliseconds(40)};
         double x=flight.OriginX+flight.XFp16/131072.0,y=flight.OriginY+flight.YFp16/131072.0;
         var from=new Point3D((int)Math.Round(x0),(int)Math.Round(y0),flight.Z+12);var to=new Point3D((int)Math.Round(x),(int)Math.Round(y),flight.Z+12);
         if(x<0 || y<0 || x>=owner.Map.Width || y>=owner.Map.Height || !owner.Map.LineOfSight(from,to))
-        {_flights.Remove(flight.Id);return;}
+        { _flights.Remove(flight.Id); PaladinSpellVisuals.End(owner, x0, y0, before.Z, true, before.NextUtc); return; }
         Mobile first=null;double nearest=double.MaxValue;
         foreach(var target in owner.Map.GetMobilesInRange<Mobile>(new Point3D(to.X,to.Y,flight.Z),2))
         {
@@ -144,7 +159,7 @@ public static class BlessedHammers
         }
         if(first!=null){flight=flight with{LastCollision=first.Serial.Value};}
         _flights[flight.Id]=flight;
-        Effects.SendLocationEffect(new(to.X,to.Y,flight.Z),owner.Map,0x36E4,3,10,0x481,0); // Placeholder hammer/trail.
+        if (frame % 2 == 0) { PaladinSpellVisuals.HammerTravel(owner.Map, flight, x, y); }
         if(first!=null){Impact(owner,first,flight);}
     }
     private static HammerFlight Copy(HammerFlight f)=>f.Motion is{} m?f with{Motion=m with{Path=m.Path with{Points=m.Path.Points.ToArray(),SavedSteps=m.Path.SavedSteps.ToArray()}}}:f;

@@ -90,8 +90,7 @@ public static class BarbarianLeap
         Store(flight);
         action.PendingAbility=ability;action.PendingTarget=selected;action.PendingPoint=point;
         action.Timing=new(Frames(flight),windup);action.NextAction=now+action.Timing.DurationMs;action.Animation=16;
-        owner.Direction=owner.GetDirectionTo(destination);owner.RevealingAction();owner.PlaySound(0x238);
-        // Existing native cast pose/sound are identified placeholders for the jump arc.
+        owner.Direction=owner.GetDirectionTo(destination);owner.RevealingAction();
         ClassCombat.SendAnimation(owner,16,action.Timing.DurationMs);owner.Animate(16,5,1,true,false,0);
         ClassCombat.SendState(owner,action);return true;
     }
@@ -119,7 +118,11 @@ public static class BarbarianLeap
     }
     private static void Abort(PlayerMobile owner,LeapFlight state)
     {
-        if(owner is{Alive:true,Deleted:false} && owner.Map?.MapID==state.Map){Position(owner,SafeLanding(owner,state,owner.Map));}
+        if (owner is { Alive: true, Deleted: false } && owner.Map?.MapID == state.Map)
+        {
+            Position(owner, SafeLanding(owner, state, owner.Map));
+            if (state.Phase == LeapPhase.Airborne && !state.DelayedDeath) { BarbarianMotionVisuals.LeapSettled(owner); }
+        }
         Clear(owner,state);
         if(state.DelayedDeath && owner is{Alive:true,Deleted:false}){owner.Kill();}
     }
@@ -137,6 +140,7 @@ public static class BarbarianLeap
     private static void Knockback(PlayerMobile owner)
     {
         int range=(int)SkillMechanics.Values(owner,CombatAbility.Leap).Eval("calc1");
+        BarbarianMotionVisuals.Landing(owner, SkillGeometry.Tiles(range), attack: false);
         foreach(var target in owner.Map.GetMobilesInRange<BaseCreature>(owner.Location,(int)Math.Ceiling(SkillGeometry.Tiles(range))))
         {
             long dx=(target.X-owner.X)*2,dy=(target.Y-owner.Y)*2;
@@ -179,7 +183,11 @@ public static class BarbarianLeap
             if(state.Phase==LeapPhase.Windup)
             {
                 state=state with{Remaining=state.Remaining-1};
-                if(state.Remaining==0){state=state with{Phase=LeapPhase.Airborne};}
+                if (state.Remaining == 0)
+                {
+                    state = state with { Phase = LeapPhase.Airborne };
+                    BarbarianMotionVisuals.Takeoff(owner);
+                }
                 Store(state);continue;
             }
             long travel=Math.Min(state.Length16,state.Travel16+(long)state.Velocity256*8);
@@ -214,6 +222,7 @@ public static class BarbarianLeap
                     Teleportation.ArrivalFields(owner);
                 }
             }
+            else { BarbarianMotionVisuals.Air(owner, state); }
             ClassCombat.SendState(owner,action);
         }
         LandingReservations.Prune(marker=>_flights.TryGetValue(marker.Owner,out var state) && state.Reservation==marker.Serial.Value || BarbarianWhirlwind.Owns(marker));

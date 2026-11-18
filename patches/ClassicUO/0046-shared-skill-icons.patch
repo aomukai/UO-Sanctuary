@@ -1,0 +1,174 @@
+--- a/src/ClassicUO.Assets/GumpsLoader.cs
++++ b/src/ClassicUO.Assets/GumpsLoader.cs
+@@ -131,25 +131,31 @@
+         {
+             _ours.Clear();
+ 
+-            string folder = Path.Combine(FileManager.BasePath, "Gumps");
+-
++            LoadFolder(Path.Combine(AppContext.BaseDirectory, "Data", "Sanctuary", "Gumps"));
++            LoadFolder(Path.Combine(FileManager.BasePath, "Gumps"));
++        }
++
++        private void LoadFolder(string folder)
++        {
+             if (!Directory.Exists(folder))
+             {
+                 return;
+             }
+ 
++            int count = 0;
+             foreach (string path in Directory.EnumerateFiles(folder, "*.gump"))
+             {
+                 if (int.TryParse(Path.GetFileNameWithoutExtension(path), out int id)
+                     && id >= 0 && id < MAX_GUMP_DATA_INDEX_COUNT)
+                 {
+                     _ours[id] = path;
+-                }
+-            }
+-
+-            if (_ours.Count > 0)
+-            {
+-                Log.Trace($"{_ours.Count} gump(s) of our own in {folder}");
++                    count++;
++                }
++            }
++
++            if (count > 0)
++            {
++                Log.Trace($"{count} gump(s) of our own in {folder}");
+             }
+         }
+ 
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -32,6 +32,9 @@
+     <Compile Include="../../../../shared/TradeSkills.cs" Link="Sanctuary/TradeSkills.cs" />
+     <Compile Include="../../../../shared/CombatProtocol.cs" Link="Game/Data/CombatProtocol.cs" />
+     <Compile Include="../../../../shared/ClassAbilities.cs" Link="Game/Data/ClassAbilities.cs" />
++    <Compile Include="../../../../shared/ClassSkillIcons.cs" Link="Game/Data/ClassSkillIcons.cs" />
++    <Content Include="../../../../art/skill-icons/gumps/*.gump" Link="Data/Sanctuary/Gumps/%(Filename)%(Extension)"
++             CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+     <Compile Include="../../../../shared/TitleProtocol.cs" Link="TitleProtocol.cs" />
+     <Compile Include="../../../../shared/SkillBindingProtocol.cs" Link="SkillBindingProtocol.cs" />
+     <Compile Include="../../../../shared/NamedVisualProtocol.cs" Link="NamedVisualProtocol.cs" />
+--- a/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs
+@@ -7,6 +7,27 @@
+ using Sanctuary;
+ 
+ namespace ClassicUO.Game.UI.Gumps;
++
++internal static class ClassSkillIcon
++{
++    internal static GumpPic Create(CombatAbility ability, int x, int y, int size, bool available = true)
++    {
++        ushort graphic = ClassSkillIcons.For(ability);
++        if (graphic == 0)
++        {
++            return null;
++        }
++        var icon = new GumpPic(x, y, graphic, 0)
++        {
++            Width = size,
++            Height = size,
++            Alpha = available ? 1f : 0.5f,
++            AcceptMouseInput = false,
++            IsFromServer = false
++        };
++        return icon.IsDisposed ? null : icon;
++    }
++}
+ 
+ internal sealed class ClassSkillBarGump : Gump
+ {
+@@ -35,10 +56,20 @@
+             var cell = new SlotControl { X = 4 + slot * _step, Y = 3, Width = _step - 2, Height = 49, AcceptMouseInput = true, WantUpdateSize = false };
+             cell.Add(new Line(0, 0, _step - 2, 49, available ? 0xFF504638 : 0xFF292929) { AcceptMouseInput = false });
+             cell.Add(new Label($"F{slot + 1}", true, 0x35) { X = 5, Y = 1, AcceptMouseInput = false });
+-            string label = ability switch { CombatAbility.None => "—", CombatAbility.RaiseSkeleton => "Skel", CombatAbility.BasicAttack => "Atk", CombatAbility.Teeth when _step < 40 => "Tth", CombatAbility.Teleport => "Tele", _ => CombatProtocol.Label(ability).Length > 4 ? CombatProtocol.Label(ability)[..4] : CombatProtocol.Label(ability) };
+-            cell.Add(new Label(label, true, available ? (ushort)0x481 : (ushort)0x3B2) { X = 3, Y = 22, AcceptMouseInput = false });
++            int iconSize = Math.Min(30, cell.Width - 2);
++            var icon = ClassSkillIcon.Create(ability, (cell.Width - iconSize) / 2, 16, iconSize, available);
++            if (icon != null)
++            {
++                cell.Add(icon);
++            }
++            else
++            {
++                string label = ability == CombatAbility.None ? "—" : CombatProtocol.Label(ability);
++                cell.Add(new Label(label[..Math.Min(4, label.Length)], true, available ? (ushort)0x481 : (ushort)0x3B2)
++                { X = 3, Y = 22, AcceptMouseInput = false });
++            }
+             cell.SetTooltip(ability == CombatAbility.None ? $"F{slot + 1}: unassigned. Press S, hover a skill and press this key." :
+-                $"F{slot + 1}: {CombatProtocol.Label(ability)}{(available ? "" : " (unavailable)")}. Aim over the world and press to quick cast. Text placeholder; icon pending. Press S to assign.");
++                $"F{slot + 1}: {CombatProtocol.Label(ability)}{(available ? "" : " (unavailable)")}. Aim over the world and press to quick cast. Press S to assign.");
+             Add(cell);
+         }
+         Width = _step * SkillBindingProtocol.Slots + 4; Height = 56;
+@@ -48,7 +79,6 @@
+ internal sealed class ClassSkillsPanelGump : Gump
+ {
+     private int _page;
+-    private const int PageSize = 10;
+     public ClassSkillsPanelGump(World world) : base(world, 0, 0)
+     { X = 80; Y = 130; CanMove = true; CanCloseWithRightClick = false; RequestUpdateContents(); }
+     public CombatAbility? Hovered
+@@ -64,20 +94,33 @@
+     {
+         foreach (var child in Children.ToArray()) { child.Dispose(); }
+         var skills = Enum.GetValues<CombatAbility>().Where(a => a != CombatAbility.None && ClassSkillBindingsClient.Available(a)).Append(CombatAbility.None).ToArray();
+-        _page = Math.Clamp(_page, 0, (skills.Length - 1) / PageSize);
+-        var visible = skills.Skip(_page * PageSize).Take(PageSize).ToArray();
+-        int height = 150 + visible.Length * 38;
++        int pageSize = Math.Clamp((Client.Game.ClientBounds.Height - 179) / 38, 1, 10);
++        _page = Math.Clamp(_page, 0, (skills.Length - 1) / pageSize);
++        var visible = skills.Skip(_page * pageSize).Take(pageSize).ToArray();
++        int height = 169 + visible.Length * 38;
++        Y = Math.Clamp(Y, 0, Math.Max(0, Client.Game.ClientBounds.Height - height));
+         Add(new AlphaBlendControl(0.95f) { Width = 400, Height = height, AcceptMouseInput = false });
+-        Add(new Label("Skills — text icon placeholders; S to close", true, 0x35) { X = 14, Y = 10, AcceptMouseInput = false });
++        Add(new Label("Skills — S to close", true, 0x35) { X = 14, Y = 10, AcceptMouseInput = false });
+         Add(new Label("Hover + F1–F12: quick cast", true, 0x481) { X = 14, Y = 36, AcceptMouseInput = false });
+         Add(new Label("Left / right click: bind mouse button", true, 0x481) { X = 14, Y = 57, AcceptMouseInput = false });
+         for (int i = 0; i < visible.Length; i++) { Add(new SkillRow(visible[i], 86 + i * 38)); }
+-        if (_page > 0) { Add(new Button(3001, 0x15E3, 0x15E7) { X = 14, Y = height - 57, ButtonAction = ButtonAction.Activate }); }
+-        if ((_page + 1) * PageSize < skills.Length) { Add(new Button(3002, 0x15E1, 0x15E5) { X = 340, Y = height - 57, ButtonAction = ButtonAction.Activate }); }
+-        Add(new Label($"Page {_page + 1}", true, 0x481) { X = 150, Y = height - 53, AcceptMouseInput = false });
+-        Add(new Label($"L: {CombatProtocol.Label(ClassSkillBindingsClient.Left)}    R: {CombatProtocol.Label(ClassSkillBindingsClient.Right)}", true, 0x35)
+-        { X = 14, Y = height - 25, AcceptMouseInput = false });
++        if (_page > 0) { Add(new Button(3001, 0x15E3, 0x15E7) { X = 14, Y = height - 76, ButtonAction = ButtonAction.Activate }); }
++        if ((_page + 1) * pageSize < skills.Length) { Add(new Button(3002, 0x15E1, 0x15E5) { X = 340, Y = height - 76, ButtonAction = ButtonAction.Activate }); }
++        Add(new Label($"Page {_page + 1}", true, 0x481) { X = 150, Y = height - 72, AcceptMouseInput = false });
++        AddBinding("L", ClassSkillBindingsClient.Left, 14, height - 43);
++        AddBinding("R", ClassSkillBindingsClient.Right, 201, height - 43);
+         Width = 400; Height = height;
++    }
++    private void AddBinding(string side, CombatAbility ability, int x, int y)
++    {
++        var icon = ClassSkillIcon.Create(ability, x, y, 27,
++            ClassSkillBindingsClient.Available(ability));
++        if (icon != null)
++        {
++            Add(icon);
++        }
++        Add(new Label($"{side}: {CombatProtocol.Label(ability)}", true, 0x35, maxwidth: 150)
++        { X = x + 32, Y = y + 4, AcceptMouseInput = false });
+     }
+     public override void OnButtonClick(int buttonID)
+     {
+@@ -90,8 +133,13 @@
+         {
+             Ability = ability; X = 14; Y = y; Width = 370; Height = 34; AcceptMouseInput = true; WantUpdateSize = false;
+             Add(new Line(0, 0, Width, Height, 0xFF504638) { AcceptMouseInput = false });
++            var icon = ClassSkillIcon.Create(ability, 4, 2, 30);
++            if (icon != null)
++            {
++                Add(icon);
++            }
+             Add(new Label(ability == CombatAbility.None ? "Clear binding" : CombatProtocol.Label(ability), true, 0x481)
+-            { X = 9, Y = 6, AcceptMouseInput = false });
++            { X = 41, Y = 6, AcceptMouseInput = false });
+             SetTooltip(ability == CombatAbility.RaiseSkeleton ? "Aim at a corpse when quick casting. Hover and press F1–F12 to assign; click to bind a mouse button." :
+                 "Hover and press F1–F12 to assign; left/right click to bind that mouse button.");
+         }

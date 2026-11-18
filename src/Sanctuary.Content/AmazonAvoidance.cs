@@ -32,16 +32,15 @@ public static class AmazonAvoidance
         if(ClassMovement.IsMoving(player,now)){ability=CombatAbility.Evade;}
         int chance=Chance(player,ability);
         if(chance<=0 || Roll(100)>=chance){return false;}
-        if(ability==CombatAbility.Evade)
+        var (graphic, sound) = ability switch
         {
-            // Source Evade presentation requests sound and returns without an
-            // S1 mode change. Identified native block sound, final audio pending.
-            player.PlaySound(0x1A4);return true;
-        }
-        // Identified native marker pending the source S1 dodge animation/sound.
-        // Current Param8=2 and released2.4 permit other actions; no recovery lock
-        // or cancellation of an already paid attack is introduced here.
-        player.FixedEffect(0x375A,5,5,0x481,0);
+            CombatAbility.Dodge => (SpellEffectGraphics.DodgeFlash, SpellEffectSounds.Dodge),
+            CombatAbility.Avoid => (SpellEffectGraphics.AvoidFlash, SpellEffectSounds.Avoid),
+            _ => (SpellEffectGraphics.EvadeTrail, SpellEffectSounds.Evade)
+        };
+        // Present the reaction without changing movement, attack animation or recovery on the server.
+        player.FixedEffect(graphic, 5, SpellEffectGraphics.AmazonAvoidanceDuration, 0, 0);
+        player.PlaySound(sound);
         return true;
     }
 }

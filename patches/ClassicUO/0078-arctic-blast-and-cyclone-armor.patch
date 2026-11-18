@@ -1,0 +1,47 @@
+diff --git a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -175,6 +175,11 @@
+                             or SpellEffectGraphics.TwisterFade or SpellEffectGraphics.TornadoFade or SpellEffectGraphics.TornadoPulse
+                             or SpellEffectGraphics.HurricaneRelease or SpellEffectGraphics.HurricaneCore or SpellEffectGraphics.HurricaneFade
+                             => SpellEffectGraphics.DruidWindFrames,
++                        SpellEffectGraphics.ArcticBlastFade or SpellEffectGraphics.ArcticBlastContact
++                            or SpellEffectGraphics.CycloneArmorRaise or SpellEffectGraphics.CycloneArmorWard
++                            or SpellEffectGraphics.CycloneArmorCatch or SpellEffectGraphics.CycloneArmorBreak
++                            => SpellEffectGraphics.DruidColdFrames,
++                        _ when SpellEffectGraphics.IsArcticRelease(Graphic) => SpellEffectGraphics.DruidColdFrames,
+                         _ when SpellEffectGraphics.IsEnchantAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ when SpellEffectGraphics.IsWardAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ => 0
+@@ -192,7 +197,7 @@
+                                 or SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.PoisonAfflicted
+                                 or SpellEffectGraphics.GolemSlow or SpellEffectGraphics.WoundActive
+                                 or SpellEffectGraphics.CombatStun or SpellEffectGraphics.RabiesCarrier
+-                                or SpellEffectGraphics.HurricaneCore);
++                                or SpellEffectGraphics.HurricaneCore or SpellEffectGraphics.CycloneArmorWard);
+                         AnimationGraphic = (ushort)(Graphic + AnimIndex);
+                         if (AnimIndex < spellFrames - 1) { AnimIndex++; }
+                         else if (!oneShot) { AnimIndex = 0; }
+@@ -252,6 +257,11 @@
+                             SpellEffectGraphics.DruidWindRelease or SpellEffectGraphics.HurricaneRelease
+                                 or SpellEffectGraphics.HurricaneFade => 100,
+                             SpellEffectGraphics.HurricaneCore => 150,
++                            SpellEffectGraphics.ArcticBlastFade or SpellEffectGraphics.ArcticBlastContact => 63,
++                            SpellEffectGraphics.CycloneArmorCatch => 72,
++                            SpellEffectGraphics.CycloneArmorRaise or SpellEffectGraphics.CycloneArmorBreak => 94,
++                            SpellEffectGraphics.CycloneArmorWard => 145,
++                            _ when SpellEffectGraphics.IsArcticRelease(Graphic) => 90,
+                             _ when SpellEffectGraphics.IsDruidCharge(Graphic) => 115,
+                             _ when SpellEffectGraphics.IsDruidFormEffect(Graphic) => 105,
+                             SpellEffectGraphics.ClayGolemContact or SpellEffectGraphics.IronGolemSpark => 65,
+diff --git a/src/ClassicUO.Client/Game/Managers/EffectManager.cs b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+--- a/src/ClassicUO.Client/Game/Managers/EffectManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+@@ -112,6 +112,7 @@
+                     || SpellEffectGraphics.IsCurseMark(graphic)
+                     || SpellEffectGraphics.IsDruidCharge(graphic)
+                     || graphic is SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow or SpellEffectGraphics.HurricaneCore
++                        or SpellEffectGraphics.CycloneArmorWard
+                         or SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.PoisonAfflicted
+                         or SpellEffectGraphics.GolemSlow or SpellEffectGraphics.WoundActive
+                         or SpellEffectGraphics.CombatStun or SpellEffectGraphics.RabiesCarrier);

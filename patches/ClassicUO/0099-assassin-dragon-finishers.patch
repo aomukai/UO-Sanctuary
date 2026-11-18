@@ -1,0 +1,30 @@
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -203,6 +203,7 @@
+                         _ when SpellEffectGraphics.IsBarbarianPairedAnimation(Graphic) => SpellEffectGraphics.BarbarianPairedFrames,
+                         _ when SpellEffectGraphics.IsMartialOrb(Graphic) => SpellEffectGraphics.MartialOrbFrames,
+                         _ when SpellEffectGraphics.IsMartialAnimation(Graphic) => SpellEffectGraphics.MartialFrames,
++                        _ when SpellEffectGraphics.IsDragonAnimation(Graphic) => SpellEffectGraphics.DragonFrames,
+                         SpellEffectGraphics.MartialFistsField or SpellEffectGraphics.MartialPhoenixField => SpellEffectGraphics.FireFrames,
+                         _ when SpellEffectGraphics.IsEnchantAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ when SpellEffectGraphics.IsWardAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+@@ -343,6 +344,8 @@
+                             _ when SpellEffectGraphics.IsBarbarianPairedAnimation(Graphic) => 52,
+                             _ when SpellEffectGraphics.IsMartialOrb(Graphic) => 118,
+                             _ when SpellEffectGraphics.IsMartialAnimation(Graphic) => 64,
++                            _ when SpellEffectGraphics.IsDragonSweep(Graphic) => 46,
++                            _ when SpellEffectGraphics.IsDragonAnimation(Graphic) => 67,
+                             _ when SpellEffectGraphics.IsDruidCharge(Graphic) => 115,
+                             _ when SpellEffectGraphics.IsDruidFormEffect(Graphic) => 105,
+                             SpellEffectGraphics.ClayGolemContact or SpellEffectGraphics.IronGolemSpark => 65,
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -125,7 +125,7 @@
+             bool barbarianTorsoEffect = SpellEffectGraphics.IsBarbarianStrikeAttached(Graphic)
+                 || SpellEffectGraphics.IsBarbarianPairedAttached(Graphic)
+                 || Graphic is SpellEffectGraphics.LeapAttackSwing or SpellEffectGraphics.WhirlwindSpin;
+-            bool martialSwing = SpellEffectGraphics.IsMartialSwing(Graphic);
++            bool martialSwing = SpellEffectGraphics.IsMartialSwing(Graphic) || SpellEffectGraphics.IsDragonSweep(Graphic);
+             if (Source is Mobile { IsGargoyle: true, IsFlying: true }
+                 && (Sanctuary.SpellEffectGraphics.IsWardAnimation(Graphic)
+                     || Sanctuary.SpellEffectGraphics.IsEnchantAnimation(Graphic)

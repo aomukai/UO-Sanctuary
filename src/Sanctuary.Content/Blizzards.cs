@@ -78,7 +78,7 @@ public static partial class Blizzards
         long id = ++_nextId; int frames = NecromancerSummons.Source("blizzard1", "Range");
         _shards.Add(id, new(id, owner.Serial.Value, storm.Map, x, y, storm.Z, Scale(values.Damage256(false)), Scale(values.Damage256(true)),
             values.DurationFrames, frames, 0, now.AddMilliseconds(frames * 40), now));
-        Effects.SendLocationEffect(point, owner.Map, 0x376A, 9, 10, 0x480, 0); // Placeholder falling ice.
+        PresentShard(owner, point, now);
     }
     private static void Tick()
     {
@@ -113,8 +113,11 @@ public static partial class Blizzards
                 last = target.Serial.Value;
                 int damage = shard.Max256 <= shard.Min256 ? shard.Min256 : Utility.RandomMinMax(shard.Min256, shard.Max256 - 1);
                 SorceressEffects.MissileHit(owner, target, "blizzard1");
-                SkillCombat.ColdImpact(owner, target, damage, shard.ColdFrames);
-                target.FixedEffect(0x374A, 10, 10, 0x480, 0); // Placeholder ice impact.
+                var contact = target.Location;
+                if (SkillCombat.ColdImpact(owner, target, damage, shard.ColdFrames) > 0)
+                {
+                    PresentContact(owner, contact, now);
+                }
                 break; // One collision per shard/frame; another overlapped unit can replace LastCollide next frame.
             }
             if (_shards.ContainsKey(id))
@@ -122,6 +125,20 @@ public static partial class Blizzards
         }
         TickSource(now,null);
     }
+
+    private static void PresentShard(PlayerMobile owner, Point3D point, DateTime now)
+    {
+        Effects.SendLocationEffect(point, owner.Map, SpellEffectGraphics.BlizzardFall,
+            SpellEffectGraphics.BlizzardShardDuration);
+        SpellAreaSounds.Pulse(owner.Serial.Value, SpellEffectSounds.BlizzardWind, point, owner.Map, now, 1100);
+    }
+
+    private static void PresentContact(PlayerMobile owner, Point3D point, DateTime now)
+    {
+        Effects.SendLocationEffect(point, owner.Map, SpellEffectGraphics.BlizzardContact, SpellEffectGraphics.ColdFrames);
+        SpellAreaSounds.Pulse(owner.Serial.Value, SpellEffectSounds.BlizzardContact, point, owner.Map, now, 160);
+    }
+
     public static BlizzardSave Snapshot() => new(new List<BlizzardStorm>(_storms.Values).ToArray(), new List<BlizzardShard>(_shards.Values).ToArray());
     public static void Restore(BlizzardSave save,bool loaded=false)
     {

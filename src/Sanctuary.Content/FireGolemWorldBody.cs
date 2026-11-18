@@ -28,7 +28,7 @@ public partial class FireGolemWorldBody:FireGolemDeathBody,IUnarmedGroundPet,INe
     public override TimeSpan BeginMelee(Mobile target)=>TimeSpan.FromMilliseconds(SourceAttackClock.End*40);
     internal void BeginWorld(PlayerMobile owner,DateTime at,ulong seed)
     {
-        Name="Fire Golem [placeholder]";_nextAuraFrame=AuraPeriod;Ground.Initialize(owner,at,seed);
+        Name="Fire Golem";_nextAuraFrame=AuraPeriod;Ground.Initialize(owner,at,seed);
         // Preserve the existing first two-second pulse adapter. Exact current
         // summon activation and periodic-versus-AI priority remain unverified.
     }
@@ -49,6 +49,6 @@ public partial class FireGolemWorldBody:FireGolemDeathBody,IUnarmedGroundPet,INe
     [AfterDeserialization]private void AfterFireWorldLoad()
     {
         if(_nextAuraFrame<1){throw new InvalidDataException("Invalid Fire periodic deadline");}
-        Name="Fire Golem [placeholder]";AIObject?.AITimer.Stop();if(!Retiring){Ground.Load();}
+        Name="Fire Golem";AIObject?.AITimer.Stop();if(!Retiring){Ground.Load();}
     }
 }
