@@ -35,8 +35,8 @@ internal static class ShadowSentries
         // Full factory source resolves pOwner before BOTH base and passive
         // helpers. Rank is still nSkillLevel from the NPC action dispatcher.
         var captured=AssassinSentryCreation.Capture(owner,Ability(skill),rank);
-        _=AssassinSentryBody.CreateCaptured(owner,point,at,NpcWorldAllocation.UnitSeed(),captured);
-        body.PlaySound(0x23B); // Existing identified assassin_summon placeholder.
+        var sentry=AssassinSentryBody.CreateCaptured(owner,point,at,NpcWorldAllocation.UnitSeed(),captured);
+        AssassinSentryVisuals.Placed(body,sentry,at);
         return 1;
     }
 }

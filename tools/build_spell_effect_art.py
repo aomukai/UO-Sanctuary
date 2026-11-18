@@ -2,6 +2,7 @@
 """Pack the generated spell sprite sheets into ClassicUO loose statics."""
 
 from pathlib import Path
+from itertools import islice
 
 from PIL import Image, ImageEnhance, ImageFilter, ImageOps
 
@@ -905,6 +906,62 @@ def assassin_lob_skills():
     ))
 
 
+def assassin_sentry_skills():
+    fire = "assassin-fire-sentries"
+    electric = "assassin-lightning-sentries"
+    attacks = "assassin-sentry-attacks"
+    with Image.open(ART / fire / "sheet.png") as sheet:
+        wake, inferno, sparks, fire_debris = (
+            [sheet.crop((x, top, x + 384, bottom)) for x in range(0, 1536, 384)]
+            for top, bottom in ((0, 277), (277, 579), (579, 823), (823, 1024))
+        )
+    charged, lightning_sentry, death, electric_debris = load_grid(electric, (1536, 1024))
+    for name, graphic, model, foot, debris, debris_foot in (
+        (fire, 61800, wake, (207, 266), fire_debris, (200, 143)),
+        (fire, 61812, inferno, (209, 283), fire_debris, (200, 143)),
+        (electric, 61824, charged, (191, 232), electric_debris, (190, 199)),
+        (electric, 61836, lightning_sentry, (192, 233), electric_debris, (190, 199)),
+        (electric, 61848, death, (191, 234), electric_debris, (190, 199)),
+    ):
+        size, padding = (66, 82), 25
+        # Each phase uses the same foot pivot, including when the base clears the ground.
+        rise = [frame(cell, scale, foot, size, padding, 213)
+                for cell, scale in zip(model, (.05, .092, .136, .178))]
+        idle = [frame(cell, .19, foot, size, padding, 213) for cell in model]
+        rubble = [frame(ImageEnhance.Brightness(cell).enhance(light), .19, debris_foot, size, padding, 214)
+                  for cell, light in zip(debris, (1.01, .9, .76, .58))]
+        write_group(name, graphic, rise + idle + rubble)
+
+    with Image.open(ART / attacks / "sheet.png") as sheet:
+        def row(top, bottom, edges):
+            return [sheet.crop((left, top, right, bottom)) for left, right in zip(edges, edges[1:])]
+
+        fire_wave = row(60, 251, (0, 346, 724, 1129, 1536))
+        fire_stream = row(325, 475, (0, 326, 712, 1116, 1536))
+        charge = row(524, 723, (0, 384, 768, 1152, 1536))
+        explosion = row(747, 986, (0, 376, 718, 1108, 1536))
+
+    for graphic, cells, tips, scale, padding in (
+        (61860, fire_wave, ((248, 151), (288, 146), (328, 138), (343, 144)), .164, 24),
+        (61892, [ImageOps.mirror(cell) for cell in fire_stream],
+         ((257, 82), (325, 80), (367, 81), (382, 81)), .162, 35),
+    ):
+        write_group(attacks, graphic, directional_flight(cells, tips, scale, (122, 129), padding, 215))
+
+    charge_centers = ((165, 144), (152, 147), (141, 151), (177, 141))
+    write_group(attacks, 61924, (frame(cell, .155, center, (66, 62), 28, 213)
+                                for cell, center in zip(charge, charge_centers)))
+    write_group(attacks, 61928, (
+        holy_ring(cell, (236, 126), (240, 132), 66, cutoff, brightness)
+        for cell, cutoff, brightness in zip(explosion, (216, 216, 216, 210), (1.17, 1.12, 1.03, .91))
+    ))
+    write_group(fire, 61932, (frame(cell, .145, (201, 211), (60, 68), 40, 213) for cell in sparks))
+    write_group(attacks, 61936, (frame(cell, .135, center, (66, 68), 38, 213)
+                                for cell, center in zip(charge, charge_centers)))
+    # The existing original lightning sprite gets fractional positioning on sentry paths.
+    write_group(attacks, 61940, islice(lightning(), 32))
+
+
 def necromancer_curses():
     cells = [cell for row in load_grid("necromancer-curses", (1448, 1086), rows=3) for cell in row]
     for cell in cells[:10]:
@@ -1744,3 +1801,4 @@ if __name__ == "__main__":
     assassin_blade_skills()
     assassin_shadow_skills()
     assassin_lob_skills()
+    assassin_sentry_skills()

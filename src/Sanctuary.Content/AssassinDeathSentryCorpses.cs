@@ -81,7 +81,7 @@ internal static class AssassinDeathSentryCorpses
             int loss=SkillHealth.TypedDamage(actor,target,checked(physical.Damage256+fire.Damage256),new(physical.Damage256,0,fire.Damage256,0,0));
             CreatureHitRecovery.Apply(target,actor,loss);CombatDamage.Finish(target,actor);targets++;totalLoss=checked(totalLoss+loss);
         }
-        Effects.SendLocationEffect(center,map,0x36BD,15); // Identified explosion placeholder.
+        AssassinSentryVisuals.Explode(actor,map,center,packet.OuterRange);
         return new(DeathExplosionStatus.Success,targets,totalLoss,stream,packet);
     }
 }

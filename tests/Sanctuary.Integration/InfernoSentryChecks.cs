@@ -124,7 +124,7 @@ public static class InfernoSentryChecks
         Require(p.EquipItem(staff)&&p.EquipItem(helm),"Actual fire pierce/soft-rank gear");ClassGear.Refresh(p);
         var b=Actor(p,DateTime.UtcNow.AddDays(3));var first=Target(b);var second=Target(b);int mana=NecromancerEffects.ManaBalance256(p);
         Require(b.Prepared.Creation is{Ability:CombatAbility.WakeOfInferno,Rank:7,Level:81,Life256:25600}&&b.Prepared.InfernoControl is{Mode:8,EndAt:15,NextThink:25}
-            &&b.Passive("passive_fire_pierce")>0&&!b.BlocksFit&&!b.CanBeDamaged()&&b.Name.Contains("[placeholder]"),"Actual Inferno actor/S1/rank/fire context");
+            &&b.Passive("passive_fire_pierce")>0&&!b.BlocksFit&&!b.CanBeDamaged()&&b.Name==SkillMechanics.For(CombatAbility.WakeOfInferno).Name,"Actual Inferno actor/S1/rank/fire context");
         var ends=AssassinSentryCreation.Fire(b.Prepared.Creation);p.AddToBackpack(staff);p.AddToBackpack(helm);ClassGear.Refresh(p);Require(AssassinSentryCreation.Fire(b.Prepared.Creation)==ends&&b.Prepared.Creation.Skill("Wake of Fire Sentry")==15,"Birth fire stats followed later owner gear");
         Damage(p,b,first);first.Blessed=second.Blessed=true;Wall(b);first.Blessed=second.Blessed=false;
         Require(AssassinSentryLightning.CreateInferno(b,new(0,b.Y*2))==0&&AssassinSentryLightning.CreateInferno(b,new(b.X*2+100,b.Y*2))==0,"Inferno zero-coordinate/factory range guards");

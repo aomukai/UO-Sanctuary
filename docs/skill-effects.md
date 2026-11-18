@@ -148,6 +148,10 @@ Fire Blast follows the original lob with a small tumbling ember. The fuse glows 
 
 Muted ClassicUO checks rendered all 36 new frames and decoded seven Sonniss edits. Fire Blast retained its original fuse, hit the selected inner targets, spared the target beyond radius, and stopped at terrain. A cancelled throw produced no effects. The common throw presentation was checked on both genders across Human, Elf and Gargoyle bodies. The Shock Web check showed two simultaneous nodes whose half-tile centers round to the same UO tile, confirmed the one-second hit delay, and exercised natural expiry and selective retirement when a wall obstructed one tile. Native checks covered both learned and Shadow skills across a save and reload. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
 
+Wake of Fire and Wake of Inferno emerge as a low bronze brazier and a taller iron burner. One spreads fire across the ground, and the other shoots narrow bursts. Charged Bolt Sentry sends blue and gold forks along jagged paths. Lightning Sentry and Death Sentry share the original Lightning streak and have distinct models. Death Sentry's ground ring expands from the consumed corpse to the real blast radius. The five devices collapse on their existing tiles. Shadow casts share these effects. [Fire sentry art and prompts](../art/spell-effects/assassin-fire-sentries) · [Lightning sentry art and prompts](../art/spell-effects/assassin-lightning-sentries) · [Sentry attack art and prompts](../art/spell-effects/assassin-sentry-attacks)
+
+Muted ClassicUO checks exercised learned placement, automatic attacks, contact, both Death Sentry decisions, and the replacement collapse in all five skills. Each cast debited mana once. The actors stayed on the same tiles and remained passable. ClassicUO decoded eight new Sonniss edits with playback disabled. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
 Charged Bolt skitters along its existing paths, Lightning travels in a straight streak, and Chain Lightning sends violet arcs between targets. Static Field expands along the ground and Thunder Storm flashes above the caster at release and on its recurring strike schedule. The player casts were checked in ClassicUO with audio disabled. Nine Sonniss edits cover their cast and impact cues. Each cue has passed format and level checks and awaits a listening pass. [Cue recipes](../art/spell-effects/sonniss-cues.json)
 
 Ice Bolt travels as a thin shard, Ice Blast as a compact comet, and Glacial Spike as a heavier crystal with an area burst. Frost Nova expands across the ground. The shared cold overlays follow the affected target and clear with the game status. Thaw and cold corpse shatter reuse the Ice Blast fragments. The player effects were checked in ClassicUO with audio disabled. Eight Sonniss edits cover releases, impacts, and the shared cold corpse shatter. Their listening pass is queued. [Cold status sprite source](../art/spell-effects/cold-status/sheet.png) · [Cue recipes](../art/spell-effects/sonniss-cues.json)
@@ -1313,12 +1317,12 @@ Inherited NPC item absorption now changes life mechanically. Final Iron Golem ab
 | Assassin | Fire Blast | custom | Tumbling ember, landed fuse, radius-scaled blast and shared Fire Bolt contact. |
 | Assassin | Shock Web | custom | Tumbling shards, independent half-tile fields, landed arcs and retirement. |
 | Assassin | Blade Sentinel | custom | Teal steel construct, fractional movement, linked cut effects and retirement. |
-| Assassin | Charged Bolt Sentry | needed | chargeboltsentry |
-| Assassin | Wake Of Fire | needed | wakeofdestruction |
+| Assassin | Charged Bolt Sentry | custom | Crystal coil, jagged sparks, contact and collapse. |
+| Assassin | Wake Of Fire | custom | Low brazier, spreading fire crests, contact and collapse. |
 | Assassin | Blade Fury | custom | Hand glint, directional tumbling blades, contact, deflection and spent fragments. |
-| Assassin | Lightning Sentry | needed | lightningsentry |
-| Assassin | Wake Of Inferno | needed | infernosentry |
-| Assassin | Death Sentry | needed | deathsentry |
+| Assassin | Lightning Sentry | custom | Violet fork, straight lightning, contact and collapse. |
+| Assassin | Wake Of Inferno | custom | Tall brazier, directional fire stream, contact and collapse. |
+| Assassin | Death Sentry | custom | Bone and iron altar, lightning, radius-scaled corpse blast and collapse. |
 | Assassin | Blade Shield | custom | Raising blades, attached orbit, periodic cut, deflection and expiry. |
 | Warlock | Demonic Mastery | not-applicable | demonic_mastery |
 | Warlock | Summon Goatman | native | Native Gargoyle and Gazer with summon effects. |

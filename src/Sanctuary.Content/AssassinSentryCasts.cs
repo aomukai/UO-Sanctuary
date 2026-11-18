@@ -55,7 +55,7 @@ internal static class AssassinSentryCasts
         if(!NecromancerEffects.Pay(owner,values.Mana256)){body.Delete();return false;}
         // No independent local/global delay is present in the pinned row.
         // Shared player action scheduling owns once-only release/recovery.
-        owner.PlaySound(0x23B); // Identified assassin_summon audio placeholder.
+        AssassinSentryVisuals.Placed(owner,body,at??TimedEffects.Now);
         return true;
     }
 }

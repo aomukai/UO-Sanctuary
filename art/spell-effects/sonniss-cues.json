@@ -509,6 +509,14 @@
     "ShockWebThrow": {"source": "electric-cast", "start": 0.120, "duration": 0.213, "fadeIn": 0.021, "fadeOut": 0.078, "highpass": 783, "peakDb": -21},
     "ShockWebLand": {"source": "electric-crackle", "start": 0.372, "duration": 0.168, "fadeIn": 0.008, "fadeOut": 0.066, "highpass": 1075, "peakDb": -25},
     "ShockWebHit": {"source": "electric-crackle", "start": 0.515, "duration": 0.181, "fadeIn": 0.004, "fadeOut": 0.071, "highpass": 785, "peakDb": -22},
-    "ShockWebFade": {"source": "electric-crackle", "start": 0.655, "duration": 0.21, "fadeIn": 0.017, "fadeOut": 0.118, "highpass": 1480, "peakDb": -29}
+    "ShockWebFade": {"source": "electric-crackle", "start": 0.655, "duration": 0.21, "fadeIn": 0.017, "fadeOut": 0.118, "highpass": 1480, "peakDb": -29},
+    "SentryPlacement": {"source": "metal-hit", "start": 0.16, "duration": 0.28, "fadeIn": 0.008, "fadeOut": 0.109, "highpass": 348, "peakDb": -21},
+    "SentryWakeRelease": {"source": "fire", "start": 0.524, "duration": 0.27, "fadeIn": 0.012, "fadeOut": 0.096, "highpass": 354, "peakDb": -20},
+    "SentryInfernoRelease": {"source": "fire", "start": 0.685, "duration": 0.32, "fadeIn": 0.022, "fadeOut": 0.106, "highpass": 722, "peakDb": -24},
+    "SentryChargedRelease": {"source": "electric-crackle", "start": 0.381, "duration": 0.204, "fadeIn": 0.011, "fadeOut": 0.072, "highpass": 693, "peakDb": -23},
+    "SentryLightningRelease": {"source": "electric-cast", "start": 0.113, "duration": 0.29, "fadeIn": 0.007, "fadeOut": 0.101, "highpass": 397, "peakDb": -19},
+    "DeathSentryRelease": {"source": "electric-cast", "start": 3.695, "duration": 0.239, "fadeIn": 0.01, "fadeOut": 0.081, "highpass": 408, "peakDb": -20},
+    "DeathSentryBurst": {"source": "close-thunder", "start": 1.864, "duration": 0.54, "fadeIn": 0.007, "fadeOut": 0.155, "highpass": 221, "peakDb": -17},
+    "SentryCollapse": {"source": "metal-hit", "start": 0.228, "duration": 0.239, "fadeIn": 0.019, "fadeOut": 0.132, "highpass": 419, "peakDb": -28}
   }
 }

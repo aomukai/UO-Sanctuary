@@ -178,6 +178,24 @@ public static class SpellEffectGraphics
     public static bool IsAssassinLobAnimation(ushort graphic) => graphic is
         FireBlastThrow or FireBlastBurst or ShockWebThrow or ShockWebField or ShockWebHit or ShockWebFade;
 
+    public const int SentryFrames = 4;
+    public const int SentryModelFrames = 3 * SentryFrames;
+    public const ushort SentryModel = 61800;
+    public const ushort SentryWakeFlight = 61860;
+    public const ushort SentryInfernoFlight = 61892;
+    public const ushort SentryChargedFlight = 61924;
+    public const ushort DeathSentryBurst = 61928;
+    public const ushort SentryFireFlash = 61932;
+    public const ushort SentryLightningFlash = 61936;
+    public const ushort SentryLightningFlight = 61940;
+    public const ushort SentryModelGone = 61972;
+    public static bool IsSentryModelFrame(ushort graphic) => graphic is >= SentryModel and < SentryWakeFlight
+        && (graphic - SentryModel) % SentryModelFrames < 2 * SentryFrames;
+    public static bool IsSentryCollapse(ushort graphic) => graphic is >= SentryModel and < SentryWakeFlight
+        && (graphic - SentryModel) % SentryModelFrames == 2 * SentryFrames;
+    public static bool IsSentryFlash(ushort graphic) => graphic is SentryFireFlash or SentryLightningFlash;
+    public static bool IsHiddenSummonFrame(ushort graphic) => graphic is HydraHeadGone or SentryModelGone;
+
     // This block is above the installed ClassicUO archive's stock static range.
     public const ushort FrozenArmorCast = 62800;
     public const ushort FrozenArmorWard = 62804;
@@ -494,7 +512,7 @@ public static class SpellEffectGraphics
     public static bool IsRadiusPulse(ushort graphic) =>
         graphic is HolyFirePulse or HolyFreezePulse or HolyShockPulse or SanctuaryPulse or GrimWardPulse
             or LeapLanding or LeapAttackLanding or MartialFireRing or MartialThunderRing or MartialIceRing
-            or DragonTailBurst or CloakWave or MindBlastWave;
+            or DragonTailBurst or CloakWave or MindBlastWave or DeathSentryBurst;
 
     public static bool IsPaladinAuraLoop(ushort graphic) => graphic is HolyFireAura or HolyFreezeAura or HolyShockAura or HolyFreezeSlow
         || IsPaladinResistanceWard(graphic) || IsPaladinRecoveryLoop(graphic) || IsPaladinOffenseLoop(graphic)
@@ -671,6 +689,8 @@ public static class SpellEffectGraphics
             or >= BladeFuryFlight and < BladeFuryHit
             or >= FireBlastFlight and <= FireBlastBurst
             or >= ShockWebFlight and <= ShockWebField or ShockWebFade
+            or >= SentryWakeFlight and < DeathSentryBurst
+            or >= SentryLightningFlight and < SentryLightningFlight + 8 * SentryFrames
             || IsBarbarianThrowFlight(graphic);
 
     public static bool IsHydraHeadFrame(ushort graphic) => graphic is >= HydraHeadRight and <= HydraHeadGone;

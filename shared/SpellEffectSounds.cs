@@ -373,6 +373,14 @@ public static class SpellEffectSounds
     public const int ShockWebLand = 60367;
     public const int ShockWebHit = 60368;
     public const int ShockWebFade = 60369;
+    public const int SentryPlacement = 60370;
+    public const int SentryWakeRelease = 60371;
+    public const int SentryInfernoRelease = 60372;
+    public const int SentryChargedRelease = 60373;
+    public const int SentryLightningRelease = 60374;
+    public const int DeathSentryRelease = 60375;
+    public const int DeathSentryBurst = 60376;
+    public const int SentryCollapse = 60377;
 
     public static int Fallback(int sound) => sound switch
     {
@@ -402,6 +410,10 @@ public static class SpellEffectSounds
         MindBlastCast or PsychicHammerHit => 0x213,
         FireBlastThrow or ShockWebThrow => 0x23B,
         FireBlastBurst => 0x307,
+        SentryPlacement => 0x23B,
+        SentryWakeRelease or SentryInfernoRelease => 0x15E,
+        SentryChargedRelease or SentryLightningRelease or DeathSentryRelease => 0x29,
+        DeathSentryBurst => 0x307,
         BlizzardRelease or FrozenOrbRelease or MeteorRelease or TeethRelease or BoneSpiritRelease or AbyssOpen => 0x1E5,
         AmazonBowRelease or AmazonCrossbowRelease or JavelinThrow => 0x238,
         SpearThrust or HeavySpearThrust => 0x238,

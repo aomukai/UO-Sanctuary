@@ -73,7 +73,9 @@ public static class AssassinSentryBolts
         long id=checked(++_nextId);
         var bolt=new SentryBoltState(id,body.Serial.Value,c.Owner,c.Map,c.Position.Z,c.Creation.Rank,body.X,body.Y,path,body.X,body.Y,1,0,spawn.Frames,
             velocity,slow.Damage256(ends.Min),slow.Damage256(ends.Max),c.Creation.Passive("passive_ltng_pierce"),slow,seed,
-            new([new(body.X*2,body.Y*2)]),c.NextFrameUtc.AddMilliseconds(40));Validate(bolt);Bolts.Add(id,bolt);return id;
+            new([new(body.X*2,body.Y*2)]),c.NextFrameUtc.AddMilliseconds(40));Validate(bolt);Bolts.Add(id,bolt);
+        AssassinSentryVisuals.Release(body,c.NextFrameUtc);
+        return id;
     }
     private static void Validate(SentryBoltState s)
     {
@@ -132,7 +134,7 @@ public static class AssassinSentryBolts
             {Bolts.Remove(s.Id);return;}
         }
         Bolts[s.Id]=next;
-        if(frame%2==0){Effects.SendLocationEffect(new Point3D((int)Math.Round(next.X),(int)Math.Round(next.Y),s.Z),body.Map,0x3818,3,10,0x482,0);} // Placeholder bolt.
+        if(frame%2==0){AssassinSentryVisuals.Flight(CombatAbility.ChargedBoltSentry,body.Map,next.X,next.Y,s.Z,0,0,frame/2);}
     }
     internal static int Impact(AssassinSentryBody body,BaseCreature target,SentryBoltState s)
         =>Impact(body,target,"sentrychargedbolt",s.Minimum256,s.Maximum256,s.Pierce,s.Seed).WholeLoss;
@@ -144,6 +146,7 @@ public static class AssassinSentryBolts
         if(element!=expected || damageRate!=NecromancerSummons.Source(missile,"DamageRate"))
         {throw new NotSupportedException("Sentry impact element/reduction rate disagrees with its current source row");}
         SorceressEffects.MissileHit(body,target,missile);
+        AssassinSentryVisuals.Impact(missile,target);
         ulong stream=seed;int raw=WeaponMissileDamage.RollValue(minimum256,maximum256,0,bound=>(int)SourceRandom.Limited(ref stream,bound));
         if(!SourceBlocking.TryBlock(target,false,out bool blocked)){throw new NotSupportedException("Sentry spell-block supplier is not mapped");}
         if(blocked){return(0,stream);}

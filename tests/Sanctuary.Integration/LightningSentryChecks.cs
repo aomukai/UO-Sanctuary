@@ -95,7 +95,7 @@ public static class LightningSentryChecks
         var b=Actor(p,DateTime.UtcNow.AddDays(1));var first=Target(b);var second=Target(b);int mana=NecromancerEffects.ManaBalance256(p);
         Require(b.Prepared.Creation is{Ability:CombatAbility.LightningSentry,Rank:2,Life256:25600,Level:76}
             &&b.Prepared.Control is{Mode:8,EmergenceEnd:15,NextThink:25}&&b.Passive("passive_ltng_mastery")>0
-            &&b.Passive("passive_ltng_pierce")>0&&!b.BlocksFit&&!b.CanBeDamaged()&&b.Name.Contains("[placeholder]"),$"Actual source actor/S1/soft-rank/passive context: {JsonSerializer.Serialize(b.Prepared)}");
+            &&b.Passive("passive_ltng_pierce")>0&&!b.BlocksFit&&!b.CanBeDamaged()&&b.Name==SkillMechanics.For(CombatAbility.LightningSentry).Name,$"Actual source actor/S1/soft-rank/passive context: {JsonSerializer.Serialize(b.Prepared)}");
         var ends=AssassinSentryCreation.Lightning(b.Prepared.Creation);p.AddToBackpack(eye);ClassGear.Refresh(p);
         Require(AssassinSentryCreation.Lightning(b.Prepared.Creation)==ends&&b.Prepared.Creation.Skill("Shock Field")==15
             &&b.Prepared.Creation.Skill("Charged Bolt Sentry")==20,"Actor birth stats followed later owner gear");

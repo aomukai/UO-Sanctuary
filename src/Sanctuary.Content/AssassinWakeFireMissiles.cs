@@ -78,7 +78,9 @@ public static class AssassinWakeFireMissiles
             x,y,v.X,v.Y,perpendicular.X,perpendicular.Y,false,0,plan.Frames,plan.VelocityFp8,
             slow.Damage256(plan.Minimum256),slow.Damage256(plan.Maximum256),c.Creation.Passive("passive_fire_pierce"),slow,
             SourceRandom.InitLow(SeedLow()),0,new([new((int)Math.Floor(x*2+.5),(int)Math.Floor(y*2+.5))]),at.AddMilliseconds(40));
-        Validate(s);Flights.Add(id,s);_nextId=id;return id;
+        Validate(s);Flights.Add(id,s);_nextId=id;
+        if(!wave){AssassinSentryVisuals.Release(body,at);}
+        return id;
     }
     private static void Validate(WakeFireFlight s)
     {
@@ -155,7 +157,7 @@ public static class AssassinWakeFireMissiles
             {Flights.Remove(s.Id);return;}
         }
         Flights[s.Id]=next;
-        if(frame%2==0){Effects.SendLocationEffect(new((int)Math.Round(next.X),(int)Math.Round(next.Y),s.Z),body.Map,0x36D4,3,10,0x489,0);} // Identified fire placeholder.
+        if(frame%2==0){AssassinSentryVisuals.Flight(CombatAbility.WakeOfFire,body.Map,next.X,next.Y,s.Z,s.Vx,s.Vy,frame/2);}
     }
     internal static WakeFireSave Snapshot()=>new(Flights.Values.OrderBy(x=>x.Id).ToArray(),Leases.OrderBy(x=>x.Key.Item1).ThenBy(x=>x.Key.Item2).Select(x=>new WakeFireLease(x.Key.Item1,x.Key.Item2,x.Value)).ToArray(),_nextId);
     internal static void Restore(WakeFireSave save)

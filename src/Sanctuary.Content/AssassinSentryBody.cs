@@ -34,6 +34,9 @@ public partial class AssassinSentryBody:BaseCreature,ILimitedSummonCorpse
 {
     [SerializableField(0,setter:"private")] private string _saved="{}";
     private SentryBodyState _prepared;
+    private ushort _visualFrame;
+    private DateTime _visualRenewal;
+    private DateTime _flashAfter;
     internal SentryBodyState Prepared=>_prepared??(string.IsNullOrEmpty(_saved)||_saved=="{}"?null:_prepared=JsonSerializer.Deserialize<SentryBodyState>(_saved));
     public override bool Alive=>Prepared?.Retirement==null&&Prepared?.Corpse==null&&base.Alive;
     string ILimitedSummonCorpse.CorpseSource=>SkillMechanics.For(Prepared.Creation.Ability).Text("summon");
@@ -55,7 +58,7 @@ public partial class AssassinSentryBody:BaseCreature,ILimitedSummonCorpse
     public override bool CanBeHarmful(Mobile mobile,bool message,bool ignoreOurBlessedness)=>false;
     public AssassinSentryBody():base(AIType.AI_Melee,FightMode.None,0)
     {
-        Name="Charged Bolt Sentry [placeholder]";Body=0x9C;Hue=0x482;Blessed=true;CantWalk=true;
+        Name="Charged Bolt Sentry";Body=0x9C;Hue=0x482;Blessed=true;CantWalk=true;
         Summoned=true;ControlSlots=0;NoKillAwards=true;SetStr(0);SetDex(0);SetInt(0);SetStam(0);SetMana(0);SetDamage(0,0);
         AIObject?.AITimer.Stop();
     }
@@ -137,6 +140,7 @@ public partial class AssassinSentryBody:BaseCreature,ILimitedSummonCorpse
             NextFrameUtc=death.CompletesUtc,ControllerFault=null});
         Combatant=null;FocusMob=null;Warmode=false;AIObject?.AITimer.Stop();AssassinTrapRoster.Forget(this);
         AssassinSentryActors.Track(this);
+        AssassinSentryVisuals.Collapse(this,death);
     }
     // Also usable by explicitly supplied completed-death services. Other
     // flagged summon families retain their separate death adapters.
@@ -183,7 +187,7 @@ public partial class AssassinSentryBody:BaseCreature,ILimitedSummonCorpse
         var body=new AssassinSentryBody();
         try
         {
-            body.Name=SkillMechanics.For(ability).Name+" [placeholder]";
+            body.Name=SkillMechanics.For(ability).Name;
             if(inferno){body.Hue=0x489;}
             body.Store(state);body.SummonMaster=owner;body.SetHits(stats.Life256/256);body.MoveToWorld(position,map);body.AIObject?.AITimer.Stop();
             AssassinTrapRoster.Register(owner,body,checked((int)AssassinSentryCreation.Values(stats).Eval("petmax")));
@@ -192,6 +196,22 @@ public partial class AssassinSentryBody:BaseCreature,ILimitedSummonCorpse
         catch{body.Delete();throw;}
     }
     internal bool TrapTarget(PlayerMobile owner,Mobile target)=>AssassinTrapTargets.Eligible(this,owner,target,()=>base.CanBeHarmful(target,false,true));
+    internal void Flash(ushort graphic, DateTime at)
+    {
+        if (at < _flashAfter) { return; }
+        FixedEffect(graphic, 10, 5);
+        _flashAfter = at.AddMilliseconds(260);
+    }
+
+    internal void PresentFrame(DateTime at)
+    {
+        if (Prepared is not { Retirement: null, Corpse: null } state || Hidden || !PaladinAuraVisuals.InWorld(this)) { return; }
+        ushort graphic = AssassinSentryVisuals.Model(state);
+        if (_visualFrame == graphic && at < _visualRenewal) { return; }
+        FixedEffect(graphic, 64, 64);
+        _visualFrame = graphic;
+        _visualRenewal = at.AddMilliseconds(160);
+    }
     internal int Passive(string name)=>Prepared.Creation.Passive(name);
     internal void RescaleDifficulty(MonsterDifficulty difficulty)
     {
@@ -350,6 +370,10 @@ public partial class AssassinSentryBody:BaseCreature,ILimitedSummonCorpse
     [AfterDeserialization]private void AfterLoad()
     {
         AIObject?.AITimer.Stop();_prepared=JsonSerializer.Deserialize<SentryBodyState>(_saved);Validate(_prepared);
+        if (Name == SkillMechanics.For(_prepared.Creation.Ability).Name + " [placeholder]")
+        {
+            Name = SkillMechanics.For(_prepared.Creation.Ability).Name;
+        }
         if(SummonMaster?.Serial.Value!=_prepared.Owner || Map?.MapID!=_prepared.Map || Location!=_prepared.Position)
         {throw new InvalidDataException("Saved sentry owner/position mismatch");}
         if(_prepared.Corpse==null){AssassinSentryActors.Track(this);}
@@ -383,15 +407,15 @@ public static class AssassinSentryActors
     internal static void AdvanceAt(AssassinSentryBody body,DateTime at)
     {
         try{body.AdvanceController(at,AssassinTrapRoster.Fighting(body.Prepared.Owner));}
-        catch(Exception e){body.SuspendController(e.Message);Log.Error(e,"Prepared sentry controller suspended: {Serial}",body.Serial);}
+        catch(Exception e){body.SuspendController(e.Message);Log.Error(e,"Prepared sentry controller suspended: {Serial}",body.Serial);return;}
+        body.PresentFrame(at);
     }
     internal static void Tick(DateTime at)
     {
         AssassinTrapRoster.SweepOwners();
         foreach(var body in Active.Values.Where(x=>!x.Deleted).OrderByDescending(x=>x.Serial.Value).ToArray())
         {
-            try{body.AdvanceController(at,AssassinTrapRoster.Fighting(body.Prepared.Owner));}
-            catch(Exception e){body.SuspendController(e.Message);Log.Error(e,"Prepared sentry controller suspended: {Serial}",body.Serial);}
+            AdvanceAt(body,at);
         }
     }
 }

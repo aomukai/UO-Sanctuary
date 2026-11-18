@@ -97,7 +97,7 @@ public static class WakeFireActorChecks
             Require(bodies.All(b=>b.Prepared.Creation is{Ability:CombatAbility.WakeOfFire,Rank:1,Level:75,Life256:25600}
                 &&b.Prepared.Control==null&&b.Prepared.WakeControl is{Mode:8,NextThink:25,EndAt:15}
                 &&b.SummonMaster==p&&b.HitsMax==100&&!b.BlocksFit&&!b.CanBeDamaged()&&!b.UsesNativeSummonTimer
-                &&b.Name.Contains("[placeholder]")&&ClassStats.Level(b)==75
+                &&b.Name==SkillMechanics.For(CombatAbility.WakeOfFire).Name&&ClassStats.Level(b)==75
                 &&ClassStats.Defense(b)==b.Prepared.Creation.Defense&&ClassStats.AttackRating(b)==b.Prepared.Creation.Attack),"Actual Wake actor source bases/clock/placeholder/owner");
             Require(bodies[0].Prepared.Creation.Skill("Fire Trauma")==15&&bodies[0].Prepared.Creation.Skill("Inferno Sentry")==20
                 &&AssassinSentryCreation.Shots(bodies[0].Prepared.Creation)==5,"Actual learned fire synergy capture");

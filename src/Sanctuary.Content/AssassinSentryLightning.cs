@@ -102,7 +102,9 @@ public static class AssassinSentryLightning
             body.X,body.Y,v.X,v.Y,velocity,0,frames,slow.Damage256(ends.Min),slow.Damage256(ends.Max),
             c.Creation.Passive(inferno?"passive_fire_pierce":"passive_ltng_pierce"),slow,SourceRandom.InitLow(SeedLow()),0,
             new([new(body.X*2,body.Y*2)]),c.NextFrameUtc.AddMilliseconds(40)){Ability=ability,HardWake=hardWake};
-        Validate(state);Bolts.Add(id,state);return id;
+        Validate(state);Bolts.Add(id,state);
+        AssassinSentryVisuals.Release(body,c.NextFrameUtc);
+        return id;
     }
     private static void Validate(SentryLightningState s)
     {
@@ -176,7 +178,7 @@ public static class AssassinSentryLightning
             {Bolts.Remove(s.Id);return;}
         }
         Bolts[s.Id]=next;
-        if(frame%2==0){bool inferno=s.Ability==CombatAbility.WakeOfInferno;Effects.SendLocationEffect(new((int)Math.Round(next.X),(int)Math.Round(next.Y),s.Z),body.Map,inferno?0x36D4:0x3818,3,10,inferno?0x489:0x482,0);} // Identified placeholders.
+        if(frame%2==0){AssassinSentryVisuals.Flight(s.Ability,body.Map,next.X,next.Y,s.Z,s.Vx,s.Vy,frame/2);}
     }
     internal static SentryLightningSave Snapshot()=>new(Bolts.Values.OrderBy(x=>x.Id).ToArray(),_nextId);
     internal static void Restore(SentryLightningSave saved)
