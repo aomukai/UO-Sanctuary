@@ -962,6 +962,30 @@ def assassin_sentry_skills():
     write_group(attacks, 61940, islice(lightning(), 32))
 
 
+def assassin_shadow_summons():
+    # Each style shares the humanoid's planted foot pivot across arrival, veil and departure.
+    for name, graphic, recipes in (
+        ("shadow-warrior", 61600, (
+            (.19, (193, 149), 48, (210, 210, 213, 198)),
+            (.23, (194, 207), 25, (207, 193, 200, 176)),
+            (.205, (192, 180), 25, (148, 159, 159, 148)),
+            (.214, (194, 192), 25, (217, 214, 204, 153)),
+        )),
+        ("shadow-master", 61616, (
+            (.19, (193, 139), 48, (211, 213, 216, 203)),
+            (.225, (194, 215), 25, (212, 213, 214, 212)),
+            (.196, (191, 149), 25, (182, 177, 181, 176)),
+            (.216, (193, 186), 25, (211, 212, 207, 181)),
+        )),
+    ):
+        rows = load_grid(name, (1536, 1024))
+        write_group(name, graphic, (
+            frame(cell, scale, pivot, (96, 96), padding, cutoff)
+            for cells, (scale, pivot, padding, cutoffs) in zip(rows, recipes)
+            for cell, cutoff in zip(cells, cutoffs)
+        ))
+
+
 def necromancer_curses():
     cells = [cell for row in load_grid("necromancer-curses", (1448, 1086), rows=3) for cell in row]
     for cell in cells[:10]:
@@ -1802,3 +1826,4 @@ if __name__ == "__main__":
     assassin_shadow_skills()
     assassin_lob_skills()
     assassin_sentry_skills()
+    assassin_shadow_summons()

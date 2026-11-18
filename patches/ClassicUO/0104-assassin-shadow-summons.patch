@@ -1,0 +1,63 @@
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -206,6 +206,7 @@
+                         _ when SpellEffectGraphics.IsDragonAnimation(Graphic) => SpellEffectGraphics.DragonFrames,
+                         _ when SpellEffectGraphics.IsAssassinBladeAnimation(Graphic) => SpellEffectGraphics.AssassinBladeFrames,
+                         _ when SpellEffectGraphics.IsAssassinShadowAnimation(Graphic) => SpellEffectGraphics.AssassinShadowFrames,
++                        _ when SpellEffectGraphics.IsShadowSummonAnimation(Graphic) => SpellEffectGraphics.AssassinShadowFrames,
+                         _ when SpellEffectGraphics.IsAssassinLobAnimation(Graphic) => SpellEffectGraphics.AssassinLobFrames,
+                         SpellEffectGraphics.DeathSentryBurst => SpellEffectGraphics.SentryFrames,
+                         _ when SpellEffectGraphics.IsSentryFlash(Graphic) => SpellEffectGraphics.SentryFrames,
+@@ -231,6 +232,7 @@
+                             && !SpellEffectGraphics.IsGrimWardBody(Graphic)
+                             && !SpellEffectGraphics.IsBarbarianStrikeStatus(Graphic)
+                             && !SpellEffectGraphics.IsAssassinShadowLoop(Graphic)
++                            && !SpellEffectGraphics.IsShadowSummonVeil(Graphic)
+                             && Graphic is not (SpellEffectGraphics.WhirlwindSpin or SpellEffectGraphics.FrenzySpeed or SpellEffectGraphics.BladeShieldRing
+                                 or SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow
+                                 or SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.PoisonAfflicted
+@@ -358,6 +360,9 @@
+                             _ when SpellEffectGraphics.IsAssassinBladeAnimation(Graphic) => 67,
+                             _ when SpellEffectGraphics.IsAssassinShadowLoop(Graphic) => 105,
+                             _ when SpellEffectGraphics.IsAssassinShadowAnimation(Graphic) => 68,
++                            _ when SpellEffectGraphics.IsShadowSummonCast(Graphic) => 69,
++                            _ when SpellEffectGraphics.IsShadowSummonVeil(Graphic) => 130,
++                            _ when SpellEffectGraphics.IsShadowSummonAnimation(Graphic) => 104,
+                             SpellEffectGraphics.ShockWebField => 95,
+                             _ when SpellEffectGraphics.IsAssassinLobAnimation(Graphic) => 66,
+                             _ when SpellEffectGraphics.IsSentryFlash(Graphic) => 60,
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -127,9 +127,11 @@
+                 || Graphic is SpellEffectGraphics.LeapAttackSwing or SpellEffectGraphics.WhirlwindSpin;
+             bool martialSwing = SpellEffectGraphics.IsMartialSwing(Graphic) || SpellEffectGraphics.IsDragonSweep(Graphic);
+             bool bladeAttached = SpellEffectGraphics.IsAssassinBladeAttached(Graphic);
+-            bool shadowTorso = SpellEffectGraphics.IsAssassinShadowTorso(Graphic);
++            bool shadowTorso = SpellEffectGraphics.IsAssassinShadowTorso(Graphic) || SpellEffectGraphics.IsShadowSummonCast(Graphic);
++            bool shadowVeil = SpellEffectGraphics.IsShadowSummonVeil(Graphic);
+             bool trapThrow = Graphic is SpellEffectGraphics.FireBlastThrow or SpellEffectGraphics.ShockWebThrow;
+-            if ((bladeAttached || trapThrow || SpellEffectGraphics.IsAssassinShadowAnimation(Graphic))
++            if ((bladeAttached || trapThrow || shadowVeil || SpellEffectGraphics.IsShadowSummonCast(Graphic)
++                    || SpellEffectGraphics.IsAssassinShadowAnimation(Graphic))
+                 && Source is Mobile effectOwner && (effectOwner.IsDead || effectOwner.IsHidden))
+             {
+                 return false;
+@@ -275,7 +277,7 @@
+
+             if (Source != null)
+             {
+-                depth = Source.CalculateDepthZ() + 1f;
++                depth = Source.CalculateDepthZ() + (shadowVeil ? -0.1f : 1f);
+             }
+             else if (Graphic is SpellEffectGraphics.SacrificeImpact or SpellEffectGraphics.SmiteImpact or SpellEffectGraphics.VengeanceImpact
+                 or SpellEffectGraphics.ZealImpact or SpellEffectGraphics.ChargeImpact or SpellEffectGraphics.WarCryImpact
+--- a/src/ClassicUO.Client/Game/Managers/EffectManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+@@ -130,6 +130,7 @@
+                     || SpellEffectGraphics.IsDruidSpiritAura(graphic)
+                     || SpellEffectGraphics.IsPaladinAuraLoop(graphic)
+                     || SpellEffectGraphics.IsAssassinShadowLoop(graphic)
++                    || SpellEffectGraphics.IsShadowSummonVeil(graphic)
+                     || SpellEffectGraphics.IsBarbarianCryWard(graphic)
+                     || SpellEffectGraphics.IsBarbarianStrikeStatus(graphic)
+                     || graphic is SpellEffectGraphics.WhirlwindSpin or SpellEffectGraphics.FrenzySpeed or SpellEffectGraphics.BladeShieldRing

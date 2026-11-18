@@ -164,6 +164,19 @@ public static class SpellEffectGraphics
     public static bool IsAssassinShadowTorso(ushort graphic) =>
         graphic is >= FadeCast and <= VenomEnd or CloakMantle or CloakEnd or PsychicHammerCast or MindBlastCast;
 
+    public const ushort ShadowWarriorCast = 61600;
+    public const ushort ShadowWarriorArrival = 61604;
+    public const ushort ShadowWarriorVeil = 61608;
+    public const ushort ShadowWarriorDeparture = 61612;
+    public const ushort ShadowMasterCast = 61616;
+    public const ushort ShadowMasterArrival = 61620;
+    public const ushort ShadowMasterVeil = 61624;
+    public const ushort ShadowMasterDeparture = 61628;
+    public static bool IsShadowSummonAnimation(ushort graphic) => graphic is >= ShadowWarriorCast and <= ShadowMasterDeparture
+        && (graphic - ShadowWarriorCast) % AssassinShadowFrames == 0;
+    public static bool IsShadowSummonCast(ushort graphic) => graphic is ShadowWarriorCast or ShadowMasterCast;
+    public static bool IsShadowSummonVeil(ushort graphic) => graphic is ShadowWarriorVeil or ShadowMasterVeil;
+
     public const int AssassinLobFrames = 4;
     public const int FireBlastRadiusSubtiles = 5;
     public const ushort FireBlastThrow = 62764;

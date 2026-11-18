@@ -30,6 +30,8 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
     [SerializableField(0,setter:"private")]private string _saved="{}";
     private ShadowBodyState _state;
     private ShadowCreationStats _birth;
+    private Map _appearanceMap;
+    private DateTime _appearanceRefresh;
     private ShadowBodyState State=>_state??(_saved=="{}"?null:_state=JsonSerializer.Deserialize<ShadowBodyState>(_saved));
     internal ShadowBodyState Prepared=>State==null?null:State with{Equipment=ShadowLoadout.Copy(State.Equipment),GroundMotion=ShadowGroundMotion.Copy(State.GroundMotion)};
     private NecromancerGroundWorld _ground;
@@ -82,6 +84,7 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
     }
     void INecromancerGroundPeriodic.GroundFrame(int frame,DateTime at)
     {
+        RefreshAppearance(TimedEffects.Now);
         var skill=ShadowActions.State(this)?.Cast.Skill;
         try{ShadowActions.Tick(at,true,Serial.Value);}
         catch(NotSupportedException e)when(State.Capture.Ability==CombatAbility.ShadowMaster&&skill.HasValue)
@@ -138,7 +141,7 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
     }
     public override(int Min,int Max)SkillWeaponDamage=>(0,0);
     public AssassinShadowBody()
-    {Name="Shadow [appearance placeholder]";Body=0x190;Hue=0x455;CantWalk=true;ControlSlots=0;AIObject?.AITimer.Stop();SetStr(0);SetDex(0);SetInt(0);SetHits(376);SetMana(0);SetStam(0);SetDamage(0,0);}
+    {Name="Shadow";Body=0x190;Hue=0x455;CantWalk=true;ControlSlots=0;AIObject?.AITimer.Stop();SetStr(0);SetDex(0);SetInt(0);SetHits(376);SetMana(0);SetStam(0);SetDamage(0,0);}
     public override TimeSpan BeginMelee(Mobile target)=>ShadowGroundMotion.Active(this)?TimeSpan.FromSeconds(1)
         :throw new NotSupportedException("Shadow native melee needs its qualified original controller");
     public override void OnThink(){AIObject?.AITimer.Stop();Combatant=null;FocusMob=null;Warmode=false;}
@@ -201,7 +204,7 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
         {
             var init=ShadowInitializer.Allocate(ability,difficulty);var state=new ShadowBodyState(owner.Serial.Value,capture,init,difficulty,at.AddMilliseconds(40))
             {Skills=ShadowSkillBook.Initial(capture,init).Save()};
-            body.RestorePrepared(state);body.Name=(ability==CombatAbility.ShadowWarrior?"Shadow Warrior":"Shadow Master")+" [appearance placeholder]";
+            body.RestorePrepared(state);body.Name=SkillMechanics.For(ability).Name;
             body.Initialize(owner,capture.Rank,0);body.SetStr(body.Numbers.Auras.Single(s=>s.Name=="strength").Value);body.SetDex(body.Numbers.Auras.Single(s=>s.Name=="dexterity").Value);body.SetInt(0);body.SetMana(0);body.SetStam(0);
             if(!body.SetControlMaster(owner)){throw new InvalidOperationException("Shadow owner binding refused");}
             PersistentMinions.Profiles.Track(body);body.Internalize();body.AIObject?.AITimer.Stop();SkillHealth.SetBalance256(body,body.MaximumLife256);
@@ -239,10 +242,38 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
         if(s.Map!=Map.MapID||X!=(cell.X+1)/2||Y!=(cell.Y+1)/2)
         {WorldGround.Store(IronGolemWorld.Park(s with{Map=Map.MapID,Motion=DruidRavenMotion.Center(X*2,Y*2)}));}
     }
+    internal void PresentArrival()
+    {
+        if (State is not { LearnedCast: true } state || !Alive || Hidden || !PaladinAuraVisuals.InWorld(this)) { return; }
+        ShadowSummonVisuals.Arrival(this,state.Capture.Ability);
+        _appearanceRefresh=default;
+        RefreshAppearance(TimedEffects.Now);
+    }
+
+    private void RefreshAppearance(DateTime at)
+    {
+        if (State is not { LearnedCast: true } state || !Alive || Hidden || !PaladinAuraVisuals.InWorld(this)) { return; }
+        if (_appearanceMap==Map && at<_appearanceRefresh) { return; }
+        ShadowSummonVisuals.RenewVeil(this,state.Capture.Ability,at);
+        _appearanceMap=Map;
+        _appearanceRefresh=at.AddMilliseconds(450);
+    }
+
+    internal void PresentDeparture()
+    {
+        if (State is not { LearnedCast: true } state || _appearanceMap!=Map || !PaladinAuraVisuals.InWorld(this)) { return; }
+        ShadowSummonVisuals.Departure(this,state.Capture.Ability);
+        _appearanceMap=null;
+        _appearanceRefresh=default;
+    }
+
+    public override void OnDelete(){PresentDeparture();base.OnDelete();}
     public override void OnAfterDelete(){_deathTimer.Cancel();ShadowActions.Cancel(this);GeneratedNpcLiveResources.Forget(this);NpcEquipmentRandom.Forget(this);base.OnAfterDelete();}
     [AfterDeserialization]private void AfterShadowLoad()
     {
         AIObject?.AITimer.Stop();_state=JsonSerializer.Deserialize<ShadowBodyState>(_saved);Validate(_state);_birth=null;
+        string name=SkillMechanics.For(_state.Capture.Ability).Name;
+        if (Name==name+" [appearance placeholder]") { Name=name; }
         if(_state.Equipment==null||_state.Weapons==null||_state.Equipment.Actor!=Serial.Value){throw new InvalidDataException("Saved Shadow lost its completed original loadout");}
         if(_state.Death!=null){RestoreDeath();}
         else if(_state.GroundMotion!=null){WorldGround.Load();}

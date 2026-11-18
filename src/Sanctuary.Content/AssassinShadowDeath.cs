@@ -60,6 +60,7 @@ public partial class AssassinShadowBody
     public override void OnDeath(Container corpse)
     {
         if(Retiring){return;}
+        PresentDeparture();
         if(_pendingDeath==null){base.OnDeath(corpse);return;}
         RestorePrepared(State with{Death=_pendingDeath});_pendingDeath=null;
         SuspendActions();AIObject?.AITimer.Stop();Frozen=true;SkillHealth.SetBalance256(this,0);
@@ -91,7 +92,10 @@ public partial class AssassinShadowBody
             try
             {
                 if(actions&&ShadowDeathNovas.Attached(this,ControlMaster as PlayerMobile,death.Map,death.Source))
-                {SorceressSpellMissiles.CommitValkyrie(SorceressSpellMissiles.PrepareDeathNova(this,death.Source,death.DueUtc));}
+                {
+                    SorceressSpellMissiles.CommitValkyrie(SorceressSpellMissiles.PrepareDeathNova(this,death.Source,death.DueUtc));
+                    Effects.PlaySound(Location,Map,SpellEffectSounds.NovaRelease);
+                }
             }
             catch(Exception e)
             {

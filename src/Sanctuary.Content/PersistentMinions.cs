@@ -127,6 +127,7 @@ public static class PersistentMinions
         {
             UndeadSummonVisuals.Depart(pet);
             DruidSummonVisuals.Depart(pet);
+            if (pet is AssassinShadowBody shadow) { shadow.PresentDeparture(); }
             pet.Internalize();
         }
     }
@@ -204,6 +205,7 @@ public static class PersistentMinions
                 pet.MoveToWorld(point, owner.Map); pet.IssueOrder(OrderType.Guard, null);
                 UndeadSummonVisuals.Arrive(pet);
                 DruidSummonVisuals.Arrive(pet);
+                if (pet is AssassinShadowBody shadow) { shadow.PresentArrival(); }
             }
             if(pet.Map==owner.Map&&pet.Map!=Map.Internal){if(pet is NecromancerMinion mage){MageWorld.TryAdopt(mage,DateTime.UtcNow);}minion.ResumeActions();}
         }

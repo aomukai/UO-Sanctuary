@@ -5063,10 +5063,24 @@
     },
     "generation": "uo",
     "clientMapping": "mapped",
-    "inGameVerification": "pending",
-    "placeholder": "Native humanoid models and summon effects.",
-    "customArtwork": "pending",
-    "customAudio": "pending"
+    "inGameVerification": "verified",
+    "placeholder": "An indigo cast flash precedes the summon. Wisps rise at the accepted arrival tile, follow the native body at its feet, and disperse when it leaves or dies.",
+    "customArtwork": "verified",
+    "customAudio": "listening-pending",
+    "customCharacterAnimation": "reuse-native",
+    "customArtworkPhases": [
+      "cast",
+      "arrival and return",
+      "moving foot veil",
+      "departure and death",
+      "shared modifier death nova"
+    ],
+    "customAudioPhases": [
+      "cast",
+      "arrival and return",
+      "departure and death",
+      "shared modifier death nova"
+    ]
   },
   {
     "talentId": "assassin.mindblast",
@@ -5135,10 +5149,24 @@
     },
     "generation": "uo",
     "clientMapping": "mapped",
-    "inGameVerification": "pending",
-    "placeholder": "Native humanoid models and summon effects.",
-    "customArtwork": "pending",
-    "customAudio": "pending"
+    "inGameVerification": "verified",
+    "placeholder": "A magenta facet opens a purple threshold. Gold sparks mark the native Shadow while it is present, then disperse in a plume at departure or death.",
+    "customArtwork": "verified",
+    "customAudio": "listening-pending",
+    "customCharacterAnimation": "reuse-native",
+    "customArtworkPhases": [
+      "cast",
+      "arrival and return",
+      "moving foot veil",
+      "departure and death",
+      "shared modifier death nova"
+    ],
+    "customAudioPhases": [
+      "cast",
+      "arrival and return",
+      "departure and death",
+      "shared modifier death nova"
+    ]
   },
   {
     "talentId": "assassin.fireblast",

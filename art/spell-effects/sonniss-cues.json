@@ -517,6 +517,12 @@
     "SentryLightningRelease": {"source": "electric-cast", "start": 0.113, "duration": 0.29, "fadeIn": 0.007, "fadeOut": 0.101, "highpass": 397, "peakDb": -19},
     "DeathSentryRelease": {"source": "electric-cast", "start": 3.695, "duration": 0.239, "fadeIn": 0.01, "fadeOut": 0.081, "highpass": 408, "peakDb": -20},
     "DeathSentryBurst": {"source": "close-thunder", "start": 1.864, "duration": 0.54, "fadeIn": 0.007, "fadeOut": 0.155, "highpass": 221, "peakDb": -17},
-    "SentryCollapse": {"source": "metal-hit", "start": 0.228, "duration": 0.239, "fadeIn": 0.019, "fadeOut": 0.132, "highpass": 419, "peakDb": -28}
+    "SentryCollapse": {"source": "metal-hit", "start": 0.228, "duration": 0.239, "fadeIn": 0.019, "fadeOut": 0.132, "highpass": 419, "peakDb": -28},
+    "ShadowWarriorCast": {"source": "ghost-whisper", "start": 0.12, "duration": 0.36, "fadeIn": 0.024, "fadeOut": 0.12, "highpass": 475, "peakDb": -21},
+    "ShadowWarriorArrival": {"source": "arcane-doppler", "start": 0.315, "duration": 0.36, "fadeIn": 0.014, "fadeOut": 0.133, "highpass": 432, "peakDb": -18},
+    "ShadowWarriorDeparture": {"source": "ghost-whisper", "start": 0.35, "duration": 0.35, "fadeIn": 0.042, "fadeOut": 0.164, "highpass": 551, "peakDb": -25},
+    "ShadowMasterCast": {"source": "arcane-doppler", "start": 0.17, "duration": 0.38, "fadeIn": 0.026, "fadeOut": 0.096, "highpass": 372, "peakDb": -19},
+    "ShadowMasterArrival": {"source": "ghost-whisper", "start": 0.194, "duration": 0.48, "fadeIn": 0.020, "fadeOut": 0.162, "highpass": 236, "peakDb": -17},
+    "ShadowMasterDeparture": {"source": "arcane-doppler", "start": 0.426, "duration": 0.34, "fadeIn": 0.058, "fadeOut": 0.157, "highpass": 668, "peakDb": -24}
   }
 }

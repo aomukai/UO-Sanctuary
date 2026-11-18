@@ -60,7 +60,8 @@ internal static class AssassinShadowCasting
             candidate.RestorePrepared(candidate.Prepared with{LearnedCast=true});committed=true;created=candidate;
             foreach(var previous in For(owner).Where(b=>b!=candidate).OrderBy(BattleCommand.PetOrder).ThenBy(b=>b.Serial.Value).ToArray()){previous.Delete();}
             FireGround.Delay(owner,ability,at);
-            UoSkillVisuals.Summon(candidate, 0x1FB, ability == CombatAbility.ShadowMaster ? 0x482 : 0x455);
+            ShadowSummonVisuals.Release(owner,ability);
+            candidate.PresentArrival();
             return true;
         }
         catch(Exception e)when(e is NotSupportedException or InvalidDataException or OverflowException or ArgumentException)

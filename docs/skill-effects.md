@@ -152,6 +152,10 @@ Wake of Fire and Wake of Inferno emerge as a low bronze brazier and a taller iro
 
 Muted ClassicUO checks exercised learned placement, automatic attacks, contact, both Death Sentry decisions, and the replacement collapse in all five skills. Each cast debited mana once. The actors stayed on the same tiles and remained passable. ClassicUO decoded eight new Sonniss edits with playback disabled. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
 
+Shadow Warrior arrives in blue-violet wisps. Shadow Master emerges through a magenta threshold with gold sparks. Their veils follow the native humanoid bodies, and the departure effects play on replacement, parking, or death. A Shadow returning from a protected area plays its arrival once at the accepted return tile. The modifier death nova shares the existing Nova graphics and cue at its delayed release. [Shadow Warrior art and prompt](../art/spell-effects/shadow-warrior) · [Shadow Master art and prompt](../art/spell-effects/shadow-master)
+
+Muted ClassicUO checks rendered all 32 new frames and decoded six new Sonniss edits. The tests covered the accepted placements, follow movement, a protected-area return on the same actor, replacement, cancelled casting, and death nova delay and damage on a supported target. Both spells used their native casting poses on male and female Human, Elf, and Gargoyle bodies. Native save and reload checks exercised the learned summon transaction and pending and emitted death novas. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
 Charged Bolt skitters along its existing paths, Lightning travels in a straight streak, and Chain Lightning sends violet arcs between targets. Static Field expands along the ground and Thunder Storm flashes above the caster at release and on its recurring strike schedule. The player casts were checked in ClassicUO with audio disabled. Nine Sonniss edits cover their cast and impact cues. Each cue has passed format and level checks and awaits a listening pass. [Cue recipes](../art/spell-effects/sonniss-cues.json)
 
 Ice Bolt travels as a thin shard, Ice Blast as a compact comet, and Glacial Spike as a heavier crystal with an area burst. Frost Nova expands across the ground. The shared cold overlays follow the affected target and clear with the game status. Thaw and cold corpse shatter reuse the Ice Blast fragments. The player effects were checked in ClassicUO with audio disabled. Eight Sonniss edits cover releases, impacts, and the shared cold corpse shatter. Their listening pass is queued. [Cold status sprite source](../art/spell-effects/cold-status/sheet.png) · [Cue recipes](../art/spell-effects/sonniss-cues.json)
@@ -1310,10 +1314,10 @@ Inherited NPC item absorption now changes life mechanically. Final Iron Golem ab
 | Assassin | Cloak of Shadows | custom | Radius-scaled veil, caster mantle, blindness and defense-only marks. |
 | Assassin | Weapon Block | needed | weaponblock, SC |
 | Assassin | Fade | custom | Violet cast, active veil, expiration and existing body translucency. |
-| Assassin | Shadow Warrior | native | Native humanoid models and summon effects. |
+| Assassin | Shadow Warrior | custom | Indigo cast, arrival, moving veil and dismissal on the native humanoid. |
 | Assassin | Mind Blast | custom | Magenta wave and contacts, with shared stun and allegiance effects. |
 | Assassin | Venom | custom | Jade cast and coating, shared poison application and expiry. |
-| Assassin | Shadow Master | native | Native humanoid models and summon effects. |
+| Assassin | Shadow Master | custom | Amethyst threshold, gold spark veil and departure on the native humanoid. |
 | Assassin | Fire Blast | custom | Tumbling ember, landed fuse, radius-scaled blast and shared Fire Bolt contact. |
 | Assassin | Shock Web | custom | Tumbling shards, independent half-tile fields, landed arcs and retirement. |
 | Assassin | Blade Sentinel | custom | Teal steel construct, fractional movement, linked cut effects and retirement. |
