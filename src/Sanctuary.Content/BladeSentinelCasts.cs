@@ -38,7 +38,7 @@ internal static class BladeSentinelCasts
         var body=BladeSentinelSummons.Create(owner,point,TimedEffects.Now);
         if(!NecromancerEffects.Pay(owner,values.Mana256)){body.Delete();return false;}
         FireGround.Delay(owner,CombatAbility.BladeSentinel);
-        owner.PlaySound(0x23B); // Identified S2 cast-audio placeholder.
+        body.Emerge();
         return true;
     }
 }

@@ -1,0 +1,168 @@
+--- a/src/ClassicUO.Client/Game/Managers/EffectManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+@@ -64,12 +64,13 @@
+ 
+             GameEffect effect;
+ 
+-            if (type == GraphicEffectType.FixedFrom && SpellEffectGraphics.IsHydraHeadFrame(graphic))
+-            {
+-                if (_world.Get(source) is Mobile head)
+-                {
+-                    // Hydra frame packets carry its projected half-tile position in these two bytes.
+-                    head.SetHydraFrame(graphic, speed - 64, duration - 64);
++            if (type == GraphicEffectType.FixedFrom
++                && (SpellEffectGraphics.IsHydraHeadFrame(graphic) || SpellEffectGraphics.IsBladeSentinelBody(graphic)))
++            {
++                if (_world.Get(source) is Mobile summon)
++                {
++                    // Summon frames carry the projected position relative to their mobile tile.
++                    summon.SetSummonFrame(graphic, speed - 64, duration - 64, new Vector3(srcX, srcY, srcZ));
+                 }
+                 return;
+             }
+@@ -125,7 +126,7 @@
+                     || SpellEffectGraphics.IsPaladinAuraLoop(graphic)
+                     || SpellEffectGraphics.IsBarbarianCryWard(graphic)
+                     || SpellEffectGraphics.IsBarbarianStrikeStatus(graphic)
+-                    || graphic is SpellEffectGraphics.WhirlwindSpin or SpellEffectGraphics.FrenzySpeed
++                    || graphic is SpellEffectGraphics.WhirlwindSpin or SpellEffectGraphics.FrenzySpeed or SpellEffectGraphics.BladeShieldRing
+                     || wardBody
+                     || graphic is SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow or SpellEffectGraphics.HurricaneCore
+                         or SpellEffectGraphics.CycloneArmorWard or SpellEffectGraphics.ArmageddonAura
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -204,6 +204,7 @@
+                         _ when SpellEffectGraphics.IsMartialOrb(Graphic) => SpellEffectGraphics.MartialOrbFrames,
+                         _ when SpellEffectGraphics.IsMartialAnimation(Graphic) => SpellEffectGraphics.MartialFrames,
+                         _ when SpellEffectGraphics.IsDragonAnimation(Graphic) => SpellEffectGraphics.DragonFrames,
++                        _ when SpellEffectGraphics.IsAssassinBladeAnimation(Graphic) => SpellEffectGraphics.AssassinBladeFrames,
+                         SpellEffectGraphics.MartialFistsField or SpellEffectGraphics.MartialPhoenixField => SpellEffectGraphics.FireFrames,
+                         _ when SpellEffectGraphics.IsEnchantAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ when SpellEffectGraphics.IsWardAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+@@ -224,7 +225,7 @@
+                             && !SpellEffectGraphics.IsBarbarianCryWard(Graphic)
+                             && !SpellEffectGraphics.IsGrimWardBody(Graphic)
+                             && !SpellEffectGraphics.IsBarbarianStrikeStatus(Graphic)
+-                            && Graphic is not (SpellEffectGraphics.WhirlwindSpin or SpellEffectGraphics.FrenzySpeed
++                            && Graphic is not (SpellEffectGraphics.WhirlwindSpin or SpellEffectGraphics.FrenzySpeed or SpellEffectGraphics.BladeShieldRing
+                                 or SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow
+                                 or SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.PoisonAfflicted
+                                 or SpellEffectGraphics.GolemSlow or SpellEffectGraphics.WoundActive
+@@ -346,6 +347,9 @@
+                             _ when SpellEffectGraphics.IsMartialAnimation(Graphic) => 64,
+                             _ when SpellEffectGraphics.IsDragonSweep(Graphic) => 46,
+                             _ when SpellEffectGraphics.IsDragonAnimation(Graphic) => 67,
++                            SpellEffectGraphics.BladeShieldRing => 96,
++                            SpellEffectGraphics.BladeFuryRelease => 46,
++                            _ when SpellEffectGraphics.IsAssassinBladeAnimation(Graphic) => 67,
+                             _ when SpellEffectGraphics.IsDruidCharge(Graphic) => 115,
+                             _ when SpellEffectGraphics.IsDruidFormEffect(Graphic) => 105,
+                             SpellEffectGraphics.ClayGolemContact or SpellEffectGraphics.IronGolemSpark => 65,
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -126,6 +126,12 @@
+                 || SpellEffectGraphics.IsBarbarianPairedAttached(Graphic)
+                 || Graphic is SpellEffectGraphics.LeapAttackSwing or SpellEffectGraphics.WhirlwindSpin;
+             bool martialSwing = SpellEffectGraphics.IsMartialSwing(Graphic) || SpellEffectGraphics.IsDragonSweep(Graphic);
++            bool bladeAttached = SpellEffectGraphics.IsAssassinBladeAttached(Graphic);
++            if (bladeAttached && Source is Mobile bladeCaster && (bladeCaster.IsDead || bladeCaster.IsHidden))
++            {
++                return false;
++            }
++
+             if (Source is Mobile { IsGargoyle: true, IsFlying: true }
+                 && (Sanctuary.SpellEffectGraphics.IsWardAnimation(Graphic)
+                     || Sanctuary.SpellEffectGraphics.IsEnchantAnimation(Graphic)
+@@ -133,6 +139,7 @@
+                     || SpellEffectGraphics.IsBarbarianCryAnimation(Graphic)
+                     || barbarianTorsoEffect
+                     || martialSwing
++                    || bladeAttached
+                     || Graphic is SpellEffectGraphics.FindPotionCast or SpellEffectGraphics.FindItemCast
+                     || Graphic is SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.BoneArmorBreak
+                         or SpellEffectGraphics.BoneArmorCatch
+@@ -153,7 +160,7 @@
+                         or Sanctuary.SpellEffectGraphics.TelekinesisCast or Sanctuary.SpellEffectGraphics.TelekinesisContact))
+             {
+                 // These close-in melee effects are centered on the airborne torso.
+-                posY -= barbarianTorsoEffect || martialSwing ? 12 : 44;
++                posY -= barbarianTorsoEffect || martialSwing || bladeAttached ? 12 : 44;
+             }
+ 
+             if (Graphic == SpellEffectGraphics.DruidHungerMana)
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+@@ -24,8 +24,9 @@
+         private static int _startCharacterFeetY;
+         private static int _characterFrameHeight;
+ 
+-        private ushort _hydraFrame;
+-        private Point _hydraOffset;
++        private ushort _summonFrame;
++        private Point _summonOffset;
++        private Vector3 _summonTile;
+         private ushort _boneBarrierGraphic;
+ 
+         internal void SetBoneBarrierAppearance(ushort graphic)
+@@ -66,13 +67,21 @@
+                 (int)Math.Round(_avoidanceOffset.Y * amount));
+         }
+ 
+-        internal void SetHydraFrame(ushort graphic, int x, int y)
++        internal void SetSummonFrame(ushort graphic, int x, int y, Vector3 tile)
+         {
+             if (graphic == SpellEffectGraphics.HydraHeadGone || Client.Game.UO.Arts.GetArt(graphic).Texture != null)
+             {
+-                _hydraFrame = graphic;
+-                _hydraOffset = new Point(x, y);
+-            }
++                _summonFrame = graphic;
++                _summonOffset = new Point(x, y);
++                _summonTile = tile;
++            }
++        }
++
++        private Point GetSummonOffset()
++        {
++            if (!SpellEffectGraphics.IsBladeSentinelBody(_summonFrame)) { return _summonOffset; }
++            int dx = (int)_summonTile.X - X, dy = (int)_summonTile.Y - Y;
++            return _summonOffset + new Point((dx - dy) * 22, (dx + dy) * 22 - ((int)_summonTile.Z - Z) * 4);
+         }
+ 
+         public override bool Draw(UltimaBatcher2D batcher, int posX, int posY, float depth)
+@@ -82,13 +91,14 @@
+                 return false;
+             }
+ 
+-            if (_hydraFrame != 0)
+-            {
+-                if (_hydraFrame != SpellEffectGraphics.HydraHeadGone)
++            if (_summonFrame != 0)
++            {
++                if (_summonFrame != SpellEffectGraphics.HydraHeadGone)
+                 {
+                     Vector3 hue = ShaderHueTranslator.GetHueVector(0, false, 1f);
+-                    DrawStaticRotated(batcher, _hydraFrame, posX + _hydraOffset.X, posY + _hydraOffset.Y,
+-                        0f, hue, depth + _hydraOffset.Y / 44f);
++                    Point offset = GetSummonOffset();
++                    DrawStaticRotated(batcher, _summonFrame, posX + offset.X, posY + offset.Y,
++                        0f, hue, depth + offset.Y / 44f);
+                 }
+                 return true;
+             }
+@@ -1052,6 +1062,15 @@
+ 
+         public override bool CheckMouseSelection()
+         {
++            if (SpellEffectGraphics.IsBladeSentinelBody(_summonFrame))
++            {
++                var arts = Client.Game.UO.Arts;
++                ref readonly var art = ref arts.GetArt(_summonFrame);
++                Point origin = RealScreenPosition + GetSummonOffset() + new Point(22 - art.UV.Width / 2, 44 - art.UV.Height);
++                Point mouse = SelectedObject.TranslatedMousePositionByViewport;
++                return arts.PixelCheck(_summonFrame, mouse.X - origin.X, mouse.Y - origin.Y);
++            }
++
+             if (_boneBarrierGraphic != 0)
+             {
+                 if (_boneBarrierGraphic == SpellEffectGraphics.BoneBarrierRubble) { return false; }

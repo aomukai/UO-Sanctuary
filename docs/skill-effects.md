@@ -136,6 +136,10 @@ Dragon Talon has amber kicks, contact sparks, and dust on completed final knockb
 
 Muted ClassicUO checks covered all 204 frames, all eight directions, both genders on Human, Elf and Gargoyle bodies, four kicks against one target, and shield deflection. Talon's dust stopped at blocked terrain. Tail marked the live fire radius and affected enemies. Flight showed the accepted destination before the kick, with separate miss and interrupted-transfer cases. The two Claw hands spent their individual charges and rendered actual Cobra recovery. Mechanics and save checks passed across two server reloads. ClassicUO decoded sixteen new Sonniss edits. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
 
+Blade Sentinel emerges as a teal steel construct and spins at the retained fractional position of its summon. It flashes on a landed cut and breaks into flecks when it retires. Blade Fury glints at each emitted shot, tumbles in the actual direction of travel, and finishes with a small contact flash, shield deflection, or spent fragment. Blade Shield raises a sparse silver orbit when it activates. Small slashes mark confirmed periodic hits and the orbit disperses when the state expires. The Shadow variants share the same art and cues. [Blade Sentinel art and prompt](../art/spell-effects/assassin-blade-sentinel) · [Blade Fury art and prompt](../art/spell-effects/assassin-blade-fury) · [Blade Shield art and prompt](../art/spell-effects/assassin-blade-shield)
+
+Muted ClassicUO checks covered 76 frames, paid Sentinel emergence and movement through its original collision path, a landed cut and natural retirement, and cancellation before a summon. Blade Fury rendered in all eight directions and preserved the three-shot cadence, with separate hit, miss, block, range expiry and early release cases. Shield attachment and refresh were checked on both genders across Human, Elf and Gargoyle bodies. The tests also exercised periodic damage, deflection, cancellation and expiration. The native mechanics and save/reload checks covered the learned skills and the Shadow Fury and Shield routes. ClassicUO decoded nine new Sonniss edits. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
 Charged Bolt skitters along its existing paths, Lightning travels in a straight streak, and Chain Lightning sends violet arcs between targets. Static Field expands along the ground and Thunder Storm flashes above the caster at release and on its recurring strike schedule. The player casts were checked in ClassicUO with audio disabled. Nine Sonniss edits cover their cast and impact cues. Each cue has passed format and level checks and awaits a listening pass. [Cue recipes](../art/spell-effects/sonniss-cues.json)
 
 Ice Bolt travels as a thin shard, Ice Blast as a compact comet, and Glacial Spike as a heavier crystal with an area burst. Frost Nova expands across the ground. The shared cold overlays follow the affected target and clear with the game status. Thaw and cold corpse shatter reuse the Ice Blast fragments. The player effects were checked in ClassicUO with audio disabled. Eight Sonniss edits cover releases, impacts, and the shared cold corpse shatter. Their listening pass is queued. [Cold status sprite source](../art/spell-effects/cold-status/sheet.png) · [Cue recipes](../art/spell-effects/sonniss-cues.json)
@@ -1300,14 +1304,14 @@ Inherited NPC item absorption now changes life mechanically. Final Iron Golem ab
 | Assassin | Shadow Master | native | Native humanoid models and summon effects. |
 | Assassin | Fire Blast | native | Native fire and lightning projectiles, impacts and fields. |
 | Assassin | Shock Web | native | Native fire and lightning projectiles, impacts and fields. |
-| Assassin | Blade Sentinel | needed | blade creeper, bladecreeper |
+| Assassin | Blade Sentinel | custom | Teal steel construct, fractional movement, linked cut effects and retirement. |
 | Assassin | Charged Bolt Sentry | needed | chargeboltsentry |
 | Assassin | Wake Of Fire | needed | wakeofdestruction |
-| Assassin | Blade Fury | needed | bladefragment1, bladefragment2 |
+| Assassin | Blade Fury | custom | Hand glint, directional tumbling blades, contact, deflection and spent fragments. |
 | Assassin | Lightning Sentry | needed | lightningsentry |
 | Assassin | Wake Of Inferno | needed | infernosentry |
 | Assassin | Death Sentry | needed | deathsentry |
-| Assassin | Blade Shield | needed | blade shield attachment, bladeshield |
+| Assassin | Blade Shield | custom | Raising blades, attached orbit, periodic cut, deflection and expiry. |
 | Warlock | Demonic Mastery | not-applicable | demonic_mastery |
 | Warlock | Summon Goatman | native | Native Gargoyle and Gazer with summon effects. |
 | Warlock | Blood Oath | not-applicable | bloodoath |
@@ -1342,7 +1346,7 @@ Inherited NPC item absorption now changes life mechanically. Final Iron Golem ab
 
 Smite and Zeal pair their custom impacts with native character animations. Their talent-tree and hotkey icons are tracked in the icon register. Leap and Whirlwind use native character poses with custom movement and contact effects. Their talent and quick-slot icons are tracked in the icon register. Double Throw keeps its native character poses and adds custom per-weapon flight and contact effects. Its talent and quick-slot icons are tracked in the icon register.
 
-Blade Shield uses native cast/attachment flash0x373A, hue0x481, contact0x37B9 and sound0x1E5 as identified placeholders. Its persistent blade ring, motion, impact/audio and separate talent/hotkey icons remain pending; these assets do not own its gameplay damage.
+Blade Shield uses original cast, orbit, contact and fade effects at the existing combat events. The orbit follows its authoritative active state.
 
 Shared weapon leech: life/mana overlays151/152 still need final recovery effects. Native0x376A with life hue0x26 or mana hue0x489 is an identified placeholder. No separate talent/hotkey icon is required for this shared item effect; each actual skill retains its own icon row.
 

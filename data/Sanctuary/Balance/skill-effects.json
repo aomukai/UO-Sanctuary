@@ -5119,10 +5119,24 @@
     },
     "generation": "pending",
     "clientMapping": "pending",
-    "inGameVerification": "pending",
-    "placeholder": "Learned S2 cast uses native throw animation and0x23B sound; actor body0x9C hue0x481 and following collision presentation are identified placeholders. Final blade summon/emergence/travel/impact/expiry effects and audio remain pending; talent/left/right/quick icons tracked separately.",
-    "customArtwork": "pending",
-    "customAudio": "pending"
+    "inGameVerification": "verified",
+    "placeholder": "A teal steel blade emerges and spins along the summoned actor\u2019s retained position, flashes at a landed cut, and crumbles when the sentinel retires.",
+    "customArtwork": "verified",
+    "customAudio": "listening-pending",
+    "customCharacterAnimation": "reuse-native",
+    "customArtworkPhases": [
+      "emergence",
+      "moving summon body",
+      "landed cut",
+      "shared shield deflection",
+      "retirement"
+    ],
+    "customAudioPhases": [
+      "emergence",
+      "landed cut",
+      "shared shield deflection",
+      "retirement"
+    ]
   },
   {
     "talentId": "assassin.chargedboltsentry",
@@ -5165,10 +5179,24 @@
     },
     "generation": "pending",
     "clientMapping": "pending",
-    "inGameVerification": "pending",
-    "placeholder": "Prepared bladefragment1 travel uses shared UO0xF42 marker, explicitly a placeholder. Prepared server SQ23 timer has no final player sequence/channel rendering. Final SQ/channel/cast, Expansion bladefury bladefragment1/2/3 travel/impact and assassin_bladefury_throw_1/hit audio remain pending. Separate talent/left/right/quick icons pending; learned input remains gated.",
-    "customArtwork": "pending",
-    "customAudio": "pending"
+    "inGameVerification": "verified",
+    "placeholder": "A hand-level glint marks each emitted blade. The blade tumbles along its original flight. Contacts, deflections and spent fragments have separate cues.",
+    "customArtwork": "verified",
+    "customAudio": "listening-pending",
+    "customCharacterAnimation": "reuse-native",
+    "customArtworkPhases": [
+      "per-shot release",
+      "eight-direction tumbling blade",
+      "landed contact",
+      "shared shield deflection",
+      "spent fragment"
+    ],
+    "customAudioPhases": [
+      "per-shot release",
+      "landed contact",
+      "shared shield deflection",
+      "retirement"
+    ]
   },
   {
     "talentId": "assassin.lightningsentry",
@@ -5226,10 +5254,24 @@
     },
     "generation": "pending",
     "clientMapping": "pending",
-    "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending",
-    "customArtwork": "pending",
-    "customAudio": "pending"
+    "inGameVerification": "verified",
+    "placeholder": "Steel fragments rise at cast. The orbit follows the active shield and sparks mark accepted periodic contacts. The blades disperse at expiry.",
+    "customArtwork": "verified",
+    "customAudio": "listening-pending",
+    "customCharacterAnimation": "reuse-native",
+    "customArtworkPhases": [
+      "cast",
+      "active orbit",
+      "periodic contact",
+      "shared shield deflection",
+      "expiration"
+    ],
+    "customAudioPhases": [
+      "cast",
+      "periodic contact",
+      "shared shield deflection",
+      "expiration"
+    ]
   },
   {
     "talentId": "warlock.demonicmastery",

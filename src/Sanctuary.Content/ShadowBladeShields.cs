@@ -53,7 +53,14 @@ internal static class ShadowBladeShields
             if((flags&1)==0){continue;}
             var impact=OriginalNpcMelee.Impact(body,target,flags,new(Physical:skill,HitClass:3,HitFlags:2),96);
             var prepared=new IronGolemContact.Prepared(rules,impact);
-            if(IronGolemContact.Release(body,owner,target,prepared,Range,at).Commit!=null){hits++;}
+            var point=target.Location;var map=target.Map;
+            var result=IronGolemContact.Release(body,owner,target,prepared,Range,at);
+            if(result.Commit!=null){hits++;}
+            if(result.Commit is { Packet.ReactionSettled: false })
+            {AssassinBladeVisuals.Impact(CombatAbility.BladeShield,point,map);}
+            else if(result is { Exit: MonsterContactExit.Finished, Packet: { } packet }
+                &&(packet.ResultFlags&(SourceMeleeResult.Block|SourceMeleeResult.WeaponBlock))!=0)
+            {AssassinBladeVisuals.Impact(CombatAbility.BladeShield,point,map,blocked:true);}
             // The shared DrainItemDurability contact owns ordered events,
             // poison/leech/status/return. Its Kind1 source has no player wear.
         }

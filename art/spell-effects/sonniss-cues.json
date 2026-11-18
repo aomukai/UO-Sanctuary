@@ -481,6 +481,15 @@
     "DragonTailBurst": {"source": "close-thunder", "start": 1.905, "duration": 0.389, "fadeIn": 0.009, "fadeOut": 0.124, "highpass": 237, "peakDb": -17},
     "DragonTailEmbers": {"source": "electric-crackle", "start": 0.372, "duration": 0.177, "fadeIn": 0.016, "fadeOut": 0.069, "highpass": 737, "peakDb": -26},
     "DragonFlightDepart": {"source": "ghost-whisper", "start": 0.2, "duration": 0.347, "fadeIn": 0.031, "fadeOut": 0.139, "highpass": 447, "peakDb": -23},
-    "DragonFlightArrive": {"source": "arcane-doppler", "start": 0.35, "duration": 0.225, "fadeIn": 0.012, "fadeOut": 0.091, "highpass": 515, "peakDb": -21}
+    "DragonFlightArrive": {"source": "arcane-doppler", "start": 0.35, "duration": 0.225, "fadeIn": 0.012, "fadeOut": 0.091, "highpass": 515, "peakDb": -21},
+    "BladeSentinelRise": {"source": "metal-hit", "start": 0.013, "duration": 0.361, "fadeIn": 0.018, "fadeOut": 0.164, "highpass": 706, "peakDb": -18},
+    "BladeSentinelHit": {"source": "metal-hit", "start": 0.026, "duration": 0.146, "fadeIn": 0.004, "fadeOut": 0.058, "highpass": 1035, "peakDb": -22},
+    "BladeSentinelFade": {"source": "electric-crackle", "start": 0.379, "duration": 0.230, "fadeIn": 0.019, "fadeOut": 0.095, "highpass": 836, "peakDb": -26},
+    "BladeFuryRelease": {"source": "spear-swoosh", "start": 0.119, "duration": 0.143, "fadeIn": 0.011, "fadeOut": 0.058, "highpass": 656, "peakDb": -23},
+    "BladeFuryHit": {"source": "metal-hit", "start": 0.009, "duration": 0.132, "fadeIn": 0.003, "fadeOut": 0.041, "highpass": 883, "peakDb": -22},
+    "BladeFuryFade": {"source": "cloth-whooshes", "start": 1.439, "duration": 0.128, "fadeIn": 0.013, "fadeOut": 0.055, "highpass": 920, "peakDb": -29},
+    "BladeShieldRaise": {"source": "metal-hit", "start": 0.02, "duration": 0.418, "fadeIn": 0.027, "fadeOut": 0.189, "highpass": 1158, "peakDb": -19},
+    "BladeShieldHit": {"source": "metal-hit", "start": 0.041, "duration": 0.168, "fadeIn": 0.004, "fadeOut": 0.063, "highpass": 1382, "peakDb": -24},
+    "BladeShieldFade": {"source": "cloth-whooshes", "start": 7.355, "duration": 0.221, "fadeIn": 0.045, "fadeOut": 0.119, "highpass": 761, "peakDb": -25}
   }
 }

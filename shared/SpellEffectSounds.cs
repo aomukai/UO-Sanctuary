@@ -345,6 +345,15 @@ public static class SpellEffectSounds
     public const int DragonTailEmbers = 60339;
     public const int DragonFlightDepart = 60340;
     public const int DragonFlightArrive = 60341;
+    public const int BladeSentinelRise = 60342;
+    public const int BladeSentinelHit = 60343;
+    public const int BladeSentinelFade = 60344;
+    public const int BladeFuryRelease = 60345;
+    public const int BladeFuryHit = 60346;
+    public const int BladeFuryFade = 60347;
+    public const int BladeShieldRaise = 60348;
+    public const int BladeShieldHit = 60349;
+    public const int BladeShieldFade = 60350;
 
     public static int Fallback(int sound) => sound switch
     {
@@ -365,6 +374,8 @@ public static class SpellEffectSounds
         TeleportTransfer => 0x1FE,
         EnchantRaise => 0x20C,
         HydraSummon => 0x1E5,
+        BladeSentinelRise or BladeFuryRelease => 0x23B,
+        BladeShieldRaise => 0x1E5,
         BlizzardRelease or FrozenOrbRelease or MeteorRelease or TeethRelease or BoneSpiritRelease or AbyssOpen => 0x1E5,
         AmazonBowRelease or AmazonCrossbowRelease or JavelinThrow => 0x238,
         SpearThrust or HeavySpearThrust => 0x238,

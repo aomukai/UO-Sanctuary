@@ -178,6 +178,7 @@ public static class WeaponMissiles
         }
         _flights.Add(id,created);
         if (throwing != null) { BarbarianPairedVisuals.ThrowLaunch(owner, created); }
+        if (ability == CombatAbility.BladeFury) { AssassinBladeVisuals.FuryRelease(owner, created); }
         return id;
     }
     internal static long LaunchNpcFury(AssassinShadowBody body,NpcFuryMissileSource source,Point3D aim,int rank,WeaponMissileDamage damage,SlowMissilePayload slow,DateTime at)
@@ -186,7 +187,9 @@ public static class WeaponMissiles
         var flight=new WeaponFlight(id,cast,body.Serial.Value,body.Map.MapID,CombatAbility.BladeFury,body.X,body.Y,body.Z,velocity.X,velocity.Y,0,40,1,0,0,0,32,damage,at)
             {Npc=source,SkillRank=rank,Missile="bladefragment1",Slow=slow,MechanicalProfile=ShadowFuryMissiles.Profile,SourceSteps=new([new(body.X*2,body.Y*2)])};
         if(!ShadowFuryMissiles.Valid(flight)){throw new InvalidDataException("Invalid prepared NPC Fury launch");}
-        _nextId=id;_nextCast=cast;_flights.Add(id,flight);return id;
+        _nextId=id;_nextCast=cast;_flights.Add(id,flight);
+        AssassinBladeVisuals.FuryRelease(body, flight);
+        return id;
     }
     internal static long LaunchFuryChild(PlayerMobile owner,WeaponFlight parent,Mobile target,DateTime at)
     {
@@ -272,6 +275,7 @@ public static class WeaponMissiles
         {next=next with{PathChanged=(int)Math.Floor(flight.X*2+.5)!=(int)Math.Floor(next.X*2+.5)||(int)Math.Floor(flight.Y*2+.5)!=(int)Math.Floor(next.Y*2+.5)};}
         bool expires = flight.Guided == null && next.Frame >= flight.Frames;
         bool leavesMap = next.X < 0 || next.Y < 0 || next.X >= owner.Map.Width || next.Y >= owner.Map.Height;
+        bool bladeFury = flight.Ability == CombatAbility.BladeFury;
         if(expires || leavesMap
             || !owner.Map.LineOfSight(new Point3D((int)Math.Round(flight.X),(int)Math.Round(flight.Y),flight.Z+12),
                 new Point3D((int)Math.Round(next.X),(int)Math.Round(next.Y),flight.Z+12)))
@@ -281,6 +285,7 @@ public static class WeaponMissiles
                 var point = new Point3D((int)Math.Round(flight.X), (int)Math.Round(flight.Y), flight.Z);
                 BarbarianPairedVisuals.ThrowImpact(point, owner.Map);
             }
+            if (bladeFury && !leavesMap) { AssassinBladeVisuals.FuryFade(owner, flight); }
             if(!flight.HostileSpell&&flight.Npc==null){BowExplosions.Create((PlayerMobile)owner,next,flight.NextUtc);PlagueJavelins.Burst((PlayerMobile)owner,next,null,flight.NextUtc);AmazonLightningFury.Burst((PlayerMobile)owner,next,flight.NextUtc);} _flights.Remove(flight.Id);return;
         }
         if(flight.Guided is{} guidance)
@@ -340,6 +345,10 @@ public static class WeaponMissiles
         {
             if (next.Frame % 2 == 0 && selected == null) { BarbarianPairedVisuals.ThrowFlight(owner.Map, next); }
         }
+        else if (bladeFury)
+        {
+            if (next.Frame % 2 == 0 && selected == null) { AssassinBladeVisuals.FuryTravel(owner.Map, next); }
+        }
         else if (javelin || next.Frame % 2 == 0)
         {
             var (graphic, hue) = UoSkillVisuals.WeaponFlight(next);
@@ -394,7 +403,11 @@ public static class WeaponMissiles
             flight=flight with{Damage=next.Damage};_flights[flight.Id]=next;
         }
         BowExplosions.Create(player,next,flight.NextUtc);PlagueJavelins.Burst(player,next,selected,flight.NextUtc);AmazonLightningFury.Burst(player,next,flight.NextUtc); // AlwaysExplode survives a parent attack miss.
-        if(!hit){_flights.Remove(flight.Id);return;}
+        if(!hit)
+        {
+            if (bladeFury) { AssassinBladeVisuals.FuryFade(owner, flight, selected.Location); }
+            _flights.Remove(flight.Id);return;
+        }
         if(flight.Ability==CombatAbility.ImmolationArrow&&selected is not{Alive:true,Deleted:false})
         {if(!pierce){_flights.Remove(flight.Id);}return;}
         var damage=flight.Damage.Roll(selected,DamageRoll,out int poisonRate256);
@@ -417,6 +430,10 @@ public static class WeaponMissiles
         bool blocked;
         if(!((flight.Throwing!=null||BowMissileContact.Handles(flight))?DoubleThrowMissiles.Block(creature,damage.Physical>0,out blocked):SourceBlocking.TryBlock(creature,damage.Physical>0,out blocked)))
         {_flights.Remove(flight.Id);return;}
+        if (bladeFury && blocked)
+        {
+            AssassinBladeVisuals.Impact(CombatAbility.BladeFury, creature.Location, creature.Map, blocked: true);
+        }
         if (!blocked)
         {
             if (javelin) { AmazonJavelinEffects.Contact(player, creature, flight.Ability); }
@@ -447,6 +464,7 @@ public static class WeaponMissiles
         }
         if(!blocked)
         {
+            var contactPoint=selected.Location;var contactMap=selected.Map;
             owner.DoHarmful(selected,true);
             var parts=SkillCombat.MitigatePrepared(owner,selected,damage with{Poison=0});
             if(!furyChild && (flight.Flags&0x10000)==0){NamedCombat.Crushing(player,selected,true,ItemEffects);}
@@ -478,6 +496,7 @@ public static class WeaponMissiles
                 GemCombat.WeaponHit(player,selected,loss,true);
             }
             CombatDamage.Finish(selected,owner);
+            if (bladeFury) { AssassinBladeVisuals.Impact(CombatAbility.BladeFury, contactPoint, contactMap); }
         }
         if(flight.Throwing is{} thrown&&selected is BaseCreature{Alive:true,Deleted:false} thrownTarget&&thrownTarget is not BaseHire&&thrown.ArmorDelta!=0)
         {WeaponStartEffects.ApplyArmorDelta(thrownTarget,thrown.ArmorDelta,flight.NextUtc);}

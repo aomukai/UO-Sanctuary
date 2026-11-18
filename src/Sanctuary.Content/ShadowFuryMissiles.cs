@@ -80,7 +80,11 @@ internal static class ShadowFuryMissiles
         var graph=OriginalNpcEquipment.Graph(body);
         if(NecromancerSummons.Source(body.SourceMonsterId,"Crit")!=0){throw new NotSupportedException("Fury intrinsic NPC critical needs its separate impact roll");}
         finalSeed=f.Npc.Seed;
-        if(!AssassinTrapAttack.Hit(Chance(body,target,f.Damage.SkillAttackPercent),NpcEquipmentRandom.Raw(body))){return 0;}
+        if(!AssassinTrapAttack.Hit(Chance(body,target,f.Damage.SkillAttackPercent),NpcEquipmentRandom.Raw(body)))
+        {
+            AssassinBladeVisuals.FuryFade(body,f,target.Location);
+            return 0;
+        }
         ulong seed=finalSeed;var damage=f.Damage.Roll(target,n=>(int)SourceRandom.Limited(ref seed,n),out int poison);finalSeed=seed;
         if(!NpcBlockOrDodge.Missile(target,damage.Physical!=0,out int block)){throw new NotSupportedException("Unqualified NPC Fury avoidance context");}
         int flags=Result(block,f.Damage.Critical);var e=f.Damage.Elements;NpcWeaponImpact impact;
@@ -92,7 +96,14 @@ internal static class ShadowFuryMissiles
             var pierce=new NpcElementPierce(graph.Read(333),graph.Read(335),graph.Read(334),graph.Read(358));
             impact=NpcEquipmentImpact.FromFill(body,target,fill,new(body.Serial.Value,owner.Serial.Value,e,0,Math.Max(0,graph.Read(336))),pierce.For,PaladinAuras.NativeWeaponMultiplier(body,true));
         }
-        int hp=SkillHealth.Balance256(target);_=IronGolemContact.ReleaseMissile(body,owner,target,new(rules,impact),at);
+        var point=target.Location;var map=target.Map;
+        int hp=SkillHealth.Balance256(target);var result=IronGolemContact.ReleaseMissile(body,owner,target,new(rules,impact),at);
+        if (result?.Packet is { ReactionSettled: false } resolved && (resolved.ResultFlags & SourceMeleeResult.Successful) != 0)
+        {AssassinBladeVisuals.Impact(CombatAbility.BladeFury,point,map);}
+        else if (result != null && (flags & (SourceMeleeResult.Block | SourceMeleeResult.WeaponBlock)) != 0)
+        {AssassinBladeVisuals.Impact(CombatAbility.BladeFury,point,map,blocked:true);}
+        else
+        {AssassinBladeVisuals.FuryFade(body,f,point);}
         // Complete collision applies the saved missile armor delta after the
         // damage/return path,including shield block. Accuracy miss returns early.
         if(target is{Alive:true,Deleted:false}&&target is not BaseHire&&f.Npc.Packet.TargetArmorDelta!=0){WeaponStartEffects.ApplyArmorDelta(target,f.Npc.Packet.TargetArmorDelta,at);}

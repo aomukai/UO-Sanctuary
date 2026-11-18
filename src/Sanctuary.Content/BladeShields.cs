@@ -60,18 +60,23 @@ public static class BladeShields
         // Complete start28 replaces its own state regardless of the old rank.
         // Generic start consumes mana afterwards and deletes old periodic work.
         if(!NecromancerEffects.Pay(owner,values.Mana256)){throw new InvalidOperationException("Blade Shield start mana changed synchronously");}
+        AssassinBladeVisuals.ShieldRaise(owner);
         return state;
     }
     private static BladeShieldState Attach(Mobile owner,SkillValues values,DateTime at)
     {
         var state=new BladeShieldState(owner.Serial.Value,checked(++_nextId),values.Rank,at,at.AddMilliseconds(checked(values.Eval("auralencalc")*40)));
+        if (States.TryGetValue(state.Owner,out var previous) && previous.NextPulseUtc != null)
+        {AssassinBladeVisuals.ShieldClear(owner);}
         States[owner.Serial.Value]=state;return state;
     }
     internal static BladeShieldState StartShadow(AssassinShadowBody owner,SkillValues values,DateTime at)
     {
         if(!Eligible(owner)||values.Ability!=CombatAbility.BladeShield||values.Rank is<1 or>255||at.Kind!=DateTimeKind.Utc)
         {throw new InvalidOperationException("Invalid original Shadow Blade Shield start context");}
-        return Attach(owner,values,at); // NPC start28 has no player mana debit;replacement deletes its old periodic due time.
+        var state=Attach(owner,values,at); // NPC start28 has no player mana debit;replacement deletes its old periodic due time.
+        AssassinBladeVisuals.ShieldRaise(owner);
+        return state;
     }
     public static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now)
     {
@@ -79,7 +84,6 @@ public static class BladeShields
             (p,_,_,_)=>p.Map!=null && p.Map!=Map.Internal,timing:Timing(CombatTiming.Fcr(owner)))){return false;}
         var action=ClassCombat.For(owner);var state=Start(owner,SkillMechanics.Values(owner,CombatAbility.BladeShield),TimedEffects.TimeAt(now));
         Casts[owner.Serial.Value]=new(state.Id,action.EffectAt,owner.Map,owner.Location,action.PendingWeapon);
-        owner.FixedEffect(0x373A,10,15,0x481,0);owner.PlaySound(0x1E5); // Identified blade-shield cast/attachment/audio placeholders.
         return true;
     }
     public static bool Release(PlayerMobile owner,long now)
@@ -96,7 +100,10 @@ public static class BladeShields
         if(initialRank<=0){return false;}
         if(owner is AssassinShadowBody original){ShadowBladeShields.Pulse(original,initialRank,at);}else{Pulse((PlayerMobile)owner,initialRank);} // Recurring events keep the state-list cast rank.
         if(States.TryGetValue(owner.Serial.Value,out var current) && current.Id==id)
-        {States[owner.Serial.Value]=current with{NextPulseUtc=at.AddMilliseconds(1000)};}
+        {
+            States[owner.Serial.Value]=current with{NextPulseUtc=at.AddMilliseconds(1000)};
+            AssassinBladeVisuals.ShieldRefresh(owner,current.UntilUtc,at);
+        }
         return true;
     }
     internal static int RollSkill(SkillValues values)
@@ -125,7 +132,8 @@ public static class BladeShields
             if(ClassStats.CheckHit(owner,target,0,HitRoll,notifyMelee:false)!=true){continue;}
             if(!SourceBlocking.TryBlock(target,true,out bool blocked))
             {Log.Warning("Blade Shield skipped unsupported block supplier: {Target}",target.Serial);continue;}
-            if(blocked){continue;}
+            var point=target.Location;var map=target.Map;
+            if(blocked){AssassinBladeVisuals.Impact(CombatAbility.BladeShield,point,map,blocked:true);continue;}
             var damage=BladeShieldDamage.Capture(owner,target,skill,WeaponRoll,Effects);
             var parts=SkillCombat.MitigatePrepared(owner,target,damage with{Poison=0},out int absorbed);
             // Current ResultFlags32 suppresses attacked-in-melee, weapon
@@ -146,7 +154,7 @@ public static class BladeShields
                 if(damage.SourcePoison is{Rate256:>0} poison){poison.Commit(owner,target,TimedEffects.Now);}
             }
             AmazonJab.Wear(weapon,WearRoll);hits++;
-            if(target is{Alive:true,Deleted:false}){target.FixedEffect(0x37B9,5,5,0x481,0);} // Identified blade-shield contact placeholder.
+            AssassinBladeVisuals.Impact(CombatAbility.BladeShield,point,map);
             }
             catch(NotSupportedException e){Log.Warning("Blade Shield skipped unsupported damage supplier: {Target} {Reason}",target.Serial,e.Message);}
         }
@@ -160,15 +168,20 @@ public static class BladeShields
             if(onlyActor.HasValue&&state.Owner!=onlyActor.Value){continue;}
             if(World.FindMobile((Serial)state.Owner)is AssassinShadowBody shadow)
             {
-                if(shadow.OwnedSkillRank(277)<=0){States[state.Owner]=state with{NextPulseUtc=null};continue;}
+                if(shadow.OwnedSkillRank(277)<=0)
+                {States[state.Owner]=state with{NextPulseUtc=null};AssassinBladeVisuals.ShieldClear(shadow);continue;}
                 if(ShadowSkillCasting.Attached(shadow)&&(shadowActions??shadow.ControlMaster?.NetState is{Running:true}))
-                {ShadowBladeShields.Pulse(shadow,state.Rank,at);}
+                {
+                    ShadowBladeShields.Pulse(shadow,state.Rank,at);
+                    if (States.TryGetValue(state.Owner,out var activeShadow)&&activeShadow.Id==state.Id)
+                    {AssassinBladeVisuals.ShieldRefresh(shadow,state.UntilUtc,at);}
+                }
                 if(States.TryGetValue(state.Owner,out var currentShadow)&&currentShadow.Id==state.Id)
                 {States[state.Owner]=currentShadow with{NextPulseUtc=at.AddMilliseconds(1000)};}
                 continue;
             }
             if(World.FindMobile((Serial)state.Owner) is PlayerMobile learned && SkillMechanics.Rank(learned,CombatAbility.BladeShield)<=0)
-            {States[state.Owner]=state with{NextPulseUtc=null};continue;}
+            {States[state.Owner]=state with{NextPulseUtc=null};AssassinBladeVisuals.ShieldClear(learned);continue;}
             if(World.FindMobile((Serial)state.Owner) is not PlayerMobile owner || owner.NetState is not{Running:true}
                 || owner.Map==null || owner.Map==Map.Internal)
             {
@@ -178,18 +191,36 @@ public static class BladeShields
             }
             Pulse(owner,state.Rank);
             if(States.TryGetValue(state.Owner,out var current) && current.Id==state.Id)
-            {States[state.Owner]=current with{NextPulseUtc=at.AddMilliseconds(1000)};}
+            {
+                States[state.Owner]=current with{NextPulseUtc=at.AddMilliseconds(1000)};
+                AssassinBladeVisuals.ShieldRefresh(owner,state.UntilUtc,at);
+            }
         }
     }
     private static void Resume(PlayerMobile owner,DateTime at)
-    {if(State(owner) is{NextPulseUtc:not null} state){States[owner.Serial.Value]=state with{NextPulseUtc=at.AddMilliseconds(1000)};}}
+    {
+        if(State(owner) is{NextPulseUtc:not null} state)
+        {
+            States[owner.Serial.Value]=state with{NextPulseUtc=at.AddMilliseconds(1000)};
+            AssassinBladeVisuals.ShieldRefresh(owner,state.UntilUtc,at);
+        }
+    }
     internal static void Cancel(Mobile owner){if(owner!=null){Casts.Remove(owner.Serial.Value);}}
     public static void Clear(Mobile owner)
-    {if(owner!=null){States.Remove(owner.Serial.Value);Cancel(owner);}}
+    {
+        if(owner==null){return;}
+        if(States.Remove(owner.Serial.Value,out var state)&&state.NextPulseUtc!=null){AssassinBladeVisuals.ShieldClear(owner);}
+        Cancel(owner);
+    }
     internal static void Prune(DateTime at)
     {
         foreach(var state in States.Values.ToArray())
-        {if(state.UntilUtc<=at || !Eligible(World.FindMobile((Serial)state.Owner))){States.Remove(state.Owner);Casts.Remove(state.Owner);}}
+        {
+            var owner=World.FindMobile((Serial)state.Owner);
+            if(state.UntilUtc>at&&Eligible(owner)){continue;}
+            States.Remove(state.Owner);Casts.Remove(state.Owner);
+            if(state.NextPulseUtc!=null){AssassinBladeVisuals.ShieldClear(owner,expired:state.UntilUtc<=at);}
+        }
     }
     internal static BladeShieldSave Snapshot(){Prune(TimedEffects.Now);return new(States.Values.OrderBy(x=>x.Owner).ToArray(),_nextId);}
     internal static void Restore(BladeShieldSave saved)

@@ -785,6 +785,33 @@ def assassin_dragon_finishers():
     ))
 
 
+def assassin_blade_skills():
+    sentinel, fury, shield = ("assassin-blade-" + skill for skill in ("sentinel", "fury", "shield"))
+    rise, body, cut, crumble = load_grid(sentinel, (1536, 1024))
+    release, travel, contact, spent = load_grid(fury, (1536, 1024))
+    raise_ring, ring, shield_hit, drop_ring = load_grid(shield, (1536, 1024))
+
+    for name, graphic, cells, scale, pivots, padding, cutoffs in (
+        (sentinel, 62612, rise, .197, ((193, 196), (193, 208), (194, 205), (194, 205)), 22, (203, 211, 214, 214)),
+        (sentinel, 62616, body, .207, ((195, 137), (194, 120), (193, 127), (193, 120)), 39, (214,) * 4),
+        (sentinel, 62620, cut, .163, ((196, 135),) * 4, 35, (207, 211, 204, 176)),
+        (sentinel, 62624, crumble, .201, ((193, 132),) * 4, 39, (212, 213, 205, 147)),
+        (fury, 62628, release, .145, ((191, 145),) * 4, 47, (212, 210, 209, 203)),
+        (fury, 62664, contact, .166, ((193, 133),) * 4, 36, (214, 211, 204, 193)),
+        (fury, 62668, spent, .126, ((210, 122),) * 4, 25, (214, 208, 202, 195)),
+        (shield, 62672, raise_ring, .236, ((193, 133),) * 4, 45, (205, 208, 212, 212)),
+        (shield, 62676, ring, .236, ((193, 127),) * 4, 45, (208,) * 4),
+        (shield, 62680, shield_hit, .172, ((198, 128),) * 4, 36, (214, 211, 204, 105)),
+        (shield, 62684, drop_ring, .236, ((193, 127),) * 4, 45, (210, 208, 197, 96)),
+    ):
+        write_group(name, graphic, (
+            frame(cell, scale, pivot, (88, 86), padding, cutoff) for cell, pivot, cutoff in zip(cells, pivots, cutoffs)
+        ))
+    write_group(fury, 62632, directional_flight(
+        travel, ((208, 129), (212, 128), (196, 124), (204, 131)), .112, (52, 62), 22, 190
+    ))
+
+
 def necromancer_curses():
     cells = [cell for row in load_grid("necromancer-curses", (1448, 1086), rows=3) for cell in row]
     for cell in cells[:10]:
@@ -1621,3 +1648,4 @@ if __name__ == "__main__":
     barbarian_paired()
     assassin_martial_arts()
     assassin_dragon_finishers()
+    assassin_blade_skills()

@@ -118,6 +118,7 @@ public static class BladeSentinelMissiles
     }
     private static void Impact(BladeSentinelBody body,BaseCreature target,BladeMissileState state,Func<int,int> roll)
     {
+        var point=target.Location;var map=target.Map;
         var raw=state.Damage.Roll(target,roll,out int poisonRate);
         if(!SourceBlocking.TryBlock(target,raw.Physical>0,out bool blocked)){throw new NotSupportedException("Blade recipient block supplier is not mapped");}
         if(!blocked)
@@ -142,6 +143,7 @@ public static class BladeSentinelMissiles
             CombatDamage.Finish(target,body);
         }
         if(state.TargetDefenseDelta<0 && target is{Alive:true,Deleted:false}){TimedEffects.ReduceDefense(target,-state.TargetDefenseDelta,state.NextUtc);}
+        AssassinBladeVisuals.Impact(CombatAbility.BladeSentinel,point,map,blocked);
     }
     internal static BladeMissileSave Snapshot()=>new(Missiles.Values.OrderBy(x=>x.Id).ToArray(),Leases.Values.OrderBy(x=>x.Cast).ThenBy(x=>x.Target).ToArray(),_nextId);
     internal static void Restore(BladeMissileSave saved)

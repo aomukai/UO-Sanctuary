@@ -115,6 +115,28 @@ public static class SpellEffectGraphics
         && (graphic - DragonTalonSweep) % DragonFrames == 0;
     public static bool IsDragonSweep(ushort graphic) => graphic is >= DragonTalonSweep and < DragonTalonImpact;
 
+    public const int AssassinBladeFrames = 4;
+    public const ushort BladeSentinelRise = 62612;
+    public const ushort BladeSentinelBody = 62616;
+    public const ushort BladeSentinelHit = 62620;
+    public const ushort BladeSentinelFade = 62624;
+    public const ushort BladeFuryRelease = 62628;
+    public const ushort BladeFuryFlight = 62632;
+    public const ushort BladeFuryHit = 62664;
+    public const ushort BladeFuryFade = 62668;
+    public const ushort BladeShieldRaise = 62672;
+    public const ushort BladeShieldRing = 62676;
+    public const ushort BladeShieldHit = 62680;
+    public const ushort BladeShieldFade = 62684;
+
+    public static bool IsBladeSentinelBody(ushort graphic) =>
+        graphic is >= BladeSentinelRise and < BladeSentinelHit;
+    public static bool IsAssassinBladeAnimation(ushort graphic) => graphic is
+        BladeSentinelHit or BladeSentinelFade or BladeFuryRelease or BladeFuryHit or BladeFuryFade
+        or BladeShieldRaise or BladeShieldRing or BladeShieldHit or BladeShieldFade;
+    public static bool IsAssassinBladeAttached(ushort graphic) => graphic is
+        BladeFuryRelease or BladeShieldRaise or BladeShieldRing or BladeShieldFade;
+
     // This block is above the installed ClassicUO archive's stock static range.
     public const ushort FrozenArmorCast = 62800;
     public const ushort FrozenArmorWard = 62804;
@@ -604,6 +626,7 @@ public static class SpellEffectGraphics
             or >= HowlWave and < WarCryWave + 8 * BarbarianCryFrames
             or >= ShoutWave and < BattleCommandWave + 8 * BarbarianCryFrames
             or >= LeapAirTrail and < LeapAttackLanding or >= MartialIceCube and < MartialIceCube + MartialFrames
+            or >= BladeFuryFlight and < BladeFuryHit
             || IsBarbarianThrowFlight(graphic);
 
     public static bool IsHydraHeadFrame(ushort graphic) => graphic is >= HydraHeadRight and <= HydraHeadGone;

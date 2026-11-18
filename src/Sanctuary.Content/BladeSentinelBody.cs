@@ -22,6 +22,9 @@ public partial class BladeSentinelBody:BaseCreature
 {
     [SerializableField(0,setter:"private")] private string _saved="{}";
     private BladeBodyState _prepared;
+    private (ushort Graphic, int X, int Y, Point3D Tile) _visual;
+    private DateTime _visualStarted;
+    private DateTime _visualRenewal;
     internal BladeBodyState Prepared=>_prepared??(string.IsNullOrEmpty(_saved) || _saved=="{}"?null:_prepared=JsonSerializer.Deserialize<BladeBodyState>(_saved));
     public override bool BlocksFit=>false;
     public override bool UsesNativeSummonTimer=>false;
@@ -41,13 +44,37 @@ public partial class BladeSentinelBody:BaseCreature
     // or player acquisition path. The serializer still needs its serial ctor.
     public BladeSentinelBody():base(AIType.AI_Melee,FightMode.None,0)
     {
-        Name="Blade Sentinel [placeholder]";Body=0x9C;Hue=0x481;Blessed=true;CantWalk=true;
+        Name="Blade Sentinel";Body=0x9C;Hue=0x481;Blessed=true;CantWalk=true;
         Summoned=true;ControlSlots=0;NoKillAwards=true;SetStr(0);SetDex(0);SetInt(0);SetStam(0);SetMana(0);SetDamage(0,0);
         AIObject?.AITimer.Stop();
     }
     private static Point3D Position(BladeBodyState s)=>new(
         (int)Math.Round(((long)s.Motion.X-32768)/131072.0,MidpointRounding.AwayFromZero),
         (int)Math.Round(((long)s.Motion.Y-32768)/131072.0,MidpointRounding.AwayFromZero),s.Z);
+    internal void Emerge()
+    {
+        _visualStarted = TimedEffects.Now;
+        Present();
+        AssassinBladeVisuals.SentinelRise(this);
+    }
+    private void Present()
+    {
+        if (!PaladinAuraVisuals.InWorld(this)) { return; }
+        var at = TimedEffects.Now;
+        var state = Prepared;
+        double riseFrame = (at - _visualStarted).TotalMilliseconds / 80;
+        ushort graphic = (ushort)(riseFrame is >= 0 and < SpellEffectGraphics.AssassinBladeFrames
+            ? SpellEffectGraphics.BladeSentinelRise + (int)riseFrame
+            : SpellEffectGraphics.BladeSentinelBody + state.Control.Frame / 2 % SpellEffectGraphics.AssassinBladeFrames);
+        double x = ((long)state.Motion.X - 32768) / 131072.0 - X;
+        double y = ((long)state.Motion.Y - 32768) / 131072.0 - Y;
+        int offsetX = (int)Math.Round((x - y) * 22), offsetY = (int)Math.Round((x + y) * 22);
+        var visual = (graphic, offsetX, offsetY, Location);
+        if (_visual == visual && at < _visualRenewal) { return; }
+        FixedEffect(graphic, offsetX + 64, offsetY + 64);
+        _visual = visual;
+        _visualRenewal = at.AddMilliseconds(160);
+    }
     private static void Validate(BladeBodyState s)
     {
         if(s?.Creation is not{Rank:>=1 and <=255,Level:>=1 and <=99,Life256:>=256 and <=16640000} c
@@ -166,16 +193,23 @@ public partial class BladeSentinelBody:BaseCreature
             Store(before with{Control=frame.Control,Creation=creation,FirstMissile=creation.MissileArmed?null:before.FirstMissile,Motion=frame.Motion,Frames=before.Frames+frame.Control.Moves-before.Control.Moves,NextFrameUtc=before.NextFrameUtc.AddMilliseconds(40)});
             var point=Position(Prepared);if(Location!=point){MoveToWorld(point,Map);}AIObject?.AITimer.Stop();
             if(frame.Control.Mode==0){Delete();}
+            else{Present();}
         }
     }
     internal void SuspendController(string reason)
     {if(Prepared is{} before){Store(before with{ControllerFault=reason});}}
+    public override void OnDelete()
+    {
+        if (_visual.Graphic != 0) { AssassinBladeVisuals.SentinelFade(this); }
+        base.OnDelete();
+    }
     public override void OnAfterDelete(){BladeSentinelActors.Forget(this);AssassinTrapRoster.Forget(this);base.OnAfterDelete();}
     public override void OnThink(){AIObject?.AITimer.Stop();Combatant=null;FocusMob=null;Warmode=false;}
     public override void GenerateLoot(bool spawning){}
     public override bool OnBeforeDeath(){Delete();return false;}
     [AfterDeserialization]private void AfterLoad()
     {
+        if (Name == "Blade Sentinel [placeholder]") { Name = "Blade Sentinel"; }
         AIObject?.AITimer.Stop();_prepared=JsonSerializer.Deserialize<BladeBodyState>(_saved);Validate(_prepared);
         if(SummonMaster?.Serial.Value!=_prepared.Owner || Map?.MapID!=_prepared.Map || Location!=Position(_prepared))
         {throw new InvalidDataException("Prepared blade owner/position mismatch");}

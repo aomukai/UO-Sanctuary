@@ -35,7 +35,7 @@ internal static class ShadowBladeSentinels
         _=Row();
         if(!ShadowSkillCasting.Attached(body)||body.OwnedSkills.Used!=257||rank!=body.OwnedSkillRank(257)
             ||!Destination(body,target,cached,out var point)){return 0;}
-        _=CreatePrepared(body,point,at);body.PlaySound(0x23B);return 1; // Identified shared summon-audio placeholder.
+        CreatePrepared(body,point,at).Emerge();return 1;
     }
     internal static BladeSentinelBody CreatePrepared(AssassinShadowBody caster,Point3D destination,DateTime at)
     {
