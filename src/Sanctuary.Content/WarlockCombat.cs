@@ -73,7 +73,12 @@ public static class WarlockCombat
         {if(ApocalypseGround.CreatePaid(owner,values,point,TimedEffects.Now)==null){return false;}}
         else if(!NecromancerEffects.CanPay(owner,values.Mana256)||SigilActors.CreatePaid(owner,values,point,TimedEffects.Now,values.Mana256)==null){return false;}
         FireGround.Delay(owner,ability);
-        owner.PlaySound(0x1E5); // Identified shared Warlock cast placeholder;final sound pending.
+        if(ability==CombatAbility.RingOfFire)
+        {
+            owner.FixedEffect(SpellEffectGraphics.RingOfFireCast,10,8);
+            owner.PlaySound(SpellEffectSounds.RingOfFireCast);
+        }
+        else if(ability!=CombatAbility.Apocalypse){owner.PlaySound(0x1E5);} // Identified shared Sigil cast placeholder.
         return true;
     }
 }

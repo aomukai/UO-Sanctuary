@@ -1212,6 +1212,18 @@ def products():
             inGameVerification='verified', placeholder='The caster channels an indigo rune. Paid attempts send spectral links to the target and successful binding seals the original creature.',
             customArtworkPhases=['channel and cancellation', 'paid attempt tether', 'success flash', 'bound seal'],
             customAudioPhases=['channel start', 'paid attempt', 'successful bind']),
+        'warlock.ringoffire': dict(customArtwork='verified', customAudio='listening-pending', customCharacterAnimation='reuse-native',
+            inGameVerification='verified', placeholder='A low ember ring opens at the caster and spreads along sampled native rays. Embers bloom where the rays burst and flash at confirmed contacts.',
+            customArtworkPhases=['cast', 'fractional ray travel', 'ray burst and retirement', 'damage contact'],
+            customAudioPhases=['cast', 'confirmed damage contact']),
+        'warlock.flamewave': dict(customArtwork='verified', customAudio='listening-pending', customCharacterAnimation='reuse-native',
+            inGameVerification='verified', placeholder='Saffron sparks reveal the wave, which rolls along clear lanes and leaves low flames in native burn cells. Blocked lanes break apart at the wall.',
+            customArtworkPhases=['cast', 'lateral reveal', 'moving front', 'shared direct contact', 'terrain stop and lane fade', 'lingering fire and expiry'],
+            customAudioPhases=['cast', 'front launch', 'confirmed direct contact']),
+        'warlock.apocalypse': dict(customArtwork='verified', customAudio='listening-pending', customCharacterAnimation='reuse-native',
+            inGameVerification='verified', placeholder='A two-second fissure marks the configured radius. A tall eruption breaks through its center and scorched cinders mark damaged enemies.',
+            customArtworkPhases=['cast and radius warning', 'delayed eruption and warning retirement', 'damage contact'],
+            customAudioPhases=['warning', 'eruption', 'confirmed damage contact']),
     }
     for effect, row in zip(effects, rows, strict=True):
         talent = effect['talentId']

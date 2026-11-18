@@ -35,8 +35,10 @@ internal static class ApocalypseImpact
         int damage=NamedElements.To256(parts.Total);
         owner.DoHarmful(target,true);
         if(absorbed>0){SkillHealth.Heal(target,absorbed);}
+        var map=target.Map;var contact=target.Location;int balance=SkillHealth.Balance256(target);
         int lost=SkillHealth.TypedDamage(owner,target,damage,DirectDamageParts.From(parts));
-        if(!target.Deleted){target.FixedEffect(0x36D4,10,10);} // Identified Apocalypse recipient placeholder.
+        if(map!=null&&map!=Map.Internal&&(lost>0||SkillHealth.Balance256(target)<balance))
+        {WarlockFireVisuals.Contact(owner,map,contact,SpellEffectGraphics.ApocalypseContact,SpellEffectSounds.ApocalypseContact,TimedEffects.Now);}
         return new(true,lost,damage);
     }
 }

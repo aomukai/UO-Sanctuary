@@ -5926,10 +5926,21 @@
     },
     "generation": "pending",
     "clientMapping": "pending",
-    "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending",
-    "customArtwork": "pending",
-    "customAudio": "pending"
+    "inGameVerification": "verified",
+    "placeholder": "A low ember ring opens at the caster and spreads along sampled native rays. Embers bloom where the rays burst and flash at confirmed contacts.",
+    "customArtwork": "verified",
+    "customAudio": "listening-pending",
+    "customCharacterAnimation": "reuse-native",
+    "customArtworkPhases": [
+      "cast",
+      "fractional ray travel",
+      "ray burst and retirement",
+      "damage contact"
+    ],
+    "customAudioPhases": [
+      "cast",
+      "confirmed damage contact"
+    ]
   },
   {
     "talentId": "warlock.sigillethargy",
@@ -6004,10 +6015,24 @@
     },
     "generation": "pending",
     "clientMapping": "pending",
-    "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending",
-    "customArtwork": "pending",
-    "customAudio": "pending"
+    "inGameVerification": "verified",
+    "placeholder": "Saffron sparks reveal the wave, which rolls along clear lanes and leaves low flames in native burn cells. Blocked lanes break apart at the wall.",
+    "customArtwork": "verified",
+    "customAudio": "listening-pending",
+    "customCharacterAnimation": "reuse-native",
+    "customArtworkPhases": [
+      "cast",
+      "lateral reveal",
+      "moving front",
+      "shared direct contact",
+      "terrain stop and lane fade",
+      "lingering fire and expiry"
+    ],
+    "customAudioPhases": [
+      "cast",
+      "front launch",
+      "confirmed direct contact"
+    ]
   },
   {
     "talentId": "warlock.sigildeath",
@@ -6057,10 +6082,21 @@
     },
     "generation": "pending",
     "clientMapping": "pending",
-    "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending",
-    "customArtwork": "pending",
-    "customAudio": "pending"
+    "inGameVerification": "verified",
+    "placeholder": "A two-second fissure marks the configured radius. A tall eruption breaks through its center and scorched cinders mark damaged enemies.",
+    "customArtwork": "verified",
+    "customAudio": "listening-pending",
+    "customCharacterAnimation": "reuse-native",
+    "customArtworkPhases": [
+      "cast and radius warning",
+      "delayed eruption and warning retirement",
+      "damage contact"
+    ],
+    "customAudioPhases": [
+      "warning",
+      "eruption",
+      "confirmed damage contact"
+    ]
   },
   {
     "talentId": "warlock.abyss",

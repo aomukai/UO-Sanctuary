@@ -550,6 +550,14 @@
     "ConsumeFade": {"source": "ghost-whisper", "start": 0.48, "duration": 0.27, "fadeIn": 0.044, "fadeOut": 0.112, "highpass": 608, "peakDb": -26},
     "BindDemonStart": {"source": "metal-hit", "start": 0.147, "duration": 0.255, "fadeIn": 0.015, "fadeOut": 0.081, "highpass": 500, "peakDb": -21},
     "BindDemonAttempt": {"source": "electric-crackle", "start": 0.39, "duration": 0.245, "fadeIn": 0.017, "fadeOut": 0.086, "highpass": 870, "peakDb": -24},
-    "BindDemonSuccess": {"source": "arcane-doppler", "start": 0.23, "duration": 0.44, "fadeIn": 0.019, "fadeOut": 0.144, "highpass": 246, "peakDb": -18}
+    "BindDemonSuccess": {"source": "arcane-doppler", "start": 0.23, "duration": 0.44, "fadeIn": 0.019, "fadeOut": 0.144, "highpass": 246, "peakDb": -18},
+    "RingOfFireCast": {"source": "fire", "start": 0.548, "duration": 0.48, "fadeIn": 0.015, "fadeOut": 0.163, "highpass": 295, "peakDb": -19},
+    "RingOfFireContact": {"source": "fire", "start": 0.693, "duration": 0.168, "fadeIn": 0.006, "fadeOut": 0.073, "highpass": 714, "peakDb": -25},
+    "FlameWaveCast": {"source": "air", "start": 0.188, "duration": 0.42, "fadeIn": 0.03, "fadeOut": 0.14, "highpass": 457, "peakDb": -22},
+    "FlameWaveLaunch": {"source": "fire", "start": 0.329, "duration": 0.75, "fadeIn": 0.017, "fadeOut": 0.242, "highpass": 148, "peakDb": -16},
+    "FlameWaveContact": {"source": "fire", "start": 0.761, "duration": 0.19, "fadeIn": 0.007, "fadeOut": 0.071, "highpass": 505, "peakDb": -24},
+    "ApocalypseWarning": {"source": "close-thunder", "start": 2.16, "duration": 1.49, "fadeIn": 0.092, "fadeOut": 0.345, "highpass": 94, "peakDb": -22},
+    "ApocalypseEruption": {"source": "close-thunder", "start": 1.818, "duration": 0.75, "fadeIn": 0.008, "fadeOut": 0.218, "highpass": 142, "peakDb": -14},
+    "ApocalypseContact": {"source": "snap", "start": 0.079, "duration": 0.199, "fadeIn": 0.007, "fadeOut": 0.093, "highpass": 440, "peakDb": -25}
   }
 }

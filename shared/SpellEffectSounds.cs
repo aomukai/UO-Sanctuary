@@ -414,6 +414,14 @@ public static class SpellEffectSounds
     public const int BindDemonStart = 60408;
     public const int BindDemonAttempt = 60409;
     public const int BindDemonSuccess = 60410;
+    public const int RingOfFireCast = 60411;
+    public const int RingOfFireContact = 60412;
+    public const int FlameWaveCast = 60413;
+    public const int FlameWaveLaunch = 60414;
+    public const int FlameWaveContact = 60415;
+    public const int ApocalypseWarning = 60416;
+    public const int ApocalypseEruption = 60417;
+    public const int ApocalypseContact = 60418;
 
     public static int Fallback(int sound) => sound switch
     {
@@ -452,6 +460,9 @@ public static class SpellEffectSounds
         DeathMarkCast or BloodBoilCast or EngorgeCast or ConsumeCast or BindDemonStart => 0x1E5,
         DeathMarkWarp => 0x1FE,
         BloodBoilBurst => 0x307,
+        RingOfFireCast or FlameWaveLaunch => 0x20C,
+        FlameWaveCast or ApocalypseWarning => 0x1E5,
+        ApocalypseEruption => 0x307,
         BlizzardRelease or FrozenOrbRelease or MeteorRelease or TeethRelease or BoneSpiritRelease or AbyssOpen => 0x1E5,
         AmazonBowRelease or AmazonCrossbowRelease or JavelinThrow => 0x238,
         SpearThrust or HeavySpearThrust => 0x238,

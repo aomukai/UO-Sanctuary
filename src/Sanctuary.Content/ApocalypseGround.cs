@@ -65,13 +65,13 @@ internal static class ApocalypseGround
             if(request.Skill!=401||request.Rank!=rank||request.Missile!=722||request.Flags!=1||request.Point!=Coordinates())
             {throw new NotSupportedException("Apocalypse ground factory identity changed");}
             if(Distance(request.Point)>100||!allocation){return false;}
-            var marker=new Static(0x1B7A){Name="Apocalypse ground (placeholder)",Movable=false};marker.MoveToWorld(Ground,owner.Map);
+            var marker=new Static(0x1B7A){Name="Apocalypse ground",Movable=false,Visible=false};marker.MoveToWorld(Ground,owner.Map);
             if(payment!=null&&!payment()){marker.Delete();return false;}
             Created=new(marker.Serial.Value,owner.Serial.Value,owner.Map.MapID,Ground,rank,at,50,0);_fields=_fields.Add(Created.Marker,Created);return true;
         }
         internal override void SetTargetMemory(uint sample)
         {Created=Created with{TargetMemory=sample};_fields=_fields.SetItem(Created.Marker,Created);}
-        internal override void Notify(GroundMissileRequest request,uint sample){} // Identified original marker stands in for client notification.
+        internal override void Notify(GroundMissileRequest request,uint sample){} // The paid world path publishes the warning.
     }
     internal static void EnsureSeed(PlayerMobile owner)
     {
@@ -84,7 +84,13 @@ internal static class ApocalypseGround
         if(values?.Ability!=CombatAbility.Apocalypse){throw new NotSupportedException("Apocalypse needs its own captured payment values");}
         if(!NecromancerEffects.CanPay(owner,values.Mana256)){return null;}
         EnsureSeed(owner);
-        return Create(owner,point,values.Rank,at,true,()=>NecromancerEffects.Pay(owner,values.Mana256));
+        var field=Create(owner,point,values.Rank,at,true,()=>NecromancerEffects.Pay(owner,values.Mana256));
+        if(field!=null)
+        {
+            Warning(field,at);
+            Effects.PlaySound(field.Origin,owner.Map,SpellEffectSounds.ApocalypseWarning);
+        }
+        return field;
     }
     internal static ApocalypseGroundField CreatePrepared(PlayerMobile owner,Point3D point,int rank,DateTime at,bool allocation=true)
         =>Create(owner,point,rank,at,allocation,null);
@@ -112,7 +118,10 @@ internal static class ApocalypseGround
             if(function!=163||skill!=401||rank!=s.Rank){throw new NotSupportedException("Apocalypse hit23 dispatch changed");}
             if(!fighting){return;}
             ulong seed=Seed(owner);var packet=ApocalypsePackets.Capture(owner,ref seed,s.Rank);_seeds=_seeds.SetItem(s.Owner,seed);
-            _=ApocalypseArea.ReleasePrepared(owner,Map.Maps[s.Map],s.Origin,packet);
+            var map=Map.Maps[s.Map];var center=ApocalypseArea.Center(owner,s.Origin);
+            _=ApocalypseArea.ReleasePrepared(owner,map,center,packet);
+            Effects.SendLocationEffect(center,map,SpellEffectGraphics.ApocalypseEruption,10);
+            Effects.PlaySound(center,map,SpellEffectSounds.ApocalypseEruption);
         }
     }
     internal static void Tick(DateTime at,bool? allowActions=null,uint? onlyOwner=null)
@@ -122,6 +131,7 @@ internal static class ApocalypseGround
         {
             var s=initial;var marker=World.FindItem((Serial)s.Marker);var owner=World.FindMobile((Serial)s.Owner)as PlayerMobile;
             if(marker is not{Deleted:false}||marker.Map?.MapID!=s.Map||marker.Location!=s.Origin||owner is not{Alive:true,Deleted:false}){Remove(s);continue;}
+            if(marker.Visible){marker.Visible=false;}
             long elapsed=(at-s.BornUtc).Ticks/TimeSpan.TicksPerMillisecond/40;int advance=(int)Math.Clamp(elapsed-(50-s.Remaining),0,s.Remaining);
             bool fighting=(allowActions??AssassinTrapRoster.Fighting(s.Owner))&&owner.Map==marker.Map&&!MinionSafeAreas.Contains(owner);
             for(int i=0;i<advance;i++)
@@ -132,7 +142,8 @@ internal static class ApocalypseGround
                     var result=BasicMissileUpdate.Run(new(true,true,0,remaining,0,0,false),new(null,value=>remaining=value,null,null,null,null,null,null,(target,end)=>
                     {
                         if(target!=0||!end){throw new InvalidOperationException("Apocalypse unexpectedly collided before expiry");}
-                        terminal=true;_fields=_fields.Remove(s.Marker);int flags=GroundMissileLaunch.Hit23(new Hit(s,owner,fighting));
+                        terminal=true;_fields=_fields.Remove(s.Marker);ClearWarning(s);
+                        int flags=GroundMissileLaunch.Hit23(new Hit(s,owner,fighting));
                         return(flags&4)!=0?1:2; // Generic terminal no-victim wrapper deletes after raw hit23 returns1.
                     }));
                     s=s with{Remaining=result.Remaining};
@@ -141,9 +152,28 @@ internal static class ApocalypseGround
                 }
                 catch(Exception e){Remove(s);Log.Error(e,"Apocalypse prepared ground failed: {Marker}",s.Marker);break;}
             }
+            if(fighting&&_fields.ContainsKey(s.Marker)&&(50-s.Remaining)/12>(50-initial.Remaining)/12)
+            {Warning(s,at);}
         }
     }
-    private static void Remove(ApocalypseGroundField s){_fields=_fields.Remove(s.Marker);World.FindItem((Serial)s.Marker)?.Delete();}
+    private static int WarningRadius(ApocalypseGroundField s)=>ApocalypseArea.Radius(s.Rank)*SpellEffectGraphics.HolyAuraRadiusUnitsPerTile/2;
+    private static void Warning(ApocalypseGroundField s,DateTime at)
+    {
+        int duration=Math.Min(11,(int)(s.BornUtc.AddMilliseconds(2000)-at).TotalMilliseconds/50);
+        if(duration>0)
+        {Effects.SendLocationEffect(s.Origin,Map.Maps[s.Map],SpellEffectGraphics.ApocalypseWarning,duration,hue:WarningRadius(s));}
+    }
+    private static void ClearWarning(ApocalypseGroundField s)
+    {
+        if(World.Loading){return;}
+        int radius=WarningRadius(s);
+        if(_fields.Values.Any(f=>f.Map==s.Map&&f.Origin==s.Origin&&WarningRadius(f)==radius)){return;}
+        Effects.SendLocationEffect(s.Origin,Map.Maps[s.Map],SpellEffectGraphics.ApocalypseWarning,0,hue:radius);
+    }
+    private static void Remove(ApocalypseGroundField s)
+    {
+        _fields=_fields.Remove(s.Marker);ClearWarning(s);World.FindItem((Serial)s.Marker)?.Delete();
+    }
     internal static void Clear(PlayerMobile owner){foreach(var s in _fields.Values){if(s.Owner==owner.Serial.Value){Remove(s);}}}
     internal static ApocalypseGroundSave Snapshot()=>new(_fields.Values.OrderBy(s=>s.Marker).ToArray(),_seeds.OrderBy(s=>s.Key).Select(s=>new ApocalypseCasterSeed(s.Key,s.Value)).ToArray());
     internal static void Restore(ApocalypseGroundSave saved)

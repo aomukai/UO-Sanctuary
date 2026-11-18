@@ -55,7 +55,10 @@ internal static class FlameWaveWorld
         long id=checked(_next+1);var n=new FlameWaveCast(id,p.Serial.Value,p.Map.MapID,p.Z,p.X,p.Y,point.X-p.X,point.Y-p.Y,b,
             SourceRandom.InitLow(SeedLow()),0,at,at.AddMilliseconds(40),[],[]);Validate(n);
         if(!NecromancerEffects.Pay(p,b.Numbers.Mana256)){return 0;}
-        _next=id;Casts.Add(id,n);FireGround.Delay(p,CombatAbility.FlameWave,at);p.PlaySound(0x1E5);return id; // Cast placeholder.
+        _next=id;Casts.Add(id,n);FireGround.Delay(p,CombatAbility.FlameWave,at);
+        p.FixedEffect(SpellEffectGraphics.FlameWaveCast,10,8);
+        p.PlaySound(SpellEffectSounds.FlameWaveCast);
+        return id;
     }
     private static bool ClearSegment(Map map,double x,double y,double endX,double endY,int z)
     {
@@ -117,17 +120,30 @@ internal static class FlameWaveWorld
     private static FlameWaveAdvance Step(FlameWaveCast n,PlayerMobile p)
     {
         DateTime at=n.NextUtc;int frame=n.Frame+1,heads=0,burns=0,created=0,damage=0;ulong seed=n.Seed;
+        var map=p.Map;
         if(frame<=((n.Birth.Numbers.HalfWidth+1)/2))
         {
             var d=MissileVectors.Direction(n.AimX,n.AimY);int width=Math.Min(n.Birth.Numbers.HalfWidth,frame*2);
-            for(int i=-width;i<=width;i++){Effects.SendLocationEffect(Point(n.X-i*d.Y/8192.0,n.Y+i*d.X/8192.0,n.Z),p.Map,0x36BD,2,10,0x489,0);}
-        } // 708 expanding-wall placeholder; visual controller causes no extra hit.
+            for(int i=-width;i<=width;i++)
+            {
+                double x=n.X-i*d.Y/8192.0,y=n.Y+i*d.X/8192.0;
+                if(ClearSegment(map,n.X,n.Y,x,y,n.Z))
+                {GroundSpellVisuals.Sample(map,x,y,n.Z,SpellEffectGraphics.FlameWaveFront+Math.Min(frame-1,3),2);}
+            }
+        }
         var fires=n.Fires.Where(f=>f.UntilUtc>at).ToList();var lanes=new List<FlameWaveLane>();
         var source=frame==n.Birth.Numbers.DelayFrames?Launch(n,p,at):n.Lanes;
+        if(frame==n.Birth.Numbers.DelayFrames&&source.Length>0)
+        {Effects.PlaySound(Point(n.X,n.Y,n.Z),map,SpellEffectSounds.FlameWaveLaunch);}
         var ready=new HashSet<uint>();
         foreach(var lane in source.OrderBy(l=>l.Offset))
         {
-            if(at>=lane.UntilUtc){continue;}double x=lane.X+lane.Vx,y=lane.Y+lane.Vy;
+            if(at>=lane.UntilUtc)
+            {
+                GroundSpellVisuals.Sample(map,lane.X,lane.Y,n.Z,SpellEffectGraphics.FlameWaveFade,6);
+                continue;
+            }
+            double x=lane.X+lane.Vx,y=lane.Y+lane.Vy;
             var trace=SourceMissileSteps.Crossings((long)Math.Round(lane.X*131072+32768),(long)Math.Round(lane.Y*131072+32768),
                 (int)Math.Round(lane.Vx*131072),(int)Math.Round(lane.Vy*131072));bool wall=false;double lastX=lane.X,lastY=lane.Y;
             foreach(var cell in trace.Cells)
@@ -149,8 +165,17 @@ internal static class FlameWaveWorld
                     }
                 }
             }
-            if(!wall&&ClearSegment(p.Map,lastX,lastY,x,y,n.Z)){lanes.Add(lane with{X=x,Y=y});}
-            else{Effects.SendLocationEffect(Point(lastX,lastY,n.Z),p.Map,0x36BD,3,10,0x489,0);} // fireexplode placeholder, no bonus explosion damage.
+            if(!wall&&ClearSegment(p.Map,lastX,lastY,x,y,n.Z))
+            {
+                lanes.Add(lane with{X=x,Y=y});
+                int elapsed=frame-n.Birth.Numbers.DelayFrames;
+                if(elapsed%2==0)
+                {
+                    int phase=elapsed/2%SpellEffectGraphics.WarlockFireFrames;
+                    GroundSpellVisuals.Sample(map,x,y,n.Z,SpellEffectGraphics.FlameWaveFront+phase,2);
+                }
+            }
+            else{GroundSpellVisuals.Sample(map,lastX,lastY,n.Z,SpellEffectGraphics.FlameWaveFade,6);}
         }
         // Commit movement, RNG-independent topology and leases before callbacks.
         foreach(uint id in ready){Leases[(n.Id,id)]=new(n.Id,id,at.AddMilliseconds(600));}
@@ -160,7 +185,11 @@ internal static class FlameWaveWorld
         {
             if(World.FindMobile((Serial)id)is not BaseCreature t||!MiasmaWorld.Enemy(p,t,n.Z)){continue;}
             TaintedFireBallMissiles.RequireOrdinaryRecipient(p,t);int raw=SorceressSpellMissiles.Roll(head.Min,head.Max,seed,out seed);
-            damage=(int)Math.Min(int.MaxValue,(long)damage+SorceressSpellMissiles.ImpactPrepared(p,t,"flamewave","fire",raw,n.Birth.Modifiers,at,missileReaction:true));heads++;
+            Point3D contact=t.Location;
+            int applied=SorceressSpellMissiles.ImpactPrepared(p,t,"flamewave","fire",raw,n.Birth.Modifiers,at,missileReaction:true);
+            damage=(int)Math.Min(int.MaxValue,(long)damage+applied);heads++;
+            if(applied>0)
+            {WarlockFireVisuals.Contact(p,map,contact,SpellEffectGraphics.RingOfFireContact,SpellEffectSounds.FlameWaveContact,at);}
         }
         // One 240 packet per recipient per cast/update, even where tail, static
         // and adjacent lanes overlap. Separate paid casts remain independent.
@@ -173,7 +202,17 @@ internal static class FlameWaveWorld
                 var packet=SourceFireFields.Roll(ground.Min,ground.Max,ref seed);int hp=SkillHealth.Balance256(t);
                 SourceFireFields.Deliver(p,t,packet,n.Birth.Modifiers,at,41);damage=(int)Math.Min(int.MaxValue,(long)damage+Math.Max(0,hp-SkillHealth.Balance256(t)));burns++;
             }
-            if(frame%5==0){Effects.SendLocationEffect(Point(f.X,f.Y,n.Z),p.Map,0x398C,3,10,0x489,0);} // Ground flame placeholder.
+        }
+        if(frame%5==0)
+        {
+            // Tail and lingering makers can occupy the same tile. Their native damage stays independent of the visual lease.
+            foreach(var tile in fires.Where(f=>f.CreatedUtc<at).GroupBy(f=>Point(f.X,f.Y,n.Z)))
+            {
+                var fire=tile.MaxBy(f=>f.UntilUtc);
+                int duration=Math.Min(5,(int)(fire.UntilUtc-at).TotalMilliseconds/50);
+                if(duration>0)
+                {GroundSpellVisuals.Sample(map,fire.X,fire.Y,n.Z,SpellEffectGraphics.FlameWaveField,duration);}
+            }
         }
         if(Casts.ContainsKey(n.Id)){Store(current with{Seed=seed});}return new(1,heads,burns,created,damage);
     }

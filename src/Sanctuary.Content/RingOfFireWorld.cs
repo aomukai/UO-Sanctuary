@@ -31,6 +31,9 @@ internal static class RingOfFireWorld
     private static ImmutableDictionary<long,RingOfFireFlight> _flights=ImmutableDictionary<long,RingOfFireFlight>.Empty;
     private static Dictionary<(long,uint),WeaponFlightLease> _leases=new();
     private static readonly HashSet<long> Loaded=new();
+    // The real cast can launch up to 64 rays. Draw the 16 shared launch directions.
+    private static readonly HashSet<Point2D> VisibleDirections = Enumerable.Range(0,16)
+        .Select(index => FrozenOrbs.Direction(index*4)).ToHashSet();
     private static long _nextId;
     private static readonly Server.Logging.ILogger Log=Server.Logging.LogFactory.GetLogger(typeof(RingOfFireWorld));
     internal static Func<int> SeedLow=()=>SorceressSpellMissiles.SeedLow();
@@ -58,7 +61,8 @@ internal static class RingOfFireWorld
         if(!NecromancerEffects.Pay(owner,values.Mana256)){return 0;}
         foreach(var s in staged){_flights=_flights.Add(s.Id,s);}_nextId=staged[^1].Id;return cast;
     }
-    private static Point3D Center(RingOfFireMotionState motion)=>new((int)Math.Round(motion.X),(int)Math.Round(motion.Y),motion.Z);
+    private static bool Draws(RingOfFireMotionState motion)
+        => VisibleDirections.Contains(new Point2D(motion.Request.TargetX,motion.Request.TargetY));
     private static bool Inside(RingOfFireMotionState m)=>m.X>=0&&m.Y>=0&&m.X<Map.Maps[m.Map].Width&&m.Y<Map.Maps[m.Map].Height;
     private static bool Recipient(PlayerMobile owner,BaseCreature target,RingOfFireFlight s,Point3D center,int x,int y)
         =>SourceDamageAreas.Recipient(owner,target,s.Motion.Map,x,y,center.Z,3,true,center)&&Ready(s.Cast,target.Serial.Value,s.NextUtc);
@@ -74,8 +78,15 @@ internal static class RingOfFireWorld
         {if(Recipient(owner,t,state,center,x,y)){TaintedFireBallMissiles.RequireOrdinaryRecipient(owner,t);targets.Add(t);}}
         ulong seed=state.Seed;var packet=RingOfFireDamage.RollBorn(owner,state.Birth,ref seed);state=state with{Packet=packet,Seed=seed};
         foreach(var t in targets)
-        {if(Recipient(owner,t,state,center,x,y)){RingOfFireDamage.DeliverPrepared(owner,t,packet,state.Motion.Frame,state.NextUtc);Lease(state.Cast,t.Serial.Value,state.NextUtc);}}
-        Effects.SendLocationEffect(center,map,0x36BD,8,10,0x489,0); // Identified candidate explosion placeholder.
+        {
+            if(!Recipient(owner,t,state,center,x,y)){continue;}
+            Point3D contact=t.Location;
+            int damage=RingOfFireDamage.DeliverPrepared(owner,t,packet,state.Motion.Frame,state.NextUtc);
+            Lease(state.Cast,t.Serial.Value,state.NextUtc);
+            if(damage>0)
+            {WarlockFireVisuals.Contact(owner,map,contact,SpellEffectGraphics.RingOfFireContact,SpellEffectSounds.RingOfFireContact,state.NextUtc);}
+        }
+        if(Draws(state.Motion)){Effects.SendLocationEffect(center,map,SpellEffectGraphics.RingOfFireBurst,6);}
         return state;
     }
     private static void Advance(RingOfFireFlight state,bool fighting)
@@ -126,7 +137,11 @@ internal static class RingOfFireWorld
         if(removed||barrier||result.Result==2){Remove(state.Id);return;}
         if(!_flights.ContainsKey(state.Id)){return;}
         _flights=_flights.SetItem(state.Id,next with{NextUtc=state.NextUtc.AddMilliseconds(40)});
-        if(next.Motion.Frame%2==0&&state.Id%4==0){Effects.SendLocationEffect(Center(next.Motion),map,0x36D4,2,10,0x489,0);} // Identified sparse travel placeholder.
+        if(next.Motion.Frame%2==0&&Draws(next.Motion))
+        {
+            int phase=(next.Motion.Frame/2-1)%SpellEffectGraphics.WarlockFireFrames;
+            GroundSpellVisuals.Sample(map,next.Motion.X,next.Motion.Y,next.Motion.Z,SpellEffectGraphics.RingOfFireTravel+phase,2);
+        }
     }
     internal static void Tick(DateTime at,bool? actions=null,long? onlyCast=null)
     {

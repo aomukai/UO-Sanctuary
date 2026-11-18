@@ -164,6 +164,10 @@ Death Mark opens violet tears where demons depart and land, and marks the target
 
 Muted ClassicUO checks covered Death Mark's relocation and expiry, Blood Boil's two donor centers and damage radius, Engorge healing two wounded demons from one corpse, and Consume clearing the ward when the shared cap replaces its slot. Bind Demon exercised a free interruption, a paid failure, and a later successful bind on the same creature. Separate native save-and-reload checks passed for all five skills, including Bind Demon holds through the right mouse and quick-slot routes. ClassicUO decoded fifteen new Sonniss edits. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
 
+Ring of Fire opens in a low ember halo and spreads along up to sixteen of its native rays. Each sampled ray blooms where it bursts. Flame Wave reveals its width, rolls along clear lanes, and leaves low flames in actual burn cells. A small flash marks each damaging front contact. Apocalypse marks its damage radius for two seconds, then erupts from the warning center. Cinders flash on damaged enemies. [Ring of Fire sheet and prompt](../art/spell-effects/warlock-ring-of-fire) · [Flame Wave sheet and prompt](../art/spell-effects/warlock-flame-wave) · [Apocalypse sheet and prompt](../art/spell-effects/warlock-apocalypse)
+
+Muted ClassicUO checks drew all 44 new frames and decoded eight Sonniss edits. The tests covered a cancelled Ring, fractional ray positions, Flame Wave's 680 ms launch delay, one blocked lane with the other twelve still active, lingering fire expiry, and Apocalypse's two-second warning at its 6.5-tile test radius. Each cast paid mana once and spared an outside target. Native save-and-reload checks passed for all three skills. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
 Charged Bolt skitters along its existing paths, Lightning travels in a straight streak, and Chain Lightning sends violet arcs between targets. Static Field expands along the ground and Thunder Storm flashes above the caster at release and on its recurring strike schedule. The player casts were checked in ClassicUO with audio disabled. Nine Sonniss edits cover their cast and impact cues. Each cue has passed format and level checks and awaits a listening pass. [Cue recipes](../art/spell-effects/sonniss-cues.json)
 
 Ice Bolt travels as a thin shard, Ice Blast as a compact comet, and Glacial Spike as a heavier crystal with an area burst. Frost Nova expands across the ground. The shared cold overlays follow the affected target and clear with the game status. Thaw and cold corpse shatter reuse the Ice Blast fragments. The player effects were checked in ClassicUO with audio disabled. Eight Sonniss edits cover releases, impacts, and the shared cold corpse shatter. Their listening pass is queued. [Cold status sprite source](../art/spell-effects/cold-status/sheet.png) · [Cue recipes](../art/spell-effects/sonniss-cues.json)
@@ -1357,14 +1361,14 @@ Inherited NPC item absorption now changes life mechanically. Final Iron Golem ab
 | Warlock | Hex: Siphon | needed | hexsiphon, warlock_psychic_cast_2 |
 | Warlock | Mirrored Blades | needed | No source effect cue; final presentation pending |
 | Warlock | Miasma Bolt | needed | miasmabolt, warlock_shadow_cast_1, miasmabolt, cast_undead |
-| Warlock | Ring of Fire | needed | ringoffire, ringoffire, ringoffire, warlock_fire_cast_1, ringoffire |
+| Warlock | Ring of Fire | custom | Ember cast, moving ray samples, bursts, and damage flashes. |
 | Warlock | Sigil: Lethargy | needed | sigillethargysmall, sigillethargymedium, sigillethargylarge, sigil, warlock_shadow_cast_1, sigillethargysmall, sigillethargymedium, sigillethargylarge |
 | Warlock | Sigil: Rancor | needed | sigilrancorsmall, sigilrancormedium, sigilrancorlarge, sigil, warlock_fire_cast_1, sigilrancorsmall, sigilrancormedium, sigilrancorlarge |
 | Warlock | Miasma Chain | needed | miasmachainsmaker, warlock_shadow_cast_1 |
-| Warlock | Flame Wave | needed | flamewaveunveiling, warlock_fire_cast_1, flamewaveunveiling, warlock_fire_cast_1 |
+| Warlock | Flame Wave | custom | Lateral reveal, moving front, terrain stops, and lingering fire. |
 | Warlock | Sigil: Death | needed | sigildeathsmall, sigildeathmedium, sigildeathlarge, sigil, warlock_shadow_cast_1, sigildeathsmall, sigildeathmedium, sigildeathlarge |
 | Warlock | Enhanced Entropy | not-applicable | shadow_mastery |
-| Warlock | Apocalypse | needed | apocalypse, apocalypse, warlock_fire_cast_1, apocalypse |
+| Warlock | Apocalypse | custom | Radius warning, delayed eruption, and damage cinders. |
 | Warlock | Abyss | needed | abysscenter, warlock_shadow_cast_1, abysscenter, fire_cast_2 |
 <!-- END GENERATED: skill-effects -->
 

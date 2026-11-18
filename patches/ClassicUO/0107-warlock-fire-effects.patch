@@ -1,0 +1,74 @@
+diff --git a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -209,6 +209,7 @@
+                         _ when SpellEffectGraphics.IsShadowSummonAnimation(Graphic) => SpellEffectGraphics.AssassinShadowFrames,
+                         _ when SpellEffectGraphics.IsWarlockDemonAnimation(Graphic) => SpellEffectGraphics.WarlockDemonFrames,
+                         _ when SpellEffectGraphics.IsWarlockRitualAnimation(Graphic) => SpellEffectGraphics.WarlockRitualFrames,
++                        _ when SpellEffectGraphics.IsWarlockFireAnimation(Graphic) => SpellEffectGraphics.WarlockFireFrames,
+                         _ when SpellEffectGraphics.IsAssassinLobAnimation(Graphic) => SpellEffectGraphics.AssassinLobFrames,
+                         SpellEffectGraphics.DeathSentryBurst => SpellEffectGraphics.SentryFrames,
+                         _ when SpellEffectGraphics.IsSentryFlash(Graphic) => SpellEffectGraphics.SentryFrames,
+@@ -237,6 +238,7 @@
+                             && !SpellEffectGraphics.IsShadowSummonVeil(Graphic)
+                             && !SpellEffectGraphics.IsWarlockDemonLoop(Graphic)
+                             && !SpellEffectGraphics.IsWarlockRitualLoop(Graphic)
++                            && !SpellEffectGraphics.IsWarlockFireLoop(Graphic)
+                             && Graphic is not (SpellEffectGraphics.WhirlwindSpin or SpellEffectGraphics.FrenzySpeed or SpellEffectGraphics.BladeShieldRing
+                                 or SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow
+                                 or SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.PoisonAfflicted
+@@ -374,6 +376,10 @@
+                             _ when SpellEffectGraphics.IsWarlockRitualLoop(Graphic) => 128,
+                             SpellEffectGraphics.BloodBoilHit or SpellEffectGraphics.BloodBoilSource => 64,
+                             _ when SpellEffectGraphics.IsWarlockRitualAnimation(Graphic) => 88,
++                            SpellEffectGraphics.ApocalypseWarning => 200,
++                            SpellEffectGraphics.ApocalypseEruption => 114,
++                            SpellEffectGraphics.FlameWaveField => 90,
++                            _ when SpellEffectGraphics.IsWarlockFireAnimation(Graphic) => 72,
+                             SpellEffectGraphics.ShockWebField => 95,
+                             _ when SpellEffectGraphics.IsAssassinLobAnimation(Graphic) => 66,
+                             _ when SpellEffectGraphics.IsSentryFlash(Graphic) => 60,
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -272,7 +272,8 @@
+ 
+             if (HolyAuraRadius > 0)
+             {
+-                float progress = (AnimationGraphic - Graphic + 1) / (float)SpellEffectGraphics.HolyAuraFrames;
++                float progress = Graphic == SpellEffectGraphics.ApocalypseWarning
++                    ? 1f : (AnimationGraphic - Graphic + 1) / (float)SpellEffectGraphics.HolyAuraFrames;
+                 // ClassicUO maps a world tile to a (22, ±22) screen vector.
+                 float diameter = 44 * MathF.Sqrt(2f) * HolyAuraRadius * progress;
+                 DrawGroundRing(batcher, posX + 22, posY + 12, hueVec, depth,
+diff --git a/src/ClassicUO.Client/Game/Managers/EffectManager.cs b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+--- a/src/ClassicUO.Client/Game/Managers/EffectManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+@@ -145,7 +145,8 @@
+                         or SpellEffectGraphics.CombatStun or SpellEffectGraphics.RabiesCarrier);
+             bool renewField = type == GraphicEffectType.FixedXYZ
+                 && (SpellEffectGraphics.IsFireField(graphic) || SpellEffectGraphics.IsJavelinCloud(graphic)
+-                    || graphic is SpellEffectGraphics.BoneBarrierConnector or SpellEffectGraphics.ShockWebField);
++                    || graphic is SpellEffectGraphics.BoneBarrierConnector or SpellEffectGraphics.ShockWebField
++                        or SpellEffectGraphics.FlameWaveField or SpellEffectGraphics.ApocalypseWarning);
+             if (renewStatus || renewField)
+             {
+                 // Keep the animation phase across renewals from the same actor or ground tile.
+@@ -154,12 +155,15 @@
+                     if (live.Graphic == graphic && !live.IsDestroyed
+                         && (renewStatus ? live.Source is Entity entity && entity.Serial == source
+                             : live.Source == null && live.X == srcX && live.Y == srcY && live.Z == srcZ
+-                                && (graphic != SpellEffectGraphics.ShockWebField || live.Offset == groundOffset)))
++                                && (graphic is not (SpellEffectGraphics.ShockWebField or SpellEffectGraphics.FlameWaveField)
++                                    || live.Offset == groundOffset)
++                                && (graphic != SpellEffectGraphics.ApocalypseWarning || live.HolyAuraRadius == holyAuraRadius)))
+                     {
+                         if (duration > 0)
+                         {
+                             long until = Time.Ticks + duration;
+-                            live.Duration = graphic == SpellEffectGraphics.ShockWebField ? Math.Max(live.Duration, until) : until;
++                            live.Duration = graphic is SpellEffectGraphics.ShockWebField or SpellEffectGraphics.FlameWaveField
++                                ? Math.Max(live.Duration, until) : until;
+                         }
+                         else
+                         {

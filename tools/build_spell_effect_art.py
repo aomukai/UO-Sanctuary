@@ -1093,6 +1093,39 @@ def warlock_engorge():
     ))
 
 
+def warlock_fire():
+    ring = "warlock-ring-of-fire"
+    wave = "warlock-flame-wave"
+    apocalypse = "warlock-apocalypse"
+    ring_cast, ring_travel, ring_contact = load_grid(ring, (1254, 1254), rows=3)
+    wave_cast, wave_front, wave_field = load_grid(wave, (1254, 1254), rows=3)
+    warning, eruption, apocalypse_contact = load_grid(apocalypse, (1254, 1254), rows=3)
+    for name, graphic, row, scale, pivots, canvas, padding, threshold in (
+        (ring, 61500, ring_cast, .23, ((179, 336), (164, 336), (142, 336), (125, 336)), (88, 80), 21, 136),
+        (ring, 61504, ring_travel, .105, ((175, 267), (167, 271), (153, 273), (125, 274)), (50, 59), 22, 144),
+        (ring, 61508, ring_contact, .145, ((171, 174), (153, 158), (139, 151), (134, 151)), (60, 87), 38, 136),
+        (ring, 61512, ring_travel, .174, ((175, 267), (167, 271), (153, 273), (125, 274)), (72, 70), 22, 155),
+        (wave, 61516, wave_cast, .219, ((158, 335), (155, 335), (149, 335), (147, 335)), (84, 89), 23, 145),
+        (wave, 61520, wave_front, .174, ((155, 285), (153, 286), (150, 289), (148, 292)), (65, 74), 22, 145),
+        (wave, 61524, wave_field, .120, ((157, 278), (158, 279), (153, 279), (152, 278)), (49, 60), 20, 148),
+        (apocalypse, 61536, eruption, .34, ((167, 349), (158, 354), (155, 356), (153, 358)), (126, 160), 26, 147),
+        (apocalypse, 61540, apocalypse_contact, .18, ((162, 252), (151, 253), (145, 245), (157, 243)), (64, 83), 33, 132),
+    ):
+        write_group(name, graphic, (
+            frame(cell, scale, pivot, canvas, padding, threshold)
+            for cell, pivot in zip(row, pivots)
+        ))
+    write_group(wave, 61528, (
+        frame(ImageEnhance.Brightness(cell).enhance(light), scale, (151, 279), (56, 65), 21, cutoff)
+        for cell, scale, light, cutoff in zip(wave_field, (.19, .16, .14, .105),
+                                             (1.05, .91, .79, .70), (146, 142, 140, 126))
+    ))
+    write_group(apocalypse, 61532, (
+        holy_ring(cell, (240, 132), (240, 132), 70, cutoff, light)
+        for cell, cutoff, light in zip(warning, (138, 142, 143, 139), (.91, 1.0, 1.12, 1.03))
+    ))
+
+
 def necromancer_curses():
     cells = [cell for row in load_grid("necromancer-curses", (1448, 1086), rows=3) for cell in row]
     for cell in cells[:10]:
@@ -1937,3 +1970,4 @@ if __name__ == "__main__":
     warlock_demon_summons()
     warlock_rituals()
     warlock_engorge()
+    warlock_fire()

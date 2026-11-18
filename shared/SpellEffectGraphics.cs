@@ -228,6 +228,23 @@ public static class SpellEffectGraphics
     public static bool IsWarlockRitualTorso(ushort graphic) => graphic is ConsumeCast or EngorgeCast or EngorgeHeal
         or DeathMarkCast or DeathMarkGlyph or BloodBoilCast or BindDemonChannel;
 
+    public const int WarlockFireFrames = 4;
+    public const ushort RingOfFireCast = 61500;
+    public const ushort RingOfFireTravel = 61504;
+    public const ushort RingOfFireContact = 61508;
+    public const ushort RingOfFireBurst = 61512;
+    public const ushort FlameWaveCast = 61516;
+    public const ushort FlameWaveFront = 61520;
+    public const ushort FlameWaveField = 61524;
+    public const ushort FlameWaveFade = 61528;
+    public const ushort ApocalypseWarning = 61532;
+    public const ushort ApocalypseEruption = 61536;
+    public const ushort ApocalypseContact = 61540;
+    public static bool IsWarlockFireAnimation(ushort graphic) => graphic is RingOfFireCast or RingOfFireContact
+        or RingOfFireBurst or FlameWaveCast or FlameWaveField or FlameWaveFade or ApocalypseWarning
+        or ApocalypseEruption or ApocalypseContact;
+    public static bool IsWarlockFireLoop(ushort graphic) => graphic is FlameWaveField or ApocalypseWarning;
+
     public const int AssassinLobFrames = 4;
     public const int FireBlastRadiusSubtiles = 5;
     public const ushort FireBlastThrow = 62764;
@@ -576,7 +593,7 @@ public static class SpellEffectGraphics
     public static bool IsRadiusPulse(ushort graphic) =>
         graphic is HolyFirePulse or HolyFreezePulse or HolyShockPulse or SanctuaryPulse or GrimWardPulse
             or LeapLanding or LeapAttackLanding or MartialFireRing or MartialThunderRing or MartialIceRing
-            or DragonTailBurst or CloakWave or MindBlastWave or DeathSentryBurst or BloodBoilRing;
+            or DragonTailBurst or CloakWave or MindBlastWave or DeathSentryBurst or BloodBoilRing or ApocalypseWarning;
 
     public static bool IsPaladinAuraLoop(ushort graphic) => graphic is HolyFireAura or HolyFreezeAura or HolyShockAura or HolyFreezeSlow
         || IsPaladinResistanceWard(graphic) || IsPaladinRecoveryLoop(graphic) || IsPaladinOffenseLoop(graphic)
@@ -757,6 +774,8 @@ public static class SpellEffectGraphics
             or >= SentryLightningFlight and < SentryLightningFlight + 8 * SentryFrames
             or >= ConsumeTravel and < ConsumeWard or >= EngorgeTravel and < EngorgeHeal
             or >= BindDemonTravel and < BindDemonSeal
+            or >= RingOfFireTravel and < RingOfFireTravel + WarlockFireFrames
+            or >= FlameWaveFront and <= FlameWaveField or FlameWaveFade
             || IsBarbarianThrowFlight(graphic);
 
     public static bool IsHydraHeadFrame(ushort graphic) => graphic is >= HydraHeadRight and <= HydraHeadGone;
