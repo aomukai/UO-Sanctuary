@@ -812,6 +812,59 @@ def assassin_blade_skills():
     ))
 
 
+def assassin_shadow_skills():
+    tempo, venom, cloak, psychic = ("assassin-" + family for family in
+                                   ("speed-fade", "venom", "cloak-shadows", "psychic-force"))
+    haste, haste_loop, fade, fade_loop = load_grid(tempo, (1536, 1024))
+    coat, coat_loop, _, coat_end = load_grid(venom, (1536, 1024))
+    cloak_wave, mantle, mask, cloak_end = load_grid(cloak, (1536, 1024))
+    hammer, hammer_hit, mind_wave, mind_hit = load_grid(psychic, (1536, 1024))
+    for cell in haste_loop:
+        cell.paste((0, 0, 0, 0), (0, 0, cell.width, 112))
+    for cell in hammer_hit:
+        cell.paste((0, 0, 0, 0), (0, 0, cell.width, 30))
+
+    for name, graphic, cells, scale, pivot, padding, cutoffs in (
+        (tempo, 62688, haste, .172, (193, 239), 24, (197, 203, 196, 167)),
+        (tempo, 62692, haste_loop, .167, (190, 172), 25, (186,) * 4),
+        (tempo, 62700, fade, .181, (188, 142), 49, (192, 195, 183, 160)),
+        (tempo, 62704, fade_loop, .169, (191, 134), 43, (181,) * 4),
+        (venom, 62712, coat, .185, (192, 142), 46, (206, 210, 210, 191)),
+        (venom, 62716, coat_loop, .104, (267, 136), 39, (201,) * 4),
+        (venom, 62720, coat_end, .153, (191, 147), 43, (202, 202, 183, 146)),
+        (cloak, 62728, mantle, .199, (189, 151), 49, (193,) * 4),
+        (cloak, 62732, mask, .166, (195, 127), 71, (194,) * 4),
+        (cloak, 62736, [ImageEnhance.Color(cell).enhance(.35) for cell in mask],
+         .133, (195, 127), 67, (202,) * 4),
+        (cloak, 62740, cloak_end, .169, (190, 132), 46, (191, 192, 175, 124)),
+        (psychic, 62744, hammer, .151, (188, 167), 47, (205, 209, 205, 172)),
+        (psychic, 62748, hammer_hit, .206, (189, 222), 29, (206, 205, 206, 183)),
+        (psychic, 62756, mind_hit, .192, (191, 131), 37, (204, 206, 199, 159)),
+        (psychic, 62760, mind_hit, .113, (191, 131), 48, (204, 203, 176, 72)),
+    ):
+        write_group(name, graphic, (
+            frame(cell, scale, pivot, (91, 93), padding, cutoff) for cell, cutoff in zip(cells, cutoffs)
+        ))
+
+    for graphic, cells, pivot, padding in (
+        (62696, haste_loop, (189, 170), 26),
+        (62708, fade_loop, (192, 130), 43),
+    ):
+        write_group(tempo, graphic, (
+            frame(ImageEnhance.Brightness(cell).enhance(light), scale, pivot, (91, 93), padding, alpha)
+            for cell, light, scale, alpha in zip(cells, (.91, .82, .65, .51), (.167, .148, .128, .103), (179, 185, 187, 145))
+        ))
+
+    for name, graphic, cells, cutoffs, brightnesses in (
+        (cloak, 62724, cloak_wave, (182, 202, 207, 197), (1.08, 1.04, .88, .79)),
+        (psychic, 62752, mind_wave, (183, 200, 202, 193), (1.01, 1.08, .92, .79)),
+    ):
+        write_group(name, graphic, (
+            holy_ring(cell, (236, 126), (240, 132), 66, cutoff, brightness)
+            for cell, cutoff, brightness in zip(cells, cutoffs, brightnesses)
+        ))
+
+
 def necromancer_curses():
     cells = [cell for row in load_grid("necromancer-curses", (1448, 1086), rows=3) for cell in row]
     for cell in cells[:10]:
@@ -1649,3 +1702,4 @@ if __name__ == "__main__":
     assassin_martial_arts()
     assassin_dragon_finishers()
     assassin_blade_skills()
+    assassin_shadow_skills()

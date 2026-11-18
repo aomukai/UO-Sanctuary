@@ -58,6 +58,7 @@ public static class PsychicHammers
         if(!AssassinCombat.Available(owner,CombatAbility.PsychicHammer) || !Valid(owner,selected)){return false;}
         var target=(BaseCreature)World.FindMobile(selected);var values=SkillMechanics.Values(owner,CombatAbility.PsychicHammer);
         if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
+        var point=target.Location;var map=target.Map;
         var raw=Damage(values,NamedElements.MasteryPercent(owner,"mag"),Roll);
         owner.DoHarmful(target,true);var parts=SkillCombat.MitigatePrepared(owner,target,Potion(owner,raw));
         int loss=SkillHealth.TypedDamage(owner,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));
@@ -69,9 +70,7 @@ public static class PsychicHammers
             if(!SourceKnockbacks.Begin(owner,target) && SourceKnockbacks.Rule(target) is{Knockback:false,GetHit:true})
             {CreatureHitRecovery.Apply(target,owner,loss);}
         }
-        owner.PlaySound(0x1F1);
-        target.FixedEffect(0x3709, 10, 15, 0x482, 0);
-        target.PlaySound(0x213); // Identified Psychic Hammer cast/impact/audio placeholders.
+        AssassinShadowVisuals.Hammer(owner,point,map);
         return true;
     }
 }

@@ -46,22 +46,31 @@ public static class Venoms
         // Group0 does not clear the old state. The shared factory rejects a
         // lower rank; null-start do18 pays only after successful dispatch.
         if(!Replaces(State(owner),values.Rank)){return false;}
-        var next=Capture(owner.Serial.Value,values,NamedElements.MasteryPercent(owner,"pois"),TimedEffects.Now);
+        var at=TimedEffects.Now;var next=Capture(owner.Serial.Value,values,NamedElements.MasteryPercent(owner,"pois"),at);
         if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
         _states[owner.Serial.Value]=next;
-        owner.FixedEffect(0x374A, 10, 15, 0x3F, 0);
-        owner.PlaySound(0x205);
+        AssassinShadowVisuals.Cast(owner,CombatAbility.Venom,next.UntilUtc,at);
 
         return true;
     }
-    public static void Clear(Mobile owner){if(owner!=null){_states.Remove(owner.Serial.Value);}}
+    public static void Clear(Mobile owner)
+    {
+        if(owner!=null&&_states.Remove(owner.Serial.Value))
+        {AssassinShadowVisuals.End(owner.Serial.Value,owner,CombatAbility.Venom,false);}
+    }
     internal static void Prune()
     {
+        var now=TimedEffects.Now;
         foreach(var row in _states.ToArray())
         {
             var owner=World.FindMobile((Serial)row.Key);
-            if(row.Value.UntilUtc<=TimedEffects.Now || owner is not{Alive:true,Deleted:false}
-                || !ClassCreation.Profiles.TryGet((Serial)row.Key,out var profile) || profile.Class!=DiabloClass.Assassin){_states.Remove(row.Key);}
+            if(row.Value.UntilUtc<=now || owner is not{Alive:true,Deleted:false}
+                || !ClassCreation.Profiles.TryGet((Serial)row.Key,out var profile) || profile.Class!=DiabloClass.Assassin)
+            {
+                _states.Remove(row.Key);
+                AssassinShadowVisuals.End(row.Key,owner,CombatAbility.Venom,row.Value.UntilUtc<=now);
+            }
+            else{AssassinShadowVisuals.Refresh(owner,CombatAbility.Venom,row.Value.UntilUtc,now);}
         }
     }
     public static VenomState[] Snapshot(){Prune();return _states.Values.OrderBy(x=>x.Owner).ToArray();}

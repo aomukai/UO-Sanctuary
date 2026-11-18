@@ -50,23 +50,30 @@ public static class AssassinBuffs
         // Source do18 clears state group2, including the same state, before
         // applying the new rank. Quickness and Fade share this slot;
         // Venom is independent and has no entry in this group.
-        _states[owner.Serial.Value]=Capture(owner.Serial.Value,values,TimedEffects.Now);Refresh(owner);
-        bool fade = values.Ability == CombatAbility.Fade;
-        owner.FixedEffect(fade ? 0x373A : 0x376A, 10, 15, fade ? 0x835 : 0x59, 0);
-        owner.PlaySound(fade ? 0x1E9 : 0x1EB);
+        var at=TimedEffects.Now;var next=Capture(owner.Serial.Value,values,at);
+        _states[owner.Serial.Value]=next;Refresh(owner);
+        AssassinShadowVisuals.Cast(owner,next.Ability,next.UntilUtc,at);
     }
     public static void Clear(Mobile owner)
-    {if(owner!=null && _states.Remove(owner.Serial.Value)){Refresh(owner);}}
+    {
+        if(owner!=null && _states.Remove(owner.Serial.Value,out var state))
+        {Refresh(owner);AssassinShadowVisuals.End(state.Owner,owner,state.Ability,false);}
+    }
     private static void Refresh(Mobile owner)
     {if(owner is PlayerMobile player && !player.Deleted){ClassGear.Refresh(player);StatNetwork.Send(player);}}
     internal static void Prune()
     {
+        var now=TimedEffects.Now;
         foreach(var pair in _states.ToArray())
         {
             var owner=World.FindMobile((Serial)pair.Key);
-            if(pair.Value.UntilUtc<=TimedEffects.Now || owner is not{Alive:true,Deleted:false}
+            if(pair.Value.UntilUtc<=now || owner is not{Alive:true,Deleted:false}
                 || !ClassCreation.Profiles.TryGet((Serial)pair.Key,out var profile) || profile.Class!=DiabloClass.Assassin)
-            {_states.Remove(pair.Key);Refresh(owner);}
+            {
+                _states.Remove(pair.Key);Refresh(owner);
+                AssassinShadowVisuals.End(pair.Key,owner,pair.Value.Ability,pair.Value.UntilUtc<=now);
+            }
+            else{AssassinShadowVisuals.Refresh(owner,pair.Value.Ability,pair.Value.UntilUtc,now);}
         }
     }
     public static AssassinBuffState[] Snapshot(){Prune();return _states.Values.OrderBy(x=>x.Owner).ToArray();}

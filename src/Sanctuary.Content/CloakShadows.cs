@@ -105,19 +105,20 @@ public static class CloakShadows
             if(TimedEffects.TryActor(target,out var actor) && actor.Control is{} control){actor.Control=control with{BlindUntil=default,FearUntil=default};}
             target.AIObject?.ResetApproachState();target.AIObject?.ClearMoveIntent();target.AIObject?.AITimer.Prod();
         }
-        caster.DoHarmful(target,true);target.FixedEffect(0x375A,10,15,0x455,0); // Identified cloaked overlay placeholder.
+        caster.DoHarmful(target,true);
         return true;
     }
     public static bool Release(PlayerMobile owner)
     {
         if(!owner.Alive || !AssassinCombat.Available(owner,CombatAbility.CloakOfShadows) || !Valid(owner) || !RecastAllowed(owner)){return false;}
         var values=SkillMechanics.Values(owner,CombatAbility.CloakOfShadows);if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
-        var at=TimedEffects.Now;_owners[owner.Serial.Value]=Capture(owner.Serial.Value,values,at);StatNetwork.Send(owner);
+        var at=TimedEffects.Now;var cloak=Capture(owner.Serial.Value,values,at);
+        _owners[owner.Serial.Value]=cloak;StatNetwork.Send(owner);
         int radius=(int)values.Eval("aurarangecalc");var targets=new List<BaseCreature>();
         foreach(var target in owner.Map.GetMobilesInRange<BaseCreature>(owner.Location,(int)Math.Ceiling(SkillGeometry.Tiles(radius)))){if(Target(owner,target,radius)){targets.Add(target);}}
         targets.Sort((a,b)=>a.Serial.CompareTo(b.Serial));foreach(var target in targets){Apply(owner,target,values,at);}
-        owner.FixedEffect(0x373A, 10, 15, 0x455, 0);
-        owner.PlaySound(0x1E9);
+        AssassinShadowVisuals.Cast(owner,CombatAbility.CloakOfShadows,cloak.UntilUtc,at);
+        AssassinShadowVisuals.Cloak(owner,radius);
         return true;
     }
     internal static void Changed(Mobile actor,NecromancerCurse before,NecromancerCurse after)
@@ -128,13 +129,27 @@ public static class CloakShadows
     }
     internal static void AfterLoad(IEnumerable<KeyValuePair<Serial,NecromancerState>> states)
     {_targets.Clear();foreach(var p in states){if(p.Value.Curse?.Ability==CombatAbility.CloakOfShadows){_targets.Add(p.Key.Value);}}}
-    public static void Clear(Mobile owner){if(owner!=null && _owners.Remove(owner.Serial.Value) && owner is PlayerMobile p && !p.Deleted){StatNetwork.Send(p);}}
+    public static void Clear(Mobile owner)
+    {
+        if(owner!=null&&_owners.Remove(owner.Serial.Value))
+        {
+            AssassinShadowVisuals.End(owner.Serial.Value,owner,CombatAbility.CloakOfShadows,false);
+            if(owner is PlayerMobile p && !p.Deleted){StatNetwork.Send(p);}
+        }
+    }
     internal static void Prune()
     {
+        var now=TimedEffects.Now;
         foreach(var row in _owners.ToArray())
         {
-            var actor=World.FindMobile((Serial)row.Key);if(row.Value.UntilUtc<=TimedEffects.Now || actor is not{Alive:true,Deleted:false}
-                || !ClassCreation.Profiles.TryGet((Serial)row.Key,out var profile) || profile.Class!=DiabloClass.Assassin){_owners.Remove(row.Key);if(actor is PlayerMobile p && !p.Deleted){StatNetwork.Send(p);}}
+            var actor=World.FindMobile((Serial)row.Key);
+            if(row.Value.UntilUtc<=now || actor is not{Alive:true,Deleted:false}
+                || !ClassCreation.Profiles.TryGet((Serial)row.Key,out var profile) || profile.Class!=DiabloClass.Assassin)
+            {
+                _owners.Remove(row.Key);if(actor is PlayerMobile p && !p.Deleted){StatNetwork.Send(p);}
+                AssassinShadowVisuals.End(row.Key,actor,CombatAbility.CloakOfShadows,row.Value.UntilUtc<=now);
+            }
+            else{AssassinShadowVisuals.Refresh(actor,CombatAbility.CloakOfShadows,row.Value.UntilUtc,now);}
         }
         foreach(uint id in _targets.ToArray())
         {

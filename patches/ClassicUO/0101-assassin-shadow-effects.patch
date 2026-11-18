@@ -1,0 +1,67 @@
+--- a/src/ClassicUO.Client/Game/Managers/EffectManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+@@ -124,6 +124,7 @@
+                     || SpellEffectGraphics.IsMartialOrb(graphic)
+                     || SpellEffectGraphics.IsDruidSpiritAura(graphic)
+                     || SpellEffectGraphics.IsPaladinAuraLoop(graphic)
++                    || SpellEffectGraphics.IsAssassinShadowLoop(graphic)
+                     || SpellEffectGraphics.IsBarbarianCryWard(graphic)
+                     || SpellEffectGraphics.IsBarbarianStrikeStatus(graphic)
+                     || graphic is SpellEffectGraphics.WhirlwindSpin or SpellEffectGraphics.FrenzySpeed or SpellEffectGraphics.BladeShieldRing
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -205,6 +205,7 @@
+                         _ when SpellEffectGraphics.IsMartialAnimation(Graphic) => SpellEffectGraphics.MartialFrames,
+                         _ when SpellEffectGraphics.IsDragonAnimation(Graphic) => SpellEffectGraphics.DragonFrames,
+                         _ when SpellEffectGraphics.IsAssassinBladeAnimation(Graphic) => SpellEffectGraphics.AssassinBladeFrames,
++                        _ when SpellEffectGraphics.IsAssassinShadowAnimation(Graphic) => SpellEffectGraphics.AssassinShadowFrames,
+                         SpellEffectGraphics.MartialFistsField or SpellEffectGraphics.MartialPhoenixField => SpellEffectGraphics.FireFrames,
+                         _ when SpellEffectGraphics.IsEnchantAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ when SpellEffectGraphics.IsWardAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+@@ -225,6 +226,7 @@
+                             && !SpellEffectGraphics.IsBarbarianCryWard(Graphic)
+                             && !SpellEffectGraphics.IsGrimWardBody(Graphic)
+                             && !SpellEffectGraphics.IsBarbarianStrikeStatus(Graphic)
++                            && !SpellEffectGraphics.IsAssassinShadowLoop(Graphic)
+                             && Graphic is not (SpellEffectGraphics.WhirlwindSpin or SpellEffectGraphics.FrenzySpeed or SpellEffectGraphics.BladeShieldRing
+                                 or SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow
+                                 or SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.PoisonAfflicted
+@@ -350,6 +352,8 @@
+                             SpellEffectGraphics.BladeShieldRing => 96,
+                             SpellEffectGraphics.BladeFuryRelease => 46,
+                             _ when SpellEffectGraphics.IsAssassinBladeAnimation(Graphic) => 67,
++                            _ when SpellEffectGraphics.IsAssassinShadowLoop(Graphic) => 105,
++                            _ when SpellEffectGraphics.IsAssassinShadowAnimation(Graphic) => 68,
+                             _ when SpellEffectGraphics.IsDruidCharge(Graphic) => 115,
+                             _ when SpellEffectGraphics.IsDruidFormEffect(Graphic) => 105,
+                             SpellEffectGraphics.ClayGolemContact or SpellEffectGraphics.IronGolemSpark => 65,
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -127,7 +127,9 @@
+                 || Graphic is SpellEffectGraphics.LeapAttackSwing or SpellEffectGraphics.WhirlwindSpin;
+             bool martialSwing = SpellEffectGraphics.IsMartialSwing(Graphic) || SpellEffectGraphics.IsDragonSweep(Graphic);
+             bool bladeAttached = SpellEffectGraphics.IsAssassinBladeAttached(Graphic);
+-            if (bladeAttached && Source is Mobile bladeCaster && (bladeCaster.IsDead || bladeCaster.IsHidden))
++            bool shadowTorso = SpellEffectGraphics.IsAssassinShadowTorso(Graphic);
++            if ((bladeAttached || SpellEffectGraphics.IsAssassinShadowAnimation(Graphic))
++                && Source is Mobile effectOwner && (effectOwner.IsDead || effectOwner.IsHidden))
+             {
+                 return false;
+             }
+@@ -140,6 +142,7 @@
+                     || barbarianTorsoEffect
+                     || martialSwing
+                     || bladeAttached
++                    || shadowTorso
+                     || Graphic is SpellEffectGraphics.FindPotionCast or SpellEffectGraphics.FindItemCast
+                     || Graphic is SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.BoneArmorBreak
+                         or SpellEffectGraphics.BoneArmorCatch
+@@ -160,7 +163,7 @@
+                         or Sanctuary.SpellEffectGraphics.TelekinesisCast or Sanctuary.SpellEffectGraphics.TelekinesisContact))
+             {
+                 // These close-in melee effects are centered on the airborne torso.
+-                posY -= barbarianTorsoEffect || martialSwing || bladeAttached ? 12 : 44;
++                posY -= barbarianTorsoEffect || martialSwing || bladeAttached || shadowTorso ? 12 : 44;
+             }
+ 
+             if (Graphic == SpellEffectGraphics.DruidHungerMana)

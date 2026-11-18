@@ -60,8 +60,10 @@ internal static class NecromancerCurseVisuals
             actor.FixedEffect(lease.Graphic, 10, 0);
             if (graphic == 0)
             {
-                actor.FixedEffect(SpellEffectGraphics.CurseFade, 10, SpellEffectGraphics.CurseBurstDuration);
-                SpellAreaSounds.Pulse(lease.Source, SpellEffectSounds.CurseFade, actor.Location, actor.Map, now, 300);
+                bool cloak = lease.Graphic is SpellEffectGraphics.CloakBlind or SpellEffectGraphics.CloakExposure;
+                actor.FixedEffect(cloak ? SpellEffectGraphics.CloakEnd : SpellEffectGraphics.CurseFade, 10, SpellEffectGraphics.CurseBurstDuration);
+                SpellAreaSounds.Pulse(lease.Source, cloak ? SpellEffectSounds.CloakEnd : SpellEffectSounds.CurseFade,
+                    actor.Location, actor.Map, now, 300);
             }
         }
 
@@ -99,6 +101,7 @@ internal static class NecromancerCurseVisuals
         CombatAbility.Taunt => SpellEffectGraphics.TauntMark,
         CombatAbility.BattleCry => SpellEffectGraphics.BattleCryMark,
         CombatAbility.GrimWard => SpellEffectGraphics.GrimWardMark,
+        CombatAbility.CloakOfShadows => curse.CloakBlind ? SpellEffectGraphics.CloakBlind : SpellEffectGraphics.CloakExposure,
         _ => 0
     };
 }

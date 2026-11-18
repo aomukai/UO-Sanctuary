@@ -490,6 +490,18 @@
     "BladeFuryFade": {"source": "cloth-whooshes", "start": 1.439, "duration": 0.128, "fadeIn": 0.013, "fadeOut": 0.055, "highpass": 920, "peakDb": -29},
     "BladeShieldRaise": {"source": "metal-hit", "start": 0.02, "duration": 0.418, "fadeIn": 0.027, "fadeOut": 0.189, "highpass": 1158, "peakDb": -19},
     "BladeShieldHit": {"source": "metal-hit", "start": 0.041, "duration": 0.168, "fadeIn": 0.004, "fadeOut": 0.063, "highpass": 1382, "peakDb": -24},
-    "BladeShieldFade": {"source": "cloth-whooshes", "start": 7.355, "duration": 0.221, "fadeIn": 0.045, "fadeOut": 0.119, "highpass": 761, "peakDb": -25}
+    "BladeShieldFade": {"source": "cloth-whooshes", "start": 7.355, "duration": 0.221, "fadeIn": 0.045, "fadeOut": 0.119, "highpass": 761, "peakDb": -25},
+    "BurstSpeedCast": {"source": "spear-swoosh", "start": 0.083, "duration": 0.27, "fadeIn": 0.025, "fadeOut": 0.098, "highpass": 431, "peakDb": -19},
+    "BurstSpeedEnd": {"source": "cloth-whooshes", "start": 1.48, "duration": 0.23, "fadeIn": 0.029, "fadeOut": 0.112, "highpass": 652, "peakDb": -26},
+    "FadeCast": {"source": "ghost-whisper", "start": 0.16, "duration": 0.54, "fadeIn": 0.04, "fadeOut": 0.19, "highpass": 564, "peakDb": -20},
+    "FadeEnd": {"source": "ghost-whisper", "start": 0.48, "duration": 0.28, "fadeIn": 0.048, "fadeOut": 0.126, "highpass": 730, "peakDb": -26},
+    "VenomCast": {"source": "acid-soak", "start": 0.085, "duration": 0.46, "fadeIn": 0.029, "fadeOut": 0.145, "highpass": 525, "peakDb": -20},
+    "VenomEnd": {"source": "liquid-pour", "start": 0.29, "duration": 0.22, "fadeIn": 0.029, "fadeOut": 0.11, "highpass": 722, "peakDb": -26},
+    "CloakWave": {"source": "ghost-whisper", "start": 0.091, "duration": 0.64, "fadeIn": 0.046, "fadeOut": 0.179, "highpass": 282, "peakDb": -19},
+    "CloakEnd": {"source": "arcane-doppler", "start": 0.405, "duration": 0.29, "fadeIn": 0.034, "fadeOut": 0.113, "highpass": 672, "peakDb": -25},
+    "PsychicHammerCast": {"source": "electric-cast", "start": 0.104, "duration": 0.243, "fadeIn": 0.016, "fadeOut": 0.085, "highpass": 507, "peakDb": -21},
+    "PsychicHammerHit": {"source": "close-thunder", "start": 1.885, "duration": 0.194, "fadeIn": 0.006, "fadeOut": 0.071, "highpass": 472, "peakDb": -18},
+    "MindBlastCast": {"source": "arcane-doppler", "start": 0.224, "duration": 0.48, "fadeIn": 0.035, "fadeOut": 0.160, "highpass": 357, "peakDb": -17},
+    "MindBlastHit": {"source": "electric-crackle", "start": 0.412, "duration": 0.20, "fadeIn": 0.006, "fadeOut": 0.062, "highpass": 714, "peakDb": -23}
   }
 }

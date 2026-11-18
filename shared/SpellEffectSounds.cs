@@ -354,6 +354,18 @@ public static class SpellEffectSounds
     public const int BladeShieldRaise = 60348;
     public const int BladeShieldHit = 60349;
     public const int BladeShieldFade = 60350;
+    public const int BurstSpeedCast = 60351;
+    public const int BurstSpeedEnd = 60352;
+    public const int FadeCast = 60353;
+    public const int FadeEnd = 60354;
+    public const int VenomCast = 60355;
+    public const int VenomEnd = 60356;
+    public const int CloakWave = 60357;
+    public const int CloakEnd = 60358;
+    public const int PsychicHammerCast = 60359;
+    public const int PsychicHammerHit = 60360;
+    public const int MindBlastCast = 60361;
+    public const int MindBlastHit = 60362;
 
     public static int Fallback(int sound) => sound switch
     {
@@ -376,6 +388,11 @@ public static class SpellEffectSounds
         HydraSummon => 0x1E5,
         BladeSentinelRise or BladeFuryRelease => 0x23B,
         BladeShieldRaise => 0x1E5,
+        BurstSpeedCast => 0x1EB,
+        FadeCast or CloakWave => 0x1E9,
+        VenomCast => 0x205,
+        PsychicHammerCast => 0x1F1,
+        MindBlastCast or PsychicHammerHit => 0x213,
         BlizzardRelease or FrozenOrbRelease or MeteorRelease or TeethRelease or BoneSpiritRelease or AbyssOpen => 0x1E5,
         AmazonBowRelease or AmazonCrossbowRelease or JavelinThrow => 0x238,
         SpearThrust or HeavySpearThrust => 0x238,

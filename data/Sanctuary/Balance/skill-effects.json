@@ -4945,10 +4945,19 @@
     },
     "generation": "uo",
     "clientMapping": "mapped",
-    "inGameVerification": "pending",
-    "placeholder": "Native spell graphics and audio for cast, status or impact feedback.",
-    "customArtwork": "pending",
-    "customAudio": "pending"
+    "inGameVerification": "verified",
+    "placeholder": "A violet knot flashes at release and a vertical spike lands on the accepted impact tile before displacement.",
+    "customArtwork": "verified",
+    "customAudio": "listening-pending",
+    "customCharacterAnimation": "reuse-native",
+    "customArtworkPhases": [
+      "cast",
+      "target impact"
+    ],
+    "customAudioPhases": [
+      "cast",
+      "target impact"
+    ]
   },
   {
     "talentId": "assassin.burstofspeed",
@@ -4960,10 +4969,20 @@
     },
     "generation": "uo",
     "clientMapping": "mapped",
-    "inGameVerification": "pending",
-    "placeholder": "Native spell graphics and audio for cast, status or impact feedback.",
-    "customArtwork": "pending",
-    "customAudio": "pending"
+    "inGameVerification": "verified",
+    "placeholder": "Copper ribbons rise on release and low wisps follow the active speed state. A small flare marks natural expiry.",
+    "customArtwork": "verified",
+    "customAudio": "listening-pending",
+    "customCharacterAnimation": "reuse-native",
+    "customArtworkPhases": [
+      "cast",
+      "attached speed wisps",
+      "expiry or replacement"
+    ],
+    "customAudioPhases": [
+      "cast",
+      "natural expiry"
+    ]
   },
   {
     "talentId": "assassin.cloakofshadows",
@@ -4975,10 +4994,21 @@
     },
     "generation": "uo",
     "clientMapping": "mapped",
-    "inGameVerification": "pending",
-    "placeholder": "Native spell graphics and audio for cast, status or impact feedback.",
-    "customArtwork": "pending",
-    "customAudio": "pending"
+    "inGameVerification": "verified",
+    "placeholder": "A low wave marks the caster-centered radius. The mantle follows the caster while distinct dark and pale marks show blinded and defense-only recipients.",
+    "customArtwork": "verified",
+    "customAudio": "listening-pending",
+    "customCharacterAnimation": "reuse-native",
+    "customArtworkPhases": [
+      "radius-scaled cast",
+      "caster mantle",
+      "blindness and defense-only marks",
+      "expiry"
+    ],
+    "customAudioPhases": [
+      "area release",
+      "mantle and target expiry"
+    ]
   },
   {
     "talentId": "assassin.weaponblock",
@@ -5007,10 +5037,20 @@
     },
     "generation": "uo",
     "clientMapping": "mapped",
-    "inGameVerification": "pending",
-    "placeholder": "Native spell graphics and audio for cast, status or impact feedback.",
-    "customArtwork": "pending",
-    "customAudio": "pending"
+    "inGameVerification": "verified",
+    "placeholder": "Violet ribbons curl around the caster as the existing body opacity changes. The veil follows the active Fade state.",
+    "customArtwork": "verified",
+    "customAudio": "listening-pending",
+    "customCharacterAnimation": "reuse-native",
+    "customArtworkPhases": [
+      "cast",
+      "active veil and existing body opacity",
+      "expiry or replacement"
+    ],
+    "customAudioPhases": [
+      "cast",
+      "natural expiry"
+    ]
   },
   {
     "talentId": "assassin.shadowwarrior",
@@ -5040,10 +5080,22 @@
     },
     "generation": "uo",
     "clientMapping": "mapped",
-    "inGameVerification": "pending",
-    "placeholder": "Native spell graphics and audio for cast, status or impact feedback.",
-    "customArtwork": "pending",
-    "customAudio": "pending"
+    "inGameVerification": "verified",
+    "placeholder": "Magenta fragments mark the committed area and contacts. Shared stun and temporary allegiance visuals follow their respective outcomes.",
+    "customArtwork": "verified",
+    "customAudio": "listening-pending",
+    "customCharacterAnimation": "reuse-native",
+    "customArtworkPhases": [
+      "cast",
+      "radius-scaled release",
+      "target impact",
+      "shared stun and conversion with expiry"
+    ],
+    "customAudioPhases": [
+      "cast",
+      "area contacts",
+      "shared conversion and release"
+    ]
   },
   {
     "talentId": "assassin.venom",
@@ -5055,10 +5107,22 @@
     },
     "generation": "uo",
     "clientMapping": "mapped",
-    "inGameVerification": "pending",
-    "placeholder": "Native spell graphics and audio for cast, status or impact feedback.",
-    "customArtwork": "pending",
-    "customAudio": "pending"
+    "inGameVerification": "verified",
+    "placeholder": "Jade curls mark weapon coating. A small hand-level claw follows the buff and the shared poison visuals show a delivered poison.",
+    "customArtwork": "verified",
+    "customAudio": "listening-pending",
+    "customCharacterAnimation": "reuse-native",
+    "customArtworkPhases": [
+      "cast",
+      "weapon coating",
+      "shared poison application and clear",
+      "coating fade"
+    ],
+    "customAudioPhases": [
+      "cast",
+      "shared poison clear",
+      "coating expiry"
+    ]
   },
   {
     "talentId": "assassin.shadowmaster",

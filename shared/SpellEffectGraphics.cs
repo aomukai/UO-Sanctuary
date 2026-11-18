@@ -137,6 +137,33 @@ public static class SpellEffectGraphics
     public static bool IsAssassinBladeAttached(ushort graphic) => graphic is
         BladeFuryRelease or BladeShieldRaise or BladeShieldRing or BladeShieldFade;
 
+    public const int AssassinShadowFrames = 4;
+    public const ushort BurstSpeedCast = 62688;
+    public const ushort BurstSpeedWard = 62692;
+    public const ushort BurstSpeedEnd = 62696;
+    public const ushort FadeCast = 62700;
+    public const ushort FadeWard = 62704;
+    public const ushort FadeEnd = 62708;
+    public const ushort VenomCast = 62712;
+    public const ushort VenomCoat = 62716;
+    public const ushort VenomEnd = 62720;
+    public const ushort CloakWave = 62724;
+    public const ushort CloakMantle = 62728;
+    public const ushort CloakBlind = 62732;
+    public const ushort CloakExposure = 62736;
+    public const ushort CloakEnd = 62740;
+    public const ushort PsychicHammerCast = 62744;
+    public const ushort PsychicHammerHit = 62748;
+    public const ushort MindBlastWave = 62752;
+    public const ushort MindBlastHit = 62756;
+    public const ushort MindBlastCast = 62760;
+    public static bool IsAssassinShadowAnimation(ushort graphic) => graphic is >= BurstSpeedCast and <= MindBlastCast
+        && (graphic - BurstSpeedCast) % AssassinShadowFrames == 0;
+    public static bool IsAssassinShadowLoop(ushort graphic) => graphic is
+        BurstSpeedWard or FadeWard or VenomCoat or CloakMantle or CloakBlind or CloakExposure;
+    public static bool IsAssassinShadowTorso(ushort graphic) =>
+        graphic is >= FadeCast and <= VenomEnd or CloakMantle or CloakEnd or PsychicHammerCast or MindBlastCast;
+
     // This block is above the installed ClassicUO archive's stock static range.
     public const ushort FrozenArmorCast = 62800;
     public const ushort FrozenArmorWard = 62804;
@@ -262,7 +289,8 @@ public static class SpellEffectGraphics
     public const int CurseFrames = 4;
     public const int CurseBurstDuration = 7;
     public static bool IsCurseMark(ushort graphic) => graphic is >= CurseAmplify and <= CurseAttract
-        && (graphic - CurseAmplify) % CurseFrames == 0 || graphic is HowlMark or TauntMark or BattleCryMark or GrimWardMark;
+        && (graphic - CurseAmplify) % CurseFrames == 0
+        || graphic is HowlMark or TauntMark or BattleCryMark or GrimWardMark or CloakBlind or CloakExposure;
 
     public const ushort BoneArmorWard = 63460;
     public const ushort BoneArmorBreak = 63464;
@@ -452,7 +480,7 @@ public static class SpellEffectGraphics
     public static bool IsRadiusPulse(ushort graphic) =>
         graphic is HolyFirePulse or HolyFreezePulse or HolyShockPulse or SanctuaryPulse or GrimWardPulse
             or LeapLanding or LeapAttackLanding or MartialFireRing or MartialThunderRing or MartialIceRing
-            or DragonTailBurst;
+            or DragonTailBurst or CloakWave or MindBlastWave;
 
     public static bool IsPaladinAuraLoop(ushort graphic) => graphic is HolyFireAura or HolyFreezeAura or HolyShockAura or HolyFreezeSlow
         || IsPaladinResistanceWard(graphic) || IsPaladinRecoveryLoop(graphic) || IsPaladinOffenseLoop(graphic)

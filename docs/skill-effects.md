@@ -140,6 +140,10 @@ Blade Sentinel emerges as a teal steel construct and spins at the retained fract
 
 Muted ClassicUO checks covered 76 frames, paid Sentinel emergence and movement through its original collision path, a landed cut and natural retirement, and cancellation before a summon. Blade Fury rendered in all eight directions and preserved the three-shot cadence, with separate hit, miss, block, range expiry and early release cases. Shield attachment and refresh were checked on both genders across Human, Elf and Gargoyle bodies. The tests also exercised periodic damage, deflection, cancellation and expiration. The native mechanics and save/reload checks covered the learned skills and the Shadow Fury and Shield routes. ClassicUO decoded nine new Sonniss edits. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
 
+Burst of Speed uses low copper wisps. Fade uses a violet veil and the existing translucent body, and replaces the speed wisps when it takes over. Venom adds jade curls and a small coating mark at hand height. Delivered poison shares the existing poison mark and clear effects. Cloak of Shadows sends a dark wave across its configured radius and marks the caster's mantle, blinded enemies, and defense-only recipients. Psychic Hammer flashes at release and lands a vertical violet strike. Mind Blast shows its ground area, contacts, and the shared stun or allegiance effects for the actual outcome. [Speed and Fade art and prompts](../art/spell-effects/assassin-speed-fade) · [Venom art and prompt](../art/spell-effects/assassin-venom) · [Cloak art and prompt](../art/spell-effects/assassin-cloak-shadows) · [Psychic force art and prompt](../art/spell-effects/assassin-psychic-force)
+
+Muted ClassicUO checks covered the 76 new frames, speed wisps following accepted movement, Fade replacing Speed and restoring opacity on expiry, and both genders across Human, Elf and Gargoyle bodies. Venom coated the caster and a real weapon hit poisoned its target. Cloak showed separate blindness and defense-only marks, excluded an out-of-range target, rejected a recast while targets remained marked, and cleared its marks at expiry. Hammer used the contact tile and displaced its victim on a committed cast. Mind Blast rendered on empty ground and showed separate area stun and conversion branches. Native gameplay and reload checks covered all six learned skills. ClassicUO decoded twelve additional Sonniss edits with playback disabled. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
 Charged Bolt skitters along its existing paths, Lightning travels in a straight streak, and Chain Lightning sends violet arcs between targets. Static Field expands along the ground and Thunder Storm flashes above the caster at release and on its recurring strike schedule. The player casts were checked in ClassicUO with audio disabled. Nine Sonniss edits cover their cast and impact cues. Each cue has passed format and level checks and awaits a listening pass. [Cue recipes](../art/spell-effects/sonniss-cues.json)
 
 Ice Bolt travels as a thin shard, Ice Blast as a compact comet, and Glacial Spike as a heavier crystal with an area burst. Frost Nova expands across the ground. The shared cold overlays follow the affected target and clear with the game status. Thaw and cold corpse shatter reuse the Ice Blast fragments. The player effects were checked in ClassicUO with audio disabled. Eight Sonniss edits cover releases, impacts, and the shared cold corpse shatter. Their listening pass is queued. [Cold status sprite source](../art/spell-effects/cold-status/sheet.png) · [Cue recipes](../art/spell-effects/sonniss-cues.json)
@@ -1293,14 +1297,14 @@ Inherited NPC item absorption now changes life mechanically. Final Iron Golem ab
 | Assassin | Dragon Flight | custom | Committed departure and landing, directional kick and landed contact. |
 | Assassin | Phoenix Strike | custom | Feather sweeps and motes, meteor and ground fire, chain lightning, and chaos ice. |
 | Assassin | Claw Mastery | not-applicable | clawmastery |
-| Assassin | Psychic Hammer | native | Native spell graphics and audio for cast, status or impact feedback. |
-| Assassin | Burst of Speed | native | Native spell graphics and audio for cast, status or impact feedback. |
-| Assassin | Cloak of Shadows | native | Native spell graphics and audio for cast, status or impact feedback. |
+| Assassin | Psychic Hammer | custom | Violet cast knot and downward strike on the accepted impact tile. |
+| Assassin | Burst of Speed | custom | Copper release, moving speed wisps and expiry. |
+| Assassin | Cloak of Shadows | custom | Radius-scaled veil, caster mantle, blindness and defense-only marks. |
 | Assassin | Weapon Block | needed | weaponblock, SC |
-| Assassin | Fade | native | Native spell graphics and audio for cast, status or impact feedback. |
+| Assassin | Fade | custom | Violet cast, active veil, expiration and existing body translucency. |
 | Assassin | Shadow Warrior | native | Native humanoid models and summon effects. |
-| Assassin | Mind Blast | native | Native spell graphics and audio for cast, status or impact feedback. |
-| Assassin | Venom | native | Native spell graphics and audio for cast, status or impact feedback. |
+| Assassin | Mind Blast | custom | Magenta wave and contacts, with shared stun and allegiance effects. |
+| Assassin | Venom | custom | Jade cast and coating, shared poison application and expiry. |
 | Assassin | Shadow Master | native | Native humanoid models and summon effects. |
 | Assassin | Fire Blast | native | Native fire and lightning projectiles, impacts and fields. |
 | Assassin | Shock Web | native | Native fire and lightning projectiles, impacts and fields. |

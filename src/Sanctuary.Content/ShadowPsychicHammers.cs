@@ -29,15 +29,14 @@ internal static class ShadowPsychicHammers
         var owner=(PlayerMobile)body.ControlMaster;_=NpcElementSpellHit.Require(body,owner,target,at,"Shadow Psychic Hammer");
         var graph=OriginalNpcEquipment.Graph(body);var values=ShadowSkillCasting.Values(body,rank,253);
         int chance=PsychicHammers.Chance(owner,target,values);
+        var point=target.Location;var map=target.Map;
         var raw=PsychicHammers.Damage(values,graph.Read(357),n=>NpcEquipmentRandom.Limited(body,n));
         var pending=NpcDirectSpellHit.Commit(body,owner,target,raw,at,"Shadow Psychic Hammer",e=>e=="mag"?graph.Read(358):0);
         // Source do33 draws after damage,including lethal damage;the typed
         // return phase owns actual knockback/death with the real NPC emitter.
         bool knock=chance>0&&NpcEquipmentRandom.Limited(body,100)<chance;
         NpcDirectSpellHit.Finish(pending,knock?8:0);
-        body.PlaySound(0x1F1);
-        target.FixedEffect(0x3709, 10, 15, 0x482, 0);
-        target.PlaySound(0x213); // Existing identified Hammer presentation placeholders.
+        AssassinShadowVisuals.Hammer(body,point,map);
         return 1;
     }
 }

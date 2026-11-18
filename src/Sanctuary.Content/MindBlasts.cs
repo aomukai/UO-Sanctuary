@@ -43,6 +43,7 @@ public static class MindBlasts
     internal static bool Impact(PlayerMobile owner,BaseCreature target,SkillValues values,GearDamage raw)
     {
         if(target is not{Alive:true,Deleted:false} || !ClassCombat.IsHostile(owner,target)){return false;}
+        var point=target.Location;var map=target.Map;
         bool convert=PaladinConversion.MindBlastEligible(owner,target) && Roll(100)<=Chance(values);
         int frames=convert?values.Param(3)+Roll(values.Param(4)):0;
         owner.DoHarmful(target,true);
@@ -62,7 +63,7 @@ public static class MindBlasts
             if(!SourceKnockbacks.Begin(owner,target) && SourceKnockbacks.Rule(target) is{Knockback:false,GetHit:true})
             {CreatureHitRecovery.Apply(target,owner,loss);}
         }
-        target.FixedEffect(0x374A,10,15,0x481,0); // Identified mindblast-hit/overlay placeholder.
+        AssassinShadowVisuals.MindImpact(owner,point,map);
         return true;
     }
     public static bool Release(PlayerMobile owner,Serial selected)
@@ -83,7 +84,7 @@ public static class MindBlasts
         {if(Target(owner,target,point,radius)){victims.Add(target);}}
         victims.Sort((a,b)=>a.Serial.CompareTo(b.Serial));
         foreach(var target in victims){Impact(owner,target,values,raw);}
-        owner.PlaySound(0x213);Effects.SendLocationEffect(point,owner.Map,0x373A,15,10,0x481,0); // Identified cast/center/audio placeholders.
+        AssassinShadowVisuals.MindBlast(owner,point,radius);
         return true;
     }
 }

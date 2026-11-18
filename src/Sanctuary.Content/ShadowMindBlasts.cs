@@ -44,6 +44,7 @@ internal static class ShadowMindBlasts
         var raw=MindBlasts.Damage(values,Roll);
         foreach(var target in victims)
         {
+            var targetPoint=target.Location;var targetMap=target.Map;
             bool convert=PaladinConversion.MindBlastEligible(body,owner,target)&&Roll(100)<=MindBlasts.Chance(values);
             int frames=convert?values.Param(3)+Roll(values.Param(4)):0;
             var hit=NpcDirectSpellHit.Commit(body,owner,target,raw,at,"Shadow Mind Blast",stunFrames:convert?0:values.DurationFrames,knockback:!convert,limited:Roll);
@@ -51,9 +52,9 @@ internal static class ShadowMindBlasts
             // Confirmed current success behavior supersedes the historical
             // no-damage branch. Allegiance changes after hostile HP/death.
             if(convert&&target is{Alive:true,Deleted:false}){_=PaladinConversion.ApplyMindBlast(body,target,frames,at);}
-            target.FixedEffect(0x374A,10,15,0x481,0); // Existing identified Mind Blast impact placeholder.
+            AssassinShadowVisuals.MindImpact(body,targetPoint,targetMap);
         }
-        body.PlaySound(0x213);Effects.SendLocationEffect(point,body.Map,0x373A,15,10,0x481,0); // Existing cast/center/audio placeholders.
+        AssassinShadowVisuals.MindBlast(body,point,radius);
         return 1;
     }
 }

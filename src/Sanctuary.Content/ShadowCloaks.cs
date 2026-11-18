@@ -31,7 +31,7 @@ internal static class ShadowCloaks
         foreach(var target in body.Map.GetMobilesInRange<BaseCreature>(body.Location,(int)Math.Ceiling(SkillGeometry.Tiles(radius))))
         {if(CloakShadows.Target(body,owner,target,radius)&&!ClassCombat.Friendly(body,target)){targets.Add(target);}}
         targets.Sort((a,b)=>a.Serial.CompareTo(b.Serial));foreach(var target in targets){_=CloakShadows.Apply(body,target,values,at);}
-        body.FixedEffect(0x373A,10,15,0x455,0);body.PlaySound(0x1E5); // Existing identified Cloak cast/darkness/audio placeholders.
+        AssassinShadowVisuals.Cloak(body,radius);
         return 1;
     }
 }

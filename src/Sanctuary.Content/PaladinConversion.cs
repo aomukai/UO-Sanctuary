@@ -156,11 +156,13 @@ public static class PaladinConversion
         int level=ClassStats.Level(target),ownerLevel=ClassStats.Level(caster),current=SkillHealth.Balance256(target);
         ConversionLife life=null;
         if(level>ownerLevel && level>0){life=Scale(level,SkillHealth.Maximum256(target)>>8,ownerLevel,out current,current>>8);}
-        _states[target.Serial.Value]=new(target.Serial.Value,caster.Serial.Value,at.AddMilliseconds(frames*40L),CombatAbility.MindBlast,life);
+        var lease=new ConversionAllegiance(target.Serial.Value,caster.Serial.Value,at.AddMilliseconds(frames*40L),CombatAbility.MindBlast,life);
+        _states[target.Serial.Value]=lease;
         if(life!=null){SkillHealth.SetBalance256(target,current);target.Delta(MobileDelta.Hits);}
         ResetTargeting(target);
         if(caster is PlayerMobile player){ClassCombat.Stop(player);}
         else{caster.Combatant=null;} // Clear the NPC emitter's target;do not cancel its owner's independent action.
+        PaladinConversionVisuals.Begin(target,lease,at);
         return true;
     }
     private static bool Supported(PlayerMobile owner,BaseCreature target)
@@ -255,15 +257,14 @@ public static class PaladinConversion
         {
             var mobile = World.FindMobile((Serial)state.Target);
             if (state.UntilUtc <= now || mobile is not BaseCreature { Alive: true, Deleted: false }) { _expired.Add(state.Target); }
-            else if (refresh && state.Skill == CombatAbility.Conversion) { PaladinConversionVisuals.Refresh(mobile, state, now); }
+            else if (refresh) { PaladinConversionVisuals.Refresh(mobile, state, now); }
         }
         foreach(uint serial in _expired)
         {
             var state=_states[serial];var target=World.FindMobile((Serial)serial) as BaseCreature;
             int restored=state.Life!=null && target is{Alive:true,Deleted:false}?RestoredLife256(state.Life,SkillHealth.Maximum256(target),SkillHealth.Balance256(target)):-1;
             _states.Remove(serial);
-            if (state.Skill == CombatAbility.Conversion)
-            { PaladinConversionVisuals.End(serial, target, state.UntilUtc <= now); }
+            PaladinConversionVisuals.End(serial, target, state.UntilUtc <= now);
             if(target is{Alive:true,Deleted:false})
             {
                 if(restored>=0){SkillHealth.SetBalance256(target,restored);target.Delta(MobileDelta.Hits);}
@@ -289,8 +290,7 @@ public static class PaladinConversion
         }
         foreach (var state in _states.Values)
         {
-            if (state.Skill == CombatAbility.Conversion &&
-                (!next.TryGetValue(state.Target, out var updated) || updated.Skill != CombatAbility.Conversion))
+            if (!next.ContainsKey(state.Target))
             { PaladinConversionVisuals.End(state.Target, World.FindMobile((Serial)state.Target), false); }
         }
         _states.Clear();foreach(var row in next){_states.Add(row.Key,row.Value);}

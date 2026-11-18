@@ -328,7 +328,23 @@ internal static class GeneratedNpcLiveResources
         if(old.Passives==null){throw new NotSupportedException("Shadow buff needs its original posted skill lists");}
         var captured=ShadowDefensiveBuffs.Capture(skill,values,at,skill==278?Current(actor).Read(332):0);ShadowDefensiveBuffs.Validate(captured);
         var graph=Build(actor,old);Seed(actor,graph);
-        if(!graph.Passives.ApplyBuff(captured)){return false;}Commit(actor,old,graph);return true;
+        if(!graph.Passives.ApplyBuff(captured)){return false;}
+        Commit(actor,old,graph);
+        AssassinShadowVisuals.Cast(actor,values.Ability,captured.UntilUtc.Value,TimedEffects.Now);
+        return true;
+    }
+    internal static IEnumerable<(AssassinShadowBody Actor, CombatAbility Ability, DateTime Until)> AssassinBuffVisuals(DateTime now)
+    {
+        foreach(var state in States.Values)
+        {
+            if(state.Passives?.Lists is not {} lists || World.FindMobile((Serial)state.Actor) is not AssassinShadowBody{Alive:true,Deleted:false} body)
+            {continue;}
+            foreach(var list in lists)
+            {
+                if(list.UntilUtc is not {} until || until<=now){continue;}
+                yield return (body,ShadowDefensiveBuffs.Ability(list.Skill),until);
+            }
+        }
     }
     internal static void ExpireShadowBuffs(AssassinShadowBody actor,DateTime at)
     {

@@ -9,6 +9,11 @@ namespace Sanctuary;
 internal static class ShadowDefensiveBuffs
 {
     internal static bool Handles(int id)=>id is 258 or 264 or 267 or 278;
+    internal static CombatAbility Ability(int id)=>id switch
+    {
+        258=>CombatAbility.BurstOfSpeed,264=>CombatAbility.CloakOfShadows,267=>CombatAbility.Fade,278=>CombatAbility.Venom,
+        _=>throw new NotSupportedException("Unqualified Shadow buff: "+id)
+    };
     internal static int State(int id)=>id switch{258=>157,264=>153,267=>159,278=>31,_=>throw new NotSupportedException("Unqualified Shadow buff: "+id)};
     internal static ShadowPassiveList Capture(int id,SkillValues values,DateTime at,int poisonMastery=0)
     {
