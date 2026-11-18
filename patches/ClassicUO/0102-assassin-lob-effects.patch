@@ -1,0 +1,97 @@
+--- a/src/ClassicUO.Client/Game/Managers/EffectManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+@@ -94,7 +94,11 @@
+             }
+ 
+             float holyAuraRadius = 0;
+-            if (type == GraphicEffectType.FixedXYZ && SpellEffectGraphics.IsRadiusPulse(graphic))
++            if (type == GraphicEffectType.FixedXYZ && graphic == SpellEffectGraphics.FireBlastBurst)
++            {
++                holyAuraRadius = SpellEffectGraphics.FireBlastRadiusSubtiles / 2f;
++            }
++            else if (type == GraphicEffectType.FixedXYZ && SpellEffectGraphics.IsRadiusPulse(graphic))
+             {
+                 // Radius pulses carry a radius in the hue field and use the source art colors.
+                 holyAuraRadius = hue / (float)SpellEffectGraphics.HolyAuraRadiusUnitsPerTile;
+@@ -137,7 +141,7 @@
+                         or SpellEffectGraphics.CombatStun or SpellEffectGraphics.RabiesCarrier);
+             bool renewField = type == GraphicEffectType.FixedXYZ
+                 && (SpellEffectGraphics.IsFireField(graphic) || SpellEffectGraphics.IsJavelinCloud(graphic)
+-                    || graphic == SpellEffectGraphics.BoneBarrierConnector);
++                    || graphic is SpellEffectGraphics.BoneBarrierConnector or SpellEffectGraphics.ShockWebField);
+             if (renewStatus || renewField)
+             {
+                 // Keep the animation phase across renewals from the same actor or ground tile.
+@@ -145,11 +149,13 @@
+                 {
+                     if (live.Graphic == graphic && !live.IsDestroyed
+                         && (renewStatus ? live.Source is Entity entity && entity.Serial == source
+-                            : live.Source == null && live.X == srcX && live.Y == srcY && live.Z == srcZ))
++                            : live.Source == null && live.X == srcX && live.Y == srcY && live.Z == srcZ
++                                && (graphic != SpellEffectGraphics.ShockWebField || live.Offset == groundOffset)))
+                     {
+                         if (duration > 0)
+                         {
+-                            live.Duration = Time.Ticks + duration;
++                            long until = Time.Ticks + duration;
++                            live.Duration = graphic == SpellEffectGraphics.ShockWebField ? Math.Max(live.Duration, until) : until;
+                         }
+                         else
+                         {
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -206,6 +206,7 @@
+                         _ when SpellEffectGraphics.IsDragonAnimation(Graphic) => SpellEffectGraphics.DragonFrames,
+                         _ when SpellEffectGraphics.IsAssassinBladeAnimation(Graphic) => SpellEffectGraphics.AssassinBladeFrames,
+                         _ when SpellEffectGraphics.IsAssassinShadowAnimation(Graphic) => SpellEffectGraphics.AssassinShadowFrames,
++                        _ when SpellEffectGraphics.IsAssassinLobAnimation(Graphic) => SpellEffectGraphics.AssassinLobFrames,
+                         SpellEffectGraphics.MartialFistsField or SpellEffectGraphics.MartialPhoenixField => SpellEffectGraphics.FireFrames,
+                         _ when SpellEffectGraphics.IsEnchantAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+                         _ when SpellEffectGraphics.IsWardAnimation(Graphic) => SpellEffectGraphics.WardFrames,
+@@ -231,7 +232,7 @@
+                                 or SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow
+                                 or SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.PoisonAfflicted
+                                 or SpellEffectGraphics.GolemSlow or SpellEffectGraphics.WoundActive
+-                                or SpellEffectGraphics.CombatStun or SpellEffectGraphics.RabiesCarrier
++                                or SpellEffectGraphics.CombatStun or SpellEffectGraphics.RabiesCarrier or SpellEffectGraphics.ShockWebField
+                                 or SpellEffectGraphics.HurricaneCore or SpellEffectGraphics.CycloneArmorWard
+                                 or SpellEffectGraphics.ArmageddonAura or SpellEffectGraphics.DireWolfRage or SpellEffectGraphics.RavenBlind);
+                         AnimationGraphic = (ushort)(Graphic + AnimIndex);
+@@ -354,6 +355,8 @@
+                             _ when SpellEffectGraphics.IsAssassinBladeAnimation(Graphic) => 67,
+                             _ when SpellEffectGraphics.IsAssassinShadowLoop(Graphic) => 105,
+                             _ when SpellEffectGraphics.IsAssassinShadowAnimation(Graphic) => 68,
++                            SpellEffectGraphics.ShockWebField => 95,
++                            _ when SpellEffectGraphics.IsAssassinLobAnimation(Graphic) => 66,
+                             _ when SpellEffectGraphics.IsDruidCharge(Graphic) => 115,
+                             _ when SpellEffectGraphics.IsDruidFormEffect(Graphic) => 105,
+                             SpellEffectGraphics.ClayGolemContact or SpellEffectGraphics.IronGolemSpark => 65,
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -128,7 +128,8 @@
+             bool martialSwing = SpellEffectGraphics.IsMartialSwing(Graphic) || SpellEffectGraphics.IsDragonSweep(Graphic);
+             bool bladeAttached = SpellEffectGraphics.IsAssassinBladeAttached(Graphic);
+             bool shadowTorso = SpellEffectGraphics.IsAssassinShadowTorso(Graphic);
+-            if ((bladeAttached || SpellEffectGraphics.IsAssassinShadowAnimation(Graphic))
++            bool trapThrow = Graphic is SpellEffectGraphics.FireBlastThrow or SpellEffectGraphics.ShockWebThrow;
++            if ((bladeAttached || trapThrow || SpellEffectGraphics.IsAssassinShadowAnimation(Graphic))
+                 && Source is Mobile effectOwner && (effectOwner.IsDead || effectOwner.IsHidden))
+             {
+                 return false;
+@@ -143,6 +144,7 @@
+                     || martialSwing
+                     || bladeAttached
+                     || shadowTorso
++                    || trapThrow
+                     || Graphic is SpellEffectGraphics.FindPotionCast or SpellEffectGraphics.FindItemCast
+                     || Graphic is SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.BoneArmorBreak
+                         or SpellEffectGraphics.BoneArmorCatch
+@@ -163,7 +165,7 @@
+                         or Sanctuary.SpellEffectGraphics.TelekinesisCast or Sanctuary.SpellEffectGraphics.TelekinesisContact))
+             {
+                 // These close-in melee effects are centered on the airborne torso.
+-                posY -= barbarianTorsoEffect || martialSwing || bladeAttached || shadowTorso ? 12 : 44;
++                posY -= barbarianTorsoEffect || martialSwing || bladeAttached || shadowTorso || trapThrow ? 12 : 44;
+             }
+ 
+             if (Graphic == SpellEffectGraphics.DruidHungerMana)

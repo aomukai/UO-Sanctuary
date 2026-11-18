@@ -865,6 +865,46 @@ def assassin_shadow_skills():
         ))
 
 
+def assassin_lob_skills():
+    fire, shock = "assassin-fire-blast", "assassin-shock-web"
+    ember, bomb, fuse, burst = load_grid(fire, (1536, 1024))
+    shard, web, shock_hit, dissipate = load_grid(shock, (1536, 1024))
+    # The chest-height flash uses the bright forks from the ground contact at a smaller scale.
+    for name, graphic, cells, scale, pivots, padding, cutoffs in (
+        (fire, 62764, ember, .162, ((195, 147), (178, 144), (166, 146), (180, 147)),
+         46, (201, 206, 198, 171)),
+        (fire, 62772, fuse, .188, ((198, 168), (197, 168), (194, 169), (191, 170)),
+         21, (213, 211, 208, 212)),
+        (shock, 62780, shock_hit, .091, ((193, 160), (194, 160), (194, 161), (194, 168)),
+         45, (202, 200, 187, 162)),
+        (shock, 62788, web, .175, ((193, 131), (193, 131), (193, 131), (193, 129)),
+         22, (207, 205, 203, 200)),
+        (shock, 62792, shock_hit, .169, ((193, 178), (193, 176), (194, 176), (194, 174)),
+         23, (207, 207, 201, 183)),
+        (shock, 62796, dissipate, .176, ((193, 130), (193, 131), (193, 134), (193, 130)),
+         22, (205, 202, 197, 164)),
+    ):
+        write_group(name, graphic, (
+            frame(cell, scale, pivot, (90, 88), padding, cutoff) for cell, pivot, cutoff in zip(cells, pivots, cutoffs)
+        ))
+
+    for name, graphic, cells, pivots, scale, cutoff in (
+        (fire, 62768, bomb, ((204, 131), (213, 130), (227, 129), (231, 130)), .181, 211),
+        (shock, 62784, shard, ((240, 143), (214, 136), (218, 132), (226, 141)), .126, 200),
+    ):
+        poses = []
+        for phase, (cell, (x, y)) in enumerate(zip(cells, pivots)):
+            centered = Image.new("RGBA", (512, 512))
+            centered.paste(cell, (256-x, 256-y))
+            poses.append(centered.rotate(90 * phase))
+        write_group(name, graphic, (frame(cell, scale, (256, 256), (60, 64), 22, cutoff) for cell in poses))
+
+    write_group(fire, 62776, (
+        holy_ring(cell, (236, 126), (240, 132), 66, cutoff, light)
+        for cell, cutoff, light in zip(burst, (208, 213, 210, 191), (1.02, 1.08, .99, .82))
+    ))
+
+
 def necromancer_curses():
     cells = [cell for row in load_grid("necromancer-curses", (1448, 1086), rows=3) for cell in row]
     for cell in cells[:10]:
@@ -1703,3 +1743,4 @@ if __name__ == "__main__":
     assassin_dragon_finishers()
     assassin_blade_skills()
     assassin_shadow_skills()
+    assassin_lob_skills()

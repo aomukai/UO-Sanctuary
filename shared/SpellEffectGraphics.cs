@@ -164,6 +164,20 @@ public static class SpellEffectGraphics
     public static bool IsAssassinShadowTorso(ushort graphic) =>
         graphic is >= FadeCast and <= VenomEnd or CloakMantle or CloakEnd or PsychicHammerCast or MindBlastCast;
 
+    public const int AssassinLobFrames = 4;
+    public const int FireBlastRadiusSubtiles = 5;
+    public const ushort FireBlastThrow = 62764;
+    public const ushort FireBlastFlight = 62768;
+    public const ushort FireBlastFuse = 62772;
+    public const ushort FireBlastBurst = 62776;
+    public const ushort ShockWebThrow = 62780;
+    public const ushort ShockWebFlight = 62784;
+    public const ushort ShockWebField = 62788;
+    public const ushort ShockWebHit = 62792;
+    public const ushort ShockWebFade = 62796;
+    public static bool IsAssassinLobAnimation(ushort graphic) => graphic is
+        FireBlastThrow or FireBlastBurst or ShockWebThrow or ShockWebField or ShockWebHit or ShockWebFade;
+
     // This block is above the installed ClassicUO archive's stock static range.
     public const ushort FrozenArmorCast = 62800;
     public const ushort FrozenArmorWard = 62804;
@@ -655,6 +669,8 @@ public static class SpellEffectGraphics
             or >= ShoutWave and < BattleCommandWave + 8 * BarbarianCryFrames
             or >= LeapAirTrail and < LeapAttackLanding or >= MartialIceCube and < MartialIceCube + MartialFrames
             or >= BladeFuryFlight and < BladeFuryHit
+            or >= FireBlastFlight and <= FireBlastBurst
+            or >= ShockWebFlight and <= ShockWebField or ShockWebFade
             || IsBarbarianThrowFlight(graphic);
 
     public static bool IsHydraHeadFrame(ushort graphic) => graphic is >= HydraHeadRight and <= HydraHeadGone;

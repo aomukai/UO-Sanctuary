@@ -62,10 +62,11 @@ internal static class ShadowFireBlasts
         foreach(var target in targets)
         {
             if(!FireBlasts.Recipient(owner,target,b)||ClassCombat.Friendly(body,target)||ClassAvoidance.Missile(target)){continue;}
-            NpcElementSpellHit.Deliver(body,owner,target,"fire",raw,0,b.NextUtc,"Shadow Fire Blast",hitFlags:2,pierce:e=>e=="fire"?b.Npc.FirePierce:0);
+            var point=target.Location;
+            var result=NpcElementSpellHit.Deliver(body,owner,target,"fire",raw,0,b.NextUtc,"Shadow Fire Blast",hitFlags:2,pierce:e=>e=="fire"?b.Npc.FirePierce:0);
+            if(result!=null&&result.Before256>result.AfterHealth256){AssassinLobVisuals.FireContact(body.Map,point);}
         }
-        Effects.SendLocationEffect(FireBlasts.Point(b), body.Map, 0x36BD, 15);
-        Effects.PlaySound(FireBlasts.Point(b), body.Map, 0x307); // Existing identified Fire Blast explosion placeholder.
+        AssassinLobVisuals.Detonation(body.Map,b);
     }
     private static FireBomb Age(FireBomb b)
     {
@@ -79,10 +80,16 @@ internal static class ShadowFireBlasts
         if(loaded||b.Npc.Dormant||!NpcItemSpellFlights.Attached(body,owner,b.Map,b.Npc.Binding)||!(actions??owner?.NetState is{Running:true}))
         {return Age(b);}
         if(b.Ground)
-        {if(b.Remaining<=1){Impact(body,owner,b);return null;}return b with{Remaining=b.Remaining-1,NextUtc=b.NextUtc.AddMilliseconds(40)};}
+        {
+            if(b.Remaining<=1){Impact(body,owner,b);return null;}
+            var fused=b with{Remaining=b.Remaining-1,NextUtc=b.NextUtc.AddMilliseconds(40)};
+            AssassinLobVisuals.Fuse(body.Map,fused);
+            return fused;
+        }
         var moved=LobProjectiles.Advance(body.Map,b.X,b.Y,b.Z,b.Vx,b.Vy,b.Remaining);var next=b with{X=moved.X,Y=moved.Y};
         next=moved.Landed?Land(body,next):next with{Remaining=b.Remaining-1,NextUtc=b.NextUtc.AddMilliseconds(40)};
-        if(next!=null){Effects.SendLocationEffect(FireBlasts.Point(next),body.Map,0x36D4,2);} // Existing identified bomb/landing placeholder.
+        if(next is { Ground:true }){AssassinLobVisuals.Fuse(body.Map,next,landed:true);}
+        else if(next!=null){AssassinLobVisuals.Flight(body.Map,next);}
         return next;
     }
 }

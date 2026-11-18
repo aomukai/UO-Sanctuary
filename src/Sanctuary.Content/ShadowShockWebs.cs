@@ -70,7 +70,12 @@ internal static class ShadowShockWebs
         ShockWebs.Lease(s,target);_=NpcElementSpellHit.Require(body,owner,target,s.NextUtc,"Shadow Shock Web");
         if(!SourceBlocking.TryRate(target,out int shield,out _)||shield!=0){throw new NotSupportedException("Shadow Shock Web shield recipient needs its source defense adapter");}
         int raw=SorceressSpellMissiles.Roll(s.Min256,s.Max256,s.Npc.Seed,out ulong seed);s=s with{Npc=s.Npc with{Seed=seed}};
-        if(!ClassAvoidance.Missile(target)){NpcElementSpellHit.Deliver(body,owner,target,"ltng",raw,0,s.NextUtc,"Shadow Shock Web",pierce:e=>e=="ltng"?s.Npc.LightningPierce:0,softHit:true);}
+        if(!ClassAvoidance.Missile(target))
+        {
+            var point=target.Location;
+            var result=NpcElementSpellHit.Deliver(body,owner,target,"ltng",raw,0,s.NextUtc,"Shadow Shock Web",pierce:e=>e=="ltng"?s.Npc.LightningPierce:0,softHit:true);
+            if(result!=null&&result.Before256>result.AfterHealth256){AssassinLobVisuals.WebContact(body.Map,point,s);}
+        }
         return s;
     }
     private static ShockShard Age(ShockShard s)
@@ -86,17 +91,19 @@ internal static class ShadowShockWebs
         ShockShard next;
         if(s.Ground)
         {
-            if(s.Remaining<=1){return null;}var target=ShockWebs.Recipient(owner,s);
+            if(s.Remaining<=1){ShockWebs.EndVisible(s,body.Map);return null;}var target=ShockWebs.Recipient(owner,s);
             if(target!=null&&!ClassCombat.Friendly(body,target)&&body.CanBeHarmful(target,false)){s=Hit(body,owner,target,s);}
-            else if(LobProjectiles.Barrier(body.Map,new((int)Math.Round(s.X),(int)Math.Round(s.Y),s.Z))){return null;}
+            else if(LobProjectiles.Barrier(body.Map,new((int)Math.Round(s.X),(int)Math.Round(s.Y),s.Z)))
+            {ShockWebs.EndVisible(s,body.Map);return null;}
             next=s with{Remaining=s.Remaining-1,NextUtc=s.NextUtc.AddMilliseconds(40)};
-            if(s.Remaining%5==0){Effects.SendLocationEffect(new((int)Math.Round(s.X),(int)Math.Round(s.Y),s.Z),body.Map,0x3818,2,10,0x482,0);} // Existing field placeholder.
+            if(s.Remaining%5==0){AssassinLobVisuals.Web(body.Map,s);}
         }
         else
         {
             var move=LobProjectiles.Advance(body.Map,s.X,s.Y,s.Z,s.Vx,s.Vy,s.Remaining);var moved=s with{X=move.X,Y=move.Y};
             next=move.Landed?Land(body,moved):moved with{Remaining=s.Remaining-1,NextUtc=s.NextUtc.AddMilliseconds(40)};
-            if(next!=null){Effects.SendLocationEffect(new((int)Math.Round(next.X),(int)Math.Round(next.Y),next.Z),body.Map,0x379F,2,10,0x482,0);} // Existing lob placeholder.
+            if(next is { Ground:true }){AssassinLobVisuals.Web(body.Map,next,landed:true);}
+            else if(next!=null){AssassinLobVisuals.Flight(body.Map,next);}
         }
         return next;
     }

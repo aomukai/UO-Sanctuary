@@ -64,21 +64,22 @@ public static class FireBlasts
         int dx=(point.X-owner.X)*2,dy=(point.Y-owner.Y)*2;if(dx==0 && dy==0){dx=dy=1;}
         var v=MissileVectors.VelocityFp8(dx,dy,LobProjectiles.Velocity);long id=++_next;
         _bombs.Add(id,new(id,owner.Serial.Value,owner.Map.MapID,values.Rank,owner.X,owner.Y,owner.Z,v.X,v.Y,Lifetime(dx,dy),false,TimedEffects.Now.AddMilliseconds(40)));
-        owner.PlaySound(0x23B); // Identified throw-audio placeholder; no final FireTrauma art.
+        AssassinLobVisuals.Release(owner,shockWeb:false);
         return true;
     }
     internal static Point3D Point(FireBomb b)=>new((int)Math.Round(b.X),(int)Math.Round(b.Y),b.Z);
     internal static bool EmitShadow(AssassinShadowBody body,Point3D aim,int rank,DateTime at)
     {
         var b=ShadowFireBlasts.Prepare(checked(_next+1),body,aim,rank,at);if(b==null){return false;}
-        _bombs.Add(b.Id,b);_next=b.Id;body.PlaySound(0x23B);return true;
+        _bombs.Add(b.Id,b);_next=b.Id;AssassinLobVisuals.Release(body,shockWeb:false);return true;
     }
     internal static bool Recipient(PlayerMobile owner,BaseCreature target,FireBomb b)
     {
         bool attackable=target is EncounterCreature?target.CanBeDamaged():SourceAuraTargets.Rule(CreatureProfiles.Definition(target).Reference)?.Attackable==true;
         double dx=target.X-b.X,dy=target.Y-b.Y;
         // Filter8583 has no caster-LOS bit. NOAURA is not checked by this caller.
-        return attackable && ClassCombat.IsHostile(owner,target) && 4*(dx*dx+dy*dy)<=25
+        const int radius=SpellEffectGraphics.FireBlastRadiusSubtiles;
+        return attackable && ClassCombat.IsHostile(owner,target) && 4*(dx*dx+dy*dy)<=radius*radius
             && Math.Abs(target.Z-b.Z)<16 && !SpellHelper.IsTown(target.Location,target);
     }
     internal static GearDamage Packet(FireBomb b,int damage256)
@@ -96,11 +97,12 @@ public static class FireBlasts
         foreach(var target in targets)
         {
             if(!Recipient(owner,target,b) || ClassAvoidance.Missile(target)){continue;}
+            var point=target.Location;
             owner.DoHarmful(target,true);var parts=SkillCombat.MitigatePrepared(owner,target,raw);
             int loss=SkillHealth.TypedDamage(owner,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));CreatureHitRecovery.Apply(target,owner,loss);
+            if(loss>0){AssassinLobVisuals.FireContact(owner.Map,point);}
         }
-        Effects.SendLocationEffect(Point(b), owner.Map, 0x36BD, 15);
-        Effects.PlaySound(Point(b), owner.Map, 0x307); // Identified explosion placeholder.
+        AssassinLobVisuals.Detonation(owner.Map,b);
     }
     private static FireBomb Land(PlayerMobile owner,FireBomb b,DateTime at)
     {
@@ -139,13 +141,15 @@ public static class FireBlasts
             {
                 if(b.Remaining<=1){_bombs.Remove(b.Id);Impact(owner,b);continue;}
                 next=b with{Remaining=b.Remaining-1,NextUtc=b.NextUtc.AddMilliseconds(40)};
+                AssassinLobVisuals.Fuse(owner.Map,next);
             }
             else
             {
                 var advance=LobProjectiles.Advance(owner.Map,b.X,b.Y,b.Z,b.Vx,b.Vy,b.Remaining);
                 var moved=b with{X=advance.X,Y=advance.Y};
                 next=advance.Landed?Land(owner,moved,b.NextUtc):moved with{Remaining=b.Remaining-1,NextUtc=b.NextUtc.AddMilliseconds(40)};
-                if(next!=null){Effects.SendLocationEffect(Point(next),owner.Map,0x36D4,2);} // Identified bomb/landing placeholder.
+                if(next is { Ground:true }){AssassinLobVisuals.Fuse(owner.Map,next,landed:true);}
+                else if(next!=null){AssassinLobVisuals.Flight(owner.Map,next);}
             }
             if(next==null){_bombs.Remove(b.Id);continue;}_bombs[b.Id]=next;
             if(next.NextUtc<=now){queue.Enqueue(next,(next.NextUtc,next.Id));}

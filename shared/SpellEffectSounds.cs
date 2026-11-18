@@ -366,6 +366,13 @@ public static class SpellEffectSounds
     public const int PsychicHammerHit = 60360;
     public const int MindBlastCast = 60361;
     public const int MindBlastHit = 60362;
+    public const int FireBlastThrow = 60363;
+    public const int FireBlastFuse = 60364;
+    public const int FireBlastBurst = 60365;
+    public const int ShockWebThrow = 60366;
+    public const int ShockWebLand = 60367;
+    public const int ShockWebHit = 60368;
+    public const int ShockWebFade = 60369;
 
     public static int Fallback(int sound) => sound switch
     {
@@ -393,6 +400,8 @@ public static class SpellEffectSounds
         VenomCast => 0x205,
         PsychicHammerCast => 0x1F1,
         MindBlastCast or PsychicHammerHit => 0x213,
+        FireBlastThrow or ShockWebThrow => 0x23B,
+        FireBlastBurst => 0x307,
         BlizzardRelease or FrozenOrbRelease or MeteorRelease or TeethRelease or BoneSpiritRelease or AbyssOpen => 0x1E5,
         AmazonBowRelease or AmazonCrossbowRelease or JavelinThrow => 0x238,
         SpearThrust or HeavySpearThrust => 0x238,

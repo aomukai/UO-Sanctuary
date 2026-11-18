@@ -5151,10 +5151,23 @@
     },
     "generation": "uo",
     "clientMapping": "mapped",
-    "inGameVerification": "pending",
-    "placeholder": "Native fire and lightning projectiles, impacts and fields.",
-    "customArtwork": "pending",
-    "customAudio": "pending"
+    "inGameVerification": "verified",
+    "placeholder": "A tumbling ember follows the lob to its accepted landing. The bomb flashes through its existing fuse before a radius-scaled burst, with sparks on damaged targets.",
+    "customArtwork": "verified",
+    "customAudio": "listening-pending",
+    "customCharacterAnimation": "reuse-native",
+    "customArtworkPhases": [
+      "throw",
+      "tumbling bomb",
+      "confirmed landing and fuse",
+      "fractional ground burst",
+      "shared damaged-target sparks"
+    ],
+    "customAudioPhases": [
+      "throw",
+      "landing fuse",
+      "detonation"
+    ]
   },
   {
     "talentId": "assassin.shockweb",
@@ -5167,10 +5180,24 @@
     },
     "generation": "uo",
     "clientMapping": "mapped",
-    "inGameVerification": "pending",
-    "placeholder": "Native fire and lightning projectiles, impacts and fields.",
-    "customArtwork": "pending",
-    "customAudio": "pending"
+    "inGameVerification": "verified",
+    "placeholder": "Blue shards tumble to their accepted landings. Each half-tile node crackles in place, flashes on a landed shock, and unravels at retirement.",
+    "customArtwork": "verified",
+    "customAudio": "listening-pending",
+    "customCharacterAnimation": "reuse-native",
+    "customArtworkPhases": [
+      "throw",
+      "tumbling shards",
+      "independent half-tile fields",
+      "confirmed shock",
+      "natural or terrain retirement"
+    ],
+    "customAudioPhases": [
+      "throw",
+      "arming",
+      "confirmed shock",
+      "retirement"
+    ]
   },
   {
     "talentId": "assassin.bladesentinel",

@@ -502,6 +502,13 @@
     "PsychicHammerCast": {"source": "electric-cast", "start": 0.104, "duration": 0.243, "fadeIn": 0.016, "fadeOut": 0.085, "highpass": 507, "peakDb": -21},
     "PsychicHammerHit": {"source": "close-thunder", "start": 1.885, "duration": 0.194, "fadeIn": 0.006, "fadeOut": 0.071, "highpass": 472, "peakDb": -18},
     "MindBlastCast": {"source": "arcane-doppler", "start": 0.224, "duration": 0.48, "fadeIn": 0.035, "fadeOut": 0.160, "highpass": 357, "peakDb": -17},
-    "MindBlastHit": {"source": "electric-crackle", "start": 0.412, "duration": 0.20, "fadeIn": 0.006, "fadeOut": 0.062, "highpass": 714, "peakDb": -23}
+    "MindBlastHit": {"source": "electric-crackle", "start": 0.412, "duration": 0.20, "fadeIn": 0.006, "fadeOut": 0.062, "highpass": 714, "peakDb": -23},
+    "FireBlastThrow": {"source": "spear-swoosh", "start": 0.105, "duration": 0.223, "fadeIn": 0.019, "fadeOut": 0.089, "highpass": 382, "peakDb": -21},
+    "FireBlastFuse": {"source": "fire", "start": 0.37, "duration": 0.174, "fadeIn": 0.019, "fadeOut": 0.043, "highpass": 1055, "peakDb": -27},
+    "FireBlastBurst": {"source": "fire", "start": 0.62, "duration": 0.523, "fadeIn": 0.006, "fadeOut": 0.152, "highpass": 281, "peakDb": -17},
+    "ShockWebThrow": {"source": "electric-cast", "start": 0.120, "duration": 0.213, "fadeIn": 0.021, "fadeOut": 0.078, "highpass": 783, "peakDb": -21},
+    "ShockWebLand": {"source": "electric-crackle", "start": 0.372, "duration": 0.168, "fadeIn": 0.008, "fadeOut": 0.066, "highpass": 1075, "peakDb": -25},
+    "ShockWebHit": {"source": "electric-crackle", "start": 0.515, "duration": 0.181, "fadeIn": 0.004, "fadeOut": 0.071, "highpass": 785, "peakDb": -22},
+    "ShockWebFade": {"source": "electric-crackle", "start": 0.655, "duration": 0.21, "fadeIn": 0.017, "fadeOut": 0.118, "highpass": 1480, "peakDb": -29}
   }
 }
