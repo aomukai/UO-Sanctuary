@@ -19,3 +19,5 @@ Status: **2026-11-18 JST — eight classes mechanically qualified under approved
 The current class-skill goal can be closed. Final artwork, world monster conversion/classification, density/players-5 balancing, PvP expansion and future crafting/charged gear belong to smaller subsequent goals. Charms and runewords remain excluded. No new goal starts automatically.
 
 Recheck with `python3 tools/verify_class_skill_release.py --check` and `python3 tools/build_skill_roadmap.py --check`. Older C1 audits and pending descriptions are retained historical evidence, not the current completion ledger.
+
+Historical raw runs were [retired](class-skill-history-retirement.md) after completion. Current release checks use committed summaries; fresh class regressions use explicitly selected current binaries and the retained source fixtures.

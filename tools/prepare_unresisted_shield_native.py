@@ -103,6 +103,5 @@ def prepare(check=False):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--check', action='store_true')
-    prepare(parser.parse_args().check)
+    raise SystemExit('Historical native-build producer retired. Patch 0075 is preserved in Git; '
+                     'use ./dev build server for a current build. See docs/class-skill-history-retirement.md.')

@@ -19,7 +19,7 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def check(stage=None, extra_files=None, extra_families=(), extra_inputs=(), extra_checks=(), extra_live_commands=(), extra_wait_results=None, extra_target_input_commands=(), extra_manifest_names=None, extra_connected_checks=(), extra_one_reload_families=(), save_command='save', save_result=None, extra_input_timeouts=None, extra_ground_input_commands=(), extra_early_reload_families=(), extra_instant_input_commands=(), checked_live_commands=(), connected_save=False, extra_save_results=(), extra_wire_callbacks=(), extra_connection_settle=0, extra_check_timeouts=None, extra_pre_save_commands=(), extra_pre_save_callbacks=(), between_boot_delay=0):
+def check(stage=None, extra_files=None, extra_families=(), extra_inputs=(), extra_checks=(), extra_live_commands=(), extra_wait_results=None, extra_target_input_commands=(), extra_manifest_names=None, extra_connected_checks=(), extra_one_reload_families=(), save_command='save', save_result=None, extra_input_timeouts=None, extra_ground_input_commands=(), extra_early_reload_families=(), extra_instant_input_commands=(), checked_live_commands=(), connected_save=False, extra_save_results=(), extra_wire_callbacks=(), extra_connection_settle=0, extra_check_timeouts=None, extra_pre_save_commands=(), extra_pre_save_callbacks=(), between_boot_delay=0, native_distribution=None, content_assembly=None, integration_assembly=None):
     stage = stage or STAGE
     with tempfile.TemporaryDirectory(prefix='sanctuary-iron-golem-birth-', dir='/dev/shm') as temp:
         folder = Path(temp)
@@ -33,11 +33,13 @@ def check(stage=None, extra_files=None, extra_families=(), extra_inputs=(), extr
             for entry in (SERVER / name).iterdir():
                 if entry.name not in ['Sanctuary.Content.dll', 'Sanctuary.Integration.dll', 'UOContent.dll', 'Sanctuary', 'assemblies.json']:
                     (folder / name / entry.name).symlink_to(entry, target_is_directory=entry.is_dir())
+        native_distribution = Path(native_distribution) if native_distribution else stage / 'native/Distribution'
         for name in ['ModernUO.dll', 'Server.dll', 'Assemblies/UOContent.dll']:
-            shutil.copy2(stage / 'native/Distribution' / name, folder / name)
+            shutil.copy2(native_distribution / name, folder / name)
         assemblies = json.loads((SERVER / 'Data/assemblies.json').read_text())
         for name, kind in [('Sanctuary.Content.dll', 'content'), ('Sanctuary.Integration.dll', 'integration')]:
-            (folder / 'Assemblies' / name).symlink_to(stage / kind / name)
+            supplied = content_assembly if kind == 'content' else integration_assembly
+            (folder / 'Assemblies' / name).symlink_to(Path(supplied).resolve() if supplied else stage / kind / name)
             if name not in assemblies:
                 assemblies.append(name)
         (folder / 'Data/assemblies.json').write_text(json.dumps(assemblies))
@@ -173,7 +175,7 @@ def check(stage=None, extra_files=None, extra_families=(), extra_inputs=(), extr
     text = (stage / 'birth-native-checks.log').read_text()
     assert ': failed' not in text and ' ERR]' not in text and text.count(': passed') == 9 + 3 * (len(extra_families)+len(extra_checks)+len(extra_live_commands)+2*len(extra_target_input_commands)+len(checked_live_commands)+len(extra_save_results)+len(extra_pre_save_commands)) + waited_results - len(extra_one_reload_families) + (3 if save_result else 0)
     assert text.count('Shutting down') == text.count('Writing world save snapshot done') == 3
-    print('Iron Golem prepared birth:source/native numeric checks and optional graph scopes pass across3boots/2reloads,with original-item/resource regression. Learned actor remains unfinished.')
+    print('Native regression:source checks,selected scenarios and original-item/resource controls pass across3boots/2reloads.')
 
 
 if __name__ == '__main__':

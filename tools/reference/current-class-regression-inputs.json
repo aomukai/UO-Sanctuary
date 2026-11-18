@@ -1,0 +1,2674 @@
+{
+  "referenceVersion": "3.3.93847",
+  "purpose": "Runtime regression inputs only;retain these existing source vectors independently of historical run artifacts.",
+  "inputs": {
+    ".local/class-skills/bone-barrier-retirement-source/cases.json": {
+      "classes": [
+        "necromancer"
+      ],
+      "sha256": "c9b9c54f722130c8a801e550c877bf3faa4becdbcad756d433ae5e1384ec68e1",
+      "bytes": 5202
+    },
+    ".local/class-skills/bone-wall-maker-source/cases.json": {
+      "classes": [
+        "necromancer"
+      ],
+      "sha256": "1f452a70763af1bcc8ce35a5a757cf6a3fca39869d43269c234e4a0220f43915",
+      "bytes": 110240
+    },
+    ".local/class-skills/bone-barrier-cast-source/cases.json": {
+      "classes": [
+        "necromancer"
+      ],
+      "sha256": "3f1b1e7388ce63b95eedd20e46ee3d233a2e2f7b754902b029fde2226be1a5c0",
+      "bytes": 7056
+    },
+    ".local/class-skills/bone-barrier-birth-source/cases.json": {
+      "classes": [
+        "necromancer"
+      ],
+      "sha256": "81c00b36e4501423461a0c282f02400d7dece4b3fbba385b0ec65d4bf8de3007",
+      "bytes": 1033738
+    },
+    ".local/class-skills/open-wounds-regen-source/cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "8f42c3eeaebfdc34386e6deeb158f111e49821ef9b302c8c7b3ad43250c408b9",
+      "bytes": 76666
+    },
+    ".local/class-skills/open-wounds-source/cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "e1d81f931540bc262ebbc31b95ea80ee242312392be637ab4ee94aec35d21f0f",
+      "bytes": 1999938
+    },
+    ".local/class-skills/iron-golem-retaliation-source-probe.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "75592a1baf777bb9c6a52a8c9fe93a85c0cab0919cdad13188cda73386594a69",
+      "bytes": 5363
+    },
+    ".local/class-skills/mage-meteor-source-probe.json": {
+      "classes": [
+        "necromancer",
+        "sorceress",
+        "paladin",
+        "druid"
+      ],
+      "sha256": "a21aafc0bb1b2f79618a0d3090c615030f23a012eea274210d48a6fcfd85a9b7",
+      "bytes": 21954
+    },
+    ".local/class-skills/freeze-state-source-probe.json": {
+      "classes": [
+        "necromancer",
+        "sorceress",
+        "paladin",
+        "amazon",
+        "druid"
+      ],
+      "sha256": "3d6863ed707817c00865e717857d9dde316f1a6a80b25aba13b140e580ed548c",
+      "bytes": 477732
+    },
+    ".local/class-skills/mage-birth-source/cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "c44d320a5c0b04e5f9a439afcb127c1757bde631351330c941714bef8ade9746",
+      "bytes": 735364
+    },
+    ".local/class-skills/mage-missiles-source/cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "0b276b48d0f39a5d15b99f31b50474a5d89a30e6b5954c486427c36fa10dc0f5",
+      "bytes": 48526
+    },
+    ".local/class-skills/sentry-target-source-probe.json": {
+      "classes": [
+        "necromancer",
+        "assassin",
+        "druid"
+      ],
+      "sha256": "1013e2f68c61f7af09c69ccc4014f809427ae29752abd7226d4fed985c915dd5",
+      "bytes": 640742
+    },
+    ".local/class-skills/sentry-unit-path-source-probe.json": {
+      "classes": [
+        "necromancer",
+        "assassin",
+        "druid"
+      ],
+      "sha256": "1ba3b576978fe5ce41f2f73f76d2b1bc8d43f73b7a8c19b45be8b98ee5a67321",
+      "bytes": 903410
+    },
+    ".local/class-skills/charged-bolt-path-source-probe.json": {
+      "classes": [
+        "necromancer",
+        "amazon",
+        "assassin",
+        "druid"
+      ],
+      "sha256": "234b5c138fca82f65ac20bf7c9a93b6afa2e68f62fece0e33ff5006f8dff7477",
+      "bytes": 416302
+    },
+    ".local/class-skills/fire-golem-birth-source/cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "3e6e3d5fc1e3917bef726e2125dbcfb40e0ff7485648683138579d8635eb3952",
+      "bytes": 1506826
+    },
+    ".local/class-skills/fire-golem-absorption-source/cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "c358a98b64f056f3994ec931521aa86edbbc1f2dd044fd2ea0deedf3d874bfc4",
+      "bytes": 80652
+    },
+    ".local/class-skills/blood-golem-birth-independent-source/cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "f878479ac42cb406e629acf2546d05ffc98e7743caa72feca6606e5eb8e5029c",
+      "bytes": 1362504
+    },
+    ".local/class-skills/blood-golem-healing-source/healing-cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "fb37dae0238235859f8163656802d85462745e4cc5181a9ffc436c60105337c4",
+      "bytes": 745609
+    },
+    ".local/class-skills/blood-golem-healing-source/incoming-cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "eee4551d9bdef9577abca55d1354e3f14916716f08c2149df8e7b9dba6498697",
+      "bytes": 141400
+    },
+    ".local/class-skills/clay-golem-birth-source/cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "63be8450b0e4b56f510415cd8be486a8496a6e6842335aed5c4d4268408391de",
+      "bytes": 991031
+    },
+    ".local/class-skills/clay-golem-slow-source/cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "4e4316781e1eac08e8f1a5723a6d87d880e7a426f5bf394b38b8e70a1e21a7be",
+      "bytes": 38018
+    },
+    ".local/class-skills/iron-golem-birth-graph-source/cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "51483a01fa4eeaeb2502209393e316ff5a9cf69f05ebbb6b8c285f310735fcc3",
+      "bytes": 2296650
+    },
+    ".local/class-skills/iron-golem-body-source/cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "8e418f6a33134dd917b936375d51fd536fee8e932d29d25fd5a5a67520918335",
+      "bytes": 2098730
+    },
+    ".local/class-skills/necromancer-pet-ai-source-probe.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "e059b2439a00d893f890f01fe3fb4f26fa17716a85c01cace39f422dd00c4443",
+      "bytes": 285094
+    },
+    ".local/class-skills/skeleton-birth-source/cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "39ea53de2f2955bab59297afb48621df211af5dc6038a6f0f7d73ea13f691990",
+      "bytes": 801846
+    },
+    ".local/class-skills/skeleton-roster-source/cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "5fb888db70df49bbf6b4535e0998a367c7a05e0fcf2e6796785edd7acae41ec3",
+      "bytes": 319226
+    },
+    ".local/class-skills/life-tap-event-source/cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "1598ed82d3d13e51943facec03f799b5a50f1913f6793c437c1a2fd316767683",
+      "bytes": 863114
+    },
+    ".local/class-skills/life-tap-receiver-source/cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "b9635d42b9d01675518125342c73af2526181274059d73d27f949e419ef8cb5e",
+      "bytes": 12335
+    },
+    ".local/class-skills/iron-maiden-receiver-source/cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "b638854d7cfc129ed98522e881845c97db6eb5c3f2d7b817f2601dc045d2092e",
+      "bytes": 12335
+    },
+    ".local/class-skills/iron-maiden-source/cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "1d732c719a2b4d203f88068b3bb7988a56e31d12968df02df859fa222f2cf2f1",
+      "bytes": 2040775
+    },
+    ".local/class-skills/lower-resist-source/cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "3141c4fbb0fbb888293ab4270376b59ed8cfb345e8d09b79e826cb5b53ee0f80",
+      "bytes": 624230
+    },
+    ".local/class-skills/decrepify-source/cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "bf614ea6600f8b49cfc230b3970d116553a8c81db19420fb7df309fcf1d6a1c4",
+      "bytes": 478230
+    },
+    ".local/class-skills/weaken-source/cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "4ec9b3155d4c8ffd0daa695b83041becfde22d6fcfaa2e95389dd14c1a96d090",
+      "bytes": 378128
+    },
+    ".local/class-skills/inner-sight-source-probe.json": {
+      "classes": [
+        "necromancer",
+        "amazon",
+        "druid"
+      ],
+      "sha256": "11c5b8350f91e5ec5d5eb5fd9f0600f72acf9cd49c740d957de30df398c32cb8",
+      "bytes": 21491
+    },
+    ".local/class-skills/cloak-source-probe.json": {
+      "classes": [
+        "necromancer",
+        "assassin",
+        "druid"
+      ],
+      "sha256": "69593499bd31c7cd79420ae1ee8f0e0ea9a4e9797560541a07945053380f45d5",
+      "bytes": 8722
+    },
+    ".local/class-skills/life-tap-source-probe.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "2fcd5bf2cdc40e637681e367be07f19530943d3b16140af6a96d3afafe26d82c",
+      "bytes": 327908
+    },
+    ".local/class-skills/amplify-damage-source/cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "35f5900f9f6ee7d5db6d7eba7df2591a9b36b2e0663dd6edf7554c3970fe0492",
+      "bytes": 396441
+    },
+    "tools/reference/necromancer-binding-reference.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "b9a034cafe09a000154291901dcfb0f5b05f3374f4bb1940ca351d68625f5bee",
+      "bytes": 3350
+    },
+    ".local/class-skills/poison-explosion-damage/cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "8611ace6cc39f7b674924417c8343e4600bc736ee4d480b9d9ecba2c91c8ecdb",
+      "bytes": 636990
+    },
+    ".local/class-skills/poison-explosion-emitter/cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "8df5f024bc24206793abc4145c37276c4643e5540d03c75fe762e7a0a3cdf17b",
+      "bytes": 17940
+    },
+    ".local/class-skills/plague-javelin-source-probe.json": {
+      "classes": [
+        "necromancer",
+        "amazon",
+        "druid"
+      ],
+      "sha256": "a71e0249f154cae1ba64efd9a231afd9060ddecc55cd78b4cc1acd6f665e4137",
+      "bytes": 445491
+    },
+    ".local/class-skills/poison-nova-damage/cases.json": {
+      "classes": [
+        "necromancer",
+        "sorceress",
+        "paladin",
+        "druid"
+      ],
+      "sha256": "c6e84d12b8f567fb407a46c8867903a6e3a1aec304853780071251ba73d39076",
+      "bytes": 621342
+    },
+    ".local/class-skills/poison-nova-emitter/cases.json": {
+      "classes": [
+        "necromancer",
+        "sorceress",
+        "paladin",
+        "druid"
+      ],
+      "sha256": "4e1852f0de573ac642e138a9c42823230e87fbbf0665ae34c9703612271a958d",
+      "bytes": 17480
+    },
+    ".local/class-skills/fan-source-probe.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "79d6801ad32803b7d3084e3d6325e42a11134365a223d588dc49c52e6f1cd28b",
+      "bytes": 767885
+    },
+    ".local/class-skills/bone-spirit-source/damage-cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "3557ea227dbccf0153607a6c6363f58cd09184c55dc802da8495826669da1d4e",
+      "bytes": 189834
+    },
+    ".local/class-skills/bone-spirit-source/guidance-cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "a813a796f9e03904ffa1726e246009a12a677464a2fa74db9672e26c6bb54fba",
+      "bytes": 69178
+    },
+    ".local/class-skills/teeth-source/damage-cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "83af0ec6551523ef123cd7042e130c0b354912752f6b62a27963d402b1f3677e",
+      "bytes": 180706
+    },
+    ".local/class-skills/teeth-source/route-cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "8fff88554efabe3198d570ea74fa2854dc5e32e30debe15df5143e90db6e3f0e",
+      "bytes": 6770
+    },
+    ".local/class-skills/bone-spear-source/damage-cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "95e15e42a434aef5f777afc9c1775afc104b52c7d89551bc84c827765ce57c18",
+      "bytes": 190178
+    },
+    ".local/class-skills/bone-spear-source/route-cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "c6d0f2d8654868ca1a251166924e495e58c4bfab25b4a370b7b0dd5dcad7a384",
+      "bytes": 2690
+    },
+    ".local/class-skills/bone-armor-source/cases.json": {
+      "classes": [
+        "necromancer",
+        "sorceress",
+        "paladin",
+        "druid"
+      ],
+      "sha256": "030dfd6a17a9415756e41b5c3c3ad19ec9d87d0ec7db305835210d44fbe1ed56",
+      "bytes": 9313
+    },
+    ".local/class-skills/weapon-start-effects-source/cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "d8c21d4aa09632f019dc4df1af818cdd6123a79f2725d28771fd8d707f28638e",
+      "bytes": 42566
+    },
+    ".local/class-skills/poison-dagger-source/cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "b7147596d9a0bc822c84e9dbf799069a59946d4388ce511164aa2d2c4a25b15f",
+      "bytes": 407738
+    },
+    ".local/class-skills/npc-high-level-resources-source/cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "2ade9a1e9123900c9afd0b78a800bfbfe9126bc2f8dd2328360ea7c70ee816f5",
+      "bytes": 90915
+    },
+    ".local/class-skills/item-property-writers-source-probe.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "83b784565ebd765ae02cd985af7f5e4df690b35f9d043bdfbb5c0d6188d231ff",
+      "bytes": 5904594
+    },
+    ".local/class-skills/npc-impact-allocation-source-probe.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "503ef53106bb7f1ebc4f7007e51ea1431feac42104bc0c94428e1baf63ff4bf6",
+      "bytes": 1658594
+    },
+    ".local/class-skills/npc-equipment-damage-source/cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "ddf1e15ca42fafab08b54a64511feb0a6d23af929fbc2930404389746bc560cd",
+      "bytes": 788232
+    },
+    ".local/class-skills/npc-equipment-elements-source/cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "6377de96b07385ac32f32afcbfce37d88279d9d5df8222e6f4dbc0f69851ea98",
+      "bytes": 99629
+    },
+    ".local/class-skills/venom-damage-source-probe.json": {
+      "classes": [
+        "necromancer",
+        "assassin",
+        "druid"
+      ],
+      "sha256": "539cc2a435c12d428ccb71c10fb72867e9c6e37f7505f838accb2a0c31b82b3c",
+      "bytes": 776162
+    },
+    ".local/class-skills/npc-equipment-critical-source/critical-cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "c7670137cdaaf43a61d85223f47790949c2a89431fb5d9f45e559495e260fc29",
+      "bytes": 885129
+    },
+    ".local/class-skills/npc-equipment-critical-source/seed-cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "f9730b34b4b477296cd28123588ef5210d5a51465b7e6c83d1b94f60adbfec9d",
+      "bytes": 10603
+    },
+    ".local/class-skills/monster-weapon-phases-source-probe.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "59a33c45b8f517eb75cb20db9810d20a9f5e48f277b3857963fe1a359526e151",
+      "bytes": 331244
+    },
+    ".local/class-skills/goatman-npc-release-source-probe.json": {
+      "classes": [
+        "necromancer",
+        "sorceress",
+        "paladin",
+        "druid"
+      ],
+      "sha256": "1b878c69866cd55cd460990a85aca465fada4486ad865d31dbb3c5cdbc336171",
+      "bytes": 778014
+    },
+    ".local/class-skills/melee-result-source-probe.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "a8023798415a725ac45e41e7288315823a858241a70071ba2eeeb39b7292a24f",
+      "bytes": 507314
+    },
+    ".local/class-skills/necromancer-ai-curse-source/cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "df6ede011c5084b366c7e6b33239912111ce815090ea9e11a06697c28c231943",
+      "bytes": 590746
+    },
+    ".local/class-skills/mind-blast-source-probe.json": {
+      "classes": [
+        "necromancer",
+        "assassin",
+        "druid"
+      ],
+      "sha256": "b0274971875c77974df96e438e58a4b3712b0fca8381f46db78e82111c1a455e",
+      "bytes": 164516
+    },
+    ".local/class-skills/blind-policy-source-probe.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "dd909ab5b1287ffb2d2bdca7249f902bd6234ea455918f836369d42da8dc8974",
+      "bytes": 687376
+    },
+    ".local/class-skills/npc-hit-skill-source/cases.json": {
+      "classes": [
+        "necromancer",
+        "druid"
+      ],
+      "sha256": "1bd4d2599de043ead5aa99a712ef35ef78a01be5fe2ce51ed287fb17cdc3d3c1",
+      "bytes": 448762
+    },
+    ".local/class-skills/skill-linear-source-probe.json": {
+      "classes": [
+        "necromancer"
+      ],
+      "sha256": "8572646215d410a1fbd096561bd0daf80d5bf65c67ebe8bb541011b6cac09f44",
+      "bytes": 160654
+    },
+    ".local/class-skills/summon-resist-source/cases.json": {
+      "classes": [
+        "necromancer"
+      ],
+      "sha256": "4575f0ed521800300f13e370f1b0667817d16f0b8658c9fc26575460565fe24c",
+      "bytes": 518393
+    },
+    ".local/class-skills/necro-corpse-explosion-source-probe.json": {
+      "classes": [
+        "necromancer"
+      ],
+      "sha256": "b1537a61ab1a22dc496e5fbc1643a7fd67dfd82b1c4ce704751c20d71cb219da",
+      "bytes": 294614
+    },
+    ".local/class-skills/revive-source-policy-source-probe.json": {
+      "classes": [
+        "necromancer"
+      ],
+      "sha256": "d3256dc5e10cce381cb5589f20acb03079877de202871ad3b7e057952a3da371",
+      "bytes": 7568342
+    },
+    "tools/reference/named-item-pre-proc-baseline.json": {
+      "classes": [
+        "necromancer",
+        "sorceress",
+        "barbarian",
+        "amazon",
+        "assassin",
+        "druid",
+        "warlock"
+      ],
+      "sha256": "76d7f81a71f81a44b7a3b94fe9d2af287d77ac3759b950e16021460d9e3f17e8",
+      "bytes": 293029
+    },
+    ".local/class-skills/player-inferno-channel-source-probe.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "9aa6d3233aac4e7b6d1c31213583c4ba84c5ad8fd7c32bb730e761ff5bd190c2",
+      "bytes": 1157674
+    },
+    ".local/class-skills/player-inferno-sequence-source-probe.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "4066249dbc52cccf48a1363b2cffd8342f420465fa82362d0cec768fb158d504",
+      "bytes": 9637038
+    },
+    ".local/class-skills/player-inferno-rate-source-probe.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "80c756dcd4e7c29475d17eb9cb98a0a40ba25f6527af4c92dc4b60f4e0ca145d",
+      "bytes": 5846
+    },
+    ".local/class-skills/sorceress-fire-bolt/fire-bolt-fixtures.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "3546a82a7684fe3d12db21d4fb2cd28f1caaeb2d6e2ee13a67123017f8254d3d",
+      "bytes": 527
+    },
+    ".local/class-skills/exploding-arrow-callback-source-probe.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "ffdb3cc4ad94252f63b033fd38db29604e028c5ce66595c362a2bd78b87f765d",
+      "bytes": 197439
+    },
+    ".local/class-skills/sorceress-nova-emitter/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "45e7d5aeefd9464df65096dfae616d85641743f4a0acef1eebb45d9c8f744b59",
+      "bytes": 43430
+    },
+    ".local/class-skills/missile-acceleration-source-probe.json": {
+      "classes": [
+        "sorceress",
+        "paladin",
+        "assassin"
+      ],
+      "sha256": "91bd57c29d978affc6d52dd6afa34fa4535eaefbed0fc5f0fff0e16ce8ce0f64",
+      "bytes": 89661
+    },
+    ".local/class-skills/static-field-source/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "d16ede015cecec2e508fb31b960feed3d1ce1d00041eb5b3835b880a851575c7",
+      "bytes": 990431
+    },
+    "tools/reference/sorceress-passive-rules.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "d280a818630b9d59db4d12f3f864bcf8c118ab9cd25e3e2a0be16cd74332309c",
+      "bytes": 15497
+    },
+    ".local/class-skills/player-charged-bolt-emitter-source/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "4970c942d2d3db167c23c0b254352dc612aedb4a675b474126f3d5d97e1299a6",
+      "bytes": 67426
+    },
+    ".local/class-skills/thunder-storm-source/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "5a14c04ddc4ed297d78524b79ff28e356c16d5ec405cabc3711691504b64005b",
+      "bytes": 347435
+    },
+    ".local/class-skills/telekinesis-source/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "57e9a583b167c94b0d86243556f007dd95d56321b06ff93ba2aa7350be469275",
+      "bytes": 1719267
+    },
+    ".local/class-skills/telekinesis-combat-source/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "efc0190d77630c037f76334079b99da09aad99269d05e453358c0053d203b784",
+      "bytes": 835088
+    },
+    ".local/class-skills/sorceress-telekinesis-combat/source-inputs/classic.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "43dd9ff7788f60cb611ae6036c384551569fbd12cdca405325f4df9134cc5c30",
+      "bytes": 6057821
+    },
+    ".local/class-skills/sorceress-telekinesis-combat/source-inputs/ubers.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "75cf5c606f90340dba7127a99632c9365e2922539f8e34bc9e44bd1a80bc1996",
+      "bytes": 6055961
+    },
+    ".local/class-skills/enchant-source/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "2dd08f838acef6a6e1899d974f25b2af6494cf9d8d4b3a239d0efe7402facddf",
+      "bytes": 210250
+    },
+    ".local/class-skills/cold-armor-source/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "b8c34dbe65ae891d9555aca8e7fcdbe15de646413af3439f2a3df449dd27f709",
+      "bytes": 99638
+    },
+    ".local/class-skills/chilling-armor-source/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "dd4fe9d502a9a6a86739c57214fb5b0dc8f26c42b00530ab33619d1ed2548331",
+      "bytes": 143732
+    },
+    ".local/class-skills/shiver-armor-source/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "2826342685eaa945c22c64ebdef6e8f210d2e764ba4323a1578d1d210606ac94",
+      "bytes": 849154
+    },
+    ".local/class-skills/energy-shield-source-preparation/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin",
+        "druid"
+      ],
+      "sha256": "e356479cff986ca6f7cee0c98a1775867670209870d4c676024e287530a07e9b",
+      "bytes": 1543818
+    },
+    ".local/class-skills/energy-shield-cast-source/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin",
+        "druid"
+      ],
+      "sha256": "909959c4a2521dd74cf76da3c89b1656cac41c08f4511486be00fee67df76870",
+      "bytes": 89723
+    },
+    ".local/class-skills/buff-payment-source/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "a25effc56c6d95f3e14fb4bfd07e975fdfc9e55039e3c7d9d0100e317e00bf2c",
+      "bytes": 1450
+    },
+    ".local/class-skills/blaze-damage-source/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "ddeb75fc35eef7b6cbdc5655a738fd69d1ae5991d71e4e5a4af3ed45e1b481aa",
+      "bytes": 2278062
+    },
+    ".local/class-skills/fire-wall-creation-source/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "9e76fc02cf7d575ee9a435b5baf3d4f3438e50f9459361d7cdbe7e702ef826e1",
+      "bytes": 456201
+    },
+    ".local/class-skills/fire-wall-damage-source/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "e060c1e882d251d682c58191e94cfc6dde48d3e9de5656ae6aa57cea3b53d1c6",
+      "bytes": 3728730
+    },
+    ".local/class-skills/fire-wall-return-source/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "6181fa7a6af876589a7a3f294d487822eac4a21cab438b641a186f7e18122429",
+      "bytes": 1528582
+    },
+    ".local/class-skills/meteor-creation-source/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "e675cf6d32873db42cc86ae895d117e739a11a9f90052d816d25f4159ebf4fc1",
+      "bytes": 245234
+    },
+    ".local/class-skills/meteor-damage-source/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "d332d4f7a2efc12e95023b1b0856c015927a8ce979e69c6f484d5f0bf27a29e0",
+      "bytes": 8173058
+    },
+    ".local/class-skills/blizzard-creation-source/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "d673b6ab7d64dc8de1327b71e05ac11698f73569e60f9d5354335a68d98e10e6",
+      "bytes": 245414
+    },
+    ".local/class-skills/blizzard-center-source/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "553561ed307dd7f5e0a254d25113200d9c6cefe433e3ca38446e7d6dd9535d5e",
+      "bytes": 8827179
+    },
+    ".local/class-skills/blizzard-damage-source/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "33901ff69edcc12ba10da739a0cbea6fa28f91a1f9b31f3a12d1ddc43dc85638",
+      "bytes": 3547970
+    },
+    ".local/class-skills/blizzard-collision-source/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "5aa5295df51f7b9ffd7c7111a1c2397a290a71973b8be07315507462fb4a19b7",
+      "bytes": 157634
+    },
+    ".local/class-skills/frozen-orb-creation-source/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "f46e602dd9ec4515d9b563af8c994d8bf4433bada450f6d03834fc783b887bb9",
+      "bytes": 371546
+    },
+    ".local/class-skills/frozen-orb-damage-source/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "5532b428298b3b9f4365054c861b25263f53c67053c241815519069146ca939a",
+      "bytes": 1990126
+    },
+    ".local/class-skills/frozen-orb-emission-source/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "617161a6b1ea7c4406460b29045c0715ffd44821e29f28d996818d892e78a3aa",
+      "bytes": 541493
+    },
+    ".local/class-skills/frozen-orb-collision-source/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "aabca0c332fbf6d3f054c5fe5ea55a1aea07a1eeafe3cb840860573e5b9f93e8",
+      "bytes": 941730
+    },
+    ".local/class-skills/hydra-creation-source/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "7e41a88c0d3d575f20a052270dabbc3b6bf6e8078277c90855f4b6ab58c63f5c",
+      "bytes": 2964370
+    },
+    ".local/class-skills/hydra-ai-source/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "7fbdaf80dc82f46f0a07a4cf1060bcd3b8db850380f825d00dfd8c009b23e633",
+      "bytes": 1216466
+    },
+    ".local/class-skills/hydra-clock-source/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "86d32450b1e65382870a826594de2f5a214b2e0fcaeb11577f4f4985905749dd",
+      "bytes": 19202
+    },
+    ".local/class-skills/hydra-damage-source/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "c4cb4ef45bdf302ffc0f86da4270bc22c2bbeb9b915e743e701e7d1a42e75927",
+      "bytes": 6285800
+    },
+    ".local/class-skills/hydra-bolt-creation-source/cases.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "7fda646c16dc0af182b43a9bc94bd24c3d4d9b4092ad888944d6938d89fb985a",
+      "bytes": 480362
+    },
+    "tools/reference/sorceress-binding-reference.json": {
+      "classes": [
+        "sorceress",
+        "paladin"
+      ],
+      "sha256": "52009338ffd225ec5aa8ab3941a79b3683b616804b137f5be0b25a444df40a31",
+      "bytes": 6218
+    },
+    ".local/class-skills/inferno-stream-damage-source-probe.json": {
+      "classes": [
+        "sorceress"
+      ],
+      "sha256": "6a40c346755c462a7b8c1b836cec3ae1558593bf6cc71c7373be4a28b3bd5d10",
+      "bytes": 186678
+    },
+    ".local/class-skills/inferno-stream-factory-source-probe.json": {
+      "classes": [
+        "sorceress"
+      ],
+      "sha256": "b56fce1ba3a9235c7c10899a2bd6a72a77ecdf36c22e9d154d59c19f9c0cb7f0",
+      "bytes": 559694
+    },
+    ".local/class-skills/sorceress-cast-clock-source-probe.json": {
+      "classes": [
+        "sorceress"
+      ],
+      "sha256": "6cdcf3aaf1a39a2a993149a9b988503cb2e6a165915c4b0ea884c48c8bcf9c24",
+      "bytes": 70434
+    },
+    ".local/class-skills/blessed-hammer-flight/motion-source/cases.json": {
+      "classes": [
+        "paladin"
+      ],
+      "sha256": "6c8bfe4f91deadc27caef3b6f19fb5a2ef9596187f32e2c3c72a21fa7a99e756",
+      "bytes": 1162359
+    },
+    ".local/class-skills/actor-motion-source-probe.json": {
+      "classes": [
+        "paladin",
+        "assassin"
+      ],
+      "sha256": "23dc1ca91e8f2d0d262284d6b853b725f2ba50fb1176fda618e95af8c31995ff",
+      "bytes": 5516838
+    },
+    "tools/reference/paladin-binding-reference.json": {
+      "classes": [
+        "paladin"
+      ],
+      "sha256": "368c928a694807052e3df7603607452e5012b7ce7b9a08149909964e5a73fdb1",
+      "bytes": 6115
+    },
+    ".local/class-skills/holy-shield-cast-source/cases.json": {
+      "classes": [
+        "paladin"
+      ],
+      "sha256": "be3f9739c157987bc5cf06fb720b720ff7322ae686dd813976c4a5f0de574a76",
+      "bytes": 19018
+    },
+    ".local/class-skills/amazon-penetrate-source-probe.json": {
+      "classes": [
+        "paladin",
+        "amazon"
+      ],
+      "sha256": "1bd5526edc34d429022efc0893385853819072486111de02bdd4ccdc26c9072e",
+      "bytes": 2103
+    },
+    ".local/class-skills/paladin-cast-clock-source-probe.json": {
+      "classes": [
+        "paladin"
+      ],
+      "sha256": "0685dac15477bbf5e830c2563a555f57dec96d4297999b0eaedfcb5572b9cccd",
+      "bytes": 71666
+    },
+    ".local/class-skills/double-swing-sequence-source/cases.json": {
+      "classes": [
+        "barbarian"
+      ],
+      "sha256": "7a8fcad8bdc565d60f872ab4ddc33216238617be2a7678748de5a1134ff22b18",
+      "bytes": 8484
+    },
+    ".local/class-skills/leap-attack-sequence-source/cases.json": {
+      "classes": [
+        "barbarian"
+      ],
+      "sha256": "8b5df35699569741890e24db3fa35b690ccfda68f177fc19f97be72767ec9311",
+      "bytes": 214794
+    },
+    ".local/class-skills/grim-ward-curse-source-probe.json": {
+      "classes": [
+        "barbarian"
+      ],
+      "sha256": "55e73bda6980ebe33891cdaf0834b4398c5c06e5efcdbc3d1ad838fdd5159fec",
+      "bytes": 2693559
+    },
+    ".local/class-skills/grim-ward-lifecycle-source-probe.json": {
+      "classes": [
+        "barbarian"
+      ],
+      "sha256": "493c78122767f5508eaf6f6dc7b3c655965f8ce650e44c5771e3503bcbecfab7",
+      "bytes": 371416
+    },
+    ".local/class-skills/barbarian-cast-clock-source-probe.json": {
+      "classes": [
+        "barbarian"
+      ],
+      "sha256": "73e444f689c632ce683d321c47e4a932e4423a07d87ef1fa14baabd7ab8eaaa4",
+      "bytes": 106168
+    },
+    ".local/class-skills/double-swing-phase-source-probe.json": {
+      "classes": [
+        "barbarian"
+      ],
+      "sha256": "81c0349c235c6298ab1f549095efb7cf79a2dcf16fa9b8ae9eb5042cfe7a26e3",
+      "bytes": 1747163
+    },
+    "tools/reference/barbarian-binding-reference.json": {
+      "classes": [
+        "barbarian"
+      ],
+      "sha256": "84bf7265cb2c4c02d155b38c7e386d2c583eb4d79ffdbe3c77329563f56149af",
+      "bytes": 6232
+    },
+    ".local/class-skills/battle-orders-source-probe.json": {
+      "classes": [
+        "barbarian"
+      ],
+      "sha256": "a345f8c63cba04b13e04835cb0c3c16484b8168136c529b1b257eac35506609f",
+      "bytes": 65239
+    },
+    ".local/class-skills/frenzy-release-source-probe.json": {
+      "classes": [
+        "barbarian"
+      ],
+      "sha256": "03a2ebcf0def3ccc68bf9716078a71c8917509382c9508bd345769c0f830d849",
+      "bytes": 7445738
+    },
+    ".local/class-skills/barbarian-mastery-source-probe.json": {
+      "classes": [
+        "barbarian",
+        "amazon"
+      ],
+      "sha256": "da6839a377323b2d848d303dc967da82c342e68650bbe565bc5edd359998f88d",
+      "bytes": 70918
+    },
+    ".local/class-skills/throwing-projectile-source-probe.json": {
+      "classes": [
+        "barbarian",
+        "amazon"
+      ],
+      "sha256": "57b67aeaa96aadd256ddef2eb653ea85a9a32b816ad8fccbd78f8a54f572bae9",
+      "bytes": 28109
+    },
+    ".local/class-skills/leap-source-probe.json": {
+      "classes": [
+        "barbarian",
+        "assassin",
+        "druid"
+      ],
+      "sha256": "8a33400943e264abd7e307f234a177b3d9593dad6588962da8c99eacc60da89f",
+      "bytes": 841675
+    },
+    ".local/class-skills/leap-collision-source-probe.json": {
+      "classes": [
+        "barbarian",
+        "assassin",
+        "druid"
+      ],
+      "sha256": "5185483e96c1d548d19232fd6ddd27c178d7f3c0eb92319e2134c42a6a8916ba",
+      "bytes": 91186
+    },
+    ".local/class-skills/find-potion-native-source-probe.json": {
+      "classes": [
+        "barbarian"
+      ],
+      "sha256": "b2ad08975fdf3cf3a8fb28f32f28723523de03aaacb81fc8bd4a418100d316d2",
+      "bytes": 502547
+    },
+    ".local/class-skills/howl-source-probe.json": {
+      "classes": [
+        "barbarian"
+      ],
+      "sha256": "0f2093c4625befd2c2874c12d59e775176cb58c603a80745d12a6fde704c47c0",
+      "bytes": 129343
+    },
+    ".local/class-skills/taunt-source-probe.json": {
+      "classes": [
+        "barbarian"
+      ],
+      "sha256": "f60617b429551d35dfb13fcd8a63888898bd0742415a49e639e6a0e734105f96",
+      "bytes": 18385
+    },
+    ".local/class-skills/battlecry-source-probe.json": {
+      "classes": [
+        "barbarian"
+      ],
+      "sha256": "95b8d16822efd81056076c620c58f3d3f82c08dd3aa46bc81e04d7a6cc4f3e18",
+      "bytes": 88117
+    },
+    ".local/class-skills/shout-source-probe.json": {
+      "classes": [
+        "barbarian"
+      ],
+      "sha256": "6191ba631cea6e7b5795b6481f7a320304e562a35b00e1b0f3982a9dcb66287f",
+      "bytes": 7718
+    },
+    ".local/class-skills/battle-command-source-probe.json": {
+      "classes": [
+        "barbarian"
+      ],
+      "sha256": "cbf32c8479438a83f31efeabdd0b0e2d12eb2a421d6662e956750106ecad7a26",
+      "bytes": 10883
+    },
+    ".local/class-skills/find-item-loot-source-probe.json": {
+      "classes": [
+        "barbarian"
+      ],
+      "sha256": "f4c987de7e4c64f2b0382eb3f1d5fdc51067eabbdda4590ca169a1bb866735b0",
+      "bytes": 498986
+    },
+    ".local/class-skills/valkyrie-damage-source/cases.json": {
+      "classes": [
+        "amazon",
+        "assassin"
+      ],
+      "sha256": "26b3779811daf7d6b859bc57b8daabbf2e779850b7760eb302e7faa2cdd78b32",
+      "bytes": 1628779
+    },
+    ".local/class-skills/npc-charged-item-source/cases.json": {
+      "classes": [
+        "amazon",
+        "assassin"
+      ],
+      "sha256": "f9e499eca55ca076a987f37e9f21352611312dc76d8723cb09d0bd8632063ab6",
+      "bytes": 1057436
+    },
+    ".local/class-skills/npc-original-events-source/cases.json": {
+      "classes": [
+        "amazon",
+        "assassin"
+      ],
+      "sha256": "db44c77ca2ac9d7602550a59f49d7eea3604b2a13ace010706c4c4c7337a21b3",
+      "bytes": 148085
+    },
+    ".local/class-skills/npc-original-procs-source/cases.json": {
+      "classes": [
+        "amazon",
+        "assassin"
+      ],
+      "sha256": "ea92c5c60299007c07e7a866c4adf22ad535ef36c467d55ee0db239272e92636",
+      "bytes": 281814
+    },
+    ".local/class-skills/npc-world-allocation-source/cases.json": {
+      "classes": [
+        "amazon",
+        "assassin"
+      ],
+      "sha256": "c5eec6059291b1ab5b3958808e5ba420e4680c720d1316d735f88904145a946c",
+      "bytes": 144010
+    },
+    ".local/class-skills/valkyrie-initializer-source/cases.json": {
+      "classes": [
+        "amazon",
+        "assassin"
+      ],
+      "sha256": "1699ec53a8ded45209a43fb736f3c31c3050de4b2a1486cd9e15b3356e4f8227",
+      "bytes": 122420
+    },
+    ".local/class-skills/valkyrie-startup-source/cases.json": {
+      "classes": [
+        "amazon",
+        "assassin"
+      ],
+      "sha256": "8d952433a7ddea1c983c7230d1f12ef1e8ef275c8ace7a95ebf964d7518f346f",
+      "bytes": 313004
+    },
+    ".local/class-skills/npc-expanded-spells-source/cases.json": {
+      "classes": [
+        "amazon",
+        "assassin"
+      ],
+      "sha256": "1754092ff3aff57cf1804e6c53721c289ab0706d75342341a016e40e4d950f7f",
+      "bytes": 417235
+    },
+    ".local/class-skills/valkyrie-buffs-source/cases.json": {
+      "classes": [
+        "amazon",
+        "assassin"
+      ],
+      "sha256": "812c8395965305c76f9ed7fd063d58ad9937d6f47c4e533e9d69f5709176f74e",
+      "bytes": 1004000
+    },
+    ".local/class-skills/charged-strike-velocity-source/cases.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "62503286747fc4b62c0594b8a3ea90435469ddd2bf97db8b029aac0c41cd817c",
+      "bytes": 2348
+    },
+    ".local/class-skills/jab-source-probe.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "ac8bcd796eccad4e71fb0ba8549442472e01d44dcbefb0f6636ddf296a7c8043",
+      "bytes": 13943
+    },
+    ".local/class-skills/power-strike-scalar-probe.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "d0c08a2ec028c2acfd2cdead84d0bb7f6808b4788d8eadf989210ce446e18253",
+      "bytes": 219639
+    },
+    ".local/class-skills/power-strike-flow-probe.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "845d695a71e10ef3120856ef41c15cdb81c6745bbda44796fbbc1928f051c0ba",
+      "bytes": 392
+    },
+    ".local/class-skills/charged-strike-source-probe.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "d6a218dfc3a4c14f5476b71773cb83c8bdbe96a479f67b9731bbf292829cc003",
+      "bytes": 56612
+    },
+    ".local/class-skills/weapon-sequence-rate-probe.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "257b5c869320f1704c91384ef602574c83e7444efe9d02114226f750f083d6f4",
+      "bytes": 9026
+    },
+    ".local/class-skills/slow-missiles-source-probe.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "7fce47e4bb9aaad3c8b29524e1db42d50ca7ede8d944c4cf2f013f4c04b1aa39",
+      "bytes": 41930
+    },
+    ".local/class-skills/impale-source-probe.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "8746a055a66f0617edd5733a558de158a81c5b6f52d3eee009ea6e4f0c3482b0",
+      "bytes": 216535
+    },
+    ".local/class-skills/fend-source-probe.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "882949be0a23cff6c85ffda30e00837d098f2550c0dc7c6242e3c7bff199540e",
+      "bytes": 14663
+    },
+    ".local/class-skills/chain-child-filter-source/cases.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "ba6bab94a415fb5012b29e71c6401a58c26e6fd1078accf3bf3dd68580593baf",
+      "bytes": 674
+    },
+    ".local/class-skills/lightning-strike-damage-source/cases.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "2f9e04af9a48cd08b9fbc838ac01e8752e1e69d1e24029b52421be8efd6312b5",
+      "bytes": 2374406
+    },
+    ".local/class-skills/poison-contact-source-probe.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "fa02b1f90943c2a8d566f83681a0817a33eed7d7e35aa7b2ef612cbd20c92026",
+      "bytes": 9452
+    },
+    ".local/class-skills/lightning-bolt-source-probe.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "811e531557db5102579d7e77143e6806f33bdfae3bd296e338d4d80c5acd1883",
+      "bytes": 177373
+    },
+    ".local/class-skills/lightning-fury-source-probe.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "bd19259f751389d3080a39e77dded3bba63ff7bf3b07e813bd245c68bef2590a",
+      "bytes": 108956
+    },
+    ".local/class-skills/amazon-dodge-source-probe.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "0cddf81815683ca3664303985efca366cbb0a591b09d03024a2fd443e15877c7",
+      "bytes": 36662
+    },
+    ".local/class-skills/amazon-avoid-source-probe.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "3fc8e699ba0801905a2f192dade02aa985d388abbebabb837f5f63c1d74d3484",
+      "bytes": 328898
+    },
+    ".local/class-skills/amazon-evade-source-probe.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "7473ac31b68e1798c413398c9add994cba31c8ca8ba8f61c86865cf8394128ea",
+      "bytes": 105881
+    },
+    ".local/class-skills/amazon-pierce-source-probe.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "29af34971ff8636ba0a893d4fe3a270377dab22d6a1007497f60a29219013ddc",
+      "bytes": 1994
+    },
+    ".local/class-skills/decoy-source-probe.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "ad9fbe8663da4d6ddeb5ec7e26c8da004cf6b23e1e1a064c13c33cf4405299c1",
+      "bytes": 48041
+    },
+    ".local/class-skills/magic-arrow-action-source-probe.json": {
+      "classes": [
+        "amazon",
+        "warlock"
+      ],
+      "sha256": "900ad876265a2be5dbc2aa32552c753516ad8bdeb7528b123f5bb1355778f622",
+      "bytes": 230
+    },
+    ".local/class-skills/elemental-arrow-source-probe.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "4d54c7004a1f966889141ac7e8d1be7e41eca7824044d3a2e170b7807e23066e",
+      "bytes": 212838
+    },
+    ".local/class-skills/cold-arrow-creator-source-probe.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "5052db724f2d1ff4af30c69fcea3f9229128aa933601fe410232986e129b036b",
+      "bytes": 35441
+    },
+    ".local/class-skills/cold-state-source-probe.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "224771d9b5318b5c1eb973966d829b1438b4ae0230359975b64642d313170b2d",
+      "bytes": 292751
+    },
+    ".local/class-skills/exploding-arrow-damage-source-probe.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "81951f4346b6f966e2912067bafd58c906f93f797b05003ba70c2d1cc9cb9225",
+      "bytes": 9453
+    },
+    ".local/class-skills/ice-arrow-creator-source-probe.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "5052db724f2d1ff4af30c69fcea3f9229128aa933601fe410232986e129b036b",
+      "bytes": 35441
+    },
+    ".local/class-skills/guided-arrow-source-probe.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "b8a15119e6cbe30e07bb2cb86c1223cf91cc737c3dddb700cc43670cd67cd5e7",
+      "bytes": 68920
+    },
+    ".local/class-skills/immolation-damage-source-probe.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "25edf8f671c9408bbccdd0079203f9bea112fe23226549db32dfa4818a491870",
+      "bytes": 157019
+    },
+    ".local/class-skills/immolation-field-source-probe.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "a6e50e30ab12210b877c7094e1c15ae27b80750f82922f8e1ed1a51f9ae34e5f",
+      "bytes": 31263
+    },
+    ".local/class-skills/strafe-source-probe.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "8360ab390bd961137884fb02aa9e0d0e6ffc21824178b1e94d99f2563b3343b8",
+      "bytes": 83429
+    },
+    ".local/class-skills/strafe-timing-source-probe.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "89c4f317b0997fbba3b8c36495e5bcf02b86f999a05dfa4379cb84434021be7b",
+      "bytes": 519
+    },
+    ".local/class-skills/freezing-arrow-damage-source-probe.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "7ae43a1fd1a0598acfcd00a78bf0058fe05ff39d147ae7f35aa268562a224aeb",
+      "bytes": 43525
+    },
+    ".local/class-skills/amazon-cast-clock-source-probe.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "c34907c98ac46c632fb848c9dde1d22f14ef404633ee054e01e219adb9388958",
+      "bytes": 72069
+    },
+    ".local/class-skills/bow-launch-source-probe.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "d940fe8f43516ee44dfb47b17876f09bc6a1bdf751cd2e87af8f3579196517c1",
+      "bytes": 32477
+    },
+    ".local/class-skills/pierce-source-seed/source-cases.json": {
+      "classes": [
+        "amazon"
+      ],
+      "sha256": "207758fec789d4b22db225a5afcfd20d466e70f5bd6ccfcf2d0baec6eeacb227",
+      "bytes": 35418
+    },
+    ".local/class-skills/dragon-tail-clock-source-probe.json": {
+      "classes": [
+        "assassin",
+        "druid"
+      ],
+      "sha256": "569c4eb732729645eeb9fd9344213a263f670132826ff419b3c6e2b36624eace",
+      "bytes": 102942
+    },
+    ".local/class-skills/dragon-tail-rate-source-probe.json": {
+      "classes": [
+        "assassin",
+        "druid"
+      ],
+      "sha256": "a36571bd6b1206edc0f348577fec12c17cce0479060d80687c3652a19cbe40b2",
+      "bytes": 183346
+    },
+    ".local/class-skills/dragon-tail-source-probe.json": {
+      "classes": [
+        "assassin",
+        "druid"
+      ],
+      "sha256": "ba1413b1c957ffacc16cf480d8482c594f7f18b72e4b6b1f05a5062b2ad72817",
+      "bytes": 103080
+    },
+    ".local/class-skills/dragon-kick-damage-source-probe.json": {
+      "classes": [
+        "assassin",
+        "druid"
+      ],
+      "sha256": "71a07742bbe95dcd1063b84582f7e5c137d5eff1aa058f45502b11fc0b4933b5",
+      "bytes": 1098930
+    },
+    ".local/class-skills/dragon-kick-packet-source-probe.json": {
+      "classes": [
+        "assassin",
+        "druid"
+      ],
+      "sha256": "ae2ceb1848bb2dde1ea28be23d6a6e2d6cc8eb2231e3983fcd07db688861dd46",
+      "bytes": 3442713
+    },
+    ".local/class-skills/tiger-strike-source-probe.json": {
+      "classes": [
+        "assassin",
+        "druid"
+      ],
+      "sha256": "7abf3cdf6b16b9679a3150efe296b55b29dd6024b9fd20fd1f47a793e7065bf0",
+      "bytes": 137450
+    },
+    "tools/reference/dragon-kick-damage-source-evidence.json": {
+      "classes": [
+        "assassin",
+        "druid"
+      ],
+      "sha256": "c235213cfe1478351a33caafa136732d863a19f647f82e61871af90b2e7b33ae",
+      "bytes": 4422
+    },
+    "tools/reference/tiger-strike-source-evidence.json": {
+      "classes": [
+        "assassin",
+        "druid"
+      ],
+      "sha256": "201cf2e8345e30490037b848f660e2219be2573d89acb504aae73d47bbf1cac8",
+      "bytes": 5935
+    },
+    ".local/class-skills/player-melee-geometry-source/cases.json": {
+      "classes": [
+        "assassin",
+        "druid"
+      ],
+      "sha256": "aa4f0bad62979bd6f60b837bb77fcd1e31e61b7cf32004eeba1030da0e083707",
+      "bytes": 1923710
+    },
+    ".local/class-skills/melee-geometry-source-probe.json": {
+      "classes": [
+        "assassin",
+        "druid"
+      ],
+      "sha256": "bbb0a0e1085c3f88b5a6a535805e49284e89009d5da3305fef8f04c7774cb72c",
+      "bytes": 4503688
+    },
+    ".local/class-skills/dragon-flight-source/cases.json": {
+      "classes": [
+        "assassin",
+        "druid"
+      ],
+      "sha256": "fcc8bbd7228ed48bba01190f90a2c8ad22ce19c181c95161b9e98861de244e1b",
+      "bytes": 697512
+    },
+    ".local/class-skills/dragon-flight-mode/cases.json": {
+      "classes": [
+        "assassin",
+        "druid"
+      ],
+      "sha256": "55a63792d73b401f8d0e54ffdbd24919e53d32a9bf4981ee43f8b73943ba96ca",
+      "bytes": 98342
+    },
+    ".local/class-skills/dragon-talon-clock/cases.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "5e5e4c727e0d11647644f8ed4ef87f226ca2942dc5d4bf057c8557ad387900f1",
+      "bytes": 314334
+    },
+    ".local/class-skills/assassin-claw-modern-rate-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "98b155266acb4f2601c4ccfff6804253301af421e248df747315fb26e79b22bb",
+      "bytes": 246501
+    },
+    ".local/class-skills/assassin-claw-sequence-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "63dfec0e0b371c17e7267342798acb7b11d1d0bba94267d0a7ea962752ac96db",
+      "bytes": 40552
+    },
+    ".local/class-skills/free-coordinates-source/cases.json": {
+      "classes": [
+        "assassin",
+        "druid"
+      ],
+      "sha256": "b1b92d69f7c6c212cfbea5669d1303e5dfd41afb48a514ec7d6e86509b1b5757",
+      "bytes": 56810
+    },
+    ".local/class-skills/actor-path-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "5204a58e09e4fb96444d2e56385ab8a6e759ea5875c094f785f3b21680a2a27d",
+      "bytes": 400769
+    },
+    ".local/class-skills/assassin-trap-attack-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "a73cfd896c31368197b43a90a61d762f029e8df6d5a2bebca89c62d837ec3f61",
+      "bytes": 201206
+    },
+    ".local/class-skills/blade-clock-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "6744cb7b727add2684a81e40405d421f80065df41603279d6c77bc4938658d8e",
+      "bytes": 1100323
+    },
+    ".local/class-skills/blade-mode-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "8ec995c735d75aedc901610a7a2d3298adccbd6c3a0e3254bfcf8e6fa8826dd3",
+      "bytes": 18582
+    },
+    ".local/class-skills/blade-sentinel-damage-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "c158296af638dcfa64bfc0d52a4e349cefe1368b36236386614d96a50c552cd6",
+      "bytes": 115157
+    },
+    ".local/class-skills/blade-sentinel-hit-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "b3313604a5aab6ba7c9b87029bd0159ab173a443b56fb9017d90e05093c7251b",
+      "bytes": 60018
+    },
+    ".local/class-skills/blade-sentinel-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "ad739a3060acac6f72d54680a8e9f8a0bb66506f45e196f1941aa2a89efea85b",
+      "bytes": 473595
+    },
+    ".local/class-skills/blade-spawn-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "d99f9f5eab5c08369d3df76ef167ecf1b6a223f205a2d35b8aacfdcc79dfdd66",
+      "bytes": 4312
+    },
+    ".local/class-skills/nonplayer-leech-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "86530559c315b5f9ef476d0d02626708ebeb5bd7958ad23921d1e983ef0bdfc6",
+      "bytes": 415713
+    },
+    ".local/class-skills/toward-motion-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "da6c8ac9f636d4325ae344d789c0c959bede7273a7827f7e6dcf4195b57c9ee5",
+      "bytes": 8694125
+    },
+    ".local/class-skills/toward-path-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "a07170028949f3249a7ea87648c5ba8bbebb099691da000605e54c0602c1b5c8",
+      "bytes": 1542957
+    },
+    ".local/class-skills/wall-follow-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "fed73a8d604efb41be6180052900bf4eee0b1013d83aef6a953459c019cf5944",
+      "bytes": 3220190
+    },
+    ".local/class-skills/sentry-ai-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "2c076a1d7c894e1b1147943de7f7e4acb98a2764c48c99d49d75a5ed293d53f6",
+      "bytes": 256138
+    },
+    ".local/class-skills/sentry-aim-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "c40fc8ea04de892827985ab18c0652ab8c385b0cad86b786d1d90e1538757ec9",
+      "bytes": 8932
+    },
+    ".local/class-skills/sentry-controller-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "39873c4c1966675d9af1f86a02403fdf6a48a436a1a7de0792fcbae0f807b51e",
+      "bytes": 1560386
+    },
+    ".local/class-skills/sentry-damage-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "6e9959f6fd431008fcf6c92dab9e08d20871bc054a64ffa429034b51983f2611",
+      "bytes": 148683
+    },
+    ".local/class-skills/sentry-emergence-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "a72d603cba6daefc7818d93e0c28ba00855fa697a794912eef35b464696ecf43",
+      "bytes": 900
+    },
+    ".local/class-skills/sentry-launch-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "798d231d4c72f326d8a8e235dbba3b5c25428338dab718ff150b5b6f17c8aa4d",
+      "bytes": 34804
+    },
+    ".local/class-skills/sentry-sequence-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "e4a92bb7bba74e36e519ea87af7fb1f50240745734ea84ac0d2985b08e51fb7f",
+      "bytes": 66646
+    },
+    ".local/class-skills/sentry-death-clock-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "a62f866fcecb8ae58c494619e8d0d1a4d52e65caed31f43eebf702474a6a83fc",
+      "bytes": 1904
+    },
+    ".local/class-skills/lightning-sentry-damage-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "90e45fef0cfc6a2f9ecd828357eb107bebbdaadad309a01b08e3f4e14d21ceff",
+      "bytes": 329224
+    },
+    ".local/class-skills/inferno-sentry-controller-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "c73652093b085d8a21ca13bc01156c798a3e6909317ec0b2b4a05d35178ecd0e",
+      "bytes": 1022494
+    },
+    ".local/class-skills/wake-of-inferno-damage-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "0feff7d183c5acfc0b1bb96edc11daa12f765b76d6aebfd52b0699c46c8b973b",
+      "bytes": 330951
+    },
+    ".local/class-skills/death-sentry-ai-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "8184202e856a6a51b86853099109737e4810b8fe9b928d71c1b56aad204295b9",
+      "bytes": 236685
+    },
+    ".local/class-skills/death-sentry-corpse-search-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "74140a2a8fee8cdd7a3050dde8bd85295ea08644ffe3e408af569409a046db2e",
+      "bytes": 1129008
+    },
+    ".local/class-skills/corpse-explosion-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "489327d8c38d9c674f84c1fb83d155466a4ec27167916dabcea91fcd6e865626",
+      "bytes": 294164
+    },
+    ".local/class-skills/death-sentry-clock-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "bca67dd50ec82bb72ea3685c689c44d8d1b4df4db0f813034036aee91140e385",
+      "bytes": 2570
+    },
+    ".local/class-skills/corpse-base-life-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "9d07507d26fd419910ceedc6aa4df66bd4eb3c92d1cbdc691313435baf9f5703",
+      "bytes": 1535636
+    },
+    ".local/class-skills/wake-of-fire-clock-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "d43ba572a7cd51c5c50367835c35cc5c101db81a834f64c956963fdc5500ae22",
+      "bytes": 2522
+    },
+    ".local/class-skills/wake-of-fire-damage-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "0c82ef2f8712b98769073f60ae7ecaf9982316caa6bb8b6226fa71f89a95a32b",
+      "bytes": 667367
+    },
+    ".local/class-skills/wake-of-fire-factory-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "62b70a3da12b6f6755e685af58f685f3bad80b12dcef0d832690d8f1951f3896",
+      "bytes": 289512
+    },
+    ".local/class-skills/shadow-current-birth-cases.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "003e759e15f12d3f1845b0df249e2d892f38044b95c3a2dbdefe28542efb302c",
+      "bytes": 1093538
+    },
+    ".local/class-skills/shadow-initializer-source/cases.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "a4279d986056e4f0128b2715637586b0de847bcf470a5cd1bc0886d8886bc9dc",
+      "bytes": 302930
+    },
+    ".local/class-skills/shadow-skills-source/cases.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "04308325ac9dffd6f7c291756333bffb7a01e37c04f558137e697d9e0a85257d",
+      "bytes": 113685
+    },
+    ".local/class-skills/shadow-passives-source/cases.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "9bb23267d2ac58429e94df82a01f5b99cf994e32d3b2b85c8c8d65365b526e9d",
+      "bytes": 76454
+    },
+    ".local/class-skills/npc-item-skill-grants-source/cases.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "05a2ba7478ce59e010c28928b173540b0f9d95e90ea3c277c916544de51ddbd5",
+      "bytes": 582483
+    },
+    ".local/class-skills/shadow-buff-animation-source/cases.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "2a34cfba07e06e7d6518161b2db3eb8b8e59049ef445c4015cfc35778b513165",
+      "bytes": 29416
+    },
+    ".local/class-skills/fade-curse-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "6796796748c6700fa032177a8d8721e5b2a6325c99cef7b9744ab577e1667239",
+      "bytes": 73626
+    },
+    ".local/class-skills/shadow-warrior-ai-source/cases.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "5f1f97b479ffa6532d51bdd5e8e227a03eeae9ea01b9958323792b173d1478b7",
+      "bytes": 77253
+    },
+    ".local/class-skills/shadow-ground-source/cases.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "5b36d63d46b8d7a9fee554b77eea1f83447d186306bf5a3fd02ded3eea668753",
+      "bytes": 10722
+    },
+    ".local/class-skills/shadow-animation-source/cases.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "68a8769464f97ea4a7552cb9a5ffefeb38c8620dc7391ef4b1c593da0ee6cf7e",
+      "bytes": 89770
+    },
+    ".local/class-skills/cobra-strike-builder-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "b0eef117ddcbcb8e9aadf21d2056e0e506be5181c80c3d412e0185a186c9f6df",
+      "bytes": 19996
+    },
+    ".local/class-skills/cobra-strike-composition-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "2a573d28cfb3d073ed59b2cf5e08eafa48f21641a200bbf940218a14a72fe236",
+      "bytes": 133634
+    },
+    ".local/class-skills/cobra-strike-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "a5d4e166aa99e13a769b93c713a361065d9c489fd4691a580ba702cc9d0d7e0b",
+      "bytes": 181337
+    },
+    ".local/class-skills/fists-fire-builder-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "8e650749258bf4d2e7f5338d4f96717a16acea04417559b1e5483c28f718d5e7",
+      "bytes": 156002
+    },
+    ".local/class-skills/fists-fire-conversion-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "356dadb63181916d915f3d861271ed856604579197496049050db1101a55da2a",
+      "bytes": 592774
+    },
+    ".local/class-skills/assassin-claw-rate-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "a54b3e409406a25344cfe7757cf37c65072581a79a8797348d3446abb1607cc0",
+      "bytes": 192119
+    },
+    ".local/class-skills/thunder-rate-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "dbbe3c42c83f77d250507ce210f88c5d5515286e4125b708766472173394ee29",
+      "bytes": 132450
+    },
+    ".local/class-skills/martial-lightning-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "fb721cd3a8038117e385c5a98b2cb1211245b2b4f826fd5c8a265f6785e42f21",
+      "bytes": 273058
+    },
+    ".local/class-skills/thunder-damage-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "8afa97bbf0e9c2784b1d91e1ea29ffc05761c883bfdfa9b0b95f65d9c8d9d285",
+      "bytes": 25200
+    },
+    ".local/class-skills/ice-rate-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "acb7b99ae11d191d235ac0d17db82ec9fe2292c112b202dcb6aa410d5960a210",
+      "bytes": 125538
+    },
+    ".local/class-skills/ice-damage-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "5d2334128fedd4fba7b9944a9f7ff3be7bc4b73a448647d40d1649774b27ac06",
+      "bytes": 13430
+    },
+    ".local/class-skills/martial-cold-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "89e4ae42e8b8d1ba302e567ab85688a3bd3d25212e84dae0b3431ee8f4bf6f77",
+      "bytes": 359834
+    },
+    ".local/class-skills/phoenix-builder-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "7328da23b0f6572d3ab4c1a454f6026bc0d3f688cc8b22defd0b77941405e37d",
+      "bytes": 19724
+    },
+    ".local/class-skills/psychic-hammer-damage-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "f5896fe5fb3cb65e6502d1b77e4fa1e065532fc211bea356fab6dd1bb241ac69",
+      "bytes": 4778
+    },
+    ".local/class-skills/psychic-hammer-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "5a52e173c62042bc943b15739774eefeafa7e0af2d561b7c4339edcbc8701f47",
+      "bytes": 110000
+    },
+    ".local/class-skills/weapon-block-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "1e3ed2c5142ad0719e2a618a0deb8825c504574c4df48320608553415644e649",
+      "bytes": 5649474
+    },
+    ".local/class-skills/fire-blast-timing-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "c9a7a9dc2e8edda487ea90574cf9fbf1bd678985afc91f78eca7e8158f64c791",
+      "bytes": 41805
+    },
+    ".local/class-skills/shock-web-damage-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "213c3f96ed59ead4e4e79f408c28403f51bcec6acf5a720f674805cad81c7fea",
+      "bytes": 54985
+    },
+    ".local/class-skills/shock-web-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "d337f875650852dd592654dc73161b9084c355110bf94a2f6d97aeab535157f1",
+      "bytes": 515174
+    },
+    ".local/class-skills/blade-shield-damage-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "b15ab2cfc9e7da0e19f69548672d89ddb37df954cfc424bbeca450462a01ae08",
+      "bytes": 260354
+    },
+    ".local/class-skills/assassin-cast-clock-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "1a2940fea8cb67b73a76cf4ceb6402d0fd858d6f46154603ec8bfe425204f611",
+      "bytes": 89582
+    },
+    ".local/class-skills/shadow-fury-action-source/cases.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "dd157aef285c1aa6485debb00ca1d6f5cb0dab53ed669b806f9b1f7b6f447734",
+      "bytes": 1869
+    },
+    ".local/class-skills/blade-fury-damage-source-probe.json": {
+      "classes": [
+        "assassin"
+      ],
+      "sha256": "9ea6aa09101e93b945ecd185ab1bcdbfab6fa8a3ebda71c4f78f0092441308af",
+      "bytes": 115325
+    },
+    ".local/class-skills/shadow-equipment-source/cases.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "e4a0d11f05922ddd81f82dbb33b435c5809007f85cdaa72054944e24c22453a9",
+      "bytes": 414332
+    },
+    ".local/class-skills/valkyrie-affix-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "03a44283db6e1e00cf4056fe88573736b90ef4eed7b6ed9fa19aaa8d372a39f0",
+      "bytes": 3803070
+    },
+    ".local/class-skills/valkyrie-equipment-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "1aa77defc3f9e533aac8c97cb12ebdd6afedaf84d025572ef84ff58c06d5791b",
+      "bytes": 12404
+    },
+    ".local/class-skills/item-affix-orchestration-source/cases.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "1fc1b836a101c8832d3c70edf349676b90524560cb09753f5a84b64dfb4311fd",
+      "bytes": 3593646
+    },
+    ".local/class-skills/npc-item-affix-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "576387075d8456c98953fe7cf442bf3e97904399fce5f42602acc49122ce3422",
+      "bytes": 14486104
+    },
+    ".local/class-skills/npc-rare-names-source/cases.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "8c0182c96ac19981b51b8a58a2ed7c7da3873313f68da4fed3e122121d41f673",
+      "bytes": 2251279
+    },
+    ".local/class-skills/item-property-creation-source/cases.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "fb9549e25d7789dd213e37d12529140eedc5081194909b8337b9ed501d2e67c8",
+      "bytes": 7612462
+    },
+    ".local/class-skills/item-skill-property-source/cases.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "719e7c869c744153fec4f5c252790f9fe920d87f02dafb46ebe91ab86dbd2a57",
+      "bytes": 6622321
+    },
+    ".local/class-skills/item-proc-callbacks-source/cases.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "9e10b62194992e9d60067dac037663c586ec0d818700dc59d03866e535a5c47c",
+      "bytes": 2174786
+    },
+    ".local/class-skills/item-effect-casts-source/cases.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "e64ccff7646510c2181585b08d13c14ce5c7570daeffad76511b67e01b1dbb10",
+      "bytes": 2130938
+    },
+    ".local/class-skills/skill-execution-source/cases.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "2c7b78a07bcd0bcdaf1c51e95a95cb84bb85685d407465b093403bbb9d427935",
+      "bytes": 3968198
+    },
+    "tools/reference/d2r-named-equipment/json/skills.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+      "bytes": 482081
+    },
+    "tools/reference/d2r-named-equipment/json/missiles.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+      "bytes": 517334
+    },
+    ".local/class-skills/unit-events-source/cases.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "72894eaf0268ddf4aab8379de0e804c5d32026e363113cb479136cf0a53b8968",
+      "bytes": 676249
+    },
+    ".local/class-skills/recycler-vines-birth-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "f647d86ad1a3c724cd598c0beb03b0354b452187a557d3e773bccf52181b9aab",
+      "bytes": 667188
+    },
+    ".local/class-skills/recycler-vines-ai-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "219a3f7face64d5aad739d5e6675e00931ee975976e5794fbfca73f62801619c",
+      "bytes": 726670
+    },
+    ".local/class-skills/recycler-vines-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "0b313a39efcefd1de8179cfadf259bb37ba738aa28b1bda3677a33bb3a5d17f6",
+      "bytes": 133146
+    },
+    ".local/class-skills/pet-walk-flags-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "d79cf96f4fa3b700360138c055223e2ed7e5217214227c972ceeccbc83070248",
+      "bytes": 460082
+    },
+    ".local/class-skills/creeper-ai-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "676a676c358a26b795fd7d23868431c5093478e14f42a4c1b6884d9176b0d85d",
+      "bytes": 137311
+    },
+    ".local/class-skills/creeper-components-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "3b6022b5438e7b709dc8a8554d84e05b880f083ab6e7b60de50f1c26dc2988a7",
+      "bytes": 1375211
+    },
+    ".local/class-skills/creeper-vines-age-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "dd924f4f264b8dccfe2cc885c35511e9c3cb5934c7e43c7bbadb5f550f261906",
+      "bytes": 452681
+    },
+    ".local/class-skills/creeper-frame-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "c44a3956ad458f009b8a7ecba93d97166439cb96098732904b7d63817dd044d9",
+      "bytes": 294327
+    },
+    ".local/class-skills/raven-components-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "dab6df03d50369c2dec00995fedb3d196d28a1e91f8dd7df42d60cc84086e617",
+      "bytes": 901745
+    },
+    ".local/class-skills/raven-circle-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "89bdde60d96cf4cc9431f2367bc892e981a7c18879fc5b39d6fc6eb332d791c5",
+      "bytes": 1597162
+    },
+    ".local/class-skills/spirit-wolf-hit-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "c2447d3f00bdb6d6698e71a9c9c27e540c2eec78d9abf46264d66eac3c90a144",
+      "bytes": 70938
+    },
+    ".local/class-skills/spirit-wolf-rate-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "6670a3fe6af7e2304eed4a37100cfb3e008afaa8fdc488483ab85cb6a1b910e4",
+      "bytes": 28949
+    },
+    ".local/class-skills/dire-wolf-hit-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "c1a8e260427b6e9151a7f5cf667c8187d975224fe00c1b63d7c04a6a5abab558",
+      "bytes": 32206
+    },
+    ".local/class-skills/weapon-crushing-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "f851907b2187c6f489a18baf725115506fdd128d58bbae35bf6fb3977bfb2965",
+      "bytes": 36835
+    },
+    ".local/class-skills/grizzly-sequence-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "bdd8e5497c78e8e3b5158b292c608f10593e8d468e9b1cd21fa1bcb9af08620d",
+      "bytes": 142011
+    },
+    ".local/class-skills/grizzly-rate-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "e8271d02003c8f5f38dbc4ac20c76e6b11314ee2794f3f7eb7211d87946d7282",
+      "bytes": 29033
+    },
+    ".local/class-skills/grizzly-smite-sequence-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "f0d99028af2e631c4d3a6da36a191350fdda44171165e3f0dc8822a84caba572",
+      "bytes": 1618565
+    },
+    ".local/class-skills/bear-smite-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "8f163a57f47e48c84abea66ba6e6a20da61f8c46b1150cfe71fb2ecb63280bbd",
+      "bytes": 498747
+    },
+    ".local/class-skills/arctic-stream-damage-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "1e9dfcf55f3eef91d1318b51c032bac4bc7c833836bc543265a17a682567b90e",
+      "bytes": 211456
+    },
+    ".local/class-skills/arctic-stream-factory-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "aa87808bbf4b89b81d94b50a029219d468b85492c84d31e0551d579b944b9d7a",
+      "bytes": 563114
+    },
+    ".local/class-skills/molten-boulder-damage-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "c9ee3e99cd28f83c5e4c78df3f38df304e6d0b2a8e2d760de90e68b424cde5ae",
+      "bytes": 516970
+    },
+    ".local/class-skills/molten-boulder-impact-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "3939a7a98de79649abba130978b647e8d647fd777456ee7375fb5c2be374f595",
+      "bytes": 144974
+    },
+    ".local/class-skills/fissure-damage-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "51e6ec956562000a8a77267a1a8dbfd3ff1b250c7710a59ede523167efda8564",
+      "bytes": 1107028
+    },
+    ".local/class-skills/missile-footprints-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "1dde2df628f291719ff1f56def124fb4fd47321bad3d834355f67e34353299bb",
+      "bytes": 744
+    },
+    ".local/class-skills/cyclone-armor-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "f2577a854cea2e9431a8b9ea24c164965bd9bda1ea385db655153c83ddb76ca2",
+      "bytes": 442258
+    },
+    ".local/class-skills/twister-damage-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "96ba489e3eae3d40660f62a16dee178eed1a416effffed9d5b1eb04b0304f452",
+      "bytes": 395028
+    },
+    ".local/class-skills/twister-impact-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "3432a2c15391b89e57de7d5696ceb98475675f79bf1c322bcb57a2c6e413f105",
+      "bytes": 793998
+    },
+    ".local/class-skills/twister-path-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "5a706d43b45e14f59456ddd900ec17458e0b444f14ebcfdcc3a17bb789efdd18",
+      "bytes": 208480
+    },
+    ".local/class-skills/volcano-damage-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "7f1d3dfc391e979ad246b5502886a0289b3b5ef504ade6bab2b8d0bb3d109a57",
+      "bytes": 4029680
+    },
+    ".local/class-skills/volcano-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "14c28d9ab6be6dc62a5715b9b416dbcf5926e976ccc203346a755da13054403f",
+      "bytes": 316536
+    },
+    ".local/class-skills/tornado-area-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "56766ad49eab54bb3eded47a95b2a9bdb2a74c4d7fbfb37bf112732674daf016",
+      "bytes": 441290
+    },
+    ".local/class-skills/tornado-damage-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "20824577694c5ca7c5177b83f41d8294bb5dcef56712d073a987dfcfd099fb7f",
+      "bytes": 1222472
+    },
+    ".local/class-skills/tornado-path-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "ac907328be6fe715b0fd86de123ceefa70f0b0f03c0a394068193852a4f652ef",
+      "bytes": 96639
+    },
+    ".local/class-skills/hurricane-damage-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "ca5b53a082ef0501d574f48eb0d9aa3101fb2148640553481315d0cc1e7a4ea1",
+      "bytes": 1825166
+    },
+    ".local/class-skills/armageddon-damage-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "944c0e0652c3d9323ababd5b1b7e0b658a3c542f3dd4e205b7d37c9162594ae9",
+      "bytes": 2734052
+    },
+    ".local/class-skills/armageddon-emitter-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "04608e0e740fec4cb109468990c520bd57f4dae6205880f332b2f8c2c963f5d1",
+      "bytes": 42800
+    },
+    ".local/class-skills/druid-form-cast-clock-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "586220e57ab46ded171771281530112971e32388192520a480dce9220a41ea42",
+      "bytes": 89670
+    },
+    ".local/class-skills/shape-restrictions-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "61e9144f00ae4d43eb6d0acf350f166179264145de513a15d72f00f9446b6c56",
+      "bytes": 27822
+    },
+    ".local/class-skills/druid-form-recovery-clock-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "16efef33df9a3385f80979b3f101a4734a8f460520fc5e125830e68eb12fdd9d",
+      "bytes": 124488
+    },
+    ".local/class-skills/druid-form-attack-clock-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "4a1955dd003debe5450c2a5ed93c5a5550b6ffab3394b7c6d4ca97290730734f",
+      "bytes": 873710
+    },
+    ".local/class-skills/druid-fire-claws-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "de629e97410938bb4d3f8bdc5c70e3be53a7097dda1f17cb4891cf1bec956af2",
+      "bytes": 4888022
+    },
+    ".local/class-skills/druid-rabies-lifecycle-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "b970f5fc492b641e51a719ec0d0e9854438a60e55f01e9f90a45b365bef487a6",
+      "bytes": 2486327
+    },
+    ".local/class-skills/druid-hunger-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "c154171cad41ed32e15f16fde786cbe3b3f99068462500e79a205bda76cc2c3e",
+      "bytes": 3189370
+    },
+    ".local/class-skills/druid-s3-clock-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "15a015632ea385b06e258191d4fe094474885f5e356a2d1e34ed24bd1a5c608c",
+      "bytes": 2776358
+    },
+    ".local/class-skills/druid-fury-full-clock-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "cc96d62422f00854e76deca8fe9c96a7c5a45f0af235a0d6fa35d9cdf7d40e03",
+      "bytes": 165052
+    },
+    ".local/class-skills/druid-fury-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "1bb020c49d7799fd6e3492a440253b67fdebf16848f8af925e88c47867756d3f",
+      "bytes": 297825
+    },
+    ".local/class-skills/druid-shock-wave-damage-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "d0933ad94fc5754f617a4ef3428783aadff8253c51e1393fffa1dc2e53062d83",
+      "bytes": 487636
+    },
+    ".local/class-skills/druid-shock-wave-stun-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "a49ed7cae2ed316ed8ac311b85f683007d878e6fd448008b102b8d9ed52522ec",
+      "bytes": 974312
+    },
+    ".local/class-skills/druid-form-modes-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "678bd40ae1dc4fb1924787a4cc6f9f820373b78b48e9e6f585b855cbc6a08a3d",
+      "bytes": 116132
+    },
+    ".local/class-skills/modern-form-progress-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "f14f3493adffe1a97e280068389cffa16e74d7279223f52ead8e98f0cec89377",
+      "bytes": 932144
+    },
+    ".local/class-skills/druid-charged-attacks-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "4198d6a63a1951e3664f871d6baab60ace99796c4c4b8425e0ea2ad76caadcd7",
+      "bytes": 238776
+    },
+    ".local/class-skills/druid-rabies-factory-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "a0d0ba2fe01463ea6d1a4de7b9aab1aec73e0c3a44973251ce438f023a2e8630",
+      "bytes": 1588586
+    },
+    ".local/class-skills/druid-rabies-spread-source-probe.json": {
+      "classes": [
+        "druid"
+      ],
+      "sha256": "cae1dac77ea0392af91d026db460d3ad42c855a4a97f245f7eca0c81b2e56ff1",
+      "bytes": 4052819
+    },
+    ".local/class-skills/defiler-link-source/formula.json": {
+      "classes": [
+        "warlock"
+      ],
+      "sha256": "ae7a06fd488116451ad538548a3d70435952583565446918832108b1028020ce",
+      "bytes": 2459
+    },
+    ".local/class-skills/defiler-link-cast-source/cases.json": {
+      "classes": [
+        "warlock"
+      ],
+      "sha256": "9163a8450a81d8b79e2aa1b9970086545a0ee6a0e806744d601cbd3af0dbb174",
+      "bytes": 13597
+    },
+    ".local/class-skills/defiler-flying-source/cases.json": {
+      "classes": [
+        "warlock"
+      ],
+      "sha256": "9430b70cd7da1369e6b77e617603d586fd4cd944aa226d5b36786059b18a9736",
+      "bytes": 338406
+    },
+    ".local/class-skills/necromancer-cast-clock-source-probe.json": {
+      "classes": [
+        "warlock"
+      ],
+      "sha256": "3edfa6ab278bd1b7e0c1403b4908bd4ea593a6efd3199d763b125ca3c527cea7",
+      "bytes": 71666
+    },
+    ".local/class-skills/bane-damage-proposal/bane-damage-proposal-fixtures.json": {
+      "classes": [
+        "warlock"
+      ],
+      "sha256": "d4945e739130f2f1b48a919405a3136ae56aff77dec039036a3b5bf92856fc1b",
+      "bytes": 988
+    },
+    ".local/class-skills/cleave-sweep-source/cases.json": {
+      "classes": [
+        "warlock"
+      ],
+      "sha256": "c85c7ee5b8d539f290e12a75c41ccc1974326a748a92c025bf7546cec09782b4",
+      "bytes": 12461
+    },
+    ".local/class-skills/cleave-direction-source/cases.json": {
+      "classes": [
+        "warlock"
+      ],
+      "sha256": "2c1f7aaf0b39ce36ff6c42793f8b09c0a1a5c97a3b982e71c2599707dad30cc8",
+      "bytes": 12255
+    },
+    ".local/class-skills/miasma-packets-source-probe.json": {
+      "classes": [
+        "warlock"
+      ],
+      "sha256": "aeead7b388671865f3a3a485290c3c2086021aeb4e9497e1fe044d43266fa72e",
+      "bytes": 492422
+    },
+    ".local/class-skills/ring-profile-source/cases.json": {
+      "classes": [
+        "warlock"
+      ],
+      "sha256": "801be8e2d3fbe33655291a095d3163529c2a3f51b7cf44213e09247e22ffd7e9",
+      "bytes": 35456
+    },
+    ".local/class-skills/sigil-tracking-source/cases.json": {
+      "classes": [
+        "warlock"
+      ],
+      "sha256": "c2df7e87c0886b8a646a15a22c7e9b4d375c994c2e06916bb2015436bbe78fa0",
+      "bytes": 48637
+    },
+    ".local/class-skills/sigil-launch-source/cases.json": {
+      "classes": [
+        "warlock"
+      ],
+      "sha256": "6a9472c2c3f97c2b8bd87efeba726356688f1c1a593ce036e4f47fe1fa16e6f3",
+      "bytes": 49886
+    },
+    ".local/class-skills/sigil-lethargy-source/cases.json": {
+      "classes": [
+        "warlock"
+      ],
+      "sha256": "f157f2629ad66d9e19759525fd260462ce5cf86d0e403c085100427be2483c73",
+      "bytes": 12212
+    },
+    ".local/class-skills/skill-resistance-source/cases.json": {
+      "classes": [
+        "warlock"
+      ],
+      "sha256": "8cbb9a580a75b72a23a73dd9b5c296412453ede45ca6ea71dcd1b9567f96ea3c",
+      "bytes": 46472
+    },
+    ".local/class-skills/apocalypse-area-source/cases.json": {
+      "classes": [
+        "warlock"
+      ],
+      "sha256": "7615ce45ac38f0b3ddb5e1f40554d57e7f9f3786181352126c8c8ecc678e3a9c",
+      "bytes": 25353
+    },
+    ".local/class-skills/weapon-leech-source-probe.json": {
+      "classes": [
+        "warlock"
+      ],
+      "sha256": "ae22af08d0e7a8695d17fa76dc207a53b7ac24b9ca39903418dc9d49385523bd",
+      "bytes": 230558
+    },
+    ".local/class-skills/iron-golem-birth-source/cases.json": {
+      "classes": [
+        "necromancer",
+        "sorceress",
+        "paladin",
+        "barbarian",
+        "amazon",
+        "assassin",
+        "druid",
+        "warlock"
+      ],
+      "sha256": "4087789d6077dcf1919259514a7e39c5f030fa748dc6d7c82f2ced42f7b48cae",
+      "bytes": 2955881
+    },
+    ".local/class-skills/iron-golem-items-source-probe.json": {
+      "classes": [
+        "necromancer",
+        "sorceress",
+        "paladin",
+        "barbarian",
+        "amazon",
+        "assassin",
+        "druid",
+        "warlock"
+      ],
+      "sha256": "55e823f132cfb7603fee471fe7333fa3959823f6a6112a36c2ceadb410efee77",
+      "bytes": 661224
+    },
+    ".local/class-skills/npc-resource-callbacks-source/cases.json": {
+      "classes": [
+        "necromancer",
+        "sorceress",
+        "paladin",
+        "barbarian",
+        "amazon",
+        "assassin",
+        "druid",
+        "warlock"
+      ],
+      "sha256": "803844cebabd2a5e444bb24ecb1a6b4eaa252271e76056015dbe4d8af55b8be6",
+      "bytes": 62925
+    },
+    ".local/class-skills/blessed-hammer-contact/damage-source/cases.json": {
+      "classes": [
+        "direct-csharp-consumer"
+      ],
+      "sha256": "bf36032f27f2e29c3e7627e9ae3bb713fda43bf6349afa08eb0d7a758373e06d",
+      "bytes": 42550
+    },
+    ".local/class-skills/warcry-source-probe.json": {
+      "classes": [
+        "direct-csharp-consumer"
+      ],
+      "sha256": "9e3a9b9f8dac809f38d87678aea24e102f640f92fc42d953a31b677ccf756b92",
+      "bytes": 55485
+    }
+  },
+  "uniqueInputsPreservedFromRetiredArchive": 0
+}
