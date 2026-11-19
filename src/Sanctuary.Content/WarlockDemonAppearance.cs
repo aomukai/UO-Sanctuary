@@ -8,7 +8,7 @@ internal sealed record WarlockDemonAppearance(int Body,int Sound,string NativeNa
 {
     internal static WarlockDemonAppearance For(CombatAbility ability)=>ability switch
     {
-        CombatAbility.SummonGoatman=>new(4,372,"Gargoyle"),
+        CombatAbility.SummonGoatman=>new(74,422,"Imp"),
         CombatAbility.SummonDefiler=>new(22,377,"Gazer"),
         CombatAbility.SummonTainted=>new(149,0x4B0,"Succubus"),
         _=>throw new NotSupportedException("No approved Warlock demon appearance")

@@ -183,15 +183,15 @@ public static class ClassCombat
         && !creature.InitialInnocent && creature.FightMode is not (FightMode.None or FightMode.Aggressor or FightMode.Evil)
         && creature.IsEnemy(from) && from.CanSee(target) && from.CanBeHarmful(target, false);
 
-    public static int TeethRank(PlayerMobile from)
+    public static int TeethRank(PlayerMobile from) => TeethRank(from, ClassCreation.Profiles.GetRank(from.Serial, "necromancer.teeth"));
+
+    internal static int TeethRank(PlayerMobile from, int learned)
     {
         if (!ClassCreation.Profiles.TryGet(from.Serial, out var profile) || profile.Class != DiabloClass.Necromancer)
         {
             return 0;
         }
-        var weapon = CombatTiming.Equipped(from);
-        return NamedSkills.Rank(from, "necromancer.teeth", ClassCreation.Profiles.GetRank(from.Serial, "necromancer.teeth")
-            + (ClassEquipment.IsStarter(weapon) && ClassGear.Active(from, weapon) ? 1 : 0));
+        return NamedSkills.Rank(from, "necromancer.teeth", learned);
     }
     public static bool Available(PlayerMobile from, CombatAbility ability) => ShapeRestrictions.Allowed(from,ability)&&(ability switch
     {

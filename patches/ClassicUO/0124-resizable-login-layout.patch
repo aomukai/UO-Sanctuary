@@ -1,0 +1,151 @@
+diff --git a/src/ClassicUO.Client/Game/Scenes/LoginScene.cs b/src/ClassicUO.Client/Game/Scenes/LoginScene.cs
+--- a/src/ClassicUO.Client/Game/Scenes/LoginScene.cs
++++ b/src/ClassicUO.Client/Game/Scenes/LoginScene.cs
+@@ -39,6 +39,8 @@
+ 
+     internal sealed class LoginScene : Scene
+     {
++        private const int LayoutWidth = 640, LayoutHeight = 480;
++        private LoginBackground _background;
+         private Gump _currentGump;
+         private LoginSteps _lastLoginStep;
+         private uint _pingTime;
+@@ -67,11 +69,9 @@
+         {
+             base.Load();
+ 
+-            Client.Game.Window.AllowUserResizing = false;
+-
+             _autoLogin = Settings.GlobalSettings.AutoLogin;
+ 
+-            UIManager.Add(new LoginBackground(_world));
++            UIManager.Add(_background = new LoginBackground(_world));
+             UIManager.Add(_currentGump = new LoginGump(_world, this));
+ 
+             Client.Game.Audio.PlayMusic(Client.Game.Audio.LoginMusicIndex, false, true);
+@@ -86,17 +86,24 @@
+                 }
+             }
+ 
+-            if (Client.Game.IsWindowMaximized())
+-            {
+-                Client.Game.RestoreWindow();
+-            }
+-
+-            int width = Client.Game.ScaleWithDpi(640);
+-            int height = Client.Game.ScaleWithDpi(480);
++            int width = Client.Game.ScaleWithDpi(LayoutWidth);
++            int height = Client.Game.ScaleWithDpi(LayoutHeight);
+             SDL.SDL_SetWindowMinimumSize(Client.Game.Window.Handle, width, height);
+-            Client.Game.SetWindowSize(width, height);
+-        }
+-
++            if (!Client.Game.IsWindowMaximized())
++                Client.Game.SetWindowSize(width, height);
++            FitWindow();
++        }
++
++        internal void FitWindow()
++        {
++            var bounds = Client.Game.ClientBounds;
++            int x = Math.Max(0, (bounds.Width - LayoutWidth) / 2);
++            int y = Math.Max(0, (bounds.Height - LayoutHeight) / 2);
++            _background.X = x;
++            _background.Y = y;
++            _currentGump.X = x;
++            _currentGump.Y = y;
++        }
+ 
+         public override void Unload()
+         {
+@@ -108,7 +115,7 @@
+             Client.Game.Audio?.StopMusic();
+             Client.Game.Audio?.StopSounds();
+ 
+-            UIManager.GetGump<LoginBackground>()?.Dispose();
++            _background?.Dispose();
+ 
+             _currentGump?.Dispose();
+ 
+@@ -133,6 +140,7 @@
+                 Gump g = _currentGump;
+                 UIManager.Add(_currentGump = GetGumpForStep());
+                 g.Dispose();
++                FitWindow();
+ 
+                 _lastLoginStep = CurrentLoginStep;
+             }
+diff --git a/src/ClassicUO.Client/Game/Scenes/GameScene.cs b/src/ClassicUO.Client/Game/Scenes/GameScene.cs
+--- a/src/ClassicUO.Client/Game/Scenes/GameScene.cs
++++ b/src/ClassicUO.Client/Game/Scenes/GameScene.cs
+@@ -127,19 +127,19 @@
+             {
+                 Client.Game.SetWindowBorderless(true);
+             }
+-            else if (Settings.GlobalSettings.IsWindowMaximized)
+-            {
+-                Client.Game.MaximizeWindow();
+-            }
+-            else if (Settings.GlobalSettings.WindowSize.HasValue)
+-            {
+-                int w = Settings.GlobalSettings.WindowSize.Value.X;
+-                int h = Settings.GlobalSettings.WindowSize.Value.Y;
+-
+-                w = Math.Max(Client.Game.ScaleWithDpi(640), w);
+-                h = Math.Max(Client.Game.ScaleWithDpi(480), h);
+-
+-                Client.Game.SetWindowSize(w, h);
++            else if (!Client.Game.IsWindowMaximized())
++            {
++                if (Settings.GlobalSettings.IsWindowMaximized)
++                {
++                    Client.Game.MaximizeWindow();
++                }
++                else if (Settings.GlobalSettings.WindowSize is { } windowSize)
++                {
++                    int w = Math.Max(Client.Game.ScaleWithDpi(640), windowSize.X);
++                    int h = Math.Max(Client.Game.ScaleWithDpi(480), windowSize.Y);
++
++                    Client.Game.SetWindowSize(w, h);
++                }
+             }
+ 
+             Plugin.OnConnected();
+diff --git a/src/ClassicUO.Client/GameController.cs b/src/ClassicUO.Client/GameController.cs
+--- a/src/ClassicUO.Client/GameController.cs
++++ b/src/ClassicUO.Client/GameController.cs
+@@ -569,6 +569,9 @@
+ 
+             SetWindowSize(width, height);
+ 
++            if (Scene is LoginScene login)
++                login.FitWindow();
++
+             UIManager.GetGump<WorldViewportGump>()?.FitWindow();
+         }
+ 
+diff --git a/src/ClassicUO.Client/Input/Mouse.cs b/src/ClassicUO.Client/Input/Mouse.cs
+--- a/src/ClassicUO.Client/Input/Mouse.cs
++++ b/src/ClassicUO.Client/Input/Mouse.cs
+@@ -128,11 +128,16 @@
+             }
+ 
+             // Scale the mouse coordinates for the faux-backbuffer and DPI settings
+-            Position.X = (int) ((double) Position.X * (Client.Game.GraphicManager.PreferredBackBufferWidth / Client.Game.Window.ClientBounds.Width) / Client.Game.DpiScale);
+-
+-            Position.Y = (int) ((double) Position.Y * (Client.Game.GraphicManager.PreferredBackBufferHeight / Client.Game.Window.ClientBounds.Height) / Client.Game.DpiScale);
++            var bounds = Client.Game.Window.ClientBounds;
++            var graphics = Client.Game.GraphicManager;
++            float scale = Client.Game.DpiScale;
++            if (bounds.Width > 0 && bounds.Height > 0)
++            {
++                Position.X = (int)(Position.X * (double)graphics.PreferredBackBufferWidth / bounds.Width / scale);
++                Position.Y = (int)(Position.Y * (double)graphics.PreferredBackBufferHeight / bounds.Height / scale);
++            }
+ 
+             IsDragging = LButtonPressed || RButtonPressed || MButtonPressed;
+         }
+     }
+-}
+\ No newline at end of file
++}

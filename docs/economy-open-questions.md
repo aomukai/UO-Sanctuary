@@ -1,6 +1,6 @@
 # Economy and crafting: decision tracker
 
-Worksheet created 18 October 2026; reconciled with the completed user replies on 19 October 2026 (JST). Scope: [crafting handoff](../sanctuary-crafting.md), [economy draft](../sanctuary-economy.md), [implemented economy](economy.md), and [runes and gems](runes-and-gems.md). The crafting handoff and subsequent explicit user confirmations take precedence over older notes.
+Worksheet created 18 October 2026 and reconciled with the completed user replies on 19 October 2026 (JST). Use the [crafting decisions](crafting.md), [implemented economy](economy.md), and [runes and gems](runes-and-gems.md) for consolidated rules. Later explicit user confirmations take precedence. [Reconciliation](economy-reconciliation.md)
 
 Replace `_open_` with a starting rule/value, `keep current`, `use native for now`, or `defer`. Answers may be provisional and tuned later. IDs are stable so answers can also be supplied in chat. Related fields are grouped to avoid repeating the same question across professions. Tables that require a catalogue can initially contain only the items chosen for the first implementation.
 

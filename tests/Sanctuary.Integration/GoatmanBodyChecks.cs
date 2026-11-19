@@ -26,7 +26,7 @@ public static class GoatmanBodyChecks
     }
     private static void Numeric(WarlockGoatmanBody b)
     {
-        Require(b.Body==4&&b.BaseSoundID==372&&b.Name=="Summoned Goatman","Approved Gargoyle presentation missing");
+        Require(b.Body==74&&b.BaseSoundID==422&&b.Name=="Summoned Lesser Daemon","Lesser Daemon imp presentation missing");
         Require(WarlockDemonAppearance.For(CombatAbility.SummonDefiler)==new WarlockDemonAppearance(22,377,"Gazer")
             &&WarlockDemonAppearance.For(CombatAbility.SummonTainted)==new WarlockDemonAppearance(149,0x4B0,"Succubus"),"Approved future demon presentations differ");
         var birth=b.Prepared.Snapshot.Birth;var r=b.BodyResistances;

@@ -59,14 +59,14 @@ public partial class WarlockGoatmanBody:SkeletonGuardian,ISourceLifeMaximum,ISou
     public override (int Min,int Max) SkillWeaponDamage=>(0,0);
     public WarlockGoatmanBody()
     {
-        Name="Summoned Goatman";ApplyAppearance();CantWalk=true;ControlSlots=0;
+        Name="Summoned Lesser Daemon";ApplyAppearance();CantWalk=true;ControlSlots=0;
         AIObject?.AITimer.Stop();SetStr(0);SetDex(0);SetInt(0);SetHits(100);SetDamage(0,0);
     }
     private void ApplyAppearance()
     {
         var appearance=WarlockDemonAppearance.For(CombatAbility.SummonGoatman);
         Body=appearance.Body;BaseSoundID=appearance.Sound;
-        if(Name=="Summoned Goatman [placeholder]"){Name="Summoned Goatman";}
+        if (Name is "Summoned Goatman" or "Summoned Goatman [placeholder]") { Name = "Summoned Lesser Daemon"; }
     }
     // Native Fists may still request a swing after a harmful callback. The
     // source-frame host owns all contacts;reuse the other source pets' delay-

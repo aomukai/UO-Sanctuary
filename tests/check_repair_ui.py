@@ -22,7 +22,7 @@ def exercise(window, click, capture):
             time.sleep(.05)
         raise AssertionError('Missing repair-ui-' + name)
 
-    click(335, 367)
+    click(538, 101)
     command('setup')
     time.sleep(1.5)
     capture('t12-repair-tool.png')

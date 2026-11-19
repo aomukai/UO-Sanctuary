@@ -46,7 +46,7 @@ def exercise(window, click, capture, character, wait_for):
     state = command('setup')
     assert state['wireClass'] == role
     time.sleep(1)
-    click(335, 367)
+    click(538, 101)
     capture('class-combat-before.png')
     player, target = state['player'], state['cursor']
     point = (310 + 22 * (target['x'] - player['x'] - target['y'] + player['y']),

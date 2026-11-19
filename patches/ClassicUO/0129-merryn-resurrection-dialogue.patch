@@ -1,0 +1,57 @@
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryResurrectionTheme.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryResurrectionTheme.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryResurrectionTheme.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryResurrectionTheme.cs
+@@ -7,14 +7,15 @@
+ 
+ internal static class SanctuaryResurrectionTheme
+ {
+-    // ModernUO's hash of Server.Gumps.ResurrectGump.
++    // ModernUO's hashes of Server.Gumps.ResurrectGump and Sanctuary.MerrynResurrectionGump.
+     private const uint ResurrectionGump = 0xA0E1F83A;
++    private const uint MerrynResurrectionGump = 0xA26A046D;
+     private const uint Text = 0xD9F0FFFF;
+     private const uint Gold = 0x8AD8FFFF;
+ 
+     internal static void Apply(Gump gump)
+     {
+-        if (!ClassCombatClient.Enabled || gump.ServerSerial != ResurrectionGump)
++        if (!ClassCombatClient.Enabled || gump.ServerSerial is not (ResurrectionGump or MerrynResurrectionGump))
+             return;
+ 
+         // Match the free offer. Paid resurrection has its own radio buttons and layout.
+@@ -27,25 +28,28 @@
+         Replace(gump, background, new SanctuaryBackdrop("character-frame", 400, 278)
+             { CanCloseWithRightClick = true });
+ 
++        var captions = controls.OfType<HtmlControl>().Where(html => html.Y == 230).ToArray();
+         foreach (var control in controls)
+         {
+-            if (control is HtmlControl html)
++            if (control is HtmlControl html && html.Y != 230)
+             {
+-                if (html.Y == 230)
+-                    html.Dispose();
+-                else
+-                    html.ApplySanctuaryColors(html.Y == 20 ? Gold : Text, hideUnusedScrollbar: true);
++                html.ApplySanctuaryColors(html.Y == 20 ? Gold : Text, hideUnusedScrollbar: true);
+             }
+             else if (control is Button { ButtonID: 0 or 1 } button)
+             {
+                 int id = button.ButtonID;
+                 bool accept = id == 1;
+-                int cliloc = accept ? 1011011 : 1011012;
+-                string caption = Client.Game.UO.FileManager.Clilocs.GetString(cliloc, true);
++                string caption = gump.ServerSerial == MerrynResurrectionGump
++                    ? captions.FirstOrDefault(label => label.X == (accept ? 100 : 235))?.Text
++                    : null;
++                caption ??= Client.Game.UO.FileManager.Clilocs.GetString(accept ? 1011011 : 1011012, true);
+                 Replace(gump, button, new SanctuarySheetButton(accept ? 50 : 206, 220, 144,
+                     caption, () => gump.OnButtonClick(id), accept, height: 31));
+             }
+         }
++
++        foreach (var caption in captions)
++            caption.Dispose();
+     }
+ 
+     private static void Replace(Gump gump, Control original, Control replacement)

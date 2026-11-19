@@ -1,0 +1,26 @@
+diff --git a/Projects/UOContent/Mobiles/ClassCombatHooks.cs b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+--- a/Projects/UOContent/Mobiles/ClassCombatHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -59,6 +59,7 @@
+     public static Action<PlayerMobile, Corpse> PlayerCorpseCreated { get; set; }
+     public static Action<PlayerMobile, SkillName, double> SkillChanged { get; set; }
+     public static Func<Mobile, Mobile, TimeSpan?> CreatureSwing { get; set; }
++    public static Func<Mobile, Mobile, BaseRanged, TimeSpan?> CompanionRangedSwing { get; set; }
+     public static Func<BaseCreature, Mobile, bool?> GuardTarget { get; set; }
+     public static Func<BaseCreature, bool> SourceWeaponDamage { get; set; }
+     public static Func<PlayerMobile, int, int?> ResourceMaximum { get; set; }
+diff --git a/Projects/UOContent/Items/Weapons/Ranged/BaseRanged.cs b/Projects/UOContent/Items/Weapons/Ranged/BaseRanged.cs
+--- a/Projects/UOContent/Items/Weapons/Ranged/BaseRanged.cs
++++ b/Projects/UOContent/Items/Weapons/Ranged/BaseRanged.cs
+@@ -39,6 +39,11 @@
+ 
+         public override TimeSpan OnSwing(Mobile attacker, Mobile defender, double damageBonus = 1.0)
+         {
++            if (ClassCombatHooks.CompanionRangedSwing?.Invoke(attacker, defender, this) is { } companionCycle)
++            {
++                return companionCycle;
++            }
++
+             // WeaponAbility a = WeaponAbility.GetCurrentAbility( attacker );
+ 
+             // Make sure we've been standing still for .25/.5/1 second depending on Era

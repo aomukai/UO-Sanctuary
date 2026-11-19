@@ -57,7 +57,7 @@ def exercise(window, click, capture, character, wait_for):
     time.sleep(1)
     # Use the existing combat-UI driver's verified paperdoll minimize control;
     # right-clicking its character artwork can select the mobile instead.
-    click(335, 367)
+    click(538, 101)
     time.sleep(.4)
     capture('necromancer-before-summon.png')
     cast(state, 'corpse', 'F1')

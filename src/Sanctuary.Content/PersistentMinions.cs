@@ -73,6 +73,8 @@ public static class PersistentMinions
             pet.ControlSlots = 0; Profiles.Store(pet, state with { Parked = true });
         }
         Suspend(pet);
+        if (pet.ControlMaster is PlayerMobile owner && MinionSafeAreas.Parked(pet))
+            MinionSafeAreas.Stored(owner, pet, newlyParked: !state.Parked);
     }
     internal static bool CanActivate(PlayerMobile owner, DiabloClass target)
     {
@@ -209,6 +211,7 @@ public static class PersistentMinions
                 DruidSummonVisuals.Arrive(pet);
                 if (pet is AssassinShadowBody shadow) { shadow.PresentArrival(); }
                 WarlockDemonVisuals.Arrive(pet);
+                MinionSafeAreas.Returned(owner, pet);
             }
             if(pet.Map==owner.Map&&pet.Map!=Map.Internal){if(pet is NecromancerMinion mage){MageWorld.TryAdopt(mage,DateTime.UtcNow);}minion.ResumeActions();}
         }

@@ -1,0 +1,435 @@
+[
+  {
+    "$type": "Spawner",
+    "guid": "155b8aa5-0ee7-43c1-9359-d2b060968856",
+    "name": "New Haven Graveyard Skeletons",
+    "location": [3595, 2448, 18],
+    "map": "Trammel",
+    "count": 4,
+    "minDelay": "00:00:40",
+    "maxDelay": "00:01:10",
+    "homeRange": 3,
+    "walkingRange": 5,
+    "entries": [
+      {"name": "HavenEncounter", "maxCount": 4, "probability": 100, "parameters": "haven-skeleton 2"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "ce99dc95-aa4b-4931-a1d6-00b0f8b77339",
+    "name": "New Haven Graveyard Zombies",
+    "location": [3603, 2456, 14],
+    "map": "Trammel",
+    "count": 3,
+    "minDelay": "00:00:40",
+    "maxDelay": "00:01:10",
+    "homeRange": 3,
+    "walkingRange": 5,
+    "entries": [
+      {"name": "HavenEncounter", "maxCount": 3, "probability": 100, "parameters": "haven-zombie 1"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "a1f9d010-fcfc-5f35-b021-95bfcb671328",
+    "name": "New Haven Graveyard Watch",
+    "location": [3598, 2452, 14],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:00:45",
+    "maxDelay": "00:01:15",
+    "homeRange": 2,
+    "walkingRange": 4,
+    "entries": [
+      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-skeleton 3"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "94641133-a96a-50c5-b7b0-5a718014fa43",
+    "name": "South Farm Road Bandits",
+    "location": [3710, 2621, 20],
+    "map": "Trammel",
+    "count": 4,
+    "minDelay": "00:00:45",
+    "maxDelay": "00:01:15",
+    "homeRange": 3,
+    "walkingRange": 6,
+    "entries": [
+      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-bandit 4"},
+      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-bandit 5"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "491ef282-24bc-5912-88dc-ccd35a2b9db2",
+    "name": "South Farm Camp Bandits",
+    "location": [3721, 2619, 20],
+    "map": "Trammel",
+    "count": 4,
+    "minDelay": "00:00:45",
+    "maxDelay": "00:01:15",
+    "homeRange": 3,
+    "walkingRange": 5,
+    "entries": [
+      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-bandit 5"},
+      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-bandit 6"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "cf0f9847-c10b-500c-8998-93b7c8fdb978",
+    "name": "South Farm Barn Bandits",
+    "location": [3728, 2630, 40],
+    "map": "Trammel",
+    "count": 3,
+    "minDelay": "00:00:45",
+    "maxDelay": "00:01:15",
+    "homeRange": 2,
+    "walkingRange": 5,
+    "entries": [
+      {"name": "HavenEncounter", "maxCount": 1, "probability": 100, "parameters": "haven-bandit 4"},
+      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-bandit 6"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "826eb7a6-3c48-5f12-aced-b57357c999c4",
+    "name": "Old Haven Ruins Skeletons",
+    "location": [3646, 2591, 0],
+    "map": "Trammel",
+    "count": 4,
+    "minDelay": "00:00:45",
+    "maxDelay": "00:01:15",
+    "homeRange": 3,
+    "walkingRange": 7,
+    "entries": [
+      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-skeleton 4"},
+      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-skeleton 5"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "68002c83-a051-515a-b5fb-4850c65cc839",
+    "name": "Old Haven Ruins Zombies",
+    "location": [3663, 2603, 0],
+    "map": "Trammel",
+    "count": 3,
+    "minDelay": "00:00:45",
+    "maxDelay": "00:01:15",
+    "homeRange": 3,
+    "walkingRange": 6,
+    "entries": [
+      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-zombie 4"},
+      {"name": "HavenEncounter", "maxCount": 1, "probability": 100, "parameters": "haven-zombie 5"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "aa3b3a89-d677-5123-b34f-13eaa6bdd80d",
+    "name": "Old Haven South Road Undead",
+    "location": [3639, 2616, 0],
+    "map": "Trammel",
+    "count": 4,
+    "minDelay": "00:00:45",
+    "maxDelay": "00:01:15",
+    "homeRange": 3,
+    "walkingRange": 7,
+    "entries": [
+      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-skeleton 5"},
+      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-skeleton 6"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "411f77fd-bbc9-596f-b14e-31587ec650f2",
+    "name": "Old Haven Ruins Watch",
+    "location": [3649, 2607, 0],
+    "map": "Trammel",
+    "count": 4,
+    "minDelay": "00:00:45",
+    "maxDelay": "00:01:15",
+    "homeRange": 3,
+    "walkingRange": 7,
+    "entries": [
+      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-zombie 5"},
+      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-zombie 6"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "567ec576-7949-5571-a961-f01bdf1457d0",
+    "name": "Old Haven North Road Skeletons",
+    "location": [3650, 2509, 0],
+    "map": "Trammel",
+    "count": 4,
+    "minDelay": "00:00:45",
+    "maxDelay": "00:01:15",
+    "homeRange": 4,
+    "walkingRange": 8,
+    "entries": [
+      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-skeleton 4"},
+      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-skeleton 5"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "5591ad6e-5c72-519d-b312-ab6bb7e2f99b",
+    "name": "Old Haven North Ruins Zombies",
+    "location": [3627, 2499, 0],
+    "map": "Trammel",
+    "count": 4,
+    "minDelay": "00:00:45",
+    "maxDelay": "00:01:15",
+    "homeRange": 4,
+    "walkingRange": 8,
+    "entries": [
+      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-zombie 4"},
+      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-zombie 5"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "abfdebb1-45f4-5968-a88a-4bf2fd11a3a1",
+    "name": "Old Haven Middle Road Zombies",
+    "location": [3648, 2541, 0],
+    "map": "Trammel",
+    "count": 3,
+    "minDelay": "00:00:45",
+    "maxDelay": "00:01:15",
+    "homeRange": 4,
+    "walkingRange": 8,
+    "entries": [
+      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-zombie 5"},
+      {"name": "HavenEncounter", "maxCount": 1, "probability": 100, "parameters": "haven-zombie 6"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "9c691ae5-1bbb-5514-a2aa-0d1deaa47bcc",
+    "name": "Old Haven West Road Zombies",
+    "location": [3625, 2594, 0],
+    "map": "Trammel",
+    "count": 4,
+    "minDelay": "00:00:45",
+    "maxDelay": "00:01:15",
+    "homeRange": 4,
+    "walkingRange": 8,
+    "entries": [
+      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-zombie 4"},
+      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-zombie 5"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "71373eac-f629-5af4-99c0-a0f65367b038",
+    "name": "Old Haven Southern Ruins Skeletons",
+    "location": [3651, 2627, 0],
+    "map": "Trammel",
+    "count": 4,
+    "minDelay": "00:00:45",
+    "maxDelay": "00:01:15",
+    "homeRange": 4,
+    "walkingRange": 8,
+    "entries": [
+      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-skeleton 5"},
+      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-skeleton 6"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "f77dd3f7-437d-592f-9178-462089f598d1",
+    "name": "New Haven Mine Entrance Elementals",
+    "location": [5993, 335, 0],
+    "map": "Trammel",
+    "count": 4,
+    "minDelay": "00:00:45",
+    "maxDelay": "00:01:15",
+    "homeRange": 2,
+    "walkingRange": 4,
+    "entries": [
+      {"name": "HavenEncounter", "maxCount": 3, "probability": 100, "parameters": "haven-elemental 6"},
+      {"name": "HavenEncounter", "maxCount": 1, "probability": 100, "parameters": "haven-elemental 7"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "99effd66-ab6f-5bb4-8dfb-34ac4557033d",
+    "name": "New Haven Mine Galleries Elementals",
+    "location": [5992, 326, 0],
+    "map": "Trammel",
+    "count": 4,
+    "minDelay": "00:00:45",
+    "maxDelay": "00:01:15",
+    "homeRange": 2,
+    "walkingRange": 4,
+    "entries": [
+      {"name": "HavenEncounter", "maxCount": 3, "probability": 100, "parameters": "haven-elemental 7"},
+      {"name": "HavenEncounter", "maxCount": 1, "probability": 100, "parameters": "haven-elemental 8"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "4b0dab98-658c-50e4-9907-1f5a3e086cb6",
+    "name": "New Haven Mine North Elementals",
+    "location": [5997, 309, 0],
+    "map": "Trammel",
+    "count": 4,
+    "minDelay": "00:00:45",
+    "maxDelay": "00:01:15",
+    "homeRange": 2,
+    "walkingRange": 4,
+    "entries": [
+      {"name": "HavenEncounter", "maxCount": 1, "probability": 100, "parameters": "haven-elemental 7"},
+      {"name": "HavenEncounter", "maxCount": 3, "probability": 100, "parameters": "haven-elemental 8"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "f3736ef1-7ec1-5225-84e9-4c931475d434",
+    "name": "Lower Mine Entrance Lizardmen",
+    "location": [5949, 323, 0],
+    "map": "Trammel",
+    "count": 4,
+    "minDelay": "00:00:45",
+    "maxDelay": "00:01:15",
+    "homeRange": 3,
+    "walkingRange": 5,
+    "entries": [
+      {"name": "HavenEncounter", "maxCount": 3, "probability": 100, "parameters": "haven-lizardman 8"},
+      {"name": "HavenEncounter", "maxCount": 1, "probability": 100, "parameters": "haven-lizardman 9"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "d853152d-3970-5cab-b2a8-8ef6e51e0dcd",
+    "name": "Lower Mine Eastern Lizardmen",
+    "location": [5961, 321, 0],
+    "map": "Trammel",
+    "count": 4,
+    "minDelay": "00:00:45",
+    "maxDelay": "00:01:15",
+    "homeRange": 3,
+    "walkingRange": 5,
+    "entries": [
+      {"name": "HavenEncounter", "maxCount": 1, "probability": 100, "parameters": "haven-lizardman 8"},
+      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-lizardman 9"},
+      {"name": "HavenEncounter", "maxCount": 1, "probability": 100, "parameters": "haven-lizardman 10"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "064d6448-494a-55f1-b9f5-bf326fcb9278",
+    "name": "Lower Mine Southern Lizardmen",
+    "location": [5951, 328, 0],
+    "map": "Trammel",
+    "count": 3,
+    "minDelay": "00:00:45",
+    "maxDelay": "00:01:15",
+    "homeRange": 2,
+    "walkingRange": 5,
+    "entries": [
+      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-lizardman 9"},
+      {"name": "HavenEncounter", "maxCount": 1, "probability": 100, "parameters": "haven-lizardman 10"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "e42339ac-8f2b-54e4-a70e-b3c6e332e3f2",
+    "name": "Lower Mine Northern Lizardmen",
+    "location": [5957, 311, 0],
+    "map": "Trammel",
+    "count": 4,
+    "minDelay": "00:00:45",
+    "maxDelay": "00:01:15",
+    "homeRange": 3,
+    "walkingRange": 5,
+    "entries": [
+      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-lizardman 9"},
+      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-lizardman 10"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "29dfac08-f7ad-5f2f-b9a0-7ec8a8fbfabb",
+    "name": "Lower Mine Boss Krulg",
+    "location": [5947, 311, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:05:00",
+    "maxDelay": "00:07:00",
+    "homeRange": 0,
+    "walkingRange": 4,
+    "entries": [
+      {"name": "HavenEncounter", "maxCount": 1, "probability": 100, "parameters": "haven-krulg 7"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "b241cd33-b704-56c3-8a5f-45e4109899e1",
+    "name": "Haven North Woodland Wildlife",
+    "location": [3524, 2459, 28],
+    "map": "Trammel",
+    "count": 4,
+    "minDelay": "00:01:30",
+    "maxDelay": "00:02:30",
+    "homeRange": 6,
+    "walkingRange": 10,
+    "entries": [
+      {"name": "Rabbit", "maxCount": 2, "probability": 100},
+      {"name": "Hind", "maxCount": 1, "probability": 100},
+      {"name": "Bird", "maxCount": 1, "probability": 100}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "da0a24f2-8a59-5ee8-8a9c-dd009f5ae523",
+    "name": "Haven Riverbank Wildlife",
+    "location": [3555, 2525, 14],
+    "map": "Trammel",
+    "count": 4,
+    "minDelay": "00:01:30",
+    "maxDelay": "00:02:30",
+    "homeRange": 5,
+    "walkingRange": 8,
+    "entries": [
+      {"name": "Rabbit", "maxCount": 2, "probability": 100},
+      {"name": "Hind", "maxCount": 1, "probability": 100},
+      {"name": "Bird", "maxCount": 1, "probability": 100}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "83096f0f-0489-5ca4-a46c-77e229049989",
+    "name": "Haven South Woodland Wildlife",
+    "location": [3429, 2650, 43],
+    "map": "Trammel",
+    "count": 4,
+    "minDelay": "00:01:30",
+    "maxDelay": "00:02:30",
+    "homeRange": 5,
+    "walkingRange": 9,
+    "entries": [
+      {"name": "Rabbit", "maxCount": 2, "probability": 100},
+      {"name": "Hind", "maxCount": 1, "probability": 100},
+      {"name": "Bird", "maxCount": 1, "probability": 100}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "c9d483b6-f88d-5573-ba3e-a96d654e4cc9",
+    "name": "Old Haven Hills Wildlife",
+    "location": [3736, 2512, 35],
+    "map": "Trammel",
+    "count": 4,
+    "minDelay": "00:01:30",
+    "maxDelay": "00:02:30",
+    "homeRange": 5,
+    "walkingRange": 9,
+    "entries": [
+      {"name": "Rabbit", "maxCount": 2, "probability": 100},
+      {"name": "Hind", "maxCount": 1, "probability": 100},
+      {"name": "Bird", "maxCount": 1, "probability": 100}
+    ]
+  }
+]

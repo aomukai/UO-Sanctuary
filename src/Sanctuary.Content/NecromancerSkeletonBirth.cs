@@ -17,6 +17,17 @@ internal static class NecromancerSkeletonBirth
         foreach(var difficulty in new[]{MonsterDifficulty.Normal,MonsterDifficulty.Nightmare,MonsterDifficulty.Hell})
         {Prepare(ownerLevel,rank,mastery,difficulty);}
     }
+    internal static (int Min, int Max, int Percent) WeaponBase(SkeletonBirthStats birth, MonsterDifficulty difficulty) =>
+        (NecromancerSummons.Source("necroskeleton", "A1MinD", difficulty) + birth.FlatDamage,
+            NecromancerSummons.Source("necroskeleton", "A1MaxD", difficulty) + birth.FlatDamage, birth.DamagePercent);
+
+    internal static (int Min, int Max) Damage(SkeletonBirthStats birth, MonsterDifficulty difficulty, int bonus = 0)
+    {
+        var weapon = WeaponBase(birth, difficulty);
+        int percent = Math.Max(10, 100 + weapon.Percent + bonus);
+        return (weapon.Min * percent / 100, weapon.Max * percent / 100);
+    }
+
     internal static SkeletonBirthStats Prepare(int ownerLevel,int rank,int mastery,MonsterDifficulty difficulty)
     {
         var row=SkillMechanics.For(CombatAbility.RaiseSkeleton);

@@ -24,7 +24,7 @@ def command(name):
 
 def exercise(window, click, capture):
     import subprocess
-    click(335, 367)
+    click(538, 101)
     command('setup')
     time.sleep(.4)
     capture('processing-tool.png')

@@ -51,7 +51,7 @@ def exercise(window, click, capture, character, wait_for):
 
     state = command('setup')
     time.sleep(1)
-    click(335, 367)  # Minimize paperdoll before aiming in world.
+    click(538, 101)  # Minimize paperdoll before aiming in world.
     capture('find-item-before.png')
     aim(state)
     subprocess.run(['xdotool', 'mousedown', '3'], check=True)

@@ -294,12 +294,15 @@ public static class CreatureProfiles
         : mob is BladeSentinelBody blade ? blade.Prepared?.Creation?.Level??1 : mob is SkeletonGuardian pet ? pet.CombatProfile.Level : mob is BoneBarrierSegment barrier ? barrier.SourceLevel : mob is AmazonDecoy decoy ? decoy.Snapshot?.Level??1 : 1;
     internal static int NativeAttack(BaseCreature mob) => mob is GraveyardUndead undead ? undead.CombatProfile.AttackRating
         : mob is AssassinSentryBody sentry ? sentry.Prepared?.Creation?.Attack??0
-        : mob is BladeSentinelBody blade ? blade.Prepared?.Creation?.Attack??0 : mob is SkeletonGuardian pet ? pet.CombatProfile.AttackRating : Math.Max(5, mob.Dex * 2);
+        : mob is BladeSentinelBody blade ? blade.Prepared?.Creation?.Attack??0 : mob is SkeletonGuardian pet ? pet.CombatProfile.AttackRating
+        : mob is IClassCompanion build && MercenaryCare.CompanionLevel(mob).HasValue ? CompanionBuild.AttackRating(mob, build.CombatClass) : Math.Max(5, mob.Dex * 2);
     internal static int NativeDefense(BaseCreature mob) => mob is GraveyardUndead undead ? undead.CombatProfile.Defense
         : mob is AssassinSentryBody sentry ? sentry.Prepared?.Creation?.Defense??0
-        : mob is BladeSentinelBody blade ? blade.Prepared?.Creation?.Defense??0 : mob is SkeletonGuardian pet ? pet.CombatProfile.Defense : mob is BoneBarrierSegment barrier ? barrier.SourceDefense : mob is AmazonDecoy decoy ? decoy.Snapshot?.Defense??0 : Math.Max(0, mob.Dex / 4 + (int)mob.ArmorRating);
+        : mob is BladeSentinelBody blade ? blade.Prepared?.Creation?.Defense??0 : mob is SkeletonGuardian pet ? pet.CombatProfile.Defense : mob is BoneBarrierSegment barrier ? barrier.SourceDefense : mob is AmazonDecoy decoy ? decoy.Snapshot?.Defense??0
+        : MercenaryCare.CompanionLevel(mob).HasValue ? CompanionBuild.Defense(mob) : Math.Max(0, mob.Dex / 4 + (int)mob.ArmorRating);
     public static int Level(BaseCreature mob, MonsterDifficulty? difficulty = null)
     {
+        if (MercenaryCare.CompanionLevel(mob) is { } companionLevel) { return companionLevel; }
         if(PaladinConversion.Life(mob) is{} conversion){return conversion.Level;}
         if(ReviveCombat.Level(mob) is{} revived){return revived;}
         var row = Variant(mob, difficulty);

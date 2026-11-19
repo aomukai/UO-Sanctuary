@@ -9,6 +9,7 @@ namespace Sanctuary;
 
 public static class ClassCreation
 {
+    internal static readonly Point3D Arrival = new(3503, 2574, 14);
     public static CharacterProfiles Profiles { get; private set; }
 
     public static void Configure()
@@ -23,7 +24,18 @@ public static class ClassCreation
 
     private static void Validate(CharacterCreatedEventArgs args)
     {
-        if (!DiabloClasses.TryFromWire(args.RequestedProfession, out _))
+        if (!PortraitProtocol.TryDecodeCreation(args.RequestedProfession, out _, out _))
+        {
+            args.Rejected = true;
+            return;
+        }
+
+        if (args.AppearanceTemplateId != 0
+            && (!AppearanceTemplates.TryGet(args.AppearanceTemplateId, out var look)
+                || Core.Expansion < args.Race.RequiredExpansion
+                || args.Race.RaceID + 1 != look.Race || args.Female != look.Female
+                || args.Hue != look.Skin || args.HairID != look.Hair || args.HairHue != look.HairHue
+                || args.BeardID != look.Beard || args.BeardHue != look.BeardHue))
         {
             args.Rejected = true;
             return;
@@ -32,7 +44,7 @@ public static class ClassCreation
         args.AccessLevelOverride = AccessLevel.Player;
         Profiles.PruneDeleted();
         args.Profession = 0;
-        args.City = new CityInfo("Britain", "West Britain Bank", 1438, 1696, 0, Map.Felucca);
+        args.City = new CityInfo("New Haven", "The Bountiful Harvest Inn", Arrival.X, Arrival.Y, Arrival.Z, Map.Trammel);
         args.Stats[0] = 30;
         args.Stats[1] = 30;
         args.Stats[2] = args.State.NewCharacterCreation ? (byte)30 : (byte)20;
@@ -41,12 +53,15 @@ public static class ClassCreation
 
     private static void Assign(CharacterCreatedEventArgs args)
     {
-        if (args.Mobile == null || !DiabloClasses.TryFromWire(args.RequestedProfession, out var characterClass))
+        if (args.Mobile == null || !PortraitProtocol.TryDecodeCreation(args.RequestedProfession, out var characterClass, out byte face))
         {
             return;
         }
 
-        Profiles.Assign(args.Mobile, characterClass);
+        // ModernUO initially clips skin before setting the character's race.
+        if (AppearanceTemplates.TryGet(args.AppearanceTemplateId, out var look))
+            args.Mobile.Hue = look.Skin | 0x8000;
+        Profiles.Assign(args.Mobile, characterClass, face, args.AppearanceTemplateId);
         ClassEquipment.ProtectNewbieGear((Server.Mobiles.PlayerMobile)args.Mobile);
         ClassEquipment.Prepare(args.Mobile as Server.Mobiles.PlayerMobile, true);
         if (ClassProfessions.Affected(args.Mobile))

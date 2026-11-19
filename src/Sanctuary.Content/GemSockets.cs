@@ -50,7 +50,7 @@ public static class GemSockets
         if (!RuneSockets.Ready(owner) || !Accessible(owner, gem) || !RuneSockets.Accessible(owner, host)
             || !ClassGear.Converted(host) || !GearDetails.Socketable(host) || host.Origin == ItemOrigin.Vendor) { return null; }
         var state = ClassGear.State(host);
-        if (state is not { Identified: true, StarterTeeth: false } || RuneSockets.Filled(state) >= state.SocketCount) { return null; }
+        if (state is not { Identified: true, Starter: false } || RuneSockets.Filled(state) >= state.SocketCount) { return null; }
         return new(owner, gem, host, state, new(gem.Family, gem.Quality, Clone(gem.Effects)), owner.NetState, RuneSockets.Begin(owner))
         { GemParent = gem.Parent, HostParent = host.Parent, GemSnapshot = new(gem), HostSnapshot = new(host), EffectIdentity = gem.EffectIdentity };
     }

@@ -1,0 +1,1067 @@
+diff --git a/src/ClassicUO.Client/Configuration/Profile.cs b/src/ClassicUO.Client/Configuration/Profile.cs
+--- a/src/ClassicUO.Client/Configuration/Profile.cs
++++ b/src/ClassicUO.Client/Configuration/Profile.cs
+@@ -159,6 +159,7 @@
+         [JsonConverter(typeof(Point2Converter))] public Point WindowClientBounds { get; set; } = new Point(600, 480);
+         [JsonConverter(typeof(Point2Converter))] public Point ContainerDefaultPosition { get; set; } = new Point(24, 24);
+         [JsonConverter(typeof(Point2Converter))] public Point CombatDockOffset { get; set; }
++        public string SanctuaryMenuKeys { get; set; } = SanctuaryMenu.DefaultKeys;
+         public bool WindowBorderless { get; set; } = false;
+         [JsonConverter(typeof(Point2Converter))] public Point TopbarGumpPosition { get; set; } = new Point(0, 0);
+         public bool TopbarGumpIsMinimized { get; set; }
+@@ -294,6 +295,7 @@
+ 
+         public int WorldMapWidth { get; set; } = 400;
+         public int WorldMapHeight { get; set; } = 400;
++        [JsonConverter(typeof(NullablePoint2Converter))] public Point? WorldMapPosition { get; set; }
+         public int WorldMapFont { get; set; } = 3;
+         public bool WorldMapFlipMap { get; set; } = true;
+         public bool WorldMapTopMost { get; set; }
+@@ -780,4 +782,4 @@
+             return gumps;
+         }
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/src/ClassicUO.Client/Game/GameActions.cs b/src/ClassicUO.Client/Game/GameActions.cs
+--- a/src/ClassicUO.Client/Game/GameActions.cs
++++ b/src/ClassicUO.Client/Game/GameActions.cs
+@@ -81,6 +81,12 @@
+ 
+         public static void OpenSettings(World world, int page = 0)
+         {
++            if (ClassCombatClient.Enabled)
++            {
++                SanctuaryOptionsGump.Open(world, hotkeys: page == 4);
++                return;
++            }
++
+             OptionsGump opt = UIManager.GetGump<OptionsGump>();
+ 
+             if (opt == null)
+@@ -158,6 +164,12 @@
+ 
+         public static void OpenMiniMap(World world)
+         {
++            if (ClassCombatClient.Enabled)
++            {
++                OpenWorldMap(world);
++                return;
++            }
++
+             MiniMapGump miniMapGump = UIManager.GetGump<MiniMapGump>();
+ 
+             if (miniMapGump == null)
+@@ -180,6 +192,7 @@
+             {
+                 worldMap = new WorldMapGump(world);
+                 UIManager.Add(worldMap);
++                worldMap.SetInScreen();
+             }
+             else
+             {
+@@ -572,6 +585,14 @@
+                                      entries);
+         }
+ 
++        public static void OpenHelp(World world)
++        {
++            if (ClassCombatClient.Enabled)
++                SanctuaryHelpGump.Open(world);
++            else
++                RequestHelp();
++        }
++
+         public static void RequestHelp()
+         {
+             Socket.Send_HelpRequest();
+diff --git a/src/ClassicUO.Client/Game/ClassCombatClient.cs b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+--- a/src/ClassicUO.Client/Game/ClassCombatClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -317,6 +317,8 @@
+         if (firstSnapshot)
+         {
+             UIManager.GetGump<TopBarGump>()?.Dispose();
++            UIManager.GetGump<MiniMapGump>()?.Dispose();
++            UIManager.GetGump<OptionsGump>()?.Dispose();
+             SanctuarySkillsGump.ReplaceLegacy(world);
+         }
+         if (unchecked((int)(ack - _sequence)) >= 0)
+diff --git a/src/ClassicUO.Client/Game/Managers/MacroManager.cs b/src/ClassicUO.Client/Game/Managers/MacroManager.cs
+--- a/src/ClassicUO.Client/Game/Managers/MacroManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/MacroManager.cs
+@@ -649,7 +649,10 @@
+ 
+                                     if (macro.Code == MacroType.Close)
+                                     {
+-                                        UIManager.GetGump<MiniMapGump>()?.Dispose();
++                                        if (ClassCombatClient.Enabled)
++                                            UIManager.GetGump<WorldMapGump>()?.Dispose();
++                                        else
++                                            UIManager.GetGump<MiniMapGump>()?.Dispose();
+                                     }
+ 
+                                     break;
+@@ -658,7 +661,10 @@
+ 
+                                     if (macro.Code == MacroType.Close)
+                                     {
+-                                        UIManager.GetGump<OptionsGump>()?.Dispose();
++                                        if (ClassCombatClient.Enabled)
++                                            UIManager.GetGump<SanctuaryOptionsGump>()?.Dispose();
++                                        else
++                                            UIManager.GetGump<OptionsGump>()?.Dispose();
+                                     }
+ 
+                                     break;
+diff --git a/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs b/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
+--- a/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
++++ b/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
+@@ -1208,7 +1208,10 @@
+ 
+             if (keycode == SDL.SDL_Keycode.SDLK_ESCAPE && _world.TargetManager.IsTargeting)
+             {
+-                _world.TargetManager.CancelTarget();
++                if (!e.repeat)
++                    _world.TargetManager.CancelTarget();
++                if (ClassCombatClient.Enabled)
++                    return;
+             }
+ 
+             if (UIManager.KeyboardFocusControl != UIManager.SystemChat.TextBoxControl)
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs
+@@ -45,16 +45,15 @@
+     private (uint Total, uint Start, uint Next)? _lastExperience;
+ 
+     // Each string draws one row of a bronze pixel icon at 2x scale.
+-    private static readonly (string Name, string[] Glyph)[] Menu =
++    private static readonly (string Name, SanctuaryWindow? Window, string[] Glyph)[] Menu =
+     [
+-        ("Map", [".xx..xx..", "x..xx..xx", "x..x...xx", "x..x.x.xx", "x..x...xx", "x..xx..xx", ".xx..xx.."]),
+-        ("Character", ["...xxx...", "..xxxxx..", "..x.x.x..", "..xxxxx..", "...xxx...", "..xxxxx..", ".xxxxxxx."]),
+-        ("Inventory", ["...xxx...", "..x...x..", ".xxxxxxx.", ".x.....x.", ".xxxxxxx.", ".x..x..x.", ".xxxxxxx."]),
+-        ("Journal", [".xxx.xxx.", "x...x...x", "x.x.x.x.x", "x...x...x", "x.x.x.x.x", "x...x...x", ".xxx.xxx."]),
+-        ("Chat", [".xxxxxxx.", "x.......x", "x.x.x.x.x", "x.......x", ".xxxxxxx.", "...xx....", "..x......"]),
+-        ("Help", ["..xxxxx..", ".xx...xx.", ".....xx..", "....xx...", "...xx....", ".........", "...xx...."]),
+-        ("World Map", ["...xxx...", ".xx.x.xx.", ".x..x..x.", "xxxxxxxxx", ".x..x..x.", ".xx.x.xx.", "...xxx..."]),
+-        ("Options", ["..x.x.x..", ".xxxxxxx.", "xx.....xx", ".x.xxx.x.", "xx.....xx", ".xxxxxxx.", "..x.x.x.."])
++        ("Character", SanctuaryWindow.Character, ["...xxx...", "..xxxxx..", "..x.x.x..", "..xxxxx..", "...xxx...", "..xxxxx..", ".xxxxxxx."]),
++        ("Backpack", SanctuaryWindow.Backpack, ["...xxx...", "..x...x..", ".xxxxxxx.", ".x.....x.", ".xxxxxxx.", ".x..x..x.", ".xxxxxxx."]),
++        ("Journal", SanctuaryWindow.Journal, [".xxx.xxx.", "x...x...x", "x.x.x.x.x", "x...x...x", "x.x.x.x.x", "x...x...x", ".xxx.xxx."]),
++        ("Chat", null, [".xxxxxxx.", "x.......x", "x.x.x.x.x", "x.......x", ".xxxxxxx.", "...xx....", "..x......"]),
++        ("Help", null, ["..xxxxx..", ".xx...xx.", ".....xx..", "....xx...", "...xx....", ".........", "...xx...."]),
++        ("World Map", SanctuaryWindow.WorldMap, ["...xxx...", ".xx.x.xx.", ".x..x..x.", "xxxxxxxxx", ".x..x..x.", ".xx.x.xx.", "...xxx..."]),
++        ("Options", SanctuaryWindow.Options, ["..x.x.x..", ".xxxxxxx.", "xx.....xx", ".x.xxx.x.", "xx.....xx", ".xxxxxxx.", "..x.x.x.."])
+     ];
+ 
+     public ClassSkillBarGump(World world) : base(world, 0, 0)
+@@ -135,10 +134,11 @@
+         int menuX = (Width - Menu.Length * stride) / 2;
+         for (int i = 0; i < Menu.Length; i++)
+         {
+-            int index = i;
++            var (name, window, glyph) = Menu[i];
++            string tooltip = window is { } destination ? $"{name} · {SanctuaryMenu.Shortcut(destination)}" : name;
+             var cell = Add(new DockCell(menuX + i * stride, y + 49, 29, 24, CellFill,
+-                Menu[i].Name, _ => OpenMenu(index)));
+-            cell.Icon(Menu[i].Glyph);
++                tooltip, _ => OpenMenu(name, window)));
++            cell.Icon(glyph);
+         }
+ 
+         _experienceTrack = Add(new DockCell(9, y + 77, Width - 18, 5, 0xFF211A1C, "Experience"));
+@@ -219,19 +219,14 @@
+         _experienceTrack.SetTooltip(maximum ? $"{xp.Total:N0} XP · Maximum level" : $"{xp.Total:N0} / {xp.Next:N0} XP");
+     }
+ 
+-    private void OpenMenu(int index)
+-    {
+-        switch (index)
+-        {
+-            case 0: GameActions.OpenMiniMap(World); break;
+-            case 1: GameActions.OpenPaperdoll(World, World.Player); break;
+-            case 2: GameActions.OpenBackpack(World); break;
+-            case 3: SanctuaryJournalGump.Open(World); break;
+-            case 4: GameActions.OpenChat(World); break;
+-            case 5: GameActions.RequestHelp(); break;
+-            case 6: GameActions.OpenWorldMap(World); break;
+-            case 7: GameActions.OpenSettings(World); break;
+-        }
++    private void OpenMenu(string name, SanctuaryWindow? window)
++    {
++        if (window is { } destination)
++            SanctuaryMenu.Toggle(World, destination);
++        else if (name == "Chat")
++            GameActions.OpenChat(World);
++        else
++            GameActions.OpenHelp(World);
+     }
+ 
+     private sealed class DockCell : Control
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/GridLootGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/GridLootGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/GridLootGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/GridLootGump.cs
+@@ -22,14 +22,14 @@
+ 
+         private static int _lastX = ProfileManager.CurrentProfile.GridLootType == 2 ? 200 : 100;
+         private static int _lastY = 100;
+-        private readonly AlphaBlendControl _background;
+-        private readonly NiceButton _buttonPrev,
++        private readonly Control _background;
++        private readonly Control _buttonPrev,
+             _buttonNext,
+             _setlootbag;
+         private readonly Item _corpse;
+         private readonly bool _nearby;
+-
+-        private int _currentPage = 1;
++        private readonly bool _themed;
++
+         private readonly Label _currentPageLabel;
+         private readonly Label _corpseNameLabel;
+         private readonly bool _hideIfEmpty;
+@@ -38,6 +38,7 @@
+         public GridLootGump(World world, uint local, bool nearby = false) : base(world, nearby ? 0u : local, 0)
+         {
+             _nearby = nearby;
++            _themed = nearby || ClassCombatClient.Enabled;
+             _corpse = World.Items.Get(local);
+ 
+             if (_corpse == null)
+@@ -68,63 +69,21 @@
+             AcceptMouseInput = true;
+             WantUpdateSize = true;
+             CanCloseWithRightClick = true;
+-            _background = new AlphaBlendControl();
+-            //_background.Width = MAX_WIDTH;
+-            //_background.Height = MAX_HEIGHT;
+-            Add(_background);
++            _background = Add<Control>(_themed
++                ? new SanctuaryBackdrop("character-frame", MAX_WIDTH, 120) { CanCloseWithRightClick = true }
++                : new AlphaBlendControl());
+ 
+             Width = _background.Width;
+             Height = _background.Height;
+ 
+-            _setlootbag = new NiceButton(
+-                3,
+-                Height - 23,
+-                100,
+-                20,
+-                ButtonAction.Activate,
+-                ResGumps.SetLootBag
+-            )
+-            {
+-                ButtonParameter = 2,
+-                IsSelectable = false
+-            };
+-
++            _setlootbag = Add(FooterButton(ResGumps.SetLootBag, 100, 2));
+             _setlootbag.IsVisible = !_nearby;
+-            Add(_setlootbag);
+-
+-            _buttonPrev = new NiceButton(
+-                Width - 80,
+-                Height - 20,
+-                40,
+-                20,
+-                ButtonAction.Activate,
+-                ResGumps.Prev
+-            )
+-            {
+-                ButtonParameter = 0,
+-                IsSelectable = false
+-            };
+-
+-            _buttonNext = new NiceButton(
+-                Width - 40,
+-                Height - 20,
+-                40,
+-                20,
+-                ButtonAction.Activate,
+-                ResGumps.Next
+-            )
+-            {
+-                ButtonParameter = 1,
+-                IsSelectable = false
+-            };
+-
++            _buttonPrev = Add(FooterButton(ResGumps.Prev, _themed ? 49 : 40, 0));
++            _buttonNext = Add(FooterButton(ResGumps.Next, _themed ? 49 : 40, 1));
+             _buttonNext.IsVisible = _buttonPrev.IsVisible = false;
+ 
+-            Add(_buttonPrev);
+-            Add(_buttonNext);
+-
+             Add(
+-                _currentPageLabel = new Label("1", true, 999, align: TEXT_ALIGN_TYPE.TS_CENTER)
++                _currentPageLabel = new Label("1", true, _themed ? (ushort)0x0481 : (ushort)999, align: TEXT_ALIGN_TYPE.TS_CENTER)
+                 {
+                     X = Width / 2 - 5,
+                     Y = Height - 20
+@@ -142,46 +101,23 @@
+                 {
+                     Width = 300,
+                     X = 0,
+-                    Y = 0
++                    Y = _themed ? 9 : 0
+                 }
+             );
+         }
+ 
++        private Control FooterButton(string caption, int width, int action) =>
++            _themed ? new SanctuarySheetButton(0, 0, width, caption, () => OnButtonClick(action))
++                : new NiceButton(0, 0, width, 20, ButtonAction.Activate, caption)
++                {
++                    ButtonParameter = action,
++                    IsSelectable = false
++                };
++
+         public override void OnButtonClick(int buttonID)
+         {
+-            if (buttonID == 0)
+-            {
+-                _currentPage--;
+-
+-                if (_currentPage <= 1)
+-                {
+-                    _currentPage = 1;
+-                    _buttonPrev.IsVisible = false;
+-                }
+-
+-                _buttonNext.IsVisible = true;
+-                ChangePage(_currentPage);
+-
+-                _currentPageLabel.Text = ActivePage.ToString();
+-                _currentPageLabel.X = Width / 2 - _currentPageLabel.Width / 2;
+-            }
+-            else if (buttonID == 1)
+-            {
+-                _currentPage++;
+-
+-                if (_currentPage >= _pagesCount)
+-                {
+-                    _currentPage = _pagesCount;
+-                    _buttonNext.IsVisible = false;
+-                }
+-
+-                _buttonPrev.IsVisible = true;
+-
+-                ChangePage(_currentPage);
+-
+-                _currentPageLabel.Text = ActivePage.ToString();
+-                _currentPageLabel.X = Width / 2 - _currentPageLabel.Width / 2;
+-            }
++            if (buttonID is 0 or 1)
++                ShowPage(ActivePage + (buttonID == 0 ? -1 : 1));
+             else if (buttonID == 2)
+             {
+                 GameActions.Print(World, ResGumps.TargetContainerToGrabItemsInto);
+@@ -191,6 +127,15 @@
+             {
+                 base.OnButtonClick(buttonID);
+             }
++        }
++
++        private void ShowPage(int page)
++        {
++            ChangePage(System.Math.Clamp(page, 1, _pagesCount));
++            _buttonPrev.IsVisible = ActivePage > 1;
++            _buttonNext.IsVisible = ActivePage < _pagesCount;
++            _currentPageLabel.IsVisible = !_themed || _pagesCount > 1;
++            _currentPageLabel.Text = _themed ? $"{ActivePage} / {_pagesCount}" : ActivePage.ToString();
+         }
+ 
+         protected override void UpdateContents()
+@@ -261,23 +206,7 @@
+ 
+             _background.Width = MAX_WIDTH;
+ 
+-            if (ActivePage <= 1)
+-            {
+-                ActivePage = 1;
+-                _buttonNext.IsVisible = _pagesCount > 1;
+-                _buttonPrev.IsVisible = false;
+-            }
+-            else if (ActivePage >= _pagesCount)
+-            {
+-                ActivePage = _pagesCount;
+-                _buttonNext.IsVisible = false;
+-                _buttonPrev.IsVisible = _pagesCount > 1;
+-            }
+-            else if (ActivePage > 1 && ActivePage < _pagesCount)
+-            {
+-                _buttonNext.IsVisible = true;
+-                _buttonPrev.IsVisible = true;
+-            }
++            ShowPage(ActivePage);
+ 
+             if (count == 0)
+             {
+@@ -351,6 +280,8 @@
+             }
+ 
+             base.AddToRenderLists(renderLists, x, y, ref layerDepthRef);
++            if (_themed)
++                return true;
+             float layerDepth = layerDepthRef;
+ 
+             Vector3 hueVector = ShaderHueTranslator.GetHueVector(0);
+@@ -402,14 +333,12 @@
+             Width = _background.Width;
+             Height = _background.Height;
+ 
+-            _buttonPrev.X = Width - 80;
+-            _buttonPrev.Y = Height - 23;
+-            _buttonNext.X = Width - 40;
+-            _buttonNext.Y = Height - 20;
+-            _setlootbag.X = 3;
+-            _setlootbag.Y = Height - 23;
+-            _currentPageLabel.X = Width / 2 - 5;
+-            _currentPageLabel.Y = Height - 20;
++            _buttonPrev.X = Width - (_themed ? 115 : 80);
++            _buttonNext.X = Width - (_themed ? 61 : 40);
++            _buttonPrev.Y = _buttonNext.Y = _setlootbag.Y = Height - (_themed ? 36 : 23);
++            _setlootbag.X = _themed ? 12 : 3;
++            _currentPageLabel.X = (Width - _currentPageLabel.Width) / 2;
++            _currentPageLabel.Y = Height - (_themed ? 31 : 20);
+ 
+             _corpseNameLabel.Text = GetCorpseName();
+ 
+@@ -484,11 +413,15 @@
+ 
+                 amount.IsVisible = amount.IsEnabled = !_gump._nearby && amount.MaxValue > 1;
+ 
+-                AlphaBlendControl background = new AlphaBlendControl();
+-                background.Y = 15;
+-                background.Width = size;
+-                background.Height = size;
+-                Add(background);
++                if (gump._themed)
++                {
++                    Add(new Line(0, 15, size, size, 0xFF486581) { AcceptMouseInput = false });
++                    Add(new Line(1, 16, size - 2, size - 2, 0xFF242B3B) { AcceptMouseInput = false });
++                }
++                else
++                {
++                    Add(new AlphaBlendControl { Y = 15, Width = size, Height = size });
++                }
+ 
+                 _hit = new HitBox(0, 15, size, size, null, 0f);
+                 Add(_hit);
+@@ -513,8 +446,8 @@
+                     }
+                 };
+ 
+-                Width = background.Width;
+-                Height = background.Height + 15;
++                Width = size;
++                Height = size + 15;
+ 
+                 WantUpdateSize = false;
+             }
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
+@@ -512,7 +512,7 @@
+             switch ((Buttons)buttonID)
+             {
+                 case Buttons.Help:
+-                    GameActions.RequestHelp();
++                    GameActions.OpenHelp(World);
+ 
+                     break;
+ 
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/WorldMapGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/WorldMapGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/WorldMapGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/WorldMapGump.cs
+@@ -108,8 +108,9 @@
+             AcceptMouseInput = true;
+             CanCloseWithRightClick = false;
+ 
+-            X = _last_position.X;
+-            Y = _last_position.Y;
++            var position = ProfileManager.CurrentProfile.WorldMapPosition ?? _last_position;
++            X = position.X;
++            Y = position.Y;
+ 
+             _map = World.Map;
+             LoadSettings();
+@@ -221,6 +222,7 @@
+ 
+             ProfileManager.CurrentProfile.WorldMapWidth = Width;
+             ProfileManager.CurrentProfile.WorldMapHeight = Height;
++            ProfileManager.CurrentProfile.WorldMapPosition = Location;
+ 
+             ProfileManager.CurrentProfile.WorldMapFlipMap = _flipMap;
+             ProfileManager.CurrentProfile.WorldMapTopMost = TopMost;
+@@ -3295,4 +3297,4 @@
+     }
+ 
+     #endregion
+-}
+\ No newline at end of file
++}
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
+@@ -51,6 +51,7 @@
+ {
+     private readonly Label _label;
+     private readonly Action _activate;
++    private readonly Line _primaryFill;
+ 
+     public SanctuarySheetButton(int x, int y, int width, string text, Action activate, bool primary = false)
+     {
+@@ -62,10 +63,13 @@
+         WantUpdateSize = false;
+         _activate = activate;
+         Add(new Line(0, 0, width, Height, 0xFF557B98) { AcceptMouseInput = false });
+-        Add(new Line(1, 1, width - 2, Height - 2, primary ? 0xFF335C77u : 0xFF292D42u) { AcceptMouseInput = false });
++        Add(new Line(1, 1, width - 2, Height - 2, 0xFF292D42u) { AcceptMouseInput = false });
++        _primaryFill = Add(new Line(1, 1, width - 2, Height - 2, 0xFF335C77u) { AcceptMouseInput = false, IsVisible = primary });
+         _label = Add(new Label("", true, 0x481, font: 1));
+         SetCaption(text);
+     }
++
++    public void SetPrimary(bool primary) => _primaryFill.IsVisible = primary;
+ 
+     public void SetCaption(string text)
+     {
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs
+new file mode 100644
+--- /dev/null
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs
+@@ -0,0 +1,310 @@
++// SPDX-License-Identifier: BSD-2-Clause
++
++using System;
++using ClassicUO.Configuration;
++using ClassicUO.Game.Managers;
++using ClassicUO.Game.Scenes;
++using ClassicUO.Game.UI.Controls;
++using ClassicUO.Input;
++using SDL3;
++
++namespace ClassicUO.Game.UI.Gumps;
++
++internal sealed class SanctuaryOptionsGump : Gump
++{
++    private const int Graphics = 1, Sound = 2, Music = 3, Hotkeys = 4;
++    private const int PanelWidth = 466, PanelHeight = 347;
++    private readonly Profile _profile = ProfileManager.CurrentProfile;
++    private readonly SanctuarySheetButton[] _tabs = new SanctuarySheetButton[4];
++    private readonly SanctuarySheetButton[] _bindings = new SanctuarySheetButton[4];
++    private readonly Label _keyHint;
++    private string _keys;
++    private int _capturing = -1;
++
++    private bool _borderless, _drawRoofs, _highlightObjects;
++    private bool _sound, _footsteps, _music, _combatMusic, _loginMusic;
++    private readonly ValueSlider _fps, _worldZoom, _screenScale, _soundsVolume, _musicVolume, _loginVolume;
++
++    private SanctuaryOptionsGump(World world, bool hotkeys) : base(world, 0, 0)
++    {
++        Width = PanelWidth;
++        Height = PanelHeight;
++        Recenter();
++        CanMove = CanCloseWithRightClick = true;
++        Add(new SanctuaryBackdrop("character-frame", Width, Height) { CanCloseWithRightClick = true });
++        AddText("Options", 24, 16);
++
++        string[] tabs = ["Graphics", "Sound", "Music", "Hotkeys"];
++        for (int i = 0; i < tabs.Length; i++)
++        {
++            int page = i + 1;
++            _tabs[i] = Add(new SanctuarySheetButton(23 + i * 106, 45, 103, tabs[i], () => SelectTab(page)));
++        }
++
++        Add(new Line(23, 81, 420, 1, 0xFF486581) { AcceptMouseInput = false });
++        Add(new Line(23, 300, 420, 1, 0xFF486581) { AcceptMouseInput = false });
++        Add(new SanctuarySheetButton(23, 310, 75, "Help", () => SanctuaryHelpGump.Open(World)));
++        Add(new SanctuarySheetButton(270, 310, 82, "Cancel", Dispose));
++        Add(new SanctuarySheetButton(360, 310, 83, "Apply", Apply, primary: true));
++
++        var camera = Client.Game.Scene.Camera;
++        AddToggle("Borderless window", Graphics, 0, _profile.WindowBorderless, value => _borderless = value);
++        _fps = AddSlider("Frame rate limit", Graphics, 1, Constants.MIN_FPS, Constants.MAX_FPS, Settings.GlobalSettings.FPS, " fps");
++        _worldZoom = AddSlider("World zoom", Graphics, 2, (int)Math.Round(100 / camera.ZoomMax),
++            (int)Math.Round(100 / camera.ZoomMin), (int)Math.Round(100 / camera.Zoom), "%");
++        _screenScale = AddSlider("Interface scale", Graphics, 3, 50, 200, (int)Math.Round(100 * Client.Game.ScreenScale), "%");
++        AddToggle("Show roofs", Graphics, 4, _profile.DrawRoofs, value => _drawRoofs = value);
++        AddToggle("Highlight objects on hover", Graphics, 5, _profile.HighlightGameObjects, value => _highlightObjects = value);
++
++        AddToggle("Sound effects", Sound, 0, _profile.EnableSound, value => _sound = value);
++        _soundsVolume = AddSlider("Effects volume", Sound, 1, 0, 100, _profile.SoundVolume, "%");
++        AddToggle("Footsteps", Sound, 2, _profile.EnableFootstepsSound, value => _footsteps = value);
++
++        AddToggle("Game music", Music, 0, _profile.EnableMusic, value => _music = value);
++        _musicVolume = AddSlider("Music volume", Music, 1, 0, 100, _profile.MusicVolume, "%");
++        AddToggle("Combat music", Music, 2, _profile.EnableCombatMusic, value => _combatMusic = value);
++        AddToggle("Login music", Music, 3, Settings.GlobalSettings.LoginMusic, value => _loginMusic = value);
++        _loginVolume = AddSlider("Login music volume", Music, 4, 0, 100, Settings.GlobalSettings.LoginMusicVolume, "%");
++
++        _keys = SanctuaryMenu.GetKeys(_profile);
++        string[] windows = ["Backpack", "Character", "Journal", "World map"];
++        for (int i = 0; i < windows.Length; i++)
++        {
++            int binding = i;
++            int y = Row(i);
++            AddText(windows[i], 30, y + 4, Hotkeys);
++            _bindings[i] = Add(new SanctuarySheetButton(345, y, 92, "", () =>
++            {
++                _capturing = binding;
++                RefreshBindings("Press a letter. Esc cancels.");
++            }), Hotkeys);
++        }
++
++        AddText("Esc  Options     Enter  Chat     Tab  Run/Walk", 30, 240, Hotkeys);
++        AddText("S  Skill bindings     F1–F12  Skills     1–4  Belt", 30, 263, Hotkeys);
++        Add(new SanctuarySheetButton(106, 310, 92, "Defaults", () =>
++        {
++            _keys = SanctuaryMenu.DefaultKeys;
++            _capturing = -1;
++            RefreshBindings();
++        }), Hotkeys);
++        _keyHint = AddText("", 30, 282, Hotkeys);
++        SelectTab(hotkeys ? Hotkeys : Graphics);
++    }
++
++    public bool IsCapturingKey => _capturing >= 0;
++
++    public static void Open(World world, bool hotkeys)
++    {
++        if (UIManager.GetGump<SanctuaryOptionsGump>() is { } options)
++        {
++            if (hotkeys)
++                options.SelectTab(Hotkeys);
++            options.SetInScreen();
++            options.BringOnTop();
++        }
++        else
++        {
++            UIManager.Add(new SanctuaryOptionsGump(world, hotkeys));
++        }
++    }
++
++    public void CaptureKey(SDL.SDL_Keycode key, bool modified)
++    {
++        if (key == SDL.SDL_Keycode.SDLK_ESCAPE)
++        {
++            _capturing = -1;
++            RefreshBindings();
++            return;
++        }
++
++        if (modified || key < SDL.SDL_Keycode.SDLK_A || key > SDL.SDL_Keycode.SDLK_Z
++            || !SanctuaryMenu.IsMenuLetter((char)key))
++        {
++            RefreshBindings("Use an unmodified letter. S opens skill bindings.");
++            return;
++        }
++
++        char letter = (char)key;
++        int taken = _keys.IndexOf(letter);
++        if (taken >= 0 && taken != _capturing)
++        {
++            RefreshBindings("That letter is assigned to another window.");
++            return;
++        }
++
++        _keys = _keys[.._capturing] + letter + _keys[(_capturing + 1)..];
++        _capturing = -1;
++        RefreshBindings();
++    }
++
++    private void RefreshBindings(string hint = "")
++    {
++        for (int i = 0; i < _bindings.Length; i++)
++        {
++            _bindings[i].SetCaption(i == _capturing ? "Press a key" : char.ToUpperInvariant(_keys[i]).ToString());
++            _bindings[i].SetPrimary(i == _capturing);
++        }
++        _keyHint.Text = hint;
++    }
++
++    private void SelectTab(int page)
++    {
++        _capturing = -1;
++        RefreshBindings();
++        for (int i = 0; i < _tabs.Length; i++)
++            _tabs[i].SetPrimary(i + 1 == page);
++        ChangePage(page);
++    }
++
++    private static int Row(int row) => 93 + row * 33;
++
++    private Label AddText(string text, int x, int y, int page = 0) =>
++        Add(new Label(text, true, 0x0481, font: 1) { X = x, Y = y, AcceptMouseInput = false }, page);
++
++    private void AddToggle(string title, int page, int row, bool value, Action<bool> set)
++    {
++        int y = Row(row);
++        AddText(title, 30, y + 4, page);
++        SanctuarySheetButton button = null;
++        button = Add(new SanctuarySheetButton(345, y, 92, value ? "On" : "Off", () =>
++        {
++            value = !value;
++            set(value);
++            button.SetCaption(value ? "On" : "Off");
++            button.SetPrimary(value);
++        }, value), page);
++        set(value);
++    }
++
++    private ValueSlider AddSlider(string title, int page, int row, int min, int max, int value, string suffix)
++    {
++        int y = Row(row);
++        AddText(title, 30, y + 4, page);
++        return Add(new ValueSlider(203, y, min, max, value, suffix), page);
++    }
++
++    private void Recenter()
++    {
++        X = Math.Max(0, (Client.Game.ClientBounds.Width - Width) / 2);
++        Y = Math.Max(0, (Client.Game.ClientBounds.Height - Height) / 2);
++    }
++
++    private void Apply()
++    {
++        var settings = Settings.GlobalSettings;
++        var game = Client.Game;
++
++        if (_profile.WindowBorderless != _borderless)
++        {
++            _profile.WindowBorderless = _borderless;
++            game.SetWindowBorderless(_borderless);
++        }
++        if (_profile.DrawRoofs != _drawRoofs)
++        {
++            _profile.DrawRoofs = _drawRoofs;
++            game.GetScene<GameScene>()?.UpdateMaxDrawZ(true);
++        }
++        _profile.HighlightGameObjects = _highlightObjects;
++        if (_fps.Changed)
++            game.SetRefreshRate(_fps.Value);
++        if (_worldZoom.Changed)
++            _profile.DefaultScale = game.Scene.Camera.Zoom = 100f / _worldZoom.Value;
++        if (_screenScale.Changed)
++            game.ScreenScale = settings.ScreenScale = _screenScale.Value / 100f;
++
++        bool resumeMusic = !_profile.EnableMusic && _music;
++        _profile.EnableSound = _sound;
++        _profile.SoundVolume = _soundsVolume.Value;
++        _profile.EnableFootstepsSound = _footsteps;
++        _profile.EnableMusic = _music;
++        _profile.MusicVolume = _musicVolume.Value;
++        if (_profile.EnableCombatMusic && !_combatMusic && _music)
++            resumeMusic = true;
++        _profile.EnableCombatMusic = _combatMusic;
++        settings.LoginMusic = _loginMusic;
++        settings.LoginMusicVolume = _loginVolume.Value;
++
++        game.Audio.UpdateCurrentSoundsVolume();
++        game.Audio.UpdateCurrentMusicVolume();
++        if (!_sound)
++            game.Audio.StopSounds();
++        if (!_music)
++            game.Audio.StopMusic();
++        else if (resumeMusic)
++            game.Audio.StopWarMusic();
++
++        if (_profile.SanctuaryMenuKeys != _keys)
++        {
++            _profile.SanctuaryMenuKeys = _keys;
++            UIManager.GetGump<ClassSkillBarGump>()?.RequestUpdateContents();
++            UIManager.GetGump<SanctuaryHelpGump>()?.RefreshShortcuts();
++        }
++        ProfileManager.Save(_profile, ProfileManager.ProfilePath);
++        settings.Save();
++        Dispose();
++    }
++
++    private sealed class ValueSlider : Control
++    {
++        private const int Track = 165;
++        private readonly int _min, _max, _original;
++        private readonly Line _fill;
++        private readonly Label _caption;
++        private readonly string _suffix;
++        private bool _dragging;
++
++        public ValueSlider(int x, int y, int min, int max, int value, string suffix)
++        {
++            X = x;
++            Y = y;
++            Width = 234;
++            Height = 25;
++            AcceptMouseInput = true;
++            WantUpdateSize = false;
++            _min = min;
++            _max = max;
++            _suffix = suffix;
++            Add(new Line(0, 7, Track, 11, 0xFF486581) { AcceptMouseInput = false });
++            Add(new Line(1, 8, Track - 2, 9, 0xFF211C22) { AcceptMouseInput = false });
++            _fill = Add(new Line(1, 8, 0, 9, 0xFF639AD0) { AcceptMouseInput = false });
++            _caption = Add(new Label("", true, 0x0481, font: 1) { Y = 4, AcceptMouseInput = false });
++            SetValue(_original = Math.Clamp(value, min, max));
++        }
++
++        public int Value { get; private set; }
++        public bool Changed => Value != _original;
++
++        public override void Update()
++        {
++            base.Update();
++            if (_dragging && Mouse.LButtonPressed)
++                SetFromPosition(Mouse.Position.X - ScreenCoordinateX);
++            else
++                _dragging = false;
++        }
++
++        protected override void OnMouseDown(int x, int y, MouseButtonType button)
++        {
++            if (button == MouseButtonType.Left && x < Track)
++            {
++                _dragging = true;
++                SetFromPosition(x);
++            }
++        }
++
++        protected override void OnMouseWheel(MouseEventType delta) =>
++            SetValue(Value + (delta == MouseEventType.WheelScrollUp ? 1 : -1));
++
++        private void SetFromPosition(int x) =>
++            SetValue(_min + (int)Math.Round((double)x * (_max - _min) / (Track - 1)));
++
++        private void SetValue(int value)
++        {
++            Value = Math.Clamp(value, _min, _max);
++            _fill.Width = (Track - 2) * (Value - _min) / Math.Max(1, _max - _min);
++            _caption.Text = Value + _suffix;
++            _caption.X = Width - _caption.Width;
++        }
++    }
++}
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryHelpGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryHelpGump.cs
+new file mode 100644
+--- /dev/null
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryHelpGump.cs
+@@ -0,0 +1,66 @@
++// SPDX-License-Identifier: BSD-2-Clause
++
++using System;
++using ClassicUO.Game.Managers;
++using ClassicUO.Game.UI.Controls;
++
++namespace ClassicUO.Game.UI.Gumps;
++
++internal sealed class SanctuaryHelpGump : Gump
++{
++    private static readonly string[] WindowNames = ["Backpack", "Character", "Journal", "World map"];
++    private readonly Label[] _windowLabels = new Label[WindowNames.Length];
++
++    private SanctuaryHelpGump(World world) : base(world, 0, 0)
++    {
++        Width = 466;
++        Height = 320;
++        X = Math.Max(0, (Client.Game.ClientBounds.Width - Width) / 2);
++        Y = Math.Max(0, (Client.Game.ClientBounds.Height - Height) / 2);
++        CanMove = CanCloseWithRightClick = true;
++        Add(new SanctuaryBackdrop("character-frame", Width, Height) { CanCloseWithRightClick = true });
++        Text("Help", 24, 17);
++        Text("Windows", 26, 57);
++        Text("Combat and interaction", 192, 57);
++        Add(new Line(24, 79, 418, 1, 0xFF486581) { AcceptMouseInput = false });
++
++        for (int i = 0; i < _windowLabels.Length; i++)
++            _windowLabels[i] = Text("", 26, 96 + i * 25);
++        RefreshShortcuts();
++        Text("Esc   Options", 26, 196);
++        Text("Enter   World chat", 26, 221);
++
++        Text("S   Assign skills", 192, 96);
++        Text("F1–F12   Use an assigned skill", 192, 121);
++        Text("1–4   Use a potion belt column", 192, 146);
++        Text("Tab   Toggle run and walk", 192, 171);
++        Text("Click a corpse to view nearby loot.", 192, 196);
++        Text("Drag your avatar to show their health.", 192, 221);
++
++        Add(new Line(24, 262, 418, 1, 0xFF486581) { AcceptMouseInput = false });
++        Add(new SanctuarySheetButton(24, 274, 111, "Contact Staff", GameActions.RequestHelp));
++        Add(new SanctuarySheetButton(361, 274, 81, "Close", Dispose));
++    }
++
++    private Label Text(string text, int x, int y) =>
++        Add(new Label(text, true, 0x0481, font: 1) { X = x, Y = y, AcceptMouseInput = false });
++
++    public void RefreshShortcuts()
++    {
++        for (int i = 0; i < _windowLabels.Length; i++)
++            _windowLabels[i].Text = $"{SanctuaryMenu.Shortcut((SanctuaryWindow)i)}   {WindowNames[i]}";
++    }
++
++    public static void Open(World world)
++    {
++        if (UIManager.GetGump<SanctuaryHelpGump>() is { } help)
++        {
++            help.SetInScreen();
++            help.BringOnTop();
++        }
++        else
++        {
++            UIManager.Add(new SanctuaryHelpGump(world));
++        }
++    }
++}
+diff --git a/src/ClassicUO.Client/Game/SanctuaryMenu.cs b/src/ClassicUO.Client/Game/SanctuaryMenu.cs
+new file mode 100644
+--- /dev/null
++++ b/src/ClassicUO.Client/Game/SanctuaryMenu.cs
+@@ -0,0 +1,126 @@
++// SPDX-License-Identifier: BSD-2-Clause
++
++using ClassicUO.Configuration;
++using ClassicUO.Game.Data;
++using ClassicUO.Game.Managers;
++using ClassicUO.Game.UI.Gumps;
++using ClassicUO.Input;
++using SDL3;
++
++namespace ClassicUO.Game;
++
++internal enum SanctuaryWindow
++{
++    Backpack,
++    Character,
++    Journal,
++    WorldMap,
++    Options
++}
++
++internal static class SanctuaryMenu
++{
++    internal const string DefaultKeys = "bcjm";
++
++    internal static bool IsMenuLetter(char key) => key is >= 'a' and <= 'z' and not 's';
++
++    internal static string GetKeys(Profile profile)
++    {
++        string keys = profile.SanctuaryMenuKeys;
++        if (keys?.Length != DefaultKeys.Length)
++            return DefaultKeys;
++
++        for (int i = 0; i < keys.Length; i++)
++            if (!IsMenuLetter(keys[i]) || keys.IndexOf(keys[i]) != i)
++                return DefaultKeys;
++
++        return keys;
++    }
++
++    internal static string Shortcut(SanctuaryWindow window) => window == SanctuaryWindow.Options
++        ? "Esc"
++        : char.ToUpperInvariant(GetKeys(ProfileManager.CurrentProfile)[(int)window]).ToString();
++
++    internal static bool HandleKey(World world, SDL.SDL_KeyboardEvent e)
++    {
++        var chat = UIManager.SystemChat;
++        var focus = UIManager.KeyboardFocusControl;
++        if (!ClassCombatClient.Enabled || UIManager.IsModalOpen || chat == null || chat.IsActive
++            || (focus != null && focus != chat.TextBoxControl))
++            return false;
++
++        var key = (SDL.SDL_Keycode)e.key;
++        bool escape = key == SDL.SDL_Keycode.SDLK_ESCAPE;
++        if (escape && world.TargetManager.IsTargeting)
++            return false;
++
++        bool modified = Keyboard.Ctrl || Keyboard.Alt || Keyboard.Shift || (e.mod & SDL.SDL_Keymod.SDL_KMOD_GUI) != 0;
++        var options = UIManager.GetGump<SanctuaryOptionsGump>();
++        if (options?.IsCapturingKey == true)
++        {
++            if (!e.repeat)
++                options.CaptureKey(key, modified);
++            return true;
++        }
++
++        if (modified)
++            return false;
++
++        int menu = key is >= SDL.SDL_Keycode.SDLK_A and <= SDL.SDL_Keycode.SDLK_Z
++            ? GetKeys(ProfileManager.CurrentProfile).IndexOf((char)key)
++            : -1;
++        if (!escape && menu < 0)
++            return false;
++
++        if (!e.repeat)
++        {
++            if (escape && world.Player.Pathfinder.AutoWalking && world.Player.Pathfinder.PathindingCanBeCancelled)
++                world.Player.Pathfinder.StopAutoWalk();
++            Toggle(world, escape ? SanctuaryWindow.Options : (SanctuaryWindow)menu);
++        }
++        return true;
++    }
++
++    internal static void Toggle(World world, SanctuaryWindow window)
++    {
++        switch (window)
++        {
++            case SanctuaryWindow.Backpack:
++                if (world.Player.FindItemByLayer(Layer.Backpack) is { } backpack)
++                {
++                    if (UIManager.GetGump<ContainerGump>(backpack.Serial) is { } pack)
++                        pack.Dispose();
++                    else
++                        GameActions.OpenBackpack(world);
++                }
++                break;
++            case SanctuaryWindow.Character:
++                if (UIManager.GetGump<PaperDollGump>(world.Player.Serial) is { } paperdoll)
++                    paperdoll.Dispose();
++                else
++                    GameActions.OpenPaperdoll(world, world.Player.Serial);
++                break;
++            case SanctuaryWindow.Journal:
++                if (UIManager.GetGump<SanctuaryJournalGump>() is { } journal)
++                    journal.Dispose();
++                else
++                    SanctuaryJournalGump.Open(world);
++                break;
++            case SanctuaryWindow.WorldMap:
++                if (UIManager.GetGump<WorldMapGump>() is { } map)
++                {
++                    map.Dispose();
++                    ProfileManager.Save(ProfileManager.CurrentProfile, ProfileManager.ProfilePath);
++                }
++                else
++                    GameActions.OpenWorldMap(world);
++                break;
++            case SanctuaryWindow.Options:
++                if (UIManager.GetGump<SanctuaryOptionsGump>() is { } settings)
++                    settings.Dispose();
++                else
++                    GameActions.OpenSettings(world);
++                break;
++        }
++    }
++}
+diff --git a/src/ClassicUO.Client/GameController.cs b/src/ClassicUO.Client/GameController.cs
+--- a/src/ClassicUO.Client/GameController.cs
++++ b/src/ClassicUO.Client/GameController.cs
+@@ -629,6 +629,13 @@
+                         )
+                     )
+                     {
++                        // Check focus before a text control can dismiss itself in response to the key.
++                        if (Scene is GameScene && SanctuaryMenu.HandleKey(UO.World, sdlEvent->key))
++                        {
++                            _ignoreNextTextInput = true;
++                            break;
++                        }
++
+                         _ignoreNextTextInput = false;
+ 
+                         UIManager.KeyboardFocusControl?.InvokeKeyDown(

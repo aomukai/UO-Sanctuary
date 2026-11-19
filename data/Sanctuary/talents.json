@@ -1933,7 +1933,7 @@
           },
           {
             "id": "warlock.summongoatman",
-            "name": "Summon Goatman",
+            "name": "Summon Lesser Daemon",
             "requiredLevel": 1,
             "prerequisites": []
           },
@@ -1955,7 +1955,7 @@
           },
           {
             "id": "warlock.summontainted",
-            "name": "Summon Tainted",
+            "name": "Summon Succubus",
             "requiredLevel": 12,
             "prerequisites": [
               "warlock.summongoatman"

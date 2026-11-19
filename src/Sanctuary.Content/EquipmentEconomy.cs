@@ -159,7 +159,7 @@ public static class EquipmentEconomy
         && item.Origin is ItemOrigin.Drop or ItemOrigin.Crafted && item.IsChildOf(player.Backpack)
         && item.IsStandardLoot() && item.BlessedFor == null && item.IsAccessibleTo(player) && item.VerifyMove(player)
         && !item.IsLockedDown && !item.IsSecure
-        && ClassGear.Converted(item) && ClassGear.State(item) is not { StarterTeeth: true };
+        && ClassGear.Converted(item) && ClassGear.State(item) is not { Starter: true };
     public static EssenceQuote Quote(PlayerMobile player, Item item, EssenceAction action, BaseTool salvageTool = null) =>
         BuildQuote(player, item, action, salvageTool, true);
     private static EssenceQuote BuildQuote(PlayerMobile player, Item item, EssenceAction action, BaseTool salvageTool, bool track)

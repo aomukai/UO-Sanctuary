@@ -33,7 +33,7 @@ def exercise(window, click, capture):
         subprocess.run(['xdotool', 'key', '--window', window, k], check=True)
         time.sleep(.2)
 
-    click(335, 367)
+    click(538, 101)
     command('setup')
     time.sleep(.5)
     capture('t33-scrolls.png')

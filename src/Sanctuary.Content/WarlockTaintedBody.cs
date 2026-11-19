@@ -56,11 +56,16 @@ public partial class WarlockTaintedBody : SkeletonGuardian, ISourceLifeMaximum
     public override (int Min, int Max) SkillWeaponDamage => (0, 0);
     public WarlockTaintedBody()
     {
-        Name = "Summoned Tainted"; ApplyAppearance(); CantWalk = true; ControlSlots = 0;
+        Name = "Summoned Succubus"; ApplyAppearance(); CantWalk = true; ControlSlots = 0;
         AIObject?.AITimer.Stop(); SetStr(0); SetDex(0); SetInt(0); SetHits(127); SetDamage(0, 0);
     }
     private void ApplyAppearance()
-    { var appearance = WarlockDemonAppearance.For(CombatAbility.SummonTainted); Body = appearance.Body; BaseSoundID = appearance.Sound; }
+    {
+        var appearance = WarlockDemonAppearance.For(CombatAbility.SummonTainted);
+        Body = appearance.Body;
+        BaseSoundID = appearance.Sound;
+        if (Name == "Summoned Tainted") { Name = "Summoned Succubus"; }
+    }
     public override TimeSpan BeginMelee(Mobile target) => TimeSpan.FromSeconds(1);
     public override void OnThink() { AIObject?.AITimer.Stop(); Combatant = null; FocusMob = null; Warmode = false; }
     public override void SuspendActions() { TaintedFireBallCasting.Cancel(this); base.SuspendActions(); WarlockGoatmanWorld.Suspend(this); }

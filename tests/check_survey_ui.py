@@ -30,7 +30,7 @@ def exercise(window, click, capture):
         click(445, 265)
         time.sleep(.5)
 
-    click(335, 367)
+    click(538, 101)
     command('setup')
     click(130, 322)
     capture('t32-map-book.png')

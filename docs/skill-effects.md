@@ -1375,10 +1375,10 @@ Inherited NPC item absorption now changes life mechanically. Final Iron Golem ab
 | Assassin | Death Sentry | custom | Bone and iron altar, lightning, radius-scaled corpse blast and collapse. |
 | Assassin | Blade Shield | custom | Raising blades, attached orbit, periodic cut, deflection and expiry. |
 | Warlock | Demonic Mastery | not-applicable | demonic_mastery |
-| Warlock | Summon Goatman | custom | Native Gargoyle with rubble summon and melee effects, plus the shared Berserk loop. |
+| Warlock | Summon Lesser Daemon | custom | Native imp with rubble summon and melee effects, plus the shared Berserk loop. |
 | Warlock | Blood Oath | not-applicable | bloodoath |
 | Warlock | Death Mark | custom | Violet warp at both ends and a timed target glyph. |
-| Warlock | Summon Tainted | custom | Approved Succubus and red flare with an ember summon and fire resistance ward. |
+| Warlock | Summon Succubus | custom | Approved Succubus and red flare with an ember summon and fire resistance ward. |
 | Warlock | Blood Boil | custom | Donor blooms, radius-scaled rings, and enemy damage flashes. |
 | Warlock | Summon Defiler | custom | Native Gazer with burgundy summon effects and recipient Health Link marks. |
 | Warlock | Engorge | custom | Corpse-to-demon tethers, heal flashes, and timed recipient wards. |

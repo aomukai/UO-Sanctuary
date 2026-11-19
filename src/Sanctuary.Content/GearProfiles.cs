@@ -30,6 +30,8 @@ public sealed record GearState(string BaseCode, int Defense, bool StarterTeeth, 
     public string NamedItemId { get; init; }
     public NamedPropertyRoll[] NamedProperties { get; init; } = [];
     public int NamedSockets { get; init; }
+    public DiabloClass? StarterClass { get; init; }
+    public bool Starter => StarterTeeth || StarterClass.HasValue;
     public int SocketCount => NativeSockets + TinkerSockets + NamedSockets;
 }
 
@@ -153,7 +155,7 @@ public sealed class GearProfiles : GenericPersistence
     {
         var basis = ClassGear.Base(item);
         var before = Find(item.Serial);
-        if (basis == null || ClassGear.Slot(item) == GearSlot.Cosmetic || before is { StarterTeeth: true } or { TinkerSockets: > 0 }
+        if (basis == null || ClassGear.Slot(item) == GearSlot.Cosmetic || before is { Starter: true } or { TinkerSockets: > 0 }
             || (before?.Roll.Rarity ?? GearRarity.Normal) != GearRarity.Normal
             || rarity is not (GearRarity.Magic or GearRarity.Rare))
         {
@@ -173,14 +175,18 @@ public sealed class GearProfiles : GenericPersistence
     {
         Store(item, state);
     }
-    public void MarkStarter(Dagger dagger)
+    public void MarkStarter(Dagger dagger, DiabloClass characterClass = DiabloClass.Necromancer)
     {
         var state = Find(dagger.Serial) ?? Convert(dagger);
         if (state.Roll.Rarity != GearRarity.Normal)
         {
             throw new InvalidOperationException("Only the normal starter base may receive the starter skill grant.");
         }
-        Store(dagger, state with { StarterTeeth = true });
+        Store(dagger, state with
+        {
+            StarterTeeth = characterClass == DiabloClass.Necromancer,
+            StarterClass = characterClass == DiabloClass.Necromancer ? null : characterClass
+        });
     }
     public void Prune()
     {
@@ -207,9 +213,9 @@ public sealed class GearProfiles : GenericPersistence
             || state.NativeSockets < 0 || state.TinkerSockets < 0 || state.NativeSockets > 2
             || state.NamedSockets < 0 || state.NamedSockets > 5 || state.TinkerSockets > 5 || state.SocketCount > 5
             || state.NativeSockets != 0 && state.NativeSockets != (int)state.Quality
-            || state.SocketCount > 0 && (state.StarterTeeth || item.LootType == LootType.Newbied
+            || state.SocketCount > 0 && (state.Starter || item.LootType == LootType.Newbied
                 || !GearDetails.Socketable(item) && !(ClassGear.CosmeticClothing(item) && definition.Slot == GearSlot.Head))
-            || state.IdentifiedSaleOffer is { } offer && (!ValidOffer(offer) || state.StarterTeeth
+            || state.IdentifiedSaleOffer is { } offer && (!ValidOffer(offer) || state.Starter
                 || item.LootType == LootType.Newbied || item.Origin == ItemOrigin.Vendor))
         {
             throw new InvalidDataException("Invalid equipment tier, quality, socket provenance or sale offer.");
@@ -224,7 +230,9 @@ public sealed class GearProfiles : GenericPersistence
         if (!(state.NamedItemId != null ? NamedGear.Identity(item, state)
                 : EquipmentCrafting.Identity(item.GetType(), state.Tier, state.BaseCode, definition.BaseCode))
             || !EquipmentCrafting.ValidMaterialRolls(item, state) || state.Roll.ItemLevel is < 1 or > 99 || !Enum.IsDefined(state.Roll.Rarity)
-            || state.StarterTeeth && (item is not Dagger || state.Roll.Rarity != GearRarity.Normal))
+            || state.Starter && (item is not Dagger || state.Roll.Rarity != GearRarity.Normal)
+            || state.StarterClass is { } starterClass && (state.StarterTeeth || starterClass == DiabloClass.Necromancer
+                || ClassEquipment.StarterAbility(starterClass) == CombatAbility.None))
         {
             throw new InvalidDataException("Invalid converted equipment identity or level.");
         }
@@ -292,7 +300,7 @@ public sealed class GearProfiles : GenericPersistence
     private static bool ValidOffer(int offer) => offer is >= 1 and <= 60000;
     public override void Serialize(IGenericWriter writer)
     {
-        writer.Write(7);
+        writer.Write(8);
         writer.Write(_starterMigrations.Count);
         foreach (var serial in _starterMigrations)
         {
@@ -340,12 +348,13 @@ public sealed class GearProfiles : GenericPersistence
                 writer.Write(property.ColdDurationFrames.HasValue);
                 if(property.ColdDurationFrames is{} frames){writer.Write(frames);}
             }
+            writer.Write(state.StarterClass is { } starter ? (byte)starter : (byte)0);
         }
     }
     public override void Deserialize(IGenericReader reader)
     {
         int version = reader.ReadInt();
-        if (version is < 0 or > 7)
+        if (version is < 0 or > 8)
         {
             throw new InvalidDataException("Unsupported equipment persistence version.");
         }
@@ -431,6 +440,12 @@ public sealed class GearProfiles : GenericPersistence
                     if(version>=7&&reader.ReadBool()){properties[n]=properties[n] with{ColdDurationFrames=reader.ReadInt()};}
                 }
                 state = state with { NamedItemId = named, NamedSockets = sockets, NamedProperties = properties };
+            }
+            if (version >= 8)
+            {
+                byte starterClass = reader.ReadByte();
+                if (starterClass != 0)
+                    state = state with { StarterClass = (DiabloClass)starterClass };
             }
             _items.Add(serial, state);
         }

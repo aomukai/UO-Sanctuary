@@ -1,0 +1,1216 @@
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -35,6 +35,7 @@
+     <Compile Include="../../../../shared/ClassSkillIcons.cs" Link="Game/Data/ClassSkillIcons.cs" />
+     <Content Include="../../../../art/skill-icons/gumps/*.gump" Link="Data/Sanctuary/Gumps/%(Filename)%(Extension)"
+              CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
++    <EmbeddedResource Include="../../../../art/player-ui/*.png" LogicalName="Sanctuary.UI.%(Filename)%(Extension)" />
+     <Content Include="../../../../art/succubus/succubus.idx;../../../../art/succubus/succubus.mul"
+              Link="Data/Sanctuary/Animations/%(Filename)%(Extension)"
+              CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+--- a/src/ClassicUO.Client/Configuration/Profile.cs
++++ b/src/ClassicUO.Client/Configuration/Profile.cs
+@@ -611,8 +611,7 @@
+                                     break;
+ 
+                                 case GumpType.StatusGump:
+-                                    gump = StatusGumpBase.AddStatusGump(world, 0, 0);
+-
++                                    // The character sheet is restored through the paperdoll entry.
+                                     break;
+ 
+                                 //case GumpType.TipNotice:
+--- a/src/ClassicUO.Client/Game/GameActions.cs
++++ b/src/ClassicUO.Client/Game/GameActions.cs
+@@ -58,6 +58,9 @@
+ 
+         public static void OpenPaperdoll(World world, uint serial)
+         {
++            if (serial == world.Player)
++                RequestMobileStatus(world, serial, true);
++
+             PaperDollGump paperDollGump = UIManager.GetGump<PaperDollGump>(serial);
+ 
+             if (paperDollGump == null)
+@@ -102,11 +105,8 @@
+         public static void OpenStatusBar(World world)
+         {
+             Client.Game.Audio.StopWarMusic();
+-
+-            if (StatusGumpBase.GetStatusGump() == null)
+-            {
+-                UIManager.Add(StatusGumpBase.AddStatusGump(world, 100, 100));
+-            }
++            StatusGumpBase.GetStatusGump()?.Dispose();
++            OpenPaperdoll(world, world.Player);
+         }
+ 
+         public static void OpenJournal(World world)
+--- a/src/ClassicUO.Client/Game/Managers/MacroManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/MacroManager.cs
+@@ -687,56 +687,13 @@
+ 
+                                 case MacroSubType.Status:
+ 
+-                                    StatusGumpBase status = StatusGumpBase.GetStatusGump();
+-
++                                    var sheet = UIManager.GetGump<PaperDollGump>(_world.Player);
+                                     if (macro.Code == MacroType.Close)
+-                                    {
+-                                        if (status != null)
+-                                        {
+-                                            status.Dispose();
+-                                        }
+-                                        else
+-                                        {
+-                                            UIManager.GetGump<BaseHealthBarGump>(_world.Player)?.Dispose();
+-                                        }
+-                                    }
+-                                    else if (macro.Code == MacroType.Minimize)
+-                                    {
+-                                        if (status != null)
+-                                        {
+-                                            if (ProfileManager.CurrentProfile.StatusGumpBarMutuallyExclusive)
+-                                                status.Dispose();
+-
+-                                            if (ProfileManager.CurrentProfile.CustomBarsToggled)
+-                                            {
+-                                                UIManager.Add(new HealthBarGumpCustom(_world, _world.Player) { X = status.ScreenCoordinateX, Y = status.ScreenCoordinateY });
+-                                            }
+-                                            else
+-                                            {
+-                                                UIManager.Add(new HealthBarGump(_world, _world.Player) { X = status.ScreenCoordinateX, Y = status.ScreenCoordinateY });
+-                                            }
+-                                        }
+-                                        else
+-                                        {
+-                                            UIManager.GetGump<BaseHealthBarGump>(_world.Player)?.BringOnTop();
+-                                        }
+-                                    }
++                                        sheet?.Dispose();
++                                    else if (macro.Code == MacroType.Minimize && sheet != null)
++                                        sheet.IsMinimized = true;
+                                     else if (macro.Code == MacroType.Maximize)
+-                                    {
+-                                        if (status != null)
+-                                        {
+-                                            status.BringOnTop();
+-                                        }
+-                                        else
+-                                        {
+-                                            BaseHealthBarGump healthbar = UIManager.GetGump<BaseHealthBarGump>(_world.Player);
+-
+-                                            if (healthbar != null)
+-                                            {
+-                                                UIManager.Add(StatusGumpBase.AddStatusGump(_world, healthbar.ScreenCoordinateX, healthbar.ScreenCoordinateY));
+-                                            }
+-                                        }
+-                                    }
++                                        GameActions.OpenStatusBar(_world);
+ 
+                                     break;
+ 
+--- a/src/ClassicUO.Client/Game/UI/Gumps/HealthBarGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/HealthBarGump.cs
+@@ -243,8 +243,7 @@
+                 }
+                 else
+                 {
+-                    if(StatusGumpBase.GetStatusGump() is null)
+-                        UIManager.Add(StatusGumpBase.AddStatusGump(World, ScreenCoordinateX, ScreenCoordinateY));
++                    GameActions.OpenStatusBar(World);
+ 
+                     if (ProfileManager.CurrentProfile.StatusGumpBarMutuallyExclusive)
+                         Dispose();
+--- a/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
+@@ -19,27 +19,20 @@
+ {
+     internal class PaperDollGump : TextContainerGump
+     {
+-        private static readonly ushort[] PeaceModeBtnGumps = { 0x07e5, 0x07e6, 0x07e7 };
+-        private static readonly ushort[] WarModeBtnGumps = { 0x07e8, 0x07e9, 0x07ea };
+-        private GumpPic _combatBook,
+-            _racialAbilitiesBook;
+-        private HitBox _hitBox;
+-        private bool _isWarMode,
+-            _isMinimized;
+-
++        private const int SheetWidth = 612, SheetHeight = 408;
++        private bool _isMinimized;
++        private Point _sheetViewport;
+         private PaperDollInteractable _paperDollInteractable;
+-        private GumpPic _partyManifestPic;
+-
++        private SanctuaryBackdrop _sheet;
++        private SanctuarySheetButton _minimizedSheet;
+         private GumpPic _picBase;
+-        private GumpPic _profilePic;
+         private readonly List<EquipmentSlot> _slots = new List<EquipmentSlot>();
+         private Label _titleLabel;
+         private Label _earnedTitleLabel;
+         private AlphaBlendControl _earnedTitleBackground;
+         private string _paperdollTitle;
+         private GumpPic _virtueMenuPic;
+-        private Button _warModeBtn;
+-        private ClassButton _movementModeBtn;
++        private SanctuarySheetButton _movementModeBtn;
+         private string _movementCaption;
+ 
+         public PaperDollGump(World world) : base(world, 0, 0)
+@@ -66,6 +59,19 @@
+                 {
+                     _isMinimized = value;
+ 
++                    if (_sheet != null)
++                    {
++                        foreach (Control child in Children)
++                            child.IsVisible = !value;
++
++                        _minimizedSheet.IsVisible = value;
++                        Width = value ? _minimizedSheet.Width : SheetWidth;
++                        Height = value ? _minimizedSheet.Height : SheetHeight;
++                        UpdateTitle(_paperdollTitle);
++                        FitSheet();
++                        return;
++                    }
++
+                     _picBase.Graphic = value
+                         ? (ushort)0x7EE
+                         : (ushort)(0x07d0 + (LocalSerial == World.Player ? 0 : 1));
+@@ -88,245 +94,118 @@
+         {
+             UIManager.SavePosition(LocalSerial, Location);
+ 
+-            if (LocalSerial == World.Player)
+-            {
+-                if (_virtueMenuPic != null)
+-                {
+-                    _virtueMenuPic.MouseDoubleClick -= VirtueMenu_MouseDoubleClickEvent;
+-                }
+-
+-                if (_partyManifestPic != null)
+-                {
+-                    _partyManifestPic.MouseDoubleClick -= PartyManifest_MouseDoubleClickEvent;
+-                }
+-            }
+-
+             Clear();
+             base.Dispose();
+         }
+ 
+-        private void _hitBox_MouseUp(object sender, MouseEventArgs e)
+-        {
+-            if (e.Button == MouseButtonType.Left && !IsMinimized)
+-            {
+-                IsMinimized = true;
+-            }
+-        }
+-
+         private void BuildGump()
+         {
+-            _picBase?.Dispose();
+-            _hitBox?.Dispose();
+-
+-            var showPaperdollBooks =
+-                LocalSerial == World.Player && World.ClientFeatures.PaperdollBooks;
+-            var showRacialAbilitiesBook =
+-                showPaperdollBooks && Client.Game.UO.Version >= ClientVersion.CV_7000;
+-
+             if (LocalSerial == World.Player)
+             {
+-                Add(_picBase = new GumpPic(0, 0, 0x07d0, 0));
+-                _picBase.MouseDoubleClick += _picBase_MouseDoubleClick;
+-
+-                //HELP BUTTON
+-                Add(
+-                    new Button((int)Buttons.Help, 0x07ef, 0x07f0, 0x07f1)
+-                    {
+-                        X = 185,
+-                        Y = 44 + 27 * 0,
+-                        ButtonAction = ButtonAction.Activate
+-                    }
+-                );
+-
+-                //OPTIONS BUTTON
+-                Add(
+-                    new Button((int)Buttons.Options, 0x07d6, 0x07d7, 0x07d8)
+-                    {
+-                        X = 185,
+-                        Y = 44 + 27 * 1,
+-                        ButtonAction = ButtonAction.Activate
+-                    }
+-                );
+-
+-                // LOG OUT BUTTON
+-                Add(
+-                    new Button((int)Buttons.LogOut, 0x07d9, 0x07da, 0x07db)
+-                    {
+-                        X = 185,
+-                        Y = 44 + 27 * 2,
+-                        ButtonAction = ButtonAction.Activate
+-                    }
+-                );
+-
+-                if (Client.Game.UO.Version < ClientVersion.CV_500A)
+-                {
+-                    // JOURNAL BUTTON
+-                    Add(
+-                        new Button((int)Buttons.Journal, 0x7dc, 0x7dd, 0x7de)
+-                        {
+-                            X = 185,
+-                            Y = 44 + 27 * 3,
+-                            ButtonAction = ButtonAction.Activate
+-                        }
+-                    );
+-                }
+-                else
+-                {
+-                    // SKILLS BUTTON
+-                    Add(
+-                        new Button((int)Buttons.Quests, 0x07df, 0x07e0, 0x07e1)
+-                        {
+-                            X = 185,
+-                            Y = 44 + 27 * 3,
+-                            ButtonAction = ButtonAction.Activate
+-                        }
+-                    );
+-                }
+-
+-                // CLASS BUTTON
+-                Add(new ClassButton(185, 44 + 27 * 4, (int)Buttons.Skills));
+-
+-                // GUILD BUTTON
+-                Add(
+-                    new Button((int)Buttons.Guild, 0x57b2, 0x57b4, 0x57b3)
+-                    {
+-                        X = 185,
+-                        Y = 44 + 27 * 5,
+-                        ButtonAction = ButtonAction.Activate
+-                    }
+-                );
+-
+-                // TOGGLE PEACE/WAR BUTTON
+-                Mobile mobile = World.Mobiles.Get(LocalSerial);
+-
+-                _isWarMode = mobile?.InWarMode ?? false;
+-                ushort[] btngumps = _isWarMode ? WarModeBtnGumps : PeaceModeBtnGumps;
+-
+-                Add(
+-                    _warModeBtn = new Button(
+-                        (int)Buttons.PeaceWarToggle,
+-                        btngumps[0],
+-                        btngumps[1],
+-                        btngumps[2]
+-                    )
+-                    {
+-                        X = 185,
+-                        Y = 44 + 27 * 6,
+-                        ButtonAction = ButtonAction.Activate
+-                    }
+-                );
+-
+-                Add(_movementModeBtn = new ClassButton(185, 44 + 27 * 6,
+-                    (int)Buttons.MovementToggle, ClassCombatClient.Running ? "RUN" : "WALK")
+-                {
+-                    IsVisible = false
+-                });
+-
+-                int profileX = 25;
+-                const int SCROLLS_STEP = 14;
+-
+-                if (showRacialAbilitiesBook)
+-                {
+-                    profileX += SCROLLS_STEP;
+-                }
+-
+-                Add(_profilePic = new GumpPic(profileX, 196, 0x07D2, 0));
+-                _profilePic.MouseDoubleClick += Profile_MouseDoubleClickEvent;
+-
+-                profileX += SCROLLS_STEP;
+-
+-                Add(_partyManifestPic = new GumpPic(profileX, 196, 0x07D2, 0));
+-                _partyManifestPic.MouseDoubleClick += PartyManifest_MouseDoubleClickEvent;
+-
+-                _hitBox = new HitBox(228, 260, 16, 16);
+-                _hitBox.MouseUp += _hitBox_MouseUp;
+-
+-                Add(_hitBox);
+-            }
+-            else
+-            {
+-                Add(_picBase = new GumpPic(0, 0, 0x07d1, 0));
+-                Add(_profilePic = new GumpPic(25, 196, 0x07D2, 0));
+-                _profilePic.MouseDoubleClick += Profile_MouseDoubleClickEvent;
+-            }
+-
+-            // STATUS BUTTON
+-            Add(
+-                new Button((int)Buttons.Status, 0x07eb, 0x07ec, 0x07ed)
+-                {
+-                    X = 185,
+-                    Y = 44 + 27 * 7,
+-                    ButtonAction = ButtonAction.Activate
+-                }
+-            );
+-
+-            // Virtue menu
++                BuildCharacterSheet();
++                return;
++            }
++
++            Add(_picBase = new GumpPic(0, 0, 0x07d1, 0));
++            _picBase.MouseDoubleClick += _picBase_MouseDoubleClick;
++            var profile = Add(new GumpPic(25, 196, 0x07D2, 0));
++            profile.MouseDoubleClick += Profile_MouseDoubleClickEvent;
++            Add(new Button((int)Buttons.Status, 0x07eb, 0x07ec, 0x07ed)
++            {
++                X = 185, Y = 233, ButtonAction = ButtonAction.Activate
++            });
+             Add(_virtueMenuPic = new GumpPic(80, 4, 0x0071, 0));
+             _virtueMenuPic.MouseDoubleClick += VirtueMenu_MouseDoubleClickEvent;
+-
+-            // Equipment slots for hat/earrings/neck/ring/bracelet
+-
+-            // add left
+-            var initialPos = new Point(2, 70);
+-
+-            _slots.Add(new EquipmentSlot(0, initialPos.X, initialPos.Y, Layer.Helmet, this));
+-            _slots.Add(new EquipmentSlot(0, initialPos.X, initialPos.Y + 21, Layer.Earrings, this));
+-            _slots.Add(new EquipmentSlot(0, initialPos.X, initialPos.Y + 21 * 2, Layer.Necklace, this));
+-            _slots.Add(new EquipmentSlot(0, initialPos.X, initialPos.Y + 21 * 3, Layer.Ring, this));
+-            _slots.Add(new EquipmentSlot(0, initialPos.X, initialPos.Y + 21 * 4, Layer.Bracelet, this));
+-            _slots.Add(new EquipmentSlot(0, initialPos.X, initialPos.Y + 21 * 5, Layer.Tunic, this));
+-            _slots.Add(new EquipmentSlot(0, initialPos.X, initialPos.Y + 21 * 6, Layer.OneHanded, this));
+-            _slots.Add(new EquipmentSlot(0, initialPos.X, initialPos.Y + 21 * 7, Layer.TwoHanded, this));
+-            _slots.Add(new EquipmentSlot(0, initialPos.X, initialPos.Y + 21 * 8, Layer.Talisman, this));
+-
+-            // add right
+-            initialPos.X = 160 + 2;
+-            _slots.Add(new EquipmentSlot(0, initialPos.X, initialPos.Y, Layer.Robe, this));
+-            _slots.Add(new EquipmentSlot(0, initialPos.X, initialPos.Y + 21, Layer.Gloves, this));
+-            _slots.Add(new EquipmentSlot(0, initialPos.X, initialPos.Y + 21 * 2, Layer.Pants, this));
+-            _slots.Add(new EquipmentSlot(0, initialPos.X, initialPos.Y + 21 * 3, Layer.Arms, this));
+-            _slots.Add(new EquipmentSlot(0, initialPos.X, initialPos.Y + 21 * 4, Layer.Cloak, this));
+-            _slots.Add(new EquipmentSlot(0, initialPos.X, initialPos.Y + 21 * 5, Layer.Shoes, this));
+-
+-            foreach (var slot in _slots)
+-                Add(slot);
+-
+-            // Paperdoll control!
+-            _paperDollInteractable = new PaperDollInteractable(8, 19, LocalSerial, this);
+-            Add(_paperDollInteractable);
+-
+-            if (showPaperdollBooks)
+-            {
+-                Add(_combatBook = new GumpPic(156, 200, 0x2B34, 0));
+-                _combatBook.MouseDoubleClick += (sender, e) =>
+-                {
+-                    GameActions.OpenAbilitiesBook(World);
+-                };
+-
+-                if (showRacialAbilitiesBook)
+-                {
+-                    Add(_racialAbilitiesBook = new GumpPic(23, 200, 0x2B28, 0));
+-
+-                    _racialAbilitiesBook.MouseDoubleClick += (sender, e) =>
+-                    {
+-                        if (UIManager.GetGump<RacialAbilitiesBookGump>() == null)
+-                        {
+-                            UIManager.Add(new RacialAbilitiesBookGump(World, 100, 100));
+-                        }
+-                    };
+-                }
+-            }
+-
+-            // Name and title
+-            _titleLabel = new Label("", false, 0x0386, 185, font: 1) { X = 39, Y = 262 };
+-
+-            Add(_titleLabel);
+-            Add(_earnedTitleBackground = new AlphaBlendControl(0.9f)
++            AddEquipment(2, 162, 70, 8, 19);
++
++            _titleLabel = Add(new Label("", false, 0x0386, 185, font: 1) { X = 39, Y = 262 });
++            _earnedTitleBackground = Add(new AlphaBlendControl(0.9f)
+             { X = 16, Y = 256, Width = 230, Height = 50, IsVisible = false, AcceptMouseInput = false });
+-            Add(_earnedTitleLabel = new Label("", true, 0x0481, 218, font: 1)
++            _earnedTitleLabel = Add(new Label("", true, 0x0481, 218, font: 1)
+             { X = 22, Y = 262, IsVisible = false, AcceptMouseInput = false });
+-
+             RequestUpdateContents();
++        }
++
++        private void BuildCharacterSheet()
++        {
++            Width = SheetWidth;
++            Height = SheetHeight;
++            WantUpdateSize = false;
++            _sheet = Add(new SanctuaryBackdrop("character-frame", SheetWidth, SheetHeight));
++            _minimizedSheet = Add(new SanctuarySheetButton(0, 0, 126, "Character", () => IsMinimized = false)
++            { IsVisible = false, CanMove = true });
++            _titleLabel = Add(new Label(World.Player.Name ?? "", true, 0x0481, 447, font: 0) { X = 28, Y = 13 });
++            _earnedTitleLabel = Add(new Label("", true, 0x0481, 447, font: 0)
++            { X = 28, Y = 13, IsVisible = false });
++            Add(new SanctuarySheetButton(483, 17, 53, "Fold", () => IsMinimized = true));
++            Add(new SanctuarySheetButton(543, 17, 53, "Close", Dispose));
++
++            Add(new Label("Equipment", true, 0x0481, font: 0) { X = 23, Y = 70 });
++            Add(new Line(22, 90, 190, 1, 0xFF406989) { AcceptMouseInput = false });
++            Add(new Line(226, 70, 1, 278, 0xFF35516D) { AcceptMouseInput = false });
++            AddEquipment(22, 194, 107, 29, 85);
++
++            if (World.ClientFeatures.PaperdollBooks)
++            {
++                Add(new SanctuarySheetButton(22, 306, 86, "Abilities", () => GameActions.OpenAbilitiesBook(World)));
++                if (Client.Game.UO.Version >= ClientVersion.CV_7000)
++                    Add(new SanctuarySheetButton(124, 306, 88, "Racial", OpenRacialAbilities));
++            }
++            AddSheetButton(22, 332, 86, "Profile", Buttons.Profile);
++            AddSheetButton(124, 332, 88, "Buffs", Buttons.Buffs);
++
++            Add(new SanctuaryCharacterStats(World) { Width = SheetWidth, Height = 356 });
++            Add(new Line(22, 358, 568, 1, 0xFF35516D) { AcceptMouseInput = false });
++            AddSheetButton(22, 369, 69, "Backpack", Buttons.Backpack).SetTooltip("Open your backpack or drop an item here.");
++            AddSheetButton(96, 369, 53, "Class", Buttons.Skills);
++            AddSheetButton(154, 369, 56, "Skills", Buttons.Quests);
++            AddSheetButton(215, 369, 65, "Journal", Buttons.AvatarJournal, primary: true);
++            AddSheetButton(285, 369, 55, "Party", Buttons.Party);
++            AddSheetButton(345, 369, 53, "Guild", Buttons.Guild);
++            AddSheetButton(403, 369, 61, "Options", Buttons.Options);
++            _movementModeBtn = AddSheetButton(469, 369, 51, "Run", Buttons.MovementToggle);
++            AddSheetButton(525, 369, 65, "Log Out", Buttons.LogOut);
++            RequestUpdateContents();
++        }
++
++        private void FitSheet()
++        {
++            var bounds = Client.Game.ClientBounds;
++            _sheetViewport = new Point(bounds.Width, bounds.Height);
++            X = Math.Clamp(X, 0, Math.Max(0, _sheetViewport.X - Width));
++            Y = Math.Clamp(Y, 0, Math.Max(0, _sheetViewport.Y - Height));
++        }
++
++        protected override void OnDragEnd(int x, int y)
++        {
++            base.OnDragEnd(x, y);
++            if (_sheet != null)
++                FitSheet();
++        }
++
++        private SanctuarySheetButton AddSheetButton(int x, int y, int width, string caption, Buttons action, bool primary = false) =>
++            Add(new SanctuarySheetButton(x, y, width, caption, () => OnButtonClick((int)action), primary));
++
++        private void AddEquipment(int left, int right, int y, int bodyX, int bodyY)
++        {
++            _slots.Clear();
++            Layer[] leftLayers = [Layer.Helmet, Layer.Earrings, Layer.Necklace, Layer.Ring, Layer.Bracelet,
++                Layer.Tunic, Layer.OneHanded, Layer.TwoHanded, Layer.Talisman];
++            Layer[] rightLayers = [Layer.Robe, Layer.Gloves, Layer.Pants, Layer.Arms, Layer.Cloak, Layer.Shoes];
++            for (int i = 0; i < leftLayers.Length; i++)
++                _slots.Add(Add(new EquipmentSlot(0, left, y + 21 * i, leftLayers[i], this)));
++            for (int i = 0; i < rightLayers.Length; i++)
++                _slots.Add(Add(new EquipmentSlot(0, right, y + 21 * i, rightLayers[i], this)));
++            _paperDollInteractable = Add(new PaperDollInteractable(bodyX, bodyY, LocalSerial, this));
++        }
++
++        private void OpenRacialAbilities()
++        {
++            var gump = UIManager.GetGump<RacialAbilitiesBookGump>();
++            if (gump == null)
++                UIManager.Add(new RacialAbilitiesBookGump(World, 100, 100));
++            else
++                gump.BringOnTop();
+         }
+ 
+         private void _picBase_MouseDoubleClick(object sender, MouseDoubleClickEventArgs e)
+@@ -342,12 +221,16 @@
+             _paperdollTitle = text;
+             string earned = CharacterTitlesClient.Text(LocalSerial);
+             bool custom = earned != null;
+-            _titleLabel.Text = FormatTitle(text);
++            _titleLabel.Text = FormatTitle(text ?? World.Mobiles.Get(LocalSerial)?.Name ?? "");
+             _titleLabel.IsVisible = !custom && !IsMinimized;
+             _earnedTitleLabel.Text = earned ?? "";
+-            _earnedTitleLabel.IsVisible = _earnedTitleBackground.IsVisible = custom && !IsMinimized;
+-            _earnedTitleBackground.Height = Math.Max(50, _earnedTitleLabel.Height + 12);
+-            WantUpdateSize = true;
++            _earnedTitleLabel.IsVisible = custom && !IsMinimized;
++            if (_earnedTitleBackground != null)
++            {
++                _earnedTitleBackground.IsVisible = _earnedTitleLabel.IsVisible;
++                _earnedTitleBackground.Height = Math.Max(50, _earnedTitleLabel.Height + 12);
++            }
++            WantUpdateSize = _sheet == null;
+         }
+ 
+         private static string FormatTitle(string text)
+@@ -395,26 +278,17 @@
+             }
+         }
+ 
+-        private void PartyManifest_MouseDoubleClickEvent(
+-            object sender,
+-            MouseDoubleClickEventArgs args
+-        )
+-        {
+-            if (args.Button == MouseButtonType.Left)
+-            {
+-                PartyGump party = UIManager.GetGump<PartyGump>();
+-
+-                if (party == null)
+-                {
+-                    int x = Client.Game.ClientBounds.Width / 2 - 272;
+-                    int y = Client.Game.ClientBounds.Height / 2 - 240;
+-                    UIManager.Add(new PartyGump(World, x, y, World.Party.CanLoot));
+-                }
+-                else
+-                {
+-                    party.BringOnTop();
+-                }
+-            }
++        private void OpenPartyManifest()
++        {
++            PartyGump party = UIManager.GetGump<PartyGump>();
++            if (party == null)
++            {
++                int x = Client.Game.ClientBounds.Width / 2 - 272;
++                int y = Client.Game.ClientBounds.Height / 2 - 240;
++                UIManager.Add(new PartyGump(World, x, y, World.Party.CanLoot));
++            }
++            else
++                party.BringOnTop();
+         }
+ 
+         public override void Update()
+@@ -424,39 +298,33 @@
+                 return;
+             }
+ 
+-            if (_warModeBtn != null)
+-            {
+-                bool classPlayer = ClassCombatClient.Enabled && LocalSerial == World.Player;
+-                _warModeBtn.IsVisible = !classPlayer && !_isMinimized;
+-                _movementModeBtn.IsVisible = classPlayer && !_isMinimized;
+-                string movementCaption = ClassCombatClient.Running ? "RUN" : "WALK";
+-                if (_movementCaption != movementCaption)
+-                {
+-                    _movementCaption = movementCaption;
+-                    _movementModeBtn.SetCaption(movementCaption);
+-                    _movementModeBtn.SetTooltip(ClassCombatClient.Running
+-                        ? "Running: click or press Tab to walk. No defense or blocking during running steps."
+-                        : "Walking: click or press Tab to run.");
+-                }
+-            }
+-
+             Mobile mobile = World.Mobiles.Get(LocalSerial);
+-
+             if (mobile != null && mobile.IsDestroyed)
+             {
+                 Dispose();
+-
+                 return;
+             }
+ 
+-            // This is to update the state of the war mode button.
+-            if (mobile != null && _isWarMode != mobile.InWarMode && LocalSerial == World.Player)
+-            {
+-                _isWarMode = mobile.InWarMode;
+-                ushort[] btngumps = _isWarMode ? WarModeBtnGumps : PeaceModeBtnGumps;
+-                _warModeBtn.ButtonGraphicNormal = btngumps[0];
+-                _warModeBtn.ButtonGraphicPressed = btngumps[1];
+-                _warModeBtn.ButtonGraphicOver = btngumps[2];
++            if (_sheet != null)
++            {
++                var bounds = Client.Game.ClientBounds;
++                if (_sheetViewport.X != bounds.Width || _sheetViewport.Y != bounds.Height)
++                    FitSheet();
++            }
++
++            if (_movementModeBtn != null)
++            {
++                string caption = ClassCombatClient.Enabled
++                    ? (ClassCombatClient.Running ? "Run" : "Walk")
++                    : (World.Player.InWarMode ? "War" : "Peace");
++                if (_movementCaption != caption)
++                {
++                    _movementCaption = caption;
++                    _movementModeBtn.SetCaption(caption);
++                    _movementModeBtn.SetTooltip(ClassCombatClient.Enabled
++                        ? "Toggle walk or run. Running disables defense and blocking during moving steps."
++                        : "Toggle war mode.");
++                }
+             }
+ 
+             base.Update();
+@@ -596,7 +464,7 @@
+                 //GameActions.DoubleClick(0x8000_0000 | LocalSerial);
+                 Client.Game.GetScene<GameScene>()?.DoubleClickDelayed(LocalSerial);
+ 
+-                IsMinimized = bool.Parse(xml.GetAttribute("isminimized"));
++                IsMinimized = bool.TryParse(xml.GetAttribute("isminimized"), out bool minimized) && minimized;
+             }
+             else
+             {
+@@ -633,7 +501,10 @@
+                 && !Client.Game.UO.GameCursor.ItemHold.IsFixedPosition
+             )
+             {
+-                OnMouseUp(0, 0, MouseButtonType.Left);
++                if ((Buttons)buttonID == Buttons.Backpack && World.Player.FindItemByLayer(Layer.Backpack) is Item backpack)
++                    GameActions.DropItem(Client.Game.UO.GameCursor.ItemHold.Serial, 0xFFFF, 0xFFFF, 0, backpack.Serial);
++                else
++                    OnMouseUp(0, 0, MouseButtonType.Left);
+ 
+                 return;
+             }
+@@ -676,7 +547,34 @@
+                     break;
+ 
+                 case Buttons.MovementToggle:
+-                    ClassCombatClient.ToggleMovement();
++                    if (ClassCombatClient.Enabled)
++                        ClassCombatClient.ToggleMovement();
++                    else
++                        GameActions.ToggleWarMode(World.Player);
++                    break;
++
++                case Buttons.Backpack:
++                    GameActions.OpenBackpack(World);
++                    break;
++
++                case Buttons.AvatarJournal:
++                    SanctuaryJournalGump.Open(World);
++                    break;
++
++                case Buttons.Party:
++                    OpenPartyManifest();
++                    break;
++
++                case Buttons.Profile:
++                    GameActions.RequestProfile(LocalSerial);
++                    break;
++
++                case Buttons.Buffs:
++                    var buffs = UIManager.GetGump<BuffGump>();
++                    if (buffs == null)
++                        UIManager.Add(new BuffGump(World, 100, 100));
++                    else
++                        buffs.BringOnTop();
+                     break;
+ 
+                 case Buttons.PeaceWarToggle:
+@@ -690,21 +588,7 @@
+                     {
+                         UIManager.GetGump<BaseHealthBarGump>(LocalSerial)?.Dispose();
+ 
+-                        StatusGumpBase status = StatusGumpBase.GetStatusGump();
+-
+-                        if (status == null)
+-                        {
+-                            UIManager.Add(
+-                                StatusGumpBase.AddStatusGump(World,
+-                                    Mouse.Position.X - 100,
+-                                    Mouse.Position.Y - 25
+-                                )
+-                            );
+-                        }
+-                        else
+-                        {
+-                            status.BringOnTop();
+-                        }
++                        GameActions.OpenStatusBar(World);
+                     }
+                     else
+                     {
+@@ -748,88 +632,6 @@
+             }
+         }
+ 
+-        // Reuse the installed paperdoll button's blue face and gold rim. Its caption is
+-        // baked into the art, so tile a clean column between the unchanged end caps.
+-        private sealed class ClassButton : Control
+-        {
+-            private readonly int _buttonID;
+-            private readonly Label _caption;
+-            private bool _pressed;
+-
+-            public ClassButton(int x, int y, int buttonID, string text = "CLASS")
+-            {
+-                _buttonID = buttonID;
+-                X = x;
+-                Y = y;
+-                ref readonly var art = ref Client.Game.UO.Gumps.GetGump(0x07df);
+-                Width = art.UV.Width;
+-                Height = art.UV.Height;
+-                CanMove = false;
+-                AcceptMouseInput = true;
+-                WantUpdateSize = false;
+-                _caption = new Label(text, false, 0x0481, font: 1);
+-                _caption.X = (Width - _caption.Width) / 2;
+-                _caption.Y = (Height - _caption.Height) / 2;
+-                Add(_caption);
+-            }
+-
+-            public void SetCaption(string text)
+-            {
+-                if (_caption.Text != text)
+-                {
+-                    _caption.Text = text;
+-                    _caption.X = (Width - _caption.Width) / 2;
+-                }
+-            }
+-
+-            protected override void OnMouseDown(int x, int y, MouseButtonType button)
+-            {
+-                if (button == MouseButtonType.Left)
+-                {
+-                    _pressed = true;
+-                }
+-                base.OnMouseDown(x, y, button);
+-            }
+-
+-            protected override void OnMouseUp(int x, int y, MouseButtonType button)
+-            {
+-                if (button == MouseButtonType.Left)
+-                {
+-                    _pressed = false;
+-                    if (MouseIsOver)
+-                    {
+-                        OnButtonClick(_buttonID);
+-                        Mouse.CancelDoubleClick = true;
+-                    }
+-                }
+-            }
+-
+-            public override bool AddToRenderLists(RenderLists renderLists, int x, int y, ref float layerDepthRef)
+-            {
+-                ushort graphic = MouseIsOver ? (_pressed ? (ushort)0x07e0 : (ushort)0x07e1) : (ushort)0x07df;
+-                ref readonly var art = ref Client.Game.UO.Gumps.GetGump(graphic);
+-                var texture = art.Texture;
+-                var source = art.UV;
+-                var hue = ShaderHueTranslator.GetHueVector(0, false, Alpha, true);
+-                float depth = layerDepthRef;
+-                const int cap = 10;
+-                if (texture != null)
+-                {
+-                    renderLists.AddGumpWithAtlas(batcher =>
+-                    {
+-                        batcher.Draw(texture, new Rectangle(x, y, cap, Height),
+-                            new Rectangle(source.X, source.Y, cap, source.Height), hue, depth);
+-                        batcher.Draw(texture, new Rectangle(x + cap, y, Width - cap * 2, Height),
+-                            new Rectangle(source.Right - cap - 1, source.Y, 1, source.Height), hue, depth);
+-                        batcher.Draw(texture, new Rectangle(x + Width - cap, y, cap, Height),
+-                            new Rectangle(source.Right - cap, source.Y, cap, source.Height), hue, depth);
+-                        return true;
+-                    });
+-                }
+-                return base.AddToRenderLists(renderLists, x, y, ref layerDepthRef);
+-            }
+-        }
+-
+         private enum Buttons
+         {
+             Help,
+@@ -841,7 +643,12 @@
+             Guild,
+             PeaceWarToggle,
+             MovementToggle,
+-            Status
++            Status,
++            Backpack,
++            AvatarJournal,
++            Party,
++            Profile,
++            Buffs
+         }
+ 
+         private class EquipmentSlot : Control
+@@ -865,9 +672,16 @@
+                 _paperDollGump = paperDollGump;
+                 Layer = layer;
+ 
+-                Add(new GumpPicTiled(0, 0, 19, 20, 0x243A) { AcceptMouseInput = false });
+-
+-                Add(new GumpPic(0, 0, 0x2344, 0) { AcceptMouseInput = false });
++                if (paperDollGump._sheet != null)
++                {
++                    Add(new Line(0, 0, Width, Height, 0xFF456989) { AcceptMouseInput = false });
++                    Add(new Line(1, 1, Width - 2, Height - 2, 0xFF212632) { AcceptMouseInput = false });
++                }
++                else
++                {
++                    Add(new GumpPicTiled(0, 0, 19, 20, 0x243A) { AcceptMouseInput = false });
++                    Add(new GumpPic(0, 0, 0x2344, 0) { AcceptMouseInput = false });
++                }
+ 
+                 AcceptMouseInput = true;
+ 
+--- a/src/ClassicUO.Client/Game/UI/Gumps/ProgressionButtonsGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/ProgressionButtonsGump.cs
+@@ -20,15 +20,7 @@
+         CanMove = CanCloseWithRightClick = false;
+         Add(new AlphaBlendControl(0.85f) { Width = 252, Height = 68, AcceptMouseInput = false });
+         Add(_heading = new Label("Points available", true, 0x35) { X = 8, Y = 4, AcceptMouseInput = false });
+-        Add(_stats = new PointButton(8, "Spend attribute points", () =>
+-        {
+-            var status = StatusGumpBase.GetStatusGump();
+-            if (status == null)
+-            {
+-                UIManager.Add(status = StatusGumpBase.AddStatusGump(world, 260, 180));
+-            }
+-            status.BringOnTop();
+-        }));
++        Add(_stats = new PointButton(8, "Spend attribute points", () => GameActions.OpenStatusBar(world)));
+         Add(_talents = new PointButton(130, "Spend talent points", () => GameActions.Say("[Class")));
+     }
+     public override void Update()
+--- a/src/ClassicUO.Client/Game/UI/Gumps/TopBarGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/TopBarGump.cs
+@@ -224,7 +224,7 @@
+                     break;
+ 
+                 case Buttons.Journal:
+-                    GameActions.OpenJournal(World);
++                    SanctuaryJournalGump.Open(World);
+ 
+                     break;
+ 
+--- /dev/null
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryCharacterStats.cs
+@@ -0,0 +1,118 @@
++// SPDX-License-Identifier: BSD-2-Clause
++
++using System;
++using System.Collections.Generic;
++using ClassicUO.Game.UI.Controls;
++using ClassicUO.Input;
++using Sanctuary;
++
++namespace ClassicUO.Game.UI.Gumps;
++
++internal sealed class SanctuaryCharacterStats : Control
++{
++    private const ushort TextHue = 0x0481;
++    private readonly World _world;
++    private readonly List<(Label Label, int Right, Func<string> Value)> _rows = new();
++    private readonly List<Label> _spend = new();
++    private uint _refresh;
++
++    public SanctuaryCharacterStats(World world)
++    {
++        _world = world;
++        AcceptMouseInput = false;
++        WantUpdateSize = false;
++        var player = world.Player;
++
++        const int left = 244, right = 432;
++        Heading(left, 70, "Attributes");
++        Attribute(left, 98, "Strength", StatField.Strength, () => player.Strength,
++            "Weapon damage, equipment requirements and carrying capacity.");
++        Attribute(left, 117, "Dexterity", StatField.Dexterity, () => player.Dexterity,
++            "Attack rating and defense. Helps bows, throwing weapons and daggers.");
++        Attribute(left, 136, "Energy", StatField.Energy, () => player.Intelligence, "Increases mana.");
++        Attribute(left, 155, "Vitality", StatField.Vitality, () => null, "Increases life and stamina.");
++        Row(left, 174, "Unspent points", () => ClassValue(StatField.Points));
++
++        Heading(left, 207, "Resources");
++        Row(left, 232, "Life", () => $"{player.Hits} / {player.HitsMax}");
++        Row(left, 252, "Mana", () => $"{player.Mana} / {player.ManaMax}");
++        Row(left, 272, "Stamina", () => $"{player.Stamina} / {player.StaminaMax}");
++        Row(left, 292, "Weight", () => $"{player.Weight} / {player.WeightMax}");
++        Row(left, 312, "Followers", () => $"{player.Followers} / {player.FollowersMax}");
++        Row(left, 332, "Gold", () => player.Gold.ToString());
++
++        Heading(right, 70, "Combat");
++        Row(right, 98, "Attack damage", () => ClassStatsClient.Ready
++            ? $"{ClassStatsClient.Get(StatField.DamageMin)}–{ClassStatsClient.Get(StatField.DamageMax)}"
++            : $"{player.DamageMin}–{player.DamageMax}");
++        Row(right, 117, "Attack rating", () => ClassValue(StatField.AttackRating));
++        Row(right, 136, "Defense", () => ClassValue(StatField.Defense));
++        Row(right, 155, "Attack speed", () => ClassValue(StatField.Ias, "%"));
++        Row(right, 174, "Cast rate", () => ClassValue(StatField.Fcr, "%"));
++        Row(right, 193, "Magic find", () => ClassValue(StatField.MagicFind, "%"));
++
++        Heading(right, 225, "Resistances");
++        Row(right, 250, "Physical", () => $"{player.PhysicalResistance} / {player.MaxPhysicResistence}");
++        Row(right, 270, "Fire", () => $"{player.FireResistance} / {player.MaxFireResistence}");
++        Row(right, 290, "Cold", () => $"{player.ColdResistance} / {player.MaxColdResistence}");
++        Row(right, 310, "Poison", () => $"{player.PoisonResistance} / {player.MaxPoisonResistence}");
++        Row(right, 330, "Lightning", () => $"{player.EnergyResistance} / {player.MaxEnergyResistence}");
++        Refresh();
++    }
++
++    private static string ClassValue(StatField stat, string suffix = "") =>
++        ClassStatsClient.Ready ? ClassStatsClient.Get(stat) + suffix : "—";
++
++    private void Heading(int x, int y, string name)
++    {
++        Add(new Label(name, true, TextHue, font: 0) { X = x, Y = y });
++        Add(new Line(x, y + 21, 158, 1, 0xFF406989) { AcceptMouseInput = false });
++    }
++
++    private void Row(int x, int y, string name, Func<string> read, int width = 158)
++    {
++        Add(new Label(name, true, TextHue, font: 1) { X = x, Y = y });
++        var value = Add(new Label("", true, TextHue, font: 1) { Y = y });
++        _rows.Add((value, x + width, read));
++    }
++
++    private void Attribute(int x, int y, string name, StatField stat, Func<int?> fallback, string tooltip)
++    {
++        Row(x, y, name, () => ClassStatsClient.Ready ? ClassValue(stat) : fallback()?.ToString() ?? "—", 132);
++        var plus = Add(new Label("+", true, 0x0035, font: 1) { X = x + 146, Y = y });
++        var hit = Add(new HitBox(x, y - 2, 158, 18, tooltip, 0.06f));
++        hit.MouseUp += (_, args) =>
++        {
++            if (args.Button == MouseButtonType.Left && !_world.TargetManager.IsTargeting && !_world.Player.IsDead
++                && !Client.Game.UO.GameCursor.ItemHold.Enabled)
++            {
++                ClassStatsClient.Spend((CharacterStat)stat);
++                Mouse.CancelDoubleClick = true;
++            }
++        };
++        _spend.Add(plus);
++    }
++
++    public override void Update()
++    {
++        if (unchecked((int)(Time.Ticks - _refresh)) >= 0)
++            Refresh();
++        base.Update();
++    }
++
++    private void Refresh()
++    {
++        _refresh = Time.Ticks + 200;
++        foreach (var (label, right, value) in _rows)
++        {
++            string text = value();
++            if (label.Text != text)
++                label.Text = text;
++            label.X = right - label.Width;
++        }
++
++        bool canSpend = ClassStatsClient.Ready && ClassStatsClient.Get(StatField.Points) > 0 && !_world.Player.IsDead;
++        foreach (var control in _spend)
++            control.IsVisible = canSpend;
++    }
++}
+--- /dev/null
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
+@@ -0,0 +1,215 @@
++// SPDX-License-Identifier: BSD-2-Clause
++
++using System;
++using ClassicUO.Assets;
++using ClassicUO.Game.Managers;
++using ClassicUO.Game.Scenes;
++using ClassicUO.Game.UI.Controls;
++using ClassicUO.Input;
++using ClassicUO.Renderer;
++using Microsoft.Xna.Framework;
++using Microsoft.Xna.Framework.Graphics;
++
++namespace ClassicUO.Game.UI.Gumps;
++
++internal sealed class SanctuaryBackdrop : Control
++{
++    private readonly Texture2D _texture;
++
++    public SanctuaryBackdrop(string name, int width, int height)
++    {
++        using var stream = typeof(SanctuaryBackdrop).Assembly.GetManifestResourceStream($"Sanctuary.UI.{name}.png")
++            ?? throw new InvalidOperationException($"Missing Sanctuary UI texture: {name}");
++        _texture = Texture2D.FromStream(Client.Game.GraphicsDevice, stream);
++        Width = width;
++        Height = height;
++        AcceptMouseInput = CanMove = true;
++        WantUpdateSize = false;
++    }
++
++    public override bool AddToRenderLists(RenderLists lists, int x, int y, ref float depth)
++    {
++        var bounds = new Rectangle(x, y, Width, Height);
++        float layer = depth;
++        lists.AddGumpNoAtlas(batcher =>
++        {
++            batcher.Draw(_texture, bounds, ShaderHueTranslator.GetHueVector(0), layer);
++            return true;
++        });
++        return true;
++    }
++
++    public override void Dispose()
++    {
++        if (!IsDisposed)
++            _texture.Dispose();
++        base.Dispose();
++    }
++}
++
++internal sealed class SanctuarySheetButton : Control
++{
++    private readonly Label _label;
++    private readonly Action _activate;
++
++    public SanctuarySheetButton(int x, int y, int width, string text, Action activate, bool primary = false)
++    {
++        X = x;
++        Y = y;
++        Width = width;
++        Height = 25;
++        AcceptMouseInput = true;
++        WantUpdateSize = false;
++        _activate = activate;
++        Add(new Line(0, 0, width, Height, 0xFF557B98) { AcceptMouseInput = false });
++        Add(new Line(1, 1, width - 2, Height - 2, primary ? 0xFF335C77u : 0xFF292D42u) { AcceptMouseInput = false });
++        _label = Add(new Label("", true, 0x481, font: 1));
++        SetCaption(text);
++    }
++
++    public void SetCaption(string text)
++    {
++        if (_label.Text == text)
++            return;
++
++        _label.Text = text;
++        _label.X = (Width - _label.Width) / 2;
++        _label.Y = (Height - _label.Height) / 2;
++    }
++
++    protected override void OnMouseUp(int x, int y, MouseButtonType button)
++    {
++        if (button == MouseButtonType.Left && MouseIsOver)
++        {
++            _activate();
++            Mouse.CancelDoubleClick = true;
++        }
++        base.OnMouseUp(x, y, button);
++    }
++}
++
++internal sealed class SanctuaryJournalGump : Gump
++{
++    private readonly Label _category;
++
++    private SanctuaryJournalGump(World world) : base(world, 0, 0)
++    {
++        const int width = 604, height = 404;
++        X = Math.Max(0, (Client.Game.ClientBounds.Width - width) / 2);
++        Y = Math.Max(0, (Client.Game.ClientBounds.Height - height) / 2);
++        CanMove = CanCloseWithRightClick = true;
++        Add(new SanctuaryBackdrop("journal-book", width, height));
++
++        Add(new Label("The Adventures of the Avatar", false, 0x0386, 245, font: 1) { X = 31, Y = 37 });
++        Add(new Line(32, 66, 240, 1, 0xFF3F6E98) { AcceptMouseInput = false });
++        _category = Add(new Label("All discoveries", false, 0x0386, font: 1) { X = 32, Y = 86 });
++        Add(new Label("No discoveries recorded.", false, 0x0386, font: 1) { X = 32, Y = 120 });
++        Add(new SanctuarySheetButton(32, 350, 84, "Chat Log", () => GameActions.OpenJournal(World)));
++
++        Add(new Label("Principles and Virtues", false, 0x0386, font: 1) { X = 330, Y = 37 });
++        Add(new SanctuarySheetButton(533, 27, 50, "Close", Dispose));
++        Add(new VirtuePlate { X = 318, Y = 75 });
++        AddIndexTargets();
++    }
++
++    public static void Open(World world)
++    {
++        var book = UIManager.GetGump<SanctuaryJournalGump>();
++        if (book == null)
++            UIManager.Add(new SanctuaryJournalGump(world));
++        else
++        {
++            book.SetInScreen();
++            book.BringOnTop();
++        }
++    }
++
++    private void AddIndexTargets()
++    {
++        foreach (var (name, x, y, _) in VirtuePlate.Emblems)
++            AddIndexTarget(name, x, y, 32, 32);
++
++        AddIndexTarget("Truth", 91, 24, 48, 23);
++        AddIndexTarget("Courage", 179, 24, 48, 23);
++        AddIndexTarget("Love", 135, 220, 48, 25);
++    }
++
++    private void AddIndexTarget(string name, int x, int y, int width, int height)
++    {
++        var target = Add(new HitBox(318 + x - width / 2, 75 + y - height / 2, width, height,
++            name == "Infinity" ? "All discoveries" : name, 0));
++        target.MouseUp += (_, args) =>
++        {
++            if (args.Button == MouseButtonType.Left)
++                _category.Text = name == "Infinity" ? "All discoveries" : name;
++        };
++    }
++
++    private sealed class VirtuePlate : Control
++    {
++        // Stroke points are relative to each emblem's center. A null separates pen strokes.
++        public static readonly (string Name, int X, int Y, Point?[] Strokes)[] Emblems =
++        [
++            ("Honesty", 67, 84, [new(-10, 7), new(-10, -8), new(0, -5), new(10, -8), new(10, 7), new(0, 10), new(-10, 7), null, new(0, -5), new(0, 10)]),
++            ("Valor", 205, 84, [new(0, -13), new(3, -8), new(1, 5), new(-1, 5), new(-3, -8), new(0, -13), null, new(-7, 5), new(7, 5), null, new(0, 5), new(0, 12)]),
++            ("Honour", 136, 64, [new(-10, -7), new(10, -7), new(7, 0), new(0, 4), new(-7, 0), new(-10, -7), null, new(0, 4), new(0, 11), null, new(-6, 11), new(6, 11)]),
++            ("Spirituality", 136, 117, [new(0, -10), new(0, 12), null, new(-8, -3), new(8, -3), null, new(-3, 5), new(-5, 8), new(0, 12), new(5, 8), new(3, 5)]),
++            ("Justice", 91, 143, [new(0, -10), new(0, 10), null, new(-11, -5), new(11, -5), null, new(-7, -5), new(-11, 3), new(-3, 3), new(-7, -5), null, new(7, -5), new(3, 3), new(11, 3), new(7, -5), null, new(-6, 10), new(6, 10)]),
++            ("Sacrifice", 181, 143, [new(-11, 0), new(-5, -6), new(5, -6), new(11, 0), new(5, 6), new(-5, 6), new(-11, 0), null, new(0, -4), new(3, 0), new(0, 4), new(-3, 0), new(0, -4)]),
++            ("Compassion", 136, 190, [new(0, 9), new(-10, -1), new(-10, -6), new(-5, -9), new(0, -5), new(5, -9), new(10, -6), new(10, -1), new(0, 9)]),
++            ("Humility", 27, 223, [new(-6, -6), new(-6, -10), new(-1, -13), new(4, -11), new(5, -7), new(0, -1), new(0, 13)]),
++            ("Infinity", 238, 255, [new(0, 0), new(-7, -6), new(-11, -6), new(-15, 0), new(-11, 6), new(-7, 6), new(7, -6), new(11, -6), new(15, 0), new(11, 6), new(7, 6), new(0, 0)])
++        ];
++
++        private static readonly (Vector2 Start, Vector2 End)[] Strokes = BuildStrokes();
++
++        public VirtuePlate()
++        {
++            Width = 272;
++            Height = 278;
++            AcceptMouseInput = false;
++            WantUpdateSize = false;
++        }
++
++        private static (Vector2, Vector2)[] BuildStrokes()
++        {
++            var result = new System.Collections.Generic.List<(Vector2, Vector2)>();
++            foreach (var center in new Vector2[] { new(92, 88), new(180, 88), new(136, 155) })
++            {
++                const int sides = 64, radius = 70;
++                Vector2 previous = center + new Vector2(radius, 0);
++                for (int i = 1; i <= sides; i++)
++                {
++                    float angle = MathF.Tau * i / sides;
++                    var point = center + new Vector2(MathF.Cos(angle), MathF.Sin(angle)) * radius;
++                    result.Add((previous, point));
++                    previous = point;
++                }
++            }
++            foreach (var (_, x, y, points) in Emblems)
++            {
++                for (int i = 1; i < points.Length; i++)
++                {
++                    if (points[i - 1] is Point first && points[i] is Point second)
++                        result.Add((new Vector2(x + first.X, y + first.Y), new Vector2(x + second.X, y + second.Y)));
++                }
++            }
++            return result.ToArray();
++        }
++
++        public override bool AddToRenderLists(RenderLists lists, int x, int y, ref float depth)
++        {
++            var ink = SolidColorTextureCache.GetTexture(new Color(154, 122, 91));
++            var origin = new Vector2(x, y);
++            float layer = depth;
++            lists.AddGumpNoAtlas(batcher =>
++            {
++                var hue = ShaderHueTranslator.GetHueVector(0);
++                foreach (var (start, end) in Strokes)
++                    batcher.DrawLine(ink, origin + start, origin + end, hue, 1, layer);
++                return true;
++            });
++            return true;
++        }
++    }
++}

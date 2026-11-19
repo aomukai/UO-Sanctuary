@@ -147,6 +147,7 @@ public static class WardrobeTransaction
         BattleCommand.Clear(player);
         PersistentMinions.ParkClass(player, previous.Class);
         PersistentMinions.Resume(player);
+        MercenaryCare.SyncOwner(player);
         return true;
     }
 

@@ -52,7 +52,7 @@ public static class RuneSockets
         if (!Ready(owner) || !Accessible(owner, rune) || !Accessible(owner, host) || !ClassGear.Converted(host)
             || !GearDetails.Socketable(host) || host.Origin == ItemOrigin.Vendor) { return null; }
         var state = ClassGear.State(host);
-        if (state is not { Identified: true, StarterTeeth: false } || Filled(state) >= state.SocketCount) { return null; }
+        if (state is not { Identified: true, Starter: false } || Filled(state) >= state.SocketCount) { return null; }
         return new(owner, rune, host, state, new(rune.Pattern, rune.Quality), owner.NetState, Begin(owner))
         { RuneParent = rune.Parent, HostParent = host.Parent, RuneSnapshot = new(rune), HostSnapshot = new(host) };
     }

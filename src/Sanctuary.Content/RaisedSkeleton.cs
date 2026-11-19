@@ -35,21 +35,14 @@ public partial class RaisedSkeleton:SkeletonGuardian,ISourceLifeMaximum,ISourceU
     {
         get
         {
-            var b=Birth;var weapon=SourceWeaponBase;int percent=Math.Max(10,100+b.DamagePercent);
+            var b=Birth;var damage=NecromancerSkeletonBirth.Damage(b,SummonDifficulty);
             return new(b.Level,(Math.Clamp(b.Life256,256,65000*256)+255)/256,b.Attack,b.Armor,
-                weapon.Min*percent/100,weapon.Max*percent/100,DruidWolfGeometry.Clock("A1",source:"necroskeleton-animation").End*40,EncounterProfiles.MovementInterval(240,SkeletonPetUpgrades.MovementPercent(this)),0,0,0,0,0);
+                damage.Min,damage.Max,DruidWolfGeometry.Clock("A1",source:"necroskeleton-animation").End*40,EncounterProfiles.MovementInterval(240,SkeletonPetUpgrades.MovementPercent(this)),0,0,0,0,0);
         }
     }
-    public override (int Min,int Max) SkillWeaponDamage
-    {
-        get
-        {
-            var weapon=SourceWeaponBase;int percent=Math.Max(10,100+Birth.DamagePercent+CombatAuras.DamagePercent(this)+NecromancerEffects.DamageStatPercent(this));
-            return(weapon.Min*percent/100,weapon.Max*percent/100);
-        }
-    }
-    internal override (int Min,int Max,int Percent) SourceWeaponBase=>(NecromancerSummons.Source("necroskeleton","A1MinD",SummonDifficulty)+Birth.FlatDamage,
-        NecromancerSummons.Source("necroskeleton","A1MaxD",SummonDifficulty)+Birth.FlatDamage,Birth.DamagePercent);
+    public override (int Min, int Max) SkillWeaponDamage => NecromancerSkeletonBirth.Damage(Birth, SummonDifficulty,
+        CombatAuras.DamagePercent(this) + NecromancerEffects.DamageStatPercent(this));
+    internal override (int Min, int Max, int Percent) SourceWeaponBase => NecromancerSkeletonBirth.WeaponBase(Birth, SummonDifficulty);
     [Constructible]public RaisedSkeleton(){}
     internal void InitializeExact(PlayerMobile owner,int rank,int mastery)
     {

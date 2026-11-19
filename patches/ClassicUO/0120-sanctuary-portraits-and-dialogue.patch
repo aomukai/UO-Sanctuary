@@ -1,0 +1,2057 @@
+diff --git a/src/ClassicUO.Client/ClassicUO.Client.csproj b/src/ClassicUO.Client/ClassicUO.Client.csproj
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -29,6 +29,7 @@
+   <ItemGroup>
+     <Folder Include="Properties\" />
+     <Compile Include="../../../../shared/DiabloClass.cs" Link="Sanctuary/DiabloClass.cs" />
++    <Compile Include="../../../../shared/PortraitProtocol.cs" Link="Sanctuary/PortraitProtocol.cs" />
+     <Compile Include="../../../../shared/TradeSkills.cs" Link="Sanctuary/TradeSkills.cs" />
+     <Compile Include="../../../../shared/CombatProtocol.cs" Link="Game/Data/CombatProtocol.cs" />
+     <Compile Include="../../../../shared/ClassAbilities.cs" Link="Game/Data/ClassAbilities.cs" />
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CharCreationGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CharCreationGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CharCreationGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CharCreationGump.cs
+@@ -1,100 +1,108 @@
+-﻿// SPDX-License-Identifier: BSD-2-Clause
++// SPDX-License-Identifier: BSD-2-Clause
+ 
+-using ClassicUO.Game.GameObjects;
+ using ClassicUO.Game.Managers;
+ using ClassicUO.Game.Scenes;
+ using ClassicUO.Game.UI.Controls;
+-using ClassicUO.Game.UI.Gumps.Login;
+ using Sanctuary;
++using SDL3;
+ 
+-namespace ClassicUO.Game.UI.Gumps.CharCreation
++namespace ClassicUO.Game.UI.Gumps.CharCreation;
++
++internal sealed class CharCreationGump : Gump
+ {
+-    internal class CharCreationGump : Gump
++    private const int Appearance = 1, Name = 2, Profession = 3;
++    private readonly LoginScene _loginScene;
++    private readonly CreateCharAppearanceGump _appearance;
++    private readonly StbTextBox _name;
++    private readonly Label _nameError;
++    private CreateCharProfessionGump _profession;
++    private bool _submitted;
++
++    public CharCreationGump(World world, LoginScene scene) : base(world, 0, 0)
+     {
+-        private readonly LoginScene _loginScene;
+-        private DiabloClass? _selectedClass;
+-        private CreateCharAppearanceGump _appearance;
+-        private Label _classLabel;
+-        private LoadingGump _loadingGump;
++        _loginScene = scene;
++        Width = 640;
++        Height = 480;
++        WantUpdateSize = false;
++        _appearance = Add(new CreateCharAppearanceGump(world, this), Appearance);
++        var page = Add(new Gump(world, 0, 0) { Width = 640, Height = 480, WantUpdateSize = false }, Name);
++        Frame(page, "Thy name");
++        page.Add(new Line(66, 115, 146, 146, 0xFF567B98) { AcceptMouseInput = false });
++        page.Add(new SanctuaryPortrait(() => _appearance.Appearance, 68, 117, 142, 142));
++        page.Add(new Label("By what name wouldst thou be known?", true, 0x0481, maxwidth: 338, font: 1)
++            { X = 244, Y = 135 });
++        page.Add(new Line(244, 177, 316, 34, 0xFF567B98) { AcceptMouseInput = false });
++        page.Add(new Line(245, 178, 314, 32, 0xFF231A21) { AcceptMouseInput = false });
++        _name = page.Add(new StbTextBox(1, 16, 302, true, hue: 0x0481)
++            { X = 251, Y = 184, Width = 302, Height = 21 });
++        _name.KeyDown += (_, key) =>
++        {
++            if (key.Key is SDL.SDL_Keycode.SDLK_RETURN or SDL.SDL_Keycode.SDLK_KP_ENTER)
++                ChooseProfession();
++        };
++        _nameError = page.Add(new Label("", true, 0x0481, maxwidth: 316, font: 1) { X = 244, Y = 224 });
++        page.Add(new SanctuarySheetButton(53, 396, 85, "Back", () => StepBack()));
++        page.Add(new SanctuarySheetButton(486, 396, 106, "Continue", ChooseProfession, primary: true));
++        ChangePage(Appearance);
++    }
+ 
+-        public CharCreationGump(World world, LoginScene scene) : base(world, 0, 0)
++    internal static void Frame(Gump page, string title)
++    {
++        page.Add(new SanctuaryBackdrop("character-frame", 598, 416) { X = 21, Y = 32, CanMove = false });
++        page.Add(new Label(title, true, 0x0481, font: 0) { X = 53, Y = 47, AcceptMouseInput = false });
++        page.Add(new Line(53, 79, 539, 1, 0xFF486581) { AcceptMouseInput = false });
++    }
++
++    internal void ShowName()
++    {
++        ChangePage(Name);
++        _nameError.Text = "";
++        UIManager.KeyboardFocusControl = _name;
++    }
++
++    private void ChooseProfession()
++    {
++        if (ActivePage != Name)
++            return;
++        int error = CreateCharAppearanceGump.Validate(_name.Text);
++        if (error != 0)
+         {
+-            _loginScene = scene;
+-            Width = 640;
+-            Height = 480;
+-            WantUpdateSize = false;
+-            CanCloseWithRightClick = false;
+-            CanCloseWithEsc = false;
+-            Add(new CreateCharProfessionGump(world), 1);
+-            ChangePage(1);
++            _nameError.Text = Client.Game.UO.FileManager.Clilocs.GetString(error);
++            return;
+         }
+ 
+-        public void SetClass(DiabloClass characterClass)
++        _profession?.Dispose();
++        _profession = Add(new CreateCharProfessionGump(World, this, _appearance.IsFemale, _name.Text.Trim(),
++            () => _appearance.Appearance), Profession);
++        UIManager.KeyboardFocusControl = null;
++        ChangePage(Profession);
++    }
++
++    internal void EnterWorld(DiabloClass characterClass)
++    {
++        if (_submitted || ActivePage != Profession || !DiabloClasses.TryFromWire((int)characterClass, out _))
++            return;
++
++        _submitted = true;
++        var player = _appearance.CreateCharacter(_name.Text.Trim());
++        foreach (var skill in player.Skills)
+         {
+-            if (!DiabloClasses.TryFromWire((int)characterClass, out _))
+-            {
+-                return;
+-            }
++            skill.ValueFixed = 0;
++            skill.BaseFixed = 0;
++        }
++        _loginScene.CreateCharacter(player, 0, PortraitProtocol.EncodeCreation(characterClass, _appearance.Face));
++    }
+ 
+-            _selectedClass = characterClass;
+-            if (_appearance == null)
+-            {
+-                Add(_appearance = new CreateCharAppearanceGump(World), 2);
+-                Add(_classLabel = new Label("", true, 0x0481, font: 1)
+-                {
+-                    X = 250, Y = 108, AcceptMouseInput = false
+-                }, 2);
+-            }
+-
+-            UpdateClassSummary(_appearance.IsFemale);
+-            ChangePage(2);
++    internal void StepBack()
++    {
++        if (ActivePage == Profession)
++            ShowName();
++        else if (ActivePage == Name)
++        {
++            UIManager.KeyboardFocusControl = null;
++            ChangePage(Appearance);
+         }
+-
+-        public void UpdateClassSummary(bool female)
+-        {
+-            if (_classLabel != null && _selectedClass is { } characterClass)
+-            {
+-                _classLabel.Text = $"Level 1 {DiabloClasses.DisplayName(characterClass, female)}";
+-            }
+-        }
+-
+-        public void SetCharacter(PlayerMobile character)
+-        {
+-            if (_selectedClass == null)
+-            {
+-                ChangePage(1);
+-                return;
+-            }
+-
+-            // Class progression is authoritative on the server; no UO skill allocation is sent.
+-            character.Strength = character.Dexterity = character.Intelligence = 30;
+-            foreach (var skill in character.Skills)
+-            {
+-                skill.ValueFixed = 0;
+-                skill.BaseFixed = 0;
+-            }
+-
+-            _loginScene.CreateCharacter(character, 0, (byte)_selectedClass.Value);
+-        }
+-
+-        public void StepBack(int steps = 1)
+-        {
+-            if (ActivePage == 2)
+-            {
+-                ChangePage(1);
+-            }
+-            else
+-            {
+-                _loginScene.StepBack();
+-            }
+-        }
+-
+-        public void ShowMessage(string message)
+-        {
+-            int currentPage = ActivePage;
+-            _loadingGump?.Dispose();
+-            Add(_loadingGump = new LoadingGump(World, message, LoginButtons.OK, _ => ChangePage(currentPage)), 3);
+-            ChangePage(3);
+-        }
++        else
++            _loginScene.StepBack();
+     }
+ }
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CreateCharAppearanceGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CreateCharAppearanceGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CreateCharAppearanceGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CreateCharAppearanceGump.cs
+@@ -1,787 +1,218 @@
+-﻿// SPDX-License-Identifier: BSD-2-Clause
++// SPDX-License-Identifier: BSD-2-Clause
+ 
+ using System;
+-using System.Collections.Generic;
+-using System.Linq;
+-using ClassicUO.Configuration;
++using ClassicUO.Assets;
+ using ClassicUO.Game.Data;
+ using ClassicUO.Game.GameObjects;
+ using ClassicUO.Game.Managers;
+ using ClassicUO.Game.UI.Controls;
+ using ClassicUO.Input;
+-using ClassicUO.Assets;
+-using ClassicUO.Renderer;
+ using ClassicUO.Utility;
+-using ClassicUO.Renderer.Gumps;
+-using ClassicUO.Utility.Logging;
++using Sanctuary;
+ 
+ namespace ClassicUO.Game.UI.Gumps.CharCreation
+ {
+-    internal class CreateCharAppearanceGump : Gump
++    internal sealed class CreateCharAppearanceGump : Gump
+     {
+-        struct CharacterInfo
+-        {
+-            public bool IsFemale;
+-            public RaceType Race;
+-        }
+-
+-        private PlayerMobile _character;
+-        private CharacterInfo _characterInfo;
+-        public bool IsFemale => _characterInfo.IsFemale;
+-        private readonly Button _humanRadio, _elfRadio, _gargoyleRadio;
+-        private readonly Button _maleRadio, _femaleRadio;
+-        private Combobox _hairCombobox, _facialCombobox;
+-        private Label _hairLabel, _facialLabel;
+-        private readonly StbTextBox _nameTextBox;
+-        private PaperDollInteractable _paperDoll;
+-        private readonly Button _nextButton;
+-        private readonly Dictionary<Layer, Tuple<int, ushort>> CurrentColorOption = new Dictionary<Layer, Tuple<int, ushort>>();
+-        private readonly Dictionary<Layer, int> CurrentOption = new Dictionary<Layer, int>
+-        {
+-            {
+-                Layer.Hair, 1
+-            },
+-            {
+-                Layer.Beard, 0
+-            }
+-        };
+-
+-        public CreateCharAppearanceGump(World world) : base(world, 0, 0)
+-        {
+-            Add
+-            (
+-                new ResizePic(0x0E10)
++        private readonly CharCreationGump _owner;
++        private RaceType _race = RaceType.HUMAN;
++        private bool _female;
++        private byte _face = 1;
++        private int _hair, _beard;
++        private ushort _skin, _hairHue, _beardHue;
++        private ushort _shirtHue = 0x059F, _pantsHue = 0x0455;
++        private ColorPickerBox _picker;
++
++        public CreateCharAppearanceGump(World world, CharCreationGump owner) : base(world, 0, 0)
++        {
++            _owner = owner;
++            Width = 640;
++            Height = 480;
++            WantUpdateSize = false;
++            UsePreset();
++            Build();
++        }
++
++        internal PortraitLook Appearance => new(_race, _female, _face, _skin,
++            (ushort)Hair.GetGraphic(_hair), _hairHue,
++            HasFacialHair ? (ushort)FacialHair.GetGraphic(_beard) : (ushort)0, _beardHue);
++        internal byte Face => _face;
++        internal bool IsFemale => _female;
++
++        private CharacterCreationValues.ComboContent _hairOptions, _facialOptions;
++        private CharacterCreationValues.ComboContent Hair => _hairOptions ??= CharacterCreationValues.GetHairComboContent(_female, _race);
++        private CharacterCreationValues.ComboContent FacialHair => _facialOptions ??= CharacterCreationValues.GetFacialHairComboContent(_race);
++        private bool HasFacialHair => !_female && _race != RaceType.ELF;
++
++        private void SelectRace(RaceType race)
++        {
++            if (race == _race)
++                return;
++            _race = race;
++            UsePreset();
++            Build();
++        }
++
++        private void SelectSex(bool female)
++        {
++            if (female == _female)
++                return;
++            _female = female;
++            UsePreset();
++            Build();
++        }
++
++        private void SelectFace(int change)
++        {
++            _face = (byte)((_face + PortraitProtocol.FaceCount + change) % PortraitProtocol.FaceCount);
++            UsePreset();
++            Build();
++        }
++
++        private void UsePreset()
++        {
++            _hairOptions = _facialOptions = null;
++            ushort[] skin = CharacterCreationValues.GetSkinPallet(_race);
++            ushort[] hair = CharacterCreationValues.GetHairPallet(_race);
++            int[] skinChoices = [1, 0, 18, 8, 32, 45, 11, 23];
++            int[] hairChoices = [5, 11, 42, 0, 13, 18, 6, 25];
++            _skin = (ushort)(skin[skinChoices[_face] % skin.Length] + 1);
++            _hairHue = (ushort)(hair[hairChoices[_face] % hair.Length] + 1);
++            _beardHue = _hairHue;
++            _hair = _face % Hair.Labels.Length;
++            _beard = HasFacialHair && _face >= 3 ? (_face - 2) % FacialHair.Labels.Length : 0;
++        }
++
++        private void Build()
++        {
++            _picker?.Dispose();
++            _picker = null;
++            Clear();
++            CharCreationGump.Frame(this, "Choose thy appearance");
++            Text("Race", 53, 103);
++            var elfEnabled = (World.ClientFeatures.Flags & CharacterListFlags.CLF_ELVEN_RACE) != 0
++                && World.ClientLockedFeatures.Flags.HasFlag(LockedFeatureFlags.ML);
++            var gargoyleEnabled = Client.Game.UO.Version >= ClientVersion.CV_60144
++                && World.ClientLockedFeatures.Flags.HasFlag(LockedFeatureFlags.SA);
++            Button(143, 96, 80, "Human", () => SelectRace(RaceType.HUMAN), _race == RaceType.HUMAN);
++            if (elfEnabled)
++                Button(228, 96, 72, "Elf", () => SelectRace(RaceType.ELF), _race == RaceType.ELF);
++            if (gargoyleEnabled)
++                Button(305, 96, 79, "Gargoyle", () => SelectRace(RaceType.GARGOYLE), _race == RaceType.GARGOYLE);
++
++            Text("Sex", 53, 141);
++            Button(143, 134, 113, "Male", () => SelectSex(false), !_female);
++            Button(271, 134, 113, "Female", () => SelectSex(true), _female);
++
++            Choice("Face", 176, $"{_face + 1} / {PortraitProtocol.FaceCount}", SelectFace);
++            Choice(_race == RaceType.GARGOYLE ? "Horns" : "Hair", 214, Hair.Labels[_hair], delta =>
++            {
++                _hair = (_hair + Hair.Labels.Length + delta) % Hair.Labels.Length;
++                Build();
++            });
++            if (HasFacialHair)
++            {
++                Choice(_race == RaceType.GARGOYLE ? "Facial horns" : "Facial hair", 252, FacialHair.Labels[_beard], delta =>
+                 {
+-                    X = 82, Y = 125, Width = 151, Height = 310
+-                },
+-                1
+-            );
+-
+-            Add(new GumpPic(280, 53, 0x0709, 0), 1);
+-            Add(new GumpPic(240, 73, 0x070A, 0), 1);
+-
+-            Add
+-            (
+-                new GumpPicTiled
+-                (
+-                    248,
+-                    73,
+-                    215,
+-                    16,
+-                    0x070B
+-                ),
+-                1
+-            );
+-
+-            Add(new GumpPic(463, 73, 0x070C, 0), 1);
+-            Add(new GumpPic(238, 98, 0x0708, 0), 1);
+-
+-            Add
+-            (
+-                new ResizePic(0x0E10)
+-                {
+-                    X = 475, Y = 125, Width = 151, Height = 310
+-                },
+-                1
+-            );
+-
+-            // Male/Female Radios
+-            Add
+-            (
+-                _maleRadio = new Button((int)Buttons.MaleButton, 0x0768, 0x0767)
+-                {
+-                    X = 425, Y = 435, ButtonAction = ButtonAction.Activate
+-                },
+-                1
+-            );
+-
+-            Add
+-            (
+-                _femaleRadio = new Button((int)Buttons.FemaleButton, 0x0768, 0x0767)
+-                {
+-                    X = 425, Y = 455, ButtonAction = ButtonAction.Activate
+-                },
+-                1
+-            );
+-
+-            Add
+-            (
+-                new Button((int) Buttons.MaleButton, 0x0710, 0x0712, 0x0711)
+-                {
+-                    X = 445, Y = 435, ButtonAction = ButtonAction.Activate
+-                },
+-                1
+-            );
+-
+-            Add
+-            (
+-                new Button((int) Buttons.FemaleButton, 0x070D, 0x070F, 0x070E)
+-                {
+-                    X = 445, Y = 455, ButtonAction = ButtonAction.Activate
+-                },
+-                1
+-            );
+-
+-            Add
+-            (
+-                _nameTextBox = new StbTextBox
+-                (
+-                    5,
+-                    16,
+-                    200,
+-                    false,
+-                    hue: 1,
+-                    style: FontStyle.Fixed
+-                )
+-                {
+-                    X = 257, Y = 65, Width = 200, Height = 20
+-                    //ValidationRules = (uint) (TEXT_ENTRY_RULES.LETTER | TEXT_ENTRY_RULES.SPACE)
+-                },
+-                1
+-            );
+-
+-            // Races
+-            Add
+-            (
+-                _humanRadio = new Button((int)Buttons.HumanButton, 0x0768, 0x0767)
+-                {
+-                    X = 180, Y = 435, ButtonAction = ButtonAction.Activate
+-                },
+-                1
+-            );
+-
+-            Add
+-            (
+-                new Button((int) Buttons.HumanButton, 0x0702, 0x0704, 0x0703)
+-                {
+-                    X = 200, Y = 435, ButtonAction = ButtonAction.Activate
+-                },
+-                1
+-            );
+-
+-            Add
+-            (
+-                _elfRadio = new Button((int)Buttons.ElfButton, 0x0768, 0x0767, 0x0768)
+-                {
+-                    X = 180, Y = 455, ButtonAction = ButtonAction.Activate
+-                },
+-                1
+-            );
+-
+-            Add
+-            (
+-                new Button((int) Buttons.ElfButton, 0x0705, 0x0707, 0x0706)
+-                {
+-                    X = 200, Y = 455, ButtonAction = ButtonAction.Activate
+-                },
+-                1
+-            );
+-
+-            if (Client.Game.UO.Version >= ClientVersion.CV_60144)
+-            {
+-                Add
+-                (
+-                    _gargoyleRadio = new Button((int)Buttons.GargoyleButton, 0x0768, 0x0767)
+-                    {
+-                        X = 60, Y = 435, ButtonAction = ButtonAction.Activate
+-                    },
+-                    1
+-                );
+-
+-                Add
+-                (
+-                    new Button((int) Buttons.GargoyleButton, 0x07D3, 0x07D5, 0x07D4)
+-                    {
+-                        X = 80, Y = 435, ButtonAction = ButtonAction.Activate
+-                    },
+-                    1
+-                );
+-            }
+-
+-            // Prev/Next
+-            Add
+-            (
+-                new Button((int) Buttons.Prev, 0x15A1, 0x15A3, 0x15A2)
+-                {
+-                    X = 586, Y = 445, ButtonAction = ButtonAction.Activate
+-                },
+-                1
+-            );
+-
+-            Add
+-            (
+-                _nextButton = new Button((int) Buttons.Next, 0x15A4, 0x15A6, 0x15A5)
+-                {
+-                    X = 610, Y = 445, ButtonAction = ButtonAction.Activate
+-                },
+-                1
+-            );
+-
+-            _maleRadio.IsClicked = true;
+-            _humanRadio.IsClicked = true;
+-            _characterInfo.IsFemale = false;
+-            _characterInfo.Race = RaceType.HUMAN;
+-
+-            HandleGenreChange();
+-            HandleRaceChanged();
+-        }
+-
+-        private void CreateCharacter(bool isFemale, RaceType race)
+-        {
+-            if (_character == null)
+-            {
+-                _character = new PlayerMobile(World, 1);
+-                World.Mobiles.Add(_character);
+-            }
+-
+-            LinkedObject first = _character.Items;
+-
+-            while (first != null)
+-            {
+-                LinkedObject next = first.Next;
+-
+-                World.RemoveItem((Item) first, true);
+-
+-                first = next;
+-            }
+-
+-            _character.Clear();
+-            _character.Race = race;
+-            _character.IsFemale = isFemale;
+-            UIManager.GetGump<CharCreationGump>()?.UpdateClassSummary(isFemale);
+-
+-            if (isFemale)
+-            {
+-                _character.Flags |= Flags.Female;
+-            }
+-            else
+-            {
+-                _character.Flags &= ~Flags.Female;
+-            }
+-
+-            switch (race)
+-            {
+-                case RaceType.GARGOYLE:
+-                    _character.Graphic = isFemale ? (ushort) 0x029B : (ushort) 0x029A;
+-
+-                    Item it = CreateItem(0x4001, CurrentColorOption[Layer.Shirt].Item2, Layer.Robe);
+-
+-                    _character.PushToBack(it);
+-
+-                    break;
+-
+-                case RaceType.ELF when isFemale:
+-                    _character.Graphic = 0x025E;
+-                    it = CreateItem(0x1710, 0x0384, Layer.Shoes);
+-                    _character.PushToBack(it);
+-
+-                    it = CreateItem(0x1531, CurrentColorOption[Layer.Pants].Item2, Layer.Skirt);
+-
+-                    _character.PushToBack(it);
+-
+-                    it = CreateItem(0x1518, CurrentColorOption[Layer.Shirt].Item2, Layer.Shirt);
+-
+-                    _character.PushToBack(it);
+-
+-                    break;
+-
+-                case RaceType.ELF:
+-                    _character.Graphic = 0x025D;
+-                    it = CreateItem(0x1710, 0x0384, Layer.Shoes);
+-                    _character.PushToBack(it);
+-
+-                    it = CreateItem(0x152F, CurrentColorOption[Layer.Pants].Item2, Layer.Pants);
+-
+-                    _character.PushToBack(it);
+-
+-                    it = CreateItem(0x1518, CurrentColorOption[Layer.Shirt].Item2, Layer.Shirt);
+-
+-                    _character.PushToBack(it);
+-
+-                    break;
+-
+-                default:
+-
+-                {
+-                    if (isFemale)
+-                    {
+-                        _character.Graphic = 0x0191;
+-                        it = CreateItem(0x1710, 0x0384, Layer.Shoes);
+-                        _character.PushToBack(it);
+-
+-                        it = CreateItem(0x1531, CurrentColorOption[Layer.Pants].Item2, Layer.Pants);
+-
+-                        _character.PushToBack(it);
+-
+-                        it = CreateItem(0x1518, CurrentColorOption[Layer.Shirt].Item2, Layer.Shirt);
+-
+-                        _character.PushToBack(it);
+-                    }
+-                    else
+-                    {
+-                        _character.Graphic = 0x0190;
+-                        it = CreateItem(0x1710, 0x0384, Layer.Shoes);
+-                        _character.PushToBack(it);
+-
+-                        it = CreateItem(0x152F, CurrentColorOption[Layer.Pants].Item2, Layer.Pants);
+-
+-                        _character.PushToBack(it);
+-
+-                        it = CreateItem(0x1518, CurrentColorOption[Layer.Shirt].Item2, Layer.Shirt);
+-
+-                        _character.PushToBack(it);
+-                    }
+-
+-                    break;
+-                }
+-            }
+-        }
+-
+-        private void UpdateEquipments()
+-        {
+-            RaceType race = _characterInfo.Race;
+-            Layer layer;
+-            CharacterCreationValues.ComboContent content;
+-
+-            _character.Hue = CurrentColorOption[Layer.Invalid].Item2;
+-
+-            if (!_characterInfo.IsFemale && race != RaceType.ELF)
+-            {
+-                layer = Layer.Beard;
+-                content = CharacterCreationValues.GetFacialHairComboContent(race);
+-
+-                Item iti = CreateItem(content.GetGraphic(CurrentOption[layer]), CurrentColorOption[layer].Item2, layer);
+-
+-                _character.PushToBack(iti);
+-            }
+-
+-            layer = Layer.Hair;
+-            content = CharacterCreationValues.GetHairComboContent(_characterInfo.IsFemale, race);
+-
+-            Item it = CreateItem(content.GetGraphic(CurrentOption[layer]), CurrentColorOption[layer].Item2, layer);
+-
+-            _character.PushToBack(it);
+-        }
+-
+-        private void HandleRaceChanged()
+-        {
+-            CurrentColorOption.Clear();
+-            HandleGenreChange();
+-            RaceType race = _characterInfo.Race;
+-            CharacterListFlags flags = World.ClientFeatures.Flags;
+-            LockedFeatureFlags locks = World.ClientLockedFeatures.Flags;
+-
+-            bool allowElf = (flags & CharacterListFlags.CLF_ELVEN_RACE) != 0 && locks.HasFlag(LockedFeatureFlags.ML);
+-            bool allowGarg = locks.HasFlag(LockedFeatureFlags.SA);
+-
+-            if (race == RaceType.ELF && !allowElf)
+-            {
+-                _nextButton.IsEnabled = false;
+-                _nextButton.Hue = 944;
+-            }
+-            else if (race == RaceType.GARGOYLE && !allowGarg)
+-            {
+-                _nextButton.IsEnabled = false;
+-                _nextButton.Hue = 944;
+-            }
+-            else
+-            {
+-                _nextButton.IsEnabled = true;
+-                _nextButton.Hue = 0;
+-            }
+-        }
+-
+-        private void HandleGenreChange()
+-        {
+-            RaceType race = _characterInfo.Race;
+-
+-            CurrentOption[Layer.Beard] = 0;
+-            CurrentOption[Layer.Hair] = 1;
+-
+-            if (_paperDoll != null)
+-            {
+-                Remove(_paperDoll);
+-            }
+-
+-            if (_hairCombobox != null)
+-            {
+-                Remove(_hairCombobox);
+-                Remove(_hairLabel);
+-            }
+-
+-            if (_facialCombobox != null)
+-            {
+-                Remove(_facialCombobox);
+-                Remove(_facialLabel);
+-            }
+-
+-            foreach (CustomColorPicker customPicker in Children.OfType<CustomColorPicker>().ToList())
+-            {
+-                Remove(customPicker);
+-            }
+-
+-            // Hair
+-            CharacterCreationValues.ComboContent content = CharacterCreationValues.GetHairComboContent(_characterInfo.IsFemale, race);
+-
+-            bool isAsianLang = string.Compare(Settings.GlobalSettings.Language, "CHT", StringComparison.InvariantCultureIgnoreCase) == 0 ||
+-                string.Compare(Settings.GlobalSettings.Language, "KOR", StringComparison.InvariantCultureIgnoreCase) == 0 ||
+-                string.Compare(Settings.GlobalSettings.Language, "JPN", StringComparison.InvariantCultureIgnoreCase) == 0;
+-
+-            bool unicode = isAsianLang;
+-            byte font = (byte)(isAsianLang ? 3 : 9);
+-            ushort hue = (ushort)(isAsianLang ? 0xFFFF : 0);
+-
+-            Add
+-            (
+-                _hairLabel = new Label(Client.Game.UO.FileManager.Clilocs.GetString(race == RaceType.GARGOYLE ? 1112309 : 3000121), unicode, hue, font: font)
+-                {
+-                    X = 98, Y = 140
+-                },
+-                1
+-            );
+-
+-            Add
+-            (
+-                _hairCombobox = new Combobox
+-                (
+-                    97,
+-                    155,
+-                    120,
+-                    content.Labels,
+-                    CurrentOption[Layer.Hair]
+-                ),
+-                1
+-            );
+-
+-            _hairCombobox.OnOptionSelected += Hair_OnOptionSelected;
+-
+-            // Facial Hair
+-            if (!_characterInfo.IsFemale && race != RaceType.ELF)
+-            {
+-                content = CharacterCreationValues.GetFacialHairComboContent(race);
+-
+-                Add
+-                (
+-                    _facialLabel = new Label(Client.Game.UO.FileManager.Clilocs.GetString(race == RaceType.GARGOYLE ? 1112511 : 3000122), unicode, hue, font: font)
+-                    {
+-                        X = 98, Y = 184
+-                    },
+-                    1
+-                );
+-
+-                Add
+-                (
+-                    _facialCombobox = new Combobox
+-                    (
+-                        97,
+-                        199,
+-                        120,
+-                        content.Labels,
+-                        CurrentOption[Layer.Beard]
+-                    ),
+-                    1
+-                );
+-
+-                _facialCombobox.OnOptionSelected += Facial_OnOptionSelected;
+-            }
+-            else
+-            {
+-                _facialCombobox = null;
+-                _facialLabel = null;
+-            }
+-
+-            // Skin
+-            ushort[] pallet = CharacterCreationValues.GetSkinPallet(race);
+-
+-            AddCustomColorPicker
+-            (
+-                489,
+-                141,
+-                pallet,
+-                Layer.Invalid,
+-                3000183,
+-                8,
+-                pallet.Length >> 3
+-            );
+-
+-            // Shirt Color
+-            AddCustomColorPicker
+-            (
+-                489,
+-                183,
+-                null,
+-                Layer.Shirt,
+-                3000440,
+-                10,
+-                20
+-            );
+-
+-            // Pants Color
+-            if (race != RaceType.GARGOYLE)
+-            {
+-                AddCustomColorPicker
+-                (
+-                    489,
+-                    225,
+-                    null,
+-                    Layer.Pants,
+-                    3000441,
+-                    10,
+-                    20
+-                );
+-            }
+-
+-            // Hair
+-            pallet = CharacterCreationValues.GetHairPallet(race);
+-
+-            AddCustomColorPicker
+-            (
+-                489,
+-                267,
+-                pallet,
+-                Layer.Hair,
+-                race == RaceType.GARGOYLE ? 1112322 : 3000184,
+-                8,
+-                pallet.Length >> 3
+-            );
+-
+-            if (!_characterInfo.IsFemale && race != RaceType.ELF)
+-            {
+-                // Facial
+-                pallet = CharacterCreationValues.GetHairPallet(race);
+-
+-                AddCustomColorPicker
+-                (
+-                    489,
+-                    309,
+-                    pallet,
+-                    Layer.Beard,
+-                    race == RaceType.GARGOYLE ? 1112512 : 3000446,
+-                    8,
+-                    pallet.Length >> 3
+-                );
+-            }
+-
+-            CreateCharacter(_characterInfo.IsFemale, race);
+-
+-            UpdateEquipments();
+-
+-            Add
+-            (
+-                _paperDoll = new PaperDollInteractable(262, 135, _character, new PaperDollGump(World))
+-                {
+-                    AcceptMouseInput = false
+-                },
+-                1
+-            );
+-
+-            _paperDoll.RequestUpdate();
+-        }
+-
+-        private void AddCustomColorPicker
+-        (
+-            int x,
+-            int y,
+-            ushort[] pallet,
+-            Layer layer,
+-            int clilocLabel,
+-            int rows,
+-            int columns
+-        )
+-        {
+-            CustomColorPicker colorPicker;
+-
+-            Add
+-            (
+-                colorPicker = new CustomColorPicker
+-                (
+-                    this,
+-                    layer,
+-                    clilocLabel,
+-                    pallet,
+-                    rows,
+-                    columns
+-                )
+-                {
+-                    X = x, Y = y
+-                },
+-                1
+-            );
+-
+-            if (!CurrentColorOption.ContainsKey(layer))
+-            {
+-                CurrentColorOption[layer] = new Tuple<int, ushort>(0, colorPicker.HueSelected);
+-            }
+-            else
+-            {
+-                colorPicker.SetSelectedIndex(CurrentColorOption[layer].Item1);
+-            }
+-
+-            colorPicker.ColorSelected += ColorPicker_ColorSelected;
+-        }
+-
+-        private void ColorPicker_ColorSelected(object sender, ColorSelectedEventArgs e)
+-        {
+-            if (e.SelectedIndex == 0xFFFF)
+-            {
++                    _beard = (_beard + FacialHair.Labels.Length + delta) % FacialHair.Labels.Length;
++                    Build();
++                });
++            }
++
++            Add(new Line(53, 290, 331, 1, 0xFF486581) { AcceptMouseInput = false });
++            HueButton(53, 308, "Skin color", _skin, CharacterCreationValues.GetSkinPallet(_race), value => _skin = value);
++            HueButton(165, 308, _race == RaceType.GARGOYLE ? "Horn color" : "Hair color",
++                _hairHue, CharacterCreationValues.GetHairPallet(_race), value => _hairHue = value);
++            if (HasFacialHair)
++                HueButton(277, 308, _race == RaceType.GARGOYLE ? "Facial horns" : "Beard color",
++                    _beardHue, CharacterCreationValues.GetHairPallet(_race), value => _beardHue = value);
++            HueButton(53, 344, _race == RaceType.GARGOYLE ? "Robe color" : "Shirt color",
++                _shirtHue, null, value => _shirtHue = value);
++            if (_race != RaceType.GARGOYLE)
++                HueButton(165, 344, "Legwear color", _pantsHue, null, value => _pantsHue = value);
++
++            Add(new Line(406, 98, 186, 186, 0xFF567B98) { AcceptMouseInput = false });
++            Add(new SanctuaryPortrait(() => Appearance, 408, 100, 182, 182));
++            Button(53, 396, 85, "Back", () => _owner.StepBack());
++            Button(486, 396, 106, "Continue", _owner.ShowName, true);
++        }
++
++        private void Choice(string label, int y, string selected, Action<int> change)
++        {
++            Text(label, 53, y + 5);
++            Button(143, y, 32, "<", () => change(-1));
++            Add(new Line(179, y, 169, 25, 0xFF2B2630) { AcceptMouseInput = false });
++            var caption = Text(selected, 183, y + 5, 160);
++            caption.X = 179 + (169 - caption.Width) / 2;
++            Button(352, y, 32, ">", () => change(1));
++        }
++
++        private void HueButton(int x, int y, string text, ushort hue, ushort[] palette, Action<ushort> set)
++        {
++            Button(x, y, 107, text, () => SelectHue(hue, palette, set));
++            uint color = Client.Game.UO.FileManager.Hues.GetPolygoneColor(25, hue) | 0xFF000000;
++            Add(new Line(x + 4, y + 8, 9, 9, color) { AcceptMouseInput = false });
++        }
++
++        private void SelectHue(ushort selected, ushort[] palette, Action<ushort> set)
++        {
++            _picker?.Dispose();
++            int columns = palette == null ? 20 : 8;
++            int rows = palette == null ? 10 : (palette.Length + columns - 1) / columns;
++            int cellW = palette == null ? 10 : 25;
++            ushort[] colors = palette;
++            if (palette != null && palette.Length != rows * columns)
++            {
++                colors = new ushort[rows * columns];
++                palette.CopyTo(colors, 0);
++                Array.Fill(colors, palette[^1], palette.Length, colors.Length - palette.Length);
++            }
++
++            var picker = new ColorPickerBox(World, 393, 294, rows, columns, cellW, 9, colors);
++            picker.SelectedHue = selected;
++            picker.MouseUp += (_, args) =>
++            {
++                if (args.Button != MouseButtonType.Left)
++                    return;
++                set(picker.SelectedHue);
++                Build();
++            };
++            _picker = Add(picker);
++        }
++
++        private SanctuarySheetButton Button(int x, int y, int width, string label, Action action, bool primary = false)
++            => Add(new SanctuarySheetButton(x, y, width, label, action, primary));
++
++        private Label Text(string text, int x, int y, int width = 0)
++            => Add(new Label(text, true, 0x0481, maxwidth: width, font: 1) { X = x, Y = y, AcceptMouseInput = false });
++
++        internal PlayerMobile CreateCharacter(string name)
++        {
++            PortraitLook look = Appearance;
++            var player = new PlayerMobile(World, 1)
++            {
++                Name = name, Race = look.Race, IsFemale = look.Female, Graphic = look.Body,
++                Hue = look.Skin, Strength = 30, Dexterity = 30, Intelligence = 30
++            };
++            if (look.Female)
++                player.Flags |= Flags.Female;
++            AddCreationItem(player, Layer.Hair, look.Hair, look.HairHue);
++            AddCreationItem(player, Layer.Beard, look.Beard, look.BeardHue);
++            AddCreationItem(player, Layer.Shirt, 0x1518, _shirtHue);
++            AddCreationItem(player, Layer.Pants, 0x152F, _pantsHue);
++            return player;
++        }
++
++        private void AddCreationItem(PlayerMobile player, Layer layer, ushort graphic, ushort hue)
++        {
++            if (graphic == 0)
+                 return;
+-            }
+-
+-            CurrentColorOption[e.Layer] = new Tuple<int, ushort>(e.SelectedIndex, e.SelectedHue);
+-
+-            if (e.Layer != Layer.Invalid)
+-            {
+-                Item item;
+-
+-                if (_character.Race == RaceType.GARGOYLE && e.Layer == Layer.Shirt)
+-                {
+-                    item = _character.FindItemByLayer(Layer.Robe);
+-                }
+-                else
+-                {
+-                    item = _character.FindItemByLayer(_characterInfo.IsFemale && e.Layer == Layer.Pants ? Layer.Skirt : e.Layer);
+-                }
+-
+-                if (item != null)
+-                {
+-                    item.Hue = e.SelectedHue;
+-                }
+-            }
+-            else
+-            {
+-                _character.Hue = e.SelectedHue;
+-            }
+-
+-            _paperDoll.RequestUpdate();
+-        }
+-
+-        private void Facial_OnOptionSelected(object sender, int e)
+-        {
+-            CurrentOption[Layer.Beard] = e;
+-            UpdateEquipments();
+-            _paperDoll.RequestUpdate();
+-        }
+-
+-        private void Hair_OnOptionSelected(object sender, int e)
+-        {
+-            CurrentOption[Layer.Hair] = e;
+-            UpdateEquipments();
+-            _paperDoll.RequestUpdate();
+-        }
+-
+-        public override void OnButtonClick(int buttonID)
+-        {
+-            CharCreationGump charCreationGump = UIManager.GetGump<CharCreationGump>();
+-
+-            switch ((Buttons) buttonID)
+-            {
+-                case Buttons.FemaleButton:
+-                    _femaleRadio.IsClicked = true;
+-                    _maleRadio.IsClicked = false;
+-                    _characterInfo.IsFemale = true;
+-
+-                    HandleGenreChange();
+-
+-                    break;
+-
+-                case Buttons.MaleButton:
+-                    _maleRadio.IsClicked = true;
+-                    _femaleRadio.IsClicked = false;
+-                    _characterInfo.IsFemale = false;
+-
+-                    HandleGenreChange();
+-
+-                    break;
+-
+-                case Buttons.HumanButton:
+-
+-                    _characterInfo.Race = RaceType.HUMAN;
+-
+-                    if (!_humanRadio.IsClicked)
+-                    {
+-                        _humanRadio.IsClicked = true;
+-
+-                        if (_elfRadio != null)
+-                        {
+-                            _elfRadio.IsClicked = false;
+-                        }
+-
+-                        if (_gargoyleRadio != null)
+-                        {
+-                            _gargoyleRadio.IsClicked = false;
+-                        }
+-
+-                        HandleRaceChanged();
+-                    }
+-
+-                    break;
+-
+-                case Buttons.ElfButton:
+-
+-                    _characterInfo.Race = RaceType.ELF;
+-
+-                    if (!_elfRadio.IsClicked)
+-                    {
+-                        _elfRadio.IsClicked = true;
+-                        _humanRadio.IsClicked = false;
+-
+-                        if (_gargoyleRadio != null)
+-                        {
+-                            _gargoyleRadio.IsClicked = false;
+-                        }
+-
+-                        HandleRaceChanged();
+-                    }
+-
+-                    break;
+-
+-                case Buttons.GargoyleButton:
+-
+-                    _characterInfo.Race = RaceType.GARGOYLE;
+-
+-                    if (!_gargoyleRadio.IsClicked)
+-                    {
+-                        _gargoyleRadio.IsClicked = true;
+-                        _elfRadio.IsClicked = false;
+-                        _humanRadio.IsClicked = false;
+-
+-                        HandleRaceChanged();
+-                    }
+-
+-                    break;
+-
+-                case Buttons.Next:
+-                    _character.Name = _nameTextBox.Text;
+-
+-                    if (ValidateCharacter(_character))
+-                    {
+-                        charCreationGump.SetCharacter(_character);
+-                    }
+-
+-                    break;
+-
+-                case Buttons.Prev:
+-                    charCreationGump.StepBack();
+-
+-                    break;
+-            }
+-
+-            base.OnButtonClick(buttonID);
+-        }
+-
+-        private bool ValidateCharacter(PlayerMobile character)
+-        {
+-            int invalid = Validate(character.Name);
+-            if (invalid > 0)
+-            {
+-                UIManager.GetGump<CharCreationGump>()?.ShowMessage(Client.Game.UO.FileManager.Clilocs.GetString(invalid));
+-
+-                return false;
+-            }
+-            
+-            Log.Trace($"Creating character '{character.Name}'");
+-
+-            return true;
++            Item item = World.GetOrCreateItem(0x4000_0000 + (uint)layer);
++            item.Graphic = graphic;
++            item.Hue = hue;
++            item.Layer = layer;
++            item.Container = player;
++            player.PushToBack(item);
+         }
+ 
+         public static int Validate(string name)
+@@ -963,192 +394,5 @@
+             "origin"
+         };
+ 
+-        private Item CreateItem(int id, ushort hue, Layer layer)
+-        {
+-            Item existsItem = _character.FindItemByLayer(layer);
+-
+-            if (existsItem != null)
+-            {
+-                World.RemoveItem(existsItem, true);
+-                _character.Remove(existsItem);
+-            }
+-
+-            if (id == 0)
+-            {
+-                return null;
+-            }
+-
+-            // This is a workaround to avoid to see naked guy
+-            // We are simulating server objects into World.Items map.
+-            Item item = World.GetOrCreateItem(0x4000_0000 + (uint) layer); // use layer as unique Serial
+-            _character.Remove(item);
+-            item.Graphic = (ushort) id;
+-            item.Hue = hue;
+-            item.Layer = layer;
+-            item.Container = _character;
+-            //
+-
+-            return item;
+-        }
+-
+-        private enum Buttons
+-        {
+-            MaleButton,
+-            FemaleButton,
+-            HumanButton,
+-            ElfButton,
+-            GargoyleButton,
+-            Prev,
+-            Next
+-        }
+-
+-        private class ColorSelectedEventArgs : EventArgs
+-        {
+-            public ColorSelectedEventArgs(Layer layer, ushort[] pallet, int selectedIndex)
+-            {
+-                Layer = layer;
+-                Pallet = pallet;
+-                SelectedIndex = selectedIndex;
+-            }
+-
+-            public Layer Layer { get; }
+-
+-            private ushort[] Pallet { get; }
+-
+-            public int SelectedIndex { get; }
+-
+-            public ushort SelectedHue => Pallet != null && SelectedIndex >= 0 && SelectedIndex < Pallet.Length ? Pallet[SelectedIndex] : (ushort) 0xFFFF;
+-        }
+-
+-        private class CustomColorPicker : Control
+-        {
+-            //private readonly ColorBox _box;
+-            private readonly int _cellH;
+-            private readonly int _cellW;
+-            private readonly ColorBox _colorPicker;
+-            private ColorPickerBox _colorPickerBox;
+-            private readonly int _columns, _rows;
+-            private int _lastSelectedIndex;
+-            private readonly Layer _layer;
+-            private readonly ushort[] _pallet;
+-            private readonly Gump _gump;
+-
+-            public CustomColorPicker(Gump gump, Layer layer, int label, ushort[] pallet, int rows, int columns)
+-            {
+-                _gump = gump;
+-                Width = 121;
+-                Height = 25;
+-                _cellW = 125 / columns;
+-                _cellH = 280 / rows;
+-                _columns = columns;
+-                _rows = rows;
+-                _layer = layer;
+-                _pallet = pallet;
+-
+-                bool isAsianLang = string.Compare(Settings.GlobalSettings.Language, "CHT", StringComparison.InvariantCultureIgnoreCase) == 0 ||
+-                    string.Compare(Settings.GlobalSettings.Language, "KOR", StringComparison.InvariantCultureIgnoreCase) == 0 ||
+-                    string.Compare(Settings.GlobalSettings.Language, "JPN", StringComparison.InvariantCultureIgnoreCase) == 0;
+-
+-                bool unicode = isAsianLang;
+-                byte font = (byte)(isAsianLang ? 3 : 9);
+-                ushort hue = (ushort)(isAsianLang ? 0xFFFF : 0);
+-
+-                Add
+-                (
+-                    new Label(Client.Game.UO.FileManager.Clilocs.GetString(label), unicode, hue, font: font)
+-                    {
+-                        X = 0,
+-                        Y = 0
+-                    }
+-                );
+-
+-                Add
+-                (
+-                    _colorPicker = new ColorBox(121, 23, (ushort) ((pallet?[0] ?? 1) + 1))
+-                    {
+-                        X = 1,
+-                        Y = 15
+-                    }
+-                );
+-
+-                _colorPicker.MouseUp += ColorPicker_MouseClick;
+-            }
+-
+-            public ushort HueSelected => _colorPicker.Hue;
+-
+-            public event EventHandler<ColorSelectedEventArgs> ColorSelected;
+-
+-            public void SetSelectedIndex(int index)
+-            {
+-                if (_colorPickerBox != null)
+-                {
+-                    _colorPickerBox.SelectedIndex = index;
+-
+-                    SetCurrentHue();
+-                }
+-            }
+-
+-            private void SetCurrentHue()
+-            {
+-                _colorPicker.Hue = _colorPickerBox.SelectedHue;
+-                _lastSelectedIndex = _colorPickerBox.SelectedIndex;
+-
+-                _colorPickerBox.Dispose();
+-            }
+-
+-            private void ColorPickerBoxOnMouseUp(object sender, MouseEventArgs e)
+-            {
+-                int column = e.X / _cellW;
+-                int row = e.Y / _cellH;
+-                int selectedIndex = row * _columns + column;
+-
+-                if (selectedIndex >= 0 && selectedIndex < _colorPickerBox.Hues.Length)
+-                {
+-                    ColorSelected?.Invoke(this, new ColorSelectedEventArgs(_layer, _colorPickerBox.Hues, selectedIndex));
+-                    SetCurrentHue();
+-                }
+-            }
+-
+-            private void ColorPicker_MouseClick(object sender, MouseEventArgs e)
+-            {
+-                if (e.Button == MouseButtonType.Left)
+-                {
+-                    _colorPickerBox?.Dispose();
+-                    _colorPickerBox = null;
+-
+-                    if (_colorPickerBox == null)
+-                    {
+-                        _colorPickerBox = new ColorPickerBox
+-                        (
+-                            _gump.World,
+-                            489,
+-                            141,
+-                            _rows,
+-                            _columns,
+-                            _cellW,
+-                            _cellH,
+-                            _pallet
+-                        )
+-                        {
+-                            IsModal = true,
+-                            LayerOrder = UILayer.Over,
+-                            ModalClickOutsideAreaClosesThisControl = true,
+-                            ShowLivePreview = false,
+-                            SelectedIndex = _lastSelectedIndex
+-                        };
+-
+-                        UIManager.Add(_colorPickerBox);
+-
+-                        _colorPickerBox.ColorSelectedIndex += ColorPickerBoxOnColorSelectedIndex;
+-                        _colorPickerBox.MouseUp += ColorPickerBoxOnMouseUp;
+-                    }
+-                }
+-            }
+-
+-            private void ColorPickerBoxOnColorSelectedIndex(object sender, EventArgs e)
+-            {
+-                ColorSelected?.Invoke(this, new ColorSelectedEventArgs(_layer, _colorPickerBox.Hues, _colorPickerBox.SelectedIndex));
+-            }
+-        }
+     }
+ }
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CreateCharProfessionGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CreateCharProfessionGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CreateCharProfessionGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CreateCharProfessionGump.cs
+@@ -1,92 +1,66 @@
+-﻿// SPDX-License-Identifier: BSD-2-Clause
++// SPDX-License-Identifier: BSD-2-Clause
+ 
+ using System;
+-using ClassicUO.Game.Managers;
+ using ClassicUO.Game.UI.Controls;
+-using ClassicUO.Input;
+ using Sanctuary;
+ 
+-namespace ClassicUO.Game.UI.Gumps.CharCreation
++namespace ClassicUO.Game.UI.Gumps.CharCreation;
++
++internal sealed class CreateCharProfessionGump : Gump
+ {
+-    internal class CreateCharProfessionGump : Gump
++    public CreateCharProfessionGump(World world, CharCreationGump owner, bool female, string name,
++        Func<PortraitLook> look) : base(world, 0, 0)
+     {
+-        public CreateCharProfessionGump(World world) : base(world, 0, 0)
++        Width = 640;
++        Height = 480;
++        WantUpdateSize = false;
++        CharCreationGump.Frame(this, "Choose thy first class");
++        Add(new Line(442, 100, 150, 150, 0xFF567B98) { AcceptMouseInput = false });
++        Add(new SanctuaryPortrait(look, 444, 102, 146, 146));
++        Add(new Label(name, true, 0x0481, maxwidth: 148, font: 1) { X = 444, Y = 260, AcceptMouseInput = false });
++        var title = Add(new Label("", true, 0x0481, maxwidth: 148, font: 1) { X = 444, Y = 280 });
++
++        DiabloClass[] classes = Enum.GetValues<DiabloClass>();
++        SanctuarySheetButton[] buttons = new SanctuarySheetButton[classes.Length];
++        DiabloClass? selected = null;
++        var enter = new SanctuarySheetButton(486, 396, 106, "Enter World", () =>
+         {
+-            CanMove = false;
+-            CanCloseWithRightClick = false;
+-            CanCloseWithEsc = false;
+-            Add(new ResizePic(2600) { X = 100, Y = 80, Width = 470, Height = 372 });
+-            Add(new GumpPic(291, 42, 0x0589, 0));
+-            Add(new GumpPic(214, 58, 0x058B, 0));
+-            Add(new GumpPic(300, 51, 0x15A9, 0));
+-            Add(new Label("Choose Your Class", true, 0, font: 1) { X = 158, Y = 125 });
+-            Add(new Label("Begin at level 1. Appearance comes next.", true, 0, font: 1)
++            if (selected is { } characterClass)
++                owner.EnterWorld(characterClass);
++        }, primary: true) { IsEnabled = false, Alpha = 0.5f };
++
++        for (int i = 0; i < classes.Length; i++)
++        {
++            int index = i;
++            var characterClass = classes[index];
++            int x = 53 + i % 2 * 184, y = 100 + i / 2 * 67;
++            string className = DiabloClasses.DisplayName(characterClass, female);
++            buttons[i] = Add(new SanctuarySheetButton(x, y, 168, className, () =>
+             {
+-                X = 145, Y = 151
+-            });
+-
+-            DiabloClass[] classes = Enum.GetValues<DiabloClass>();
+-            for (int i = 0; i < classes.Length; i++)
+-            {
+-                Add(new ClassButton(classes[i]) { X = 145 + i % 2 * 195, Y = 185 + i / 2 * 55 });
+-            }
+-
+-            Add(new Button(0, 0x15A1, 0x15A3, 0x15A2)
+-            {
+-                X = 586, Y = 445, ButtonAction = ButtonAction.Activate
+-            });
++                selected = characterClass;
++                for (int n = 0; n < buttons.Length; n++)
++                    buttons[n].SetPrimary(n == index);
++                title.Text = $"Level 1 {className}";
++                enter.IsEnabled = true;
++                enter.Alpha = 1f;
++            }));
++            Add(new Label(Role(characterClass), true, 0x0481, maxwidth: 168, font: 1)
++                { X = x + 4, Y = y + 29, AcceptMouseInput = false });
+         }
+-
+-        public override void OnButtonClick(int buttonID)
+-        {
+-            if (buttonID == 0)
+-            {
+-                UIManager.GetGump<CharCreationGump>()?.StepBack();
+-            }
+-        }
++        Add(new SanctuarySheetButton(53, 396, 85, "Back", () => owner.StepBack()));
++        Add(enter);
+     }
+ 
+-    internal class ClassButton : Control
++    private static string Role(DiabloClass characterClass) => characterClass switch
+     {
+-        private readonly DiabloClass _characterClass;
+-
+-        public ClassButton(DiabloClass characterClass)
+-        {
+-            _characterClass = characterClass;
+-            Width = 175;
+-            Height = 48;
+-            CanMove = false;
+-            AcceptMouseInput = true;
+-            Add(new ResizePic(3000) { Width = 175, Height = 48, AcceptMouseInput = false });
+-            Add(new Label(DiabloClasses.SelectionName(characterClass), true, 0, font: 1)
+-            {
+-                X = 10, Y = 7, AcceptMouseInput = false
+-            });
+-            string role = characterClass switch
+-            {
+-                DiabloClass.Amazon => "Bows and javelins",
+-                DiabloClass.Sorceress => "Elemental magic",
+-                DiabloClass.Necromancer => "Summons and curses",
+-                DiabloClass.Paladin => "Holy combat and auras",
+-                DiabloClass.Barbarian => "Melee and warcries",
+-                DiabloClass.Druid => "Nature and shapeshifting",
+-                DiabloClass.Assassin => "Martial arts and traps",
+-                DiabloClass.Warlock => "Demons, eldritch and chaos",
+-                _ => ""
+-            };
+-            Add(new Label(role, true, 0x0386, font: 1)
+-            {
+-                X = 10, Y = 27, AcceptMouseInput = false
+-            });
+-        }
+-
+-        protected override void OnMouseUp(int x, int y, MouseButtonType button)
+-        {
+-            base.OnMouseUp(x, y, button);
+-            if (button == MouseButtonType.Left)
+-            {
+-                UIManager.GetGump<CharCreationGump>()?.SetClass(_characterClass);
+-            }
+-        }
+-    }
++        DiabloClass.Amazon => "Bows and javelins",
++        DiabloClass.Sorceress => "Elemental magic",
++        DiabloClass.Necromancer => "Summons and curses",
++        DiabloClass.Paladin => "Holy combat and auras",
++        DiabloClass.Barbarian => "Melee and warcries",
++        DiabloClass.Druid => "Nature and shapeshifting",
++        DiabloClass.Assassin => "Martial arts and traps",
++        DiabloClass.Warlock => "Demons and chaos",
++        _ => ""
++    };
+ }
+diff --git a/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs b/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs
+--- a/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs
++++ b/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs
+@@ -1,25 +1,61 @@
+ // SPDX-License-Identifier: BSD-2-Clause
+ 
+ using System;
++using System.Collections.Generic;
+ using ClassicUO.Game.Data;
+ using ClassicUO.Game.GameObjects;
+ using ClassicUO.Game.Scenes;
+ using ClassicUO.Renderer;
+ using Microsoft.Xna.Framework;
++using Microsoft.Xna.Framework.Graphics;
++using Sanctuary;
+ 
+ namespace ClassicUO.Game.UI.Controls;
+ 
+-/// <summary>A reusable head-and-shoulders portrait from the native paperdoll layers.</summary>
++internal readonly record struct PortraitLook(RaceType Race, bool Female, byte Face, ushort Skin,
++    ushort Hair, ushort HairHue, ushort Beard, ushort BeardHue)
++{
++    internal static PortraitLook From(Mobile mobile)
++    {
++        var hair = mobile.FindItemByLayer(Layer.Hair);
++        var beard = mobile.FindItemByLayer(Layer.Beard);
++        return new(mobile.Race, mobile.IsFemale, mobile is PlayerMobile player ? player.SanctuaryFace : (byte)0,
++            (ushort)(mobile.Hue & 0x3FFF), hair?.Graphic ?? 0, (ushort)((hair?.Hue ?? 0) & 0x3FFF),
++            beard?.Graphic ?? 0, (ushort)((beard?.Hue ?? 0) & 0x3FFF));
++    }
++
++    internal ushort Body => Race switch
++    {
++        RaceType.ELF => Female ? (ushort)0x025E : (ushort)0x025D,
++        RaceType.GARGOYLE => Female ? (ushort)0x029B : (ushort)0x029A,
++        _ => Female ? (ushort)0x0191 : (ushort)0x0190
++    };
++}
++
+ internal sealed class SanctuaryPortrait : Control
+ {
+-    private readonly Mobile _subject;
+-    private bool _female;
+-    private ushort _body, _hair, _hairHue, _beard, _beardHue;
+-    private ushort _hairGump, _beardGump;
++    private static FaceAtlas[] _faces;
++    private static Texture2D _npcFaces;
++    private static Texture2D _demonFace;
++    private static readonly Dictionary<ushort, NativeLayer> _raisedLayers = new();
++    private readonly Func<PortraitLook> _appearance;
++    private readonly byte? _npc;
++    private Texture2D _faceTexture;
++    private PortraitLook? _last;
++    private ushort _hairArt, _beardArt;
++    private bool _partialHair, _partialBeard;
+ 
+     public SanctuaryPortrait(Mobile subject, int x, int y, int width, int height)
+-    {
+-        _subject = subject;
++        : this(() => PortraitLook.From(subject), x, y, width, height) { }
++
++    public SanctuaryPortrait(Func<PortraitLook> appearance, int x, int y, int width, int height)
++        : this(x, y, width, height) => _appearance = appearance;
++
++    public SanctuaryPortrait(byte npc, int x, int y, int width, int height)
++        : this(x, y, width, height) => _npc = npc;
++
++    private SanctuaryPortrait(int x, int y, int width, int height)
++    {
+         X = x;
+         Y = y;
+         Width = width;
+@@ -30,54 +66,101 @@
+ 
+     public override bool AddToRenderLists(RenderLists lists, int x, int y, ref float depth)
+     {
+-        if (_subject == null || _subject.IsDestroyed)
+-            return false;
+-
+-        var (body, hue) = PaperDollInteractable.GetBodyAppearance(_subject.Graphic, _subject.IsFemale, _subject.Hue);
+-        var hair = _subject.FindItemByLayer(Layer.Hair);
+-        var beard = _subject.FindItemByLayer(Layer.Beard);
+-        ushort hairId = hair?.Graphic ?? 0, beardId = beard?.Graphic ?? 0;
+-        if (body != _body || _female != _subject.IsFemale || hairId != _hair || beardId != _beard)
+-        {
+-            _body = body;
+-            _female = _subject.IsFemale;
+-            _hair = hairId;
+-            _beard = beardId;
+-            _hairGump = LayerGraphic(hair);
+-            _beardGump = LayerGraphic(beard);
+-        }
+-        _hairHue = (ushort)((hair?.Hue ?? 0) & 0x3FFF);
+-        _beardHue = (ushort)((beard?.Hue ?? 0) & 0x3FFF);
+-
+-        // The head uses the same coordinate space as hair or horn gumps.
+-        var crop = body switch
+-        {
+-            0x0299 or 0x029A => new Rectangle(67, 41, 48, 54),
+-            0x000D or 0x000F => new Rectangle(70, 46, 42, 50),
+-            _ => new Rectangle(70, 42, 42, 50)
+-        };
+         var target = new Rectangle(x, y, Width, Height);
+-        Paint(lists, body, hue, true, crop, target, depth);
+-        Paint(lists, _beardGump, _beardHue, beard?.ItemData.IsPartialHue == true, crop, target, depth + 0.001f);
+-        Paint(lists, _hairGump, _hairHue, hair?.ItemData.IsPartialHue == true, crop, target, depth + 0.002f);
++        if (_npc is { } npc)
++        {
++            if (npc == 6)
++            {
++                _demonFace ??= Load("portrait-demon");
++                DrawFace(lists, _demonFace, _demonFace.Bounds, target, depth);
++                return true;
++            }
++            _npcFaces ??= Load("portrait-npcs");
++            int tileW = _npcFaces.Width / 4, tileH = _npcFaces.Height / 5;
++            var tile = new Rectangle(npc % 4 * tileW + 1, npc / 4 * tileH + 1, tileW - 2, tileH - 2);
++            DrawFace(lists, _npcFaces, tile, target, depth);
++            return true;
++        }
++
++        PortraitLook look = _appearance();
++        if (_last is not { } last || last.Race != look.Race || last.Female != look.Female
++            || last.Face != look.Face || last.Skin != look.Skin)
++        {
++            _faceTexture?.Dispose();
++            _faces ??= [new FaceAtlas("portrait-atlas"), new FaceAtlas("portrait-atlas-2")];
++            _faceTexture = _faces[look.Face / 4].MakeFace(look);
++        }
++        if (_last is not { } layers || layers.Race != look.Race || layers.Female != look.Female
++            || layers.Hair != look.Hair || layers.Beard != look.Beard)
++        {
++            (_hairArt, _partialHair) = LayerGraphic(look, look.Hair);
++            (_beardArt, _partialBeard) = LayerGraphic(look, look.Beard);
++        }
++        _last = look;
++        DrawFace(lists, _faceTexture, new Rectangle(0, 0, _faceTexture.Width, _faceTexture.Height), target, depth);
++
++        // The stock layers have sex- and race-specific paperdoll offsets. Fit
++        // the hairline and the facial hair separately against the painted face.
++        var hairCrop = look.Race == RaceType.GARGOYLE
++            ? new Rectangle(73, look.Female ? 53 : 49, 37, 44)
++            : new Rectangle(77, look.Female ? 54 : 50, 29, 34);
++        var beardCrop = look.Race == RaceType.GARGOYLE
++            ? new Rectangle(73, 44, 37, 44)
++            : new Rectangle(78, 45, 27, 34);
++        PaintLayer(lists, _beardArt, look.BeardHue, _partialBeard, beardCrop, target, depth + 0.001f);
++        PaintLayer(lists, _hairArt, look.HairHue, _partialHair, hairCrop, target, depth + 0.002f);
+         return true;
+     }
+ 
+-    private ushort LayerGraphic(Item item) => item == null || item.ItemData.AnimID == 0 ? (ushort)0
+-        : PaperDollInteractable.GetAnimID(_subject.Graphic, item.Graphic, item.ItemData.AnimID, _subject.IsFemale);
+-
+-    private static void Paint(RenderLists lists, ushort graphic, ushort hue, bool partial,
++    public override void Dispose()
++    {
++        _faceTexture?.Dispose();
++        _faceTexture = null;
++        base.Dispose();
++    }
++
++    private static Texture2D Load(string name)
++    {
++        using var stream = typeof(SanctuaryPortrait).Assembly.GetManifestResourceStream($"Sanctuary.UI.{name}.png")
++            ?? throw new InvalidOperationException($"Missing portrait atlas {name}");
++        return Texture2D.FromStream(Client.Game.GraphicsDevice, stream);
++    }
++
++    private static void DrawFace(RenderLists lists, Texture2D texture, Rectangle source, Rectangle target, float depth)
++    {
++        lists.AddGumpNoAtlas(batcher =>
++        {
++            batcher.Draw(texture, target, source, ShaderHueTranslator.GetHueVector(0), depth);
++            return true;
++        });
++    }
++
++    private static (ushort, bool) LayerGraphic(PortraitLook look, ushort item)
++    {
++        var tiles = Client.Game.UO.FileManager.TileData.StaticData;
++        if (item == 0 || item >= tiles.Length || tiles[item].AnimID == 0)
++            return (0, false);
++        var tile = tiles[item];
++        return (PaperDollInteractable.GetAnimID(look.Body, item, tile.AnimID, look.Female), tile.IsPartialHue);
++    }
++
++    private static void PaintLayer(RenderLists lists, ushort graphic, ushort hue, bool partial,
+         Rectangle crop, Rectangle target, float depth)
+     {
+         if (graphic == 0)
+             return;
+-        ref readonly var art = ref Client.Game.UO.Gumps.GetGump(graphic);
+-        if (art.Texture == null)
++        if (!_raisedLayers.TryGetValue(graphic, out var art))
++        {
++            art = NativeLayer.Load(graphic);
++            _raisedLayers.Add(graphic, art);
++        }
++        if (art == null)
+             return;
+-        var visible = Rectangle.Intersect(crop, new Rectangle(0, 0, art.UV.Width, art.UV.Height));
++        var visible = Rectangle.Intersect(crop, art.Bounds);
+         if (visible.Width == 0 || visible.Height == 0)
+             return;
+-        var source = new Rectangle(art.UV.X + visible.X, art.UV.Y + visible.Y, visible.Width, visible.Height);
++        var source = new Rectangle((visible.X - art.Bounds.X) * 4, (visible.Y - art.Bounds.Y) * 4,
++            visible.Width * 4, visible.Height * 4);
+         var destination = new Rectangle(
+             target.X + (visible.X - crop.X) * target.Width / crop.Width,
+             target.Y + (visible.Y - crop.Y) * target.Height / crop.Height,
+@@ -85,10 +168,114 @@
+             Math.Max(1, visible.Height * target.Height / crop.Height));
+         var texture = art.Texture;
+         var color = ShaderHueTranslator.GetHueVector(hue, partial, 1f, true);
+-        lists.AddGumpWithAtlas(batcher =>
++        lists.AddGumpNoAtlas(batcher =>
+         {
+             batcher.Draw(texture, destination, source, color, depth);
+             return true;
+         });
+     }
++
++    private sealed record NativeLayer(Texture2D Texture, Rectangle Bounds)
++    {
++        internal static NativeLayer Load(ushort graphic)
++        {
++            var layer = Client.Game.UO.FileManager.Gumps.GetGump(graphic);
++            if (layer.Pixels.IsEmpty)
++                return null;
++
++            int left = layer.Width, top = layer.Height, right = -1, bottom = -1;
++            for (int y = 0; y < layer.Height; y++)
++            for (int x = 0; x < layer.Width; x++)
++            {
++                if (layer.Pixels[y * layer.Width + x] == 0) continue;
++                left = Math.Min(left, x);
++                right = Math.Max(right, x);
++                top = Math.Min(top, y);
++                bottom = Math.Max(bottom, y);
++            }
++            if (right < left)
++                return null;
++
++            var bounds = new Rectangle(left, top, right - left + 1, bottom - top + 1);
++            var cropped = new uint[bounds.Width * bounds.Height];
++            for (int y = 0; y < bounds.Height; y++)
++                layer.Pixels.Slice((top + y) * layer.Width + left, bounds.Width).CopyTo(cropped.AsSpan(y * bounds.Width));
++
++            // Scale2x preserves the stock silhouette and hue indices while
++            // softening hard diagonal stair steps at portrait size.
++            uint[] doubled = Scale2x(cropped, bounds.Width, bounds.Height);
++            uint[] pixels = Scale2x(doubled, bounds.Width * 2, bounds.Height * 2);
++            var texture = new Texture2D(Client.Game.GraphicsDevice, bounds.Width * 4, bounds.Height * 4);
++            texture.SetData(pixels);
++            return new NativeLayer(texture, bounds);
++        }
++
++        private static uint[] Scale2x(uint[] pixels, int width, int height)
++        {
++            var scaled = new uint[width * height * 4];
++            for (int y = 0; y < height; y++)
++            for (int x = 0; x < width; x++)
++            {
++                uint center = pixels[x + y * width];
++                uint north = y > 0 ? pixels[x + (y - 1) * width] : 0;
++                uint west = x > 0 ? pixels[x - 1 + y * width] : 0;
++                uint east = x + 1 < width ? pixels[x + 1 + y * width] : 0;
++                uint south = y + 1 < height ? pixels[x + (y + 1) * width] : 0;
++                int index = 2 * x + 4 * width * y;
++                bool edge = north != south && west != east;
++                scaled[index] = edge && west == north ? west : center;
++                scaled[index + 1] = edge && north == east ? east : center;
++                scaled[index + 2 * width] = edge && west == south ? west : center;
++                scaled[index + 2 * width + 1] = edge && south == east ? east : center;
++            }
++            return scaled;
++        }
++    }
++
++    private sealed class FaceAtlas
++    {
++        private readonly Color[] _pixels;
++        private readonly int _width, _tileWidth, _tileHeight;
++
++        public FaceAtlas(string name)
++        {
++            using var texture = Load(name);
++            _width = texture.Width;
++            _tileWidth = texture.Width / 4;
++            _tileHeight = texture.Height / 6;
++            _pixels = new Color[texture.Width * texture.Height];
++            texture.GetData(_pixels);
++        }
++
++        public Texture2D MakeFace(PortraitLook look)
++        {
++            int column = look.Face % 4;
++            int row = look.Race switch { RaceType.ELF => 2, RaceType.GARGOYLE => 4, _ => 0 };
++            row += look.Female ? 1 : 0;
++            var swatch = new Color { PackedValue = Client.Game.UO.FileManager.Hues.GetPolygoneColor(22, look.Skin) };
++            bool tint = look.Skin != 0;
++            float strength = look.Race == RaceType.GARGOYLE ? 0.78f : look.Race == RaceType.ELF ? 0.64f : 0.49f;
++            var tile = new Color[_tileWidth * _tileHeight];
++
++            for (int y = 0; y < _tileHeight; y++)
++            for (int x = 0; x < _tileWidth; x++)
++            {
++                int source = (row * _tileHeight + y) * _width + column * _tileWidth + x;
++                Color pixel = _pixels[source];
++                if (tint && pixel.R > 66 && pixel.R > pixel.G + 13 && pixel.G > pixel.B + 6)
++                {
++                    // Reuse the game's dye without tinting the brown background
++                    // or flattening the contrast of the painted features.
++                    float brightness = pixel.R / 153f;
++                    var toned = new Color(Math.Min(255, (int)(swatch.R * brightness)),
++                        Math.Min(255, (int)(swatch.G * brightness)), Math.Min(255, (int)(swatch.B * brightness)));
++                    pixel = Color.Lerp(pixel, toned, strength);
++                }
++                tile[y * _tileWidth + x] = pixel;
++            }
++            var texture = new Texture2D(Client.Game.GraphicsDevice, _tileWidth, _tileHeight);
++            texture.SetData(tile);
++            return texture;
++        }
++    }
+ }
+diff --git a/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs b/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs
+@@ -15,6 +15,7 @@
+ {
+     internal class PlayerMobile : Mobile
+     {
++        internal byte SanctuaryFace { get; set; }
+         private readonly Dictionary<BuffIconType, BuffIcon> _buffIcons = new Dictionary<BuffIconType, BuffIcon>();
+ 
+         public PlayerMobile(World world, uint serial) : base(world, serial)
+@@ -689,4 +690,4 @@
+             return true;
+         }
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/src/ClassicUO.Client/Network/PacketHandlers.cs b/src/ClassicUO.Client/Network/PacketHandlers.cs
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -4127,6 +4127,11 @@
+         {
+             ushort cmd = p.ReadUInt16BE();
+ 
++            if (cmd == Sanctuary.PortraitProtocol.SubCommand)
++            {
++                AvatarDialogueClient.Receive(world, ref p);
++                return;
++            }
+             if (cmd == Sanctuary.DruidFormVisualProtocol.SubCommand)
+             {
+                 if (world.InGame && p.Remaining == 6 && p.ReadUInt8() == Sanctuary.DruidFormVisualProtocol.Version)
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryDialogueGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryDialogueGump.cs
+new file mode 100644
+--- /dev/null
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryDialogueGump.cs
+@@ -0,0 +1,66 @@
++// SPDX-License-Identifier: BSD-2-Clause
++
++using System;
++using ClassicUO.Game.UI.Controls;
++using Sanctuary;
++
++namespace ClassicUO.Game.UI.Gumps;
++
++internal sealed class SanctuaryDialogueGump : Gump
++{
++    private const int PanelWidth = 568, PanelHeight = 310;
++    private bool _waiting, _closedByServer;
++
++    public uint Token { get; private set; }
++
++    public SanctuaryDialogueGump(World world) : base(world, 0, 0)
++    {
++        Width = PanelWidth;
++        Height = PanelHeight;
++        X = Math.Max(0, (Client.Game.ClientBounds.Width - Width) / 2);
++        Y = Math.Max(0, (Client.Game.ClientBounds.Height - Height) / 2);
++        CanMove = CanCloseWithRightClick = true;
++        LayerOrder = UILayer.Over;
++        WantUpdateSize = false;
++    }
++
++    public void Show(uint token, byte portrait, string name, string line, string[] replies)
++    {
++        Token = token;
++        _waiting = false;
++        Clear();
++        Add(new SanctuaryBackdrop("character-frame", Width, Height) { CanCloseWithRightClick = true });
++        Add(new Line(22, 47, 524, 1, 0xFF486581) { AcceptMouseInput = false });
++        Add(new Line(22, 58, 144, 144, 0xFF567B98) { AcceptMouseInput = false });
++        Add(new SanctuaryPortrait(portrait, 24, 60, 140, 140));
++        Add(new Label(name, true, 0x0481, maxwidth: 490, font: 0) { X = 24, Y = 15 });
++        Add(new Label(line, true, 0x0481, maxwidth: 348, font: 1) { X = 190, Y = 63 });
++        for (int i = 0; i < replies.Length; i++)
++        {
++            byte choice = (byte)i;
++            Add(new SanctuarySheetButton(187, 150 + i * 29, 355, replies[i], () => Choose(choice)));
++        }
++        Add(new SanctuarySheetButton(22, 266, 144, "Farewell", Dispose));
++    }
++
++    private void Choose(byte choice)
++    {
++        if (_waiting)
++            return;
++        _waiting = true;
++        AvatarDialogueClient.Reply(Token, choice);
++    }
++
++    public void CloseFromServer()
++    {
++        _closedByServer = true;
++        Dispose();
++    }
++
++    public override void Dispose()
++    {
++        if (!IsDisposed && !_closedByServer && World.InGame && Token != 0)
++            AvatarDialogueClient.Reply(Token, PortraitProtocol.Leave);
++        base.Dispose();
++    }
++}
+diff --git a/src/ClassicUO.Client/Game/AvatarDialogueClient.cs b/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
+new file mode 100644
+--- /dev/null
++++ b/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
+@@ -0,0 +1,82 @@
++// SPDX-License-Identifier: BSD-2-Clause
++
++using ClassicUO.Game.Managers;
++using ClassicUO.Game.UI.Gumps;
++using ClassicUO.IO;
++using ClassicUO.Network;
++using Sanctuary;
++
++namespace ClassicUO.Game;
++
++internal static class AvatarDialogueClient
++{
++    internal static void Receive(World world, ref StackDataReader reader)
++    {
++        if (!world.InGame || world.Player == null || reader.Remaining < 2
++            || reader.ReadUInt8() != PortraitProtocol.Version)
++            return;
++
++        byte kind = reader.ReadUInt8();
++        if (kind == PortraitProtocol.AvatarFace && reader.Remaining == 1)
++        {
++            byte face = reader.ReadUInt8();
++            if (face < PortraitProtocol.FaceCount)
++                world.Player.SanctuaryFace = face;
++            return;
++        }
++
++        if (reader.Remaining < 4)
++            return;
++        uint token = reader.ReadUInt32BE();
++        var dialogue = UIManager.GetGump<SanctuaryDialogueGump>();
++        if (kind == PortraitProtocol.Closed && reader.Remaining == 0)
++        {
++            if (dialogue?.Token == token)
++                dialogue.CloseFromServer();
++            return;
++        }
++        if (kind != PortraitProtocol.Conversation || reader.Remaining < 2)
++            return;
++        byte portrait = reader.ReadUInt8();
++        int count = reader.ReadUInt8();
++        if (portrait >= PortraitProtocol.NpcPortraitCount || count > PortraitProtocol.MaxReplies
++            || !ReadText(ref reader, out string name) || !ReadText(ref reader, out string line))
++            return;
++        var replies = new string[count];
++        for (int i = 0; i < count; i++)
++            if (!ReadText(ref reader, out replies[i]))
++                return;
++        if (reader.Remaining != 0)
++            return;
++
++        if (dialogue == null)
++            UIManager.Add(dialogue = new SanctuaryDialogueGump(world));
++        dialogue.Show(token, portrait, name, line, replies);
++        dialogue.BringOnTop();
++    }
++
++    private static bool ReadText(ref StackDataReader reader, out string text)
++    {
++        text = null;
++        if (reader.Remaining < 2)
++            return false;
++        int length = reader.ReadUInt16BE();
++        if (length is < 1 or > PortraitProtocol.MaxTextBytes || reader.Remaining < length)
++            return false;
++        text = reader.ReadUTF8(length);
++        return true;
++    }
++
++    internal static void Reply(uint token, byte choice)
++    {
++        var writer = new StackDataWriter(PortraitProtocol.ReplyPacketLength);
++        writer.WriteUInt8(0xBF);
++        writer.WriteUInt16BE(PortraitProtocol.ReplyPacketLength);
++        writer.WriteUInt16BE(PortraitProtocol.SubCommand);
++        writer.WriteUInt8(PortraitProtocol.Version);
++        writer.WriteUInt32BE(token);
++        writer.WriteUInt8(choice);
++        NetClient.Socket.Send(writer.BufferWritten);
++        writer.Dispose();
++    }
++}

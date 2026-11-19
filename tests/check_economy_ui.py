@@ -28,7 +28,7 @@ def command(name):
 
 
 def exercise(window, click, capture):
-    click(335, 367)
+    click(538, 101)
     command('setup')
 
     def open_menu():

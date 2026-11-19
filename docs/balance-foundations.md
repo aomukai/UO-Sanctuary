@@ -4,7 +4,7 @@
 
 The [T02 reference cohort](t02-reference-cohort.md) records the first eight item/material/maker mappings and audited legal effects separately from these runtime catalogues. It adds pinned Misc/ItemStatCost evidence and explicit later-card gates without enabling recipes or changing existing gear.
 
-The governing decisions are in the root [design document](../Britannia-Diablo-Project-Kickoff.md#10-dungeon-ecology-and-world-structure). This pass supplies one **players-1 numeric baseline**, normal equipment classifications, affix eligibility/roll rules, class growth, and solo XP. It adds no population, boss, champion, unique, exceptional/elite item tier, or dungeon resistance/immunity variant.
+This pass supplies one **players-1 numeric baseline**, normal equipment classifications, affix eligibility and roll rules, class growth, and solo XP. Population and regional encounter design are covered in [Building Britannia](worldbuilding.md). Later per-creature difficulty variants are covered separately. [Difficulty variants](t19-difficulties.md)
 
 ## Source data and reproducibility
 

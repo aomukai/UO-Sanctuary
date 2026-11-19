@@ -22,7 +22,7 @@ def exercise(window, click, capture):
         raise AssertionError('Missing ' + name)
     def key(value):
         subprocess.run(['xdotool', 'key', '--window', window, value], check=True); time.sleep(.4)
-    click(335, 367); command('setup'); time.sleep(.5); click(410, 58)
+    click(538, 101); command('setup'); time.sleep(.5); click(410, 58)
     capture('t40-wardrobe-all-classes.png')
     click(65, 151); click(338, 303); click(75, 408); command('sorceress')
     key('s'); capture('t40-fresh-class-skills.png'); key('s')

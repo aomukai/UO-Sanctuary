@@ -2111,7 +2111,7 @@
   },
   {
     "talentId": "warlock.summongoatman",
-    "name": "Summon Goatman",
+    "name": "Summon Lesser Daemon",
     "characterClass": "Warlock",
     "talentIcon": "mapped",
     "hotkeyIcon": "mapped",
@@ -2141,7 +2141,7 @@
   },
   {
     "talentId": "warlock.summontainted",
-    "name": "Summon Tainted",
+    "name": "Summon Succubus",
     "characterClass": "Warlock",
     "talentIcon": "mapped",
     "hotkeyIcon": "mapped",

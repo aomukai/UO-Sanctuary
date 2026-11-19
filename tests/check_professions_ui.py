@@ -24,7 +24,7 @@ def command(name):
 
 
 def exercise(window, click, capture):
-    click(335, 367)
+    click(538, 101)
     command('setup')
     time.sleep(.3)
     capture('profession-default.png')

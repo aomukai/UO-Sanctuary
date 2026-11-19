@@ -2867,7 +2867,7 @@
     },
     {
       "talentId": "warlock.summongoatman",
-      "name": "Summon Goatman",
+      "name": "Summon Lesser Daemon",
       "characterClass": "Warlock",
       "tree": "Demon",
       "sourceId": 373,
@@ -2906,7 +2906,7 @@
     },
     {
       "talentId": "warlock.summontainted",
-      "name": "Summon Tainted",
+      "name": "Summon Succubus",
       "characterClass": "Warlock",
       "tree": "Demon",
       "sourceId": 376,

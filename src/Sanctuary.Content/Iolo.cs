@@ -1,0 +1,323 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+using System;
+using System.Collections.Generic;
+using ModernUO.Serialization;
+using Server;
+using Server.Items;
+using Server.Mobiles;
+using Server.Network;
+
+namespace Sanctuary;
+
+[SerializationGenerator(0)]
+public partial class Iolo : ConversationNpc, IClassCompanion
+{
+    internal const int RequiredLevel = 6;
+    [SerializableField(0)]
+    private Serial _recruitedBy;
+
+    internal bool Recruited => _recruitedBy.IsMobile;
+    internal const DiabloClass CombatClass = DiabloClass.Amazon;
+    public override bool WandersWhileGuarding => false;
+    DiabloClass IClassCompanion.CombatClass => CombatClass;
+    public override bool IsInvulnerable => !Recruited;
+    public override bool CanRegenMana => false;
+    internal override byte Portrait => 11;
+    internal override IReadOnlyList<ScriptedDialogue.Node> Script => Recruited ? _company : _introduction;
+
+    private long _nextSpecialShot = long.MinValue;
+    private TimerExecutionToken _shot;
+
+    private const string Summons = "Aye, 'twas I who summoned thee. I would scarce have called thee from thy own world had I thought Britannia could weather this alone.";
+    private const string Danger = "There are signs of trouble in the dark places of Britannia. The reports agree on little save that the trouble grows. I would have thee find thy footing before we go looking for its source.";
+    private const string Graveyard = "There is an old graveyard northeast of town. The dead there have grown restless. Test thy mettle there if thou wilt, while I finish my business in New Haven. Come find me here at the inn when thou art ready.";
+    private const string Ready = "Thou art finding thy footing again, I see. My business here is concluded—and this old crossbow has gathered quite enough dust.";
+
+    private static readonly ScriptedDialogue.Reply[] _topics =
+        [new("Summons", 1), new("Danger", 2), new("Graveyard", 3)];
+    private static readonly ScriptedDialogue.Reply[] _companionTopics =
+        [new("Summons", 1), new("Danger", 2), new("Graveyard", 3), new("Equipment", 0, OpenEquipment)];
+    private static readonly ScriptedDialogue.Reply _join = new("Travel Together", 0, AcceptCompany);
+    private static readonly ScriptedDialogue.Reply[] _invitation = [_join, new("Travel Alone", 1), new("Summons", 2), new("Graveyard", 4)];
+    private static readonly ScriptedDialogue.Reply[] _readyTopics = [new("Summons", 2), new("Danger", 3), new("Graveyard", 4), _join];
+
+    private static readonly ScriptedDialogue.Node[] _introduction =
+    [
+        new("Avatar! 'Twas I who summoned thee. There are signs of danger in Britannia, but thou lookest a little rusty. Get thy bearings while I finish my business. There is an old graveyard northeast of town where thou canst test thy mettle. Come back to the inn when thou feelest ready.", _topics),
+        new(Summons, _topics), new(Danger, _topics), new(Graveyard, _topics),
+        new("Keep at it, friend. I have business yet to finish here. Come and see me at the inn when thou hast found thy footing again.", _topics),
+        new("We are already companions, my friend. Speak to me on the road if thou wouldst look over my kit.", _topics)
+    ];
+
+    private static readonly ScriptedDialogue.Node[] _offer =
+    [
+        new(Ready + " Wilt thou have my company on the road?", _invitation),
+        new("If thou changest thy mind, I shall be here at the inn until thou leavest. Shouldst thou depart without me, seek me next at the bard’s college in Britain. My travelling days are drawing to a close.", _readyTopics),
+        new(Summons, _readyTopics), new(Danger, _readyTopics), new(Graveyard, _readyTopics),
+        new("Avatar! Aye, 'twas I who summoned thee. Dark signs threaten Britannia, and I would have asked thee to get thy bearings at the graveyard northeast of town while I finished my business. " + Ready + " Wilt thou have my company on the road?", _invitation),
+        new("Thou already hast company on the road. Come back alone when there is room for an old bard.", _readyTopics)
+    ];
+
+    private static readonly ScriptedDialogue.Node[] _company =
+    [
+        new("What is it, my friend? I've time for a word before we go on.", _companionTopics),
+        new(Summons, _companionTopics), new(Danger, _companionTopics),
+        new("The old graveyard lies northeast of New Haven. We can see to the restless dead there if thou wouldst take the old crossbow for a trial.", _companionTopics),
+        new("Come, let us go together.", _companionTopics)
+    ];
+
+    [Constructible]
+    public Iolo()
+    {
+        Name = "Iolo";
+        Title = "the bard";
+        Body = 0x190;
+        Hue = 0x83EF;
+        HairItemID = 0x203C;
+        HairHue = 0x0481;
+        FacialHairItemID = 0x2040;
+        FacialHairHue = 0x0481;
+        CantWalk = true;
+        Direction = Direction.East;
+        Mana = 0;
+        AddItem(new FancyShirt(0x03E5));
+        AddItem(new LongPants(0x0455));
+        AddItem(new Cloak(0x0591));
+        AddItem(new Boots(0x0590));
+        AddItem(new Crossbow());
+    }
+
+    internal override bool CanTalkTo(PlayerMobile player) =>
+        Recruited ? IsOwnedBy(player) : !ClassCreation.Profiles.HasDepartedNewHaven(player.Serial);
+
+    internal override void BeginConversation(PlayerMobile player)
+    {
+        if (Recruited)
+        {
+            base.BeginConversation(player);
+            return;
+        }
+
+        var profiles = ClassCreation.Profiles;
+        bool first = profiles.MeetIolo(player.Serial);
+        if (first)
+        {
+            player.SendMessage("A new entry has been added to thy journal.");
+            ScriptedDialogue.SendStoryState(player);
+        }
+
+        var recruited = profiles.IoloCompanion(player.Serial);
+        if (recruited.IsMobile)
+        {
+            if (World.FindMobile(recruited) is Iolo active && ScriptedDialogue.CanTalk(player, active))
+                ScriptedDialogue.Show(player, active, _company);
+            else
+                ScriptedDialogue.Show(player, this, _introduction, 5);
+        }
+        else if (!profiles.HasReached(player.Serial, RequiredLevel))
+            ScriptedDialogue.Show(player, this, _introduction, first ? (byte)0 : (byte)4);
+        else
+        {
+            if (profiles.UnlockNewHavenGate(player.Serial))
+                player.SendMessage("The New Haven moongate is now open to thee.");
+            ScriptedDialogue.Show(player, this, _offer, first ? (byte)5 : (byte)0);
+        }
+    }
+
+    private static void OpenEquipment(PlayerMobile player, ConversationNpc speaker)
+    {
+        if (speaker.CanPaperdollBeOpenedBy(player))
+            speaker.DisplayPaperdollTo(player);
+    }
+
+    private static void AcceptCompany(PlayerMobile player, ConversationNpc speaker)
+    {
+        var profiles = ClassCreation.Profiles;
+        if (speaker is not Iolo { Recruited: false } innIolo || !profiles.NewHavenGateUnlocked(player.Serial)
+            || profiles.HasDepartedNewHaven(player.Serial) || profiles.IoloCompanion(player.Serial).IsMobile)
+            return;
+
+        if (Recruit(player) is { } companion)
+        {
+            player.NetState?.SendRemoveEntity(innIolo.Serial);
+            ScriptedDialogue.Show(player, companion, _company, 4);
+        }
+        else
+            ScriptedDialogue.Show(player, innIolo, _offer, 6);
+    }
+
+    private static Iolo Recruit(PlayerMobile player)
+    {
+        if (MercenaryCare.HasActiveCompanion(player))
+            return null;
+
+        var companion = new Iolo { RecruitedBy = player.Serial, CantWalk = false, AI = AIType.AI_Melee };
+        // The story companion uses the one-companion slot and travels alongside summoned followers.
+        companion.ControlSlots = 0;
+        companion.RangeFight = 5;
+        if (!companion.SetControlMaster(player) || !MercenaryCare.Register(player, companion, RequiredLevel))
+        {
+            companion.Delete();
+            return null;
+        }
+
+        var spot = PersistentMinions.FindPosition(player, out var nearby) ? nearby : player.Location;
+        companion.MoveToWorld(spot, player.Map);
+        companion.ControlTarget = player;
+        companion.ControlOrder = OrderType.Guard;
+        ClassCreation.Profiles.SetIoloCompanion(player.Serial, companion.Serial);
+        ScriptedDialogue.SendStoryState(player);
+        return companion;
+    }
+
+    private bool IsOwnedBy(Mobile from) => from is PlayerMobile player && player.Serial == _recruitedBy
+        && MercenaryCare.IsCompanion(player, this);
+
+    private bool CanHandleGear(Mobile from) => IsOwnedBy(from) && from.Alive && Alive && !IsDeadPet
+        && from.Map == Map && from.InRange(this, PortraitProtocol.NpcInteractionRange) && from.CanSee(this) && from.InLOS(this);
+
+    public override bool CanPaperdollBeOpenedBy(Mobile from) => CanHandleGear(from);
+    public override bool AllowEquipFrom(Mobile from) => CanHandleGear(from);
+    public override bool CheckNonlocalLift(Mobile from, Item item) => CanHandleGear(from);
+    public override bool CheckNonlocalDrop(Mobile from, Item item, Item target) => CanHandleGear(from);
+    public override bool CanBeRenamedBy(Mobile from) => false;
+    public override bool OnDragDrop(Mobile from, Item dropped) => IsOwnedBy(from) && base.OnDragDrop(from, dropped);
+    public override int GetResistance(ResistanceType type)
+    {
+        int resistance = base.GetResistance(type);
+        if (!Recruited || !MercenaryCare.CompanionLevel(this).HasValue)
+            return resistance;
+        string code = type switch
+        {
+            ResistanceType.Fire => "res-fire", ResistanceType.Cold => "res-cold", ResistanceType.Energy => "res-ltng",
+            ResistanceType.Poison => "res-pois", _ => "res-physical"
+        };
+        return Math.Clamp(resistance + CompanionBuild.Bonus(this, code)
+            + (type == ResistanceType.Physical ? 0 : CompanionBuild.Bonus(this, "res-all")), -100, 75);
+    }
+
+    public override bool EquipItem(Item item)
+    {
+        if (Recruited && !AllowedGear(item))
+        {
+            ControlMaster?.SendMessage("Iolo: I can't wear that.");
+            return false;
+        }
+        return base.EquipItem(item);
+    }
+
+    internal static bool AllowedGear(Item item) => item switch
+    {
+        BaseWeapon weapon => CombatTiming.Weapon(weapon).Family == AttackFamily.Crossbow,
+        _ => ClassGear.Definition(item) is { Slot: GearSlot.Cosmetic or GearSlot.Belt or GearSlot.Ring or GearSlot.Amulet }
+            || ClassGear.Definition(item) is { Weight: GearWeight.Light, Slot: GearSlot.Head or GearSlot.Body or GearSlot.Hands or GearSlot.Feet }
+    };
+
+    public override void OnThink()
+    {
+        if (Recruited)
+            RangeFight = Weapon is BaseRanged ranged && !ClassGear.Broken(ranged) ? Math.Min(5, ranged.MaxRange) : 1;
+        base.OnThink();
+    }
+
+    internal static int ShotRank(CombatAbility skill, int level)
+    {
+        int unlock = skill switch { CombatAbility.MagicArrow => 6, CombatAbility.ColdArrow => 10, CombatAbility.GuidedArrow => 18, _ => 100 };
+        return level < unlock ? 0 : Math.Min(20, 1 + (level - unlock) / 4);
+    }
+
+    internal TimeSpan BeginShot(Mobile target, BaseRanged weapon)
+    {
+        if (CreatureHitRecovery.Remaining(this) is > 0 and var recovery)
+            return TimeSpan.FromMilliseconds(recovery);
+        if (_shot.Running || !CanShoot(target, weapon))
+            return TimeSpan.FromMilliseconds(100);
+
+        int level = MercenaryCare.CompanionLevel(this) ?? 1;
+        var skill = CombatAbility.BasicAttack;
+        if (Core.TickCount >= _nextSpecialShot)
+        {
+            if (ShotRank(CombatAbility.ColdArrow, level) > 0 && GearEffects.ChillPercent(target) == 0)
+                skill = CombatAbility.ColdArrow;
+            else if (ShotRank(CombatAbility.GuidedArrow, level) > 0 && !InRange(target, 3))
+                skill = CombatAbility.GuidedArrow;
+            else if (ShotRank(CombatAbility.MagicArrow, level) > 0)
+                skill = CombatAbility.MagicArrow;
+        }
+
+        var timing = CompanionBuild.Timing(this, CombatClass, skill, weapon);
+        Direction = GetDirectionTo(target);
+        weapon.PlaySwingAnimation(this);
+        if (skill != CombatAbility.BasicAttack)
+            _nextSpecialShot = Core.TickCount + 3000;
+        Timer.StartTimer(TimeSpan.FromMilliseconds(timing.EffectMs), () => ReleaseShot(target, weapon, skill), out _shot);
+        return TimeSpan.FromMilliseconds(timing.DurationMs);
+    }
+
+    private bool CanShoot(Mobile target, BaseRanged weapon) => Alive && !Deleted && !IsDeadPet && !Frozen && !Paralyzed
+        && ClassCombatHooks.ActionAllowed?.Invoke(this) != false
+        && Weapon == weapon && !ClassGear.Broken(weapon) && Combatant == target && ControlMaster is PlayerMobile owner
+        && MercenaryCare.IsCompanion(owner, this) && ClassCombat.IsHostile(owner, target)
+        && InRange(target, Math.Min(5, weapon.MaxRange)) && Math.Abs(Z - target.Z) < 16 && InLOS(target);
+
+    private void ReleaseShot(Mobile target, BaseRanged weapon, CombatAbility skill)
+    {
+        if (CreatureHitRecovery.Remaining(this) > 0 || !CanShoot(target, weapon))
+            return;
+        DoHarmful(target);
+        MovingParticles(target, weapon.EffectID, 18, 1, false, false, 0, 0, 0, 0, 0, EffectLayer.RightHand, 0);
+        int level = MercenaryCare.CompanionLevel(this) ?? 1;
+        SkillValues values = null;
+        if (skill != CombatAbility.BasicAttack)
+        {
+            int Learned(string key) => key switch
+            {
+                "Magic Arrow" => ShotRank(CombatAbility.MagicArrow, level),
+                "Cold Arrow" => ShotRank(CombatAbility.ColdArrow, level),
+                "Guided Arrow" => ShotRank(CombatAbility.GuidedArrow, level),
+                _ => 0
+            };
+            values = new(SkillMechanics.For(skill), Learned, Learned, level);
+        }
+        int attackPercent = CompanionBuild.Bonus(this, "att%") + (int)(values?.Formula("toht") ?? 0);
+        if (ClassStats.CheckHit(this, target, attackPercent, projectile: true, guaranteed: skill == CombatAbility.GuidedArrow) != true)
+            return;
+
+        var (minimum, maximum) = ClassGear.Damage(weapon, level);
+        var basis = ClassGear.Base(weapon);
+        int damagePercent = (basis == null ? 0 : ClassStats.WeaponStatPercent(Str + CompanionBuild.Bonus(this, "str"),
+            Dex + CompanionBuild.Bonus(this, "dex"), basis.StrengthBonus, basis.DexterityBonus))
+            + CompanionBuild.Bonus(this, "dmg%", except: weapon);
+        if (skill == CombatAbility.GuidedArrow)
+            damagePercent += (int)values.Eval("calc1");
+        double physical = Utility.RandomMinMax(minimum, maximum) * (100 + Math.Max(-90, damagePercent)) / 100.0;
+        double cold = 0, magic = 0;
+        if (skill is CombatAbility.ColdArrow or CombatAbility.MagicArrow)
+        {
+            string missile = skill == CombatAbility.ColdArrow ? "coldarrow" : "magicarrow";
+            int conversion = Math.Clamp(NecromancerSummons.Source(missile, "dParam1")
+                + (values.Rank - 1) * NecromancerSummons.Source(missile, "dParam2"), 0, 100);
+            double element = physical * conversion / 100;
+            physical -= element;
+            if (skill == CombatAbility.ColdArrow)
+                cold = element + Utility.RandomMinMax(values.Damage256(false), values.Damage256(true)) / 256.0;
+            else
+            {
+                magic = element;
+                physical += Utility.RandomMinMax(values.PhysicalDamage256(false), values.PhysicalDamage256(true)) / 256.0;
+            }
+        }
+
+        var parts = DefensiveArmors.Absorb(target, new GearDamage(physical, 0, 0, cold, 0, Magic: magic), this);
+        parts = parts with
+        {
+            Physical = GemCombat.Component(target, parts.Physical, target.PhysicalResistance, false),
+            Cold = NamedElements.Damage(this, target, parts.Cold, "cold"),
+            Magic = NamedElements.Damage(this, target, parts.Magic, "mag")
+        };
+        var settled = DirectDamageParts.From(parts);
+        SkillHealth.TypedDamage(this, target, checked((int)settled.Total), settled);
+        if (skill == CombatAbility.ColdArrow && parts.Cold > 0 && target.Alive)
+            GearEffects.ApplyChill(target, Core.TickCount, values.DurationFrames * ActionTiming.FrameMs, this);
+    }
+}

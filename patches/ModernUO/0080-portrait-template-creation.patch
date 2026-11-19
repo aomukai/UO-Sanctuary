@@ -1,0 +1,35 @@
+diff --git a/Projects/UOContent/Network/Packets/IncomingAccountPackets.cs b/Projects/UOContent/Network/Packets/IncomingAccountPackets.cs
+--- a/Projects/UOContent/Network/Packets/IncomingAccountPackets.cs
++++ b/Projects/UOContent/Network/Packets/IncomingAccountPackets.cs
+@@ -101,7 +101,9 @@
+         var flags = reader.ReadInt32();
+         reader.Seek(8, SeekOrigin.Current);
+         int prof = reader.ReadByte();
+-        reader.Seek(15, SeekOrigin.Current);
++        ushort appearanceMarker = reader.ReadUInt16();
++        ushort appearanceTemplate = reader.ReadUInt16();
++        reader.Seek(11, SeekOrigin.Current);
+ 
+         var genderRace = reader.ReadByte();
+ 
+@@ -191,7 +193,7 @@
+             hairHuef,
+             prof,
+             race
+-        );
++        ) { AppearanceTemplateId = appearanceMarker == 0x5341 ? appearanceTemplate : (ushort)0 };
+ 
+         state.SendClientVersionRequest();
+ 
+diff --git a/Projects/UOContent/Engines/Character Creation/CharacterCreatedEvent.cs b/Projects/UOContent/Engines/Character Creation/CharacterCreatedEvent.cs
+--- a/Projects/UOContent/Engines/Character Creation/CharacterCreatedEvent.cs	
++++ b/Projects/UOContent/Engines/Character Creation/CharacterCreatedEvent.cs	
+@@ -44,6 +44,8 @@
+ 
+     public int RequestedProfession { get; } = profession;
+ 
++    public ushort AppearanceTemplateId { get; init; }
++
+     public bool Rejected { get; set; }
+ 
+     public AccessLevel? AccessLevelOverride { get; set; }

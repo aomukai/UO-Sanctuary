@@ -25,10 +25,14 @@ def exercise(window, click, capture):
         raise AssertionError(f"Missing loot-ui-{name}; inspect {serverlog}")
     state = command("setup")
     time.sleep(1)
+    geometry = subprocess.check_output(["xdotool", "getwindowgeometry", "--shell", window], text=True)
+    bounds = dict(line.split("=", 1) for line in geometry.splitlines() if "=" in line)
+    center_x, center_y = int(bounds["WIDTH"]) // 2, int(bounds["HEIGHT"]) // 2
+
     def body_point(entity):
         a, b = state["player"], state[entity]
-        return (310 + 22 * (b["x"] - a["x"] - b["y"] + a["y"]),
-                250 + 22 * (b["x"] - a["x"] + b["y"] - a["y"]) - 4 * (b["z"] - a["z"]))
+        return (center_x + 22 * (b["x"] - a["x"] - b["y"] + a["y"]),
+                center_y + 22 * (b["x"] - a["x"] + b["y"] - a["y"]) - 4 * (b["z"] - a["z"]))
     capture("loot-bodies-full.png")
     click(*body_point("second"))
     command("opened")

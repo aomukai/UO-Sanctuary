@@ -1,0 +1,598 @@
+diff --git a/src/ClassicUO.Client/Game/AvatarDialogueClient.cs b/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
+--- a/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
++++ b/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
+@@ -1,6 +1,8 @@
+ // SPDX-License-Identifier: BSD-2-Clause
+ 
+ using ClassicUO.Game.Managers;
++using ClassicUO.Game.GameObjects;
++using ClassicUO.Game.Data;
+ using ClassicUO.Game.UI.Gumps;
+ using ClassicUO.IO;
+ using ClassicUO.Network;
+@@ -10,6 +12,22 @@
+ 
+ internal static class AvatarDialogueClient
+ {
++    internal static bool CanInteract(World world, Mobile mobile) =>
++        world.Player is { SanctuaryNpcInteraction: true } && mobile != world.Player && !mobile.IsDead
++        && mobile.NotorietyFlag is NotorietyFlag.Invulnerable or NotorietyFlag.Innocent
++        && !ClassCombatClient.Hostile(mobile) && !ClassCombatClient.Ally(mobile);
++
++    internal static void Interact(uint serial)
++    {
++        using var writer = new StackDataWriter(PortraitProtocol.InteractPacketLength);
++        writer.WriteUInt8(0xBF);
++        writer.WriteUInt16BE(PortraitProtocol.InteractPacketLength);
++        writer.WriteUInt16BE(PortraitProtocol.SubCommand);
++        writer.WriteUInt8(PortraitProtocol.Version);
++        writer.WriteUInt32BE(serial);
++        NetClient.Socket.Send(writer.BufferWritten);
++    }
++
+     internal static void Receive(World world, ref StackDataReader reader)
+     {
+         if (!world.InGame || world.Player == null || reader.Remaining < 2
+@@ -17,6 +35,11 @@
+             return;
+ 
+         byte kind = reader.ReadUInt8();
++        if (kind == PortraitProtocol.InteractionEnabled && reader.Remaining == 0)
++        {
++            world.Player.SanctuaryNpcInteraction = true;
++            return;
++        }
+         if (kind == PortraitProtocol.AvatarFace && reader.Remaining is 1 or 3)
+         {
+             byte face = reader.ReadUInt8();
+diff --git a/src/ClassicUO.Client/ClassicUO.Client.csproj b/src/ClassicUO.Client/ClassicUO.Client.csproj
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -39,6 +39,8 @@
+              CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+     <EmbeddedResource Include="../../../../art/player-ui/*.png" LogicalName="Sanctuary.UI.%(Filename)%(Extension)" />
+     <EmbeddedResource Include="../../../../art/player-ui/avatar-templates/*.png" LogicalName="Sanctuary.UI.Templates.%(Filename)%(Extension)" />
++    <Content Include="../../../../art/player-ui/dialogue-font/Book.mul;../../../../art/player-ui/dialogue-font/OFL-*.txt"
++             Link="SanctuaryFonts/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+     <Content Include="../../../../art/succubus/succubus.idx;../../../../art/succubus/succubus.mul"
+              Link="Data/Sanctuary/Animations/%(Filename)%(Extension)"
+              CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+diff --git a/src/ClassicUO.Client/Game/Managers/DelayedObjectClickManager.cs b/src/ClassicUO.Client/Game/Managers/DelayedObjectClickManager.cs
+--- a/src/ClassicUO.Client/Game/Managers/DelayedObjectClickManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/DelayedObjectClickManager.cs
+@@ -8,6 +8,7 @@
+     internal sealed class DelayedObjectClickManager
+     {
+         private readonly World _world;
++        private bool _interact;
+ 
+         public DelayedObjectClickManager(World world) { _world = world; }
+ 
+@@ -29,7 +30,11 @@
+ 
+             Entity entity = _world.Get(Serial);
+ 
+-            if (entity != null)
++            if (_interact && entity is Mobile mobile && AvatarDialogueClient.CanInteract(_world, mobile))
++            {
++                AvatarDialogueClient.Interact(mobile.Serial);
++            }
++            else if (entity != null)
+             {
+                 if (!_world.ClientFeatures.TooltipsEnabled || SerialHelper.IsItem(Serial) && ((Item) entity).IsLocked && ((Item) entity).ItemData.Weight == 255 && !((Item) entity).ItemData.IsContainer)
+                 {
+@@ -45,7 +50,7 @@
+             Clear();
+         }
+ 
+-        public void Set(uint serial, int x, int y, uint timer)
++        public void Set(uint serial, int x, int y, uint timer, bool interact = false)
+         {
+             Serial = serial;
+             LastMouseX = Mouse.Position.X;
+@@ -54,6 +59,7 @@
+             Y = y;
+             Timer = timer;
+             IsEnabled = true;
++            _interact = interact;
+         }
+ 
+         public void Clear()
+@@ -77,4 +83,4 @@
+             }
+         }
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/src/ClassicUO.Assets/FontsLoader.cs b/src/ClassicUO.Assets/FontsLoader.cs
+--- a/src/ClassicUO.Assets/FontsLoader.cs
++++ b/src/ClassicUO.Assets/FontsLoader.cs
+@@ -30,6 +30,7 @@
+         private const int MAX_HTML_TEXT_HEIGHT = 18;
+         private const byte NOPRINT_CHARS = 32;
+         private const float ITALIC_FONT_KOEFFICIENT = 3.3f;
++        public const byte SanctuaryBookFont = 19;
+ 
+         public struct Margin
+         {
+@@ -127,6 +128,10 @@
+                     _unicodeFontAddress[i] = new UOFileMul(path);
+                 }
+             }
++
++            string bookFont = Path.Combine(AppContext.BaseDirectory, "SanctuaryFonts", "Book.mul");
++            if (File.Exists(bookFont))
++                _unicodeFontAddress[SanctuaryBookFont] = new UOFileMul(bookFont);
+ 
+             int fontHeaderSize = sizeof(FontHeader);
+             FontCount = 0;
+diff --git a/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs b/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
+--- a/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
++++ b/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
+@@ -347,7 +347,8 @@
+                 return false;
+             }
+ 
+-            if (ClassCombatClient.BeginAttackHold(_world) || ClassCombatClient.BeginGroundHold(_world))
++            if (DirectInteractionTarget() == null
++                && (ClassCombatClient.BeginAttackHold(_world) || ClassCombatClient.BeginGroundHold(_world)))
+             {
+                 _isMouseLeftDown = _isSelectionActive = false;
+                 SelectedObject.LastLeftDownObject = null;
+@@ -444,6 +445,19 @@
+                 UIManager.SystemChat.SetFocus();
+             }
+ 
++            if (DirectInteractionTarget() is { } npc && SelectedObject.LastLeftDownObject == npc
++                && !UIManager.IsDragging && Math.Abs(Mouse.LDragOffset.X) <= Constants.MIN_GUMP_DRAG_DISTANCE
++                && Math.Abs(Mouse.LDragOffset.Y) <= Constants.MIN_GUMP_DRAG_DISTANCE)
++            {
++                SelectedObject.LastLeftDownObject = null;
++                _world.DelayedObjectClickManager.Clear();
++                Mouse.LastLeftButtonClickTime = 0;
++                StopFollowing();
++                ClassCombatClient.Stop(_world);
++                AvatarDialogueClient.Interact(npc.Serial);
++                return true;
++            }
++
+             if (ClassCombatClient.Enabled && !_world.TargetManager.IsTargeting
+                 && !Client.Game.UO.GameCursor.ItemHold.Enabled)
+             {
+@@ -769,7 +783,9 @@
+                                 ent.Serial,
+                                 Mouse.Position.X,
+                                 Mouse.Position.Y,
+-                                Time.Ticks + Mouse.MOUSE_DELAY_DOUBLE_CLICK
++                                Time.Ticks + Mouse.MOUSE_DELAY_DOUBLE_CLICK,
++                                interact: ent is Mobile candidate && !Keyboard.Ctrl && !Keyboard.Shift
++                                    && AvatarDialogueClient.CanInteract(_world, candidate)
+                             );
+                         }
+ 
+@@ -779,6 +795,13 @@
+ 
+             return true;
+         }
++
++        private Mobile DirectInteractionTarget() =>
++            !Keyboard.Alt && !Keyboard.Ctrl && !Keyboard.Shift && !_world.Player.IsDead
++            && !_world.TargetManager.IsTargeting && _world.CustomHouseManager == null
++            && !Client.Game.UO.GameCursor.ItemHold.Enabled
++            && SelectedObject.Object is Mobile { NotorietyFlag: NotorietyFlag.Invulnerable } npc
++            && AvatarDialogueClient.CanInteract(_world, npc) ? npc : null;
+ 
+         private bool OnLeftMouseDoubleClick()
+         {
+diff --git a/src/ClassicUO.Client/Game/UI/Controls/Label.cs b/src/ClassicUO.Client/Game/UI/Controls/Label.cs
+--- a/src/ClassicUO.Client/Game/UI/Controls/Label.cs
++++ b/src/ClassicUO.Client/Game/UI/Controls/Label.cs
+@@ -10,6 +10,7 @@
+     internal class Label : Control
+     {
+         private readonly RenderedText _gText;
++        private readonly float _scale;
+ 
+         public Label
+         (
+@@ -20,9 +21,11 @@
+             byte font = 0xFF,
+             FontStyle style = FontStyle.None,
+             TEXT_ALIGN_TYPE align = TEXT_ALIGN_TYPE.TS_LEFT,
+-            bool ishtml = false
++            bool ishtml = false,
++            float scale = 1f
+         )
+         {
++            _scale = scale;
+             _gText = RenderedText.Create
+             (
+                 text,
+@@ -31,13 +34,12 @@
+                 isunicode,
+                 style,
+                 align,
+-                maxwidth,
++                (int)(maxwidth / scale),
+                 isHTML: ishtml
+             );
+ 
+             AcceptMouseInput = false;
+-            Width = _gText.Width;
+-            Height = _gText.Height;
++            Measure();
+         }
+ 
+         public Label(List<string> parts, string[] lines) : this
+@@ -60,8 +62,7 @@
+             set
+             {
+                 _gText.Text = value;
+-                Width = _gText.Width;
+-                Height = _gText.Height;
++                Measure();
+             }
+         }
+ 
+@@ -84,6 +85,12 @@
+ 
+         public bool Unicode => _gText.IsUnicode;
+ 
++        private void Measure()
++        {
++            Width = (int)System.Math.Ceiling(_gText.Width * _scale);
++            Height = (int)System.Math.Ceiling(_gText.Height * _scale);
++        }
++
+         public override bool AddToRenderLists(RenderLists renderLists, int x, int y, ref float layerDepthRef)
+         {
+             if (IsDisposed)
+@@ -91,7 +98,7 @@
+                 return false;
+             }
+ 
+-            renderLists.AddGumpNoAtlas(_gText, x, y, layerDepthRef, Alpha);
++            renderLists.AddGumpNoAtlas(_gText, x, y, layerDepthRef, Alpha, scale: _scale);
+ 
+             return base.AddToRenderLists(renderLists, x, y, ref layerDepthRef);
+         }
+@@ -102,4 +109,4 @@
+             _gText.Destroy();
+         }
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/src/ClassicUO.Client/Network/PacketHandlers.cs b/src/ClassicUO.Client/Network/PacketHandlers.cs
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -3099,6 +3099,10 @@
+                 paperdoll.SetInScreen();
+                 paperdoll.BringOnTop();
+             }
++
++            // The delayed self-paperdoll request on login can arrive after the greeting.
++            if (mobile == world.Player && UIManager.GetGump<SanctuaryDialogueGump>() is { } dialogue)
++                dialogue.BringOnTop();
+         }
+ 
+         private static void CorpseEquipment(World world, ref StackDataReader p)
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
+@@ -164,7 +164,6 @@
+             AddSheetButton(345, 369, 53, "Guild", Buttons.Guild);
+             AddSheetButton(403, 369, 61, "Options", Buttons.Options);
+             _movementModeBtn = AddSheetButton(469, 369, 51, "Run", Buttons.MovementToggle);
+-            AddSheetButton(525, 369, 65, "Log Out", Buttons.LogOut);
+             RequestUpdateContents();
+         }
+ 
+diff --git a/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs b/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs
+@@ -17,6 +17,7 @@
+     {
+         internal byte SanctuaryFace { get; set; }
+         internal ushort SanctuaryAppearanceTemplate { get; set; }
++        internal bool SanctuaryNpcInteraction { get; set; }
+         private readonly Dictionary<BuffIconType, BuffIcon> _buffIcons = new Dictionary<BuffIconType, BuffIcon>();
+ 
+         public PlayerMobile(World world, uint serial) : base(world, serial)
+diff --git a/src/ClassicUO.Client/Game/Scenes/RenderLists.cs b/src/ClassicUO.Client/Game/Scenes/RenderLists.cs
+--- a/src/ClassicUO.Client/Game/Scenes/RenderLists.cs
++++ b/src/ClassicUO.Client/Game/Scenes/RenderLists.cs
+@@ -27,9 +27,10 @@
+         public readonly float LayerDepth;
+         public readonly float Alpha;
+         public readonly ushort Hue;
++        public readonly float Scale;
+         public readonly Func<UltimaBatcher2D, bool> Callback;
+ 
+-        public NoAtlasGumpCommand(RenderedText text, int x, int y, float layerDepth, float alpha, ushort hue)
++        public NoAtlasGumpCommand(RenderedText text, int x, int y, float layerDepth, float alpha, ushort hue, float scale)
+         {
+             Text = text;
+             X = x;
+@@ -37,6 +38,7 @@
+             LayerDepth = layerDepth;
+             Alpha = alpha;
+             Hue = hue;
++            Scale = scale;
+             Callback = null;
+         }
+ 
+@@ -48,6 +50,7 @@
+             LayerDepth = 0f;
+             Alpha = 0f;
+             Hue = 0;
++            Scale = 1f;
+             Callback = callback;
+         }
+     }
+@@ -147,14 +150,14 @@
+         /// fallback entries, and flushed with a validity guard against destroyed/recycled
+         /// text references.
+         /// </summary>
+-        public void AddGumpNoAtlas(RenderedText text, int x, int y, float layerDepth, float alpha = 1f, ushort hue = 0)
++        public void AddGumpNoAtlas(RenderedText text, int x, int y, float layerDepth, float alpha = 1f, ushort hue = 0, float scale = 1f)
+         {
+             if (text == null)
+             {
+                 return;
+             }
+ 
+-            _gumpTexts.Add(new NoAtlasGumpCommand(text, x, y, layerDepth, alpha, hue));
++            _gumpTexts.Add(new NoAtlasGumpCommand(text, x, y, layerDepth, alpha, hue, scale));
+         }
+ 
+         /// <summary>
+@@ -320,7 +323,7 @@
+                         continue;
+                     }
+ 
+-                    if (cmd.Text.Draw(batcher, cmd.X, cmd.Y, cmd.LayerDepth, cmd.Alpha, cmd.Hue))
++                    if (cmd.Text.Draw(batcher, cmd.X, cmd.Y, cmd.LayerDepth, cmd.Alpha, cmd.Hue, cmd.Scale))
+                     {
+                         done++;
+                     }
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryDialogueGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryDialogueGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryDialogueGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryDialogueGump.cs
+@@ -1,6 +1,8 @@
+ // SPDX-License-Identifier: BSD-2-Clause
+ 
+ using System;
++using ClassicUO.Assets;
++using ClassicUO.Configuration;
+ using ClassicUO.Game.UI.Controls;
+ using Sanctuary;
+ 
+@@ -8,47 +10,92 @@
+ 
+ internal sealed class SanctuaryDialogueGump : Gump
+ {
+-    private const int PanelWidth = 568, PanelHeight = 310;
+     private bool _waiting, _closedByServer;
++    private byte _portrait;
++    private string _name, _line;
++    private string[] _topics;
+ 
+     public uint Token { get; private set; }
+ 
+     public SanctuaryDialogueGump(World world) : base(world, 0, 0)
+     {
+-        Width = PanelWidth;
+-        Height = PanelHeight;
++        SizeToViewport();
+         X = Math.Max(0, (Client.Game.ClientBounds.Width - Width) / 2);
+         Y = Math.Max(0, (Client.Game.ClientBounds.Height - Height) / 2);
+         CanMove = CanCloseWithRightClick = true;
+-        LayerOrder = UILayer.Over;
+         WantUpdateSize = false;
+     }
+ 
+-    public void Show(uint token, byte portrait, string name, string line, string[] replies)
++    public void Show(uint token, byte portrait, string name, string line, string[] topics)
+     {
+         Token = token;
++        _portrait = portrait;
++        _name = name;
++        _line = line;
++        _topics = topics;
+         _waiting = false;
++        RefreshStyle();
++    }
++
++    private void SizeToViewport()
++    {
++        var bounds = Client.Game.ClientBounds;
++        Width = Math.Clamp(bounds.Width - 16, 280, 860);
++        Height = Math.Clamp(bounds.Height - 16, 224, 440);
++        X = Math.Clamp(X, 0, Math.Max(0, bounds.Width - Width));
++        Y = Math.Clamp(Y, 0, Math.Max(0, bounds.Height - Height));
++    }
++
++    internal void RefreshStyle()
++    {
++        if (_topics == null)
++            return;
++
++        SizeToViewport();
+         Clear();
++        bool book = Settings.GlobalSettings.SanctuaryBookDialogueFont
++            && Client.Game.UO.FileManager.Fonts.UnicodeFontExists(FontsLoader.SanctuaryBookFont);
++        byte textFont = book ? FontsLoader.SanctuaryBookFont : (byte)1;
++        byte titleFont = book ? textFont : (byte)0;
++        bool compact = Height < 350 || Width < 540;
++        float bodyScale = book ? 1f : compact ? 1.25f : 1.6f;
++        float topicScale = book ? 1f : compact ? 1f : 1.3f;
++        int pad = compact ? 14 : 24, gap = compact ? 12 : 22;
++        int artTop = compact ? 49 : 65;
++        int artSize = Math.Min(206, Math.Min(Width / 3, Height - artTop - (compact ? 95 : 140)));
++        int textX = pad + artSize + gap;
++        int textWidth = Width - textX - pad;
++        int topicHeight = compact ? 26 : 34, step = topicHeight + 6;
++        int topicTop = Height - pad - _topics.Length * step + 6;
+         Add(new SanctuaryBackdrop("character-frame", Width, Height) { CanCloseWithRightClick = true });
+-        Add(new Line(22, 47, 524, 1, 0xFF486581) { AcceptMouseInput = false });
+-        Add(new Line(22, 58, 144, 144, 0xFF567B98) { AcceptMouseInput = false });
+-        Add(new SanctuaryPortrait(portrait, 24, 60, 140, 140));
+-        Add(new Label(name, true, 0x0481, maxwidth: 490, font: 0) { X = 24, Y = 15 });
+-        Add(new Label(line, true, 0x0481, maxwidth: 348, font: 1) { X = 190, Y = 63 });
++        Add(new Line(pad, artTop - 13, Width - pad * 2, 1, 0xFF486581) { AcceptMouseInput = false });
++        Add(new Line(pad, artTop, artSize, artSize, 0xFF567B98) { AcceptMouseInput = false });
++        Add(new SanctuaryPortrait(_portrait, pad + 2, artTop + 2, artSize - 4, artSize - 4));
++        Add(new Label(_name, true, 0x0481, maxwidth: Width - pad * 2, font: titleFont, scale: compact ? 1f : 1.45f)
++            { X = pad, Y = compact ? 9 : 16 });
++        var scroll = Add(new ScrollArea(textX, artTop, textWidth, Math.Max(18, topicTop - artTop - 16), true));
++        scroll.Add(new Label(_line, true, 0x0481, maxwidth: textWidth - 18, font: textFont, scale: bodyScale));
++        Add(new Line(textX, topicTop - 9, textWidth, 1, 0xFF486581) { AcceptMouseInput = false });
+         if (World.Player is { } player)
+         {
+-            Add(new Line(22, 208, 50, 52, 0xFF567B98) { AcceptMouseInput = false });
+-            Add(new Line(24, 210, 46, 48, 0xFF151A21) { AcceptMouseInput = false });
+-            Add(new SanctuaryPortrait(player, 24, 210, 46, 48));
+-            Add(new Label(player.Name ?? "", true, 0x0481, maxwidth: 86, font: 1)
+-                { X = 79, Y = 220, AcceptMouseInput = false });
++            int badgeSize = compact ? 38 : 60;
++            int badgeTop = Height - pad - topicHeight - gap - badgeSize;
++            Add(new Line(pad, badgeTop, badgeSize, badgeSize, 0xFF567B98) { AcceptMouseInput = false });
++            Add(new Line(pad + 2, badgeTop + 2, badgeSize - 4, badgeSize - 4, 0xFF151A21) { AcceptMouseInput = false });
++            Add(new SanctuaryPortrait(player, pad + 2, badgeTop + 2, badgeSize - 4, badgeSize - 4));
++            int nameWidth = artSize - badgeSize - 8;
++            if (nameWidth >= 44)
++                Add(new Label(player.Name ?? "", true, 0x0481, maxwidth: nameWidth, font: textFont, scale: topicScale)
++                    { X = pad + badgeSize + 8, Y = badgeTop + 10 });
+         }
+-        for (int i = 0; i < replies.Length; i++)
++        for (int i = 0; i < _topics.Length; i++)
+         {
+             byte choice = (byte)i;
+-            Add(new SanctuarySheetButton(187, 150 + i * 29, 355, replies[i], () => Choose(choice)));
++            Add(new SanctuarySheetButton(textX, topicTop + i * step, textWidth, _topics[i], () => Choose(choice),
++                height: topicHeight, font: textFont, textScale: topicScale));
+         }
+-        Add(new SanctuarySheetButton(22, 266, 144, "Farewell", Dispose));
++        Add(new SanctuarySheetButton(pad, Height - pad - topicHeight, artSize, "Farewell", Dispose,
++            height: topicHeight, font: textFont, textScale: topicScale));
+     }
+ 
+     private void Choose(byte choice)
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
+@@ -53,19 +53,20 @@
+     private readonly Action _activate;
+     private readonly Line _primaryFill;
+ 
+-    public SanctuarySheetButton(int x, int y, int width, string text, Action activate, bool primary = false)
++    public SanctuarySheetButton(int x, int y, int width, string text, Action activate, bool primary = false,
++        int height = 25, byte font = 1, float textScale = 1f)
+     {
+         X = x;
+         Y = y;
+         Width = width;
+-        Height = 25;
++        Height = height;
+         AcceptMouseInput = true;
+         WantUpdateSize = false;
+         _activate = activate;
+         Add(new Line(0, 0, width, Height, 0xFF557B98) { AcceptMouseInput = false });
+         Add(new Line(1, 1, width - 2, Height - 2, 0xFF292D42u) { AcceptMouseInput = false });
+         _primaryFill = Add(new Line(1, 1, width - 2, Height - 2, 0xFF335C77u) { AcceptMouseInput = false, IsVisible = primary });
+-        _label = Add(new Label("", true, 0x481, font: 1));
++        _label = Add(new Label("", true, 0x481, font: font, scale: textScale));
+         SetCaption(text);
+     }
+ 
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs
+@@ -13,7 +13,7 @@
+ internal sealed class SanctuaryOptionsGump : Gump
+ {
+     private const int Graphics = 1, Sound = 2, Music = 3, Hotkeys = 4;
+-    private const int PanelWidth = 466, PanelHeight = 347;
++    private const int PanelWidth = 466, PanelHeight = 375;
+     private readonly Profile _profile = ProfileManager.CurrentProfile;
+     private readonly SanctuarySheetButton[] _tabs = new SanctuarySheetButton[4];
+     private readonly SanctuarySheetButton[] _bindings = new SanctuarySheetButton[4];
+@@ -22,6 +22,7 @@
+     private int _capturing = -1;
+ 
+     private bool _borderless, _drawRoofs, _highlightObjects;
++    private bool _bookDialogueFont = Settings.GlobalSettings.SanctuaryBookDialogueFont;
+     private bool _sound, _footsteps, _music, _combatMusic, _loginMusic;
+     private readonly ValueSlider _fps, _worldZoom, _screenScale, _soundsVolume, _musicVolume, _loginVolume;
+ 
+@@ -42,10 +43,11 @@
+         }
+ 
+         Add(new Line(23, 81, 420, 1, 0xFF486581) { AcceptMouseInput = false });
+-        Add(new Line(23, 300, 420, 1, 0xFF486581) { AcceptMouseInput = false });
+-        Add(new SanctuarySheetButton(23, 310, 75, "Help", () => SanctuaryHelpGump.Open(World)));
+-        Add(new SanctuarySheetButton(270, 310, 82, "Cancel", Dispose));
+-        Add(new SanctuarySheetButton(360, 310, 83, "Apply", Apply, primary: true));
++        Add(new Line(23, 328, 420, 1, 0xFF486581) { AcceptMouseInput = false });
++        Add(new SanctuarySheetButton(23, 338, 75, "Help", () => SanctuaryHelpGump.Open(World)));
++        Add(new SanctuarySheetButton(204, 338, 60, "Log Out", () => Client.Game.GetScene<GameScene>()?.RequestQuitGame()));
++        Add(new SanctuarySheetButton(270, 338, 82, "Cancel", Dispose));
++        Add(new SanctuarySheetButton(360, 338, 83, "Apply", Apply, primary: true));
+ 
+         var camera = Client.Game.Scene.Camera;
+         AddToggle("Borderless window", Graphics, 0, _profile.WindowBorderless, value => _borderless = value);
+@@ -55,6 +57,13 @@
+         _screenScale = AddSlider("Interface scale", Graphics, 3, 50, 200, (int)Math.Round(100 * Client.Game.ScreenScale), "%");
+         AddToggle("Show roofs", Graphics, 4, _profile.DrawRoofs, value => _drawRoofs = value);
+         AddToggle("Highlight objects on hover", Graphics, 5, _profile.HighlightGameObjects, value => _highlightObjects = value);
++        AddText("Dialogue font", 30, Row(6) + 4, Graphics);
++        SanctuarySheetButton typeface = null;
++        typeface = Add(new SanctuarySheetButton(345, Row(6), 92, _bookDialogueFont ? "Book" : "Classic", () =>
++        {
++            _bookDialogueFont = !_bookDialogueFont;
++            typeface.SetCaption(_bookDialogueFont ? "Book" : "Classic");
++        }), Graphics);
+ 
+         AddToggle("Sound effects", Sound, 0, _profile.EnableSound, value => _sound = value);
+         _soundsVolume = AddSlider("Effects volume", Sound, 1, 0, 100, _profile.SoundVolume, "%");
+@@ -82,7 +91,7 @@
+ 
+         AddText("Esc  Options     Enter  Chat     Tab  Run/Walk", 30, 240, Hotkeys);
+         AddText("S  Skill bindings     F1–F12  Skills     1–4  Belt", 30, 263, Hotkeys);
+-        Add(new SanctuarySheetButton(106, 310, 92, "Defaults", () =>
++        Add(new SanctuarySheetButton(106, 338, 92, "Defaults", () =>
+         {
+             _keys = SanctuaryMenu.DefaultKeys;
+             _capturing = -1;
+@@ -224,6 +233,11 @@
+         _profile.EnableCombatMusic = _combatMusic;
+         settings.LoginMusic = _loginMusic;
+         settings.LoginMusicVolume = _loginVolume.Value;
++        if (settings.SanctuaryBookDialogueFont != _bookDialogueFont)
++        {
++            settings.SanctuaryBookDialogueFont = _bookDialogueFont;
++            UIManager.GetGump<SanctuaryDialogueGump>()?.RefreshStyle();
++        }
+ 
+         game.Audio.UpdateCurrentSoundsVolume();
+         game.Audio.UpdateCurrentMusicVolume();
+diff --git a/src/ClassicUO.Client/Configuration/Settings.cs b/src/ClassicUO.Client/Configuration/Settings.cs
+--- a/src/ClassicUO.Client/Configuration/Settings.cs
++++ b/src/ClassicUO.Client/Configuration/Settings.cs
+@@ -49,6 +49,7 @@
+         [JsonPropertyName("clientversion")] public string ClientVersion { get; set; } = string.Empty;
+ 
+         [JsonPropertyName("lang")] public string Language { get; set; } = "";
++        [JsonPropertyName("sanctuary_book_dialogue_font")] public bool SanctuaryBookDialogueFont { get; set; }
+ 
+         [JsonPropertyName("lastservernum")] public ushort LastServerNum { get; set; } = 1;
+ 
+@@ -129,4 +130,4 @@
+             ConfigurationResolver.Save(settingsToSave, GetSettingsFilepath(), SettingsJsonContext.RealDefault.Settings);
+         }
+     }
+-}
+\ No newline at end of file
++}

@@ -41,8 +41,19 @@ public static class GraveyardPopulation
             spawner.Delete(); // Deletes its tracked lich even if it chased far away.
             _logger.Information("Graveyard: removed retired lich spawner");
         }
+        int created = InstallSpawners("graveyard.json");
+        _logger.Information("Graveyard: installed {Count} population spawners", created);
+    }
+
+    internal static int InstallSpawners(string fileName, bool relocate = false)
+    {
         var definitions = JsonSerializer.Deserialize<SpawnerDto[]>(
-            File.ReadAllText(Path.Join(Core.BaseDirectory, "Data", "Sanctuary", "graveyard.json")), SpawnerJsonSerializer.Options);
+            File.ReadAllText(Path.Join(Core.BaseDirectory, "Data", "Sanctuary", fileName)), SpawnerJsonSerializer.Options);
+        var existing = new Dictionary<Guid, BaseSpawner>();
+        if (relocate)
+            foreach (var item in World.Items.Values)
+                if (item is BaseSpawner spawner && spawner.Guid != Guid.Empty)
+                    existing.TryAdd(spawner.Guid, spawner);
         int created = 0;
         foreach (var definition in definitions)
         {
@@ -62,6 +73,8 @@ public static class GraveyardPopulation
             var added = definition.ToSpawner();
             try
             {
+                if (existing.TryGetValue(definition.Guid, out var moved))
+                    moved.Delete();
                 added.MoveToWorld(definition.Location, definition.Map);
                 added.Respawn();
                 created++;
@@ -72,6 +85,6 @@ public static class GraveyardPopulation
                 throw;
             }
         }
-        _logger.Information("Graveyard: installed {Count} population spawners", created);
+        return created;
     }
 }

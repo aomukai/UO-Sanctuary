@@ -62,6 +62,15 @@ public static class EncounterTreasure
     }
     internal static string Root(EncounterCreature creature)
     {
+        if (creature is HavenEncounter haven)
+        {
+            return haven.Leader ? "Act 1 Unique B" : CreatureProfiles.Level(haven) switch
+            {
+                >= 10 => "Act 1 H2H C",
+                >= 5 => "Act 1 H2H B",
+                _ => "Act 1 H2H A"
+            };
+        }
         var grade = creature.Grade switch { EncounterGrade.Minion => EncounterGrade.Ordinary,
             EncounterGrade.SuperUnique => EncounterGrade.Unique, var value => value };
         var root = _classes[_roots[(creature.Dungeon.Family, creature.Difficulty, grade)]];
@@ -86,6 +95,11 @@ public static class EncounterTreasure
             root = root with { Picks = -4, Entries = [root.Entries[0] with { Weight = 2 }, root.Entries[1] with { Weight = 2 }] };
         }
         Walk(root, new int[4], 0, 256, random, drops);
+        if (creature is HavenEncounter { Leader: true })
+        {
+            // Keep the named encounter's two gear rolls and six-drop budget.
+            drops[^1] = new("gld", 512, new int[4]);
+        }
         return drops;
     }
     private static void Walk(EncounterTreasureClass row, int[] inherited, int depth, int multiplier, Random random, List<EncounterDrop> drops)

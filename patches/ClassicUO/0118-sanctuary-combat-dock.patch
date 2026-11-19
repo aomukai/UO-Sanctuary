@@ -1,0 +1,1924 @@
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs
+@@ -2,6 +2,8 @@
+ using System;
+ using System.Linq;
+ using ClassicUO.Configuration;
++using ClassicUO.Game.Managers;
++using Microsoft.Xna.Framework;
+ using ClassicUO.Game.UI.Controls;
+ using ClassicUO.Input;
+ using Sanctuary;
+@@ -31,48 +33,269 @@
+ 
+ internal sealed class ClassSkillBarGump : Gump
+ {
+-    private sealed class SlotControl : Control { }
+-    private int _step = 46;
++    private const int MainHeight = 86;
++    private const int Edge = 10;
++    private const int HotbarCells = 2 + SkillBindingProtocol.Slots + BeltProtocol.Columns;
++    private const uint Brass = 0xFF567B98;
++    private const uint Wood = 0xFF1A202F;
++    private const uint CellFill = 0xFF2A3548;
++    private int _step, _flyoutHeight;
++    private DockCell _experienceTrack;
++    private Line _experienceFill;
++    private (uint Total, uint Start, uint Next)? _lastExperience;
++
++    // Each string draws one row of a bronze pixel icon at 2x scale.
++    private static readonly (string Name, string[] Glyph)[] Menu =
++    [
++        ("Map", [".xx..xx..", "x..xx..xx", "x..x...xx", "x..x.x.xx", "x..x...xx", "x..xx..xx", ".xx..xx.."]),
++        ("Character", ["...xxx...", "..xxxxx..", "..x.x.x..", "..xxxxx..", "...xxx...", "..xxxxx..", ".xxxxxxx."]),
++        ("Inventory", ["...xxx...", "..x...x..", ".xxxxxxx.", ".x.....x.", ".xxxxxxx.", ".x..x..x.", ".xxxxxxx."]),
++        ("Journal", [".xxx.xxx.", "x...x...x", "x.x.x.x.x", "x...x...x", "x.x.x.x.x", "x...x...x", ".xxx.xxx."]),
++        ("Chat", [".xxxxxxx.", "x.......x", "x.x.x.x.x", "x.......x", ".xxxxxxx.", "...xx....", "..x......"]),
++        ("Help", ["..xxxxx..", ".xx...xx.", ".....xx..", "....xx...", "...xx....", ".........", "...xx...."]),
++        ("World Map", ["...xxx...", ".xx.x.xx.", ".x..x..x.", "xxxxxxxxx", ".x..x..x.", ".xx.x.xx.", "...xxx..."]),
++        ("Options", ["..x.x.x..", ".xxxxxxx.", "xx.....xx", ".x.xxx.x.", "xx.....xx", ".xxxxxxx.", "..x.x.x.."])
++    ];
++
+     public ClassSkillBarGump(World world) : base(world, 0, 0)
+-    { CanMove = CanCloseWithRightClick = false; RequestUpdateContents(); }
++    {
++        CanMove = true;
++        AcceptMouseInput = false;
++        LayerOrder = UILayer.Under;
++        CanCloseWithRightClick = CanCloseWithEsc = WantUpdateSize = false;
++        RequestUpdateContents();
++    }
++
+     public override void Update()
+     {
+         IsVisible = World.InGame && ClassCombatClient.Enabled && ClassSkillBindingsClient.Ready;
+-        var profile = ProfileManager.CurrentProfile;
+-        int step = Math.Clamp((profile.GameWindowSize.X - 196) / SkillBindingProtocol.Slots, 28, 46);
+-        if (_step != step) { _step = step; RequestUpdateContents(); }
+-        X = profile.GameWindowPosition.X + 8;
+-        Y = Math.Max(0, profile.GameWindowPosition.Y + profile.GameWindowSize.Y - 67);
++        int step = Math.Clamp((Client.Game.ClientBounds.Width - 60) / HotbarCells, 23, 40);
++        if (_step != step)
++        {
++            _step = step;
++            RequestUpdateContents();
++        }
+         base.Update();
+-    }
++        if (UIManager.DraggingControl != this)
++            PositionDock();
++        RefreshExperience();
++    }
++
++    private Point DefaultPosition => new(
++        Math.Max(0, (Client.Game.ClientBounds.Width - Width) / 2),
++        Math.Max(0, Client.Game.ClientBounds.Height - MainHeight - Edge));
++
++    private void PositionDock()
++    {
++        Point anchor = DefaultPosition + ProfileManager.CurrentProfile.CombatDockOffset;
++        X = Math.Clamp(anchor.X, 0, Math.Max(0, Client.Game.ClientBounds.Width - Width));
++        Y = Math.Clamp(anchor.Y - _flyoutHeight, 0, Math.Max(0, Client.Game.ClientBounds.Height - Height));
++    }
++
++    protected override void OnDragEnd(int x, int y)
++    {
++        ProfileManager.CurrentProfile.CombatDockOffset = new Point(X, Y + _flyoutHeight) - DefaultPosition;
++        PositionDock();
++        ProfileManager.CurrentProfile.CombatDockOffset = new Point(X, Y + _flyoutHeight) - DefaultPosition;
++    }
++
+     protected override void UpdateContents()
+     {
+-        foreach (var child in Children.ToArray()) { child.Dispose(); }
+-        Add(new AlphaBlendControl(0.9f) { Width = _step * SkillBindingProtocol.Slots + 4, Height = 56, AcceptMouseInput = false });
+-        for (int slot = 0; slot < SkillBindingProtocol.Slots; slot++)
+-        {
+-            var ability = ClassSkillBindingsClient.Quick(slot);
+-            bool available = ability != CombatAbility.None && ClassSkillBindingsClient.Available(ability);
+-            var cell = new SlotControl { X = 4 + slot * _step, Y = 3, Width = _step - 2, Height = 49, AcceptMouseInput = true, WantUpdateSize = false };
+-            cell.Add(new Line(0, 0, _step - 2, 49, available ? 0xFF504638 : 0xFF292929) { AcceptMouseInput = false });
+-            cell.Add(new Label($"F{slot + 1}", true, 0x35) { X = 5, Y = 1, AcceptMouseInput = false });
+-            int iconSize = Math.Min(30, cell.Width - 2);
+-            var icon = ClassSkillIcon.Create(ability, (cell.Width - iconSize) / 2, 16, iconSize, available);
+-            if (icon != null)
+-            {
+-                cell.Add(icon);
++        Clear();
++        int rows = ClassBeltClient.Overflow ? BeltProtocol.MaxRows : ClassBeltClient.Expanded ? ClassBeltClient.Rows : 1;
++        _flyoutHeight = (rows - 1) * 36;
++        Width = HotbarCells * _step + 48;
++        Height = MainHeight + _flyoutHeight;
++        int y = _flyoutHeight;
++        Plate(0, y, Width, MainHeight);
++        int x = 8;
++        SkillCell(x, y + 6, "LMB", ClassSkillBindingsClient.Left, () => ClassSkillBindingsClient.TogglePanel(World));
++        x += _step;
++        SkillCell(x, y + 6, "RMB", ClassSkillBindingsClient.Right, () => ClassSkillBindingsClient.TogglePanel(World));
++        x += _step + 6;
++
++        for (int slot = 0; slot < SkillBindingProtocol.Slots; slot++, x += _step)
++            SkillCell(x, y + 6, $"F{slot + 1}", ClassSkillBindingsClient.Quick(slot));
++        x += 6;
++        if (rows > 1)
++            Plate(x - 4, 0, BeltProtocol.Columns * _step + 8, _flyoutHeight + 3);
++        for (int row = 0; row < rows; row++)
++        for (int column = 0; column < BeltProtocol.Columns; column++)
++            BeltCell(x + column * _step, y + 6 - row * 36, row, column);
++        x += BeltProtocol.Columns * _step + 3;
++
++        var expand = Add(new DockCell(x, y + 6, 19, 19, CellFill,
++            rows > 1 ? "Hide extra belt rows" : "Show extra belt rows", _ => ClassBeltClient.Toggle()));
++        expand.Caption(rows > 1 ? "v" : "^", 1);
++        var fill = Add(new DockCell(x, y + 27, 19, 19, CellFill,
++            "Fill the belt from your backpack", _ => ClassBeltClient.Send(BeltRequest.Fill)));
++        fill.Caption("+", 1);
++
++        const int stride = 34;
++        int menuX = (Width - Menu.Length * stride) / 2;
++        for (int i = 0; i < Menu.Length; i++)
++        {
++            int index = i;
++            var cell = Add(new DockCell(menuX + i * stride, y + 49, 29, 24, CellFill,
++                Menu[i].Name, _ => OpenMenu(index)));
++            cell.Icon(Menu[i].Glyph);
++        }
++
++        _experienceTrack = Add(new DockCell(9, y + 77, Width - 18, 5, 0xFF211A1C, "Experience"));
++        _experienceFill = _experienceTrack.Add(new Line(0, 0, 0, 5, 0xFF639AD0) { AcceptMouseInput = false });
++        _lastExperience = null;
++    }
++
++    private void Plate(int x, int y, int width, int height)
++    {
++        Add(new Line(x, y, width, height, Brass) { AcceptMouseInput = true, CanMove = true });
++        Add(new Line(x + 1, y + 1, width - 2, height - 2, Wood) { AcceptMouseInput = true, CanMove = true });
++    }
++
++    // Leave the world clickable beside the expanded portion of the belt.
++    public override bool Contains(int x, int y) =>
++        y >= _flyoutHeight || x >= 16 + (2 + SkillBindingProtocol.Slots) * _step
++            && x < 24 + HotbarCells * _step;
++
++    private void SkillCell(int x, int y, string key, CombatAbility ability, Action action = null)
++    {
++        bool available = ability != CombatAbility.None && ClassSkillBindingsClient.Available(ability);
++        string name = ability == CombatAbility.None ? "Unassigned" : CombatProtocol.Label(ability);
++        string hint = action != null ? "Click to open bindings." : "Aim at the world and press the key. Press S to assign.";
++        var cell = Add(new DockCell(x, y, _step - 2, 40, available ? CellFill : 0xFF262629,
++            $"{key} · {name}\n{hint}", action == null ? null : _ => action()));
++        cell.Caption(key, 0);
++        int iconSize = Math.Min(_step - 4, 24);
++        var icon = ClassSkillIcon.Create(ability, (cell.Width - iconSize) / 2, 15, iconSize, available);
++        if (icon != null)
++            cell.Add(icon);
++        else
++            cell.Caption(ability == CombatAbility.None ? "–" : name[..Math.Min(3, name.Length)], 18);
++    }
++
++    private void BeltCell(int x, int y, int row, int column)
++    {
++        int index = row * BeltProtocol.Columns + column;
++        var potion = ClassBeltClient.Get(index);
++        bool locked = row >= ClassBeltClient.Rows;
++        string hint = locked ? "Inactive overflow. Right-click to return to backpack."
++            : potion.Serial == 0 ? "Click to load a potion or scroll from your backpack."
++            : potion.Kind == RestorationKind.TeleportScroll ? "Aim at the world and use the column key. Right-click to return."
++            : "Click to use. Right-click to return to backpack.";
++        string tooltip = potion.Serial == 0 ? hint : $"{PotionName(potion)}\n{hint}";
++        var cell = Add(new DockCell(x, y, _step - 2, row == 0 ? 40 : 34,
++            locked ? 0xFF282626 : CellFill, tooltip, button =>
++            {
++                if (button == MouseButtonType.Right)
++                    ClassBeltClient.Send(BeltRequest.Remove, index);
++                else if (!locked && ClassBeltClient.Ready && ClassBeltClient.Alive)
++                    ClassBeltClient.Send(potion.Serial == 0 ? BeltRequest.Load : BeltRequest.Use, index);
++            }));
++        if (row == 0)
++            cell.Caption((column + 1).ToString(), 0);
++        if (potion.Serial != 0)
++        {
++            var art = new StaticPic(potion.Graphic, potion.Hue) { AcceptMouseInput = false, Alpha = locked ? 0.45f : 1f };
++            art.X = (cell.Width - art.Width) / 2;
++            art.Y = (row == 0 ? 26 : 17) - art.Height / 2;
++            cell.Add(art);
++        }
++        else if (row == 0)
++            cell.Caption("+", 18);
++    }
++
++    private void RefreshExperience()
++    {
++        var experience = ClassStatsClient.Experience;
++        if (_experienceTrack == null || _lastExperience == experience)
++            return;
++        _lastExperience = experience;
++        if (experience is not { } xp)
++            return;
++
++        bool maximum = ClassStatsClient.Get(StatField.Level) == 99;
++        double fraction = maximum ? 1 : xp.Next > xp.Start ? Math.Clamp(((long)xp.Total - xp.Start) / (double)(xp.Next - xp.Start), 0, 1) : 0;
++        _experienceFill.Width = (int)(_experienceTrack.Width * fraction);
++        _experienceTrack.SetTooltip(maximum ? $"{xp.Total:N0} XP · Maximum level" : $"{xp.Total:N0} / {xp.Next:N0} XP");
++    }
++
++    private void OpenMenu(int index)
++    {
++        switch (index)
++        {
++            case 0: GameActions.OpenMiniMap(World); break;
++            case 1: GameActions.OpenPaperdoll(World, World.Player); break;
++            case 2: GameActions.OpenBackpack(World); break;
++            case 3: SanctuaryJournalGump.Open(World); break;
++            case 4: GameActions.OpenChat(World); break;
++            case 5: GameActions.RequestHelp(); break;
++            case 6: GameActions.OpenWorldMap(World); break;
++            case 7: GameActions.OpenSettings(World); break;
++        }
++    }
++
++    private sealed class DockCell : Control
++    {
++        private readonly Action<MouseButtonType> _action;
++        public DockCell(int x, int y, int width, int height, uint fill, string tooltip, Action<MouseButtonType> action = null)
++        {
++            X = x; Y = y; Width = width; Height = height;
++            WantUpdateSize = false;
++            AcceptMouseInput = true;
++            _action = action;
++            Add(new Line(0, 0, width, height, fill) { AcceptMouseInput = false });
++            SetTooltip(tooltip);
++        }
++
++        public void Caption(string text, int y)
++        {
++            var label = Add(new Label(text, true, 0x0035, font: 1) { Y = y });
++            label.X = (Width - label.Width) / 2;
++        }
++
++        public void Icon(string[] rows)
++        {
++            int x = (Width - rows[0].Length * 2) / 2;
++            int y = (Height - rows.Length * 2) / 2;
++            for (int row = 0; row < rows.Length; row++)
++            {
++                for (int start = 0; start < rows[row].Length; start++)
++                {
++                    if (rows[row][start] != 'x')
++                        continue;
++                    int end = start + 1;
++                    while (end < rows[row].Length && rows[row][end] == 'x')
++                        end++;
++                    Add(new Line(x + start * 2, y + row * 2, (end - start) * 2, 2, 0xFF86BADD) { AcceptMouseInput = false });
++                    start = end - 1;
++                }
+             }
+-            else
+-            {
+-                string label = ability == CombatAbility.None ? "—" : CombatProtocol.Label(ability);
+-                cell.Add(new Label(label[..Math.Min(4, label.Length)], true, available ? (ushort)0x481 : (ushort)0x3B2)
+-                { X = 3, Y = 22, AcceptMouseInput = false });
++        }
++
++        protected override void OnMouseUp(int x, int y, MouseButtonType button)
++        {
++            if (MouseIsOver && button is MouseButtonType.Left or MouseButtonType.Right)
++            {
++                _action?.Invoke(button);
++                Mouse.CancelDoubleClick = true;
+             }
+-            cell.SetTooltip(ability == CombatAbility.None ? $"F{slot + 1}: unassigned. Press S, hover a skill and press this key." :
+-                $"F{slot + 1}: {CombatProtocol.Label(ability)}{(available ? "" : " (unavailable)")}. Aim over the world and press to quick cast. Press S to assign.");
+-            Add(cell);
+-        }
+-        Width = _step * SkillBindingProtocol.Slots + 4; Height = 56;
++        }
++    }
++    private static string PotionName(ClassBeltClient.Cell potion)
++    {
++        string strength = potion.Tier switch { 1 => "Minor ", 2 => "Light ", 4 => "Greater ", 5 => "Super ", _ => "" };
++        return potion.Kind switch
++        {
++            RestorationKind.TeleportScroll => "Teleport scroll",
++            RestorationKind.IdentifyScroll => "Identify scroll",
++            RestorationKind.TownPortalScroll => "Town Portal scroll",
++            RestorationKind.CombatBuff => potion.Tier switch
++            { 1 => "Second Wind potion", 2 => "Deep Wounds potion", 3 => "Magical Penetration potion", 4 => "Stealing potion", 5 => "Protection potion", _ => "Combat potion" },
++            RestorationKind.Rejuvenation => potion.Tier == 2 ? "Full Rejuvenation potion" : "Rejuvenation potion",
++            RestorationKind.InstantHealing => "Instant Heal potion",
++            RestorationKind.InstantMana => "Instant Recharge potion",
++            _ => $"{strength}{potion.Kind} potion"
++        };
+     }
+ }
+ 
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/PotionBeltGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/PotionBeltGump.cs
+deleted file mode 100644
+--- a/src/ClassicUO.Client/Game/UI/Gumps/PotionBeltGump.cs
++++ /dev/null
+@@ -1,114 +0,0 @@
+-// SPDX-License-Identifier: BSD-2-Clause
+-using System;
+-using System.Linq;
+-using ClassicUO.Configuration;
+-using ClassicUO.Game.UI.Controls;
+-using ClassicUO.Input;
+-using Sanctuary;
+-
+-namespace ClassicUO.Game.UI.Gumps;
+-
+-internal sealed class PotionBeltGump : Gump
+-{
+-    private const int Size = 36, PanelWidth = 164;
+-    public PotionBeltGump(World world) : base(world, 0, 0)
+-    {
+-        CanMove = CanCloseWithRightClick = false;
+-        RequestUpdateContents();
+-    }
+-    public override void Update()
+-    {
+-        IsVisible = World.InGame && ClassCombatClient.Enabled && ClassBeltClient.Ready;
+-        var profile = ProfileManager.CurrentProfile;
+-        X = Math.Max(0, profile.GameWindowPosition.X + profile.GameWindowSize.X - PanelWidth - 12);
+-        Y = Math.Max(0, profile.GameWindowPosition.Y + profile.GameWindowSize.Y - Height - 14);
+-        base.Update();
+-    }
+-    protected override void UpdateContents()
+-    {
+-        foreach (var child in Children.ToArray()) { child.Dispose(); }
+-        int rows = ClassBeltClient.Overflow ? 4 : ClassBeltClient.Expanded ? ClassBeltClient.Rows : 1;
+-        int height = 26 + rows * Size + 17;
+-        Add(new AlphaBlendControl(0.9f) { Width = PanelWidth, Height = height, AcceptMouseInput = false });
+-        Add(new Label($"Belt  {ClassBeltClient.Rows} row{(ClassBeltClient.Rows == 1 ? "" : "s")}", true, 0x35)
+-        { X = 8, Y = 3, AcceptMouseInput = false });
+-        Add(new ActionControl(114, 2, 20, 21, ClassBeltClient.Expanded ? "v" : "^", "Show/hide belt rows", _ => ClassBeltClient.Toggle()));
+-        Add(new ActionControl(136, 2, 24, 21, "+", "Fill from backpack: healing left, mana right", _ => ClassBeltClient.Send(BeltRequest.Fill)));
+-        for (int row = 0; row < rows; row++)
+-        {
+-            for (int column = 0; column < 4; column++)
+-            {
+-                int cell = row * 4 + column;
+-                var potion = ClassBeltClient.Get(cell);
+-                bool locked = row >= ClassBeltClient.Rows;
+-                var control = new ActionControl(8 + column * Size, 25 + (rows - 1 - row) * Size, Size - 2, Size - 2,
+-                    potion.Serial == 0 ? "+" : "", locked ? "Inactive overflow: right-click to return to backpack" :
+-                    potion.Serial == 0 ? "Click to load a potion or single-use utility scroll from your backpack" :
+-                    potion.Kind == RestorationKind.TeleportScroll ? "Teleport scroll: use column hotkey with cursor over the world; right-click to return" : $"{PotionName(potion)}: click to use; right-click to return to backpack",
+-                    button =>
+-                    {
+-                        if (button == MouseButtonType.Right) { ClassBeltClient.Send(BeltRequest.Remove, cell); }
+-                        else if (!locked && ClassBeltClient.Alive)
+-                        {
+-                            ClassBeltClient.Send(potion.Serial == 0 ? BeltRequest.Load : BeltRequest.Use, cell);
+-                        }
+-                    }, locked ? 0xFF333333u : 0xFF504638u);
+-                Add(control);
+-                if (potion.Serial != 0)
+-                {
+-                    var art = new StaticPic(potion.Graphic, potion.Hue) { AcceptMouseInput = false };
+-                    art.X = (Size - 2 - art.Width) / 2;
+-                    art.Y = (Size - 2 - art.Height) / 2;
+-                    control.Add(art);
+-                    if (locked) { control.Add(new Label("!", true, 0x21) { X = 2, Y = 2, AcceptMouseInput = false }); }
+-                }
+-            }
+-        }
+-        for (int column = 0; column < 4; column++)
+-        {
+-            Add(new Label((column + 1).ToString(), true, 0x35) { X = 21 + column * Size, Y = 25 + rows * Size, AcceptMouseInput = false });
+-        }
+-        Width = PanelWidth;
+-        Height = height;
+-    }
+-    private static string PotionName(ClassBeltClient.Cell potion)
+-    {
+-        string strength = potion.Tier switch { 1 => "Minor ", 2 => "Light ", 4 => "Greater ", 5 => "Super ", _ => "" };
+-        return potion.Kind switch
+-        {
+-            RestorationKind.TeleportScroll => "Teleport scroll",
+-            RestorationKind.IdentifyScroll => "Identify scroll",
+-            RestorationKind.TownPortalScroll => "Town Portal scroll",
+-            RestorationKind.CombatBuff => potion.Tier switch
+-            { 1 => "Second Wind potion", 2 => "Deep Wounds potion", 3 => "Magical Penetration potion", 4 => "Stealing potion", 5 => "Protection potion", _ => "Combat potion" },
+-            RestorationKind.Rejuvenation => potion.Tier == 2 ? "Full Rejuvenation potion" : "Rejuvenation potion",
+-            RestorationKind.InstantHealing => "Instant Heal potion",
+-            RestorationKind.InstantMana => "Instant Recharge potion",
+-            _ => $"{strength}{potion.Kind} potion"
+-        };
+-    }
+-    private sealed class ActionControl : Control
+-    {
+-        private readonly Action<MouseButtonType> _action;
+-        public ActionControl(int x, int y, int width, int height, string text, string tooltip,
+-            Action<MouseButtonType> action, uint color = 0xFF504638)
+-        {
+-            X = x; Y = y; Width = width; Height = height;
+-            WantUpdateSize = false;
+-            AcceptMouseInput = true;
+-            _action = action;
+-            Add(new Line(0, 0, width, height, color) { AcceptMouseInput = false });
+-            Add(new Label(text, true, 0x35) { X = 6, Y = 4, AcceptMouseInput = false });
+-            SetTooltip(tooltip);
+-        }
+-        protected override void OnMouseUp(int x, int y, MouseButtonType button)
+-        {
+-            if (MouseIsOver && button is MouseButtonType.Left or MouseButtonType.Right)
+-            {
+-                _action(button);
+-                Mouse.CancelDoubleClick = true;
+-            }
+-            base.OnMouseUp(x, y, button);
+-        }
+-    }
+-}
+diff --git a/src/ClassicUO.Client/Game/ClassBeltClient.cs b/src/ClassicUO.Client/Game/ClassBeltClient.cs
+--- a/src/ClassicUO.Client/Game/ClassBeltClient.cs
++++ b/src/ClassicUO.Client/Game/ClassBeltClient.cs
+@@ -37,12 +37,10 @@
+         Ready = Alive = Expanded = false;
+         _sequence = 0;
+         _nextPoll = Time.Ticks;
+-        UIManager.GetGump<PotionBeltGump>()?.Dispose();
+     }
+-    public static void Update(World world)
++    public static void Update()
+     {
+         if (!ClassCombatClient.Enabled) { return; }
+-        if (UIManager.GetGump<PotionBeltGump>() == null) { UIManager.Add(new PotionBeltGump(world)); }
+         if (unchecked((int)(Time.Ticks - _nextPoll)) >= 0)
+         {
+             _nextPoll = Time.Ticks + BeltProtocol.PollMs;
+@@ -52,7 +50,7 @@
+     public static void Toggle()
+     {
+         Expanded = !Expanded;
+-        UIManager.GetGump<PotionBeltGump>()?.RequestUpdateContents();
++        UIManager.GetGump<ClassSkillBarGump>()?.RequestUpdateContents();
+     }
+     public static void Send(BeltRequest request, int cell = 0)
+     {
+@@ -113,6 +111,6 @@
+         Rows = rows;
+         Alive = alive;
+         Ready = true;
+-        if (changed) { UIManager.GetGump<PotionBeltGump>()?.RequestUpdateContents(); }
++        if (changed) { UIManager.GetGump<ClassSkillBarGump>()?.RequestUpdateContents(); }
+     }
+ }
+diff --git a/src/ClassicUO.Client/Game/ClassCombatClient.cs b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+--- a/src/ClassicUO.Client/Game/ClassCombatClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -99,14 +99,12 @@
+         if (Enabled)
+         {
+             ProfileManager.CurrentProfile.DiabloRun = !Running;
+-            UpdateCaption();
+             Send(CombatRequest.MovementMode, serial: Running ? 1u : 0u);
+         }
+     }
+     public static CombatAbility Left { get; private set; }
+     public static CombatAbility Right { get; private set; }
+     public static int TeethRank { get; private set; }
+-    public static string Caption { get; private set; } = string.Empty;
+ 
+     public static void Reset()
+     {
+@@ -219,16 +217,11 @@
+         }
+         ClassStatsClient.Update();
+         ClassLootClient.Update();
+-        ClassBeltClient.Update(world);
++        ClassBeltClient.Update();
+         ClassSkillBindingsClient.Update(world);
+         if (UIManager.GetGump<ProgressionButtonsGump>() == null)
+         {
+             UIManager.Add(new ProgressionButtonsGump(world));
+-        }
+-        var hud = UIManager.GetGump<CombatActionsGump>();
+-        if (hud == null)
+-        {
+-            UIManager.Add(new CombatActionsGump(world));
+         }
+         UpdateChannel(world);
+         UpdateAttackHold(world);
+@@ -322,7 +315,10 @@
+         _allies.Clear();
+         for (int i = 0; i < allyCount; i++) { _allies.Add(reader.ReadUInt32BE()); }
+         if (firstSnapshot)
++        {
++            UIManager.GetGump<TopBarGump>()?.Dispose();
+             SanctuarySkillsGump.ReplaceLegacy(world);
++        }
+         if (unchecked((int)(ack - _sequence)) >= 0)
+         {
+             ProfileManager.CurrentProfile.DiabloRun = running;
+@@ -333,15 +329,6 @@
+             }
+             _target = target;
+         }
+-        UpdateCaption();
+-    }
+-    private static void UpdateCaption()
+-    {
+-        var leftName = CombatProtocol.Label(Left);
+-        var rightName = Right == CombatAbility.Teeth
+-            ? TeethRank > 0 ? $"Teeth {TeethRank}" : "Teeth (unavailable)"
+-            : CombatProtocol.Label(Right);
+-        Caption = $"Move: {(Running ? "Run" : "Walk")} (Tab)    Left: {leftName}    Right: {rightName}";
+     }
+     public static void Select(World world, Mobile target)
+     {
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/CombatActionsGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/CombatActionsGump.cs
+deleted file mode 100644
+--- a/src/ClassicUO.Client/Game/UI/Gumps/CombatActionsGump.cs
++++ /dev/null
+@@ -1,27 +0,0 @@
+-// SPDX-License-Identifier: BSD-2-Clause
+-using ClassicUO.Game.UI.Controls;
+-namespace ClassicUO.Game.UI.Gumps;
+-
+-internal sealed class CombatActionsGump : Gump
+-{
+-    private readonly Label _actions;
+-    private string _caption;
+-    public CombatActionsGump(World world) : base(world, 0, 0)
+-    {
+-        X = 8;
+-        Y = 40;
+-        CanMove = false;
+-        CanCloseWithRightClick = false;
+-        AcceptMouseInput = false;
+-        Add(_actions = new Label(ClassCombatClient.Caption, true, 0x0481));
+-    }
+-    public override void Update()
+-    {
+-        if (_caption != ClassCombatClient.Caption)
+-        {
+-            _caption = ClassCombatClient.Caption;
+-            _actions.Text = _caption;
+-        }
+-        base.Update();
+-    }
+-}
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/WorldViewportGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/WorldViewportGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/WorldViewportGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/WorldViewportGump.cs
+@@ -1,376 +1,151 @@
+-﻿// SPDX-License-Identifier: BSD-2-Clause
++// SPDX-License-Identifier: BSD-2-Clause
+ 
+-using ClassicUO.Configuration;
++using System;
+ using ClassicUO.Game.Managers;
+ using ClassicUO.Game.Scenes;
+ using ClassicUO.Game.UI.Controls;
+-using ClassicUO.Input;
++using ClassicUO.Renderer;
++using Microsoft.Xna.Framework;
+ using ClassicUO.Network;
+-using ClassicUO.Renderer;
+-using ClassicUO.Resources;
+ using ClassicUO.Utility;
+-using Microsoft.Xna.Framework;
+ 
+-namespace ClassicUO.Game.UI.Gumps
++namespace ClassicUO.Game.UI.Gumps;
++
++internal sealed class WorldViewportGump : Gump
+ {
+-    internal class WorldViewportGump : Gump
++    private readonly GameScene _scene;
++    private readonly SystemChatControl _chat;
++
++    public WorldViewportGump(World world, GameScene scene) : base(world, 0, 0)
+     {
+-        public const int BORDER_WIDTH = 5;
+-        private readonly BorderControl _borderControl;
+-        private readonly Button _button;
+-        private bool _clicked;
+-        private Point _lastSize,
+-            _savedSize;
+-        private readonly GameScene _scene;
+-        private readonly SystemChatControl _systemChatControl;
++        _scene = scene;
++        AcceptMouseInput = CanMove = CanCloseWithEsc = CanCloseWithRightClick = WantUpdateSize = false;
++        LayerOrder = UILayer.Under;
++        var bounds = Client.Game.ClientBounds;
++        UIManager.SystemChat = _chat = Add(new SystemChatControl(this, 0, 0, bounds.Width, bounds.Height));
++        FitWindow();
++        _chat.Resize();
++    }
+ 
+-        public WorldViewportGump(World world, GameScene scene) : base(world, 0, 0)
++    internal void FitWindow()
++    {
++        var bounds = Client.Game.ClientBounds;
++        if (bounds.Width <= 0 || bounds.Height <= 0 || (bounds.Width == Width && bounds.Height == Height))
++            return;
++
++        _scene.Camera.Bounds.X = _scene.Camera.Bounds.Y = 0;
++        _scene.Camera.Bounds.Width = Width = bounds.Width;
++        _scene.Camera.Bounds.Height = Height = bounds.Height;
++        _scene.UpdateDrawPosition = true;
++        UpdateChat();
++
++        if (World.InGame && Client.Game.UO.Version >= ClientVersion.CV_200)
++            NetClient.Socket.Send_GameWindowSize((uint)Width, (uint)Height);
++    }
++
++    private void UpdateChat()
++    {
++        int bottom = Height;
++        if (UIManager.GetGump<ClassSkillBarGump>() is { IsVisible: true } dock && dock.Y + dock.Height >= Height - 32)
++            bottom = Math.Max(75, dock.Y - 4);
++        if (_chat.Width != Width || _chat.Height != bottom)
+         {
+-            _scene = scene;
+-            AcceptMouseInput = false;
+-            CanMove = !ProfileManager.CurrentProfile.GameWindowLock;
+-            CanCloseWithEsc = false;
+-            CanCloseWithRightClick = false;
+-            LayerOrder = UILayer.Under;
+-            X = scene.Camera.Bounds.X - BORDER_WIDTH;
+-            Y = scene.Camera.Bounds.Y - BORDER_WIDTH;
+-            _savedSize = _lastSize = new Point(
+-                scene.Camera.Bounds.Width,
+-                scene.Camera.Bounds.Height
+-            );
+-
+-            _button = new Button(0, 0x837, 0x838, 0x838);
+-
+-            _button.MouseDown += (sender, e) =>
+-            {
+-                if (!ProfileManager.CurrentProfile.GameWindowLock)
+-                {
+-                    _clicked = true;
+-                }
+-            };
+-
+-            _button.MouseUp += (sender, e) =>
+-            {
+-                if (!ProfileManager.CurrentProfile.GameWindowLock)
+-                {
+-                    var s = new Point(Client.Game.ScaleWithDpi(_lastSize.X), Client.Game.ScaleWithDpi(_lastSize.Y));
+-                    Point n = ResizeGameWindow(s);
+-
+-                    UIManager.GetGump<OptionsGump>()?.UpdateVideo();
+-
+-                    if (Client.Game.UO.Version >= ClientVersion.CV_200)
+-                    {
+-                        NetClient.Socket.Send_GameWindowSize((uint)n.X, (uint)n.Y);
+-                    }
+-
+-                    _clicked = false;
+-                }
+-            };
+-
+-            _button.SetTooltip(ResGumps.ResizeGameWindow);
+-            Width = scene.Camera.Bounds.Width + BORDER_WIDTH * 2;
+-            Height = scene.Camera.Bounds.Height + BORDER_WIDTH * 2;
+-
+-            _borderControl = new BorderControl(0, 0, Width, Height, 4);
+-
+-            _borderControl.DragEnd += (sender, e) =>
+-            {
+-                UIManager.GetGump<OptionsGump>()?.UpdateVideo();
+-            };
+-
+-            UIManager.SystemChat = _systemChatControl = new SystemChatControl(
+-                this,
+-                BORDER_WIDTH,
+-                BORDER_WIDTH,
+-                scene.Camera.Bounds.Width,
+-                scene.Camera.Bounds.Height
+-            );
+-
+-            Add(_borderControl);
+-            Add(_button);
+-            Add(_systemChatControl);
+-            Resize();
+-        }
+-
+-        public override void Update()
+-        {
+-            base.Update();
+-
+-            if (IsDisposed)
+-            {
+-                return;
+-            }
+-
+-            if (Mouse.IsDragging)
+-            {
+-                Point offset = Mouse.LDragOffset;
+-
+-                _lastSize = _savedSize;
+-
+-                if (_clicked && offset != Point.Zero)
+-                {
+-                    int w = _lastSize.X + offset.X;
+-                    int h = _lastSize.Y + offset.Y;
+-
+-                    int targetWidth = 640;
+-                    int targetHeight = 480;
+-
+-                    if (w < targetWidth)
+-                    {
+-                        w = targetWidth;
+-                    }
+-
+-                    if (h < targetHeight)
+-                    {
+-                        h = targetHeight;
+-                    }
+-
+-                    if (w > Client.Game.ClientBounds.Width - BORDER_WIDTH)
+-                    {
+-                        w = Client.Game.ClientBounds.Width - BORDER_WIDTH;
+-                    }
+-
+-                    if (h > Client.Game.ClientBounds.Height - BORDER_WIDTH)
+-                    {
+-                        h = Client.Game.ClientBounds.Height - BORDER_WIDTH;
+-                    }
+-
+-                    _lastSize.X = w;
+-                    _lastSize.Y = h;
+-                }
+-
+-                if (
+-                    _scene.Camera.Bounds.Width != _lastSize.X
+-                    || _scene.Camera.Bounds.Height != _lastSize.Y
+-                )
+-                {
+-                    Width = _lastSize.X + BORDER_WIDTH * 2;
+-                    Height = _lastSize.Y + BORDER_WIDTH * 2;
+-                    _scene.Camera.Bounds.Width = _lastSize.X;
+-                    _scene.Camera.Bounds.Height = _lastSize.Y;
+-
+-                    Resize();
+-                }
+-            }
+-        }
+-
+-        protected override void OnDragEnd(int x, int y)
+-        {
+-            base.OnDragEnd(x, y);
+-
+-            Point position = Location;
+-
+-            if (position.X + Width - BORDER_WIDTH > Client.Game.ClientBounds.Width)
+-            {
+-                position.X = Client.Game.ClientBounds.Width - (Width - BORDER_WIDTH);
+-            }
+-
+-            if (position.X < -BORDER_WIDTH)
+-            {
+-                position.X = -BORDER_WIDTH;
+-            }
+-
+-            if (position.Y + Height - BORDER_WIDTH > Client.Game.ClientBounds.Height)
+-            {
+-                position.Y = Client.Game.ClientBounds.Height - (Height - BORDER_WIDTH);
+-            }
+-
+-            if (position.Y < -BORDER_WIDTH)
+-            {
+-                position.Y = -BORDER_WIDTH;
+-            }
+-
+-            Location = position;
+-            _scene.Camera.Bounds.X = position.X + BORDER_WIDTH;
+-            _scene.Camera.Bounds.Y = position.Y + BORDER_WIDTH;
+-
+-            UIManager.GetGump<OptionsGump>()?.UpdateVideo();
+-            UpdateGameWindowPos();
+-        }
+-
+-        protected override void OnMove(int x, int y)
+-        {
+-            base.OnMove(x, y);
+-
+-            _scene.Camera.Bounds.X = ScreenCoordinateX + BORDER_WIDTH;
+-            _scene.Camera.Bounds.Y = ScreenCoordinateY + BORDER_WIDTH;
+-
+-            UpdateGameWindowPos();
+-        }
+-
+-        private void UpdateGameWindowPos()
+-        {
+-            if (_scene != null)
+-            {
+-                _scene.UpdateDrawPosition = true;
+-            }
+-        }
+-
+-        private void Resize()
+-        {
+-            _borderControl.Width = Width;
+-            _borderControl.Height = Height;
+-            _button.X = Width - (_button.Width >> 1);
+-            _button.Y = Height - (_button.Height >> 1);
+-            _scene.Camera.Bounds.Width = _systemChatControl.Width = Width - BORDER_WIDTH * 2;
+-            _scene.Camera.Bounds.Height = _systemChatControl.Height = Height - BORDER_WIDTH * 2;
+-            _systemChatControl.Resize();
+-            WantUpdateSize = true;
+-
+-            UpdateGameWindowPos();
+-        }
+-
+-        public void SetGameWindowPosition(Point pos)
+-        {
+-            Location = pos;
+-
+-            _scene.Camera.Bounds.X = ScreenCoordinateX + BORDER_WIDTH;
+-            _scene.Camera.Bounds.Y = ScreenCoordinateY + BORDER_WIDTH;
+-
+-            UpdateGameWindowPos();
+-        }
+-
+-        public Point ResizeGameWindow(Point newSize)
+-        {
+-            newSize.X = (int)(newSize.X / Client.Game.DpiScale);
+-            newSize.Y = (int)(newSize.Y / Client.Game.DpiScale);
+-            int targetWidth = 640;
+-            int targetHeight = 480;
+-            if (newSize.X < targetWidth)
+-            {
+-                newSize.X = targetWidth;
+-            }
+-
+-            if (newSize.Y < targetHeight)
+-            {
+-                newSize.Y = targetHeight;
+-            }
+-
+-            //Resize();
+-            _lastSize = _savedSize = newSize;
+-
+-            if (
+-                _scene.Camera.Bounds.Width != _lastSize.X
+-                || _scene.Camera.Bounds.Height != _lastSize.Y
+-            )
+-            {
+-                _scene.Camera.Bounds.Width = _lastSize.X;
+-                _scene.Camera.Bounds.Height = _lastSize.Y;
+-                Width = _scene.Camera.Bounds.Width + BORDER_WIDTH * 2;
+-                Height = _scene.Camera.Bounds.Height + BORDER_WIDTH * 2;
+-
+-                Resize();
+-            }
+-
+-            return newSize;
+-        }
+-
+-        public override bool Contains(int x, int y)
+-        {
+-            if (
+-                x >= BORDER_WIDTH
+-                && x < Width - BORDER_WIDTH * 2
+-                && y >= BORDER_WIDTH
+-                && y
+-                    < Height
+-                        - BORDER_WIDTH * 2
+-                        - (
+-                            _systemChatControl?.TextBoxControl != null
+-                            && _systemChatControl.IsActive
+-                                ? _systemChatControl.TextBoxControl.Height
+-                                : 0
+-                        )
+-            )
+-            {
+-                return false;
+-            }
+-
+-            return base.Contains(x, y);
++            _chat.Width = Width;
++            _chat.Height = bottom;
++            _chat.Resize();
+         }
+     }
+ 
+-    internal class BorderControl : Control
++    public override void Update()
+     {
+-        public int BorderSize { get; internal set; }
++        FitWindow();
++        UpdateChat();
++        base.Update();
++    }
+ 
+-        const ushort H_BORDER = 0x0A8C;
+-        const ushort V_BORDER = 0x0A8D;
++}
+ 
+-        public BorderControl(int x, int y, int w, int h, int borderSize)
++internal class BorderControl : Control
++{
++    public int BorderSize { get; internal set; }
++
++    const ushort H_BORDER = 0x0A8C;
++    const ushort V_BORDER = 0x0A8D;
++
++    public BorderControl(int x, int y, int w, int h, int borderSize)
++    {
++        X = x;
++        Y = y;
++        Width = w;
++        Height = h;
++        BorderSize = borderSize;
++        CanMove = true;
++        AcceptMouseInput = true;
++    }
++
++    public ushort Hue { get; set; }
++
++    public override bool AddToRenderLists(RenderLists renderLists, int x, int y, ref float layerDepthRef)
++    {
++        Vector3 hueVector = ShaderHueTranslator.GetHueVector(0);
++
++        if (Hue != 0)
+         {
+-            X = x;
+-            Y = y;
+-            Width = w;
+-            Height = h;
+-            BorderSize = borderSize;
+-            CanMove = true;
+-            AcceptMouseInput = true;
++            hueVector.X = Hue;
++            hueVector.Y = 1;
+         }
++        float layerDepth = layerDepthRef;
+ 
+-        public ushort Hue { get; set; }
++        renderLists.AddGumpWithAtlas(
++            (batcher) =>
++            {
++                ref readonly var gumpInfo = ref Client.Game.UO.Gumps.GetGump(H_BORDER);
+ 
+-        public override bool AddToRenderLists(RenderLists renderLists, int x, int y, ref float layerDepthRef)
+-        {
+-            Vector3 hueVector = ShaderHueTranslator.GetHueVector(0);
++                // sopra
++                batcher.DrawTiled(
++                    gumpInfo.Texture,
++                    new Rectangle(x, y, Width, BorderSize),
++                    gumpInfo.UV,
++                    hueVector,
++                    layerDepth
++                );
+ 
+-            if (Hue != 0)
+-            {
+-                hueVector.X = Hue;
+-                hueVector.Y = 1;
++                // sotto
++                batcher.DrawTiled(
++                    gumpInfo.Texture,
++                    new Rectangle(x, y + Height - BorderSize, Width, BorderSize),
++                    gumpInfo.UV,
++                    hueVector,
++                    layerDepth
++                );
++
++                gumpInfo = ref Client.Game.UO.Gumps.GetGump(V_BORDER);
++                //sx
++                batcher.DrawTiled(
++                    gumpInfo.Texture,
++                    new Rectangle(x, y, BorderSize, Height),
++                    gumpInfo.UV,
++                    hueVector,
++                    layerDepth
++                );
++
++                //dx
++                batcher.DrawTiled(
++                    gumpInfo.Texture,
++                    new Rectangle(
++                        x + Width - BorderSize,
++                        y + (gumpInfo.UV.Width >> 1),
++                        BorderSize,
++                        Height - BorderSize
++                    ),
++                    gumpInfo.UV,
++                    hueVector,
++                    layerDepth
++                );
++                return true;
+             }
+-            float layerDepth = layerDepthRef;
++        );
+ 
+-            renderLists.AddGumpWithAtlas(
+-                (batcher) =>
+-                {
+-                    ref readonly var gumpInfo = ref Client.Game.UO.Gumps.GetGump(H_BORDER);
+-
+-                    // sopra
+-                    batcher.DrawTiled(
+-                        gumpInfo.Texture,
+-                        new Rectangle(x, y, Width, BorderSize),
+-                        gumpInfo.UV,
+-                        hueVector,
+-                        layerDepth
+-                    );
+-
+-                    // sotto
+-                    batcher.DrawTiled(
+-                        gumpInfo.Texture,
+-                        new Rectangle(x, y + Height - BorderSize, Width, BorderSize),
+-                        gumpInfo.UV,
+-                        hueVector,
+-                        layerDepth
+-                    );
+-
+-                    gumpInfo = ref Client.Game.UO.Gumps.GetGump(V_BORDER);
+-                    //sx
+-                    batcher.DrawTiled(
+-                        gumpInfo.Texture,
+-                        new Rectangle(x, y, BorderSize, Height),
+-                        gumpInfo.UV,
+-                        hueVector,
+-                        layerDepth
+-                    );
+-
+-                    //dx
+-                    batcher.DrawTiled(
+-                        gumpInfo.Texture,
+-                        new Rectangle(
+-                            x + Width - BorderSize,
+-                            y + (gumpInfo.UV.Width >> 1),
+-                            BorderSize,
+-                            Height - BorderSize
+-                        ),
+-                        gumpInfo.UV,
+-                        hueVector,
+-                        layerDepth
+-                    );
+-                    return true;
+-                }
+-            );
+-
+-            return base.AddToRenderLists(renderLists, x, y, ref layerDepthRef);
+-        }
++        return base.AddToRenderLists(renderLists, x, y, ref layerDepthRef);
+     }
+ }
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/OptionsGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/OptionsGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/OptionsGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/OptionsGump.cs
+@@ -62,18 +62,11 @@
+         // fonts
+         private FontSelector _fontSelectorChat;
+         private Checkbox _forceUnicodeJournal;
+-        private InputField _gameWindowHeight;
+         private Checkbox _maxJournalFilesEnabled;
+         private InputField _maxJournalFiles;
+         private Checkbox _journalFileWithSerial;
+ 
+-        private Checkbox _gameWindowLock, _gameWindowFullsize;
+-        // GameWindowPosition
+-        private InputField _gameWindowPositionX;
+-        private InputField _gameWindowPositionY;
+-
+-        // GameWindowSize
+-        private InputField _gameWindowWidth;
++
+         private Combobox _gridLoot;
+         private Checkbox _hideScreenshotStoredInMessage;
+         private Checkbox _highlightObjects, /*_smoothMovements,*/
+@@ -91,7 +84,6 @@
+                          _hideVegetation,
+                          _noColorOutOfRangeObjects,
+                          _useCircleOfTransparency,
+-                         _enableTopbar,
+                          _holdDownKeyTab,
+                          _holdDownKeyAlt,
+                          _closeAllAnchoredGumpsWithRClick,
+@@ -906,18 +898,6 @@
+ 
+             section3.Add
+             (
+-                _enableTopbar = AddCheckBox
+-                (
+-                    null,
+-                    ResGumps.DisableMenu,
+-                    _currentProfile.TopbarGumpIsDisabled,
+-                    0,
+-                    0
+-                )
+-            );
+-
+-            section3.Add
+-            (
+                 _holdDownKeyAlt = AddCheckBox
+                 (
+                     null,
+@@ -1612,18 +1592,6 @@
+ 
+             section.Add
+             (
+-                _gameWindowFullsize = AddCheckBox
+-                (
+-                    null,
+-                    ResGumps.AlwaysUseFullsizeGameWindow,
+-                    _currentProfile.GameWindowFullSize,
+-                    startX,
+-                    startY
+-                )
+-            );
+-
+-            section.Add
+-            (
+                 _windowBorderless = AddCheckBox
+                 (
+                     null,
+@@ -1634,98 +1602,7 @@
+                 )
+             );
+ 
+-            section.Add
+-            (
+-                _gameWindowLock = AddCheckBox
+-                (
+-                    null,
+-                    ResGumps.LockGameWindowMovingResizing,
+-                    _currentProfile.GameWindowLock,
+-                    startX,
+-                    startY
+-                )
+-            );
+-
+-            section.Add(AddLabel(null, ResGumps.GamePlayWindowPosition, startX, startY));
+-
+-            section.AddRight
+-            (
+-                _gameWindowPositionX = AddInputField
+-                (
+-                    null,
+-                    startX,
+-                    startY,
+-                    50,
+-                    TEXTBOX_HEIGHT,
+-                    null,
+-                    50,
+-                    false,
+-                    true
+-                ),
+-                4
+-            );
+-
+             var camera = Client.Game.Scene.Camera;
+-
+-            _gameWindowPositionX.SetText(camera.Bounds.X.ToString());
+-
+-            section.AddRight
+-            (
+-                _gameWindowPositionY = AddInputField
+-                (
+-                    null,
+-                    startX,
+-                    startY,
+-                    50,
+-                    TEXTBOX_HEIGHT,
+-                    null,
+-                    50,
+-                    false,
+-                    true
+-                )
+-            );
+-
+-            _gameWindowPositionY.SetText(camera.Bounds.Y.ToString());
+-
+-
+-            section.Add(AddLabel(null, ResGumps.GamePlayWindowSize, startX, startY));
+-
+-            section.AddRight
+-            (
+-                _gameWindowWidth = AddInputField
+-                (
+-                    null,
+-                    startX,
+-                    startY,
+-                    50,
+-                    TEXTBOX_HEIGHT,
+-                    null,
+-                    50,
+-                    false,
+-                    true
+-                )
+-            );
+-
+-            _gameWindowWidth.SetText(camera.Bounds.Width.ToString());
+-
+-            section.AddRight
+-            (
+-                _gameWindowHeight = AddInputField
+-                (
+-                    null,
+-                    startX,
+-                    startY,
+-                    50,
+-                    TEXTBOX_HEIGHT,
+-                    null,
+-                    50,
+-                    false,
+-                    true
+-                )
+-            );
+-
+-            _gameWindowHeight.SetText(camera.Bounds.Height.ToString());
+-
+ 
+             SettingsSection section2 = AddSettingsSection(box, "Zoom");
+             section2.Y = section.Bounds.Bottom + 40;
+@@ -3605,7 +3482,6 @@
+                     _sliderFPS.Value = 60;
+                     _reduceFPSWhenInactive.IsChecked = true;
+                     _highlightObjects.IsChecked = true;
+-                    _enableTopbar.IsChecked = false;
+                     _newTargetSystem.IsChecked = true;
+                     _holdDownKeyTab.IsChecked = true;
+                     _holdDownKeyAlt.IsChecked = true;
+@@ -3694,12 +3570,6 @@
+                     _windowBorderless.IsChecked = false;
+                     _zoomCheckbox.IsChecked = false;
+                     _restorezoomCheckbox.IsChecked = false;
+-                    _gameWindowWidth.SetText("600");
+-                    _gameWindowHeight.SetText("480");
+-                    _gameWindowPositionX.SetText("20");
+-                    _gameWindowPositionY.SetText("20");
+-                    _gameWindowLock.IsChecked = false;
+-                    _gameWindowFullsize.IsChecked = false;
+                     _enableDeathScreen.IsChecked = true;
+                     _enableBlackWhiteEffect.IsChecked = true;
+                     Client.Game.Scene.Camera.Zoom = 1f;
+@@ -3831,7 +3701,6 @@
+ 
+         private void Apply()
+         {
+-            WorldViewportGump vp = UIManager.GetGump<WorldViewportGump>();
+ 
+             // general
+             if (Settings.GlobalSettings.FPS != _sliderFPS.Value)
+@@ -3875,20 +3744,6 @@
+                 Client.Game.GetScene<GameScene>()?.UpdateMaxDrawZ(true);
+             }
+ 
+-            if (_currentProfile.TopbarGumpIsDisabled != _enableTopbar.IsChecked)
+-            {
+-                if (_enableTopbar.IsChecked)
+-                {
+-                    UIManager.GetGump<TopBarGump>()?.Dispose();
+-                }
+-                else
+-                {
+-                    TopBarGump.Create(World);
+-                }
+-
+-                _currentProfile.TopbarGumpIsDisabled = _enableTopbar.IsChecked;
+-            }
+-
+             if (_currentProfile.EnableCaveBorder != _enableCaveBorder.IsChecked)
+             {
+                 StaticFilters.CleanCaveTextures();
+@@ -4045,76 +3900,6 @@
+                     bar.Dispose();
+             }
+ 
+-
+-            int.TryParse(_gameWindowWidth.Text, out int gameWindowSizeWidth);
+-            int.TryParse(_gameWindowHeight.Text, out int gameWindowSizeHeight);
+-
+-            if (gameWindowSizeWidth != Client.Game.Scene.Camera.Bounds.Width || gameWindowSizeHeight != Client.Game.Scene.Camera.Bounds.Height)
+-            {
+-                if (vp != null)
+-                {
+-                    var s = new Point(Client.Game.ScaleWithDpi(gameWindowSizeWidth), Client.Game.ScaleWithDpi(gameWindowSizeHeight));
+-
+-                    Point n = vp.ResizeGameWindow(s);
+-
+-                    _gameWindowWidth.SetText(n.X.ToString());
+-                    _gameWindowHeight.SetText(n.Y.ToString());
+-                }
+-            }
+-
+-            int.TryParse(_gameWindowPositionX.Text, out int gameWindowPositionX);
+-            int.TryParse(_gameWindowPositionY.Text, out int gameWindowPositionY);
+-
+-            if (gameWindowPositionX != camera.Bounds.X || gameWindowPositionY != camera.Bounds.Y)
+-            {
+-                if (vp != null)
+-                {
+-                    vp.SetGameWindowPosition(new Point(gameWindowPositionX, gameWindowPositionY));
+-                    _currentProfile.GameWindowPosition = vp.Location;
+-                }
+-            }
+-
+-            if (_currentProfile.GameWindowLock != _gameWindowLock.IsChecked)
+-            {
+-                if (vp != null)
+-                {
+-                    vp.CanMove = !_gameWindowLock.IsChecked;
+-                }
+-
+-                _currentProfile.GameWindowLock = _gameWindowLock.IsChecked;
+-            }
+-
+-            if (_currentProfile.GameWindowFullSize != _gameWindowFullsize.IsChecked)
+-            {
+-                Point n = Point.Zero, loc = Point.Zero;
+-
+-                if (_gameWindowFullsize.IsChecked)
+-                {
+-                    if (vp != null)
+-                    {
+-                        var size = new Point(Client.Game.Window.ClientBounds.Width, Client.Game.Window.ClientBounds.Height);
+-                        n = vp.ResizeGameWindow(size);
+-                        vp.SetGameWindowPosition(new Point(-5, -5));
+-                        _currentProfile.GameWindowPosition = vp.Location;
+-                    }
+-                }
+-                else
+-                {
+-                    if (vp != null)
+-                    {
+-                        n = vp.ResizeGameWindow(new Point(600, 480));
+-                        vp.SetGameWindowPosition(new Point(20, 20));
+-                        _currentProfile.GameWindowPosition = vp.Location;
+-                    }
+-                }
+-
+-                _gameWindowPositionX.SetText(loc.X.ToString());
+-                _gameWindowPositionY.SetText(loc.Y.ToString());
+-                _gameWindowWidth.SetText(n.X.ToString());
+-                _gameWindowHeight.SetText(n.Y.ToString());
+-
+-                _currentProfile.GameWindowFullSize = _gameWindowFullsize.IsChecked;
+-            }
+ 
+             if (_currentProfile.WindowBorderless != _windowBorderless.IsChecked)
+             {
+@@ -4401,16 +4186,6 @@
+             _currentProfile.TooltipFont = _tooltip_font_selector.GetSelectedFont();
+ 
+             _currentProfile?.Save(World, ProfileManager.ProfilePath);
+-        }
+-
+-        internal void UpdateVideo()
+-        {
+-            var camera = Client.Game.Scene.Camera;
+-
+-            _gameWindowPositionX.SetText(camera.Bounds.X.ToString());
+-            _gameWindowPositionY.SetText(camera.Bounds.Y.ToString());
+-            _gameWindowWidth.SetText(camera.Bounds.Width.ToString());
+-            _gameWindowHeight.SetText(camera.Bounds.Height.ToString());
+         }
+ 
+         public override bool AddToRenderLists(RenderLists renderLists, int x, int y, ref float layerDepthRef)
+diff --git a/src/ClassicUO.Client/Game/Scenes/GameScene.cs b/src/ClassicUO.Client/Game/Scenes/GameScene.cs
+--- a/src/ClassicUO.Client/Game/Scenes/GameScene.cs
++++ b/src/ClassicUO.Client/Game/Scenes/GameScene.cs
+@@ -100,11 +100,6 @@
+             Client.Game.Window.AllowUserResizing = true;
+ 
+             Camera.Zoom = ProfileManager.CurrentProfile.DefaultScale;
+-            Camera.Bounds.X = Math.Max(0, ProfileManager.CurrentProfile.GameWindowPosition.X);
+-            Camera.Bounds.Y = Math.Max(0, ProfileManager.CurrentProfile.GameWindowPosition.Y);
+-            Camera.Bounds.Width = Math.Max(0, ProfileManager.CurrentProfile.GameWindowSize.X);
+-            Camera.Bounds.Height = Math.Max(0, ProfileManager.CurrentProfile.GameWindowSize.Y);
+-
+             Client.Game.UO.GameCursor.ItemHold.Clear();
+ 
+             _world.Macros.Clear();
+@@ -118,11 +113,8 @@
+ 
+             WorldViewportGump viewport = new WorldViewportGump(_world, this);
+             UIManager.Add(viewport, false);
+-
+             if (!ProfileManager.CurrentProfile.TopbarGumpIsDisabled)
+-            {
+                 TopBarGump.Create(_world);
+-            }
+ 
+             NetClient.Socket.Disconnected += SocketOnDisconnected;
+             _world.MessageManager.MessageReceived += ChatOnMessageReceived;
+@@ -279,14 +271,6 @@
+                 return;
+             }
+ 
+-            ProfileManager.CurrentProfile.GameWindowPosition = new Point(
+-                Camera.Bounds.X,
+-                Camera.Bounds.Y
+-            );
+-            ProfileManager.CurrentProfile.GameWindowSize = new Point(
+-                Camera.Bounds.Width,
+-                Camera.Bounds.Height
+-            );
+             ProfileManager.CurrentProfile.DefaultScale = Camera.Zoom;
+ 
+             Client.Game.Audio?.StopMusic();
+diff --git a/src/ClassicUO.Client/GameController.cs b/src/ClassicUO.Client/GameController.cs
+--- a/src/ClassicUO.Client/GameController.cs
++++ b/src/ClassicUO.Client/GameController.cs
+@@ -301,14 +301,7 @@
+                 SetWindowPositionBySettings();
+             }
+ 
+-            WorldViewportGump viewport = UIManager.GetGump<WorldViewportGump>();
+-
+-            if (viewport != null && ProfileManager.CurrentProfile.GameWindowFullSize)
+-            {
+-                viewport.ResizeGameWindow(new Point(width, height));
+-                viewport.X = -5;
+-                viewport.Y = -5;
+-            }
++            UIManager.GetGump<WorldViewportGump>()?.FitWindow();
+         }
+ 
+         public void MaximizeWindow()
+@@ -576,14 +569,7 @@
+ 
+             SetWindowSize(width, height);
+ 
+-            WorldViewportGump viewport = UIManager.GetGump<WorldViewportGump>();
+-
+-            if (viewport != null && ProfileManager.CurrentProfile != null && ProfileManager.CurrentProfile.GameWindowFullSize)
+-            {
+-                viewport.ResizeGameWindow(new Point(width, height));
+-                viewport.X = -5;
+-                viewport.Y = -5;
+-            }
++            UIManager.GetGump<WorldViewportGump>()?.FitWindow();
+         }
+ 
+         private bool HandleSdlEvent(IntPtr userData, SDL_Event* sdlEvent)
+diff --git a/src/ClassicUO.Client/Configuration/Profile.cs b/src/ClassicUO.Client/Configuration/Profile.cs
+--- a/src/ClassicUO.Client/Configuration/Profile.cs
++++ b/src/ClassicUO.Client/Configuration/Profile.cs
+@@ -158,11 +158,8 @@
+         // general
+         [JsonConverter(typeof(Point2Converter))] public Point WindowClientBounds { get; set; } = new Point(600, 480);
+         [JsonConverter(typeof(Point2Converter))] public Point ContainerDefaultPosition { get; set; } = new Point(24, 24);
+-        [JsonConverter(typeof(Point2Converter))] public Point GameWindowPosition { get; set; } = new Point(10, 10);
+-        public bool GameWindowLock { get; set; }
+-        public bool GameWindowFullSize { get; set; }
++        [JsonConverter(typeof(Point2Converter))] public Point CombatDockOffset { get; set; }
+         public bool WindowBorderless { get; set; } = false;
+-        [JsonConverter(typeof(Point2Converter))] public Point GameWindowSize { get; set; } = new Point(600, 480);
+         [JsonConverter(typeof(Point2Converter))] public Point TopbarGumpPosition { get; set; } = new Point(0, 0);
+         public bool TopbarGumpIsMinimized { get; set; }
+         public bool TopbarGumpIsDisabled { get; set; }
+@@ -554,7 +551,11 @@
+                                     break;
+ 
+                                 case GumpType.HealthBar:
+-                                    if (CustomBarsToggled)
++                                    if (serial == world.Player.Serial)
++                                    {
++                                        gump = new SanctuaryAvatarHealthGump(world);
++                                    }
++                                    else if (CustomBarsToggled)
+                                     {
+                                         gump = new HealthBarGumpCustom(world);
+                                     }
+@@ -719,7 +720,11 @@
+                                         break;
+ 
+                                     case GumpType.HealthBar:
+-                                        if (CustomBarsToggled)
++                                        if (serial == world.Player.Serial)
++                                        {
++                                            gump = new SanctuaryAvatarHealthGump(world);
++                                        }
++                                        else if (CustomBarsToggled)
+                                         {
+                                             gump = new HealthBarGumpCustom(world);
+                                         }
+diff --git a/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs b/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
+--- a/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
++++ b/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
+@@ -213,7 +213,11 @@
+ 
+                         BaseHealthBarGump hbgc;
+ 
+-                        if (useCHB)
++                        if (mobile == _world.Player)
++                        {
++                            hbgc = new SanctuaryAvatarHealthGump(_world, _world.Player);
++                        }
++                        else if (useCHB)
+                         {
+                             hbgc = new HealthBarGumpCustom(_world, mobile);
+                         }
+@@ -1141,7 +1145,13 @@
+                                 StatusGumpBase.GetStatusGump()?.Dispose();
+                             }
+ 
+-                            if (ProfileManager.CurrentProfile.CustomBarsToggled)
++                            if (obj == _world.Player)
++                            {
++                                UIManager.Add(customgump = SanctuaryAvatarHealthGump.At(_world,
++                                    Mouse.LClickPosition.X - SanctuaryAvatarHealthGump.FrameWidth / 2,
++                                    Mouse.LClickPosition.Y - SanctuaryAvatarHealthGump.FrameHeight / 2));
++                            }
++                            else if (ProfileManager.CurrentProfile.CustomBarsToggled)
+                             {
+                                 Rectangle rect = new Rectangle(
+                                     0,
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
+@@ -597,7 +597,12 @@
+                             break;
+                         }
+ 
+-                        if (ProfileManager.CurrentProfile.CustomBarsToggled)
++                        if (LocalSerial == World.Player.Serial)
++                        {
++                            UIManager.Add(SanctuaryAvatarHealthGump.At(World,
++                                Mouse.Position.X - SanctuaryAvatarHealthGump.FrameWidth / 2, Mouse.Position.Y - 5));
++                        }
++                        else if (ProfileManager.CurrentProfile.CustomBarsToggled)
+                         {
+                             Rectangle bounds = new Rectangle(
+                                 0,
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/StatusGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/StatusGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/StatusGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/StatusGump.cs
+@@ -79,10 +79,7 @@
+                     {
+                         UIManager.GetGump<BaseHealthBarGump>(World.Player)?.Dispose();
+ 
+-                        if (ProfileManager.CurrentProfile.CustomBarsToggled)
+-                            UIManager.Add(new HealthBarGumpCustom(World, World.Player) { X = ScreenCoordinateX, Y = ScreenCoordinateY });
+-                        else
+-                            UIManager.Add(new HealthBarGump(World, World.Player) { X = ScreenCoordinateX, Y = ScreenCoordinateY });
++                        UIManager.Add(SanctuaryAvatarHealthGump.At(World, ScreenCoordinateX, ScreenCoordinateY));
+ 
+                         if (ProfileManager.CurrentProfile.StatusGumpBarMutuallyExclusive)
+                             Dispose();
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/NameOverheadGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/NameOverheadGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/NameOverheadGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/NameOverheadGump.cs
+@@ -232,7 +232,13 @@
+                     StatusGumpBase.GetStatusGump()?.Dispose();
+                 }
+ 
+-                if (ProfileManager.CurrentProfile.CustomBarsToggled)
++                if (entity == World.Player)
++                {
++                    UIManager.Add(gump = SanctuaryAvatarHealthGump.At(World,
++                        Mouse.Position.X - SanctuaryAvatarHealthGump.FrameWidth / 2,
++                        Mouse.Position.Y - SanctuaryAvatarHealthGump.FrameHeight / 2));
++                }
++                else if (ProfileManager.CurrentProfile.CustomBarsToggled)
+                 {
+                     Rectangle rect = new Rectangle(
+                         0,
+diff --git a/src/ClassicUO.Client/Game/UI/Controls/PaperDollInteractable.cs b/src/ClassicUO.Client/Game/UI/Controls/PaperDollInteractable.cs
+--- a/src/ClassicUO.Client/Game/UI/Controls/PaperDollInteractable.cs
++++ b/src/ClassicUO.Client/Game/UI/Controls/PaperDollInteractable.cs
+@@ -70,46 +70,7 @@
+             Clear();
+ 
+             // Add the base gump - the semi-naked paper doll.
+-            ushort body;
+-            ushort hue = mobile.Hue;
+-
+-            if (mobile.Graphic == 0x0191 || mobile.Graphic == 0x0193)
+-            {
+-                body = 0x000D;
+-            }
+-            else if (mobile.Graphic == 0x025D)
+-            {
+-                body = 0x000E;
+-            }
+-            else if (mobile.Graphic == 0x025E)
+-            {
+-                body = 0x000F;
+-            }
+-            else if (mobile.Graphic == 0x029A || mobile.Graphic == 0x02B6)
+-            {
+-                body = 0x029A;
+-            }
+-            else if (mobile.Graphic == 0x029B || mobile.Graphic == 0x02B7)
+-            {
+-                body = 0x0299;
+-            }
+-            else if (mobile.Graphic == 0x04E5)
+-            {
+-                body = 0xC835;
+-            }
+-            else if (mobile.Graphic == 0x03DB)
+-            {
+-                body = 0x000C;
+-                hue = 0x03EA;
+-            }
+-            else if (mobile.IsFemale)
+-            {
+-                body = 0x000D;
+-            }
+-            else
+-            {
+-                body = 0x000C;
+-            }
++            var (body, hue) = GetBodyAppearance(mobile.Graphic, mobile.IsFemale, mobile.Hue);
+ 
+             // body
+             Add(new GumpPic(0, 0, body, hue) { IsPartialHue = true });
+@@ -310,13 +271,59 @@
+             _updateUI = true;
+         }
+ 
++        internal static (ushort Body, ushort Hue) GetBodyAppearance(ushort graphic, bool female, ushort skinHue)
++        {
++            ushort body;
++            ushort hue = skinHue;
++
++            if (graphic == 0x0191 || graphic == 0x0193)
++            {
++                body = 0x000D;
++            }
++            else if (graphic == 0x025D)
++            {
++                body = 0x000E;
++            }
++            else if (graphic == 0x025E)
++            {
++                body = 0x000F;
++            }
++            else if (graphic == 0x029A || graphic == 0x02B6)
++            {
++                body = 0x029A;
++            }
++            else if (graphic == 0x029B || graphic == 0x02B7)
++            {
++                body = 0x0299;
++            }
++            else if (graphic == 0x04E5)
++            {
++                body = 0xC835;
++            }
++            else if (graphic == 0x03DB)
++            {
++                body = 0x000C;
++                hue = 0x03EA;
++            }
++            else if (female)
++            {
++                body = 0x000D;
++            }
++            else
++            {
++                body = 0x000C;
++            }
++
++            return (body, hue);
++        }
++
+         private static bool IsGargoyleBody(ushort graphic)
+         {
+             return graphic == 0x029A || graphic == 0x029B
+                 || graphic == 0x02B6 || graphic == 0x02B7;
+         }
+ 
+-        protected static ushort GetAnimID(ushort mobileGraphic, ushort itemGraphic, ushort animID, bool isfemale)
++        internal static ushort GetAnimID(ushort mobileGraphic, ushort itemGraphic, ushort animID, bool isfemale)
+         {
+             int offset = isfemale ? Constants.FEMALE_GUMP_OFFSET : Constants.MALE_GUMP_OFFSET;
+ 
+diff --git a/src/ClassicUO.Client/Game/ClassStatsClient.cs b/src/ClassicUO.Client/Game/ClassStatsClient.cs
+--- a/src/ClassicUO.Client/Game/ClassStatsClient.cs
++++ b/src/ClassicUO.Client/Game/ClassStatsClient.cs
+@@ -16,6 +16,14 @@
+     public static int ChanceToHit { get; private set; }
+     public static int ChanceToBeHit { get; private set; }
+     public static uint LevelUpUntil { get; private set; }
++    public static (uint Total, uint Start, uint Next)? Experience { get; private set; }
++
++    public static void ReceiveExperience(World world, ref StackDataReader reader)
++    {
++        if (world.InGame && reader.Remaining == StatProtocol.ExperiencePacketLength - 5
++            && reader.ReadUInt8() == StatProtocol.Version)
++            Experience = (reader.ReadUInt32BE(), reader.ReadUInt32BE(), reader.ReadUInt32BE());
++    }
+     public static int Get(StatField field) => _values[(int)field];
+     public static int MovementDelay(bool run, bool dead, int delay)
+     {
+@@ -26,6 +34,7 @@
+     public static void Reset()
+     {
+         Ready = false;
++        Experience = null;
+         LastMonster = null;
+         ChanceToHit = ChanceToBeHit = 0;
+         System.Array.Fill(_caps, 75);
+diff --git a/src/ClassicUO.Client/Network/PacketHandlers.cs b/src/ClassicUO.Client/Network/PacketHandlers.cs
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -4155,6 +4155,11 @@
+                 SanctuarySkillsGump.Receive(world, ref p);
+                 return;
+             }
++            if (cmd == Sanctuary.StatProtocol.ExperienceSubCommand)
++            {
++                ClassStatsClient.ReceiveExperience(world, ref p);
++                return;
++            }
+             if (cmd == Sanctuary.StatProtocol.SubCommand)
+             {
+                 ClassStatsClient.Receive(world, ref p);
+diff --git a/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs b/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs
+new file mode 100644
+--- /dev/null
++++ b/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs
+@@ -0,0 +1,94 @@
++// SPDX-License-Identifier: BSD-2-Clause
++
++using System;
++using ClassicUO.Game.Data;
++using ClassicUO.Game.GameObjects;
++using ClassicUO.Game.Scenes;
++using ClassicUO.Renderer;
++using Microsoft.Xna.Framework;
++
++namespace ClassicUO.Game.UI.Controls;
++
++/// <summary>A reusable head-and-shoulders portrait from the native paperdoll layers.</summary>
++internal sealed class SanctuaryPortrait : Control
++{
++    private readonly Mobile _subject;
++    private bool _female;
++    private ushort _body, _hair, _hairHue, _beard, _beardHue;
++    private ushort _hairGump, _beardGump;
++
++    public SanctuaryPortrait(Mobile subject, int x, int y, int width, int height)
++    {
++        _subject = subject;
++        X = x;
++        Y = y;
++        Width = width;
++        Height = height;
++        WantUpdateSize = false;
++        AcceptMouseInput = false;
++    }
++
++    public override bool AddToRenderLists(RenderLists lists, int x, int y, ref float depth)
++    {
++        if (_subject == null || _subject.IsDestroyed)
++            return false;
++
++        var (body, hue) = PaperDollInteractable.GetBodyAppearance(_subject.Graphic, _subject.IsFemale, _subject.Hue);
++        var hair = _subject.FindItemByLayer(Layer.Hair);
++        var beard = _subject.FindItemByLayer(Layer.Beard);
++        ushort hairId = hair?.Graphic ?? 0, beardId = beard?.Graphic ?? 0;
++        if (body != _body || _female != _subject.IsFemale || hairId != _hair || beardId != _beard)
++        {
++            _body = body;
++            _female = _subject.IsFemale;
++            _hair = hairId;
++            _beard = beardId;
++            _hairGump = LayerGraphic(hair);
++            _beardGump = LayerGraphic(beard);
++        }
++        _hairHue = (ushort)((hair?.Hue ?? 0) & 0x3FFF);
++        _beardHue = (ushort)((beard?.Hue ?? 0) & 0x3FFF);
++
++        // The head uses the same coordinate space as hair or horn gumps.
++        var crop = body switch
++        {
++            0x0299 or 0x029A => new Rectangle(67, 41, 48, 54),
++            0x000D or 0x000F => new Rectangle(70, 46, 42, 50),
++            _ => new Rectangle(70, 42, 42, 50)
++        };
++        var target = new Rectangle(x, y, Width, Height);
++        Paint(lists, body, hue, true, crop, target, depth);
++        Paint(lists, _beardGump, _beardHue, beard?.ItemData.IsPartialHue == true, crop, target, depth + 0.001f);
++        Paint(lists, _hairGump, _hairHue, hair?.ItemData.IsPartialHue == true, crop, target, depth + 0.002f);
++        return true;
++    }
++
++    private ushort LayerGraphic(Item item) => item == null || item.ItemData.AnimID == 0 ? (ushort)0
++        : PaperDollInteractable.GetAnimID(_subject.Graphic, item.Graphic, item.ItemData.AnimID, _subject.IsFemale);
++
++    private static void Paint(RenderLists lists, ushort graphic, ushort hue, bool partial,
++        Rectangle crop, Rectangle target, float depth)
++    {
++        if (graphic == 0)
++            return;
++        ref readonly var art = ref Client.Game.UO.Gumps.GetGump(graphic);
++        if (art.Texture == null)
++            return;
++        var visible = Rectangle.Intersect(crop, new Rectangle(0, 0, art.UV.Width, art.UV.Height));
++        if (visible.Width == 0 || visible.Height == 0)
++            return;
++        var source = new Rectangle(art.UV.X + visible.X, art.UV.Y + visible.Y, visible.Width, visible.Height);
++        var destination = new Rectangle(
++            target.X + (visible.X - crop.X) * target.Width / crop.Width,
++            target.Y + (visible.Y - crop.Y) * target.Height / crop.Height,
++            Math.Max(1, visible.Width * target.Width / crop.Width),
++            Math.Max(1, visible.Height * target.Height / crop.Height));
++        var texture = art.Texture;
++        var color = ShaderHueTranslator.GetHueVector(hue, partial, 1f, true);
++        lists.AddGumpWithAtlas(batcher =>
++        {
++            batcher.Draw(texture, destination, source, color, depth);
++            return true;
++        });
++    }
++}
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryAvatarHealthGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryAvatarHealthGump.cs
+new file mode 100644
+--- /dev/null
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryAvatarHealthGump.cs
+@@ -0,0 +1,87 @@
++// SPDX-License-Identifier: BSD-2-Clause
++
++using System;
++using ClassicUO.Game.GameObjects;
++using ClassicUO.Game.UI.Controls;
++
++namespace ClassicUO.Game.UI.Gumps;
++
++internal sealed class SanctuaryAvatarHealthGump : BaseHealthBarGump
++{
++    internal const int FrameWidth = 226;
++    internal const int FrameHeight = 101;
++    private Label _title;
++    private ResourceBar _life, _mana, _stamina;
++
++    public SanctuaryAvatarHealthGump(World world) : base(world, 0, 0) { }
++
++    public SanctuaryAvatarHealthGump(World world, PlayerMobile player) : base(world, player) { }
++
++    protected override void BuildGump()
++    {
++        Width = FrameWidth;
++        Height = FrameHeight;
++        WantUpdateSize = false;
++        CanMove = CanCloseWithRightClick = true;
++        Add(new SanctuaryBackdrop("character-frame", Width, Height));
++        Add(new Line(9, 26, 58, 66, 0xFF547896) { AcceptMouseInput = false });
++        Add(new Line(10, 27, 56, 64, 0xFF2E333F) { AcceptMouseInput = false });
++        Add(new SanctuaryPortrait(World.Player, 11, 28, 54, 62));
++        _title = Add(new Label(World.Player.Name ?? "", true, 0x0481, maxwidth: 200, font: 1) { X = 10, Y = 4 });
++        _life = Add(new ResourceBar(75, 28, "Life", 0xFF3D49BD));
++        _mana = Add(new ResourceBar(75, 50, "Mana", 0xFFA26453));
++        _stamina = Add(new ResourceBar(75, 72, "Stamina", 0xFF57A16D));
++    }
++
++    public override void Update()
++    {
++        base.Update();
++        if (IsDisposed || _title == null || World.Player is not { } player)
++            return;
++
++        _name = player.Name;
++        _isDead = player.IsDead;
++        if (_title.Text != _name)
++            _title.Text = _name ?? "";
++        _life.Set(player.Hits, player.HitsMax);
++        _mana.Set(player.Mana, player.ManaMax);
++        _stamina.Set(player.Stamina, player.StaminaMax);
++    }
++
++    public static SanctuaryAvatarHealthGump At(World world, int x, int y) =>
++        new(world, world.Player) { X = x, Y = y };
++
++    private sealed class ResourceBar : Control
++    {
++        private const int TrackWidth = 141;
++        private readonly Line _fill;
++        private readonly Label _value;
++
++        public ResourceBar(int x, int y, string label, uint color)
++        {
++            X = x;
++            Y = y;
++            Width = TrackWidth;
++            Height = 17;
++            WantUpdateSize = false;
++            Add(new Line(0, 0, Width, Height, 0xFF534835) { AcceptMouseInput = false });
++            Add(new Line(1, 1, Width - 2, Height - 2, 0xFF1E1920) { AcceptMouseInput = false });
++            _fill = Add(new Line(1, 1, 0, Height - 2, color) { AcceptMouseInput = false });
++            Add(new Label(label, true, 0x0481, font: 1) { X = 4 });
++            _value = Add(new Label("", true, 0x0481, font: 1));
++        }
++
++        public void Set(int current, int max)
++        {
++            int length = max > 0 ? Math.Clamp(current, 0, max) * (TrackWidth - 2) / max : 0;
++            _fill.Width = length;
++            _fill.IsVisible = length > 0;
++            string value = $"{current} / {max}";
++            if (_value.Text == value)
++                return;
++
++            _value.Text = value;
++            _value.X = Width - 4 - _value.Width;
++        }
++    }
++}

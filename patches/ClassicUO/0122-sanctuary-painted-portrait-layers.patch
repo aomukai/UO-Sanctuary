@@ -1,0 +1,454 @@
+diff --git a/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs b/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs
+--- a/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs
++++ b/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs
+@@ -1,7 +1,6 @@
+ // SPDX-License-Identifier: BSD-2-Clause
+ 
+ using System;
+-using System.Collections.Generic;
+ using ClassicUO.Game.Data;
+ using ClassicUO.Game.GameObjects;
+ using ClassicUO.Game.Scenes;
+@@ -37,13 +36,10 @@
+     private static FaceAtlas[] _faces;
+     private static Texture2D _npcFaces;
+     private static Texture2D _demonFace;
+-    private static readonly Dictionary<ushort, NativeLayer> _raisedLayers = new();
+     private readonly Func<PortraitLook> _appearance;
+     private readonly byte? _npc;
+     private Texture2D _faceTexture;
+     private PortraitLook? _last;
+-    private ushort _hairArt, _beardArt;
+-    private bool _partialHair, _partialBeard;
+ 
+     public SanctuaryPortrait(Mobile subject, int x, int y, int width, int height)
+         : this(() => PortraitLook.From(subject), x, y, width, height) { }
+@@ -83,32 +79,14 @@
+         }
+ 
+         PortraitLook look = _appearance();
+-        if (_last is not { } last || last.Race != look.Race || last.Female != look.Female
+-            || last.Face != look.Face || last.Skin != look.Skin)
++        if (_last != look)
+         {
+             _faceTexture?.Dispose();
+             _faces ??= [new FaceAtlas("portrait-atlas"), new FaceAtlas("portrait-atlas-2")];
+             _faceTexture = _faces[look.Face / 4].MakeFace(look);
++            _last = look;
+         }
+-        if (_last is not { } layers || layers.Race != look.Race || layers.Female != look.Female
+-            || layers.Hair != look.Hair || layers.Beard != look.Beard)
+-        {
+-            (_hairArt, _partialHair) = LayerGraphic(look, look.Hair);
+-            (_beardArt, _partialBeard) = LayerGraphic(look, look.Beard);
+-        }
+-        _last = look;
+-        DrawFace(lists, _faceTexture, new Rectangle(0, 0, _faceTexture.Width, _faceTexture.Height), target, depth);
+-
+-        // The stock layers have sex- and race-specific paperdoll offsets. Fit
+-        // the hairline and the facial hair separately against the painted face.
+-        var hairCrop = look.Race == RaceType.GARGOYLE
+-            ? new Rectangle(73, look.Female ? 53 : 49, 37, 44)
+-            : new Rectangle(77, look.Female ? 54 : 50, 29, 34);
+-        var beardCrop = look.Race == RaceType.GARGOYLE
+-            ? new Rectangle(73, 44, 37, 44)
+-            : new Rectangle(78, 45, 27, 34);
+-        PaintLayer(lists, _beardArt, look.BeardHue, _partialBeard, beardCrop, target, depth + 0.001f);
+-        PaintLayer(lists, _hairArt, look.HairHue, _partialHair, hairCrop, target, depth + 0.002f);
++        DrawFace(lists, _faceTexture, _faceTexture.Bounds, target, depth);
+         return true;
+     }
+ 
+@@ -119,7 +97,7 @@
+         base.Dispose();
+     }
+ 
+-    private static Texture2D Load(string name)
++    internal static Texture2D Load(string name)
+     {
+         using var stream = typeof(SanctuaryPortrait).Assembly.GetManifestResourceStream($"Sanctuary.UI.{name}.png")
+             ?? throw new InvalidOperationException($"Missing portrait atlas {name}");
+@@ -133,103 +111,6 @@
+             batcher.Draw(texture, target, source, ShaderHueTranslator.GetHueVector(0), depth);
+             return true;
+         });
+-    }
+-
+-    private static (ushort, bool) LayerGraphic(PortraitLook look, ushort item)
+-    {
+-        var tiles = Client.Game.UO.FileManager.TileData.StaticData;
+-        if (item == 0 || item >= tiles.Length || tiles[item].AnimID == 0)
+-            return (0, false);
+-        var tile = tiles[item];
+-        return (PaperDollInteractable.GetAnimID(look.Body, item, tile.AnimID, look.Female), tile.IsPartialHue);
+-    }
+-
+-    private static void PaintLayer(RenderLists lists, ushort graphic, ushort hue, bool partial,
+-        Rectangle crop, Rectangle target, float depth)
+-    {
+-        if (graphic == 0)
+-            return;
+-        if (!_raisedLayers.TryGetValue(graphic, out var art))
+-        {
+-            art = NativeLayer.Load(graphic);
+-            _raisedLayers.Add(graphic, art);
+-        }
+-        if (art == null)
+-            return;
+-        var visible = Rectangle.Intersect(crop, art.Bounds);
+-        if (visible.Width == 0 || visible.Height == 0)
+-            return;
+-        var source = new Rectangle((visible.X - art.Bounds.X) * 4, (visible.Y - art.Bounds.Y) * 4,
+-            visible.Width * 4, visible.Height * 4);
+-        var destination = new Rectangle(
+-            target.X + (visible.X - crop.X) * target.Width / crop.Width,
+-            target.Y + (visible.Y - crop.Y) * target.Height / crop.Height,
+-            Math.Max(1, visible.Width * target.Width / crop.Width),
+-            Math.Max(1, visible.Height * target.Height / crop.Height));
+-        var texture = art.Texture;
+-        var color = ShaderHueTranslator.GetHueVector(hue, partial, 1f, true);
+-        lists.AddGumpNoAtlas(batcher =>
+-        {
+-            batcher.Draw(texture, destination, source, color, depth);
+-            return true;
+-        });
+-    }
+-
+-    private sealed record NativeLayer(Texture2D Texture, Rectangle Bounds)
+-    {
+-        internal static NativeLayer Load(ushort graphic)
+-        {
+-            var layer = Client.Game.UO.FileManager.Gumps.GetGump(graphic);
+-            if (layer.Pixels.IsEmpty)
+-                return null;
+-
+-            int left = layer.Width, top = layer.Height, right = -1, bottom = -1;
+-            for (int y = 0; y < layer.Height; y++)
+-            for (int x = 0; x < layer.Width; x++)
+-            {
+-                if (layer.Pixels[y * layer.Width + x] == 0) continue;
+-                left = Math.Min(left, x);
+-                right = Math.Max(right, x);
+-                top = Math.Min(top, y);
+-                bottom = Math.Max(bottom, y);
+-            }
+-            if (right < left)
+-                return null;
+-
+-            var bounds = new Rectangle(left, top, right - left + 1, bottom - top + 1);
+-            var cropped = new uint[bounds.Width * bounds.Height];
+-            for (int y = 0; y < bounds.Height; y++)
+-                layer.Pixels.Slice((top + y) * layer.Width + left, bounds.Width).CopyTo(cropped.AsSpan(y * bounds.Width));
+-
+-            // Scale2x preserves the stock silhouette and hue indices while
+-            // softening hard diagonal stair steps at portrait size.
+-            uint[] doubled = Scale2x(cropped, bounds.Width, bounds.Height);
+-            uint[] pixels = Scale2x(doubled, bounds.Width * 2, bounds.Height * 2);
+-            var texture = new Texture2D(Client.Game.GraphicsDevice, bounds.Width * 4, bounds.Height * 4);
+-            texture.SetData(pixels);
+-            return new NativeLayer(texture, bounds);
+-        }
+-
+-        private static uint[] Scale2x(uint[] pixels, int width, int height)
+-        {
+-            var scaled = new uint[width * height * 4];
+-            for (int y = 0; y < height; y++)
+-            for (int x = 0; x < width; x++)
+-            {
+-                uint center = pixels[x + y * width];
+-                uint north = y > 0 ? pixels[x + (y - 1) * width] : 0;
+-                uint west = x > 0 ? pixels[x - 1 + y * width] : 0;
+-                uint east = x + 1 < width ? pixels[x + 1 + y * width] : 0;
+-                uint south = y + 1 < height ? pixels[x + (y + 1) * width] : 0;
+-                int index = 2 * x + 4 * width * y;
+-                bool edge = north != south && west != east;
+-                scaled[index] = edge && west == north ? west : center;
+-                scaled[index + 1] = edge && north == east ? east : center;
+-                scaled[index + 2 * width] = edge && west == south ? west : center;
+-                scaled[index + 2 * width + 1] = edge && south == east ? east : center;
+-            }
+-            return scaled;
+-        }
+     }
+ 
+     private sealed class FaceAtlas
+@@ -257,15 +138,40 @@
+             float strength = look.Race == RaceType.GARGOYLE ? 0.78f : look.Race == RaceType.ELF ? 0.64f : 0.49f;
+             var tile = new Color[_tileWidth * _tileHeight];
+ 
++            bool frameHorns = look.Race == RaceType.GARGOYLE && look.Hair != 0;
++            float scale = frameHorns ? .90f : 1f;
++            int insetY = frameHorns ? (int)(_tileHeight * .13f) : 0;
++            int tileX = column * _tileWidth, tileY = row * _tileHeight;
++            Color backdrop = _pixels[(tileY + 5) * _width + tileX + 5];
++            int crownY = 0;
++            for (int y = 0; y < _tileHeight * .35f; y++)
++            {
++                Color center = _pixels[(tileY + y) * _width + tileX + _tileWidth / 2];
++                if (center.R + center.G + center.B > backdrop.R + backdrop.G + backdrop.B + 88)
++                {
++                    crownY = y;
++                    break;
++                }
++            }
++            int forehead = 0;
++            int foreheadRow = (tileY + crownY + _tileHeight * 14 / 100) * _width + tileX;
++            for (int x = _tileWidth / 10; x < _tileWidth * 9 / 10; x++)
++            {
++                Color skin = _pixels[foreheadRow + x];
++                if (skin.R + skin.G + skin.B > backdrop.R + backdrop.G + backdrop.B + 88)
++                    forehead++;
++            }
++
+             for (int y = 0; y < _tileHeight; y++)
+             for (int x = 0; x < _tileWidth; x++)
+             {
+-                int source = (row * _tileHeight + y) * _width + column * _tileWidth + x;
+-                Color pixel = _pixels[source];
++                int sourceY = (int)((y - insetY) / scale);
++                Color pixel = backdrop;
++                if (y >= insetY && sourceY < _tileHeight)
++                    pixel = _pixels[(tileY + sourceY) * _width + tileX + x];
+                 if (tint && pixel.R > 66 && pixel.R > pixel.G + 13 && pixel.G > pixel.B + 6)
+                 {
+-                    // Reuse the game's dye without tinting the brown background
+-                    // or flattening the contrast of the painted features.
++                    // Preserve feature contrast while applying the native skin hue.
+                     float brightness = pixel.R / 153f;
+                     var toned = new Color(Math.Min(255, (int)(swatch.R * brightness)),
+                         Math.Min(255, (int)(swatch.G * brightness)), Math.Min(255, (int)(swatch.B * brightness)));
+@@ -273,6 +179,8 @@
+                 }
+                 tile[y * _tileWidth + x] = pixel;
+             }
++            PaintedPortraitLayers.Paint(tile, _tileWidth, _tileHeight, look,
++                (insetY + crownY * scale) / _tileHeight, forehead / (float)_tileWidth);
+             var texture = new Texture2D(Client.Game.GraphicsDevice, _tileWidth, _tileHeight);
+             texture.SetData(tile);
+             return texture;
+diff --git a/src/ClassicUO.Client/Game/UI/Controls/PaintedPortraitLayers.cs b/src/ClassicUO.Client/Game/UI/Controls/PaintedPortraitLayers.cs
+new file mode 100644
+--- /dev/null
++++ b/src/ClassicUO.Client/Game/UI/Controls/PaintedPortraitLayers.cs
+@@ -0,0 +1,221 @@
++// SPDX-License-Identifier: BSD-2-Clause
++
++using System;
++using System.Collections.Generic;
++using ClassicUO.Game.Data;
++using Microsoft.Xna.Framework;
++
++namespace ClassicUO.Game.UI.Controls;
++
++internal static class PaintedPortraitLayers
++{
++    private enum Sheet { Human, Elf, Beard, Horn, Jaw }
++    private readonly record struct Style(Sheet Sheet, int Tile, float Width, float Height, float Offset,
++        float Center = 0.5f, bool Mirror = false);
++    private readonly record struct Cutout(Color[] Pixels, int Stride, Rectangle Source);
++
++    private static readonly Dictionary<ushort, Style> _styles = new()
++    {
++        // Native item IDs still select the corresponding world appearance.
++        [0x203B] = new(Sheet.Human, 0, .66f, .40f, -.035f),  // Short
++        [0x203C] = new(Sheet.Human, 1, .89f, .87f, -.045f),  // Long
++        [0x203D] = new(Sheet.Human, 2, .72f, .77f, -.045f, .385f, true), // Ponytail
++        [0x2044] = new(Sheet.Human, 3, .62f, .39f, -.15f),   // Mohawk
++        [0x2045] = new(Sheet.Human, 4, .76f, .57f, -.045f),  // Pageboy
++        [0x204A] = new(Sheet.Human, 5, .65f, .54f, -.18f),   // Topknot
++        [0x2047] = new(Sheet.Human, 6, .76f, .45f, -.075f),  // Afro
++        [0x2048] = new(Sheet.Human, 7, .65f, .39f, .035f),   // Receding
++        [0x2049] = new(Sheet.Human, 8, .92f, .66f, -.025f),  // Pigtails
++        [0x2046] = new(Sheet.Human, 9, .70f, .49f, -.13f),   // Bun
++
++        [0x2FBF] = new(Sheet.Elf, 0, .75f, .60f, -.045f), // Mid-long
++        [0x2FC0] = new(Sheet.Elf, 1, .88f, .91f, -.16f, .49f), // Long Feather
++        [0x2FC1] = new(Sheet.Elf, 2, .70f, .38f, -.045f), // Short
++        [0x2FC2] = new(Sheet.Elf, 3, .73f, .65f, -.065f), // Mullet
++        [0x2FCC] = new(Sheet.Elf, 4, .90f, .83f, -.055f), // Flower
++        [0x2FCD] = new(Sheet.Elf, 5, .85f, .85f, -.05f), // Long
++        [0x2FCE] = new(Sheet.Elf, 6, .73f, .51f, -.095f), // Knob
++        [0x2FCF] = new(Sheet.Elf, 7, .77f, .77f, -.055f), // Braided
++        [0x2FD0] = new(Sheet.Elf, 8, .74f, .58f, -.14f), // Bun
++        [0x2FD1] = new(Sheet.Elf, 9, .80f, .51f, -.105f), // Spiked
++
++        [0x2040] = new(Sheet.Beard, 0, .20f, .16f, .026f), // Goatee
++        [0x203E] = new(Sheet.Beard, 1, .57f, .38f, -.078f), // Long beard
++        [0x203F] = new(Sheet.Beard, 2, .54f, .25f, -.125f), // Short beard
++        [0x2041] = new(Sheet.Beard, 3, .36f, .079f, -.092f), // Moustache
++        [0x204B] = new(Sheet.Beard, 4, .56f, .29f, -.133f), // Medium short
++        [0x204C] = new(Sheet.Beard, 5, .56f, .34f, -.126f), // Medium long
++        [0x204D] = new(Sheet.Beard, 6, .35f, .26f, -.082f), // Vandyke
++
++        [0x4258] = new(Sheet.Horn, 0, .34f, .24f, .14f),
++        [0x4259] = new(Sheet.Horn, 1, .49f, .28f, .15f),
++        [0x425A] = new(Sheet.Horn, 2, .13f, .22f, .12f),
++        [0x425B] = new(Sheet.Horn, 3, .86f, .35f, .27f),
++        [0x425C] = new(Sheet.Horn, 4, .27f, .12f, .13f),
++        [0x425D] = new(Sheet.Horn, 5, .45f, .30f, .15f),
++        [0x425E] = new(Sheet.Horn, 6, .51f, .21f, .16f),
++        [0x425F] = new(Sheet.Horn, 7, .70f, .19f, .17f),
++        [0x4261] = new(Sheet.Horn, 8, .58f, .10f, .15f),
++        [0x4262] = new(Sheet.Horn, 9, .81f, .32f, .25f),
++        [0x4273] = new(Sheet.Horn, 10, .36f, .18f, .14f),
++        [0x4274] = new(Sheet.Horn, 11, .43f, .26f, .14f),
++        [0x4275] = new(Sheet.Horn, 12, .33f, .21f, .14f),
++        [0x42AA] = new(Sheet.Horn, 13, .35f, .31f, .15f),
++        [0x42AB] = new(Sheet.Horn, 14, .59f, .28f, .18f),
++        [0x42B1] = new(Sheet.Horn, 15, .51f, .23f, .16f),
++
++        [0x42AD] = new(Sheet.Jaw, 0, .37f, .12f, -.001f),
++        [0x42AE] = new(Sheet.Jaw, 1, .54f, .16f, -.093f),
++        [0x42AF] = new(Sheet.Jaw, 2, .26f, .15f, .015f),
++        [0x42B0] = new(Sheet.Jaw, 3, .14f, .15f, .03f)
++    };
++
++    private static readonly Dictionary<Sheet, (Color[] Pixels, int Width, int Height)> _sheets = new();
++    private static readonly Dictionary<(Sheet, int), Cutout> _cutouts = new();
++    private static readonly float[] _humanMouth = [.726f, .692f, .671f, .702f, .735f, .751f, .754f, .755f];
++
++    internal static void Paint(Color[] face, int width, int height, PortraitLook look, float crown, float forehead)
++    {
++        float mouth = look.Race == RaceType.GARGOYLE ? .76f : _humanMouth[look.Face];
++        Paint(face, width, height, look.Beard, look.BeardHue, crown, mouth, forehead);
++        Paint(face, width, height, look.Hair, look.HairHue, crown, mouth, forehead);
++    }
++
++    private static void Paint(Color[] face, int width, int height, ushort item, ushort hue, float crown, float mouth, float forehead)
++    {
++        if (!_styles.TryGetValue(item, out var style))
++            return;
++
++        var cutout = GetCutout(style.Sheet, style.Tile);
++        var source = cutout.Source;
++        bool wig = style.Sheet is Sheet.Human or Sheet.Elf;
++        float fit = wig ? Math.Clamp(forehead / .47f, .94f, 1.10f) : 1f;
++        int w = (int)MathF.Round(style.Width * fit * width), h = (int)MathF.Round(style.Height * height);
++        float top = style.Sheet switch
++        {
++            Sheet.Horn => crown + style.Offset - style.Height,
++            Sheet.Beard or Sheet.Jaw => mouth + style.Offset,
++            _ => crown + style.Offset
++        };
++        int startY = (int)MathF.Round(Math.Max(.01f, top) * height);
++        Span<Color> dye = stackalloc Color[32];
++        for (ushort i = 0; i < dye.Length; i++)
++        {
++            dye[i] = hue == 0
++                ? new Color(4 + i * 7, 3 + i * 6, 3 + i * 5)
++                : new Color { PackedValue = Client.Game.UO.FileManager.Hues.GetPolygoneColor(i, hue) | 0xFF000000 };
++        }
++
++        for (int y = startY; y < Math.Min(height, startY + h); y++)
++        {
++            // Give the longer elven styles room around the eyes and cheekbones.
++            float spread = style.Sheet == Sheet.Elf
++                ? .22f * Math.Clamp((y / (float)height - .30f) / .20f, 0f, 1f) : 0f;
++            int rowWidth = (int)MathF.Round(w * (1f + spread));
++            int left = (int)MathF.Round(style.Center * width - rowWidth / 2f);
++            int sampleY = source.Y + (y - startY) * source.Height / h;
++            for (int x = Math.Max(0, left); x < Math.Min(width, left + rowWidth); x++)
++            {
++                int dx = (x - left) * source.Width / rowWidth;
++                int sampleX = source.X + (style.Mirror ? source.Width - 1 - dx : dx);
++                Color material = cutout.Pixels[sampleY * cutout.Stride + sampleX];
++                int shade = (material.R + material.G + material.B) / 3;
++                if (material.A < 24 || shade > 248)
++                    continue;
++
++                float alpha = material.A / 255f;
++                if (style.Sheet == Sheet.Beard)
++                {
++                    float lipX = (x / (float)width - .5f) / .113f;
++                    float lipY = (y / (float)height - mouth) / .024f;
++                    alpha *= Math.Clamp((lipX * lipX + lipY * lipY - .61f) * 2f, 0, 1);
++                }
++                int dyeIndex = Math.Clamp((shade - 38) * 31 / 205, 0, 31);
++                Color color = IsAccessory(style, sampleX, sampleY)
++                    ? new Color(shade, (int)(shade * .96f), (int)(shade * .81f)) : dye[dyeIndex];
++                int index = y * width + x;
++                face[index] = Color.Lerp(face[index], color, alpha);
++            }
++        }
++    }
++
++    private static bool IsAccessory(Style style, int x, int y)
++    {
++        if (style.Sheet != Sheet.Elf)
++            return false;
++        // These two decorations keep their pale colors when the hair is dyed.
++        if (style.Tile == 1)
++            return y < 164 && x > 644 - y * .23f;
++        if (style.Tile == 4)
++        {
++            float dx = (x - 110f) / 33f, dy = (y - 479f) / 35f;
++            return dx * dx + dy * dy < 1f;
++        }
++        return false;
++    }
++
++    private static Cutout GetCutout(Sheet sheet, int tile)
++    {
++        if (_cutouts.TryGetValue((sheet, tile), out var cached))
++            return cached;
++        if (!_sheets.TryGetValue(sheet, out var atlas))
++        {
++            string resource = sheet switch
++            {
++                Sheet.Human => "portrait-hair-human",
++                Sheet.Elf => "portrait-hair-elf",
++                Sheet.Beard => "portrait-beards",
++                Sheet.Horn => "portrait-horns",
++                _ => "portrait-jaw-horns"
++            };
++            using var texture = SanctuaryPortrait.Load(resource);
++            var pixels = new Color[texture.Width * texture.Height];
++            texture.GetData(pixels);
++            _sheets[sheet] = atlas = (pixels, texture.Width, texture.Height);
++        }
++
++        var cell = Cell(sheet, tile, atlas.Width, atlas.Height);
++        int left = cell.Right, top = cell.Bottom, right = cell.Left - 1, bottom = cell.Top - 1;
++        for (int row = cell.Top; row < cell.Bottom; row++)
++        for (int col = cell.Left; col < cell.Right; col++)
++        {
++            Color ink = atlas.Pixels[row * atlas.Width + col];
++            if (ink.A < 182 || (ink.R + ink.G + ink.B) / 3 > 240)
++                continue;
++            left = Math.Min(left, col);
++            top = Math.Min(top, row);
++            right = Math.Max(right, col);
++            bottom = Math.Max(bottom, row);
++        }
++        var bounds = right < left ? cell : new Rectangle(left, top, right - left + 1, bottom - top + 1);
++        return _cutouts[(sheet, tile)] = new Cutout(atlas.Pixels, atlas.Width, bounds);
++    }
++
++    private static Rectangle Cell(Sheet sheet, int tile, int width, int height)
++    {
++        // The large cutouts are centered on an even grid. Their transparent
++        // borders are hand checked where ponytails or tall crests cross a grid line.
++        int columns = sheet == Sheet.Jaw ? 2 : 4;
++        int rows = sheet == Sheet.Jaw ? 2 : sheet == Sheet.Horn ? 4 : 3;
++        int row = tile / columns, col = tile % columns;
++        int left = col * width / columns, right = (col + 1) * width / columns;
++        int top = row * height / rows, bottom = (row + 1) * height / rows;
++        switch (sheet)
++        {
++            case Sheet.Human:
++                if (tile == 2) bottom = 388;
++                if (tile == 6) top = 393;
++                if (tile == 9) left += 5;
++                break;
++            case Sheet.Elf:
++                top = row == 0 ? 0 : row == 1 ? 378 : col == 0 ? 733 : 748;
++                bottom = row == 0 ? 378 : row == 1 ? col == 0 ? 733 : 748 : height;
++                break;
++            case Sheet.Beard:
++                top = row == 0 ? 0 : 399;
++                bottom = row == 0 ? 397 : 719;
++                break;
++        }
++        return new Rectangle(left, top, right - left, bottom - top);
++    }
++}

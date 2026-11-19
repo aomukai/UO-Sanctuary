@@ -58,6 +58,13 @@ public static class BattleOrders
     }
     private static int? CreatureMaximum(BaseCreature actor,int resource,int basis)
     {
+        int unmodified = basis;
+        if (!World.Loading && resource == 0 && actor is IClassCompanion companion
+            && MercenaryCare.CompanionLevel(actor).HasValue)
+        {
+            basis = Math.Clamp(basis + CompanionBuild.Bonus(actor, "hp")
+                + CompanionBuild.Bonus(actor, "vit") * ClassStats.For(companion.CombatClass).LifeVitality4 / 4, 1, 65000);
+        }
         if(resource==0&&_nativeLifeQuery?.Actor==actor){_nativeLifeQuery.Basis=basis;}
         // Original NPCs acquire source life through their saved Revive plan,
         // not a replacement subclass. Resolve it before the loading fallback.
@@ -67,7 +74,7 @@ public static class BattleOrders
         if(NpcEquipmentResources.Maximum256(actor,resource) is{} equipped){return (equipped+255)/256;}
         if(resource==0 && PaladinConversion.Maximum256(actor) is{} converted){return (converted+255)/256;}
         if(resource==0 && SkillHealth.SourceMaximum256(actor) is{} exact){return (exact+255)/256;}
-        int percent=resource==0?LifePercent(actor):Percent(actor);if(percent<=0){return null;}
+        int percent=resource==0?LifePercent(actor):Percent(actor);if(percent<=0){return basis != unmodified ? basis : null;}
         long base256=(long)basis*256;
         if(resource==0 && actor is SkeletonGuardian summon && actor.HitsMaxSeed==summon.CombatProfile.Life)
         {base256=summon.SourceLife256+((long)basis-summon.CombatProfile.Life)*256;}

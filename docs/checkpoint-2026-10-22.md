@@ -39,13 +39,13 @@ The native carriers in the care fixtures are test doubles for the future mercena
 
 ## Matching build components
 
-ModernUO remains pinned to `eff9de028136b11e544fd81375d1e0e710e22dd6`; ClassicUO remains pinned to `ee79d7ebc1cc0e53ff84fe6cae17d389e2737f93`. Their working differences are recorded in the root patch stacks. Keep the submodule pins intact; fresh checkouts apply the recorded patches through the [development workflow](../README.md#linux-setup).
+ModernUO remains pinned to `eff9de028136b11e544fd81375d1e0e710e22dd6`; ClassicUO remains pinned to `ee79d7ebc1cc0e53ff84fe6cae17d389e2737f93`. Their working differences are recorded in the root patch stacks. Fresh checkouts apply the recorded patches through the [development workflow](../README.md#running-locally).
 
 An eventual deployment needs the matching patched UOContent and project content. It also needs the staged client with the named-set opacity protocol; shipping only the content assembly is insufficient. Integration assemblies and test worlds are verification artifacts. Deployment remains a separate operational action.
 
 ## Next phase and explicit returns
 
-1. Turn the [agreed class sequence](../Britannia-Diablo-Project-Kickoff.md#14-agreed-implementation-sequence) into concrete class/skill work cards. The numbered foundation roadmap ends at T49 and is not a complete finished-game plan.
+1. Turn the agreed class sequence into concrete class and skill work cards. The later [class skill roadmap](class-skill-roadmap.md) records that work. The numbered foundation roadmap ends at T49.
 2. Implement complete class skills, using the shared rank, damage, status, resource and corpse APIs. Revisit the [named skill prerequisites](deferred-named-skills.md) and [complete runtime return list](named-item-readiness.md) as each prerequisite becomes functional.
 3. Complete mercenary archetypes, recruitment, skills, XP/levels, gear/loadout interfaces, AI and lifecycle integration using the [T46 return checklist](t46-mercenary-preparation.md).
 4. Complete remaining T49 equipment/form/socket delivery, source/quest paths and asset integration with those prerequisites. Preserve unresolved source gaps, including Gelid-Affix5, rather than inventing effects. Ten exotic equipment recipes remain explicitly excluded from the current recipe scope.

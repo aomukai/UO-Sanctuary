@@ -20,7 +20,7 @@ def exercise(window, click, capture):
                 return json.loads(Path(os.environ['SANCTUARY_TEST_UI_STATE']).read_text())
             time.sleep(.05)
         raise AssertionError('Missing ' + name)
-    click(335, 367); command('setup'); time.sleep(.4); click(410, 58); click(75, 318)
+    click(538, 101); command('setup'); time.sleep(.4); click(410, 58); click(75, 318)
     command('opened'); command('guards'); time.sleep(.3); click(410, 58)
     capture('t41-title-selector.png')
     click(65, 171); click(330, 162); click(417, 398); click(75, 443); command('selected')

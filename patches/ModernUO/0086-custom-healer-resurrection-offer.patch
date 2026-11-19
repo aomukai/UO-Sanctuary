@@ -1,0 +1,15 @@
+diff --git a/Projects/UOContent/Mobiles/Healers/BaseHealer.cs b/Projects/UOContent/Mobiles/Healers/BaseHealer.cs
+--- a/Projects/UOContent/Mobiles/Healers/BaseHealer.cs
++++ b/Projects/UOContent/Mobiles/Healers/BaseHealer.cs
+@@ -102,8 +102,10 @@
+             return;
+         }
+ 
+-        m.SendGump(new ResurrectGump(m, ResurrectMessage.Healer), true);
++        m.SendGump(CreateFreeResurrectionGump(m), true);
+     }
++
++    protected virtual ResurrectGump CreateFreeResurrectionGump(Mobile ghost) => new(ghost, ResurrectMessage.Healer);
+ 
+     public virtual void OfferHeal(PlayerMobile m)
+     {

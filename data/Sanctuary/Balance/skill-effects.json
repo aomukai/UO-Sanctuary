@@ -5491,7 +5491,7 @@
   },
   {
     "talentId": "warlock.summongoatman",
-    "name": "Summon Goatman",
+    "name": "Summon Lesser Daemon",
     "characterClass": "Warlock",
     "effects": "native",
     "sourceEffects": {
@@ -5502,7 +5502,7 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "Rust-red stone frames the original Gargoyle on arrival. Rock chips mark accepted melee hits and the shared Berserk glow follows its active state.",
+    "placeholder": "Rust-red stone frames the imp on arrival. Rock chips mark accepted melee hits and the shared Berserk glow follows its active state.",
     "customArtwork": "verified",
     "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
@@ -5563,7 +5563,7 @@
   },
   {
     "talentId": "warlock.summontainted",
-    "name": "Summon Tainted",
+    "name": "Summon Succubus",
     "characterClass": "Warlock",
     "effects": "needed",
     "sourceEffects": {

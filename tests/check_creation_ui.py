@@ -10,7 +10,7 @@ import sys
 import tempfile
 import time
 import xml.etree.ElementTree as ET
-from PIL import ImageGrab
+from PIL import ImageChops, ImageGrab
 
 ROOT = Path(os.environ.get("SANCTUARY_TEST_RUNTIME_ROOT", Path(__file__).resolve().parents[1]))
 
@@ -94,23 +94,58 @@ def check(port, combat=False):
                 exercise(window, click, capture, character, wait_for)
                 return
 
-            capture("creation-classes.png")
-            click(210, 205)  # Amazon, then back to the class selector.
-            capture("creation-appearance-amazon.png")
-            click(596, 455)
+            capture("creation-appearance.png")
+            if os.environ.get("SANCTUARY_TEST_CREATION_RESIZE_UI") == "1":
+                from check_portrait_dialogue_ui import exercise_resize
+                exercise_resize(window, click)
+            portraits = os.environ.get("SANCTUARY_TEST_PORTRAITS_UI") == "1"
+            if portraits:
+                from check_portrait_dialogue_ui import appearance
+                selected_portrait = appearance(window, click, capture)
+            click(540, 408)
+            capture("creation-name.png")
+            click(88, 408)
             capture("creation-back.png")
-            click(410 if os.environ.get("SANCTUARY_TEST_TELEPORT_UI") == "1" else 210 if combat else 410, 205 if os.environ.get("SANCTUARY_TEST_TELEPORT_UI") == "1" else 260)  # Necromancer or Paladin.
-            click(320, 82)
+            click(540, 408)
+            click(310, 194)
             subprocess.run(["xdotool", "key", "--window", window, "ctrl+a"], check=True)
             subprocess.run(["xdotool", "type", "--window", window, "--delay", "60", character], check=True)
-            capture("creation-appearance-paladin.png")
-            click(615, 455)
+            click(540, 408)
+            capture("creation-classes.png")
+            if os.environ.get("SANCTUARY_TEST_IOLO_UI") == "1":
+                click(310, 313)  # Witch/Warlock.
+            elif os.environ.get("SANCTUARY_TEST_TELEPORT_UI") == "1":
+                click(310, 112)  # Sorceress/Sorcerer.
+            else:
+                click(136 if combat else 310, 180)  # Necromancer or Paladin.
+            click(540, 408)
             capture("creation-submitted.png")
             wait_for("Login step: CharacterCreationDone")
             # World initialization follows the protocol transition; leave time for its first frame.
-            time.sleep(1)
+            time.sleep(2)
+            if portraits:
+                from check_portrait_dialogue_ui import arrival
+                arrival(window, click, profile, selected_portrait)
+                return
+            click(130, 419)  # Dismiss the private New Haven arrival greeting.
             capture("creation-world.png")
-            print("Actual client: class selector, appearance, Back/reselect, and world entry passed.", flush=True)
+            if os.environ.get("SANCTUARY_TEST_IOLO_UI") == "1":
+                from check_iolo_ui import exercise
+                exercise(window, click, profile)
+                return
+            print("Actual client: appearance, name, class, and world entry passed.", flush=True)
+            if os.environ.get("SANCTUARY_TEST_DOCK_UI") == "1":
+                from check_combat_dock_ui import exercise
+                exercise(window, click, profile)
+                return
+            if os.environ.get("SANCTUARY_TEST_MENUS_UI") == "1":
+                from check_sanctuary_menus_ui import exercise
+                exercise(window, click, profile)
+                return
+            if os.environ.get("SANCTUARY_TEST_SOCIAL_GUMPS_UI") == "1":
+                from check_social_gumps_ui import exercise
+                exercise(window, click)
+                return
             if combat:
                 os.environ["SANCTUARY_TEST_CLIENT_PID"] = str(process.pid)
                 os.environ["SANCTUARY_TEST_PROFILE"] = str(profile)
@@ -147,51 +182,70 @@ def check(port, combat=False):
             if console:
                 os.write(int(console), b"creation-ui-level\n")
                 time.sleep(0.4)
-                click(320, 263)  # Paperdoll Class.
-                capture("talents-defense.png")
-                click(240, 94)
-                capture("talents-offense.png")
-                click(436, 94)
-                capture("talents-combat.png")
-                click(44, 94)
-                click(420, 346)  # Learn Prayer, costing the awarded point.
+                click(150, 453)  # Paperdoll Class.
+                capture("paladin-talent-trees.png")
+                click(77, 150)  # Draft Prayer.
+                click(551, 442)  # Apply the allocation.
                 capture("talents-learned.png")
-                click(590, 41)  # Close the Class window.
-                click(320, 236)  # Paperdoll Skills.
-                capture("trade-skills.png")
+                click(568, 61)  # Close the Class window.
+                managed_skills = os.environ.get("SANCTUARY_TEST_TRADE_SKILLS_UI") == "1"
+                if managed_skills:
+                    log = Path(os.environ["SANCTUARY_TEST_LOG"])
 
-                def drag(start, end):
-                    subprocess.run(["xdotool", "mousemove", "--window", window, *map(str, start)], check=True)
-                    subprocess.run(["xdotool", "mousedown", "1"], check=True)
-                    time.sleep(0.2)
-                    # Cross several rows while held, as the old group-drop code ran on hover.
-                    for step in range(1, 9):
-                        point = [int(start[i] + (end[i] - start[i]) * step / 8) for i in range(2)]
-                        subprocess.run(["xdotool", "mousemove", "--window", window, *map(str, point)], check=True)
-                        time.sleep(0.06)
-                    subprocess.run(["xdotool", "mouseup", "1"], check=True)
-                    time.sleep(0.3)
+                    def command(name):
+                        offset = log.stat().st_size
+                        os.write(int(console), (f"skills-ui-{name}\n").encode())
+                        deadline = time.monotonic() + 5
+                        while time.monotonic() < deadline:
+                            output = log.read_text(errors="replace")[offset:]
+                            assert f"skills-ui-{name}: failed" not in output, output
+                            if f"skills-ui-{name}: passed" in output:
+                                return
+                            time.sleep(0.05)
+                        raise AssertionError(f"Missing skills-ui-{name}")
 
-                drag((170, 335), (170, 100))  # Cartography toward Gathering.
-                drag((170, 251), (500, 430))  # Clickable Imbuing out of the menu.
-                capture("skills-after-drag.png")
-                # Save through the client's existing Save Desktop macro.
+                    command("setup")
+
+                click(208, 453)  # Paperdoll Skills.
+                geometry = subprocess.check_output(["xdotool", "getwindowgeometry", "--shell", window], text=True)
+                bounds = dict(line.split("=", 1) for line in geometry.splitlines() if "=" in line)
+                wx, wy, ww, wh = (int(bounds[key]) for key in ("X", "Y", "WIDTH", "HEIGHT"))
+                x, y = max(0, (ww - 532) // 2), max(0, (wh - 364) // 2)
+
+                def capture_sheet(name):
+                    time.sleep(0.9)  # Give the rendered client time for one snapshot.
+                    sheet = ImageGrab.grab(bbox=(wx + x, wy + y, wx + x + 532, wy + y + 364),
+                                           xdisplay=os.environ["DISPLAY"])
+                    sheet.save(logs / name)
+                    return sheet
+
+                first = capture_sheet("trade-skills.png")
+                if managed_skills:
+                    command("choose")
+                    chosen = capture_sheet("trade-skills-chosen.png")
+                    command("unlock")
+                    unlocked = capture_sheet("trade-skills-unlocked.png")
+                    command("switch")
+                    switched = capture_sheet("trade-skills-switched.png")
+
+                    def changed(before, after, area):
+                        return ImageChops.difference(before.crop(area), after.crop(area)).getbbox() is not None
+
+                    assert changed(first, chosen, (26, 92, 244, 180)), "Confirmed craft did not join active skills"
+                    assert changed(chosen, unlocked, (26, 307, 500, 329)), "Wardrobe hint did not update"
+                    assert changed(unlocked, switched, (26, 92, 244, 180)), "Active craft did not refresh after switching"
+                else:
+                    assert first.getpixel((25, 95)) != first.getpixel((25, 171)), "Gathering rows did not render"
+
+                # Saving the desktop confirms the normal Skills action opened one full gump.
                 subprocess.run(["xdotool", "key", "--window", window, "ctrl+alt+shift+s"], check=True)
                 wait_for("Saving done!")
-                expected = {
-                    "Gathering": {18, 44, 45},
-                    "Crafting": {0, 7, 8, 11, 13, 23, 34, 37, 56},
-                    "Treasure Hunting": {12},
-                }
-                groups = list((folder / "Profiles").rglob("skillsgroups.xml"))
-                assert groups, "Skills groups were not saved"
-                for file in groups:
-                    actual = {group.attrib["name"]: {int(item.attrib["id"]) for item in group.findall(".//skill")}
-                              for group in ET.parse(file).findall("group")}
-                    assert actual == expected, actual
-                    desktop = ET.parse(file.with_name("gumps.xml"))
-                    assert not desktop.findall(".//gump[@type='16']"), "Dragging created a floating skill button"
-                print("Actual client: Class tabs, talent learning, and fixed 13-skill groups passed; dragging neither regrouped skills nor created shortcuts.", flush=True)
+                desktop = ET.parse(profile / "gumps.xml")
+                skills = desktop.findall(".//gump[@type='10']")
+                assert len(skills) == 1 and int(skills[0].attrib["x"]) == x and int(skills[0].attrib["y"]) == y
+                assert not desktop.findall(".//gump[@type='16']"), "The sheet created a skill shortcut"
+                click(x + 477, y + 25)
+                print("Actual client: Class allocation and the unified Skills sheet passed.", flush=True)
         finally:
             if process.poll() is None:
                 process.terminate()

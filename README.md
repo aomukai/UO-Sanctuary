@@ -56,7 +56,15 @@ Available bindings depend on the skill. Running trades defense for movement spee
 
 ## Running locally
 
-The development installation uses **ClassicUO**, **ModernUO** and separately installed UO client data. From a configured checkout, start the installed server:
+The development installation uses **ClassicUO**, **ModernUO** and separately installed UO client data. Once the installation and local account are configured, open the Linux desktop launcher:
+
+```bash
+./dev launcher
+```
+
+Click **Play** to start the installed server and open the client. **Save & Shut Down** closes the game and waits for the server to write the world save. Closing ClassicUO or the launcher window also saves and stops the local server. The Linux launcher uses X11 or XWayland, Tkinter, and Python Xlib (`python3-tk` and `python3-xlib` on Ubuntu). Logs go to `.local/logs/launcher-server.log` and `.local/logs/launcher-client.log`.
+
+To run the server from a terminal, including for first-time owner account setup, use:
 
 ```bash
 ./dev doctor
@@ -95,6 +103,16 @@ For content changes, close the server, run `./dev build content`, then start wit
 
 </details>
 
+### Set up with an agent
+
+If you're using a coding agent on Linux, you can give it this request in the Sanctuary checkout:
+
+> Set up Sanctuary for local play using the Running locally instructions in this README. Check what's already installed, reuse my existing configuration and saves, and run the documented setup commands for anything missing. Run `./dev doctor`, start the local server and client, and tell me when the game is ready or if the server needs me to create the first account.
+
+The [launcher design](docs/launcher.md) describes the planned guided setup, local and community play, and optional LLM settings.
+
+For source builds, test isolation, and installed updates, see [local development and deployment](docs/local-development.md).
+
 ## Work ahead
 
 The next phase will use smaller goals, with one complete, playable result at a time:
@@ -105,4 +123,4 @@ The next phase will use smaller goals, with one complete, playable result at a t
 - Remaining equipment effects and later designs for charged or crafted skill-granting gear.
 - World difficulty, rewards, combat balance and targeted control improvements.
 
-The [design outline](Britannia-Diablo-Project-Kickoff.md) describes the broader game direction.
+The [design overview](docs/design-overview.md) links to the current direction and implementation records.

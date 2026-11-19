@@ -24,6 +24,13 @@ public sealed class CharacterProfiles : GenericPersistence
     private sealed class Character(DiabloClass active)
     {
         internal DiabloClass Active = active;
+        internal byte Face;
+        internal ushort AppearanceTemplate;
+        internal bool ArrivalBriefed;
+        internal bool MetIolo;
+        internal bool NewHavenGateUnlocked;
+        internal bool DepartedNewHaven;
+        internal Serial IoloCompanion;
         internal readonly Dictionary<DiabloClass, History> Classes = new();
     }
     private Dictionary<Serial, Character> _characters = new();
@@ -107,43 +114,111 @@ public sealed class CharacterProfiles : GenericPersistence
             return "This talent does not belong to your class.";
         }
 
-        var rank = GetRank(serial, talentId);
+        return TrainingRequirement(profile, talent, GetRank(serial, talentId), AvailablePoints(serial),
+            id => GetRank(serial, id));
+    }
+
+    private static string TrainingRequirement(CharacterProfile profile, TalentDefinition talent, int rank, int points,
+        Func<string, int> getRank)
+    {
         if (rank >= TalentCatalog.MaxRank)
         {
             return "Maximum rank reached.";
         }
-
         if (profile.Level < talent.RequiredLevel + rank)
         {
             return $"Requires character level {talent.RequiredLevel + rank}.";
         }
-
         foreach (var prerequisite in talent.Prerequisites)
         {
-            if (GetRank(serial, prerequisite) == 0)
+            if (getRank(prerequisite) == 0)
             {
                 TalentCatalog.TryGet(profile.Class, prerequisite, out var required);
                 return $"Requires {required.Name}.";
             }
         }
-
-        return AvailablePoints(serial) > 0 ? null : "No unspent talent points. Gain a level to earn one.";
+        return points > 0 ? null : "No unspent talent points. Gain a level to earn one.";
     }
 
-    public bool TryTrain(Serial serial, string talentId, out string reason)
+    public bool TryTrain(Serial serial, string talentId, out string reason) =>
+        TryTrainBatch(serial, new Dictionary<string, int> { [talentId] = 1 }, out reason);
+
+    internal bool TryTrainBatch(Serial serial, IReadOnlyDictionary<string, int> allocations, out string reason)
     {
         if (World.FindMobile(serial) is { } actor && !AlliedOverlap.Allowed(actor))
-        { reason = "Walk clear of your ally before training a talent."; return false; }
-        reason = TrainingRequirement(serial, talentId);
-        if (reason != null)
+        {
+            reason = "Walk clear of your ally before training a talent.";
+            return false;
+        }
+        var history = Active(serial);
+        if (history == null || allocations.Count == 0)
+        {
+            reason = "Choose talents to learn.";
+            return false;
+        }
+
+        if (!CanTrainBatch(serial, allocations, out reason))
         {
             return false;
         }
 
-        var ranks = Active(serial).Ranks;
-        ranks[talentId] = (byte)(ranks.GetValueOrDefault(talentId) + 1);
-        if(World.FindMobile(serial) is PlayerMobile player && Active(serial).Profile.Class==DiabloClass.Barbarian)
-        {BarbarianCombat.Refresh(player);}
+        foreach (var (id, count) in allocations)
+        {
+            history.Ranks[id] = (byte)(history.Ranks.GetValueOrDefault(id) + count);
+        }
+        if (World.FindMobile(serial) is PlayerMobile player)
+        {
+            if (history.Profile.Class == DiabloClass.Barbarian)
+            {
+                BarbarianCombat.Refresh(player);
+            }
+            else
+            {
+                StatNetwork.Send(player);
+            }
+        }
+        reason = null;
+        return true;
+    }
+
+    internal bool CanTrainBatch(Serial serial, IReadOnlyDictionary<string, int> allocations, out string reason)
+    {
+        var history = Active(serial);
+        if (history == null)
+        {
+            reason = "Character profile unavailable.";
+            return false;
+        }
+        int points = AvailablePoints(serial);
+        int total = 0;
+        foreach (var (id, count) in allocations)
+        {
+            if (count is < 1 or > TalentCatalog.MaxRank || !TalentCatalog.TryGet(history.Profile.Class, id, out _))
+            {
+                reason = "Invalid talent allocation.";
+                return false;
+            }
+            total += count;
+        }
+        if (total > points)
+        {
+            reason = "You do not have enough unspent talent points.";
+            return false;
+        }
+
+        int FinalRank(string id) => history.Ranks.GetValueOrDefault(id) + allocations.GetValueOrDefault(id);
+        foreach (var (id, _) in allocations)
+        {
+            TalentCatalog.TryGet(history.Profile.Class, id, out var talent);
+            reason = TrainingRequirement(history.Profile, talent, FinalRank(id) - 1, points, FinalRank);
+            if (reason != null)
+            {
+                reason = $"{talent.Name}: {reason}";
+                return false;
+            }
+        }
+
+        reason = null;
         return true;
     }
 
@@ -246,6 +321,7 @@ public sealed class CharacterProfiles : GenericPersistence
         mobile.Stam = mobile.StamMax;
         if (mobile is PlayerMobile player)
         {
+            MercenaryCare.SyncOwner(player);
             StatNetwork.Send(player);
             TownRecognition.Refresh(player);
             if (!EarnedTitles.Refresh(player)) { EarnedTitles.Changed(player); }
@@ -253,7 +329,62 @@ public sealed class CharacterProfiles : GenericPersistence
         return true;
     }
 
-    public void Assign(Mobile mobile, DiabloClass characterClass)
+    public byte Face(Serial serial) => _characters.TryGetValue(serial, out var character) ? character.Face : (byte)0;
+    public ushort AppearanceTemplate(Serial serial) =>
+        _characters.TryGetValue(serial, out var character) ? character.AppearanceTemplate : (ushort)0;
+    internal bool NeedsArrival(Serial serial) => _characters.TryGetValue(serial, out var character) && !character.ArrivalBriefed;
+    internal void Briefed(Serial serial)
+    {
+        if (_characters.TryGetValue(serial, out var character))
+            character.ArrivalBriefed = true;
+    }
+
+    internal bool HasMetIolo(Serial serial) => _characters.TryGetValue(serial, out var character) && character.MetIolo;
+    internal bool MeetIolo(Serial serial)
+    {
+        if (!_characters.TryGetValue(serial, out var character) || character.MetIolo)
+            return false;
+        character.MetIolo = true;
+        return true;
+    }
+
+    internal Serial IoloCompanion(Serial serial) =>
+        _characters.TryGetValue(serial, out var character) ? character.IoloCompanion : default;
+
+    internal void SetIoloCompanion(Serial serial, Serial companion) => _characters[serial].IoloCompanion = companion;
+
+    internal bool NewHavenGateUnlocked(Serial serial) =>
+        _characters.TryGetValue(serial, out var character) && character.NewHavenGateUnlocked;
+
+    internal bool HasDepartedNewHaven(Serial serial) =>
+        _characters.TryGetValue(serial, out var character) && character.DepartedNewHaven;
+
+    internal void RecordNewHavenDeparture(Serial serial)
+    {
+        if (_characters.TryGetValue(serial, out var character) && character.NewHavenGateUnlocked)
+            character.DepartedNewHaven = true;
+    }
+
+    internal bool UnlockNewHavenGate(Serial serial)
+    {
+        if (!_characters.TryGetValue(serial, out var character) || character.NewHavenGateUnlocked
+            || !character.MetIolo || !HasReached(serial, Iolo.RequiredLevel))
+            return false;
+        character.NewHavenGateUnlocked = true;
+        return true;
+    }
+
+    internal bool HasReached(Serial serial, int level)
+    {
+        if (!_characters.TryGetValue(serial, out var character))
+            return false;
+        foreach (var history in character.Classes.Values)
+            if (history.Profile.Level >= level)
+                return true;
+        return false;
+    }
+
+    public void Assign(Mobile mobile, DiabloClass characterClass, byte face = 0, ushort appearanceTemplate = 0)
     {
         if (!DiabloClasses.TryFromWire((int)characterClass, out _) || mobile is not PlayerMobile)
         {
@@ -261,7 +392,11 @@ public sealed class CharacterProfiles : GenericPersistence
         }
 
         ((PlayerMobile)mobile).Young = false;
-        var character = new Character(characterClass);
+        var character = new Character(characterClass)
+        {
+            Face = face < PortraitProtocol.FaceCount ? face : (byte)0,
+            AppearanceTemplate = appearanceTemplate
+        };
         character.Classes.Add(characterClass, new(new(characterClass, 1, 0)));
         _characters.Add(mobile.Serial, character);
         mobile.Title = $"Level 1 {DiabloClasses.DisplayName(characterClass, mobile.Female)}";
@@ -393,7 +528,7 @@ public sealed class CharacterProfiles : GenericPersistence
 
     public override void Serialize(IGenericWriter writer)
     {
-        writer.Write(3);
+        writer.Write(9);
         writer.Write(_characters.Count);
         var serials = new List<Serial>(_characters.Keys); serials.Sort();
         foreach (var serial in serials)
@@ -401,6 +536,13 @@ public sealed class CharacterProfiles : GenericPersistence
             var character = _characters[serial];
             writer.Write(serial.Value);
             writer.Write((byte)character.Active);
+            writer.Write(character.Face);
+            writer.Write(character.ArrivalBriefed);
+            writer.Write(character.AppearanceTemplate);
+            writer.Write(character.MetIolo);
+            writer.Write(character.IoloCompanion.Value);
+            writer.Write(character.NewHavenGateUnlocked);
+            writer.Write(character.DepartedNewHaven);
             writer.Write(character.Classes.Count);
             var classes = new List<DiabloClass>(character.Classes.Keys); classes.Sort();
             foreach (var id in classes) { WriteHistory(writer, character.Classes[id]); }
@@ -422,7 +564,7 @@ public sealed class CharacterProfiles : GenericPersistence
     public override void Deserialize(IGenericReader reader)
     {
         int version = reader.ReadInt();
-        if (version is < 0 or > 3) { throw new InvalidDataException($"Unsupported Sanctuary character data version {version}."); }
+        if (version is < 0 or > 9) { throw new InvalidDataException($"Unsupported Sanctuary character data version {version}."); }
         int count = reader.ReadInt();
         if (count is < 0 or > 1000000) { throw new InvalidDataException("Invalid Sanctuary character count."); }
         // Decode and validate the complete replacement before changing the loaded authority.
@@ -435,13 +577,29 @@ public sealed class CharacterProfiles : GenericPersistence
             if (version < 3)
             {
                 var history = ReadHistory(reader, version);
-                character = new(history.Profile.Class);
+                character = new(history.Profile.Class) { ArrivalBriefed = true };
                 character.Classes.Add(history.Profile.Class, history);
             }
             else
             {
                 if (!DiabloClasses.TryFromWire(reader.ReadByte(), out var active)) { throw new InvalidDataException("Invalid active class."); }
-                character = new(active); int classes = reader.ReadInt();
+                byte face = version >= 4 ? reader.ReadByte() : (byte)0;
+                if (face >= PortraitProtocol.FaceCount) { throw new InvalidDataException("Invalid saved portrait face."); }
+                character = new(active)
+                {
+                    Face = face, ArrivalBriefed = version < 5 || reader.ReadBool(),
+                    AppearanceTemplate = version >= 6 ? reader.ReadUShort() : (ushort)0
+                };
+                if (character.AppearanceTemplate != 0 && !AppearanceTemplates.TryGet(character.AppearanceTemplate, out _))
+                    throw new InvalidDataException("Invalid saved appearance template.");
+                if (version >= 7)
+                {
+                    character.MetIolo = reader.ReadBool();
+                    character.IoloCompanion = (Serial)reader.ReadUInt();
+                    character.NewHavenGateUnlocked = version >= 8 ? reader.ReadBool() : character.IoloCompanion.IsMobile;
+                    character.DepartedNewHaven = version >= 9 && reader.ReadBool();
+                }
+                int classes = reader.ReadInt();
                 if (classes < 1 || classes > Enum.GetValues<DiabloClass>().Length) { throw new InvalidDataException("Invalid class history count."); }
                 for (int j = 0; j < classes; j++)
                 {

@@ -1,0 +1,23 @@
+diff --git a/Projects/UOContent/Mobiles/BaseCreature.cs b/Projects/UOContent/Mobiles/BaseCreature.cs
+--- a/Projects/UOContent/Mobiles/BaseCreature.cs
++++ b/Projects/UOContent/Mobiles/BaseCreature.cs
+@@ -1070,6 +1070,7 @@
+         }
+ 
+         public virtual bool CanOpenDoors => !Body.IsAnimal && !Body.IsSea;
++        public virtual bool WandersWhileGuarding => true;
+ 
+         public virtual bool CanMoveOverObstacles => Core.AOS || Body.IsMonster;
+ 
+diff --git a/Projects/UOContent/Mobiles/AI/BaseAI/PetOrders.cs b/Projects/UOContent/Mobiles/AI/BaseAI/PetOrders.cs
+--- a/Projects/UOContent/Mobiles/AI/BaseAI/PetOrders.cs
++++ b/Projects/UOContent/Mobiles/AI/BaseAI/PetOrders.cs
+@@ -713,7 +713,7 @@
+             {
+                 WalkMobileRange(controlMaster, 1, 1, GuardRange);
+             }
+-            else
++            else if (Mobile.WandersWhileGuarding)
+             {
+                 WalkRandom(3, 1, 1);
+             }

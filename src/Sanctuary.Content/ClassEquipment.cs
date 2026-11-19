@@ -18,10 +18,8 @@ public static class ClassEquipment
         ClassCombatHooks.WeaponSpeedProperties = CombatTiming.AddSpeedProperties;
         ClassCombatHooks.DaggerProperties = (dagger, list) =>
         {
-            if (IsStarter(dagger))
-            {
-                list.Add($"{TeethProperty}");
-            }
+            if (StarterClass(dagger) is { } characterClass)
+                list.Add($"{ClassAbilities.Label(StarterAbility(characterClass))} +1 ({DiabloClasses.DisplayName(characterClass, false)} only)");
         };
     }
 
@@ -75,27 +73,60 @@ public static class ClassEquipment
         }
     }
 
-    public static bool IsStarter(Item item) => item is Dagger && ClassGear.State(item)?.StarterTeeth == true;
+    public static CombatAbility StarterAbility(DiabloClass characterClass) => characterClass switch
+    {
+        DiabloClass.Amazon => CombatAbility.InnerSight,
+        DiabloClass.Sorceress => CombatAbility.FireBolt,
+        DiabloClass.Necromancer => CombatAbility.Teeth,
+        DiabloClass.Paladin => CombatAbility.Sacrifice,
+        DiabloClass.Barbarian => CombatAbility.Bash,
+        DiabloClass.Druid => CombatAbility.Firestorm,
+        DiabloClass.Assassin => CombatAbility.FireBlast,
+        DiabloClass.Warlock => CombatAbility.MiasmaBolt,
+        _ => CombatAbility.None
+    };
+
+    public static DiabloClass? StarterClass(Item item) => item is Dagger && ClassGear.State(item) is { Starter: true } state
+        ? state.StarterTeeth ? DiabloClass.Necromancer : state.StarterClass
+        : null;
+
+    public static bool IsStarter(Item item) => StarterClass(item).HasValue;
     public static void Prepare(PlayerMobile mobile, bool creating = false)
     {
-        if (mobile == null || !ClassCreation.Profiles.TryGet(mobile.Serial, out var profile)
-            || profile.Class != DiabloClass.Necromancer)
+        if (mobile == null || !ClassCreation.Profiles.TryGet(mobile.Serial, out var profile))
         {
             return;
         }
-        if (creating)
+        if (creating || profile.Class != DiabloClass.Necromancer)
         {
-            ClassGear.Profiles.BeginStarterMigration(mobile.Serial);
-            var dagger = mobile.FindItemOnLayer(Layer.OneHanded) as Dagger
-                ?? mobile.Backpack?.FindItemByType<Dagger>();
-            if (dagger != null)
+            if (mobile.Backpack == null || !ClassGear.Profiles.BeginStarterMigration(mobile.Serial))
+                return;
+
+            static bool Original(Dagger dagger) => dagger?.LootType == LootType.Blessed && dagger.Name == null
+                && (ClassGear.State(dagger) is not { } state || state.Roll.Rarity == GearRarity.Normal && !state.Starter
+                    && state.SocketCount == 0 && !state.CraftedEquipment);
+            var equipped = mobile.FindItemOnLayer(Layer.OneHanded) as Dagger;
+            var dagger = Original(equipped) ? equipped : null;
+            if (dagger == null)
             {
-                ClassGear.Profiles.MarkStarter(dagger);
-                if (dagger.Name == null)
+                foreach (var item in mobile.Backpack.FindItems(true))
                 {
-                    dagger.Name = NecromancerDaggerName;
+                    if (item is Dagger candidate && Original(candidate))
+                    {
+                        dagger = candidate;
+                        break;
+                    }
                 }
             }
+
+            if (dagger == null)
+            {
+                dagger = new Dagger { LootType = LootType.Blessed };
+                mobile.Backpack.DropItem(dagger);
+            }
+            ClassGear.Profiles.MarkStarter(dagger, profile.Class);
+            dagger.Name = profile.Class == DiabloClass.Necromancer ? NecromancerDaggerName
+                : $"{DiabloClasses.DisplayName(profile.Class, mobile.Female)} Starting Dagger";
             return;
         }
         if (!ClassGear.Profiles.BeginStarterMigration(mobile.Serial))

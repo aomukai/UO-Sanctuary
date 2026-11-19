@@ -1,0 +1,24 @@
+diff --git a/Projects/UOContent/Mobiles/ClassMapHooks.cs b/Projects/UOContent/Mobiles/ClassMapHooks.cs
+--- a/Projects/UOContent/Mobiles/ClassMapHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassMapHooks.cs
+@@ -14,4 +14,5 @@
+     public static Func<Mobile, int, int> SearchRange { get; set; }
+     public static Func<Mobile, Mobile, bool> StoryMobileVisible { get; set; }
+     public static Func<PublicMoongate, Mobile, bool> PublicGateAllowed { get; set; }
++    public static Action<PublicMoongate, Mobile> PublicGateTraveled { get; set; }
+ }
+diff --git a/Projects/UOContent/Items/Misc/PublicMoongate.cs b/Projects/UOContent/Items/Misc/PublicMoongate.cs
+--- a/Projects/UOContent/Items/Misc/PublicMoongate.cs
++++ b/Projects/UOContent/Items/Misc/PublicMoongate.cs
+@@ -525,6 +525,11 @@
+ 
+             from.MoveToWorld(entry.Location, list.Map);
+ 
++            if (_moongate is PublicMoongate usedGate)
++            {
++                ClassMapHooks.PublicGateTraveled?.Invoke(usedGate, from);
++            }
++
+             Effects.PlaySound(entry.Location, list.Map, 0x1FE);
+         }
+     }

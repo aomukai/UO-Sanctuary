@@ -2,7 +2,7 @@
 
 > **Current design versus installed build — 19 October 2026:** The completed [user replies](economy-open-questions-replies.md) are reconciled in [crafting.md](crafting.md). They supersede earlier target values: new tier-based resale/no buyback, skill/cost-tiered Imbuing, irreversible tinker-added-socket exclusion, stat-specific moulds, new gathering thresholds, manual corpse gold and flat20% carried-gold death loss. The current rows and linked card documents record implemented changes; the older prototype/deployment history below remains historical evidence.
 
-18 October 2026. These notes distinguish the installed equipment-economy prototype from the user's design handoffs. The later [crafting handoff](../sanctuary-crafting.md) supersedes conflicting parts of the [older economy draft](../sanctuary-economy.md); subsequent explicit user confirmations settle single-use moulds and nine gem families. The handoffs have now been reconciled. This document is not authorization to implement every proposed sink, profession recipe or drop table.
+These notes record the equipment-economy prototype and later implementations. Use the [crafting decisions](crafting.md) and [reconciliation](economy-reconciliation.md) for the consolidated design and later confirmations, including single-use moulds and nine gem families.
 
 ## Agreed direction and scope
 

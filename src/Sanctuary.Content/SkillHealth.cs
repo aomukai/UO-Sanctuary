@@ -109,6 +109,7 @@ public static class SkillHealth
     private static int DamageCore(Mobile source,Mobile target,int damage256,SkillDamageKind kind,DirectDamageParts? parts,bool notifySuppressedDirect=false)
     {
         if (damage256 <= 0 || target is not { Alive: true, Deleted: false } || !target.CanBeDamaged()) { return 0; }
+        if (kind == SkillDamageKind.Direct) { ClassStats.RememberMatchup(source, target); }
         // A reaction may kill/remove the recipient or change its life. Read
         // the live fractional balance only after that reaction has completed.
         // With no reaction, preserve the original single admission check.

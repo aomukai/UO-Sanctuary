@@ -73,7 +73,8 @@ public static class CreatureHitRecovery
             return;
         }
         var row = CreatureProfiles.For(creature).HitRecovery;
-        if (!row.Enabled)
+        var companion = MercenaryCare.CompanionLevel(creature).HasValue ? creature as IClassCompanion : null;
+        if (!row.Enabled && companion == null)
         {
             return;
         }
@@ -82,7 +83,7 @@ public static class CreatureHitRecovery
         {
             return;
         }
-        int duration = Frames(row) * ActionTiming.FrameMs;
+        int duration = (companion != null ? CompanionBuild.Recovery(creature, companion.CombatClass) : Frames(row)) * ActionTiming.FrameMs;
         Begin(creature,duration);
     }
     // Called only after an actor consumer accepts a source GH mode request.

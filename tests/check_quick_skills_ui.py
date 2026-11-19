@@ -26,7 +26,7 @@ def exercise(window, click, capture):
             subprocess.run(['xdotool', 'click', str(button)], check=True); time.sleep(.35)
     def key(value):
         subprocess.run(['xdotool', 'key', '--window', window, value], check=True); time.sleep(.3)
-    click(335, 367); state = command('setup'); time.sleep(.8)
+    click(538, 101); state = command('setup'); time.sleep(.8)
     key('s'); time.sleep(.3); capture('t39-available-skills.png')
     mouse(180, 269); key('F1'); key('F12'); mouse(180, 307); key('F2')
     mouse(180, 269, 1); mouse(180, 307, 3); state = command('assigned')

@@ -10,7 +10,13 @@ public enum StatField
 public static class StatProtocol
 {
     public const ushort SubCommand = 0xF5;
-    public const byte Version = 6;
+    public const byte LegacyVersion = 6;
+    public const byte Version = 7;
+    public const int MatchupNameBytes = 160;
+    public const int MatchupFields = 6;
     public const int PollMs = 500;
+    public const byte TradeSkillsRequest = 5;
+    public const ushort ExperienceSubCommand = 0xFD;
+    public const int ExperiencePacketLength = 18;
     public const int Values = (int)StatField.Count;
 }

@@ -75,7 +75,11 @@ internal sealed class GoatmanNativeCombat(WarlockGoatmanBody body,PlayerMobile o
             packet=skill==0?GoatmanNpcContact.PrepareBasic(body,owner,target,at):GoatmanNpcContact.Prepare(body,owner,target,skill,at);
         }
         var action=new Action(body,target,skill,rank,frame,at,plan,packet,sweep);
-        DeathMarkWorld.ChangeMode(body,action.Mode);Current=action;return action;
+        DeathMarkWorld.ChangeMode(body,action.Mode);Current=action;
+        body.Direction=body.GetDirectionTo(target);
+        // The imp's two native melee clips use these action indices and four frames each.
+        body.Animate(action.Mode,4,1,true,false,0);
+        return action;
     }
     private void Finish(Action a,bool cancel)
     {

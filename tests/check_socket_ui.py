@@ -28,7 +28,7 @@ def exercise(window, click, capture):
         click(130, 298)
         command('target')
         time.sleep(1)
-    click(335, 367)
+    click(538, 101)
     command('setup')
     time.sleep(1.5)
     capture('t20-socket-tool.png')

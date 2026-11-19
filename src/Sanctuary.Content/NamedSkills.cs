@@ -35,7 +35,11 @@ public static class NamedSkills
     {
         if (property.Code == "skill" && property.Parameter is { } parameter
             && _bySource.TryGetValue(parameter.ToString(), out var binding))
-        { return (binding.SourceKey, binding.CharacterClass); }
+        {
+            string name = Enum.TryParse<DiabloClass>(binding.CharacterClass, out var ownerClass)
+                && TalentCatalog.TryGet(ownerClass, binding.TalentId, out var talent) ? talent.Name : binding.SourceKey;
+            return (name, binding.CharacterClass);
+        }
         int tab = NamedPropertyRuntime.Parameter(property);
         if (property.Code == "skilltab" && tab is >= 0 and < 24)
         {
@@ -50,7 +54,10 @@ public static class NamedSkills
         if (!_byTalent.TryGetValue(talentId, out var talent)
             || !ClassCreation.Profiles.TryGet(player.Serial, out var profile) || profile.Class.ToString() != talent.CharacterClass)
         { return baseline; }
-        int direct = 0, general = 0;
+        var weapon = CombatTiming.Equipped(player);
+        int direct = ClassEquipment.StarterClass(weapon) == profile.Class && ClassGear.Active(player, weapon)
+            && ClassAbilities.Find(ClassEquipment.StarterAbility(profile.Class))?.TalentId == talentId ? 1 : 0;
+        int general = 0;
         foreach (var value in NamedGear.ActiveProperties(player))
         {
             var property = value.Property;

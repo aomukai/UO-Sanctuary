@@ -1,0 +1,325 @@
+diff --git a/src/ClassicUO.Client/Network/PacketHandlers.cs b/src/ClassicUO.Client/Network/PacketHandlers.cs
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -1970,17 +1970,17 @@
+                 {
+                     world.SkillsRequested = false;
+ 
+-                    // TODO: make a base class for this gump
+-                    if (ProfileManager.CurrentProfile.StandardSkillsGump)
+-                    {
+-                        if (standard == null)
+-                        {
+-                            UIManager.Add(standard = new StandardSkillsGump(world) { X = 100, Y = 10 });
+-                        }
+-                    }
+-                    else
+-                    {
+-                        if (advanced == null)
++                    // Sanctuary requests its own read-only sheet. Keep receiving native skill values.
++                    if (!ClassCombatClient.Enabled)
++                    {
++                        if (ProfileManager.CurrentProfile.StandardSkillsGump)
++                        {
++                            if (standard == null)
++                            {
++                                UIManager.Add(standard = new StandardSkillsGump(world) { X = 100, Y = 10 });
++                            }
++                        }
++                        else if (advanced == null)
+                         {
+                             UIManager.Add(advanced = new SkillGumpAdvanced(world) { X = 100, Y = 100 });
+                         }
+@@ -4150,6 +4150,11 @@
+                 SanctuaryTalentScreen.Receive(ref p);
+                 return;
+             }
++            if (cmd == Sanctuary.TradeSkillSheetProtocol.SubCommand)
++            {
++                SanctuarySkillsGump.Receive(world, ref p);
++                return;
++            }
+             if (cmd == Sanctuary.StatProtocol.SubCommand)
+             {
+                 ClassStatsClient.Receive(world, ref p);
+diff --git a/src/ClassicUO.Client/Game/ClassStatsClient.cs b/src/ClassicUO.Client/Game/ClassStatsClient.cs
+--- a/src/ClassicUO.Client/Game/ClassStatsClient.cs
++++ b/src/ClassicUO.Client/Game/ClassStatsClient.cs
+@@ -104,6 +104,8 @@
+         _values = values;
+         Ready = true;
+     }
++    public static void RequestTradeSkills() => Send(StatProtocol.TradeSkillsRequest);
++
+     private static void Send(byte request)
+     {
+         var writer = new StackDataWriter(11);
+diff --git a/src/ClassicUO.Client/Game/ClassCombatClient.cs b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+--- a/src/ClassicUO.Client/Game/ClassCombatClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -310,6 +310,7 @@
+         {
+             return;
+         }
++        bool firstSnapshot = !Enabled;
+         Enabled = true;
+         _hostiles.Clear();
+         for (var i = 0; i < count; i++)
+@@ -320,6 +321,8 @@
+         if (allyCount > CombatProtocol.MaxAllies || reader.Remaining != allyCount * 4) { return; }
+         _allies.Clear();
+         for (int i = 0; i < allyCount; i++) { _allies.Add(reader.ReadUInt32BE()); }
++        if (firstSnapshot)
++            SanctuarySkillsGump.ReplaceLegacy(world);
+         if (unchecked((int)(ack - _sequence)) >= 0)
+         {
+             ProfileManager.CurrentProfile.DiabloRun = running;
+diff --git a/src/ClassicUO.Client/Game/GameActions.cs b/src/ClassicUO.Client/Game/GameActions.cs
+--- a/src/ClassicUO.Client/Game/GameActions.cs
++++ b/src/ClassicUO.Client/Game/GameActions.cs
+@@ -137,6 +137,12 @@
+ 
+         public static void OpenSkills(World world)
+         {
++            if (ClassCombatClient.Enabled)
++            {
++                SanctuarySkillsGump.Open(world);
++                return;
++            }
++
+             StandardSkillsGump skillsGump = UIManager.GetGump<StandardSkillsGump>();
+ 
+             if (skillsGump != null && skillsGump.IsMinimized)
+diff --git a/src/ClassicUO.Client/Game/Managers/MacroManager.cs b/src/ClassicUO.Client/Game/Managers/MacroManager.cs
+--- a/src/ClassicUO.Client/Game/Managers/MacroManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/MacroManager.cs
+@@ -730,7 +730,18 @@
+ 
+                                 case MacroSubType.Skills:
+ 
+-                                    if (ProfileManager.CurrentProfile.StandardSkillsGump)
++                                    if (ClassCombatClient.Enabled)
++                                    {
++                                        var skillsSheet = UIManager.GetGump<SanctuarySkillsGump>();
++                                        if (skillsSheet != null)
++                                        {
++                                            if (macro.Code == MacroType.Close)
++                                                skillsSheet.Dispose();
++                                            else
++                                                skillsSheet.IsVisible = macro.Code == MacroType.Maximize;
++                                        }
++                                    }
++                                    else if (ProfileManager.CurrentProfile.StandardSkillsGump)
+                                     {
+                                         StandardSkillsGump skillgump = UIManager.GetGump<StandardSkillsGump>();
+ 
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuarySkillsGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuarySkillsGump.cs
+new file mode 100644
+--- /dev/null
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuarySkillsGump.cs
+@@ -0,0 +1,205 @@
++// SPDX-License-Identifier: BSD-2-Clause
++
++using System;
++using System.Globalization;
++using System.Linq;
++using ClassicUO.Game.Managers;
++using ClassicUO.Game.UI.Controls;
++using ClassicUO.IO;
++using Sanctuary;
++
++namespace ClassicUO.Game.UI.Gumps;
++
++internal sealed class SanctuarySkillsGump : Gump
++{
++    private const int FrameWidth = 532;
++    private const int FrameHeight = 364;
++    private const int FirstRowY = 92;
++    private const int RowHeight = 20;
++    private const ushort TextHue = 0x0481;
++    private const ushort GoldHue = 0x0035;
++    private const uint Brass = 0xFF345681;
++
++    private readonly SkillRow[] _rows = new SkillRow[TradeSkills.Count];
++    private readonly SkillRow[] _sortedRows;
++    private readonly Label _leftHeading;
++    private readonly Label _rightHeading;
++    private readonly Label _guidance;
++    private readonly Label _wardrobe;
++    private readonly Line _divider;
++    private uint _nextPoll;
++
++    public override GumpType GumpType => GumpType.SkillMenu;
++
++    private SanctuarySkillsGump(World world) : base(world, 0, 0)
++    {
++        Width = FrameWidth;
++        Height = FrameHeight;
++        WantUpdateSize = false;
++        X = Math.Max(0, (Client.Game.ClientBounds.Width - Width) / 2);
++        Y = Math.Max(0, (Client.Game.ClientBounds.Height - Height) / 2);
++        CanMove = CanCloseWithRightClick = CanCloseWithEsc = true;
++
++        Add(new SanctuaryBackdrop("character-frame", Width, Height));
++        Caption(26, 12, "Skills", font: 0);
++        Add(new SanctuarySheetButton(448, 13, 58, "Close", Dispose));
++
++        _leftHeading = Caption(26, 63, "Active skills", GoldHue);
++        _rightHeading = Caption(277, 63, "Other crafts", GoldHue);
++        _divider = Add(new Line(252, 60, 1, 235, Brass) { AcceptMouseInput = false });
++        Add(new Line(24, 300, 484, 1, Brass) { AcceptMouseInput = false });
++        _guidance = Caption(26, 307, "Waiting for skills…");
++        _wardrobe = Caption(26, 327, "");
++
++        var skills = Client.Game.UO.FileManager.Skills.Skills;
++        int slot = 0;
++        foreach (byte id in TradeSkills.Gathering)
++            _rows[slot++] = Add(new SkillRow(id, skills[id].Name));
++        foreach (byte id in TradeSkills.Crafting)
++            _rows[slot++] = Add(new SkillRow(id, skills[id].Name));
++        _sortedRows = _rows.OrderBy(row => row.SkillName, StringComparer.CurrentCultureIgnoreCase).ToArray();
++        _leftHeading.IsVisible = _rightHeading.IsVisible = _divider.IsVisible = false;
++        _nextPoll = Time.Ticks;
++    }
++
++    public static void Open(World world)
++    {
++        var sheet = UIManager.GetGump<SanctuarySkillsGump>() ?? ReplaceLegacy(world);
++        if (sheet == null)
++        {
++            UIManager.Add(new SanctuarySkillsGump(world));
++            return;
++        }
++        sheet.IsVisible = true;
++        sheet.ClampToWindow();
++        sheet.BringOnTop();
++    }
++
++    // Saved desktops and an open just before login completes can contain the stock form.
++    internal static SanctuarySkillsGump ReplaceLegacy(World world)
++    {
++        var standard = UIManager.GetGump<StandardSkillsGump>();
++        var advanced = UIManager.GetGump<SkillGumpAdvanced>();
++        Gump previous = (Gump)standard ?? advanced;
++        if (previous == null)
++            return null;
++
++        var sheet = new SanctuarySkillsGump(world) { X = previous.X, Y = previous.Y };
++        standard?.Dispose();
++        advanced?.Dispose();
++        sheet.ClampToWindow();
++        UIManager.Add(sheet);
++        return sheet;
++    }
++
++    private void ClampToWindow()
++    {
++        X = Math.Clamp(X, 0, Math.Max(0, Client.Game.ClientBounds.Width - Width));
++        Y = Math.Clamp(Y, 0, Math.Max(0, Client.Game.ClientBounds.Height - Height));
++    }
++
++    private Label Caption(int x, int y, string value, ushort hue = TextHue, byte font = 1) =>
++        Add(new Label(value, true, hue, font: font) { X = x, Y = y, AcceptMouseInput = false });
++
++    public override void Update()
++    {
++        base.Update();
++        if (!IsDisposed && IsVisible && World.InGame && unchecked((int)(Time.Ticks - _nextPoll)) >= 0)
++        {
++            _nextPoll = Time.Ticks + TradeSkillSheetProtocol.PollMs;
++            ClassStatsClient.RequestTradeSkills();
++        }
++    }
++
++    internal static void Receive(World world, ref StackDataReader reader)
++    {
++        if (!world.InGame || reader.Remaining != TradeSkillSheetProtocol.PacketLength - 5
++            || reader.ReadUInt8() != TradeSkillSheetProtocol.Version
++            || UIManager.GetGump<SanctuarySkillsGump>() is not { } sheet)
++        {
++            return;
++        }
++
++        var flags = (TradeSkillSheetFlags)reader.ReadUInt8();
++        byte craft = reader.ReadUInt8();
++        bool managed = flags.HasFlag(TradeSkillSheetFlags.Managed);
++        if ((flags & ~(TradeSkillSheetFlags.Managed | TradeSkillSheetFlags.WardrobeUnlocked)) != 0
++            || craft != TradeSkillSheetProtocol.NoActiveCraft && (!managed || !TradeSkills.IsCraft(craft)))
++        {
++            return;
++        }
++
++        Span<ushort> points = stackalloc ushort[TradeSkills.Count];
++        for (int i = 0; i < points.Length; i++)
++            points[i] = reader.ReadUInt16BE();
++        sheet.Refresh(managed, flags.HasFlag(TradeSkillSheetFlags.WardrobeUnlocked), craft, points);
++    }
++
++    private void Refresh(bool managed, bool unlocked, byte craft, ReadOnlySpan<ushort> points)
++    {
++        _leftHeading.Text = managed ? "Active skills" : "Gathering";
++        _rightHeading.Text = managed ? "Other crafts" : "Crafting";
++        _leftHeading.IsVisible = _rightHeading.IsVisible = _divider.IsVisible = true;
++
++        // The wire order follows the shared roster. Sort the displayed rows by name within each section.
++        for (int i = 0; i < _rows.Length; i++)
++            _rows[i].SetPoints(points[i]);
++
++        int activeRow = 0, otherRow = 0;
++        foreach (var row in _sortedRows)
++        {
++            bool left = TradeSkills.IsGathering(row.Id) || row.Id == craft;
++            row.Place(left, !managed || left, left ? activeRow++ : otherRow++);
++        }
++
++        string firstChoice = managed && craft == TradeSkillSheetProtocol.NoActiveCraft
++            ? "Choose your first craft with its tool or a trainer."
++            : string.Empty;
++        string switching = !managed ? string.Empty : unlocked
++            ? "Visit a wardrobe to switch crafts."
++            : "Wardrobe switching is still locked.";
++        _guidance.Text = firstChoice.Length > 0 ? firstChoice : switching;
++        _wardrobe.Text = firstChoice.Length > 0 ? switching : string.Empty;
++    }
++
++    private sealed class SkillRow : Control
++    {
++        private readonly Label _name;
++        private readonly Label _points;
++        private readonly Line _background;
++
++        public byte Id { get; }
++        public string SkillName => _name.Text;
++
++        public SkillRow(byte id, string name)
++        {
++            Id = id;
++            Width = 220;
++            Height = RowHeight;
++            WantUpdateSize = false;
++            IsVisible = false;
++            _background = Add(new Line(0, 0, Width, RowHeight - 3, 0xFF242F3E) { AcceptMouseInput = false });
++            _name = Add(new Label(name, true, TextHue, font: 1) { X = 8, Y = 2 });
++            _points = Add(new Label("", true, TextHue, font: 1) { Y = 2 });
++        }
++
++        public void SetPoints(ushort tenths)
++        {
++            string amount = (tenths / 10m).ToString("F1", CultureInfo.CurrentCulture);
++            if (!string.Equals(_points.Text, amount, StringComparison.Ordinal))
++            {
++                _points.Text = amount;
++                _points.X = Width - 8 - _points.Width;
++            }
++            _name.Alpha = _points.Alpha = tenths == 0 ? 0.50f : 1f;
++        }
++
++        public void Place(bool left, bool active, int position)
++        {
++            X = left ? 24 : 275;
++            Y = FirstRowY + RowHeight * position;
++            _background.IsVisible = active;
++            IsVisible = true;
++        }
++    }
++}

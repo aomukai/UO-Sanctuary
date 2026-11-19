@@ -29,7 +29,7 @@ def exercise(window, click, capture):
                         'click', '--repeat', '2', '--delay', '100', '1'], check=True)
         time.sleep(.5)
 
-    click(335, 367)
+    click(538, 101)
     command('setup')
     time.sleep(.3)
     click(130, 182)  # Production asks for a profession; processing remains open.

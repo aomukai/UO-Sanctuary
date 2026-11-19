@@ -1,0 +1,66 @@
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CreateCharAppearanceGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CreateCharAppearanceGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CreateCharAppearanceGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CreateCharAppearanceGump.cs
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: BSD-2-Clause
+ 
+ using System;
++using System.Collections.Generic;
+ using ClassicUO.Assets;
+ using ClassicUO.Game.Data;
+ using ClassicUO.Game.GameObjects;
+@@ -14,7 +15,10 @@
+ {
+     internal sealed class CreateCharAppearanceGump : Gump
+     {
++        private readonly record struct Selection(byte Face, int Hair, int Beard, ushort Skin, ushort HairHue, ushort BeardHue);
++
+         private readonly CharCreationGump _owner;
++        private readonly Dictionary<(RaceType, bool), Selection> _selections = new();
+         private RaceType _race = RaceType.HUMAN;
+         private bool _female;
+         private byte _face = 1;
+@@ -44,21 +48,23 @@
+         private CharacterCreationValues.ComboContent FacialHair => _facialOptions ??= CharacterCreationValues.GetFacialHairComboContent(_race);
+         private bool HasFacialHair => !_female && _race != RaceType.ELF;
+ 
+-        private void SelectRace(RaceType race)
+-        {
+-            if (race == _race)
++        private void SelectRace(RaceType race) => SelectBody(race, _female);
++
++        private void SelectSex(bool female) => SelectBody(_race, female);
++
++        private void SelectBody(RaceType race, bool female)
++        {
++            if (race == _race && female == _female)
+                 return;
++
++            _selections[(_race, _female)] = new(_face, _hair, _beard, _skin, _hairHue, _beardHue);
+             _race = race;
+-            UsePreset();
+-            Build();
+-        }
+-
+-        private void SelectSex(bool female)
+-        {
+-            if (female == _female)
+-                return;
+             _female = female;
+-            UsePreset();
++            _hairOptions = _facialOptions = null;
++            if (_selections.TryGetValue((race, female), out var selection))
++                (_face, _hair, _beard, _skin, _hairHue, _beardHue) = selection;
++            else
++                UsePreset();
+             Build();
+         }
+ 
+@@ -71,7 +77,6 @@
+ 
+         private void UsePreset()
+         {
+-            _hairOptions = _facialOptions = null;
+             ushort[] skin = CharacterCreationValues.GetSkinPallet(_race);
+             ushort[] hair = CharacterCreationValues.GetHairPallet(_race);
+             int[] skinChoices = [1, 0, 18, 8, 32, 45, 11, 23];

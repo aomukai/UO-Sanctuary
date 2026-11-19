@@ -1,0 +1,112 @@
+diff --git a/src/ClassicUO.Client/Game/AvatarDialogueClient.cs b/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
+--- a/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
++++ b/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
+@@ -12,10 +12,14 @@
+ 
+ internal static class AvatarDialogueClient
+ {
++    internal static bool IsOwnCompanion(World world, Mobile mobile) =>
++        world.Player?.SanctuaryIoloCompanion == mobile.Serial;
++
+     internal static bool CanInteract(World world, Mobile mobile) =>
+         world.Player is { SanctuaryNpcInteraction: true } && mobile != world.Player && !mobile.IsDead
+-        && mobile.NotorietyFlag is NotorietyFlag.Invulnerable or NotorietyFlag.Innocent
+-        && !ClassCombatClient.Hostile(mobile) && !ClassCombatClient.Ally(mobile);
++        && (IsOwnCompanion(world, mobile)
++            || mobile.NotorietyFlag is NotorietyFlag.Invulnerable or NotorietyFlag.Innocent
++                && !ClassCombatClient.Hostile(mobile) && !ClassCombatClient.Ally(mobile));
+ 
+     internal static void Interact(uint serial)
+     {
+@@ -35,6 +39,13 @@
+             return;
+ 
+         byte kind = reader.ReadUInt8();
++        if (kind == PortraitProtocol.StoryState && reader.Remaining == 5)
++        {
++            world.Player.SanctuaryMetIolo = reader.ReadUInt8() != 0;
++            world.Player.SanctuaryIoloCompanion = reader.ReadUInt32BE();
++            UIManager.GetGump<SanctuaryJournalGump>()?.RefreshDiscoveries();
++            return;
++        }
+         if (kind == PortraitProtocol.InteractionEnabled && reader.Remaining == 0)
+         {
+             world.Player.SanctuaryNpcInteraction = true;
+diff --git a/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs b/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
+--- a/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
++++ b/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
+@@ -800,7 +800,8 @@
+             !Keyboard.Alt && !Keyboard.Ctrl && !Keyboard.Shift && !_world.Player.IsDead
+             && !_world.TargetManager.IsTargeting && _world.CustomHouseManager == null
+             && !Client.Game.UO.GameCursor.ItemHold.Enabled
+-            && SelectedObject.Object is Mobile { NotorietyFlag: NotorietyFlag.Invulnerable } npc
++            && SelectedObject.Object is Mobile npc
++            && (npc.NotorietyFlag == NotorietyFlag.Invulnerable || AvatarDialogueClient.IsOwnCompanion(_world, npc))
+             && AvatarDialogueClient.CanInteract(_world, npc) ? npc : null;
+ 
+         private bool OnLeftMouseDoubleClick()
+diff --git a/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs b/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs
+@@ -18,6 +18,8 @@
+         internal byte SanctuaryFace { get; set; }
+         internal ushort SanctuaryAppearanceTemplate { get; set; }
+         internal bool SanctuaryNpcInteraction { get; set; }
++        internal bool SanctuaryMetIolo { get; set; }
++        internal uint SanctuaryIoloCompanion { get; set; }
+         private readonly Dictionary<BuffIconType, BuffIcon> _buffIcons = new Dictionary<BuffIconType, BuffIcon>();
+ 
+         public PlayerMobile(World world, uint serial) : base(world, serial)
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
+@@ -96,6 +96,8 @@
+ internal sealed class SanctuaryJournalGump : Gump
+ {
+     private readonly Label _category;
++    private readonly Label _empty;
++    private readonly ScrollArea _discoveries;
+ 
+     private SanctuaryJournalGump(World world) : base(world, 0, 0)
+     {
+@@ -108,7 +110,14 @@
+         Add(new Label("The Adventures of the Avatar", false, 0x0386, 245, font: 1) { X = 31, Y = 37 });
+         Add(new Line(32, 66, 240, 1, 0xFF3F6E98) { AcceptMouseInput = false });
+         _category = Add(new Label("All discoveries", false, 0x0386, font: 1) { X = 32, Y = 86 });
+-        Add(new Label("No discoveries recorded.", false, 0x0386, font: 1) { X = 32, Y = 120 });
++        _empty = Add(new Label("No discoveries recorded.", false, 0x0386, font: 1) { X = 32, Y = 120 });
++        _discoveries = Add(new ScrollArea(32, 117, 247, 214, true));
++        _discoveries.Add(new Label("An Unexpected Summons", true, 0x0386, 225, font: 0));
++        _discoveries.Add(new Label(
++            "I'd come home late again. We'd been working overtime for weeks, and I barely had the energy to turn on the computer. Then the room fell away.\n\n"
++            + "I found Iolo at the Bountiful Harvest Inn in New Haven. He admitted he'd called me back. There were signs of danger in Britannia, but he'd taken one look at me and suggested I get my feet under me first. The old graveyard southwest of town, he said, would tell me how rusty I really was.",
++            true, 0x0386, 224, font: 1) { Y = 28 });
++        RefreshDiscoveries();
+         Add(new SanctuarySheetButton(32, 350, 84, "Chat Log", () => GameActions.OpenJournal(World)));
+ 
+         Add(new Label("Principles and Virtues", false, 0x0386, font: 1) { X = 330, Y = 37 });
+@@ -129,6 +138,13 @@
+         }
+     }
+ 
++    internal void RefreshDiscoveries()
++    {
++        bool show = World.Player?.SanctuaryMetIolo == true && _category.Text == "All discoveries";
++        _empty.IsVisible = !show;
++        _discoveries.IsVisible = show;
++    }
++
+     private void AddIndexTargets()
+     {
+         foreach (var (name, x, y, _) in VirtuePlate.Emblems)
+@@ -146,7 +162,10 @@
+         target.MouseUp += (_, args) =>
+         {
+             if (args.Button == MouseButtonType.Left)
++            {
+                 _category.Text = name == "Infinity" ? "All discoveries" : name;
++                RefreshDiscoveries();
++            }
+         };
+     }
+ 

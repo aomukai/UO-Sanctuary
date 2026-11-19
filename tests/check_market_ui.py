@@ -22,7 +22,7 @@ def exercise(window, click, capture):
                 return json.loads(Path(os.environ['SANCTUARY_TEST_UI_STATE']).read_text())
             time.sleep(.05)
         raise AssertionError('Missing market-ui-' + name)
-    click(335, 367)
+    click(538, 101)
     command('setup')
     time.sleep(.8)
     capture('t11-shop-buy.png')

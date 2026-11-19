@@ -18,7 +18,7 @@ public static class TradePrices
         var (min, max) = Band(tier);
         return random.Next(min, max + 1);
     }
-    public static bool Starter(Item item) => ClassGear.State(item) is { StarterTeeth: true } || item.LootType == LootType.Newbied;
+    public static bool Starter(Item item) => ClassGear.State(item) is { Starter: true } || item.LootType == LootType.Newbied;
     public static bool CanSell(Item item) => item is { Deleted: false, Movable: true, Nontransferable: false, QuestItem: false, Insured: false }
         && !item.IsLockedDown && !item.IsSecure && (item.IsStandardLoot() || ClassGear.Converted(item) && Starter(item))
         && (item is not Container container || container.Items.Count == 0);

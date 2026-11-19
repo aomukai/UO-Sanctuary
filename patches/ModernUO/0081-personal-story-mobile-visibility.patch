@@ -1,0 +1,22 @@
+diff --git a/Projects/UOContent/Mobiles/ClassMapHooks.cs b/Projects/UOContent/Mobiles/ClassMapHooks.cs
+--- a/Projects/UOContent/Mobiles/ClassMapHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassMapHooks.cs
+@@ -12,4 +12,5 @@
+     public static Func<Mobile, int, Map, Item> TreasureFished { get; set; }
+     public static Action<Mobile> LocationChanged { get; set; }
+     public static Func<Mobile, int, int> SearchRange { get; set; }
++    public static Func<Mobile, Mobile, bool> StoryMobileVisible { get; set; }
+ }
+diff --git a/Projects/UOContent/Mobiles/PlayerMobile.cs b/Projects/UOContent/Mobiles/PlayerMobile.cs
+--- a/Projects/UOContent/Mobiles/PlayerMobile.cs
++++ b/Projects/UOContent/Mobiles/PlayerMobile.cs
+@@ -3352,6 +3352,9 @@
+ 
+         public override bool CanSee(Mobile m)
+         {
++            if (ClassMapHooks.StoryMobileVisible?.Invoke(this, m) == false)
++                return false;
++
+             if (m is CharacterStatue statue)
+             {
+                 statue.OnRequestedAnimation(this);

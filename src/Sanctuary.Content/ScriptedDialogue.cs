@@ -1,0 +1,314 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+using System;
+using System.Buffers;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using ModernUO.Serialization;
+using Server;
+using Server.ContextMenus;
+using Server.Items;
+using Server.Mobiles;
+using Server.Network;
+
+namespace Sanctuary;
+
+public static class ScriptedDialogue
+{
+    internal sealed record Reply(string Text, byte Next, Action<PlayerMobile, ConversationNpc> Select = null);
+    internal sealed record Node(string Line, Reply[] Replies);
+    private sealed record Session(ConversationNpc Speaker, IReadOnlyList<Node> Script, byte Node, uint Token, long Until);
+    private static readonly Dictionary<Serial, Session> _sessions = new();
+    private static readonly HashSet<Serial> _ghostBriefed = new();
+    private static uint _nextToken;
+    private static ArrivalGuard _guard;
+
+    public static void Configure()
+    {
+        EventSink.Logout += player => _sessions.Remove(player.Serial);
+        EventSink.Disconnected += player =>
+        {
+            _sessions.Remove(player.Serial);
+            _ghostBriefed.Remove(player.Serial);
+        };
+        EventSink.ServerStarted += EnsureArrivalGuard;
+    }
+
+    public static unsafe void Initialize()
+    {
+        IncomingExtendedCommandPackets.RegisterExtended(PortraitProtocol.SubCommand, true, &Receive);
+        ClassCombatHooks.PlayerDied += (player, _) => _ghostBriefed.Remove(player.Serial);
+    }
+
+    private static void EnsureArrivalGuard()
+    {
+        _guard = World.Mobiles.Values.OfType<ArrivalGuard>().FirstOrDefault(guard => !guard.Deleted);
+        if (_guard == null)
+        {
+            _guard = new ArrivalGuard();
+            _guard.MoveToWorld(new Point3D(ClassCreation.Arrival.X, ClassCreation.Arrival.Y - 2, ClassCreation.Arrival.Z), Map.Trammel);
+        }
+    }
+
+    internal static void TryArrival(PlayerMobile player)
+    {
+        if (!player.Alive && _guard != null)
+        {
+            TryGhostGuidance(player, _guard);
+            return;
+        }
+        if (_guard != null && ClassCreation.Profiles.NeedsArrival(player.Serial) && CanTalk(player, _guard))
+        {
+            Show(player, _guard, _guard.Script, 0);
+            ClassCreation.Profiles.Briefed(player.Serial);
+        }
+    }
+
+    internal static void TryGhostGuidance(PlayerMobile player, ArrivalGuard guard, bool requested = false)
+    {
+        if (!player.Alive && StatNetwork.SupportsCurrentProtocol(player) && CanTalk(player, guard)
+            && (_ghostBriefed.Add(player.Serial) || requested))
+            Show(player, guard, ArrivalGuard.GhostGuidance);
+    }
+
+    internal static void SendAvatarFace(PlayerMobile player)
+    {
+        ushort template = ClassCreation.Profiles.AppearanceTemplate(player.Serial);
+        int length = template == 0 ? 8 : 10;
+        var writer = Packet(length, PortraitProtocol.AvatarFace, stackalloc byte[length]);
+        writer.Write(ClassCreation.Profiles.Face(player.Serial));
+        if (template != 0)
+            writer.Write(template);
+        player.NetState?.Send(writer.Span);
+        var capability = Packet(7, PortraitProtocol.InteractionEnabled, stackalloc byte[7]);
+        player.NetState?.Send(capability.Span);
+        SendStoryState(player);
+    }
+
+    internal static void SendStoryState(PlayerMobile player)
+    {
+        var profiles = ClassCreation.Profiles;
+        var writer = Packet(12, PortraitProtocol.StoryState, stackalloc byte[12]);
+        writer.Write(profiles.HasMetIolo(player.Serial));
+        writer.Write(profiles.IoloCompanion(player.Serial));
+        player.NetState?.Send(writer.Span);
+    }
+
+    internal static void Open(PlayerMobile player, ConversationNpc speaker)
+    {
+        if (StatNetwork.SupportsCurrentProtocol(player) && CanTalk(player, speaker))
+        {
+            speaker.BeginConversation(player);
+            if (speaker is ArrivalGuard && player.Alive)
+                ClassCreation.Profiles.Briefed(player.Serial);
+        }
+    }
+
+    internal static bool CanTalk(PlayerMobile player, ConversationNpc speaker) =>
+        player.NetState?.Running == true && (player.Alive || speaker is ArrivalGuard) && !speaker.Deleted && speaker.Alive
+        && player.Map == speaker.Map && player.InRange(speaker, PortraitProtocol.NpcInteractionRange)
+        && speaker.CanTalkTo(player) && player.CanSee(speaker) && player.InLOS(speaker);
+
+    private static void Receive(NetState state, SpanReader reader)
+    {
+        int length = reader.Remaining + 5;
+        if (state.Mobile is not PlayerMobile player
+            || length is not (PortraitProtocol.ReplyPacketLength or PortraitProtocol.InteractPacketLength)
+            || reader.ReadByte() != PortraitProtocol.Version)
+            return;
+
+        if (length == PortraitProtocol.InteractPacketLength)
+        {
+            Interact(state, player, reader);
+            return;
+        }
+
+        uint token = reader.ReadUInt32();
+        byte choice = reader.ReadByte();
+        if (!_sessions.TryGetValue(player.Serial, out var session) || session.Token != token)
+            return;
+
+        if (choice == PortraitProtocol.Leave)
+        {
+            _sessions.Remove(player.Serial);
+            return;
+        }
+
+        var replies = session.Script[session.Node].Replies;
+        if (Core.TickCount >= session.Until || !CanTalk(player, session.Speaker))
+        {
+            Close(player, token);
+        }
+        else if (choice < replies.Length)
+        {
+            var reply = replies[choice];
+            if (reply.Select is { } select)
+            {
+                Close(player, token);
+                select(player, session.Speaker);
+            }
+            else
+                Show(player, session.Speaker, session.Script, reply.Next);
+        }
+    }
+
+    private static void Interact(NetState state, PlayerMobile player, SpanReader reader)
+    {
+        var targetReader = reader;
+        var npc = World.FindMobile((Serial)reader.ReadUInt32());
+        if (!StatNetwork.SupportsCurrentProtocol(player) || npc?.Deleted != false
+            || player.Map != npc.Map || !player.CanSee(npc))
+            return;
+
+        if (npc is not (ConversationNpc or NewHavenHealer or Banker or BaseVendor { IsActiveSeller: true }))
+        {
+            ContextMenuSystem.ContextMenuRequest(state, targetReader);
+            return;
+        }
+
+        if ((!player.Alive && npc is not (ArrivalGuard or NewHavenHealer)) || !npc.Alive || Core.TickCount < player.NextActionTime)
+            return;
+        if (!player.InRange(npc, PortraitProtocol.NpcInteractionRange) || !player.InLOS(npc))
+        {
+            player.SendMessage("You need to be closer to interact.");
+            return;
+        }
+        if (!player.Region.OnDoubleClick(player, npc))
+            return;
+
+        player.NextActionTime = Core.TickCount + Mobile.ActionDelay;
+        switch (npc)
+        {
+            case ConversationNpc speaker:
+                Open(player, speaker);
+                break;
+            case NewHavenHealer healer:
+                healer.OnDoubleClick(player);
+                break;
+            case Banker:
+                if (player.Criminal)
+                    player.SendLocalizedMessage(500378);
+                else
+                    player.BankBox?.Open();
+                break;
+            case BaseVendor vendor:
+                vendor.VendorBuy(player);
+                break;
+        }
+    }
+
+    private static void Close(PlayerMobile player, uint token)
+    {
+        _sessions.Remove(player.Serial);
+        var writer = Packet(11, PortraitProtocol.Closed, stackalloc byte[11]);
+        writer.Write(token);
+        player.NetState?.Send(writer.Span);
+    }
+
+    internal static void Show(PlayerMobile player, ConversationNpc speaker, IReadOnlyList<Node> script, byte node = 0)
+    {
+        uint token = ++_nextToken;
+        var page = script[node];
+        byte[][] texts = [Encoding.UTF8.GetBytes(speaker.Name), Encoding.UTF8.GetBytes(page.Line),
+            .. page.Replies.Select(reply => Encoding.UTF8.GetBytes(reply.Text))];
+        int length = 13 + texts.Sum(text => 2 + text.Length);
+        var writer = Packet(length, PortraitProtocol.Conversation, stackalloc byte[length]);
+        writer.Write(token);
+        writer.Write(speaker.Portrait);
+        writer.Write((byte)page.Replies.Length);
+        foreach (byte[] text in texts)
+        {
+            writer.Write((ushort)text.Length);
+            writer.Write(text.AsSpan());
+        }
+        _sessions[player.Serial] = new Session(speaker, script, node, token, Core.TickCount + 120_000);
+        player.NetState.Send(writer.Span);
+    }
+
+    private static SpanWriter Packet(int length, byte kind, Span<byte> buffer)
+    {
+        var writer = new SpanWriter(buffer);
+        writer.Write((byte)0xBF);
+        writer.Write((ushort)length);
+        writer.Write(PortraitProtocol.SubCommand);
+        writer.Write(PortraitProtocol.Version);
+        writer.Write(kind);
+        return writer;
+    }
+}
+
+public abstract class ConversationNpc : BaseCreature
+{
+    protected ConversationNpc() : base(AIType.AI_Vendor, FightMode.None, 10, 1) { }
+    protected ConversationNpc(Serial serial) : base(serial) { }
+    public override bool IsInvulnerable => true;
+    public override bool CanTeach => false;
+    internal abstract byte Portrait { get; }
+    internal abstract IReadOnlyList<ScriptedDialogue.Node> Script { get; }
+    internal virtual bool CanTalkTo(PlayerMobile player) => true;
+    internal virtual void BeginConversation(PlayerMobile player) => ScriptedDialogue.Show(player, this, Script);
+
+    public override void OnDoubleClick(Mobile from)
+    {
+        if (from is PlayerMobile player)
+            ScriptedDialogue.Open(player, this);
+    }
+}
+
+[SerializationGenerator(0)]
+public partial class ArrivalGuard : ConversationNpc
+{
+    internal static readonly ScriptedDialogue.Node[] GhostGuidance =
+    [
+        new("Thy spirit still walks, traveller. Go northwest, past the bank, to the healer’s house. Look for its sign at the steps. The healer there can restore thee to life.", [])
+    ];
+    private static readonly ScriptedDialogue.Reply[] _topics =
+        [new("Iolo", 1), new("New Haven", 2), new("Bountiful Harvest Inn", 3)];
+
+    private static readonly ScriptedDialogue.Node[] _script =
+    [
+        new("Thou must be the one that old man Iolo was talking about. Welcome to New Haven, traveler. He awaits thee at the Bountiful Harvest Inn.",
+            _topics),
+        new("Only that he'd sent for a friend from far away. He'd scarce sat down before he asked whether thou hadst come. Best ask him the rest thyself.",
+            _topics),
+        new("Ask the smith or tinker in the market to teach thee a trade. The lumberjack sells hatchets, and the miner sells picks. The ruins of Old Haven lie east, the farm beyond them to the south. Look for the mine on the road toward the ruins.",
+            _topics),
+        new("Follow the road north from here. Look for the sign of the Bountiful Harvest. Iolo said he'd wait for thee within.",
+            _topics)
+    ];
+
+    [Constructible]
+    public ArrivalGuard()
+    {
+        Name = "Elin";
+        Title = "the New Haven guard";
+        Body = 0x191;
+        Female = true;
+        Hue = 0x83EF;
+        HairItemID = 0x203B;
+        HairHue = 0x0455;
+        CantWalk = true;
+        AddItem(new BronzeShield());
+        AddItem(new Bascinet());
+        AddItem(new RingmailChest());
+        AddItem(new Boots());
+    }
+
+    internal override byte Portrait => 3;
+    internal override IReadOnlyList<ScriptedDialogue.Node> Script => _script;
+
+    internal override void BeginConversation(PlayerMobile player)
+    {
+        if (player.Alive)
+            base.BeginConversation(player);
+        else
+            ScriptedDialogue.TryGhostGuidance(player, this, requested: true);
+    }
+
+    public override void OnMovement(Mobile mobile, Point3D oldLocation)
+    {
+        base.OnMovement(mobile, oldLocation);
+        if (mobile is PlayerMobile { Alive: false } ghost && InRange(ghost, PortraitProtocol.NpcInteractionRange))
+            ScriptedDialogue.TryGhostGuidance(ghost, this);
+    }
+}

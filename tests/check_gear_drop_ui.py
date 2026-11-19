@@ -23,7 +23,7 @@ def exercise(window, click, capture):
                 return json.loads(Path(os.environ['SANCTUARY_TEST_UI_STATE']).read_text())
             time.sleep(.05)
         raise AssertionError('No response for ' + name)
-    click(335, 367)
+    click(538, 101)
     state = command('setup')
     time.sleep(1.5)
     geometry = dict(line.split('=', 1) for line in subprocess.check_output(

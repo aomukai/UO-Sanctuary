@@ -10,6 +10,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="../../shared/DiabloClass.cs" Link="DiabloClass.cs" />
+    <Compile Include="../../shared/PortraitProtocol.cs" Link="PortraitProtocol.cs" />
+    <Compile Include="../../shared/AppearanceTemplates.cs" Link="AppearanceTemplates.cs" />
     <Compile Include="../../shared/CombatProtocol.cs" Link="CombatProtocol.cs" />
     <Compile Include="../../shared/ClassAbilities.cs" Link="ClassAbilities.cs" />
     <Compile Include="../../shared/ClassSkillIcons.cs" Link="ClassSkillIcons.cs" />

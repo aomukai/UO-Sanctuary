@@ -29,13 +29,18 @@ def exercise(window, click, capture):
         subprocess.run(["xdotool", "key", "--window", window, name], check=True)
         time.sleep(.15)
 
-    click(335, 367)  # Minimize paperdoll so world and belt receive input.
+    click(538, 101)  # Minimize paperdoll so world and belt receive input.
     state = command("setup")
     time.sleep(.7)
     capture("belt-empty.png")
-    # Default disposable profile has a (10,10), 600x480 game viewport.
-    x, y = 10 + 600 - 164 - 12, 10 + 480 - 79 - 14
-    click(x + 148, y + 10)  # Fill (+).
+    geometry = subprocess.check_output(["xdotool", "getwindowgeometry", "--shell", window], text=True)
+    size = dict(line.split("=", 1) for line in geometry.splitlines() if "=" in line)
+    width, height = int(size["WIDTH"]), int(size["HEIGHT"])
+    step = max(23, min(40, (width - 60) // 18))
+    dock_x, dock_y = (width - (18 * step + 48)) // 2, height - 96
+    belt_x = dock_x + 20 + 14 * step
+    controls_x = belt_x + 4 * step + 12
+    click(controls_x, dock_y + 35)  # Fill (+).
     time.sleep(.5)
     filled = command("state")
     assert len([s for s in filled["Cells"] if s]) == 16, filled
@@ -67,17 +72,17 @@ def exercise(window, click, capture):
     key("1")
     recovered = command("state")
     assert len([s for s in recovered["Cells"] if s]) == 11 and recovered["Recovery"] == timing["Recovery"] and recovered["NextAction"] == timing["NextAction"], recovered
-    click(x + 148, y + 10)  # Refill, then use four columns in one rapid burst.
+    click(controls_x, dock_y + 35)  # Refill, then use four columns in one rapid burst.
     command("hurt")
     subprocess.run(["xdotool", "key", "--window", window, "--delay", "10", "1", "2", "3", "4"], check=True)
     time.sleep(.25)
     burst = command("state")
     assert len([s for s in burst["Cells"] if s]) == 12, "Different columns suppressed one another"
-    subprocess.run(["xdotool", "mousemove", "--window", window, str(x + 24), str(y + 42), "click", "3"], check=True)
+    subprocess.run(["xdotool", "mousemove", "--window", window, str(belt_x + step // 2), str(dock_y + 26), "click", "3"], check=True)
     time.sleep(.25)
     returned = command("state")
     assert len([s for s in returned["Cells"] if s]) == 11, "Right-click did not return one potion"
-    click(x + 122, y + 10)  # Expand all four rows.
+    click(controls_x, dock_y + 14)  # Expand all four rows.
     time.sleep(.3)
     capture("belt-expanded.png")
     command("final")

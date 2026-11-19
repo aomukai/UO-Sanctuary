@@ -22,7 +22,7 @@ def exercise(window, click, capture):
                 return json.loads(Path(os.environ["SANCTUARY_TEST_UI_STATE"]).read_text())
             time.sleep(0.05)
         raise AssertionError(f"No result for resurrection-ui-{name}")
-    click(335, 367)  # Minimize paperdoll.
+    click(538, 101)  # Minimize paperdoll.
     state = command("setup")
     time.sleep(1.2)
     state = command("die")

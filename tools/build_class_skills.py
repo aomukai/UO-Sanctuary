@@ -492,7 +492,7 @@ def products():
          'Native spell graphics and audio for cast, status or impact feedback.'),
         ('assassin', 'shadowwarrior shadowmaster', 'Native humanoid models and summon effects.'),
         ('assassin', 'fireblast shockweb', 'Native fire and lightning projectiles, impacts and fields.'),
-        ('warlock', 'summongoatman summondefiler', 'Native Gargoyle and Gazer with summon effects.'),
+        ('warlock', 'summongoatman summondefiler', 'Native imp and gazer with summon effects.'),
         ('warlock', 'bloodboil engorge consume', 'Native explosion, heal and buff graphics with matching sounds.'),
     ):
         native_effects.update({f'{character_class}.{skill}': presentation for skill in skills.split()})
@@ -1184,7 +1184,7 @@ def products():
             customArtworkPhases=['opening tear', 'persistent vortex', 'pull pulse', 'collapse'],
             customAudioPhases=['opening', 'active pull', 'terminal collapse']),
         'warlock.summongoatman': dict(customArtwork='verified', customAudio='verified', customCharacterAnimation='reuse-native',
-            inGameVerification='verified', placeholder='Rust-red stone frames the original Gargoyle on arrival. Rock chips mark accepted melee hits and the shared Berserk glow follows its active state.',
+            inGameVerification='verified', placeholder='Rust-red stone frames the imp on arrival. Rock chips mark accepted melee hits and the shared Berserk glow follows its active state.',
             customArtworkPhases=['cast', 'arrival and return', 'melee contact', 'shared Berserk and fade', 'departure'],
             customAudioPhases=['cast', 'arrival and return', 'melee contact', 'shared Berserk and fade', 'departure']),
         'warlock.summontainted': dict(customArtwork='verified', customAudio='verified', customCharacterAnimation='reuse-native',

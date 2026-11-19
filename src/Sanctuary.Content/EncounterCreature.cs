@@ -99,6 +99,10 @@ public partial class EncounterCreature : GraveyardUndead
         CreatureProfiles.Session(this).Initialized = false; CreatureProfiles.Initialize(this); Hits = HitsMax;
     }
     protected virtual int[] AdjustResistances(int[] resistances) => resistances;
+    protected virtual int ExperienceMultiplier => 1;
+    protected virtual CreatureTraits EncounterTraits(DungeonProfile dungeon) =>
+        new("DungeonUndead", true, false, Leader, false, true, 1, 2,
+            dungeon.Archetype == MonsterArchetype.Tank ? 100 : 0, Leader || _grade == EncounterGrade.Champion ? 50 : 100, 0);
     private void EnsureProfile(MonsterDifficulty? requested=null)
     {
         var difficulty=requested??ReviveFacets.Difficulty(this)??_difficulty;
@@ -131,7 +135,7 @@ public partial class EncounterCreature : GraveyardUndead
         int min = basis.MinDamage * (100 + damageBonus) / 100, max = basis.MaxDamage * (100 + damageBonus) / 100;
         rating = rating * (100 + ratingBonus) / 100;
         int move = EncounterProfiles.MovementInterval(basis.MoveMs,moveBonus);
-        int xp = checked(basis.Experience * (_grade == EncounterGrade.Ordinary ? 1 : _grade == EncounterGrade.Champion
+        int xp = checked(basis.Experience * ExperienceMultiplier * (_grade == EncounterGrade.Ordinary ? 1 : _grade == EncounterGrade.Champion
             ? _champion == ChampionKind.Berserker ? 5 : 3 : 5));
         var attack = new CreatureAttack(min, max, rating, Caster ? 10 : 1, basis.AttackMs + basis.RecoveryMs,
             basis.EffectMs, basis.RecoveryMs, dungeon.Archetype == MonsterArchetype.Caster ? 0 : 100,
@@ -141,8 +145,7 @@ public partial class EncounterCreature : GraveyardUndead
             attack, attack, Caster ? attack : new(), new(true, dungeon.Archetype == MonsterArchetype.Tank ? 6 : 4),
             new(move, move, move), new("Species", 0, 200, 100, 0, 400, false, 100, 75, basis.RecoveryMs),
             new(xp, null, true, basis.Level, dungeon.Reference, "Bounded players-1 dungeon archetype with saved encounter grade"),
-            new("DungeonUndead", true, false, Leader, false, true, 1, 2, dungeon.Archetype == MonsterArchetype.Tank ? 100 : 0,
-                Leader || _grade == EncounterGrade.Champion ? 50 : 100, 0), new("Native", null, true),
+            EncounterTraits(dungeon), new("Native", null, true),
             new Dictionary<string, string>(), new Dictionary<string, string>());
         _combat = new(basis.Level, life, rating, defense, min, max, basis.AttackMs + basis.RecoveryMs, move,
             res[0], res[2], res[4], res[5], res[3]);

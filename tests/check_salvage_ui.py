@@ -23,7 +23,7 @@ def exercise(window, click, capture):
     def salvage():
         time.sleep(.25)
         click(130, 400)
-    click(335, 367)
+    click(538, 101)
     command('setup')
     time.sleep(.4)
     capture('t16-salvage-tool.png')

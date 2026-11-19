@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
+using System.Runtime.CompilerServices;
 using Server;
 using Server.Commands;
 using Server.Items;
@@ -152,6 +153,65 @@ public static class ClassStats
         }
         return Math.Max(0, mobile.Dex / 4 + (int)mobile.ArmorRating);
     }
+    private sealed class Matchup(BaseCreature monster)
+    {
+        internal readonly WeakReference<BaseCreature> Monster = new(monster);
+        internal readonly string Name = string.IsNullOrWhiteSpace(monster.Name) ? "the last monster" : monster.Name;
+        internal int Attack;
+        internal int Defense;
+    }
+
+    private static readonly ConditionalWeakTable<PlayerMobile, Matchup> _lastMatchups = new();
+
+    internal static void RememberMatchup(Mobile attacker, Mobile defender)
+    {
+        var player = attacker as PlayerMobile ?? defender as PlayerMobile;
+        var monster = attacker as BaseCreature ?? defender as BaseCreature;
+        if (player?.NetState?.Running != true || !ClassCombat.Enabled(player) || monster is not { Alive: true, Deleted: false }
+            || ClassCombat.Friendly(player, monster))
+        {
+            return;
+        }
+        if (_lastMatchups.TryGetValue(player, out var existing)
+            && existing.Monster.TryGetTarget(out var previous) && previous == monster)
+        {
+            return;
+        }
+        var matchup = new Matchup(monster);
+        UpdateMatchup(matchup, player, monster);
+        _lastMatchups.AddOrUpdate(player, matchup);
+    }
+
+    internal static (string Name, int Attack, int Defense) LastMatchup(PlayerMobile player)
+    {
+        if (!_lastMatchups.TryGetValue(player, out var matchup))
+        {
+            return default;
+        }
+        if (matchup.Monster.TryGetTarget(out var monster) && monster is { Alive: true, Deleted: false }
+            && monster.Map == player.Map && monster.Map != Map.Internal)
+        {
+            UpdateMatchup(matchup, player, monster);
+        }
+        return (matchup.Name, matchup.Attack, matchup.Defense);
+    }
+
+    private static void UpdateMatchup(Matchup matchup, PlayerMobile player, BaseCreature monster)
+    {
+        matchup.Attack = (int)Math.Round(Accuracy(player, monster, 0, null) * 100);
+        matchup.Defense = (int)Math.Round(Accuracy(monster, player, 0, null) * 100);
+    }
+
+    private static double Accuracy(Mobile attacker, Mobile defender, int skillPercent, bool? projectile)
+    {
+        if (defender is PlayerMobile player && ClassCombat.Enabled(player) && ClassMovement.IsRunning(player, Core.TickCount))
+        {
+            return 1;
+        }
+        return HitChance(AttackRatingAgainst(attacker, defender, skillPercent),
+            NamedCombat.DefenseFor(attacker, defender, Defense(defender), projectile), Level(attacker), Level(defender));
+    }
+
     public static double HitChance(int attack, int defense, int attackerLevel, int defenderLevel) =>
         Math.Clamp(2.0 * Math.Max(1, attack) / (Math.Max(1, attack) + Math.Max(0, defense))
             * Math.Max(1, attackerLevel) / (Math.Max(1, attackerLevel) + Math.Max(1, defenderLevel)), 0.05, 0.95);
@@ -165,21 +225,22 @@ public static class ClassStats
         if(!projectile && notifyMelee){SorceressEffects.MeleeAttempt(attacker, defender);}
         bool classAttack = attacker is PlayerMobile a && ClassCombat.Enabled(a);
         bool classDefense = defender is PlayerMobile d && ClassCombat.Enabled(d);
-        if (!classAttack && !classDefense && !CombatAuras.Managed(attacker) && !CombatAuras.Managed(defender) && !ReviveCombat.Active(attacker) && !ReviveCombat.Active(defender) && !BoundDemonHosts.Active(attacker) && !BoundDemonHosts.Active(defender) && attacker is not (GraveyardUndead or SkeletonGuardian) && defender is not (GraveyardUndead or SkeletonGuardian or AmazonDecoy)
+        if (!classAttack && !classDefense && attacker is not IClassCompanion && defender is not IClassCompanion
+            && !CombatAuras.Managed(attacker) && !CombatAuras.Managed(defender) && !ReviveCombat.Active(attacker) && !ReviveCombat.Active(defender) && !BoundDemonHosts.Active(attacker) && !BoundDemonHosts.Active(defender) && attacker is not (GraveyardUndead or SkeletonGuardian) && defender is not (GraveyardUndead or SkeletonGuardian or AmazonDecoy)
             && SorceressEffects.Enchantment(attacker) == null && NecromancerEffects.DefenseStatPercent(defender)==0 && NecromancerEffects.AttackStatPercent(attacker)==0 && AmazonInnerSight.State(defender)==null && HexBane.Debuff(attacker)==null && HexBane.Debuff(defender)==null&&SigilLethargy.State(defender)==null)
         {
             return null;
         }
+        RememberMatchup(attacker, defender);
         // Project rule: an accepted running step disables avoidance entirely.
         if (classDefense && ClassMovement.IsRunning((PlayerMobile)defender, Core.TickCount))
         {
             return true;
         }
-        int attack = guaranteed ? 0 : AttackRatingAgainst(attacker,defender,skillPercent);
         roll ??= Utility.RandomDouble;
         // A finisher's guaranteed accuracy must not bypass the existing shield
         // and avoidance phases below. Ordinary callers retain the full AR roll.
-        bool hit = guaranteed || roll() < HitChance(attack, NamedCombat.DefenseFor(attacker, defender, Defense(defender),projectile?true:null), Level(attacker), Level(defender));
+        bool hit = guaranteed || roll() < Accuracy(attacker, defender, skillPercent, projectile ? true : null);
         if (hit && classDefense && ClassGear.BlockChance((PlayerMobile)defender) is > 0 and var chance)
         {
             hit = roll() * 100 >= chance;

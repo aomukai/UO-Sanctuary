@@ -1,5 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.Json;
 using Server;
 using Server.Gumps;
 using Server.Network;
@@ -16,15 +19,19 @@ public sealed class TalentGump : DynamicGump
     private readonly CharacterProfile _profile;
     private readonly int _tree;
     private readonly int _selected;
+    private readonly int[] _openedRanks;
+    private long _nextPreview;
 
     public override bool Singleton => true;
 
-    private TalentGump(Mobile owner, CharacterProfile profile, int tree, int selected) : base(10, 15)
+    private TalentGump(Mobile owner, CharacterProfile profile, int tree, int selected) : base(10, 27)
     {
         _owner = owner.Serial;
         _profile = profile;
         _tree = tree;
         _selected = selected;
+        _openedRanks = TalentCatalog.ForClass(profile.Class).Trees.SelectMany(t => t.Skills)
+            .Select(t => ClassCreation.Profiles.GetRank(_owner, t.Id)).ToArray();
     }
 
     public static void DisplayTo(Mobile from, int tree = 0, int selected = 0)
@@ -110,22 +117,108 @@ public sealed class TalentGump : DynamicGump
             builder.AddHtml(395, 313, 188, 46, $"<BASEFONT COLOR=#C4C4C4>{requirement}</BASEFONT>", background: false, scrollbar: false);
         }
 
-        var skill = System.Linq.Enumerable.FirstOrDefault(SkillMechanics.All, row => row.TalentId == selected.Id);
-        bool implemented = skill != null && (NecromancerCombat.Implemented(skill.Ability) || SorceressCombat.Implemented(skill.Ability) || PaladinCombat.Implemented(skill.Ability) || BarbarianCombat.Implemented(skill.Ability) || AmazonCombat.Implemented(skill.Ability) || AssassinCombat.Implemented(skill.Ability) || DruidCombat.Implemented(skill.Ability) || WarlockCombat.Implemented(skill.Ability));
-        string detail = !implemented ? "Not yet available." : skill.Passive ? "Passive effect. No hotkey needed."
-            : skill.Ability==CombatAbility.BindDemon ? "Hold to bind: 9 mana per second. First attempt after 1 second; release stops."
-            : PaladinCombat.IsAura(skill.Ability) ? skill.Ability==CombatAbility.Prayer ? "Right-slot aura. Mana is spent on healing pulses." : "Active in the right mouse slot. No mana cost."
-            : effective > 0 && World.FindMobile(_owner) is PlayerMobile caster
-                ? $"Mana {SkillMechanics.Values(caster, skill.Ability).Mana256 / 256.0:0.##}."
-                : "Learn to unlock.";
-        if(skill?.Ability is CombatAbility.RaiseSkeletalMage or CombatAbility.Revive)
-        {detail=$"Maximum summons: {NecromancerArmyLimits.ForRank(skill.Ability,effective)}. "+detail;}
-        builder.AddHtml(395, 366, 188, 35, $"<BASEFONT COLOR=#C4C4C4>{detail}</BASEFONT>", size: 2, background: false, scrollbar: true);
-        builder.AddButton(22, 408, 4005, 4007, 2000);
+        var skill = SkillMechanics.All.FirstOrDefault(row => row.TalentId == selected.Id);
+        string detail = TalentDetails.For(skill);
+        builder.AddHtml(395, 366, 188, 35, $"<BASEFONT COLOR=#C4C4C4>{detail.Replace("\n", "<BR>")}</BASEFONT>",
+            size: 2, background: false, scrollbar: true);
+        builder.AddButton(22, 408, 4005, 4007, ClassGumpProtocol.MouseSkills);
         builder.AddLabel(57, 410, 0x481, "Mouse skills");
-        builder.AddButton(205, 408, 4005, 4007, 2001);
+        builder.AddButton(205, 408, 4005, 4007, ClassGumpProtocol.Pets);
         builder.AddLabel(240, 410, 0x481, "Pets");
         builder.AddLabel(320, 410, 0x47E, $"Next level: {(_profile.Level < 99 ? ExperienceLevels.Threshold(_profile.Level + 1) : _profile.Experience)} XP");
+        // Older clients get only the original layout. Current clients consume the data before parsing page controls.
+        if (World.FindMobile(_owner) is PlayerMobile viewer && StatNetwork.SupportsCurrentProtocol(viewer))
+        {
+            builder.AddPage(99);
+            builder.AddTextEntry(0, 0, 1, 1, 0, ClassGumpProtocol.AllocationEntry, "");
+            builder.AddHtml(0, 0, 1, 1, BuildMenuData(catalog, viewer), background: false, scrollbar: false);
+        }
+
+    }
+
+    private string BuildMenuData(ClassTalents catalog, PlayerMobile player)
+    {
+        var talents = catalog.Trees.SelectMany(tree => tree.Skills).ToArray();
+        var indices = talents.Select((talent, index) => (talent.Id, index)).ToDictionary(pair => pair.Id, pair => pair.index);
+        var skills = talents.Select((talent, index) =>
+        {
+            var skill = SkillMechanics.All.FirstOrDefault(row => row.TalentId == talent.Id);
+            int hard = _openedRanks[index];
+            string mechanics = TalentDetails.For(skill);
+            return new TalentMenuSkill(talent.Name, ClassSkillIcons.ForTalent(talent.Id), talent.RequiredLevel,
+                hard, talent.Prerequisites.Select(id => indices[id]).ToArray(), TalentCatalog.Description(talent.Id), mechanics);
+        }).ToArray();
+        return ClassGumpProtocol.MenuPrefix + JsonSerializer.Serialize(new TalentMenuData(
+            DiabloClasses.DisplayName(_profile.Class, player.Female), _profile.Level,
+            ClassCreation.Profiles.AvailablePoints(_owner), _profile.Experience,
+            _profile.Level < 99 ? ExperienceLevels.Threshold(_profile.Level + 1) : _profile.Experience,
+            TalentCatalog.MaxRank, catalog.Trees.Select(t => t.Name).ToArray(), skills), TalentMenuJsonContext.Default.TalentMenuData);
+    }
+
+    private bool TryReadDraft(string draft, out Dictionary<string, int> allocations, out string reason)
+    {
+        allocations = new();
+        var profiles = ClassCreation.Profiles;
+        var talents = TalentCatalog.ForClass(_profile.Class).Trees.SelectMany(t => t.Skills).ToArray();
+        if (draft?.Length != talents.Length)
+        {
+            reason = "Invalid talent allocation.";
+            return false;
+        }
+
+        for (var i = 0; i < talents.Length; i++)
+        {
+            string id = talents[i].Id;
+            int points = draft[i] - 'A';
+            if (points < 0 || points > TalentCatalog.MaxRank || profiles.GetRank(_owner, id) != _openedRanks[i])
+            {
+                reason = "Your talent allocation changed. Reopen Talents to review your points.";
+                return false;
+            }
+            if (points > 0)
+            {
+                allocations.Add(id, points);
+            }
+        }
+        reason = null;
+        return true;
+    }
+
+    internal string Preview(PlayerMobile from, int index, string draft)
+    {
+        if (from.Serial != _owner || (uint)index >= _openedRanks.Length || Core.TickCount < _nextPreview
+            || !ClassCreation.Profiles.TryGet(_owner, out var current) || current.Class != _profile.Class)
+        {
+            return null;
+        }
+        _nextPreview = Core.TickCount + 75;
+        if (!TryReadDraft(draft, out var allocations, out var reason)
+            || !ClassCreation.Profiles.CanTrainBatch(_owner, allocations, out reason))
+        {
+            return reason;
+        }
+
+        var talent = TalentCatalog.ForClass(current.Class).Trees[index / ClassGumpProtocol.SkillsPerTree]
+            .Skills[index % ClassGumpProtocol.SkillsPerTree];
+        var skill = SkillMechanics.All.FirstOrDefault(row => row.TalentId == talent.Id);
+        var next = new Dictionary<string, int>(allocations)
+        {
+            [talent.Id] = allocations.GetValueOrDefault(talent.Id) + 1
+        };
+        return TalentDetails.Preview(from, skill, allocations,
+            ClassCreation.Profiles.CanTrainBatch(_owner, next, out _) ? next : null);
+    }
+
+    private void ApplyAllocation(Mobile from, string draft)
+    {
+        var profiles = ClassCreation.Profiles;
+        if (!TryReadDraft(draft, out var allocations, out var reason)
+            || !profiles.TryTrainBatch(_owner, allocations, out reason))
+        {
+            from.SendMessage(reason);
+            return;
+        }
+        from.SendMessage($"Talent allocation saved. {profiles.AvailablePoints(_owner)} unspent points.");
     }
 
     private string PrerequisiteText(TalentDefinition talent)
@@ -163,14 +256,20 @@ public sealed class TalentGump : DynamicGump
             return;
         }
 
-        if (button == 2000)
+        if (button == ClassGumpProtocol.MouseSkills)
         {
             BindingGump.DisplayTo(from);
             return;
         }
-        if (button == 2001)
+        if (button == ClassGumpProtocol.Pets)
         {
             PetStatsGump.DisplayTo(from);
+            return;
+        }
+        if (button == ClassGumpProtocol.Apply)
+        {
+            ApplyAllocation(from, info.GetTextEntry(ClassGumpProtocol.AllocationEntry));
+            DisplayTo(from);
             return;
         }
         if (button is >= 1 and <= 3)

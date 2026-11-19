@@ -32,13 +32,33 @@ public static class MercenaryCare
     public static void Configure()
     {
         Profiles = new();
+        ClassCombatHooks.CompanionRangedSwing = (actor, target, weapon) =>
+            actor is Iolo iolo && iolo.Recruited ? iolo.BeginShot(target, weapon) : null;
+        EventSink.Connected += owner =>
+        {
+            if (owner is PlayerMobile player)
+                Timer.StartTimer(TimeSpan.Zero, () =>
+                {
+                    if (SyncOwner(player) is Iolo { ControlOrder: OrderType.Follow } iolo && IsCompanion(player, iolo))
+                    {
+                        iolo.ControlTarget = player;
+                        iolo.ControlOrder = OrderType.Guard;
+                    }
+                });
+        };
         ClassMercenaryHooks.KeepEquipment = merc => States.ContainsKey(merc.Serial);
         ClassMercenaryHooks.ResurrectionAllowed = merc => !States.ContainsKey(merc.Serial) || _paidResurrection.Contains(merc.Serial);
         ClassMercenaryHooks.ContextEntries = AddEntries;
         ClassMercenaryHooks.ReleaseOrder = (mercenary, issuer) =>
         {
             if (!States.ContainsKey(mercenary.Serial)) { return false; }
-            if (issuer is PlayerMobile owner && mercenary.ControlMaster == owner) { Retire(owner, mercenary); }
+            if (issuer is PlayerMobile owner && mercenary.ControlMaster == owner)
+            {
+                if (mercenary is Iolo)
+                    owner.SendMessage("Iolo has promised to travel with thee.");
+                else
+                    Retire(owner, mercenary);
+            }
             return true;
         };
         ClassMercenaryHooks.TradeOpened = (npc, from) => { if (from is PlayerMobile owner) { HealFollowers(owner, npc); } };
@@ -55,14 +75,47 @@ public static class MercenaryCare
     }
     public static void Initialize() => Timer.StartTimer(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1), () => Tick(TimedEffects.Now));
     public static int ResurrectionPrice(int level) => level is >= 1 and <= 99 ? level * 1000 : throw new ArgumentOutOfRangeException(nameof(level));
+    internal static bool HasActiveCompanion(PlayerMobile owner)
+    {
+        foreach (var row in States.Values)
+            if (row.Owner == owner.Serial && !row.Retired)
+                return true;
+        return false;
+    }
     internal static bool Register(PlayerMobile owner, BaseCreature mercenary, int level)
     {
         if (owner is not { Deleted: false } || mercenary is not { Deleted: false, Summoned: false, Controlled: true }
             || mercenary.ControlMaster != owner || level is < 1 or > 99 || States.ContainsKey(mercenary.Serial)) { return false; }
-        foreach (var row in States.Values) { if (row.Owner == owner.Serial && !row.Retired) { return false; } }
+        if (HasActiveCompanion(owner)) { return false; }
         mercenary.IsBonded = true;
         mercenary.NoKillAwards = true;
-        States.Add(mercenary.Serial, new(owner.Serial, level, false, new long[5], TimedEffects.Now)); return true;
+        var state = new MercenaryCareState(owner.Serial, level, false, new long[5], TimedEffects.Now);
+        States.Add(mercenary.Serial, state);
+        Sync(owner, mercenary, state, joining: true);
+        return true;
+    }
+    internal static int? CompanionLevel(BaseCreature actor) =>
+        actor is IClassCompanion && States.TryGetValue(actor.Serial, out var state) && !state.Retired ? state.Level : null;
+
+    internal static BaseCreature SyncOwner(PlayerMobile owner)
+    {
+        foreach (var (serial, state) in States)
+            if (state.Owner == owner.Serial && !state.Retired && World.FindMobile(serial) is BaseCreature actor
+                && (Owned(owner, actor, out _) || actor.IsStabled && actor.StabledBy == owner))
+            {
+                Sync(owner, actor, state);
+                return actor;
+            }
+        return null;
+    }
+
+    private static void Sync(PlayerMobile owner, BaseCreature actor, MercenaryCareState state, bool joining = false)
+    {
+        if (actor is not IClassCompanion build || !ClassCreation.Profiles.TryGet(owner.Serial, out var profile))
+            return;
+        CompanionBuild.Apply(actor, build.CombatClass, profile.Level, joining);
+        if (state.Level != profile.Level)
+            States[actor.Serial] = state with { Level = profile.Level };
     }
     public static long Stock(BaseCreature mercenary)
     {

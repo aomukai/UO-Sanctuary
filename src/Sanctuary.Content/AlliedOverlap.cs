@@ -46,8 +46,14 @@ public static class AlliedOverlap
         if (actor is not { Deleted: false, Alive: true, Map: { } map } || map == Map.Internal || actor.IsDeadBondedPet || !ClassCombat.Friendly(actor, actor)) { return false; }
         foreach (var other in map.GetMobilesInRange<Mobile>(actor.Location, 0))
         {
-            if (PassThrough(actor, other) && actor.Z + 16 > other.Z && other.Z + 16 > actor.Z
-                && PresenceOf(other).Order < PresenceOf(actor).Order) { return true; }
+            if (!PassThrough(actor, other) || actor.Z + 16 <= other.Z || other.Z + 16 <= actor.Z)
+                continue;
+
+            if (actor is PlayerMobile player && other is BaseCreature companion && MercenaryCare.IsCompanion(player, companion))
+                continue;
+            if (other is PlayerMobile owner && actor is BaseCreature pet && MercenaryCare.IsCompanion(owner, pet)
+                || PresenceOf(other).Order < PresenceOf(actor).Order)
+                return true;
         }
         return false;
     }

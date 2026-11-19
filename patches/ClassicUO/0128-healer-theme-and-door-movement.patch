@@ -1,0 +1,325 @@
+diff --git a/src/ClassicUO.Client/Game/ClassCombatClient.cs b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+--- a/src/ClassicUO.Client/Game/ClassCombatClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -2,6 +2,7 @@
+ using System;
+ using System.Collections.Generic;
+ using ClassicUO.Configuration;
++using ClassicUO.Game.Data;
+ using ClassicUO.Game.GameObjects;
+ using ClassicUO.Game.Managers;
+ using ClassicUO.Game.Scenes;
+@@ -30,6 +31,7 @@
+     private static CombatAbility _heldAbility;
+     private static bool _groundHeld, _groundGesture;
+     private static bool _groundWasHold, _groundCancelled;
++    private static bool _groundStartsOnDoor;
+     private static uint _groundDownAt;
+     private const int GroundHoldThresholdMs = 200;
+     private static bool _attackHeld, _attackGesture;
+@@ -38,6 +40,11 @@
+     public static bool AttackGesture => _attackGesture;
+     private static uint _nextGroundUpdate;
+     private static int _groundX, _groundY, _groundZ;
++    private static Item _groundDoor;
++    private static Microsoft.Xna.Framework.Point _doorAim;
++    private static Direction _doorCrossing;
++    private static bool _throughDoor;
++    private static (int X, int Y, int Z)? _doorExit;
+     public static bool GroundGesture => _groundGesture;
+     private readonly record struct AnimationLease(byte Action, int Cycle, uint Until);
+     private static readonly Dictionary<uint, AnimationLease> _animations = new();
+@@ -129,7 +136,8 @@
+         _animationUntil = _recoveryUntil = Time.Ticks;
+     }
+     public static bool MovementOnly { get; private set; }
+-    public static bool Ally(Mobile target) => Enabled && target != null && !target.IsDead && !target.IsDestroyed && _allies.Contains(target.Serial);
++    public static bool Ally(Mobile target) => Enabled && target != null && !target.IsDead && !target.IsDestroyed
++        && (_allies.Contains(target.Serial) || AvatarDialogueClient.IsOwnCompanion(target.World, target));
+     public static bool Occupied(World world, int x, int y, int z)
+     {
+         if (world.Player.IsDead) { return false; }
+@@ -138,7 +146,11 @@
+         if (tile == null) { return false; }
+         while (tile.TPrevious != null) { tile = tile.TPrevious; }
+         for (var obj = tile; obj != null; obj = obj.TNext)
+-        { if (obj is Mobile mob && mob != world.Player && !mob.IsDead && mob.Z + 16 > z && z + 16 > mob.Z) { return true; } }
++        {
++            if (obj is Mobile mob && mob != world.Player && !mob.IsDead && mob.Z + 16 > z && z + 16 > mob.Z
++                && !AvatarDialogueClient.IsOwnCompanion(world, mob))
++                return true;
++        }
+         return false;
+     }
+     public static bool Hostile(Mobile target) => target != null && !target.IsDead && !target.IsDestroyed && _hostiles.Contains(target.Serial);
+@@ -541,19 +553,25 @@
+     private static bool IsGround(object obj) => obj is Land or Static or Multi
+         || obj is Item { IsLocked: true, ItemData.IsSurface: true, ItemData.IsImpassable: false, ItemData.Height: 0 };
+ 
+-    public static bool BeginGroundHold(World world)
++    public static bool BeginGroundHold(World world, bool allowOpenDoor = false)
+     {
+         if (!Enabled || !UIManager.IsMouseOverWorld || world.TargetManager.IsTargeting
+-            || Client.Game.UO.GameCursor.ItemHold.Enabled || world.CustomHouseManager != null
+-            || !IsGround(SelectedObject.Object))
++            || Client.Game.UO.GameCursor.ItemHold.Enabled || world.CustomHouseManager != null)
+         {
+             return false;
+         }
++        var selected = SelectedObject.Object;
++        bool startsOnDoor = allowOpenDoor && OpenDoorFacing(selected) >= 0;
++        if (!startsOnDoor && !IsGround(selected))
++            return false;
++
+         Stop(world);
+         _groundHeld = _groundGesture = true;
++        _groundStartsOnDoor = startsOnDoor;
+         _groundWasHold = _groundCancelled = false;
+         _groundDownAt = Time.Ticks;
+         _groundX = _groundY = -1;
++        _groundDoor = null;
+         _nextGroundUpdate = Time.Ticks;
+         UpdateGroundHold(world);
+         return true;
+@@ -567,7 +585,7 @@
+         {
+             StopMovement(world);
+         }
+-        return gesture;
++        return gesture && (!_groundStartsOnDoor || held || _groundCancelled);
+     }
+     private static void UpdateGroundHold(World world)
+     {
+@@ -576,6 +594,9 @@
+             return;
+         }
+         _groundWasHold |= unchecked((int)(Time.Ticks - _groundDownAt)) >= GroundHoldThresholdMs;
++        if (_groundStartsOnDoor && !_groundWasHold)
++            return;
++
+         if (!Mouse.LButtonPressed)
+         {
+             _groundHeld = false;
+@@ -595,22 +616,91 @@
+             return;
+         }
+         if (unchecked((int)(Time.Ticks - _nextGroundUpdate)) < 0
+-            || !IsGround(SelectedObject.Object)
+-            || SelectedObject.Object is not GameObject point)
++            || !TryHeldDestination(world, out int x, out int y, out int z))
+         {
+             return;
+         }
+         _nextGroundUpdate = Time.Ticks + CombatProtocol.HoldHeartbeatMs;
+-        if (_groundX != point.X || _groundY != point.Y || _groundZ != point.Z || !world.Player.Pathfinder.AutoWalking)
+-        {
+-            _groundX = point.X;
+-            _groundY = point.Y;
+-            _groundZ = point.Z;
+-            if (world.Player.X != point.X || world.Player.Y != point.Y || Math.Abs(world.Player.Z - point.Z) >= 16)
+-            {
+-                world.Player.Pathfinder.WalkTo(point.X, point.Y, point.Z, 0, responsive: true);
+-            }
+-        }
++        if (_groundX != x || _groundY != y || _groundZ != z || !world.Player.Pathfinder.AutoWalking)
++        {
++            _groundX = x;
++            _groundY = y;
++            _groundZ = z;
++            if (world.Player.X != x || world.Player.Y != y || Math.Abs(world.Player.Z - z) >= 16)
++            {
++                world.Player.Pathfinder.WalkTo(x, y, z, 0, responsive: true);
++            }
++        }
++    }
++
++    // Standard hinged doors put their open frame one tile off the threshold, using ModernUO's DoorFacing offsets.
++    private static readonly int[] _openDoorArt = [0x676, 0x686, 0x696, 0x6A6, 0x6B6, 0x6C6, 0x6D6, 0x6E6,
++        0x825, 0x83A, 0x84D, 0x867, 0x1FEE];
++    private static readonly (int X, int Y)[] _doorOffsets = [(-1, 1), (1, 1), (-1, 0), (1, -1),
++        (1, 1), (1, -1), (0, 0), (0, -1)];
++
++    private static bool TryHeldDestination(World world, out int x, out int y, out int z)
++    {
++        x = y = z = 0;
++        var selected = SelectedObject.Object;
++        if (_groundDoor != null && !_groundDoor.IsDestroyed && OpenDoorFacing(_groundDoor) >= 0
++            && Math.Abs(Mouse.Position.X - _doorAim.X) <= 5 && Math.Abs(Mouse.Position.Y - _doorAim.Y) <= 5)
++            selected = _groundDoor;
++        else
++            _groundDoor = null;
++        if (IsGround(selected) && selected is GameObject point)
++        {
++            _groundDoor = null;
++            (x, y, z) = (point.X, point.Y, point.Z);
++            return true;
++        }
++
++        int facing = OpenDoorFacing(selected);
++        if (facing < 0 || selected is not Item door)
++            return false;
++
++        var offset = _doorOffsets[facing];
++        (x, y, z) = (door.X - offset.X, door.Y - offset.Y, door.Z);
++        world.Player.GetEndPosition(out int playerX, out int playerY, out sbyte playerZ, out var direction);
++        if (_groundDoor != door)
++        {
++            _groundDoor = door;
++            _doorAim = Mouse.Position;
++            _throughDoor = false;
++            _doorExit = null;
++            direction &= Direction.Mask;
++            if (facing < 4)
++                _doorCrossing = playerY < y || playerY == y && direction is Direction.Down or Direction.South or Direction.Left
++                    ? Direction.South : Direction.North;
++            else
++                _doorCrossing = playerX < x || playerX == x && direction is Direction.Right or Direction.East or Direction.Down
++                    ? Direction.East : Direction.West;
++        }
++
++        // Route to the threshold first so a path to the far side cannot take another entrance.
++        _throughDoor |= playerX == x && playerY == y && Math.Abs(playerZ - z) < 16;
++        if (_throughDoor && !_doorExit.HasValue)
++        {
++            sbyte exitZ = (sbyte)z;
++            var crossing = _doorCrossing;
++            if (world.Player.Pathfinder.CanWalk(ref crossing, ref x, ref y, ref exitZ))
++                _doorExit = (x, y, exitZ);
++        }
++        if (_doorExit is { } exit)
++            (x, y, z) = exit;
++        return true;
++    }
++
++    private static int OpenDoorFacing(object selected)
++    {
++        if (selected is Item { ItemData.IsDoor: true } door)
++            foreach (int open in _openDoorArt)
++            {
++                int index = door.Graphic - open;
++                if (index >= 0 && index < 16 && (index & 1) == 0)
++                    return index / 2;
++            }
++        return -1;
+     }
+     public static bool RightClick(World world)
+     {
+diff --git a/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs b/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
+--- a/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
++++ b/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
+@@ -348,7 +348,7 @@
+             }
+ 
+             if (DirectInteractionTarget() == null
+-                && (ClassCombatClient.BeginAttackHold(_world) || ClassCombatClient.BeginGroundHold(_world)))
++                && (ClassCombatClient.BeginAttackHold(_world) || ClassCombatClient.BeginGroundHold(_world, allowOpenDoor: true)))
+             {
+                 _isMouseLeftDown = _isSelectionActive = false;
+                 SelectedObject.LastLeftDownObject = null;
+diff --git a/src/ClassicUO.Client/Game/UI/Controls/HtmlControl.cs b/src/ClassicUO.Client/Game/UI/Controls/HtmlControl.cs
+--- a/src/ClassicUO.Client/Game/UI/Controls/HtmlControl.cs
++++ b/src/ClassicUO.Client/Game/UI/Controls/HtmlControl.cs
+@@ -185,7 +185,7 @@
+             //    Width = _gameText.Width;
+         }
+ 
+-        internal void ApplyGuildColors(uint textColor)
++        internal void ApplySanctuaryColors(uint textColor, bool hideUnusedScrollbar = false)
+         {
+             if (_gameText.IsHTML && !string.IsNullOrEmpty(_gameText.Text))
+             {
+@@ -209,6 +209,9 @@
+                     AcceptMouseInput = false
+                 });
+             }
++
++            if (hideUnusedScrollbar && _scrollBar.MaxValue == 0)
++                _scrollBar.IsVisible = false;
+         }
+ 
+         protected override void OnMouseWheel(MouseEventType delta)
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryGuildTheme.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryGuildTheme.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryGuildTheme.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryGuildTheme.cs
+@@ -82,7 +82,7 @@
+                         break;
+                     }
+                     bool selected = selectedTab >= 0 && html.Y == 43 && html.X == selectedTab + 30;
+-                    html.ApplyGuildColors(selected ? Gold : Text);
++                    html.ApplySanctuaryColors(selected ? Gold : Text);
+                     break;
+ 
+                 case Button { ButtonGraphicNormal: 0xF7 or 0xF2 } button:
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryResurrectionTheme.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryResurrectionTheme.cs
+new file mode 100644
+--- /dev/null
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryResurrectionTheme.cs
+@@ -0,0 +1,57 @@
++// SPDX-License-Identifier: BSD-2-Clause
++
++using System.Linq;
++using ClassicUO.Game.UI.Controls;
++
++namespace ClassicUO.Game.UI.Gumps;
++
++internal static class SanctuaryResurrectionTheme
++{
++    // ModernUO's hash of Server.Gumps.ResurrectGump.
++    private const uint ResurrectionGump = 0xA0E1F83A;
++    private const uint Text = 0xD9F0FFFF;
++    private const uint Gold = 0x8AD8FFFF;
++
++    internal static void Apply(Gump gump)
++    {
++        if (!ClassCombatClient.Enabled || gump.ServerSerial != ResurrectionGump)
++            return;
++
++        // Match the free offer. Paid resurrection has its own radio buttons and layout.
++        var controls = gump.Children.ToArray();
++        var background = controls.OfType<ResizePic>().FirstOrDefault(pic => pic.Graphic == 2600
++            && pic.X == 0 && pic.Y == 0 && pic.Width == 400);
++        if (background == null)
++            return;
++
++        Replace(gump, background, new SanctuaryBackdrop("character-frame", 400, 278)
++            { CanCloseWithRightClick = true });
++
++        foreach (var control in controls)
++        {
++            if (control is HtmlControl html)
++            {
++                if (html.Y == 230)
++                    html.Dispose();
++                else
++                    html.ApplySanctuaryColors(html.Y == 20 ? Gold : Text, hideUnusedScrollbar: true);
++            }
++            else if (control is Button { ButtonID: 0 or 1 } button)
++            {
++                int id = button.ButtonID;
++                bool accept = id == 1;
++                int cliloc = accept ? 1011011 : 1011012;
++                string caption = Client.Game.UO.FileManager.Clilocs.GetString(cliloc, true);
++                Replace(gump, button, new SanctuarySheetButton(accept ? 50 : 206, 220, 144,
++                    caption, () => gump.OnButtonClick(id), accept, height: 31));
++            }
++        }
++    }
++
++    private static void Replace(Gump gump, Control original, Control replacement)
++    {
++        gump.Insert(gump.Children.IndexOf(original), replacement);
++        replacement.Page = original.Page;
++        original.Dispose();
++    }
++}
+diff --git a/src/ClassicUO.Client/Network/PacketHandlers.cs b/src/ClassicUO.Client/Network/PacketHandlers.cs
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -7201,6 +7201,7 @@
+             }
+ 
+             SanctuaryGuildTheme.Apply(gump);
++            SanctuaryResurrectionTheme.Apply(gump);
+             TalentClickAreas.Attach(gump);
+             if (mustBeAdded)
+             {

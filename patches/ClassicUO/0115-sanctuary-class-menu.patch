@@ -1,0 +1,577 @@
+diff --git a/src/ClassicUO.Client/Network/PacketHandlers.cs b/src/ClassicUO.Client/Network/PacketHandlers.cs
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -4145,6 +4145,11 @@
+                 NamedVisualsClient.Receive(world, ref p);
+                 return;
+             }
++            if (cmd == Sanctuary.ClassGumpProtocol.PreviewSubCommand)
++            {
++                SanctuaryTalentScreen.Receive(ref p);
++                return;
++            }
+             if (cmd == Sanctuary.StatProtocol.SubCommand)
+             {
+                 ClassStatsClient.Receive(world, ref p);
+@@ -6635,6 +6640,16 @@
+                 };
+             }
+ 
++            if (SanctuaryTalentScreen.TryAttach(gump, lines))
++            {
++                if (mustBeAdded)
++                {
++                    UIManager.Add(gump);
++                }
++                gump.Update();
++                return gump;
++            }
++
+             int group = 0;
+             int page = 0;
+ 
+diff --git a/src/ClassicUO.Client/Game/ClassStatsClient.cs b/src/ClassicUO.Client/Game/ClassStatsClient.cs
+--- a/src/ClassicUO.Client/Game/ClassStatsClient.cs
++++ b/src/ClassicUO.Client/Game/ClassStatsClient.cs
+@@ -10,6 +10,11 @@
+     private static int[] _values = new int[StatProtocol.Values];
+     private static uint _sequence, _nextPoll;
+     public static bool Ready { get; private set; }
++    private static readonly int[] _caps = [75, 75, 75, 75];
++    public static int ResistanceCap(int element) => _caps[element];
++    public static string LastMonster { get; private set; }
++    public static int ChanceToHit { get; private set; }
++    public static int ChanceToBeHit { get; private set; }
+     public static uint LevelUpUntil { get; private set; }
+     public static int Get(StatField field) => _values[(int)field];
+     public static int MovementDelay(bool run, bool dead, int delay)
+@@ -21,6 +26,9 @@
+     public static void Reset()
+     {
+         Ready = false;
++        LastMonster = null;
++        ChanceToHit = ChanceToBeHit = 0;
++        System.Array.Fill(_caps, 75);
+         LevelUpUntil = 0;
+         _sequence = 0;
+         _nextPoll = Time.Ticks;
+@@ -43,7 +51,16 @@
+     }
+     public static void Receive(World world, ref StackDataReader reader)
+     {
+-        if (!world.InGame || reader.Remaining != 1 + StatProtocol.Values * 4 || reader.ReadUInt8() != StatProtocol.Version)
++        const int baseline = 1 + StatProtocol.Values * 4;
++        const int extension = StatProtocol.MatchupFields * 4;
++        int length = reader.Remaining;
++        if (!world.InGame || length < baseline || length > baseline + extension + StatProtocol.MatchupNameBytes)
++        {
++            return;
++        }
++        byte version = reader.ReadUInt8();
++        if (!(version == StatProtocol.Version && length >= baseline + extension
++            || version == StatProtocol.LegacyVersion && length == baseline))
+         {
+             return;
+         }
+@@ -62,6 +79,23 @@
+             || values[(int)StatField.RunBonus] > 150 || values[(int)StatField.FoodLight] > 3)
+         {
+             return;
++        }
++        if (version == StatProtocol.Version)
++        {
++            System.Span<int> caps = stackalloc int[_caps.Length];
++            for (int i = 0; i < caps.Length; i++)
++            {
++                caps[i] = reader.ReadInt32BE();
++                if (caps[i] is < 0 or > 95)
++                    return;
++            }
++            int attack = reader.ReadInt32BE(), defense = reader.ReadInt32BE();
++            if (attack is < 0 or > 100 || defense is < 0 or > 100)
++                return;
++            caps.CopyTo(_caps);
++            ChanceToHit = attack;
++            ChanceToBeHit = defense;
++            LastMonster = reader.Remaining > 0 ? reader.ReadUTF8(reader.Remaining) : null;
+         }
+         if (Ready && values[(int)StatField.Level] > Get(StatField.Level))
+         {
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryCharacterStats.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryCharacterStats.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryCharacterStats.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryCharacterStats.cs
+@@ -14,6 +14,8 @@
+     private readonly World _world;
+     private readonly List<(Label Label, int Right, Func<string> Value)> _rows = new();
+     private readonly List<Label> _spend = new();
++    private readonly HitBox _attackTooltip;
++    private readonly HitBox _defenseTooltip;
+     private uint _refresh;
+ 
+     public SanctuaryCharacterStats(World world)
+@@ -47,16 +49,17 @@
+             : $"{player.DamageMin}–{player.DamageMax}");
+         Row(right, 117, "Attack rating", () => ClassValue(StatField.AttackRating));
+         Row(right, 136, "Defense", () => ClassValue(StatField.Defense));
++        _attackTooltip = Add(new HitBox(right, 115, 158, 18, alpha: 0.06f));
++        _defenseTooltip = Add(new HitBox(right, 134, 158, 18, alpha: 0.06f));
+         Row(right, 155, "Attack speed", () => ClassValue(StatField.Ias, "%"));
+         Row(right, 174, "Cast rate", () => ClassValue(StatField.Fcr, "%"));
+         Row(right, 193, "Magic find", () => ClassValue(StatField.MagicFind, "%"));
+ 
+         Heading(right, 225, "Resistances");
+-        Row(right, 250, "Physical", () => $"{player.PhysicalResistance} / {player.MaxPhysicResistence}");
+-        Row(right, 270, "Fire", () => $"{player.FireResistance} / {player.MaxFireResistence}");
+-        Row(right, 290, "Cold", () => $"{player.ColdResistance} / {player.MaxColdResistence}");
+-        Row(right, 310, "Poison", () => $"{player.PoisonResistance} / {player.MaxPoisonResistence}");
+-        Row(right, 330, "Lightning", () => $"{player.EnergyResistance} / {player.MaxEnergyResistence}");
++        Row(right, 250, "Fire", () => $"{player.FireResistance} / {ClassStatsClient.ResistanceCap(0)}");
++        Row(right, 270, "Cold", () => $"{player.ColdResistance} / {ClassStatsClient.ResistanceCap(1)}");
++        Row(right, 290, "Poison", () => $"{player.PoisonResistance} / {ClassStatsClient.ResistanceCap(2)}");
++        Row(right, 310, "Lightning", () => $"{player.EnergyResistance} / {ClassStatsClient.ResistanceCap(3)}");
+         Refresh();
+     }
+ 
+@@ -111,8 +114,20 @@
+             label.X = right - label.Width;
+         }
+ 
++        string monster = ClassStatsClient.LastMonster;
++        SetTooltip(_attackTooltip, monster == null ? "Your chance to hit appears after you fight a monster."
++            : $"Chance to hit {monster}: {ClassStatsClient.ChanceToHit}%");
++        SetTooltip(_defenseTooltip, monster == null ? "A monster's chance to hit you appears after you fight it."
++            : $"Chance for {monster} to hit you: {ClassStatsClient.ChanceToBeHit}%");
++
+         bool canSpend = ClassStatsClient.Ready && ClassStatsClient.Get(StatField.Points) > 0 && !_world.Player.IsDead;
+         foreach (var control in _spend)
+             control.IsVisible = canSpend;
+     }
++
++    private static void SetTooltip(HitBox control, string text)
++    {
++        if (!Equals(control.Tooltip, text))
++            control.SetTooltip(text, 260);
++    }
+ }
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryTalentScreen.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryTalentScreen.cs
+new file mode 100644
+--- /dev/null
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryTalentScreen.cs
+@@ -0,0 +1,417 @@
++// SPDX-License-Identifier: BSD-2-Clause
++
++using System;
++using System.Linq;
++using System.Text.Json;
++using ClassicUO.Game.Managers;
++using ClassicUO.Game.UI.Controls;
++using ClassicUO.Input;
++using ClassicUO.IO;
++using ClassicUO.Network;
++using Sanctuary;
++
++namespace ClassicUO.Game.UI.Gumps;
++
++internal sealed class SanctuaryTalentScreen : Control
++{
++    internal const int FrameWidth = 612;
++    internal const int FrameHeight = 440;
++    private const ushort TextHue = 0x0481;
++    private const ushort GoldHue = 0x0035;
++    private const uint Brass = 0xFF345681;
++    private static readonly int[] Tiers = [1, 6, 12, 18, 24, 30];
++
++    private readonly Gump _gump;
++    private readonly TalentMenuData _data;
++    private readonly int[] _draft;
++    private readonly TalentTile[] _tiles;
++    private readonly Label _points;
++    private readonly Label _message;
++    private readonly SanctuarySheetButton _apply;
++    private readonly SanctuarySheetButton _reset;
++    private readonly Label _detailTitle;
++    private readonly ScrollArea _detailScroll;
++    private readonly Label _description;
++    private readonly ComparisonRows _metrics;
++    private readonly Label _requirements;
++    private readonly Label _milestones;
++    private int _pending;
++    private int _selected = -1;
++    private uint _requestAt;
++    private uint _request;
++    private static uint _nextSequence;
++
++    internal static bool TryAttach(Gump gump, string[] lines)
++    {
++        if (gump.ServerSerial != ClassGumpProtocol.Talents || lines is not { Length: > 0 }
++            || !lines[^1].StartsWith(ClassGumpProtocol.MenuPrefix, StringComparison.Ordinal))
++        {
++            return false;
++        }
++
++        TalentMenuData data;
++        try
++        {
++            data = JsonSerializer.Deserialize(lines[^1][ClassGumpProtocol.MenuPrefix.Length..], TalentMenuJsonContext.Default.TalentMenuData);
++        }
++        catch (JsonException)
++        {
++            return false;
++        }
++
++        if (data?.Trees is not { Length: 3 } || data.Skills?.Length != data.Trees.Length * ClassGumpProtocol.SkillsPerTree
++            || data.MaxRank is < 1 or > 20
++            || data.Skills.Any(s => s?.Prerequisites == null || !Tiers.Contains(s.Level)
++                || s.Prerequisites.Any(i => i < 0 || i >= data.Skills.Length)))
++        {
++            return false;
++        }
++
++        gump.WantUpdateSize = false;
++        gump.Width = FrameWidth;
++        gump.Height = FrameHeight;
++        gump.X = Math.Clamp(gump.X, 0, Math.Max(0, Client.Game.ClientBounds.Width - FrameWidth));
++        gump.Y = Math.Clamp(gump.Y, 0, Math.Max(0, Client.Game.ClientBounds.Height - FrameHeight));
++        gump.Add(new SanctuaryTalentScreen(gump, data));
++        return true;
++    }
++
++    private SanctuaryTalentScreen(Gump gump, TalentMenuData data)
++    {
++        _gump = gump;
++        _data = data;
++        _draft = new int[data.Skills.Length];
++        _tiles = new TalentTile[data.Skills.Length];
++        Width = FrameWidth;
++        Height = FrameHeight;
++        CanMove = true;
++        WantUpdateSize = false;
++
++        Add(new SanctuaryBackdrop("character-frame", Width, Height));
++        Caption(26, 11, $"{data.Title}  ·  Level {data.Level}", font: 0);
++        Caption(26, 38, data.Level == 99 ? $"{data.Experience:N0} XP" : $"{data.Experience:N0} / {data.NextLevel:N0} XP");
++        _points = Caption(330, 37, "", GoldHue);
++        Add(new SanctuarySheetButton(528, 22, 58, "Close", () => Reply(0)));
++
++        const int gridLeft = 27, treeWidth = 132, firstRow = 106, rowHeight = 44;
++        for (var tier = 0; tier < Tiers.Length; tier++)
++        {
++            Caption(12, firstRow + 12 + tier * rowHeight, Tiers[tier].ToString(), GoldHue);
++            if (tier > 0)
++                Rule(gridLeft, firstRow - 1 + tier * rowHeight, treeWidth * 3, 1, 0xFF253049);
++        }
++
++        for (var tree = 0; tree < data.Trees.Length; tree++)
++        {
++            int left = gridLeft + tree * treeWidth;
++            Add(new Label(data.Trees[tree], true, GoldHue, maxwidth: treeWidth - 6, font: 1,
++                align: Assets.TEXT_ALIGN_TYPE.TS_CENTER) { X = left + 3, Y = 66 });
++            if (tree > 0)
++                Rule(left, 63, 1, 307, Brass);
++            for (var tier = 0; tier < Tiers.Length; tier++)
++            {
++                var nodes = Enumerable.Range(tree * ClassGumpProtocol.SkillsPerTree, ClassGumpProtocol.SkillsPerTree)
++                    .Where(i => data.Skills[i].Level == Tiers[tier]).ToArray();
++                int pitch = nodes.Length > 2 ? 44 : 51;
++                for (var column = 0; column < nodes.Length; column++)
++                {
++                    int index = nodes[column];
++                    int x = left + (treeWidth - ((nodes.Length - 1) * pitch + 44)) / 2 + column * pitch;
++                    var tile = Add(new TalentTile(x, firstRow + tier * rowHeight, data.Skills[index],
++                        direction => Change(index, direction)));
++                    tile.MouseEnter += (_, _) => Select(index);
++                    _tiles[index] = tile;
++                }
++            }
++        }
++
++        Rule(424, 63, 1, 307, Brass);
++        _detailTitle = Add(new Label("Talent details", true, GoldHue, maxwidth: 162, font: 1) { X = 433, Y = 67 });
++        _detailScroll = Add(new ScrollArea(433, 103, 162, 268, true));
++        _description = _detailScroll.Add(new Label("Hover over a talent to see what it does.", true, TextHue, maxwidth: 145, font: 1));
++        _metrics = _detailScroll.Add(new ComparisonRows());
++        _requirements = _detailScroll.Add(new Label("", true, TextHue, maxwidth: 145, font: 1));
++        _milestones = _detailScroll.Add(new Label("", true, GoldHue, maxwidth: 145, font: 1));
++
++        Rule(21, 373, 569, 1, Brass);
++        _message = Caption(26, 378, "");
++        Add(new SanctuarySheetButton(26, 404, 100, "Mouse Skills", () => Reply(ClassGumpProtocol.MouseSkills)));
++        Add(new SanctuarySheetButton(134, 404, 64, "Pets", () => Reply(ClassGumpProtocol.Pets)));
++        _reset = Add(new SanctuarySheetButton(423, 404, 69, "Reset", Reset));
++        _apply = Add(new SanctuarySheetButton(500, 404, 86, "Apply", Apply, primary: true));
++        Refresh();
++    }
++
++    private Label Caption(int x, int y, string text, ushort hue = TextHue, byte font = 1) =>
++        Add(new Label(text, true, hue, font: font) { X = x, Y = y, AcceptMouseInput = false });
++
++    private void Rule(int x, int y, int width, int height, uint color) =>
++        Add(new Line(x, y, width, height, color) { AcceptMouseInput = false });
++
++    private int Rank(int index) => _data.Skills[index].Learned + _draft[index];
++
++    private string Requirement(int index)
++    {
++        var skill = _data.Skills[index];
++        int rank = Rank(index);
++        if (rank >= _data.MaxRank)
++            return "Maximum rank reached.";
++        if (_data.Level < skill.Level + rank)
++            return $"Requires character level {skill.Level + rank}.";
++        foreach (int prerequisite in skill.Prerequisites)
++        {
++            if (Rank(prerequisite) == 0)
++                return $"Requires {_data.Skills[prerequisite].Name}.";
++        }
++        return _pending < _data.Points ? null : "No unspent points.";
++    }
++
++    private void Select(int index)
++    {
++        if (_selected == index)
++            return;
++
++        _selected = index;
++        while (_detailScroll.ScrollValue > 0)
++            _detailScroll.Scroll(true);
++        RefreshDetails();
++    }
++
++    private void RefreshDetails()
++    {
++        if (_selected < 0)
++            return;
++
++        var skill = _data.Skills[_selected];
++        _detailTitle.Text = skill.Name;
++        _description.Text = skill.Description;
++        _milestones.Text = skill.Mechanics;
++        _request = 0;
++        _requestAt = Time.Ticks + 125;
++        ShowDetails("");
++    }
++
++    private void ShowDetails(string stats)
++    {
++        var skill = _data.Skills[_selected];
++        bool compare = Requirement(_selected) == null;
++        _metrics.Y = _description.Height + 8;
++        _metrics.Show(stats, Rank(_selected), compare, _pending > 0);
++
++        string requirements = $"Character level {skill.Level}";
++        if (skill.Prerequisites.Length > 0)
++            requirements += "\nRequires " + string.Join(", ", skill.Prerequisites.Select(p => _data.Skills[p].Name));
++        _requirements.Text = requirements;
++        _requirements.Y = _metrics.Y + _metrics.Height + 8;
++        _milestones.Y = _requirements.Y + _requirements.Height + 8;
++    }
++
++    public override void Update()
++    {
++        base.Update();
++        if (_selected < 0 || _request != 0 || unchecked((int)(Time.Ticks - _requestAt)) < 0)
++            return;
++
++        _request = ++_nextSequence;
++        var writer = new StackDataWriter(ClassGumpProtocol.PreviewRequestLength);
++        writer.WriteUInt8(0xBF);
++        writer.WriteUInt16BE(ClassGumpProtocol.PreviewRequestLength);
++        writer.WriteUInt16BE(ClassGumpProtocol.PreviewSubCommand);
++        writer.WriteUInt8(ClassGumpProtocol.PreviewVersion);
++        writer.WriteUInt32BE(_request);
++        writer.WriteUInt8((byte)_selected);
++        foreach (int points in _draft)
++            writer.WriteUInt8((byte)('A' + points));
++        NetClient.Socket.Send(writer.BufferWritten);
++        writer.Dispose();
++    }
++
++    internal static void Receive(ref StackDataReader reader)
++    {
++        if (reader.Remaining is < 5 or > 5 + ClassGumpProtocol.MaxPreviewBytes
++            || reader.ReadUInt8() != ClassGumpProtocol.PreviewVersion)
++            return;
++        uint sequence = reader.ReadUInt32BE();
++
++        foreach (var gump in UIManager.Gumps)
++        {
++            if (gump.IsDisposed || gump.ServerSerial != ClassGumpProtocol.Talents)
++                continue;
++            foreach (var control in gump.Children)
++            {
++                if (control is SanctuaryTalentScreen screen && screen._request != 0 && screen._request == sequence)
++                {
++                    screen.ShowDetails(reader.ReadUTF8(reader.Remaining));
++                    return;
++                }
++            }
++        }
++    }
++
++    private void Change(int index, int direction)
++    {
++        Select(index);
++        if (direction > 0)
++        {
++            if (Requirement(index) is { } reason)
++            {
++                _message.Text = reason;
++                return;
++            }
++        }
++        else
++        {
++            if (_draft[index] == 0)
++                return;
++            if (Rank(index) == 1)
++            {
++                for (var i = 0; i < _draft.Length; i++)
++                {
++                    if (_draft[i] > 0 && _data.Skills[i].Prerequisites.Contains(index))
++                    {
++                        _message.Text = $"Remove the draft points from {_data.Skills[i].Name} first.";
++                        return;
++                    }
++                }
++            }
++        }
++        _draft[index] += direction;
++        _pending += direction;
++        Refresh();
++    }
++
++    private void Reset()
++    {
++        Array.Clear(_draft);
++        _pending = 0;
++        Refresh();
++    }
++
++    private void Refresh()
++    {
++        int remaining = _data.Points - _pending;
++        _points.Text = $"{remaining} {(remaining == 1 ? "point" : "points")} left"
++            + (_pending > 0 ? $"  ·  {_pending} pending" : "");
++        _message.Text = "Left-click to add a point. Right-click to undo a draft point.";
++        foreach (var child in _apply.Children.Concat(_reset.Children))
++            child.Alpha = _pending > 0 ? 1 : 0.60f;
++        for (var i = 0; i < _tiles.Length; i++)
++        {
++            var skill = _data.Skills[i];
++            _tiles[i].Refresh(skill, Rank(i), _draft[i], _data.Level < skill.Level);
++        }
++        RefreshDetails();
++    }
++
++    private void Apply()
++    {
++        if (_pending > 0)
++            Reply(ClassGumpProtocol.Apply, new string(_draft.Select(points => (char)('A' + points)).ToArray()));
++    }
++
++    private void Reply(int button, string draft = null)
++    {
++        GameActions.ReplyGump(_gump.LocalSerial, _gump.ServerSerial, button,
++            switches: [], entries: draft == null ? [] : [Tuple.Create(ClassGumpProtocol.AllocationEntry, draft)]);
++        _gump.Dispose();
++    }
++
++    private sealed class ComparisonRows : Control
++    {
++        private const int FullWidth = 145;
++        private const int CurrentColumn = 104;
++
++        public ComparisonRows()
++        {
++            Width = FullWidth;
++            WantUpdateSize = false;
++        }
++
++        public void Show(string stats, int rank, bool compare, bool drafting)
++        {
++            Clear();
++            int y = 0;
++
++            void Row(string name, string current, string next, bool header = false)
++            {
++                var label = Add(new Label(name, true, TextHue, font: 1));
++                var value = Add(new Label(current, true, header ? GoldHue : TextHue, font: 1));
++                var preview = Add(new Label(next, true, GoldHue, font: 1));
++                label.Y = y;
++                value.Y = preview.Y = y;
++                value.X = (compare ? CurrentColumn : FullWidth) - value.Width;
++                preview.X = FullWidth - preview.Width;
++
++                if (value.X < label.Width + 4 || compare && preview.X < value.X + value.Width + 4)
++                {
++                    value.Y = preview.Y = y + label.Height;
++                    value.X = (compare ? FullWidth / 2 - 4 : FullWidth) - value.Width;
++                }
++                y = Math.Max(label.Y + label.Height, value.Y + value.Height);
++            }
++
++            if (compare)
++                Row("", drafting ? "Draft" : "Now", "Next", true);
++            Row("Hard points", rank.ToString(), compare ? (rank + 1).ToString() : "");
++            foreach (string line in stats.Split('\n'))
++            {
++                string[] row = line.Split('\t');
++                if (row.Length is 2 or 3)
++                    Row(row[0], row[1], compare && row.Length == 3 ? row[2] : "");
++            }
++            Height = y;
++        }
++    }
++
++    private sealed class TalentTile : Control
++    {
++        private readonly Action<int> _change;
++        private readonly Label _rank;
++        private readonly Line _border;
++        private readonly Control _art;
++
++        public TalentTile(int x, int y, TalentMenuSkill skill, Action<int> change)
++        {
++            X = x;
++            Y = y;
++            Width = 44;
++            Height = 43;
++            AcceptMouseInput = true;
++            CanCloseWithRightClick = false;
++            WantUpdateSize = false;
++            _change = change;
++            SetTooltip(skill.Name);
++
++            _border = Add(new Line(0, 0, Width, Height, Brass) { AcceptMouseInput = false });
++            Add(new Line(1, 1, Width - 2, Height - 2, 0xFF211A1A) { AcceptMouseInput = false });
++            if (skill.Icon != 0)
++            {
++                _art = Add(new GumpPic(0, 0, (ushort)skill.Icon, 0) { AcceptMouseInput = false });
++            }
++            else
++            {
++                _art = Add(new Label(skill.Name[..Math.Min(2, skill.Name.Length)], true, GoldHue, font: 1) { X = 12, Y = 9 });
++            }
++            Add(new Line(15, 27, 30, 16, 0xFF211A1A) { AcceptMouseInput = false });
++            _rank = Add(new Label("", true, TextHue, font: 1) { Y = 27, AcceptMouseInput = false });
++        }
++
++        public void Refresh(TalentMenuSkill skill, int rank, int pending, bool levelLocked)
++        {
++            _rank.Text = rank.ToString();
++            _rank.Hue = pending > 0 ? GoldHue : TextHue;
++            _rank.X = 30 - _rank.Width / 2;
++            _border.IsVisible = pending > 0 || skill.Learned > 0;
++            _art.Alpha = levelLocked ? 0.58f : 1f;
++        }
++
++        protected override void OnMouseUp(int x, int y, MouseButtonType button)
++        {
++            if (MouseIsOver && button is MouseButtonType.Left or MouseButtonType.Right)
++            {
++                _change(button == MouseButtonType.Left ? 1 : -1);
++                Mouse.CancelDoubleClick = true;
++            }
++        }
++    }
++}

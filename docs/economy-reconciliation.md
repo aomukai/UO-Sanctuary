@@ -6,6 +6,8 @@ Staged T49 update (22 October2026): actual eligible named items now share this p
 
 Read all 735 lines of [the completed replies](economy-open-questions-replies.md). Their contents are preserved unchanged, including the explicitly provisional interpretations/corrections at the top. The original reply-file SHA-256 is `f2ddcefa818c73adb5c135c92b18865e28c4185f9e209513b58c19e60f0c3a94`.
 
+The replies retain their original references to the two pre-reconciliation drafts. Those drafts are available in Git at `edfe890c`. Use the consolidated [crafting decisions](crafting.md), [equipment economy](economy.md), and the [foundation roadmap](implementation-roadmap.md) for the current reference paths.
+
 The [current specification](crafting.md) consolidates the answers. The [decision tracker](economy-open-questions.md) reconciles 117 rows while retaining A03 and later Q answers, including always-active gathering, Cartography as a craft, public wardrobe access and sex-specific class names. Older handoffs are explicitly historical. Current implementation descriptions remain separate; no target is claimed already installed.
 
 ## Important changes now recorded

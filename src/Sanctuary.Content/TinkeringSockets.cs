@@ -93,7 +93,7 @@ public static class TinkeringSockets
         && item.Origin is ItemOrigin.Drop or ItemOrigin.Crafted && item.IsChildOf(player.Backpack)
         && item.IsStandardLoot() && item.BlessedFor == null && !item.IsLockedDown && !item.IsSecure
         && item.IsAccessibleTo(player) && item.VerifyMove(player) && ClassGear.Converted(item)
-        && GearDetails.Socketable(item) && ClassGear.State(item) is not { StarterTeeth: true }
+        && GearDetails.Socketable(item) && ClassGear.State(item) is not { Starter: true }
         && ClassGear.State(item) is not { Identified: false };
     public static SocketRequest Quote(PlayerMobile player, TinkerTools tool, Item item)
         => BuildQuote(player, tool, item, false);

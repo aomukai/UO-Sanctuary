@@ -161,7 +161,7 @@ def exercise(window, click, capture):
         belt_exercise(window, click, capture)
         return
     if os.environ.get("SANCTUARY_TEST_MOVEMENT_UI") == "1":
-        click(335, 367)
+        click(538, 101)
         from check_movement_ui import exercise as movement_exercise
         movement_exercise(window, click, capture)
         return
@@ -170,7 +170,7 @@ def exercise(window, click, capture):
         resurrection_exercise(window, click, capture)
         return
     if os.environ.get("SANCTUARY_TEST_PETS_UI") == "1":
-        click(335, 367)
+        click(538, 101)
         from check_pets_ui import exercise as pets_exercise
         pets_exercise(window, click, capture)
         return
@@ -179,7 +179,7 @@ def exercise(window, click, capture):
         stats_exercise(window, click, capture)
         return
     if os.environ.get("SANCTUARY_TEST_LOOT_ONLY") == "1":
-        click(335, 367)
+        click(538, 101)
         from check_loot_ui import exercise as loot_exercise
         loot_exercise(window, click, capture)
         return
@@ -325,7 +325,7 @@ def exercise(window, click, capture):
         print("Actual client: rear visible pixels beat front fallback, opaque overlap chooses front, and double gaps choose front fallback.", flush=True)
 
     if os.environ.get("SANCTUARY_TEST_TIMING_ONLY") == "1":
-        click(335, 367)
+        click(538, 101)
         from check_timing_ui import exercise as timing_exercise
         timing_exercise(window, click, capture, project)
         from check_loot_ui import exercise as loot_exercise
@@ -334,7 +334,7 @@ def exercise(window, click, capture):
     state = command("setup")
     command("run")
     capture("movement-paperdoll-run.png")
-    click(320, 317)  # The restored paperdoll toggle now selects Walk.
+    click(523, 453)  # The restored paperdoll toggle now selects Walk.
     command("walk")
     capture("movement-paperdoll-walk.png")
     # Holding Tab must toggle once, independently of key repeat or key release.
@@ -344,12 +344,12 @@ def exercise(window, click, capture):
     subprocess.run(["xdotool", "keyup", "Tab"], check=True)
     time.sleep(0.2)
     command("run")
-    click(320, 317)
+    click(523, 453)
     command("walk")
     # Save Desktop writes the chosen mode to this disposable character profile.
     subprocess.run(["xdotool", "key", "ctrl+alt+shift+s"], check=True)
     time.sleep(0.3)
-    click(335, 367)  # Minimize the paperdoll, preserving world input beneath it.
+    click(538, 101)  # Minimize the paperdoll, preserving world input beneath it.
     command("movement-mark")
     subprocess.run(["xdotool", "mousemove", "--window", window, "250", "310"], check=True)
     time.sleep(0.2)

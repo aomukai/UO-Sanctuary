@@ -24,13 +24,18 @@ SERVER = LOCAL / "server"
 CLIENT = LOCAL / "client"
 
 
-def run(args, cwd=ROOT, extra_env=None, **kwargs):
+def command_environment(extra_env=None):
     env = os.environ.copy()
     env["DOTNET_ROOT"] = str(DOTNET.parent)
     env["DOTNET_CLI_TELEMETRY_OPTOUT"] = "1"
     env["DOTNET_NOLOGO"] = "1"
     env.update(extra_env or {})
-    return subprocess.run([str(arg) for arg in args], cwd=cwd, env=env, check=True, **kwargs)
+    return env
+
+
+def run(args, cwd=ROOT, extra_env=None, **kwargs):
+    return subprocess.run([str(arg) for arg in args], cwd=cwd,
+                          env=command_environment(extra_env), check=True, **kwargs)
 
 
 def require_sdk():
@@ -141,12 +146,14 @@ def build(target):
 
 def require_stopped(name):
     folder, assembly = (SERVER, "ModernUO.dll") if name == "server" else (CLIENT, "cuo.dll")
+    apphost = Path(assembly).stem
     for entry in Path("/proc").iterdir():
         if not entry.name.isdigit():
             continue
         try:
             arguments = (entry / "cmdline").read_bytes().split(b"\0")
-            if any(Path(os.fsdecode(arg)).name == assembly for arg in arguments if arg):
+            executable = Path(os.fsdecode(arguments[0])).name
+            if executable == apphost or any(Path(os.fsdecode(arg)).name == assembly for arg in arguments if arg):
                 if (entry / "cwd").resolve() == folder.resolve():
                     raise ValueError(f"Close the running {name} before replacing or launching its binaries.")
         except (OSError, RuntimeError):
@@ -225,15 +232,18 @@ def configure(args):
     print("Run ./dev server, create your owner account at its console, then ./dev client in another terminal.")
 
 
-def launch(name, installed=False):
+def prepare_launch(name, installed=False):
     require_sdk()
     require_stopped(name)
     config = SERVER / "Configuration/modernuo.json" if name == "server" else CLIENT / "settings.json"
     if not config.exists():
         raise ValueError("UO data is not configured. See ./dev configure --help.")
-    settings = json.loads(config.read_text())
-    validate_data(Path(settings["dataDirectories"][0] if name == "server"
-                       else settings["ultimaonlinedirectory"]))
+    try:
+        settings = json.loads(config.read_text())
+        data = Path(settings["dataDirectories"][0] if name == "server" else settings["ultimaonlinedirectory"])
+    except (ValueError, KeyError, IndexError, TypeError) as error:
+        raise ValueError(f"Invalid UO data configuration in {config.relative_to(ROOT)}.") from error
+    validate_data(data)
     folder, assembly = (SERVER, "ModernUO.dll") if name == "server" else (CLIENT, "cuo.dll")
     if not (folder / assembly).exists():
         raise ValueError(f"Build {name} first: ./dev build {name}")
@@ -246,7 +256,12 @@ def launch(name, installed=False):
         if os.environ.get("LD_LIBRARY_PATH"):
             paths.append(os.environ["LD_LIBRARY_PATH"])
         extra_env["LD_LIBRARY_PATH"] = os.pathsep.join(paths)
-    run([DOTNET, folder / assembly, *arguments], cwd=folder, extra_env=extra_env)
+    return [DOTNET, folder / assembly, *arguments], folder, extra_env
+
+
+def launch(name, installed=False):
+    argv, folder, extra_env = prepare_launch(name, installed)
+    run(argv, cwd=folder, extra_env=extra_env)
 
 
 def doctor():
@@ -297,6 +312,7 @@ def main():
     server_command = commands.add_parser("server", help="Run the local server interactively")
     server_command.add_argument("--installed", action="store_true", help="Run the installed build without staging source data or content")
     commands.add_parser("client", help="Run the desktop client")
+    commands.add_parser("launcher", help="Play and save the configured local game from a desktop window")
     commands.add_parser("doctor", help="Report source, SDK, native libraries, build, and config readiness")
     args = parser.parse_args()
     try:
@@ -310,6 +326,10 @@ def main():
             configure(args)
         elif args.command in ("server", "client"):
             launch(args.command, installed=getattr(args, "installed", False))
+        elif args.command == "launcher":
+            from tools.local_launcher import run_launcher
+
+            run_launcher(LOCAL, prepare_launch, command_environment)
         else:
             return doctor()
         return 0

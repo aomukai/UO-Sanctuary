@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Server;
 using Server.Collections;
 using Server.Mobiles;
@@ -9,6 +11,8 @@ namespace Sanctuary;
 // Approved army parking uses actual safety regions, never roofs or buildings.
 internal static class MinionSafeAreas
 {
+    private static readonly ConditionalWeakTable<PlayerMobile, HashSet<Serial>> _waiting = new();
+
     internal static bool Contains(PlayerMobile owner)=>owner is{Deleted:false,Map:not null}&&owner.Map!=Map.Internal
         &&SpellHelper.IsTown(owner.Location,owner);
     internal static bool Candidate(PlayerMobile owner,BaseCreature pet)=>pet is{Deleted:false,Alive:true}
@@ -25,6 +29,29 @@ internal static class MinionSafeAreas
         if(pet?.ControlMaster is not PlayerMobile owner||!ShouldPark(owner,pet)){return false;}
         PersistentMinions.Park(pet);return true;
     }
+
+    internal static void Stored(PlayerMobile owner, BaseCreature pet, bool newlyParked)
+    {
+        if (owner.NetState is not { Running: true } || !ShouldPark(owner, pet) || !PersistentMinions.Active(owner, pet))
+            return;
+
+        var waiting = _waiting.GetOrCreateValue(owner);
+        if (!waiting.Add(pet.Serial))
+            return;
+        waiting.RemoveWhere(serial => World.FindMobile(serial) is not BaseCreature { Alive: true, Deleted: false });
+        if (newlyParked && waiting.Count == 1)
+            owner.SendMessage("Your minions await outside town. They will return when you leave the guarded area.");
+    }
+
+    internal static void Returned(PlayerMobile owner, BaseCreature pet)
+    {
+        if (owner.NetState is { Running: true } && _waiting.TryGetValue(owner, out var waiting) && waiting.Contains(pet.Serial))
+        {
+            _waiting.Remove(owner);
+            owner.SendMessage("Your minions have returned.");
+        }
+    }
+
     public static void Initialize()=>ClassMapHooks.LocationChanged+=LocationChanged;
     private static void LocationChanged(Mobile mobile)
     {

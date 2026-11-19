@@ -1,0 +1,35 @@
+diff --git a/Projects/UOContent/Mobiles/ClassMapHooks.cs b/Projects/UOContent/Mobiles/ClassMapHooks.cs
+--- a/Projects/UOContent/Mobiles/ClassMapHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassMapHooks.cs
+@@ -13,4 +13,5 @@
+     public static Action<Mobile> LocationChanged { get; set; }
+     public static Func<Mobile, int, int> SearchRange { get; set; }
+     public static Func<Mobile, Mobile, bool> StoryMobileVisible { get; set; }
++    public static Func<PublicMoongate, Mobile, bool> PublicGateAllowed { get; set; }
+ }
+diff --git a/Projects/UOContent/Items/Misc/PublicMoongate.cs b/Projects/UOContent/Items/Misc/PublicMoongate.cs
+--- a/Projects/UOContent/Items/Misc/PublicMoongate.cs
++++ b/Projects/UOContent/Items/Misc/PublicMoongate.cs
+@@ -66,6 +66,11 @@
+ 
+     public bool UseGate(Mobile m)
+     {
++        if (ClassMapHooks.PublicGateAllowed?.Invoke(this, m) == false)
++        {
++            return false;
++        }
++
+         if (m.Criminal)
+         {
+             m.SendLocalizedMessage(1005561, "", 0x22); // Thou'rt a criminal and cannot escape so easily.
+@@ -485,6 +490,10 @@
+         {
+             from.SendLocalizedMessage(1019002); // You are too far away to use the gate.
+         }
++        else if (_moongate is PublicMoongate gate && ClassMapHooks.PublicGateAllowed?.Invoke(gate, from) == false)
++        {
++            return;
++        }
+         else if (from.Player && from.Murderer && list.Map != Map.Felucca ||
+                  Sigil.ExistsOn(from) && list.Map != Faction.Facet)
+         {

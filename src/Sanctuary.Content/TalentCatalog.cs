@@ -18,6 +18,10 @@ public static class TalentCatalog
     private static readonly Dictionary<DiabloClass, ClassTalents> _classes = new();
     private static readonly Dictionary<string, (DiabloClass Class, TalentDefinition Talent)> _talents = new(StringComparer.Ordinal);
 
+    private static Dictionary<string, string> _descriptions = new();
+
+    public static string Description(string id) => _descriptions.GetValueOrDefault(id, "");
+
     public static ClassTalents ForClass(DiabloClass characterClass) => _classes[characterClass];
 
     public static bool TryGet(DiabloClass characterClass, string id, out TalentDefinition talent)
@@ -73,6 +77,10 @@ public static class TalentCatalog
                 }
             }
         }
+
+        var descriptionsPath = Path.Join(Core.BaseDirectory, "Data", "Sanctuary", "talent-descriptions.json");
+        _descriptions = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(descriptionsPath))
+            ?? throw new InvalidDataException("The talent descriptions are empty.");
 
         foreach (var (_, entry) in _talents)
         {

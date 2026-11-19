@@ -1096,10 +1096,10 @@ Inherited flat reduction and absorption share Iron Golem's pending talent-tree/h
 | Assassin | Death Sentry | ImageGen | `0xF302` | Yes |
 | Assassin | Blade Shield | ImageGen | `0xF303` | Yes |
 | Warlock | Demonic Mastery | ImageGen | `0xF304` | Passive |
-| Warlock | Summon Goatman | ImageGen | `0xF305` | Yes |
+| Warlock | Summon Lesser Daemon | ImageGen | `0xF305` | Yes |
 | Warlock | Blood Oath | ImageGen | `0xF306` | Passive |
 | Warlock | Death Mark | ImageGen | `0xF307` | Yes |
-| Warlock | Summon Tainted | ImageGen | `0xF308` | Yes |
+| Warlock | Summon Succubus | ImageGen | `0xF308` | Yes |
 | Warlock | Blood Boil | ImageGen | `0xF309` | Yes |
 | Warlock | Summon Defiler | ImageGen | `0xF30A` | Yes |
 | Warlock | Engorge | ImageGen | `0xF30B` | Yes |

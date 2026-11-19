@@ -1,0 +1,334 @@
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/PartyGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/PartyGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/PartyGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/PartyGump.cs
+@@ -1,5 +1,6 @@
+ ﻿// SPDX-License-Identifier: BSD-2-Clause
+ 
++using System;
+ using ClassicUO.Game.Data;
+ using ClassicUO.Game.Managers;
+ using ClassicUO.Game.UI.Controls;
+@@ -11,8 +12,11 @@
+ {
+     internal class PartyGump : Gump
+     {
++        private readonly Label[] _rosterNames;
++
+         public PartyGump(World world, int x, int y, bool canloot) : base(world, 0, 0)
+         {
++            _rosterNames = new Label[world.Party.Members.Length];
+             X = x;
+             Y = y;
+             CanLoot = canloot;
+@@ -22,6 +26,11 @@
+             CanCloseWithRightClick = true;
+ 
+             BuildGump();
++            if (ClassCombatClient.Enabled)
++            {
++                X = Math.Max(0, (Client.Game.ClientBounds.Width - Width) / 2);
++                Y = Math.Max(26, (Client.Game.ClientBounds.Height - Height) / 2);
++            }
+         }
+ 
+         public bool CanLoot;
+@@ -33,8 +42,93 @@
+             BuildGump();
+         }
+ 
++        public override void Update()
++        {
++            base.Update();
++
++            // A roster packet can arrive before the client has resolved the members' names.
++            for (int i = 0; i < _rosterNames.Length; i++)
++            {
++                if (_rosterNames[i] is { IsDisposed: false } label)
++                {
++                    string name = World.Party.Members[i]?.Name ?? "…";
++                    if (label.Text != name)
++                        label.Text = name;
++                }
++            }
++        }
++
++        private void BuildBronzeGump()
++        {
++            Array.Clear(_rosterNames);
++            const int width = 520;
++            var party = World.Party;
++            bool inParty = party.Leader != 0;
++            bool leader = party.Leader == World.Player.Serial;
++            int members = 0;
++            foreach (var member in party.Members)
++                if (member != null && member.Serial != 0)
++                    members++;
++
++            Width = width;
++            Height = inParty ? Math.Max(226, 76 + 24 * members + 98) : 192;
++            WantUpdateSize = false;
++            Y = Math.Clamp(Y, 0, Math.Max(0, Client.Game.ClientBounds.Height - Height));
++            Add(new SanctuaryBackdrop("character-frame", Width, Height));
++            Add(new Label("Party", true, 0x0481, font: 0) { X = 26, Y = 10 });
++
++            void Button(int x, int y, int w, string caption, int action, bool primary = false) =>
++                Add(new SanctuarySheetButton(x, y, w, caption, () => OnButtonClick(action), primary));
++
++            if (!inParty)
++            {
++                Add(new Label(ResGumps.YouAreNotInAParty, true, 0x0481, font: 1) { X = 26, Y = 63 });
++                Button(26, 138, 124, "Invite member", (int)Buttons.Add, true);
++                Button(420, 138, 74, "Close", (int)Buttons.Cancel);
++                return;
++            }
++
++            Add(new Label("Members", true, 0x0035, font: 1) { X = 26, Y = 61 });
++            int y = 81;
++            for (int i = 0; i < party.Members.Length; i++)
++            {
++                var member = party.Members[i];
++                if (member == null || member.Serial == 0)
++                    continue;
++
++                Add(new Line(24, y + 22, 470, 1, 0xFF253049) { AcceptMouseInput = false });
++                _rosterNames[i] = Add(new Label(member.Name ?? "…", true, 0x0481, maxwidth: 237, font: 1,
++                    style: FontStyle.CropTexture) { X = 26, Y = y + 3 });
++                if (member.Serial == party.Leader)
++                    Add(new Label("Leader", true, 0x0035, font: 1) { X = 265, Y = y + 3 });
++                if (member.Serial != World.Player.Serial)
++                {
++                    Button(354, y - 2, 64, "Tell", (int)Buttons.TellMember + i);
++                    if (leader)
++                        Button(422, y - 2, 72, "Kick", (int)Buttons.KickMember + i);
++                }
++                y += 24;
++            }
++
++            int actions = Height - 74;
++            Button(26, actions, 132, "Party message", (int)Buttons.SendMessage);
++            if (leader)
++                Button(166, actions, 124, "Invite member", (int)Buttons.Add);
++            Button(362, actions, 132, leader ? "Disband party" : "Leave party", (int)Buttons.Leave);
++
++            Button(26, actions + 34, 205, CanLoot ? "Party can loot me" : "Party cannot loot me", (int)Buttons.LootType);
++            Button(344, actions + 34, 72, "Cancel", (int)Buttons.Cancel);
++            Button(422, actions + 34, 72, "Apply", (int)Buttons.OK, true);
++        }
++
+         private void BuildGump()
+         {
++            if (ClassCombatClient.Enabled)
++            {
++                BuildBronzeGump();
++                return;
++            }
++
+             Add
+             (
+                 new ResizePic(0x0A28)
+diff --git a/src/ClassicUO.Client/Game/UI/Controls/HtmlControl.cs b/src/ClassicUO.Client/Game/UI/Controls/HtmlControl.cs
+--- a/src/ClassicUO.Client/Game/UI/Controls/HtmlControl.cs
++++ b/src/ClassicUO.Client/Game/UI/Controls/HtmlControl.cs
+@@ -7,6 +7,7 @@
+ using ClassicUO.Utility.Logging;
+ using ClassicUO.Utility.Platforms;
+ using Microsoft.Xna.Framework;
++using System;
+ using System.Collections.Generic;
+ 
+ namespace ClassicUO.Game.UI.Controls
+@@ -184,6 +185,32 @@
+             //    Width = _gameText.Width;
+         }
+ 
++        internal void ApplyGuildColors(uint textColor)
++        {
++            if (_gameText.IsHTML && !string.IsNullOrEmpty(_gameText.Text))
++            {
++                // Native guild status colors are authored for a pale background.
++                string text = _gameText.Text
++                    .Replace("COLOR=#000066", "COLOR=#B9C9FF", StringComparison.OrdinalIgnoreCase)
++                    .Replace("COLOR=#006600", "COLOR=#ADD59B", StringComparison.OrdinalIgnoreCase)
++                    .Replace("COLOR=#000099", "COLOR=#B9C9FF", StringComparison.OrdinalIgnoreCase);
++                _gameText.HTMLColor = textColor;
++                _gameText.Hue = 0;
++                // The Text setter rebuilds the per-glyph HTML layout used by the atlas renderer.
++                _gameText.Text = string.Empty;
++                _gameText.Text = text;
++            }
++
++            if (HasBackground && Children.Count > 0 && Children[0] is ResizePic background)
++            {
++                background.Dispose();
++                Insert(0, new Line(0, 0, background.Width, background.Height, 0xFF231D24)
++                {
++                    AcceptMouseInput = false
++                });
++            }
++        }
++
+         protected override void OnMouseWheel(MouseEventType delta)
+         {
+             switch (delta)
+diff --git a/src/ClassicUO.Client/Network/PacketHandlers.cs b/src/ClassicUO.Client/Network/PacketHandlers.cs
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -7186,6 +7186,7 @@
+                 }
+             }
+ 
++            SanctuaryGuildTheme.Apply(gump);
+             TalentClickAreas.Attach(gump);
+             if (mustBeAdded)
+             {
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryGuildTheme.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryGuildTheme.cs
+new file mode 100644
+--- /dev/null
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryGuildTheme.cs
+@@ -0,0 +1,146 @@
++// SPDX-License-Identifier: BSD-2-Clause
++
++using System;
++using System.Linq;
++using ClassicUO.Game.UI.Controls;
++using ClassicUO.Input;
++
++namespace ClassicUO.Game.UI.Gumps;
++
++/// <summary>Repaints the stock ModernUO guild layouts after their controls have been decoded.</summary>
++internal static class SanctuaryGuildTheme
++{
++    // ModernUO hashes the full names of its Server.Guilds gump types.
++    private const uint CreateGuild = 0x447F5C9A;
++    private const uint GuildInfo = 0x9855D96A;
++    private const uint GuildRoster = 0xDBF0A77B;
++    private const uint Diplomacy = 0x0491B8AE;
++    private const uint AdvancedSearch = 0x0D8C0E3D;
++    private const uint Invitation = 0xCE5CDF24;
++    private const uint MemberInfo = 0x67AC51D0;
++    private const uint OtherGuildInfo = 0x5E7F31DB;
++    private const uint WarDeclaration = 0x867B075D;
++    private const uint AllianceRoster = 0x5E88D0A6;
++
++    private const uint BronzeBorder = 0xFF567B98;
++    private const uint ButtonFill = 0xFF292D42;
++    private const uint SelectedFill = 0xFF335C77;
++    private const uint InputFill = 0xFF211A20;
++    // The HTML glyph path stores the red and blue channels in reverse order.
++    private const uint Text = 0xD9F0FFFF;
++    private const uint Gold = 0x8AD8FFFF;
++
++    internal static void Apply(Gump gump)
++    {
++        if (!ClassCombatClient.Enabled || gump.ServerSerial is not (
++            CreateGuild or GuildInfo or GuildRoster or Diplomacy or AdvancedSearch or Invitation
++            or MemberInfo or OtherGuildInfo or WarDeclaration or AllianceRoster))
++            return;
++
++        var children = gump.Children.ToArray();
++        var outer = children.OfType<ResizePic>().FirstOrDefault(pic => pic.X == 0 && pic.Y == 0
++            && pic.Graphic is 0x2422 or 0x242C or 0x24AE);
++        if (outer == null)
++            return;
++
++        int width = outer.Width, height = outer.Height;
++        Replace(gump, outer, new SanctuaryBackdrop("character-frame", width, height) { CanCloseWithRightClick = true });
++        gump.X = Math.Clamp(gump.X, 0, Math.Max(0, Client.Game.ClientBounds.Width - width));
++        int maxY = Math.Max(0, Client.Game.ClientBounds.Height - height);
++        gump.Y = Math.Clamp(gump.Y, Math.Min(27, maxY), maxY);
++
++        int selectedTab = gump.ServerSerial switch
++        {
++            GuildInfo => 66,
++            GuildRoster => 236,
++            Diplomacy or AdvancedSearch or AllianceRoster => 401,
++            _ => -1
++        };
++
++        foreach (var control in children)
++        {
++            switch (control)
++            {
++                case ResizePic { Graphic: 0x2486 or 0x0BB8 } panel:
++                    StylePanel(gump, panel, children, panel.Y == 40 && panel.X == selectedTab);
++                    break;
++
++                case GumpPicTiled tile when tile.Graphic is 0x0A40 or 0x0BBC or 0x238D or 0x2711:
++                    uint color = tile.Graphic switch
++                    {
++                        0x0A40 => 0xFF3A4E65,
++                        0x0BBC => 0xFF242F3E,
++                        _ => 0xFF345681
++                    };
++                    Replace(gump, tile, new Line(tile.X, tile.Y, tile.Width, tile.Height, color) { AcceptMouseInput = false });
++                    break;
++
++                case HtmlControl html:
++                    if (gump.ServerSerial == CreateGuild && html.X == 25 && html.Y == 20)
++                    {
++                        html.IsVisible = false;
++                        break;
++                    }
++                    bool selected = selectedTab >= 0 && html.Y == 43 && html.X == selectedTab + 30;
++                    html.ApplyGuildColors(selected ? Gold : Text);
++                    break;
++
++                case Button { ButtonGraphicNormal: 0xF7 or 0xF2 } button:
++                    string caption = button.ButtonID == 0 ? "Cancel" : gump.ServerSerial == CreateGuild ? "Create Guild" : "Accept";
++                    bool creating = gump.ServerSerial == CreateGuild;
++                    int buttonWidth = creating && button.ButtonID != 0 ? 100 : 66;
++                    int buttonX = creating ? button.ButtonID == 0 ? 298 : 375 : button.X;
++                    Replace(gump, button, new SanctuarySheetButton(buttonX, button.Y, buttonWidth,
++                        caption, () => Activate(gump, button), button.ButtonID != 0));
++                    break;
++            }
++        }
++
++        if (gump.ServerSerial == CreateGuild || selectedTab >= 0)
++            gump.Add(new Label("Guild", true, 0x0481, font: 0) { X = 25, Y = 8 });
++        if (selectedTab >= 0)
++            gump.Add(new SanctuarySheetButton(width - 78, 8, 53, "Close", () => gump.OnButtonClick(0)));
++    }
++
++    private static void StylePanel(Gump gump, ResizePic panel, Control[] children, bool selected)
++    {
++        var frame = new Line(panel.X, panel.Y, panel.Width, panel.Height, BronzeBorder) { AcceptMouseInput = false };
++        Replace(gump, panel, frame);
++        int index = gump.Children.IndexOf(frame);
++        var fill = new Line(panel.X + 1, panel.Y + 1, panel.Width - 2, panel.Height - 2,
++            panel.Graphic == 0x0BB8 ? InputFill : selected ? SelectedFill : ButtonFill) { AcceptMouseInput = false };
++        gump.Insert(index + 1, fill);
++        fill.Page = frame.Page;
++
++        var button = children.OfType<Button>().FirstOrDefault(candidate =>
++            candidate.ButtonGraphicNormal == 0x845 && candidate.Page == frame.Page
++            && candidate.X == panel.X + 5 && candidate.Y == panel.Y + 5);
++        if (button == null)
++            return;
++
++        button.IsVisible = false;
++        var target = gump.Add(new HitBox(panel.X, panel.Y, panel.Width, panel.Height, alpha: 0.07f), frame.Page);
++        target.MouseUp += (_, args) =>
++        {
++            if (args.Button == MouseButtonType.Left && target.MouseIsOver)
++                Activate(gump, button);
++        };
++    }
++
++    private static void Activate(Gump gump, Button button)
++    {
++        if (button.ButtonAction == ButtonAction.SwitchPage)
++            gump.ChangePage(button.ToPage);
++        else
++            gump.OnButtonClick(button.ButtonID);
++        Mouse.CancelDoubleClick = true;
++    }
++
++    private static void Replace(Gump gump, Control original, Control replacement)
++    {
++        int index = gump.Children.IndexOf(original);
++        gump.Insert(index, replacement);
++        replacement.Page = original.Page;
++        original.Dispose();
++    }
++}

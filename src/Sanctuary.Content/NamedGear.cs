@@ -190,7 +190,7 @@ public static class NamedGear
     {
         var definition = Catalog.Item(state.NamedItemId); var basis = EquipmentBalance.Base(state.BaseCode);
         if (!Identity(item, state) || state.Roll.Rarity != (definition.Rarity == "Unique" ? GearRarity.Unique : GearRarity.Set)
-            || state.Tier.ToString() != basis.Tier || state.CraftedEquipment || state.StarterTeeth || state.MaterialRolls.Length != 0
+            || state.Tier.ToString() != basis.Tier || state.CraftedEquipment || state.Starter || state.MaterialRolls.Length != 0
             || state.Quality != CraftQuality.Average || state.NativeSockets != 0 || state.Roll.Affixes.Length != 0
             || state.Defense < basis.MinDefense || state.Defense > basis.MaxDefense
             || state.Roll.AffixLevel != AffixBalance.Level(state.Roll.ItemLevel, basis.QualityLevel, basis.MagicLevel)

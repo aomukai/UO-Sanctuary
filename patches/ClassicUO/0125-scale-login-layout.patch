@@ -1,0 +1,160 @@
+diff --git a/src/ClassicUO.Client/Game/Scenes/LoginScene.cs b/src/ClassicUO.Client/Game/Scenes/LoginScene.cs
+--- a/src/ClassicUO.Client/Game/Scenes/LoginScene.cs
++++ b/src/ClassicUO.Client/Game/Scenes/LoginScene.cs
+@@ -105,6 +105,17 @@
+             _currentGump.Y = y;
+         }
+ 
++        internal static Point GetUiSize(int width, int height)
++        {
++            if (width <= 0 || height <= 0)
++                return new Point(LayoutWidth, LayoutHeight);
++
++            // Fit the 4:3 layout to the limiting axis. The remaining UI area holds the margins.
++            return width * LayoutHeight >= height * LayoutWidth
++                ? new Point(width * LayoutHeight / height, LayoutHeight)
++                : new Point(LayoutWidth, height * LayoutWidth / width);
++        }
++
+         public override void Unload()
+         {
+             if (IsDestroyed)
+diff --git a/src/ClassicUO.Client/GameController.cs b/src/ClassicUO.Client/GameController.cs
+--- a/src/ClassicUO.Client/GameController.cs
++++ b/src/ClassicUO.Client/GameController.cs
+@@ -69,16 +69,37 @@
+         public IPluginHost PluginHost { get; private set; }
+         public GraphicsDeviceManager GraphicManager { get; }
+ 
++        internal Point UiSize
++        {
++            get
++            {
++                int width = GraphicManager.PreferredBackBufferWidth;
++                int height = GraphicManager.PreferredBackBufferHeight;
++                if (Scene is LoginScene)
++                    return LoginScene.GetUiSize(width, height);
++
++                float scale = DpiScale;
++                return new Point((int)(width / scale), (int)(height / scale));
++            }
++        }
++
+         public Rectangle ClientBounds
+         {
+             get
+             {
+-                var window_rectangle = Window.ClientBounds;
++                var bounds = Window.ClientBounds;
++                if (Scene is LoginScene)
++                {
++                    Point size = UiSize;
++                    return new Rectangle(bounds.X, bounds.Y, size.X, size.Y);
++                }
++
++                float scale = DpiScale;
+                 return new Rectangle(
+-                    window_rectangle.X,
+-                    window_rectangle.Y,
+-                    (int)((float)(window_rectangle.Width) / DpiScale),
+-                    (int)((float)(window_rectangle.Height) / DpiScale)
++                    bounds.X,
++                    bounds.Y,
++                    (int)(bounds.Width / scale),
++                    (int)(bounds.Height / scale)
+                 );
+             }
+         }
+@@ -460,7 +481,8 @@
+                 GraphicsDevice,
+                 new Rectangle(0, 0, GraphicManager.PreferredBackBufferWidth, GraphicManager.PreferredBackBufferHeight),
+                 Scene.Camera.Bounds,
+-                DpiScale
++                DpiScale,
++                Scene is LoginScene ? UiSize : null
+             );
+ 
+             Profiler.EndFrame();
+diff --git a/src/ClassicUO.Client/Input/Mouse.cs b/src/ClassicUO.Client/Input/Mouse.cs
+--- a/src/ClassicUO.Client/Input/Mouse.cs
++++ b/src/ClassicUO.Client/Input/Mouse.cs
+@@ -127,14 +127,13 @@
+                 Position.Y = (int)y;
+             }
+ 
+-            // Scale the mouse coordinates for the faux-backbuffer and DPI settings
++            // Mouse input and the interface use the same logical surface.
+             var bounds = Client.Game.Window.ClientBounds;
+-            var graphics = Client.Game.GraphicManager;
+-            float scale = Client.Game.DpiScale;
+             if (bounds.Width > 0 && bounds.Height > 0)
+             {
+-                Position.X = (int)(Position.X * (double)graphics.PreferredBackBufferWidth / bounds.Width / scale);
+-                Position.Y = (int)(Position.Y * (double)graphics.PreferredBackBufferHeight / bounds.Height / scale);
++                Point uiSize = Client.Game.UiSize;
++                Position.X = (int)(Position.X * (double)uiSize.X / bounds.Width);
++                Position.Y = (int)(Position.Y * (double)uiSize.Y / bounds.Height);
+             }
+ 
+             IsDragging = LButtonPressed || RButtonPressed || MButtonPressed;
+diff --git a/src/ClassicUO.Renderer/RenderTargets.cs b/src/ClassicUO.Renderer/RenderTargets.cs
+--- a/src/ClassicUO.Renderer/RenderTargets.cs
++++ b/src/ClassicUO.Renderer/RenderTargets.cs
+@@ -12,7 +12,6 @@
+         private RenderTarget2D _worldRenderTarget;
+ 
+         private Rectangle _gameWindowOnScreen;
+-        private Rectangle _gameWindowAfterDPI;
+         private Rectangle _gameWorldSceneOnScreen;
+         private Rectangle _gameWorldSceneAfterDPI;
+ 
+@@ -21,6 +20,7 @@
+ 
+         private Texture2D _background;
+         private SamplerState _defaultSamplerState;
++        private SamplerState _uiSamplerState;
+ 
+         public RenderTarget2D UiRenderTarget { get => _uiRenderTarget; }
+         public RenderTarget2D LightRenderTarget { get => _lightRenderTarget; }
+@@ -32,14 +32,16 @@
+             _lightsHue = lightsHue;
+         }
+ 
+-        public void EnsureSizes(GraphicsDevice graphicsDevice, Rectangle gameWindowOnScreen, Rectangle gameWorldSceneAfterDPI, float dpiScale)
++        public void EnsureSizes(GraphicsDevice graphicsDevice, Rectangle gameWindowOnScreen, Rectangle gameWorldSceneAfterDPI,
++            float dpiScale, Point? uiSizeOverride = null)
+         {
+             _gameWindowOnScreen = gameWindowOnScreen;
+-            _gameWindowAfterDPI = ScaleRectangle(gameWindowOnScreen, dpiScale);
+             _gameWorldSceneOnScreen = ScaleRectangle(gameWorldSceneAfterDPI, 1/dpiScale);
+             _gameWorldSceneAfterDPI = gameWorldSceneAfterDPI;
+ 
+-            EnsureSize(graphicsDevice, ref _uiRenderTarget, _gameWindowAfterDPI.Width, _gameWindowAfterDPI.Height);
++            Point uiSize = uiSizeOverride ?? new Point((int)(gameWindowOnScreen.Width / dpiScale),
++                (int)(gameWindowOnScreen.Height / dpiScale));
++            EnsureSize(graphicsDevice, ref _uiRenderTarget, uiSize.X, uiSize.Y);
+             EnsureSize(graphicsDevice, ref _lightRenderTarget, _gameWorldSceneAfterDPI.Width, _gameWorldSceneAfterDPI.Height);
+             EnsureSize(graphicsDevice, ref _worldRenderTarget, _gameWorldSceneAfterDPI.Width, _gameWorldSceneAfterDPI.Height);
+ 
+@@ -53,6 +55,12 @@
+                 // Use LinearClamp for non-integer DPI scaling for smoother results
+                 _defaultSamplerState = SamplerState.LinearClamp;
+             }
++
++            _uiSamplerState = uiSizeOverride == null
++                ? _defaultSamplerState
++                : gameWindowOnScreen.Width % uiSize.X == 0 && gameWindowOnScreen.Height % uiSize.Y == 0
++                    ? SamplerState.PointClamp
++                    : SamplerState.LinearClamp;
+         }
+ 
+         private static Rectangle ScaleRectangle(Rectangle gameWindowOnScreen, float dpiScale) => new(
+@@ -134,7 +142,7 @@
+ 
+             batcher.SetBlendState(null);
+ 
+-            // Draw UI at original window size (render target is DPI-scaled but destination is not)
++            batcher.SetSampler(_uiSamplerState);
+             batcher.Draw(
+                 UiRenderTarget,
+                 _gameWindowOnScreen,
