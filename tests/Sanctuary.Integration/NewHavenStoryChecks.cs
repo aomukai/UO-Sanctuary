@@ -406,10 +406,10 @@ public static class NewHavenStoryChecks
 
         var player = new PlayerMobile { Name = "New Haven check", Body = 0x190, Player = true };
         player.AddItem(new Backpack());
-        ClassCreation.Profiles.Assign(player, DiabloClass.Necromancer);
         var map = Map.Trammel;
         try
         {
+            // Check map geometry before enabling class movement, which also checks for nearby mobiles.
             CheckDoor(new(3506, 2526, 27), Direction.North, Direction.South);
             CheckDoor(new(3462, 2562, 35), Direction.North, Direction.South);
             CheckDoor(new(3491, 2571, 21), Direction.East, Direction.West);
@@ -434,6 +434,7 @@ public static class NewHavenStoryChecks
             var chamber = new Point3D(5947, 311, 0);
             Require(lowerMine.Any(p => p.Z == chamber.Z && Utility.InRange(p, chamber, 2)
                 && EncounterProfiles.ClearSight(map, p, chamber)), "The rope does not lead to Krulg's chamber");
+            ClassCreation.Profiles.Assign(player, DiabloClass.Necromancer);
             Follow(NewHavenPopulation.MineDoor, NewHavenPopulation.MineArrival, false);
             Follow(NewHavenPopulation.RopeDown, NewHavenPopulation.RopeUp, true);
             Follow(NewHavenPopulation.RopeUp, NewHavenPopulation.RopeDown, true);
