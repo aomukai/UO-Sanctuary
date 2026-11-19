@@ -471,6 +471,8 @@ public static class SpellEffectSounds
     public const int MirroredBladesHit = 60465;
     public const int MirroredBladesFade = 60466;
 
+    public static bool IsCustomCue(int sound) => sound is >= FlareRelease and <= MirroredBladesFade;
+
     public static int Fallback(int sound) => sound switch
     {
         FlareRelease => 0x20A,

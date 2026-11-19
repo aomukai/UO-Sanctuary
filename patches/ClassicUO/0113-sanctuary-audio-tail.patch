@@ -1,0 +1,22 @@
+--- a/src/ClassicUO.IO/Audio/Sound.cs
++++ b/src/ClassicUO.IO/Audio/Sound.cs
+@@ -76,3 +76,5 @@
+ 
+-        public bool IsPlaying(uint curTime) => SoundInstance != null && SoundInstance.State == SoundState.Playing && DurationTime > curTime;
++        public bool IsPlaying(uint curTime, bool waitForBuffer = false) =>
++            SoundInstance != null && SoundInstance.State == SoundState.Playing
++            && (DurationTime > curTime || waitForBuffer && SoundInstance.PendingBufferCount > 0);
+ 
+--- a/src/ClassicUO.Client/Game/Managers/AudioManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/AudioManager.cs
+@@ -354,5 +354,7 @@
+ 
+-                if (!first.Value.IsPlaying(Time.Ticks))
+-                {
+-                    first.Value.Stop();
++                var sound = first.Value;
++                // The audio queue can finish after the game's estimated end time.
++                if (!sound.IsPlaying(Time.Ticks, waitForBuffer: SpellEffectSounds.IsCustomCue(sound.Index)))
++                {
++                    sound.Stop();
+                     _currentSounds.Remove(first);
