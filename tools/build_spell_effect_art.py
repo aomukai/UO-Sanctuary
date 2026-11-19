@@ -1329,6 +1329,51 @@ def warlock_blade_actions():
     write_group(warp, 60340, frames)
 
 
+def warlock_echoing_and_mirrored():
+    echo = "warlock-echoing-strike"
+    mirror = "warlock-mirrored-blades"
+    outbound, returning, whirl, echo_hit = load_grid(echo, (1254, 1254))
+    sword, reflection, projectiles, mirror_hit = load_grid(mirror, (1254, 1254))
+    for name, start, sprites, pivots, scale, canvas, padding, cutoff, light in (
+        (echo, 60004, outbound, ((296, 174), (282, 173), (268, 172), (254, 172)), .17, (94, 96), 42, 145, 1.18),
+        (echo, 60036, returning, ((294, 154), (281, 154), (267, 154), (251, 154)), .16, (88, 94), 40, 143, 1.12),
+        (mirror, 60104, sword, ((103, 189), (104, 188), (105, 192), (109, 193)), .25, (112, 124), 54, 142, 1.28),
+        (mirror, 60136, sword, ((103, 189), (104, 188), (105, 192), (109, 193)), .18, (102, 109), 46, 141, 1.04),
+    ):
+        write_group(name, start, directional_flight(
+            (ImageEnhance.Brightness(sprite).enhance(light) for sprite in sprites), pivots,
+            scale, canvas, padding, cutoff
+        ))
+    whirl_pivots = ((186, 143), (165, 142), (147, 141), (137, 140))
+    for name, start, sprites, pivots, scales, canvas, padding, cutoff, light in (
+        (echo, 60000, whirl, whirl_pivots, (.18, .21, .22, .19), (85, 100), 47, 143, 1.21),
+        (echo, 60068, whirl, whirl_pivots, (.18, .23, .24, .17), (81, 89), 39, 142, 1.17),
+        (echo, 60072, echo_hit, ((148, 127), (139, 128), (130, 126), (133, 123)),
+         (.23, .22, .20, .19), (64, 91), 33, 135, 1.30),
+        (echo, 60076, whirl, whirl_pivots, (.17, .145, .115, .08), (63, 79), 34, 136, .97),
+        (echo, 60080, echo_hit, ((148, 127), (139, 128), (130, 126), (133, 123)),
+         (.12, .13, .12, .10), (49, 78), 35, 140, .96),
+        (mirror, 60100, reflection, ((160, 166), (160, 162), (152, 163), (155, 154)),
+         (.177, .232, .249, .240), (96, 122), 43, 141, 1.15),
+        (mirror, 60264, mirror_hit, ((170, 134), (153, 133), (142, 128), (148, 122)),
+         (.198, .199, .218, .194), (74, 103), 39, 139, 1.29),
+        (mirror, 60268, [projectiles[3]] * 4, ((163, 151),) * 4,
+         (.175, .147, .120, .087), (70, 82), 40, 134, .96),
+    ):
+        write_group(name, start, (
+            frame(ImageEnhance.Brightness(sprite).enhance(light), scale, pivot, canvas, padding, cutoff)
+            for sprite, pivot, scale in zip(sprites, pivots, scales)
+        ))
+    for start, sprite, pivot, scale in zip(
+        (60168, 60200, 60232), projectiles,
+        ((289, 143), (283, 155), (281, 150)), (.166, .125, .199)
+    ):
+        write_group(mirror, start, directional_flight(
+            (ImageEnhance.Brightness(sprite).enhance(light) for light in (1.24, 1.13, 1.32, 1.18)),
+            (pivot,) * 4, scale, (110, 116), 51, 143
+        ))
+
+
 def necromancer_curses():
     cells = [cell for row in load_grid("necromancer-curses", (1448, 1086), rows=3) for cell in row]
     for cell in cells[:10]:
@@ -2179,3 +2224,4 @@ if __name__ == "__main__":
     warlock_weapon_hexes()
     warlock_psychic()
     warlock_blade_actions()
+    warlock_echoing_and_mirrored()

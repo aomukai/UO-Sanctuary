@@ -338,11 +338,29 @@ public static class SpellEffectGraphics
     public const ushort BladeWarpDeparture = 60344;
     public const ushort BladeWarpArrival = 60348;
     public const ushort BladeWarpContact = 60352;
+    public const ushort EchoingStrikeCast = 60000;
+    public const ushort EchoingStrikeOut = 60004;
+    public const ushort EchoingStrikeReturn = 60036;
+    public const ushort EchoingStrikeTurn = 60068;
+    public const ushort EchoingStrikeHit = 60072;
+    public const ushort EchoingStrikeFade = 60076;
+    public const ushort EchoingStrikeDeflect = 60080;
+    public const ushort MirroredBladesCast = 60100;
+    public const ushort MirroredBladesPrimary = 60104;
+    public const ushort MirroredBladesCopy = 60136;
+    public const ushort MirroredBladesArrow = 60168;
+    public const ushort MirroredBladesBolt = 60200;
+    public const ushort MirroredBladesThrow = 60232;
+    public const ushort MirroredBladesHit = 60264;
+    public const ushort MirroredBladesFade = 60268;
     public static bool IsCleaveSweep(ushort graphic) => graphic is >= CleaveSweep and < CleaveContact
         && (graphic - CleaveSweep) % WarlockBladeFrames == 0;
-    public static bool IsWarlockBladeAnimation(ushort graphic) => IsCleaveSweep(graphic)
-        || graphic is CleaveContact or BladeWarpCast or BladeWarpImpact or BladeWarpRadius
-            or BladeWarpDeparture or BladeWarpArrival or BladeWarpContact;
+    private static bool IsMirroredMelee(ushort graphic) => graphic is >= MirroredBladesPrimary and < MirroredBladesArrow
+        && (graphic - MirroredBladesPrimary) % WarlockBladeFrames == 0;
+    public static bool IsWarlockBladeAnimation(ushort graphic) => IsCleaveSweep(graphic) || IsMirroredMelee(graphic)
+        || graphic is CleaveContact or BladeWarpCast or BladeWarpImpact or BladeWarpRadius or BladeWarpDeparture
+            or BladeWarpArrival or BladeWarpContact or EchoingStrikeCast or EchoingStrikeTurn or EchoingStrikeHit
+            or EchoingStrikeFade or EchoingStrikeDeflect or MirroredBladesCast or MirroredBladesHit or MirroredBladesFade;
 
     public const int AssassinLobFrames = 4;
     public const int FireBlastRadiusSubtiles = 5;
@@ -879,8 +897,11 @@ public static class SpellEffectGraphics
             or >= MiasmaBoltFlight and < MiasmaBoltCloud or >= MiasmaChainLink and < MiasmaChainCloud
             or MiasmaBoltFade or MiasmaChainMistFade or MiasmaChainFade
             or >= BladeWarpFlight and < BladeWarpImpact
+            or >= EchoingStrikeOut and < EchoingStrikeTurn
+            or >= MirroredBladesArrow and < MirroredBladesHit or MirroredBladesFade
             || IsMiasmaCloud(graphic)
             || IsCleaveSweep(graphic)
+            || IsMirroredMelee(graphic)
             || IsBarbarianThrowFlight(graphic);
 
     public static bool IsHydraHeadFrame(ushort graphic) => graphic is >= HydraHeadRight and <= HydraHeadGone;

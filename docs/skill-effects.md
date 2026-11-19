@@ -2,7 +2,9 @@
 
 The register covers all eight classes and records the UO baseline as `native` where one shipped. Werewolf and Werebear use the Timber Wolf and Grizzly Bear sprites at 120% visual scale. Both keep the player's existing collision footprint. Sorceress Fireball keeps its existing presentation.
 
-The [per-skill asset register](../data/Sanctuary/Balance/skill-effects.json) tracks custom art and audio independently. In ClassicUO, a learned Bone Spear pierced two targets with a small contact flash and shatter at the end of its flight. Meteor has a ground warning, falling stone, impact, and fire on its active field tiles. The first Sonniss edits cover Bone Spear and the red and blue flares. Their listening pass is queued. The [cue recipes](../art/spell-effects/sonniss-cues.json) record the GDC 2019 archive parts and source filenames. `python3 tools/install_spell_audio.py` converts the downloaded WAVs into ClassicUO's local Sounds directory.
+All 210 active skills across eight classes have verified custom or approved existing art in the [per-skill asset register](../data/Sanctuary/Balance/skill-effects.json). The Sonniss pass assigned and installed 467 cues from 22 source recordings. The installer checked the source hashes. All 467 WAVs passed sample format, duration, and peak checks. In-game tests used muted playback. The listening pass will establish which cues need changes or replacement. [Cue recipes and source recordings](../art/spell-effects/sonniss-cues.json)
+
+In ClassicUO, a learned Bone Spear pierced two targets with a small contact flash and shattered at the end of its flight. Meteor has a ground warning, falling stone, impact, and fire on its active field tiles. `python3 tools/install_spell_audio.py` converts the downloaded Sonniss WAVs into ClassicUO's local Sounds directory.
 
 Blizzard shows frost beneath its falling shards, an impact when they land, and a small flash when they damage a target. Frozen Orb rotates as it travels and emits directional bolts, with a burst at the existing terminal nova. Both were verified in ClassicUO with audio disabled. [Blizzard sprite source](../art/spell-effects/blizzard/sheet.png) · [Frozen Orb sprite source](../art/spell-effects/frozen-orb/sheet.png)
 
@@ -187,6 +189,10 @@ Muted ClassicUO checks covered a partial physical catch, ranged absorption witho
 Cleave sweeps a silver-violet blade in the committed direction of the paid swing. Its smaller flashes mark enemies that take damage. Blade Warp sends a pale-blue blade along the existing collision path and shows a two-tile ring at impact. Its departure flash stays at the caster's original tile and its arrival opens at the landing the game accepts. The ring adapts the original Eldritch Blast art. [Cleave sheet and prompt](../art/spell-effects/warlock-cleave) · [Blade Warp sheet and prompt](../art/spell-effects/warlock-blade-warp)
 
 Muted ClassicUO checks covered two in-arc Cleave hits, a spared enemy behind the caster, a paid miss, and the low-mana switch to an ordinary attack. Blade Warp hit two enemies on collision, spared an out-of-range enemy, and transferred the caster to a free tile. It also reached an exact empty tile, drew an impact without transferring into a fully occupied landing area, and stayed quiet on failed allocation. Native gameplay and save-and-reload checks passed. ClassicUO decoded seven Sonniss edits. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
+Echoing Strike sends mint knives along the native outward fan. They curl into cooler blue blades on the return and dissolve when the flight ends. Damage and shield blocks use separate flashes. Mirrored Blades uses the native weapon pose with a brighter primary stroke and smaller violet copies. Bow arrows, crossbow quarrels, and thrown weapons use distinct silhouettes, with the copies spread on screen around their shared collision path. [Echoing Strike sheet and prompt](../art/spell-effects/warlock-echoing-strike) · [Mirrored Blades sheet and prompt](../art/spell-effects/warlock-mirrored-blades)
+
+Muted ClassicUO verified Echoing Strike's damaging contacts, full flight and early wall return, native shield block, and quiet cancellation. For Mirrored Blades, one release drew the primary and four copies, and melee misses omitted damage flashes. The bow, crossbow, and throwing volleys consumed one ammunition unit each. The low-mana fallback used one ordinary attack, and a depleted ammo stack prevented the release. Native world, cast, and save-and-reload checks passed for both skills. ClassicUO decoded eight Sonniss edits. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
 
 Charged Bolt skitters along its existing paths, Lightning travels in a straight streak, and Chain Lightning sends violet arcs between targets. Static Field expands along the ground and Thunder Storm flashes above the caster at release and on its recurring strike schedule. The player casts were checked in ClassicUO with audio disabled. Nine Sonniss edits cover their cast and impact cues. Each cue has passed format and level checks and awaits a listening pass. [Cue recipes](../art/spell-effects/sonniss-cues.json)
 
@@ -1373,13 +1379,13 @@ Inherited NPC item absorption now changes life mechanically. Final Iron Golem ab
 | Warlock | Levitation Mastery | not-applicable | levitate_mastery |
 | Warlock | Hex: Bane | custom | Violet weapon thorns, a thistle target mark, and a landed-contact flash. |
 | Warlock | Cleave | custom | Directional silver-violet sweep and separate flashes for damaging contacts. |
-| Warlock | Echoing Strike | needed | echoingstrike, warlock_psychic_cast_1, echoingstrike |
+| Warlock | Echoing Strike | custom | Outward and return knives, wall or range turn, damage and shield flashes, and retirement. |
 | Warlock | Hex: Purge | custom | Copper weapon crescents, a charged triangle, and a radius-matched blast. |
 | Warlock | Blade Warp | custom | Astral blade, two-tile impact, damage flashes, and accepted departure and arrival effects. |
 | Warlock | Psychic Ward | custom | Blue glass shell, physical absorption flash, depletion shatter, and shared stun. |
 | Warlock | Eldritch Blast | custom | Persistent lilac aura, radius ring, distinct refresh and damage contacts, and recovery ribbons. |
 | Warlock | Hex: Siphon | custom | Teal weapon glow and target mark with separate life and mana return ribbons. |
-| Warlock | Mirrored Blades | needed | No source effect cue; final presentation pending |
+| Warlock | Mirrored Blades | custom | Primary slash and spectral copies, three ranged silhouettes, damage sparks, and projectile fade. |
 | Warlock | Miasma Bolt | custom | Directional flight, collision burst, life-loss flash, and lingering magic wisps. |
 | Warlock | Ring of Fire | custom | Ember cast, moving ray samples, bursts, and damage flashes. |
 | Warlock | Sigil: Lethargy | custom | Teal radius boundary and target-bound slow hourglass. |

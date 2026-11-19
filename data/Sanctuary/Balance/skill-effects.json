@@ -5813,10 +5813,25 @@
     },
     "generation": "pending",
     "clientMapping": "pending",
-    "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending",
-    "customArtwork": "pending",
-    "customAudio": "pending"
+    "inGameVerification": "verified",
+    "placeholder": "Mint spectral knives follow the outbound fan, turn at the existing range or wall, and take on a cooler tint when returning. Shield deflections and damaging contacts have separate flashes.",
+    "customArtwork": "verified",
+    "customAudio": "listening-pending",
+    "customCharacterAnimation": "reuse-native",
+    "customArtworkPhases": [
+      "release",
+      "eight-direction outward and returning flight",
+      "range or wall turnaround",
+      "confirmed damage and shield deflection",
+      "terminal fade"
+    ],
+    "customAudioPhases": [
+      "release",
+      "turnaround",
+      "confirmed damage contact",
+      "shield deflection",
+      "terminal fade"
+    ]
   },
   {
     "talentId": "warlock.hexpurge",
@@ -5985,10 +6000,23 @@
     "sourceEffects": {},
     "generation": "pending",
     "clientMapping": "pending",
-    "inGameVerification": "pending",
-    "placeholder": "Prepared suppliers/descriptors create no mirror actors or effects. Final levitated primary weapon strike and up to4ghost weapon duplicates, rig/bone attachment, melee/bow/throw trails/projectiles, impact/miss/block and Warlock_Skill_Blades_06 audio remain pending. Learned input remains gated; talent/left/right/quick icons are separately tracked.",
-    "customArtwork": "pending",
-    "customAudio": "pending"
+    "inGameVerification": "verified",
+    "placeholder": "One native swing or shot releases the primary stroke and spectral copies. Their screen offsets preserve the original melee and projectile collision geometry.",
+    "customArtwork": "verified",
+    "customAudio": "listening-pending",
+    "customCharacterAnimation": "reuse-native",
+    "customArtworkPhases": [
+      "release",
+      "directional primary and copy sweeps",
+      "bow arrow, crossbow quarrel, and throwing flight",
+      "confirmed damage contact",
+      "undamaged projectile retirement"
+    ],
+    "customAudioPhases": [
+      "release",
+      "confirmed damage contact",
+      "undamaged projectile retirement"
+    ]
   },
   {
     "talentId": "warlock.miasmabolt",

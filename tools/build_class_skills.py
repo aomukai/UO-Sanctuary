@@ -1272,6 +1272,14 @@ def products():
             inGameVerification='verified', placeholder='A pale-blue astral blade follows the collision-checked flight. Its impact marks the two-tile radius, and the departure and arrival effects play after a successful transfer.',
             customArtworkPhases=['cast', 'eight-direction fractional blade flight', 'impact and radius', 'confirmed damage contact', 'accepted departure and arrival'],
             customAudioPhases=['cast', 'impact', 'confirmed damage contact', 'accepted departure and arrival']),
+        'warlock.echoingstrike': dict(customArtwork='verified', customAudio='listening-pending', customCharacterAnimation='reuse-native',
+            inGameVerification='verified', placeholder='Mint spectral knives follow the outbound fan, turn at the existing range or wall, and take on a cooler tint when returning. Shield deflections and damaging contacts have separate flashes.',
+            customArtworkPhases=['release', 'eight-direction outward and returning flight', 'range or wall turnaround', 'confirmed damage and shield deflection', 'terminal fade'],
+            customAudioPhases=['release', 'turnaround', 'confirmed damage contact', 'shield deflection', 'terminal fade']),
+        'warlock.mirroredblades': dict(customArtwork='verified', customAudio='listening-pending', customCharacterAnimation='reuse-native',
+            inGameVerification='verified', placeholder='One native swing or shot releases the primary stroke and spectral copies. Their screen offsets preserve the original melee and projectile collision geometry.',
+            customArtworkPhases=['release', 'directional primary and copy sweeps', 'bow arrow, crossbow quarrel, and throwing flight', 'confirmed damage contact', 'undamaged projectile retirement'],
+            customAudioPhases=['release', 'confirmed damage contact', 'undamaged projectile retirement']),
     }
     for effect, row in zip(effects, rows, strict=True):
         talent = effect['talentId']

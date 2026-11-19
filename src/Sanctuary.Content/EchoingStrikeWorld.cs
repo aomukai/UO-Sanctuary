@@ -67,7 +67,7 @@ internal static class EchoingStrikeWorld
         }
         if(!NecromancerEffects.Pay(p,input.Skill.Mana256)){return [];}
         foreach(var s in created){Flights=Flights.Add(s.Id,s);}_next=created[^1].Id;
-        p.PlaySound(0x23B); // Identified Echoing cast/throw audio placeholder.
+        WarlockRitualVisuals.Attached(p, SpellEffectGraphics.EchoingStrikeCast, SpellEffectSounds.EchoingStrikeRelease);
         return created.Select(s=>s.Id).ToArray();
     }
     internal static void Validate(EchoingFlight s)
@@ -115,7 +115,16 @@ internal static class EchoingStrikeWorld
         if(!Flights.TryGetValue(s.Id,out var live)){return default;}
         Flights=Flights.SetItem(s.Id,live with{Seed=seed});
         if(!SourceBlocking.TryBlock(target,raw.Physical>0,out bool blocked)){return new(false,0,0,"Echoing block supplier unavailable");}
-        if(blocked){return new(true,1,0);}
+        var point = target.Location;
+        if (blocked)
+        {
+            if (!target.Hidden)
+            {
+                WarlockRitualVisuals.Ground(p.Map, point, SpellEffectGraphics.EchoingStrikeDeflect,
+                    SpellEffectSounds.EchoingStrikeDeflect, 6);
+            }
+            return new(true,1,0);
+        }
         p.DoHarmful(target,true);
         // Explicit live Hex trigger boundary,after block and before damage;
         // keep shared group/reaction/ownership policy and no weapon procs.
@@ -127,7 +136,12 @@ internal static class EchoingStrikeWorld
         int before=SkillHealth.Balance256(target);int loss=SkillHealth.TypedDamage(p,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));
         CreatureHitRecovery.Apply(target,p,loss);
         if(target is{Alive:true,Deleted:false})
-        {if(poisonRate>0){PoisonJavelins.Poison(p,target,poisonRate,s.Packet.BaseDamage.Elements.PoisonImpactFrames,s.NextUtc);}target.FixedEffect(0x375A,5,5,0x48D,0);}
+        {if(poisonRate>0){PoisonJavelins.Poison(p,target,poisonRate,s.Packet.BaseDamage.Elements.PoisonImpactFrames,s.NextUtc);}}
+        if (loss > 0 && !target.Hidden)
+        {
+            WarlockRitualVisuals.Ground(p.Map, point, SpellEffectGraphics.EchoingStrikeHit,
+                SpellEffectSounds.EchoingStrikeHit, 6);
+        }
         CombatDamage.Finish(target,p);
         int after=target is{Alive:true,Deleted:false}?SkillHealth.Balance256(target):0;
         return new(true,1,Math.Max(0,before-after));
@@ -144,7 +158,7 @@ internal static class EchoingStrikeWorld
         if(s.Returning)
         {
             double dx=p.X-s.X,dy=p.Y-s.Y,distance=Math.Sqrt(dx*dx+dy*dy);
-            if(distance<.25||s.ReturnRemaining<=0||step==0){Remove(id);return default;}
+            if(distance<.25||s.ReturnRemaining<=0||step==0){Retire(p, s);return default;}
             var v=MissileVectors.VelocityFp8((int)Math.Round(dx*1024),(int)Math.Round(dy*1024),
                 SlowMissilePayload.VelocityFp8(24,0,s.Packet.Input.Skill.Rank,32,0,true,s.Packet.Input.Slow.VelocityPercent));
             vx=v.X;vy=v.Y;step=Math.Sqrt(vx*vx+vy*vy);double cap=Math.Min(distance,s.ReturnRemaining);
@@ -170,7 +184,7 @@ internal static class EchoingStrikeWorld
         catch(NotSupportedException ex){Remove(id);return new(false,0,0,ex.Message);}
         if(wall)
         {
-            if(s.Returning||s.OutDistance==0){Remove(id);return new(true,0,0);}
+            if(s.Returning||s.OutDistance==0){Retire(p, s);return new(true,0,0);}
             // Last successful position is the return origin;never cross the wall.
             Flights=Flights.SetItem(id,s with{Returning=true,ReturnRemaining=s.OutDistance,NextUtc=s.NextUtc.AddMilliseconds(40)});
         }
@@ -192,10 +206,32 @@ internal static class EchoingStrikeWorld
         }
         if(Flights.TryGetValue(id,out var remaining))
         {
-            if(remaining.NextUtc>=remaining.UntilUtc||remaining.Returning&&(remaining.ReturnRemaining<=.000001||Math.Abs(remaining.X-p.X)<.25&&Math.Abs(remaining.Y-p.Y)<.25)){Remove(id);}
-            else{Effects.SendLocationEffect(Point(remaining.X,remaining.Y,s.Origin.Z),p.Map,0x36E4,2,10,0x48D,0);} // Identified moving-blade placeholder;visual720 adds no damage actor.
+            if (remaining.NextUtc >= remaining.UntilUtc || remaining.Returning && (remaining.ReturnRemaining <= .000001
+                || Math.Abs(remaining.X - p.X) < .25 && Math.Abs(remaining.Y - p.Y) < .25))
+            {
+                Retire(p, remaining);
+            }
+            else if (remaining.Returning && !s.Returning)
+            {
+                WarlockRitualVisuals.Ground(p.Map, Point(remaining.X, remaining.Y, s.Origin.Z),
+                    SpellEffectGraphics.EchoingStrikeTurn, SpellEffectSounds.EchoingStrikeTurn, 6);
+            }
+            else
+            {
+                ushort art = remaining.Returning ? SpellEffectGraphics.EchoingStrikeReturn : SpellEffectGraphics.EchoingStrikeOut;
+                int phase = (int)((s.NextUtc.Ticks - s.CreatedUtc.Ticks) / TimeSpan.FromMilliseconds(40).Ticks);
+                int graphic = SorceressVisuals.DirectionalFrame(art, vx, vy, phase);
+                GroundSpellVisuals.Sample(p.Map, remaining.X, remaining.Y, s.Origin.Z, graphic, 1, 20);
+            }
         }
         return new(true,contacts,damage);
+    }
+
+    private static void Retire(PlayerMobile owner, EchoingFlight flight)
+    {
+        Remove(flight.Id);
+        WarlockRitualVisuals.Ground(owner.Map, Point(flight.X, flight.Y, flight.Origin.Z),
+            SpellEffectGraphics.EchoingStrikeFade, SpellEffectSounds.EchoingStrikeFade, 6);
     }
     internal static void Tick(DateTime at)
     {

@@ -598,6 +598,14 @@
     "BladeWarpImpact": {"source": "metal-hit", "start": 0.185, "duration": 0.289, "fadeIn": 0.005, "fadeOut": 0.110, "highpass": 277, "peakDb": -19},
     "BladeWarpDeparture": {"source": "arcane-doppler", "start": 0.267, "duration": 0.218, "fadeIn": 0.013, "fadeOut": 0.082, "highpass": 533, "peakDb": -24},
     "BladeWarpArrival": {"source": "bright-ward", "start": 0.142, "duration": 0.37, "fadeIn": 0.019, "fadeOut": 0.131, "highpass": 397, "peakDb": -20},
-    "BladeWarpContact": {"source": "electric-crackle", "start": 0.491, "duration": 0.162, "fadeIn": 0.007, "fadeOut": 0.061, "highpass": 754, "peakDb": -27}
+    "BladeWarpContact": {"source": "electric-crackle", "start": 0.491, "duration": 0.162, "fadeIn": 0.007, "fadeOut": 0.061, "highpass": 754, "peakDb": -27},
+    "EchoingStrikeRelease": {"source": "spear-swoosh", "start": 0.162, "duration": 0.325, "fadeIn": 0.015, "fadeOut": 0.101, "highpass": 463, "peakDb": -19},
+    "EchoingStrikeTurn": {"source": "arcane-doppler", "start": 0.343, "duration": 0.219, "fadeIn": 0.014, "fadeOut": 0.083, "highpass": 662, "peakDb": -28},
+    "EchoingStrikeHit": {"source": "metal-hit", "start": 0.114, "duration": 0.147, "fadeIn": 0.006, "fadeOut": 0.046, "highpass": 594, "peakDb": -25},
+    "EchoingStrikeFade": {"source": "air", "start": 0.454, "duration": 0.202, "fadeIn": 0.029, "fadeOut": 0.100, "highpass": 534, "peakDb": -29},
+    "EchoingStrikeDeflect": {"source": "metal-hit", "start": 0.091, "duration": 0.194, "fadeIn": 0.004, "fadeOut": 0.062, "highpass": 1138, "peakDb": -26},
+    "MirroredBladesRelease": {"source": "bright-ward", "start": 0.112, "duration": 0.413, "fadeIn": 0.012, "fadeOut": 0.149, "highpass": 492, "peakDb": -19},
+    "MirroredBladesHit": {"source": "metal-hit", "start": 0.176, "duration": 0.195, "fadeIn": 0.006, "fadeOut": 0.067, "highpass": 425, "peakDb": -23},
+    "MirroredBladesFade": {"source": "ghost-whisper", "start": 0.396, "duration": 0.265, "fadeIn": 0.018, "fadeOut": 0.119, "highpass": 689, "peakDb": -29}
   }
 }

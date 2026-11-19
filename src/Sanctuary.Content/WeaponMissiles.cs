@@ -286,6 +286,7 @@ public static class WeaponMissiles
                 BarbarianPairedVisuals.ThrowImpact(point, owner.Map);
             }
             if (bladeFury && !leavesMap) { AssassinBladeVisuals.FuryFade(owner, flight); }
+            if (flight.Mirrored is { Basic: false } && !leavesMap) { MirroredBladesVisuals.Fade(owner.Map, flight); }
             if(!flight.HostileSpell&&flight.Npc==null){BowExplosions.Create((PlayerMobile)owner,next,flight.NextUtc);PlagueJavelins.Burst((PlayerMobile)owner,next,null,flight.NextUtc);AmazonLightningFury.Burst((PlayerMobile)owner,next,flight.NextUtc);} _flights.Remove(flight.Id);return;
         }
         if(flight.Guided is{} guidance)
@@ -349,6 +350,10 @@ public static class WeaponMissiles
         {
             if (next.Frame % 2 == 0 && selected == null) { AssassinBladeVisuals.FuryTravel(owner.Map, next); }
         }
+        else if (flight.Mirrored is { Basic: false })
+        {
+            if (selected == null || next.Frame == 1) { MirroredBladesVisuals.Travel(owner.Map, next); }
+        }
         else if (javelin || next.Frame % 2 == 0)
         {
             var (graphic, hue) = UoSkillVisuals.WeaponFlight(next);
@@ -377,8 +382,13 @@ public static class WeaponMissiles
             try
             {
                 if(selected is not BaseCreature mirrorTarget){throw new NotSupportedException("Mirrored projectiles support mapped ordinary NPC recipients only");}
-                var updated=MirroredBladesContacts.Missile(player,mirrorTarget,flight);
+                var impact = mirrorTarget.Location;
+                var updated=MirroredBladesContacts.Missile(player,mirrorTarget,flight,out bool damaged);
                 if(_flights.TryGetValue(flight.Id,out var live)){_flights[flight.Id]=live with{Mirrored=updated};}
+                if (!pierce && !updated.Basic && !damaged)
+                {
+                    MirroredBladesVisuals.Fade(owner.Map, flight, impact);
+                }
             }
             catch(NotSupportedException ex)
             {Server.Logging.LogFactory.GetLogger(typeof(WeaponMissiles)).Warning("Mirrored projectile stopped for {Owner}: {Reason}",owner.Serial.Value,ex.Message);_flights.Remove(flight.Id);return;}

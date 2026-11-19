@@ -84,19 +84,38 @@ internal static class MirroredBladesAction
                 if(a.Selected==Serial.Zero&&input.Kind==MirroredWeaponKind.Melee)
                 {target=SkillCombat.NearbySnapshot<BaseCreature>(p.Map,p.Location,4).Where(t=>Enemy(p,t)&&PlayerMeleeGeometry.Within(p,t,0)&&t.InRange(a.Aim,2))
                     .OrderBy(t=>(long)(t.X-a.Aim.X)*(t.X-a.Aim.X)+(long)(t.Y-a.Aim.Y)*(t.Y-a.Aim.Y)).ThenBy(t=>t.Serial.Value).FirstOrDefault();}
-                if(input.Kind==MirroredWeaponKind.Melee&&target!=null&&Enemy(p,target)&&PlayerMeleeGeometry.Within(p,target,0))
+                bool hasMeleeTarget = input.Kind == MirroredWeaponKind.Melee && target != null
+                    && Enemy(p, target) && PlayerMeleeGeometry.Within(p, target, 0);
+                if (hasMeleeTarget)
                 {PlayerWeaponContact.RequireOrdinary(p,target,true);}
                 int count=a.UsedBasic?1:input.Skill.TotalAttacks;ulong seed=SourceRandom.InitLow(SeedLow());var packets=new MirroredWeaponPacket[count];
                 for(int i=0;i<count;i++){packets[i]=MirroredBladesPackets.Prepare(input,i,MirroredBladesPackets.Critical(input,ref seed));}
                 if(input.Kind==MirroredWeaponKind.Melee)
                 {
-                    if(!a.UsedBasic){if(!NecromancerEffects.Pay(p,input.Skill.Mana256)){return false;}a.ManaPaid256=input.Skill.Mana256;}
+                    if (!a.UsedBasic)
+                    {
+                        if (!NecromancerEffects.Pay(p, input.Skill.Mana256)) { return false; }
+                        a.ManaPaid256 = input.Skill.Mana256;
+                        WarlockRitualVisuals.Attached(p, SpellEffectGraphics.MirroredBladesCast, SpellEffectSounds.MirroredBladesRelease);
+                        MirroredBladesVisuals.Sweep(p, hasMeleeTarget ? target.Location : a.Aim, 0);
+                    }
+                    bool contactCuePlayed = false;
                     foreach(var packet in packets)
                     {
                         if(!ReferenceEquals(s.Mirrored,a)||!Eligible(p,a,now)||target==null||!Enemy(p,target)||!PlayerMeleeGeometry.Within(p,target,0)){break;}
                         var contact=MirroredBladesContacts.Melee(p,target,packet,()=>Enemy(p,target)&&PlayerMeleeGeometry.Within(p,target,0),ref seed,a.UsedBasic);
                         a.Attempts++;if((contact.Flags&SourceMeleeResult.Successful)!=0){a.Successful++;}
+                        int ordinal = packet.Attack.Ordinal;
+                        var point = target.Location;
+                        if (!a.UsedBasic && ordinal > 0) { MirroredBladesVisuals.Sweep(p, point, ordinal); }
+                        int before = !a.UsedBasic && !target.Hidden && (contact.Flags & SourceMeleeResult.Successful) != 0
+                            ? SkillHealth.Balance256(target) : 0;
                         PlayerWeaponContact.Release(p,target,contact,TimedEffects.Now,true);
+                        if (before > 0 && (target.Deleted || SkillHealth.Balance256(target) < before))
+                        {
+                            MirroredBladesVisuals.Hit(a.Map, point, !contactCuePlayed);
+                            contactCuePlayed = true;
+                        }
                     }
                 }
                 else
@@ -120,8 +139,12 @@ internal static class MirroredBladesAction
                     bool consumed=arrow?BowAmmunition.Consume(p,weapon):NamedAmmunition.Consume(weapon,at);
                     if(!consumed){foreach(long id in created){WeaponMissiles.RemovePrepared(id);}NecromancerEffects.AddMana(p,a.ManaPaid256);a.ManaPaid256=0;return false;}
                     a.Flights=created.ToArray();a.Attempts=count;
+                    if (!a.UsedBasic)
+                    {
+                        WarlockRitualVisuals.Attached(p, SpellEffectGraphics.MirroredBladesCast, SpellEffectSounds.MirroredBladesRelease);
+                    }
                 }
-                p.PlaySound(0x238); // Identified primary/mirror weapon audio placeholder.
+                if (a.UsedBasic) { p.PlaySound(0x238); }
             }
             catch(NotSupportedException ex){a.Fault=ex.Message;Cancel(p);return false;}
             finally{a.Delivering=false;}

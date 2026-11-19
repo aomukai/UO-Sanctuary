@@ -59,8 +59,9 @@ internal static class MirroredBladesContacts
             crushingDivisor:Divisor(packet.Attack,false,target),suppressWear:packet.Attack.Ordinal!=0);
         seed=local;return prepared with{RangeCheck=_=>inRange()};
     }
-    internal static MirroredMissileSource Missile(PlayerMobile owner,BaseCreature target,WeaponFlight flight)
+    internal static MirroredMissileSource Missile(PlayerMobile owner,BaseCreature target,WeaponFlight flight,out bool damaged)
     {
+        damaged = false;
         if(!Valid(flight)){throw new NotSupportedException("Invalid Mirrored projectile context");}
         TaintedFireBallMissiles.RequireOrdinaryRecipient(owner,target);WeaponStartEffects.Require(owner);
         var m=flight.Mirrored;ulong seed=m.Seed;
@@ -72,6 +73,9 @@ internal static class MirroredBladesContacts
         if(blocked){return m with{Seed=seed};}
         owner.DoHarmful(target,true);WeaponStartEffects.PrepareDamage(owner,target);
         var parts=SkillCombat.MitigatePrepared(owner,target,roll.Damage,out int absorbed);
+        var point = target.Location;
+        var map = target.Map;
+        int before = m.Basic ? 0 : SkillHealth.Balance256(target);
         NamedCombat.Crushing(owner,target,true,Effects,Divisor(Attack(m.Rank,m.Ordinal,m.Basic),true,target));
         PreparedWeaponEvents.BeforeReturn(owner,target,NamedElements.To256(parts.Physical),true,absorbed,
             clipped=>WeaponLeech.Apply(owner,target,clipped,flight.Damage.Elements));
@@ -84,6 +88,8 @@ internal static class MirroredBladesContacts
             NamedCombat.AfterStrike(owner,target,true,Effects,setupApplied:true);
         }
         GemCombat.WeaponHit(owner,target,loss/256,true);CombatDamage.Finish(target,owner);
+        damaged = !m.Basic && (loss > 0 || target.Deleted || SkillHealth.Balance256(target) < before);
+        if (damaged && !target.Hidden) { MirroredBladesVisuals.Hit(map, point); }
         return m with{Seed=seed};
     }
 }
