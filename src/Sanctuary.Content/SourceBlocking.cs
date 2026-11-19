@@ -81,11 +81,13 @@ public static class SourceBlocking
         blocked=false;if(!TryRate(actor,out int rate,out animation)){return false;}
         blocked=physical&&rate>0&&BlockRoll(100)<rate;return true;
     }
-    internal static void Present(BaseCreature actor,bool animation)
+    internal static void Present(BaseCreature actor, bool animation, ushort graphic = 0, int cue = 0x1A4)
     {
         if(actor is not{Alive:true,Deleted:false}){return;}
         if(animation&&actor is GraveyardUndead undead){undead.InterruptForRecovery();}
-        actor.FixedEffect(0x375A,5,5,0x481,0);actor.PlaySound(0x1A4); // Identified block/SH presentation placeholders.
+        if (graphic == 0) { actor.FixedEffect(0x375A, 5, 5, 0x481, 0); }
+        else { actor.FixedEffect(graphic, 10, 6); }
+        actor.PlaySound(cue);
     }
     public static SourceShield[] Snapshot()
     {

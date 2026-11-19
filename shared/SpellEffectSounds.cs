@@ -525,6 +525,7 @@ public static class SpellEffectSounds
         BladeWarpImpact => 0x213,
         BladeWarpArrival => 0x1FE,
         EchoingStrikeRelease => 0x23B,
+        EchoingStrikeDeflect => 0x1A4,
         MirroredBladesRelease => 0x238,
         BlizzardRelease or FrozenOrbRelease or MeteorRelease or TeethRelease or BoneSpiritRelease or AbyssOpen => 0x1E5,
         AmazonBowRelease or AmazonCrossbowRelease or JavelinThrow => 0x238,

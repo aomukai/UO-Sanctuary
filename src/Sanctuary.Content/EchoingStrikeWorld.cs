@@ -114,15 +114,12 @@ internal static class EchoingStrikeWorld
         ulong seed=s.Seed;var raw=EchoingStrikePackets.Roll(s.Packet,target,ref seed,out int poisonRate);
         if(!Flights.TryGetValue(s.Id,out var live)){return default;}
         Flights=Flights.SetItem(s.Id,live with{Seed=seed});
-        if(!SourceBlocking.TryBlock(target,raw.Physical>0,out bool blocked)){return new(false,0,0,"Echoing block supplier unavailable");}
+        if(!SourceBlocking.TryRoll(target,raw.Physical>0,out bool blocked,out bool animateBlock))
+        {return new(false,0,0,"Echoing block supplier unavailable");}
         var point = target.Location;
         if (blocked)
         {
-            if (!target.Hidden)
-            {
-                WarlockRitualVisuals.Ground(p.Map, point, SpellEffectGraphics.EchoingStrikeDeflect,
-                    SpellEffectSounds.EchoingStrikeDeflect, 6);
-            }
+            SourceBlocking.Present(target, animateBlock, SpellEffectGraphics.EchoingStrikeDeflect, SpellEffectSounds.EchoingStrikeDeflect);
             return new(true,1,0);
         }
         p.DoHarmful(target,true);
