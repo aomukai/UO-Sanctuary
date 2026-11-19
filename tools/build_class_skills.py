@@ -602,7 +602,10 @@ def products():
         'amazon.valkyrie': dict(customArtwork='verified', customAudio='listening-pending', customCharacterAnimation='reuse-native',
             customArtworkPhases=['gold emergence', 'attached aura on native body', 'shared spear contact', 'replacement and death dissolve'],
             customAudioPhases=['appearance', 'shared thrust and contact', 'retirement']),
-        'sorceress.fireball': dict(customArtwork='approved-existing', customAudio='approved-existing'),
+        'sorceress.fireball': dict(customArtwork='approved-existing', customAudio='approved-existing',
+            inGameVerification='verified', customCharacterAnimation='reuse-native',
+            customArtworkPhases=['native cast pose', 'approved flame projectile', 'approved area burst'],
+            customAudioPhases=['approved release']),
         'sorceress.firebolt': dict(customArtwork='verified', customAudio='listening-pending',
             customArtworkPhases=['directional fire dart', 'single-target contact flash'],
             customAudioPhases=['release', 'contact']),
@@ -1311,9 +1314,11 @@ def products():
         if talent == 'necromancer.bonespirit':
             effect['placeholder'] = 'ImageGen skull flight and impact burst with Sonniss release and impact cues. Listening is pending.'
         if talent == 'warlock.abyss':
-            effect['placeholder'] = 'ImageGen opening tear, persistent vortex and collapse with Sonniss opening, pull and collapse cues. Listening is pending.'
+            effect.update(inGameVerification='verified',
+                placeholder='ImageGen opening tear, persistent vortex and collapse with Sonniss opening, pull and collapse cues. Listening is pending.')
         if talent.startswith('sorceress.') and effect.get('customArtwork') == 'verified' and effect.get('customAudio') == 'listening-pending':
-            effect['placeholder'] = 'ImageGen effects and Sonniss cues. The cue listening pass is pending.'
+            effect.update(inGameVerification='verified',
+                placeholder='ImageGen effects and Sonniss cues. The cue listening pass is pending.')
         if talent == 'sorceress.fireball':
             effect['placeholder'] = 'Approved Sorceress Fireball presentation.'
     class_stats = [r for r in json.loads((ROOT/'data/Sanctuary/Balance/classes.json').read_text()) if r['name'] != 'Warlock'] + [warlock_stats()]
