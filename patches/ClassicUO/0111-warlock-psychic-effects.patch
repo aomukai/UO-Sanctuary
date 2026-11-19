@@ -1,0 +1,70 @@
+diff --git a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -213,6 +213,7 @@
+                         _ when SpellEffectGraphics.IsSigilAnimation(Graphic) => SpellEffectGraphics.SigilFrames,
+                         _ when SpellEffectGraphics.IsMiasmaAnimation(Graphic) => SpellEffectGraphics.MiasmaFrames,
+                         _ when SpellEffectGraphics.IsWeaponHexAnimation(Graphic) => SpellEffectGraphics.WeaponHexFrames,
++                        _ when SpellEffectGraphics.IsWarlockPsychicAnimation(Graphic) => SpellEffectGraphics.WarlockPsychicFrames,
+                         _ when SpellEffectGraphics.IsAssassinLobAnimation(Graphic) => SpellEffectGraphics.AssassinLobFrames,
+                         SpellEffectGraphics.DeathSentryBurst => SpellEffectGraphics.SentryFrames,
+                         _ when SpellEffectGraphics.IsSentryFlash(Graphic) => SpellEffectGraphics.SentryFrames,
+@@ -245,6 +246,7 @@
+                             && !SpellEffectGraphics.IsSigilField(Graphic) && !SpellEffectGraphics.IsSigilMark(Graphic)
+                             && !SpellEffectGraphics.IsMiasmaCloud(Graphic)
+                             && !SpellEffectGraphics.IsWeaponHexMark(Graphic)
++                            && !SpellEffectGraphics.IsWarlockPsychicLoop(Graphic)
+                             && Graphic is not (SpellEffectGraphics.WhirlwindSpin or SpellEffectGraphics.FrenzySpeed or SpellEffectGraphics.BladeShieldRing
+                                 or SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow
+                                 or SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.PoisonAfflicted
+@@ -393,6 +395,9 @@
+                             _ when SpellEffectGraphics.IsMiasmaAnimation(Graphic) => 81,
+                             _ when SpellEffectGraphics.IsWeaponHexMark(Graphic) => 128,
+                             _ when SpellEffectGraphics.IsWeaponHexAnimation(Graphic) => 81,
++                            _ when SpellEffectGraphics.IsWarlockPsychicLoop(Graphic) => 138,
++                            SpellEffectGraphics.EldritchBlastRing => 103,
++                            _ when SpellEffectGraphics.IsWarlockPsychicAnimation(Graphic) => 83,
+                             SpellEffectGraphics.ShockWebField => 95,
+                             _ when SpellEffectGraphics.IsAssassinLobAnimation(Graphic) => 66,
+                             _ when SpellEffectGraphics.IsSentryFlash(Graphic) => 60,
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -194,6 +194,12 @@
+                 if (Source is Mobile { IsGargoyle: true, IsFlying: true }) { posY -= 20; }
+             }
+ 
++            if (Source is Mobile psychic && SpellEffectGraphics.IsWarlockPsychicAnimation(Graphic))
++            {
++                if (psychic.IsDead || psychic.IsHidden) { return false; }
++                if (psychic is { IsGargoyle: true, IsFlying: true }) { posY -= 20; }
++            }
++
+             if (Graphic == SpellEffectGraphics.RedemptionLife) { posX -= 19; }
+             if (Graphic == SpellEffectGraphics.RedemptionMana) { posX += 19; }
+ 
+@@ -235,7 +241,12 @@
+                 hue = Constants.DEAD_RANGE_COLOR;
+             }
+ 
+-            float opacity = SpellEffectGraphics.IsMiasmaCloud(Graphic) ? .72f : data.IsTranslucent ? .5f : 1f;
++            float opacity = Graphic switch
++            {
++                SpellEffectGraphics.PsychicWardShell => .86f,
++                _ when SpellEffectGraphics.IsMiasmaCloud(Graphic) => .72f,
++                _ => data.IsTranslucent ? .5f : 1f
++            };
+             Vector3 hueVec = ShaderHueTranslator.GetHueVector(hue, data.IsPartialHue, opacity, effect: true);
+ 
+             if (SpellEffectGraphics.IsDruidCharge(Graphic) && Source is Mobile shifter)
+diff --git a/src/ClassicUO.Client/Game/Managers/EffectManager.cs b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+--- a/src/ClassicUO.Client/Game/Managers/EffectManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+@@ -144,6 +144,7 @@
+                     || SpellEffectGraphics.IsWarlockRitualLoop(graphic)
+                     || SpellEffectGraphics.IsSigilMark(graphic)
+                     || SpellEffectGraphics.IsWeaponHexMark(graphic)
++                    || SpellEffectGraphics.IsWarlockPsychicLoop(graphic)
+                     || SpellEffectGraphics.IsBarbarianCryWard(graphic)
+                     || SpellEffectGraphics.IsBarbarianStrikeStatus(graphic)
+                     || graphic is SpellEffectGraphics.WhirlwindSpin or SpellEffectGraphics.FrenzySpeed or SpellEffectGraphics.BladeShieldRing

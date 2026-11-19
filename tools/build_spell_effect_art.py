@@ -1263,6 +1263,40 @@ def warlock_weapon_hexes():
     ))
 
 
+def warlock_psychic():
+    ward = "warlock-psychic-ward"
+    blast = "warlock-eldritch-blast"
+    ward_cast, shell, catches, shatter = load_grid(ward, (1254, 1254))
+    blast_cast, aura, ring, impact = load_grid(blast, (1254, 1254))
+    for name, graphic, row, scale, pivot, canvas, padding, cutoff, light in (
+        (ward, 60700, ward_cast, .277, (157, 263), (108, 129), 23, 148, 1.12),
+        (ward, 60704, shell, .295, (157, 264), (110, 128), 24, 150, 1.05),
+        (ward, 60712, shatter, .352, (157, 261), (123, 145), 23, 140, 1.19),
+        (blast, 60724, blast_cast, .220, (155, 170), (96, 110), 46, 145, 1.18),
+        (blast, 60728, aura, .160, (156, 193), (75, 85), 34, 148, 1.19),
+        (blast, 60736, impact, .103, (155, 236), (54, 85), 39, 146, .85),
+        (blast, 60740, impact, .217, (155, 238), (83, 104), 24, 146, 1.23),
+    ):
+        write_group(name, graphic, (
+            frame(ImageEnhance.Brightness(cell).enhance(light), scale, pivot, canvas, padding, cutoff)
+            for cell in row
+        ))
+    write_group(ward, 60708, (
+        frame(ImageEnhance.Brightness(cell.crop((198, 105, 288, 226))).enhance(light), .328,
+              (-41, 159), (114, 128), 24, cutoff)
+        for cell, light, cutoff in zip(catches, (1.09, 1.37, 1.45, .95), (154, 145, 145, 141))
+    ))
+    write_group(blast, 60732, (
+        holy_ring(cell, (233, 126), (240, 132), 70, cutoff, light)
+        for cell, cutoff, light in zip(ring, (152, 155, 153, 146), (.95, 1.09, 1.24, .94))
+    ))
+    write_group(blast, 60744, (
+        frame(ImageEnhance.Brightness(cell).enhance(light), scale, (156, 193), (75, 85), 34, cutoff)
+        for cell, scale, light, cutoff in zip(reversed(aura), (.166, .139, .106, .082),
+                                             (1.1, .94, .81, .66), (151, 145, 132, 120))
+    ))
+
+
 def necromancer_curses():
     cells = [cell for row in load_grid("necromancer-curses", (1448, 1086), rows=3) for cell in row]
     for cell in cells[:10]:
@@ -2111,3 +2145,4 @@ if __name__ == "__main__":
     warlock_sigils()
     warlock_miasma()
     warlock_weapon_hexes()
+    warlock_psychic()

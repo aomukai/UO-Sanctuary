@@ -447,6 +447,14 @@ public static class SpellEffectSounds
     public const int HexSiphonMark = 60441;
     public const int HexSiphonRecover = 60442;
     public const int WeaponHexFade = 60443;
+    public const int PsychicWardCast = 60444;
+    public const int PsychicWardCatch = 60445;
+    public const int PsychicWardBreak = 60446;
+    public const int PsychicWardStun = 60447;
+    public const int EldritchBlastCast = 60448;
+    public const int EldritchBlastPulse = 60449;
+    public const int EldritchBlastContact = 60450;
+    public const int EldritchBlastFade = 60451;
 
     public static int Fallback(int sound) => sound switch
     {
@@ -494,6 +502,9 @@ public static class SpellEffectSounds
         MiasmaBoltBurst => 0x213,
         HexBaneCast or HexPurgeCast or HexSiphonCast => 0x1E5,
         HexPurgeBurst => 0x307,
+        PsychicWardCast or EldritchBlastCast => 0x1E5,
+        PsychicWardBreak => 0x1F1,
+        EldritchBlastPulse => 0x213,
         BlizzardRelease or FrozenOrbRelease or MeteorRelease or TeethRelease or BoneSpiritRelease or AbyssOpen => 0x1E5,
         AmazonBowRelease or AmazonCrossbowRelease or JavelinThrow => 0x238,
         SpearThrust or HeavySpearThrust => 0x238,

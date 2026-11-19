@@ -1256,6 +1256,14 @@ def products():
             inGameVerification='verified', placeholder='Teal leaves follow the animated weapon and a drop marks accepted targets. Mint and blue ribbons show actual kill-based life and mana gains independently.',
             customArtworkPhases=['cast', 'animated weapon coat', 'target mark and expiry', 'separate life and mana returns', 'coat replacement and fade'],
             customAudioPhases=['cast', 'new target mark', 'actual recovery', 'coat fade']),
+        'warlock.psychicward': dict(customArtwork='verified', customAudio='listening-pending', customCharacterAnimation='reuse-native',
+            inGameVerification='verified', placeholder='Blue glass facets surround the caster while the physical pool is active. The rim flashes on absorption and shatters on depletion. Qualified melee reactions share the stun art.',
+            customArtworkPhases=['cast and recast', 'physical shell', 'absorption flash', 'pool shatter', 'shared attacker stun and clear'],
+            customAudioPhases=['cast', 'physical absorption', 'pool shatter', 'accepted melee stun']),
+        'warlock.eldritchblast': dict(customArtwork='verified', customAudio='listening-pending', customCharacterAnimation='reuse-native',
+            inGameVerification='verified', placeholder='Lilac curls follow the caster. Accepted Hex refreshes produce a radius ring, and bright contacts are reserved for recipients that actually lose life.',
+            customArtworkPhases=['cast', 'persistent caster aura', 'radius discharge', 'refresh-only spark', 'confirmed damage contact', 'shared life and mana ribbons', 'expiry fade'],
+            customAudioPhases=['cast', 'accepted discharge', 'confirmed damage contact', 'shared recovery', 'expiry fade']),
     }
     for effect, row in zip(effects, rows, strict=True):
         talent = effect['talentId']

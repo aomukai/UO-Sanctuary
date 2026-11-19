@@ -35,7 +35,12 @@ internal static class EldritchBlastWorld
     internal static bool Castable(PlayerMobile p)=>Owner(p)&&SkillMechanics.Rank(p,CombatAbility.EldritchBlast)>0
         &&p.Map!=null&&p.Map!=Map.Internal&&!MinionSafeAreas.Contains(p);
     internal static EldritchBlastState State(Mobile p)=>p!=null?_states.GetValueOrDefault(p.Serial.Value):null;
-    internal static void Clear(Mobile p){if(p!=null){_states=_states.Remove(p.Serial.Value);}}
+    internal static void Clear(Mobile p)
+    {
+        if(p==null){return;}
+        _states=_states.Remove(p.Serial.Value);
+        WarlockRitualVisuals.Clear(p,SpellEffectGraphics.EldritchBlastAura);
+    }
     private static bool Percent(int n)=>n is >=-100 and <=1000000;
     internal static void Validate(EldritchBlastState s)
     {
@@ -69,7 +74,8 @@ internal static class EldritchBlastWorld
         if(!NecromancerEffects.CanPay(owner,values.Mana256)){return null;}
         var s=Prepare(owner,at);if(!NecromancerEffects.Pay(owner,s.Numbers.Mana256)){return null;}
         _states=_states.SetItem(s.Owner,s);
-        owner.FixedEffect(0x375A,10,15,0x48D,0);owner.PlaySound(0x1E5); // Identified cast/aura/audio placeholders.
+        WarlockRitualVisuals.Attached(owner,SpellEffectGraphics.EldritchBlastCast,SpellEffectSounds.EldritchBlastCast);
+        WarlockRitualVisuals.Renew(owner,SpellEffectGraphics.EldritchBlastAura,at,s.UntilUtc);
         return s;
     }
     internal static EldritchBlastState[] Snapshot()=>_states.Values.OrderBy(s=>s.Owner).ToArray();
@@ -88,6 +94,9 @@ internal static class EldritchBlastWorld
             if(World.FindMobile((Serial)saved.Owner)is not PlayerMobile owner){_states=_states.Remove(saved.Owner);continue;}
             try
             {
+                if(saved.StartedUtc<=at&&at<saved.UntilUtc&&owner.NetState is{Running:true}&&Castable(owner))
+                {WarlockRitualVisuals.Renew(owner,SpellEffectGraphics.EldritchBlastAura,at,saved.UntilUtc);}
+                else if(at<saved.UntilUtc){WarlockRitualVisuals.Clear(owner,SpellEffectGraphics.EldritchBlastAura);}
                 var result=TickPrepared(owner,at);
                 if(result.Fault!=null){Log.Warning("Eldritch Blast unsupported for {Owner}: {Reason}",owner.Serial.Value,result.Fault);}
             }
@@ -104,8 +113,15 @@ internal static class EldritchBlastWorld
     {
         if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Eldritch Blast clock must be UTC");}
         if(owner==null||State(owner)is not{} s){return default;}
-        if(!Owner(owner)||SkillMechanics.Rank(owner,CombatAbility.EldritchBlast)==0||at>=s.UntilUtc)
+        if(!Owner(owner)||SkillMechanics.Rank(owner,CombatAbility.EldritchBlast)==0)
         {Clear(owner);return default;}
+        if(at>=s.UntilUtc)
+        {
+            Clear(owner);
+            if(at-s.UntilUtc<=TimeSpan.FromMilliseconds(500)&&Castable(owner)&&(actions??owner.NetState is{Running:true}))
+            {WarlockRitualVisuals.Attached(owner,SpellEffectGraphics.EldritchBlastFade,SpellEffectSounds.EldritchBlastFade);}
+            return default;
+        }
         if(at<s.NextUtc){return default;}
         long period=TimeSpan.FromMilliseconds(s.Numbers.PeriodFrames*40L).Ticks;
         long skipped=(at.Ticks-s.NextUtc.Ticks)/period+1;
@@ -130,13 +146,14 @@ internal static class EldritchBlastWorld
             HexPurgeReactionProposal.Enhanced(s.Numbers.MagicMaximum256,s.MagicMastery));
         next=next with{Seed=seed};_states=_states.SetItem(s.Owner,next);
         var packet=DruidMoltenBoulder.Potion(s.Modifiers,new(0,0,0,0,0,Magic:raw/256.0));
-        int refreshed=0,damaged=0;long life=0,mana=0;
+        int refreshed=0,damaged=0;long life=0,mana=0;Point3D? firstHit=null;
         foreach(var target in targets)
         {
             if(!Castable(owner)||State(owner)!=next||owner.Map!=map||owner.Location!=center){break;}
             if(!Recipient(owner,target,s.Numbers.RawAuraRange)){continue;}
             // Refresh before mitigation; immunity cannot prevent maintenance.
             if(!WeaponHexRefresh.RefreshPrepared(target,at)){continue;}refreshed++;
+            var contact=target.Location;bool visible=!target.Hidden;
             owner.DoHarmful(target,true);var parts=SkillCombat.MitigatePrepared(owner,target,packet);
             int before=SkillHealth.Balance256(target);
             SkillHealth.TypedDamage(owner,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts),SkillDamageKind.Periodic);
@@ -153,9 +170,21 @@ internal static class EldritchBlastWorld
                 SkillHealth.Heal(owner,recovery.Life256);NecromancerEffects.AddMana(owner,recovery.Mana256);
                 life+=Math.Max(0,SkillHealth.Balance256(owner)-hp);mana+=Math.Max(0,NecromancerEffects.ManaBalance256(owner)-mp);
             }
-            if(target is{Alive:true,Deleted:false}){target.FixedEffect(0x375A,5,5,0x48D,0);} // Identified pulse contact placeholder.
+            if(visible)
+            {
+                ushort graphic=loss>0?SpellEffectGraphics.EldritchBlastContact:SpellEffectGraphics.EldritchBlastRefresh;
+                Effects.SendLocationEffect(contact,map,graphic,7);
+                if(loss>0){firstHit??=contact;}
+            }
         }
-        Effects.SendLocationEffect(center,map,0x37CC,8,5,0x48D,0); // Cosmetic nova; no second hit actor.
+        if(refreshed>0)
+        {
+            Effects.SendLocationEffect(center,map,SpellEffectGraphics.EldritchBlastRing,10,
+                hue:s.Numbers.RawAuraRange*SpellEffectGraphics.HolyAuraRadiusUnitsPerTile/2);
+            Effects.PlaySound(center,map,SpellEffectSounds.EldritchBlastPulse);
+            if(firstHit is{} hit){Effects.PlaySound(hit,map,SpellEffectSounds.EldritchBlastContact);}
+            if(Owner(owner)&&(life>0||mana>0)){WeaponHexVisuals.Recover(owner,life>0,mana>0);}
+        }
         return new(true,refreshed,damaged,(int)Math.Min(life,int.MaxValue),(int)Math.Min(mana,int.MaxValue));
     }
 }

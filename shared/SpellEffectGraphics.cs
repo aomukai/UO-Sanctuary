@@ -312,6 +312,22 @@ public static class SpellEffectGraphics
     public static bool IsWeaponHexAnimation(ushort graphic) => graphic is >= HexBaneCast and <= HexSiphonFade
         && (graphic - HexBaneCast) % WeaponHexFrames == 0 && !IsWeaponHexCoat(graphic);
 
+    public const int WarlockPsychicFrames = 4;
+    public const ushort PsychicWardCast = 60700;
+    public const ushort PsychicWardShell = 60704;
+    public const ushort PsychicWardCatch = 60708;
+    public const ushort PsychicWardBreak = 60712;
+    public const ushort EldritchBlastCast = 60724;
+    public const ushort EldritchBlastAura = 60728;
+    public const ushort EldritchBlastRing = 60732;
+    public const ushort EldritchBlastRefresh = 60736;
+    public const ushort EldritchBlastContact = 60740;
+    public const ushort EldritchBlastFade = 60744;
+    public static bool IsWarlockPsychicAnimation(ushort graphic) => graphic is PsychicWardCast or PsychicWardShell
+        or PsychicWardCatch or PsychicWardBreak or EldritchBlastCast or EldritchBlastAura or EldritchBlastRing
+        or EldritchBlastRefresh or EldritchBlastContact or EldritchBlastFade;
+    public static bool IsWarlockPsychicLoop(ushort graphic) => graphic is PsychicWardShell or EldritchBlastAura;
+
     public const int AssassinLobFrames = 4;
     public const int FireBlastRadiusSubtiles = 5;
     public const ushort FireBlastThrow = 62764;
@@ -661,7 +677,7 @@ public static class SpellEffectGraphics
         graphic is HolyFirePulse or HolyFreezePulse or HolyShockPulse or SanctuaryPulse or GrimWardPulse
             or LeapLanding or LeapAttackLanding or MartialFireRing or MartialThunderRing or MartialIceRing
             or DragonTailBurst or CloakWave or MindBlastWave or DeathSentryBurst or BloodBoilRing or ApocalypseWarning
-            or DeathSigilBurstRing or HexPurgeRadius || IsSigilField(graphic);
+            or DeathSigilBurstRing or HexPurgeRadius or EldritchBlastRing || IsSigilField(graphic);
 
     public static bool IsPaladinAuraLoop(ushort graphic) => graphic is HolyFireAura or HolyFreezeAura or HolyShockAura or HolyFreezeSlow
         || IsPaladinResistanceWard(graphic) || IsPaladinRecoveryLoop(graphic) || IsPaladinOffenseLoop(graphic)

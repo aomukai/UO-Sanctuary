@@ -5869,10 +5869,24 @@
     },
     "generation": "pending",
     "clientMapping": "pending",
-    "inGameVerification": "pending",
-    "placeholder": "Prepared cast uses UO0x375A hue0x48D shield flash and sound0x1E5; supplied stun events reuse the shared0x375A hue0x481 marker. Persistent psychicward overlay, cast/recast, shield contact/depletion, psychicward_hit0, stun and Warlock audio remain pending. Learned input is gated; talent/right/quick icons are separately tracked.",
-    "customArtwork": "pending",
-    "customAudio": "pending"
+    "inGameVerification": "verified",
+    "placeholder": "Blue glass facets surround the caster while the physical pool is active. The rim flashes on absorption and shatters on depletion. Qualified melee reactions share the stun art.",
+    "customArtwork": "verified",
+    "customAudio": "listening-pending",
+    "customCharacterAnimation": "reuse-native",
+    "customArtworkPhases": [
+      "cast and recast",
+      "physical shell",
+      "absorption flash",
+      "pool shatter",
+      "shared attacker stun and clear"
+    ],
+    "customAudioPhases": [
+      "cast",
+      "physical absorption",
+      "pool shatter",
+      "accepted melee stun"
+    ]
   },
   {
     "talentId": "warlock.eldritchblast",
@@ -5888,10 +5902,27 @@
     },
     "generation": "pending",
     "clientMapping": "pending",
-    "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending",
-    "customArtwork": "pending",
-    "customAudio": "pending"
+    "inGameVerification": "verified",
+    "placeholder": "Lilac curls follow the caster. Accepted Hex refreshes produce a radius ring, and bright contacts are reserved for recipients that actually lose life.",
+    "customArtwork": "verified",
+    "customAudio": "listening-pending",
+    "customCharacterAnimation": "reuse-native",
+    "customArtworkPhases": [
+      "cast",
+      "persistent caster aura",
+      "radius discharge",
+      "refresh-only spark",
+      "confirmed damage contact",
+      "shared life and mana ribbons",
+      "expiry fade"
+    ],
+    "customAudioPhases": [
+      "cast",
+      "accepted discharge",
+      "confirmed damage contact",
+      "shared recovery",
+      "expiry fade"
+    ]
   },
   {
     "talentId": "warlock.hexsiphon",

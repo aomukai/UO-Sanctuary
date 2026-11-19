@@ -3,6 +3,7 @@ using System;
 using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using Server;
 using Server.Mobiles;
@@ -22,12 +23,30 @@ public sealed class PsychicWardProfiles:GenericPersistence
 public static class PsychicWard
 {
     private static ImmutableDictionary<uint,PsychicWardState> _states=ImmutableDictionary<uint,PsychicWardState>.Empty;
+    private sealed class CatchClock { internal DateTime Next; }
+    private static readonly ConditionalWeakTable<Mobile,CatchClock> CatchClocks=new();
+    private static DateTime _nextVisualRefresh;
     public static PsychicWardProfiles Profiles{get;private set;}
     internal static Func<bool> Allocate=()=>true;
     public static void Configure(){Profiles=new();EventSink.WorldSave+=Prune;}
     internal static PsychicWardState State(Mobile owner)=>owner is PlayerMobile{Alive:true,Deleted:false}
         &&ClassCreation.Profiles.TryGet(owner.Serial,out var p)&&p.Class==DiabloClass.Warlock?_states.GetValueOrDefault(owner.Serial.Value):null;
-    public static void Clear(Mobile owner){if(owner!=null){_states=_states.Remove(owner.Serial.Value);}}
+    public static void Clear(Mobile owner)
+    {
+        if(owner==null){return;}
+        _states=_states.Remove(owner.Serial.Value);
+        WarlockRitualVisuals.Clear(owner,SpellEffectGraphics.PsychicWardShell);
+    }
+    internal static void RefreshVisuals(DateTime at)
+    {
+        if(World.Loading||at<_nextVisualRefresh){return;}
+        _nextVisualRefresh=at.AddMilliseconds(220);
+        foreach(var state in _states.Values)
+        {
+            var owner=World.FindMobile((Serial)state.Owner);
+            if(State(owner)!=null){WarlockRitualVisuals.Renew(owner,SpellEffectGraphics.PsychicWardShell,at);}
+        }
+    }
     internal static void Prune()
     {foreach(var row in _states.Values){if(World.FindMobile((Serial)row.Owner) is not PlayerMobile p||State(p)==null){_states=_states.Remove(row.Owner);}}}
     internal static PsychicWardState[] Snapshot()=>_states.Values.OrderBy(x=>x.Owner).ToArray();
@@ -71,7 +90,8 @@ public static class PsychicWard
         if(!Allocate()||!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
         var state=new PsychicWardState(owner.Serial.Value,v.Rank,values.Capacity256,values.Capacity256,values.StunFrames);Validate(state);
         _states=_states.SetItem(state.Owner,state);
-        owner.FixedEffect(0x375A,10,15,0x48D,0);owner.PlaySound(0x1E5); // Identified shield/cast placeholders.
+        WarlockRitualVisuals.Attached(owner,SpellEffectGraphics.PsychicWardCast,SpellEffectSounds.PsychicWardCast);
+        WarlockRitualVisuals.Renew(owner,SpellEffectGraphics.PsychicWardShell,TimedEffects.Now);
         return true;
     }
     internal static double AbsorbPhysical(Mobile owner,double damage)
@@ -79,7 +99,24 @@ public static class PsychicWard
         if(damage<=0||State(owner) is not{} state){return damage;}
         if(SorceressEffects.Shield(owner)!=null){throw new NotSupportedException("Psychic Ward/Energy Shield priority remains unverified");}
         var step=SourceAbsorptionPool.Take(state.Remaining256,NamedElements.To256(damage));
-        if(step.Remaining256==0){Clear(owner);}else{_states=_states.SetItem(state.Owner,state with{Remaining256=step.Remaining256});}
+        if(step.Remaining256==0)
+        {
+            Clear(owner);
+            WarlockRitualVisuals.Attached(owner,SpellEffectGraphics.PsychicWardBreak,SpellEffectSounds.PsychicWardBreak);
+        }
+        else
+        {
+            _states=_states.SetItem(state.Owner,state with{Remaining256=step.Remaining256});
+            if(step.Absorbed256>0)
+            {
+                var at=TimedEffects.Now;var clock=CatchClocks.GetValue(owner,static _=>new CatchClock());
+                if(at>=clock.Next)
+                {
+                    clock.Next=at.AddMilliseconds(140);
+                    WarlockRitualVisuals.Attached(owner,SpellEffectGraphics.PsychicWardCatch,SpellEffectSounds.PsychicWardCatch);
+                }
+            }
+        }
         return step.Damage256/256.0;
     }
     // The caller supplies an already-established eligible event and its
@@ -89,6 +126,9 @@ public static class PsychicWard
     {
         if(!eligible||registered==null||registered.Owner!=owner?.Serial.Value||owner is not{Alive:true,Deleted:false}
             ||!ClassCreation.Profiles.TryGet(owner.Serial,out var p)||p.Class!=DiabloClass.Warlock||!ClassCombat.IsHostile(owner,attacker)){return false;}
-        Validate(registered);return CombatStuns.Apply(attacker,registered.StunFrames,at);
+        Validate(registered);
+        bool stunned=CombatStuns.Apply(attacker,registered.StunFrames,at);
+        if(stunned&&!attacker.Hidden){attacker.PlaySound(SpellEffectSounds.PsychicWardStun);}
+        return stunned;
     }
 }

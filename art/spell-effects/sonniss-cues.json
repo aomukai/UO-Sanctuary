@@ -583,6 +583,14 @@
     "HexSiphonCast": {"source": "air", "start": 0.301, "duration": 0.44, "fadeIn": 0.046, "fadeOut": 0.128, "highpass": 501, "peakDb": -20},
     "HexSiphonMark": {"source": "liquid-pour", "start": 0.238, "duration": 0.196, "fadeIn": 0.017, "fadeOut": 0.064, "highpass": 731, "peakDb": -27},
     "HexSiphonRecover": {"source": "bright-ward", "start": 0.233, "duration": 0.374, "fadeIn": 0.025, "fadeOut": 0.113, "highpass": 327, "peakDb": -21},
-    "WeaponHexFade": {"source": "ghost-whisper", "start": 0.458, "duration": 0.296, "fadeIn": 0.033, "fadeOut": 0.105, "highpass": 558, "peakDb": -27}
+    "WeaponHexFade": {"source": "ghost-whisper", "start": 0.458, "duration": 0.296, "fadeIn": 0.033, "fadeOut": 0.105, "highpass": 558, "peakDb": -27},
+    "PsychicWardCast": {"source": "bright-ward", "start": 0.192, "duration": 0.47, "fadeIn": 0.024, "fadeOut": 0.143, "highpass": 312, "peakDb": -19},
+    "PsychicWardCatch": {"source": "metal-hit", "start": 0.135, "duration": 0.171, "fadeIn": 0.007, "fadeOut": 0.062, "highpass": 630, "peakDb": -24},
+    "PsychicWardBreak": {"source": "ice", "start": 0.09, "duration": 0.51, "fadeIn": 0.004, "fadeOut": 0.158, "highpass": 350, "peakDb": -17},
+    "PsychicWardStun": {"source": "electric-crackle", "start": 0.482, "duration": 0.198, "fadeIn": 0.012, "fadeOut": 0.072, "highpass": 783, "peakDb": -28},
+    "EldritchBlastCast": {"source": "arcane-doppler", "start": 0.202, "duration": 0.44, "fadeIn": 0.039, "fadeOut": 0.137, "highpass": 338, "peakDb": -19},
+    "EldritchBlastPulse": {"source": "ghost-whisper", "start": 0.185, "duration": 0.448, "fadeIn": 0.009, "fadeOut": 0.133, "highpass": 248, "peakDb": -19},
+    "EldritchBlastContact": {"source": "electric-crackle", "start": 0.406, "duration": 0.174, "fadeIn": 0.006, "fadeOut": 0.057, "highpass": 717, "peakDb": -27},
+    "EldritchBlastFade": {"source": "ghost-whisper", "start": 0.440, "duration": 0.31, "fadeIn": 0.046, "fadeOut": 0.131, "highpass": 603, "peakDb": -27}
   }
 }
