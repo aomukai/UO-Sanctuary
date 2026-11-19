@@ -176,6 +176,10 @@ Miasma Bolt follows its fractional path in indigo and bursts at the native conta
 
 Muted ClassicUO checks covered a cancelled Bolt, direct and cloud damage, cloud expiry, and a wall impact that spared the enemy behind it. Chain remained attached to the original enemy as both endpoints moved. A later wall cut the link, and its previous clouds stayed on their original paths and expired independently. Native tests passed for both skills across a save and reload. ClassicUO decoded seven new Sonniss edits. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
 
+Bane, Purge, and Siphon coat the equipped weapon in violet thorns, copper crescents, and teal leaves. The glows follow the weapon's native animated sprite. Bane and Siphon still mark targets on eligible melee misses. Bane adds a separate flash on landed contact. Purge's charged triangle clears at depletion and its blast shows the actual two-tile radius. Siphon's mint life ribbon and blue mana ribbon appear independently when a kill restores those resources. [Bane sheet and prompt](../art/spell-effects/warlock-hex-bane) · [Purge sheet and prompt](../art/spell-effects/warlock-hex-purge) · [Siphon sheet and prompt](../art/spell-effects/warlock-hex-siphon)
+
+Muted ClassicUO drew all 72 frames and checked the weapon glow on male and female Humans, Elves, and flying Gargoyles. The coat cleared when unequipped and reappeared on a qualifying two-handed weapon. The tests covered shared-group replacement, Bane's miss and landed branches, successful and failed Purge rolls and charge depletion, and all four combinations of full or missing life and mana for Siphon. All three coats cleared at the shortened deadlines used in the test shard. Native save-and-reload checks passed for all three skills and their shared group. ClassicUO decoded ten new Sonniss edits. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
 Charged Bolt skitters along its existing paths, Lightning travels in a straight streak, and Chain Lightning sends violet arcs between targets. Static Field expands along the ground and Thunder Storm flashes above the caster at release and on its recurring strike schedule. The player casts were checked in ClassicUO with audio disabled. Nine Sonniss edits cover their cast and impact cues. Each cue has passed format and level checks and awaits a listening pass. [Cue recipes](../art/spell-effects/sonniss-cues.json)
 
 Ice Bolt travels as a thin shard, Ice Blast as a compact comet, and Glacial Spike as a heavier crystal with an area burst. Frost Nova expands across the ground. The shared cold overlays follow the affected target and clear with the game status. Thaw and cold corpse shatter reuse the Ice Blast fragments. The player effects were checked in ClassicUO with audio disabled. Eight Sonniss edits cover releases, impacts, and the shared cold corpse shatter. Their listening pass is queued. [Cold status sprite source](../art/spell-effects/cold-status/sheet.png) · [Cue recipes](../art/spell-effects/sonniss-cues.json)
@@ -1359,14 +1363,14 @@ Inherited NPC item absorption now changes life mechanically. Final Iron Golem ab
 | Warlock | Consume | custom | Demon dissolve, owner tether, and a ward that fades when its slot clears. |
 | Warlock | Bind Demon | custom | Channel rune, paid attempt chain, and a seal on the successfully bound demon. |
 | Warlock | Levitation Mastery | not-applicable | levitate_mastery |
-| Warlock | Hex: Bane | needed | hexbane, warlock_psychic_cast_2 |
+| Warlock | Hex: Bane | custom | Violet weapon thorns, a thistle target mark, and a landed-contact flash. |
 | Warlock | Cleave | needed | warlock_psychic_cast_1 |
 | Warlock | Echoing Strike | needed | echoingstrike, warlock_psychic_cast_1, echoingstrike |
-| Warlock | Hex: Purge | needed | hex_purge_explosion, hexpurge, warlock_psychic_cast_2 |
+| Warlock | Hex: Purge | custom | Copper weapon crescents, a charged triangle, and a radius-matched blast. |
 | Warlock | Blade Warp | needed | bladewarp, warlock_psychic_cast_1, bladewarp |
 | Warlock | Psychic Ward | needed | psychicward, psychicward_hit0, warlock_psychic_cast_1_no_hex |
 | Warlock | Eldritch Blast | needed | eldritchblastnova, surge_hex_explode, eldritchblastperiodic, warlock_psychic_cast_1_no_hex, eldritchblastnova |
-| Warlock | Hex: Siphon | needed | hexsiphon, warlock_psychic_cast_2 |
+| Warlock | Hex: Siphon | custom | Teal weapon glow and target mark with separate life and mana return ribbons. |
 | Warlock | Mirrored Blades | needed | No source effect cue; final presentation pending |
 | Warlock | Miasma Bolt | custom | Directional flight, collision burst, life-loss flash, and lingering magic wisps. |
 | Warlock | Ring of Fire | custom | Ember cast, moving ray samples, bursts, and damage flashes. |

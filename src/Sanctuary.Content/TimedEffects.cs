@@ -267,6 +267,7 @@ public static class TimedEffects
     {
         ConsumeEffects.Prune(now);
         WarlockRitualVisuals.Prune(now);
+        WeaponHexVisuals.Tick(now);
         BoundDemonHosts.Tick();
         EldritchBlastWorld.Tick(now);
         EchoingStrikeWorld.Tick(now);

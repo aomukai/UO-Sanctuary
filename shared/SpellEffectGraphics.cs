@@ -288,6 +288,30 @@ public static class SpellEffectGraphics
         || graphic is MiasmaBoltCast or MiasmaBoltBurst or MiasmaBoltFade or MiasmaContact
             or MiasmaChainCast or MiasmaChainLatch or MiasmaChainMistFade or MiasmaChainFade;
 
+    public const int WeaponHexFrames = 4;
+    public const ushort HexBaneCast = 60600;
+    public const ushort HexBaneCoat = 60604;
+    public const ushort HexBaneMark = 60608;
+    public const ushort HexBaneContact = 60612;
+    public const ushort HexBaneFade = 60616;
+    public const ushort HexPurgeCast = 60620;
+    public const ushort HexPurgeCoat = 60624;
+    public const ushort HexPurgeMark = 60628;
+    public const ushort HexPurgeBurst = 60632;
+    public const ushort HexPurgeRadius = 60636;
+    public const ushort HexPurgeContact = 60640;
+    public const ushort HexPurgeFade = 60644;
+    public const ushort HexSiphonCast = 60648;
+    public const ushort HexSiphonCoat = 60652;
+    public const ushort HexSiphonMark = 60656;
+    public const ushort HexSiphonLife = 60660;
+    public const ushort HexSiphonMana = 60664;
+    public const ushort HexSiphonFade = 60668;
+    public static bool IsWeaponHexCoat(ushort graphic) => graphic is HexBaneCoat or HexPurgeCoat or HexSiphonCoat;
+    public static bool IsWeaponHexMark(ushort graphic) => graphic is HexBaneMark or HexPurgeMark or HexSiphonMark;
+    public static bool IsWeaponHexAnimation(ushort graphic) => graphic is >= HexBaneCast and <= HexSiphonFade
+        && (graphic - HexBaneCast) % WeaponHexFrames == 0 && !IsWeaponHexCoat(graphic);
+
     public const int AssassinLobFrames = 4;
     public const int FireBlastRadiusSubtiles = 5;
     public const ushort FireBlastThrow = 62764;
@@ -637,7 +661,7 @@ public static class SpellEffectGraphics
         graphic is HolyFirePulse or HolyFreezePulse or HolyShockPulse or SanctuaryPulse or GrimWardPulse
             or LeapLanding or LeapAttackLanding or MartialFireRing or MartialThunderRing or MartialIceRing
             or DragonTailBurst or CloakWave or MindBlastWave or DeathSentryBurst or BloodBoilRing or ApocalypseWarning
-            or DeathSigilBurstRing || IsSigilField(graphic);
+            or DeathSigilBurstRing or HexPurgeRadius || IsSigilField(graphic);
 
     public static bool IsPaladinAuraLoop(ushort graphic) => graphic is HolyFireAura or HolyFreezeAura or HolyShockAura or HolyFreezeSlow
         || IsPaladinResistanceWard(graphic) || IsPaladinRecoveryLoop(graphic) || IsPaladinOffenseLoop(graphic)

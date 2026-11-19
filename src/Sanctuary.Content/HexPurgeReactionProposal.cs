@@ -45,7 +45,7 @@ internal static class HexPurgeReactionProposal
         // Validate the complete record before changing either Hex group.
         HexPurge.StoreReactionPrepared(next);
         WeaponHexGroups.ReplaceTarget(target,CombatAbility.HexPurge);
-        target.FixedEffect(0x375A,10,15,0x48E,0); // Identified curse attachment placeholder.
+        WeaponHexVisuals.Mark(target,CombatAbility.HexPurge,next.UntilUtc,at,true);
         return true;
     }
     private static bool Active(PlayerMobile owner,BaseCreature target,HexPurgeTarget state,DateTime at,bool? actions)
@@ -79,18 +79,24 @@ internal static class HexPurgeReactionProposal
         catch(NotSupportedException ex){return new(false,0,0,reaction.RemainingCharges,ex.Message);}
         int remaining=reaction.RemainingCharges-1;
         if(!HexPurge.AdvanceReactionPrepared(state,remaining==0?null:state with{Reaction=reaction with{RemainingCharges=remaining,Seed=seed}})){return default;}
+        Effects.SendLocationEffect(center,map,SpellEffectGraphics.HexPurgeBurst,9);
+        Effects.SendLocationEffect(center,map,SpellEffectGraphics.HexPurgeRadius,9,
+            hue:state.Plan.RadiusRaw*SpellEffectGraphics.HolyAuraRadiusUnitsPerTile/2);
+        Effects.PlaySound(center,map,SpellEffectSounds.HexPurgeBurst);
         // Claim the charge before any nested health/death callback. One shared
         // roll per burst; its visual missile717 is not a second damage actor.
         var raw=DruidMoltenBoulder.Potion(reaction.Modifiers,new GearDamage(0,0,0,0,0,Magic:magic/256.0));int applied=0;
         foreach(var recipient in recipients)
         {
             if(!Recipient(owner,recipient,map,center,state.Plan.RadiusRaw)){continue;}
+            var impact=recipient.Location;int before=SkillHealth.Balance256(recipient);int lost;
             using(CombatItemEvents.Suppress(owner,recipient))
             {
                 owner.DoHarmful(recipient,true);var parts=SkillCombat.MitigatePrepared(owner,recipient,raw);
-                SkillHealth.TypedDamage(owner,recipient,NamedElements.To256(parts.Total),DirectDamageParts.From(parts),notifySuppressedDirect:true);
-                if(!recipient.Deleted){recipient.FixedEffect(0x375A,5,5,0x48E,0);} // Identified explosion placeholder.
+                lost=SkillHealth.TypedDamage(owner,recipient,NamedElements.To256(parts.Total),DirectDamageParts.From(parts),notifySuppressedDirect:true);
             }
+            if(lost>0||SkillHealth.Balance256(recipient)<before)
+            {Effects.SendLocationEffect(impact,map,SpellEffectGraphics.HexPurgeContact,7);}
             applied++;
         }
         return new(true,applied,magic,remaining);

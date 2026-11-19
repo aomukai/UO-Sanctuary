@@ -1244,6 +1244,18 @@ def products():
             inGameVerification='verified', placeholder='A violet clasp latches at the real head. Bright links show each accepted span and lower wisps remain along its prior stamps until they expire.',
             customArtworkPhases=['cast', 'eight-direction head and latch', 'live span and cut', 'confirmed magic hit', 'frozen path cloud and fade'],
             customAudioPhases=['cast', 'latch', 'accepted span pulse', 'confirmed magic hit', 'link fade']),
+        'warlock.hexbane': dict(customArtwork='verified', customAudio='listening-pending', customCharacterAnimation='reuse-native',
+            inGameVerification='verified', placeholder='Amethyst thorns follow the animated weapon. A thistle marks accepted targets, including on an eligible melee miss, and a separate glint shows landed weapon contact.',
+            customArtworkPhases=['cast', 'animated weapon coat', 'target mark and expiry', 'landed weapon contact', 'coat replacement and fade'],
+            customAudioPhases=['cast', 'new target mark', 'landed weapon contact', 'coat fade']),
+        'warlock.hexpurge': dict(customArtwork='verified', customAudio='listening-pending', customCharacterAnimation='reuse-native',
+            inGameVerification='verified', placeholder='Copper crescents follow the animated weapon. A triangle marks eligible targets until expiry or depletion, and confirmed charges produce a two-tile blast.',
+            customArtworkPhases=['cast', 'animated weapon coat', 'charged target mark', 'radius burst and damage contact', 'depletion and coat fade'],
+            customAudioPhases=['cast', 'new target mark', 'confirmed burst', 'coat fade']),
+        'warlock.hexsiphon': dict(customArtwork='verified', customAudio='listening-pending', customCharacterAnimation='reuse-native',
+            inGameVerification='verified', placeholder='Teal leaves follow the animated weapon and a drop marks accepted targets. Mint and blue ribbons show actual kill-based life and mana gains independently.',
+            customArtworkPhases=['cast', 'animated weapon coat', 'target mark and expiry', 'separate life and mana returns', 'coat replacement and fade'],
+            customAudioPhases=['cast', 'new target mark', 'actual recovery', 'coat fade']),
     }
     for effect, row in zip(effects, rows, strict=True):
         talent = effect['talentId']

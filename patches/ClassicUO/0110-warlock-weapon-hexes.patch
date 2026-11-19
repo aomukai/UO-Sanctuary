@@ -1,0 +1,137 @@
+diff --git a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -212,6 +212,7 @@
+                         _ when SpellEffectGraphics.IsWarlockFireAnimation(Graphic) => SpellEffectGraphics.WarlockFireFrames,
+                         _ when SpellEffectGraphics.IsSigilAnimation(Graphic) => SpellEffectGraphics.SigilFrames,
+                         _ when SpellEffectGraphics.IsMiasmaAnimation(Graphic) => SpellEffectGraphics.MiasmaFrames,
++                        _ when SpellEffectGraphics.IsWeaponHexAnimation(Graphic) => SpellEffectGraphics.WeaponHexFrames,
+                         _ when SpellEffectGraphics.IsAssassinLobAnimation(Graphic) => SpellEffectGraphics.AssassinLobFrames,
+                         SpellEffectGraphics.DeathSentryBurst => SpellEffectGraphics.SentryFrames,
+                         _ when SpellEffectGraphics.IsSentryFlash(Graphic) => SpellEffectGraphics.SentryFrames,
+@@ -243,6 +244,7 @@
+                             && !SpellEffectGraphics.IsWarlockFireLoop(Graphic)
+                             && !SpellEffectGraphics.IsSigilField(Graphic) && !SpellEffectGraphics.IsSigilMark(Graphic)
+                             && !SpellEffectGraphics.IsMiasmaCloud(Graphic)
++                            && !SpellEffectGraphics.IsWeaponHexMark(Graphic)
+                             && Graphic is not (SpellEffectGraphics.WhirlwindSpin or SpellEffectGraphics.FrenzySpeed or SpellEffectGraphics.BladeShieldRing
+                                 or SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow
+                                 or SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.PoisonAfflicted
+@@ -389,6 +391,8 @@
+                             _ when SpellEffectGraphics.IsSigilAnimation(Graphic) => 83,
+                             _ when SpellEffectGraphics.IsMiasmaCloud(Graphic) => 135,
+                             _ when SpellEffectGraphics.IsMiasmaAnimation(Graphic) => 81,
++                            _ when SpellEffectGraphics.IsWeaponHexMark(Graphic) => 128,
++                            _ when SpellEffectGraphics.IsWeaponHexAnimation(Graphic) => 81,
+                             SpellEffectGraphics.ShockWebField => 95,
+                             _ when SpellEffectGraphics.IsAssassinLobAnimation(Graphic) => 66,
+                             _ when SpellEffectGraphics.IsSentryFlash(Graphic) => 60,
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -107,13 +107,15 @@
+ 
+             if (Source is Mobile marked &&
+                 (SpellEffectGraphics.IsCurseMark(Graphic) || SpellEffectGraphics.IsSigilMark(Graphic)
++                    || SpellEffectGraphics.IsWeaponHexMark(Graphic)
+                     || Graphic is SpellEffectGraphics.RancorSigilConfusion or SpellEffectGraphics.CurseFade or SpellEffectGraphics.RavenBlind
+                     or SpellEffectGraphics.ConvictionMark or SpellEffectGraphics.ConvictionContact
+                     or SpellEffectGraphics.ConversionMark or SpellEffectGraphics.ConversionLock or SpellEffectGraphics.ConversionFade
+                     or SpellEffectGraphics.DefilerLinkMark or SpellEffectGraphics.DeathMarkGlyph))
+             {
+                 if (marked.IsDead || marked.IsHidden &&
+-                    (SpellEffectGraphics.IsSigilMark(Graphic) || Graphic == SpellEffectGraphics.RancorSigilConfusion))
++                    (SpellEffectGraphics.IsSigilMark(Graphic) || SpellEffectGraphics.IsWeaponHexMark(Graphic)
++                        || Graphic == SpellEffectGraphics.RancorSigilConfusion))
+                 { return false; }
+                 // Place the mark in the upper body on targets of different heights.
+                 posY -= Math.Clamp((marked.FrameInfo.Y - 45) / 2, 0, 34);
+@@ -186,6 +188,12 @@
+                 posX += 23;
+             }
+ 
++            if (Graphic is SpellEffectGraphics.HexSiphonLife or SpellEffectGraphics.HexSiphonMana)
++            {
++                posX += Graphic == SpellEffectGraphics.HexSiphonLife ? -12 : 12;
++                if (Source is Mobile { IsGargoyle: true, IsFlying: true }) { posY -= 20; }
++            }
++
+             if (Graphic == SpellEffectGraphics.RedemptionLife) { posX -= 19; }
+             if (Graphic == SpellEffectGraphics.RedemptionMana) { posX += 19; }
+ 
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+@@ -28,6 +28,23 @@
+         private Point _summonOffset;
+         private Vector3 _summonTile;
+         private ushort _boneBarrierGraphic;
++        private ushort _weaponHex;
++        private Layer _weaponHexLayer;
++        private uint _weaponHexStart;
++        private long _weaponHexUntil;
++
++        internal void SetWeaponHex(ushort graphic, Layer layer, int duration)
++        {
++            if (duration <= 0)
++            {
++                if (_weaponHex == graphic) { _weaponHex = 0; }
++                return;
++            }
++            if (_weaponHex != graphic) { _weaponHexStart = Time.Ticks; }
++            _weaponHex = graphic;
++            _weaponHexLayer = layer;
++            _weaponHexUntil = (long)Time.Ticks + duration;
++        }
+ 
+         internal void SetBoneBarrierAppearance(ushort graphic)
+         {
+@@ -911,6 +928,21 @@
+                     int width = (int)Math.Ceiling(spriteInfo.UV.Width * scale);
+                     int height = (int)Math.Ceiling(spriteInfo.UV.Height * scale);
+ 
++                    if (isEquip && entity.Layer == owner._weaponHexLayer && entity.ItemData.IsWeapon
++                        && owner._weaponHex != 0 && owner._weaponHexUntil > Time.Ticks && !owner.IsDead && !owner.IsHidden)
++                    {
++                        int phase = (int)((Time.Ticks - owner._weaponHexStart) / 122 % SpellEffectGraphics.WeaponHexFrames);
++                        ref readonly var glow = ref Client.Game.UO.Arts.GetArt((ushort)(owner._weaponHex + phase));
++                        if (glow.Texture != null)
++                        {
++                            // Center the glow on the actual animated equipment sprite.
++                            var where = new Vector2(x + (width - glow.UV.Width) / 2f, y + (height - glow.UV.Height) / 2f);
++                            var ink = ShaderHueTranslator.GetHueVector(0, false, owner.AlphaHue / 255f);
++                            batcher.Draw(glow.Texture, where, glow.UV, ink, 0f, Vector2.Zero, 1,
++                                mirror ? SpriteEffects.FlipHorizontally : SpriteEffects.None, depth + 3.1f);
++                        }
++                    }
++
+                     if (xx < owner.FrameInfo.X)
+                     {
+                         owner.FrameInfo.X = xx;
+diff --git a/src/ClassicUO.Client/Game/Managers/EffectManager.cs b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+--- a/src/ClassicUO.Client/Game/Managers/EffectManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+@@ -64,6 +64,15 @@
+ 
+             GameEffect effect;
+ 
++            if (type == GraphicEffectType.FixedFrom && SpellEffectGraphics.IsWeaponHexCoat(graphic))
++            {
++                if (_world.Get(source) is Mobile owner)
++                {
++                    owner.SetWeaponHex(graphic, (Layer)speed, duration * Constants.ITEM_EFFECT_ANIMATION_DELAY);
++                }
++                return;
++            }
++
+             if (type == GraphicEffectType.FixedFrom
+                 && (SpellEffectGraphics.IsHydraHeadFrame(graphic) || SpellEffectGraphics.IsBladeSentinelBody(graphic)
+                     || SpellEffectGraphics.IsSentryModelFrame(graphic) || graphic == SpellEffectGraphics.SentryModelGone))
+@@ -134,6 +143,7 @@
+                     || SpellEffectGraphics.IsWarlockDemonLoop(graphic)
+                     || SpellEffectGraphics.IsWarlockRitualLoop(graphic)
+                     || SpellEffectGraphics.IsSigilMark(graphic)
++                    || SpellEffectGraphics.IsWeaponHexMark(graphic)
+                     || SpellEffectGraphics.IsBarbarianCryWard(graphic)
+                     || SpellEffectGraphics.IsBarbarianStrikeStatus(graphic)
+                     || graphic is SpellEffectGraphics.WhirlwindSpin or SpellEffectGraphics.FrenzySpeed or SpellEffectGraphics.BladeShieldRing

@@ -1212,6 +1212,57 @@ def warlock_miasma():
         ))
 
 
+def warlock_weapon_hexes():
+    bane = "warlock-hex-bane"
+    purge = "warlock-hex-purge"
+    siphon = "warlock-hex-siphon"
+    bane_cast, bane_coat, bane_mark, bane_hit = load_grid(bane, (1254, 1254))
+    purge_cast, purge_coat, purge_mark, purge_blast = load_grid(purge, (1254, 1254))
+    siphon_cast, siphon_coat, siphon_mark, siphon_return = load_grid(siphon, (1254, 1254))
+    for name, graphic, row, scale, pivots, canvas, padding, threshold, light in (
+        (bane, 60600, bane_cast, .228, ((179, 213), (165, 206), (142, 206), (123, 207)), (88, 105), 47, 148, 1.18),
+        (bane, 60604, bane_coat, .189, ((184, 177), (166, 181), (140, 181), (132, 181)), (64, 64), 32, 144, 1.15),
+        (bane, 60608, bane_mark, .152, ((184, 148), (161, 149), (139, 150), (120, 149)), (62, 91), 45, 145, 1.24),
+        (bane, 60612, bane_hit, .197, ((174, 132), (176, 125), (147, 126), (134, 126)), (73, 94), 40, 142, 1.23),
+        (purge, 60620, purge_cast, .218, ((157, 186), (152, 180), (154, 175), (152, 174)), (88, 100), 45, 146, 1.08),
+        (purge, 60624, purge_coat, .162, ((159, 168), (157, 161), (157, 153), (153, 154)), (64, 64), 32, 145, 1.11),
+        (purge, 60628, purge_mark, .158, ((159, 151), (157, 152), (157, 152), (154, 150)), (61, 85), 43, 147, 1.14),
+        (purge, 60632, purge_blast, .346, ((154, 216), (153, 218), (154, 219), (155, 221)), (116, 129), 24, 145, 1.17),
+        (purge, 60640, purge_blast, .146, ((154, 194), (153, 191), (154, 189), (155, 190)), (55, 79), 35, 153, 1.07),
+        (siphon, 60648, siphon_cast, .210, ((168, 212), (163, 215), (151, 181), (144, 162)), (88, 100), 46, 147, 1.56),
+        (siphon, 60652, siphon_coat, .140, ((165, 165), (157, 164), (147, 164), (147, 167)), (64, 64), 32, 145, 1.56),
+        (siphon, 60656, siphon_mark, .151, ((168, 160), (163, 151), (152, 151), (149, 147)), (64, 91), 46, 145, 1.49),
+        (siphon, 60660, siphon_return, .217, ((161, 218), (159, 216), (154, 202), (150, 166)), (68, 98), 28, 141, 1.61),
+    ):
+        write_group(name, graphic, (
+            frame(ImageEnhance.Brightness(cell).enhance(light), scale, pivot, canvas, padding, threshold)
+            for cell, pivot in zip(row, pivots)
+        ))
+    for name, graphic, row, pivots, brightness in (
+        (bane, 60616, bane_coat, ((184, 177), (166, 181), (140, 181), (132, 181)), 1.14),
+        (purge, 60644, purge_coat, ((159, 168), (157, 161), (157, 153), (153, 154)), 1.06),
+        (siphon, 60668, siphon_coat, ((165, 165), (157, 164), (147, 164), (147, 167)), 1.45),
+    ):
+        write_group(name, graphic, (
+            frame(ImageEnhance.Brightness(cell).enhance(brightness * light), scale, pivot, (64, 90), 43, cutoff)
+            for cell, pivot, scale, light, cutoff in zip(row, pivots, (.20, .17, .14, .12),
+                                                        (1, .93, .81, .67), (145, 140, 131, 114))
+        ))
+    write_group(purge, 60636, (
+        holy_ring(cell, (220, 118), (240, 132), 70, cutoff, light)
+        for cell, cutoff, light in zip(purge_cast, (147, 151, 150, 148), (.85, .91, .94, .92))
+    ))
+    mana = []
+    for cell in siphon_return:
+        tint = ImageOps.colorize(ImageOps.grayscale(cell), "#161c38", "#a4ddff").convert("RGBA")
+        tint.putalpha(cell.getchannel("A"))
+        mana.append(tint)
+    write_group(siphon, 60664, (
+        frame(cell, .217, pivot, (68, 98), 28, 141)
+        for cell, pivot in zip(mana, ((161, 218), (159, 216), (154, 202), (150, 166)))
+    ))
+
+
 def necromancer_curses():
     cells = [cell for row in load_grid("necromancer-curses", (1448, 1086), rows=3) for cell in row]
     for cell in cells[:10]:
@@ -2059,3 +2110,4 @@ if __name__ == "__main__":
     warlock_fire()
     warlock_sigils()
     warlock_miasma()
+    warlock_weapon_hexes()

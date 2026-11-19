@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
@@ -36,9 +37,13 @@ public static class HexSiphon
     internal static HexSiphonBuff Buff(Mobile p)=>Alive(p)&&p is PlayerMobile&&ClassCreation.Profiles.TryGet(p.Serial,out var c)&&c.Class==DiabloClass.Warlock
         &&_buffs.TryGetValue(p.Serial.Value,out var b)&&b.UntilUtc>TimedEffects.Now?b:null;
     internal static HexSiphonDebuff Debuff(Mobile p)=>Alive(p)&&_debuffs.TryGetValue(p.Serial.Value,out var d)&&d.UntilUtc>TimedEffects.Now?d:null;
-    public static void Clear(Mobile p){if(p!=null){_buffs=_buffs.Remove(p.Serial.Value);_debuffs=_debuffs.Remove(p.Serial.Value);}}
-    internal static void ClearBuff(Mobile p){if(p!=null){_buffs=_buffs.Remove(p.Serial.Value);}}
-    internal static void ClearDebuff(Mobile p){if(p!=null){_debuffs=_debuffs.Remove(p.Serial.Value);}}
+    public static void Clear(Mobile p){ClearBuff(p);ClearDebuff(p);}
+    internal static void ClearBuff(Mobile p)
+    {if(p!=null){_buffs=_buffs.Remove(p.Serial.Value);WeaponHexVisuals.Clear(p,CombatAbility.HexSiphon,true);}}
+    internal static void ClearDebuff(Mobile p)
+    {if(p!=null){_debuffs=_debuffs.Remove(p.Serial.Value);WeaponHexVisuals.Clear(p,CombatAbility.HexSiphon,false);}}
+    internal static IEnumerable<(uint,DateTime)> WeaponVisuals=>_buffs.Values.Select(b=>(b.Owner,b.UntilUtc));
+    internal static IEnumerable<(uint,DateTime)> TargetVisuals=>_debuffs.Values.Select(d=>(d.Target,d.UntilUtc));
     internal static void Prune()
     {
         foreach(var b in _buffs.Values){if(Buff(World.FindMobile((Serial)b.Owner))==null){_buffs=_buffs.Remove(b.Owner);}}
@@ -62,8 +67,9 @@ public static class HexSiphon
         if(old!=null&&old.Rank>v.Rank||!NecromancerEffects.CanPay(p,values.Mana256)){return false;}
         if(!NecromancerEffects.Pay(p,values.Mana256)){return false;}
         if(replaceGroup){WeaponHexGroups.ReplaceBuff(p,CombatAbility.HexSiphon);}
-        var next=new HexSiphonBuff(p.Serial.Value,v.Rank,TimedEffects.Now.AddMilliseconds(values.BuffFrames*40L),values);Validate(next);
-        _buffs=_buffs.SetItem(next.Owner,next);p.FixedEffect(0x375A,10,15,0x48C,0);p.PlaySound(0x1E5); // Identified hex_enchant/cast placeholders.
+        var at=TimedEffects.Now;
+        var next=new HexSiphonBuff(p.Serial.Value,v.Rank,at.AddMilliseconds(values.BuffFrames*40L),values);Validate(next);
+        _buffs=_buffs.SetItem(next.Owner,next);WeaponHexVisuals.Cast(p,CombatAbility.HexSiphon,next.UntilUtc,at);
         return true;
     }
     private static HexSiphonValues Active(Mobile p)
@@ -83,7 +89,8 @@ public static class HexSiphon
         var until=at.AddMilliseconds(registered.Values.DebuffFrames*40L);
         var next=old!=null&&old.Rank==registered.Rank?old with{UntilUtc=until}:new(target.Serial.Value,p.Serial.Value,registered.Rank,until,registered.Values.DamagePercent);
         next=next with{RefreshFrames=registered.Values.DebuffFrames};
-        Validate(next);if(replaceGroup){WeaponHexGroups.ReplaceTarget(target,CombatAbility.HexSiphon);}_debuffs=_debuffs.SetItem(next.Target,next);target.FixedEffect(0x375A,10,15,0x48C,0); // Identified hexsyphondebuff placeholder.
+        Validate(next);if(replaceGroup){WeaponHexGroups.ReplaceTarget(target,CombatAbility.HexSiphon);}_debuffs=_debuffs.SetItem(next.Target,next);
+        WeaponHexVisuals.Mark(target,CombatAbility.HexSiphon,next.UntilUtc,at,old==null);
         return true;
     }
     internal static bool RefreshPrepared(HexSiphonDebuff expected,DateTime at)

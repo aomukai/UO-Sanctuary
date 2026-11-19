@@ -437,6 +437,16 @@ public static class SpellEffectSounds
     public const int MiasmaChainLatch = 60431;
     public const int MiasmaChainStamp = 60432;
     public const int MiasmaChainFade = 60433;
+    public const int HexBaneCast = 60434;
+    public const int HexBaneMark = 60435;
+    public const int HexBaneContact = 60436;
+    public const int HexPurgeCast = 60437;
+    public const int HexPurgeMark = 60438;
+    public const int HexPurgeBurst = 60439;
+    public const int HexSiphonCast = 60440;
+    public const int HexSiphonMark = 60441;
+    public const int HexSiphonRecover = 60442;
+    public const int WeaponHexFade = 60443;
 
     public static int Fallback(int sound) => sound switch
     {
@@ -482,6 +492,8 @@ public static class SpellEffectSounds
         DeathSigilBurst => 0x307,
         MiasmaBoltCast or MiasmaChainCast => 0x1E5,
         MiasmaBoltBurst => 0x213,
+        HexBaneCast or HexPurgeCast or HexSiphonCast => 0x1E5,
+        HexPurgeBurst => 0x307,
         BlizzardRelease or FrozenOrbRelease or MeteorRelease or TeethRelease or BoneSpiritRelease or AbyssOpen => 0x1E5,
         AmazonBowRelease or AmazonCrossbowRelease or JavelinThrow => 0x238,
         SpearThrust or HeavySpearThrust => 0x238,

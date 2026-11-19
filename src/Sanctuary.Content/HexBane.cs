@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
@@ -41,9 +42,13 @@ public static class HexBane
     internal static HexBaneBuff Buff(Mobile p)=>Alive(p)&&p is PlayerMobile&&ClassCreation.Profiles.TryGet(p.Serial,out var c)&&c.Class==DiabloClass.Warlock
         &&_buffs.TryGetValue(p.Serial.Value,out var b)&&b.UntilUtc>TimedEffects.Now?b:null;
     internal static HexBaneDebuff Debuff(Mobile p)=>Alive(p)&&_debuffs.TryGetValue(p.Serial.Value,out var d)&&d.UntilUtc>TimedEffects.Now?d:null;
-    public static void Clear(Mobile p){if(p!=null){_buffs=_buffs.Remove(p.Serial.Value);_debuffs=_debuffs.Remove(p.Serial.Value);}}
-    internal static void ClearBuff(Mobile p){if(p!=null){_buffs=_buffs.Remove(p.Serial.Value);}}
-    internal static void ClearDebuff(Mobile p){if(p!=null){_debuffs=_debuffs.Remove(p.Serial.Value);}}
+    public static void Clear(Mobile p){ClearBuff(p);ClearDebuff(p);}
+    internal static void ClearBuff(Mobile p)
+    {if(p!=null){_buffs=_buffs.Remove(p.Serial.Value);WeaponHexVisuals.Clear(p,CombatAbility.HexBane,true);}}
+    internal static void ClearDebuff(Mobile p)
+    {if(p!=null){_debuffs=_debuffs.Remove(p.Serial.Value);WeaponHexVisuals.Clear(p,CombatAbility.HexBane,false);}}
+    internal static IEnumerable<(uint,DateTime)> WeaponVisuals=>_buffs.Values.Select(b=>(b.Owner,b.UntilUtc));
+    internal static IEnumerable<(uint,DateTime)> TargetVisuals=>_debuffs.Values.Select(d=>(d.Target,d.UntilUtc));
     internal static void Prune()
     {
         foreach(var b in _buffs.Values){if(Buff(World.FindMobile((Serial)b.Owner))==null){_buffs=_buffs.Remove(b.Owner);}}
@@ -72,8 +77,9 @@ public static class HexBane
         if((old!=null&&old.Rank>v.Rank)||!NecromancerEffects.CanPay(p,values.Mana256)){return false;}
         if(!NecromancerEffects.Pay(p,values.Mana256)){return false;}
         if(replaceGroup){WeaponHexGroups.ReplaceBuff(p,CombatAbility.HexBane);}
-        var next=new HexBaneBuff(p.Serial.Value,v.Rank,TimedEffects.Now.AddMilliseconds(values.BuffFrames*40L),values){CastMastery=mastery};Validate(next);
-        _buffs=_buffs.SetItem(next.Owner,next);p.FixedEffect(0x375A,10,15,0x48D,0);p.PlaySound(0x1E5); // Identified hex-enchant/cast placeholders.
+        var at=TimedEffects.Now;
+        var next=new HexBaneBuff(p.Serial.Value,v.Rank,at.AddMilliseconds(values.BuffFrames*40L),values){CastMastery=mastery};Validate(next);
+        _buffs=_buffs.SetItem(next.Owner,next);WeaponHexVisuals.Cast(p,CombatAbility.HexBane,next.UntilUtc,at);
         return true;
     }
     internal static int AttackPercent(Mobile p)
@@ -101,7 +107,8 @@ public static class HexBane
         var until=at.AddMilliseconds(registered.Values.DebuffFrames*40L);
         var next=old!=null&&old.Rank==registered.Rank?old with{UntilUtc=until}:new(target.Serial.Value,p.Serial.Value,registered.Rank,until,registered.Values.DefensePercent,registered.Values.TargetAttackPercent);
         next=next with{RefreshFrames=registered.Values.DebuffFrames};
-        Validate(next);if(replaceGroup){WeaponHexGroups.ReplaceTarget(target,CombatAbility.HexBane);}_debuffs=_debuffs.SetItem(next.Target,next);target.FixedEffect(0x375A,10,15,0x48D,0); // Identified hexbanedebuff placeholder.
+        Validate(next);if(replaceGroup){WeaponHexGroups.ReplaceTarget(target,CombatAbility.HexBane);}_debuffs=_debuffs.SetItem(next.Target,next);
+        WeaponHexVisuals.Mark(target,CombatAbility.HexBane,next.UntilUtc,at,old==null);
         return true;
     }
     internal static bool RefreshPrepared(HexBaneDebuff expected,DateTime at)

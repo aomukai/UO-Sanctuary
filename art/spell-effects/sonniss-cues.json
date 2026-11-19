@@ -573,6 +573,16 @@
     "MiasmaChainCast": {"source": "arcane-doppler", "start": 0.166, "duration": 0.421, "fadeIn": 0.031, "fadeOut": 0.129, "highpass": 408, "peakDb": -19},
     "MiasmaChainLatch": {"source": "metal-hit", "start": 0.136, "duration": 0.241, "fadeIn": 0.008, "fadeOut": 0.089, "highpass": 502, "peakDb": -23},
     "MiasmaChainStamp": {"source": "electric-crackle", "start": 0.418, "duration": 0.163, "fadeIn": 0.01, "fadeOut": 0.067, "highpass": 780, "peakDb": -28},
-    "MiasmaChainFade": {"source": "ghost-whisper", "start": 0.411, "duration": 0.308, "fadeIn": 0.038, "fadeOut": 0.129, "highpass": 559, "peakDb": -26}
+    "MiasmaChainFade": {"source": "ghost-whisper", "start": 0.411, "duration": 0.308, "fadeIn": 0.038, "fadeOut": 0.129, "highpass": 559, "peakDb": -26},
+    "HexBaneCast": {"source": "arcane-doppler", "start": 0.275, "duration": 0.36, "fadeIn": 0.017, "fadeOut": 0.113, "highpass": 408, "peakDb": -19},
+    "HexBaneMark": {"source": "ghost-whisper", "start": 0.289, "duration": 0.217, "fadeIn": 0.021, "fadeOut": 0.072, "highpass": 541, "peakDb": -25},
+    "HexBaneContact": {"source": "metal-hit", "start": 0.129, "duration": 0.17, "fadeIn": 0.008, "fadeOut": 0.052, "highpass": 645, "peakDb": -25},
+    "HexPurgeCast": {"source": "metal-hit", "start": 0.174, "duration": 0.35, "fadeIn": 0.016, "fadeOut": 0.106, "highpass": 373, "peakDb": -19},
+    "HexPurgeMark": {"source": "snap", "start": 0.103, "duration": 0.208, "fadeIn": 0.009, "fadeOut": 0.07, "highpass": 633, "peakDb": -26},
+    "HexPurgeBurst": {"source": "close-thunder", "start": 2.011, "duration": 0.435, "fadeIn": 0.006, "fadeOut": 0.157, "highpass": 218, "peakDb": -17},
+    "HexSiphonCast": {"source": "air", "start": 0.301, "duration": 0.44, "fadeIn": 0.046, "fadeOut": 0.128, "highpass": 501, "peakDb": -20},
+    "HexSiphonMark": {"source": "liquid-pour", "start": 0.238, "duration": 0.196, "fadeIn": 0.017, "fadeOut": 0.064, "highpass": 731, "peakDb": -27},
+    "HexSiphonRecover": {"source": "bright-ward", "start": 0.233, "duration": 0.374, "fadeIn": 0.025, "fadeOut": 0.113, "highpass": 327, "peakDb": -21},
+    "WeaponHexFade": {"source": "ghost-whisper", "start": 0.458, "duration": 0.296, "fadeIn": 0.033, "fadeOut": 0.105, "highpass": 558, "peakDb": -27}
   }
 }

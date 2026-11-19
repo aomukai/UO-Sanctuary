@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
@@ -40,9 +41,13 @@ public static class HexPurge
     internal static HexPurgeBuff Buff(Mobile p)=>Alive(p)&&p is PlayerMobile&&ClassCreation.Profiles.TryGet(p.Serial,out var c)&&c.Class==DiabloClass.Warlock
         &&_buffs.TryGetValue(p.Serial.Value,out var b)&&b.UntilUtc>TimedEffects.Now?b:null;
     internal static HexPurgeTarget Debuff(Mobile p)=>Alive(p)&&_targets.TryGetValue(p.Serial.Value,out var t)&&t.UntilUtc>TimedEffects.Now?t:null;
-    public static void Clear(Mobile p){if(p!=null){_buffs=_buffs.Remove(p.Serial.Value);_targets=_targets.Remove(p.Serial.Value);}}
-    internal static void ClearBuff(Mobile p){if(p!=null){_buffs=_buffs.Remove(p.Serial.Value);}}
-    internal static void ClearDebuff(Mobile p){if(p!=null){_targets=_targets.Remove(p.Serial.Value);}}
+    public static void Clear(Mobile p){ClearBuff(p);ClearDebuff(p);}
+    internal static void ClearBuff(Mobile p)
+    {if(p!=null){_buffs=_buffs.Remove(p.Serial.Value);WeaponHexVisuals.Clear(p,CombatAbility.HexPurge,true);}}
+    internal static void ClearDebuff(Mobile p)
+    {if(p!=null){_targets=_targets.Remove(p.Serial.Value);WeaponHexVisuals.Clear(p,CombatAbility.HexPurge,false);}}
+    internal static IEnumerable<(uint,DateTime)> WeaponVisuals=>_buffs.Values.Select(b=>(b.Owner,b.UntilUtc));
+    internal static IEnumerable<(uint,DateTime)> TargetVisuals=>_targets.Values.Select(d=>(d.Target,d.UntilUtc));
     internal static void Prune()
     {
         foreach(var b in _buffs.Values){if(Buff(World.FindMobile((Serial)b.Owner))==null){_buffs=_buffs.Remove(b.Owner);}}
@@ -75,8 +80,9 @@ public static class HexPurge
         if(old!=null&&old.Rank>v.Rank||!NecromancerEffects.CanPay(p,values.Mana256)){return false;}
         if(!NecromancerEffects.Pay(p,values.Mana256)){return false;}
         if(replaceGroup){WeaponHexGroups.ReplaceBuff(p,CombatAbility.HexPurge);}
-        var next=new HexPurgeBuff(p.Serial.Value,v.Rank,TimedEffects.Now.AddMilliseconds(values.BuffFrames*40L),values);Validate(next);
-        _buffs=_buffs.SetItem(next.Owner,next);p.FixedEffect(0x375A,10,15,0x48E,0);p.PlaySound(0x1E5); // Identified hex_enchant/cast placeholders.
+        var at=TimedEffects.Now;
+        var next=new HexPurgeBuff(p.Serial.Value,v.Rank,at.AddMilliseconds(values.BuffFrames*40L),values);Validate(next);
+        _buffs=_buffs.SetItem(next.Owner,next);WeaponHexVisuals.Cast(p,CombatAbility.HexPurge,next.UntilUtc,at);
         return true;
     }
     private static HexPurgeValues Active(Mobile p)
@@ -92,7 +98,8 @@ public static class HexPurge
         if(Debuff(target)!=null){throw new NotSupportedException("Modern Purge reapplication and charge reset remain unverified");}
         if(NamedElements.MasteryPercent(p,"mag")!=0){throw new NotSupportedException("Modern Purge magic mastery placement remains unverified");}
         Validate(registered);Validate(supplied);var next=new HexPurgeTarget(target.Serial.Value,p.Serial.Value,at.AddMilliseconds(supplied.DebuffFrames*40L),supplied);Validate(next);
-        if(replaceGroup){WeaponHexGroups.ReplaceTarget(target,CombatAbility.HexPurge);}_targets=_targets.SetItem(next.Target,next);target.FixedEffect(0x375A,10,15,0x48E,0);return true; // Identified hexpurgedebuff placeholder.
+        if(replaceGroup){WeaponHexGroups.ReplaceTarget(target,CombatAbility.HexPurge);}_targets=_targets.SetItem(next.Target,next);
+        WeaponHexVisuals.Mark(target,CombatAbility.HexPurge,next.UntilUtc,at,true);return true;
     }
     internal static HexPurgeSnapshot Snapshot()=>new(_buffs.Values.OrderBy(x=>x.Owner).ToArray(),_targets.Values.OrderBy(x=>x.Target).ToArray());
     internal static void StoreReactionPrepared(HexPurgeTarget next)
@@ -106,7 +113,12 @@ public static class HexPurge
     internal static bool AdvanceReactionPrepared(HexPurgeTarget expected,HexPurgeTarget next)
     {
         if(!_targets.TryGetValue(expected.Target,out var actual)||actual!=expected){return false;}
-        if(next==null){_targets=_targets.Remove(expected.Target);return true;}
+        if(next==null)
+        {
+            _targets=_targets.Remove(expected.Target);
+            WeaponHexVisuals.Clear(World.FindMobile((Serial)expected.Target),CombatAbility.HexPurge,false);
+            return true;
+        }
         if(next.Target!=expected.Target||next.Creator!=expected.Creator||next.Plan!=expected.Plan||next.UntilUtc!=expected.UntilUtc)
         {throw new InvalidDataException("Purge charge update changed attachment context");}
         StoreReactionPrepared(next);return true;

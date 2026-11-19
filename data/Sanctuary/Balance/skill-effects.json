@@ -5758,10 +5758,24 @@
     },
     "generation": "pending",
     "clientMapping": "pending",
-    "inGameVerification": "pending",
-    "placeholder": "Prepared cast uses UO0x375A hue0x48D flash and0x1E5 audio; supplied debuff uses the same identified flash. Final hex_enchant weapon overlay, warlock_psychic_cast_2, hexbanedebuff, curse_hit and Warlock cast/hit/expiry sounds remain pending. Learned input/event36 remain gated; talent/right/quick icons are separately tracked.",
-    "customArtwork": "pending",
-    "customAudio": "pending"
+    "inGameVerification": "verified",
+    "placeholder": "Amethyst thorns follow the animated weapon. A thistle marks accepted targets, including on an eligible melee miss, and a separate glint shows landed weapon contact.",
+    "customArtwork": "verified",
+    "customAudio": "listening-pending",
+    "customCharacterAnimation": "reuse-native",
+    "customArtworkPhases": [
+      "cast",
+      "animated weapon coat",
+      "target mark and expiry",
+      "landed weapon contact",
+      "coat replacement and fade"
+    ],
+    "customAudioPhases": [
+      "cast",
+      "new target mark",
+      "landed weapon contact",
+      "coat fade"
+    ]
   },
   {
     "talentId": "warlock.cleave",
@@ -5807,10 +5821,24 @@
     },
     "generation": "pending",
     "clientMapping": "pending",
-    "inGameVerification": "pending",
-    "placeholder": "Prepared cast/attachment uses UO0x375A hue0x48E flash and0x1E5 audio; the explicit unapproved reaction candidate uses the same flash for real area damage. Visual missile717 is not a second damaging actor. Final hex_enchant weapon state, warlock_psychic_cast_2, hexpurgedebuff, curse_hit, hex_purge_explosion, charge/depletion/expiry and cast/hit audio remain pending. Learned input/automatic events36/39 remain gated; talent/right/quick icons are separately tracked.",
-    "customArtwork": "pending",
-    "customAudio": "pending"
+    "inGameVerification": "verified",
+    "placeholder": "Copper crescents follow the animated weapon. A triangle marks eligible targets until expiry or depletion, and confirmed charges produce a two-tile blast.",
+    "customArtwork": "verified",
+    "customAudio": "listening-pending",
+    "customCharacterAnimation": "reuse-native",
+    "customArtworkPhases": [
+      "cast",
+      "animated weapon coat",
+      "charged target mark",
+      "radius burst and damage contact",
+      "depletion and coat fade"
+    ],
+    "customAudioPhases": [
+      "cast",
+      "new target mark",
+      "confirmed burst",
+      "coat fade"
+    ]
   },
   {
     "talentId": "warlock.bladewarp",
@@ -5876,10 +5904,24 @@
     },
     "generation": "pending",
     "clientMapping": "pending",
-    "inGameVerification": "pending",
-    "placeholder": "Prepared cast uses UO0x375A hue0x48C flash and0x1E5 audio; supplied target hex uses the same identified flash. Final hex_enchant weapon state, warlock_psychic_cast_2, hexsyphondebuff, curse_hit, life/mana-return overlays and cast/hit/expiry audio remain pending. Learned input/event36 remain gated; talent/right/quick icons are separately tracked.",
-    "customArtwork": "pending",
-    "customAudio": "pending"
+    "inGameVerification": "verified",
+    "placeholder": "Teal leaves follow the animated weapon and a drop marks accepted targets. Mint and blue ribbons show actual kill-based life and mana gains independently.",
+    "customArtwork": "verified",
+    "customAudio": "listening-pending",
+    "customCharacterAnimation": "reuse-native",
+    "customArtworkPhases": [
+      "cast",
+      "animated weapon coat",
+      "target mark and expiry",
+      "separate life and mana returns",
+      "coat replacement and fade"
+    ],
+    "customAudioPhases": [
+      "cast",
+      "new target mark",
+      "actual recovery",
+      "coat fade"
+    ]
   },
   {
     "talentId": "warlock.mirroredblades",

@@ -151,10 +151,16 @@ public static class NamedCombat
     {
         if (target.LastKiller != player || !player.Alive) { return; }
         var siphon=HexSiphon.AfterKill(player);
+        int gearMana=ClassGear.Bonus(player,"mana-kill");
+        int gearLife=ClassGear.Bonus(player,"heal-kill")+(Demon(target)?ClassGear.Bonus(player,"demon-heal"):0);
         // The item callbacks add whole points to FP256 balances before capping.
         // Keep existing fractions, including the final fraction below maximum.
-        int mana=Math.Max(0,ClassGear.Bonus(player,"mana-kill")+siphon.Mana);
-        int life=Math.Max(0,ClassGear.Bonus(player,"heal-kill")+(Demon(target)?ClassGear.Bonus(player,"demon-heal"):0)+siphon.Life);
+        int mana=Math.Max(0,gearMana+siphon.Mana),life=Math.Max(0,gearLife+siphon.Life);
+        int manaBefore=siphon.Mana>0?NecromancerEffects.ManaBalance256(player):0;
+        int lifeBefore=siphon.Life>0?SkillHealth.Balance256(player):0;
         NecromancerEffects.AddMana(player,checked(mana*256));SkillHealth.Heal(player,checked(life*256));
+        bool manaReturned=siphon.Mana>0&&NecromancerEffects.ManaBalance256(player)-manaBefore>(long)Math.Max(0,gearMana)*256;
+        bool lifeReturned=siphon.Life>0&&SkillHealth.Balance256(player)-lifeBefore>(long)Math.Max(0,gearLife)*256;
+        if(manaReturned||lifeReturned){WeaponHexVisuals.Recover(player,lifeReturned,manaReturned);}
     }
 }

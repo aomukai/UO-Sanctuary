@@ -4,6 +4,12 @@ using Server.Mobiles;
 namespace Sanctuary;
 internal static class HexBaneEvents
 {
+    public static void Configure()=>WeaponLandedEvents.BeforeDamage+=Landed;
+    private static void Landed(WeaponLandedContact contact)
+    {
+        if(HexBane.Buff(contact.Source) is { Values.Maximum: >0 }&&WeaponHexes.Equipped(contact.Source))
+        {WeaponHexVisuals.BaneContact(contact.Source,contact.Target);}
+    }
     private static bool Apply(Mobile source,Mobile target)=>WeaponHexDelivery.Apply(source,target,static(owner,npc)=>
         HexBane.Buff(owner) is{} registered&&HexBane.ApplyPrepared(owner,npc,registered,true,TimedEffects.Now,replaceGroup:true));
     // Invoked after ordinary accuracy/block/dodge decisions. The returned
