@@ -1236,6 +1236,14 @@ def products():
             inGameVerification='verified', placeholder='A magenta ring marks the field. A marked death bursts from the actual consumed corpse and scatters bone chips over its four-tile blast.',
             customArtworkPhases=['cast', 'pulsing radius boundary', 'target mark and expiry', 'corpse burst and radius ring', 'recipient hit', 'replacement and field fade'],
             customAudioPhases=['cast', 'newly marked recipients', 'corpse burst', 'field fade']),
+        'warlock.miasmabolt': dict(customArtwork='verified', customAudio='listening-pending', customCharacterAnimation='reuse-native',
+            inGameVerification='verified', placeholder='An indigo bolt shows its fractional travel and actual collision. Violet wisps mark the stationary magic clouds and clear at expiry.',
+            customArtworkPhases=['cast', 'eight-direction bolt travel', 'recipient or terrain burst', 'confirmed magic hit', 'rank-scaled cloud and fade'],
+            customAudioPhases=['cast', 'terminal burst', 'confirmed magic hit']),
+        'warlock.miasmachain': dict(customArtwork='verified', customAudio='listening-pending', customCharacterAnimation='reuse-native',
+            inGameVerification='verified', placeholder='A violet clasp latches at the real head. Bright links show each accepted span and lower wisps remain along its prior stamps until they expire.',
+            customArtworkPhases=['cast', 'eight-direction head and latch', 'live span and cut', 'confirmed magic hit', 'frozen path cloud and fade'],
+            customAudioPhases=['cast', 'latch', 'accepted span pulse', 'confirmed magic hit', 'link fade']),
     }
     for effect, row in zip(effects, rows, strict=True):
         talent = effect['talentId']

@@ -65,15 +65,20 @@ internal static class MiasmaWorld
         if(plan==null){return 0;}var v=MissileVectors.VelocityFp8(plan.AimX-plan.X,plan.AimY-plan.Y,plan.Velocity256);long id=checked(_next+1);
         var n=new MiasmaNode(id,id,p.Serial.Value,p.Map.MapID,p.Z,MiasmaNodeKind.Bolt,p.X,p.Y,v.X,v.Y,50,birth,null,
             SourceRandom.InitLow(SeedLow()),new([new(p.X*2,p.Y*2)]),at,at.AddMilliseconds(40),at.AddMilliseconds(2040));Validate(n);
-        if(!NecromancerEffects.Pay(p,birth.Numbers.Mana256)){return 0;}Nodes=Nodes.Add(id,n);_next=id;p.PlaySound(0x1E5);return id; // Identified cast placeholder.
+        if(!NecromancerEffects.Pay(p,birth.Numbers.Mana256)){return 0;}
+        Nodes=Nodes.Add(id,n);_next=id;MiasmaVisuals.Cast(p,false);return id;
     }
     internal static bool Enemy(PlayerMobile p,BaseCreature t,int z)=>t is{Alive:true,Deleted:false,Blessed:false}&&t.Map==p.Map&&Math.Abs(t.Z-z)<16
         &&ClassCombat.IsHostile(p,t)&&!Server.Spells.SpellHelper.IsTown(t.Location,p);
-    internal static int Deliver(PlayerMobile p,BaseCreature target,GearDamage raw,bool direct,DateTime at)
+    internal static int Deliver(PlayerMobile p,BaseCreature target,GearDamage raw,bool direct,DateTime at,bool miasmaPresentation=false)
     {
+        var where=target.Location;var map=target.Map;bool show=miasmaPresentation&&!target.Hidden;
+        int before=show?SkillHealth.Balance256(target):0;
         p.DoHarmful(target,true);var parts=SkillCombat.MitigatePrepared(p,target,raw);int loss=SkillHealth.TypedDamage(p,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));
         if(direct){CreatureHitRecovery.Apply(target,p,loss);}CombatDamage.Finish(target,p);
-        if(target is{Alive:true,Deleted:false}){target.FixedEffect(0x375A,5,5,0x48D,0);}return loss; // Identified contact placeholder.
+        if(show&&(loss>0||SkillHealth.Balance256(target)<before)){MiasmaVisuals.Contact(p,map,where,at);}
+        else if(!miasmaPresentation&&target is{Alive:true,Deleted:false}){target.FixedEffect(0x375A,5,5,0x48D,0);}
+        return loss;
     }
     private static void Makers(MiasmaNode parent,double x,double y,DateTime at)
     {
@@ -114,16 +119,19 @@ internal static class MiasmaWorld
         if(result.Result==2)
         {
             if(selected!=0&&World.FindMobile((Serial)selected)is BaseCreature victim){TaintedFireBallMissiles.RequireOrdinaryRecipient(p,victim);}
-            Remove(n.Id);Makers(n,selected!=0?hitX:x,selected!=0?hitY:y,n.NextUtc);
+            double burstX=selected!=0?hitX:x,burstY=selected!=0?hitY:y;
+            Remove(n.Id);Makers(n,burstX,burstY,n.NextUtc);
+            MiasmaVisuals.Burst(p.Map,burstX,burstY,n.Z,false);
             if(selected!=0&&World.FindMobile((Serial)selected)is BaseCreature t&&Enemy(p,t,n.Z))
             {
                 SorceressEffects.MissileHit(p,t,"miasmabolt");ulong seed=n.Seed;var raw=MiasmaBoltBirths.Roll(n.Birth,false,ref seed);
-                if(!ClassAvoidance.Missile(t,reaction:true)){return Deliver(p,t,raw,true,n.NextUtc);}
+                if(!ClassAvoidance.Missile(t,reaction:true)){return Deliver(p,t,raw,true,n.NextUtc,miasmaPresentation:true);}
             }
             return 0;
         }
         Nodes=Nodes.SetItem(n.Id,n with{X=x,Y=y,Remaining=remaining,Trace=trace,NextUtc=n.NextUtc.AddMilliseconds(40)});
-        Effects.SendLocationEffect(Point(x,y,n.Z),p.Map,0x36E4,2,10,0x48D,0);return 0; // Identified magic bolt placeholder.
+        MiasmaVisuals.Travel(p.Map,x,y,n.Z,n.Vx,n.Vy,50-n.Remaining,false);
+        return 0;
     }
     private static void Cloud(MiasmaNode maker)
     {
@@ -159,7 +167,7 @@ internal static class MiasmaWorld
         // Scan current occupants once when late;do not backfill missed damage.
         long frames=(at-n.NextUtc).Ticks/TimeSpan.FromMilliseconds(40).Ticks+1;
         Nodes=Nodes.SetItem(n.Id,n with{NextUtc=n.NextUtc.AddMilliseconds(frames*40L)});
-        if(!Fighting(p,n.Map)){return default;}var c=n.Cloud;var center=Point(n.X,n.Y,n.Z);int x=(int)Math.Round(n.X*2),y=(int)Math.Round(n.Y*2),contacts=0,damage=0;
+        if(!Fighting(p,n.Map)){return default;}var c=n.Cloud;var center=Point(n.X,n.Y,n.Z);int contacts=0,damage=0;
         var query=c.Link is{} line?Point((n.X+line.EndX)/2,(n.Y+line.EndY)/2,n.Z):center;
         int range=(int)Math.Ceiling(SkillGeometry.Tiles(c.Shape.Radius)+(c.Link is{} path?Math.Max(Math.Abs(path.EndX-n.X),Math.Abs(path.EndY-n.Y))/2:0))+1;
         var targets=SkillCombat.NearbySnapshot<BaseCreature>(p.Map,query,range)
@@ -173,9 +181,9 @@ internal static class MiasmaWorld
             int raw=SourceSpellPacketRoll.Range(ref seed,MiasmaBoltBirths.Enhanced(c.Minimum256,c.MagicMastery),MiasmaBoltBirths.Enhanced(c.Maximum256,c.MagicMastery));
             if(c.Slow is{} slow){raw=slow.Damage256(raw);}
             Nodes=Nodes.SetItem(n.Id,Nodes[n.Id]with{Seed=seed});contacts++;
-            damage=(int)Math.Min(int.MaxValue,(long)damage+Deliver(p,t,DruidMoltenBoulder.Potion(c.Modifiers,new(0,0,0,0,0,Magic:raw/256.0)),c.Ability==CombatAbility.MiasmaChain,at));
+            damage=(int)Math.Min(int.MaxValue,(long)damage+Deliver(p,t,DruidMoltenBoulder.Potion(c.Modifiers,new(0,0,0,0,0,Magic:raw/256.0)),c.Ability==CombatAbility.MiasmaChain,at,miasmaPresentation:true));
         }
-        Effects.SendLocationEffect(center,p.Map,0x374A,2,10,0x48D,0);return(contacts,damage); // Explicit magic-cloud placeholder,not poison damage.
+        return(contacts,damage);
     }
     internal static void Tick(DateTime at)
     {
@@ -185,6 +193,7 @@ internal static class MiasmaWorld
             var result=TickPrepared(at,onlyOwner:owner,allowPreparedChains:false);
             if(result.Fault!=null){Log.Warning("Miasma Bolt stopped an unsupported node for {Owner}: {Reason}",owner,result.Fault);}
         }
+        MiasmaVisuals.RefreshClouds(Nodes.Values,at);
     }
     internal static MiasmaAdvance TickPrepared(DateTime at,bool? actions=null,uint? onlyOwner=null,bool allowPreparedChains=true)
     {

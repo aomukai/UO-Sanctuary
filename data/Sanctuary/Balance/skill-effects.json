@@ -5907,10 +5907,23 @@
     },
     "generation": "pending",
     "clientMapping": "pending",
-    "inGameVerification": "pending",
-    "placeholder": "Prepared numerical packet suppliers produce no new visual. Learned cast/bolt/cloud presentation is not enabled. Final shadow cast overlay, travelling magic bolt, impact, lingering entropy cloud, expiry and audio remain pending; talent/left/right/quick icons are tracked separately.",
-    "customArtwork": "pending",
-    "customAudio": "pending"
+    "inGameVerification": "verified",
+    "placeholder": "An indigo bolt shows its fractional travel and actual collision. Violet wisps mark the stationary magic clouds and clear at expiry.",
+    "customArtwork": "verified",
+    "customAudio": "listening-pending",
+    "customCharacterAnimation": "reuse-native",
+    "customArtworkPhases": [
+      "cast",
+      "eight-direction bolt travel",
+      "recipient or terrain burst",
+      "confirmed magic hit",
+      "rank-scaled cloud and fade"
+    ],
+    "customAudioPhases": [
+      "cast",
+      "terminal burst",
+      "confirmed magic hit"
+    ]
   },
   {
     "talentId": "warlock.ringoffire",
@@ -6022,10 +6035,25 @@
     },
     "generation": "pending",
     "clientMapping": "pending",
-    "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending",
-    "customArtwork": "pending",
-    "customAudio": "pending"
+    "inGameVerification": "verified",
+    "placeholder": "A violet clasp latches at the real head. Bright links show each accepted span and lower wisps remain along its prior stamps until they expire.",
+    "customArtwork": "verified",
+    "customAudio": "listening-pending",
+    "customCharacterAnimation": "reuse-native",
+    "customArtworkPhases": [
+      "cast",
+      "eight-direction head and latch",
+      "live span and cut",
+      "confirmed magic hit",
+      "frozen path cloud and fade"
+    ],
+    "customAudioPhases": [
+      "cast",
+      "latch",
+      "accepted span pulse",
+      "confirmed magic hit",
+      "link fade"
+    ]
   },
   {
     "talentId": "warlock.flamewave",

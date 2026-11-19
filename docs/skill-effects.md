@@ -172,6 +172,10 @@ Lethargy draws a teal boundary and attaches an hourglass to each slowed target. 
 
 Muted ClassicUO checks covered all 64 frames, all three ground radii, a moving Lethargy mark and its expiry after leaving the area, shared-slot replacement, Rancor's primary effect and confusion precedence, and Death's corpse consumption with retained loot. The final sigil and its target marks expired on their native clocks. Native save-and-reload checks passed for all three sigils. ClassicUO decoded eight new Sonniss cues. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
 
+Miasma Bolt follows its fractional path in indigo and bursts at the native contact point. Low violet wisps mark the resulting magic clouds. Clouds at the same half-tile can share one sprite. Miasma Chain sends out a clasp and draws bright links along each accepted half-second span. Softer ground wisps remain along the frozen paths until their clouds expire. The spells share a small flash where an enemy loses life. [Miasma Bolt sheet and prompt](../art/spell-effects/warlock-miasma-bolt) · [Miasma Chain sheet and prompt](../art/spell-effects/warlock-miasma-chain)
+
+Muted ClassicUO checks covered a cancelled Bolt, direct and cloud damage, cloud expiry, and a wall impact that spared the enemy behind it. Chain remained attached to the original enemy as both endpoints moved. A later wall cut the link, and its previous clouds stayed on their original paths and expired independently. Native tests passed for both skills across a save and reload. ClassicUO decoded seven new Sonniss edits. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
 Charged Bolt skitters along its existing paths, Lightning travels in a straight streak, and Chain Lightning sends violet arcs between targets. Static Field expands along the ground and Thunder Storm flashes above the caster at release and on its recurring strike schedule. The player casts were checked in ClassicUO with audio disabled. Nine Sonniss edits cover their cast and impact cues. Each cue has passed format and level checks and awaits a listening pass. [Cue recipes](../art/spell-effects/sonniss-cues.json)
 
 Ice Bolt travels as a thin shard, Ice Blast as a compact comet, and Glacial Spike as a heavier crystal with an area burst. Frost Nova expands across the ground. The shared cold overlays follow the affected target and clear with the game status. Thaw and cold corpse shatter reuse the Ice Blast fragments. The player effects were checked in ClassicUO with audio disabled. Eight Sonniss edits cover releases, impacts, and the shared cold corpse shatter. Their listening pass is queued. [Cold status sprite source](../art/spell-effects/cold-status/sheet.png) · [Cue recipes](../art/spell-effects/sonniss-cues.json)
@@ -1364,11 +1368,11 @@ Inherited NPC item absorption now changes life mechanically. Final Iron Golem ab
 | Warlock | Eldritch Blast | needed | eldritchblastnova, surge_hex_explode, eldritchblastperiodic, warlock_psychic_cast_1_no_hex, eldritchblastnova |
 | Warlock | Hex: Siphon | needed | hexsiphon, warlock_psychic_cast_2 |
 | Warlock | Mirrored Blades | needed | No source effect cue; final presentation pending |
-| Warlock | Miasma Bolt | needed | miasmabolt, warlock_shadow_cast_1, miasmabolt, cast_undead |
+| Warlock | Miasma Bolt | custom | Directional flight, collision burst, life-loss flash, and lingering magic wisps. |
 | Warlock | Ring of Fire | custom | Ember cast, moving ray samples, bursts, and damage flashes. |
 | Warlock | Sigil: Lethargy | custom | Teal radius boundary and target-bound slow hourglass. |
 | Warlock | Sigil: Rancor | custom | Bronze radius boundary, recipient triangle, and effective confusion flash. |
-| Warlock | Miasma Chain | needed | miasmachainsmaker, warlock_shadow_cast_1 |
+| Warlock | Miasma Chain | custom | Moving clasp, pulsing links, frozen path wisps, and separate link and cloud fades. |
 | Warlock | Flame Wave | custom | Lateral reveal, moving front, terrain stops, and lingering fire. |
 | Warlock | Sigil: Death | custom | Magenta boundary, bone seal, and corpse-centered four-tile eruption. |
 | Warlock | Enhanced Entropy | not-applicable | shadow_mastery |

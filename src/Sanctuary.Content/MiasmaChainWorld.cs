@@ -51,8 +51,8 @@ internal static class MiasmaChainWorld
             SourceRandom.InitLow(SeedLow()),new([new(p.X*2,p.Y*2)]),at,at.AddMilliseconds(40),at.AddMilliseconds(40),at.AddMilliseconds(40+birth.Numbers.LinkFrames*40L));Validate(n);
         if(!NecromancerEffects.Pay(p,birth.Numbers.Mana256)){return 0;}
         foreach(var old in For(p).OrderBy(n=>n.CreatedUtc).ThenBy(n=>n.Id).Take(Math.Max(0,For(p).Length-birth.Numbers.MaximumChains+1)))
-        {Links=Links.Remove(old.Id);} // Paid oldest-first replacement;already emitted clouds keep their own clocks.
-        MiasmaWorld.CommitIdentity(id);Links=Links.Add(id,n);p.PlaySound(0x1E5);return id; // Identified placeholder.
+        {Retire(old,p,at);} // Paid oldest-first replacement;already emitted clouds keep their own clocks.
+        MiasmaWorld.CommitIdentity(id);Links=Links.Add(id,n);MiasmaVisuals.Cast(p,true);return id;
     }
     private static bool ClearSegment(Map map,double x,double y,double endX,double endY,int z)
     {
@@ -76,7 +76,7 @@ internal static class MiasmaChainWorld
         var v=MissileVectors.VelocityFp8((int)Math.Round((aimX-n.HeadX)*2),(int)Math.Round((aimY-n.HeadY)*2),speed);
         double dx=aimX-n.HeadX,dy=aimY-n.HeadY;bool arrived=dx*dx+dy*dy<=v.X*v.X+v.Y*v.Y;
         double x=arrived?aimX:n.HeadX+v.X,y=arrived?aimY:n.HeadY+v.Y;
-        if(!ClearSegment(p.Map,n.HeadX,n.HeadY,x,y,n.Z)){Links=Links.Remove(n.Id);return 0;}
+        if(!ClearSegment(p.Map,n.HeadX,n.HeadY,x,y,n.Z)){Retire(n,p,n.NextUtc);return 0;}
         var trace=SourceMissileSteps.Advance(n.HeadX,n.HeadY,x-n.HeadX,y-n.HeadY,n.Trace);BaseCreature victim=null;
         foreach(var cell in trace.Cells)
         {
@@ -90,18 +90,35 @@ internal static class MiasmaChainWorld
             TaintedFireBallMissiles.RequireOrdinaryRecipient(p,victim);x=victim.X;y=victim.Y;arrived=true;
             // Commit attachment before any damage/death/reaction callback.
             Links=Links.SetItem(n.Id,n with{HeadX=x,HeadY=y,TargetX=x,TargetY=y,Target=victim.Serial.Value,Attached=true,Trace=trace,NextUtc=n.NextUtc.AddMilliseconds(40)});
+            MiasmaVisuals.Burst(p.Map,x,y,n.Z,true);
             int raw=SourceSpellPacketRoll.Range(ref seed,MiasmaBoltBirths.Enhanced(n.Birth.Numbers.DirectMinimum256,n.Birth.MagicMastery),MiasmaBoltBirths.Enhanced(n.Birth.Numbers.DirectMaximum256,n.Birth.MagicMastery));
             Links=Links.SetItem(n.Id,Links[n.Id]with{Seed=seed});SorceressEffects.MissileHit(p,victim,"miasmachains");
             if(!ClassAvoidance.Missile(victim,reaction:true))
-            {loss=MiasmaWorld.Deliver(p,victim,DruidMoltenBoulder.Potion(n.Birth.Modifiers,new(0,0,0,0,0,Magic:n.Birth.Slow.Damage256(raw)/256.0)),true,n.NextUtc);}
+            {loss=MiasmaWorld.Deliver(p,victim,DruidMoltenBoulder.Potion(n.Birth.Modifiers,new(0,0,0,0,0,Magic:n.Birth.Slow.Damage256(raw)/256.0)),true,n.NextUtc,miasmaPresentation:true);}
         }
-        else{Links=Links.SetItem(n.Id,n with{HeadX=x,HeadY=y,TargetX=aimX,TargetY=aimY,Attached=arrived,Trace=trace,NextUtc=n.NextUtc.AddMilliseconds(40)});}
+        else
+        {
+            Links=Links.SetItem(n.Id,n with{HeadX=x,HeadY=y,TargetX=aimX,TargetY=aimY,Attached=arrived,Trace=trace,NextUtc=n.NextUtc.AddMilliseconds(40)});
+            if(arrived){MiasmaVisuals.Burst(p.Map,x,y,n.Z,true);}
+            else
+            {
+                int phase=(int)((n.NextUtc-n.CreatedUtc).TotalMilliseconds/40);
+                MiasmaVisuals.Travel(p.Map,x,y,n.Z,x-n.HeadX,y-n.HeadY,phase,true);
+            }
+        }
         return loss;
     }
     private static (double X,double Y) End(MiasmaChainState n,PlayerMobile p)
     {
         double x=n.HeadX,y=n.HeadY,length=MiasmaWorld.LinkLength(p.X,p.Y,x,y);
         if(length>n.Birth.Numbers.LinkLength){double fraction=n.Birth.Numbers.LinkLength/length;x=p.X+(x-p.X)*fraction;y=p.Y+(y-p.Y)*fraction;}return(x,y);
+    }
+    private static void Retire(MiasmaChainState n,PlayerMobile owner,DateTime at)
+    {
+        Links=Links.Remove(n.Id);
+        if(n.Maker||!MiasmaWorld.Fighting(owner,n.Map)||Math.Abs(owner.Z-n.Z)>=16){return;}
+        var end=End(n,owner);
+        MiasmaVisuals.EndChain(owner,n.Z,end.X,end.Y,at);
     }
     internal static void Tick(DateTime at)
     {
@@ -118,7 +135,7 @@ internal static class MiasmaChainWorld
         while(true)
         {
             var n=Links.Values.Where(n=>(!onlyOwner.HasValue||n.Owner==onlyOwner)&&n.NextUtc<=at).OrderBy(n=>n.NextUtc).ThenBy(n=>n.Id).FirstOrDefault();if(n==null){break;}
-            var p=Owner(n.Owner);if(p==null||at>=n.UntilUtc){Links=Links.Remove(n.Id);continue;}
+            var p=Owner(n.Owner);if(p==null||at>=n.UntilUtc){Retire(n,p,at);continue;}
             if(!MiasmaWorld.Fighting(p,n.Map,actions)||Math.Abs(p.Z-n.Z)>=16)
             {
                 long frames=(at-n.NextUtc).Ticks/TimeSpan.FromMilliseconds(40).Ticks+1;
@@ -136,12 +153,12 @@ internal static class MiasmaChainWorld
         foreach(var n in Snapshot().Where(n=>(!onlyOwner.HasValue||n.Owner==onlyOwner)&&!n.Maker&&n.NextStampUtc<=at))
         {
             var p=Owner(n.Owner);if(p==null){Links=Links.Remove(n.Id);continue;}if(!MiasmaWorld.Fighting(p,n.Map,actions)||Math.Abs(p.Z-n.Z)>=16){continue;}
-            var end=End(n,p);if(!ClearSegment(p.Map,p.X,p.Y,end.X,end.Y,n.Z)){Links=Links.Remove(n.Id);continue;}
+            var end=End(n,p);if(!ClearSegment(p.Map,p.X,p.Y,end.X,end.Y,n.Z)){Retire(n,p,at);continue;}
             long id=MiasmaWorld.NextIdentity;ulong seed=n.Seed;ulong child=SourceRandom.InitLow(unchecked((int)SourceRandom.Roll(ref seed)));
             var stamp=new MiasmaChainStamp(id,n.Id,n.Owner,n.Map,n.Z,p.X,p.Y,end.X,end.Y,n.Birth,child,at,at.AddMilliseconds(40));Validate(stamp);
             MiasmaWorld.CommitIdentity(id);Makers=Makers.Add(id,stamp);long skipped=(at-n.NextStampUtc).Ticks/TimeSpan.FromMilliseconds(500).Ticks+1;
             Links=Links.SetItem(n.Id,n with{Seed=seed,NextStampUtc=n.NextStampUtc.AddMilliseconds(skipped*500)});stamps++;
-            Effects.SendLocationEffect(Point(end.X,end.Y,n.Z),p.Map,0x37C4,2,10,0x48D,0); // Identified linked-end placeholder.
+            MiasmaVisuals.Stamp(p,stamp);
         }
         foreach(var n in Stamps().Where(n=>(!onlyOwner.HasValue||n.Owner==onlyOwner)&&n.NextUtc<=at))
         {

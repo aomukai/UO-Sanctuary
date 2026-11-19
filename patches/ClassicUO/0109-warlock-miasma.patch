@@ -1,0 +1,62 @@
+diff --git a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameEffect.cs
+@@ -211,6 +211,7 @@
+                         _ when SpellEffectGraphics.IsWarlockRitualAnimation(Graphic) => SpellEffectGraphics.WarlockRitualFrames,
+                         _ when SpellEffectGraphics.IsWarlockFireAnimation(Graphic) => SpellEffectGraphics.WarlockFireFrames,
+                         _ when SpellEffectGraphics.IsSigilAnimation(Graphic) => SpellEffectGraphics.SigilFrames,
++                        _ when SpellEffectGraphics.IsMiasmaAnimation(Graphic) => SpellEffectGraphics.MiasmaFrames,
+                         _ when SpellEffectGraphics.IsAssassinLobAnimation(Graphic) => SpellEffectGraphics.AssassinLobFrames,
+                         SpellEffectGraphics.DeathSentryBurst => SpellEffectGraphics.SentryFrames,
+                         _ when SpellEffectGraphics.IsSentryFlash(Graphic) => SpellEffectGraphics.SentryFrames,
+@@ -241,6 +242,7 @@
+                             && !SpellEffectGraphics.IsWarlockRitualLoop(Graphic)
+                             && !SpellEffectGraphics.IsWarlockFireLoop(Graphic)
+                             && !SpellEffectGraphics.IsSigilField(Graphic) && !SpellEffectGraphics.IsSigilMark(Graphic)
++                            && !SpellEffectGraphics.IsMiasmaCloud(Graphic)
+                             && Graphic is not (SpellEffectGraphics.WhirlwindSpin or SpellEffectGraphics.FrenzySpeed or SpellEffectGraphics.BladeShieldRing
+                                 or SpellEffectGraphics.EnchantWard or SpellEffectGraphics.ImpaleSlow
+                                 or SpellEffectGraphics.BoneArmorWard or SpellEffectGraphics.PoisonAfflicted
+@@ -385,6 +387,8 @@
+                             _ when SpellEffectGraphics.IsSigilField(Graphic) || SpellEffectGraphics.IsSigilMark(Graphic) => 124,
+                             SpellEffectGraphics.DeathSigilBurst or SpellEffectGraphics.DeathSigilBurstRing => 100,
+                             _ when SpellEffectGraphics.IsSigilAnimation(Graphic) => 83,
++                            _ when SpellEffectGraphics.IsMiasmaCloud(Graphic) => 135,
++                            _ when SpellEffectGraphics.IsMiasmaAnimation(Graphic) => 81,
+                             SpellEffectGraphics.ShockWebField => 95,
+                             _ when SpellEffectGraphics.IsAssassinLobAnimation(Graphic) => 66,
+                             _ when SpellEffectGraphics.IsSentryFlash(Graphic) => 60,
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -227,7 +227,8 @@
+                 hue = Constants.DEAD_RANGE_COLOR;
+             }
+ 
+-            Vector3 hueVec = ShaderHueTranslator.GetHueVector(hue, data.IsPartialHue, data.IsTranslucent ? .5f : 1f, effect: true);
++            float opacity = SpellEffectGraphics.IsMiasmaCloud(Graphic) ? .72f : data.IsTranslucent ? .5f : 1f;
++            Vector3 hueVec = ShaderHueTranslator.GetHueVector(hue, data.IsPartialHue, opacity, effect: true);
+ 
+             if (SpellEffectGraphics.IsDruidCharge(Graphic) && Source is Mobile shifter)
+             {
+diff --git a/src/ClassicUO.Client/Game/Managers/EffectManager.cs b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+--- a/src/ClassicUO.Client/Game/Managers/EffectManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+@@ -147,6 +147,7 @@
+             bool renewField = type == GraphicEffectType.FixedXYZ
+                 && (SpellEffectGraphics.IsFireField(graphic) || SpellEffectGraphics.IsJavelinCloud(graphic)
+                     || SpellEffectGraphics.IsSigilField(graphic)
++                    || SpellEffectGraphics.IsMiasmaCloud(graphic)
+                     || graphic is SpellEffectGraphics.BoneBarrierConnector or SpellEffectGraphics.ShockWebField
+                         or SpellEffectGraphics.FlameWaveField or SpellEffectGraphics.ApocalypseWarning);
+             if (renewStatus || renewField)
+@@ -157,7 +158,8 @@
+                     if (live.Graphic == graphic && !live.IsDestroyed
+                         && (renewStatus ? live.Source is Entity entity && entity.Serial == source
+                             : live.Source == null && live.X == srcX && live.Y == srcY && live.Z == srcZ
+-                                && (graphic is not (SpellEffectGraphics.ShockWebField or SpellEffectGraphics.FlameWaveField)
++                                && ((graphic is not (SpellEffectGraphics.ShockWebField or SpellEffectGraphics.FlameWaveField)
++                                        && !SpellEffectGraphics.IsMiasmaCloud(graphic))
+                                     || live.Offset == groundOffset)
+                                 && ((graphic != SpellEffectGraphics.ApocalypseWarning && !SpellEffectGraphics.IsSigilField(graphic))
+                                     || live.HolyAuraRadius == holyAuraRadius)))

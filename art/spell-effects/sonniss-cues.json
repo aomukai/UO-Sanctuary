@@ -566,6 +566,13 @@
     "DeathSigilCast": {"source": "ghost-whisper", "start": 0.107, "duration": 0.47, "fadeIn": 0.041, "fadeOut": 0.132, "highpass": 332, "peakDb": -19},
     "DeathSigilMark": {"source": "snap", "start": 0.1, "duration": 0.224, "fadeIn": 0.01, "fadeOut": 0.095, "highpass": 651, "peakDb": -25},
     "DeathSigilBurst": {"source": "close-thunder", "start": 1.98, "duration": 0.52, "fadeIn": 0.007, "fadeOut": 0.17, "highpass": 209, "peakDb": -16},
-    "SigilFade": {"source": "ghost-whisper", "start": 0.414, "duration": 0.31, "fadeIn": 0.024, "fadeOut": 0.135, "highpass": 592, "peakDb": -26}
+    "SigilFade": {"source": "ghost-whisper", "start": 0.414, "duration": 0.31, "fadeIn": 0.024, "fadeOut": 0.135, "highpass": 592, "peakDb": -26},
+    "MiasmaBoltCast": {"source": "ghost-whisper", "start": 0.209, "duration": 0.37, "fadeIn": 0.033, "fadeOut": 0.108, "highpass": 305, "peakDb": -21},
+    "MiasmaBoltBurst": {"source": "arcane-doppler", "start": 0.316, "duration": 0.348, "fadeIn": 0.009, "fadeOut": 0.134, "highpass": 298, "peakDb": -19},
+    "MiasmaContact": {"source": "electric-crackle", "start": 0.541, "duration": 0.15, "fadeIn": 0.006, "fadeOut": 0.056, "highpass": 841, "peakDb": -27},
+    "MiasmaChainCast": {"source": "arcane-doppler", "start": 0.166, "duration": 0.421, "fadeIn": 0.031, "fadeOut": 0.129, "highpass": 408, "peakDb": -19},
+    "MiasmaChainLatch": {"source": "metal-hit", "start": 0.136, "duration": 0.241, "fadeIn": 0.008, "fadeOut": 0.089, "highpass": 502, "peakDb": -23},
+    "MiasmaChainStamp": {"source": "electric-crackle", "start": 0.418, "duration": 0.163, "fadeIn": 0.01, "fadeOut": 0.067, "highpass": 780, "peakDb": -28},
+    "MiasmaChainFade": {"source": "ghost-whisper", "start": 0.411, "duration": 0.308, "fadeIn": 0.038, "fadeOut": 0.129, "highpass": 559, "peakDb": -26}
   }
 }

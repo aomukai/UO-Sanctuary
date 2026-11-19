@@ -267,6 +267,27 @@ public static class SpellEffectGraphics
     public static bool IsSigilField(ushort graphic) => graphic is LethargySigilField or RancorSigilField or DeathSigilField;
     public static bool IsSigilMark(ushort graphic) => graphic is LethargySigilMark or RancorSigilMark or DeathSigilMark;
 
+    public const int MiasmaFrames = 4;
+    public const ushort MiasmaBoltCast = 60800;
+    public const ushort MiasmaBoltFlight = 60804;
+    public const ushort MiasmaBoltBurst = 60836;
+    public const ushort MiasmaBoltCloud = 60840;
+    public const ushort MiasmaBoltFade = 60852;
+    public const ushort MiasmaContact = 60856;
+    public const ushort MiasmaChainCast = 60900;
+    public const ushort MiasmaChainLink = 60904;
+    public const ushort MiasmaChainLatch = 60936;
+    public const ushort MiasmaChainCloud = 60940;
+    public const ushort MiasmaChainMistFade = 60952;
+    public const ushort MiasmaChainFade = 60956;
+    public static bool IsMiasmaCloud(ushort graphic) => graphic is >= MiasmaBoltCloud and < MiasmaBoltFade
+        && (graphic - MiasmaBoltCloud) % MiasmaFrames == 0
+        || graphic is >= MiasmaChainCloud and < MiasmaChainMistFade
+        && (graphic - MiasmaChainCloud) % MiasmaFrames == 0;
+    public static bool IsMiasmaAnimation(ushort graphic) => IsMiasmaCloud(graphic)
+        || graphic is MiasmaBoltCast or MiasmaBoltBurst or MiasmaBoltFade or MiasmaContact
+            or MiasmaChainCast or MiasmaChainLatch or MiasmaChainMistFade or MiasmaChainFade;
+
     public const int AssassinLobFrames = 4;
     public const int FireBlastRadiusSubtiles = 5;
     public const ushort FireBlastThrow = 62764;
@@ -799,6 +820,9 @@ public static class SpellEffectGraphics
             or >= BindDemonTravel and < BindDemonSeal
             or >= RingOfFireTravel and < RingOfFireTravel + WarlockFireFrames
             or >= FlameWaveFront and <= FlameWaveField or FlameWaveFade
+            or >= MiasmaBoltFlight and < MiasmaBoltCloud or >= MiasmaChainLink and < MiasmaChainCloud
+            or MiasmaBoltFade or MiasmaChainMistFade or MiasmaChainFade
+            || IsMiasmaCloud(graphic)
             || IsBarbarianThrowFlight(graphic);
 
     public static bool IsHydraHeadFrame(ushort graphic) => graphic is >= HydraHeadRight and <= HydraHeadGone;

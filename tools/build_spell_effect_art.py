@@ -1170,6 +1170,48 @@ def warlock_sigils():
         ))
 
 
+def warlock_miasma():
+    bolt = "warlock-miasma-bolt"
+    chain = "warlock-miasma-chain"
+    bolt_cast, flight, bolt_burst, cloud = load_grid(bolt, (1254, 1254))
+    chain_cast, links, clasp, trail = load_grid(chain, (1254, 1254))
+    write_group(bolt, 60804, directional_flight(
+        [ImageEnhance.Brightness(cell).enhance(1.23) for cell in flight],
+        ((263, 153), (265, 155), (265, 153), (266, 155)), .164, (90, 106), 45, 141))
+    write_group(chain, 60904, directional_flight(
+        [ImageEnhance.Brightness(cell).enhance(1.24) for cell in links],
+        ((158, 157), (157, 157), (157, 157), (157, 157)), .196, (82, 94), 42, 148))
+    for name, graphic, row, scale, pivot, canvas, padding, cutoff, light in (
+        (bolt, 60800, bolt_cast, .220, (159, 174), (77, 104), 46, 151, 1.15),
+        (bolt, 60836, bolt_burst, .253, (158, 156), (92, 104), 44, 146, 1.22),
+        (bolt, 60856, bolt_burst, .133, (159, 155), (56, 74), 34, 155, 1.25),
+        (chain, 60900, chain_cast, .220, (158, 174), (84, 104), 46, 147, 1.16),
+        (chain, 60936, clasp, .195, (158, 156), (74, 92), 38, 151, 1.23),
+    ):
+        write_group(name, graphic, (
+            frame(ImageEnhance.Brightness(cell).enhance(light), scale, pivot, canvas, padding, cutoff)
+            for cell in row
+        ))
+    for name, graphic, row, pivot, light in (
+        (bolt, 60840, cloud, (157, 185), 1.30),
+        (chain, 60940, trail, (157, 190), 1.13),
+    ):
+        write_group(name, graphic, (
+            frame(ImageEnhance.Brightness(cell).enhance(light), scale, pivot, (102, 84), 26, 144)
+            for scale in (.203, .259, .315) for cell in row
+        ))
+    for name, graphic, row, pivot in (
+        (bolt, 60852, cloud, (157, 185)),
+        (chain, 60952, trail, (157, 190)),
+        (chain, 60956, chain_cast, (157, 171)),
+    ):
+        write_group(name, graphic, (
+            frame(ImageEnhance.Brightness(cell).enhance(light), scale, pivot, (82, 90), 28, cutoff)
+            for cell, scale, light, cutoff in zip(row, (.215, .188, .155, .125),
+                                                 (1.12, .93, .75, .58), (144, 146, 135, 120))
+        ))
+
+
 def necromancer_curses():
     cells = [cell for row in load_grid("necromancer-curses", (1448, 1086), rows=3) for cell in row]
     for cell in cells[:10]:
@@ -2016,3 +2058,4 @@ if __name__ == "__main__":
     warlock_engorge()
     warlock_fire()
     warlock_sigils()
+    warlock_miasma()
