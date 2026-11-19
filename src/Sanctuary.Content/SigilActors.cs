@@ -16,7 +16,10 @@ internal sealed record SigilActor(uint Marker,uint Owner,int Map,Point3D Origin,
     int Frames,DateTime BornUtc,int LastPulse=-1,bool Retiring=false,CombatAbility Ability=CombatAbility.SigilLethargy,
     [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] int? RancorPulse=null,
     [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] FirestormModifiers DeathModifiers=null,
-    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] int? DeathPulse=null);
+    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] int? DeathPulse=null)
+{
+    internal DateTime ExpiresUtc => BornUtc.AddMilliseconds(Frames * 40L);
+}
 internal sealed record SigilStat(int Stat,int Layer,int Value);
 internal sealed record SigilOwnerState(uint Owner,DateTime EpochUtc,SigilStat[] Stats,float Expiry,uint Flags,DateTime EventUtc);
 internal sealed record SigilActorSave(SigilActor[] Actors,SigilOwnerState[] Owners)
@@ -133,7 +136,7 @@ internal static class SigilActors
                 if(!resolved.TryGetValue(id,out var actor))
                 {
                     if(!_actors.TryGetValue(id,out var prior)||prior.Owner!=owner.Serial.Value||World.FindItem((Serial)id) is not{Deleted:false}){return null;}
-                    actor=new(3,true,prior.Retiring?0:Math.Max(0,(float)(prior.BornUtc.AddMilliseconds(prior.Frames*40L)-at).TotalMilliseconds));resolved.Add(id,actor);
+                    actor=new(3,true,prior.Retiring?0:Math.Max(0,(float)(prior.ExpiresUtc-at).TotalMilliseconds));resolved.Add(id,actor);
                 }
                 return actor;
             }));
@@ -147,7 +150,7 @@ internal static class SigilActors
             {
                 if(request.Body.Flags!=1||request.Body.Missile!=shape.Id||request.Body.Point!=new Point2D(ground.X*2,ground.Y*2))
                 {throw new NotSupportedException("World Sigil factory request changed");}
-                var marker=new Static(0x1B7A){Name=SkillMechanics.For(values.Ability).Name+" (placeholder)",Movable=false};marker.MoveToWorld(ground,map);
+                var marker=new Static(0x1B7A){Name=SkillMechanics.For(values.Ability).Name,Movable=false,Visible=false};marker.MoveToWorld(ground,map);
                 if(payment!=null&&!payment()){marker.Delete();return null;}
                 created=new(marker.Serial.Value,owner.Serial.Value,map.MapID,ground,values.Rank,profile.Level,shape.Id,shape.Key,shape.Frames,born,Ability:values.Ability,DeathModifiers:values.Ability==CombatAbility.SigilDeath?DruidFirestorm.Modifiers(owner):null);
                 _actors=_actors.Add(created.Marker,created);
@@ -166,11 +169,12 @@ internal static class SigilActors
         foreach(var s in _actors.Values)
         {
             var item=World.FindItem((Serial)s.Marker);var owner=World.FindMobile((Serial)s.Owner)as PlayerMobile;
-            if(item is not{Deleted:false}||item.Map?.MapID!=s.Map||item.Location!=s.Origin||owner is not{Alive:true,Deleted:false}){Remove(s);continue;}
+            if(item is not{Deleted:false}||item.Map?.MapID!=s.Map||item.Location!=s.Origin||owner is not{Alive:true,Deleted:false}){Remove(s,at);continue;}
+            if(item.Visible){item.Visible=false;}
             long age=(at-s.BornUtc).Ticks/TimeSpan.TicksPerMillisecond/40;if(age<0){continue;}
-            if(!s.Retiring&&age>s.Frames){Remove(s);continue;}
-            int elapsed=s.Retiring?s.Frames:Math.Min((int)age,s.Frames),pulse=elapsed/6*6;
             bool fighting=AssassinTrapRoster.Fighting(s.Owner)&&owner.Map==item.Map&&!MinionSafeAreas.Contains(owner);
+            if(!s.Retiring&&age>s.Frames){Remove(s,at,fighting&&s.LastPulse>=0);continue;}
+            int elapsed=s.Retiring?s.Frames:Math.Min((int)age,s.Frames),pulse=elapsed/6*6;
             bool terminal=s.Retiring||elapsed>=s.Frames;
             if(pulse>s.LastPulse)
             {
@@ -180,11 +184,15 @@ internal static class SigilActors
                     _=>new(-1,0,6,recipient),null,null,(id,fn,skill,rank)=>
                     {
                         if(id!=unchecked((int)s.Marker)||fn!=recipient||skill!=skillId||rank!=s.Rank){throw new NotSupportedException("Sigil pulse source identity changed");}
-                        if(fighting){Pulse?.Invoke(next,owner,at);}
+                        if(fighting)
+                        {
+                            Pulse?.Invoke(next,owner,at);
+                            if(!terminal){SigilVisuals.Renew(next,at);}
+                        }
                     },_=>terminal?2:1);
                 _=GrimWardLifecycle.Tick(new(unchecked((int)s.Marker),3,s.Missile,s.Origin.X*2,s.Origin.Y*2,skillId,s.Rank),driverFrame,services);
             }
-            if(terminal){Remove(s);}
+            if(terminal){Remove(s,at,fighting);}
         }
         foreach(var state in _owners.Values)
         {
@@ -192,9 +200,16 @@ internal static class SigilActors
             {_owners=_owners.Remove(state.Owner);} // Owner-state205 carries no recipient stats or player resource recovery.
         }
     }
-    private static void Remove(SigilActor s){_actors=_actors.Remove(s.Marker);World.FindItem((Serial)s.Marker)?.Delete();}
+    private static void Remove(SigilActor s,DateTime at,bool fade=false)
+    {
+        _actors=_actors.Remove(s.Marker);
+        World.FindItem((Serial)s.Marker)?.Delete();
+        bool sharesBoundary=_actors.Values.Any(other=>!other.Retiring&&other.Ability==s.Ability&&other.Map==s.Map
+            &&other.Origin==s.Origin&&other.ExpiresUtc>at&&SigilVisuals.Radius(other)==SigilVisuals.Radius(s));
+        SigilVisuals.Remove(s,!sharesBoundary,fade&&!sharesBoundary);
+    }
     internal static void Clear(PlayerMobile owner)
-    {foreach(var s in _actors.Values){if(s.Owner==owner.Serial.Value){Remove(s);}}_owners=_owners.Remove(owner.Serial.Value);}
+    {foreach(var s in _actors.Values){if(s.Owner==owner.Serial.Value){Remove(s,TimedEffects.Now);}}_owners=_owners.Remove(owner.Serial.Value);}
     internal static SigilActorSave Snapshot()=>new(_actors.Values.OrderBy(s=>s.Marker).ToArray(),_owners.Values.OrderBy(s=>s.Owner).ToArray()){DeathMarks=SigilDeathProposal.Snapshot()};
     internal static bool ClaimDeathPulse(SigilActor pulse)
     {

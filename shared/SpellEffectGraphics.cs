@@ -245,6 +245,28 @@ public static class SpellEffectGraphics
         or ApocalypseEruption or ApocalypseContact;
     public static bool IsWarlockFireLoop(ushort graphic) => graphic is FlameWaveField or ApocalypseWarning;
 
+    public const int SigilFrames = 4;
+    public const ushort LethargySigilCast = 61700;
+    public const ushort LethargySigilField = 61704;
+    public const ushort LethargySigilMark = 61708;
+    public const ushort LethargySigilFade = 61712;
+    public const ushort RancorSigilCast = 61716;
+    public const ushort RancorSigilField = 61720;
+    public const ushort RancorSigilMark = 61724;
+    public const ushort RancorSigilConfusion = 61728;
+    public const ushort RancorSigilFade = 61732;
+    public const ushort DeathSigilCast = 61736;
+    public const ushort DeathSigilField = 61740;
+    public const ushort DeathSigilMark = 61744;
+    public const ushort DeathSigilBurst = 61748;
+    public const ushort DeathSigilFade = 61752;
+    public const ushort DeathSigilBurstRing = 61756;
+    public const ushort DeathSigilContact = 61760;
+    public static bool IsSigilAnimation(ushort graphic) => graphic is >= LethargySigilCast and <= DeathSigilContact
+        && (graphic - LethargySigilCast) % SigilFrames == 0;
+    public static bool IsSigilField(ushort graphic) => graphic is LethargySigilField or RancorSigilField or DeathSigilField;
+    public static bool IsSigilMark(ushort graphic) => graphic is LethargySigilMark or RancorSigilMark or DeathSigilMark;
+
     public const int AssassinLobFrames = 4;
     public const int FireBlastRadiusSubtiles = 5;
     public const ushort FireBlastThrow = 62764;
@@ -593,7 +615,8 @@ public static class SpellEffectGraphics
     public static bool IsRadiusPulse(ushort graphic) =>
         graphic is HolyFirePulse or HolyFreezePulse or HolyShockPulse or SanctuaryPulse or GrimWardPulse
             or LeapLanding or LeapAttackLanding or MartialFireRing or MartialThunderRing or MartialIceRing
-            or DragonTailBurst or CloakWave or MindBlastWave or DeathSentryBurst or BloodBoilRing or ApocalypseWarning;
+            or DragonTailBurst or CloakWave or MindBlastWave or DeathSentryBurst or BloodBoilRing or ApocalypseWarning
+            or DeathSigilBurstRing || IsSigilField(graphic);
 
     public static bool IsPaladinAuraLoop(ushort graphic) => graphic is HolyFireAura or HolyFreezeAura or HolyShockAura or HolyFreezeSlow
         || IsPaladinResistanceWard(graphic) || IsPaladinRecoveryLoop(graphic) || IsPaladinOffenseLoop(graphic)

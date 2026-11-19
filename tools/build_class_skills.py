@@ -1224,6 +1224,18 @@ def products():
             inGameVerification='verified', placeholder='A two-second fissure marks the configured radius. A tall eruption breaks through its center and scorched cinders mark damaged enemies.',
             customArtworkPhases=['cast and radius warning', 'delayed eruption and warning retirement', 'damage contact'],
             customAudioPhases=['warning', 'eruption', 'confirmed damage contact']),
+        'warlock.sigillethargy': dict(customArtwork='verified', customAudio='listening-pending', customCharacterAnimation='reuse-native',
+            inGameVerification='verified', placeholder='Teal hooks trace the active radius. An hourglass follows each slowed target and clears with its lease.',
+            customArtworkPhases=['cast', 'pulsing radius boundary', 'moving slow mark and expiry', 'replacement and field fade'],
+            customAudioPhases=['cast', 'newly marked recipients', 'field fade']),
+        'warlock.sigilrancor': dict(customArtwork='verified', customAudio='listening-pending', customCharacterAnimation='reuse-native',
+            inGameVerification='verified', placeholder='Bronze teeth trace the active radius. A triangle marks each affected target and gold curls flash when Rancor starts an effective confusion lease.',
+            customArtworkPhases=['cast', 'pulsing radius boundary', 'primary mark and expiry', 'effective confusion onset', 'replacement and field fade'],
+            customAudioPhases=['cast', 'effective confusion onset', 'field fade']),
+        'warlock.sigildeath': dict(customArtwork='verified', customAudio='listening-pending', customCharacterAnimation='reuse-native',
+            inGameVerification='verified', placeholder='A magenta ring marks the field. A marked death bursts from the actual consumed corpse and scatters bone chips over its four-tile blast.',
+            customArtworkPhases=['cast', 'pulsing radius boundary', 'target mark and expiry', 'corpse burst and radius ring', 'recipient hit', 'replacement and field fade'],
+            customAudioPhases=['cast', 'newly marked recipients', 'corpse burst', 'field fade']),
     }
     for effect, row in zip(effects, rows, strict=True):
         talent = effect['talentId']

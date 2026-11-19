@@ -68,9 +68,10 @@ internal static class SigilLethargy
         var result=SigilLethargyOperation.Apply(rank,marker.Serial.Value,0,old==null?null:new(old.Rank,old.Creator,
             checked((int)Math.Ceiling((old.UntilUtc-at).TotalMilliseconds/40)),-50,-33-(old.Rank-1),-50));
         if(!result.Accepted){return false;}
-        _states=_states.SetItem(target.Serial.Value,new(target.Serial.Value,result.List.Creator,result.List.Rank,at.AddMilliseconds(480)));
+        var until=at.AddMilliseconds(480);
+        _states=_states.SetItem(target.Serial.Value,new(target.Serial.Value,result.List.Creator,result.List.Rank,until));
         target.Delta(MobileDelta.Stat);owner.DoHarmful(target,true);
-        target.FixedEffect(0x375A,10,15,0x48D,0); // Identified Lethargy recipient-hit placeholder.
+        SigilVisuals.Mark(target,SpellEffectGraphics.LethargySigilMark,until,at);
         return true;
     }
     private static void Pulse(SigilActor actor,PlayerMobile owner,DateTime at)
@@ -82,9 +83,20 @@ internal static class SigilLethargy
         {
             if(AmazonInnerSight.InRadius(target.X-marker.X,target.Y-marker.Y,radius)&&Math.Abs(target.Z-marker.Z)<16){targets.Add(target);}
         }
-        targets.Sort((a,b)=>a.Serial.CompareTo(b.Serial));foreach(var target in targets){Apply(owner,marker,target,actor.Rank,at);}
+        targets.Sort((a,b)=>a.Serial.CompareTo(b.Serial));
+        bool marked=false;
+        foreach(var target in targets)
+        {
+            bool fresh=State(target,at)==null;
+            if(Apply(owner,marker,target,actor.Rank,at)&&fresh&&!target.Hidden){marked=true;}
+        }
+        if(marked){Effects.PlaySound(marker.Location,marker.Map,SpellEffectSounds.LethargySigilMark);}
     }
-    internal static void Clear(Mobile target){if(target!=null){_states=_states.Remove(target.Serial.Value);}}
+    internal static void Clear(Mobile target)
+    {
+        if(target==null||!_states.ContainsKey(target.Serial.Value)){return;}
+        _states=_states.Remove(target.Serial.Value);PaladinAuraVisuals.Clear(target,SpellEffectGraphics.LethargySigilMark);
+    }
     internal static void Prune()
     {foreach(var s in _states.Values){if(State(World.FindMobile((Serial)s.Target))==null){_states=_states.Remove(s.Target);}}}
     internal static LethargyStatus[] Snapshot()=>_states.Values.OrderBy(s=>s.Target).ToArray();

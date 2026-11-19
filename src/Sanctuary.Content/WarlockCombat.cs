@@ -67,18 +67,20 @@ public static class WarlockCombat
         else if(!Point(owner,selected,ClassCombat.For(owner).PendingPoint,out point)){return false;}
         var values=SkillMechanics.Values(owner,ability);
         if(!NecromancerEffects.CanPay(owner,values.Mana256)){return false;}
+        SigilActor sigil=null;
+        var at=TimedEffects.Now;
         if(ability==CombatAbility.RingOfFire)
-        {if(RingOfFireWorld.CreatePaid(owner,values,TimedEffects.Now)==0){return false;}}
+        {if(RingOfFireWorld.CreatePaid(owner,values,at)==0){return false;}}
         else if(ability==CombatAbility.Apocalypse)
-        {if(ApocalypseGround.CreatePaid(owner,values,point,TimedEffects.Now)==null){return false;}}
-        else if(!NecromancerEffects.CanPay(owner,values.Mana256)||SigilActors.CreatePaid(owner,values,point,TimedEffects.Now,values.Mana256)==null){return false;}
+        {if(ApocalypseGround.CreatePaid(owner,values,point,at)==null){return false;}}
+        else if((sigil=SigilActors.CreatePaid(owner,values,point,at,values.Mana256))==null){return false;}
         FireGround.Delay(owner,ability);
         if(ability==CombatAbility.RingOfFire)
         {
             owner.FixedEffect(SpellEffectGraphics.RingOfFireCast,10,8);
             owner.PlaySound(SpellEffectSounds.RingOfFireCast);
         }
-        else if(ability!=CombatAbility.Apocalypse){owner.PlaySound(0x1E5);} // Identified shared Sigil cast placeholder.
+        if(sigil!=null){SigilVisuals.Cast(owner,sigil,at);}
         return true;
     }
 }

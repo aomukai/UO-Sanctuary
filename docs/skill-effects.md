@@ -168,6 +168,10 @@ Ring of Fire opens in a low ember halo and spreads along up to sixteen of its na
 
 Muted ClassicUO checks drew all 44 new frames and decoded eight Sonniss edits. The tests covered a cancelled Ring, fractional ray positions, Flame Wave's 680 ms launch delay, one blocked lane with the other twelve still active, lingering fire expiry, and Apocalypse's two-second warning at its 6.5-tile test radius. Each cast paid mana once and spared an outside target. Native save-and-reload checks passed for all three skills. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
 
+Lethargy draws a teal boundary and attaches an hourglass to each slowed target. Rancor traces its radius in bronze and adds a triangle to accepted recipients. A separate gold curl flashes when Rancor's confusion takes effect. Death uses magenta fangs and a bone-colored mark. The burst erupts from the consumed corpse, spans the native four-tile radius, and flashes where it damages an enemy. [Lethargy sheet and prompt](../art/spell-effects/warlock-sigil-lethargy) · [Rancor sheet and prompt](../art/spell-effects/warlock-sigil-rancor) · [Death sheet and prompt](../art/spell-effects/warlock-sigil-death)
+
+Muted ClassicUO checks covered all 64 frames, all three ground radii, a moving Lethargy mark and its expiry after leaving the area, shared-slot replacement, Rancor's primary effect and confusion precedence, and Death's corpse consumption with retained loot. The final sigil and its target marks expired on their native clocks. Native save-and-reload checks passed for all three sigils. ClassicUO decoded eight new Sonniss cues. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
 Charged Bolt skitters along its existing paths, Lightning travels in a straight streak, and Chain Lightning sends violet arcs between targets. Static Field expands along the ground and Thunder Storm flashes above the caster at release and on its recurring strike schedule. The player casts were checked in ClassicUO with audio disabled. Nine Sonniss edits cover their cast and impact cues. Each cue has passed format and level checks and awaits a listening pass. [Cue recipes](../art/spell-effects/sonniss-cues.json)
 
 Ice Bolt travels as a thin shard, Ice Blast as a compact comet, and Glacial Spike as a heavier crystal with an area burst. Frost Nova expands across the ground. The shared cold overlays follow the affected target and clear with the game status. Thaw and cold corpse shatter reuse the Ice Blast fragments. The player effects were checked in ClassicUO with audio disabled. Eight Sonniss edits cover releases, impacts, and the shared cold corpse shatter. Their listening pass is queued. [Cold status sprite source](../art/spell-effects/cold-status/sheet.png) · [Cue recipes](../art/spell-effects/sonniss-cues.json)
@@ -1362,11 +1366,11 @@ Inherited NPC item absorption now changes life mechanically. Final Iron Golem ab
 | Warlock | Mirrored Blades | needed | No source effect cue; final presentation pending |
 | Warlock | Miasma Bolt | needed | miasmabolt, warlock_shadow_cast_1, miasmabolt, cast_undead |
 | Warlock | Ring of Fire | custom | Ember cast, moving ray samples, bursts, and damage flashes. |
-| Warlock | Sigil: Lethargy | needed | sigillethargysmall, sigillethargymedium, sigillethargylarge, sigil, warlock_shadow_cast_1, sigillethargysmall, sigillethargymedium, sigillethargylarge |
-| Warlock | Sigil: Rancor | needed | sigilrancorsmall, sigilrancormedium, sigilrancorlarge, sigil, warlock_fire_cast_1, sigilrancorsmall, sigilrancormedium, sigilrancorlarge |
+| Warlock | Sigil: Lethargy | custom | Teal radius boundary and target-bound slow hourglass. |
+| Warlock | Sigil: Rancor | custom | Bronze radius boundary, recipient triangle, and effective confusion flash. |
 | Warlock | Miasma Chain | needed | miasmachainsmaker, warlock_shadow_cast_1 |
 | Warlock | Flame Wave | custom | Lateral reveal, moving front, terrain stops, and lingering fire. |
-| Warlock | Sigil: Death | needed | sigildeathsmall, sigildeathmedium, sigildeathlarge, sigil, warlock_shadow_cast_1, sigildeathsmall, sigildeathmedium, sigildeathlarge |
+| Warlock | Sigil: Death | custom | Magenta boundary, bone seal, and corpse-centered four-tile eruption. |
 | Warlock | Enhanced Entropy | not-applicable | shadow_mastery |
 | Warlock | Apocalypse | custom | Radius warning, delayed eruption, and damage cinders. |
 | Warlock | Abyss | needed | abysscenter, warlock_shadow_cast_1, abysscenter, fire_cast_2 |

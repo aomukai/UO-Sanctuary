@@ -422,6 +422,14 @@ public static class SpellEffectSounds
     public const int ApocalypseWarning = 60416;
     public const int ApocalypseEruption = 60417;
     public const int ApocalypseContact = 60418;
+    public const int LethargySigilCast = 60419;
+    public const int LethargySigilMark = 60420;
+    public const int RancorSigilCast = 60421;
+    public const int RancorSigilConfusion = 60422;
+    public const int DeathSigilCast = 60423;
+    public const int DeathSigilMark = 60424;
+    public const int DeathSigilBurst = 60425;
+    public const int SigilFade = 60426;
 
     public static int Fallback(int sound) => sound switch
     {
@@ -463,6 +471,8 @@ public static class SpellEffectSounds
         RingOfFireCast or FlameWaveLaunch => 0x20C,
         FlameWaveCast or ApocalypseWarning => 0x1E5,
         ApocalypseEruption => 0x307,
+        LethargySigilCast or RancorSigilCast or DeathSigilCast => 0x1E5,
+        DeathSigilBurst => 0x307,
         BlizzardRelease or FrozenOrbRelease or MeteorRelease or TeethRelease or BoneSpiritRelease or AbyssOpen => 0x1E5,
         AmazonBowRelease or AmazonCrossbowRelease or JavelinThrow => 0x238,
         SpearThrust or HeavySpearThrust => 0x238,

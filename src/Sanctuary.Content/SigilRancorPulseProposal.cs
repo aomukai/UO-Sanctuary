@@ -28,12 +28,13 @@ internal static class SigilRancorPulseProposal
         if(values.RawDurationFrames!=12||values.AiChance!=75){throw new NotSupportedException("Rancor candidate requires the pinned chance and duration");}
         if(!SigilActors.ClaimRancorPulse(actor)){return default;}
         var targets=SkillCombat.NearbySnapshot<BaseCreature>(marker.Map,marker.Location,(int)Math.Ceiling(SkillGeometry.Tiles(values.RawRadius)));
-        targets.Sort((a,b)=>a.Serial.CompareTo(b.Serial));int accepted=0,confused=0;
+        targets.Sort((a,b)=>a.Serial.CompareTo(b.Serial));int accepted=0,confused=0;bool confusionStarted=false;
         foreach(var target in targets)
         {
             if(!Recipient(owner,marker,target,values.RawRadius)){continue;}
             var state=NecromancerEffects.Profiles.Find(target)??new();var old=SigilRancorPrimary.State(target,at);
             if(old!=null&&old.Rank>values.Rank){continue;}
+            bool wasConfused=SigilRancorMind.Active(target,state,at);
             ulong seed=state.RancorMind?.Seed??SourceRandom.InitLow(initialSeed?.Invoke()??unchecked((int)Random.Shared.NextInt64(1L<<32)));
             uint roll=SourceRandom.Limited(ref seed,100);var until=at.AddMilliseconds(values.RawDurationFrames*40L);
             var primary=old!=null&&old.Rank==values.Rank?old with{UntilUtc=until}:
@@ -41,10 +42,21 @@ internal static class SigilRancorPulseProposal
             var mind=state.RancorMind??new MindAiState(seed,actor.Map,DateTime.UnixEpoch,0);
             bool success=roll<(uint)values.AiChance;
             mind=success?mind with{Seed=seed,Map=actor.Map,UntilUtc=until,Mode=3}:mind with{Seed=seed};
-            NecromancerEffects.Profiles.Store(target,state with{RancorPrimary=primary,RancorMind=mind});
-            if(success){target.ForceReacquire();confused++;}
+            var next=state with{RancorPrimary=primary,RancorMind=mind};
+            NecromancerEffects.Profiles.Store(target,next);
+            SigilVisuals.Mark(target,SpellEffectGraphics.RancorSigilMark,until,at);
+            if(success)
+            {
+                target.ForceReacquire();confused++;
+                if(!wasConfused&&SigilRancorMind.Active(target,next,at)&&!target.Hidden)
+                {
+                    target.FixedEffect(SpellEffectGraphics.RancorSigilConfusion,10,7);
+                    confusionStarted=true;
+                }
+            }
             accepted++;
         }
+        if(confusionStarted){Effects.PlaySound(marker.Location,marker.Map,SpellEffectSounds.RancorSigilConfusion);}
         return new(true,accepted,confused);
     }
     internal static bool ExpirePrepared(Mobile actor,DateTime at)
@@ -59,6 +71,7 @@ internal static class SigilRancorPulseProposal
         var next=state with{RancorPrimary=primary?null:state.RancorPrimary,
             RancorMind=(primary||mind)&&state.RancorMind is{} old?old with{UntilUtc=DateTime.UnixEpoch,Mode=0,Focus=0}:state.RancorMind};
         NecromancerEffects.Profiles.Store(actor,next);
+        if(primary){PaladinAuraVisuals.Clear(actor,SpellEffectGraphics.RancorSigilMark);}
         bool ownedAi=state.RancorMind is{} lease&&lease.UntilUtc>DateTime.UnixEpoch;
         if(ownedAi&&!ordinary&&actor is BaseCreature npc)
         {

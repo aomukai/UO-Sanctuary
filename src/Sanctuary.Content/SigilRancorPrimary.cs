@@ -44,11 +44,16 @@ internal static class SigilRancorPrimary
         var v=Capture(values);var next=new RancorPrimaryState(owner.Serial.Value,v.Rank,v.DamagePercent,v.AttackRate,until);Validate(next);
         if(State(target)!=null){throw new NotSupportedException("Current Rancor reapplication policy remains unverified");}
         NecromancerEffects.Profiles.Store(target,(NecromancerEffects.Profiles.Find(target)??new())with{RancorPrimary=next,RancorMind=null});
+        SigilVisuals.Mark(target,SpellEffectGraphics.RancorSigilMark,until,TimedEffects.Now);
         return true;
     }
     internal static void Clear(Mobile target)
     {
         if(NecromancerEffects.Profiles.Find(target)is{} s)
-        {NecromancerEffects.Profiles.Store(target,s with{RancorPrimary=null,RancorMind=s.RancorMind is{} mind?mind with{Mode=0,Focus=0}:null});if(target is BaseCreature npc){npc.ForceReacquire();}}
+        {
+            NecromancerEffects.Profiles.Store(target,s with{RancorPrimary=null,RancorMind=s.RancorMind is{} mind?mind with{Mode=0,Focus=0}:null});
+            if(s.RancorPrimary!=null){PaladinAuraVisuals.Clear(target,SpellEffectGraphics.RancorSigilMark);}
+            if(target is BaseCreature npc){npc.ForceReacquire();}
+        }
     }
 }

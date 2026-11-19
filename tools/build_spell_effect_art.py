@@ -1126,6 +1126,50 @@ def warlock_fire():
     ))
 
 
+def warlock_sigils():
+    lethargy = "warlock-sigil-lethargy"
+    rancor = "warlock-sigil-rancor"
+    death = "warlock-sigil-death"
+    slow_cast, slow_field, slow_mark, slow_fade = load_grid(lethargy, (1269, 1240))
+    rage_cast, rage_field, rage_mark, rage_confuse = load_grid(rancor, (1262, 1246))
+    death_cast, death_field, death_mark, death_burst = load_grid(death, (1283, 1226))
+    for name, graphic, row, scale, pivots, canvas, padding, cutoff in (
+        (lethargy, 61700, slow_cast, .23, ((172, 246), (164, 250), (154, 254), (142, 252)), (78, 78), 25, 152),
+        (lethargy, 61708, slow_mark, .14, ((179, 150), (165, 150), (157, 147), (143, 146)), (50, 94), 46, 150),
+        (lethargy, 61712, slow_fade, .24, ((169, 215), (158, 224), (150, 233), (139, 235)), (84, 90), 22, 147),
+        (rancor, 61716, rage_cast, .237, ((166, 247), (158, 248), (152, 244), (139, 248)), (78, 80), 22, 147),
+        (rancor, 61724, rage_mark, .159, ((173, 162), (162, 161), (155, 160), (147, 156)), (52, 90), 46, 145),
+        (rancor, 61728, rage_confuse, .174, ((158, 138), (157, 134), (153, 133), (136, 143)), (62, 100), 60, 146),
+        (death, 61736, death_cast, .217, ((175, 278), (162, 278), (154, 276), (150, 276)), (84, 94), 22, 143),
+        (death, 61744, death_mark, .145, ((182, 149), (178, 150), (156, 151), (143, 146)), (62, 94), 46, 147),
+        (death, 61748, death_burst, .368, ((174, 213), (162, 216), (154, 217), (150, 213)), (120, 130), 24, 145),
+        (death, 61760, death_burst, .139, ((174, 213), (162, 216), (154, 217), (150, 213)), (49, 84), 26, 146),
+    ):
+        write_group(name, graphic, (
+            frame(cell, scale, pivot, canvas, padding, cutoff)
+            for cell, pivot in zip(row, pivots)
+        ))
+    for name, graphic, row, cutoff, light in (
+        (lethargy, 61704, slow_field, 145, .94),
+        (rancor, 61720, rage_field, 139, .97),
+        (death, 61740, death_field, 142, 1.0),
+        (death, 61756, death_field, 155, 1.18),
+    ):
+        write_group(name, graphic, (
+            holy_ring(cell, (224, 116), (240, 132), 70, cutoff, light)
+            for cell in row
+        ))
+    for name, graphic, row, pivots in (
+        (rancor, 61732, rage_cast, ((158, 248), (152, 244), (139, 248), (139, 248))),
+        (death, 61752, death_cast, ((162, 278), (154, 276), (150, 276), (150, 276))),
+    ):
+        write_group(name, graphic, (
+            frame(ImageEnhance.Brightness(row[i]).enhance(light), scale, pivot, (78, 82), 22, cutoff)
+            for i, pivot, scale, light, cutoff in zip((1, 2, 3, 3), pivots, (.22, .19, .16, .15),
+                                                      (1.0, .89, .74, .62), (148, 146, 136, 102))
+        ))
+
+
 def necromancer_curses():
     cells = [cell for row in load_grid("necromancer-curses", (1448, 1086), rows=3) for cell in row]
     for cell in cells[:10]:
@@ -1971,3 +2015,4 @@ if __name__ == "__main__":
     warlock_rituals()
     warlock_engorge()
     warlock_fire()
+    warlock_sigils()

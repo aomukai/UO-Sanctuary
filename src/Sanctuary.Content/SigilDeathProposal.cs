@@ -52,7 +52,11 @@ internal static class SigilDeathProposal
         {throw new InvalidDataException("Invalid prepared Death mark");}
     }
     internal static SigilDeathMark State(Mobile target,DateTime? at=null)=>target!=null&&_marks.TryGetValue(target.Serial.Value,out var m)&&m.UntilUtc>(at??TimedEffects.Now)?m:null;
-    internal static void Clear(Mobile target){if(target!=null){_marks=_marks.Remove(target.Serial.Value);}}
+    internal static void Clear(Mobile target)
+    {
+        if(target==null||!_marks.ContainsKey(target.Serial.Value)){return;}
+        _marks=_marks.Remove(target.Serial.Value);PaladinAuraVisuals.Clear(target,SpellEffectGraphics.DeathSigilMark);
+    }
     internal static bool PulsePrepared(SigilActor actor,PlayerMobile owner,DateTime at,Func<ulong> initialSeed=null)
     {
         Route();if(actor.Ability!=CombatAbility.SigilDeath||at.Kind!=DateTimeKind.Utc||actor.DeathModifiers==null||!ValidModifiers(actor.DeathModifiers)
@@ -61,6 +65,7 @@ internal static class SigilDeathProposal
         if(!SigilActors.ClaimDeathPulse(actor)){return false;}
         int radius=checked((int)SigilActors.Values(actor).Eval("aurarangecalc"));
         var targets=SkillCombat.NearbySnapshot<BaseCreature>(item.Map,item.Location,(int)Math.Ceiling(SkillGeometry.Tiles(radius)));targets.Sort((a,b)=>a.Serial.CompareTo(b.Serial));
+        bool marked=false;
         foreach(var t in targets)
         {
             var source=PaladinConversion.SourceRule(t);
@@ -72,8 +77,10 @@ internal static class SigilDeathProposal
                 new SigilDeathMark(t.Serial.Value,owner.Serial.Value,actor.Map,actor.Rank,at.AddMilliseconds(480),actor.DeathModifiers,
                     old?.Seed??initialSeed?.Invoke()??SourceRandom.InitLow(unchecked((int)Random.Shared.NextInt64(1L<<32))));
             Validate(mark);_marks=_marks.SetItem(mark.Target,mark);
-            t.FixedEffect(0x375A,10,15,0x48E,0); // Identified Death recipient-mark placeholder.
+            SigilVisuals.Mark(t,SpellEffectGraphics.DeathSigilMark,mark.UntilUtc,at);
+            marked|=old==null&&!t.Hidden;
         }
+        if(marked){Effects.PlaySound(item.Location,item.Map,SpellEffectSounds.DeathSigilMark);}
         return true;
     }
     // Claim while native corpse capture still has original monster identity.
@@ -82,7 +89,7 @@ internal static class SigilDeathProposal
     {
         if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Death notification needs UTC");}
         if(target==null||!_marks.TryGetValue(target.Serial.Value,out var mark)){return false;}
-        _marks=_marks.Remove(mark.Target);
+        Clear(target);
         if(mark.UntilUtc<=at||body is not Corpse corpse){return false;}
         Jobs.Enqueue(new(mark,corpse.Serial.Value,at));
         if(schedule&&!_scheduled&&!_draining){_scheduled=true;Core.LoopContext.Post(()=>DrainPrepared());}
@@ -102,8 +109,9 @@ internal static class SigilDeathProposal
             ||!CorpseSkillRules.Available(corpse)||corpse.Map!=owner.Map) {return Refused();}
         if(CorpseSkillRules.Profiles.Find(corpse)?.BaseLife is not{Base256:>0} life||life.OriginalMonsterSerial!=m.Target)
         {return Refused("Sigil Death corpse lacks original captured source base life");}
-        var targets=SkillCombat.NearbySnapshot<BaseCreature>(corpse.Map,corpse.Location,4);targets.Sort((a,b)=>a.Serial.CompareTo(b.Serial));
-        bool Eligible(BaseCreature t)=>SourceDamageAreas.Recipient(owner,t,corpse.Map.MapID,corpse.X*2,corpse.Y*2,corpse.Z,8,true,corpse.Location);
+        const int radius=8;
+        var targets=SkillCombat.NearbySnapshot<BaseCreature>(corpse.Map,corpse.Location,(int)SkillGeometry.Tiles(radius));targets.Sort((a,b)=>a.Serial.CompareTo(b.Serial));
+        bool Eligible(BaseCreature t)=>SourceDamageAreas.Recipient(owner,t,corpse.Map.MapID,corpse.X*2,corpse.Y*2,corpse.Z,radius,true,corpse.Location);
         var recipients=new List<BaseCreature>();
         try{foreach(var t in targets){if(Eligible(t)){TaintedFireBallMissiles.RequireOrdinaryRecipient(owner,t);recipients.Add(t);}}}
         catch(NotSupportedException ex){return Refused(ex.Message);}
@@ -113,12 +121,18 @@ internal static class SigilDeathProposal
         foreach(var t in recipients)
         {
             // Consumption can delete an empty corpse; keep the captured center.
-            if(!SourceDamageAreas.Recipient(owner,t,map.MapID,center.X*2,center.Y*2,center.Z,8,true,center)){continue;}
+            if(!SourceDamageAreas.Recipient(owner,t,map.MapID,center.X*2,center.Y*2,center.Z,radius,true,center)){continue;}
+            var contact=t.Location;int before=SkillHealth.Balance256(t);int lost;
             using(CombatItemEvents.Suppress(owner,t))
-            {owner.DoHarmful(t,true);var parts=SkillCombat.MitigatePrepared(owner,t,raw);SkillHealth.TypedDamage(owner,t,NamedElements.To256(parts.Total),DirectDamageParts.From(parts),notifySuppressedDirect:true);}
+            {owner.DoHarmful(t,true);var parts=SkillCombat.MitigatePrepared(owner,t,raw);lost=SkillHealth.TypedDamage(owner,t,NamedElements.To256(parts.Total),DirectDamageParts.From(parts),notifySuppressedDirect:true);}
+            if(lost>0||SkillHealth.Balance256(t)<before)
+            {Effects.SendLocationEffect(contact,map,SpellEffectGraphics.DeathSigilContact,7);}
             applied++;
         }
-        Effects.SendLocationEffect(center,map,0x36BD,15); // Identified Death explosion placeholder.
+        Effects.SendLocationEffect(center,map,SpellEffectGraphics.DeathSigilBurst,10);
+        Effects.SendLocationEffect(center,map,SpellEffectGraphics.DeathSigilBurstRing,9,
+            hue:radius*SpellEffectGraphics.HolyAuraRadiusUnitsPerTile/2);
+        Effects.PlaySound(center,map,SpellEffectSounds.DeathSigilBurst);
         return new(m.Target,true,applied,packet);
     }
     internal static SigilDeathMark[] Snapshot()
