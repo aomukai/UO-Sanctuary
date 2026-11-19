@@ -8,9 +8,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "Native weapon poses with ImageGen impact and status art. Sonniss cue listening is pending.",
+    "placeholder": "Native weapon poses with ImageGen impact and status art. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "three individual bronze contact sparks"
@@ -29,9 +29,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "Native weapon poses with ImageGen impact and status art. Sonniss cue listening is pending.",
+    "placeholder": "Native weapon poses with ImageGen impact and status art. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cobalt impact"
@@ -53,9 +53,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "Native throwing poses with ImageGen javelins and effects. Sonniss cue listening is pending.",
+    "placeholder": "Native throwing poses with ImageGen javelins and effects. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "venom javelin flight",
@@ -78,9 +78,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "Native weapon poses with ImageGen impact and status art. Sonniss cue listening is pending.",
+    "placeholder": "Native weapon poses with ImageGen impact and status art. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "heavy amber impact",
@@ -104,9 +104,9 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "verified",
-    "placeholder": "Native throwing poses with ImageGen javelins and effects. Sonniss cue listening is pending.",
+    "placeholder": "Native throwing poses with ImageGen javelins and effects. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "electrified javelin flight",
@@ -134,9 +134,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "Native weapon poses with ImageGen impact and status art. Sonniss cue listening is pending.",
+    "placeholder": "Native weapon poses with ImageGen impact and status art. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "shared electric thrust contact",
@@ -161,9 +161,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "Native throwing poses with ImageGen javelins and effects. Sonniss cue listening is pending.",
+    "placeholder": "Native throwing poses with ImageGen javelins and effects. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "plague javelin flight",
@@ -188,9 +188,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "Native weapon poses with ImageGen impact and status art. Sonniss cue listening is pending.",
+    "placeholder": "Native weapon poses with ImageGen impact and status art. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "silver crescents on successive targets"
@@ -216,9 +216,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "Native weapon poses with ImageGen impact and status art. Sonniss cue listening is pending.",
+    "placeholder": "Native weapon poses with ImageGen impact and status art. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "shared electric thrust contact",
@@ -243,9 +243,9 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "verified",
-    "placeholder": "Native throwing poses with ImageGen javelins and effects. Sonniss cue listening is pending.",
+    "placeholder": "Native throwing poses with ImageGen javelins and effects. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "forked lightning javelin flight",
@@ -273,9 +273,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen cast, status and summon effects with native poses and bodies where applicable. Sonniss cue listening is pending.",
+    "placeholder": "ImageGen cast, status and summon effects with native poses and bodies where applicable. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "gold cast ring",
@@ -315,7 +315,7 @@
     "inGameVerification": "verified",
     "placeholder": "Client-only recoil with an ImageGen amber flash and a Sonniss cloth cue.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "verified",
     "customArtworkPhases": [
       "amber reaction flash",
@@ -340,9 +340,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen cast, status and summon effects with native poses and bodies where applicable. Sonniss cue listening is pending.",
+    "placeholder": "ImageGen cast, status and summon effects with native poses and bodies where applicable. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "violet cast ring",
@@ -370,7 +370,7 @@
     "inGameVerification": "verified",
     "placeholder": "Client-only sidestep with an ImageGen cyan flash and a Sonniss air cue.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "verified",
     "customArtworkPhases": [
       "cyan reaction flash",
@@ -406,9 +406,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen cast, status and summon effects with native poses and bodies where applicable. Sonniss cue listening is pending.",
+    "placeholder": "ImageGen cast, status and summon effects with native poses and bodies where applicable. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "mirror emergence",
@@ -435,10 +435,10 @@
     "clientMapping": "mapped",
     "inGameVerification": "verified",
     "visualEffect": "olive trail during accepted movement",
-    "soundEffect": "listening-pending",
+    "soundEffect": "verified",
     "placeholder": "Native Evade sound.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "olive walking trail"
@@ -458,9 +458,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen cast, status and summon effects with native poses and bodies where applicable. Sonniss cue listening is pending.",
+    "placeholder": "ImageGen cast, status and summon effects with native poses and bodies where applicable. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "gold emergence",
@@ -499,9 +499,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "Native shooting poses with ImageGen arrows, bolts and effects. Sonniss cue listening is pending.",
+    "placeholder": "Native shooting poses with ImageGen arrows, bolts and effects. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "violet arrow and bolt flight",
@@ -525,9 +525,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "Native shooting poses with ImageGen arrows, bolts and effects. Sonniss cue listening is pending.",
+    "placeholder": "Native shooting poses with ImageGen arrows, bolts and effects. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "ember arrow and bolt flight",
@@ -551,9 +551,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "Native shooting poses with ImageGen arrows, bolts and effects. Sonniss cue listening is pending.",
+    "placeholder": "Native shooting poses with ImageGen arrows, bolts and effects. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "silver-blue arrow and bolt flight",
@@ -580,9 +580,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "Native shooting poses with ImageGen arrows, bolts and effects. Sonniss cue listening is pending.",
+    "placeholder": "Native shooting poses with ImageGen arrows, bolts and effects. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "directional arrow and bolt fan",
@@ -605,9 +605,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "Native shooting poses with ImageGen arrows, bolts and effects. Sonniss cue listening is pending.",
+    "placeholder": "Native shooting poses with ImageGen arrows, bolts and effects. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "ruby charge arrow and bolt flight",
@@ -631,9 +631,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "Native shooting poses with ImageGen arrows, bolts and effects. Sonniss cue listening is pending.",
+    "placeholder": "Native shooting poses with ImageGen arrows, bolts and effects. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cyan crystal arrow and bolt flight",
@@ -662,9 +662,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "Native shooting poses with ImageGen arrows, bolts and effects. Sonniss cue listening is pending.",
+    "placeholder": "Native shooting poses with ImageGen arrows, bolts and effects. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "gold arrow and bolt flight",
@@ -689,9 +689,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "Native shooting poses with ImageGen arrows, bolts and effects. Sonniss cue listening is pending.",
+    "placeholder": "Native shooting poses with ImageGen arrows, bolts and effects. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "gold ember arrow and bolt flight",
@@ -720,9 +720,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "Native shooting poses with ImageGen arrows, bolts and effects. Sonniss cue listening is pending.",
+    "placeholder": "Native shooting poses with ImageGen arrows, bolts and effects. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "directional arrows and crossbow bolts",
@@ -745,9 +745,9 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "verified",
-    "placeholder": "Native shooting poses with ImageGen arrows, bolts and effects. Sonniss cue listening is pending.",
+    "placeholder": "Native shooting poses with ImageGen arrows, bolts and effects. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cobalt payload arrow and bolt flight",
@@ -773,9 +773,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen effects and Sonniss cues. The cue listening pass is pending.",
+    "placeholder": "ImageGen effects and Sonniss cues.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customArtworkPhases": [
       "directional ice shard",
       "contact chips",
@@ -802,9 +802,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen effects and Sonniss cues. The cue listening pass is pending.",
+    "placeholder": "ImageGen effects and Sonniss cues.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customArtworkPhases": [
       "cast",
       "persistent frost ward",
@@ -833,9 +833,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen effects and Sonniss cues. The cue listening pass is pending.",
+    "placeholder": "ImageGen effects and Sonniss cues.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customArtworkPhases": [
       "expanding ground ring",
       "contact frost",
@@ -860,9 +860,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen effects and Sonniss cues. The cue listening pass is pending.",
+    "placeholder": "ImageGen effects and Sonniss cues.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customArtworkPhases": [
       "directional comet",
       "single-target burst",
@@ -891,9 +891,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen effects and Sonniss cues. The cue listening pass is pending.",
+    "placeholder": "ImageGen effects and Sonniss cues.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customArtworkPhases": [
       "cast",
       "persistent violet ward",
@@ -920,9 +920,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen effects and Sonniss cues. The cue listening pass is pending.",
+    "placeholder": "ImageGen effects and Sonniss cues.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customArtworkPhases": [
       "directional spike",
       "area burst at contact or expiry",
@@ -952,9 +952,9 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen effects and Sonniss cues. The cue listening pass is pending.",
+    "placeholder": "ImageGen effects and Sonniss cues.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customArtworkPhases": [
       "falling ice",
       "ground frost",
@@ -982,9 +982,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen effects and Sonniss cues. The cue listening pass is pending.",
+    "placeholder": "ImageGen effects and Sonniss cues.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customArtworkPhases": [
       "cast",
       "persistent teal ward",
@@ -1011,9 +1011,9 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen effects and Sonniss cues. The cue listening pass is pending.",
+    "placeholder": "ImageGen effects and Sonniss cues.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customArtworkPhases": [
       "rotating orb",
       "directional bolts",
@@ -1054,9 +1054,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen effects and Sonniss cues. The cue listening pass is pending.",
+    "placeholder": "ImageGen effects and Sonniss cues.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customArtworkPhases": [
       "directional ground sparks",
       "contact crackle"
@@ -1077,9 +1077,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen effects and Sonniss cues. The cue listening pass is pending.",
+    "placeholder": "ImageGen effects and Sonniss cues.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customArtworkPhases": [
       "caster prongs",
       "attached combat pulse",
@@ -1101,9 +1101,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen effects and Sonniss cues. The cue listening pass is pending.",
+    "placeholder": "ImageGen effects and Sonniss cues.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customArtworkPhases": [
       "expanding ground pulse",
       "recipient sparks"
@@ -1125,9 +1125,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen effects and Sonniss cues. The cue listening pass is pending.",
+    "placeholder": "ImageGen effects and Sonniss cues.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customArtworkPhases": [
       "straight beam flight",
       "contact flash"
@@ -1152,9 +1152,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen effects and Sonniss cues. The cue listening pass is pending.",
+    "placeholder": "ImageGen effects and Sonniss cues.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customArtworkPhases": [
       "caster sparks",
       "expanding electric ring",
@@ -1181,9 +1181,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen effects and Sonniss cues. The cue listening pass is pending.",
+    "placeholder": "ImageGen effects and Sonniss cues.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customArtworkPhases": [
       "opening arc",
       "arcs between targets",
@@ -1206,9 +1206,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen effects and Sonniss cues. The cue listening pass is pending.",
+    "placeholder": "ImageGen effects and Sonniss cues.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customArtworkPhases": [
       "departure collapse",
       "arrival opening"
@@ -1232,9 +1232,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen effects and Sonniss cues. The cue listening pass is pending.",
+    "placeholder": "ImageGen effects and Sonniss cues.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customArtworkPhases": [
       "cast cloud",
       "recurring charge",
@@ -1258,9 +1258,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen effects and Sonniss cues. The cue listening pass is pending.",
+    "placeholder": "ImageGen effects and Sonniss cues.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customArtworkPhases": [
       "cast",
       "persistent amber shield",
@@ -1301,9 +1301,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen effects and Sonniss cues. The cue listening pass is pending.",
+    "placeholder": "ImageGen effects and Sonniss cues.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customArtworkPhases": [
       "directional fire dart",
       "single-target contact flash"
@@ -1341,9 +1341,9 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen effects and Sonniss cues. The cue listening pass is pending.",
+    "placeholder": "ImageGen effects and Sonniss cues.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customArtworkPhases": [
       "held flame stream",
       "steering",
@@ -1373,9 +1373,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen effects and Sonniss cues. The cue listening pass is pending.",
+    "placeholder": "ImageGen effects and Sonniss cues.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customArtworkPhases": [
       "cast embers",
       "movement trail",
@@ -1427,9 +1427,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen effects and Sonniss cues. The cue listening pass is pending.",
+    "placeholder": "ImageGen effects and Sonniss cues.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customArtworkPhases": [
       "ignition",
       "outward wall growth",
@@ -1452,9 +1452,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen effects and Sonniss cues. The cue listening pass is pending.",
+    "placeholder": "ImageGen effects and Sonniss cues.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customArtworkPhases": [
       "caster and recipient runes",
       "active embers",
@@ -1483,9 +1483,9 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen effects and Sonniss cues. The cue listening pass is pending.",
+    "placeholder": "ImageGen effects and Sonniss cues.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customArtworkPhases": [
       "ground warning",
       "descent",
@@ -1525,9 +1525,9 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen effects and Sonniss cues. The cue listening pass is pending.",
+    "placeholder": "ImageGen effects and Sonniss cues.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customArtworkPhases": [
       "three-head emergence",
       "idle heads",
@@ -1556,7 +1556,7 @@
     "inGameVerification": "verified",
     "placeholder": "The native warrior body emerges between rising bones and departs in a shared ash fade.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "arrival and return",
@@ -1595,7 +1595,7 @@
     "inGameVerification": "verified",
     "placeholder": "The native body emerges through clay flakes and dust, with an attached marker for its timed slow.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "clay arrival and return",
@@ -1636,7 +1636,7 @@
     "inGameVerification": "verified",
     "placeholder": "The native mage body emerges through violet trails and uses shared Sorceress effects for its elemental abilities.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "arrival and return",
@@ -1665,7 +1665,7 @@
     "inGameVerification": "verified",
     "placeholder": "Scarlet ribbons accompany arrival and actual life transfer. Wounds and the Life Tap proc have separate timed markers.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "scarlet arrival and return",
@@ -1711,7 +1711,7 @@
     "inGameVerification": "verified",
     "placeholder": "Iron slivers gather near the original item. Strikes and retaliation spark, with shared visuals for the five Spectral channels.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "iron arrival and return",
@@ -1741,7 +1741,7 @@
     "inGameVerification": "verified",
     "placeholder": "Embers rise at arrival, Holy Fire draws a low ring, and a separate eruption marks the delayed death damage.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "ember arrival and return",
@@ -1773,7 +1773,7 @@
     "inGameVerification": "verified",
     "placeholder": "An emerald spirit rises at the corpse while the original creature returns with its body and hue.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "arrival and return of the original creature",
@@ -1800,9 +1800,9 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen directional bone shards and contact chips with Sonniss release and shared bone contact cues. Listening is pending.",
+    "placeholder": "ImageGen directional bone shards and contact chips with Sonniss release and shared bone contact cues.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customArtworkPhases": [
       "directional fan",
       "contact chips"
@@ -1825,7 +1825,7 @@
     "inGameVerification": "verified",
     "placeholder": "ImageGen orbiting bones with an absorption spark and a depletion shatter.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "orbiting bone ward",
@@ -1849,7 +1849,7 @@
     "inGameVerification": "verified",
     "placeholder": "Native knife swing with an ImageGen contact slash and shared timed poison overlay.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "knife contact slash",
@@ -1877,7 +1877,7 @@
     "inGameVerification": "verified",
     "placeholder": "ImageGen fire, smoke and bone chips burst at the consumed corpse.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "corpse-centered ignition",
@@ -1902,7 +1902,7 @@
     "inGameVerification": "verified",
     "placeholder": "ImageGen ribs rise on each wall segment and collapse into rubble.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "rising ribs along the growing wall",
@@ -1931,7 +1931,7 @@
     "inGameVerification": "verified",
     "placeholder": "ImageGen burst at the corpse with shared poison mist and timed poison overlays.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "corpse-centered toxic bloom",
@@ -1959,9 +1959,9 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen spear flight, piercing flash and terminal shatter. Sonniss cue listening pass is pending.",
+    "placeholder": "ImageGen spear flight, piercing flash and terminal shatter. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customArtworkPhases": [
       "directional flight",
       "piercing contact flash",
@@ -1986,7 +1986,7 @@
     "inGameVerification": "verified",
     "placeholder": "ImageGen ribs and low connectors show the active prison perimeter.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "rising curved ribs and low connectors",
@@ -2013,7 +2013,7 @@
     "inGameVerification": "verified",
     "placeholder": "ImageGen caster ring and directional wisps follow the existing radial rays.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "release ring",
@@ -2040,9 +2040,9 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen skull flight and impact burst with Sonniss release and impact cues. Listening is pending.",
+    "placeholder": "ImageGen skull flight and impact burst with Sonniss release and impact cues.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customArtworkPhases": [
       "directional skull flight",
       "impact burst"
@@ -2064,9 +2064,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen curse ring, persistent mark and expiry. Sonniss cue listening is pending.",
+    "placeholder": "ImageGen curse ring, persistent mark and expiry. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "curse cast ring",
@@ -2090,9 +2090,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen curse ring, persistent mark and expiry. Sonniss cue listening is pending.",
+    "placeholder": "ImageGen curse ring, persistent mark and expiry. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "curse cast ring",
@@ -2116,9 +2116,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen curse ring, persistent mark and expiry. Sonniss cue listening is pending.",
+    "placeholder": "ImageGen curse ring, persistent mark and expiry. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "curse cast ring",
@@ -2142,9 +2142,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen curse ring, persistent mark and expiry. Sonniss cue listening is pending.",
+    "placeholder": "ImageGen curse ring, persistent mark and expiry. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "curse cast ring",
@@ -2170,9 +2170,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen curse ring, persistent mark and expiry. Sonniss cue listening is pending.",
+    "placeholder": "ImageGen curse ring, persistent mark and expiry. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "curse cast ring",
@@ -2196,9 +2196,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen curse ring, persistent mark and expiry. Sonniss cue listening is pending.",
+    "placeholder": "ImageGen curse ring, persistent mark and expiry. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "curse cast ring",
@@ -2223,9 +2223,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen curse ring, persistent mark and expiry. Sonniss cue listening is pending.",
+    "placeholder": "ImageGen curse ring, persistent mark and expiry. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "curse cast ring",
@@ -2251,9 +2251,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen curse ring, persistent mark and expiry. Sonniss cue listening is pending.",
+    "placeholder": "ImageGen curse ring, persistent mark and expiry. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "curse cast ring",
@@ -2277,9 +2277,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen curse ring, persistent mark and expiry. Sonniss cue listening is pending.",
+    "placeholder": "ImageGen curse ring, persistent mark and expiry. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "curse cast ring",
@@ -2303,9 +2303,9 @@
     "generation": "uo",
     "clientMapping": "mapped",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen curse ring, persistent mark and expiry. Sonniss cue listening is pending.",
+    "placeholder": "ImageGen curse ring, persistent mark and expiry. Sonniss cues verified in ClassicUO.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "curse cast ring",
@@ -2330,7 +2330,7 @@
     "inGameVerification": "verified",
     "placeholder": "A quiet copper loop follows each recipient of the active aura. Warm ribbons rise only when life is restored, with one cue for the useful pulse.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "active recipient ring",
@@ -2355,7 +2355,7 @@
     "inGameVerification": "verified",
     "placeholder": "Copper shields and embers circle each recipient of the active fire-resistance aura. The marker clears with expiry or replacement.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "committed application",
@@ -2381,7 +2381,7 @@
     "inGameVerification": "verified",
     "placeholder": "Four icy shields circle the feet of protected recipients for their active cold-resistance lease.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "committed application",
@@ -2407,7 +2407,7 @@
     "inGameVerification": "verified",
     "placeholder": "A violet loop of small gold forks marks each recipient of active lightning resistance.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "committed application",
@@ -2432,7 +2432,7 @@
     "inGameVerification": "verified",
     "placeholder": "Steel-blue crenellations follow players and pets receiving the defense bonus.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "new aura application",
@@ -2456,7 +2456,7 @@
     "inGameVerification": "verified",
     "placeholder": "Violet filaments scatter dark flecks when Cleansing shortens poison or a curable curse. Any actual Prayer-synergy healing shares the amber ribbons.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "active recipient ring",
@@ -2480,7 +2480,7 @@
     "inGameVerification": "verified",
     "placeholder": "A fast loop of mint leaves marks players and pets receiving the stamina and movement bonuses.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "new aura application",
@@ -2504,7 +2504,7 @@
     "inGameVerification": "verified",
     "placeholder": "A blue ring follows each eligible player. Native mana recovery raises a small blue spark, and actual Prayer-synergy healing shares the warm ribbons.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "active player ring",
@@ -2531,7 +2531,7 @@
     "inGameVerification": "verified",
     "placeholder": "An ochre ring marks the caster. A claimed corpse releases gold sparks. A short jade thread joins the corpse and caster when it funds a red life or blue mana flash.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "active caster ring",
@@ -2558,7 +2558,7 @@
     "inGameVerification": "verified",
     "placeholder": "Three ivory shields with jade edges circle each recipient of Salvation. The outer ring can sit alongside the separate elemental wards and follows the provider deadline.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "committed application",
@@ -2583,7 +2583,7 @@
     "inGameVerification": "verified",
     "placeholder": "Copper pennants follow each recipient of the active damage bonus and retire when its lease expires.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "committed application",
@@ -2607,7 +2607,7 @@
     "inGameVerification": "verified",
     "placeholder": "A gold flame ring follows the active aura. Each damage pulse sweeps to its live radius, and gold sparks mark damaging pulses or landed aura-imbued weapon hits.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "active caster ring",
@@ -2633,7 +2633,7 @@
     "inGameVerification": "verified",
     "placeholder": "Plum hooks surround the protected recipient. A separate burst marks the attacker when a native Thorns return deals damage.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "first active pulse",
@@ -2660,7 +2660,7 @@
     "inGameVerification": "verified",
     "placeholder": "Teal arrowheads follow recipients of the active accuracy aura. The banner tracks the applied lease.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "committed application",
@@ -2684,7 +2684,7 @@
     "inGameVerification": "verified",
     "placeholder": "Amethyst standards follow the active recipients. A purple brace flashes when Concentration prevents hit recovery during a committed action.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "committed application",
@@ -2710,7 +2710,7 @@
     "inGameVerification": "verified",
     "placeholder": "A cyan frost ring follows the caster, with a separate frost seal on targets actually slowed. Committed shatter deaths use the shared cold-corpse burst.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "active caster ring",
@@ -2739,7 +2739,7 @@
     "inGameVerification": "verified",
     "placeholder": "A violet electric ring follows the active aura. Each pulse uses the live radius, and contact sparks mark pulse damage or landed aura-imbued weapon hits.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "active caster ring",
@@ -2767,7 +2767,7 @@
     "inGameVerification": "verified",
     "placeholder": "Ivory lanterns circle the Paladin. A blue-white wave traces the actual pulse radius, and a star marks affected undead and landed attacks benefiting from the aura.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "caster lantern ring",
@@ -2795,7 +2795,7 @@
     "inGameVerification": "verified",
     "placeholder": "Crimson pennants circle the caster and allies with the active attack bonus. The faster animation follows the received lease.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "committed application",
@@ -2820,7 +2820,7 @@
     "inGameVerification": "verified",
     "placeholder": "A garnet and brass ring marks the caster. A ruby flash settles into a floating mark when an enemy receives the debuff.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "caster ring",
@@ -2846,7 +2846,7 @@
     "inGameVerification": "verified",
     "placeholder": "A garnet swing arc and impact use separate effects. Red ribbons appear at the Paladin when the life payment actually lands.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "committed swing",
@@ -2870,7 +2870,7 @@
     "inGameVerification": "verified",
     "placeholder": "An ivory shield sweep breaks into steel and gold on contact. The shared stun markers follow the target during native timed displacement.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "shield swing",
@@ -2898,7 +2898,7 @@
     "inGameVerification": "verified",
     "placeholder": "An ivory-gold dart pierces on its accepted path. Green wisps mark the actual ally heal, a brief star marks damage, and spent bolts fade at their last point.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "release flash",
@@ -2925,7 +2925,7 @@
     "inGameVerification": "verified",
     "placeholder": "Short bronze arcs follow the timed series. Only landed swings spark at the selected enemy. The low-mana fallback uses ordinary attack presentation.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "each committed swing",
@@ -2948,7 +2948,7 @@
     "inGameVerification": "verified",
     "placeholder": "Teal force flares on launch, and fading afterimages mark completed steps. The impact plays at qualified hits and actual knockback. An adjacent target uses the ordinary attack presentation.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "movement launch",
@@ -2973,7 +2973,7 @@
     "inGameVerification": "verified",
     "placeholder": "Fire, frost and lightning braid around the swing and split into three separate shapes on contact. Actual cold uses the shared chill status.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "committed swing",
@@ -2999,7 +2999,7 @@
     "inGameVerification": "verified",
     "placeholder": "A shining hammer spins along its existing curve. Small gold shards mark damage, and the hammer dissolves where the curve is blocked or ends.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "release flash",
@@ -3024,7 +3024,7 @@
     "inGameVerification": "verified",
     "placeholder": "A jade swing precedes the result. On success, a knot forms and follows the converted creature until it breaks at expiry. A failed conversion shares the ordinary bronze contact on a landed hit.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "committed swing",
@@ -3053,7 +3053,7 @@
     "inGameVerification": "verified",
     "placeholder": "Gold light gathers on release into a pair of shield braces. A star flashes on a real block, and the braces fall away when the buff expires.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "paid release",
@@ -3083,7 +3083,7 @@
     "inGameVerification": "verified",
     "placeholder": "A warning follows the selected target, then a sky strike lands at its live position. The original position emits the silver-blue piercing bolts and still bursts when the pending target dies.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "target warning",
@@ -3113,7 +3113,7 @@
     "inGameVerification": "verified",
     "placeholder": "A steel-blue cry sends wave fronts out along the live rays. An attached fear mark follows affected enemies as they retreat and fades when Terror expires.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "paid release",
@@ -3138,7 +3138,7 @@
     "inGameVerification": "verified",
     "placeholder": "A green spiral and corpse sweep accompany the search. Actual potion creation brings up a glass vial, and an empty search leaves faint green dust.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "committed search",
@@ -3167,7 +3167,7 @@
     "inGameVerification": "verified",
     "placeholder": "Steel-blue ribs open at release. The wave follows the live rays, and shield braces follow recipients for the duration of the defense buff.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "release",
@@ -3192,7 +3192,7 @@
     "inGameVerification": "verified",
     "placeholder": "Copper flares at release. A rose mark follows the target while the untimed damage and attack penalties remain.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "paid release",
@@ -3218,7 +3218,7 @@
     "inGameVerification": "verified",
     "placeholder": "An amber wave follows the live rays. A broken shield marks enemies whose damage and defense are reduced, then fades at expiry.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "paid release",
@@ -3243,7 +3243,7 @@
     "inGameVerification": "verified",
     "placeholder": "An amber flash sweeps the corpse. Actual added loot brings up a gold gleam, and an empty search settles into brown dust.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "committed search",
@@ -3272,7 +3272,7 @@
     "inGameVerification": "verified",
     "placeholder": "Crimson, blue, and green ribbons carry life, mana, and stamina outward. Three lights follow each recipient and fade when their increased resource maxima expire.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "release",
@@ -3304,7 +3304,7 @@
     "inGameVerification": "verified",
     "placeholder": "A bone totem rises in the corpse size class, pulses over its active reach, and collapses at expiry. Violet thorns follow the affected enemy while its curse lasts.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "small, medium, and large startup",
@@ -3337,7 +3337,7 @@
     "inGameVerification": "verified",
     "placeholder": "An ivory and blue pressure wave follows the live rays. An impact flashes at qualified contacts, including a stun through physical immunity. The shared stun marker follows the target for the active stun.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "paid release",
@@ -3366,7 +3366,7 @@
     "inGameVerification": "verified",
     "placeholder": "Gold chevrons advance along the live rays. A gold and lilac heraldic ring follows recipients while their skill rank is raised.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "release",
@@ -3521,7 +3521,7 @@
     "inGameVerification": "verified",
     "placeholder": "An amber arc leads into a bronze impact. Dust marks completed knockback steps. The impact remains visible if terrain stops the target.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "committed swing",
@@ -3545,7 +3545,7 @@
     "inGameVerification": "verified",
     "placeholder": "Two opposing steel sweeps mark the primary and secondary releases. Gold and ivory flashes mark the two landed contacts. The ordinary fallback keeps its weapon presentation.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "primary swing",
@@ -3571,7 +3571,7 @@
     "inGameVerification": "verified",
     "placeholder": "Dust marks takeoff, curves along the flight, and pulses over the accepted landing radius. Interrupted travel settles into a smaller dust effect.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "takeoff",
@@ -3596,7 +3596,7 @@
     "inGameVerification": "verified",
     "placeholder": "Each weapon retains its launch timing and native course. Knives and axes spin. Javelins, glaives, and pila point along the flight. A compact spark marks landed contacts and blocked terrain.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "per-hand launch",
@@ -3621,7 +3621,7 @@
     "inGameVerification": "verified",
     "placeholder": "A steel-blue swing breaks into a contact flare, with a pale spiral when the target is stunned. The shared stun mark shows the active duration.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "committed swing",
@@ -3650,7 +3650,7 @@
     "inGameVerification": "verified",
     "placeholder": "The shared jump arc leads to a copper ground ring and debris at damaged targets. The later weapon swing has its own sweep and impact.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "shared takeoff and arc",
@@ -3680,7 +3680,7 @@
     "inGameVerification": "verified",
     "placeholder": "Jade braces frame the caster throughout the defense window. A narrow sweep and a faceted impact mark the strike. The braces clear when the action ends.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "action-long defense braces",
@@ -3707,7 +3707,7 @@
     "inGameVerification": "verified",
     "placeholder": "Opposing copper-red sweeps and sparks mark the weapon events. A low ring follows the caster while the speed charges are active and fades at expiry.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "primary swing",
@@ -3736,7 +3736,7 @@
     "inGameVerification": "verified",
     "placeholder": "A blue ring follows the caster, with a wake at completed steps, sparks on landed hits, and a fade at the last reached tile.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "sustained spin",
@@ -3764,7 +3764,7 @@
     "inGameVerification": "verified",
     "placeholder": "A violet ring shows the zero-defense state. Amethyst sparks mark the swing and magic impact. The ring breaks when defense returns.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "zero-defense state",
@@ -3795,7 +3795,7 @@
     "inGameVerification": "verified",
     "placeholder": "Three tongues of flame follow their existing paths and leave short fire beds on the active cells.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "release",
@@ -3825,7 +3825,7 @@
     "inGameVerification": "verified",
     "placeholder": "A molten rock forms and rolls, throws small chips on continuing hits, and shatters at the end of its roll. Its trail retires on its own clock.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "formation",
@@ -3859,7 +3859,7 @@
     "inGameVerification": "verified",
     "placeholder": "A narrow directional freeze stream follows the existing held aim and shows contact chips, shared chill and a short vapor fade.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "directional windup",
@@ -3889,7 +3889,7 @@
     "inGameVerification": "verified",
     "placeholder": "The ground opens at the accepted aim point. Scattered glowing cracks render on active cells and retire with the source hazard.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "opening at aim",
@@ -3915,7 +3915,7 @@
     "inGameVerification": "verified",
     "placeholder": "A wind shell follows its caster while the pool is active. Absorption flares along its rim, and the ribbons unravel at depletion.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "rising wind",
@@ -3944,7 +3944,7 @@
     "inGameVerification": "verified",
     "placeholder": "Three low silver eddies follow the existing paths. Contact flashes and the shared stun mark track committed events.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "release sweep",
@@ -3974,7 +3974,7 @@
     "inGameVerification": "verified",
     "placeholder": "A lava vent rises at the accepted aim and tosses tumbling rock along the existing paths. Landed pieces leave independently timed fire.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "vent opening",
@@ -4006,7 +4006,7 @@
     "inGameVerification": "verified",
     "placeholder": "A tall blue-gray funnel follows the missile through periodic area pulses and disperses at retirement.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "release sweep",
@@ -4037,7 +4037,7 @@
     "inGameVerification": "verified",
     "placeholder": "An icy ring and orbiting tracers follow the active weather. Successful pulses flash at the recipient and share the chill overlay.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "opening",
@@ -4071,7 +4071,7 @@
     "inGameVerification": "verified",
     "placeholder": "A ring of cinders follows the caster. Individual falls show a warning and descend into a smaller Meteor burst before leaving fire.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "weather release and caster aura",
@@ -4104,7 +4104,7 @@
     "inGameVerification": "verified",
     "placeholder": "The approved Timber Wolf emerges through silver-blue wisps and returns through a closing spiral.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "moonlit transformation",
@@ -4142,7 +4142,7 @@
     "inGameVerification": "verified",
     "placeholder": "Ochre earth and amber leaves frame the approved Grizzly Bear and settle on return.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "earth and leaf transformation",
@@ -4167,7 +4167,7 @@
     "inGameVerification": "verified",
     "placeholder": "Landed Maul scatters stone and grows an amber charge orb through three visual sizes.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "landed ground impact",
@@ -4192,7 +4192,7 @@
     "inGameVerification": "verified",
     "placeholder": "Landed Feral Rage rakes the target and grows a red ember that orbits the wolf.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "landed rake",
@@ -4217,7 +4217,7 @@
     "inGameVerification": "verified",
     "placeholder": "Gold-orange claw trails rake the target on a successful wolf or bear contact.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "landed flaming rake"
@@ -4240,7 +4240,7 @@
     "inGameVerification": "verified",
     "placeholder": "An olive bite flash marks the initial attack. Chartreuse motes follow each carrier through its independent deadline.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "landed bite",
@@ -4271,7 +4271,7 @@
     "inGameVerification": "verified",
     "placeholder": "Ground pressure crests spread from the bear along the five source paths. Impact chips and a timed stun mark follow the committed effects.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "release ripple",
@@ -4295,7 +4295,7 @@
     "inGameVerification": "verified",
     "placeholder": "A closing bite flashes at the target. Red and blue effects mark life and mana actually recovered.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "landed bite in either form",
@@ -4319,7 +4319,7 @@
     "inGameVerification": "verified",
     "placeholder": "Brief silver claw arcs flash at each target on a landed strike in the existing sequence.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "individual landed slashes across the sequence"
@@ -4342,7 +4342,7 @@
     "inGameVerification": "verified",
     "placeholder": "A feather swirl frames the arrival. Talon contact throws silver-violet sparks and the blindness mark follows the target.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "feather arrival",
@@ -4371,7 +4371,7 @@
     "inGameVerification": "verified",
     "placeholder": "Directional thorn heads write a venom trail across the accepted subtiles. A contact flash marks committed poison, and the mats wither on their own timers.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "thorn arrival",
@@ -4401,7 +4401,7 @@
     "inGameVerification": "verified",
     "placeholder": "Oak leaves rise at arrival and circle each recipient while its maximum-life aura is active.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "leaf arrival",
@@ -4428,7 +4428,7 @@
     "inGameVerification": "verified",
     "placeholder": "Frost rises at arrival. Cold jaws flash on contact, and the wolf reappears through the opening effect after parking.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "frost arrival",
@@ -4456,7 +4456,7 @@
     "inGameVerification": "verified",
     "placeholder": "Copper roots mark arrival and frame the reserved corpse. A red flash reaches the owner when the delayed life gain applies.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "root arrival",
@@ -4485,7 +4485,7 @@
     "inGameVerification": "verified",
     "placeholder": "Copper wisps rise at arrival. A red-orange ring follows each recipient of the attack and damage bonuses.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "copper arrival",
@@ -4511,7 +4511,7 @@
     "inGameVerification": "verified",
     "placeholder": "Copper leaves mark arrival, and a warm aura follows the wolf for the actual duration of its feeding rage.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "copper arrival",
@@ -4541,7 +4541,7 @@
     "inGameVerification": "verified",
     "placeholder": "Blue sprigs mark arrival. Roots frame the reserved corpse, then a blue flash marks the delayed mana gain when it applies.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "blue arrival",
@@ -4570,7 +4570,7 @@
     "inGameVerification": "verified",
     "placeholder": "Violet brambles rise at arrival. The recipient ring follows the flat-return aura and a thorn flash marks damage on the attacker.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "thorn arrival",
@@ -4599,7 +4599,7 @@
     "inGameVerification": "verified",
     "placeholder": "Dust and stones rise around the native bear. Gold slashes mark ordinary hits and heavy chips mark a landed Bear Smite.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "earth arrival",
@@ -4630,7 +4630,7 @@
     "inGameVerification": "verified",
     "placeholder": "Amber claw sweeps and a gold contact flash. Up to three tiger-eye motes follow the player and update when gained, spent, or expired.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "weapon release",
@@ -4657,7 +4657,7 @@
     "inGameVerification": "verified",
     "placeholder": "Amber sweeps mark the scheduled kicks. Landed hits flash on the selected target, blocks scatter pale sparks, and dust marks completed final knockback.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "directional per-kick sweep",
@@ -4684,7 +4684,7 @@
     "inGameVerification": "verified",
     "placeholder": "Opposing lilac and steel-blue sweeps mark the primary and secondary releases. Each landed strike uses its own contact flash and spends its own charges.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "directional primary and secondary sweeps",
@@ -4713,7 +4713,7 @@
     "inGameVerification": "verified",
     "placeholder": "Copper claws build ember motes. The second charge adds a ground pulse, and the third lights the accepted scatter tiles.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "per-hand swing",
@@ -4746,7 +4746,7 @@
     "inGameVerification": "verified",
     "placeholder": "Green claw sweeps and serpent-scale sparks feed up to three motes. A common finisher shows ribbons only for life and mana actually recovered.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "weapon release",
@@ -4778,7 +4778,7 @@
     "inGameVerification": "verified",
     "placeholder": "A low copper sweep and kick flare precede a ring matching the fire burst radius. Embers mark eligible fire contacts and completed knockback steps.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "directional kick",
@@ -4810,7 +4810,7 @@
     "inGameVerification": "verified",
     "placeholder": "Charged claw arcs build yellow motes. At higher tiers, an electric ring opens onto radial rays and then moving bolts.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "per-hand swing",
@@ -4844,7 +4844,7 @@
     "inGameVerification": "verified",
     "placeholder": "Ice claws build cyan motes. Higher tiers add a shard ring and stationary crystals on the accepted cells. Cold statuses use the shared overlays.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "per-hand swing",
@@ -4875,7 +4875,7 @@
     "inGameVerification": "verified",
     "placeholder": "Indigo ribbons close at the origin and blue wisps open at the accepted landing. The later kick has a separate directional sweep and contact flare.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "committed departure",
@@ -4911,7 +4911,7 @@
     "inGameVerification": "verified",
     "placeholder": "Violet and gold claw sweeps build feather motes. Spending the first, second, or third tier releases a meteor, chain lightning, or chaos ice.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "weapon release",
@@ -4957,7 +4957,7 @@
     "inGameVerification": "verified",
     "placeholder": "A violet knot flashes at release and a vertical spike lands on the accepted impact tile before displacement.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cast",
@@ -4981,7 +4981,7 @@
     "inGameVerification": "verified",
     "placeholder": "Copper ribbons rise on release and low wisps follow the active speed state. A small flare marks natural expiry.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cast",
@@ -5006,7 +5006,7 @@
     "inGameVerification": "verified",
     "placeholder": "A low wave marks the caster-centered radius. The mantle follows the caster while distinct dark and pale marks show blinded and defense-only recipients.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "radius-scaled cast",
@@ -5049,7 +5049,7 @@
     "inGameVerification": "verified",
     "placeholder": "Violet ribbons curl around the caster as the existing body opacity changes. The veil follows the active Fade state.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cast",
@@ -5075,7 +5075,7 @@
     "inGameVerification": "verified",
     "placeholder": "An indigo cast flash precedes the summon. Wisps rise at the accepted arrival tile, follow the native body at its feet, and disperse when it leaves or dies.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cast",
@@ -5106,7 +5106,7 @@
     "inGameVerification": "verified",
     "placeholder": "Magenta fragments mark the committed area and contacts. Shared stun and temporary allegiance visuals follow their respective outcomes.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cast",
@@ -5133,7 +5133,7 @@
     "inGameVerification": "verified",
     "placeholder": "Jade curls mark weapon coating. A small hand-level claw follows the buff and the shared poison visuals show a delivered poison.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cast",
@@ -5161,7 +5161,7 @@
     "inGameVerification": "verified",
     "placeholder": "A magenta facet opens a purple threshold. Gold sparks mark the native Shadow while it is present, then disperse in a plume at departure or death.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cast",
@@ -5191,7 +5191,7 @@
     "inGameVerification": "verified",
     "placeholder": "A tumbling ember follows the lob to its accepted landing. The bomb flashes through its existing fuse before a radius-scaled burst, with sparks on damaged targets.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "throw",
@@ -5220,7 +5220,7 @@
     "inGameVerification": "verified",
     "placeholder": "Blue shards tumble to their accepted landings. Each half-tile node crackles in place, flashes on a landed shock, and unravels at retirement.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "throw",
@@ -5250,7 +5250,7 @@
     "inGameVerification": "verified",
     "placeholder": "A teal steel blade emerges and spins along the summoned actor\u2019s retained position, flashes at a landed cut, and crumbles when the sentinel retires.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "emergence",
@@ -5279,7 +5279,7 @@
     "inGameVerification": "verified",
     "placeholder": "A blue crystal coil emerges, throws small forks along their existing jagged paths, and drops glowing debris at retirement.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "throw",
@@ -5309,7 +5309,7 @@
     "inGameVerification": "verified",
     "placeholder": "A low bronze brazier emerges before sending a fire crest that spreads along the source wave paths.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "throw",
@@ -5340,7 +5340,7 @@
     "inGameVerification": "verified",
     "placeholder": "A hand-level glint marks each emitted blade. The blade tumbles along its original flight. Contacts, deflections and spent fragments have separate cues.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "per-shot release",
@@ -5369,7 +5369,7 @@
     "inGameVerification": "verified",
     "placeholder": "A silver fork lights up violet and sends the shared Lightning streak along its own fractional missile path.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "throw",
@@ -5399,7 +5399,7 @@
     "inGameVerification": "verified",
     "placeholder": "A tall iron brazier emits a narrow ribbon of fire during its existing bursts and collapses into embers.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "throw",
@@ -5429,7 +5429,7 @@
     "inGameVerification": "verified",
     "placeholder": "A bone and iron sentry fires lightning or erupts at the consumed corpse, with the ground ring scaled to the actual blast radius.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "throw",
@@ -5460,7 +5460,7 @@
     "inGameVerification": "verified",
     "placeholder": "Steel fragments rise at cast. The orbit follows the active shield and sparks mark accepted periodic contacts. The blades disperse at expiry.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cast",
@@ -5504,7 +5504,7 @@
     "inGameVerification": "verified",
     "placeholder": "Rust-red stone frames the original Gargoyle on arrival. Rock chips mark accepted melee hits and the shared Berserk glow follows its active state.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cast",
@@ -5548,7 +5548,7 @@
     "inGameVerification": "verified",
     "placeholder": "A violet tear frames each demon that relocates. The target glyph follows the active mark and clears when it expires.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cast",
@@ -5576,7 +5576,7 @@
     "inGameVerification": "verified",
     "placeholder": "Embers frame the approved Succubus on arrival and circle its feet while it emits fire resistance. The pet fires the approved red flare.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cast",
@@ -5607,7 +5607,7 @@
     "inGameVerification": "verified",
     "placeholder": "Red blooms mark the donors and rings expand to the actual damage radius. Only damaged enemies flash.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cast",
@@ -5636,7 +5636,7 @@
     "inGameVerification": "verified",
     "placeholder": "Burgundy plumes frame the original Gazer. Health Link marks actual recipients and flashes at the target when typed damage transfers.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cast",
@@ -5671,7 +5671,7 @@
     "inGameVerification": "verified",
     "placeholder": "A corpse trace sends crimson threads to the affected demons. Healing flashes on each recipient and a ward follows the timed buff.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cast",
@@ -5700,7 +5700,7 @@
     "inGameVerification": "verified",
     "placeholder": "The selected demon dissolves into a tether. The caster wears an amber-red ward until its sacrifice slot clears.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cast",
@@ -5729,7 +5729,7 @@
     "inGameVerification": "verified",
     "placeholder": "The caster channels an indigo rune. Paid attempts send spectral links to the target and successful binding seals the original creature.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "channel and cancellation",
@@ -5770,7 +5770,7 @@
     "inGameVerification": "verified",
     "placeholder": "Amethyst thorns follow the animated weapon. A thistle marks accepted targets, including on an eligible melee miss, and a separate glint shows landed weapon contact.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cast",
@@ -5799,7 +5799,7 @@
     "inGameVerification": "verified",
     "placeholder": "A silver-violet sweep follows the committed aim of a paid action. Each landed hit that reduces enemy life shows a separate flash.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "eight-direction paid sweep",
@@ -5825,7 +5825,7 @@
     "inGameVerification": "verified",
     "placeholder": "Mint spectral knives follow the outbound fan, turn at the existing range or wall, and take on a cooler tint when returning. Shield deflections and damaging contacts have separate flashes.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "release",
@@ -5857,7 +5857,7 @@
     "inGameVerification": "verified",
     "placeholder": "Copper crescents follow the animated weapon. A triangle marks eligible targets until expiry or depletion, and confirmed charges produce a two-tile blast.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cast",
@@ -5888,7 +5888,7 @@
     "inGameVerification": "verified",
     "placeholder": "A pale-blue astral blade follows the collision-checked flight. Its impact marks the two-tile radius, and the departure and arrival effects play after a successful transfer.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cast",
@@ -5919,7 +5919,7 @@
     "inGameVerification": "verified",
     "placeholder": "Blue glass facets surround the caster while the physical pool is active. The rim flashes on absorption and shatters on depletion. Qualified melee reactions share the stun art.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cast and recast",
@@ -5952,7 +5952,7 @@
     "inGameVerification": "verified",
     "placeholder": "Lilac curls follow the caster. Accepted Hex refreshes produce a radius ring, and bright contacts are reserved for recipients that actually lose life.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cast",
@@ -5985,7 +5985,7 @@
     "inGameVerification": "verified",
     "placeholder": "Teal leaves follow the animated weapon and a drop marks accepted targets. Mint and blue ribbons show actual kill-based life and mana gains independently.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cast",
@@ -6012,7 +6012,7 @@
     "inGameVerification": "verified",
     "placeholder": "One native swing or shot releases the primary stroke and spectral copies. Their screen offsets preserve the original melee and projectile collision geometry.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "release",
@@ -6043,7 +6043,7 @@
     "inGameVerification": "verified",
     "placeholder": "An indigo bolt shows its fractional travel and actual collision. Violet wisps mark the stationary magic clouds and clear at expiry.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cast",
@@ -6075,7 +6075,7 @@
     "inGameVerification": "verified",
     "placeholder": "A low ember ring opens at the caster and spreads along sampled native rays. Embers bloom where the rays burst and flash at confirmed contacts.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cast",
@@ -6108,7 +6108,7 @@
     "inGameVerification": "verified",
     "placeholder": "Teal hooks trace the active radius. An hourglass follows each slowed target and clears with its lease.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cast",
@@ -6142,7 +6142,7 @@
     "inGameVerification": "verified",
     "placeholder": "Bronze teeth trace the active radius. A triangle marks each affected target and gold curls flash when Rancor starts an effective confusion lease.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cast",
@@ -6171,7 +6171,7 @@
     "inGameVerification": "verified",
     "placeholder": "A violet clasp latches at the real head. Bright links show each accepted span and lower wisps remain along its prior stamps until they expire.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cast",
@@ -6204,7 +6204,7 @@
     "inGameVerification": "verified",
     "placeholder": "Saffron sparks reveal the wave, which rolls along clear lanes and leaves low flames in native burn cells. Blocked lanes break apart at the wall.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cast",
@@ -6240,7 +6240,7 @@
     "inGameVerification": "verified",
     "placeholder": "A magenta ring marks the field. A marked death bursts from the actual consumed corpse and scatters bone chips over its four-tile blast.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cast",
@@ -6286,7 +6286,7 @@
     "inGameVerification": "verified",
     "placeholder": "A two-second fissure marks the configured radius. A tall eruption breaks through its center and scorched cinders mark damaged enemies.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customCharacterAnimation": "reuse-native",
     "customArtworkPhases": [
       "cast and radius warning",
@@ -6313,9 +6313,9 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "verified",
-    "placeholder": "ImageGen opening tear, persistent vortex and collapse with Sonniss opening, pull and collapse cues. Listening is pending.",
+    "placeholder": "ImageGen opening tear, persistent vortex and collapse with Sonniss opening, pull and collapse cues.",
     "customArtwork": "verified",
-    "customAudio": "listening-pending",
+    "customAudio": "verified",
     "customArtworkPhases": [
       "opening tear",
       "persistent vortex",
