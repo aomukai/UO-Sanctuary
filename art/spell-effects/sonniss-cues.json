@@ -338,7 +338,7 @@
     "HolyBoltFade": {"source": "air", "start": 0.77, "duration": 0.29, "fadeIn": 0.019, "fadeOut": 0.092, "highpass": 1050, "peakDb": -27},
     "BlessedHammerRelease": {"source": "arcane-doppler", "start": 0.16, "duration": 0.54, "fadeIn": 0.014, "fadeOut": 0.14, "highpass": 259, "peakDb": -16},
     "BlessedHammerContact": {"source": "snap", "start": 0.208, "duration": 0.22, "fadeIn": 0.004, "fadeOut": 0.06, "highpass": 240, "peakDb": -16},
-    "BlessedHammerFade": {"source": "ice", "start": 0.41, "duration": 0.26, "fadeIn": 0.012, "fadeOut": 0.064, "highpass": 640, "peakDb": -25},
+    "BlessedHammerFade": {"source": "ice", "start": 0.562, "duration": 0.16, "fadeIn": 0.012, "fadeOut": 0.058, "highpass": 640, "peakDb": -25},
     "HeavenFistWarning": {"source": "electric-crackle", "start": 0.55, "duration": 0.39, "fadeIn": 0.094, "fadeOut": 0.083, "highpass": 760, "peakDb": -23},
     "HeavenFistStrike": {"source": "close-thunder", "start": 1.83, "duration": 0.72, "fadeIn": 0.005, "fadeOut": 0.25, "highpass": 77, "peakDb": -12},
     "HeavenFistBurst": {"source": "arcane-doppler", "start": 0.54, "duration": 0.33, "fadeIn": 0.015, "fadeOut": 0.096, "highpass": 690, "peakDb": -21},
