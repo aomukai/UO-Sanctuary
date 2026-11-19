@@ -328,6 +328,22 @@ public static class SpellEffectGraphics
         or EldritchBlastRefresh or EldritchBlastContact or EldritchBlastFade;
     public static bool IsWarlockPsychicLoop(ushort graphic) => graphic is PsychicWardShell or EldritchBlastAura;
 
+    public const int WarlockBladeFrames = 4;
+    public const ushort CleaveSweep = 60500;
+    public const ushort CleaveContact = 60532;
+    public const ushort BladeWarpCast = 60300;
+    public const ushort BladeWarpFlight = 60304;
+    public const ushort BladeWarpImpact = 60336;
+    public const ushort BladeWarpRadius = 60340;
+    public const ushort BladeWarpDeparture = 60344;
+    public const ushort BladeWarpArrival = 60348;
+    public const ushort BladeWarpContact = 60352;
+    public static bool IsCleaveSweep(ushort graphic) => graphic is >= CleaveSweep and < CleaveContact
+        && (graphic - CleaveSweep) % WarlockBladeFrames == 0;
+    public static bool IsWarlockBladeAnimation(ushort graphic) => IsCleaveSweep(graphic)
+        || graphic is CleaveContact or BladeWarpCast or BladeWarpImpact or BladeWarpRadius
+            or BladeWarpDeparture or BladeWarpArrival or BladeWarpContact;
+
     public const int AssassinLobFrames = 4;
     public const int FireBlastRadiusSubtiles = 5;
     public const ushort FireBlastThrow = 62764;
@@ -677,7 +693,7 @@ public static class SpellEffectGraphics
         graphic is HolyFirePulse or HolyFreezePulse or HolyShockPulse or SanctuaryPulse or GrimWardPulse
             or LeapLanding or LeapAttackLanding or MartialFireRing or MartialThunderRing or MartialIceRing
             or DragonTailBurst or CloakWave or MindBlastWave or DeathSentryBurst or BloodBoilRing or ApocalypseWarning
-            or DeathSigilBurstRing or HexPurgeRadius or EldritchBlastRing || IsSigilField(graphic);
+            or DeathSigilBurstRing or HexPurgeRadius or EldritchBlastRing or BladeWarpRadius || IsSigilField(graphic);
 
     public static bool IsPaladinAuraLoop(ushort graphic) => graphic is HolyFireAura or HolyFreezeAura or HolyShockAura or HolyFreezeSlow
         || IsPaladinResistanceWard(graphic) || IsPaladinRecoveryLoop(graphic) || IsPaladinOffenseLoop(graphic)
@@ -862,7 +878,9 @@ public static class SpellEffectGraphics
             or >= FlameWaveFront and <= FlameWaveField or FlameWaveFade
             or >= MiasmaBoltFlight and < MiasmaBoltCloud or >= MiasmaChainLink and < MiasmaChainCloud
             or MiasmaBoltFade or MiasmaChainMistFade or MiasmaChainFade
+            or >= BladeWarpFlight and < BladeWarpImpact
             || IsMiasmaCloud(graphic)
+            || IsCleaveSweep(graphic)
             || IsBarbarianThrowFlight(graphic);
 
     public static bool IsHydraHeadFrame(ushort graphic) => graphic is >= HydraHeadRight and <= HydraHeadGone;

@@ -1264,6 +1264,14 @@ def products():
             inGameVerification='verified', placeholder='Lilac curls follow the caster. Accepted Hex refreshes produce a radius ring, and bright contacts are reserved for recipients that actually lose life.',
             customArtworkPhases=['cast', 'persistent caster aura', 'radius discharge', 'refresh-only spark', 'confirmed damage contact', 'shared life and mana ribbons', 'expiry fade'],
             customAudioPhases=['cast', 'accepted discharge', 'confirmed damage contact', 'shared recovery', 'expiry fade']),
+        'warlock.cleave': dict(customArtwork='verified', customAudio='listening-pending', customCharacterAnimation='reuse-native',
+            inGameVerification='verified', placeholder='A silver-violet sweep follows the committed aim of a paid action. Each landed hit that reduces enemy life shows a separate flash.',
+            customArtworkPhases=['eight-direction paid sweep', 'confirmed damage contact'],
+            customAudioPhases=['paid sweep', 'confirmed damage contact']),
+        'warlock.bladewarp': dict(customArtwork='verified', customAudio='listening-pending', customCharacterAnimation='reuse-native',
+            inGameVerification='verified', placeholder='A pale-blue astral blade follows the collision-checked flight. Its impact marks the two-tile radius, and the departure and arrival effects play after a successful transfer.',
+            customArtworkPhases=['cast', 'eight-direction fractional blade flight', 'impact and radius', 'confirmed damage contact', 'accepted departure and arrival'],
+            customAudioPhases=['cast', 'impact', 'confirmed damage contact', 'accepted departure and arrival']),
     }
     for effect, row in zip(effects, rows, strict=True):
         talent = effect['talentId']

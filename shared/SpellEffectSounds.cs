@@ -455,6 +455,13 @@ public static class SpellEffectSounds
     public const int EldritchBlastPulse = 60449;
     public const int EldritchBlastContact = 60450;
     public const int EldritchBlastFade = 60451;
+    public const int CleaveSweep = 60452;
+    public const int CleaveContact = 60453;
+    public const int BladeWarpCast = 60454;
+    public const int BladeWarpImpact = 60455;
+    public const int BladeWarpDeparture = 60456;
+    public const int BladeWarpArrival = 60457;
+    public const int BladeWarpContact = 60458;
 
     public static int Fallback(int sound) => sound switch
     {
@@ -505,6 +512,10 @@ public static class SpellEffectSounds
         PsychicWardCast or EldritchBlastCast => 0x1E5,
         PsychicWardBreak => 0x1F1,
         EldritchBlastPulse => 0x213,
+        CleaveSweep => 0x238,
+        BladeWarpCast => 0x23B,
+        BladeWarpImpact => 0x213,
+        BladeWarpArrival => 0x1FE,
         BlizzardRelease or FrozenOrbRelease or MeteorRelease or TeethRelease or BoneSpiritRelease or AbyssOpen => 0x1E5,
         AmazonBowRelease or AmazonCrossbowRelease or JavelinThrow => 0x238,
         SpearThrust or HeavySpearThrust => 0x238,

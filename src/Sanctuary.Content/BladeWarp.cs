@@ -20,6 +20,7 @@ internal static class BladeWarp
     internal static Func<bool> Allocate=()=>true;
     internal static Func<int,int> Roll=Utility.Random;
     private const CombatAbility Ability=CombatAbility.BladeWarp;
+    private const int ImpactRadius = 2;
     public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),()=>Tick(TimedEffects.Now));
     internal static BladeWarpFlight[] Snapshot()=>Flights.Values.OrderBy(x=>x.Id).ToArray();
     internal static void Clear(PlayerMobile owner)
@@ -48,7 +49,8 @@ internal static class BladeWarp
         var flight=new BladeWarpFlight(checked(_next+1),p.Serial.Value,p.Map.MapID,values.Rank,p.X,p.Y,p.Z,point,velocity.X,velocity.Y,20,
             TimedEffects.Now.AddMilliseconds(40),min,max,DruidFirestorm.Modifiers(p));
         if(!NecromancerEffects.Pay(p,values.Mana256)){return false;}
-        _next=flight.Id;Flights.Add(flight.Id,flight);FireGround.Delay(p,Ability);p.PlaySound(0x23B); // Astral throw placeholder.
+        _next=flight.Id;Flights.Add(flight.Id,flight);FireGround.Delay(p,Ability);
+        WarlockRitualVisuals.Attached(p, SpellEffectGraphics.BladeWarpCast, SpellEffectSounds.BladeWarpCast);
         return true;
     }
     private static Point3D Point(double x,double y,int z)=>new((int)Math.Round(x),(int)Math.Round(y),z);
@@ -76,15 +78,37 @@ internal static class BladeWarp
         var map=p.Map;var raw=DruidMoltenBoulder.Potion(flight.Modifiers,new(0,0,0,0,0,
             Magic:WeaponMissileDamage.RollValue(flight.Minimum256,flight.Maximum256,0,Roll)/256.0));
         // One copied-area event. No weapon damage,accuracy,critical,leech or on-strike effects.
-        foreach(var target in SkillCombat.Targets(p,center,2))
+        bool contactCuePlayed = false;
+        foreach(var target in SkillCombat.Targets(p,center,ImpactRadius))
         {
             if(!Enemy(p,target,center.Z)||ClassAvoidance.Missile(target)){continue;}
+            var point = target.Location;
             p.DoHarmful(target,true);var parts=SkillCombat.MitigatePrepared(p,target,raw);
             int loss=SkillHealth.TypedDamage(p,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));
             if(target is BaseCreature npc){CreatureHitRecovery.Apply(npc,p,loss);}
+            if (loss > 0 && !target.Hidden)
+            {
+                Effects.SendLocationEffect(point, map, SpellEffectGraphics.BladeWarpContact, 6);
+                if (!contactCuePlayed)
+                {
+                    Effects.PlaySound(point, map, SpellEffectSounds.BladeWarpContact);
+                    contactCuePlayed = true;
+                }
+            }
         }
-        Effects.SendLocationEffect(center,map,0x36BD,12,10,0x48D,0); // Blade Warp magic impact placeholder.
-        if(Owner(p)&&p.Map==map&&Landing(p,center,out var destination)){Teleportation.CommitTransfer(p,destination,p.Location,map);}
+        Effects.SendLocationEffect(center, map, SpellEffectGraphics.BladeWarpRadius, 9,
+            hue: ImpactRadius * SpellEffectGraphics.HolyAuraRadiusUnitsPerTile);
+        WarlockRitualVisuals.Ground(map, center, SpellEffectGraphics.BladeWarpImpact, SpellEffectSounds.BladeWarpImpact);
+        if (Owner(p) && p.Map == map && Landing(p, center, out var destination))
+        {
+            Teleportation.CommitTransfer(p, destination, p.Location, map, PresentTransfer);
+        }
+    }
+
+    private static void PresentTransfer(Mobile actor, Point3D origin, Map map)
+    {
+        WarlockRitualVisuals.Ground(map, origin, SpellEffectGraphics.BladeWarpDeparture, SpellEffectSounds.BladeWarpDeparture);
+        WarlockRitualVisuals.Ground(actor.Map, actor.Location, SpellEffectGraphics.BladeWarpArrival, SpellEffectSounds.BladeWarpArrival);
     }
     private static void Advance(PlayerMobile p,BladeWarpFlight flight)
     {
@@ -110,7 +134,9 @@ internal static class BladeWarp
         }
         var next=flight with{X=flight.X+vx,Y=flight.Y+vy,Remaining=flight.Remaining-1,NextUtc=flight.NextUtc.AddMilliseconds(40)};
         if(arrived||next.Remaining<=0){Impact(p,flight,Point(next.X,next.Y,next.Z));return;}
-        Flights[flight.Id]=next;Effects.SendLocationEffect(Point(next.X,next.Y,next.Z),p.Map,0x36E4,2,10,0x48D,0); // Astral blade placeholder.
+        Flights[flight.Id] = next;
+        int graphic = SorceressVisuals.DirectionalFrame(SpellEffectGraphics.BladeWarpFlight, flight.Vx, flight.Vy, 20 - flight.Remaining);
+        GroundSpellVisuals.Sample(p.Map, next.X, next.Y, next.Z, graphic, 1, 18);
     }
     internal static void Tick(DateTime now,bool? actions=null)
     {

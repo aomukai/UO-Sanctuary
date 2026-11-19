@@ -184,6 +184,10 @@ Psychic Ward forms a blue glass shell around the caster, flashes when it absorbs
 
 Muted ClassicUO checks covered a partial physical catch, ranged absorption without stun, elemental damage outside the pool, a breaking melee hit, and failed Ward allocation after clearing the old shell. Eldritch Blast drew its moving aura and real radius, refreshed a magic-immune Purge target without spending charges, and showed actual damage and recovery on eligible recipients. An empty tick stayed quiet. The aura faded at the shortened deadline used in the test shard. Native save-and-reload checks passed for both skills. ClassicUO decoded eight new Sonniss edits and the shared recovery cue. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
 
+Cleave sweeps a silver-violet blade in the committed direction of the paid swing. Its smaller flashes mark enemies that take damage. Blade Warp sends a pale-blue blade along the existing collision path and shows a two-tile ring at impact. Its departure flash stays at the caster's original tile and its arrival opens at the landing the game accepts. The ring adapts the original Eldritch Blast art. [Cleave sheet and prompt](../art/spell-effects/warlock-cleave) · [Blade Warp sheet and prompt](../art/spell-effects/warlock-blade-warp)
+
+Muted ClassicUO checks covered two in-arc Cleave hits, a spared enemy behind the caster, a paid miss, and the low-mana switch to an ordinary attack. Blade Warp hit two enemies on collision, spared an out-of-range enemy, and transferred the caster to a free tile. It also reached an exact empty tile, drew an impact without transferring into a fully occupied landing area, and stayed quiet on failed allocation. Native gameplay and save-and-reload checks passed. ClassicUO decoded seven Sonniss edits. Listening is queued. [Cue recipes](../art/spell-effects/sonniss-cues.json)
+
 Charged Bolt skitters along its existing paths, Lightning travels in a straight streak, and Chain Lightning sends violet arcs between targets. Static Field expands along the ground and Thunder Storm flashes above the caster at release and on its recurring strike schedule. The player casts were checked in ClassicUO with audio disabled. Nine Sonniss edits cover their cast and impact cues. Each cue has passed format and level checks and awaits a listening pass. [Cue recipes](../art/spell-effects/sonniss-cues.json)
 
 Ice Bolt travels as a thin shard, Ice Blast as a compact comet, and Glacial Spike as a heavier crystal with an area burst. Frost Nova expands across the ground. The shared cold overlays follow the affected target and clear with the game status. Thaw and cold corpse shatter reuse the Ice Blast fragments. The player effects were checked in ClassicUO with audio disabled. Eight Sonniss edits cover releases, impacts, and the shared cold corpse shatter. Their listening pass is queued. [Cold status sprite source](../art/spell-effects/cold-status/sheet.png) · [Cue recipes](../art/spell-effects/sonniss-cues.json)
@@ -1368,10 +1372,10 @@ Inherited NPC item absorption now changes life mechanically. Final Iron Golem ab
 | Warlock | Bind Demon | custom | Channel rune, paid attempt chain, and a seal on the successfully bound demon. |
 | Warlock | Levitation Mastery | not-applicable | levitate_mastery |
 | Warlock | Hex: Bane | custom | Violet weapon thorns, a thistle target mark, and a landed-contact flash. |
-| Warlock | Cleave | needed | warlock_psychic_cast_1 |
+| Warlock | Cleave | custom | Directional silver-violet sweep and separate flashes for damaging contacts. |
 | Warlock | Echoing Strike | needed | echoingstrike, warlock_psychic_cast_1, echoingstrike |
 | Warlock | Hex: Purge | custom | Copper weapon crescents, a charged triangle, and a radius-matched blast. |
-| Warlock | Blade Warp | needed | bladewarp, warlock_psychic_cast_1, bladewarp |
+| Warlock | Blade Warp | custom | Astral blade, two-tile impact, damage flashes, and accepted departure and arrival effects. |
 | Warlock | Psychic Ward | custom | Blue glass shell, physical absorption flash, depletion shatter, and shared stun. |
 | Warlock | Eldritch Blast | custom | Persistent lilac aura, radius ring, distinct refresh and damage contacts, and recovery ribbons. |
 | Warlock | Hex: Siphon | custom | Teal weapon glow and target mark with separate life and mana return ribbons. |

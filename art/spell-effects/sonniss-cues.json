@@ -591,6 +591,13 @@
     "EldritchBlastCast": {"source": "arcane-doppler", "start": 0.202, "duration": 0.44, "fadeIn": 0.039, "fadeOut": 0.137, "highpass": 338, "peakDb": -19},
     "EldritchBlastPulse": {"source": "ghost-whisper", "start": 0.185, "duration": 0.448, "fadeIn": 0.009, "fadeOut": 0.133, "highpass": 248, "peakDb": -19},
     "EldritchBlastContact": {"source": "electric-crackle", "start": 0.406, "duration": 0.174, "fadeIn": 0.006, "fadeOut": 0.057, "highpass": 717, "peakDb": -27},
-    "EldritchBlastFade": {"source": "ghost-whisper", "start": 0.440, "duration": 0.31, "fadeIn": 0.046, "fadeOut": 0.131, "highpass": 603, "peakDb": -27}
+    "EldritchBlastFade": {"source": "ghost-whisper", "start": 0.440, "duration": 0.31, "fadeIn": 0.046, "fadeOut": 0.131, "highpass": 603, "peakDb": -27},
+    "CleaveSweep": {"source": "spear-swoosh", "start": 0.134, "duration": 0.42, "fadeIn": 0.012, "fadeOut": 0.102, "highpass": 284, "peakDb": -18},
+    "CleaveContact": {"source": "metal-hit", "start": 0.121, "duration": 0.183, "fadeIn": 0.008, "fadeOut": 0.053, "highpass": 393, "peakDb": -22},
+    "BladeWarpCast": {"source": "air", "start": 0.387, "duration": 0.31, "fadeIn": 0.015, "fadeOut": 0.093, "highpass": 469, "peakDb": -21},
+    "BladeWarpImpact": {"source": "metal-hit", "start": 0.185, "duration": 0.289, "fadeIn": 0.005, "fadeOut": 0.110, "highpass": 277, "peakDb": -19},
+    "BladeWarpDeparture": {"source": "arcane-doppler", "start": 0.267, "duration": 0.218, "fadeIn": 0.013, "fadeOut": 0.082, "highpass": 533, "peakDb": -24},
+    "BladeWarpArrival": {"source": "bright-ward", "start": 0.142, "duration": 0.37, "fadeIn": 0.019, "fadeOut": 0.131, "highpass": 397, "peakDb": -20},
+    "BladeWarpContact": {"source": "electric-crackle", "start": 0.491, "duration": 0.162, "fadeIn": 0.007, "fadeOut": 0.061, "highpass": 754, "peakDb": -27}
   }
 }

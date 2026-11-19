@@ -106,7 +106,13 @@ internal static class CleaveActionProposal
                 if(basic)
                 {var preferred=targets.FirstOrDefault(t=>t.Serial==action.Selected)??targets.FirstOrDefault();targets=preferred==null?[]:[preferred];}
                 foreach(var target in targets){PlayerWeaponContact.RequireOrdinary(owner,target,true);}
-                if(!basic){if(!NecromancerEffects.Pay(owner,action.Values.Mana256)){Cancel(owner);return false;}action.ManaPaid256=action.Values.Mana256;}
+                if (!basic)
+                {
+                    if (!NecromancerEffects.Pay(owner, action.Values.Mana256)) { Cancel(owner); return false; }
+                    action.ManaPaid256 = action.Values.Mana256;
+                    PresentSweep(action, request);
+                }
+                bool contactCuePlayed = false;
                 foreach(var target in targets)
                 {
                     if(!ReferenceEquals(session.Cleave,action)){break;}
@@ -115,7 +121,19 @@ internal static class CleaveActionProposal
                     var contact=PlayerWeaponContact.PrepareOrdinary(owner,target,basic?0:action.Values.AttackPercent,basic?0:action.Values.DamagePercent,
                         ()=>Recipient(action,target,request),HitRoll,ElementRoll,PhysicalRoll,PoisonRoll,Effects,allowNative:true);
                     action.Contacts++;if((contact.Flags&SourceMeleeResult.Successful)!=0){action.Successful++;}
+                    bool showContact = !basic && !target.Hidden && (contact.Flags & SourceMeleeResult.Successful) != 0;
+                    var point = target.Location;
+                    int before = showContact ? SkillHealth.Balance256(target) : 0;
                     PlayerWeaponContact.Release(owner,target,contact,TimedEffects.Now,true);
+                    if (before > 0 && (target.Deleted || SkillHealth.Balance256(target) < before))
+                    {
+                        Server.Effects.SendLocationEffect(point, action.Map, SpellEffectGraphics.CleaveContact, 6);
+                        if (!contactCuePlayed)
+                        {
+                            Server.Effects.PlaySound(point, action.Map, SpellEffectSounds.CleaveContact);
+                            contactCuePlayed = true;
+                        }
+                    }
                 }
             }
             catch(NotSupportedException e){action.Fault=e.Message;Cancel(owner);return false;}
@@ -124,5 +142,16 @@ internal static class CleaveActionProposal
         if(now>=action.Until&&ReferenceEquals(session.Cleave,action))
         {action.Finished=true;session.Cleave=null;session.PendingAbility=CombatAbility.None;}
         return true;
+    }
+
+    private static void PresentSweep(Action action, CleaveSweepRequest request)
+    {
+        double dx = action.Aim.X - action.Origin.X, dy = action.Aim.Y - action.Origin.Y;
+        double distance = Math.Sqrt(dx * dx + dy * dy);
+        double reach = Math.Clamp((request.Radius - 2) / 4.0, 0.65, 2.4);
+        int graphic = SorceressVisuals.DirectionalFrame(SpellEffectGraphics.CleaveSweep, dx, dy, 0);
+        GroundSpellVisuals.Sample(action.Map, action.Origin.X + dx * reach / distance,
+            action.Origin.Y + dy * reach / distance, action.Origin.Z, graphic, 8, 20);
+        action.Owner.PlaySound(SpellEffectSounds.CleaveSweep);
     }
 }

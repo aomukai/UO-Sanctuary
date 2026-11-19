@@ -1297,6 +1297,38 @@ def warlock_psychic():
     ))
 
 
+def warlock_blade_actions():
+    cleave = "warlock-cleave"
+    warp = "warlock-blade-warp"
+    sweep, cleave_contact, _, _ = load_grid(cleave, (1254, 1254))
+    blade, impact, departure, arrival = load_grid(warp, (1312, 1199))
+    write_group(cleave, 60500, directional_flight(
+        sweep, ((184, 165),) * 4, .31, (116, 124), 51, 138
+    ))
+    write_group(warp, 60304, directional_flight(
+        blade, ((263, 158), (266, 158), (268, 158), (268, 158)), .172, (96, 108), 46, 143
+    ))
+    for name, graphic, row, scale, pivots, canvas, padding, cutoff in (
+        (cleave, 60532, cleave_contact, .218, ((165, 154),) * 4, (75, 92), 42, 139),
+        (warp, 60300, reversed(departure), .233, ((166, 192),) * 4, (96, 110), 40, 139),
+        (warp, 60336, impact, .306, ((164, 257),) * 4, (104, 124), 24, 144),
+        (warp, 60344, departure, .282, ((163, 212), (158, 207), (161, 206), (144, 195)), (100, 104), 24, 137),
+        (warp, 60348, arrival, .282, ((164, 215), (160, 220), (152, 219), (155, 205)), (100, 104), 24, 133),
+        (warp, 60352, impact, .138, ((163, 159),) * 4, (56, 87), 39, 139),
+    ):
+        write_group(name, graphic, (
+            frame(ImageEnhance.Brightness(cell).enhance(1.15), scale, pivot, canvas, padding, cutoff)
+            for cell, pivot in zip(row, pivots)
+        ))
+    ring = load_grid("warlock-eldritch-blast", (1254, 1254))[2]
+    frames = []
+    for cell, cutoff, light in zip(ring, (152, 155, 153, 146), (.95, 1.09, 1.24, .94)):
+        frost = ImageOps.colorize(ImageOps.grayscale(cell), "#182246", "#bce6ff").convert("RGBA")
+        frost.putalpha(cell.getchannel("A"))
+        frames.append(holy_ring(frost, (233, 126), (240, 132), 70, cutoff, light))
+    write_group(warp, 60340, frames)
+
+
 def necromancer_curses():
     cells = [cell for row in load_grid("necromancer-curses", (1448, 1086), rows=3) for cell in row]
     for cell in cells[:10]:
@@ -2146,3 +2178,4 @@ if __name__ == "__main__":
     warlock_miasma()
     warlock_weapon_hexes()
     warlock_psychic()
+    warlock_blade_actions()

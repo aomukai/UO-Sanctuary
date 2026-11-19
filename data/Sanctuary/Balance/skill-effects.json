@@ -5787,10 +5787,19 @@
     },
     "generation": "pending",
     "clientMapping": "pending",
-    "inGameVerification": "pending",
-    "placeholder": "Prepared action candidate reuses the shared UO animation and ordinary ordered weapon hit flashes; no final levitated arc is simulated. The earlier qualified contact retains ordinary UO0x238weapon sound. Final levitated-weapon Cleave sweep/arc, impact, miss/block and cast/contact/recovery audio remain pending. Approved learned action uses these identified placeholders; final talent/left/right/quick icons are separately tracked.",
-    "customArtwork": "pending",
-    "customAudio": "pending"
+    "inGameVerification": "verified",
+    "placeholder": "A silver-violet sweep follows the committed aim of a paid action. Each landed hit that reduces enemy life shows a separate flash.",
+    "customArtwork": "verified",
+    "customAudio": "listening-pending",
+    "customCharacterAnimation": "reuse-native",
+    "customArtworkPhases": [
+      "eight-direction paid sweep",
+      "confirmed damage contact"
+    ],
+    "customAudioPhases": [
+      "paid sweep",
+      "confirmed damage contact"
+    ]
   },
   {
     "talentId": "warlock.echoingstrike",
@@ -5852,10 +5861,24 @@
     },
     "generation": "pending",
     "clientMapping": "pending",
-    "inGameVerification": "pending",
-    "placeholder": "Identified astral travel0x36E4/hue0x48D,magic impact0x36BD/hue0x48D,throw0x23B and existing teleport particles/sound0x1FE;final astral weapon,bladewarpexplode,cast overlay and audio pending",
-    "customArtwork": "pending",
-    "customAudio": "pending"
+    "inGameVerification": "verified",
+    "placeholder": "A pale-blue astral blade follows the collision-checked flight. Its impact marks the two-tile radius, and the departure and arrival effects play after a successful transfer.",
+    "customArtwork": "verified",
+    "customAudio": "listening-pending",
+    "customCharacterAnimation": "reuse-native",
+    "customArtworkPhases": [
+      "cast",
+      "eight-direction fractional blade flight",
+      "impact and radius",
+      "confirmed damage contact",
+      "accepted departure and arrival"
+    ],
+    "customAudioPhases": [
+      "cast",
+      "impact",
+      "confirmed damage contact",
+      "accepted departure and arrival"
+    ]
   },
   {
     "talentId": "warlock.psychicward",
