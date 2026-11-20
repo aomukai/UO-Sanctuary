@@ -37,11 +37,12 @@ public static class GamblingUiChecks
             ClassCreation.Profiles.AdvanceLevel(_p, 99);
             _p.MoveToWorld(CombatPractice.FindFloor(Map.Trammel, 5450, 1160), Map.Trammel);
             _npc = GamblingChecks.Npc(_p);
+            _npc.MoveToWorld(new Point3D(_p.X + 1, _p.Y, _p.Z), _p.Map);
         });
         Command("opened", () =>
         {
             _old = _p.FindGump<GamblingGump>();
-            Require(_old != null, "Vendor speech did not open gambling stock");
+            Require(_old != null, "Clicking the vendor did not open gambling stock");
             typeof(GamblingGump).GetField("_random", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(_old, new GamblingChecks.Roll());
             Require(_p.Backpack.Items.Where(ClassGear.Converted).All(i => i == _bought), "Opening stock generated or changed gear");
         });
@@ -92,7 +93,8 @@ public static class GamblingUiChecks
             _p.MoveToWorld(new Point3D(_p.X + 20, _p.Y, _p.Z), _p.Map);
             stale.OnResponse(_p.NetState, new RelayInfo(102, [], [], [], []));
             Require(Banker.GetBalance(_p) == _balance - 50000 && _p.Backpack.TotalItems == 1, "Distant menu purchased gear");
-            _p.MoveToWorld(_npc.Location, _npc.Map);
+            _p.CloseGump<GamblingGump>();
+            _p.MoveToWorld(new Point3D(_npc.X - 1, _npc.Y, _npc.Z), _npc.Map);
         });
         Command("final", () =>
         {

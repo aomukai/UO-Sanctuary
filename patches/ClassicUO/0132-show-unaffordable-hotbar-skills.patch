@@ -1,0 +1,100 @@
+diff --git a/src/ClassicUO.Client/Game/ClassSkillBindingsClient.cs b/src/ClassicUO.Client/Game/ClassSkillBindingsClient.cs
+--- a/src/ClassicUO.Client/Game/ClassSkillBindingsClient.cs
++++ b/src/ClassicUO.Client/Game/ClassSkillBindingsClient.cs
+@@ -12,15 +12,18 @@
+ {
+     private static readonly CombatAbility[] _quick = new CombatAbility[SkillBindingProtocol.Slots];
+     private static uint _sequence, _nextPoll;
++    private static ushort _lowMana;
+     private static readonly byte[] _available = new byte[ClassAbilities.MaskBytes];
+     public static DiabloClass Class { get; private set; }
+     public static CombatAbility Left { get; private set; }
+     public static CombatAbility Right { get; private set; }
+     public static bool Ready { get; private set; }
+     public static bool Available(CombatAbility ability) => ability == CombatAbility.None || ClassAbilities.Valid(ability) && (_available[(int)ability / 8] & 1 << ((int)ability % 8)) != 0;
++    public static bool LowMana(int slot) => (_lowMana & 1 << slot) != 0;
+     public static CombatAbility Quick(int slot) => _quick[slot];
+     public static void Reset()
+     {
++        _lowMana = 0;
+         Array.Clear(_quick); _sequence = 0; Array.Clear(_available); _nextPoll = Time.Ticks; Ready = false; Class = default;
+         UIManager.GetGump<ClassSkillBarGump>()?.Dispose(); UIManager.GetGump<ClassSkillsPanelGump>()?.Dispose();
+     }
+@@ -65,7 +68,11 @@
+     }
+     public static void Receive(World world, ref StackDataReader reader)
+     {
+-        if (!world.InGame || reader.Remaining != SkillBindingProtocol.StateLength - 5 || reader.ReadUInt8() != SkillBindingProtocol.Version) { return; }
++        if (!world.InGame || reader.Remaining is not (SkillBindingProtocol.LegacyStateLength - 5 or SkillBindingProtocol.StateLength - 5))
++            return;
++        bool hasMana = reader.Remaining == SkillBindingProtocol.StateLength - 5;
++        if (reader.ReadUInt8() != (hasMana ? SkillBindingProtocol.Version : SkillBindingProtocol.LegacyVersion))
++            return;
+         uint ack = reader.ReadUInt32BE();
+         if (unchecked((int)(ack - _sequence)) < 0) { return; }
+         var id = (DiabloClass)reader.ReadUInt8(); var left = (CombatAbility)reader.ReadUInt8(); var right = (CombatAbility)reader.ReadUInt8();
+@@ -77,10 +84,13 @@
+         bool changed = !Ready || Class != id || Left != left || Right != right || !available.SequenceEqual(_available);
+         for (int i = 0; i < quick.Length; i++) { changed |= _quick[i] != quick[i]; _quick[i] = quick[i]; }
+         Class = id; Left = left; Right = right; available.CopyTo(_available); Ready = true;
++        ushort lowMana = hasMana ? reader.ReadUInt16BE() : (ushort)0;
++        if (changed || lowMana != _lowMana)
++        {
++            _lowMana = lowMana;
++            UIManager.GetGump<ClassSkillBarGump>()?.RequestUpdateContents();
++        }
+         if (changed)
+-        {
+-            UIManager.GetGump<ClassSkillBarGump>()?.RequestUpdateContents();
+             UIManager.GetGump<ClassSkillsPanelGump>()?.RequestUpdateContents();
+-        }
+     }
+ }
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs
+@@ -108,13 +108,13 @@
+         int y = _flyoutHeight;
+         Plate(0, y, Width, MainHeight);
+         int x = 8;
+-        SkillCell(x, y + 6, "LMB", ClassSkillBindingsClient.Left, () => ClassSkillBindingsClient.TogglePanel(World));
++        SkillCell(x, y + 6, "LMB", ClassSkillBindingsClient.Left, 0, () => ClassSkillBindingsClient.TogglePanel(World));
+         x += _step;
+-        SkillCell(x, y + 6, "RMB", ClassSkillBindingsClient.Right, () => ClassSkillBindingsClient.TogglePanel(World));
++        SkillCell(x, y + 6, "RMB", ClassSkillBindingsClient.Right, 1, () => ClassSkillBindingsClient.TogglePanel(World));
+         x += _step + 6;
+ 
+         for (int slot = 0; slot < SkillBindingProtocol.Slots; slot++, x += _step)
+-            SkillCell(x, y + 6, $"F{slot + 1}", ClassSkillBindingsClient.Quick(slot));
++            SkillCell(x, y + 6, $"F{slot + 1}", ClassSkillBindingsClient.Quick(slot), slot + 2);
+         x += 6;
+         if (rows > 1)
+             Plate(x - 4, 0, BeltProtocol.Columns * _step + 8, _flyoutHeight + 3);
+@@ -157,18 +157,25 @@
+         y >= _flyoutHeight || x >= 16 + (2 + SkillBindingProtocol.Slots) * _step
+             && x < 24 + HotbarCells * _step;
+ 
+-    private void SkillCell(int x, int y, string key, CombatAbility ability, Action action = null)
++    private void SkillCell(int x, int y, string key, CombatAbility ability, int slot, Action action = null)
+     {
+         bool available = ability != CombatAbility.None && ClassSkillBindingsClient.Available(ability);
++        bool lowMana = available && ClassSkillBindingsClient.LowMana(slot);
+         string name = ability == CombatAbility.None ? "Unassigned" : CombatProtocol.Label(ability);
+         string hint = action != null ? "Click to open bindings." : "Aim at the world and press the key. Press S to assign.";
+-        var cell = Add(new DockCell(x, y, _step - 2, 40, available ? CellFill : 0xFF262629,
++        if (lowMana)
++            hint = "Not enough mana.\n" + hint;
++        var cell = Add(new DockCell(x, y, _step - 2, 40, lowMana ? 0xFF28204F : available ? CellFill : 0xFF262629,
+             $"{key} · {name}\n{hint}", action == null ? null : _ => action()));
+         cell.Caption(key, 0);
+         int iconSize = Math.Min(_step - 4, 24);
+         var icon = ClassSkillIcon.Create(ability, (cell.Width - iconSize) / 2, 15, iconSize, available);
+         if (icon != null)
++        {
++            if (lowMana)
++                icon.Hue = 0x0021;
+             cell.Add(icon);
++        }
+         else
+             cell.Caption(ability == CombatAbility.None ? "–" : name[..Math.Min(3, name.Length)], 18);
+     }

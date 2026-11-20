@@ -1,0 +1,42 @@
+diff --git a/Projects/Server/Mobiles/Mobile.cs b/Projects/Server/Mobiles/Mobile.cs
+--- a/Projects/Server/Mobiles/Mobile.cs
++++ b/Projects/Server/Mobiles/Mobile.cs
+@@ -5538,6 +5538,8 @@
+         }
+     }
+ 
++    protected virtual bool AllowNpcSpeechCommands => true;
++
+     public virtual void DoSpeech(string text, int[] keywords, MessageType type, int hue)
+     {
+         if (Deleted || CommandSystem.Handle(this, text, type))
+@@ -5609,6 +5611,7 @@
+ 
+         var hears = m_Hears;
+         var onSpeech = m_OnSpeech;
++        bool allowNpcCommands = AllowNpcSpeechCommands;
+ 
+         if (m_Map != null)
+         {
+@@ -5624,7 +5627,7 @@
+                     hears.Add(heard);
+                 }
+ 
+-                if (heard.HandlesOnSpeech(this))
++                if ((allowNpcCommands || heard.Player) && heard.HandlesOnSpeech(this))
+                 {
+                     onSpeech.Add(heard);
+                 }
+diff --git a/Projects/UOContent/Mobiles/PlayerMobile.cs b/Projects/UOContent/Mobiles/PlayerMobile.cs
+--- a/Projects/UOContent/Mobiles/PlayerMobile.cs
++++ b/Projects/UOContent/Mobiles/PlayerMobile.cs
+@@ -2729,6 +2729,9 @@
+             return base.MutateSpeech(hears, ref text, ref context);
+         }
+ 
++        protected override bool AllowNpcSpeechCommands =>
++            AccessLevel > AccessLevel.Player || ClassCombatHooks.Enabled?.Invoke(this) != true;
++
+         public override void DoSpeech(string text, int[] keywords, MessageType type, int hue)
+         {
+             if (Guilds.Guild.NewGuildSystem && type is MessageType.Guild or MessageType.Alliance)

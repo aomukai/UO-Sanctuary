@@ -1,4 +1,4 @@
-"""Exercise real vendor speech, hidden stock and paid purchase in ClassicUO."""
+"""Exercise vendor interaction, hidden stock and paid purchase in ClassicUO."""
 import os
 from pathlib import Path
 import subprocess
@@ -23,12 +23,11 @@ def exercise(window, click, capture):
         raise AssertionError('Missing ' + name)
 
     def opened():
-        subprocess.run(['xdotool', 'key', '--window', window, 'Return'], check=True)
-        subprocess.run(['xdotool', 'type', '--window', window, 'vendor buy'], check=True)
-        subprocess.run(['xdotool', 'key', '--window', window, 'Return'], check=True)
         time.sleep(.5)
+        click(342, 219)
         command('opened')
 
+    click(605, 101)  # Close the initial character sheet before clicking the vendor.
     command('setup')
     opened()
     capture('t45-gambling-hidden.png')
@@ -93,4 +92,4 @@ def exercise(window, click, capture):
         capture('t49-golden-set-aura.png')
         visual('blood', 255)
         print('Actual client: visible Natalya fade 128 -> opaque 255 -> faded 128 passed.', flush=True)
-    print('Actual client: vendor speech, hidden stock, no-funds/full-pack safety, purchase/reveal, stale/replay safety and refresh passed.', flush=True)
+    print('Actual client: vendor click, hidden stock, no-funds/full-pack safety, purchase/reveal, stale/replay safety and refresh passed.', flush=True)

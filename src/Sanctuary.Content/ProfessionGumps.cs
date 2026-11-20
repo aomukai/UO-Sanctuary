@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
+using System;
 using Server;
 using Server.Engines.Craft;
 using Server.Gumps;
@@ -25,7 +26,7 @@ public sealed class ProfessionChoiceGump : DynamicGump
         b.AddLabel(22, 20, 0x481, "Choose your first profession");
         b.AddLabel(22, 58, 0x47E, $"Choose {ClassProfessions.Name(_choice.Skill)}?");
         b.AddHtml(22, 90, 465, 110,
-            "<BASEFONT COLOR=#FFFFFF>Until you reach class level 80 or 100.0 in a crafting skill and earn town-hall wardrobe access, you can choose only one crafting profession.<BR>Gathering stays available. Cancel leaves your choice open and costs nothing.</BASEFONT>",
+            "<BASEFONT COLOR=#FFFFFF>You can learn only one crafting skill until you find a way to learn more.<BR><BR>Gathering skills remain available. You may cancel and decide later.</BASEFONT>",
             background: false, scrollbar: false);
         b.AddButton(22, 235, 4005, 4007, 1); b.AddLabel(57, 235, 0x481, "Confirm profession");
         b.AddButton(290, 235, 4017, 4019, 0); b.AddLabel(325, 235, 0x481, "Cancel");
@@ -34,6 +35,65 @@ public sealed class ProfessionChoiceGump : DynamicGump
     {
         if (sender.Mobile is PlayerMobile player && player.Serial == _owner)
         { ClassProfessions.Respond(player, _choice.Token, info.ButtonID == 1); }
+    }
+}
+
+public sealed class ProfessionTrainingGump : DynamicGump
+{
+    private static int Adjustment => 10 * ClassProfessions.GoldPerTenth;
+    private readonly ClassProfessions.TrainingQuote _quote;
+    private readonly int _amount;
+    private bool _answered;
+    public override bool Singleton => true;
+
+    private ProfessionTrainingGump(ClassProfessions.TrainingQuote quote, int amount) : base(100, 80)
+    {
+        _quote = quote;
+        _amount = amount;
+    }
+
+    internal static void DisplayTo(PlayerMobile owner, ClassProfessions.TrainingQuote quote, int amount) =>
+        owner.SendGump(new ProfessionTrainingGump(quote, amount));
+
+    protected override void BuildLayout(ref DynamicGumpBuilder b)
+    {
+        b.AddPage();
+        b.AddBackground(0, 0, 390, 215, 5054);
+        b.AddLabel(22, 20, 0x481, $"Training in {ClassProfessions.Name(_quote.Skill)}");
+        b.AddLabel(22, 52, 0x47E, $"Current skill {_quote.Base / 10.0:F1}   ·   Train up to {Math.Min(300, _quote.Cap) / 10.0:F1}");
+        b.AddLabel(22, 76, 0x47E, $"{ClassProfessions.GoldPerTenth} gold per 0.1 skill · Up to {ClassProfessions.TrainingMaximum(_quote)} gold");
+        b.AddLabel(22, 114, 0x481, "Gold to spend");
+        b.AddButton(148, 113, 4014, 4016, 2);
+        b.AddBackground(183, 109, 90, 28, 3000);
+        b.AddTextEntry(191, 113, 72, 22, 0, 0, _amount.ToString());
+        b.AddButton(278, 113, 4005, 4007, 3);
+        b.AddLabel(147, 139, 0x47E, $"-{Adjustment}");
+        b.AddLabel(278, 139, 0x47E, $"+{Adjustment}");
+        b.AddButton(22, 174, 4005, 4007, 1); b.AddLabel(57, 174, 0x481, "Train");
+        b.AddButton(268, 174, 4017, 4019, 0); b.AddLabel(303, 174, 0x481, "Cancel");
+    }
+
+    public override void OnResponse(NetState sender, in RelayInfo info)
+    {
+        if (_answered || sender.Mobile is not PlayerMobile owner || !ClassProfessions.ValidTraining(owner, _quote))
+            return;
+
+        _answered = true;
+        int maximum = ClassProfessions.TrainingMaximum(_quote);
+        int amount = int.TryParse(info.GetTextEntry(0), out int parsed) ? Math.Clamp(parsed, 0, maximum) : 0;
+        switch (info.ButtonID)
+        {
+            case 1:
+                if (!ClassProfessions.BuyTraining(owner, _quote, amount))
+                    DisplayTo(owner, _quote, amount);
+                break;
+            case 2:
+                DisplayTo(owner, _quote, Math.Max(0, amount - Adjustment));
+                break;
+            case 3:
+                DisplayTo(owner, _quote, Math.Min(maximum, amount + Adjustment));
+                break;
+        }
     }
 }
 

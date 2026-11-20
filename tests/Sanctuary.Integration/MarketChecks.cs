@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.Json;
 using Server;
 using Server.Accounting;
@@ -73,7 +72,7 @@ public static class MarketChecks
     }
     private static void Check()
     {
-        Require(TownMarkets.Sites.Length == 476 && TownMarkets.Sites.Select(s => (s.Town, s.Map)).Distinct().Count() == 34,
+        Require(TownMarkets.Sites.Length == 477 && TownMarkets.Sites.Select(s => (s.Town, s.Map)).Distinct().Count() == 34,
             "Town/facet service coverage is incomplete");
         foreach (var site in TownMarkets.Sites)
         {
@@ -119,9 +118,12 @@ public static class MarketChecks
             Approach(student, trainer);
             if (TradeSkills.IsCraft((int)skill)) { Require(ClassProfessions.Profiles.Confirm(student, skill), "Trainer fixture could not choose profession"); }
             student.Skills[skill].Base = 0;
-            Require(trainer.Teach(skill, student, 0, false), "Actual town trainer did not offer training: " + skill);
             var fee = new Gold(300); student.Backpack.DropItem(fee);
-            Require(trainer.OnGoldGiven(student, fee) && fee.Deleted && student.Skills[skill].BaseFixedPoint == 300,
+            var quote = new ClassProfessions.TrainingQuote(trainer.Serial, skill, 0, student.Skills[skill].CapFixedPoint, student.NetState);
+            Require(!trainer.OnDragDrop(student, fee) && !fee.Deleted && student.Skills[skill].BaseFixedPoint == 0,
+                "A town trainer accepted a gold drop for lessons: " + skill);
+            Require(ClassProfessions.BuyTraining(student, quote, 500)
+                && fee.Deleted && student.Skills[skill].BaseFixedPoint == 300 && !ClassProfessions.BuyTraining(student, quote, 300),
                 "Actual town training price/ceiling differed: " + skill);
             student.Delete();
         }
@@ -201,12 +203,8 @@ public static class MarketChecks
             var saved = ClassGear.State(item);
             ClassGear.Profiles.Store(item, saved with { Identified = false });
             Require(TradePrices.Quote(item) == price / 10, "Unidentified sale was repriced/identified");
-            using (var opl = new ObjectPropertyList(item))
-            {
-                item.GetProperties(opl); opl.Terminate();
-                Require(opl.Buffer.AsSpan().IndexOf(Encoding.Unicode.GetBytes("properties hidden")) >= 0
-                    && !ClassGear.State(item).Identified, "Unidentified tooltip revealed properties or identified the item");
-            }
+            IdentificationChecks.Hidden(item);
+            Require(!ClassGear.State(item).Identified, "The tooltip identified the item");
             quotes.Add(item); prices.Add(price);
         }
         var toSell = ItemOrigins.Create(ItemOrigin.Crafted, () => new Dagger());

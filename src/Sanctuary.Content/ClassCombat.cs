@@ -92,6 +92,7 @@ public static class ClassCombat
         public bool HeldAttack { get; internal set; }
         internal Point3D CastPoint;
         internal long HoldUntil = Core.TickCount;
+        internal long NextManaNotice = Core.TickCount;
         internal long LastState = Core.TickCount - CombatProtocol.StateIntervalMs;
         internal long Started = Core.TickCount;
         internal bool Handshake;
@@ -217,7 +218,7 @@ public static class ClassCombat
             return false;
         }
         var corpse = SkeletonPets.FindCorpse(from, preferred);
-        if (!SkeletonPets.CanRaise(from, corpse))
+        if (corpse == null || !NecromancerEffects.CheckMana(from, SkeletonPets.Mana(from) * 256) || !SkeletonPets.CanRaise(from, corpse))
         {
             return false;
         }
@@ -473,7 +474,7 @@ public static class ClassCombat
             point = target.Location;
         }
         if (ability != CombatAbility.BasicAttack && (point.X < 0 || point.Y < 0 || point.X >= from.Map.Width || point.Y >= from.Map.Height
-            || target == null && point.X == from.X && point.Y == from.Y || from.Mana < 1))
+            || target == null && point.X == from.X && point.Y == from.Y || !NecromancerEffects.CheckMana(from, 256)))
         {
             return false;
         }
@@ -655,7 +656,7 @@ public static class ClassCombat
         ThrowRelease? throwing=null;
         if (ability == CombatAbility.Teeth)
         {
-            if (from.Mana < 1)
+            if (!NecromancerEffects.CheckMana(from, 256))
             {
                 return false;
             }

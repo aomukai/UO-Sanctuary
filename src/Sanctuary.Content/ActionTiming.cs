@@ -242,7 +242,6 @@ public static class CombatTiming
             var label = rating switch { <= -20 => "Very Fast", <= -10 => "Fast", <= 0 => "Normal", <= 10 => "Slow", _ => "Very Slow" };
             list.Add(1061167, $"{label} (base)");
         }
-        list.Add($"{"Base speed modifier: "}{basis.Modifier:+0;-0;0}");
         return true;
     }
 }

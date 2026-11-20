@@ -1,0 +1,31 @@
+diff --git a/src/ClassicUO.Client/Game/AvatarDialogueClient.cs b/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
+--- a/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
++++ b/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
+@@ -16,9 +16,9 @@
+         world.Player?.SanctuaryIoloCompanion == mobile.Serial;
+ 
+     internal static bool CanInteract(World world, Mobile mobile) =>
+-        world.Player is { SanctuaryNpcInteraction: true } && mobile != world.Player && !mobile.IsDead
++        world.Player is { SanctuaryNpcInteraction: true } && mobile != world.Player
+         && (IsOwnCompanion(world, mobile)
+-            || mobile.NotorietyFlag is NotorietyFlag.Invulnerable or NotorietyFlag.Innocent
++            || !mobile.IsDead && mobile.NotorietyFlag is NotorietyFlag.Invulnerable or NotorietyFlag.Innocent
+                 && !ClassCombatClient.Hostile(mobile) && !ClassCombatClient.Ally(mobile));
+ 
+     internal static void Interact(uint serial)
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+@@ -252,6 +252,12 @@
+                 {
+                     overridedHue = Notoriety.GetHue(NotorietyFlag);
+                 }
++            }
++
++            if (IsDead && AvatarDialogueClient.IsOwnCompanion(World, this))
++            {
++                overridedHue = 0x0386;
++                hueVec.Z *= 0.45f;
+             }
+ 
+             // Carry the body and all equipment layers together within the native animation frame.

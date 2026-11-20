@@ -109,7 +109,7 @@ public static class SkillCombat
         if (!eligible(owner, ability) || !owner.Alive || !AlliedOverlap.Allowed(owner) || owner.Frozen || owner.Paralyzed
             || owner.Spell != null || HitRecovery.Active(owner, now) || session.PendingAbility != CombatAbility.None
             || now - session.NextAction < 0 || !FireGround.Ready(owner, ability) || !validTarget(owner, ability, selected, point)
-            || requireMana && !NecromancerEffects.CanPay(owner, SkillMechanics.Values(owner, ability).Mana256)) { return false; }
+            || requireMana && !NecromancerEffects.CheckMana(owner, SkillMechanics.CastManaCost256(owner, ability))) { return false; }
         session.Timing = timing??CombatTiming.For(owner, ability);
         session.PendingAbility = ability; session.PendingTarget = selected; session.PendingPoint = point;
         session.ActionOrigin = owner.Location; session.ActionMap = owner.Map;

@@ -471,7 +471,8 @@
   },
   {
     "Roles": [
-      "Scribe"
+      "Scribe",
+      "Scholar"
     ],
     "Type": "IdentifyScroll",
     "Price": 80,
@@ -501,7 +502,8 @@
   },
   {
     "Roles": [
-      "Scribe"
+      "Scribe",
+      "Scholar"
     ],
     "Type": "TownPortalScroll",
     "Price": 100,

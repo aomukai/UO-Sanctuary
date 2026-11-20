@@ -1,7 +1,6 @@
-"""Exercise real banker speech and escrow recovery/deferral/forfeiture UI."""
+"""Exercise banker interaction and escrow recovery, deferral, and forfeiture."""
 import os
 from pathlib import Path
-import subprocess
 import time
 
 
@@ -29,12 +28,12 @@ def exercise(window, click, capture):
         raise AssertionError('Missing ' + name)
 
     def open_bank_recovery():
-        subprocess.run(['xdotool', 'key', '--window', window, 'Return'], check=True)
-        subprocess.run(['xdotool', 'type', '--window', window, 'recover'], check=True)
-        subprocess.run(['xdotool', 'key', '--window', window, 'Return'], check=True)
         time.sleep(.4)
+        click(342, 219)
+        click(406, 419)
         command('opened')
 
+    click(605, 101)  # Close the initial character sheet before clicking the banker.
     command('setup')
     open_bank_recovery()
     capture('t44-escrow-claims.png')
@@ -67,4 +66,4 @@ def exercise(window, click, capture):
     click(325, 435)
     command('final')
     capture('t44-escrow-final.png')
-    print('Actual client: banker speech, no-funds/full-bank safety, close/reopen, exact nested recovery and explicit/backed-out forfeiture passed.', flush=True)
+    print('Actual client: banker dialogue, no-funds/full-bank safety, close/reopen, exact nested recovery and explicit/backed-out forfeiture passed.', flush=True)

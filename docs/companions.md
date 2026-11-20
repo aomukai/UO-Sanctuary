@@ -46,6 +46,8 @@ The old companions can have jobs, homes, and their own selected histories in thi
 
 Iolo is a bard. His internal combat profile uses Amazon scaling. He uses Magic Arrow from level 6, Cold Arrow from level 10, and Guided Arrow from level 18. He wears light armour, clothing and accessories, and wields crossbows. He refuses incompatible gear in a private message to his owner.
 
+Iolo guards the Avatar and joins fights involving their followers. He resumes that role when he rejoins the Avatar after login.
+
 ## Reunion and dialogue
 
 At reunion, the Avatar tells the companion what happened while they were apart. Record that knowledge as something the Avatar shared. Events they experienced together can come up later as shared memories. The companion can also tell the Avatar what they did while away. A destination they mention, an introduction to someone they know, or the account of a setback can become a journal entry that gives the Avatar something to follow up on later. [The Avatar’s journal and virtues](journal-and-virtues.md)

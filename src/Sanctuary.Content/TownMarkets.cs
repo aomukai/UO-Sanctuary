@@ -98,7 +98,8 @@ public static partial class TownMarkets
             "Mapmaker" => MarketRole.Cartographer, "Scribe" or "Mage" => MarketRole.Scribe,
             "Tinker" => MarketRole.Tinker, "Jeweler" => MarketRole.Jeweller,
             "Miner" => MarketRole.Miner, "Lumberjack" => MarketRole.Lumberjack,
-            "Fisherman" or "Fisher" => MarketRole.Fisher, "Provisioner" => MarketRole.Provisioner, _ => null
+            "Fisherman" or "Fisher" => MarketRole.Fisher, "Provisioner" => MarketRole.Provisioner,
+            "Scholar" => MarketRole.Scholar, _ => null
         };
     }
     public static int ItemLevel(BaseVendor vendor) => vendor.Region.IsPartOf("Britain")

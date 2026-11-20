@@ -275,6 +275,20 @@ public static class CreatureProfiles
         return row.Enabled ? row : _native;
     }
 
+    internal static void AddImmunityProperties(BaseCreature creature, IPropertyList list)
+    {
+        if (creature.Controlled || creature.Summoned || creature.IsInvulnerable || creature.FightMode == FightMode.None)
+            return;
+
+        var res = For(creature).Resistances;
+        if ((res.Physical ?? creature.PhysicalResistance) >= 100) list.Add("Immune to Physical");
+        if (NamedElements.MagicResistance(creature) >= 100) list.Add("Immune to Magic");
+        if ((res.Fire ?? creature.FireResistance) >= 100) list.Add("Immune to Fire");
+        if ((res.Lightning ?? creature.EnergyResistance) >= 100) list.Add("Immune to Lightning");
+        if ((res.Cold ?? creature.ColdResistance) >= 100) list.Add("Immune to Cold");
+        if ((res.Poison ?? creature.PoisonResistance) >= 100) list.Add("Immune to Poison");
+    }
+
     // Explicit arguments preview variants; omitted arguments use the persisted spawn identity.
     public static CreatureSnapshot Snapshot(BaseCreature creature, MonsterDifficulty? difficulty = null)
     {

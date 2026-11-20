@@ -16,7 +16,7 @@ public static class ClassProfessions
     public static ProfessionProfiles Profiles { get; private set; }
     public static bool Enabled { get; private set; }
     public static int GoldPerTenth { get; private set; }
-    internal sealed record Choice(long Token, SkillName Skill, Item Tool, BaseCreature Trainer, NetState Connection);
+    internal sealed record Choice(long Token, SkillName Skill, Item Tool, BaseCreature Trainer, NetState Connection, bool FromDialogue);
     internal sealed record TrainingQuote(Serial Trainer, SkillName Skill, int Base, int Cap, NetState Connection);
     private static readonly Dictionary<Serial, Choice> _choices = new();
     private static readonly Dictionary<Serial, TrainingQuote> _training = new();
@@ -70,6 +70,7 @@ public static class ClassProfessions
         _choices.Remove(player.Serial); _training.Remove(player.Serial);
         player.Learning = (SkillName)(-1);
         player.CloseGump<ProfessionChoiceGump>(); player.CloseGump<ProfessionToolGump>();
+        player.CloseGump<ProfessionTrainingGump>();
     }
     internal static Choice Pending(Mobile from) => _choices.GetValueOrDefault(from.Serial);
     private static void Cleanup()
@@ -115,7 +116,7 @@ public static class ClassProfessions
         var state = Profiles.Find(from);
         if (state.Confirmed)
         {
-            from.SendMessage($"Your craft is {Name(state.Craft)}. Another craft requires earned town-hall wardrobe access.");
+            from.SendMessage($"Your craft is {Name(state.Craft)}. You can learn only one craft until you find a way to learn more.");
         }
         else if (prompt && TradeSkills.IsCraft((int)skill) && SourceValid(from, source, null, skill))
         {
@@ -127,9 +128,9 @@ public static class ClassProfessions
         }
         return false;
     }
-    private static void Ask(PlayerMobile owner, SkillName skill, Item tool, BaseCreature trainer)
+    private static void Ask(PlayerMobile owner, SkillName skill, Item tool, BaseCreature trainer, bool fromDialogue = false)
     {
-        var choice = new Choice(++_nextChoice, skill, tool, trainer, owner.NetState);
+        var choice = new Choice(++_nextChoice, skill, tool, trainer, owner.NetState, fromDialogue);
         _choices[owner.Serial] = choice;
         ProfessionChoiceGump.DisplayTo(owner, choice);
     }
@@ -144,8 +145,62 @@ public static class ClassProfessions
         }
         owner.SendMessage($"{Name(choice.Skill)} is your confirmed first profession.");
         if (choice.Tool is BaseTool tool) { ProfessionToolGump.DisplayTo(owner, tool); }
+        else if (choice.FromDialogue) { OpenTraining(owner, choice.Trainer, choice.Skill); }
         else if (choice.Trainer != null) { choice.Trainer.Teach(choice.Skill, owner, 0, false); }
         else if (choice.Skill == SkillName.Imbuing) { EssenceGump.DisplayTo(owner); }
+        return true;
+    }
+
+    internal static void OpenTraining(PlayerMobile player, BaseCreature trainer, SkillName skill)
+    {
+        if (player.NetState?.Running != true || !Affected(player)
+            || !TradeSkills.Includes((int)skill) || !SourceValid(player, null, trainer, skill))
+            return;
+
+        player.CloseGump<ProfessionTrainingGump>();
+        if (!Active(player, skill))
+        {
+            if (!Profiles.Find(player).Confirmed && TradeSkills.IsCraft((int)skill))
+                Ask(player, skill, null, trainer, fromDialogue: true);
+            else
+                Request(player, skill);
+            return;
+        }
+
+        var trained = player.Skills[skill];
+        var quote = new TrainingQuote(trainer.Serial, skill, trained.BaseFixedPoint, trained.CapFixedPoint, player.NetState);
+        if (TrainingMaximum(quote) <= 0 || trained.Lock != SkillLock.Up)
+        {
+            player.SendMessage("This trainer cannot raise that skill further.");
+            return;
+        }
+        ProfessionTrainingGump.DisplayTo(player, quote, Math.Min(10 * GoldPerTenth, TrainingMaximum(quote)));
+    }
+
+    internal static int TrainingMaximum(TrainingQuote quote) =>
+        Math.Max(0, Math.Min(300, quote.Cap) - quote.Base) * GoldPerTenth;
+
+    internal static bool ValidTraining(PlayerMobile player, TrainingQuote quote) =>
+        Affected(player) && ReferenceEquals(player.NetState, quote.Connection)
+        && World.FindMobile(quote.Trainer) is BaseCreature trainer && SourceValid(player, null, trainer, quote.Skill)
+        && Active(player, quote.Skill) && player.Skills[quote.Skill] is { Lock: SkillLock.Up } skill
+        && skill.BaseFixedPoint == quote.Base && skill.CapFixedPoint == quote.Cap && TrainingMaximum(quote) > 0;
+
+    internal static bool BuyTraining(PlayerMobile player, TrainingQuote quote, int offered)
+    {
+        if (!ValidTraining(player, quote) || offered < GoldPerTenth)
+            return false;
+
+        int points = Math.Min(offered, TrainingMaximum(quote)) / GoldPerTenth;
+        int cost = points * GoldPerTenth;
+        if (!player.Backpack.ConsumeTotal(typeof(Gold), cost))
+        {
+            player.SendMessage($"You need {cost} gold in your backpack for those lessons.");
+            return false;
+        }
+
+        player.Skills[quote.Skill].BaseFixedPoint += points;
+        player.SendMessage($"You learned {points / 10.0:F1} {Name(quote.Skill)} for {cost} gold.");
         return true;
     }
     private static bool UseTool(Mobile from, BaseTool tool)
@@ -165,6 +220,11 @@ public static class ClassProfessions
         if (!Affected(student)) { return null; }
         if (!TradeSkills.Includes((int)skill) || !SourceValid(student, null, trainer, skill))
         {
+            return BaseCreature.TeachResult.Failure;
+        }
+        if (trainer is ProfessionInstructor { UsesDialogueTraining: true })
+        {
+            if (!apply) OpenTraining((PlayerMobile)student, trainer, skill);
             return BaseCreature.TeachResult.Failure;
         }
         _trainingContacts.Add((student.Serial, trainer.Serial));

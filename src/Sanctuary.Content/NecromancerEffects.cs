@@ -350,6 +350,20 @@ public static class NecromancerEffects
         owner.Mana=amount256/256;Profiles.Store(owner,state with{ManaFraction=amount256%256});
     }
     public static bool CanPay(PlayerMobile owner, int cost256) => ManaBalance256(owner) >= cost256;
+    internal static bool CheckMana(PlayerMobile owner, int cost256)
+    {
+        if (CanPay(owner, cost256))
+            return true;
+
+        // Held skills retry automatically, including when mana is depleted.
+        var session = ClassCombat.For(owner);
+        if (Core.TickCount >= session.NextManaNotice)
+        {
+            owner.SendMessage("I need more mana.");
+            session.NextManaNotice = Core.TickCount + 2000;
+        }
+        return false;
+    }
     public static void AddMana(PlayerMobile owner, int amount256)
     {
         if (amount256<=0 || owner is not { Alive:true,Deleted:false }) { return; }
@@ -359,7 +373,7 @@ public static class NecromancerEffects
     }
     public static bool Pay(PlayerMobile owner, int cost256)
     {
-        if (!CanPay(owner, cost256)) { return false; }
+        if (!CheckMana(owner, cost256)) { return false; }
         var state = Profiles.Find(owner) ?? new();
         long balance = (long)ManaBalance256(owner) - cost256;
         owner.Mana = (int)(balance / 256); Profiles.Store(owner, state with { ManaFraction = (int)(balance % 256) }); return true;

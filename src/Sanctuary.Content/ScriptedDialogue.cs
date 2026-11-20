@@ -15,13 +15,19 @@ namespace Sanctuary;
 
 public static class ScriptedDialogue
 {
-    internal sealed record Reply(string Text, byte Next, Action<PlayerMobile, ConversationNpc> Select = null);
+    internal sealed record Reply(string Text, byte Next, Action<PlayerMobile, Mobile> Select = null);
     internal sealed record Node(string Line, Reply[] Replies);
-    private sealed record Session(ConversationNpc Speaker, IReadOnlyList<Node> Script, byte Node, uint Token, long Until);
+    private sealed record Session(Mobile Speaker, IReadOnlyList<Node> Script, byte Node, uint Token, long Until);
     private static readonly Dictionary<Serial, Session> _sessions = new();
     private static readonly HashSet<Serial> _ghostBriefed = new();
     private static uint _nextToken;
     private static ArrivalGuard _guard;
+    private static readonly Node[] _escrowBanker =
+    [
+        new("Some of thy belongings are being held here. Wouldst thou recover them, or dost thou wish to open thy bank box?",
+            [new("Bank", 0, (player, _) => OpenBank(player)),
+                new("Recover Belongings", 0, (player, banker) => CorpseEscrowGump.DisplayTo(player, (Banker)banker))])
+    ];
 
     public static void Configure()
     {
@@ -94,20 +100,22 @@ public static class ScriptedDialogue
         player.NetState?.Send(writer.Span);
     }
 
-    internal static void Open(PlayerMobile player, ConversationNpc speaker)
+    internal static void Open(PlayerMobile player, Mobile speaker)
     {
-        if (StatNetwork.SupportsCurrentProtocol(player) && CanTalk(player, speaker))
+        if (speaker is IScriptedSpeaker dialogue && StatNetwork.SupportsCurrentProtocol(player) && CanTalk(player, speaker))
         {
-            speaker.BeginConversation(player);
+            dialogue.BeginConversation(player);
             if (speaker is ArrivalGuard && player.Alive)
                 ClassCreation.Profiles.Briefed(player.Serial);
         }
     }
 
-    internal static bool CanTalk(PlayerMobile player, ConversationNpc speaker) =>
+    internal static bool CanTalk(PlayerMobile player, Mobile speaker) =>
         player.NetState?.Running == true && (player.Alive || speaker is ArrivalGuard) && !speaker.Deleted && speaker.Alive
         && player.Map == speaker.Map && player.InRange(speaker, PortraitProtocol.NpcInteractionRange)
-        && speaker.CanTalkTo(player) && player.CanSee(speaker) && player.InLOS(speaker);
+        && (speaker is IScriptedSpeaker dialogue && dialogue.CanTalkTo(player)
+            || speaker is Banker banker && CorpseEscrow.CanUse(player, banker))
+        && player.CanSee(speaker) && player.InLOS(speaker);
 
     private static void Receive(NetState state, SpanReader reader)
     {
@@ -160,7 +168,7 @@ public static class ScriptedDialogue
             || player.Map != npc.Map || !player.CanSee(npc))
             return;
 
-        if (npc is not (ConversationNpc or NewHavenHealer or Banker or BaseVendor { IsActiveSeller: true }))
+        if (npc is not (IScriptedSpeaker or NewHavenHealer or Banker or BaseVendor { IsActiveSeller: true }))
         {
             ContextMenuSystem.ContextMenuRequest(state, targetReader);
             return;
@@ -179,22 +187,30 @@ public static class ScriptedDialogue
         player.NextActionTime = Core.TickCount + Mobile.ActionDelay;
         switch (npc)
         {
-            case ConversationNpc speaker:
-                Open(player, speaker);
+            case IScriptedSpeaker speaker when speaker.CanTalkTo(player):
+                Open(player, npc);
                 break;
             case NewHavenHealer healer:
                 healer.OnDoubleClick(player);
                 break;
-            case Banker:
-                if (player.Criminal)
-                    player.SendLocalizedMessage(500378);
+            case Banker banker:
+                if (CorpseEscrow.CanUse(player, banker) && CorpseEscrow.Claims(player).Length > 0)
+                    Show(player, banker, _escrowBanker);
                 else
-                    player.BankBox?.Open();
+                    OpenBank(player);
                 break;
             case BaseVendor vendor:
                 vendor.VendorBuy(player);
                 break;
         }
+    }
+
+    private static void OpenBank(PlayerMobile player)
+    {
+        if (player.Criminal)
+            player.SendLocalizedMessage(500378);
+        else
+            player.BankBox?.Open();
     }
 
     private static void Close(PlayerMobile player, uint token)
@@ -205,16 +221,17 @@ public static class ScriptedDialogue
         player.NetState?.Send(writer.Span);
     }
 
-    internal static void Show(PlayerMobile player, ConversationNpc speaker, IReadOnlyList<Node> script, byte node = 0)
+    internal static void Show(PlayerMobile player, Mobile speaker, IReadOnlyList<Node> script, byte node = 0)
     {
         uint token = ++_nextToken;
         var page = script[node];
-        byte[][] texts = [Encoding.UTF8.GetBytes(speaker.Name), Encoding.UTF8.GetBytes(page.Line),
+        var talkative = speaker as IScriptedSpeaker;
+        byte[][] texts = [Encoding.UTF8.GetBytes(talkative?.DialogueName ?? speaker.Name), Encoding.UTF8.GetBytes(page.Line),
             .. page.Replies.Select(reply => Encoding.UTF8.GetBytes(reply.Text))];
         int length = 13 + texts.Sum(text => 2 + text.Length);
         var writer = Packet(length, PortraitProtocol.Conversation, stackalloc byte[length]);
         writer.Write(token);
-        writer.Write(speaker.Portrait);
+        writer.Write(talkative?.Portrait ?? (speaker.Female ? (byte)0 : (byte)2));
         writer.Write((byte)page.Replies.Length);
         foreach (byte[] text in texts)
         {
@@ -222,6 +239,13 @@ public static class ScriptedDialogue
             writer.Write(text.AsSpan());
         }
         _sessions[player.Serial] = new Session(speaker, script, node, token, Core.TickCount + 120_000);
+        player.NetState.Send(writer.Span);
+    }
+
+    internal static void SendIdentifyShop(PlayerMobile player, Serial scholar)
+    {
+        var writer = Packet(11, PortraitProtocol.IdentifyShop, stackalloc byte[11]);
+        writer.Write(scholar);
         player.NetState.Send(writer.Span);
     }
 
@@ -237,7 +261,15 @@ public static class ScriptedDialogue
     }
 }
 
-public abstract class ConversationNpc : BaseCreature
+internal interface IScriptedSpeaker
+{
+    byte Portrait { get; }
+    string DialogueName => null;
+    bool CanTalkTo(PlayerMobile player) => true;
+    void BeginConversation(PlayerMobile player);
+}
+
+public abstract class ConversationNpc : BaseCreature, IScriptedSpeaker
 {
     protected ConversationNpc() : base(AIType.AI_Vendor, FightMode.None, 10, 1) { }
     protected ConversationNpc(Serial serial) : base(serial) { }
@@ -247,6 +279,9 @@ public abstract class ConversationNpc : BaseCreature
     internal abstract IReadOnlyList<ScriptedDialogue.Node> Script { get; }
     internal virtual bool CanTalkTo(PlayerMobile player) => true;
     internal virtual void BeginConversation(PlayerMobile player) => ScriptedDialogue.Show(player, this, Script);
+    byte IScriptedSpeaker.Portrait => Portrait;
+    bool IScriptedSpeaker.CanTalkTo(PlayerMobile player) => CanTalkTo(player);
+    void IScriptedSpeaker.BeginConversation(PlayerMobile player) => BeginConversation(player);
 
     public override void OnDoubleClick(Mobile from)
     {

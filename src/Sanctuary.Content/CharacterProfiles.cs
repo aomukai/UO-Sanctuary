@@ -359,10 +359,13 @@ public sealed class CharacterProfiles : GenericPersistence
     internal bool HasDepartedNewHaven(Serial serial) =>
         _characters.TryGetValue(serial, out var character) && character.DepartedNewHaven;
 
-    internal void RecordNewHavenDeparture(Serial serial)
+    internal bool RecordNewHavenDeparture(Serial serial)
     {
-        if (_characters.TryGetValue(serial, out var character) && character.NewHavenGateUnlocked)
-            character.DepartedNewHaven = true;
+        if (!_characters.TryGetValue(serial, out var character) || !character.NewHavenGateUnlocked || character.DepartedNewHaven)
+            return false;
+
+        character.DepartedNewHaven = true;
+        return true;
     }
 
     internal bool UnlockNewHavenGate(Serial serial)

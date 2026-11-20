@@ -51,7 +51,21 @@ public static class WarlockGoatmanWorld
     internal static void Admit(SkeletonGuardian body)
     {DemonNativeState.Admit(body);Track(body);}
     internal static void Suspend(SkeletonGuardian body)
-    {if(Hosts.TryGetValue(body,out var host)){host.Park();Store(body,host);}}
+    {
+        if (Hosts.TryGetValue(body, out var host))
+        {
+            host.Park();
+            Store(body, host);
+        }
+        else if (DemonNativeState.Controller(body) is { Fault: { } fault } saved
+            && (fault.StartsWith(DeathMarkWorld.BlockedWalk, StringComparison.Ordinal)
+                || fault == ReviveMeleeGeometry.StaleDemonPosition
+                || body is WarlockTaintedBody && fault == TaintedFireBallCasting.LegacyLostTargetFault))
+        {
+            // These failures can be repaired by rebinding the original body on return.
+            DemonNativeState.Controller(body, saved with { Fault = null });
+        }
+    }
     internal static void Interrupt(SkeletonGuardian body)
     {if(Hosts.TryGetValue(body,out var host)){host.Interrupt();Store(body,host);}}
     private static void Store(SkeletonGuardian body,GoatmanNativeHostCandidate host)

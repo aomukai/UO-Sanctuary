@@ -1,0 +1,23 @@
+diff --git a/Projects/UOContent/Mobiles/ClassMercenaryHooks.cs b/Projects/UOContent/Mobiles/ClassMercenaryHooks.cs
+--- a/Projects/UOContent/Mobiles/ClassMercenaryHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassMercenaryHooks.cs
+@@ -10,6 +10,7 @@
+ {
+     public static Func<BaseCreature, bool> KeepEquipment { get; set; }
+     public static Func<BaseCreature, bool> ResurrectionAllowed { get; set; }
++    public static Func<PlayerMobile, BaseCreature, OrderType?> RestoredOrder { get; set; }
+     public static MercenaryContextEntries ContextEntries { get; set; }
+     public static Action<BaseCreature, Mobile, string> Conversation { get; set; }
+     public static Action<BaseCreature, Mobile> TradeOpened { get; set; }
+diff --git a/Projects/UOContent/Mobiles/PlayerMobile.cs b/Projects/UOContent/Mobiles/PlayerMobile.cs
+--- a/Projects/UOContent/Mobiles/PlayerMobile.cs
++++ b/Projects/UOContent/Mobiles/PlayerMobile.cs
+@@ -3726,7 +3726,7 @@
+                     pet.SetControlMaster(this);
+ 
+                     pet.ControlTarget = this;
+-                    pet.ControlOrder = OrderType.Follow;
++                    pet.ControlOrder = ClassMercenaryHooks.RestoredOrder?.Invoke(this, pet) ?? OrderType.Follow;
+ 
+                     pet.MoveToWorld(Location, Map);
+ 

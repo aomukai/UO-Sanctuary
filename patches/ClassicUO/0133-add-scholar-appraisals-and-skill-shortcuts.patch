@@ -1,0 +1,289 @@
+diff --git a/src/ClassicUO.Client/Game/AvatarDialogueClient.cs b/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
+--- a/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
++++ b/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
+@@ -12,6 +12,17 @@
+ 
+ internal static class AvatarDialogueClient
+ {
++    private static Mobile _identifyPlayer;
++    private static uint _identifyVendor;
++
++    internal static bool TakeIdentifyShop(Mobile player, uint vendor)
++    {
++        bool identify = _identifyPlayer == player && _identifyVendor == vendor;
++        _identifyPlayer = null;
++        _identifyVendor = 0;
++        return identify;
++    }
++
+     internal static bool IsOwnCompanion(World world, Mobile mobile) =>
+         world.Player?.SanctuaryIoloCompanion == mobile.Serial;
+ 
+@@ -39,6 +50,12 @@
+             return;
+ 
+         byte kind = reader.ReadUInt8();
++        if (kind == PortraitProtocol.IdentifyShop && reader.Remaining == 4)
++        {
++            _identifyPlayer = world.Player;
++            _identifyVendor = reader.ReadUInt32BE();
++            return;
++        }
+         if (kind == PortraitProtocol.StoryState && reader.Remaining == 5)
+         {
+             world.Player.SanctuaryMetIolo = reader.ReadUInt8() != 0;
+diff --git a/src/ClassicUO.Client/Game/SanctuaryMenu.cs b/src/ClassicUO.Client/Game/SanctuaryMenu.cs
+--- a/src/ClassicUO.Client/Game/SanctuaryMenu.cs
++++ b/src/ClassicUO.Client/Game/SanctuaryMenu.cs
+@@ -5,6 +5,7 @@
+ using ClassicUO.Game.Managers;
+ using ClassicUO.Game.UI.Gumps;
+ using ClassicUO.Input;
++using Sanctuary;
+ using SDL3;
+ 
+ namespace ClassicUO.Game;
+@@ -15,25 +16,36 @@
+     Character,
+     Journal,
+     WorldMap,
++    Talents,
++    Skills,
+     Options
+ }
+ 
+ internal static class SanctuaryMenu
+ {
+-    internal const string DefaultKeys = "bcjm";
++    internal const string DefaultKeys = "bcjmtk";
+ 
+     internal static bool IsMenuLetter(char key) => key is >= 'a' and <= 'z' and not 's';
+ 
+     internal static string GetKeys(Profile profile)
+     {
+         string keys = profile.SanctuaryMenuKeys;
+-        if (keys?.Length != DefaultKeys.Length)
++        if (keys?.Length is not (4 or 6))
+             return DefaultKeys;
+ 
+         for (int i = 0; i < keys.Length; i++)
+             if (!IsMenuLetter(keys[i]) || keys.IndexOf(keys[i]) != i)
+                 return DefaultKeys;
+ 
++        for (int i = keys.Length; i < DefaultKeys.Length; i++)
++        {
++            char key = DefaultKeys[i];
++            if (keys.Contains(key))
++            {
++                for (key = 'a'; !IsMenuLetter(key) || keys.Contains(key); key++) { }
++            }
++            keys += key;
++        }
+         return keys;
+     }
+ 
+@@ -115,6 +127,23 @@
+                 else
+                     GameActions.OpenWorldMap(world);
+                 break;
++            case SanctuaryWindow.Talents:
++                foreach (var gump in UIManager.Gumps)
++                {
++                    if (!gump.IsDisposed && gump.ServerSerial == ClassGumpProtocol.Talents)
++                    {
++                        gump.Dispose();
++                        return;
++                    }
++                }
++                GameActions.Say("[Class");
++                break;
++            case SanctuaryWindow.Skills:
++                if (UIManager.GetGump<SanctuarySkillsGump>() is { } skills)
++                    skills.Dispose();
++                else
++                    SanctuarySkillsGump.Open(world);
++                break;
+             case SanctuaryWindow.Options:
+                 if (UIManager.GetGump<SanctuaryOptionsGump>() is { } settings)
+                     settings.Dispose();
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryHelpGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryHelpGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryHelpGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryHelpGump.cs
+@@ -8,7 +8,7 @@
+ 
+ internal sealed class SanctuaryHelpGump : Gump
+ {
+-    private static readonly string[] WindowNames = ["Backpack", "Character", "Journal", "World map"];
++    private static readonly string[] WindowNames = ["Backpack", "Character", "Journal", "World map", "Class talents", "Skills"];
+     private readonly Label[] _windowLabels = new Label[WindowNames.Length];
+ 
+     private SanctuaryHelpGump(World world) : base(world, 0, 0)
+@@ -25,10 +25,10 @@
+         Add(new Line(24, 79, 418, 1, 0xFF486581) { AcceptMouseInput = false });
+ 
+         for (int i = 0; i < _windowLabels.Length; i++)
+-            _windowLabels[i] = Text("", 26, 96 + i * 25);
++            _windowLabels[i] = Text("", 26, 96 + i * 20);
+         RefreshShortcuts();
+-        Text("Esc   Options", 26, 196);
+-        Text("Enter   World chat", 26, 221);
++        Text("Esc   Options", 26, 216);
++        Text("Enter   World chat", 26, 236);
+ 
+         Text("S   Assign skills", 192, 96);
+         Text("F1–F12   Use an assigned skill", 192, 121);
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs
+@@ -16,8 +16,8 @@
+     private const int PanelWidth = 466, PanelHeight = 375;
+     private readonly Profile _profile = ProfileManager.CurrentProfile;
+     private readonly SanctuarySheetButton[] _tabs = new SanctuarySheetButton[4];
+-    private readonly SanctuarySheetButton[] _bindings = new SanctuarySheetButton[4];
+-    private readonly Label _keyHint;
++    private readonly SanctuarySheetButton[] _bindings = new SanctuarySheetButton[SanctuaryMenu.DefaultKeys.Length];
++    private readonly Label _keyHint, _keyHelp;
+     private string _keys;
+     private int _capturing = -1;
+ 
+@@ -76,7 +76,7 @@
+         _loginVolume = AddSlider("Login music volume", Music, 4, 0, 100, Settings.GlobalSettings.LoginMusicVolume, "%");
+ 
+         _keys = SanctuaryMenu.GetKeys(_profile);
+-        string[] windows = ["Backpack", "Character", "Journal", "World map"];
++        string[] windows = ["Backpack", "Character", "Journal", "World map", "Class talents", "Skills"];
+         for (int i = 0; i < windows.Length; i++)
+         {
+             int binding = i;
+@@ -89,15 +89,15 @@
+             }), Hotkeys);
+         }
+ 
+-        AddText("Esc  Options     Enter  Chat     Tab  Run/Walk", 30, 240, Hotkeys);
+-        AddText("S  Skill bindings     F1–F12  Skills     1–4  Belt", 30, 263, Hotkeys);
++        AddText("Esc  Options     Enter  Chat     Tab  Run/Walk", 30, 287, Hotkeys);
++        _keyHelp = AddText("S  Skill bindings     F1–F12  Skills     1–4  Belt", 30, 306, Hotkeys);
+         Add(new SanctuarySheetButton(106, 338, 92, "Defaults", () =>
+         {
+             _keys = SanctuaryMenu.DefaultKeys;
+             _capturing = -1;
+             RefreshBindings();
+         }), Hotkeys);
+-        _keyHint = AddText("", 30, 282, Hotkeys);
++        _keyHint = AddText("", 30, 306, Hotkeys);
+         SelectTab(hotkeys ? Hotkeys : Graphics);
+     }
+ 
+@@ -155,6 +155,7 @@
+             _bindings[i].SetPrimary(i == _capturing);
+         }
+         _keyHint.Text = hint;
++        _keyHelp.IsVisible = string.IsNullOrEmpty(hint);
+     }
+ 
+     private void SelectTab(int page)
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/ShopGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/ShopGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/ShopGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/ShopGump.cs
+@@ -63,9 +63,10 @@
+         private const int RIGHT_OFFSET = 32;
+         private const int RIGHT_BOTTOM_HEIGHT = 93;
+ 
+-        public ShopGump(World world, uint serial, bool isBuyGump, int x, int y) : base(world, serial, 0) //60 is the base height, original size
+-        {
+-            int height = ProfileManager.CurrentProfile.VendorGumpHeight;
++        public ShopGump(World world, uint serial, bool isBuyGump, int x, int y, bool identify = false) : base(world, serial, 0)
++        {
++            int height = identify ? Math.Clamp(Client.Game.ClientBounds.Height - 275, 115, 270)
++                : ProfileManager.CurrentProfile.VendorGumpHeight;
+ 
+             X = x;
+             Y = y;
+@@ -115,7 +116,7 @@
+             Add(_leftBottom);
+ 
+             int rightX = artInfoLeft.UV.Width - RIGHT_OFFSET;
+-            int rightY = artInfoLeft.UV.Height / 2 - RIGHT_OFFSET;
++            int rightY = identify ? 40 : artInfoLeft.UV.Height / 2 - RIGHT_OFFSET;
+             offset = new Rectangle(0, 0, artInfoRight.UV.Width, LEFT_TOP_HEIGHT);
+             GumpPicTexture rightTop = new GumpPicTexture(
+                 graphicRight,
+@@ -149,8 +150,24 @@
+             );
+             Add(_rightBottom);
+ 
++            if (identify)
++            {
++                leftTop.IsVisible = _leftMiddle.IsVisible = _leftBottom.IsVisible = false;
++                rightTop.IsVisible = _rightMiddle.IsVisible = _rightBottom.IsVisible = false;
++                Add(new SanctuaryBackdrop("character-frame", rightX, _leftBottom.Y + _leftBottom.Height));
++                Add(new SanctuaryBackdrop("character-frame", rightTop.Width,
++                    _rightBottom.Y + _rightBottom.Height - rightY) { X = rightX, Y = rightY });
++                Add(new Label("Identify equipment", true, 0x481, font: 1) { X = RIGHT_OFFSET + 5, Y = 19 });
++                Add(new Label("Double-click to select an item", true, 0x481, font: 1) { X = RIGHT_OFFSET + 5, Y = 40 });
++                Add(new Label("Selected items", true, 0x481, font: 1) { X = rightX + RIGHT_OFFSET, Y = rightY + 26 });
++                Add(new Line(RIGHT_OFFSET - 5, _leftMiddle.Y, rightX - RIGHT_OFFSET + 2, _leftMiddle.Height,
++                    0xFFC3DAEC) { AcceptMouseInput = false });
++                Add(new Line(rightX + 18, _rightMiddle.Y, rightTop.Width - 37, _rightMiddle.Height,
++                    0xFFC3DAEC) { AcceptMouseInput = false });
++            }
++
+             _shopScrollArea = new ScrollArea(
+-                RIGHT_OFFSET,
++                identify ? RIGHT_OFFSET - 6 : RIGHT_OFFSET,
+                 _leftMiddle.Y,
+                 artInfoLeft.UV.Width - RIGHT_OFFSET * 2 + 5,
+                 _leftMiddle.Height + 50,
+@@ -174,7 +191,7 @@
+             _transactionDataBox.WantUpdateSize = true;
+             _transactionScrollArea.Add(_transactionDataBox);
+ 
+-            _totalLabel = new Label("0", true, 0x0386, 0, 1)
++            _totalLabel = new Label("0", true, identify ? (ushort)0x481 : (ushort)0x0386, 0, 1)
+             {
+                 X = RIGHT_OFFSET + rightTop.X + 32 + 4,
+                 Y = _rightBottom.Y + _rightBottom.Height - 32 * 3 + 15,
+@@ -227,6 +244,18 @@
+             };
+             Add(_accept);
+             Add(_clear);
++            if (identify)
++            {
++                _accept.IsVisible = _clear.IsVisible = false;
++                Add(new SanctuarySheetButton(rightX + RIGHT_OFFSET, _accept.Y, 100, "Appraise",
++                    () => OnButtonClick((int)Buttons.Accept), primary: true));
++                Add(new SanctuarySheetButton(rightX + RIGHT_OFFSET + 108, _accept.Y, 62, "Clear",
++                    () => OnButtonClick((int)Buttons.Clear)));
++                var fee = Add(new Label("Fee (gold)", true, 0x481, font: 1)
++                    { X = rightX + RIGHT_OFFSET, Y = _accept.Y - 27 });
++                _totalLabel.X = rightX + RIGHT_OFFSET + 85;
++                _totalLabel.Y = fee.Y;
++            }
+ 
+             HitBox leftUp = new HitBox(
+                 (leftTop.X + leftTop.Width) - 50,
+@@ -286,6 +315,11 @@
+             Add(_leftDown);
+             Add(rightUp);
+             Add(_rightDown);
++            if (identify)
++            {
++                leftUp.IsVisible = _leftDown.IsVisible = rightUp.IsVisible = _rightDown.IsVisible = false;
++                _expander.IsVisible = false;
++            }
+ 
+             _minHeight = artInfoLeft.UV.Height - (LEFT_BOTTOM_HEIGHT + LEFT_TOP_HEIGHT);
+             _minHeightRight = artInfoRight.UV.Height - (RIGHT_BOTTOM_HEIGHT + LEFT_TOP_HEIGHT);
+diff --git a/src/ClassicUO.Client/Network/PacketHandlers.cs b/src/ClassicUO.Client/Network/PacketHandlers.cs
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -3367,7 +3367,8 @@
+ 
+             ShopGump gump = UIManager.GetGump<ShopGump>(vendor);
+             gump?.Dispose();
+-            gump = new ShopGump(world, vendor, false, 100, 0);
++            gump = new ShopGump(world, vendor, false, 100, 0,
++                identify: AvatarDialogueClient.TakeIdentifyShop(world.Player, vendor));
+ 
+             for (int i = 0; i < countItems; i++)
+             {

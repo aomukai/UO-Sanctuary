@@ -34,17 +34,12 @@ public static class MercenaryCare
         Profiles = new();
         ClassCombatHooks.CompanionRangedSwing = (actor, target, weapon) =>
             actor is Iolo iolo && iolo.Recruited ? iolo.BeginShot(target, weapon) : null;
+        ClassMercenaryHooks.RestoredOrder = (owner, pet) =>
+            pet is Iolo { IsDeadPet: false } && IsCompanion(owner, pet) ? OrderType.Guard : null;
         EventSink.Connected += owner =>
         {
             if (owner is PlayerMobile player)
-                Timer.StartTimer(TimeSpan.Zero, () =>
-                {
-                    if (SyncOwner(player) is Iolo { ControlOrder: OrderType.Follow } iolo && IsCompanion(player, iolo))
-                    {
-                        iolo.ControlTarget = player;
-                        iolo.ControlOrder = OrderType.Guard;
-                    }
-                });
+                Timer.StartTimer(TimeSpan.Zero, () => SyncOwner(player));
         };
         ClassMercenaryHooks.KeepEquipment = merc => States.ContainsKey(merc.Serial);
         ClassMercenaryHooks.ResurrectionAllowed = merc => !States.ContainsKey(merc.Serial) || _paidResurrection.Contains(merc.Serial);
@@ -129,6 +124,30 @@ public static class MercenaryCare
             && mercenary.ControlMaster == owner && States.TryGetValue(mercenary.Serial, out state) && state.Owner == owner.Serial && !state.Retired;
     }
     internal static bool IsCompanion(PlayerMobile owner,BaseCreature pet)=>Owned(owner,pet,out _);
+
+    internal static bool? GuardTarget(BaseCreature companion, Mobile target)
+    {
+        if (companion is not IClassCompanion || companion.ControlMaster is not PlayerMobile owner
+            || !IsCompanion(owner, companion))
+            return null;
+
+        if (!owner.Alive || owner.Map != companion.Map || !ClassCombat.IsHostile(owner, target)
+            || ClassCombatHooks.TargetAllowed?.Invoke(companion, target) == false)
+            return false;
+
+        // Native Guard already covers enemies attacking the companion or owner. Also assist their other followers.
+        if (OnOwnersSide(owner, target.Combatant))
+            return true;
+        foreach (var aggression in target.Aggressors)
+            if (!aggression.Expired && OnOwnersSide(owner, aggression.Attacker))
+                return true;
+
+        return null;
+    }
+
+    private static bool OnOwnersSide(PlayerMobile owner, Mobile actor) =>
+        actor == owner || actor is BaseCreature creature && creature.GetMaster() == owner;
+
     private static bool Near(Mobile first, Mobile second, int range = 3) => first.Map != Map.Internal && first.Map == second.Map
         && first.InRange(second, range) && Math.Abs(first.Z - second.Z) < 16 && first.InLOS(second);
     public static bool Deposit(PlayerMobile owner, BaseCreature mercenary, RestorationPotion potion)
@@ -210,14 +229,16 @@ public static class MercenaryCare
     }
     public static MercenaryServiceRequest Quote(PlayerMobile owner, BaseCreature mercenary, BaseCreature healer)
     {
+        bool ioloAtMerryn = healer is NewHavenHealer && mercenary is Iolo { IsDeadPet: true };
         if (!ClassProfessions.Ready(owner) || !Owned(owner, mercenary, out var state) || !Provider(healer)
-            || healer is not { Deleted: false, Alive: true } || !Near(owner, healer) || !Near(mercenary, healer)
+            || healer is not { Deleted: false, Alive: true } || !Near(owner, healer, ioloAtMerryn ? 4 : 3)
+            || !(ioloAtMerryn ? Near(owner, mercenary, 4) : Near(mercenary, healer))
             || !Peaceful(owner) || !Peaceful(mercenary) || !Peaceful(healer)
             || healer is BaseHealer native && !native.CheckResurrect(owner)
             || mercenary.IsDeadPet && !mercenary.Map.CanFit(mercenary.Location, 16, false, false)
             || !mercenary.IsDeadPet && mercenary.Hits >= mercenary.HitsMax) { return null; }
         return new() { Owner = owner, Mercenary = mercenary, Healer = healer, State = state, Connection = owner.NetState,
-            Resurrection = mercenary.IsDeadPet, Gold = mercenary.IsDeadPet ? ResurrectionPrice(state.Level) : 0 };
+            Resurrection = mercenary.IsDeadPet, Gold = mercenary.IsDeadPet && !ioloAtMerryn ? ResurrectionPrice(state.Level) : 0 };
     }
     public static bool Commit(MercenaryServiceRequest request)
     {

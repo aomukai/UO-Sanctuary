@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using ModernUO.Serialization;
 using Server;
+using Server.Collections;
+using Server.ContextMenus;
 using Server.Items;
 using Server.Mobiles;
 using Server.Network;
@@ -66,6 +68,17 @@ public partial class Iolo : ConversationNpc, IClassCompanion
         new("Come, let us go together.", _companionTopics)
     ];
 
+    private static readonly ScriptedDialogue.Reply[] _departureTopics =
+        [new("Lord British", 1), new("Songs", 2), new("Equipment", 0, OpenEquipment)];
+    private static readonly ScriptedDialogue.Node[] _departure =
+    [
+        new("We should seek an audience with Lord British. He must hear what we have found.\n\n"
+            + "But first, grant an old man a moment to catch his breath. Once, I could follow thee from dawn until dusk…\n\n"
+            + "Of late, I find myself thinking of the bard’s college. There are songs I have yet to teach, and young voices enough to carry them.", _departureTopics),
+        new("Thou wilt find him at the castle in Britain. Come, I'll go with thee. He should hear of this from us both.", _departureTopics),
+        new("A song is best passed from one voice to another. I should like to teach a few to the young bards at the college, while I can still remember all the verses.", _departureTopics)
+    ];
+
     [Constructible]
     public Iolo()
     {
@@ -94,7 +107,10 @@ public partial class Iolo : ConversationNpc, IClassCompanion
     {
         if (Recruited)
         {
-            base.BeginConversation(player);
+            if (IsDeadPet)
+                player.SendMessage("Iolo's spirit follows thee still. A healer can call him back.");
+            else
+                base.BeginConversation(player);
             return;
         }
 
@@ -110,7 +126,7 @@ public partial class Iolo : ConversationNpc, IClassCompanion
         if (recruited.IsMobile)
         {
             if (World.FindMobile(recruited) is Iolo active && ScriptedDialogue.CanTalk(player, active))
-                ScriptedDialogue.Show(player, active, _company);
+                active.BeginConversation(player);
             else
                 ScriptedDialogue.Show(player, this, _introduction, 5);
         }
@@ -124,13 +140,13 @@ public partial class Iolo : ConversationNpc, IClassCompanion
         }
     }
 
-    private static void OpenEquipment(PlayerMobile player, ConversationNpc speaker)
+    private static void OpenEquipment(PlayerMobile player, Mobile speaker)
     {
         if (speaker.CanPaperdollBeOpenedBy(player))
             speaker.DisplayPaperdollTo(player);
     }
 
-    private static void AcceptCompany(PlayerMobile player, ConversationNpc speaker)
+    private static void AcceptCompany(PlayerMobile player, Mobile speaker)
     {
         var profiles = ClassCreation.Profiles;
         if (speaker is not Iolo { Recruited: false } innIolo || !profiles.NewHavenGateUnlocked(player.Serial)
@@ -173,6 +189,18 @@ public partial class Iolo : ConversationNpc, IClassCompanion
     private bool IsOwnedBy(Mobile from) => from is PlayerMobile player && player.Serial == _recruitedBy
         && MercenaryCare.IsCompanion(player, this);
 
+    private static Iolo TravelingCompanion(PlayerMobile player) =>
+        World.FindMobile(ClassCreation.Profiles.IoloCompanion(player.Serial)) is Iolo { IsDeadPet: false } companion
+        && ScriptedDialogue.CanTalk(player, companion) ? companion : null;
+
+    internal static bool IsTravelingWith(PlayerMobile player) => TravelingCompanion(player) != null;
+
+    internal static void OnNewHavenDeparture(PlayerMobile player)
+    {
+        if (StatNetwork.SupportsCurrentProtocol(player) && TravelingCompanion(player) is { } companion)
+            ScriptedDialogue.Show(player, companion, _departure);
+    }
+
     private bool CanHandleGear(Mobile from) => IsOwnedBy(from) && from.Alive && Alive && !IsDeadPet
         && from.Map == Map && from.InRange(this, PortraitProtocol.NpcInteractionRange) && from.CanSee(this) && from.InLOS(this);
 
@@ -182,6 +210,23 @@ public partial class Iolo : ConversationNpc, IClassCompanion
     public override bool CheckNonlocalDrop(Mobile from, Item item, Item target) => CanHandleGear(from);
     public override bool CanBeRenamedBy(Mobile from) => false;
     public override bool OnDragDrop(Mobile from, Item dropped) => IsOwnedBy(from) && base.OnDragDrop(from, dropped);
+
+    public override void GetContextMenuEntries(Mobile from, ref PooledRefList<ContextMenuEntry> list)
+    {
+        if (!Recruited || !IsDeadPet)
+            base.GetContextMenuEntries(from, ref list);
+    }
+
+    public override void OnAfterResurrect()
+    {
+        base.OnAfterResurrect();
+        if (Recruited && ControlMaster is PlayerMobile owner && IsOwnedBy(owner))
+        {
+            ControlTarget = owner;
+            ControlOrder = OrderType.Guard;
+        }
+    }
+
     public override int GetResistance(ResistanceType type)
     {
         int resistance = base.GetResistance(type);

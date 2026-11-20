@@ -1,0 +1,50 @@
+diff --git a/Projects/UOContent/Mobiles/ClassMapHooks.cs b/Projects/UOContent/Mobiles/ClassMapHooks.cs
+--- a/Projects/UOContent/Mobiles/ClassMapHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassMapHooks.cs
+@@ -11,6 +11,7 @@
+     public static Func<Mobile, TreasureMap, bool> TreasureUsed { get; set; }
+     public static Func<Mobile, int, Map, Item> TreasureFished { get; set; }
+     public static Action<Mobile> LocationChanged { get; set; }
++    public static Action<PlayerMobile, Point3D, Map> TeleportFollowers { get; set; }
+     public static Func<Mobile, int, int> SearchRange { get; set; }
+     public static Func<Mobile, Mobile, bool> StoryMobileVisible { get; set; }
+     public static Func<PublicMoongate, Mobile, bool> PublicGateAllowed { get; set; }
+diff --git a/Projects/UOContent/Mobiles/BaseCreature.cs b/Projects/UOContent/Mobiles/BaseCreature.cs
+--- a/Projects/UOContent/Mobiles/BaseCreature.cs
++++ b/Projects/UOContent/Mobiles/BaseCreature.cs
+@@ -4180,6 +4180,12 @@
+         {
+             if (master is PlayerMobile { AllFollowers: not null } pm)
+             {
++                if (ClassMapHooks.TeleportFollowers is { } teleportFollowers)
++                {
++                    teleportFollowers(pm, loc, map);
++                    return;
++                }
++
+                 foreach (var m in pm.AllFollowers)
+                 {
+                     if (m.Map == master.Map && master.InRange(m, 3) && m is BaseCreature
+diff --git a/Projects/UOContent/Spells/Third/Teleport.cs b/Projects/UOContent/Spells/Third/Teleport.cs
+--- a/Projects/UOContent/Spells/Third/Teleport.cs
++++ b/Projects/UOContent/Spells/Third/Teleport.cs
+@@ -2,6 +2,7 @@
+ using Server.Factions;
+ using Server.Items;
+ using Server.Misc;
++using Server.Mobiles;
+ using Server.Regions;
+ using Server.Spells.Fifth;
+ using Server.Spells.Fourth;
+@@ -69,6 +70,11 @@
+                 SpellHelper.Turn(Caster, orig);
+ 
+                 var m = Caster;
++
++                if (m is PlayerMobile && ClassMapHooks.TeleportFollowers != null)
++                {
++                    BaseCreature.TeleportPets(m, to, map);
++                }
+ 
+                 m.Location = to;
+                 m.ProcessDelta();

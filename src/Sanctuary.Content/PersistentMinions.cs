@@ -35,12 +35,13 @@ public static class PersistentMinions
     {
         Profiles = new();
         ClassCombatHooks.PersistentMinion = pet => Behavior(pet)!=null;
-        ClassCombatHooks.GuardTarget = (pet,target) => Behavior(pet)==null?null:
+        ClassCombatHooks.GuardTarget = (pet,target) => Behavior(pet)==null?MercenaryCare.GuardTarget(pet,target):
             pet is{Alive:true,Deleted:false,Blessed:false}&&Behavior(pet).CanActivate&&pet.ControlMaster is PlayerMobile{Alive:true,Deleted:false,NetState:not null} owner
             &&owner.Map==pet.Map&&pet.Map!=Map.Internal&&Active(owner,pet)&&Permitted(owner,pet,Behavior(pet).SummonClass)
             &&!MinionSafeAreas.ShouldPark(owner,pet)&&ClassCombat.IsHostile(owner,target)&&ClassCombatHooks.TargetAllowed?.Invoke(pet,target)!=false;
         ClassCombatHooks.SuspendMinions = Suspend;
         ClassCombatHooks.ResumeMinions = Resume;
+        ClassMapHooks.TeleportFollowers = TeleportFollowers;
         EventSink.Disconnected += OnDisconnected;
     }
 
@@ -217,7 +218,36 @@ public static class PersistentMinions
         }
     }
 
-    internal static bool FindPosition(PlayerMobile owner, out Point3D point)
+    private static void TeleportFollowers(PlayerMobile owner, Point3D landing, Map map)
+    {
+        if (map == null || map == Map.Internal || owner.AllFollowers is not { Count: > 0 } followers)
+            return;
+
+        if (owner.Map is { } origin && origin != Map.Internal && !owner.Deleted)
+            PetOwnerRoutes.Teleported(owner, landing, map, TimedEffects.Now);
+        var eye = new Point3D(landing.X, landing.Y, landing.Z + 14);
+        bool Visible(Point3D spot) => map.LineOfSight(eye, spot);
+        using var snapshot = PooledRefList<BaseCreature>.Create();
+        foreach (var follower in followers)
+            if (follower is BaseCreature { Deleted: false, Map: not null } pet && pet.GetMaster() == owner
+                && pet.Map != Map.Internal && !pet.IsStabled && (pet.Alive || pet.IsDeadBondedPet))
+                snapshot.Add(pet);
+
+        foreach (var pet in snapshot)
+        {
+            Behavior(pet)?.SuspendActions();
+            pet.Combatant = null;
+            pet.FocusMob = null;
+            pet.Warmode = false;
+            pet.AIObject?.ResetApproachState();
+            pet.MoveToWorld(FindPosition(map, landing, Visible, out var spot) ? spot : landing, map);
+        }
+    }
+
+    internal static bool FindPosition(PlayerMobile owner, out Point3D point) =>
+        FindPosition(owner.Map, owner.Location, owner.InLOS, out point);
+
+    private static bool FindPosition(Map map, Point3D center, Func<Point3D, bool> visible, out Point3D point)
     {
         // A blocked login spot leaves the minion parked; accepted movement retries.
         for (int radius = 1; radius <= 4; radius++)
@@ -230,15 +260,15 @@ public static class PersistentMinions
                     {
                         continue;
                     }
-                    int x = owner.X + dx, y = owner.Y + dy;
-                    point = new Point3D(x, y, owner.Z);
-                    if (owner.Map.CanSpawnMobile(point) && owner.InLOS(point))
+                    int x = center.X + dx, y = center.Y + dy;
+                    point = new Point3D(x, y, center.Z);
+                    if (map.CanSpawnMobile(point) && visible(point))
                     {
                         return true;
                     }
-                    int z = owner.Map.GetAverageZ(x, y);
+                    int z = map.GetAverageZ(x, y);
                     point = new Point3D(x, y, z);
-                    if (Math.Abs(z - owner.Z) < 16 && owner.Map.CanSpawnMobile(point) && owner.InLOS(point))
+                    if (Math.Abs(z - center.Z) < 16 && map.CanSpawnMobile(point) && visible(point))
                     {
                         return true;
                     }

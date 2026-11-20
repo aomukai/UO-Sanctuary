@@ -17,7 +17,7 @@ public static partial class TownMarkets
     private static int ShownPurchasePrice(BaseVendor vendor, Mobile buyer, int price) => Role(vendor) != null
         && _purchaseQuotes.GetValueOrDefault(buyer.Serial) is { } quote && quote.Vendor == vendor.Serial
         ? MapSurveys.Price(price, quote.City != null) : price;
-    private static bool Trading(BaseVendor vendor, Mobile from) => vendor is { Deleted: false, Alive: true }
+    internal static bool Trading(BaseVendor vendor, Mobile from) => vendor is { Deleted: false, Alive: true }
         && from is { Deleted: false, Alive: true, Backpack: not null, Holding: null }
         && AlliedOverlap.Allowed(from) && from.Map == vendor.Map && from.InRange(vendor, 3) && from.InLOS(vendor) && vendor.CheckVendorAccess(from);
     private static bool? Buy(BaseVendor vendor, Mobile buyer, List<BuyItemResponse> list)

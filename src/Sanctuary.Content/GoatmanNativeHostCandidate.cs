@@ -35,9 +35,8 @@ internal sealed class GoatmanNativeHostCandidate:IDisposable
     {
         get
         {
-            if(Suspended||Body.Map!=Owner.Map||DeathMarkWorld.State(Body)?.Map!=Body.Map?.MapID){return true;}
-            var p=DeathMarkWorld.Path(Body);
-            return ((int)(p.X>>16)+1)/2!=Body.X||((int)(p.Y>>16)+1)/2!=Body.Y||p.X!=Motion.Motion.X||p.Y!=Motion.Motion.Y
+            if(Suspended||Body.Map!=Owner.Map||!DeathMarkWorld.TryGetCurrentPath(Body,out var p)){return true;}
+            return p.X!=Motion.Motion.X||p.Y!=Motion.Motion.Y
                 ||Combat.Current is{} action&&DeathMarkWorld.State(Body).Mode!=action.Mode;
         }
     }
@@ -98,8 +97,8 @@ internal sealed class GoatmanNativeHostCandidate:IDisposable
             Combat.Cancel();Motion.Stop();ClearEvents();Pump=new(Events,SourceFrameTimeline.Skip(Pump.Position,observed));
             DemonNativeState.Recovery(Body,Pump.Position.NextUtc);PersistentMinions.Suspend(Owner);Suspended=true;return;
         }
-        var registered=DeathMarkWorld.Path(Body);
-        if(Body.Map==Owner.Map&&DeathMarkWorld.State(Body)?.Map==Body.Map.MapID&&!Suspended
+        bool pathMatchesBody = DeathMarkWorld.TryGetCurrentPath(Body, out var registered);
+        if(Body.Map==Owner.Map&&pathMatchesBody&&!Suspended
             &&(registered.X!=Motion.Motion.X||registered.Y!=Motion.Motion.Y
                 ||Combat.Current is{} external&&DeathMarkWorld.State(Body).Mode!=external.Mode))
         {
@@ -111,9 +110,7 @@ internal sealed class GoatmanNativeHostCandidate:IDisposable
             Idle(checked((int)Math.Min(int.MaxValue,(remaining+SourceFrameTimeline.IntervalTicks-1)/SourceFrameTimeline.IntervalTicks+1)));
             DemonNativeState.Recovery(Body,Pump.Position.NextUtc);return;
         }
-        if(Suspended||Body.Map!=Owner.Map||DeathMarkWorld.State(Body)?.Map!=Body.Map?.MapID
-            ||Body.Map!=Map.Internal&&((int)(DeathMarkWorld.Path(Body).X>>16)+1)/2!=Body.X
-            ||Body.Map!=Map.Internal&&((int)(DeathMarkWorld.Path(Body).Y>>16)+1)/2!=Body.Y)
+        if(Suspended||Body.Map!=Owner.Map||!pathMatchesBody)
         {
             Combat.Cancel();ClearEvents();Pump=new(Events,SourceFrameTimeline.Skip(Pump.Position,observed));
             if(Body.Map==Map.Internal){PersistentMinions.Resume(Owner);}

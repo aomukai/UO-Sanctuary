@@ -40,9 +40,12 @@ public static class CorpseEscrowUiChecks
             var second = CorpseEscrowChecks.Death(_player); _discarded = new Item(1) { Name = "Forfeiture test object" }; second.AddItem(_discarded);
             _forfeit = CorpseEscrowChecks.Expired(second); _player.Blessed = true;
             _fee = CorpseEscrow.Quote(_player, _recover).Fee;
+            _player.MoveToWorld(CombatPractice.FindFloor(Map.Trammel, 5450, 1160), Map.Trammel);
+            _banker.CantWalk = true;
+            _banker.MoveToWorld(new Point3D(_player.X + 1, _player.Y, _player.Z), _player.Map);
             _player.CloseGump<CorpseEscrowGump>();
         });
-        Command("opened", () => Require(_player.FindGump<CorpseEscrowGump>() != null, "Actual banker speech did not open escrow"));
+        Command("opened", () => Require(_player.FindGump<CorpseEscrowGump>() != null, "The banker dialogue did not open escrow"));
         Command("no-funds", () => Require(CorpseEscrow.Claims(_player).Length == 2 && !_gear.Deleted && !_discarded.Deleted
             && Banker.GetBalance(_player) == 0 && _bag.Parent?.Serial == _recover.Storage, "No-funds UI deleted or moved contents"));
         Command("fund", () =>

@@ -5,7 +5,7 @@ import subprocess
 import time
 import xml.etree.ElementTree as ET
 
-from check_portrait_dialogue_ui import client_capture
+from check_portrait_dialogue_ui import client_capture, client_image
 
 
 def exercise(window, click, profile):
@@ -29,6 +29,12 @@ def exercise(window, click, profile):
         time.sleep(0.3)
 
     click(605, 101)  # Close the initial character sheet.
+    if os.environ.get("SANCTUARY_TEST_HAVEN_SERVICES_UI") == "1":
+        exercise_services(window, click, command)
+        return
+    if os.environ.get("SANCTUARY_TEST_SUCCUBUS_ONLY") == "1":
+        exercise_succubus(window, command)
+        return
     key("j")
     journal_area = (49, 153, 244, 205)
     empty_journal = client_capture(window, area=journal_area)
@@ -87,7 +93,64 @@ def exercise(window, click, profile):
     subprocess.run(["xdotool", "mouseup", "1"], check=True)
     client_capture(window, "iolo-crossed-door.png")
     command("crossed-doorway")
+    command("iolo-ghost-setup")
+    time.sleep(0.5)
+    client_capture(window, "iolo-before-death.png")
+    command("iolo-died")
+    time.sleep(0.5)
+    client_capture(window, "iolo-ghost.png")
+    click(298, 179)  # Iolo's spirit follows the Avatar into the healer's house.
+    client_capture(window, "iolo-ghost-click.png")
+    time.sleep(0.55)
+    click(362, 188)  # Ask Merryn about Iolo.
+    client_capture(window, "iolo-healer-offer.png")
+    command("iolo-healer-offer")
+    click(374, 235)
+    command("iolo-healer-declined")
+    time.sleep(0.55)
+    click(362, 188)
+    command("iolo-healer-offer")
+    click(210, 235)
+    command("iolo-healer-resurrected")
+    for approach, point in (("shaft-start", (342, 211)), ("start", (386, 167))):
+        command(f"mine-{approach}")
+        time.sleep(0.8)
+        client_capture(window, f"mine-{approach}.png")
+        click(*point)
+        time.sleep(1.1)
+        client_capture(window, "mine-inside.png")
+        command("mine-entered")
+    command("mountain-mine-start")
+    time.sleep(0.8)
+    client_capture(window, "mountain-mine-approach.png")
+    click(254, 175)
+    time.sleep(1.1)
+    client_capture(window, "mountain-mine-inside.png")
+    command("mountain-mine-entered")
+    command("mountain-mine-minion")
+    command("mountain-minion-follows", timeout=12)
+    command("rope-start")
+    time.sleep(0.7)
+    subprocess.run(["xdotool", "mousemove", "--window", window, "338", "209"], check=True)
+    time.sleep(0.2)
+    client_capture(window, "mine-rope-with-corpse.png")
+    subprocess.run(["xdotool", "click", "--repeat", "2", "1"], check=True)
+    time.sleep(1)
+    command("rope-arrived")
+    command("krulg-start")
+    command("krulg-attacks", timeout=12)
+    command("assist")
+    command("assist-impact", timeout=9)
+    command("miner-setup")
+    time.sleep(0.6)
+    client_capture(window, "mine-camp.png")
+    click(320, 129)
+    client_capture(window, "mine-camp-dialogue.png")
+    click(132, 419)
     command("departure")
+    time.sleep(0.7)
+    client_capture(window, "iolo-after-moongate.png")
+    click(132, 419)
     command("ghost")
     time.sleep(0.7)
     client_capture(window, "elin-ghost.png")
@@ -107,4 +170,80 @@ def exercise(window, click, profile):
     command("town-summon-return")
     time.sleep(0.4)
     client_capture(window, "town-minion-returned.png")
-    print("Actual client: Iolo dialogue and doorway, healer rescue, bandit combat, and town summons passed.", flush=True)
+    exercise_succubus(window, command)
+    print("Actual client: Iolo, mine, healer, and summon flows passed, including the mana indicator.", flush=True)
+
+
+def exercise_services(window, click, command):
+    def mouse(x, y, count=1):
+        subprocess.run(["xdotool", "mousemove", "--window", window, str(x), str(y)], check=True)
+        time.sleep(0.15)
+        subprocess.run(["xdotool", "click", "--repeat", str(count), "1"], check=True)
+        time.sleep(0.45)
+
+    command("npc-speech")
+    command("scholar-setup")
+    time.sleep(0.6)
+    client_capture(window, "scholar-location.png")
+    click(362, 151)
+    client_capture(window, "scholar-dialogue.png")
+    click(406, 379)
+    client_capture(window, "scholar-appraisal.png")
+    mouse(213, 92, 2)
+    mouse(213, 160, 2)
+    client_capture(window, "scholar-selected.png")
+    click(422, 326)
+    client_capture(window, "scholar-payment.png")
+    command("scholar-paid")
+
+    command("training-setup")
+    time.sleep(0.6)
+    client_capture(window, "trainer-location.png")
+    click(341, 126)
+    client_capture(window, "trainer-dialogue.png")
+    click(406, 339)
+    client_capture(window, "trainer-confirm.png")
+    click(399, 324)
+    command("training-cancelled")
+    click(341, 126)
+    click(406, 339)
+    click(136, 326)
+    client_capture(window, "trainer-amount.png")
+    click(390, 205)  # Increase the offer by 10 gold.
+    click(255, 205)  # Decrease it again.
+    click(316, 205)
+    subprocess.run(["xdotool", "key", "--window", window, "Home", "shift+End", "9", "0", "0"], check=True)
+    click(136, 265)
+    client_capture(window, "trainer-paid.png")
+    command("training-paid")
+
+
+def exercise_succubus(window, command):
+    def right_click():
+        subprocess.run(["xdotool", "mousedown", "3"], check=True)
+        time.sleep(0.12)
+        subprocess.run(["xdotool", "mouseup", "3"], check=True)
+        time.sleep(1.1)
+
+    command("succubus-start")
+    time.sleep(0.5)
+    subprocess.run(["xdotool", "mousemove", "--window", window, "386", "282"], check=True)
+    time.sleep(0.2)
+    client_capture(window, "succubus-start.png")
+    right_click()
+    command("succubus-first")
+    time.sleep(0.6)
+    mana_icon = (43, 403, 26, 25)
+    affordable = client_image(window, area=mana_icon).convert("RGB")
+    command("succubus-low-mana")
+    time.sleep(0.6)
+    client_capture(window, "succubus-low-mana-screen.png")
+    low = client_image(window, "succubus-low-mana.png", area=mana_icon).convert("RGB")
+    red = lambda img: sum(r > 1.3 * g and r > 1.3 * b for r, g, b in img.getdata())
+    assert red(low) > red(affordable) + 30, "The Succubus icon did not turn red below the exact mana cost"
+    command("succubus-refill")
+    time.sleep(0.6)
+    assert red(client_image(window, area=mana_icon).convert("RGB")) == red(affordable), "The hotbar icon stayed red after refilling mana"
+    client_capture(window, "succubus-friendly-aim.png")
+    right_click()
+    command("succubus-second")

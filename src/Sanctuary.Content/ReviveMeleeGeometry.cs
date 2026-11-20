@@ -9,6 +9,7 @@ namespace Sanctuary;
 
 internal static class ReviveMeleeGeometry
 {
+    internal const string StaleDemonPosition = "Registered ground demon geometry does not match its source/native position";
     private static readonly Lazy<Dictionary<string,NpcMeleeGeometryProfile>> Profiles=new(()=>
     {
         var rows=BalanceCatalog.Read<NpcMeleeGeometryProfile>("revive-melee-geometry");
@@ -46,7 +47,7 @@ internal static class ReviveMeleeGeometry
         {
             var path=DeathMarkWorld.Path(demon);int x=checked((int)(path.X>>16)),y=checked((int)(path.Y>>16));
             if(demon.Map==null||demon.Map!=Map.Internal&&(controller.Map!=demon.Map.MapID||(x+1)/2!=demon.X||(y+1)/2!=demon.Y))
-            {throw new NotSupportedException("Registered ground demon geometry does not match its source/native position");}
+            {throw new NotSupportedException(StaleDemonPosition);}
             cell=new(x,y);
         }
         return new(cell,row.Size,1,row.BaseId,row.RawRange,HasRoom:actor.Map!=null&&actor.Map!=Map.Internal);

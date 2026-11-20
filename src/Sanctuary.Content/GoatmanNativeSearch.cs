@@ -91,14 +91,19 @@ internal sealed class GoatmanNativeSearch
         :throw new NotSupportedException("Native search unit disappeared");
     private bool Hostile(int id)=>SourceCorpseIdentity.Find(id)==null&&Server.World.FindMobile((Serial)(uint)id)is{} m
         &&m.Map==Map&&ClassCombat.IsHostile(Owner,m)&&!SpellHelper.IsTown(m.Location,Owner);
+    private static GenericPetCommitPath CurrentDemonPath(Mobile mobile) =>
+        mobile is SkeletonGuardian demon && WarlockDemonPlacement.Prepared(demon)
+        && DeathMarkWorld.TryGetCurrentPath(demon, out var path)
+        && (demon is not WarlockDefilerBody || DefilerFlyingWorld.Profile(demon, path)) ? path : null;
     internal GenericPetDecisionUnit Position(int id)
     {
         if(SourceCorpseIdentity.Find(id)is{} corpse)
         {return new(1,corpse.Body.Map!=null&&corpse.Body.Map!=Server.Map.Internal,corpse.Body.X*2,corpse.Body.Y*2);}
         var m=Mobile(id);if(m is not(PlayerMobile or BaseCreature)){throw new NotSupportedException("Native search has no item/object/missile/tile position producer");}
         int x=m.X*2,y=m.Y*2;
-        if(m is SkeletonGuardian goat&&(goat is WarlockGoatmanBody or WarlockTaintedBody or WarlockDefilerBody)&&DeathMarkWorld.State(goat)!=null)
-        {var geometry=ReviveMeleeGeometry.Unit(goat);x=geometry.Cell.X;y=geometry.Cell.Y;}
+        // Another pet may have just landed, before its own host can rebind.
+        if (CurrentDemonPath(m) is { } path)
+        { x = (int)(path.X >> 16); y = (int)(path.Y >> 16); }
         // UO accepted movement has a committed tile endpoint,no unread future
         // D2 path. This is the actual native endpoint,not predicted next input.
         return new(m is PlayerMobile?0:1,m.Map!=null&&m.Map!=Server.Map.Internal,x,y,m is PlayerMobile,x,y);
@@ -121,7 +126,9 @@ internal sealed class GoatmanNativeSearch
         :m is BaseCreature c?GenericPetSearchTables.SourceId(CreatureProfiles.Definition(c).Reference)??-1:-1;
     private int Size(int id)
     {
-        var m=Mobile(id);return m is PlayerMobile?2:m is BaseCreature c?ReviveMeleeGeometry.Unit(c,requireRange:false).Size
+        var m=Mobile(id);return m is PlayerMobile?2
+            : m is SkeletonGuardian demon && WarlockDemonPlacement.Prepared(demon) ? ReviveMeleeGeometry.Profile(demon.SourceMonsterId).Size
+            : m is BaseCreature c?ReviveMeleeGeometry.Unit(c,requireRange:false).Size
             :throw new NotSupportedException("Native search size is unbound");
     }
     private int Mode(Mobile m)=>!m.Alive?m is PlayerMobile?17:12:m is SkeletonGuardian guardian&&DeathMarkWorld.State(guardian)is{} actor?actor.Mode:1;
@@ -164,7 +171,7 @@ internal sealed class GoatmanNativeSearch
         if(SourceCorpseIdentity.Find(id)is{} corpse)
         {var position=Position(id);return new(new(position,12,0x10000,corpse.ClassId,1,false,false,corpse.Body.X*2*65536,corpse.Body.Y*2*65536),0,0);}
         var m=Mobile(id);var p=Position(id);var(x,y)=p.Coordinates();uint fx=(uint)x<<16,fy=(uint)y<<16;
-        if(m is SkeletonGuardian goat&&(goat is WarlockGoatmanBody or WarlockTaintedBody or WarlockDefilerBody)&&DeathMarkWorld.State(goat)!=null){var path=DeathMarkWorld.Path(goat);fx=path.X;fy=path.Y;}
+        if (CurrentDemonPath(m) is { } path) { fx = path.X; fy = path.Y; }
         return new(new(p,Mode(m),Flags(m),Class(m),1,m is BaseCreature,false,unchecked((int)fx),unchecked((int)fy)),Path(id).Target,Flags128(m));
     }
     private GenericPetSearchWorldUnit WorldUnit(int id)

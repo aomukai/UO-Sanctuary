@@ -66,11 +66,34 @@ internal static class DeathMarkWorld
         return new(unchecked((int)body.Serial.Value),actor.Map,actor.Selector,actor.Command.Data.Target48,actor.Command.Data.Type4c,actor.Mode,actor.Next){Control=actor.Control,Header=actor.Header?.Capture()};
     }
     internal static GenericPetCommitPath Path(SkeletonGuardian body)=>_worlds[_actors[checked((int)body.Serial.Value)].Map].Member(checked((int)body.Serial.Value)).Path;
+    internal static bool TryGetCurrentPath(SkeletonGuardian body, out GenericPetCommitPath path)
+    {
+        int id = checked((int)body.Serial.Value);
+        if (body.Map is { } map && map != Map.Internal && _actors.TryGetValue(id, out var actor) && actor.Map == map.MapID)
+        {
+            var registered = _worlds[actor.Map].Member(id).Path;
+            if (((int)(registered.X >> 16) + 1) / 2 == body.X && ((int)(registered.Y >> 16) + 1) / 2 == body.Y)
+            {
+                path = registered;
+                return true;
+            }
+        }
+        path = null;
+        return false;
+    }
     internal static uint Flags128(SkeletonGuardian body)=>_worlds[_actors[checked((int)body.Serial.Value)].Map].Member(checked((int)body.Serial.Value)).Flags128;
     // Continuous native transport uses the same registered source position
     // and room/update lists as placement. The caller has already advanced the
     // qualified movement kernel;this does not choose a path or birth flags.
     internal static void WalkPrepared(SkeletonGuardian body,uint x,uint y)
+    {
+        if (!TryWalkPrepared(body, x, y, out var blocked))
+            throw new NotSupportedException(blocked);
+    }
+
+    internal const string BlockedWalk = "Source walking destination has no supported native floor/space:";
+
+    internal static bool TryWalkPrepared(SkeletonGuardian body,uint x,uint y,out string blocked)
     {
         var actor=ControlledActor(body);var world=_worlds[actor.Map];int id=checked((int)body.Serial.Value);
         var path=world.Member(id).Path;var unit=world.Unit(id);world.Require(body,unit,path);GenericPetNativePlacement.RequireActor(body,unit,path);
@@ -78,7 +101,10 @@ internal static class DeathMarkWorld
         {throw new NotSupportedException("Walking needs its qualified active species ground path");}
         int cx=checked((int)(x>>16)),cy=checked((int)(y>>16));
         if(!DemonPathWorld.Point(body,path,new(cx,cy),out var point))
-        {throw new NotSupportedException($"Source walking destination has no supported native floor/space:class{body.SourceMonsterId},source({cx},{cy}),native{body.Location},destination{point},collision{DemonPathWorld.Collision(body,cx,cy):x}");}
+        {
+            blocked = $"{BlockedWalk}class{body.SourceMonsterId},source({cx},{cy}),native{body.Location},destination{point},collision{DemonPathWorld.Collision(body,cx,cy):x}";
+            return false;
+        }
         int RoomAt(int _,int px,int py)
         {
             if(px<=0||py<=0||px>=body.Map.Width*2||py>=body.Map.Height*2){return 0;}
@@ -95,6 +121,8 @@ internal static class DeathMarkWorld
             member=>GenericPetRoomLinks.Remove(member,world.Links),(member,room)=>GenericPetRoomLinks.Add(member,room,world.Links),
             member=>GenericPetRoomLinks.Touch(member,world.Links),(_,_)=>throw new InvalidOperationException("Coordinate transport does not reset targets"),0);
         world.Begin(world.Revision);GenericPetPathCommit.Coordinates(path,x,y,0,services);body.MoveToWorld(point,body.Map);body.AIObject?.AITimer.Stop();
+        blocked = null;
+        return true;
     }
     internal static int PlacePrepared(SkeletonGuardian body,Point2D target,bool skipSearch)
     {

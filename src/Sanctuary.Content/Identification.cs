@@ -33,12 +33,17 @@ public static class Identification
         Recipe = system.CraftItems.SearchFor(typeof(IdentifyScroll));
     }
     internal static bool ScrollReady(PlayerMobile p, IdentifyScroll scroll) => UtilityScrolls.Ready(p, scroll);
+    internal static GearState TargetGear(PlayerMobile player, Item item) =>
+        player.Backpack != null && item is { Deleted: false, Amount: 1 } && item.IsChildOf(player.Backpack)
+        && item.IsAccessibleTo(player) && ClassGear.Converted(item) && ClassGear.State(item) is { Identified: false } state
+            ? state : null;
+
+    internal static void RevealGear(Item item, GearState state) => ClassGear.Profiles.Store(item, state with { Identified = true });
     internal static bool Reveal(PlayerMobile p, Item source, Item item, int cell = -1)
     {
         if (source is not (IdentifyScroll or IdentifyTome) || !UtilityScrolls.Ready(p, source, cell)
-            || item is not { Deleted: false, Amount: 1 } || !item.IsChildOf(p.Backpack) || !item.IsAccessibleTo(p)
-            || !ClassGear.Converted(item) || ClassGear.State(item) is not { Identified: false } state) { return false; }
-        ClassGear.Profiles.Store(item, state with { Identified = true });
+            || TargetGear(p, item) is not { } state) { return false; }
+        RevealGear(item, state);
         UtilityScrolls.Spend(p, source, cell); p.SendMessage("The item's properties have been revealed."); return true;
     }
     internal static bool Use(PlayerMobile p, Item source, int cell = -1)

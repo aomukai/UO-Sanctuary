@@ -21,6 +21,7 @@ public static class TaintedCastChecks
     private static void Rates(){var old=Mobile.ManaRegenRateHandler;Mobile.ManaRegenRateHandler=p=>Creating||p.Name?.StartsWith("TaintedCastFixture",StringComparison.Ordinal)==true?TimeSpan.FromHours(1):old?.Invoke(p)??Mobile.DefaultManaRate;}
     public static void Configure()
     {
+        Register("demon-summon-fifo-check", CheckMixedRoster);
         Rates();foreach(bool again in new[]{false,true}){bool reload=again;string name=reload?"tainted-cast-reload-check":"tainted-cast-check";
             Register(name,()=>{Log.Information("{Name}: passed",name);FixtureNetwork.Connected(name+"-result",n=>{if(reload){Reload(n,name+"-result");}else{Check(n,name+"-result");}});});}
         foreach(var suffix in new[]{"right","quick"}){string kind=suffix;Register("tainted-cast-"+kind+"-check",()=>
@@ -35,13 +36,60 @@ public static class TaintedCastChecks
         p.Name="TaintedCastFixture";p.AddItem(new Backpack());ClassCreation.Profiles.AdvanceLevel(p,99);ClassSkillChecks.Train(p,"warlock.summontainted",6);
         FixtureSpace.Corridor(p,6560,28,3500);Ready(p);return p;
     }
-    private static void Ready(PlayerMobile p)
+    private static void Ready(PlayerMobile p, CombatAbility ability = CombatAbility.SummonTainted)
     {
         ClassCombat.Stop(p);var s=ClassCombat.For(p);s.NextAction=s.RecoveryUntil=Core.TickCount;
-        var fire=FireGround.Snapshot();FireGround.Restore(fire with{Cooldowns=fire.Cooldowns.Where(c=>c.Owner!=p.Serial.Value||c.Ability!=Ability).ToArray()});
+        var fire=FireGround.Snapshot();FireGround.Restore(fire with{Cooldowns=fire.Cooldowns.Where(c=>c.Owner!=p.Serial.Value||c.Ability!=ability).ToArray()});
         NecromancerEffects.SetMana256(p,p.ManaMax*256);
     }
     private static void Clear(PlayerMobile p){foreach(var b in WarlockGoatmanWorld.Demons(p)){b.Delete();}}
+    private static void CheckMixedRoster()
+    {
+        const CombatAbility imp = CombatAbility.SummonGoatman;
+        var player = new PlayerMobile { Body = 0x191, Female = true, Name = "TaintedCastFixture", Player = true };
+        player.AddItem(new Backpack());
+        try
+        {
+            ClassCreation.Profiles.Assign(player, DiabloClass.Warlock);
+            Require(ClassCreation.Profiles.AdvanceLevel(player, 12), "Could not reach the Succubus unlock");
+            ClassSkillChecks.Train(player, "warlock.demonicmastery", 5);
+            ClassSkillChecks.Train(player, "warlock.summontainted");
+            FixtureSpace.Corridor(player, 6560, 28, 3500);
+            var aim = new Point3D(player.X + 3, player.Y, player.Z);
+            for (int i = 0; i < 2; i++)
+            {
+                Ready(player, imp);
+                Require(ClassCombat.Perform(player, imp, null, aim, Core.TickCount)
+                    && ClassCombat.ResolveAction(player, ClassCombat.For(player).EffectAt), "Could not learn-cast both imps");
+            }
+            var imps = WarlockGoatmanWorld.Demons(player);
+            Require(imps is [WarlockGoatmanBody, WarlockGoatmanBody], "Expected two imps in the shared pool");
+
+            var first = Cast(player, aim);
+            Require(imps[0].Deleted && !imps[1].Deleted, "The first Succubus did not replace the oldest imp");
+
+            var session = ClassCombat.For(player);
+            int remaining = NecromancerEffects.ManaBalance256(player);
+            Ready(player);
+            NecromancerEffects.SetMana256(player, remaining);
+            Require(remaining < SkillMechanics.Values(player, Ability).Mana256
+                && !ClassCombat.Perform(player, Ability, null, aim, Core.TickCount)
+                && session.NextManaNotice > Core.TickCount
+                && WarlockGoatmanWorld.Demons(player).SequenceEqual([imps[1], first]),
+                "A low-mana recast changed the roster or gave no mana feedback");
+
+            var second = Cast(player, first.Location);
+            Require(imps[1].Deleted && !first.Deleted && WarlockGoatmanWorld.Demons(player).SequenceEqual([first, second]),
+                "Recasting at the occupied point did not replace the remaining imp");
+        }
+        finally
+        {
+            Clear(player);
+            player.Delete();
+        }
+        Log.Information("demon-summon-fifo-check: passed");
+    }
+
     private static WarlockTaintedBody Cast(PlayerMobile p,Point3D point)
     {
         Ready(p);int mana=NecromancerEffects.ManaBalance256(p);var values=SkillMechanics.Values(p,Ability);
@@ -88,12 +136,46 @@ public static class TaintedCastChecks
             var legacy=WarlockTaintedBody.CreatePrepared(p,new(p.X+9,p.Y,p.Z),TimedEffects.Now);string text=legacy.SavedText;
             Require(!text.Contains("Controller")&&!text.Contains("LearnedCast")&&legacy.Prepared.Controller==null,"Legacy JSON gained a default controller/learned flag");legacy.Delete();
             foreach(var pet in WarlockGoatmanWorld.Demons(p).Where(x=>x!=last).ToArray()){pet.Delete();}
+            var neighbor = Cast(p, new(p.X + 9, p.Y, p.Z));
+            neighbor.MoveToWorld(new(p.X + 9, p.Y + 1, p.Z), p.Map);
+            Require(!DeathMarkWorld.TryGetCurrentPath(neighbor, out _), "A displaced sibling did not exercise stale geometry");
+            var search = new GoatmanNativeSearch(last, p);
+            Require(search.Position((int)neighbor.Serial.Value).Coordinates() == (neighbor.X * 2, neighbor.Y * 2),
+                "A displaced sibling corrupted the active demon's nearby search");
+            WarlockGoatmanWorld.Forget(neighbor);
+            DemonNativeState.Controller(neighbor, neighbor.Prepared.Controller with { Fault = TaintedFireBallCasting.LegacyLostTargetFault });
+            WarlockGoatmanWorld.Track(neighbor);
+            PersistentMinions.Suspend(neighbor);
+            Require(neighbor.Prepared.Controller.Fault == null, "A saved lost-target fault prevented reactivation");
+            neighbor.Delete();
+
             // The admitted host alone owns A2 delivery. A second ordinary
             // timer observation,even far in the future,must not release it.
             var enemy=new GoatmanNpcContactChecks.Recipient{Frozen=true,CantWalk=true,NoKillAwards=true};enemy.SetHits(50000);enemy.Hits=enemy.HitsMax;
-            enemy.MoveToWorld(new(last.X+6,last.Y,last.Z),last.Map);enemy.AIObject?.AITimer.Stop();DateTime tick=TimedEffects.Now;bool clockChecked=false;
+            var enemyPoint = new Point3D(last.X + 6, last.Y, last.Z);
+            enemy.MoveToWorld(enemyPoint,last.Map);enemy.AIObject?.AITimer.Stop();DateTime tick=TimedEffects.Now;bool clockChecked=false;
             try
             {
+                for (int n = 0; n < 250 && TaintedFireBallCasting.State(last) is not { Released: false }; n++)
+                {
+                    tick = tick.AddMilliseconds(40);
+                    WarlockGoatmanWorld.Tick(tick);
+                }
+                Require(TaintedFireBallCasting.State(last) is { Released: false }, "Could not reach a live fireball windup");
+                enemy.Delete();
+                for (int n = 0; n < 40 && TaintedFireBallCasting.State(last) != null; n++)
+                {
+                    tick = tick.AddMilliseconds(40);
+                    WarlockGoatmanWorld.Tick(tick);
+                }
+                Require(TaintedFireBallCasting.State(last) == null && last.Prepared.Controller.Fault == null,
+                    "Losing a target stopped the Succubus controller");
+
+                enemy = new GoatmanNpcContactChecks.Recipient { Frozen = true, CantWalk = true, NoKillAwards = true };
+                enemy.SetHits(50000);
+                enemy.Hits = enemy.HitsMax;
+                enemy.MoveToWorld(enemyPoint, last.Map);
+                enemy.AIObject?.AITimer.Stop();
                 for(int n=0;n<250&&enemy.Notifications==0;n++)
                 {
                     tick=tick.AddMilliseconds(40);WarlockGoatmanWorld.Tick(tick);

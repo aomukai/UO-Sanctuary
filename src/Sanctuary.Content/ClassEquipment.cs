@@ -16,6 +16,7 @@ public static class ClassEquipment
     public static void Configure()
     {
         ClassCombatHooks.WeaponSpeedProperties = CombatTiming.AddSpeedProperties;
+        ClassCombatHooks.CreatureTooltipProperties = CreatureProfiles.AddImmunityProperties;
         ClassCombatHooks.DaggerProperties = (dagger, list) =>
         {
             if (StarterClass(dagger) is { } characterClass)

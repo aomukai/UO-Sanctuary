@@ -25,6 +25,20 @@ public sealed record EncounterSettings(int SchemaVersion, DungeonProfile[] Profi
 public static class EncounterProfiles
 {
     internal static int ModifierMovementPercent(EliteModifier modifier)=>modifier==EliteModifier.ExtraFast?100:0;
+    internal static string ModifierLabel(EliteModifier modifier) => modifier switch
+    {
+        EliteModifier.AuraEnchanted => "Aura Enchanted",
+        EliteModifier.ColdEnchanted => "Cold Enchanted",
+        EliteModifier.ExtraFast => "Extra Fast",
+        EliteModifier.ExtraStrong => "Extra Strong",
+        EliteModifier.FireEnchanted => "Fire Enchanted",
+        EliteModifier.LightningEnchanted => "Lightning Enchanted",
+        EliteModifier.MagicResistant => "Magic Resistant",
+        EliteModifier.ManaBurn => "Mana Burn",
+        EliteModifier.SpectralHit => "Spectral Hit",
+        EliteModifier.StoneSkin => "Stone Skin",
+        _ => modifier.ToString()
+    };
     internal static int MovementInterval(int basis,int bonus)=>Math.Max(40,checked(basis*100)/checked(100+bonus));
     internal static int ModifierDefense(int basis,EliteModifier modifier)=>modifier==EliteModifier.StoneSkin?checked(basis*2):basis;
     internal static (int DamagePercent,int AttackPercent) ExtraStrong(MonsterDifficulty difficulty,bool inherited)=>difficulty switch
@@ -97,6 +111,8 @@ public static class EncounterProfiles
     }
     internal static EliteAura RollAura(int level, Random random) => (EliteAura)random.Next(1, level < 20 ? 7 : 8) switch
     { EliteAura.HolyShock when level < 20 => EliteAura.Fanaticism, var aura => aura };
+    internal static EliteAura RollAura(EliteModifier[] modifiers, int level, Random random) =>
+        Array.IndexOf(modifiers, EliteModifier.AuraEnchanted) >= 0 ? RollAura(level, random) : EliteAura.None;
     public static int Level(int baseLevel, EncounterGrade grade) => Math.Min(99, baseLevel + (grade switch
     { EncounterGrade.Champion => 2, EncounterGrade.Unique or EncounterGrade.SuperUnique or EncounterGrade.Minion => 3, _ => 0 }));
     public static MouldGrade MouldGrade(EncounterGrade grade) => grade switch
@@ -174,7 +190,7 @@ public static class EncounterProfiles
         if (points.Count != count) { throw new InvalidOperationException("The complete encounter needs more clear, connected ground."); }
         int baseLevel = named?.BaseLevel ?? random.Next(profile.MinimumLevel, profile.MaximumLevel + 1);
         var modifiers = named?.Modifiers ?? (grade == EncounterGrade.Unique ? RollModifiers(profile, difficulty, random) : []);
-        var aura = named?.Aura ?? (Array.IndexOf(modifiers, EliteModifier.AuraEnchanted) >= 0 ? RollAura(Level(baseLevel, grade), random) : EliteAura.None);
+        var aura = named?.Aura ?? RollAura(modifiers, Level(baseLevel, grade), random);
         var result = new List<EncounterCreature>();
         try
         {

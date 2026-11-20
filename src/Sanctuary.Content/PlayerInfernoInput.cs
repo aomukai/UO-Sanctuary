@@ -35,6 +35,7 @@ internal static class PlayerInfernoInput
         if(BindDemonChannel.State(owner)is{InputBound:true} bind&&bind.Source==source){return false;}
         var session=ClassCombat.For(owner);
         if(Core.TickCount<session.NextAction||session.PendingAbility!=CombatAbility.None){return false;}
+        if (!NecromancerEffects.CheckMana(owner, SkillMechanics.CastManaCost256(owner, ability))) { return false; }
         ClassCombat.Stop(owner);
         return ability==CombatAbility.BladeFury?BladeFuryModes.BeginHeld(owner,source,target,point,at):PlayerInfernoModes.BeginHeld(owner,source,target,point,at,ability);
     }

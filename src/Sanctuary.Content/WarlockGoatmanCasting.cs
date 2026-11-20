@@ -21,14 +21,14 @@ public static class WarlockGoatmanCasting
     public static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now)
         =>Begin(owner,CombatAbility.SummonGoatman,selected,point,now);
     internal static bool Begin(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now)
-        =>Destination(owner,selected,point,false,out _)&&SkillCombat.Begin(owner,ability,selected,point,now,
-            (p,ignoredAbility,id,at)=>Destination(p,id,at,false,out _));
+        => SkillCombat.Begin(owner, ability, selected, point, now,
+            (player, skill, target, aim) => Destination(player, target, aim, false, out _));
     public static bool Release(PlayerMobile owner)=>Release(owner,CombatAbility.SummonGoatman);
     internal static bool Release(PlayerMobile owner,CombatAbility ability)
     {
         var action=ClassCombat.For(owner);
         if(!WarlockCombat.Available(owner,ability)||!Destination(owner,action.PendingTarget,action.PendingPoint,true,out var point)){return false;}
-        var values=SkillMechanics.Values(owner,ability);if(!NecromancerEffects.CanPay(owner,values.Mana256)){return false;}
+        var values=SkillMechanics.Values(owner,ability);if(!NecromancerEffects.CheckMana(owner,values.Mana256)){return false;}
         SkeletonGuardian body;
         try{body=WarlockGoatmanWorld.Create(owner,point,TimedEffects.Now,ability);}
         catch(Exception e)when(e is NotSupportedException or System.IO.InvalidDataException){Server.Logging.LogFactory.GetLogger(typeof(WarlockGoatmanCasting)).Error(e,"Ground demon summon refused unsupported context");return false;}

@@ -74,12 +74,24 @@ def exercise(window, click, profile):
     key("Escape")
     assert capture(area=options_area).tobytes() != options, "Escape did not close Options"
 
-    key("Return", "b", "c", "j", "m", "Escape")
+    key("Return", "b", "c", "j", "m", "t", "k", "Escape")
     capture("menu-keys-during-chat")
     assert capture(area=journal_area).tobytes() != journal, "J opened the journal during chat"
     assert capture(area=options_area).tobytes() != options, "Escape opened Options during chat"
     key("Return")
-    assert desktop().isdisjoint(("2", "9", "18")), "A letter shortcut opened a gump during chat"
+    assert desktop().isdisjoint(("2", "9", "10", "18")), "A letter shortcut opened a gump during chat"
+
+    talent_area = (37, 42, 130, 18)
+    before_talents = capture(area=talent_area).tobytes()
+    key("t")
+    talents = capture("talents-shortcut", area=talent_area).tobytes()
+    assert talents != before_talents, "T did not open class talents"
+    key("t")
+    assert capture(area=talent_area).tobytes() != talents, "T did not close class talents"
+    key("k")
+    assert "10" in desktop(), "K did not open Skills"
+    key("k")
+    assert "10" not in desktop(), "K did not close Skills"
 
     step = max(23, min(40, (width - 60) // 18))
     dock_width = 18 * step + 48
@@ -112,7 +124,7 @@ def exercise(window, click, profile):
     values = profile_values()
     assert 48 <= values["sound_volume"] <= 52, values["sound_volume"]
     assert values["enable_music"] is False
-    assert values["sanctuary_menu_keys"] == "icjm"
+    assert values["sanctuary_menu_keys"] == "icjmtk"
     key("b")
     assert "2" not in desktop(), "The old backpack shortcut was still active"
     key("i")

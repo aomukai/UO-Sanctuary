@@ -65,7 +65,7 @@ internal static class BindDemonChannel
     internal static bool BeginPrepared(PlayerMobile owner,BaseCreature target,DateTime at,out string issue,int source=-1,bool inputBound=false)
     {
         Clock(at);issue="Bind channel requires a living,uninterrupted trained Warlock and nine mana.";
-        if(source is< -1 or>=CombatProtocol.ChannelSources||inputBound&&(source<0||!BindDemonInput.BoundPrepared(owner,source))||State(owner)!=null||!Eligible(owner)||NecromancerEffects.ManaBalance256(owner)<Cost256){return false;}
+        if(source is< -1 or>=CombatProtocol.ChannelSources||inputBound&&(source<0||!BindDemonInput.BoundPrepared(owner,source))||State(owner)!=null||!Eligible(owner)||!NecromancerEffects.CheckMana(owner,Cost256)){return false;}
         if(!BoundDemonHosts.Qualify(owner,target,out _,out issue)){return false;}
         Casts.Add(owner.Serial.Value,new(++_nextId,owner.Serial.Value,target.Serial.Value,owner.Map.MapID,owner.Location,
             CombatTiming.Equipped(owner)?.Serial.Value??0,at.AddSeconds(1),at,0,source,at.AddMilliseconds(CombatProtocol.HoldLeaseMs)){InputBound=inputBound});

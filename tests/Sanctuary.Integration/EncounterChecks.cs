@@ -126,8 +126,8 @@ public static class EncounterChecks
             var champion = Create(grade: EncounterGrade.Champion, difficulty: difficulty);
             var berserker = Create(grade: EncounterGrade.Champion, champion: ChampionKind.Berserker, difficulty: difficulty);
             var possessed = Create(grade: EncounterGrade.Champion, champion: ChampionKind.Possessed, difficulty: difficulty);
-            Require(berserker.HitsMax == berserker.RolledLife * new[] { 750, 625, 500 }[(int)difficulty] / 1000
-                && possessed.HitsMax == possessed.RolledLife * new[] { 6, 5, 4 }[(int)difficulty]
+            Require(berserker.HitsMax == Math.Min(65000, berserker.RolledLife * new[] { 750, 625, 500 }[(int)difficulty] / 1000 * 3)
+                && possessed.HitsMax == Math.Min(65000, possessed.RolledLife * new[] { 6, 5, 4 }[(int)difficulty] * 3)
                 && champion.HitsMax > berserker.HitsMax && berserker.DamageMin > champion.DamageMin,
                 "Champion variant life/offense differs from source grade formulas");
             EliteAuras.Amplify(possessed, TimeSpan.FromMinutes(1)); Require(!EliteAuras.Curses.Active(possessed.Serial, TimedEffects.Now), "Possessed accepted Amplify Damage");

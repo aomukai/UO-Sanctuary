@@ -18,8 +18,9 @@ internal static class GoatmanNativeWalking
         if(path.X!=motion.X||path.Y!=motion.Y||path.Size5c!=size||(path.Flags&1)==0)
         {throw new NotSupportedException("Walking kernel does not match its qualified active source path");}
         var result=SourceActorMotion.Advance(motion,(x,y)=>DemonPathWorld.Collision(body,x,y),DemonPathWorld.Mask(body));
-        if(result.State.X!=motion.X||result.State.Y!=motion.Y)
-        {DeathMarkWorld.WalkPrepared(body,result.State.X,result.State.Y);}
+        if ((result.State.X != motion.X || result.State.Y != motion.Y)
+            && !DeathMarkWorld.TryWalkPrepared(body, result.State.X, result.State.Y, out _))
+            return new(motion, false, true);
         return result;
     }
 }

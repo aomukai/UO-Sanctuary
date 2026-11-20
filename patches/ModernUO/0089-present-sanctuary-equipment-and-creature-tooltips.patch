@@ -1,0 +1,167 @@
+diff --git a/Projects/UOContent/Mobiles/BaseCreature.cs b/Projects/UOContent/Mobiles/BaseCreature.cs
+--- a/Projects/UOContent/Mobiles/BaseCreature.cs
++++ b/Projects/UOContent/Mobiles/BaseCreature.cs
+@@ -3207,6 +3207,12 @@
+             base.OnDoubleClick(from);
+         }
+ 
++        public override void GetProperties(IPropertyList list)
++        {
++            base.GetProperties(list);
++            ClassCombatHooks.CreatureTooltipProperties?.Invoke(this, list);
++        }
++
+         public override void AddNameProperties(IPropertyList list)
+         {
+             base.AddNameProperties(list);
+diff --git a/Projects/UOContent/Mobiles/ClassCombatHooks.cs b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+--- a/Projects/UOContent/Mobiles/ClassCombatHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -68,6 +68,7 @@
+     public static Func<PlayerMobile, int, int> RunningDelay { get; set; }
+     public static Action<PlayerMobile> EquipmentChanged { get; set; }
+     public static Func<Mobile, Mobile, bool?> ClassHitCheck { get; set; }
++    public static Action<BaseCreature, IPropertyList> CreatureTooltipProperties { get; set; }
+     public static Func<BaseWeapon, IPropertyList, bool> WeaponSpeedProperties { get; set; }
+     public static Action<Dagger, IPropertyList> DaggerProperties { get; set; }
+     public static Func<PlayerMobile, bool> MovementAllowed { get; set; }
+diff --git a/Projects/UOContent/Items/Weapons/BaseWeapon.cs b/Projects/UOContent/Items/Weapons/BaseWeapon.cs
+--- a/Projects/UOContent/Items/Weapons/BaseWeapon.cs
++++ b/Projects/UOContent/Items/Weapons/BaseWeapon.cs
+@@ -2973,11 +2973,12 @@
+ 
+     public override void GetProperties(IPropertyList list)
+     {
++        if (ClassGearHooks.Properties?.Invoke(this, list) == true)
++        {
++            return;
++        }
++
+         base.GetProperties(list);
+-        if (ClassGearHooks.Properties?.Invoke(this, list) == true)
+-        {
+-            return;
+-        }
+ 
+ 
+         if (_crafter != null)
+diff --git a/Projects/UOContent/Items/Armor/BaseArmor.cs b/Projects/UOContent/Items/Armor/BaseArmor.cs
+--- a/Projects/UOContent/Items/Armor/BaseArmor.cs
++++ b/Projects/UOContent/Items/Armor/BaseArmor.cs
+@@ -1299,11 +1299,12 @@
+ 
+         public override void GetProperties(IPropertyList list)
+         {
++            if (ClassGearHooks.Properties?.Invoke(this, list) == true)
++            {
++                return;
++            }
++
+             base.GetProperties(list);
+-            if (ClassGearHooks.Properties?.Invoke(this, list) == true)
+-            {
+-                return;
+-            }
+ 
+ 
+             if (_crafter != null)
+diff --git a/Projects/UOContent/Items/Clothing/BaseClothing.cs b/Projects/UOContent/Items/Clothing/BaseClothing.cs
+--- a/Projects/UOContent/Items/Clothing/BaseClothing.cs
++++ b/Projects/UOContent/Items/Clothing/BaseClothing.cs
+@@ -720,11 +720,12 @@
+ 
+         public override void GetProperties(IPropertyList list)
+         {
++            if (ClassGearHooks.Properties?.Invoke(this, list) == true)
++            {
++                return;
++            }
++
+             base.GetProperties(list);
+-            if (ClassGearHooks.Properties?.Invoke(this, list) == true)
+-            {
+-                return;
+-            }
+ 
+ 
+             if (_crafter != null)
+diff --git a/Projects/UOContent/Items/Jewels/BaseJewel.cs b/Projects/UOContent/Items/Jewels/BaseJewel.cs
+--- a/Projects/UOContent/Items/Jewels/BaseJewel.cs
++++ b/Projects/UOContent/Items/Jewels/BaseJewel.cs
+@@ -386,11 +386,12 @@
+ 
+     public override void GetProperties(IPropertyList list)
+     {
++        if (ClassGearHooks.Properties?.Invoke(this, list) == true)
++        {
++            return;
++        }
++
+         base.GetProperties(list);
+-        if (ClassGearHooks.Properties?.Invoke(this, list) == true)
+-        {
+-            return;
+-        }
+ 
+ 
+         SkillBonuses.GetProperties(list);
+diff --git a/Projects/UOContent/Items/Quivers/BaseQuiver.cs b/Projects/UOContent/Items/Quivers/BaseQuiver.cs
+--- a/Projects/UOContent/Items/Quivers/BaseQuiver.cs
++++ b/Projects/UOContent/Items/Quivers/BaseQuiver.cs
+@@ -215,11 +215,12 @@
+ 
+     public override void GetProperties(IPropertyList list)
+     {
++        if (ClassGearHooks.Properties?.Invoke(this, list) == true)
++        {
++            return;
++        }
++
+         base.GetProperties(list);
+-        if (ClassGearHooks.Properties?.Invoke(this, list) == true)
+-        {
+-            return;
+-        }
+ 
+ 
+         if (_crafter != null)
+diff --git a/Projects/UOContent/Items/Talismans/BaseTalisman.cs b/Projects/UOContent/Items/Talismans/BaseTalisman.cs
+--- a/Projects/UOContent/Items/Talismans/BaseTalisman.cs
++++ b/Projects/UOContent/Items/Talismans/BaseTalisman.cs
+@@ -551,11 +551,12 @@
+ 
+     public override void GetProperties(IPropertyList list)
+     {
++        if (ClassGearHooks.Properties?.Invoke(this, list) == true)
++        {
++            return;
++        }
++
+         base.GetProperties(list);
+-        if (ClassGearHooks.Properties?.Invoke(this, list) == true)
+-        {
+-            return;
+-        }
+ 
+ 
+         if (Blessed)
+diff --git a/Projects/UOContent/Items/Skill Items/Magical/Spellbook.cs b/Projects/UOContent/Items/Skill Items/Magical/Spellbook.cs
+--- a/Projects/UOContent/Items/Skill Items/Magical/Spellbook.cs
++++ b/Projects/UOContent/Items/Skill Items/Magical/Spellbook.cs
+@@ -631,11 +631,12 @@
+ 
+     public override void GetProperties(IPropertyList list)
+     {
++        if (ClassGearHooks.Properties?.Invoke(this, list) == true)
++        {
++            return;
++        }
++
+         base.GetProperties(list);
+-        if (ClassGearHooks.Properties?.Invoke(this, list) == true)
+-        {
+-            return;
+-        }
+ 
+ 
+         if (_quality == BookQuality.Exceptional)

@@ -1,0 +1,42 @@
+diff --git a/src/ClassicUO.Client/Game/ClassCombatClient.cs b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+--- a/src/ClassicUO.Client/Game/ClassCombatClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -387,7 +387,8 @@
+             || ClassAbilities.ItemTarget(ability) && SelectedObject.Object is not Item { IsCorpse: false }) { return false; }
+         if(IsChannel(ability)){return BeginChannel(world,slot+2);}
+         if (!ClassBeltClient.TryAim(world, out var x, out var y, out var z)) { return false; }
+-        uint target = ability is CombatAbility.CorpseExplosion or CombatAbility.PoisonExplosion or CombatAbility.FindItem
++        uint target = ClassAbilities.DemonSummon(ability)
++            || ability is CombatAbility.CorpseExplosion or CombatAbility.PoisonExplosion or CombatAbility.FindItem
+             || ability == CombatAbility.BonePrison && SelectedObject.Object is not Mobile
+             ? 0 : SelectedObject.Object is Entity entity ? entity.Serial : 0;
+         Stop(world);
+@@ -722,7 +723,9 @@
+             return true;
+         }
+         var obj = SelectedObject.Object;
+-        if (obj is Mobile mobile && !Hostile(mobile) && Right is not (CombatAbility.RaiseSkeleton or CombatAbility.Teleport or CombatAbility.CorpseExplosion or CombatAbility.PoisonExplosion or CombatAbility.FindItem)
++        bool groundAim = ClassAbilities.DemonSummon(Right)
++            || Right is CombatAbility.Teleport or CombatAbility.CorpseExplosion or CombatAbility.PoisonExplosion or CombatAbility.FindItem;
++        if (obj is Mobile mobile && !Hostile(mobile) && !groundAim && Right != CombatAbility.RaiseSkeleton
+             && !ClassAbilities.SelfTarget(Right) && !(ClassAbilities.AllyTarget(Right) && (Ally(mobile) || mobile == world.Player)))
+         {
+             Stop(world);
+@@ -733,7 +736,7 @@
+         _target = 0;
+         _rightHeld = true;
+         _heldAbility = Right;
+-        _heldUnit = Right is not (CombatAbility.Teleport or CombatAbility.CorpseExplosion or CombatAbility.PoisonExplosion or CombatAbility.FindItem) && obj is Mobile enemy ? enemy.Serial : 0;
++        _heldUnit = !groundAim && obj is Mobile enemy ? enemy.Serial : 0;
+         SendHeldAim(world);
+         _nextHoldUpdate = Time.Ticks + CombatProtocol.HoldHeartbeatMs;
+         return true;
+@@ -783,7 +786,7 @@
+         }
+         if (ClassAbilities.SelfTarget(_heldAbility))
+         { Send(CombatRequest.HoldCast, 0, _heldAbility, world.Player.X, world.Player.Y, world.Player.Z); return; }
+-        if (_heldAbility == CombatAbility.Teleport)
++        if (_heldAbility == CombatAbility.Teleport || ClassAbilities.DemonSummon(_heldAbility))
+         { SendPointAim(world, CombatRequest.HoldCast, _heldAbility); return; }
+         // Explosions resolve the closest usable corpse server-side,
+         // including when the renderer still hovers a spent lootable corpse.

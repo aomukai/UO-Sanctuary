@@ -3282,10 +3282,11 @@
     "town": "New Haven",
     "map": "Trammel",
     "role": "Alchemist",
-    "x": 3461,
-    "y": 2566,
-    "z": 37,
-    "source": "Spawns/post-uoml/trammel/Vendors.json#dcd02218-4bb6-4737-a09d-1c1eb19ed14c",
+    "x": 3482,
+    "y": 2492,
+    "z": 52,
+    "source": "New Haven mage tower",
+    "relocate": true,
     "sharedWorkshop": false
   },
   {
@@ -3315,10 +3316,22 @@
     "town": "New Haven",
     "map": "Trammel",
     "role": "Scribe",
-    "x": 3471,
-    "y": 2528,
-    "z": 48,
-    "source": "Spawns/post-uoml/trammel/Vendors.json#2bb40f0a-7b32-4553-8891-30384ec56ca1",
+    "x": 3487,
+    "y": 2494,
+    "z": 52,
+    "source": "New Haven mage tower",
+    "relocate": true,
+    "sharedWorkshop": false
+  },
+  {
+    "id": "Trammel/New Haven/Scholar",
+    "town": "New Haven",
+    "map": "Trammel",
+    "role": "Scholar",
+    "x": 3485,
+    "y": 2493,
+    "z": 52,
+    "source": "New Haven mage tower",
     "sharedWorkshop": false
   },
   {

@@ -18,10 +18,13 @@ public static partial class TownMarkets
         {
             Map.TryParse(site.Map, null, out var map);
             var vendor = Profiles.At(site.Id);
+            var anchor = new Point3D(site.X, site.Y, site.Z);
             if (vendor is not { Deleted: false })
             {
-                var point = Floor(map, new(site.X, site.Y, site.Z), used, true);
-                vendor = new ProfessionInstructor { Title = $"the {site.Role} merchant", CantWalk = true };
+                var point = Floor(map, anchor, used, true);
+                vendor = site.Role == MarketRole.Scholar
+                    ? new Scholar()
+                    : new ProfessionInstructor { Title = $"the {site.Role} merchant", CantWalk = true };
                 foreach (byte skill in TradeSkills.Crafting) { vendor.Skills[(SkillName)skill].Base = 0; }
                 foreach (byte skill in TradeSkills.Gathering) { vendor.Skills[(SkillName)skill].Base = 0; }
                 if (Skill(site.Role) is { } trained)
@@ -32,6 +35,18 @@ public static partial class TownMarkets
                 Profiles.Add(vendor, site.Role, site.Id);
                 vendor.Home = point; vendor.RangeHome = 0;
                 vendor.MoveToWorld(point, map); created++;
+            }
+            else if (site.Relocate && (vendor.Map != map || !Utility.InRange(vendor.Location, anchor, 3)
+                || Math.Abs(vendor.Z - anchor.Z) >= 16))
+            {
+                var point = Floor(map, anchor, used, true);
+                vendor.Home = point;
+                vendor.RangeHome = 0;
+                vendor.MoveToWorld(point, map);
+                var market = Profiles.Find(vendor.Serial);
+                if (World.FindItem(market.Station) is TownCraftStation station)
+                    station.Delete();
+                market.Station = Serial.Zero;
             }
             used.Add((map, vendor.Location));
             var state = Profiles.Find(vendor.Serial);

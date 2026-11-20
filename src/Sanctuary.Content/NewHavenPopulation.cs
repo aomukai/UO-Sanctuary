@@ -15,9 +15,15 @@ public static class NewHavenPopulation
     internal static readonly Point3D MineArrival = new(5993, 341, 0);
     internal static readonly Point3D MineExit = new(5993, 343, 0);
     internal static readonly Point3D MineReturn = new(3579, 2605, 0);
+    internal static readonly Rectangle2D MineShaft = new(3576, 2596, 4, 4);
+    internal static readonly Point3D MineShaftRope = new(3578, 2599, 0);
+    internal static readonly Point3D MountainMineMouth = new(3508, 2777, 26);
+    internal static readonly Point3D MountainMineArrival = new(5912, 355, 0);
+    internal static readonly Point3D MountainCamp = new(3508, 2742, 0);
     internal static readonly Point3D RopeDown = new(5994, 319, 0);
     internal static readonly Point3D RopeUp = new(5953, 319, 0);
     internal static readonly Point3D IslandGate = new(3450, 2677, 25);
+    private const int MineLandingGraphic = 0x051B;
     private static readonly ILogger _logger = LogFactory.GetLogger(typeof(NewHavenPopulation));
 
     public static void Configure()
@@ -26,8 +32,8 @@ public static class NewHavenPopulation
         ClassMapHooks.PublicGateAllowed = CanUseGate;
         ClassMapHooks.PublicGateTraveled = (gate, mobile) =>
         {
-            if (IsIslandGate(gate) && mobile is PlayerMobile player)
-                ClassCreation.Profiles.RecordNewHavenDeparture(player.Serial);
+            if (IsIslandGate(gate) && mobile is PlayerMobile player && ClassCreation.Profiles.RecordNewHavenDeparture(player.Serial))
+                Iolo.OnNewHavenDeparture(player);
         };
     }
 
@@ -40,7 +46,18 @@ public static class NewHavenPopulation
         foreach (var mobile in World.Mobiles.Values)
             if (mobile is HavenEncounter encounter)
                 encounter.UpdateSavedCostume();
-        PlacePassage(map, MineDoor, MineArrival);
+        // Keep the signed road entrance available from outside the stock wall.
+        for (int offset = -1; offset <= 1; offset++)
+        {
+            var tile = new Point3D(MineDoor.X + offset, MineDoor.Y, MineDoor.Z);
+            PlaceStatic(map, tile, MineLandingGraphic);
+            PlacePassage(map, tile, MineArrival);
+        }
+        // The black shaft itself is impassable. Use the walkable cave floor along its rim.
+        InstallMineShaft(map);
+        InstallMountainMine(map);
+        PlaceCampMiners(map);
+        PlaceStatic(map, MineExit, MineLandingGraphic);
         PlacePassage(map, MineExit, MineReturn);
         PlaceRope(map, RopeDown, RopeUp, "a rope leading down");
         PlaceRope(map, RopeUp, RopeDown, "a rope leading up");
@@ -78,6 +95,27 @@ public static class NewHavenPopulation
             if (healer.Alive && !healer.Deleted)
                 return;
         new NewHavenHealer().MoveToWorld(NewHavenHealer.House, map);
+    }
+
+    private static void PlaceCampMiners(Map map)
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            bool second = i == 1;
+            bool present = false;
+            foreach (var miner in map.GetMobilesInRange<MineCampMiner>(MountainCamp, 8))
+                if (!miner.Deleted && miner.Female == second)
+                {
+                    present = true;
+                    break;
+                }
+            if (present)
+                continue;
+
+            var seat = second ? new Point3D(3509, 2744, 0) : new Point3D(3506, 2743, 0);
+            var point = TownMarkets.Floor(map, seat, [], true);
+            new MineCampMiner(second).MoveToWorld(point, map);
+        }
     }
 
     private static bool IsIslandGate(PublicMoongate gate) =>
@@ -151,10 +189,46 @@ public static class NewHavenPopulation
             new Teleporter(destination, map).MoveToWorld(at, map);
     }
 
+    private static void InstallMineShaft(Map map)
+    {
+        for (int x = MineShaft.X; x < MineShaft.End.X; x++)
+        {
+            PlacePassage(map, new Point3D(x, MineShaft.Y - 1, 0), MineArrival);
+            PlacePassage(map, new Point3D(x, MineShaft.End.Y, 0), MineArrival);
+        }
+        for (int y = MineShaft.Y; y < MineShaft.End.Y; y++)
+        {
+            PlacePassage(map, new Point3D(MineShaft.X - 1, y, 0), MineArrival);
+            PlacePassage(map, new Point3D(MineShaft.End.X, y, 0), MineArrival);
+        }
+        PlaceRope(map, MineShaftRope, MineArrival, "a rope leading into New Haven Mine");
+    }
+
+    private static void InstallMountainMine(Map map)
+    {
+        // Restore the stock Trammel passage without requiring the shard-wide TelGen command.
+        PlacePassage(map, MountainMineMouth, MountainMineArrival);
+        int adjacentY = MountainMineMouth.Y + 1;
+        var adjacent = new Point3D(MountainMineMouth.X, adjacentY, map.GetAverageZ(MountainMineMouth.X, adjacentY));
+        PlacePassage(map, adjacent, MountainMineArrival);
+        PlacePassage(map, MountainMineArrival, MountainMineMouth);
+        PlaceStatic(map, MountainMineArrival, MineLandingGraphic);
+        PlaceSign(map, new Point3D(5912, 354, 0), "Exit to the mountain trail");
+    }
+
     private static void PlaceRope(Map map, Point3D at, Point3D destination, string name)
     {
-        if (!HasPassage(map, at, destination))
-            new InteractionTeleporter(destination, map) { Name = name, ItemID = 0x14FA }.MoveToWorld(at, map);
+        // Keep the usable end above ground clutter while both landings remain at floor height.
+        var handle = new Point3D(at.X, at.Y, at.Z + 12);
+        foreach (var rope in map.GetItemsInRange<InteractionTeleporter>(at, 0))
+        {
+            if (rope.PointDest != destination || rope.Name != name)
+                continue;
+            if (rope.Z != handle.Z)
+                rope.Location = handle;
+            return;
+        }
+        new InteractionTeleporter(destination, map) { Name = name, ItemID = 0x14FA }.MoveToWorld(handle, map);
     }
 
     private static void PlaceSign(Map map, Point3D at, string name)

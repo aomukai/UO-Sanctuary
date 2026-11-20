@@ -75,7 +75,7 @@ public static class Teleportation
         if (!Ready(p, now)) { return false; }
         var s = ClassCombat.For(p);
         if (now - s.NextAction < 0 || s.PendingAbility != CombatAbility.None || !Landing(p, point)
-            || (scroll == null ? Rank(p) < 1 || !NecromancerEffects.CanPay(p,ManaCost(Rank(p))*256) : !ScrollReady(p, scroll, cell)))
+            || (scroll == null ? Rank(p) < 1 || !NecromancerEffects.CheckMana(p, ManaCost(Rank(p)) * 256) : !ScrollReady(p, scroll, cell)))
         { return false; }
         if (scroll != null) { ClassCombat.ReleaseCast(p); }
         s.Target = Serial.Zero;
@@ -116,12 +116,14 @@ public static class Teleportation
         return true;
     }
     // Caller has already claimed its action and validated the destination.
-    // Preserve the existing move/delta/pet/effect/arrival-field order.
+    // Move followers and the caster before presenting the transfer or applying arrival fields.
     internal static void CommitTransfer(PlayerMobile p,Point3D destination,Point3D origin,Map map,
         Action<Mobile, Point3D, Map> present = null)
     {
+        BaseCreature.TeleportPets(p,destination,map);
         p.Location=destination;p.ProcessDelta();
-        PetOwnerRoutes.Teleported(p,TimedEffects.Now);
+        if (p.AllFollowers is not { Count: > 0 })
+            PetOwnerRoutes.Teleported(p,TimedEffects.Now);
         if (present != null)
         {
             present(p, origin, map);

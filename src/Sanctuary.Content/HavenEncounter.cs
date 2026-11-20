@@ -14,13 +14,14 @@ public partial class HavenEncounter : EncounterCreature
 {
     private const string Krulg = "haven-krulg";
     private const string Bandit = "haven-bandit";
+    private const string Lizardman = "haven-lizardman";
     private static readonly Dictionary<string, DungeonProfile> _profiles = new(StringComparer.Ordinal)
     {
         ["haven-skeleton"] = Species("haven-skeleton", "a skeleton", MonsterArchetype.Melee, 2, 6, 50, 451, poison: 50),
         ["haven-zombie"] = Species("haven-zombie", "a zombie", MonsterArchetype.Tank, 1, 6, 3, 471, poison: 50),
         [Bandit] = Species(Bandit, "a farm bandit", MonsterArchetype.Melee, 4, 6, 0x190, 0),
         ["haven-elemental"] = Species("haven-elemental", "an earth elemental", MonsterArchetype.Tank, 6, 8, 14, 268, physical: 10),
-        ["haven-lizardman"] = Species("haven-lizardman", "a lizardman", MonsterArchetype.Melee, 8, 10, 35, 417),
+        [Lizardman] = Species(Lizardman, "a lizardman", MonsterArchetype.Melee, 8, 10, 35, 417),
         // The super-unique grade adds three levels to the base profile.
         [Krulg] = Species(Krulg, "Boss Krulg", MonsterArchetype.Tank, 7, 7, 1, 427, physical: 10)
     };
@@ -34,8 +35,11 @@ public partial class HavenEncounter : EncounterCreature
     public HavenEncounter(string id, int level)
     {
         var profile = FindSpecies(id) ?? throw new ArgumentException("Unknown New Haven encounter.", nameof(id));
-        Assign(profile, level, MonsterDifficulty.Normal, id == Krulg ? EncounterGrade.SuperUnique : EncounterGrade.Ordinary,
-            ChampionKind.Champion, [], EliteAura.None, null, Random.Shared);
+        const MonsterDifficulty difficulty = MonsterDifficulty.Normal;
+        var grade = id == Krulg ? EncounterGrade.SuperUnique : EncounterGrade.Ordinary;
+        var modifiers = id == Krulg ? EncounterProfiles.RollModifiers(profile, difficulty, Random.Shared) : [];
+        var aura = EncounterProfiles.RollAura(modifiers, EncounterProfiles.Level(level, grade), Random.Shared);
+        Assign(profile, level, difficulty, grade, ChampionKind.Champion, modifiers, aura, null, Random.Shared);
         if (id == Bandit)
         {
             HairItemID = 0x203B;
@@ -45,11 +49,18 @@ public partial class HavenEncounter : EncounterCreature
             AddCostume(0x170B, Layer.Shoes, 0x0455);
             AddCostume(0x1540, Layer.Helm, 0x0021);
         }
-        else if (id == "haven-lizardman" && level >= 9)
+        else if (id == Lizardman)
         {
-            Body = 36;
+            RangePerception = 6;
+            if (level >= 9)
+                Body = 36;
         }
+        else if (id == Krulg)
+            RangePerception = 8;
     }
+
+    public override int AcquireOnApproachRange => Dungeon.Id is Lizardman or Krulg
+        ? RangePerception : base.AcquireOnApproachRange;
 
     // These pieces supply paperdoll art only. NPC combat treats normal wearable types as equipment.
     private void AddCostume(int graphic, Layer layer, int hue) =>
@@ -90,6 +101,8 @@ public partial class HavenEncounter : EncounterCreature
 
     // Compress the introductory levels without changing thresholds or combat stats outside Haven.
     protected override int ExperienceMultiplier => 5;
+    protected override int EncounterPlayers => Dungeon.Id is "haven-elemental" or Lizardman or Krulg ? 5 : 3;
+    protected override bool RollMissingModifiersOnLoad => Dungeon.Id == Krulg;
 
     protected override CreatureTraits EncounterTraits(DungeonProfile dungeon) =>
         new(dungeon.Family, IsUndead(dungeon), false, Leader, false, true,

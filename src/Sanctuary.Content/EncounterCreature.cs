@@ -100,6 +100,11 @@ public partial class EncounterCreature : GraveyardUndead
     }
     protected virtual int[] AdjustResistances(int[] resistances) => resistances;
     protected virtual int ExperienceMultiplier => 1;
+    protected virtual int EncounterPlayers => 5;
+    protected virtual bool RollMissingModifiersOnLoad => false;
+    private int ScaleLifeForPlayers(int life) => Math.Min(65000, checked(life * (EncounterPlayers + 1) / 2));
+    private int LifeBeforePlayerScaling(MonsterDifficulty difficulty) => (_rolledLife == 0 ? Basis.Life.Min : _rolledLife)
+        * EncounterProfiles.LifePermille(_grade, _champion, difficulty) / 1000;
     protected virtual CreatureTraits EncounterTraits(DungeonProfile dungeon) =>
         new("DungeonUndead", true, false, Leader, false, true, 1, 2,
             dungeon.Archetype == MonsterArchetype.Tank ? 100 : 0, Leader || _grade == EncounterGrade.Champion ? 50 : 100, 0);
@@ -110,8 +115,7 @@ public partial class EncounterCreature : GraveyardUndead
         if (_profile != null&&_profileDifficulty==difficulty) { return; }
         var basis = Basis; var dungeon = Dungeon;
         int index = (int)difficulty;
-        int life = _rolledLife == 0 ? basis.Life.Min : _rolledLife;
-        life = life * EncounterProfiles.LifePermille(_grade, _champion, difficulty) / 1000;
+        int life = ScaleLifeForPlayers(LifeBeforePlayerScaling(difficulty));
         int rating = _rolledAttack == 0 ? basis.AttackRating.Min : _rolledAttack;
         int defense = _rolledDefense == 0 ? basis.Defense.Min : _rolledDefense;
         int damageBonus = 0, ratingBonus = 0, moveBonus = 0;
@@ -144,7 +148,7 @@ public partial class EncounterCreature : GraveyardUndead
         _profile = new(true, true, basis.Level, life, defense, new(res[0], res[1], res[2], res[3], res[4], res[5]),
             attack, attack, Caster ? attack : new(), new(true, dungeon.Archetype == MonsterArchetype.Tank ? 6 : 4),
             new(move, move, move), new("Species", 0, 200, 100, 0, 400, false, 100, 75, basis.RecoveryMs),
-            new(xp, null, true, basis.Level, dungeon.Reference, "Bounded players-1 dungeon archetype with saved encounter grade"),
+            new(xp, null, true, basis.Level, dungeon.Reference, $"Players-{EncounterPlayers} dungeon archetype with saved encounter grade"),
             EncounterTraits(dungeon), new("Native", null, true),
             new Dictionary<string, string>(), new Dictionary<string, string>());
         _combat = new(basis.Level, life, rating, defense, min, max, basis.AttackMs + basis.RecoveryMs, move,
@@ -205,11 +209,10 @@ public partial class EncounterCreature : GraveyardUndead
     public override void GetProperties(IPropertyList list)
     {
         base.GetProperties(list);
-        list.Add($"{_difficulty}{" / "}{_grade}");
         if (_grade == EncounterGrade.Champion) { list.Add($"{_champion}"); }
         if (_grade != EncounterGrade.Minion)
         {
-            foreach (var modifier in Modifiers) { list.Add($"{modifier}"); }
+            foreach (var modifier in Modifiers) { list.Add(EncounterProfiles.ModifierLabel(modifier)); }
             if (_aura != EliteAura.None) { list.Add($"{"Aura: "}{_aura}"); }
         }
     }
@@ -225,9 +228,20 @@ public partial class EncounterCreature : GraveyardUndead
             || _rolledAttack < basis.AttackRating.Min || _rolledAttack > basis.AttackRating.Max
             || _rolledDefense < basis.Defense.Min || _rolledDefense > basis.Defense.Max)
         { throw new InvalidDataException("Invalid saved encounter identity."); }
+        if (RollMissingModifiersOnLoad && Modifiers.Length == 0)
+        {
+            _modifiers = EncounterProfiles.RollModifiers(dungeon, _difficulty, Random.Shared);
+            _modifierIds = string.Join(',', _modifiers);
+            _aura = EncounterProfiles.RollAura(_modifiers, basis.Level, Random.Shared);
+        }
         _profile = null; EnsureProfile(); _teleportAfter = Core.TickCount;
+        // Give older mine spawns their new maximum at the same health percentage.
+        int oldLife = LifeBeforePlayerScaling(_difficulty);
+        int? migratedHits = HitsMaxSeed == oldLife ? (int)((long)Hits * ScaleLifeForPlayers(oldLife) / oldLife) : null;
         // Native mobile fields already contain the injured life and stat roll; do not roll or heal on load.
         CreatureProfiles.Session(this).Initialized = false; CreatureProfiles.Initialize(this,preserveLoadedLife:true);
+        if (migratedHits is { } hits)
+            Hits = hits;
         EliteAuras.Observe(this);
     }
 }

@@ -17,7 +17,7 @@ public static class WarlockCombat
     private static bool Self(Server.Mobiles.PlayerMobile owner)=>owner is{Alive:true,Deleted:false}&&owner.Map!=null&&owner.Map!=Server.Map.Internal&&!MinionSafeAreas.Contains(owner);
     public static bool Begin(Server.Mobiles.PlayerMobile owner,CombatAbility ability,Server.Serial selected,Server.Point3D point,long now)
         =>ability==CombatAbility.BindDemon?false // Explicit press/aim/release owns this action.
-            :ability is CombatAbility.SummonGoatman or CombatAbility.SummonTainted or CombatAbility.SummonDefiler
+            :ClassAbilities.DemonSummon(ability)
             ?WarlockGoatmanCasting.Begin(owner,ability,selected,point,now)
             :ability==CombatAbility.Consume
             ?ConsumeEffects.Approved&&Available(owner,ability)&&(selected==Server.Serial.Zero?ConsumeCasting.OpenPrepared(owner):ConsumeCasting.BeginPrepared(owner,selected,now)!=null)
@@ -54,7 +54,7 @@ public static class WarlockCombat
     public static bool Release(Server.Mobiles.PlayerMobile owner,CombatAbility ability,Server.Serial selected)
     {
         if(!Available(owner,ability)){return false;}
-        if(ability is CombatAbility.SummonGoatman or CombatAbility.SummonTainted or CombatAbility.SummonDefiler){return WarlockGoatmanCasting.Release(owner,ability);}
+        if(ClassAbilities.DemonSummon(ability)){return WarlockGoatmanCasting.Release(owner,ability);}
         if(ability is CombatAbility.Consume or CombatAbility.BloodBoil or CombatAbility.Engorge or CombatAbility.Cleave or CombatAbility.DeathMark or CombatAbility.BindDemon or CombatAbility.EchoingStrike or CombatAbility.MirroredBlades or CombatAbility.MiasmaBolt or CombatAbility.MiasmaChain or CombatAbility.FlameWave or CombatAbility.Abyss){return false;} // Its transient sequence owns release/end dispatch.
         if(ability==CombatAbility.EldritchBlast){return EldritchBlastWorld.ReleasePrepared(owner,TimedEffects.Now)!=null;}
         if(ability==CombatAbility.HexPurge){return HexPurge.CastPrepared(owner,replaceGroup:WeaponHexGroups.Approved);}

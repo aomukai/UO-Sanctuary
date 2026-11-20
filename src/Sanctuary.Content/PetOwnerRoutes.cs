@@ -53,10 +53,13 @@ internal static class PetOwnerRoutes
         long x=point.X-previous.X,y=point.Y-previous.Y;
         if(at>state.SampleUtc.AddMilliseconds(25) && x*x+y*y>45){States[state.Owner]=Append(state,point,at,owner.Map.MapID);}
     }
-    internal static void Teleported(PlayerMobile owner,DateTime at)
+    internal static void Teleported(PlayerMobile owner,DateTime at) => Teleported(owner, owner.Location, owner.Map, at);
+
+    internal static void Teleported(PlayerMobile owner, Point3D destination, Map map, DateTime at)
     {
-        var state=Append(For(owner,at),Cell(owner),at,owner.Map.MapID);
-        States[state.Owner]=state with{LastTeleport=Cell(owner),TeleportUntilUtc=at.AddMilliseconds(50*40)};
+        var cell = new Point2D(destination.X * 2, destination.Y * 2);
+        var state=Append(For(owner,at),cell,at,map.MapID);
+        States[state.Owner]=state with{LastTeleport=cell,TeleportUntilUtc=at.AddMilliseconds(50*40)};
     }
     private static void LocationChanged(Mobile mobile)
     {

@@ -8,7 +8,9 @@ Sanctuary is a solo-developed game set in Britannia, combining Diablo-style clas
 
 All **eight classes and their 240 talents** have mechanical implementations, including **Warlock / Witch**. The mechanical reference is **Diablo II: Resurrected — Reign of the Warlock, version 3.3.93847**, with deliberate Sanctuary adaptations for the persistent world.
 
-The current build is a **PvE development build**. Britain and its graveyard provide a small playable test area. The wider world, dungeon progression and overall balance are still being developed. All talents have UO-style icons that also appear on their available bindings. Many combat effects still use temporary UO graphics.
+The current build is a **PvE development build**. [New Haven](docs/new-haven.md) is the first playable stretch, with encounters for levels 1–10, trade training, a mine boss, and the option to recruit Iolo. The wider campaign and world progression are in development.
+
+All talents have UO-style icons that also appear on their available bindings. All 210 active skills have art and audio verified in ClassicUO. [Skill effects and sound](docs/skill-effects.md)
 
 ### Classes
 
@@ -34,12 +36,13 @@ Sanctuary makes its own choices where D2's rules do not suit a persistent UO wor
 - Gathering and crafting trades, town merchants, banking and repairs.
 - Housing, equipment insurance, death penalties and corpse recovery.
 - Persistent characters, inventories and supported companions across server restarts.
-
-Full mercenary recruitment and combat, broader monster ability conversion, world population and progression, remaining item-effect delivery, and final combat visuals and audio are still ahead.
+- A unified character screen, class talent trees, a journal, and private scripted NPC dialogue.
 
 ## Playing
 
-New characters begin near **West Britain Bank**. Open the paperdoll's **Class** panel to spend talent points and assign learned skills; **Skills** opens the retained UO trades.
+New characters begin in **New Haven**. Follow the harbour guard’s directions to the Bountiful Harvest Inn to meet Iolo and unlock the first journal entry. Speak to him again after reaching level 6 to open the island’s moongate. He can travel with you, or you can leave on your own.
+
+Click NPCs to talk, trade, bank, or train. Trainers teach trades for 1 gold per 0.1 skill up to 30.0. Elara the Scholar at the north mage tower identifies equipment for 50 gold per item and sells Identify and Town Portal scrolls.
 
 | Control | Action |
 | --- | --- |
@@ -47,12 +50,17 @@ New characters begin near **West Britain Bank**. Open the paperdoll's **Class** 
 | Left-click / hold on an enemy | Approach and attack with the assigned left action |
 | Shift + left-click / hold | Attack while standing in place |
 | Right-click / hold | Use the assigned right action |
+| B / C | Toggle the backpack / character screen |
+| J / M | Toggle the journal / world map |
+| T / K | Toggle class talents / trade skills |
+| Esc | Toggle Options |
+| S | Assign learned skills to the hotbar |
 | F1–F12 | Use assigned quick skills |
 | 1–4 | Drink from the potion belt |
 | Tab | Toggle Run / Walk |
 | Enter | Enter chat |
 
-Available bindings depend on the skill. Running trades defense for movement speed, so positioning and the Run / Walk choice matter in combat.
+Change the window shortcuts under **Options → Hotkeys**. Available combat bindings depend on the skill. Running trades defense for movement speed, so positioning and the Run / Walk choice matter in combat.
 
 ## Running locally
 
@@ -115,11 +123,9 @@ For source builds, test isolation, and installed updates, see [local development
 
 ## Work ahead
 
-The next phase will use smaller goals, with one complete, playable result at a time:
-
-- Spell effects, animations and sound.
-- D2-style ability repertoires for UO monsters, followed by encounter and dungeon authoring.
-- Mercenary recruitment, equipment and combat built on the existing companion systems.
+- The campaign beyond New Haven, including optional investigations and difficulty progression.
+- More companions, personal stories, and journal discoveries.
+- D2-style ability repertoires for UO monsters and more authored encounters and dungeons.
 - Remaining equipment effects and later designs for charged or crafted skill-granting gear.
 - World difficulty, rewards, combat balance and targeted control improvements.
 

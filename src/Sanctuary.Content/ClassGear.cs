@@ -394,10 +394,20 @@ public static class ClassGear
         {
             return false;
         }
-        var definition = Definition(item);
-        if (State(item) is { Identified: false })
+        var basis = Base(item);
+        var saved = State(item);
+        var roll = saved?.Roll;
+        string name = item.Origin == ItemOrigin.Drop && saved?.NamedItemId == null && basis != null
+            ? roll?.Rarity is GearRarity.Magic or GearRarity.Rare ? $"{roll.Rarity} {basis.Name}" : basis.Name
+            : item.Name ?? basis?.Name;
+        if (name == null)
+            item.AddNameProperty(list);
+        else
+            list.Add(name);
+
+        if (saved is { Identified: false })
         {
-            list.Add($"{"Unidentified — properties hidden"}");
+            list.Add("Unidentified");
             return true;
         }
         if (Slot(item) == GearSlot.Cosmetic)
@@ -405,20 +415,34 @@ public static class ClassGear
             list.Add($"{"Cosmetic — no combat stats, material effects or active sockets"}");
             return true;
         }
-        var basis = Base(item);
-        var saved = State(item);
-        var roll = saved?.Roll;
+        if (Slot(item) == GearSlot.Weapon && item is BaseWeapon weapon)
+        {
+            var damage = Damage(item);
+            string label = basis.TwoHanded ? "Two-handed damage" : "Weapon damage";
+            list.Add($"{label}: {damage.Min}–{damage.Max}");
+            CombatTiming.AddSpeedProperties(weapon, list);
+        }
+        if (basis.MaxDefense > 0)
+            list.Add($"Defense: {Defense(item)}");
+        if (Slot(item) == GearSlot.Shield && item.Parent is PlayerMobile player)
+            list.Add($"Chance to block: {BlockChance(player)}%");
+        var requirements = new List<string>(3);
+        if (RequiredLevel(item) is > 0 and var level) { requirements.Add($"level {level}"); }
+        if (Stat(item, ClassGearStat.StrengthRequirement) is > 0 and var strength) { requirements.Add($"Strength {strength}"); }
+        if (Stat(item, ClassGearStat.DexterityRequirement) is > 0 and var dexterity) { requirements.Add($"Dexterity {dexterity}"); }
+        if (requirements.Count > 0) { list.Add("Requires " + string.Join(", ", requirements)); }
+
         if (saved?.NamedItemId != null) { NamedGear.Properties(item, saved, list); }
         GrimoireEquipment.AddProperties(item,list);
         if (saved != null)
         {
-            list.Add($"{"Base tier: "}{saved.Tier}{"; quality: "}{CraftTransactions.QualityName(saved.Quality)}");
             if (saved.SocketCount > 0) { list.Add($"{"Empty sockets: "}{saved.SocketCount - RuneSockets.Filled(saved)}{"; filled: "}{RuneSockets.Filled(saved)}"); }
             GemSockets.Properties(item, saved, list);
             foreach (var rune in saved.Runes)
             { list.Add($"{"Installed "}{rune.Pattern.Name}{": "}{rune.Pattern.StatLabel}{" +"}{rune.Percentage}{"%"}"); }
             if (saved.CraftedEquipment)
             {
+                list.Add($"{saved.Tier} · {CraftTransactions.QualityName(saved.Quality)}");
                 var native = GearDetails.Read(item);
                 list.Add($"{"Durability: "}{native.Durability}{" / "}{native.MaximumDurability}");
                 if (native.Creator is { Length: > 0 } maker) { list.Add($"{"Crafted by "}{maker}"); }
@@ -449,23 +473,6 @@ public static class ClassGear
                 }
             }
         }
-        list.Add($"{"Rarity: "}{roll?.Rarity ?? GearRarity.Normal}{"; base: "}{basis.Name}");
-        list.Add($"{"Item level: "}{roll?.ItemLevel ?? 1}{"; affix level: "}{roll?.AffixLevel ?? AffixBalance.Level(1, basis.QualityLevel, basis.MagicLevel)}");
-        if (Slot(item) == GearSlot.Weapon && item is BaseWeapon)
-        {
-            var damage = Damage(item);
-            list.Add(1061168, $"{damage.Min}\t{damage.Max}");
-            CombatTiming.AddSpeedProperties((BaseWeapon)item, list);
-        }
-        if (basis.MaxDefense > 0)
-        {
-            list.Add($"{"Defense: "}{Defense(item)}");
-        }
-        if (Slot(item) == GearSlot.Shield && item.Parent is PlayerMobile player)
-        {
-            list.Add($"{"Chance to block: "}{BlockChance(player)}{"%"}");
-        }
-        list.Add($"{"Requires level "}{RequiredLevel(item)}{"; Strength "}{basis.Strength}{"; Dexterity "}{basis.Dexterity}");
         WarlockLevitation.Properties(item,list);
         if (roll != null)
         {
@@ -474,7 +481,7 @@ public static class ClassGear
                 foreach (var modifier in affix.Modifiers)
                 {
                     var source=new AffixModifier(modifier.Code,modifier.Parameter,modifier.Min,modifier.Max,modifier.Mode);
-                    list.Add(affix.Definition.Name+": "+NamedGear.PropertyText(OrdinaryAffixProperties.Template(source),
+                    list.Add(NamedGear.PropertyText(OrdinaryAffixProperties.Template(source),
                         OrdinaryAffixProperties.Projection(source,modifier.Value),item.RootParent is PlayerMobile wearer?ClassStats.Level(wearer):1));
                 }
             }

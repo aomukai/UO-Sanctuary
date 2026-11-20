@@ -505,4 +505,6 @@ public static class ClassAbilities
     ];
     public static ClassAbility? Find(CombatAbility value) => value is >= (CombatAbility)2 and < (CombatAbility)Count ? Skills[(int)value - 2] : null;
     public static string Label(CombatAbility value) => value == CombatAbility.BasicAttack ? "Attack" : Find(value)?.Name ?? "None";
+    public static bool DemonSummon(CombatAbility ability) =>
+        ability is CombatAbility.SummonGoatman or CombatAbility.SummonTainted or CombatAbility.SummonDefiler;
 }

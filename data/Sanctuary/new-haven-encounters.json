@@ -239,121 +239,164 @@
   {
     "$type": "Spawner",
     "guid": "f77dd3f7-437d-592f-9178-462089f598d1",
-    "name": "New Haven Mine Entrance Elementals",
-    "location": [5993, 335, 0],
+    "name": "New Haven Mine Western Elementals",
+    "location": [5914, 345, 0],
     "map": "Trammel",
-    "count": 4,
+    "count": 2,
     "minDelay": "00:00:45",
     "maxDelay": "00:01:15",
-    "homeRange": 2,
-    "walkingRange": 4,
+    "homeRange": 1,
+    "walkingRange": 3,
     "entries": [
-      {"name": "HavenEncounter", "maxCount": 3, "probability": 100, "parameters": "haven-elemental 6"},
-      {"name": "HavenEncounter", "maxCount": 1, "probability": 100, "parameters": "haven-elemental 7"}
+      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-elemental 6"}
     ]
   },
   {
     "$type": "Spawner",
     "guid": "99effd66-ab6f-5bb4-8dfb-34ac4557033d",
-    "name": "New Haven Mine Galleries Elementals",
-    "location": [5992, 326, 0],
+    "name": "New Haven Mine Southern Elementals",
+    "location": [5949, 362, 0],
     "map": "Trammel",
-    "count": 4,
+    "count": 2,
     "minDelay": "00:00:45",
     "maxDelay": "00:01:15",
-    "homeRange": 2,
-    "walkingRange": 4,
+    "homeRange": 1,
+    "walkingRange": 3,
     "entries": [
-      {"name": "HavenEncounter", "maxCount": 3, "probability": 100, "parameters": "haven-elemental 7"},
-      {"name": "HavenEncounter", "maxCount": 1, "probability": 100, "parameters": "haven-elemental 8"}
+      {"name": "HavenEncounter", "maxCount": 1, "probability": 100, "parameters": "haven-elemental 6"},
+      {"name": "HavenEncounter", "maxCount": 1, "probability": 100, "parameters": "haven-elemental 7"}
     ]
   },
   {
     "$type": "Spawner",
     "guid": "4b0dab98-658c-50e4-9907-1f5a3e086cb6",
-    "name": "New Haven Mine North Elementals",
-    "location": [5997, 309, 0],
+    "name": "New Haven Mine Northwest Elementals",
+    "location": [5917, 296, 0],
     "map": "Trammel",
-    "count": 4,
+    "count": 2,
     "minDelay": "00:00:45",
     "maxDelay": "00:01:15",
-    "homeRange": 2,
-    "walkingRange": 4,
+    "homeRange": 1,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-elemental 7"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "78b66db0-f0ad-5b98-a8b4-2b2a01ad92c4",
+    "name": "New Haven Mine Northern Elementals",
+    "location": [5958, 278, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:00:45",
+    "maxDelay": "00:01:15",
+    "homeRange": 1,
+    "walkingRange": 3,
     "entries": [
       {"name": "HavenEncounter", "maxCount": 1, "probability": 100, "parameters": "haven-elemental 7"},
-      {"name": "HavenEncounter", "maxCount": 3, "probability": 100, "parameters": "haven-elemental 8"}
+      {"name": "HavenEncounter", "maxCount": 1, "probability": 100, "parameters": "haven-elemental 8"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "21619f7b-cfac-56ef-b2c9-32b5747e5ae5",
+    "name": "New Haven Mine Northeast Elementals",
+    "location": [5984, 296, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:00:45",
+    "maxDelay": "00:01:15",
+    "homeRange": 1,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-elemental 8"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "b18601f3-32cc-5378-be21-b77045b7bf9c",
+    "name": "New Haven Mine Eastern Elementals",
+    "location": [5993, 328, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:00:45",
+    "maxDelay": "00:01:15",
+    "homeRange": 1,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "HavenEncounter", "maxCount": 1, "probability": 100, "parameters": "haven-elemental 6"},
+      {"name": "HavenEncounter", "maxCount": 1, "probability": 100, "parameters": "haven-elemental 8"}
     ]
   },
   {
     "$type": "Spawner",
     "guid": "f3736ef1-7ec1-5225-84e9-4c931475d434",
-    "name": "Lower Mine Entrance Lizardmen",
-    "location": [5949, 323, 0],
+    "name": "Lower Mine Southwest Lizardmen",
+    "location": [5943, 325, 0],
     "map": "Trammel",
-    "count": 4,
+    "count": 2,
     "minDelay": "00:00:45",
     "maxDelay": "00:01:15",
-    "homeRange": 3,
-    "walkingRange": 5,
+    "homeRange": 1,
+    "walkingRange": 1,
     "entries": [
-      {"name": "HavenEncounter", "maxCount": 3, "probability": 100, "parameters": "haven-lizardman 8"},
-      {"name": "HavenEncounter", "maxCount": 1, "probability": 100, "parameters": "haven-lizardman 9"}
+      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-lizardman 8"}
     ]
   },
   {
     "$type": "Spawner",
     "guid": "d853152d-3970-5cab-b2a8-8ef6e51e0dcd",
     "name": "Lower Mine Eastern Lizardmen",
-    "location": [5961, 321, 0],
+    "location": [5966, 324, 0],
     "map": "Trammel",
-    "count": 4,
+    "count": 2,
     "minDelay": "00:00:45",
     "maxDelay": "00:01:15",
-    "homeRange": 3,
-    "walkingRange": 5,
+    "homeRange": 1,
+    "walkingRange": 1,
     "entries": [
       {"name": "HavenEncounter", "maxCount": 1, "probability": 100, "parameters": "haven-lizardman 8"},
-      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-lizardman 9"},
-      {"name": "HavenEncounter", "maxCount": 1, "probability": 100, "parameters": "haven-lizardman 10"}
+      {"name": "HavenEncounter", "maxCount": 1, "probability": 100, "parameters": "haven-lizardman 9"}
     ]
   },
   {
     "$type": "Spawner",
     "guid": "064d6448-494a-55f1-b9f5-bf326fcb9278",
     "name": "Lower Mine Southern Lizardmen",
-    "location": [5951, 328, 0],
+    "location": [5949, 333, 0],
     "map": "Trammel",
-    "count": 3,
+    "count": 2,
     "minDelay": "00:00:45",
     "maxDelay": "00:01:15",
-    "homeRange": 2,
-    "walkingRange": 5,
+    "homeRange": 1,
+    "walkingRange": 1,
     "entries": [
-      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-lizardman 9"},
+      {"name": "HavenEncounter", "maxCount": 1, "probability": 100, "parameters": "haven-lizardman 9"},
       {"name": "HavenEncounter", "maxCount": 1, "probability": 100, "parameters": "haven-lizardman 10"}
     ]
   },
   {
     "$type": "Spawner",
     "guid": "e42339ac-8f2b-54e4-a70e-b3c6e332e3f2",
-    "name": "Lower Mine Northern Lizardmen",
-    "location": [5957, 311, 0],
+    "name": "Lower Mine Northwest Lizardmen",
+    "location": [5942, 314, 0],
     "map": "Trammel",
-    "count": 4,
+    "count": 2,
     "minDelay": "00:00:45",
     "maxDelay": "00:01:15",
-    "homeRange": 3,
-    "walkingRange": 5,
+    "homeRange": 1,
+    "walkingRange": 1,
     "entries": [
-      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-lizardman 9"},
-      {"name": "HavenEncounter", "maxCount": 2, "probability": 100, "parameters": "haven-lizardman 10"}
+      {"name": "HavenEncounter", "maxCount": 1, "probability": 100, "parameters": "haven-lizardman 9"},
+      {"name": "HavenEncounter", "maxCount": 1, "probability": 100, "parameters": "haven-lizardman 10"}
     ]
   },
   {
     "$type": "Spawner",
     "guid": "29dfac08-f7ad-5f2f-b9a0-7ec8a8fbfabb",
     "name": "Lower Mine Boss Krulg",
-    "location": [5947, 311, 0],
+    "location": [5954, 307, 0],
     "map": "Trammel",
     "count": 1,
     "minDelay": "00:05:00",

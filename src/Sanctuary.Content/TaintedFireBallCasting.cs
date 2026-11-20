@@ -20,6 +20,7 @@ internal sealed record TaintedFireBallAction(uint Actor, uint Owner, uint Target
 // missiles use their existing independent persistent host.
 internal static class TaintedFireBallCasting
 {
+    internal const string LegacyLostTargetFault = "Lost Tainted A2 target; current source path-point fallback is unverified";
     private static readonly ILogger Log = LogFactory.GetLogger(typeof(TaintedFireBallCasting));
     private static readonly Dictionary<uint, TaintedFireBallAction> Actions = new();
     private static readonly System.Collections.Generic.HashSet<uint> FrameOwned = new();
@@ -119,14 +120,17 @@ internal static class TaintedFireBallCasting
             var next = state;
             if (!state.Released)
             {
+                if (World.FindMobile((Serial)state.Target) is not { Alive: true, Deleted: false } target
+                    || target.Map != body.Map || !ClassCombat.IsHostile(owner, target) || !body.CanBeHarmful(target, false))
+                {
+                    Remove(state.Actor, body);
+                    continue;
+                }
                 // Mark the event before attempting allocation: a failed or
                 // partially observed release is never retried for this action.
                 next = state with { Released = true }; Actions[state.Actor] = next;
                 try
                 {
-                    if (World.FindMobile((Serial)state.Target) is not { Alive: true, Deleted: false } target
-                        || target.Map != body.Map || !ClassCombat.IsHostile(owner, target) || !body.CanBeHarmful(target, false))
-                    { throw new NotSupportedException("Lost Tainted A2 target; current source path-point fallback is unverified"); }
                     int rank = state.LiveRank ? TaintedNpcRanks.Level(body, 422) : state.Rank;
                     var suppliers = body.Prepared.Snapshot.Birth.Suppliers with { FireBallRank = rank };
                     long id = TaintedFireBallMissiles.LaunchPrepared(body, target.Location, rank, TaintedNpcSkills.FireBall(suppliers), state.ActionUtc);

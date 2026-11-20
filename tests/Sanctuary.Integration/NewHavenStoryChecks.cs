@@ -1,11 +1,16 @@
 using System;
 using System.Buffers;
 using System.Buffers.Binary;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Text;
 using Server;
 using Server.Accounting;
+using Server.Collections;
+using Server.ContextMenus;
 using Server.Engines.Harvest;
 using Server.Engines.Spawners;
 using Server.Gumps;
@@ -26,11 +31,102 @@ public static class NewHavenStoryChecks
     private static HavenEncounter _bandit;
     private static WarlockGoatmanBody _lesserDaemon;
     private static int _beforeDaemon;
+    private static HavenEncounter _assistTarget;
+    private static WarlockGoatmanBody _assistDaemon;
+    private static WarlockGoatmanBody _mineDaemon;
+    private static Point3D _mineDaemonExit;
+    private static Item _ioloWeapon;
+    private static Corpse _ropeCorpse;
+    private static HavenEncounter _krulg;
+    private static Point3D _krulgStart;
+    private static Item _appraisalItem, _secondAppraisalItem;
+    private static int _serviceGold;
     private static BaseDoor FindDoor(Point3D threshold) => World.Items.Values.OfType<BaseDoor>()
         .Single(door => door.Map == Map.Trammel && door.Location == threshold);
 
     public static void Configure()
     {
+        Register("scholar-setup", () =>
+        {
+            var player = Avatar;
+            var scholar = TownMarkets.Profiles.At("Trammel/New Haven/Scholar") as Scholar;
+            Require(scholar != null, "Elara was not installed");
+            player.MoveToWorld(new Point3D(3485, 2495, 52), Map.Trammel);
+            player.NextActionTime = 0;
+            Require(TownMarkets.Trading(scholar, player), $"Scholar at {scholar.Location} is inaccessible");
+            player.Backpack.DropItem(new Gold(500));
+            _serviceGold = player.Backpack.GetAmount(typeof(Gold));
+            _appraisalItem = IdentificationChecks.Unknown(player, new Longsword());
+            _secondAppraisalItem = IdentificationChecks.Unknown(player, new LeatherCap());
+        });
+        Register("npc-speech", () =>
+        {
+            var player = Avatar;
+            var gambler = new TavernGambler();
+            var dog = new Dog();
+            try
+            {
+                gambler.MoveToWorld(player.Location, player.Map);
+                Require(dog.SetControlMaster(player), "Could not prepare the speech test pet");
+                dog.MoveToWorld(player.Location, player.Map);
+                dog.ControlOrder = OrderType.Stay;
+                player.DoSpeech("vendor buy", [0x3C], MessageType.Regular, 0x3B2);
+                player.DoSpeech("all follow me", [0x16C], MessageType.Regular, 0x3B2);
+                Require(player.FindGump<GamblingGump>() == null && dog.ControlOrder == OrderType.Stay,
+                    "Normal chat still triggered a vendor or pet command");
+            }
+            finally
+            {
+                gambler.Delete();
+                dog.Delete();
+            }
+        });
+        Register("scholar-paid", () =>
+        {
+            var player = Avatar;
+            Require(_appraisalItem.IsChildOf(player.Backpack) && _secondAppraisalItem.IsChildOf(player.Backpack)
+                && ClassGear.State(_appraisalItem).Identified && ClassGear.State(_secondAppraisalItem).Identified,
+                $"Appraisal did not identify both selected items in place. Avatar is at {player.Location}, "
+                + $"gear identified = {ClassGear.State(_appraisalItem).Identified}/{ClassGear.State(_secondAppraisalItem).Identified}.");
+            Require(player.Backpack.GetAmount(typeof(Gold)) == _serviceGold - 2 * Scholar.IdentificationFee,
+                "The scholar charged the wrong total");
+        });
+        Register("training-setup", () =>
+        {
+            var player = Avatar;
+            var alchemist = TownMarkets.Profiles.At("Trammel/New Haven/Alchemist");
+            player.MoveToWorld(new Point3D(3483, 2494, 52), Map.Trammel);
+            player.NextActionTime = 0;
+            Require(player.InLOS(alchemist) && player.InRange(alchemist, 3), "Cannot approach the alchemy trainer");
+            Require(!ClassProfessions.Profiles.Find(player).Confirmed, "First craft already chosen");
+            _serviceGold = player.Backpack.GetAmount(typeof(Gold));
+        });
+        Register("training-cancelled", () =>
+        {
+            var player = Avatar;
+            Require(!ClassProfessions.Profiles.Find(player).Confirmed && player.Skills[SkillName.Alchemy].BaseFixedPoint == 0
+                && player.Backpack.GetAmount(typeof(Gold)) == _serviceGold, "Cancelling chose a profession or spent gold");
+        });
+        Register("training-paid", () =>
+        {
+            var player = Avatar;
+            Require(ClassProfessions.Profiles.Find(player) is { Confirmed: true, Craft: SkillName.Alchemy }
+                && player.Skills[SkillName.Alchemy].BaseFixedPoint == 300
+                && player.Backpack.GetAmount(typeof(Gold)) == _serviceGold - 300,
+                "The lesson did not cap skill and payment at 30.0 and 300 gold");
+        });
+        Register("miner-setup", () =>
+        {
+            var player = Avatar;
+            var camp = NewHavenPopulation.MountainCamp;
+            player.MoveToWorld(new Point3D(camp.X, camp.Y + 3, camp.Z), Map.Trammel);
+            player.NextActionTime = 0;
+            foreach (var miner in World.Mobiles.Values.OfType<MineCampMiner>())
+                Require(ScriptedDialogue.CanTalk(player, miner), $"Cannot speak to {miner.Name} at {miner.Location}");
+            var companion = CheckCompanion();
+            companion.MoveToWorld(new Point3D(camp.X + 2, camp.Y + 5, camp.Z), Map.Trammel);
+            Require(Iolo.IsTravelingWith(player), "Iolo is not available to speak at the camp");
+        });
         Register("setup", () =>
         {
             var player = Avatar;
@@ -118,6 +214,7 @@ public static class NewHavenStoryChecks
             Require(companion.IsStabled && ClassCreation.Profiles.AdvanceLevel(player, 27),
                 "Could not level the Avatar while Iolo was away");
             player.ClaimAutoStabledPets();
+            Require(companion.ControlOrder == OrderType.Guard, "Claiming Iolo left him in passive Follow");
             Require(MercenaryCare.IsCompanion(player, companion) && CreatureProfiles.Level(companion) == 27
                 && companion.HitsMax == 258 && companion.Hits == 129, "Iolo did not catch up by 20 levels and preserve damaged life");
             var plate = new PlateChest();
@@ -143,6 +240,7 @@ public static class NewHavenStoryChecks
             player.MoveToWorld(player.LogoutLocation, player.LogoutMap);
             player.ClaimAutoStabledPets();
             var companion = CheckCompanion();
+            Require(companion.ControlOrder == OrderType.Guard, "Iolo did not resume Guard on reload");
             Require(ClassCreation.Profiles.HasMetIolo(player.Serial) && !ClassCreation.Profiles.MeetIolo(player.Serial),
                 "The journal discovery was lost on reload");
             Require(CheckGate().UseGate(player), "The island gate unlock did not survive a restart");
@@ -205,15 +303,8 @@ public static class NewHavenStoryChecks
             _bandit.MoveToWorld(new Point3D(player.X + 6, player.Y, player.Z), player.Map);
             _bandit.Home = _bandit.Location;
             _beforeDaemon = SkillHealth.Balance256(_bandit);
-            ClassSkillChecks.Train(player, "warlock.summongoatman", 1);
-            ClassCombat.Stop(player);
-            var session = ClassCombat.For(player);
-            session.NextAction = session.RecoveryUntil = Core.TickCount;
-            NecromancerEffects.SetMana256(player, player.ManaMax * 256);
             var summon = new Point3D(player.X + 3, player.Y, player.Z);
-            Require(ClassCombat.Perform(player, CombatAbility.SummonGoatman, null, summon, Core.TickCount)
-                && ClassCombat.ResolveAction(player, session.EffectAt), "The Witch could not summon her Lesser Daemon");
-            _lesserDaemon = WarlockGoatmanWorld.For(player).Single();
+            _lesserDaemon = SummonLesserDaemon(player, summon);
             Require(_lesserDaemon.Body == 74 && _lesserDaemon.BaseSoundID == 422, "The Lesser Daemon did not use the imp body");
             player.MoveToWorld(ClassCreation.Arrival, Map.Trammel);
             Require(MinionSafeAreas.Parked(_lesserDaemon), "Entering New Haven did not store the Lesser Daemon");
@@ -257,6 +348,153 @@ public static class NewHavenStoryChecks
             restore();
             MercenaryCare.SyncOwner(player);
         });
+        Register("mine-start", () =>
+        {
+            var entrance = NewHavenPopulation.MineDoor;
+            Avatar.MoveToWorld(new Point3D(entrance.X + 1, entrance.Y + 3, entrance.Z), Map.Trammel);
+        });
+        Register("mine-shaft-start", () =>
+        {
+            var shaft = NewHavenPopulation.MineShaft;
+            Avatar.MoveToWorld(new Point3D(shaft.X + 2, shaft.End.Y + 1, 0), Map.Trammel);
+        });
+        Register("mine-entered", () => Require(Avatar.InRange(NewHavenPopulation.MineArrival, 2),
+            $"Walking into the mine stopped at {Avatar.Location}"));
+        SkeletonGuardian[] castImps = null;
+        WarlockTaintedBody firstSuccubus = null;
+        Register("succubus-start", () =>
+        {
+            var player = Avatar;
+            if (ClassStats.Level(player) < 27)
+                ClassCreation.Profiles.AdvanceLevel(player, 27);
+            FixtureSpace.Corridor(player, 6560, 28, 3500);
+            ClassSkillChecks.Train(player, "warlock.demonicmastery", 5);
+            ClassSkillChecks.Train(player, "warlock.summontainted");
+            Require(SkillBindings.Instance.Assign(player, false, CombatAbility.SummonTainted), "Could not bind Succubus to right-click");
+            NecromancerEffects.SetMana256(player, player.ManaMax * 256);
+            castImps = new SkeletonGuardian[2];
+            for (int i = 0; i < castImps.Length; i++)
+            {
+                var imp = WarlockGoatmanWorld.Create(player, new(player.X + 2 + i, player.Y + 2, player.Z), TimedEffects.Now);
+                WarlockGoatmanWorld.Admit(imp);
+                imp.Frozen = true;
+                castImps[i] = imp;
+            }
+        });
+        Register("succubus-first", () =>
+        {
+            Require(castImps[0].Deleted && !castImps[1].Deleted, "Right-click did not replace the first imp");
+            var player = Avatar;
+            firstSuccubus = WarlockGoatmanWorld.ForTainted(player).Single();
+            firstSuccubus.Frozen = true;
+            firstSuccubus.MoveToWorld(new(player.X + 3, player.Y, player.Z), player.Map);
+        });
+        Register("succubus-low-mana", () => NecromancerEffects.SetMana256(Avatar,
+            SkillMechanics.CastManaCost256(Avatar, CombatAbility.SummonTainted) - 4 * 256));
+        Register("succubus-refill", () => NecromancerEffects.SetMana256(Avatar, Avatar.ManaMax * 256));
+        Register("succubus-second", () =>
+        {
+            var roster = WarlockGoatmanWorld.Demons(Avatar);
+            Require(castImps[1].Deleted && roster is [WarlockTaintedBody, WarlockTaintedBody] && roster[0] == firstSuccubus,
+                "Right-click over a friendly Succubus did not replace the second imp");
+            foreach (var demon in roster)
+                demon.Delete();
+        });
+        Register("rope-start", () =>
+        {
+            var player = Avatar;
+            var rope = NewHavenPopulation.RopeDown;
+            var elementals = World.Mobiles.Values.OfType<HavenEncounter>().Where(mob => mob.Dungeon.Id == "haven-elemental").ToArray();
+            foreach (var elemental in elementals)
+            {
+                elemental.MoveToWorld(elemental.Home, elemental.Map);
+                elemental.Frozen = true;
+            }
+            var corpseSource = elementals[0];
+            _ropeCorpse = GearDropChecks.Body(corpseSource, player, rope);
+            corpseSource.MoveToWorld(corpseSource.Home, Map.Trammel);
+            var iolo = CheckCompanion();
+            iolo.Frozen = true;
+            iolo.MoveToWorld(new Point3D(rope.X - 1, rope.Y + 1, rope.Z), Map.Trammel);
+            player.MoveToWorld(new Point3D(rope.X - 1, rope.Y, rope.Z), Map.Trammel);
+        });
+        Register("rope-arrived", () =>
+        {
+            Require(Avatar.Location == NewHavenPopulation.RopeUp, $"The rope under a corpse could not be used: {Avatar.Location}");
+            Require(!World.Mobiles.Values.OfType<HavenEncounter>().Any(mob => mob.Dungeon.Id == "haven-lizardman"
+                && mob.Combatant == Avatar), "Lizardmen acquired the Avatar at the rope landing");
+            CheckCompanion().Frozen = false;
+            foreach (var mob in World.Mobiles.Values.OfType<HavenEncounter>())
+                if (mob.Dungeon.Id == "haven-elemental")
+                    mob.Frozen = false;
+            _ropeCorpse.Delete();
+        });
+        Register("krulg-start", () =>
+        {
+            var player = Avatar;
+            _krulg = World.Mobiles.Values.OfType<HavenEncounter>().Single(mob => mob.Name == "Boss Krulg");
+            player.MoveToWorld(new Point3D(5954, 311, 0), _krulg.Map);
+            Require(player.CanSee(_krulg) && player.InLOS(_krulg) && !player.InRange(_krulg, 1), "Krulg's approach fixture is blocked");
+            _krulgStart = _krulg.Location;
+        });
+        ConsoleInputHandler.RegisterCommand("iolo-story-krulg-attacks", "Wait for Krulg to approach and attack", _ =>
+            Core.LoopContext.Post(() => CheckKrulgAttack(Core.TickCount + 10000)));
+        Register("mountain-mine-start", () =>
+        {
+            var mouth = NewHavenPopulation.MountainMineMouth;
+            int x = mouth.X + 3, y = mouth.Y + 1;
+            Avatar.MoveToWorld(new Point3D(x, y, Map.Trammel.GetAverageZ(x, y)), Map.Trammel);
+        });
+        Register("mountain-mine-entered", () => Require(Avatar.InRange(NewHavenPopulation.MountainMineArrival, 2),
+            $"Walking into the mountain stopped at {Avatar.Location}"));
+        Register("mountain-mine-minion", () =>
+        {
+            var player = Avatar;
+            var mouth = NewHavenPopulation.MountainMineMouth;
+            var map = Map.Trammel;
+            int y = mouth.Y + 1;
+            FixtureSpace.Corridor(player, 6560, 28, 3500);
+            var demon = SummonLesserDaemon(player, new Point3D(player.X + 3, player.Y, player.Z));
+            int x = mouth.X + 6;
+            bool passed = false;
+            try
+            {
+                player.MoveToWorld(new Point3D(mouth.X + 1, y, map.GetAverageZ(mouth.X + 1, y)), map);
+                demon.MoveToWorld(new Point3D(x, mouth.Y, map.GetAverageZ(x, mouth.Y)), map);
+                Require(!player.InRange(demon, 3), "The daemon fixture is within the native pet transfer range");
+                int slots = player.Followers;
+                SkillHealth.SetBalance256(demon, SkillHealth.Balance256(demon) - 257);
+                int life = SkillHealth.Balance256(demon);
+                player.Direction = Direction.West;
+                player.Move(Direction.West);
+                Require(player.Location == NewHavenPopulation.MountainMineArrival && !MinionSafeAreas.Contains(player),
+                    $"The mountain passage put the Avatar in {player.Region.Name} at {player.Location}");
+                CheckDaemon();
+
+                var arrival = NewHavenPopulation.MountainMineArrival;
+                player.MoveToWorld(new Point3D(arrival.X + 1, arrival.Y, arrival.Z), map);
+                WarlockGoatmanWorld.Forget(demon);
+                DemonNativeState.Controller(demon, demon.Prepared.Controller with { Fault = DeathMarkWorld.BlockedWalk + "legacy save" });
+                WarlockGoatmanWorld.Track(demon);
+                player.Direction = Direction.West;
+                player.Move(Direction.West);
+                Require(player.Location == mouth, $"The mountain exit returned the Avatar to {player.Location}");
+                CheckDaemon();
+                WarlockGoatmanWorld.Tick(TimedEffects.Now);
+                Require(demon.Prepared.Controller.Fault == null, "The old blocked-step fault survived dungeon travel");
+                _mineDaemon = demon;
+                _mineDaemonExit = demon.Location;
+                passed = true;
+
+                void CheckDaemon() => Require(WarlockGoatmanWorld.For(player).Single() == demon
+                    && demon.Map == map && player.InRange(demon, 4) && !MinionSafeAreas.Parked(demon)
+                    && player.Followers == slots && SkillHealth.Balance256(demon) == life,
+                    $"The daemon was left at {demon.Location} ({demon.Map}, {demon.ControlOrder})");
+            }
+            finally { if (!passed) demon.Delete(); }
+        });
+        ConsoleInputHandler.RegisterCommand("iolo-story-mountain-minion-follows", "Walk the Avatar away from the mine",
+            _ => Core.LoopContext.Post(() => WalkMineExit(8, Core.TickCount + 10000)));
         Register("ghost", () =>
         {
             var player = Avatar;
@@ -289,7 +527,64 @@ public static class NewHavenStoryChecks
         });
         Register("resurrected", () => Require(Avatar.Alive && Avatar.Hits > 0,
             "Accepting the healer's offer did not resurrect the player"));
+        Register("iolo-ghost-setup", () =>
+        {
+            var player = Avatar;
+            var iolo = CheckCompanion();
+            player.MoveToWorld(new Point3D(3462, 2559, 35), Map.Trammel);
+            iolo.MoveToWorld(new Point3D(3461, 2559, 35), Map.Trammel);
+            Require(player.InLOS(iolo), "Iolo's ghost is not visible from the healer's house");
+            _ioloWeapon = iolo.FindItemOnLayer(Layer.TwoHanded);
+        });
+        Register("iolo-died", () =>
+        {
+            var player = Avatar;
+            var iolo = CheckCompanion();
+            iolo.Kill();
+            Require(iolo.IsDeadPet && iolo.FindItemOnLayer(Layer.TwoHanded) == _ioloWeapon,
+                "Iolo did not leave an equipped spirit");
+            using var entries = PooledRefList<ContextMenuEntry>.Create();
+            var menu = entries;
+            iolo.GetContextMenuEntries(player, ref menu);
+            Require(menu.Count == 0, "Iolo's ghost offered the native pet menu");
+            var healer = World.Mobiles.Values.OfType<NewHavenHealer>().Single();
+            Require(MercenaryCare.Quote(player, iolo, healer) is { Gold: 0, Resurrection: true },
+                "Merryn cannot restore the nearby spirit free of charge");
+        });
+        Register("iolo-healer-offer", () => Require(Avatar.FindGump<MerrynResurrectionGump>() != null,
+            "Clicking Merryn did not offer to resurrect Iolo"));
+        Register("iolo-healer-declined", () => Require(CheckCompanion().IsDeadPet,
+            "Declining Merryn's offer resurrected Iolo"));
+        Register("iolo-healer-resurrected", () =>
+        {
+            var iolo = CheckCompanion();
+            Require(!iolo.IsDeadPet && iolo.Hits > 0 && iolo.ControlOrder == OrderType.Guard
+                && iolo.ControlTarget == Avatar && iolo.FindItemOnLayer(Layer.TwoHanded) == _ioloWeapon,
+                "Merryn did not return Iolo with his gear and guarding order intact");
+        });
         Register("slice", CheckSlice);
+        Register("assist", () =>
+        {
+            var player = Avatar;
+            var iolo = CheckCompanion();
+            FixtureSpace.Corridor(player, 6560, 28, 3500);
+            _assistDaemon = WarlockGoatmanWorld.Create(player, new Point3D(player.X + 3, player.Y, player.Z), TimedEffects.Now);
+            WarlockGoatmanWorld.Admit(_assistDaemon);
+            var map = player.Map;
+            iolo.MoveToWorld(new Point3D(player.X, player.Y + 2, player.Z), map);
+            Require(iolo.ControlOrder == OrderType.Guard && iolo.ControlTarget == player, "Iolo is not guarding the Witch");
+            _assistDaemon.MoveToWorld(new Point3D(player.X + 4, player.Y + 1, player.Z), map);
+            _assistTarget = new HavenEncounter("haven-krulg", 7) { Frozen = true, NoKillAwards = true };
+            _assistTarget.MoveToWorld(new Point3D(player.X + 4, player.Y + 2, player.Z), map);
+            _assistTarget.AIObject.AITimer.Stop();
+            _assistTarget.SetHits(5000);
+            _assistTarget.Combatant = _assistDaemon;
+            Require(ClassCombat.IsHostile(player, _assistTarget) && iolo.InLOS(_assistTarget)
+                && _assistTarget.Combatant == _assistDaemon, "The Witch's daemon is not holding the companion test target");
+            Require(GearEffects.ApplyChill(_assistTarget, Core.TickCount, 3000, _assistDaemon), "Could not prepare the companion test shot");
+        });
+        ConsoleInputHandler.RegisterCommand("iolo-story-assist-impact", "Wait for Iolo's autonomous Witch-party shot", _ =>
+            Core.LoopContext.Post(() => CheckAssistImpact(Core.TickCount + 6500)));
         Register("shot", () =>
         {
             var player = Avatar;
@@ -314,6 +609,78 @@ public static class NewHavenStoryChecks
             Require(CheckCompanion().Mana == 0, "The companion shot requires mana");
             _shotTarget.Delete();
         });
+    }
+
+    private static void CheckKrulgAttack(long deadline)
+    {
+        var player = Avatar;
+        if (_krulg.Location != _krulgStart && player.Aggressors.Any(info => info.Attacker == _krulg))
+            _logger.Information("iolo-story-krulg-attacks: passed");
+        else if (Core.TickCount >= deadline)
+            _logger.Error("iolo-story-krulg-attacks: failed. Krulg moved from {Start} to {Current}, target {Target}",
+                _krulgStart, _krulg.Location, _krulg.Combatant?.Name);
+        else
+            Timer.StartTimer(TimeSpan.FromMilliseconds(100), () => CheckKrulgAttack(deadline));
+    }
+
+    private static void WalkMineExit(int steps, long deadline)
+    {
+        var player = Avatar;
+        var demon = _mineDaemon;
+        if (steps > 0 && Core.TickCount < deadline)
+        {
+            player.Direction = Direction.East;
+            player.Move(Direction.East);
+            Timer.StartTimer(TimeSpan.FromMilliseconds(230), () => WalkMineExit(steps - 1, deadline));
+        }
+        else if (player.X >= NewHavenPopulation.MountainMineMouth.X + 7 && demon.Location != _mineDaemonExit
+            && player.InRange(demon, 4) && demon.Prepared.Controller.Fault == null)
+        {
+            var point = NewHavenPopulation.MountainMineMouth;
+            Teleportation.CommitTransfer(player, point, player.Location, player.Map);
+            if (player.Location == point && player.InRange(demon, 4))
+                _logger.Information("iolo-story-mountain-minion-follows: passed");
+            else
+                _logger.Error("iolo-story-mountain-minion-follows: failed. A spell teleport left behind the same daemon");
+            demon.Delete();
+        }
+        else if (Core.TickCount >= deadline)
+        {
+            _logger.Error("iolo-story-mountain-minion-follows: failed. Daemon {Origin} to {Location}, Avatar {Avatar}, fault {Fault}",
+                _mineDaemonExit, demon.Location, player.Location, demon.Prepared.Controller.Fault);
+            demon.Delete();
+        }
+        else
+            Timer.StartTimer(TimeSpan.FromMilliseconds(150), () => WalkMineExit(0, deadline));
+    }
+
+    private static void CheckAssistImpact(long deadline)
+    {
+        var iolo = CheckCompanion();
+        if (_assistTarget.FindDamageEntryFor(iolo) is { DamageGiven: > 0 })
+        {
+            _assistTarget.Delete();
+            _assistDaemon.Delete();
+            _logger.Information("iolo-story-assist-impact: passed");
+            return;
+        }
+        if (Core.TickCount >= deadline)
+            _logger.Error("iolo-story-assist-impact: failed. Iolo at {Location} with order {Order} and combatant {Combatant} did not damage the enemy fighting the Witch's daemon",
+                iolo.Location, iolo.ControlOrder, iolo.Combatant?.Name);
+        else
+            Timer.StartTimer(TimeSpan.FromMilliseconds(100), () => CheckAssistImpact(deadline));
+    }
+
+    private static WarlockGoatmanBody SummonLesserDaemon(PlayerMobile player, Point3D point)
+    {
+        ClassSkillChecks.Train(player, "warlock.summongoatman", 1);
+        ClassCombat.Stop(player);
+        var session = ClassCombat.For(player);
+        session.NextAction = session.RecoveryUntil = Core.TickCount;
+        NecromancerEffects.SetMana256(player, player.ManaMax * 256);
+        Require(ClassCombat.Perform(player, CombatAbility.SummonGoatman, null, point, Core.TickCount)
+            && ClassCombat.ResolveAction(player, session.EffectAt), "The Witch could not summon her Lesser Daemon");
+        return WarlockGoatmanWorld.For(player).Single();
     }
 
     private static void CheckBanditImpact(long deadline)
@@ -355,8 +722,7 @@ public static class NewHavenStoryChecks
         Require(profiles.UnlockNewHavenGate(solo.Serial), "Could not prepare the solo traveller");
         solo.MoveToWorld(gate.Location, map);
         player.MoveToWorld(gate.Location, map);
-        companion.MoveToWorld(new Point3D(gate.X + 1, gate.Y, gate.Z), map);
-        companion.ControlOrder = OrderType.Guard;
+        companion.MoveToWorld(new Point3D(gate.X + 6, gate.Y, gate.Z), map);
         Require(gate.UseGate(player) && player.FindGump<MoongateGump>() is not null, "The native gate menu did not open");
         var menu = player.FindGump<MoongateGump>();
         var soloReply = (NetState)RuntimeHelpers.GetUninitializedObject(typeof(NetState));
@@ -373,11 +739,27 @@ public static class NewHavenStoryChecks
         solo.MoveToWorld(NewHavenInn.IoloSeat, map);
         Require(!solo.CanSee(innIolo) && !innIolo.CanTalkTo(solo), "Iolo remained recruitable after leaving alone");
 
-        menu.OnResponse(player.NetState, new RelayInfo(1, [britain], [], [], []));
-        player.CloseGump<MoongateGump>();
-        Require(profiles.HasDepartedNewHaven(player.Serial) && player.Location == destination
-            && companion.Map == player.Map && companion.InRange(player, 1) && MercenaryCare.IsCompanion(player, companion),
-            "Iolo did not travel to Britain with the Avatar");
+        var dog = new Dog();
+        try
+        {
+            Require(dog.SetControlMaster(player), "Could not prepare the moongate test pet");
+            dog.MoveToWorld(new Point3D(gate.X + 7, gate.Y, gate.Z), map);
+            dog.ControlOrder = OrderType.Stay;
+            menu.OnResponse(player.NetState, new RelayInfo(1, [britain], [], [], []));
+            player.CloseGump<MoongateGump>();
+            Require(profiles.HasDepartedNewHaven(player.Serial) && player.Location == destination
+                && companion.Map == player.Map && companion.InRange(player, 4) && MercenaryCare.IsCompanion(player, companion),
+                "Iolo did not travel to Britain with the Avatar");
+            Require(dog.ControlMaster == player && dog.Map == player.Map && dog.InRange(player, 4),
+                "The moongate left a distant tamed pet behind");
+            var active = (IDictionary)typeof(ScriptedDialogue).GetField("_sessions", BindingFlags.Static | BindingFlags.NonPublic)
+                .GetValue(null);
+            var conversation = active[player.Serial];
+            Require(conversation?.GetType().GetProperty("Speaker")?.GetValue(conversation) == companion
+                && active[solo.Serial] == null && !profiles.RecordNewHavenDeparture(player.Serial),
+                $"Iolo's dialogue did not open privately after the first journey ({companion.Location} to {player.Location})");
+        }
+        finally { dog.Delete(); }
     }
 
     private static PublicMoongate CheckGate()
@@ -399,10 +781,25 @@ public static class NewHavenStoryChecks
         {
             var spawners = World.Items.Values.OfType<BaseSpawner>().Where(s => s.Map == Map.Trammel
                 && s.Name?.StartsWith(areas[i], StringComparison.Ordinal) == true && !s.Name.EndsWith("Wildlife")).ToArray();
+            // Combat earlier in the disposable world can leave a pending respawn.
+            foreach (var spawner in spawners)
+                for (int attempt = 0; attempt < spawner.Count && !spawner.IsFull; attempt++)
+                    spawner.Spawn();
             Require(spawners.Length > 0 && spawners.All(s => s.IsFull), $"Unfilled spawners in {areas[i]}");
-            var levels = spawners.SelectMany(s => s.Spawned.Keys).Cast<HavenEncounter>().Select(mob => CreatureProfiles.Level(mob)).ToArray();
+            var enemies = spawners.SelectMany(s => s.Spawned.Keys).Cast<HavenEncounter>().ToArray();
+            var levels = enemies.Select(mob => CreatureProfiles.Level(mob)).ToArray();
             Require(levels.Min() == minimum[i] && levels.Max() == maximum[i], $"Wrong level range in {areas[i]}");
+            foreach (var mob in enemies)
+            {
+                int scaling = i >= 3 ? 3 : 2;
+                int eliteLife = EncounterProfiles.LifePermille(mob.Grade, ChampionKind.Champion, MonsterDifficulty.Normal);
+                int life = mob.RolledLife * eliteLife / 1000 * scaling;
+                int experience = mob.Basis.Experience * 5 * (mob.Leader ? 5 : 1);
+                Require(mob.HitsMax == life && CreatureProfiles.Experience(mob) == experience,
+                    $"Wrong health or XP scaling for {mob.Name} in {areas[i]}");
+            }
         }
+        CheckTooltips();
 
         var player = new PlayerMobile { Name = "New Haven check", Body = 0x190, Player = true };
         player.AddItem(new Backpack());
@@ -428,25 +825,75 @@ public static class NewHavenStoryChecks
             Require(surface.Contains(NewHavenPopulation.MineDoor) && surface.Any(p => p.X == 3710 && p.Y == 2621)
                 && surface.Any(p => p.X == 3598 && p.Y == 2452), "The surface route cannot reach the mine, farm, or graveyard");
             Require(surface.Contains(new Point3D(3462, 2558, 35)), "Town roads cannot reach the healer's house");
+            foreach (string role in new[] { "Alchemist", "Scribe", "Scholar" })
+            {
+                var vendor = TownMarkets.Profiles.At($"Trammel/New Haven/{role}");
+                Require(vendor != null && surface.Any(point => point.Z == vendor.Z && Utility.InRange(point, vendor.Location, 2)
+                    && EncounterProfiles.ClearSight(map, point, vendor.Location)),
+                    $"Town roads cannot reach {role} at the mage tower ({vendor?.Location})");
+            }
+            Require(TownMarkets.Supplies.Where(supply => supply.Roles.Contains(MarketRole.Scholar))
+                .Select(supply => supply.Type).ToHashSet().SetEquals(["IdentifyScroll", "TownPortalScroll"]),
+                "The scholar's scroll stock is wrong");
+            Require(World.Mobiles.Values.OfType<MineCampMiner>().Where(miner => miner.Map == map
+                && miner.InRange(NewHavenPopulation.MountainCamp, 3)).Select(miner => miner.Name).Order().SequenceEqual(["Bess", "Garran"]),
+                "Expected two distinct miners around the campfire");
             var upperMine = WalkableFrom(NewHavenPopulation.MineArrival, new Rectangle2D(5986, 299, 16, 47));
             Require(upperMine.Contains(NewHavenPopulation.RopeDown), "The mine entrance does not lead to the rope");
+            var mountainMine = WalkableFrom(NewHavenPopulation.MountainMineArrival, new Rectangle2D(5903, 268, 100, 110));
+            Require(mountainMine.Contains(NewHavenPopulation.MineArrival), "The mountain entrance does not reach the upper galleries");
             var lowerMine = WalkableFrom(NewHavenPopulation.RopeUp, new Rectangle2D(5939, 304, 26, 32));
-            var chamber = new Point3D(5947, 311, 0);
+            var elementals = World.Mobiles.Values.OfType<HavenEncounter>().Where(mob => mob.Dungeon.Id == "haven-elemental").ToArray();
+            Require(elementals.Length == 12 && elementals.All(mob => mountainMine.Contains(mob.Home))
+                && elementals.Any(mob => mob.Home.X < 5925) && elementals.Any(mob => mob.Home.Y > 358)
+                && elementals.Any(mob => mob.Home.Y < 285), "Elementals do not populate the full upper mine loop");
+            var lizardmen = World.Mobiles.Values.OfType<HavenEncounter>().Where(mob => mob.Dungeon.Id == "haven-lizardman").ToArray();
+            Require(lizardmen.Length == 8 && lizardmen.All(mob => !Utility.InRange(mob.Home, NewHavenPopulation.RopeUp,
+                mob.RangePerception + mob.RangeHome + 1)), "Lizardmen can gather in aggro range of the rope landing");
+            var krulg = World.Mobiles.Values.OfType<HavenEncounter>().Single(mob => mob.Name == "Boss Krulg");
+            var chamber = krulg.Home;
             Require(lowerMine.Any(p => p.Z == chamber.Z && Utility.InRange(p, chamber, 2)
                 && EncounterProfiles.ClearSight(map, p, chamber)), "The rope does not lead to Krulg's chamber");
             ClassCreation.Profiles.Assign(player, DiabloClass.Necromancer);
-            Follow(NewHavenPopulation.MineDoor, NewHavenPopulation.MineArrival, false);
-            Follow(NewHavenPopulation.RopeDown, NewHavenPopulation.RopeUp, true);
-            Follow(NewHavenPopulation.RopeUp, NewHavenPopulation.RopeDown, true);
-            Follow(NewHavenPopulation.MineExit, NewHavenPopulation.MineReturn, false);
-            var krulg = World.Mobiles.Values.OfType<HavenEncounter>().Single(mob => mob.Name == "Boss Krulg");
+            for (int offset = -1; offset <= 1; offset++)
+            {
+                var door = NewHavenPopulation.MineDoor;
+                WalkThrough(new Point3D(door.X + offset, door.Y, door.Z), NewHavenPopulation.MineArrival, Direction.North);
+            }
+            var shaft = NewHavenPopulation.MineShaft;
+            for (int x = shaft.X; x < shaft.End.X; x++)
+            {
+                WalkThrough(new Point3D(x, shaft.Y - 1, 0), NewHavenPopulation.MineArrival, Direction.South);
+                WalkThrough(new Point3D(x, shaft.End.Y, 0), NewHavenPopulation.MineArrival, Direction.North);
+            }
+            for (int y = shaft.Y; y < shaft.End.Y; y++)
+            {
+                WalkThrough(new Point3D(shaft.X - 1, y, 0), NewHavenPopulation.MineArrival, Direction.East);
+                WalkThrough(new Point3D(shaft.End.X, y, 0), NewHavenPopulation.MineArrival, Direction.West);
+            }
+            ClimbRope(NewHavenPopulation.MineShaftRope, NewHavenPopulation.MineArrival,
+                new Point3D(shaft.X + 2, shaft.End.Y, 0));
+            ClimbRope(NewHavenPopulation.RopeDown, NewHavenPopulation.RopeUp, NewHavenPopulation.RopeDown);
+            ClimbRope(NewHavenPopulation.RopeUp, NewHavenPopulation.RopeDown, NewHavenPopulation.RopeUp);
+            WalkThrough(NewHavenPopulation.MineExit, NewHavenPopulation.MineReturn, Direction.South);
+            var mouth = NewHavenPopulation.MountainMineMouth;
+            int adjacentY = mouth.Y + 1;
+            WalkThrough(mouth, NewHavenPopulation.MountainMineArrival, Direction.West);
+            WalkThrough(new Point3D(mouth.X, adjacentY, map.GetAverageZ(mouth.X, adjacentY)),
+                NewHavenPopulation.MountainMineArrival, Direction.West);
+            WalkThrough(NewHavenPopulation.MountainMineArrival, mouth, Direction.West);
             player.MoveToWorld(new Point3D(krulg.X + 1, krulg.Y, krulg.Z), map);
             ClassCreation.Profiles.AdvanceLevel(player, 9);
             var corpse = GearDropChecks.Body(krulg, player, krulg.Location);
             try
             {
-                Require(krulg.Grade == EncounterGrade.SuperUnique && CreatureProfiles.Level(krulg) == 10,
-                    "Krulg is not a level-10 super-unique");
+                using var properties = new ObjectPropertyList(krulg);
+                krulg.GetProperties(properties);
+                properties.Terminate();
+                Require(krulg.Grade == EncounterGrade.SuperUnique && CreatureProfiles.Level(krulg) == 10
+                    && krulg.Modifiers is [var modifier]
+                    && Encoding.Unicode.GetString(properties.Buffer.AsSpan(1)).Contains(EncounterProfiles.ModifierLabel(modifier)),
+                    "Krulg needs one visible super-unique modifier at level 10");
                 Require(RewardLife.Process(krulg, corpse, new Random(42))
                     && corpse.Items.OfType<Gold>().Sum(gold => gold.Amount) > 0
                     && corpse.Items.Any(item => ClassGear.State(item) is { Roll.Rarity: not GearRarity.Normal }),
@@ -510,18 +957,61 @@ public static class NewHavenStoryChecks
             return visited;
         }
 
-        void Follow(Point3D from, Point3D to, bool rope)
+        void WalkThrough(Point3D from, Point3D to, Direction direction)
         {
             Require(map.CanFit(from, 16, checkMobiles: false) && map.CanFit(to, 16, checkMobiles: false),
                 $"Blocked mine passage {from} to {to}");
-            var item = World.Items.Values.OfType<Teleporter>().Single(item => item.Map == map
-                && item.Location == from && item.PointDest == to);
-            player.MoveToWorld(from, map);
-            if (rope)
-                ((InteractionTeleporter)item).OnDoubleClick(player);
-            else
-                item.OnMoveOver(player);
-            Require(player.Location == to && player.Map == map, $"Could not use mine passage from {from}");
+            var approach = from;
+            Server.Movement.Movement.Offset((Direction)(((int)direction + 4) & 7), ref approach);
+            if (from == NewHavenPopulation.MountainMineMouth || to == NewHavenPopulation.MountainMineArrival)
+                approach.Z = map.GetAverageZ(approach.X, approach.Y);
+            player.MoveToWorld(approach, map);
+            player.Direction = direction;
+            player.Move(direction);
+            Require(player.Location == to && player.Map == map, $"Could not walk into mine passage at {from} from {approach}");
+        }
+
+        void ClimbRope(Point3D rope, Point3D to, Point3D approach)
+        {
+            var item = World.Items.Values.OfType<InteractionTeleporter>().Single(item => item.Map == map
+                && item.X == rope.X && item.Y == rope.Y && item.Z > rope.Z && item.PointDest == to);
+            player.MoveToWorld(approach, map);
+            item.OnDoubleClick(player);
+            Require(player.Location == to && player.Map == map, $"Could not use the mine rope at {rope}");
+        }
+    }
+
+    private static void CheckTooltips()
+    {
+        var boss = new EncounterCreature();
+        var immune = new Skeleton();
+        var bow = ItemOrigins.Create(ItemOrigin.Drop, () => new MagicalShortbow { Name = "Normal MagicalShortbow" });
+        try
+        {
+            boss.Assign(EncounterProfiles.Profile("crypt-sentinel-60"), 60, MonsterDifficulty.Normal,
+                EncounterGrade.Unique, ChampionKind.Champion, [EliteModifier.ExtraStrong, EliteModifier.LightningEnchanted],
+                EliteAura.None, "Tooltip Boss", new Random(4));
+            string bossText = Encoding.Unicode.GetString(boss.PropertyList.Buffer.AsSpan(1));
+            Require(bossText.Contains("Tooltip Boss") && bossText.Contains("Extra Strong") && bossText.Contains("Lightning Enchanted"),
+                "Boss tooltip omitted the name or boss mods");
+
+            immune.SetResistance(ResistanceType.Fire, 100);
+            immune.SetResistance(ResistanceType.Cold, 120);
+            string immuneText = Encoding.Unicode.GetString(immune.PropertyList.Buffer.AsSpan(1));
+            Require(immuneText.Contains("Immune to Fire") && immuneText.Contains("Immune to Cold")
+                && !immuneText.Contains("Immune to Lightning"), "Ordinary tooltip did not show its exact immunities");
+
+            ClassGear.Profiles.FromMonster(bow, 8, GearRarity.Normal, new Random(3));
+            string bowText = Encoding.Unicode.GetString(bow.PropertyList.Buffer.AsSpan(1));
+            Require(bowText.Contains(ClassGear.Base(bow).Name) && bowText.Contains("damage") && bowText.Contains("Requires")
+                && !bowText.Contains("MagicalShortbow") && !bowText.Contains("affix level") && !bowText.Contains("Base speed modifier"),
+                "The converted bow tooltip exposed native or internal roll data");
+        }
+        finally
+        {
+            boss.Delete();
+            immune.Delete();
+            bow.Delete();
         }
     }
 

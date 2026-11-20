@@ -130,7 +130,7 @@ public static class EquipmentCraftingChecks
                 if (row.Type == "Longsword") { Require(ClassGear.Damage(output) == (basis.MinDamage, basis.MaxDamage), "Tier weapon damage wrong"); }
                 Require(!CraftTransactions.Complete(ticket, new Roll()) && tool.UsesRemaining == 49, "Equipment response replayed");
                 string tooltip = Encoding.Unicode.GetString(output.PropertyList.Buffer.AsSpan(1));
-                Require((ClassGear.CosmeticClothing(output) ? tooltip.Contains("Cosmetic") : tooltip.Contains("Base tier: " + row.Tier) && tooltip.Contains("quality: " + CraftTransactions.QualityName(expected)))
+                Require((ClassGear.CosmeticClothing(output) ? tooltip.Contains("Cosmetic") : tooltip.Contains(row.Tier + " · " + CraftTransactions.QualityName(expected)))
                     && (!GearDetails.Socketable(output) || expected == CraftQuality.Average || tooltip.Contains("Empty sockets: " + (int)expected)), "Compiled tooltip hides tier/quality/empty sockets");
                 saved.Add(Snapshot(output));
                 if (row.Type == "BoneChest")

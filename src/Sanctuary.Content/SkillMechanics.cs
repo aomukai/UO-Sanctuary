@@ -17,6 +17,8 @@ public sealed record SkillDefinition(string TalentId, string Name, DiabloClass C
     public string Text(string field) => SourceFields.TryGetValue(field, out var value)
         ? value.ValueKind == JsonValueKind.String ? value.GetString() : value.GetRawText() : "0";
     public int Parameter(int index) => SourceParameters.GetValueOrDefault(index.ToString(CultureInfo.InvariantCulture));
+    internal int ManaCost256(int rank) => Math.Max(Number("aura") != 0 ? 0 : Number("minmana") * 256,
+        Math.Max(0, Number("mana") + Math.Max(0, rank - 1) * Number("lvlmana")) << Number("manashift", 8));
 }
 
 public static class SkillMechanics
@@ -39,6 +41,17 @@ public static class SkillMechanics
     }
     public static int Rank(PlayerMobile owner, CombatAbility ability) => ability == CombatAbility.Teeth
         ? ClassCombat.TeethRank(owner) : NamedSkills.Rank(owner, For(ability).TalentId);
+    internal static int CastManaCost256(PlayerMobile owner, CombatAbility ability) => ability switch
+    {
+        CombatAbility.None or CombatAbility.BasicAttack => 0,
+        CombatAbility.Teeth => 256,
+        CombatAbility.RaiseSkeleton => SkeletonPets.Mana(owner) * 256,
+        CombatAbility.Teleport => Teleportation.ManaCost(Teleportation.Rank(owner)) * 256,
+        CombatAbility.BindDemon => BindDemonChannel.Cost256,
+        CombatAbility.Inferno or CombatAbility.ArcticBlast => For(ability).Number("startmana") * 256,
+        CombatAbility.BladeFury => Math.Max(For(ability).Number("startmana") * 256, BladeFuryResources.Cost256(Rank(owner, ability))),
+        _ => For(ability).ManaCost256(Rank(owner, ability))
+    };
     public static SkillValues Values(PlayerMobile owner, CombatAbility ability, int? rankOverride = null)
     {
         var effective = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
@@ -153,8 +166,7 @@ public sealed class SkillValues
         };
     }
     // Aura handlers use SKILLS_GetManaCosts directly; minmana belongs to ordinary cast validation.
-    public int Mana256 => Math.Max(_skill.Number("aura") != 0 ? 0 : _skill.Number("minmana") * 256,
-        Math.Max(0, _skill.Number("mana") + Math.Max(0, Rank - 1) * _skill.Number("lvlmana")) << _skill.Number("manashift", 8));
+    public int Mana256 => _skill.ManaCost256(Rank);
     public int DurationFrames => (int)(Tier(_skill.Number("ELen"), Rank, i => _skill.Number("ELevLen" + Math.Min(i, 3))) * (100 + Eval("ELenSymPerCalc")) / 100);
     public int Damage256(bool maximum, bool sourcePercentage = false)
     {

@@ -8,7 +8,7 @@ T35 adds spawnable encounters and bounded level 60–99 profiles. Permanent dung
 
 Four authored UO counterparts each have four profiles: **Crypt Sentinel** (melee), **Bog Revenant** (tank), **Ossuary Archer** (physical missiles) and **Cinder Hierophant** (fire missiles). Profile IDs combine the family with `-60`, `-70`, `-80` or `-90`, covering 60–69, 70–79, 80–89 and 90–99 respectively.
 
-Each spawn saves its profile, base level, rolled life/attack rating/defense, grade, champion kind, ordered modifiers, aura and leader serial. The existing players-1 archetype curve supplies offense, defense, primary damage, attack/impact/recovery timings, movement and XP. Grade bonuses apply at the resolved level. Higher levels retain non-overlapping life bands and nondecreasing offense/defense. The authored regional resistances, quick notice/scanning and reliable pursuit belong to these profiles alone.
+Each spawn saves its profile, base level, rolled life/attack rating/defense, grade, champion kind, ordered modifiers, aura and leader serial. The existing players-1 archetype curve supplies offense, defense, primary damage, attack/impact/recovery timings, movement and XP. Grade bonuses apply at the resolved level. Dungeon encounter life uses the players-5 multiplier after grade bonuses, up to the server's 65,000 life cap. The authored regional resistances, quick notice/scanning and reliable pursuit belong to these profiles alone.
 
 | Grade | Resolved level | Composition | Mould chance |
 | --- | --- | --- | --- |
