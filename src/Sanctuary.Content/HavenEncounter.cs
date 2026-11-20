@@ -95,6 +95,7 @@ public partial class HavenEncounter : EncounterCreature
         _ => base.CorpseName
     };
     public override bool AlwaysMurderer => Dungeon.Id == Bandit;
+    internal bool IsKrulg => Dungeon.Id == Krulg;
     public override bool BleedImmune => IsUndead(Dungeon) || Dungeon.Id == "haven-elemental";
     public override Poison PoisonImmune => IsUndead(Dungeon) ? Poison.Lethal : null;
     public override OppositionGroup OppositionGroup => IsUndead(Dungeon) ? OppositionGroup.FeyAndUndead : null;

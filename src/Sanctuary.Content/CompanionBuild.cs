@@ -63,6 +63,19 @@ internal static class CompanionBuild
         return defense;
     }
 
+    internal static int Resistance(BaseCreature actor, ResistanceType type, int native)
+    {
+        if (!MercenaryCare.CompanionLevel(actor).HasValue)
+            return native;
+        string code = type switch
+        {
+            ResistanceType.Fire => "res-fire", ResistanceType.Cold => "res-cold", ResistanceType.Energy => "res-ltng",
+            ResistanceType.Poison => "res-pois", _ => "res-physical"
+        };
+        return Math.Clamp(native + Bonus(actor, code)
+            + (type == ResistanceType.Physical ? 0 : Bonus(actor, "res-all")), -100, 75);
+    }
+
     internal static ActionTiming Timing(BaseCreature actor, DiabloClass characterClass, CombatAbility ability, BaseWeapon weapon) =>
         CombatTiming.Calculate(characterClass, ability, CombatTiming.Weapon(weapon),
             Math.Clamp(Bonus(actor, "swing1") + Bonus(actor, "swing2") + Bonus(actor, "swing3"), 0, 10000),

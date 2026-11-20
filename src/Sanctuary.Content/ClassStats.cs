@@ -133,7 +133,8 @@ public static class ClassStats
     {
         if (mobile is BaseCreature creature)
         {
-            return AmazonInnerSight.Defense(creature,Math.Max(0,checked(CreatureProfiles.Defense(creature)+NpcEquipmentCombat.Defense(creature))-TimedEffects.DefenseLoss(creature)),(creature is SkeletonGuardian summon?summon.SourceDefensePercent:0)+NpcEquipmentCombat.DefensePercent(creature)+SorceressEffects.Defense(creature)+PaladinAuras.DefensePercent(creature)+BarbarianShout.Defense(creature)+NecromancerEffects.DefenseStatPercent(creature)+HexBane.DefensePercent(creature)+SigilLethargy.Defense(creature));
+            return AmazonInnerSight.Defense(creature,Math.Max(0,checked(CreatureProfiles.Defense(creature)+NpcEquipmentCombat.Defense(creature))-TimedEffects.DefenseLoss(creature)),(creature is SkeletonGuardian summon?summon.SourceDefensePercent:0)
+                +(creature is Wolfgang wolfgang ? wolfgang.IronSkinDefense : 0)+NpcEquipmentCombat.DefensePercent(creature)+SorceressEffects.Defense(creature)+PaladinAuras.DefensePercent(creature)+BarbarianShout.Defense(creature)+NecromancerEffects.DefenseStatPercent(creature)+HexBane.DefensePercent(creature)+SigilLethargy.Defense(creature));
         }
         if (mobile is PlayerMobile player && ClassCombat.Enabled(player))
         {

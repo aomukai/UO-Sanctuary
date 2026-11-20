@@ -1,0 +1,99 @@
+diff --git a/Projects/UOContent/Commands/Object Creation/Decorate.cs b/Projects/UOContent/Commands/Object Creation/Decorate.cs
+--- a/Projects/UOContent/Commands/Object Creation/Decorate.cs
++++ b/Projects/UOContent/Commands/Object Creation/Decorate.cs
+@@ -1217,7 +1217,7 @@
+             return res;
+         }
+ 
+-        public int Generate(Map[] maps)
++        public int Generate(Map[] maps, Func<Item, Point3D, bool> include = null)
+         {
+             var count = 0;
+ 
+@@ -1243,7 +1243,7 @@
+                         continue;
+                     }
+ 
+-                    if (item == null)
++                    if (item == null || include?.Invoke(item, loc) == false)
+                     {
+                         continue;
+                     }
+diff --git a/Projects/UOContent/Misc/DoorGenerator.cs b/Projects/UOContent/Misc/DoorGenerator.cs
+--- a/Projects/UOContent/Misc/DoorGenerator.cs
++++ b/Projects/UOContent/Misc/DoorGenerator.cs
+@@ -477,10 +477,31 @@
+         return false;
+     }
+ 
+-    public static BaseDoor AddDoor(int x, int y, int z, int newZ, DoorFacing facing)
++    public static int GenerateBritannia(Map map, Predicate<Point3D> include)
++    {
++        var previousMap = m_Map;
++        int previousCount = m_Count;
++        m_Map = map;
++        m_Count = 0;
++        try
++        {
++            foreach (var region in _britRegions)
++            {
++                Generate(region, include);
++            }
++            return m_Count;
++        }
++        finally
++        {
++            m_Map = previousMap;
++            m_Count = previousCount;
++        }
++    }
++
++    public static BaseDoor AddDoor(int x, int y, int z, int newZ, DoorFacing facing, Predicate<Point3D> include = null)
+     {
+         var minZ = Math.Min(z, newZ);
+-        if (!m_Map.CanFit(x, y, minZ, 16, false, false))
++        if (include?.Invoke(new Point3D(x, y, minZ)) == false || !m_Map.CanFit(x, y, minZ, 16, false, false))
+         {
+             return null;
+         }
+@@ -524,7 +545,7 @@
+         return door;
+     }
+ 
+-    public static void Generate(Rectangle2D region)
++    public static void Generate(Rectangle2D region, Predicate<Point3D> include = null)
+     {
+         for (var rx = 0; rx < region.Width; ++rx)
+         {
+@@ -543,12 +564,12 @@
+                     {
+                         if (IsEastFrame(vx + 2, vy, z, out newZ))
+                         {
+-                            AddDoor(vx + 1, vy, z, newZ, DoorFacing.WestCW);
++                            AddDoor(vx + 1, vy, z, newZ, DoorFacing.WestCW, include);
+                         }
+                         else if (IsEastFrame(vx + 3, vy, z, out newZ))
+                         {
+-                            var first = AddDoor(vx + 1, vy, z, newZ, DoorFacing.WestCW);
+-                            var second = AddDoor(vx + 2, vy, z, newZ, DoorFacing.EastCCW);
++                            var first = AddDoor(vx + 1, vy, z, newZ, DoorFacing.WestCW, include);
++                            var second = AddDoor(vx + 2, vy, z, newZ, DoorFacing.EastCCW, include);
+ 
+                             if (first != null && second != null)
+                             {
+@@ -566,12 +587,12 @@
+                     {
+                         if (IsSouthFrame(vx, vy + 2, z, out newZ))
+                         {
+-                            AddDoor(vx, vy + 1, z, newZ, DoorFacing.SouthCW);
++                            AddDoor(vx, vy + 1, z, newZ, DoorFacing.SouthCW, include);
+                         }
+                         else if (IsSouthFrame(vx, vy + 3, z, out newZ))
+                         {
+-                            var first = AddDoor(vx, vy + 1, z, newZ, DoorFacing.NorthCCW);
+-                            var second = AddDoor(vx, vy + 2, z, newZ, DoorFacing.SouthCW);
++                            var first = AddDoor(vx, vy + 1, z, newZ, DoorFacing.NorthCCW, include);
++                            var second = AddDoor(vx, vy + 2, z, newZ, DoorFacing.SouthCW, include);
+ 
+                             if (first != null && second != null)
+                             {

@@ -1,0 +1,134 @@
+diff --git a/Projects/Server/Menus/ItemListMenu.cs b/Projects/Server/Menus/ItemListMenu.cs
+--- a/Projects/Server/Menus/ItemListMenu.cs
++++ b/Projects/Server/Menus/ItemListMenu.cs
+@@ -23,13 +23,21 @@
+ 
+ public class ItemListMenu : BaseMenu
+ {
+-    public ItemListMenu(string question, ItemListEntry[] entries)
++    public const ushort WorkshopMenuId = 0x5343;
++
++    public ItemListMenu(string question, ItemListEntry[] entries) : this(question, entries, 0)
++    {
++    }
++
++    public ItemListMenu(string question, ItemListEntry[] entries, ushort menuId)
+     {
+         Question = question.Trim();
+         Entries = entries;
++        MenuId = menuId;
+     }
+ 
+     public string Question { get; }
++    public ushort MenuId { get; }
+ 
+     public ItemListEntry[] Entries { get; set; }
+ 
+diff --git a/Projects/Server/Network/Packets/OutgoingMenuPackets.cs b/Projects/Server/Network/Packets/OutgoingMenuPackets.cs
+--- a/Projects/Server/Network/Packets/OutgoingMenuPackets.cs
++++ b/Projects/Server/Network/Packets/OutgoingMenuPackets.cs
+@@ -56,7 +56,7 @@
+         writer.Write((byte)0x7C); // Packet ID
+         writer.Seek(2, SeekOrigin.Current);
+         writer.Write(menu.Serial);
+-        writer.Write((ushort)0);
++        writer.Write(menu.MenuId);
+ 
+         writer.Write((byte)questionLength);
+ 
+diff --git a/Projects/UOContent/Engines/Craft/T2A/AlchemyMenu.cs b/Projects/UOContent/Engines/Craft/T2A/AlchemyMenu.cs
+--- a/Projects/UOContent/Engines/Craft/T2A/AlchemyMenu.cs
++++ b/Projects/UOContent/Engines/Craft/T2A/AlchemyMenu.cs
+@@ -66,7 +66,7 @@
+     };
+ 
+     private AlchemyMenu(Mobile from, BaseTool tool, Category category)
+-        : base(GetQuestion(category), BuildFilteredEntries(from, category))
++        : base(GetQuestion(category), BuildFilteredEntries(from, category), WorkshopMenuId)
+     {
+         _tool = tool;
+         _category = category;
+diff --git a/Projects/UOContent/Engines/Craft/T2A/BlacksmithMenu.cs b/Projects/UOContent/Engines/Craft/T2A/BlacksmithMenu.cs
+--- a/Projects/UOContent/Engines/Craft/T2A/BlacksmithMenu.cs
++++ b/Projects/UOContent/Engines/Craft/T2A/BlacksmithMenu.cs
+@@ -110,7 +110,7 @@
+     };
+ 
+     private BlacksmithMenu(Mobile from, BaseTool tool, Category category)
+-        : base(GetQuestion(category), BuildFilteredEntries(from, category))
++        : base(GetQuestion(category), BuildFilteredEntries(from, category), WorkshopMenuId)
+     {
+         _tool = tool;
+         _category = category;
+diff --git a/Projects/UOContent/Engines/Craft/T2A/BowFletchingMenu.cs b/Projects/UOContent/Engines/Craft/T2A/BowFletchingMenu.cs
+--- a/Projects/UOContent/Engines/Craft/T2A/BowFletchingMenu.cs
++++ b/Projects/UOContent/Engines/Craft/T2A/BowFletchingMenu.cs
+@@ -25,7 +25,7 @@
+     private readonly BaseTool _tool;
+ 
+     public BowFletchingMenu(Mobile from, BaseTool tool)
+-        : base("What would you like to make?", BuildFilteredEntries(from))
++        : base("What would you like to make?", BuildFilteredEntries(from), WorkshopMenuId)
+     {
+         _tool = tool;
+     }
+diff --git a/Projects/UOContent/Engines/Craft/T2A/CarpentryMenu.cs b/Projects/UOContent/Engines/Craft/T2A/CarpentryMenu.cs
+--- a/Projects/UOContent/Engines/Craft/T2A/CarpentryMenu.cs
++++ b/Projects/UOContent/Engines/Craft/T2A/CarpentryMenu.cs
+@@ -96,7 +96,7 @@
+     };
+ 
+     private CarpentryMenu(Mobile from, BaseTool tool, Category category)
+-        : base(GetQuestion(category), BuildFilteredEntries(from, category))
++        : base(GetQuestion(category), BuildFilteredEntries(from, category), WorkshopMenuId)
+     {
+         _tool = tool;
+         _category = category;
+diff --git a/Projects/UOContent/Engines/Craft/T2A/CartographyMenu.cs b/Projects/UOContent/Engines/Craft/T2A/CartographyMenu.cs
+--- a/Projects/UOContent/Engines/Craft/T2A/CartographyMenu.cs
++++ b/Projects/UOContent/Engines/Craft/T2A/CartographyMenu.cs
+@@ -12,7 +12,7 @@
+     private readonly BaseTool _tool;
+ 
+     public CartographyMenu(Mobile from, BaseTool tool)
+-        : base("What kind of map?", BuildFilteredEntries(from))
++        : base("What kind of map?", BuildFilteredEntries(from), WorkshopMenuId)
+     {
+         _tool = tool;
+     }
+diff --git a/Projects/UOContent/Engines/Craft/T2A/InscriptionMenu.cs b/Projects/UOContent/Engines/Craft/T2A/InscriptionMenu.cs
+--- a/Projects/UOContent/Engines/Craft/T2A/InscriptionMenu.cs
++++ b/Projects/UOContent/Engines/Craft/T2A/InscriptionMenu.cs
+@@ -41,7 +41,7 @@
+     };
+ 
+     private InscriptionMenu(Mobile from, BaseTool tool, Category category)
+-        : base(GetQuestion(category), BuildFilteredEntries(from, category))
++        : base(GetQuestion(category), BuildFilteredEntries(from, category), WorkshopMenuId)
+     {
+         _tool = tool;
+         _category = category;
+diff --git a/Projects/UOContent/Engines/Craft/T2A/TailoringMenu.cs b/Projects/UOContent/Engines/Craft/T2A/TailoringMenu.cs
+--- a/Projects/UOContent/Engines/Craft/T2A/TailoringMenu.cs
++++ b/Projects/UOContent/Engines/Craft/T2A/TailoringMenu.cs
+@@ -92,7 +92,7 @@
+     };
+ 
+     private TailoringMenu(Mobile from, BaseTool tool, Category category, int hue = -1)
+-        : base(GetQuestion(category), BuildFilteredEntries(from, category))
++        : base(GetQuestion(category), BuildFilteredEntries(from, category), WorkshopMenuId)
+     {
+         _tool = tool;
+         _category = category;
+diff --git a/Projects/UOContent/Engines/Craft/T2A/TinkeringMenu.cs b/Projects/UOContent/Engines/Craft/T2A/TinkeringMenu.cs
+--- a/Projects/UOContent/Engines/Craft/T2A/TinkeringMenu.cs
++++ b/Projects/UOContent/Engines/Craft/T2A/TinkeringMenu.cs
+@@ -130,7 +130,7 @@
+     };
+ 
+     private TinkeringMenu(Mobile from, BaseTool tool, Category category, Type selectedResourceType)
+-        : base(GetQuestion(category), BuildFilteredEntries(from, category))
++        : base(GetQuestion(category), BuildFilteredEntries(from, category), WorkshopMenuId)
+     {
+         _tool = tool;
+         _category = category;

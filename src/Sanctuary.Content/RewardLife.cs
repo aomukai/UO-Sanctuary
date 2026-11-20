@@ -40,6 +40,10 @@ public sealed record RewardLife(BaseCreature Creature, Corpse Corpse, PlayerMobi
             if (!creature.Controlled) { TreasureHunts.DiscardFishing(corpse); }
             return false;
         }
+        if (creature is HavenEncounter { IsKrulg: true } && corpse.Map == Map.Trammel
+            && NewHavenPopulation.MineArea.Contains(corpse.Location))
+            Iolo.RecordKrulgDefeat(player, corpse);
+
         var life = new RewardLife(creature, corpse, player, CreatureProfiles.Level(creature), CreatureGold.GoldFind(player), GearDrops.MagicFind(player), MonsterVariants.Difficulty(creature));
         if(CombatItemEvents.KillRecoveryAllowed(player,creature)){NamedCombat.Killed(player, creature);}
         corpse.SanctuaryRestInPeace |= CombatItemEvents.Allowed(player,creature) && creature.LastKiller == player && ClassGear.Bonus(player, "rip") > 0;

@@ -22,6 +22,8 @@ A companion matches the Avatar's active class level when they join, return, or t
 
 The worldbuilding direction is for dark dungeons where the Avatar can see the area around their light. Companions can provide light in ways that fit them. A mage might summon a glowing wisp, while someone else carries a lantern or torch. The exact lighting, patrol routes, detection ranges, and reactions belong to encounter design. The game handles scouting, slowing, and light in either dialogue mode.
 
+Iolo uses short overhead barks during combat. The Avatar can hear an occasional opening remark or a reaction when an enemy reaches his crossbow. Opening remarks and composed requests for healing each have a two-minute cooldown. With an empty potion pouch, he asks for help below half health and cries out immediately below a quarter, once per fight. After a victory that took him below half health, he may comment once the fight has been quiet for a few seconds.
+
 Other proposed specialties include a defender taunting enemies, a mage identifying items, a rogue spotting traps or hidden doors, and a bard introducing a specialist vendor. A town guard could point the Avatar to a local bounty. These are candidates alongside tank, melee, ranged, and caster archetypes. An equipment interface could let the player compare and swap loadouts, including a proposed drag-and-drop shortcut that returns the old item. [Building Britannia](worldbuilding.md)
 
 Place and object triggers can prompt a brief line, an emote, a coded action, or silence. A companion might draw a torch in darkness or crouch to inspect tracks, if the situation supports it. First and return visits can yield different reactions. Use restrained timing, with a cooldown or recent-line check for repeat crossings. Keep emotes in the existing UO convention and voice spoken lines.
@@ -40,9 +42,40 @@ After the summons, the Avatar meets Iolo at the Bountiful Harvest Inn. He sugges
 
 Choosing to travel alone leaves Iolo at the inn until the Avatar departs through New Haven’s moongate. He tells the Avatar where to find him if they leave without him. After crossing, the Avatar can still revisit New Haven and other players can still meet Iolo at the inn.
 
-In the planned Britain chapter, an Avatar who left alone can talk to Iolo at the bard’s college, where he has retired from adventuring. If they travel together, they meet Lord British in Britain. Iolo gives the Avatar his old runebook and retires when that shared adventure ends. [Travel, shrines, and recovery](travel-and-recovery.md)
+An Avatar who left New Haven alone can talk to Iolo at the bard’s college. If they travel together, Iolo greets them at Britain’s bridge and retires after their shared audience with Lord British. Visit him at the college for his runebook, free identification, and any gear or potions he was carrying. [Travel, shrines, and recovery](travel-and-recovery.md)
 
-The old companions can have jobs, homes, and their own selected histories in this Britannia. Geoffrey, Dupre, and Shamino are examples of possible recruits; others could simply be residents. Katrina tending sheep in Magincia is one way ordinary gathering can become an introduction. The traditional associations used for character writing are Iolo with Compassion, Mariah with Honesty, Geoffrey with Valor, Jaana with Justice, Julia with Sacrifice, Dupre with Honour, Shamino with Spirituality, and Katrina with Humility.
+Geoffrey captains the Britain city guard from its tower near the bridge. His sixteen-year-old recruit Wolfgang can join after Iolo’s retirement. Wolfgang matches the Avatar’s level using Barbarian stats and breakpoints. He fights with a sword and shield, learns Sword Mastery and Iron Skin, and uses Shout to bolster nearby allies and draw ordinary enemies away from them. He uses healing potions and has no mana pool.
+
+Wolfgang spots visible threats in the Avatar’s immediate area and sprints toward a nearby foe when he engages. His combat speech appears in red. His owner can open the backpack on his paperdoll and store potions there. Dropping a potion directly on Wolfgang also puts it in his pack, and he uses its healing doses when injured.
+
+Wolfgang’s personal story is about Justice and learning restraint. He wants to grow into a guard and puts protecting people ahead of fighting honourably. Geoffrey’s parting advice frames his growth around learning which fights are worth having. After a hard-earned victory together, Wolfgang admits he used to steal and fight in Britain’s streets to survive. Geoffrey saved his life, and Wolfgang joined the guard because he wanted to do for someone else what Geoffrey had done for him. His combat speech starts with lines learned in the barracks. When he is hurt, he drops the bravado and asks plainly for help.
+
+Later, an adventure in Jhelom exposes Wolfgang to mercenaries and gladiators who fight as dirty as he does. In Serpent’s Hold he learns to take honourable combat seriously. Justice stays his strongest conviction. As he grows, he keeps his composure longer under pressure, snaps less often, and learns to rely on help from the Avatar.
+
+Use Wolfgang’s recruit portrait through the Britain and Jhelom chapters. Switch to his older portrait when the Serpent’s Hold arc ends. [Wolfgang’s older portrait](../art/player-ui/portrait-wolfgang-veteran.png)
+
+Wolfgang is the prototype for companion arcs. Later companions can use their own saved story milestones to change their portrait, private dialogue, and combat speech when the story calls for it.
+
+**Proposed Britain encounter with Julia.** Julia, the Avatar’s former companion, now runs a tinker’s shop in Britain. Wolfgang catches an old friend who stole her tools to settle a debt. He knows how desperate his friend was. The Avatar can speak with Julia and learn that she can’t earn a living without those tools. Wolfgang owes his own second chance to Geoffrey and now has to decide what a second chance should ask of someone.
+
+- **Let them escape.** Trust the friend’s promise to change. Julia still bears the loss unless the Avatar recovers her tools.
+- **Turn them in.** Hold the friend accountable for the theft. The Avatar can ask Geoffrey to consider the circumstances.
+- **Ask them to make restitution.** This option comes up after the Avatar has learned about the debt and heard from Julia about the loss. The friend must agree to return the tools and face Julia, and Julia must agree to hear them out.
+
+Wolfgang’s growth comes through the conversation afterwards. He may demand an arrest too fiercely at first, afraid the Avatar will see his old self in his friend. When he’s ready, he can admit what Geoffrey knew the night he helped him.
+
+> “When Geoffrey found me, I had stolen the purse. Whatever else I tell thee about that night, that part is true. He knew it, too. And still he helped me.”
+
+The journal can remember what happened and why it mattered to Wolfgang. Compassion, Honesty, and Justice can all inform the decision. Leave the verdict to the player.
+
+For Wolfgang’s scripted voice, start with a young recruit who carefully rehearses his manners and overcompensates with borrowed barracks bravado in battle. Near death, a rare line can let the fear show through. Later, he speaks comfortably with the Avatar and taunts enemies with a quieter, assured delivery. He can ask for help plainly without losing that confidence. Audition the hesitant introduction and the quiet challenge with the same voice.
+
+| Early Wolfgang | Later Wolfgang |
+| --- | --- |
+| “Come on, then! I’m not afraid of you!” | “I’m still here. Surely thou canst do better.” |
+| “Stay behind me! I can handle this!” | “Behind me, my friend. We know how this works.” |
+
+The old companions can have jobs, homes, and their own histories in this Britannia. Dupre and Shamino are possible recruits. Katrina tending sheep in Magincia is one way ordinary gathering can become an introduction. The traditional associations used for character writing are Iolo with Compassion, Mariah with Honesty, Geoffrey with Valor, Jaana with Justice, Julia with Sacrifice, Dupre with Honour, Shamino with Spirituality, and Katrina with Humility.
 
 Iolo is a bard. His internal combat profile uses Amazon scaling. He uses Magic Arrow from level 6, Cold Arrow from level 10, and Guided Arrow from level 18. He wears light armour, clothing and accessories, and wields crossbows. He refuses incompatible gear in a private message to his owner.
 

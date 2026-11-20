@@ -39,7 +39,7 @@ public static class MapSurveys
     public static SurveyRecipe Find(string id) => Array.Find(Recipes, r => r.Id == id) ?? throw new ArgumentOutOfRangeException(nameof(id));
     public static void Configure()
     {
-        ClassMapHooks.LocationChanged = CheckLocation;
+        ClassMapHooks.LocationChanged += CheckLocation;
         ClassMapHooks.SearchRange = (from, range) => range + (WorldBonus(from) ? 5 : 0);
         EventSink.Connected += CheckLocation;
     }

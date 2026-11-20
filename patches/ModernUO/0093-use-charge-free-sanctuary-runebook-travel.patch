@@ -1,0 +1,217 @@
+diff --git a/Projects/UOContent/Mobiles/ClassMapHooks.cs b/Projects/UOContent/Mobiles/ClassMapHooks.cs
+--- a/Projects/UOContent/Mobiles/ClassMapHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassMapHooks.cs
+@@ -17,4 +17,5 @@
+     public static Func<PublicMoongate, Mobile, bool> PublicGateAllowed { get; set; }
+     public static Func<Mobile, PMList[]> PublicGateWorlds { get; set; }
+     public static Action<PublicMoongate, Mobile> PublicGateTraveled { get; set; }
++    public static Action<Mobile, RunebookEntry> RunebookTravel { get; set; }
+ }
+diff --git a/Projects/UOContent/Gumps/RunebookGump.cs b/Projects/UOContent/Gumps/RunebookGump.cs
+--- a/Projects/UOContent/Gumps/RunebookGump.cs
++++ b/Projects/UOContent/Gumps/RunebookGump.cs
+@@ -1,6 +1,7 @@
+ using System;
+ using System.Runtime.CompilerServices;
+ using Server.Items;
++using Server.Mobiles;
+ using Server.Multis;
+ using Server.Network;
+ using Server.Prompts;
+@@ -13,11 +14,19 @@
+ public class RunebookGump : DynamicGump
+ {
+     private readonly Runebook _book;
++    private readonly RunebookEntry[] _travelEntries;
+     public Runebook Book => _book;
+ 
+     public override bool Singleton => true;
+ 
+-    public RunebookGump(Runebook book) : base(150, 200) => _book = book;
++    public RunebookGump(Runebook book) : base(150, 200)
++    {
++        _book = book;
++        if (ClassMapHooks.RunebookTravel != null)
++        {
++            _travelEntries = [..book.Entries];
++        }
++    }
+ 
+     protected override void BuildLayout(ref DynamicGumpBuilder builder)
+     {
+@@ -108,6 +117,11 @@
+         for (int i = 0, xOffset = 300, gumpID = 2229; i < 4; ++i, xOffset += 35, ++gumpID)
+         {
+             builder.AddButton(xOffset, 187, gumpID, gumpID, 0, GumpButtonType.Page, 6 + i);
++        }
++
++        if (_travelEntries != null)
++        {
++            return;
+         }
+ 
+         // Charges
+@@ -133,18 +147,27 @@
+ 
+         for (var i = 0; i < 16; ++i)
+         {
+-            // Use charge button
+-            builder.AddButton(130 + i / 8 * 160, 65 + i % 8 * 15, 2103, 2104, 2 + i * 6 + 0);
++            int column = i / 8 * 160;
++            int row = i % 8 * 15;
++            if (_travelEntries == null || i < entries.Count)
++            {
++                builder.AddButton(130 + column, 65 + row, 2103, 2104, 2 + i * 6);
++            }
+ 
+             // Description label
+             if (i < entries.Count)
+             {
+                 var entry = entries[i];
+ 
++                if (_travelEntries != null)
++                {
++                    builder.AddLabel(145 + column, 60 + row, 0, "Travel");
++                }
++
+                 builder.AddLabelCropped(
+-                    145 + i / 8 * 160,
+-                    60 + i % 8 * 15,
+-                    115,
++                    (_travelEntries != null ? 188 : 145) + column,
++                    60 + row,
++                    _travelEntries != null ? 100 : 115,
+                     17,
+                     GetMapHue(entry.Map),
+                     GetName(entry.Description)
+@@ -162,8 +185,10 @@
+ 
+     private void AddDetails(ref DynamicGumpBuilder builder, int index, int half)
+     {
+-        // Use charge button
+-        builder.AddButton(130 + half * 160, 65, 2103, 2104, 2 + index * 6 + 0);
++        if (_travelEntries == null)
++        {
++            builder.AddButton(130 + half * 160, 65, 2103, 2104, 2 + index * 6);
++        }
+ 
+         if (index < _book.Entries.Count)
+         {
+@@ -187,6 +212,14 @@
+             builder.AddButton(135 + half * 160, 115, 2437, 2438, 2 + index * 6 + 1);
+             builder.AddHtmlLocalized(150 + half * 160, 115, 100, 18, 1011298); // Drop rune
+ 
++            if (_travelEntries != null)
++            {
++                builder.AddButton(135 + half * 160, 140, 2103, 2104, 2 + index * 6);
++                builder.AddLabel(150 + half * 160, 136, 0, "Travel");
++                builder.AddLabelCropped(145 + half * 160, 60, 115, 17, GetMapHue(e.Map), GetName(e.Description));
++                return;
++            }
++
+             // Set as default button
+             var defButtonID = e != _book.Default ? 2361 : 2360;
+ 
+@@ -236,6 +269,11 @@
+             return;
+         }
+ 
++        if (_travelEntries != null && (from.Map != _book.Map || !_book.CheckAccess(from) || !from.CanSee(_book)))
++        {
++            return;
++        }
++
+         var buttonID = info.ButtonID;
+ 
+         if (buttonID == 1) // Rename book
+@@ -263,6 +301,23 @@
+         }
+ 
+         var e = _book.Entries[index];
++        if (_travelEntries != null)
++        {
++            if (index >= _travelEntries.Length || _travelEntries[index] != e)
++            {
++                return;
++            }
++
++            if (type == 0)
++            {
++                ClassMapHooks.RunebookTravel?.Invoke(from, e);
++            }
++
++            if (type != 1)
++            {
++                return;
++            }
++        }
+ 
+         switch (type)
+         {
+diff --git a/Projects/UOContent/Items/Skill Items/Magical/Runebook.cs b/Projects/UOContent/Items/Skill Items/Magical/Runebook.cs
+--- a/Projects/UOContent/Items/Skill Items/Magical/Runebook.cs
++++ b/Projects/UOContent/Items/Skill Items/Magical/Runebook.cs
+@@ -66,7 +66,7 @@
+         Layer = Core.AOS ? Layer.Invalid : Layer.OneHanded;
+ 
+         _entries = new List<RunebookEntry>();
+-        _maxCharges = maxCharges;
++        _maxCharges = ClassMapHooks.RunebookTravel == null ? maxCharges : 0;
+         _defaultIndex = -1;
+         _level = SecureLevel.CoOwners;
+     }
+@@ -101,9 +101,11 @@
+         CraftItem craftItem, int resHue
+     )
+     {
+-        var charges = Math.Min(5 + quality + (int)(from.Skills.Inscribe.Value / 30), 10);
+-
+-        MaxCharges = Core.SE ? charges * 2 : charges;
++        if (ClassMapHooks.RunebookTravel == null)
++        {
++            var charges = Math.Min(5 + quality + (int)(from.Skills.Inscribe.Value / 30), 10);
++            MaxCharges = Core.SE ? charges * 2 : charges;
++        }
+ 
+         if (makersMark)
+         {
+@@ -241,7 +243,7 @@
+                 return;
+             }
+ 
+-            if (Core.Now < NextUse)
++            if (ClassMapHooks.RunebookTravel == null && Core.Now < NextUse)
+             {
+                 from.SendLocalizedMessage(502406); // This book needs time to recharge.
+                 return;
+@@ -333,7 +335,7 @@
+             return false;
+         }
+ 
+-        if (dropped is RecallScroll)
++        if (dropped is RecallScroll && ClassMapHooks.RunebookTravel == null)
+         {
+             if (CurCharges >= MaxCharges)
+             {
+diff --git a/Projects/UOContent/Spells/Targeting/RecallSpellTarget.cs b/Projects/UOContent/Spells/Targeting/RecallSpellTarget.cs
+--- a/Projects/UOContent/Spells/Targeting/RecallSpellTarget.cs
++++ b/Projects/UOContent/Spells/Targeting/RecallSpellTarget.cs
+@@ -1,4 +1,5 @@
+ using Server.Items;
++using Server.Mobiles;
+ using Server.Multis;
+ using Server.Network;
+ using Server.Targeting;
+@@ -31,6 +32,12 @@
+         }
+         else if (o is Runebook runebook)
+         {
++            if (ClassMapHooks.RunebookTravel != null)
++            {
++                from.SendMessage("Open the runebook and choose Travel.");
++                return;
++            }
++
+             var e = runebook.Default;
+ 
+             if (e == null)

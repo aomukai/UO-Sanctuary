@@ -1,0 +1,227 @@
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
+@@ -15,12 +15,14 @@
+ internal sealed class SanctuaryBackdrop : Control
+ {
+     private readonly Texture2D _texture;
+-
+-    public SanctuaryBackdrop(string name, int width, int height)
++    private readonly int _headerHeight;
++
++    public SanctuaryBackdrop(string name, int width, int height, int headerHeight = 0)
+     {
+         using var stream = typeof(SanctuaryBackdrop).Assembly.GetManifestResourceStream($"Sanctuary.UI.{name}.png")
+             ?? throw new InvalidOperationException($"Missing Sanctuary UI texture: {name}");
+         _texture = Texture2D.FromStream(Client.Game.GraphicsDevice, stream);
++        _headerHeight = headerHeight;
+         Width = width;
+         Height = height;
+         AcceptMouseInput = CanMove = true;
+@@ -33,7 +35,20 @@
+         float layer = depth;
+         lists.AddGumpNoAtlas(batcher =>
+         {
+-            batcher.Draw(_texture, bounds, ShaderHueTranslator.GetHueVector(0), layer);
++            var hue = ShaderHueTranslator.GetHueVector(0);
++            if (_headerHeight > 0 && _headerHeight < bounds.Height)
++            {
++                // The character frame's horizontal rule ends at source row 150.
++                int split = _texture.Height * 150 / 1024;
++                batcher.Draw(_texture, new Rectangle(x, y, bounds.Width, _headerHeight),
++                    new Rectangle(0, 0, _texture.Width, split), hue, layer);
++                batcher.Draw(_texture, new Rectangle(x, y + _headerHeight, bounds.Width, bounds.Height - _headerHeight),
++                    new Rectangle(0, split, _texture.Width, _texture.Height - split), hue, layer);
++            }
++            else
++            {
++                batcher.Draw(_texture, bounds, hue, layer);
++            }
+             return true;
+         });
+         return true;
+diff --git a/src/ClassicUO.Client/Network/PacketHandlers.cs b/src/ClassicUO.Client/Network/PacketHandlers.cs
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -7203,6 +7203,7 @@
+ 
+             SanctuaryGuildTheme.Apply(gump);
+             SanctuaryResurrectionTheme.Apply(gump);
++            SanctuaryWorkshopTheme.Apply(gump);
+             TalentClickAreas.Attach(gump);
+             if (mustBeAdded)
+             {
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryWorkshopTheme.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryWorkshopTheme.cs
+new file mode 100644
+--- /dev/null
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryWorkshopTheme.cs
+@@ -0,0 +1,169 @@
++// SPDX-License-Identifier: BSD-2-Clause
++
++using System;
++using System.Linq;
++using ClassicUO.Game.Scenes;
++using ClassicUO.Game.UI.Controls;
++using ClassicUO.Input;
++
++namespace ClassicUO.Game.UI.Gumps;
++
++internal static class SanctuaryWorkshopTheme
++{
++    // ModernUO hashes the fully qualified server gump type names.
++    private const uint Moongate = 0x22E12657;
++    private const uint Craft = 0x9E26D92D;
++    private const uint CraftItem = 0x28721F1E;
++    private const uint MakersMark = 0x279A7589;
++    private const uint ProfessionChoice = 0x00AE0DE4;
++    private const uint ProfessionTraining = 0x97757E74;
++    private const uint Profession = 0xA76452CB;
++    private const uint ProfessionTool = 0xE363272D;
++    private const uint Inscription = 0x27F5AD63;
++    private const uint EquipmentCraft = 0xFCDA31C6;
++    private const uint RuneCraft = 0x34B7BDA6;
++    private const uint Processing = 0xE0588252;
++    private const uint Socket = 0x6CBE36A2;
++    private const uint Jewellery = 0x83D8200D;
++    private const uint Essence = 0x0DDEF185;
++    private const uint Survey = 0x143A658C;
++    private const uint Repair = 0x68EBDFF7;
++    private const uint Alchemy = 0xDA29217B;
++    private const uint GemUpgrade = 0x3F9A28A7;
++    private const uint GemInsertion = 0x6B21CC89;
++    private const uint Meal = 0x02150805;
++    private const uint TreasureKey = 0x1B59670C;
++    private const uint FortificationCraft = 0x86AC9094;
++    private const uint Carpentry = 0x8CEEFD0B;
++
++    private const ushort Cream = 0x0481, Gold = 0x0035;
++    private const uint Divider = 0xFF486581, Panel = 0xFF292D42, Input = 0xFFBBD5E4, Text = 0xD9F0FFFF;
++
++    internal static void Apply(Gump gump)
++    {
++        if (!ClassCombatClient.Enabled || gump.ServerSerial is not (
++            Moongate or Craft or CraftItem or MakersMark or ProfessionChoice or ProfessionTraining or Profession
++            or ProfessionTool or Inscription or EquipmentCraft or RuneCraft or Processing or Socket or Jewellery
++            or Essence or Survey or Repair or Alchemy or GemUpgrade or GemInsertion or Meal or TreasureKey
++            or FortificationCraft or Carpentry))
++            return;
++
++        var children = gump.Children.ToArray();
++        var frame = children.OfType<ResizePic>().FirstOrDefault(pic => pic.X == 0 && pic.Y == 0 && pic.Graphic == 5054);
++        if (frame == null)
++            return;
++
++        int width = frame.Width, height = frame.Height;
++        int headerHeight = gump.ServerSerial is Craft or CraftItem or MakersMark ? 0 : 42;
++        Replace(gump, frame, new SanctuaryBackdrop("character-frame", width, height, headerHeight) { CanCloseWithRightClick = true });
++        gump.X = Math.Clamp(gump.X, 0, Math.Max(0, Client.Game.ClientBounds.Width - width));
++        gump.Y = Math.Clamp(gump.Y, 0, Math.Max(0, Client.Game.ClientBounds.Height - height));
++
++        foreach (var control in children)
++        {
++            switch (control)
++            {
++                case ResizePic { Graphic: 3000 } background:
++                    bool containsInput = children.OfType<StbTextBox>().Any(field =>
++                        field.Page == background.Page && background.Bounds.Contains(field.X, field.Y));
++                    Replace(gump, background, new Line(background.X, background.Y, background.Width, background.Height,
++                        containsInput ? Input : Panel) { AcceptMouseInput = false });
++                    break;
++                case GumpPicTiled { Graphic: 2624 } tile:
++                    Replace(gump, tile, new Line(tile.X, tile.Y, tile.Width, tile.Height,
++                        tile.Width == 1 || tile.Height <= 22 ? Divider : Panel) { AcceptMouseInput = false });
++                    break;
++                case Label label when !label.IsDisposed && (label.Hue is 0x0482 or 0x047F or 0x0481):
++                    label.Hue = label.Y <= 22 && label.X < 55 ? Gold : Cream;
++                    break;
++                case HtmlControl html:
++                    if (html.Text is { } text && text.Contains("COLOR=#FFFFFF", StringComparison.OrdinalIgnoreCase))
++                        html.Text = text.Replace("COLOR=#FFFFFF", "COLOR=#FFEBD2", StringComparison.OrdinalIgnoreCase);
++                    html.ApplySanctuaryColors(Text);
++                    break;
++                case Button { ButtonGraphicNormal: 4005 or 4014 or 4017 } button:
++                    StyleButton(gump, button, children, width);
++                    break;
++                case RadioButton destination when gump.ServerSerial == Moongate && width == 475:
++                    StyleDestination(gump, destination, width);
++                    break;
++            }
++        }
++    }
++
++    private static void StyleDestination(Gump gump, RadioButton destination, int width)
++    {
++        int x = destination.X, y = destination.Y;
++        destination.IsVisible = false;
++        gump.Add(new Line(x, y + 3, 15, 15, Divider) { AcceptMouseInput = false }, destination.Page);
++        gump.Add(new Line(x + 1, y + 4, 13, 13, Panel) { AcceptMouseInput = false }, destination.Page);
++        gump.Add(new DestinationMark(destination) { AcceptMouseInput = false }, destination.Page);
++        var target = gump.Add(new HitBox(x, y, width - x - 22, 23, alpha: 0.08f), destination.Page);
++        target.MouseUp += (_, args) =>
++        {
++            if (args.Button == MouseButtonType.Left && target.MouseIsOver)
++                destination.IsChecked = true;
++        };
++    }
++
++    private sealed class DestinationMark(RadioButton choice)
++        : Line(choice.X + 4, choice.Y + 7, 7, 7, 0xFF8AC8F2)
++    {
++        public override bool AddToRenderLists(RenderLists lists, int x, int y, ref float depth) =>
++            choice.IsChecked && base.AddToRenderLists(lists, x, y, ref depth);
++    }
++
++    private static void StyleButton(Gump gump, Button button, Control[] children, int frameWidth)
++    {
++        string caption = button.ButtonGraphicNormal switch { 4014 => "<", 4017 => "×", _ => ">" };
++        int width = Math.Max(27, button.Width);
++        bool primary = false;
++        var label = children.OfType<Label>().FirstOrDefault(item => item.Page == button.Page
++            && item.X == button.X + 35 && item.Y == button.Y);
++
++        if (label != null)
++        {
++            int right = children.OfType<Button>().Where(other => other.Page == button.Page && other.Y == button.Y
++                && other.X > button.X).Select(other => other.X - 5).DefaultIfEmpty(frameWidth - 12).Min();
++            int captionWidth = Math.Max(72, label.Width + 22);
++            if (captionWidth <= right - button.X)
++            {
++                caption = label.Text;
++                width = captionWidth;
++                primary = label.Hue is Gold or 0x0034 || button.ButtonAction == ButtonAction.Activate
++                    && button.ButtonID == 1 && gump.ServerSerial is ProfessionChoice or ProfessionTraining or Moongate;
++                label.Dispose();
++            }
++        }
++        else if (gump.ServerSerial == ProfessionTraining && button.ButtonID is 2 or 3)
++        {
++            caption = button.ButtonID == 2 ? "−" : "+";
++        }
++
++        Replace(gump, button, new SanctuarySheetButton(button.X, button.Y, width, caption,
++            () => Activate(gump, button), primary, height: Math.Max(20, button.Height)));
++    }
++
++    private static void Activate(Gump gump, Button button)
++    {
++        if (button.ButtonAction == ButtonAction.SwitchPage)
++        {
++            if (gump.ServerSerial == Moongate)
++                foreach (var choice in gump.Children.OfType<RadioButton>())
++                    if (choice.Page != button.ToPage)
++                        choice.IsChecked = false;
++            gump.ChangePage(button.ToPage);
++        }
++        else
++        {
++            gump.OnButtonClick(button.ButtonID);
++        }
++    }
++
++    private static void Replace(Gump gump, Control original, Control replacement)
++    {
++        gump.Insert(gump.Children.IndexOf(original), replacement);
++        replacement.Page = original.Page;
++        original.Dispose();
++    }
++}

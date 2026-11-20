@@ -22,7 +22,8 @@ public static class GraveyardProfiles
         ClassCombatHooks.CreatureSwing = (attacker, target) =>
             attacker is GraveyardUndead undead ? undead.NormalStats==null&&(NamedControl.Blind(undead)||SourceTerror.InCombat(undead))
                 ?null:undead.BeginMelee(target)
-                : attacker is SkeletonGuardian pet ? pet.BeginMelee(target) : null;
+                : attacker is SkeletonGuardian pet ? pet.BeginMelee(target)
+                : attacker is Wolfgang { Recruited: true } wolfgang ? wolfgang.BeginMelee(target) : null;
     }
     private static MonsterProfile Profile(MonsterLevel row) => new(row.Level, row.Life.Min, row.AttackRating.Min,
         row.Defense.Min, row.MinDamage, row.MaxDamage, row.AttackMs + row.RecoveryMs, row.MoveMs, 0, 0, 0, 50, 0);

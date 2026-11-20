@@ -18,7 +18,7 @@ internal static class BarbarianWardVisuals
         _ => throw new ArgumentOutOfRangeException(nameof(ability))
     };
 
-    internal static void Apply(PlayerMobile source, Mobile recipient, CombatAbility ability, DateTime until, DateTime previous, DateTime at)
+    internal static void Apply(Mobile source, Mobile recipient, CombatAbility ability, DateTime until, DateTime previous, DateTime at)
     {
         var now = TimedEffects.Now;
         if (until <= now || !PaladinAuraVisuals.InWorld(recipient)) { return; }

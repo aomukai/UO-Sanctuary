@@ -30,4 +30,8 @@ Elara the Scholar works in the north mage tower alongside the alchemy and inscri
 
 Speaking to Iolo once the Avatar has reached level 6 permanently unlocks outbound travel through the island's public moongate. The player can travel alone or invite him along. Until that conversation, the gate points the player back to Iolo at the inn.
 
+The public moongate's world selector currently offers Britannia. Its towns and countryside use the ordinary animal entries from ModernUO's stock spawn data. New Haven uses its own population.
+
 Iolo offers to wait at the inn if the Avatar chooses to travel alone. His farewell points them to the bard’s college in Britain once they leave. The first successful trip through New Haven’s moongate closes recruitment and removes the inn’s Iolo for that character. If Iolo travels with the Avatar, he speaks after they arrive. He suggests seeing Lord British and talks about passing his songs on to the young bards at the college.
+
+When Iolo joins the Avatar, his Graveyard topic disappears. After the Avatar explores the mine and defeats Krulg, Iolo’s Danger topic connects the mine to reports from across Britannia. The Ogre topic lets him reflect on Krulg’s unfamiliar powers based on what he witnessed or what the Avatar told him.

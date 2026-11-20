@@ -4,9 +4,9 @@ City moongates provide ordinary town travel. The campaign controls which realiti
 
 ## Found travel runes
 
-In the planned Britain chapter, Iolo gives the Avatar his old runebook when he retires after their shared audience with Lord British. The book initially holds a rune to the bard’s college in Britain. He tells the Avatar the art of creating travel runes has been lost. Inscription’s socketable equipment runes are a separate craft. [Companions and the Britain inn](companions.md) · [Runes and gems](runes-and-gems.md)
+After the shared audience with Lord British, Iolo gives the Avatar his old runebook at the bard’s college in Britain. The book holds a rune to the college. Choose **Travel** beside a marked rune to go there with your active companion and eligible summons. The book uses no charges, scrolls, reagents, mana, or spell skills. Iolo tells the Avatar that other marked runes may be found on the road. Inscription’s socketable equipment runes are a separate craft. [Companions and the Britain inn](companions.md) · [Runes and gems](runes-and-gems.md)
 
-Travel runes unlock authored destinations when found or earned. A rune might be in a boss’s effects, a chest, or an ogre’s bedding. The book shows destinations the Avatar has unlocked. A dungeon rune should arrive at a safe point near the entrance, and shrine runes can have individual stories. Resolve duplicate finds, use costs, and ghost access. Validate destinations against current campaign access, including closed realities.
+Travel runes unlock authored destinations when found or earned. A rune might be in a boss’s effects, a chest, or an ogre’s bedding. The book shows destinations the Avatar has unlocked. A dungeon rune should arrive at a safe point near the entrance, and shrine runes can have individual stories. Resolve duplicate finds and ghost access. Validate destinations against current campaign access, including closed realities.
 
 Dungeon return gates or town portals were floated as conveniences for banking, repair, resupply, or revival. If a shared dungeon gets a quiet gate room, decide what happens when monsters pursue players there. Assign access and return locations when the dungeon’s occupancy rules are chosen. [Building Britannia](worldbuilding.md)
 

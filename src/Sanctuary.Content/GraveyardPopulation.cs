@@ -49,6 +49,11 @@ public static class GraveyardPopulation
     {
         var definitions = JsonSerializer.Deserialize<SpawnerDto[]>(
             File.ReadAllText(Path.Join(Core.BaseDirectory, "Data", "Sanctuary", fileName)), SpawnerJsonSerializer.Options);
+        return InstallSpawners(definitions, relocate);
+    }
+
+    internal static int InstallSpawners(IEnumerable<SpawnerDto> definitions, bool relocate = false)
+    {
         var existing = new Dictionary<Guid, BaseSpawner>();
         if (relocate)
             foreach (var item in World.Items.Values)

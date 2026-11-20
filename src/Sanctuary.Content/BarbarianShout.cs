@@ -65,9 +65,15 @@ public static class BarbarianShout
     {
         if(!Alive(recipient)){return;}
         // Rank belongs to the launched missile; hard duration synergies are read at collision.
-        var values=SkillMechanics.Values(supplier,CombatAbility.Shout,rank);
+        Apply(supplier, recipient, SkillMechanics.Values(supplier,CombatAbility.Shout,rank), at);
+    }
+    internal static void Apply(Mobile supplier, Mobile recipient, SkillValues values, DateTime at, bool keepStronger = false)
+    {
+        if (!Alive(recipient)) { return; }
+        int defense = (int)values.Eval("aurastatcalc1");
+        if (keepStronger && State(recipient) is { } current && current.DefensePercent > defense) { return; }
         uint creator=_states.TryGetValue(recipient.Serial.Value,out var old) && old.UntilUtc>at?old.Creator:supplier.Serial.Value;
-        _states[recipient.Serial.Value]=new(recipient.Serial.Value,creator,supplier.Serial.Value,rank,(int)values.Eval("aurastatcalc1"),at.AddMilliseconds(values.Eval("auralencalc")*40));
+        _states[recipient.Serial.Value]=new(recipient.Serial.Value,creator,supplier.Serial.Value,values.Rank,defense,at.AddMilliseconds(values.Eval("auralencalc")*40));
         Refresh(recipient);
         BarbarianWardVisuals.Apply(supplier, recipient, CombatAbility.Shout, _states[recipient.Serial.Value].UntilUtc, old?.UntilUtc ?? default, at);
     }

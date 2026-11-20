@@ -8,6 +8,8 @@ Click a nearby merchant to open its buy window, or a banker to open your bank bo
 
 Iolo sits at the south table of the Bountiful Harvest Inn. His **Summons**, **Danger**, and **Graveyard** topics explain why he called the Avatar back and point toward the old graveyard northeast of New Haven. The first conversation adds *An Unexpected Summons* to the Avatar’s journal. Once the character has reached level 6 or higher, speaking to him permanently unlocks New Haven’s public moongate and offers **Travel Together** and **Travel Alone**. If the Avatar chooses to go alone, Iolo says he’ll wait at the inn until they leave and points them to the bard’s college in Britain after that. **Equipment** appears throughout the recruited companion’s dialogue and opens his paperdoll for his owner.
 
+The shared audience at Britain Castle uses alternating portraits for Lord British and Iolo. Iolo reports on Krulg if the Avatar defeated him. After the farewell, the journal records both the king’s request and Iolo’s retirement. Geoffrey records a separate discovery on the first meeting at the guard tower. He offers Wolfgang’s company after Iolo retires.
+
 ## Companions and variable personalities
 
 Each companion has an authored identity, background, and goals in both modes. What they know about the Avatar can change through experiences, disclosures, and their personal story. Their optional LLM dialogue portrays that same person. [Companions and the Britain inn](companions.md)

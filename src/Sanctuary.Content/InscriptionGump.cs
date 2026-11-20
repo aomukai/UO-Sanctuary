@@ -51,7 +51,7 @@ public sealed class InscriptionGump : DynamicGump
         }
         if (_page > 0) { b.AddButton(22, 395, 4014, 4016, 2000); b.AddLabel(57, 395, 0x481, "Previous"); }
         if (visible > (_page + 1) * 6) { b.AddButton(440, 395, 4005, 4007, 2001); b.AddLabel(475, 395, 0x481, "Next"); }
-        b.AddLabel(22, 430, 0x47E, "One pen use. Skill100 full-tome recipe:1% bonus Teleport scroll.");
+        b.AddLabel(22, 418, 0x47E, "One pen use per craft. At 100.0, full tomes can yield a bonus Teleport scroll.");
     }
     public override void OnResponse(NetState sender, in RelayInfo info)
     {

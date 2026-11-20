@@ -1,5 +1,7 @@
 # Building Britannia
 
+The playable Britannia facet loads the bundled decorations, town vendors, road and shop signs, and doorways. Its animal population loads from the bundled wildlife data. New Haven uses its authored town and encounter layout. Dungeon monsters and quest machinery are placed through Sanctuary’s own content.
+
 Sanctuary brings Diablo-style combat and itemisation into Britannia’s towns, homes, crafts, and wilderness. The intended scale is solo play or a small PvE community, with time for fishing, cooking, gathering, and housing. A player can follow a story when it catches their interest. Author memorable places and encounters individually. Bulk placement can establish ordinary animals or merchants around them. [The invasion campaign](invasion-campaign.md)
 
 ## Towns and neighbours

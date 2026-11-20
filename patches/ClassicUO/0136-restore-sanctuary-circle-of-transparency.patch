@@ -1,0 +1,151 @@
+diff --git a/src/ClassicUO.Client/Configuration/Profile.cs b/src/ClassicUO.Client/Configuration/Profile.cs
+--- a/src/ClassicUO.Client/Configuration/Profile.cs
++++ b/src/ClassicUO.Client/Configuration/Profile.cs
+@@ -124,6 +124,21 @@
+         public int FieldsType { get; set; } // 0 = normal, 1 = static, 2 = tile
+         public bool NoColorObjectsOutOfRange { get; set; }
+         public bool UseCircleOfTransparency { get; set; }
++        public bool SanctuaryTransparency { get; set; } = true;
++
++        [JsonIgnore]
++        public bool TransparencyEnabled
++        {
++            get => ClassCombatClient.Enabled ? SanctuaryTransparency : UseCircleOfTransparency;
++            set
++            {
++                if (ClassCombatClient.Enabled)
++                    SanctuaryTransparency = value;
++                else
++                    UseCircleOfTransparency = value;
++            }
++        }
++
+         public int CircleOfTransparencyRadius { get; set; } = Constants.MAX_CIRCLE_OF_TRANSPARENCY_RADIUS / 2;
+         public int CircleOfTransparencyType { get; set; } // 0 = normal, 1 = like original client
+         public int VendorGumpHeight { get; set; } = 60;   //original vendor gump size
+diff --git a/src/ClassicUO.Client/Game/Scenes/GameScene.cs b/src/ClassicUO.Client/Game/Scenes/GameScene.cs
+--- a/src/ClassicUO.Client/Game/Scenes/GameScene.cs
++++ b/src/ClassicUO.Client/Game/Scenes/GameScene.cs
+@@ -559,7 +559,7 @@
+                 _alphaTimer = Time.Ticks + Constants.ALPHA_TIME;
+             }
+ 
+-            if (ProfileManager.CurrentProfile.UseCircleOfTransparency)
++            if (ProfileManager.CurrentProfile.TransparencyEnabled)
+             {
+                 float r = ProfileManager.CurrentProfile.CircleOfTransparencyRadius;
+                 _cotRadiusSq = r * r;
+@@ -1001,7 +1001,7 @@
+             batcher.Begin(null, matrix);
+             batcher.SetBrightlight(ProfileManager.CurrentProfile.TerrainShadowsLevel * 0.1f);
+ 
+-            if (ProfileManager.CurrentProfile.UseCircleOfTransparency
++            if (ProfileManager.CurrentProfile.TransparencyEnabled
+                 && ProfileManager.CurrentProfile.CircleOfTransparencyType != 1) // gradient mode uses CPU alpha, not shader
+             {
+                 batcher.SetCircleOfTransparencyRadius(
+diff --git a/src/ClassicUO.Client/Game/Scenes/GameSceneDrawingSorting.cs b/src/ClassicUO.Client/Game/Scenes/GameSceneDrawingSorting.cs
+--- a/src/ClassicUO.Client/Game/Scenes/GameSceneDrawingSorting.cs
++++ b/src/ClassicUO.Client/Game/Scenes/GameSceneDrawingSorting.cs
+@@ -575,7 +575,7 @@
+             // If in chunk mesh, mark visible instead of adding to render list
+             if (obj.InChunkMesh && obj.MeshSpriteIndex >= 0)
+             {
+-                bool cot = ProfileManager.CurrentProfile.UseCircleOfTransparency
++                bool cot = ProfileManager.CurrentProfile.TransparencyEnabled
+                     && obj.TransparentTest(_world.Player.Z + 5);
+ 
+                 // Objects above _maxZ (or hidden roofs) are fading out via ProcessAlpha:
+@@ -616,7 +616,7 @@
+             // Gradient CoT for non-mesh objects (trees, foliage, animated statics).
+             // Skip objects fading out via ProcessAlpha (above _maxZ / hidden roofs),
+             // otherwise the gradient alpha overwrites the fade and they never disappear.
+-            if (_cotGradientMode && ProfileManager.CurrentProfile.UseCircleOfTransparency
++            if (_cotGradientMode && ProfileManager.CurrentProfile.TransparencyEnabled
+                 && obj.Z < _maxZ && !(_noDrawRoofs && itemData.IsRoof)
+                 && obj.TransparentTest(_world.Player.Z + 5))
+             {
+@@ -725,7 +725,7 @@
+                 allowSelection
+                 && obj.Z <= _maxGroundZ
+                 && obj.AllowedToDraw
+-                && !(ProfileManager.CurrentProfile.UseCircleOfTransparency
++                && !(ProfileManager.CurrentProfile.TransparencyEnabled
+                     && obj.TransparentTest(_world.Player.Z + 5)
+                     && IsMouseInsideCotCircle())
+                 && obj.CheckMouseSelection()
+@@ -881,7 +881,7 @@
+                         continue;
+                     }
+ 
+-                    bool meshCot = ProfileManager.CurrentProfile.UseCircleOfTransparency
++                    bool meshCot = ProfileManager.CurrentProfile.TransparencyEnabled
+                         && obj.TransparentTest(_world.Player.Z + 5);
+ 
+                     // Gradient CoT: set alpha on CPU and route to transparent list
+diff --git a/src/ClassicUO.Client/Game/Managers/MacroManager.cs b/src/ClassicUO.Client/Game/Managers/MacroManager.cs
+--- a/src/ClassicUO.Client/Game/Managers/MacroManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/MacroManager.cs
+@@ -1155,7 +1155,7 @@
+                     break;
+ 
+                 case MacroType.CircleTrans:
+-                    ProfileManager.CurrentProfile.UseCircleOfTransparency = !ProfileManager.CurrentProfile.UseCircleOfTransparency;
++                    ProfileManager.CurrentProfile.TransparencyEnabled = !ProfileManager.CurrentProfile.TransparencyEnabled;
+ 
+                     break;
+ 
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs
+@@ -21,7 +21,7 @@
+     private string _keys;
+     private int _capturing = -1;
+ 
+-    private bool _borderless, _drawRoofs, _highlightObjects;
++    private bool _borderless, _drawRoofs, _highlightObjects, _transparency;
+     private bool _bookDialogueFont = Settings.GlobalSettings.SanctuaryBookDialogueFont;
+     private bool _sound, _footsteps, _music, _combatMusic, _loginMusic;
+     private readonly ValueSlider _fps, _worldZoom, _screenScale, _soundsVolume, _musicVolume, _loginVolume;
+@@ -57,6 +57,7 @@
+         _screenScale = AddSlider("Interface scale", Graphics, 3, 50, 200, (int)Math.Round(100 * Client.Game.ScreenScale), "%");
+         AddToggle("Show roofs", Graphics, 4, _profile.DrawRoofs, value => _drawRoofs = value);
+         AddToggle("Highlight objects on hover", Graphics, 5, _profile.HighlightGameObjects, value => _highlightObjects = value);
++        AddToggle("Circle of transparency", Graphics, 6, _profile.SanctuaryTransparency, value => _transparency = value);
+         AddText("Dialogue font", 30, Row(6) + 4, Graphics);
+         SanctuarySheetButton typeface = null;
+         typeface = Add(new SanctuarySheetButton(345, Row(6), 92, _bookDialogueFont ? "Book" : "Classic", () =>
+@@ -167,14 +168,14 @@
+         ChangePage(page);
+     }
+ 
+-    private static int Row(int row) => 93 + row * 33;
++    private static int Row(int row, int page = 0) => 93 + row * (page == Graphics ? 28 : 33);
+ 
+     private Label AddText(string text, int x, int y, int page = 0) =>
+         Add(new Label(text, true, 0x0481, font: 1) { X = x, Y = y, AcceptMouseInput = false }, page);
+ 
+     private void AddToggle(string title, int page, int row, bool value, Action<bool> set)
+     {
+-        int y = Row(row);
++        int y = Row(row, page);
+         AddText(title, 30, y + 4, page);
+         SanctuarySheetButton button = null;
+         button = Add(new SanctuarySheetButton(345, y, 92, value ? "On" : "Off", () =>
+@@ -189,7 +190,7 @@
+ 
+     private ValueSlider AddSlider(string title, int page, int row, int min, int max, int value, string suffix)
+     {
+-        int y = Row(row);
++        int y = Row(row, page);
+         AddText(title, 30, y + 4, page);
+         return Add(new ValueSlider(203, y, min, max, value, suffix), page);
+     }
+@@ -216,6 +217,7 @@
+             game.GetScene<GameScene>()?.UpdateMaxDrawZ(true);
+         }
+         _profile.HighlightGameObjects = _highlightObjects;
++        _profile.SanctuaryTransparency = _transparency;
+         if (_fps.Changed)
+             game.SetRefreshRate(_fps.Value);
+         if (_worldZoom.Changed)

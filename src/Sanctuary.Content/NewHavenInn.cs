@@ -19,7 +19,7 @@ public static class NewHavenInn
         ClassMapHooks.StoryMobileVisible = (viewer, target) =>
         {
             if (target is not Iolo { Recruited: false } || viewer is not PlayerMobile player)
-                return true;
+                return BritainStory.MobileVisible(viewer, target);
             var profiles = ClassCreation.Profiles;
             return !profiles.HasDepartedNewHaven(player.Serial)
                 && (World.FindMobile(profiles.IoloCompanion(player.Serial)) is not Iolo companion

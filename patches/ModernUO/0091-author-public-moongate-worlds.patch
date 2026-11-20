@@ -1,0 +1,165 @@
+diff --git a/Projects/UOContent/Items/Misc/PublicMoongate.cs b/Projects/UOContent/Items/Misc/PublicMoongate.cs
+--- a/Projects/UOContent/Items/Misc/PublicMoongate.cs
++++ b/Projects/UOContent/Items/Misc/PublicMoongate.cs
+@@ -297,12 +297,17 @@
+     public static readonly PMList[] RedLists = [Felucca];
+     public static readonly PMList[] SigilLists = [Felucca];
+ 
+-    public PMList(int number, int selNumber, Map map, PMEntry[] entries)
++    public PMList(int number, int selNumber, Map map, PMEntry[] entries) : this(number, selNumber, map, entries, null)
++    {
++    }
++
++    public PMList(int number, int selNumber, Map map, PMEntry[] entries, string name)
+     {
+         Number = number;
+         SelNumber = selNumber;
+         Map = map;
+         Entries = entries;
++        Name = name;
+     }
+ 
+     public int Number { get; }
+@@ -312,6 +317,7 @@
+     public Map Map { get; }
+ 
+     public PMEntry[] Entries { get; }
++    public string Name { get; }
+ }
+ 
+ public class MoongateGump : DynamicGump
+@@ -319,14 +325,16 @@
+     private readonly PMList[] _lists;
+     private readonly PMList[] _tabOrder;
+     private readonly Item _moongate;
++    private readonly bool _authoredWorlds;
+ 
+     public override bool Singleton => true;
+ 
+-    private MoongateGump(Item moongate, PMList[] lists, PMList[] tabOrder) : base(100, 100)
++    private MoongateGump(Item moongate, PMList[] lists, PMList[] tabOrder, bool authoredWorlds) : base(100, 100)
+     {
+         _moongate = moongate;
+         _lists = lists;
+         _tabOrder = tabOrder;
++        _authoredWorlds = authoredWorlds;
+     }
+ 
+     public static void DisplayTo(Mobile mobile, Item moongate)
+@@ -336,9 +344,14 @@
+             return;
+         }
+ 
++        var authoredWorlds = ClassMapHooks.PublicGateWorlds?.Invoke(mobile);
+         PMList[] checkLists;
+ 
+-        if (!mobile.Player)
++        if (authoredWorlds != null)
++        {
++            checkLists = authoredWorlds;
++        }
++        else if (!mobile.Player)
+         {
+             checkLists = PMList.SELists;
+         }
+@@ -400,11 +413,17 @@
+             }
+         }
+ 
+-        mobile.SendGump(new MoongateGump(moongate, lists, tabOrder));
++        mobile.SendGump(new MoongateGump(moongate, lists, tabOrder, authoredWorlds != null));
+     }
+ 
+     protected override void BuildLayout(ref DynamicGumpBuilder builder)
+     {
++        if (_authoredWorlds)
++        {
++            BuildTravelLayout(ref builder);
++            return;
++        }
++
+         builder.AddPage();
+ 
+         builder.AddBackground(0, 0, 380, 280, 5054);
+@@ -427,6 +446,49 @@
+         for (var i = 0; i < _lists.Length; ++i)
+         {
+             RenderPage(ref builder, i, Array.IndexOf(_tabOrder, _lists[i]));
++        }
++    }
++
++    private void BuildTravelLayout(ref DynamicGumpBuilder builder)
++    {
++        int rows = _tabOrder.Length;
++        foreach (var world in _lists)
++            rows = Math.Max(rows, world.Entries.Length);
++
++        int footer = 83 + rows * 25 + 10;
++        builder.AddPage();
++        builder.AddBackground(0, 0, 475, footer + 47, 5054);
++        builder.AddHtml(22, 14, 431, 24, "<CENTER>Moongate</CENTER>");
++        builder.AddImageTiled(175, 65, 1, footer - 77, 2624);
++        builder.AddLabel(22, 62, 0x47E, "World");
++        builder.AddLabel(195, 62, 0x47E, "Destination");
++        builder.AddButton(22, footer, 4017, 4019, 0);
++        builder.AddLabel(57, footer, 0x481, "Cancel");
++        builder.AddButton(319, footer, 4005, 4007, 1);
++        builder.AddLabel(354, footer, 0x481, "Travel");
++
++        for (int page = 0; page < _lists.Length; page++)
++        {
++            builder.AddPage(page + 1);
++            for (int world = 0; world < _tabOrder.Length; world++)
++            {
++                var option = _tabOrder[world];
++                int targetPage = Array.IndexOf(_lists, option);
++                int y = 87 + world * 25;
++                builder.AddButton(22, y, 4005, 4007, 0, GumpButtonType.Page, targetPage + 1);
++                if (option.Name is { } name)
++                    builder.AddLabel(57, y, targetPage == page ? 0x34 : 0x481, name);
++                else
++                    builder.AddHtmlLocalized(57, y, 108, 22, option.Number);
++            }
++
++            var entries = _lists[page].Entries;
++            for (int i = 0; i < entries.Length; i++)
++            {
++                int y = 87 + i * 25;
++                builder.AddRadio(195, y, 210, 211, false, page * 100 + i);
++                builder.AddHtmlLocalized(221, y, 222, 22, entries[i].Number);
++            }
+         }
+     }
+ 
+@@ -479,7 +541,9 @@
+ 
+         var list = _lists[listIndex];
+ 
+-        if (listEntry < 0 || listEntry >= list.Entries.Length)
++        if (listEntry < 0 || listEntry >= list.Entries.Length
++            || _authoredWorlds && (ClassMapHooks.PublicGateWorlds?.Invoke(from) is not { } unlocked
++                || Array.IndexOf(unlocked, list) < 0))
+         {
+             return;
+         }
+@@ -494,8 +558,8 @@
+         {
+             return;
+         }
+-        else if (from.Player && from.Murderer && list.Map != Map.Felucca ||
+-                 Sigil.ExistsOn(from) && list.Map != Faction.Facet)
++        else if (!_authoredWorlds && (from.Player && from.Murderer && list.Map != Map.Felucca ||
++                 Sigil.ExistsOn(from) && list.Map != Faction.Facet))
+         {
+             from.SendLocalizedMessage(1019004); // You are not allowed to travel there.
+         }
+diff --git a/Projects/UOContent/Mobiles/ClassMapHooks.cs b/Projects/UOContent/Mobiles/ClassMapHooks.cs
+--- a/Projects/UOContent/Mobiles/ClassMapHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassMapHooks.cs
+@@ -15,5 +15,6 @@
+     public static Func<Mobile, int, int> SearchRange { get; set; }
+     public static Func<Mobile, Mobile, bool> StoryMobileVisible { get; set; }
+     public static Func<PublicMoongate, Mobile, bool> PublicGateAllowed { get; set; }
++    public static Func<Mobile, PMList[]> PublicGateWorlds { get; set; }
+     public static Action<PublicMoongate, Mobile> PublicGateTraveled { get; set; }
+ }

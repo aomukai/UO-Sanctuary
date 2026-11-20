@@ -4,7 +4,6 @@ using Server;
 using Server.Commands;
 using Server.Items;
 using Server.Logging;
-using Server.Maps;
 using Server.Mobiles;
 
 namespace Sanctuary;
@@ -23,18 +22,30 @@ public static class NewHavenPopulation
     internal static readonly Point3D RopeDown = new(5994, 319, 0);
     internal static readonly Point3D RopeUp = new(5953, 319, 0);
     internal static readonly Point3D IslandGate = new(3450, 2677, 25);
+    internal static readonly Rectangle2D MineArea = new(5903, 268, 100, 110);
     private const int MineLandingGraphic = 0x051B;
     private static readonly ILogger _logger = LogFactory.GetLogger(typeof(NewHavenPopulation));
+    private static PMList[] _publicWorlds;
+    private static PMList[] PublicWorlds => _publicWorlds ??=
+        [new(PMList.Trammel.Number, PMList.Trammel.SelNumber, Map.Trammel, PMList.Trammel.Entries, "Britannia")];
 
     public static void Configure()
     {
         EventSink.ServerStarted += Install;
+        ClassMapHooks.LocationChanged += RecordMineVisit;
         ClassMapHooks.PublicGateAllowed = CanUseGate;
+        ClassMapHooks.PublicGateWorlds = _ => PublicWorlds;
         ClassMapHooks.PublicGateTraveled = (gate, mobile) =>
         {
             if (IsIslandGate(gate) && mobile is PlayerMobile player && ClassCreation.Profiles.RecordNewHavenDeparture(player.Serial))
                 Iolo.OnNewHavenDeparture(player);
         };
+    }
+
+    private static void RecordMineVisit(Mobile mobile)
+    {
+        if (mobile is PlayerMobile { Alive: true } && mobile.Map == Map.Trammel && MineArea.Contains(mobile.Location))
+            ClassCreation.Profiles.RecordHavenMineVisit(mobile.Serial);
     }
 
     internal static void Install()
@@ -156,11 +167,8 @@ public static class NewHavenPopulation
     private static void InstallPublicGates()
     {
         // The native destination menu assumes each listed gate has a reciprocal gate at its destination.
-        var enabled = ExpansionInfo.CoreExpansion.MapSelectionFlags;
-        foreach (var list in new[] { PMList.Trammel, PMList.Felucca, PMList.Ilshenar, PMList.Malas, PMList.Tokuno })
+        foreach (var list in PublicWorlds)
         {
-            if (!enabled.Includes(list.Map.ToSelectionFlag()))
-                continue;
             foreach (var entry in list.Entries)
             {
                 bool exists = false;

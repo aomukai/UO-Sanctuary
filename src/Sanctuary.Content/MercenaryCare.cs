@@ -35,7 +35,7 @@ public static class MercenaryCare
         ClassCombatHooks.CompanionRangedSwing = (actor, target, weapon) =>
             actor is Iolo iolo && iolo.Recruited ? iolo.BeginShot(target, weapon) : null;
         ClassMercenaryHooks.RestoredOrder = (owner, pet) =>
-            pet is Iolo { IsDeadPet: false } && IsCompanion(owner, pet) ? OrderType.Guard : null;
+            pet is IClassCompanion && !pet.IsDeadPet && IsCompanion(owner, pet) ? OrderType.Guard : null;
         EventSink.Connected += owner =>
         {
             if (owner is PlayerMobile player)
@@ -49,8 +49,8 @@ public static class MercenaryCare
             if (!States.ContainsKey(mercenary.Serial)) { return false; }
             if (issuer is PlayerMobile owner && mercenary.ControlMaster == owner)
             {
-                if (mercenary is Iolo)
-                    owner.SendMessage("Iolo has promised to travel with thee.");
+                if (mercenary is IClassCompanion)
+                    owner.SendMessage($"{mercenary.Name} has promised to travel with thee.");
                 else
                     Retire(owner, mercenary);
             }
@@ -92,6 +92,14 @@ public static class MercenaryCare
     internal static int? CompanionLevel(BaseCreature actor) =>
         actor is IClassCompanion && States.TryGetValue(actor.Serial, out var state) && !state.Retired ? state.Level : null;
 
+    internal static BaseCreature ActiveStoryCompanion(PlayerMobile owner)
+    {
+        foreach (var (serial, state) in States)
+            if (state.Owner == owner.Serial && !state.Retired && World.FindMobile(serial) is BaseCreature actor and IClassCompanion)
+                return actor;
+        return null;
+    }
+
     internal static BaseCreature SyncOwner(PlayerMobile owner)
     {
         foreach (var (serial, state) in States)
@@ -108,6 +116,8 @@ public static class MercenaryCare
     {
         if (actor is not IClassCompanion build || !ClassCreation.Profiles.TryGet(owner.Serial, out var profile))
             return;
+        if (actor is Wolfgang wolfgang)
+            wolfgang.PrepareForDuty();
         CompanionBuild.Apply(actor, build.CombatClass, profile.Level, joining);
         if (state.Level != profile.Level)
             States[actor.Serial] = state with { Level = profile.Level };
@@ -115,8 +125,23 @@ public static class MercenaryCare
     public static long Stock(BaseCreature mercenary)
     {
         if (!States.TryGetValue(mercenary.Serial, out var state)) { return 0; }
-        long total = 0; foreach (long amount in state.Healing) { total += amount; } return total;
+        long total = 0;
+        foreach (long amount in state.Healing)
+            total += amount;
+        if (mercenary is Wolfgang { Backpack: { } pack })
+            foreach (var item in pack.FindItems())
+                if (PackHealingTier(item) > 0)
+                    total = Math.Min(total, long.MaxValue - item.Amount) + item.Amount;
+        return total;
     }
+    private static int PackHealingTier(Item item) => item switch
+    {
+        RestorationPotion { Kind: RestorationKind.Healing, Tier: >= 1 and <= 5 } potion => potion.Tier,
+        LesserHealPotion => 1,
+        HealPotion => 2,
+        GreaterHealPotion => 3,
+        _ => 0
+    };
     private static bool Owned(PlayerMobile owner, BaseCreature mercenary, out MercenaryCareState state)
     {
         state = null;
@@ -142,6 +167,9 @@ public static class MercenaryCare
             if (!aggression.Expired && OnOwnersSide(owner, aggression.Attacker))
                 return true;
 
+        if (companion is Wolfgang && owner.InRange(target, 8) && owner.InLOS(target))
+            return true;
+
         return null;
     }
 
@@ -166,11 +194,29 @@ public static class MercenaryCare
             || mercenary.HitsMax <= 0 || now < state.NextDrinkUtc) { return false; }
         TimedEffects.Settle(mercenary, now);
         if (mercenary.IsDeadPet || !mercenary.Alive || (long)mercenary.Hits * 2 > mercenary.HitsMax) { return false; }
-        int tier = 0; while (tier < 5 && state.Healing[tier] == 0) { tier++; }
-        if (tier == 5) { return false; }
-        var potion = PotionBeltCatalog.Potion(RestorationKind.Healing, tier + 1);
+        int tier = Array.FindIndex(state.Healing, count => count > 0) + 1;
+        Item packedDose = null;
+        if (mercenary is Wolfgang { Backpack: { } pack })
+            foreach (var item in pack.FindItems())
+            {
+                int candidate = PackHealingTier(item);
+                if (candidate > 0 && (tier == 0 || candidate < tier))
+                {
+                    tier = candidate;
+                    packedDose = item;
+                }
+            }
+        if (tier == 0) { return false; }
+        var potion = PotionBeltCatalog.Potion(RestorationKind.Healing, tier);
         if (!TimedEffects.AddRestoration(mercenary, true, potion.Amount, potion.DurationMs, now)) { return false; }
-        var amounts = (long[])state.Healing.Clone(); amounts[tier]--;
+        var amounts = state.Healing;
+        if (packedDose != null)
+            packedDose.Consume(1);
+        else
+        {
+            amounts = (long[])amounts.Clone();
+            amounts[tier - 1]--;
+        }
         States[mercenary.Serial] = state with { Healing = amounts, NextDrinkUtc = now.AddSeconds(10) };
         long remaining = Stock(mercenary);
         if (remaining is 9 or 5 or 1 && World.FindMobile(state.Owner) is PlayerMobile owner)
@@ -186,11 +232,11 @@ public static class MercenaryCare
             { TryDrink(mercenary, now); }
         }
     }
-    internal static bool Retire(PlayerMobile owner, BaseCreature mercenary)
+    internal static bool Retire(PlayerMobile owner, BaseCreature mercenary, bool keepPotions = false)
     {
         if (!Owned(owner, mercenary, out var state)) { return false; }
         TimedEffects.Clear(mercenary); mercenary.Combatant = null;
-        States[mercenary.Serial] = state with { Retired = true, Healing = new long[5] };
+        States[mercenary.Serial] = state with { Retired = true, Healing = keepPotions ? state.Healing : new long[5] };
         mercenary.SetControlMaster(null);
         // Keep the real gear on its saved carrier until it can be returned; never delete it with the contract.
         mercenary.Internalize(); return true;
@@ -201,6 +247,30 @@ public static class MercenaryCare
         && item is { Deleted: false, Movable: true } && item != mercenary.Backpack
         && (item.Parent == mercenary || mercenary.Backpack != null && item.IsChildOf(mercenary.Backpack))
         && item.Layer is not (Layer.Hair or Layer.FacialHair) && owner.Backpack.TryDropItem(owner, item, false);
+
+    internal static void RecoverRetiredPotions(PlayerMobile owner, BaseCreature mercenary)
+    {
+        if (!States.TryGetValue(mercenary.Serial, out var state) || state.Owner != owner.Serial || !state.Retired
+            || owner is not { Alive: true, Backpack: not null, Holding: null })
+            return;
+        for (int i = 0; i < state.Healing.Length; i++)
+        {
+            while (state.Healing[i] > 0)
+            {
+                var potion = new RestorationPotion(RestorationKind.Healing, i + 1)
+                {
+                    Amount = (int)Math.Min(60_000, state.Healing[i])
+                };
+                int amount = potion.Amount;
+                if (!owner.Backpack.TryDropItem(owner, potion, false))
+                {
+                    potion.Delete();
+                    return;
+                }
+                state.Healing[i] -= amount;
+            }
+        }
+    }
     public static bool Provider(BaseCreature healer) => healer is BaseHealer or HealerGuildmaster;
     public static int HealFollowers(PlayerMobile owner, BaseCreature npc, bool includeParked = false)
     {

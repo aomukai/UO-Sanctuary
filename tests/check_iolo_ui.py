@@ -73,7 +73,7 @@ def exercise(window, click, profile):
     client_capture(window, "iolo-solo.png")
     click(406, 419)  # Travel Together stays available after declining.
     client_capture(window, "iolo-joins.png")
-    click(406, 299)  # The first keyword stays available after recruitment.
+    click(406, 339)  # Summons remains available after recruitment.
     click(406, 419)  # Equipment stays available after following a keyword.
     client_capture(window, "iolo-equipment.png")
     key("ctrl+alt+shift+s")
@@ -83,6 +83,16 @@ def exercise(window, click, profile):
     key("j")
     assert client_capture(window, area=journal_area) == entry, "Repeating the conversation changed the first journal entry"
     key("j")
+    if os.environ.get("SANCTUARY_TEST_BRITAIN_STORY_UI") == "1":
+        exercise_britain(window, click, command, key)
+        return
+    command("bark-stocked")
+    time.sleep(7.2)
+    command("bark-composed")
+    client_capture(window, "iolo-composed-bark.png")
+    command("bark-urgent")
+    client_capture(window, "iolo-urgent-bark.png")
+    command("bark-cleanup")
     command("doorway")
     time.sleep(0.65)
     client_capture(window, "iolo-open-door.png")
@@ -171,7 +181,88 @@ def exercise(window, click, profile):
     time.sleep(0.4)
     client_capture(window, "town-minion-returned.png")
     exercise_succubus(window, command)
-    print("Actual client: Iolo, mine, healer, and summon flows passed, including the mana indicator.", flush=True)
+    command("mine-topics")
+    exercise_tower(window, click, command, key)
+    print("Actual client: Iolo, mine, healer, summon, and tower flows passed.", flush=True)
+
+
+def exercise_tower(window, click, command, key):
+    command("tower-start")
+    time.sleep(0.8)
+    key("Escape")
+    click(480, 334)  # Graphics → Circle of transparency.
+    click(487, 403)  # Apply.
+    opaque = client_capture(window, "tower-opaque.png", area=(194, 183, 165, 145))
+    key("Escape")
+    click(480, 334)
+    click(487, 403)
+    revealed = client_capture(window, "tower-revealed.png", area=(194, 183, 165, 145))
+    assert revealed != opaque, "Changing transparency had no effect at the tower"
+    click(266, 271)
+    time.sleep(2)
+    command("tower-entered")
+
+
+def exercise_britain(window, click, command, key):
+    def scene(suffix):
+        command(f"britain-{suffix}")
+        time.sleep(0.45)
+
+    scene("bridge")
+    client_capture(window, "britain-bridge.png")
+    scene("geoffrey")
+    client_capture(window, "britain-meeting-geoffrey.png")
+    click(132, 419)
+    scene("throne")
+    audience = set()
+    for page in range(5):
+        portrait = client_capture(window, f"britain-audience-{page}.png", area=(43, 76, 150, 150))
+        audience.add(portrait)
+        click(406, 419)
+    assert len(audience) == 2, "The audience did not alternate between Iolo and Lord British"
+    scene("retired")
+    key("j")
+    client_capture(window, "britain-journal.png")
+    subprocess.run(["xdotool", "mousemove", "--window", window, "200", "290", "click", "--repeat", "10", "5"], check=True)
+    time.sleep(0.35)
+    client_capture(window, "britain-journal-retirement.png")
+    key("j")
+    scene("college")
+    client_capture(window, "britain-college.png")
+    click(406, 379)
+    client_capture(window, "britain-free-identification.png")
+    scene("free-id")
+    scene("recover")
+    click(406, 419)
+    click(132, 419)
+    scene("runebook")
+    client_capture(window, "britain-runebook.png")
+    click(284, 268)
+    scene("runebook-arrived")
+    scene("wolfgang-offer")
+    click(406, 339)
+    client_capture(window, "britain-wolfgang-introduction.png")
+    click(406, 379)
+    client_capture(window, "britain-geoffreys-advice.png")
+    click(406, 419)
+    client_capture(window, "britain-wolfgang-joins.png")
+    click(132, 419)
+    scene("wolfgang-joined")
+    client_capture(window, "britannia-wolfgang-bark.png")
+    time.sleep(5.0)
+    scene("wolfgang-win")
+    time.sleep(5.4)
+    scene("wolfgang-trust")
+    click(406, 419)
+    client_capture(window, "britain-wolfgangs-past.png")
+    click(132, 419)
+    scene("runebook-followers")
+    click(284, 268)
+    scene("runebook-party-arrived")
+    if os.environ.get("SANCTUARY_VERIFY_BRITANNIA_WORLD") == "1":
+        scene("world-and-pack")
+        client_capture(window, "wolfgang-backpack.png")
+    print("Actual client: Britain audience, journal, runebook, free identification, and Wolfgang passed.", flush=True)
 
 
 def exercise_services(window, click, command):
@@ -216,6 +307,14 @@ def exercise_services(window, click, command):
     click(136, 265)
     client_capture(window, "trainer-paid.png")
     command("training-paid")
+
+    command("gate-ui-setup")
+    time.sleep(0.6)
+    client_capture(window, "moongate-britannia.png")
+    click(350, 220)  # Select Britain by its full row.
+    click(450, 428)
+    command("gate-ui-arrived")
+    client_capture(window, "britain-arrival.png")
 
 
 def exercise_succubus(window, command):

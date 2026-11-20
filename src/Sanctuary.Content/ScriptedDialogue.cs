@@ -16,7 +16,8 @@ namespace Sanctuary;
 public static class ScriptedDialogue
 {
     internal sealed record Reply(string Text, byte Next, Action<PlayerMobile, Mobile> Select = null);
-    internal sealed record Node(string Line, Reply[] Replies);
+    internal sealed record Voice(string Name, byte Portrait);
+    internal sealed record Node(string Line, Reply[] Replies, Voice Speaker = null);
     private sealed record Session(Mobile Speaker, IReadOnlyList<Node> Script, byte Node, uint Token, long Until);
     private static readonly Dictionary<Serial, Session> _sessions = new();
     private static readonly HashSet<Serial> _ghostBriefed = new();
@@ -96,8 +97,11 @@ public static class ScriptedDialogue
         var profiles = ClassCreation.Profiles;
         var writer = Packet(12, PortraitProtocol.StoryState, stackalloc byte[12]);
         writer.Write(profiles.HasMetIolo(player.Serial));
-        writer.Write(profiles.IoloCompanion(player.Serial));
+        writer.Write(MercenaryCare.ActiveStoryCompanion(player)?.Serial ?? Serial.Zero);
         player.NetState?.Send(writer.Span);
+        var discoveries = Packet(8, PortraitProtocol.BritainDiscoveries, stackalloc byte[8]);
+        discoveries.Write((byte)profiles.Discoveries(player.Serial));
+        player.NetState?.Send(discoveries.Span);
     }
 
     internal static void Open(PlayerMobile player, Mobile speaker)
@@ -226,12 +230,12 @@ public static class ScriptedDialogue
         uint token = ++_nextToken;
         var page = script[node];
         var talkative = speaker as IScriptedSpeaker;
-        byte[][] texts = [Encoding.UTF8.GetBytes(talkative?.DialogueName ?? speaker.Name), Encoding.UTF8.GetBytes(page.Line),
+        byte[][] texts = [Encoding.UTF8.GetBytes(page.Speaker?.Name ?? talkative?.DialogueName ?? speaker.Name), Encoding.UTF8.GetBytes(page.Line),
             .. page.Replies.Select(reply => Encoding.UTF8.GetBytes(reply.Text))];
         int length = 13 + texts.Sum(text => 2 + text.Length);
         var writer = Packet(length, PortraitProtocol.Conversation, stackalloc byte[length]);
         writer.Write(token);
-        writer.Write(talkative?.Portrait ?? (speaker.Female ? (byte)0 : (byte)2));
+        writer.Write(page.Speaker?.Portrait ?? talkative?.Portrait ?? (speaker.Female ? (byte)0 : (byte)2));
         writer.Write((byte)page.Replies.Length);
         foreach (byte[] text in texts)
         {

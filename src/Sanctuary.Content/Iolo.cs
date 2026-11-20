@@ -15,6 +15,7 @@ namespace Sanctuary;
 public partial class Iolo : ConversationNpc, IClassCompanion
 {
     internal const int RequiredLevel = 6;
+    private const byte JoinedNode = 3;
     [SerializableField(0)]
     private Serial _recruitedBy;
 
@@ -25,7 +26,7 @@ public partial class Iolo : ConversationNpc, IClassCompanion
     public override bool IsInvulnerable => !Recruited;
     public override bool CanRegenMana => false;
     internal override byte Portrait => 11;
-    internal override IReadOnlyList<ScriptedDialogue.Node> Script => Recruited ? _company : _introduction;
+    internal override IReadOnlyList<ScriptedDialogue.Node> Script => _introduction;
 
     private long _nextSpecialShot = long.MinValue;
     private TimerExecutionToken _shot;
@@ -37,8 +38,6 @@ public partial class Iolo : ConversationNpc, IClassCompanion
 
     private static readonly ScriptedDialogue.Reply[] _topics =
         [new("Summons", 1), new("Danger", 2), new("Graveyard", 3)];
-    private static readonly ScriptedDialogue.Reply[] _companionTopics =
-        [new("Summons", 1), new("Danger", 2), new("Graveyard", 3), new("Equipment", 0, OpenEquipment)];
     private static readonly ScriptedDialogue.Reply _join = new("Travel Together", 0, AcceptCompany);
     private static readonly ScriptedDialogue.Reply[] _invitation = [_join, new("Travel Alone", 1), new("Summons", 2), new("Graveyard", 4)];
     private static readonly ScriptedDialogue.Reply[] _readyTopics = [new("Summons", 2), new("Danger", 3), new("Graveyard", 4), _join];
@@ -48,7 +47,7 @@ public partial class Iolo : ConversationNpc, IClassCompanion
         new("Avatar! 'Twas I who summoned thee. There are signs of danger in Britannia, but thou lookest a little rusty. Get thy bearings while I finish my business. There is an old graveyard northeast of town where thou canst test thy mettle. Come back to the inn when thou feelest ready.", _topics),
         new(Summons, _topics), new(Danger, _topics), new(Graveyard, _topics),
         new("Keep at it, friend. I have business yet to finish here. Come and see me at the inn when thou hast found thy footing again.", _topics),
-        new("We are already companions, my friend. Speak to me on the road if thou wouldst look over my kit.", _topics)
+        new("We are already companions, my friend. Speak to me on the road if thou wouldst look over my kit.", [])
     ];
 
     private static readonly ScriptedDialogue.Node[] _offer =
@@ -60,13 +59,36 @@ public partial class Iolo : ConversationNpc, IClassCompanion
         new("Thou already hast company on the road. Come back alone when there is room for an old bard.", _readyTopics)
     ];
 
-    private static readonly ScriptedDialogue.Node[] _company =
-    [
-        new("What is it, my friend? I've time for a word before we go on.", _companionTopics),
-        new(Summons, _companionTopics), new(Danger, _companionTopics),
-        new("The old graveyard lies northeast of New Haven. We can see to the restless dead there if thou wouldst take the old crossbow for a trial.", _companionTopics),
-        new("Come, let us go together.", _companionTopics)
-    ];
+    private static readonly ScriptedDialogue.Node[] _company = CompanyScript(
+        "The reports come from all across Britannia, and they grow worse by the day. I have yet to learn what ties them together.");
+    private static readonly ScriptedDialogue.Node[] _companyMine = CompanyScript(
+        "Look at what befell the mine. Those miners could work in peace until beasts drove them out. I have heard much the same from other parts of Britannia. I begin to wonder how many of these troubles share a cause.",
+        "I have faced ogres before, Avatar. I know their strength well enough, but that creature had powers I have never seen in one of its kind.");
+    private static readonly ScriptedDialogue.Node[] _companyMineReported = CompanyScript(
+        "Thy account of the mine put me in mind of reports from elsewhere in Britannia. Folk are being driven from places they have long worked in peace. I begin to wonder how many of these troubles share a cause.",
+        "I have faced ogres before, Avatar, but in all my years I have never seen one wield the likes of the powers thou hast described.");
+
+    private static ScriptedDialogue.Node[] CompanyScript(string danger, string ogre = null)
+    {
+        ScriptedDialogue.Reply[] topics = ogre == null
+            ? [new("Summons", 1), new("Danger", 2), new("Equipment", 0, OpenEquipment)]
+            : [new("Summons", 1), new("Danger", 2), new("Equipment", 0, OpenEquipment), new("Ogre", 4)];
+        ScriptedDialogue.Node[] nodes =
+        [
+            new("What is it, my friend? I've time for a word before we go on.", topics),
+            new(Summons, topics), new(danger, topics),
+            new("Come, let us go together.", topics)
+        ];
+        return ogre == null ? nodes : [..nodes, new(ogre, topics)];
+    }
+
+    internal IReadOnlyList<ScriptedDialogue.Node> CompanyFor(PlayerMobile player)
+    {
+        if (!ClassCreation.Profiles.HasInvestigatedHavenMine(player.Serial, out var witness))
+            return _company;
+
+        return witness == Serial ? _companyMine : _companyMineReported;
+    }
 
     private static readonly ScriptedDialogue.Reply[] _departureTopics =
         [new("Lord British", 1), new("Songs", 2), new("Equipment", 0, OpenEquipment)];
@@ -110,7 +132,7 @@ public partial class Iolo : ConversationNpc, IClassCompanion
             if (IsDeadPet)
                 player.SendMessage("Iolo's spirit follows thee still. A healer can call him back.");
             else
-                base.BeginConversation(player);
+                ScriptedDialogue.Show(player, this, CompanyFor(player));
             return;
         }
 
@@ -156,7 +178,7 @@ public partial class Iolo : ConversationNpc, IClassCompanion
         if (Recruit(player) is { } companion)
         {
             player.NetState?.SendRemoveEntity(innIolo.Serial);
-            ScriptedDialogue.Show(player, companion, _company, 4);
+            ScriptedDialogue.Show(player, companion, companion.CompanyFor(player), JoinedNode);
         }
         else
             ScriptedDialogue.Show(player, innIolo, _offer, 6);
@@ -195,6 +217,21 @@ public partial class Iolo : ConversationNpc, IClassCompanion
 
     internal static bool IsTravelingWith(PlayerMobile player) => TravelingCompanion(player) != null;
 
+    internal static Iolo NearbyCompanion(PlayerMobile player) =>
+        MercenaryCare.ActiveStoryCompanion(player) is Iolo { Alive: true, IsDeadPet: false } iolo
+        && iolo.IsOwnedBy(player) && iolo.Map == player.Map && iolo.InRange(player, 6)
+        && Math.Abs(iolo.Z - player.Z) < 16 && player.CanSee(iolo) && player.InLOS(iolo) ? iolo : null;
+
+    internal static void RecordKrulgDefeat(PlayerMobile player, Corpse corpse)
+    {
+        var profiles = ClassCreation.Profiles;
+        var recruited = profiles.IoloCompanion(player.Serial);
+        bool witnessed = World.FindMobile(recruited) is Iolo { Alive: true, IsDeadPet: false } companion
+            && companion.IsOwnedBy(player) && companion.Map == corpse.Map
+            && companion.InRange(corpse.GetWorldLocation(), 12) && companion.InLOS(corpse);
+        profiles.RecordKrulgDefeat(player.Serial, witnessed ? recruited : default);
+    }
+
     internal static void OnNewHavenDeparture(PlayerMobile player)
     {
         if (StatNetwork.SupportsCurrentProtocol(player) && TravelingCompanion(player) is { } companion)
@@ -220,6 +257,7 @@ public partial class Iolo : ConversationNpc, IClassCompanion
     public override void OnAfterResurrect()
     {
         base.OnAfterResurrect();
+        EndBarkFight();
         if (Recruited && ControlMaster is PlayerMobile owner && IsOwnedBy(owner))
         {
             ControlTarget = owner;
@@ -227,19 +265,7 @@ public partial class Iolo : ConversationNpc, IClassCompanion
         }
     }
 
-    public override int GetResistance(ResistanceType type)
-    {
-        int resistance = base.GetResistance(type);
-        if (!Recruited || !MercenaryCare.CompanionLevel(this).HasValue)
-            return resistance;
-        string code = type switch
-        {
-            ResistanceType.Fire => "res-fire", ResistanceType.Cold => "res-cold", ResistanceType.Energy => "res-ltng",
-            ResistanceType.Poison => "res-pois", _ => "res-physical"
-        };
-        return Math.Clamp(resistance + CompanionBuild.Bonus(this, code)
-            + (type == ResistanceType.Physical ? 0 : CompanionBuild.Bonus(this, "res-all")), -100, 75);
-    }
+    public override int GetResistance(ResistanceType type) => CompanionBuild.Resistance(this, type, base.GetResistance(type));
 
     public override bool EquipItem(Item item)
     {
@@ -263,6 +289,8 @@ public partial class Iolo : ConversationNpc, IClassCompanion
         if (Recruited)
             RangeFight = Weapon is BaseRanged ranged && !ClassGear.Broken(ranged) ? Math.Min(5, ranged.MaxRange) : 1;
         base.OnThink();
+        if (Recruited)
+            ObserveCombatBarks();
     }
 
     internal static int ShotRank(CombatAbility skill, int level)

@@ -40,7 +40,9 @@ def exercise(window, click, capture):
     command('material')  # Native resource selection; actual menu replies below use the client.
     time.sleep(.5)
     capture('crafting-main.png')
-    subprocess.run(['xdotool', 'mousemove', '--window', window, '200', '190', 'click', '3'], check=True)
+    subprocess.run(['xdotool', 'mousemove', '--window', window, '200', '185'], check=True)
+    time.sleep(.15)
+    subprocess.run(['xdotool', 'click', '3'], check=True)
     time.sleep(.3)
     command('cancelled')
     command('material')

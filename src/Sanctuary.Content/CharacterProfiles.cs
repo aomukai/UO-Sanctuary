@@ -31,6 +31,13 @@ public sealed class CharacterProfiles : GenericPersistence
         internal bool NewHavenGateUnlocked;
         internal bool DepartedNewHaven;
         internal Serial IoloCompanion;
+        internal bool VisitedHavenMine;
+        internal bool DefeatedKrulg;
+        internal Serial KrulgWitness;
+        internal StoryDiscoveries BritainDiscoveries;
+        internal bool IoloGreetedBritain;
+        internal bool ReceivedIoloRunebook;
+        internal bool WolfgangOpenedUp;
         internal readonly Dictionary<DiabloClass, History> Classes = new();
     }
     private Dictionary<Serial, Character> _characters = new();
@@ -353,6 +360,60 @@ public sealed class CharacterProfiles : GenericPersistence
 
     internal void SetIoloCompanion(Serial serial, Serial companion) => _characters[serial].IoloCompanion = companion;
 
+    internal StoryDiscoveries Discoveries(Serial serial) => _characters.TryGetValue(serial, out var character)
+        ? character.BritainDiscoveries | (character.MetIolo ? StoryDiscoveries.UnexpectedSummons : StoryDiscoveries.None)
+        : StoryDiscoveries.None;
+
+    internal bool Discover(Serial serial, StoryDiscoveries discoveries)
+    {
+        if (!_characters.TryGetValue(serial, out var character)
+            || (character.BritainDiscoveries & discoveries) == discoveries)
+            return false;
+        character.BritainDiscoveries |= discoveries;
+        return true;
+    }
+
+    internal bool GreetedBritain(Serial serial) =>
+        _characters.TryGetValue(serial, out var character) && character.IoloGreetedBritain;
+
+    internal void RecordBritainGreeting(Serial serial) => _characters[serial].IoloGreetedBritain = true;
+
+    internal bool ReceivedIoloRunebook(Serial serial) =>
+        _characters.TryGetValue(serial, out var character) && character.ReceivedIoloRunebook;
+
+    internal void RecordIoloRunebook(Serial serial) => _characters[serial].ReceivedIoloRunebook = true;
+
+    internal bool WolfgangOpenedUp(Serial serial) =>
+        _characters.TryGetValue(serial, out var character) && character.WolfgangOpenedUp;
+
+    internal void RecordWolfgangTrust(Serial serial) => _characters[serial].WolfgangOpenedUp = true;
+
+    internal void RecordHavenMineVisit(Serial serial)
+    {
+        if (_characters.TryGetValue(serial, out var character))
+            character.VisitedHavenMine = true;
+    }
+
+    internal void RecordKrulgDefeat(Serial serial, Serial witness)
+    {
+        if (!_characters.TryGetValue(serial, out var character))
+            return;
+
+        character.DefeatedKrulg = true;
+        if (witness.IsMobile)
+            character.KrulgWitness = witness;
+    }
+
+    internal bool HasInvestigatedHavenMine(Serial serial, out Serial witness)
+    {
+        witness = default;
+        if (!_characters.TryGetValue(serial, out var character) || !character.VisitedHavenMine || !character.DefeatedKrulg)
+            return false;
+
+        witness = character.KrulgWitness;
+        return true;
+    }
+
     internal bool NewHavenGateUnlocked(Serial serial) =>
         _characters.TryGetValue(serial, out var character) && character.NewHavenGateUnlocked;
 
@@ -531,7 +592,7 @@ public sealed class CharacterProfiles : GenericPersistence
 
     public override void Serialize(IGenericWriter writer)
     {
-        writer.Write(9);
+        writer.Write(11);
         writer.Write(_characters.Count);
         var serials = new List<Serial>(_characters.Keys); serials.Sort();
         foreach (var serial in serials)
@@ -546,6 +607,13 @@ public sealed class CharacterProfiles : GenericPersistence
             writer.Write(character.IoloCompanion.Value);
             writer.Write(character.NewHavenGateUnlocked);
             writer.Write(character.DepartedNewHaven);
+            writer.Write(character.VisitedHavenMine);
+            writer.Write(character.DefeatedKrulg);
+            writer.Write(character.KrulgWitness.Value);
+            writer.Write((byte)character.BritainDiscoveries);
+            writer.Write(character.IoloGreetedBritain);
+            writer.Write(character.ReceivedIoloRunebook);
+            writer.Write(character.WolfgangOpenedUp);
             writer.Write(character.Classes.Count);
             var classes = new List<DiabloClass>(character.Classes.Keys); classes.Sort();
             foreach (var id in classes) { WriteHistory(writer, character.Classes[id]); }
@@ -567,7 +635,7 @@ public sealed class CharacterProfiles : GenericPersistence
     public override void Deserialize(IGenericReader reader)
     {
         int version = reader.ReadInt();
-        if (version is < 0 or > 9) { throw new InvalidDataException($"Unsupported Sanctuary character data version {version}."); }
+        if (version is < 0 or > 11) { throw new InvalidDataException($"Unsupported Sanctuary character data version {version}."); }
         int count = reader.ReadInt();
         if (count is < 0 or > 1000000) { throw new InvalidDataException("Invalid Sanctuary character count."); }
         // Decode and validate the complete replacement before changing the loaded authority.
@@ -601,6 +669,19 @@ public sealed class CharacterProfiles : GenericPersistence
                     character.IoloCompanion = (Serial)reader.ReadUInt();
                     character.NewHavenGateUnlocked = version >= 8 ? reader.ReadBool() : character.IoloCompanion.IsMobile;
                     character.DepartedNewHaven = version >= 9 && reader.ReadBool();
+                    if (version >= 10)
+                    {
+                        character.VisitedHavenMine = reader.ReadBool();
+                        character.DefeatedKrulg = reader.ReadBool();
+                        character.KrulgWitness = (Serial)reader.ReadUInt();
+                    }
+                    if (version >= 11)
+                    {
+                        character.BritainDiscoveries = (StoryDiscoveries)reader.ReadByte();
+                        character.IoloGreetedBritain = reader.ReadBool();
+                        character.ReceivedIoloRunebook = reader.ReadBool();
+                        character.WolfgangOpenedUp = reader.ReadBool();
+                    }
                 }
                 int classes = reader.ReadInt();
                 if (classes < 1 || classes > Enum.GetValues<DiabloClass>().Length) { throw new InvalidDataException("Invalid class history count."); }

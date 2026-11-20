@@ -32,6 +32,9 @@ public static class NewHavenStoryChecks
     private static WarlockGoatmanBody _lesserDaemon;
     private static int _beforeDaemon;
     private static HavenEncounter _assistTarget;
+    private static HavenEncounter _barkTarget;
+    private static MercenaryCareState _barkCare;
+    private static long _urgentBarkDeadline;
     private static WarlockGoatmanBody _assistDaemon;
     private static WarlockGoatmanBody _mineDaemon;
     private static Point3D _mineDaemonExit;
@@ -175,6 +178,7 @@ public static class NewHavenStoryChecks
         {
             var player = Avatar;
             var companion = CheckCompanion();
+            CheckIoloMineTopics(player, companion, explored: false);
             var companionSpot = companion.Location;
             Require(companionSpot != player.Location, "Iolo joined on the Avatar's tile");
             player.MoveToWorld(companionSpot, player.Map);
@@ -254,6 +258,84 @@ public static class NewHavenStoryChecks
             Require(CreatureProfiles.Level(companion) == 27 && companion.HitsMax == 258, "Iolo's level was lost on reload");
         });
         Register("departure", CheckDeparture);
+        Register("mine-topics", () =>
+        {
+            var player = Avatar;
+            var iolo = CheckCompanion();
+            CheckIoloMineTopics(player, iolo, explored: false);
+            var map = Map.Trammel;
+            iolo.MoveToWorld(new Point3D(5954, 309, 0), map);
+            player.MoveToWorld(new Point3D(5954, 310, 0), map);
+            CheckIoloMineTopics(player, iolo, explored: false);
+
+            var krulg = new HavenEncounter("haven-krulg", 7);
+            krulg.MoveToWorld(new Point3D(5954, 307, 0), map);
+            try
+            {
+                krulg.Damage(krulg.HitsMax * 2, iolo);
+                Require(!krulg.Alive || krulg.Deleted, "Iolo's killing blow did not defeat Krulg");
+                CheckIoloMineTopics(player, iolo, explored: true);
+                var profiles = ClassCreation.Profiles;
+                Require(profiles.HasInvestigatedHavenMine(player.Serial, out var witness) && witness == iolo.Serial,
+                    "The Avatar did not receive credit for Iolo's killing blow or his presence");
+                var solo = new PlayerMobile { Body = 0x190, Player = true };
+                try
+                {
+                    profiles.Assign(solo, DiabloClass.Amazon);
+                    profiles.RecordKrulgDefeat(solo.Serial, default);
+                    CheckIoloMineTopics(solo, iolo, explored: false);
+                    solo.MoveToWorld(player.Location, map);
+                    CheckIoloMineTopics(solo, iolo, explored: true);
+                    var script = iolo.CompanyFor(solo);
+                    var ogre = script[0].Replies.Single(reply => reply.Text == "Ogre");
+                    Require(script[ogre.Next].Line.Contains("thou hast described"),
+                        "Iolo claimed to have witnessed the Avatar's solo fight");
+                }
+                finally { solo.Delete(); }
+            }
+            finally { krulg.Delete(); }
+        });
+        Register("mine-topics-reload", () =>
+        {
+            var player = Avatar;
+            player.MoveToWorld(player.LogoutLocation, player.LogoutMap);
+            player.ClaimAutoStabledPets();
+            var companion = CheckCompanion();
+            CheckIoloMineTopics(player, companion, explored: true);
+            Require(ClassCreation.Profiles.HasInvestigatedHavenMine(player.Serial, out var witness)
+                && witness == companion.Serial, "The saved story lost Iolo's witness");
+        });
+        Register("tower-start", () =>
+        {
+            var map = Map.Trammel;
+            var player = Avatar;
+            var approach = new Point3D(1344, 1742, 20);
+            player.MoveToWorld(approach, map);
+            Require(Server.Movement.Movement.CheckMovement(player, map, approach, Direction.South, out int thresholdZ)
+                && thresholdZ == 20
+                && Server.Movement.Movement.CheckMovement(player, map, new Point3D(1344, 1743, 20), Direction.South, out int insideZ)
+                && insideZ == 20, "The northern opening at the Britain tower is obstructed");
+        });
+        Register("tower-entered", () => Require(Avatar.X is >= 1343 and <= 1346 && Avatar.Y is >= 1744 and <= 1747
+            && Avatar.Z == 20, $"The Avatar stopped at {Avatar.Location}"));
+        Register("gate-ui-setup", () =>
+        {
+            var player = Avatar;
+            var profiles = ClassCreation.Profiles;
+            profiles.AdvanceLevel(player, 6);
+            profiles.MeetIolo(player.Serial);
+            profiles.UnlockNewHavenGate(player.Serial);
+            var gate = CheckGate();
+            player.MoveToWorld(gate.Location, gate.Map);
+            Require(gate.UseGate(player) && player.FindGump<MoongateGump>() != null, "The Britannia travel menu did not open");
+        });
+        Register("gate-ui-arrived", () =>
+        {
+            var player = Avatar;
+            var britain = PMList.Trammel.Entries.Single(entry => entry.Number == 1012004);
+            Require(player.Map == Map.Trammel && player.Location == britain.Location
+                && ClassCreation.Profiles.HasDepartedNewHaven(player.Serial), "Travel did not land at Britain");
+        });
         BaseDoor innDoor = null;
         Register("doorway", () =>
         {
@@ -585,6 +667,55 @@ public static class NewHavenStoryChecks
         });
         ConsoleInputHandler.RegisterCommand("iolo-story-assist-impact", "Wait for Iolo's autonomous Witch-party shot", _ =>
             Core.LoopContext.Post(() => CheckAssistImpact(Core.TickCount + 6500)));
+        Register("bark-stocked", () =>
+        {
+            var player = Avatar;
+            var iolo = CheckCompanion();
+            FixtureSpace.Corridor(player, 6560, 14, 3600);
+            iolo.MoveToWorld(new Point3D(player.X - 2, player.Y, player.Z), player.Map);
+            iolo.Frozen = true;
+            iolo.AIObject.AITimer.Stop();
+            _barkTarget = new HavenEncounter("haven-bandit", 4) { Frozen = true, NoKillAwards = true };
+            _barkTarget.MoveToWorld(new Point3D(player.X - 4, player.Y, player.Z), player.Map);
+            _barkTarget.AIObject.AITimer.Stop();
+            iolo.Combatant = _barkTarget;
+            Require(iolo.Combatant == _barkTarget, "Iolo did not engage the bark test enemy");
+            _barkCare = MercenaryCare.States[iolo.Serial];
+            MercenaryCare.States[iolo.Serial] = _barkCare with { Healing = [1, 0, 0, 0, 0], NextDrinkUtc = TimedEffects.Now.AddMinutes(1) };
+            iolo.Hits = iolo.HitsMax / 3;
+            iolo.OnThink();
+            Require(BarkWarning(iolo) == 0, "Iolo asked for healing with a potion in his pouch");
+        });
+        Register("bark-composed", () =>
+        {
+            var iolo = CheckCompanion();
+            MercenaryCare.States[iolo.Serial] = _barkCare with { Healing = [0, 0, 0, 0, 0] };
+            iolo.Hits = iolo.HitsMax / 3;
+            iolo.OnThink();
+            Require(BarkWarning(iolo) == 1, "Empty pouch and low health did not trigger a composed bark");
+            Require(BarkDeadline(iolo, "_nextComposedBark") >= Core.TickCount + 119_900,
+                "The composed bark did not set a two-minute cooldown");
+        });
+        Register("bark-urgent", () =>
+        {
+            var iolo = CheckCompanion();
+            Require(Core.TickCount < BarkDeadline(iolo, "_nextBark"), "The ordinary bark cooldown expired before the urgency check");
+            iolo.Damage(iolo.Hits - iolo.HitsMax / 5, _barkTarget);
+            Require(BarkWarning(iolo) == 2, "The urgent line did not fire immediately during the ordinary cooldown");
+            _urgentBarkDeadline = BarkDeadline(iolo, "_nextBark");
+        });
+        Register("bark-cleanup", () =>
+        {
+            var iolo = CheckCompanion();
+            iolo.Damage(1, _barkTarget);
+            Require(BarkDeadline(iolo, "_nextBark") == _urgentBarkDeadline, "Iolo repeated his urgent bark in the same fight");
+            _barkTarget.Delete();
+            iolo.Combatant = null;
+            iolo.Hits = iolo.HitsMax;
+            MercenaryCare.States[iolo.Serial] = _barkCare;
+            iolo.Frozen = false;
+            iolo.AIObject.AITimer.Activate();
+        });
         Register("shot", () =>
         {
             var player = Avatar;
@@ -610,6 +741,12 @@ public static class NewHavenStoryChecks
             _shotTarget.Delete();
         });
     }
+
+    private static int BarkWarning(Iolo iolo) =>
+        (int)typeof(Iolo).GetField("_warningSpoken", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(iolo);
+
+    private static long BarkDeadline(Iolo iolo, string name) =>
+        (long)typeof(Iolo).GetField(name, BindingFlags.Instance | BindingFlags.NonPublic).GetValue(iolo);
 
     private static void CheckKrulgAttack(long deadline)
     {
@@ -700,6 +837,15 @@ public static class NewHavenStoryChecks
                 _lesserDaemon.Location, _bandit.Location);
         else
             Timer.StartTimer(TimeSpan.FromMilliseconds(100), () => CheckBanditImpact(deadline));
+    }
+
+    private static void CheckIoloMineTopics(PlayerMobile player, Iolo iolo, bool explored)
+    {
+        var script = iolo.CompanyFor(player);
+        Require(script.All(node => node.Replies.All(reply => reply.Text != "Graveyard")
+            && node.Replies.Any(reply => reply.Text == "Equipment")), "Iolo's companion topics still include Graveyard or omit Equipment");
+        Require(script[0].Replies.Any(reply => reply.Text == "Ogre") == explored
+            && script[2].Line.Contains("mine") == explored, "Iolo's mine lines did not match the Avatar's discoveries");
     }
 
     private static void CheckDeparture()
@@ -855,6 +1001,8 @@ public static class NewHavenStoryChecks
             Require(lowerMine.Any(p => p.Z == chamber.Z && Utility.InRange(p, chamber, 2)
                 && EncounterProfiles.ClearSight(map, p, chamber)), "The rope does not lead to Krulg's chamber");
             ClassCreation.Profiles.Assign(player, DiabloClass.Necromancer);
+            Require(ClassMapHooks.PublicGateWorlds(player) is [{ Name: "Britannia" } world] && world.Map == map,
+                "The public selector should offer Britannia");
             for (int offset = -1; offset <= 1; offset++)
             {
                 var door = NewHavenPopulation.MineDoor;
@@ -913,8 +1061,17 @@ public static class NewHavenStoryChecks
             && TownMarkets.Profiles.At("Trammel/New Haven/Tinker") is { CanTeach: true }, "Missing trade instructors");
         Require(Mining.System.Definitions.Any(definition => definition.Validate(map.Tiles.GetLandTile(5993, 335).ID, true)),
             "The main mine has no mineable land at the entrance gallery");
-        Require(World.Items.Values.OfType<BaseSpawner>().Count(s => s.Map == map && s.Name?.EndsWith("Wildlife") == true && s.IsFull) >= 4,
+        Require(World.Items.Values.OfType<BaseSpawner>().Count(s => s.Map == map
+            && s.Name?.EndsWith("Wildlife") == true && s.Name != "Britannia Wildlife" && s.IsFull) >= 4,
             "Haven wildlife spawners are missing or empty");
+        var wildlife = World.Items.Values.OfType<BaseSpawner>().Where(spawner => spawner.Name == "Britannia Wildlife").ToArray();
+        Require(wildlife.Length >= 150 && wildlife.Select(spawner => spawner.Guid).Distinct().Count() == wildlife.Length
+            && wildlife.All(spawner => spawner.Map == map
+                && spawner.Entries.All(entry => entry.SpawnedName is not ("WanderingHealer" or "Orc" or "Mongbat" or "Zombie"))),
+            "Expected a single import of animal spawners in Britannia");
+        var britainGate = PMList.Trammel.Entries.Single(entry => entry.Number == 1012004).Location;
+        Require(wildlife.Any(spawner => spawner.InRange(britainGate, 95) && spawner.Spawned.Count > 0),
+            "The woods near Britain have no live wildlife");
         Require(World.Items.Values.OfType<BaseDoor>().Any(door => door.Map == map && door.InRange(new Point3D(3626, 2621, 0), 3)),
             "The Old Haven decoration doors were not installed");
 

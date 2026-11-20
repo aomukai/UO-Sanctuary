@@ -1,0 +1,58 @@
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/MenuGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/MenuGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/MenuGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/MenuGump.cs
+@@ -12,6 +12,7 @@
+ {
+     internal class MenuGump : Gump
+     {
++        internal const ushort WorkshopMenuId = 0x5343;
+         private readonly ContainerHorizontal _container;
+         private bool _answered;
+         private bool _isDown,
+@@ -25,14 +26,24 @@
+             CanCloseWithRightClick = true;
+             IsFromServer = true;
+ 
+-            Add(new GumpPic(0, 0, 0x0910, 0));
+-
+-            Add(new ColorBox(217, 49, 1) { X = 40, Y = 42 });
+-
+-            Label label = new Label(name, false, 0x0386, 200, 1, FontStyle.Fixed)
+-            {
+-                X = 39,
+-                Y = 18
++            bool workshop = ClassCombatClient.Enabled && serv == WorkshopMenuId;
++            if (workshop)
++            {
++                Add(new SanctuaryBackdrop("character-frame", 298, 132, headerHeight: 36));
++                Add(new Line(39, 41, 219, 51, 0xFF486581) { AcceptMouseInput = false });
++                Add(new Line(40, 42, 217, 49, 0xFF241C1C) { AcceptMouseInput = false });
++                Add(new SanctuarySheetButton(266, 8, 22, "×", CloseWithRightClick, height: 21));
++            }
++            else
++            {
++                Add(new GumpPic(0, 0, 0x0910, 0));
++                Add(new ColorBox(217, 49, 1) { X = 40, Y = 42 });
++            }
++
++            Label label = new Label(name, workshop, workshop ? (ushort)0x0481 : (ushort)0x0386, workshop ? 235 : 200, 1, FontStyle.Fixed)
++            {
++                X = workshop ? 16 : 39,
++                Y = workshop ? 10 : 18
+             };
+ 
+             Add(label);
+@@ -64,6 +75,13 @@
+             {
+                 _container.Value = _slider.Value;
+             };
++
++            if (workshop)
++            {
++                Add(new SanctuarySheetButton(8, 53, 24, "<", () => _slider.Value -= 40));
++                Add(new SanctuarySheetButton(265, 53, 24, ">", () => _slider.Value += 40));
++                return;
++            }
+ 
+             HitBox left = new HitBox(25, 60, 10, 15) { Alpha = 0f };
+ 

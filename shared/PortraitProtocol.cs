@@ -2,13 +2,21 @@ using System;
 
 namespace Sanctuary;
 
+[Flags]
+public enum StoryDiscoveries : byte
+{
+    None = 0, UnexpectedSummons = 1, MetGeoffrey = 2, IoloRetired = 4, RoyalAudience = 8
+}
+
 public static class PortraitProtocol
 {
     public const ushort SubCommand = 0xF1;
     public const byte Version = 1;
     public const byte AvatarFace = 0, Conversation = 1, Closed = 2, InteractionEnabled = 3, StoryState = 4, IdentifyShop = 5;
+    public const byte BritainDiscoveries = 6;
     public const byte Leave = 255;
-    public const int FaceCount = 8, NpcPortraitCount = 20, MaxReplies = 4;
+    public const int FaceCount = 8, NpcPortraitCount = 21, MaxReplies = 4;
+    public const byte WolfgangPortrait = 20;
     public const int ReplyPacketLength = 11;
     public const int InteractPacketLength = 10;
     public const int NpcInteractionRange = 3;

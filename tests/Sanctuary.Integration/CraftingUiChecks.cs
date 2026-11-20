@@ -41,7 +41,11 @@ public static class CraftingUiChecks
         });
         Register("confirmed", () => CraftingChecks.Require(ClassProfessions.Profiles.Find(_player)
             == new ProfessionState(SkillName.Tinkering, true), "Client confirmation did not choose Tinkering"));
-        Register("material", Material);
+        Register("material", () =>
+        {
+            Town(SkillName.Tinkering);
+            Material();
+        });
         Register("cancelled", () => CraftingChecks.Require(_tool.UsesRemaining == 50 && _iron.Amount == 20
             && !_player.Backpack.Items.OfType<SewingKit>().Any() && _player.Location == _menuLocation && CraftFacilities.Allows(_player, SkillName.Tinkering, false),
             "Native menu cancellation consumed or moved the character"));

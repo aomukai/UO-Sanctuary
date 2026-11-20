@@ -1,0 +1,151 @@
+diff --git a/src/ClassicUO.Client/Game/AvatarDialogueClient.cs b/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
+--- a/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
++++ b/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
+@@ -24,7 +24,7 @@
+     }
+ 
+     internal static bool IsOwnCompanion(World world, Mobile mobile) =>
+-        world.Player?.SanctuaryIoloCompanion == mobile.Serial;
++        world.Player?.SanctuaryStoryCompanion == mobile.Serial;
+ 
+     internal static bool CanInteract(World world, Mobile mobile) =>
+         world.Player is { SanctuaryNpcInteraction: true } && mobile != world.Player
+@@ -58,8 +58,17 @@
+         }
+         if (kind == PortraitProtocol.StoryState && reader.Remaining == 5)
+         {
+-            world.Player.SanctuaryMetIolo = reader.ReadUInt8() != 0;
+-            world.Player.SanctuaryIoloCompanion = reader.ReadUInt32BE();
++            if (reader.ReadUInt8() != 0)
++                world.Player.SanctuaryDiscoveries |= StoryDiscoveries.UnexpectedSummons;
++            else
++                world.Player.SanctuaryDiscoveries &= ~StoryDiscoveries.UnexpectedSummons;
++            world.Player.SanctuaryStoryCompanion = reader.ReadUInt32BE();
++            UIManager.GetGump<SanctuaryJournalGump>()?.RefreshDiscoveries();
++            return;
++        }
++        if (kind == PortraitProtocol.BritainDiscoveries && reader.Remaining == 1)
++        {
++            world.Player.SanctuaryDiscoveries = (StoryDiscoveries)reader.ReadUInt8();
+             UIManager.GetGump<SanctuaryJournalGump>()?.RefreshDiscoveries();
+             return;
+         }
+diff --git a/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs b/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs
+@@ -10,6 +10,7 @@
+ using ClassicUO.Utility.Logging;
+ using System.Collections.Generic;
+ using System.Linq;
++using Sanctuary;
+ 
+ namespace ClassicUO.Game.GameObjects
+ {
+@@ -18,8 +19,8 @@
+         internal byte SanctuaryFace { get; set; }
+         internal ushort SanctuaryAppearanceTemplate { get; set; }
+         internal bool SanctuaryNpcInteraction { get; set; }
+-        internal bool SanctuaryMetIolo { get; set; }
+-        internal uint SanctuaryIoloCompanion { get; set; }
++        internal StoryDiscoveries SanctuaryDiscoveries { get; set; }
++        internal uint SanctuaryStoryCompanion { get; set; }
+         private readonly Dictionary<BuffIconType, BuffIcon> _buffIcons = new Dictionary<BuffIconType, BuffIcon>();
+ 
+         public PlayerMobile(World world, uint serial) : base(world, serial)
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
+@@ -9,6 +9,7 @@
+ using ClassicUO.Renderer;
+ using Microsoft.Xna.Framework;
+ using Microsoft.Xna.Framework.Graphics;
++using Sanctuary;
+ 
+ namespace ClassicUO.Game.UI.Gumps;
+ 
+@@ -113,6 +114,19 @@
+     private readonly Label _category;
+     private readonly Label _empty;
+     private readonly ScrollArea _discoveries;
++    private StoryDiscoveries _displayedDiscoveries;
++    private static readonly (StoryDiscoveries Flag, string Title, string Entry)[] _entries =
++    [
++        (StoryDiscoveries.UnexpectedSummons, "An Unexpected Summons",
++            "I'd come home late again. We'd been working overtime for weeks, and I barely had the energy to turn on the computer. Then the room fell away.\n\n"
++            + "I found Iolo at the Bountiful Harvest Inn in New Haven. He admitted he'd called me back. There were signs of danger in Britannia, but he'd taken one look at me and suggested I get my feet under me first. The old graveyard northeast of town, he said, would tell me how rusty I really was."),
++        (StoryDiscoveries.MetGeoffrey, "An Old Friend in Armour",
++            "I found Geoffrey at the guard tower in Britain. My old friend had traded the road for a captain's post. He still spoke to me as plainly as he ever had, even with his guards watching."),
++        (StoryDiscoveries.RoyalAudience, "An Audience in Britain",
++            "Iolo told Lord British what he'd heard on the road. The king had been getting more reports of dangerous creatures from all over Britannia. He asked me to find out what was behind them. His duties kept him in Britain, but I could bring him word of anything I found."),
++        (StoryDiscoveries.IoloRetired, "The Bard's Last Journey",
++            "Iolo retired after our audience with Lord British. He told me where I could find him, teaching his old songs at the bard's college. Walking out of the castle without the sound of his crossbow behind me felt strange.")
++    ];
+ 
+     private SanctuaryJournalGump(World world) : base(world, 0, 0)
+     {
+@@ -127,11 +141,6 @@
+         _category = Add(new Label("All discoveries", false, 0x0386, font: 1) { X = 32, Y = 86 });
+         _empty = Add(new Label("No discoveries recorded.", false, 0x0386, font: 1) { X = 32, Y = 120 });
+         _discoveries = Add(new ScrollArea(32, 117, 247, 214, true));
+-        _discoveries.Add(new Label("An Unexpected Summons", true, 0x0386, 225, font: 0));
+-        _discoveries.Add(new Label(
+-            "I'd come home late again. We'd been working overtime for weeks, and I barely had the energy to turn on the computer. Then the room fell away.\n\n"
+-            + "I found Iolo at the Bountiful Harvest Inn in New Haven. He admitted he'd called me back. There were signs of danger in Britannia, but he'd taken one look at me and suggested I get my feet under me first. The old graveyard southwest of town, he said, would tell me how rusty I really was.",
+-            true, 0x0386, 224, font: 1) { Y = 28 });
+         RefreshDiscoveries();
+         Add(new SanctuarySheetButton(32, 350, 84, "Chat Log", () => GameActions.OpenJournal(World)));
+ 
+@@ -155,9 +164,26 @@
+ 
+     internal void RefreshDiscoveries()
+     {
+-        bool show = World.Player?.SanctuaryMetIolo == true && _category.Text == "All discoveries";
+-        _empty.IsVisible = !show;
+-        _discoveries.IsVisible = show;
++        var visible = _category.Text == "All discoveries"
++            ? World.Player?.SanctuaryDiscoveries ?? StoryDiscoveries.None
++            : StoryDiscoveries.None;
++        _empty.IsVisible = visible == StoryDiscoveries.None;
++        _discoveries.IsVisible = !_empty.IsVisible;
++        if (visible == _displayedDiscoveries)
++            return;
++
++        _displayedDiscoveries = visible;
++        _discoveries.Clear();
++        int y = 0;
++        foreach (var (flag, title, entry) in _entries)
++        {
++            if ((visible & flag) == 0)
++                continue;
++            var heading = _discoveries.Add(new Label(title, true, 0x0386, 224, font: 0) { Y = y });
++            y += Math.Max(28, heading.Height + 5);
++            var body = _discoveries.Add(new Label(entry, true, 0x0386, 224, font: 1) { Y = y });
++            y += body.Height + 22;
++        }
+     }
+ 
+     private void AddIndexTargets()
+diff --git a/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs b/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs
+--- a/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs
++++ b/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs
+@@ -35,6 +35,7 @@
+ internal sealed class SanctuaryPortrait : Control
+ {
+     private static FaceAtlas[] _faces;
++    private static Texture2D _wolfgangFace;
+     private static Texture2D _npcFaces;
+     private static Texture2D _demonFace;
+     private static readonly string[] _templateGroups =
+@@ -72,6 +73,12 @@
+         var target = new Rectangle(x, y, Width, Height);
+         if (_npc is { } npc)
+         {
++            if (npc == PortraitProtocol.WolfgangPortrait)
++            {
++                _wolfgangFace ??= Load("portrait-wolfgang");
++                DrawFace(lists, _wolfgangFace, _wolfgangFace.Bounds, target, depth);
++                return true;
++            }
+             if (npc == 6)
+             {
+                 _demonFace ??= Load("portrait-demon");
