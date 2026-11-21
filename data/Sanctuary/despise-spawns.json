@@ -1,0 +1,1046 @@
+[
+  {
+    "$type": "Spawner",
+    "guid": "7527d67e-8df4-545b-947d-1b0f9b1896e8",
+    "name": "Despise ratman at 5502, 549",
+    "location": [5502, 549, 60],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 12 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 13 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "189d65f8-fe06-5751-9f46-6c20aadeb244",
+    "name": "Despise ratman at 5503, 529",
+    "location": [5503, 529, 60],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 13 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 14 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "d134c60c-7ad3-5f1e-9c65-e5fcdb856878",
+    "name": "Despise ratman at 5482, 548",
+    "location": [5482, 548, 60],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 14 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 15 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "fb61cfa1-148d-59fb-8492-a9d22700658d",
+    "name": "Despise ratman at 5439, 533",
+    "location": [5439, 533, 60],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 15 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 16 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "f064bf4d-b0c9-5aed-8228-4aacea1ef605",
+    "name": "Despise ratman at 5411, 541",
+    "location": [5411, 541, 60],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 16 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 12 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "5a732d2e-08f2-5e33-a955-1279e6d17173",
+    "name": "Despise ratman at 5388, 534",
+    "location": [5388, 534, 63],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 12 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 13 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "6a28e1e6-32e2-5dad-95b0-b5e4b5de9b3f",
+    "name": "Despise ratman at 5395, 556",
+    "location": [5395, 556, 58],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 13 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 14 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "a25a61b4-0a20-5ad2-a9c7-23efc3b078cc",
+    "name": "Despise ratman at 5409, 591",
+    "location": [5409, 591, 45],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 14 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 15 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "bbc518e1-f5f7-5631-a1b9-844a1ad488f3",
+    "name": "Despise ratman at 5402, 576",
+    "location": [5402, 576, 60],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 15 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 16 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "7c003a6d-d8d8-5737-8ced-4dbcb227516a",
+    "name": "Despise ratman at 5386, 612",
+    "location": [5386, 612, 45],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 16 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 12 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "20197faf-a836-5ff9-bc32-e93ca0a18440",
+    "name": "Despise ratman at 5410, 610",
+    "location": [5410, 610, 45],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 12 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 13 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "a93f715a-d1ac-5dc6-bdc4-c3c58a551053",
+    "name": "Despise ratman at 5434, 591",
+    "location": [5434, 591, 47],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 13 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 14 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "7eff48c5-0171-5904-9cdb-7c5d536a6612",
+    "name": "Despise ratman at 5464, 600",
+    "location": [5464, 600, 46],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 14 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 15 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "80e92845-b17e-55e5-97ab-b73fea1f460b",
+    "name": "Despise ratman at 5476, 624",
+    "location": [5476, 624, 25],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 15 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 16 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "627dca58-9bd4-5474-80d3-a8ddfdd20b6b",
+    "name": "Despise ratman at 5481, 601",
+    "location": [5481, 601, 48],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 16 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 12 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "6d21f4a8-c3bd-5a22-85b9-25ce19e2fc95",
+    "name": "Despise ratman at 5504, 597",
+    "location": [5504, 597, 45],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 12 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 13 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "7aa7f41b-ae0c-5aa8-bba9-11d14d897215",
+    "name": "Despise ratman at 5502, 573",
+    "location": [5502, 573, 58],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 13 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 14 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "b73bed29-aa87-5658-a145-bab2543c1585",
+    "name": "Despise ratman at 5453, 550",
+    "location": [5453, 550, 60],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 14 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 15 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "42b4687f-0e65-54b8-813d-7090925df4ca",
+    "name": "Despise ratman at 5450, 579",
+    "location": [5450, 579, 58],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 15 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ratman 16 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "0e0961b8-5185-57fd-a148-7a90afda2143",
+    "name": "Despise ettin at 5508, 655",
+    "location": [5508, 655, 20],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 18 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 19 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "272f113b-6078-5e1d-8e9f-f07af3475060",
+    "name": "Despise ettin at 5505, 676",
+    "location": [5505, 676, 20],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 19 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 20 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "1bd57987-f940-54d9-ae35-45b0290c8595",
+    "name": "Despise ettin at 5490, 676",
+    "location": [5490, 676, 20],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 20 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 21 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "00f7a97b-2a88-5b39-961b-d825810de984",
+    "name": "Despise ettin at 5476, 692",
+    "location": [5476, 692, 20],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 21 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 22 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "6d0f54c4-abce-506c-9162-9621300e2270",
+    "name": "Despise ettin at 5462, 683",
+    "location": [5462, 683, 20],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 22 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 18 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "3ef3daca-0ed0-552f-8e87-40601e999c69",
+    "name": "Despise ettin at 5422, 665",
+    "location": [5422, 665, 21],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 18 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 19 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "61c7f03d-a303-57c7-b233-56a5327da13b",
+    "name": "Despise ettin at 5410, 671",
+    "location": [5410, 671, 20],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 19 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 20 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "7e6e5c3e-3738-5cc7-b203-f37d85410825",
+    "name": "Despise ettin at 5391, 660",
+    "location": [5391, 660, 21],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 20 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 21 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "f42d2754-5a70-57af-a872-a9b786e7db13",
+    "name": "Despise ettin at 5385, 703",
+    "location": [5385, 703, 15],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 21 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 22 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "ace8c6e0-fede-5846-9216-3fb8efec73eb",
+    "name": "Despise ettin at 5400, 712",
+    "location": [5400, 712, 15],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 22 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 18 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "bdddf7a4-20f0-548f-9a1d-334b7d0d67b4",
+    "name": "Despise ettin at 5420, 746",
+    "location": [5420, 746, 5],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 18 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 19 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "8c95368a-8a0f-5cea-9aee-91b49ff34768",
+    "name": "Despise ettin at 5439, 731",
+    "location": [5439, 731, 5],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 19 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 20 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "8c0cb749-2b1a-59f6-8f7e-28ce73733f93",
+    "name": "Despise ettin at 5459, 721",
+    "location": [5459, 721, 15],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 20 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 21 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "9dca48ce-2170-5425-a229-923a2d104d0e",
+    "name": "Despise ettin at 5483, 711",
+    "location": [5483, 711, 16],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 21 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 22 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "849debd9-1b0a-5fe5-abd2-823bb3db926f",
+    "name": "Despise ettin at 5503, 728",
+    "location": [5503, 728, 16],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 22 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 18 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "585f9ff2-2f04-53b2-a1a2-979ce81fe788",
+    "name": "Despise ettin at 5505, 747",
+    "location": [5505, 747, 5],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 18 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 19 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "d254a929-b6b3-5005-b754-709efec3f39f",
+    "name": "Despise ettin at 5488, 756",
+    "location": [5488, 756, 7],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 19 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 20 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "f3432e93-8a75-5c08-9b29-4cf93a8a2110",
+    "name": "Despise ettin at 5475, 748",
+    "location": [5475, 748, 5],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 20 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 21 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "cdf5c941-9f57-5554-a15f-d88d2d1a120e",
+    "name": "Despise ettin at 5445, 754",
+    "location": [5445, 754, 5],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 21 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 22 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "ed860c53-3c1f-51ff-a4b7-b3c05df25e85",
+    "name": "Despise ettin at 5479, 737",
+    "location": [5479, 737, 10],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 22 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 18 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "51f90e48-1ee8-5b97-b3bc-b934f995ebb0",
+    "name": "Despise fixed ettin warlord",
+    "location": [5439, 679, 20],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:05:00",
+    "maxDelay": "00:07:00",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ettin 22 1"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "68583fad-6ea8-5261-8b1a-ca9336274d95",
+    "name": "Despise witness Linnet",
+    "location": [5471, 526, 62],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "DespiseWitness", "maxCount": 1, "probability": 100, "parameters": "37"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "86adedee-78e5-5195-832b-ce3063ae3231",
+    "name": "Despise witness Alder",
+    "location": [5473, 528, 62],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "DespiseWitness", "maxCount": 1, "probability": 100, "parameters": "38"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "f3cefc3d-29ad-5998-ac75-563af160c04d",
+    "name": "Despise witness Sorrel",
+    "location": [5475, 529, 60],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "DespiseWitness", "maxCount": 1, "probability": 100, "parameters": "39"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "9952e055-0c2b-512d-8b85-3796158ae5b7",
+    "name": "Despise witness Skrik",
+    "location": [5424, 571, 65],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "DespiseWitness", "maxCount": 1, "probability": 100, "parameters": "40"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "06aceaf6-1a2d-5816-b6de-affe59edc760",
+    "name": "Deep Despise troll at 5414, 856",
+    "location": [5414, 856, 45],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:15",
+    "maxDelay": "00:02:00",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-troll 20 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "6cc25282-0be7-5bc4-908e-95cd3766bea9",
+    "name": "Deep Despise troll at 5439, 851",
+    "location": [5439, 851, 45],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:15",
+    "maxDelay": "00:02:00",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-troll 21 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "27be51c6-61e4-5ec4-a0f7-c9c3de209693",
+    "name": "Deep Despise ogre at 5452, 878",
+    "location": [5452, 878, 30],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:15",
+    "maxDelay": "00:02:00",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ogre 22 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "752d6276-902a-50b7-9c61-ec9845dae388",
+    "name": "Deep Despise troll at 5470, 860",
+    "location": [5470, 860, 45],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:15",
+    "maxDelay": "00:02:00",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-troll 22 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "db3ade21-2f0c-52c6-a4d8-b3e1b2355f87",
+    "name": "Deep Despise ogre at 5487, 902",
+    "location": [5487, 902, 30],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:15",
+    "maxDelay": "00:02:00",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ogre 23 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "2e799959-7d9d-57dd-b434-08c97297fbce",
+    "name": "Deep Despise troll at 5391, 905",
+    "location": [5391, 905, 31],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:15",
+    "maxDelay": "00:02:00",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-troll 21 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "804c9800-c6ad-5e44-ae9e-f606e3394636",
+    "name": "Deep Despise ogre at 5406, 880",
+    "location": [5406, 880, 30],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:15",
+    "maxDelay": "00:02:00",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ogre 20 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "40a04400-f2c7-5a28-9c54-81013b3de54e",
+    "name": "Deep Despise ogre at 5428, 899",
+    "location": [5428, 899, 30],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:15",
+    "maxDelay": "00:02:00",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ogre 22 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "4a91a803-8000-5073-9898-171015be884d",
+    "name": "Deep Despise ogre at 5528, 902",
+    "location": [5528, 902, 30],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:15",
+    "maxDelay": "00:02:00",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ogre 25 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "a577a2b2-6e15-5099-bef1-dbc883f778d2",
+    "name": "Deep Despise ogre lord at 5558, 824",
+    "location": [5558, 824, 45],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:05:00",
+    "maxDelay": "00:07:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ogre-lord 30 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "41e8f029-a15c-5b45-a8c1-2cbcc3ee1baf",
+    "name": "Deep Despise troll at 5532, 787",
+    "location": [5532, 787, 60],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:15",
+    "maxDelay": "00:02:00",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-troll 23 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "c39088f9-373e-573f-9fe1-aa194b1bacc8",
+    "name": "Deep Despise ogre at 5604, 789",
+    "location": [5604, 789, 60],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:15",
+    "maxDelay": "00:02:00",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ogre 24 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "c3766b7c-7cc0-53d1-b966-b20cce2479f5",
+    "name": "Deep Despise ogre at 5590, 871",
+    "location": [5590, 871, 45],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:15",
+    "maxDelay": "00:02:00",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ogre 25 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "80b66f0a-e665-5386-8ff9-5508066ebe42",
+    "name": "Deep Despise ogre lord at 5504, 939",
+    "location": [5504, 939, 20],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:05:00",
+    "maxDelay": "00:07:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ogre-lord 30 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "18e8581f-d7e0-5895-ab96-0b6445235b2b",
+    "name": "Deep Despise troll at 5426, 943",
+    "location": [5426, 943, 20],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:15",
+    "maxDelay": "00:02:00",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-troll 22 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "2d3024cc-1899-513b-8715-134e46f354da",
+    "name": "Deep Despise ogre at 5471, 973",
+    "location": [5471, 973, 15],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:15",
+    "maxDelay": "00:02:00",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ogre 25 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "3cfa26b1-9971-53d0-a8d1-b687d8af31a0",
+    "name": "Deep Despise troll at 5398, 996",
+    "location": [5398, 996, 5],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:15",
+    "maxDelay": "00:02:00",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-troll 24 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "38d0446d-e155-580e-b0f0-390c4b2ea8ee",
+    "name": "Deep Despise troll at 5452, 923",
+    "location": [5452, 923, 20],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:15",
+    "maxDelay": "00:02:00",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-troll 23 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "7138de24-3f7c-51ab-9791-7b0506d3021a",
+    "name": "Deep Despise ogre at 5521, 853",
+    "location": [5521, 853, 45],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:15",
+    "maxDelay": "00:02:00",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ogre 22 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "7fada9ff-140e-5259-834e-eb76665eb3ab",
+    "name": "Deep Despise troll at 5544, 873",
+    "location": [5544, 873, 47],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:15",
+    "maxDelay": "00:02:00",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-troll 24 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "bb159c01-f152-5115-bbd4-66f5ccff0bc2",
+    "name": "Deep Despise ogre lord at 5466, 889",
+    "location": [5466, 889, 30],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:05:00",
+    "maxDelay": "00:07:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ogre-lord 30 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "37178f9b-c254-5553-a3f2-539f928177cf",
+    "name": "Deep Despise ogre at 5466, 943",
+    "location": [5466, 943, 20],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:15",
+    "maxDelay": "00:02:00",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ogre 24 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "52e1c171-81b3-5063-98a9-0db869b742b3",
+    "name": "Deep Despise ogre at 5571, 901",
+    "location": [5571, 901, 30],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:15",
+    "maxDelay": "00:02:00",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "despise-ogre 23 0"}
+    ]
+  }
+]

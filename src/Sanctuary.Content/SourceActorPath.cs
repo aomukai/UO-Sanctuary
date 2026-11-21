@@ -11,10 +11,9 @@ internal readonly record struct ActorPathRoom(int X,int Y,int Width,int Height)
     internal bool Contains(Point2D p)=>p.X>=X && p.Y>=Y && (long)p.X<(long)X+Width && (long)p.Y<(long)Y+Height;
 }
 
-// Server monster / point target / path2,5,6,13,15 / pattern0 component. The complete
-// reconstructed initializer is marked BROKEN upstream: its bounded execution
-// is supplementary evidence, not modern executable equivalence. Successful
-// repair uses other path types and is deliberately not substituted here.
+// Server monster point paths and the A* follow fallback. The complete
+// reconstructed initializer is marked BROKEN upstream. Its bounded execution
+// is supplementary evidence, not modern executable equivalence.
 internal static class SourceActorPath
 {
     internal static ActorPathState Initialize(ActorPathState state,int distance,ActorPathRoom room,Func<int,int,int> collision,int collisionMask=0x3c01)
@@ -24,6 +23,12 @@ internal static class SourceActorPath
             || (long)room.X+room.Width>65536 || (long)room.Y+room.Height>65536
             || state.Target.X is <0 or >65535 || state.Target.Y is <0 or >65535)
         {throw new ArgumentException("Unsupported source point-path input");}
+        bool followDetour=state.Motion.PathType==1;
+        if(followDetour)
+        {
+            // Path 1 selects A* for follow. Its waypoints use the existing straight-path stepper.
+            state=state with{Motion=state.Motion with{PathType=7}};
+        }
         // Validate the supplied path without advancing it or selecting repair.
         SourceActorMotion.Advance(state.Motion with{Flags=state.Motion.Flags&~0x20},(_,_)=>throw new InvalidOperationException(),collisionMask);
         var motion=state.Motion with{CollidedMask=0};var origin=new Point2D((int)(motion.X>>16),(int)(motion.Y>>16));
@@ -35,7 +40,11 @@ internal static class SourceActorPath
         motion=motion with{FinalTarget=state.Target};
         bool Blocked(int x,int y)=>(collision(x,y)&collisionMask)!=0;
         Point2D[] points;
-        if(motion.PathType==15){points=distance==0?[]:SourceWallFollow.Find(origin,state.Target,distance,false,Blocked);}
+        if(followDetour)
+        {
+            points=distance==0?[]:SourceAStarPath.Find(origin,state.Target,(x,y)=>!room.Contains(new(x,y))||Blocked(x,y));
+        }
+        else if(motion.PathType==15){points=distance==0?[]:SourceWallFollow.Find(origin,state.Target,distance,false,Blocked);}
         else if(motion.PathType==7)
         {
             var toward=SourceTowardPath.Find(motion with{PathType=2},state.Target,distance,Blocked);

@@ -139,17 +139,15 @@ public static class PetChecks
         var near = Kill(p, 1);
         var far = Kill(p, 3);
         far.DropItem(new Dagger());
-        Require(SkeletonPets.FindCorpse(p, far.Serial) == far && SkeletonPets.FindCorpse(p, Serial.Zero) == near,
-            "Hovered and nearest corpse selection priorities were wrong");
         int mana = p.Mana;
         long now = Core.TickCount;
-        Require(ClassCombat.CastSummon(p, far.Serial, now), "Learned summoning could not start");
+        Require(ClassCombat.CastSummon(p, now), "Learned summoning could not start");
         var session = ClassCombat.For(p);
         Require(!ClassCombat.ResolveAction(p, now) && SkeletonPets.Count(p) == 0 && p.Mana == mana,
             "Summon bypassed the casting windup");
         Require(ClassCombat.ResolveAction(p, session.EffectAt) && SkeletonPets.Count(p) == 1
-            && p.Mana == mana - 6 && far.SanctuaryConsumed && !far.Deleted && ClassLoot.HasContents(far),
-            "Summon did not charge mana, consume the selected corpse, or preserve unclaimed loot");
+            && p.Mana == mana - 6 && !far.SanctuaryConsumed && !far.Deleted && ClassLoot.HasContents(far),
+            "Summon did not charge mana once or preserve the nearby corpse and loot");
         SkeletonGuardian pet = null;
         foreach (var follower in p.AllFollowers)
         {
@@ -158,7 +156,7 @@ public static class PetChecks
         Require(pet is { Controlled: true, Summoned: true, Commandable: false, ControlOrder: OrderType.Guard }
             && pet.ControlMaster == p && pet.CombatProfile.Level == 2 && pet.HitsMax == 21
             && ClassStats.AttackRating(pet) == 32 && ClassStats.Defense(pet) == 32
-            && pet.CombatProfile.MinDamage == 1 && pet.CombatProfile.MaxDamage == 2,
+            && pet.CombatProfile.MinDamage == 4 && pet.CombatProfile.MaxDamage == 5,
             "Skeleton did not receive level/rank stats and the guard-me order");
         Require(!ClassCombat.IsHostile(p, pet) && !pet.CanBeHarmful(p, false) && !p.CanBeHarmful(pet, false),
             "Owner and skeleton were hostile");
@@ -173,7 +171,7 @@ public static class PetChecks
         Require(!pet.IsEnemy(healer) && !pet.CanBeHarmful(healer, false), "Guardian could attack a friendly healer");
         healer.Delete();
         var original = pet;
-        Require(SkeletonPets.Raise(p, near) && original.Deleted && SkeletonPets.Count(p) == 1
+        Require(SkeletonPets.Raise(p) && original.Deleted && SkeletonPets.Count(p) == 1
             && p.Mana == mana - 12, "Summoning at the rank limit did not replace the oldest guardian");
         pet = null;
         foreach (var follower in p.AllFollowers)
@@ -330,7 +328,7 @@ public static class PetChecks
             enemy.Kill();
         }
         var corpse = (Corpse)enemy.Corpse;
-        Require(SkeletonPets.Raise(p, corpse), $"Saved learned skill could not summon again: rank={SkeletonPets.Rank(p)}, mana={p.Mana}, count={SkeletonPets.Count(p)}, usable={SkeletonPets.Usable(p, corpse)}, spawn={p.Map.CanSpawnMobile(corpse.X, corpse.Y, corpse.Z)}, see={p.CanSee(corpse)}, los={p.InLOS(corpse)}, criminal={corpse.IsCriminalAction(p)}, location={p.Location}/{corpse.Location}, alive={p.Alive}");
+        Require(SkeletonPets.Raise(p), $"Saved learned skill could not summon again: rank={SkeletonPets.Rank(p)}, mana={p.Mana}, count={SkeletonPets.Count(p)}, usable={SkeletonPets.Usable(p, corpse)}, spawn={p.Map.CanSpawnMobile(corpse.X, corpse.Y, corpse.Z)}, see={p.CanSee(corpse)}, los={p.InLOS(corpse)}, criminal={corpse.IsCriminalAction(p)}, location={p.Location}/{corpse.Location}, alive={p.Alive}");
         p.Kill();
         Require(SkeletonPets.Count(p) == 0 && Profile(p).Experience == 612, "Owner death retained a summon or removed XP");
         corpse.Delete();

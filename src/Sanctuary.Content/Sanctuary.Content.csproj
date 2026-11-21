@@ -11,6 +11,7 @@
   <ItemGroup>
     <Compile Include="../../shared/DiabloClass.cs" Link="DiabloClass.cs" />
     <Compile Include="../../shared/PortraitProtocol.cs" Link="PortraitProtocol.cs" />
+    <Compile Include="../../shared/DespiseLighting.cs" Link="DespiseLighting.cs" />
     <Compile Include="../../shared/AppearanceTemplates.cs" Link="AppearanceTemplates.cs" />
     <Compile Include="../../shared/CombatProtocol.cs" Link="CombatProtocol.cs" />
     <Compile Include="../../shared/ClassAbilities.cs" Link="ClassAbilities.cs" />
@@ -18,11 +19,13 @@
     <Compile Include="../../shared/TitleProtocol.cs" Link="TitleProtocol.cs" />
     <Compile Include="../../shared/SkillBindingProtocol.cs" Link="SkillBindingProtocol.cs" />
     <Compile Include="../../shared/NamedVisualProtocol.cs" Link="NamedVisualProtocol.cs" />
+    <Compile Include="../../shared/SkeletonAppearance.cs" Link="SkeletonAppearance.cs" />
     <Compile Include="../../shared/DruidFormVisualProtocol.cs" Link="DruidFormVisualProtocol.cs" />
     <Compile Include="../../shared/SpellEffectGraphics.cs" Link="SpellEffectGraphics.cs" />
     <Compile Include="../../shared/StatProtocol.cs" Link="StatProtocol.cs" />
     <Compile Include="../../shared/LootProtocol.cs" Link="LootProtocol.cs" />
     <Compile Include="../../shared/BeltProtocol.cs" Link="BeltProtocol.cs" />
+    <Compile Include="../../shared/BeltLanternGraphics.cs" Link="BeltLanternGraphics.cs" />
     <Compile Include="../../shared/ClassGumpProtocol.cs" Link="ClassGumpProtocol.cs" />
     <Compile Include="../../shared/TradeSkills.cs" Link="TradeSkills.cs" />
     <Reference Include="Server" HintPath="$(ModernUODistribution)/Server.dll" Private="false" />

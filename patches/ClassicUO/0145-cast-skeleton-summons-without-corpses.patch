@@ -1,0 +1,140 @@
+diff --git a/src/ClassicUO.Client/Game/ClassCombatClient.cs b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+--- a/src/ClassicUO.Client/Game/ClassCombatClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -365,7 +365,7 @@
+         world.Player.Pathfinder.StopAutoWalk();
+         _pursuing = false;
+     }
+-    public static void Stop(World world)
++    public static void Stop(World world, bool cancelPending = true)
+     {
+         EndChannel();
+         if (_groundGesture)
+@@ -376,7 +376,8 @@
+         StopMovement(world);
+         _target = 0;
+         world.TargetManager.LastAttack = 0;
+-        Send(CombatRequest.Stop);
++        if (cancelPending)
++            Send(CombatRequest.Stop);
+     }
+     public static bool QuickCast(World world, int slot, CombatAbility ability)
+     {
+@@ -386,6 +387,12 @@
+             || ability is not (CombatAbility.CorpseExplosion or CombatAbility.PoisonExplosion or CombatAbility.FindItem) && ClassAbilities.CorpseTarget(ability) && SelectedObject.Object is not Item { IsCorpse: true }
+             || ClassAbilities.ItemTarget(ability) && SelectedObject.Object is not Item { IsCorpse: false }) { return false; }
+         if(IsChannel(ability)){return BeginChannel(world,slot+2);}
++        if (ClassAbilities.SkeletonSummon(ability))
++        {
++            Stop(world, cancelPending: false);
++            ClassSkillBindingsClient.Use(slot, ability, 0, world.Player.X, world.Player.Y, world.Player.Z);
++            return true;
++        }
+         if (!ClassBeltClient.TryAim(world, out var x, out var y, out var z)) { return false; }
+         uint target = ClassAbilities.DemonSummon(ability)
+             || ability is CombatAbility.CorpseExplosion or CombatAbility.PoisonExplosion or CombatAbility.FindItem
+@@ -413,10 +420,10 @@
+         {
+             return false;
+         }
+-        Stop(world);
++        Stop(world, cancelPending: !ClassAbilities.SkeletonSummon(ability));
+         if (ability == CombatAbility.RaiseSkeleton)
+         {
+-            SendSummonAim(world, CombatRequest.Cast);
++            Send(CombatRequest.Cast, ability: ability);
+         }
+         else if (ability == CombatAbility.Teleport)
+         {
+@@ -434,11 +441,6 @@
+             SendPointAim(world, CombatRequest.Cast, ability);
+         }
+         return true;
+-    }
+-    private static void SendSummonAim(World world, CombatRequest action)
+-    {
+-        Send(action, SelectedObject.Object is Item { IsCorpse: true } corpse ? corpse.Serial : 0,
+-            CombatAbility.RaiseSkeleton);
+     }
+     public static bool LeftClick(World world)
+     {
+@@ -450,11 +452,10 @@
+         var obj = SelectedObject.Object;
+         if (Left == CombatAbility.Teleport && UIManager.IsMouseOverWorld)
+         { Stop(world); SendPointAim(world, CombatRequest.Cast, CombatAbility.Teleport); return true; }
+-        if (Left == CombatAbility.RaiseSkeleton && !world.Player.IsDead
+-            && (obj is Item { IsCorpse: true } || obj is Mobile enemy && Hostile(enemy)))
+-        {
+-            Stop(world);
+-            SendSummonAim(world, CombatRequest.HoldAttack);
++        if (ClassAbilities.SkeletonSummon(Left) && !world.Player.IsDead && obj is Mobile enemy && Hostile(enemy))
++        {
++            Stop(world, cancelPending: false);
++            Send(CombatRequest.HoldAttack, ability: Left);
+             return true;
+         }
+         if (obj is Item { IsCorpse: true } corpse)
+@@ -495,7 +496,7 @@
+         }
+         if(IsChannel(Left))
+         {if(BeginChannel(world,0)){_attackGesture=true;return true;}return false;}
+-        Stop(world);
++        Stop(world, cancelPending: !ClassAbilities.SkeletonSummon(Left));
+         _attackHeld = _attackGesture = true;
+         _attackAbility = Left;
+         _nextAttackUpdate = Time.Ticks;
+@@ -537,9 +538,9 @@
+         if (unchecked((int)(Time.Ticks - _nextAttackUpdate)) >= 0)
+         {
+             _nextAttackUpdate = Time.Ticks + CombatProtocol.HoldHeartbeatMs;
+-            if (_attackAbility == CombatAbility.RaiseSkeleton)
+-            {
+-                SendSummonAim(world, CombatRequest.HoldAttack);
++            if (ClassAbilities.SkeletonSummon(_attackAbility))
++            {
++                Send(CombatRequest.HoldAttack, ability: _attackAbility);
+             }
+             else if (SelectedObject.Object is Mobile enemy && (Hostile(enemy) || ClassAbilities.AllyTarget(_attackAbility) && enemy != world.Player && Ally(enemy)))
+             {
+@@ -725,7 +726,7 @@
+         var obj = SelectedObject.Object;
+         bool groundAim = ClassAbilities.DemonSummon(Right)
+             || Right is CombatAbility.Teleport or CombatAbility.CorpseExplosion or CombatAbility.PoisonExplosion or CombatAbility.FindItem;
+-        if (obj is Mobile mobile && !Hostile(mobile) && !groundAim && Right != CombatAbility.RaiseSkeleton
++        if (obj is Mobile mobile && !Hostile(mobile) && !groundAim && !ClassAbilities.SkeletonSummon(Right)
+             && !ClassAbilities.SelfTarget(Right) && !(ClassAbilities.AllyTarget(Right) && (Ally(mobile) || mobile == world.Player)))
+         {
+             Stop(world);
+@@ -792,14 +793,14 @@
+         // including when the renderer still hovers a spent lootable corpse.
+         if (_heldAbility is CombatAbility.CorpseExplosion or CombatAbility.PoisonExplosion or CombatAbility.FindItem)
+         { SendPointAim(world, CombatRequest.HoldCast, _heldAbility); return; }
++        if (ClassAbilities.SkeletonSummon(_heldAbility))
++        {
++            Send(CombatRequest.HoldCast, ability: _heldAbility);
++            return;
++        }
+         if (ClassAbilities.CorpseTarget(_heldAbility))
+         {
+-            if (_heldAbility != CombatAbility.RaiseSkeleton)
+-            {
+-                if (SelectedObject.Object is Item { IsCorpse: true } corpse) { Send(CombatRequest.HoldCast, corpse.Serial, _heldAbility, corpse.X, corpse.Y, corpse.Z); }
+-                return;
+-            }
+-            SendSummonAim(world, CombatRequest.HoldCast);
++            if (SelectedObject.Object is Item { IsCorpse: true } corpse) { Send(CombatRequest.HoldCast, corpse.Serial, _heldAbility, corpse.X, corpse.Y, corpse.Z); }
+             return;
+         }
+         if (_heldUnit != 0)
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs
+@@ -365,7 +365,7 @@
+             }
+             Add(new Label(ability == CombatAbility.None ? "Clear binding" : CombatProtocol.Label(ability), true, 0x481)
+             { X = 41, Y = 6, AcceptMouseInput = false });
+-            SetTooltip(ability == CombatAbility.RaiseSkeleton ? "Aim at a corpse when quick casting. Hover and press F1–F12 to assign; click to bind a mouse button." :
++            SetTooltip(ClassAbilities.SkeletonSummon(ability) ? "Summons beside you. Hover and press F1–F12 to assign; click to bind a mouse button." :
+                 "Hover and press F1–F12 to assign; left/right click to bind that mouse button.");
+         }
+         protected override void OnMouseUp(int x, int y, MouseButtonType button)

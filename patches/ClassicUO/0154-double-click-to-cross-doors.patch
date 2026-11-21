@@ -1,0 +1,112 @@
+diff --git a/src/ClassicUO.Client/Game/ClassCombatClient.cs b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+--- a/src/ClassicUO.Client/Game/ClassCombatClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -41,8 +41,10 @@
+     private static uint _nextGroundUpdate;
+     private static int _groundX, _groundY, _groundZ;
+     private readonly record struct DoorRoute(Item Door, int X, int Y, int Z, Direction Direction,
+-        Microsoft.Xna.Framework.Point Aim);
++        Microsoft.Xna.Framework.Point Aim, bool DoubleClick = false);
+     private static DoorRoute? _doorRoute;
++    private static DoorRoute? _pendingDoorClick;
++    private static uint _doorClickAt;
+     public static bool GroundGesture => _groundGesture;
+     private readonly record struct AnimationLease(byte Action, int Cycle, uint Until);
+     private static readonly Dictionary<uint, AnimationLease> _animations = new();
+@@ -125,6 +127,7 @@
+         _heldUnit = 0;
+         _groundHeld = _groundGesture = false;
+         _doorRoute = null;
++        _pendingDoorClick = null;
+         _groundWasHold = _groundCancelled = false;
+         _attackHeld = _attackGesture = false;
+         _sequence = _target = 0;
+@@ -363,6 +366,7 @@
+     private static void StopMovement(World world)
+     {
+         _doorRoute = null;
++        _pendingDoorClick = null;
+         world.Player.Pathfinder.StopAutoWalk();
+         _pursuing = false;
+     }
+@@ -479,6 +483,13 @@
+         if (!world.Player.IsDead && !Keyboard.Shift && GetDoorRoute(world, obj) is { } route)
+         {
+             Stop(world);
++            if (ReferenceEquals(obj, route.Door))
++            {
++                // Give the second click a chance to claim the door before the first can move it.
++                _pendingDoorClick = route;
++                _doorClickAt = Time.Ticks + Mouse.MOUSE_DELAY_DOUBLE_CLICK;
++                return true;
++            }
+             return StartDoorRoute(world, route);
+         }
+         if (IsGround(obj))
+@@ -737,8 +748,26 @@
+         return true;
+     }
+ 
++    public static bool DoubleClickDoor(World world, Item door)
++    {
++        if (!Enabled || world.Player.IsDead || world.TargetManager.IsTargeting || Keyboard.Shift
++            || UIManager.IsDragging || Client.Game.UO.GameCursor.ItemHold.Enabled || world.CustomHouseManager != null)
++            return false;
++
++        Stop(world);
++        if (GetDoorRoute(world, door) is not { } route || !StartDoorRoute(world, route with { DoubleClick = true }))
++            Send(CombatRequest.CrossDoor, door.Serial, crossing: CombatProtocol.DoorDoubleClick);
++        return true;
++    }
++
+     private static void UpdateDoorRoute(World world)
+     {
++        if (_pendingDoorClick is { } click && unchecked((int)(Time.Ticks - _doorClickAt)) > 0)
++        {
++            _pendingDoorClick = null;
++            if (!click.Door.IsDestroyed && !world.Player.IsDead && !world.TargetManager.IsTargeting && !Keyboard.Shift)
++                StartDoorRoute(world, click);
++        }
+         if (_doorRoute is not { } route)
+             return;
+         var player = world.Player;
+@@ -754,7 +783,8 @@
+             _groundCancelled |= _groundGesture;
+             _groundHeld = false;
+             StopMovement(world);
+-            Send(CombatRequest.CrossDoor, route.Door.Serial, crossing: (byte)route.Direction);
++            Send(CombatRequest.CrossDoor, route.Door.Serial,
++                crossing: route.DoubleClick ? CombatProtocol.DoorDoubleClick : (byte)route.Direction);
+         }
+         else if (!player.Pathfinder.AutoWalking)
+         {
+diff --git a/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs b/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
+--- a/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
++++ b/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
+@@ -838,6 +838,15 @@
+                 return false;
+             }
+ 
++            if (SelectedObject.Object is Item { ItemData.IsDoor: true } door && ClassCombatClient.DoubleClickDoor(_world, door))
++            {
++                _isMouseLeftDown = _isSelectionActive = false;
++                SelectedObject.LastLeftDownObject = null;
++                _world.DelayedObjectClickManager.Clear();
++                StopFollowing();
++                return true;
++            }
++
+             if (ClassCombatClient.AttackGesture || ClassCombatClient.GroundGesture
+                 || ClassCombatClient.BeginAttackHold(_world) || ClassCombatClient.BeginGroundHold(_world))
+             {
+@@ -862,10 +871,6 @@
+                 case Item item:
+                     result = true;
+ 
+-                    if (item.ItemData.IsDoor && ClassCombatClient.Enabled)
+-                    {
+-                        ClassCombatClient.Stop(_world);
+-                    }
+                     if (!GameActions.OpenCorpse(_world, item))
+                     {
+                         GameActions.DoubleClick(_world, item);

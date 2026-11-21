@@ -61,15 +61,19 @@ internal static class TaintedPrepared
             || ClassCreation.Profiles.TryGet(owner.Serial, out var profile) != true || profile.Class != DiabloClass.Warlock
             || ClassCreation.Profiles.GetRank(owner.Serial, "warlock.summontainted") < 1)
         { throw new InvalidOperationException("Tainted needs a live learned Warlock owner"); }
-        return new(Birth(SkillMechanics.Values(owner, CombatAbility.SummonTainted), SummonDifficulties.For(owner.Map), profile.Level,
+        return new(Birth(owner, SkillMechanics.Values(owner, CombatAbility.SummonTainted)),
+            SkillMechanics.Rank(owner, CombatAbility.DemonicMastery), SkillMechanics.Rank(owner, CombatAbility.BloodOath),
+            ClassCreation.Profiles.GetRank(owner.Serial, "warlock.demonicmastery"), ClassCreation.Profiles.GetRank(owner.Serial, "warlock.bloodboil"));
+    }
+
+    internal static TaintedBirth Birth(PlayerMobile owner, SkillValues values) =>
+        Birth(values, SummonDifficulties.For(owner.Map), ClassStats.Level(owner),
             stat => stat switch
             {
                 "item_pierce_damage_immunity" => ClassGear.Bonus(owner, "pierce-immunity-damage"),
                 "item_pierce_fire_immunity" => ClassGear.Bonus(owner, "pierce-immunity-fire"),
                 _ => throw new NotSupportedException("Unmapped Tainted inherited stat: " + stat)
-            }), SkillMechanics.Rank(owner, CombatAbility.DemonicMastery), SkillMechanics.Rank(owner, CombatAbility.BloodOath),
-            ClassCreation.Profiles.GetRank(owner.Serial, "warlock.demonicmastery"), ClassCreation.Profiles.GetRank(owner.Serial, "warlock.bloodboil"));
-    }
+            });
 
     internal static TaintedSnapshot Rescale(TaintedSnapshot snapshot, MonsterDifficulty difficulty)
     {

@@ -36,9 +36,9 @@ public static class SkeletonBirthChecks
     private static RaisedSkeleton Cast(PlayerMobile p,Corpse corpse)
     {
         PoisonDaggerChecks.Ready(p);NecromancerEffects.SetMana256(p,p.ManaMax*256);int mana=NecromancerEffects.ManaBalance256(p);
-        Require(ClassCombat.CastSummon(p,corpse.Serial,Core.TickCount),"Skeleton learned windup");var session=ClassCombat.For(p);
+        Require(ClassCombat.CastSummon(p, Core.TickCount),"Skeleton learned windup");var session=ClassCombat.For(p);
         Require(!ClassCombat.ResolveAction(p,session.EffectAt-1)&&NecromancerEffects.ManaBalance256(p)==mana&&!corpse.SanctuaryConsumed,"Skeleton early payment/body use");
-        Require(ClassCombat.ResolveAction(p,session.EffectAt)&&!ClassCombat.ResolveAction(p,session.EffectAt)&&NecromancerEffects.ManaBalance256(p)==mana-9*256&&corpse.SanctuaryConsumed,"Skeleton once-only9mana/corpse");
+        Require(ClassCombat.ResolveAction(p,session.EffectAt)&&!ClassCombat.ResolveAction(p,session.EffectAt)&&NecromancerEffects.ManaBalance256(p)==mana-9*256&&!corpse.SanctuaryConsumed,"Skeleton once-only9mana/corpse");
         var pet=NecromancerSkeletons.For(p,CombatAbility.RaiseSkeleton).OfType<RaisedSkeleton>().Last();
         Require(pet is SkeletonWorldBody,"Learned birth did not create the new world subtype");Stop(pet);return pet;
     }
@@ -134,7 +134,7 @@ public static class SkeletonBirthChecks
                 if(session.PendingAbility==CombatAbility.RaiseSkeleton&&!began){Require(NecromancerEffects.ManaBalance256(p)==mana&&!corpse.SanctuaryConsumed,"Skeleton input paid early");began=true;Log.Information("{Label}: windup",label);}
                 var pet=NecromancerSkeletons.For(p,CombatAbility.RaiseSkeleton).OfType<RaisedSkeleton>().SingleOrDefault();
                 if(pet==null){Timer.StartTimer(TimeSpan.FromMilliseconds(20),Inspect);return;}
-                Require(began&&pet.SourceLife256==8064&&SkillHealth.Balance256(pet)==8064&&NecromancerEffects.ManaBalance256(p)==mana-9*256&&corpse.SanctuaryConsumed,"Actual skeleton input/resource/payment");Clean();Log.Information("{Label}-result: passed",label);
+                Require(began&&pet.SourceLife256==8064&&SkillHealth.Balance256(pet)==8064&&NecromancerEffects.ManaBalance256(p)==mana-9*256&&!corpse.SanctuaryConsumed,"Actual skeleton input/resource/payment");Clean();Log.Information("{Label}-result: passed",label);
             }
             catch(Exception e){Clean();Log.Error(e,"{Label}-result: failed",label);}
         }

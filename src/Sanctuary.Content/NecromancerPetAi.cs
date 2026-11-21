@@ -33,7 +33,7 @@ internal sealed record NecromancerPetAiServices(Action<NecromancerPetAiRequest> 
 // action clock or current-executable equivalence is implied by this policy.
 internal static class NecromancerPetAi
 {
-    internal static NecromancerPetAiState Think(NecromancerPetAiContext c,NecromancerPetAiServices s)
+    internal static NecromancerPetAiState Think(NecromancerPetAiContext c,NecromancerPetAiServices s, bool responsiveMelee = false)
     {
         ArgumentNullException.ThrowIfNull(c);ArgumentNullException.ThrowIfNull(s);
         if(s.Request==null||s.Owner==null||s.LookupPlayer==null||s.Distance==null
@@ -74,21 +74,21 @@ internal static class NecromancerPetAi
         {
             if(ownerDistance>50){s.PetMove(3,false,0,0);return state;}
             int velocity=c.Velocity<=0?100:Math.Min(checked(100*c.Run)/c.Velocity-100,100);
-            if(ownerDistance>28){s.PetMove(0,false,velocity,0);return state;}
+            if(ownerDistance>(responsiveMelee?20:28)){s.PetMove(0,false,velocity,0);return state;}
         }
         var potential=Target(s.OwnerTarget(owner));
         int candidate=potential.Id;
         if(candidate!=0&&s.PetIgnore(candidate)){candidate=0;}
         var primary=Target(s.Primary(ranged,ranged?0:24));
         int target=primary.Id;
-        if(target==0||primary.Distance>(ranged?15:6))
+        if(target==0||primary.Distance>(ranged?15:responsiveMelee?14:6))
         {
             target=0;
             if(candidate!=0&&(!ranged||!s.MissileBarrier(candidate))&&Distance(candidate)<(ranged?20:36))
             {target=candidate;}
         }
         if(!ranged&&!s.ValidTarget(target)){target=0;}
-        bool closer=Roll()<15;
+        bool closer=!responsiveMelee&&Roll()<15;
         if(s.CommonMove(target,primary.Combat,closer?1:0,closer?8:7)){return state;}
         if(target==0||s.Town())
         {A(NecromancerPetAiKind.Wander,owner,4);return state;}
@@ -98,9 +98,9 @@ internal static class NecromancerPetAi
             else if(Roll()>=75){A(NecromancerPetAiKind.Reposition,target,3);}
             else{A(NecromancerPetAiKind.Idle,10);}
         }
-        else if(primary.Combat)
+        else if(primary.Combat && (!responsiveMelee || target == primary.Id))
         {
-            if(Roll()<80){A(NecromancerPetAiKind.Attack,4,target);}
+            if(responsiveMelee||Roll()<80){A(NecromancerPetAiKind.Attack,4,target);}
             else{A(NecromancerPetAiKind.Idle,10);}
         }
         else

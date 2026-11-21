@@ -36,9 +36,9 @@ public static class SkeletonWorldChecks
         var mob=new GraveyardZombie{NoKillAwards=true};mob.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);mob.Damage(100000,p);if(mob.Alive){mob.Kill();}
         var corpse=mob.Corpse as Corpse;Require(SkeletonPets.Usable(p,corpse),"Actual world corpse eligibility");
         NecromancerEffects.SetMana256(p,p.ManaMax*256);int mana=NecromancerEffects.ManaBalance256(p);
-        Require(SkeletonPets.Raise(p,corpse)&&NecromancerEffects.ManaBalance256(p)==mana-9*256&&(corpse.Deleted||corpse.SanctuaryConsumed),"Learned world creation corpse/once-only payment");
+        Require(SkeletonPets.Raise(p)&&NecromancerEffects.ManaBalance256(p)==mana-9*256&&(!corpse.Deleted&&!corpse.SanctuaryConsumed),"Learned world creation corpse/once-only payment");
         var body=NecromancerSkeletons.For(p,CombatAbility.RaiseSkeleton).OfType<SkeletonWorldBody>().Last();corpse.Delete();
-        Require(body.WorldState.Owner==p.Serial.Value&&body.ControlMaster==p&&body.WorldState.Controller is{Mode:8,EndAt:24,NextThink:25},"Learned world ownership/initial schedule");return body;
+        Require(body.WorldState.Owner==p.Serial.Value&&body.ControlMaster==p&&body.WorldState.Controller is{Mode:8,EndAt:9,NextThink:10},"Learned world ownership/initial schedule");return body;
     }
     private static GraveyardSkeleton Target(PlayerMobile p,SkeletonWorldBody body)
     {
@@ -53,7 +53,7 @@ public static class SkeletonWorldChecks
     private static ulong Seed(SkeletonWorldBody body,BaseCreature target)
     {
         double chance=ClassStats.HitChance(ClassStats.AttackRating(body),ClassStats.Defense(target),ClassStats.Level(body),ClassStats.Level(target));
-        for(ulong n=1;n<10000;n++){ulong s=n;SourceRandom.Roll(ref s);if(SourceRandom.Roll(ref s)%100<80&&SourceRandom.Roll(ref s)%100/100.0<chance){return n;}}
+        for(ulong n=1;n<10000;n++){ulong s=n;if(SourceRandom.Roll(ref s)%100/100.0<chance){return n;}}
         throw new InvalidOperationException("No skeleton world seed");
     }
     private static void Combat()
@@ -62,16 +62,16 @@ public static class SkeletonWorldChecks
         try
         {
             NpcEquipmentRandom.Set(b,Seed(b,t));int hp=SkillHealth.Balance256(t);
-            Require(b.WorldState.Controller is{Mode:8,EndAt:24,NextThink:25},"Pinned skeleton S1/first-think contract");
-            Through(b,24);Require(b.WorldState.Controller is{Mode:1,NextThink:25}&&b.WorldContact==null&&SkillHealth.Balance256(t)==hp,"Emergence prematurely attacked or moved first think");
-            Through(b,25);var state=b.WorldState.Controller;var packet=b.WorldContact;
-            Require(state is{Mode:4,ActionAt:37,EndAt:44,AttackSpeed:224}&&packet!=null&&SkillHealth.Balance256(t)==hp,"AI67 did not capture skeleton A1 at25/action37/end44");
+            Require(b.WorldState.Controller is{Mode:8,EndAt:9,NextThink:10},"Pinned skeleton S1/first-think contract");
+            Through(b,9);Require(b.WorldState.Controller is{Mode:1,NextThink:10}&&b.WorldContact==null&&SkillHealth.Balance256(t)==hp,"Emergence prematurely attacked or moved first think");
+            Through(b,10);var state=b.WorldState.Controller;var packet=b.WorldContact;
+            Require(state is{Mode:4,ActionAt:22,EndAt:29,AttackSpeed:224}&&packet!=null&&SkillHealth.Balance256(t)==hp,"AI67 did not capture skeleton A1 at10/action22/end29");
             Require((packet.Impact.Packet.ResultFlags&1)!=0,"Chosen skeleton hit seed failed");int damage=packet.Impact.Packet.Total256;ulong seed=NpcEquipmentRandom.State(b).Seed;
-            t.SetResistance(ResistanceType.Physical,100);Through(b,36);Require(SkillHealth.Balance256(t)==hp,"Early skeleton world contact");
-            Through(b,37);Require(b.WorldState.Controller is{Attempts:1,Hits:1}&&b.WorldContact==null&&packet.Consumed&&hp-SkillHealth.Balance256(t)==damage
+            t.SetResistance(ResistanceType.Physical,100);Through(b,21);Require(SkillHealth.Balance256(t)==hp,"Early skeleton world contact");
+            Through(b,22);Require(b.WorldState.Controller is{Attempts:1,Hits:1}&&b.WorldContact==null&&packet.Consumed&&hp-SkillHealth.Balance256(t)==damage
                 &&NpcEquipmentRandom.State(b).Seed==seed,"World contact recomputed mitigation,rerolled or lost captured HP");
-            int after=SkillHealth.Balance256(t);Through(b,44);Require(b.WorldState.Controller.Mode==1&&SkillHealth.Balance256(t)==after,"Animation end replayed skeleton hit");
-            t.SetResistance(ResistanceType.Physical,0);b.StoreWorld(IronGolemWorld.Park(b.WorldState.Controller));NpcEquipmentRandom.Set(b,Seed(b,t));Through(b,45);
+            int after=SkillHealth.Balance256(t);Through(b,29);Require(b.WorldState.Controller.Mode==1&&SkillHealth.Balance256(t)==after,"Animation end replayed skeleton hit");
+            t.SetResistance(ResistanceType.Physical,0);b.StoreWorld(IronGolemWorld.Park(b.WorldState.Controller));NpcEquipmentRandom.Set(b,Seed(b,t));Through(b,30);
             packet=b.WorldContact;Require(packet!=null,"Second skeleton attack failed to prepare");seed=NpcEquipmentRandom.State(b).Seed;hp=SkillHealth.Balance256(t);
             b.InterruptForRecovery();Require(packet.Consumed&&b.WorldContact==null&&b.WorldState.Controller.Mode==1,"Recovery retained skeleton world packet");
             Through(b,80,false);Require(b.Map==Map.Internal&&SkillHealth.Balance256(t)==hp&&NpcEquipmentRandom.State(b).Seed==seed,"Offline skeleton fought or rerolled canceled action");
@@ -102,15 +102,15 @@ public static class SkeletonWorldChecks
         {
             ulong seed=1;for(;seed<10000;seed++){ulong n=seed;SourceRandom.Roll(ref n);if(SourceRandom.Roll(ref n)%100<80){break;}}
             NpcEquipmentRandom.Set(b,seed);Require(IronGolemWorld.Eligible(b,p,t),"Native recipient silently excluded by missing source footprint");
-            Through(b,25);Require(b.WorldState.Controller.Mode==4&&b.WorldContact==null&&b.LegacyContactReason?.StartsWith("legacy: ")==true,"Native recipient did not retain reported pre-RNG fallback");
-            Through(b,44);Require(b.WorldState.Controller.Fault==null&&b.WorldState.Controller.Attempts==1,"Native recipient fallback faulted the world actor");
+            Through(b,10);Require(b.WorldState.Controller.Mode==4&&b.WorldContact==null&&b.LegacyContactReason?.StartsWith("legacy: ")==true,"Native recipient did not retain reported pre-RNG fallback");
+            Through(b,29);Require(b.WorldState.Controller.Fault==null&&b.WorldState.Controller.Attempts==1,"Native recipient fallback faulted the world actor");
         }
         finally{t.Delete();b.Delete();p.Delete();}
     }
     private static void Check()
     {
         Combat();Motion();NativeRecipient();var p=Owner();var b=Learned(p);var t=Target(p,b);var roll=SourceBlocking.BlockRoll;SourceBlocking.BlockRoll=_=>99;
-        try{NpcEquipmentRandom.Set(b,Seed(b,t));Through(b,25);Require(b.WorldContact!=null,"Saved skeleton windup missing");}finally{SourceBlocking.BlockRoll=roll;}
+        try{NpcEquipmentRandom.Set(b,Seed(b,t));Through(b,10);Require(b.WorldContact!=null,"Saved skeleton windup missing");}finally{SourceBlocking.BlockRoll=roll;}
         // Hold this inspected cohort's next observation only, so other fixture
         // families/live inputs cannot cancel its windup before the snapshot.
         // Natural unheld timing is checked separately above and in Live.
@@ -121,7 +121,7 @@ public static class SkeletonWorldChecks
         var saved=new Saved(p.Serial.Value,b.Serial.Value,t.Serial.Value,legacy.Serial.Value,SkillHealth.Balance256(b),SkillHealth.Balance256(t),NpcEquipmentRandom.State(b).Seed,
             NpcEquipmentRandom.State(legacy).Seed,p.Location,p.Map.MapID,0);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(saved));Require(b.WorldContact!=null&&b.WorldState.Controller.Mode==4,"Snapshot cohort lost active windup");
-        Log.Information("Skeleton world:shared AI67 S1end24/think25/A1action37/end44,captured damage/no replay,cancel,owner-follow,exact recovery,offline and malformed clock controls pass; active windup and historical actor staged");
+        Log.Information("Skeleton world:shared AI67 emerge9/think10/A1action22/end29,captured damage/no replay,cancel,owner-follow,exact recovery,offline and malformed clock controls pass; active windup and historical actor staged");
     }
     private static void Reload()
     {

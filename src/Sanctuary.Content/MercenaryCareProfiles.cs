@@ -19,21 +19,24 @@ public sealed class MercenaryCareProfiles : GenericPersistence
     public override void Serialize() { Capture(); base.Serialize(); }
     public override void Serialize(IGenericWriter writer)
     {
-        writer.Write(0); writer.Write(_snapshot.Length);
+        writer.Write(1); writer.Write(_snapshot.Length);
         foreach (var (serial, state) in _snapshot)
         {
-            writer.Write(serial.Value); writer.Write(state.Owner.Value); writer.Write(state.Level); writer.Write(state.Retired);
+            writer.Write(serial.Value); writer.Write(state.Owner.Value); writer.Write(state.Level);
+            writer.Write(state.Retired ? (byte)1 : state.Parked ? (byte)2 : (byte)0);
             foreach (long amount in state.Healing) { writer.Write(amount); } writer.Write(state.NextDrinkUtc);
         }
     }
     public override void Deserialize(IGenericReader reader)
     {
-        if (reader.ReadInt() != 0) { throw new InvalidDataException("Unsupported mercenary care version."); }
+        int version = reader.ReadInt();
+        if (version is < 0 or > 1) { throw new InvalidDataException("Unsupported mercenary care version."); }
         int count = reader.ReadInt(); if (count is < 0 or > 1000000) { throw new InvalidDataException("Invalid mercenary count."); }
         var restored = new Dictionary<Serial, MercenaryCareState>(); var active = new HashSet<Serial>();
         for (int i = 0; i < count; i++)
         {
-            var serial = (Serial)reader.ReadUInt(); var owner = (Serial)reader.ReadUInt(); int level = reader.ReadInt(); bool retired = reader.ReadBool();
+            var serial = (Serial)reader.ReadUInt(); var owner = (Serial)reader.ReadUInt(); int level = reader.ReadInt();
+            byte status = version == 0 ? (reader.ReadBool() ? (byte)1 : (byte)0) : reader.ReadByte();
             var healing = new long[5]; long total = 0;
             for (int tier = 0; tier < 5; tier++)
             {
@@ -42,8 +45,9 @@ public sealed class MercenaryCareProfiles : GenericPersistence
                 healing[tier] = amount; total += amount;
             }
             var next = reader.ReadDateTime();
-            if (serial == Serial.Zero || owner == Serial.Zero || level is < 1 or > 99 || retired && total != 0
-                || !retired && !active.Add(owner) || !restored.TryAdd(serial, new(owner, level, retired, healing, next)))
+            if (serial == Serial.Zero || owner == Serial.Zero || level is < 1 or > 99 || status > 2
+                || status == 0 && !active.Add(owner)
+                || !restored.TryAdd(serial, new(owner, level, status == 1, healing, next) { Parked = status == 2 }))
             { throw new InvalidDataException("Invalid mercenary contract."); }
         }
         MercenaryCare.States.Clear(); foreach (var row in restored) { MercenaryCare.States.Add(row.Key, row.Value); }

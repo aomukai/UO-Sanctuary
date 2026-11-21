@@ -20,11 +20,29 @@ public static class PetObstacleChecks
     public static void Configure()
     {
         Register("pet-obstacle-check",Check);Register("pet-obstacle-reload-check",Reload);
+        Register("pet-follow-fallback-check",FollowFallback);
         ConsoleInputHandler.RegisterCommand("pet-obstacle-live","Natural learned skeleton automatic obstacle repair",_=>Core.LoopContext.Post(()=>FixtureNetwork.Connected("pet-obstacle-live-result",Live)));
     }
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Native item collision and automatic source follow repair",_=>Core.LoopContext.Post(()=>
     {try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     private static void Require(bool yes,string why){if(!yes){throw new InvalidOperationException(why);}}
+    private static void FollowFallback()
+    {
+        var origin = new Point2D(100, 100);
+        var target = new Point2D(110, 100);
+        var room = new ActorPathRoom(95, 95, 21, 11);
+        var motion = DruidRavenMotion.Center(origin.X, origin.Y) with
+        {
+            PathType = 1, Flags = 0, Velocity = 2048, MaximumVelocity = 2048
+        };
+        var plan = new ActorPathState(motion, target, origin);
+        int Wall(int x, int y) => x == 104 && y is >= 98 and <= 102 ? 0x3c01 : 0;
+        var path = SourceActorPath.Initialize(plan, 77, room, Wall).Motion;
+        Require(path.PathType == 7 && path.Points.Length > 1 && path.Points[^1] == target
+            && path.Points.Any(point => point.Y is < 98 or > 102), "Follow fallback did not route around the wall");
+        Require(SourceActorPath.Initialize(plan, 77, room, (_, _) => 0x3c01).Motion.Points.Length == 0,
+            "Blocked follow should return no route");
+    }
     private static Scene Create()
     {
         var owner=PoisonDaggerChecks.Owner();owner.Name="PoisonDaggerFixturePetObstacle";FixtureSpace.Corridor(owner,6940,20,3400);
@@ -33,7 +51,7 @@ public static class PetObstacleChecks
         var victim=new GraveyardZombie{NoKillAwards=true};victim.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);victim.Damage(100000,owner);if(victim.Alive){victim.Kill();}
         var corpse=victim.Corpse as Corpse;Require(SkeletonPets.Usable(owner,corpse),"Native obstacle learned corpse refused");
         NecromancerEffects.SetMana256(owner,owner.ManaMax*256);int mana=NecromancerEffects.ManaBalance256(owner);
-        Require(SkeletonPets.Raise(owner,corpse)&&NecromancerEffects.ManaBalance256(owner)==mana-9*256,"Obstacle learned once-only birth payment");
+        Require(SkeletonPets.Raise(owner)&&NecromancerEffects.ManaBalance256(owner)==mana-9*256,"Obstacle learned once-only birth payment");
         var body=NecromancerSkeletons.For(owner,CombatAbility.RaiseSkeleton).OfType<SkeletonWorldBody>().Single();corpse.Delete();victim.Delete();
         owner.MoveToWorld(new(body.X-1,body.Y-1,body.Z),body.Map); // Adjacent diagonal: full-size source distance is zero.
         var initial=body.WorldState.Controller with{NextUtc=TimedEffects.Now.AddHours(1)};body.StoreWorld(initial);
@@ -60,6 +78,7 @@ public static class PetObstacleChecks
     private static void Delete(Scene s){foreach(var wall in s.Walls){wall.Delete();}s.Body.Delete();s.Owner.Delete();}
     private static void Check()
     {
+        FollowFallback();
         var s=Create();int mana=NecromancerEffects.ManaBalance256(s.Owner);var origin=s.Body.Location;
         SkillHealth.SetBalance256(s.Body,SkillHealth.Maximum256(s.Body)-257);TimedEffects.PreventHealing(s.Body,TimedEffects.Now);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(s.Owner.Serial.Value,s.Body.Serial.Value,s.Walls.Select(w=>w.Serial.Value).ToArray(),origin,s.Body.Map.MapID,

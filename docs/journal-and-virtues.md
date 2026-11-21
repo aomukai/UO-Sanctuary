@@ -14,6 +14,12 @@ The book shows the cards and connections the player has found. Empty slots, disc
 
 Nightmare and Hell are temporary realities. Once the player chooses to close one, that character’s opportunity to find its undiscovered lore ends. The cards they found remain part of their own *Adventures of the Avatar*. A new character can take a different route through the campaign and find memories the first character missed.
 
+## Despise and Ilshenar
+
+The pixies in Despise shelter at an ankh after ratmen drive their friends out of the caves. A ratman sheltering at another ankh says that something drives his tribe and that he seems to be free of its influence. The letter found on an adventurer's body orders the theft of a pixie artifact. Showing it to the pixies reveals that the artifact was a sapling from the Tree of Life in Ilshenar and that the invasion followed its disappearance. Each discovery can stand on its own. The theft and the ratmen's behaviour remain a mystery the player can leave behind.
+
+After the campaign opens Ilshenar, the Avatar could tell a pixie elder in the woods what happened. Some of his children went out to see the world long ago, taking a sapling from the Tree of Life as a talisman that would frighten hostile creatures away. He has had no word from them for a long time. The news grieves him, and he can do nothing about it now.
+
 ## The journal’s voice
 
 The journal is written in first person by the Avatar looking back years later. It fills as the player lives through the adventure. That framing makes room for private, easily missed details that the Avatar happened to remember, alongside events the whole of Britannia would know.

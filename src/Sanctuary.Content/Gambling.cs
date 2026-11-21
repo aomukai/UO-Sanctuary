@@ -63,7 +63,7 @@ public static partial class Gambling
             if (take > 0) { consumes.Add((gold, take)); remaining -= take; }
         }
         bool bank = remaining > 0;
-        if (bank && (offer.Price < 2000 || Banker.GetBalance(p) < offer.Price)) { return GambleResult.NoFunds; }
+        if (bank && Banker.GetBalance(p) < offer.Price) { return GambleResult.NoFunds; }
         if (bank) { consumes.Clear(); }
         var item = Generate(offer, random);
         if (item == null) { return GambleResult.Refunded; }

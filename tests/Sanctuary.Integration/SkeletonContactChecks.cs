@@ -29,7 +29,7 @@ public static class SkeletonContactChecks
     private static RaisedSkeleton Pet(PlayerMobile p)
     {
         var zombie=new GraveyardZombie{NoKillAwards=true};zombie.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);zombie.Damage(100000,p);if(zombie.Alive){zombie.Kill();}
-        var corpse=(Corpse)zombie.Corpse;Require(SkeletonPets.Raise(p,corpse),"Learned corpse creation");corpse.Delete();
+        var corpse=(Corpse)zombie.Corpse;Require(SkeletonPets.Raise(p),"Learned corpse creation");corpse.Delete();
         var learned=NecromancerSkeletons.For(p,CombatAbility.RaiseSkeleton).OfType<RaisedSkeleton>().Single();
         Require(learned is SkeletonWorldBody,"Learned skeleton did not opt into world controller");learned.Delete();
         // Retain the historical direct/native attack hook fixture separately;

@@ -109,6 +109,18 @@ def _exercise(window, click, capture):
             assert reports[name]['max_interval_ms'] < 270, reports[name]
         capture(f'smooth-{label}-{name}.png')
 
+    if not baseline:
+        for name, distance in [('precision-cardinal', 1), ('precision-diagonal', 1), ('two-tiles', 2)]:
+            if not enabled(name):
+                continue
+            state = command(name)
+            time.sleep(.7)
+            aim(state)
+            button('click')
+            time.sleep(1.2)
+            moves = report(name, command('arrived'))
+            assert len(moves) == distance and all(bool(p['dir'] & 128) == (distance == 2) for p in moves), moves
+
     if enabled('walk-angle'):
         state = command('angle-a')
         time.sleep(.7)
@@ -171,7 +183,7 @@ def _exercise(window, click, capture):
             state = command(name)
             time.sleep(.7)
             if name == 'door':
-                # Closed doorway stays authoritative; then use the opened passage.
+                # Keep the barrier locked for the collision test, then use the opened passage.
                 aim(state)
                 log_start = clientlog.stat().st_size
                 button('mousedown')

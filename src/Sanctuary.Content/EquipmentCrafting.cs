@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using Server;
 using Server.Engines.Craft;
 using Server.Items;
@@ -19,6 +20,8 @@ public static class EquipmentCrafting
     public static EquipmentRecipe[] Recipes { get; private set; } = [];
     public static EquipmentCraftScope[] Scope { get; private set; } = [];
     private static readonly Dictionary<Type, EquipmentCraftScope> _scope = new();
+    private static readonly Dictionary<string, string> _appearanceNames = new(StringComparer.Ordinal);
+    private static readonly Regex _nameBoundary = new(@"(?<=[a-z])(?=[A-Z])|(?<=[A-Za-z])(?=[0-9])");
     private static readonly HashSet<Type> _outputs = [];
     private sealed record Selection(EquipmentRecipe Row, Type Material, CraftResource Resource);
     private static readonly Dictionary<(string Id, Type Material), CraftItem> _cache = new();
@@ -26,9 +29,10 @@ public static class EquipmentCrafting
     public static Type Resolve(string name) => typeof(IronIngot).Assembly.GetType("Server.Items." + name)
         ?? typeof(EquipmentCrafting).Assembly.GetType("Sanctuary." + name)
         ?? throw new InvalidDataException("Unknown recipe item: " + name);
+    internal static string AppearanceName(string type) => _appearanceNames.GetValueOrDefault(type) ?? _nameBoundary.Replace(type, " ");
     public static void Load()
     {
-        _scope.Clear(); _outputs.Clear(); _cache.Clear(); _selections.Clear();
+        _scope.Clear(); _outputs.Clear(); _cache.Clear(); _selections.Clear(); _appearanceNames.Clear();
         Scope = BalanceCatalog.Read<EquipmentCraftScope>("equipment-crafting-scope");
         foreach (var scope in Scope)
         {
@@ -67,6 +71,8 @@ public static class EquipmentCrafting
                 || row.Ingredients[0].Type != Primary(_scope[output].Material)
                 || row.RequiredSkill < 0 || row.RequiredSkill > 120 || row.MaxSkill <= row.RequiredSkill)
             { throw new InvalidDataException("Invalid equipment recipe: " + row.Id); }
+            if (row.Tier == GearTier.Normal)
+                _appearanceNames.Add(row.Type, _nameBoundary.Replace(row.Name, " "));
             var ingredients = new HashSet<Type>();
             foreach (var ingredient in row.Ingredients)
             {

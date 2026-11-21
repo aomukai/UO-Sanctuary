@@ -49,7 +49,7 @@ public static class BloodGolemWorldChecks
     internal static ulong Seed(BloodGolemWorldBody b,BaseCreature t)
     {
         double chance=ClassStats.HitChance(ClassStats.AttackRating(b),ClassStats.Defense(t),ClassStats.Level(b),ClassStats.Level(t));
-        for(ulong n=1;n<10000;n++){ulong s=n;SourceRandom.Roll(ref s);if(SourceRandom.Roll(ref s)%100<80&&SourceRandom.Roll(ref s)%100/100.0<chance){return n;}}
+        for(ulong n=1;n<10000;n++){ulong s=n;if(SourceRandom.Roll(ref s)%100/100.0<chance){return n;}}
         throw new InvalidOperationException("No Blood world hit seed");
     }
     private static void Wound(PlayerMobile p,BloodGolemWorldBody b)

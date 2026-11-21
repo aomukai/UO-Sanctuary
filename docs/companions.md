@@ -4,7 +4,7 @@ The Avatar can travel with one active companion at a time. Over the course of an
 
 ## Finding a companion again
 
-The innkeeper opens the Avatar’s personal companion roster. When someone is available, the innkeeper can call them down. Sending a companion back to the inn makes them inactive. When the Avatar calls them back, it’s the same companion with the same gear, potion reserve, and progress. They can catch each other up before setting out together again.
+Ayila keeps the Avatar’s personal companion roster at her inn in East Britain. **Dismiss Companion** lodges the current companion for free. **Call Companion** lists the Avatar’s companions staying at the inn and charges 500 gold when one rejoins. The fee comes from carried gold first, with the balance drawn from the bank. The Avatar and the returning companion meet in the inn’s sitting room for a brief catch-up. A returning companion keeps their gear, potions, and story progress. Iolo is available while he is still travelling and leaves the roster when he retires.
 
 A companion’s personal story can take them elsewhere. The innkeeper gives the information the companion left with them, if any.
 
@@ -80,6 +80,24 @@ The old companions can have jobs, homes, and their own histories in this Britann
 Iolo is a bard. His internal combat profile uses Amazon scaling. He uses Magic Arrow from level 6, Cold Arrow from level 10, and Guided Arrow from level 18. He wears light armour, clothing and accessories, and wields crossbows. He refuses incompatible gear in a private message to his owner.
 
 Iolo guards the Avatar and joins fights involving their followers. He resumes that role when he rejoins the Avatar after login.
+
+### Merydwen
+
+Merydwen is a young human pirate archer looking for work at the Buccaneer’s Den inn. She refuses to explain why she quit sailing with a crew until she knows the Avatar better. She charges 5,000 gold to join someone who is travelling without another companion. She matches the Avatar’s level using Amazon stats, fights with a bow, and uses Guided Arrow, Inner Sight, and Strafe. She wears light armour and a red bandana.
+
+Early on, she keeps things transactional. Nicknames, jokes and bravado let her keep people at arm’s length. That confidence falters if she thinks she’s been left behind. Her early dialogue and combat speech leave the reason private.
+
+In her later story, she reluctantly reveals that her old captain betrayed his crew after they robbed a merchant ship. The captain was her father. She wants to cut his throat when she first considers facing him. As she learns to depend on the Avatar, she also has to decide whether she can forgive him. She opens the confrontation quietly with “I had so many things ready to say to you.” If she chooses forgiveness, she tells him “I’m putting the knife away. What happens after that depends on you.”
+
+Keep the jokes as her trust grows. She can ask plainly for help and make promises she means to keep.
+
+- “Take the front. I’ll watch your back.”
+- “Go on. I won’t leave you.”
+- “Need a potion. Cover me a moment.”
+- “Your left! I’ve got it.”
+- “We both walk out of here.”
+- “There you are. Knew you’d come.”
+- “Keep your gold. You can buy the drinks.”
 
 ## Reunion and dialogue
 

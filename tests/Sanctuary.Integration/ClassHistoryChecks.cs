@@ -134,15 +134,14 @@ public static class ClassHistoryChecks
         var corpse = (Corpse)mob.Corpse;
         try
         {
-            Require(SkillBindings.Instance.AssignQuick(p, 0, CombatAbility.RaiseSkeleton) && SkeletonPets.CanRaise(p, corpse), "Quick guard corpse unavailable");
+            Require(SkillBindings.Instance.AssignQuick(p, 0, CombatAbility.RaiseSkeleton) && SkeletonPets.TrySummonPosition(p, CombatAbility.RaiseSkeleton, out _), "Quick guard summon position unavailable");
             int mana = p.Mana; long next = ClassCombat.For(p).NextAction;
             bool Use(DiabloClass c, int slot, CombatAbility ability, Serial target) => SkillBindingNetwork.Use(p, c, slot, ability, target, corpse.Location);
             Require(!Use(DiabloClass.Sorceress, 0, CombatAbility.RaiseSkeleton, corpse.Serial)
                 && !Use(DiabloClass.Necromancer, 12, CombatAbility.RaiseSkeleton, corpse.Serial)
                 && !Use(DiabloClass.Necromancer, 0, CombatAbility.Teeth, corpse.Serial)
-                && !Use(DiabloClass.Necromancer, 0, CombatAbility.RaiseSkeleton, Serial.Zero)
                 && !corpse.SanctuaryConsumed && SkeletonPets.Count(p) == 0 && p.Mana == mana && ClassCombat.For(p).NextAction == next,
-                "Stale/invalid quick cast edited inactive state, spent resources or fell back to a nearby corpse");
+                "Stale/invalid quick cast edited inactive state, or spent resources");
             Require(SkillBindings.Instance.AssignQuick(p, 1, CombatAbility.Teeth)
                 && Use(DiabloClass.Necromancer, 1, CombatAbility.Teeth, p.Serial)
                 && ClassCombat.For(p).PendingTarget == Serial.Zero && ClassCombat.For(p).PendingPoint == corpse.Location,

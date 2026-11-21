@@ -23,7 +23,7 @@ internal static class AmazonBowEffects
         if (accent != 0) { owner.PlaySound(accent); }
     }
 
-    internal static void Contact(PlayerMobile owner, Mobile target, CombatAbility ability)
+    internal static void Contact(Mobile owner, Mobile target, CombatAbility ability)
     {
         (int graphic, int sound) = ability switch
         {

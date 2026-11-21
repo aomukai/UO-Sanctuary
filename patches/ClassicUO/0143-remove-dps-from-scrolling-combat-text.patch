@@ -1,0 +1,127 @@
+diff --git a/src/ClassicUO.Client/Configuration/Profile.cs b/src/ClassicUO.Client/Configuration/Profile.cs
+--- a/src/ClassicUO.Client/Configuration/Profile.cs
++++ b/src/ClassicUO.Client/Configuration/Profile.cs
+@@ -332,7 +332,6 @@
+         public string WorldMapHiddenZoneFiles { get; set; } = string.Empty;
+         public bool WorldMapShowGridIfZoomed { get; set; } = true;
+         public bool WorldMapAllowPositionalTarget { get; set; } = false;
+-        public bool ShowDPSWithDamageNumbers { get; set; } = true;
+ 
+         public static uint GumpsVersion { get; private set; }
+ 
+diff --git a/src/ClassicUO.Client/Game/GameObjects/EntityTextContainer.cs b/src/ClassicUO.Client/Game/GameObjects/EntityTextContainer.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/EntityTextContainer.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/EntityTextContainer.cs
+@@ -1,6 +1,5 @@
+ ﻿// SPDX-License-Identifier: BSD-2-Clause
+ 
+-using ClassicUO.Configuration;
+ using ClassicUO.Renderer;
+ using ClassicUO.Utility.Collections;
+ using Microsoft.Xna.Framework;
+@@ -71,17 +70,10 @@
+ 
+         public void Add(int damage)
+         {
+-            Parent?.AddDamage(damage);
+-
+             TextObject text_obj = TextObject.Create(_world);
+ 
+-            string dmgString = damage.ToString();
+-
+-            if (ProfileManager.CurrentProfile.ShowDPSWithDamageNumbers && Parent != null)
+-                dmgString += $" (DPS: {Parent.GetCurrentDPS()})";
+-
+             text_obj.RenderedText = RenderedText.Create(
+-                dmgString,
++                damage.ToString(),
+                 (ushort)(ReferenceEquals(Parent, _world.Player) ? 0x0034 : 0x0021),
+                 3,
+                 false
+diff --git a/src/ClassicUO.Client/Game/GameObjects/GameObject.cs b/src/ClassicUO.Client/Game/GameObjects/GameObject.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/GameObject.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/GameObject.cs
+@@ -27,7 +27,6 @@
+         public bool IsDestroyed { get; protected set; }
+         public bool IsPositionChanged { get; protected set; }
+         public TextContainer TextContainer { get; private set; }
+-        private AverageOverTime _averageOverTime;
+ 
+         public int Distance
+         {
+@@ -78,21 +77,6 @@
+             Y;
+         public sbyte Z;
+ 
+-        public void AddDamage(int damage)
+-        {
+-            _averageOverTime ??= new AverageOverTime(TimeSpan.FromSeconds(15));
+-
+-            _averageOverTime.AddValue(Time.Ticks, damage);
+-        }
+-        public double GetCurrentDPS()
+-        {
+-            if (_averageOverTime == null)
+-            {
+-                return 0;
+-            }
+-            return Math.Round(_averageOverTime.LastAveragePerSecond, 1);
+-        }
+-
+         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+         public Vector2 GetScreenPosition()
+         {
+@@ -351,7 +335,6 @@
+             Clear();
+             RemoveFromTile();
+             TextContainer?.Clear();
+-            _averageOverTime = null;
+             IsDestroyed = true;
+             PriorityZ = 0;
+             IsPositionChanged = false;
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/OptionsGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/OptionsGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/OptionsGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/OptionsGump.cs
+@@ -100,7 +100,7 @@
+         private ClickableColorBox _innocentColorPickerBox, _friendColorPickerBox, _crimialColorPickerBox, _canAttackColorPickerBox, _enemyColorPickerBox, _murdererColorPickerBox, _neutralColorPickerBox, _beneficColorPickerBox, _harmfulColorPickerBox;
+         private HSliderBar _lightBar;
+         private Checkbox _buffBarTime, _uiButtonsSingleClick, _queryBeforAttackCheckbox, _queryBeforeBeneficialCheckbox, _spellColoringCheckbox, _spellFormatCheckbox, _enableFastSpellsAssign;
+-        private Checkbox _newTargetSystem, _showDPSCheckbox;
++        private Checkbox _newTargetSystem;
+ 
+         // macro
+         private MacroControl _macroControl;
+@@ -2742,17 +2742,6 @@
+             );
+ 
+             startY += _enableFastSpellsAssign.Height + 2;
+-
+-            _showDPSCheckbox = AddCheckBox
+-            (
+-                rightArea,
+-                ResGumps.ShowDPSWithDamage,
+-                _currentProfile.ShowDPSWithDamageNumbers,
+-                startX,
+-                startY
+-            );
+-
+-            startY += 30;
+ 
+             int initialY = startY;
+ 
+@@ -3634,7 +3623,6 @@
+                     break;
+ 
+                 case 8: // combat
+-                    _showDPSCheckbox.IsChecked = false;
+                     _innocentColorPickerBox.Hue = 0x005A;
+                     _friendColorPickerBox.Hue = 0x0044;
+                     _crimialColorPickerBox.Hue = 0x03b2;
+@@ -3972,7 +3960,6 @@
+             _currentProfile.EnabledSpellHue = _spellColoringCheckbox.IsChecked;
+             _currentProfile.EnabledSpellFormat = _spellFormatCheckbox.IsChecked;
+             _currentProfile.SpellDisplayFormat = _spellFormatBox.Text;
+-            _currentProfile.ShowDPSWithDamageNumbers = _showDPSCheckbox.IsChecked;
+ 
+             // macros
+             World.Macros.Save();

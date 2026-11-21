@@ -1,8 +1,9 @@
 import io
 from pathlib import Path
 import subprocess
+from tempfile import TemporaryDirectory
 import unittest
-from unittest.mock import Mock, call
+from unittest.mock import Mock, call, patch
 
 from tools.local_launcher import LocalGame
 
@@ -13,6 +14,21 @@ ON_DISK = "Writing world save snapshot done (0.02 seconds)"
 
 
 class LocalLauncherTests(unittest.TestCase):
+    def test_keeps_previous_launch_log(self):
+        with TemporaryDirectory() as directory:
+            folder = Path(directory)
+            game = LocalGame(folder, Mock(), Mock())
+            game.logs.mkdir()
+            log = game.log_path("server")
+            log.write_bytes(b"previous crash details\n")
+
+            with patch("tools.local_launcher.subprocess.Popen") as start:
+                start.side_effect = lambda *args, stdout, **kwargs: stdout.write(b"next launch\n")
+                game.spawn((["ModernUO"], folder, {}), "server", subprocess.DEVNULL)
+
+            self.assertEqual(log.read_bytes(), b"next launch\n")
+            self.assertEqual(log.with_suffix(".previous.log").read_bytes(), b"previous crash details\n")
+
     def game_at_console(self, messages):
         game = LocalGame(Path(".local"), Mock(), Mock())
         game.ready = True

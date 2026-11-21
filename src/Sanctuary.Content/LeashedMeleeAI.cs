@@ -44,7 +44,8 @@ public sealed class LeashedMeleeAI : MeleeAI
         if (!ReturningHome)
         {
             var target = Mobile.Combatant;
-            bool valid = target is { Deleted: false, Alive: true } && target.Map == Mobile.Map;
+            bool valid = target is { Deleted: false, Alive: true } && target.Map == Mobile.Map
+                && !(Mobile is EncounterCreature encounter && encounter.RepelledByAnkh(target.Location));
             if (valid && !_engaged)
             {
                 _engaged = true;
@@ -55,7 +56,7 @@ public sealed class LeashedMeleeAI : MeleeAI
             {
                 _lastContact = now;
             }
-            if (!Mobile.InRange(Mobile.Home, HomeRadius) || Mobile.Map != Mobile.HomeMap
+            if (!Mobile.InRange(Mobile.Home, ((GraveyardUndead)Mobile).HomeLeashRadius) || Mobile.Map != Mobile.HomeMap
                 || _engaged && (!valid || now - _lastContact >= ChaseTimeoutMs))
             {
                 ReturningHome = true;

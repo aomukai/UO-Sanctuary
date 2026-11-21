@@ -71,6 +71,13 @@ public static class EncounterTreasure
                 _ => "Act 1 H2H A"
             };
         }
+        if (creature is FrontierEncounter or CovetousEncounter or CoveEncounter)
+        {
+            string tier = CreatureProfiles.Level(creature) >= 25 ? "B" : "A";
+            string kind = creature.Leader ? "Unique" : creature.Grade == EncounterGrade.Champion ? "Champ"
+                : creature.Dungeon.Archetype == MonsterArchetype.Caster ? "Cast" : "H2H";
+            return $"Act 2 {kind} {tier}";
+        }
         var grade = creature.Grade switch { EncounterGrade.Minion => EncounterGrade.Ordinary,
             EncounterGrade.SuperUnique => EncounterGrade.Unique, var value => value };
         var root = _classes[_roots[(creature.Dungeon.Family, creature.Difficulty, grade)]];
@@ -94,7 +101,9 @@ public static class EncounterTreasure
             if (root.Picks != -3 || root.Entries.Length != 2) { throw new InvalidDataException("Named encounter root is not a unique tree."); }
             root = root with { Picks = -4, Entries = [root.Entries[0] with { Weight = 2 }, root.Entries[1] with { Weight = 2 }] };
         }
-        Walk(root, new int[4], 0, 256, random, drops);
+        // Simulated players are unpartied. The killer counts once and each pair of extra players counts once.
+        int dropPlayers = (creature.EncounterPlayers + 1) / 2;
+        Walk(root, new int[4], 0, 256, dropPlayers, random, drops);
         if (creature is HavenEncounter { Leader: true })
         {
             // Keep the named encounter's two gear rolls and six-drop budget.
@@ -102,22 +111,30 @@ public static class EncounterTreasure
         }
         return drops;
     }
-    private static void Walk(EncounterTreasureClass row, int[] inherited, int depth, int multiplier, Random random, List<EncounterDrop> drops)
+    private static void Walk(EncounterTreasureClass row, int[] inherited, int depth, int multiplier,
+        int dropPlayers, Random random, List<EncounterDrop> drops)
     {
         if (depth > 64 || drops.Count >= 6) { return; }
         int[] factors = new int[4];
         for (int i = 0; i < 4; i++) { factors[i] = Math.Max(inherited[i], row.Factors[i]); }
         int weight = 0; foreach (var entry in row.Entries) { weight = checked(weight + entry.Weight); }
+        int noDrop = row.NoDrop;
+        if (row.Picks > 0 && noDrop > 0 && dropPlayers > 1)
+        {
+            double probability = Math.Pow((double)noDrop / (noDrop + weight), dropPlayers);
+            noDrop = (int)(weight * probability / (1 - probability));
+        }
         for (int pick = 0; pick < Math.Abs(row.Picks) && drops.Count < 6; pick++)
         {
-            int ticket = row.Picks < 0 ? pick : random.Next(checked(row.NoDrop + weight)) - row.NoDrop;
+            int ticket = row.Picks < 0 ? pick : random.Next(checked(noDrop + weight)) - noDrop;
             if (ticket < 0 || ticket >= weight) { continue; }
             foreach (var entry in row.Entries)
             {
                 ticket -= entry.Weight;
                 if (ticket >= 0) { continue; }
                 int goldMultiplier = entry.GoldMultiplier == 256 ? multiplier : entry.GoldMultiplier;
-                if (_classes.TryGetValue(entry.Item, out var nested)) { Walk(nested, factors, depth + 1, goldMultiplier, random, drops); }
+                if (_classes.TryGetValue(entry.Item, out var nested))
+                    Walk(nested, factors, depth + 1, goldMultiplier, dropPlayers, random, drops);
                 else { drops.Add(new(entry.Item, goldMultiplier, factors)); }
                 break;
             }
@@ -137,5 +154,7 @@ public static class EncounterTreasure
                 life.Level, life.MagicFind, random, drop.Factors);
             if (item != null) { life.Corpse.DropItem(item); }
         }
+        if (creature is CoveEncounter { Orc: true } && random.Next(10) == 0)
+            life.Corpse.DropItem(new OrcEar());
     }
 }

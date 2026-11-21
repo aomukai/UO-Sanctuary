@@ -1,0 +1,448 @@
+diff --git a/src/ClassicUO.Client/Game/ClassCombatClient.cs b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+--- a/src/ClassicUO.Client/Game/ClassCombatClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -40,11 +40,9 @@
+     public static bool AttackGesture => _attackGesture;
+     private static uint _nextGroundUpdate;
+     private static int _groundX, _groundY, _groundZ;
+-    private static Item _groundDoor;
+-    private static Microsoft.Xna.Framework.Point _doorAim;
+-    private static Direction _doorCrossing;
+-    private static bool _throughDoor;
+-    private static (int X, int Y, int Z)? _doorExit;
++    private readonly record struct DoorRoute(Item Door, int X, int Y, int Z, Direction Direction,
++        Microsoft.Xna.Framework.Point Aim);
++    private static DoorRoute? _doorRoute;
+     public static bool GroundGesture => _groundGesture;
+     private readonly record struct AnimationLease(byte Action, int Cycle, uint Until);
+     private static readonly Dictionary<uint, AnimationLease> _animations = new();
+@@ -126,6 +124,7 @@
+         Enabled = _queried = _pursuing = _rightHeld = _wasDead = false;
+         _heldUnit = 0;
+         _groundHeld = _groundGesture = false;
++        _doorRoute = null;
+         _groundWasHold = _groundCancelled = false;
+         _attackHeld = _attackGesture = false;
+         _sequence = _target = 0;
+@@ -243,6 +242,7 @@
+             return;
+         }
+         UpdateGroundHold(world);
++        UpdateDoorRoute(world);
+         if (Keyboard.Shift)
+         {
+             world.Player.Pathfinder.StopAutoWalk();
+@@ -362,6 +362,7 @@
+     }
+     private static void StopMovement(World world)
+     {
++        _doorRoute = null;
+         world.Player.Pathfinder.StopAutoWalk();
+         _pursuing = false;
+     }
+@@ -475,12 +476,17 @@
+             // Keep ordinary single/double click and context-menu interaction for friendlies.
+             return false;
+         }
++        if (!world.Player.IsDead && !Keyboard.Shift && GetDoorRoute(world, obj) is { } route)
++        {
++            Stop(world);
++            return StartDoorRoute(world, route);
++        }
+         if (IsGround(obj))
+         {
+             Stop(world);
+             if (!Keyboard.Shift && obj is GameObject point)
+             {
+-                world.Player.Pathfinder.WalkTo(point.X, point.Y, point.Z, 0, responsive: true);
++                WalkToCursor(world, point.X, point.Y, point.Z);
+             }
+             return true;
+         }
+@@ -555,7 +561,7 @@
+     private static bool IsGround(object obj) => obj is Land or Static or Multi
+         || obj is Item { IsLocked: true, ItemData.IsSurface: true, ItemData.IsImpassable: false, ItemData.Height: 0 };
+ 
+-    public static bool BeginGroundHold(World world, bool allowOpenDoor = false)
++    public static bool BeginGroundHold(World world, bool allowDoor = false)
+     {
+         if (!Enabled || !UIManager.IsMouseOverWorld || world.TargetManager.IsTargeting
+             || Client.Game.UO.GameCursor.ItemHold.Enabled || world.CustomHouseManager != null)
+@@ -563,7 +569,7 @@
+             return false;
+         }
+         var selected = SelectedObject.Object;
+-        bool startsOnDoor = allowOpenDoor && OpenDoorFacing(selected) >= 0;
++        bool startsOnDoor = allowDoor && !world.Player.IsDead && DoorThreshold(selected, out _, out _, out _) >= 0;
+         if (!startsOnDoor && !IsGround(selected))
+             return false;
+ 
+@@ -573,7 +579,6 @@
+         _groundWasHold = _groundCancelled = false;
+         _groundDownAt = Time.Ticks;
+         _groundX = _groundY = -1;
+-        _groundDoor = null;
+         _nextGroundUpdate = Time.Ticks;
+         UpdateGroundHold(world);
+         return true;
+@@ -617,12 +622,24 @@
+             StopMovement(world);
+             return;
+         }
+-        if (unchecked((int)(Time.Ticks - _nextGroundUpdate)) < 0
+-            || !TryHeldDestination(world, out int x, out int y, out int z))
++        if (unchecked((int)(Time.Ticks - _nextGroundUpdate)) < 0)
+         {
+             return;
+         }
+         _nextGroundUpdate = Time.Ticks + CombatProtocol.HoldHeartbeatMs;
++        if (_doorRoute is { } previous)
++        {
++            if (Math.Abs(Mouse.Position.X - previous.Aim.X) <= 5 && Math.Abs(Mouse.Position.Y - previous.Aim.Y) <= 5)
++                return;
++            StopMovement(world);
++        }
++        var selected = SelectedObject.Object;
++        if (!world.Player.IsDead && GetDoorRoute(world, selected) is { } route && StartDoorRoute(world, route))
++            return;
++        if (!IsGround(selected) || selected is not GameObject point)
++            return;
++
++        int x = point.X, y = point.Y, z = point.Z;
+         if (_groundX != x || _groundY != y || _groundZ != z || !world.Player.Pathfinder.AutoWalking)
+         {
+             _groundX = x;
+@@ -630,79 +647,119 @@
+             _groundZ = z;
+             if (world.Player.X != x || world.Player.Y != y || Math.Abs(world.Player.Z - z) >= 16)
+             {
+-                world.Player.Pathfinder.WalkTo(x, y, z, 0, responsive: true);
++                WalkToCursor(world, x, y, z);
+             }
+         }
+     }
+ 
+-    // Standard hinged doors put their open frame one tile off the threshold, using ModernUO's DoorFacing offsets.
+-    private static readonly int[] _openDoorArt = [0x676, 0x686, 0x696, 0x6A6, 0x6B6, 0x6C6, 0x6D6, 0x6E6,
+-        0x825, 0x83A, 0x84D, 0x867, 0x1FEE];
+-    private static readonly (int X, int Y)[] _doorOffsets = [(-1, 1), (1, 1), (-1, 0), (1, -1),
+-        (1, 1), (1, -1), (0, 0), (0, -1)];
++    private static void WalkToCursor(World world, int x, int y, int z)
++    {
++        var player = world.Player;
++        player.GetEndPosition(out int startX, out int startY, out sbyte startZ, out _);
++        bool oneTile = Math.Max(Math.Abs(x - startX), Math.Abs(y - startY)) == 1 && Math.Abs(z - startZ) < 16;
++        player.Pathfinder.WalkTo(x, y, z, 0, responsive: true, forceWalk: oneTile);
++    }
+ 
+-    private static bool TryHeldDestination(World world, out int x, out int y, out int z)
++    private static int DoorThreshold(object selected, out int x, out int y, out int z)
+     {
+         x = y = z = 0;
+-        var selected = SelectedObject.Object;
+-        if (_groundDoor != null && !_groundDoor.IsDestroyed && OpenDoorFacing(_groundDoor) >= 0
+-            && Math.Abs(Mouse.Position.X - _doorAim.X) <= 5 && Math.Abs(Mouse.Position.Y - _doorAim.Y) <= 5)
+-            selected = _groundDoor;
+-        else
+-            _groundDoor = null;
+-        if (IsGround(selected) && selected is GameObject point)
++        if (selected is not Item { IsDestroyed: false, ItemData.IsDoor: true } door)
++            return -1;
++        int facing = DoorwayArt.Facing(door.Graphic, out bool open);
++        if (facing < 0)
++            return -1;
++        var offset = open ? DoorwayArt.OpenOffset(facing) : default;
++        (x, y, z) = (door.X - offset.X, door.Y - offset.Y, door.Z);
++        return facing;
++    }
++
++    private static DoorRoute? GetDoorRoute(World world, object selected)
++    {
++        int px = world.Player.X, py = world.Player.Y;
++        int facing = DoorThreshold(selected, out int x, out int y, out int z);
++        if (facing >= 0 && selected is Item aimed && Math.Abs(world.Player.Z - z) < 16)
+         {
+-            _groundDoor = null;
+-            (x, y, z) = (point.X, point.Y, point.Z);
+-            return true;
++            if (facing < 4 && py != y)
++                return new(aimed, x, y - Math.Sign(y - py), z, py < y ? Direction.South : Direction.North, Mouse.Position);
++            if (facing >= 4 && px != x)
++                return new(aimed, x - Math.Sign(x - px), y, z, px < x ? Direction.East : Direction.West, Mouse.Position);
+         }
+ 
+-        int facing = OpenDoorFacing(selected);
+-        if (facing < 0 || selected is not Item door)
+-            return false;
+-
+-        var offset = _doorOffsets[facing];
+-        (x, y, z) = (door.X - offset.X, door.Y - offset.Y, door.Z);
+-        world.Player.GetEndPosition(out int playerX, out int playerY, out sbyte playerZ, out var direction);
+-        if (_groundDoor != door)
++        // Aiming straight through a nearby doorway also works when a wall hides its graphic.
++        if (IsGround(selected) && selected is GameObject point
++            && Math.Abs(world.Player.Z - point.Z) < 16)
+         {
+-            _groundDoor = door;
+-            _doorAim = Mouse.Position;
+-            _throughDoor = false;
+-            _doorExit = null;
+-            direction &= Direction.Mask;
+-            if (facing < 4)
+-                _doorCrossing = playerY < y || playerY == y && direction is Direction.Down or Direction.South or Direction.Left
+-                    ? Direction.South : Direction.North;
+-            else
+-                _doorCrossing = playerX < x || playerX == x && direction is Direction.Right or Direction.East or Direction.Down
+-                    ? Direction.East : Direction.West;
++            int dx = point.X - px, dy = point.Y - py;
++            int distance = Math.Abs(dx) + Math.Abs(dy);
++            if ((dx == 0 || dy == 0) && distance is >= 1 and <= 3)
++            {
++                int sx = Math.Sign(dx), sy = Math.Sign(dy);
++                var direction = sx == 0 ? sy > 0 ? Direction.South : Direction.North
++                    : sx > 0 ? Direction.East : Direction.West;
++                for (int step = 1; step <= distance; step++)
++                {
++                    x = px + step * sx;
++                    y = py + step * sy;
++                    if (FindDoor(world, x, y, dx == 0) is { } door)
++                        return new(door, x - sx, y - sy, door.Z, direction, Mouse.Position);
++                }
++            }
+         }
++        return null;
++    }
+ 
+-        // Route to the threshold first so a path to the far side cannot take another entrance.
+-        _throughDoor |= playerX == x && playerY == y && Math.Abs(playerZ - z) < 16;
+-        if (_throughDoor && !_doorExit.HasValue)
++    private static Item FindDoor(World world, int x, int y, bool northSouth)
++    {
++        for (int tx = x - 1; tx <= x + 1; tx++)
++        for (int ty = y - 1; ty <= y + 1; ty++)
+         {
+-            sbyte exitZ = (sbyte)z;
+-            var crossing = _doorCrossing;
+-            if (world.Player.Pathfinder.CanWalk(ref crossing, ref x, ref y, ref exitZ))
+-                _doorExit = (x, y, exitZ);
++            var tile = world.Map.GetTile(tx, ty, false);
++            while (tile?.TPrevious != null)
++                tile = tile.TPrevious;
++            for (var obj = tile; obj != null; obj = obj.TNext)
++            {
++                int facing = DoorThreshold(obj, out int doorX, out int doorY, out int doorZ);
++                if (facing >= 0 && (facing < 4) == northSouth && doorX == x && doorY == y
++                    && Math.Abs(doorZ - world.Player.Z) < 16)
++                    return (Item)obj;
++            }
+         }
+-        if (_doorExit is { } exit)
+-            (x, y, z) = exit;
++        return null;
++    }
++
++    private static bool StartDoorRoute(World world, DoorRoute route)
++    {
++        var player = world.Player;
++        if ((player.X != route.X || player.Y != route.Y) && !player.Pathfinder.WalkTo(route.X, route.Y, route.Z, 0, responsive: true))
++            return false;
++
++        _doorRoute = route;
+         return true;
+     }
+ 
+-    private static int OpenDoorFacing(object selected)
++    private static void UpdateDoorRoute(World world)
+     {
+-        if (selected is Item { ItemData.IsDoor: true } door)
+-            foreach (int open in _openDoorArt)
+-            {
+-                int index = door.Graphic - open;
+-                if (index >= 0 && index < 16 && (index & 1) == 0)
+-                    return index / 2;
+-            }
+-        return -1;
++        if (_doorRoute is not { } route)
++            return;
++        var player = world.Player;
++        if (route.Door.IsDestroyed || player.IsDead || world.TargetManager.IsTargeting || Keyboard.Shift)
++        {
++            StopMovement(world);
++            return;
++        }
++        if (player.Steps.Count != 0 || player.Walker.StepsCount != 0)
++            return;
++        if (player.X == route.X && player.Y == route.Y && Math.Abs(player.Z - route.Z) < 16)
++        {
++            _groundCancelled |= _groundGesture;
++            _groundHeld = false;
++            StopMovement(world);
++            Send(CombatRequest.CrossDoor, route.Door.Serial, crossing: (byte)route.Direction);
++        }
++        else if (!player.Pathfinder.AutoWalking)
++        {
++            _doorRoute = null;
++        }
+     }
+     public static bool RightClick(World world)
+     {
+@@ -844,9 +901,9 @@
+         Send(action, 0, ability, (ushort)x, (ushort)y, world.Player.Z);
+     }
+     private static void Send(CombatRequest action, uint serial = 0, CombatAbility ability = CombatAbility.None,
+-        ushort x = 0, ushort y = 0, sbyte z = 0)
++        ushort x = 0, ushort y = 0, sbyte z = 0, byte crossing = 0)
+     {
+-        int length = 11 + (action == CombatRequest.Attack ? 4 : action is CombatRequest.Cast or CombatRequest.HoldCast or CombatRequest.HoldAttack ? 10 : action == CombatRequest.MovementMode ? 1 : 0);
++        int length = 11 + CombatProtocol.PayloadLength(action);
+         var writer = new StackDataWriter(length);
+         writer.WriteUInt8(0xBF);
+         writer.WriteUInt16BE((ushort)length);
+@@ -858,9 +915,11 @@
+         {
+             writer.WriteUInt8((byte)serial);
+         }
+-        else if (action == CombatRequest.Attack)
++        else if (action is CombatRequest.Attack or CombatRequest.CrossDoor)
+         {
+             writer.WriteUInt32BE(serial);
++            if (action == CombatRequest.CrossDoor)
++                writer.WriteUInt8(crossing);
+         }
+         else if (action is CombatRequest.Cast or CombatRequest.HoldCast or CombatRequest.HoldAttack)
+         {
+diff --git a/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs b/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
+--- a/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
++++ b/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
+@@ -349,7 +349,7 @@
+             }
+ 
+             if (DirectInteractionTarget() == null
+-                && (ClassCombatClient.BeginAttackHold(_world) || ClassCombatClient.BeginGroundHold(_world, allowOpenDoor: true)))
++                && (ClassCombatClient.BeginAttackHold(_world) || ClassCombatClient.BeginGroundHold(_world, allowDoor: true)))
+             {
+                 _isMouseLeftDown = _isSelectionActive = false;
+                 SelectedObject.LastLeftDownObject = null;
+@@ -849,7 +849,7 @@
+             {
+                 StopFollowing();
+             }
+-            if (ClassCombatClient.LeftClick(_world))
++            if (SelectedObject.Object is not Item { ItemData.IsDoor: true } && ClassCombatClient.LeftClick(_world))
+             {
+                 _world.DelayedObjectClickManager.Clear();
+                 return true;
+@@ -862,6 +862,10 @@
+                 case Item item:
+                     result = true;
+ 
++                    if (item.ItemData.IsDoor && ClassCombatClient.Enabled)
++                    {
++                        ClassCombatClient.Stop(_world);
++                    }
+                     if (!GameActions.OpenCorpse(_world, item))
+                     {
+                         GameActions.DoubleClick(_world, item);
+diff --git a/src/ClassicUO.Client/Game/Pathfinder.cs b/src/ClassicUO.Client/Game/Pathfinder.cs
+--- a/src/ClassicUO.Client/Game/Pathfinder.cs
++++ b/src/ClassicUO.Client/Game/Pathfinder.cs
+@@ -32,6 +32,7 @@
+         private readonly PathNode[] _path = new PathNode[PATHFINDER_MAX_NODES];
+         private int _pointIndex, _pathSize;
+         private bool _run;
++        private bool _forceWalk;
+         private static readonly int[] _offsetX =
+         {
+             0, 1, 1, 1, 0, -1, -1, -1, 0, 1
+@@ -978,10 +979,10 @@
+ 
+         private static readonly bool TraceMovement = Environment.GetEnvironmentVariable("SANCTUARY_TRACE_MOVEMENT") == "1";
+ 
+-        public bool WalkTo(int x, int y, int z, int distance, bool responsive = false)
++        public bool WalkTo(int x, int y, int z, int distance, bool responsive = false, bool forceWalk = false)
+         {
+             long started = TraceMovement ? Stopwatch.GetTimestamp() : 0;
+-            bool result = WalkToCore(x, y, z, distance, responsive);
++            bool result = WalkToCore(x, y, z, distance, responsive, forceWalk);
+             if (TraceMovement)
+             {
+                 Log.Trace($"Movement path: ms={Stopwatch.GetElapsedTime(started).TotalMilliseconds:F2} nodes={_activeCloseNodes} result={result} responsive={responsive} from={_startPoint.X},{_startPoint.Y},{_startZ} to={x},{y},{z} points={_pathSize}");
+@@ -989,7 +990,7 @@
+             return result;
+         }
+ 
+-        private bool WalkToCore(int x, int y, int z, int distance, bool responsive)
++        private bool WalkToCore(int x, int y, int z, int distance, bool responsive, bool forceWalk)
+         {
+             if (_world.Player == null /*|| World.Player.Stamina == 0*/ || _world.Player.IsParalyzed)
+             {
+@@ -1061,6 +1062,7 @@
+             PathindingCanBeCancelled = true;
+             StopAutoWalk();
+             _responsive = responsive;
++            _forceWalk = forceWalk;
+             AutoWalking = true;
+ 
+             long started = responsive ? Stopwatch.GetTimestamp() : 0;
+@@ -1168,7 +1170,7 @@
+                 else if (_responsive && !_goalFound
+                     && MathHelper.GetDistance(_endPoint, new Point(_world.Player.X, _world.Player.Y)) > _pathfindDistance)
+                 {
+-                    WalkTo(_endPoint.X, _endPoint.Y, _destinationZ, _pathfindDistance, responsive: true);
++                    WalkTo(_endPoint.X, _endPoint.Y, _destinationZ, _pathfindDistance, responsive: true, forceWalk: _forceWalk);
+                 }
+                 else
+                 {
+@@ -1199,7 +1201,7 @@
+             }
+             Direction pathDirection = (Direction)next;
+             bool turning = (direction & Direction.Mask) != pathDirection;
+-            if (!player.Walk(pathDirection, _run))
++            if (!player.Walk(pathDirection, _run, _forceWalk))
+             {
+                 StopAutoWalk();
+                 return;
+@@ -1212,7 +1214,7 @@
+                 // A protocol turn costs no movement time. Pair only one turn and
+                 // one step, after the preceding step's normal request deadline.
+                 player.Walker.LastStepRequestTime = Time.Ticks;
+-                if (!player.Walk(pathDirection, _run))
++                if (!player.Walk(pathDirection, _run, _forceWalk))
+                 {
+                     StopAutoWalk();
+                     return;
+@@ -1235,6 +1237,7 @@
+             AutoWalking = false;
+             _responsive = false;
+             _run = false;
++            _forceWalk = false;
+             _pathSize = 0;
+         }
+ 
+@@ -1317,4 +1320,4 @@
+             }
+         }
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs b/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs
+@@ -526,14 +526,14 @@
+         //}
+         // #############################################
+ 
+-        public bool Walk(Direction direction, bool run)
++        public bool Walk(Direction direction, bool run, bool forceWalk = false)
+         {
+             if (ClassCombatClient.Recovering || Walker.WalkingFailed || Walker.LastStepRequestTime > Time.Ticks || Walker.StepsCount >= Constants.MAX_STEP_COUNT || Client.Game.UO.Version >= ClientVersion.CV_60142 && IsParalyzed)
+             {
+                 return false;
+             }
+ 
+-            run = ClassCombatClient.Enabled ? ClassCombatClient.Running : run || ProfileManager.CurrentProfile.AlwaysRun;
++            run = ClassCombatClient.Enabled ? ClassCombatClient.Running && !forceWalk : run || ProfileManager.CurrentProfile.AlwaysRun;
+ 
+             if (SpeedMode >= CharacterSpeedType.CantRun || Stamina <= 1 && !IsDead || IsHidden && ProfileManager.CurrentProfile.AlwaysRunUnlessHidden)
+             {

@@ -84,12 +84,15 @@ public static class NativeCorpseChecks
     internal static void Cast(PlayerMobile p,CombatAbility ability,Corpse corpse)
     {
         Ready(p);int mana=NecromancerEffects.ManaBalance256(p),cost=SkillMechanics.Values(p,ability).Mana256;
-        bool started=ability==CombatAbility.RaiseSkeleton?ClassCombat.CastSummon(p,corpse.Serial,Core.TickCount):ClassCombat.BeginCorpse(p,ability,corpse.Serial,corpse.Location,Core.TickCount);
-        Require(started,$"Native corpse public start:{ability},region={NecromancerCastRegions.CorpseAllowed(p,ability,corpse)},enabled={ClassCombat.Enabled(p)},overlap={AlliedOverlap.Allowed(p)},alive={p.Alive},frozen={p.Frozen},paralyzed={p.Paralyzed},spell={p.Spell},recovery={HitRecovery.Active(p,Core.TickCount)},rank={SkeletonPets.Rank(p)},mana={p.Mana},usable={SkeletonPets.Usable(p,corpse)},canRaise={SkeletonPets.CanRaise(p,corpse)},space={p.Map.CanSpawnMobile(corpse.X,corpse.Y,corpse.Z)},loot={corpse.CanLoot(p,null)},criminal={corpse.IsCriminalAction(p)},owner={corpse.Owner?.GetType().Name},ownerAlive={corpse.Owner?.Alive},position={p.Location}/{corpse.Location},pending={ClassCombat.For(p).PendingAbility},body={corpse.OwnerWasBaseCreature}/{corpse.OwnerWasSummoned}/{corpse.IsBones},consumed={corpse.SanctuaryConsumed},row={JsonSerializer.Serialize(CorpseSkillRules.Profiles.Find(corpse))}");var s=ClassCombat.For(p);
+        bool started=ability==CombatAbility.RaiseSkeleton?ClassCombat.CastSummon(p, Core.TickCount)
+            : ability == CombatAbility.RaiseSkeletalMage ? NecromancerCombat.Begin(p, ability, Serial.Zero, p.Location, Core.TickCount)
+            : ClassCombat.BeginCorpse(p, ability, corpse.Serial, corpse.Location, Core.TickCount);
+        Require(started,$"Native corpse public start:{ability},region={NecromancerCastRegions.CorpseAllowed(p,ability,corpse)},enabled={ClassCombat.Enabled(p)},overlap={AlliedOverlap.Allowed(p)},alive={p.Alive},frozen={p.Frozen},paralyzed={p.Paralyzed},spell={p.Spell},recovery={HitRecovery.Active(p,Core.TickCount)},rank={SkeletonPets.Rank(p)},mana={p.Mana},usable={SkeletonPets.Usable(p,corpse)},space={p.Map.CanSpawnMobile(corpse.X,corpse.Y,corpse.Z)},loot={corpse.CanLoot(p,null)},criminal={corpse.IsCriminalAction(p)},owner={corpse.Owner?.GetType().Name},ownerAlive={corpse.Owner?.Alive},position={p.Location}/{corpse.Location},pending={ClassCombat.For(p).PendingAbility},body={corpse.OwnerWasBaseCreature}/{corpse.OwnerWasSummoned}/{corpse.IsBones},consumed={corpse.SanctuaryConsumed},row={JsonSerializer.Serialize(CorpseSkillRules.Profiles.Find(corpse))}");var s=ClassCombat.For(p);
         Require(NecromancerEffects.ManaBalance256(p)==mana&&!ClassCombat.ResolveAction(p,s.EffectAt-1),"Native corpse paid early");
         bool released=ClassCombat.ResolveAction(p,s.EffectAt);int after=NecromancerEffects.ManaBalance256(p);bool replay=ClassCombat.ResolveAction(p,s.EffectAt);
         Require(released&&!replay&&after==mana-cost,$"Native corpse release:{ability},released={released},replay={replay},mana={after}/{mana-cost},corpseAvailable={CorpseSkillRules.Available(corpse)},space={p.Map.CanSpawnMobile(corpse.X,corpse.Y,corpse.Z)},pendingPoint={s.PendingPoint}");
-        Require(!corpse.Deleted&&corpse.SanctuaryConsumed&&corpse.Animated&&!CorpseSkillRules.BodyAvailable(corpse)&&corpse.Items.OfType<Gold>().Single().Amount==17,"Native corpse reused or protected loot lost");
+        Require(!corpse.Deleted && corpse.SanctuaryConsumed != ClassAbilities.SkeletonSummon(ability)
+            && corpse.Animated == corpse.SanctuaryConsumed&&corpse.Items.OfType<Gold>().Single().Amount==17,"Native corpse reused or protected loot lost");
     }
     private static void Check()
     {

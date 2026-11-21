@@ -1,0 +1,716 @@
+[
+  {
+    "$type": "Spawner",
+    "guid": "277174ae-db8c-57d1-bc4f-05672f738e40",
+    "name": "Britain cemetery west path",
+    "location": [1382, 1488, 10],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-skeleton 12 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "9579d49c-29f3-5894-8a5b-71084585fc96",
+    "name": "Britain cemetery south footpath",
+    "location": [1382, 1501, 10],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-skeleton 12 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "ef6645d5-32df-57c6-be9a-a2640c1a8e5f",
+    "name": "Britain cemetery west fence",
+    "location": [1378, 1497, 10],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-zombie 13 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "85cd41ff-a409-5921-849d-5229f185dfc2",
+    "name": "Britain cemetery south corner",
+    "location": [1387, 1502, 10],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-zombie 13 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "7e0d18b0-24f5-55ba-a748-664f412fbd18",
+    "name": "Britain cemetery east graves",
+    "location": [1397, 1493, 10],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-skeleton 14 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "e8665edd-ac26-566c-9834-92df77608ce3",
+    "name": "Britain cemetery east of the old wall",
+    "location": [1395, 1486, 10],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-zombie 15 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "dd949f96-114d-5c68-bfda-6aad2f1c7d22",
+    "name": "Britain cemetery eastern copse",
+    "location": [1396, 1501, 10],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-skeleton 14 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "f2c34812-8bd2-554d-a686-e40566ba1778",
+    "name": "Britain cemetery north of the old wall",
+    "location": [1395, 1478, 10],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-zombie 15 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "188e7671-49ee-5fb2-aa79-67e14433e5cd",
+    "name": "Britain cemetery far graves",
+    "location": [1404, 1495, 10],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-skeleton 15 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "9502d400-3e12-5314-ac4e-41fa9fb82e56",
+    "name": "Britain cemetery southeast corner",
+    "location": [1407, 1502, 10],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-zombie 16 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "01a9ea41-95b1-53d4-9ce5-624ae9c7ebd8",
+    "name": "Britain cemetery far eastern trees",
+    "location": [1406, 1484, 10],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-skeleton 15 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "a650253b-6092-567e-a9cd-79020658b581",
+    "name": "Britain cemetery mausoleum west aisle",
+    "location": [1377, 1479, 10],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-skeleton 14 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "03bb5edc-d441-5688-9541-f9b9f21e7078",
+    "name": "Britain cemetery mausoleum east aisle",
+    "location": [1383, 1481, 10],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-zombie 16 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "d19cb85b-84bc-57ff-bb83-4a2a09aeecda",
+    "name": "Britain cemetery grave beside the mausoleum",
+    "location": [1388, 1480, 10],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-skeleton 14 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "f8b5d04d-eb09-5754-bfd4-a1e42036800b",
+    "name": "Britain cemetery mausoleum lich",
+    "location": [1380, 1480, 10],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:05:00",
+    "maxDelay": "00:07:00",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-lich 16 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "9f2837fe-db91-5b96-b7e6-6f8ca9a0e8f7",
+    "name": "Eastern ettin camp",
+    "location": [1627, 1187, 0],
+    "map": "Trammel",
+    "count": 4,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 3,
+    "walkingRange": 5,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 15 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 16 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 18 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 20 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "9cdf5c31-7134-5c5b-9381-eaff1064d1be",
+    "name": "Southern ettin camp",
+    "location": [1445, 1227, 0],
+    "map": "Trammel",
+    "count": 4,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 3,
+    "walkingRange": 5,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 15 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 16 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 18 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 20 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "ef906567-609e-5baf-a436-7980e80d44f1",
+    "name": "Northern ettin camp",
+    "location": [1639, 972, 0],
+    "map": "Trammel",
+    "count": 4,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 3,
+    "walkingRange": 5,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 15 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 16 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 18 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 20 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "e323c2ba-ea19-5f0d-af3f-cd3d4d6cf7bc",
+    "name": "Mountain watch guard Mara",
+    "location": [1254, 871, 16],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "FrontierSentry", "maxCount": 1, "probability": 100, "parameters": "true"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "01979953-7d45-595c-8529-7e256f2c4812",
+    "name": "Mountain watch guard Duncan",
+    "location": [1256, 869, 16],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "FrontierSentry", "maxCount": 1, "probability": 100, "parameters": "false"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "49655931-0567-5125-831d-10e1d43ea50c",
+    "name": "Maze mouth",
+    "location": [1458, 987, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-drake 16 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-wyvern 17 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "d2ca5f26-ced7-55b7-a9a5-addc2b1fa198",
+    "name": "Maze eastern ridge",
+    "location": [1448, 980, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-wyvern 17 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-drake 18 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "e1f14d6d-b7f9-543b-aa5c-2b4f5417e237",
+    "name": "Maze south bend",
+    "location": [1440, 992, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-drake 18 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-wyvern 19 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "a0942037-41c8-5a01-ac9b-6ab1d43405b2",
+    "name": "Maze lower crossroads",
+    "location": [1427, 991, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-wyvern 19 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-drake 19 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "fecbba3e-c83a-5078-b2e4-2f40b61a6cc0",
+    "name": "Maze central heights",
+    "location": [1430, 969, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-drake 19 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-wyvern 20 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "496f9c5b-f51e-576c-85a0-0f1d0afbe782",
+    "name": "Maze north fork",
+    "location": [1430, 950, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-wyvern 20 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-drake 21 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "69b3b5bd-ffa1-5d02-a240-90fca80c6a77",
+    "name": "Maze western gulch",
+    "location": [1410, 959, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-drake 20 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-wyvern 21 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "53138a47-3c90-5f1e-b9f7-286e201c5bb9",
+    "name": "Maze northwest hollow",
+    "location": [1385, 934, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-wyvern 21 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-drake 22 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "8666254f-6d76-5211-98a9-44e63685176c",
+    "name": "Maze east cliffs",
+    "location": [1447, 946, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-wyvern 20 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-drake 21 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "edd648f6-4b54-55e9-93a0-4a8bb420dca8",
+    "name": "Maze drake broodkeeper",
+    "location": [1439, 926, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:05:00",
+    "maxDelay": "00:07:00",
+    "homeRange": 0,
+    "walkingRange": 4,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-drake 21 1"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "646fa2c5-28a8-5138-a5e9-76ef99cfa4c6",
+    "name": "Maze wyvern broodkeeper",
+    "location": [1398, 950, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:05:00",
+    "maxDelay": "00:07:00",
+    "homeRange": 0,
+    "walkingRange": 4,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-wyvern 22 1"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "6eaf9c62-acd2-55b8-8fac-4f7557de0a19",
+    "name": "Cindermaw lair",
+    "location": [1442, 903, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:05:00",
+    "maxDelay": "00:07:00",
+    "homeRange": 0,
+    "walkingRange": 5,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-dragon 30 2"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "b252cd10-46ef-5db1-a90c-40efcdaf6a30",
+    "name": "Forest road ettin",
+    "location": [1521, 1014, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 6,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 15 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 16 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "f917f316-2359-5a87-b0d1-2a09abdeb176",
+    "name": "Forest northeast ettin",
+    "location": [1538, 1025, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 6,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 16 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 17 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "baae541d-bcd8-5e72-a82e-02267e5a6597",
+    "name": "Forest middle ettin",
+    "location": [1527, 1042, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 6,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 16 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 18 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "b4442a8a-770c-5464-903c-67d5ddd3c218",
+    "name": "Forest west ettin",
+    "location": [1517, 1056, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 6,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 17 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 19 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "8e9c1df1-9ab7-5289-95e9-33deff00d6d0",
+    "name": "Forest east ettin",
+    "location": [1539, 1068, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 6,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 18 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 20 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "4e0f9256-9b71-5c55-8d5e-acab2706cbe7",
+    "name": "Forest southern passage ettin",
+    "location": [1527, 1087, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 6,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 19 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 20 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "543fbbf5-d72c-5822-9abc-380f462ba959",
+    "name": "Maze deep patrol at 1388, 921",
+    "location": [1388, 921, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-drake 19 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "8a0ce075-d1c0-5940-88a0-6531d6c073f4",
+    "name": "Maze deep patrol at 1400, 934",
+    "location": [1400, 934, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-wyvern 20 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "6afbe082-b362-5a15-b452-d48ccc1b73c2",
+    "name": "Maze deep patrol at 1419, 918",
+    "location": [1419, 918, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-drake 22 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "598eb233-38f5-545e-a646-005715f08e2a",
+    "name": "Maze deep patrol at 1369, 945",
+    "location": [1369, 945, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-wyvern 21 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "80118a93-6542-5c21-9ea7-520157a9e059",
+    "name": "Maze deep patrol at 1371, 958",
+    "location": [1371, 958, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-drake 20 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "82162737-207b-5316-ab7c-15c3b9ce4bf2",
+    "name": "Maze deep patrol at 1380, 981",
+    "location": [1380, 981, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-wyvern 18 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "be874e95-2334-5be4-b1eb-0aa62ca64b0f",
+    "name": "Maze deep patrol at 1402, 972",
+    "location": [1402, 972, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-drake 21 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "1951e746-3d82-5e31-99f1-facea6a2cf98",
+    "name": "Maze deep patrol at 1421, 996",
+    "location": [1421, 996, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 1,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-wyvern 19 0"}
+    ]
+  }
+]

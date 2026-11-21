@@ -90,7 +90,8 @@ public partial class Wolfgang : ConversationNpc, IClassCompanion
 
     internal static Wolfgang Join(PlayerMobile player)
     {
-        if (!BritainStory.Retired(player) || MercenaryCare.HasActiveCompanion(player))
+        if (!BritainStory.Retired(player) || MercenaryCare.HasActiveCompanion(player)
+            || MercenaryCare.HasContract<Wolfgang>(player))
             return null;
 
         var wolfgang = new Wolfgang { Recruited = true, CantWalk = false, AI = AIType.AI_Melee, ControlSlots = 0 };

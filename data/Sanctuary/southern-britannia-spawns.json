@@ -1,0 +1,882 @@
+[
+  {
+    "$type": "Spawner",
+    "guid": "b46a7cf8-ee0d-518a-9908-8e6a9d6df516",
+    "name": "South road bridge troll",
+    "location": [1474, 2161, 6],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:03:00",
+    "maxDelay": "00:05:00",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "bridge-troll 15 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "5357bc2c-b5ba-55ca-be10-f49b2863172e",
+    "name": "Southern graveyard lich",
+    "location": [1475, 2509, 5],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:05:00",
+    "maxDelay": "00:07:00",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-lich 20 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "df7ea2d1-3bf9-5779-905d-2a9465d2a89e",
+    "name": "Southern graveyard upper graves",
+    "location": [1474, 2503, 4],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-skeleton 20 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-zombie 20 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "16b6601b-44c1-5de0-bb4b-e786fadfe5a1",
+    "name": "Southern graveyard west graves",
+    "location": [1468, 2508, 5],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-skeleton 20 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-zombie 20 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "426be38e-7438-5253-9f12-68d3b226b2a6",
+    "name": "Southern graveyard lower graves",
+    "location": [1471, 2513, 5],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-skeleton 20 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-zombie 20 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "4161073f-d99c-5f40-b8ca-334422271745",
+    "name": "Southern graveyard east graves",
+    "location": [1479, 2509, 5],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-skeleton 20 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-zombie 20 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "9dab82d7-6fd9-5965-a0d5-1da32c78f934",
+    "name": "Fens watch captain",
+    "location": [1689, 2474, 10],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "FensWatchCaptain", "maxCount": 1, "probability": 100}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "84cdf5dc-e5a9-5c5a-a728-83078adc749a",
+    "name": "Fens watch west sentry",
+    "location": [1685, 2468, 10],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "FensWatchSentry", "maxCount": 1, "probability": 100, "parameters": "false"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "cff8f7bb-0ed7-53fc-896a-383df4998882",
+    "name": "Fens watch east sentry",
+    "location": [1693, 2473, 10],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "FensWatchSentry", "maxCount": 1, "probability": 100, "parameters": "true"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "4e8a4939-679e-5cd5-bb1f-75d326c85cfa",
+    "name": "Fens burial ground approach",
+    "location": [1819, 2417, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-skeleton 14 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-zombie 15 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "cb4da6a2-29c7-50ea-911e-c1df370fbf5b",
+    "name": "Fens burial ground west headstones",
+    "location": [1823, 2422, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-skeleton 15 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-zombie 16 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "de7ae5be-15c4-5ad7-a5d6-a958ddbf8021",
+    "name": "Fens burial ground north headstones",
+    "location": [1827, 2412, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-skeleton 16 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-zombie 17 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "8a3e0117-6105-5895-9dba-306375594710",
+    "name": "Fens burial ground east graves",
+    "location": [1835, 2416, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-skeleton 17 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-zombie 18 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "535a4fcc-1101-51e9-b08f-e220f2280118",
+    "name": "Fens burial ground far graves",
+    "location": [1835, 2425, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-skeleton 17 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-zombie 18 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "a005d6fa-e967-500a-a778-4cfa910f2154",
+    "name": "Fens of the Dead west approach",
+    "location": [1823, 2389, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 15 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-alligator 15 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "93b716b6-32a1-5d41-95d9-5f3cf00968e6",
+    "name": "Fens of the Dead western reeds",
+    "location": [1826, 2370, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 16 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bogling 16 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "82861acc-f8d2-5cac-b585-5a39609b836b",
+    "name": "Fens of the Dead west bank",
+    "location": [1820, 2352, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-alligator 16 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "20e3e280-ce7e-5ef1-a95a-757be17ea872",
+    "name": "Fens of the Dead silt bank",
+    "location": [1819, 2332, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 16 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-slime 16 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "f4909bb9-7e63-51cf-9034-2db71d402422",
+    "name": "Fens of the Dead west pools",
+    "location": [1809, 2308, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 17 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "715f7e1e-0f9f-5ce1-b353-51ddbf98d926",
+    "name": "Fens of the Dead northwest shallows",
+    "location": [1811, 2289, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-alligator 17 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-slime 17 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "cd2c73fe-716d-5936-976e-569a51083f16",
+    "name": "Fens of the Dead drowned brush",
+    "location": [1829, 2274, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bogling 17 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "e5cf769e-eff4-54fa-bddf-2b63419b5965",
+    "name": "Fens of the Dead graveward reeds",
+    "location": [1845, 2398, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 16 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-slime 15 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "da97ae52-ac82-5693-917c-a83b23c0b2bf",
+    "name": "Fens of the Dead southern tongue",
+    "location": [1850, 2429, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 17 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "b6bd126d-2423-5066-b417-581911fa9fab",
+    "name": "Fens of the Dead southern pool",
+    "location": [1873, 2417, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-alligator 17 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bogling 18 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "99b19275-a50b-5634-afca-c06dd66439fe",
+    "name": "Fens of the Dead south reed beds",
+    "location": [1899, 2402, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 18 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-slime 18 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "7c2ff037-61b4-54cc-8acc-231918b40d78",
+    "name": "Fens of the Dead southeast shallows",
+    "location": [1935, 2384, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 18 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-alligator 18 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "66aaedd2-9fe9-58a4-bd12-c89e2654c956",
+    "name": "Fens of the Dead east reed beds",
+    "location": [1960, 2361, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bogling 18 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 18 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "96a24cb6-39a1-508b-beb1-a62812499c84",
+    "name": "Fens of the Dead east shoreline",
+    "location": [1989, 2350, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 17 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-alligator 18 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "ce7d2cd8-b37c-5850-adbd-d631f15a6041",
+    "name": "Fens of the Dead east shallows",
+    "location": [2005, 2331, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 18 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "2fa35a78-b901-57c9-b831-aa975e49e545",
+    "name": "Fens of the Dead northeast shallows",
+    "location": [1999, 2285, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-slime 16 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-alligator 17 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "924bc38e-5841-58b8-85ea-902cab90233e",
+    "name": "Fens of the Dead north shallows",
+    "location": [1891, 2283, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 18 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bogling 17 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "6421b343-5dee-54b9-832e-e5bd2e3078dc",
+    "name": "Fens of the Dead west mire",
+    "location": [1846, 2376, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 19 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bogling 19 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "85f89385-9334-58da-bd64-825cff6a5c8e",
+    "name": "Fens of the Dead west bog",
+    "location": [1845, 2348, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 19 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bog-thing 19 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "dc4ca27a-499d-5027-9c95-633a7713f5fa",
+    "name": "Fens of the Dead submerged grove",
+    "location": [1842, 2325, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bogling 20 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bog-thing 20 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "f78ce323-976d-570f-bf3a-56cc503ab6af",
+    "name": "Fens of the Dead northwest mire",
+    "location": [1837, 2300, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 19 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-alligator 19 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "9c00a878-9659-50df-a7ce-f0791f36b0e1",
+    "name": "Fens of the Dead northwest bog",
+    "location": [1848, 2286, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bogling 19 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "d8ecc8f5-9002-5b16-8f06-c007b525236c",
+    "name": "Fens of the Dead south mire",
+    "location": [1871, 2392, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 19 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bog-thing 20 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "0fb57b18-b7b2-50e2-961b-18e9539e9339",
+    "name": "Fens of the Dead reed crossing",
+    "location": [1877, 2366, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 20 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "84cd76be-d2a4-5474-bd7a-744aa75d3630",
+    "name": "Fens of the Dead drowned grove",
+    "location": [1872, 2341, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bogling 20 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bog-thing 21 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "ce50e769-8ce5-55c3-af8d-52f5d37cb235",
+    "name": "Fens of the Dead western bog pools",
+    "location": [1867, 2315, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 20 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bog-thing 21 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "94eee9c2-63d9-5e92-a054-680ab1082d4e",
+    "name": "Fens of the Dead north reed beds",
+    "location": [1871, 2295, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 19 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bogling 20 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "5e3cec94-d22f-5620-9e54-5e41d894eb07",
+    "name": "Fens of the Dead southern mire basin",
+    "location": [1903, 2380, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bog-thing 21 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 21 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "674ea40a-398d-5770-95fb-98c8d864ba4b",
+    "name": "Fens of the Dead south bog pools",
+    "location": [1928, 2362, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-plague-beast 22 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "8578bc1c-a006-5a05-9e39-ac311ad0c1df",
+    "name": "Fens of the Dead northern mire",
+    "location": [1910, 2293, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 21 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bogling 21 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "4cff8be6-3b7e-5c74-806f-727029eebcf4",
+    "name": "Fens of the Dead northern pools",
+    "location": [1939, 2285, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bog-thing 21 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 22 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "ce53e001-cf80-5fbe-aef2-5131f27c0ec6",
+    "name": "Fens of the Dead east mire",
+    "location": [1973, 2296, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 22 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bog-thing 22 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "23154b99-b16d-53d0-b3be-c83e76d22221",
+    "name": "Fens of the Dead east bog pools",
+    "location": [2000, 2307, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-plague-beast 22 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 21 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "13df1096-066b-5441-8265-1ba445181339",
+    "name": "Fens of the Dead drowned heart west",
+    "location": [1897, 2350, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bog-thing 23 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 23 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "f659250e-9203-527a-bce5-5da0dca18a4f",
+    "name": "Fens of the Dead heart of the bog west",
+    "location": [1896, 2322, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-plague-beast 23 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "15172683-ca76-527c-b0aa-d302989ecf28",
+    "name": "Fens of the Dead bog heart",
+    "location": [1922, 2332, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 23 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-swamp-dragon 23 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "5e327ef9-a9dc-5ba0-9e17-880b3893f2de",
+    "name": "Fens of the Dead drowned heart north",
+    "location": [1927, 2311, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-plague-beast 23 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bog-thing 24 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "1673129e-9770-524b-97b0-16846673365e",
+    "name": "Fens of the Dead deep southern mire",
+    "location": [1950, 2340, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-swamp-dragon 24 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 24 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "018afc91-f20d-5ba6-b01e-ae2a76f9873b",
+    "name": "Fens of the Dead deep mire",
+    "location": [1951, 2320, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-plague-beast 24 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "61289b45-ce3c-5434-844a-4b97326f4375",
+    "name": "Fens of the Dead deep northern reeds",
+    "location": [1950, 2302, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 23 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bog-thing 23 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "ef1a2047-df43-58f5-baf0-99cff92e2497",
+    "name": "Fens of the Dead deep fen pool",
+    "location": [1971, 2319, 0],
+    "map": "Trammel",
+    "count": 2,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-swamp-dragon 25 0"},
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-plague-beast 25 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "1153a963-981f-5f5c-b25f-c050c3514974",
+    "name": "Fens of the Dead drowned heart east",
+    "location": [1977, 2337, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 2,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 25 0"}
+    ]
+  }
+]

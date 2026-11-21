@@ -342,15 +342,21 @@ public static class NewHavenStoryChecks
             var player = Avatar;
             var iolo = CheckCompanion();
             innDoor = FindDoor(new(3506, 2526, 27));
-            innDoor.Open = true;
+            innDoor.Open = false;
             player.MoveToWorld(new Point3D(3506, 2528, 27), Map.Trammel);
             iolo.MoveToWorld(new Point3D(3506, 2526, 27), player.Map);
         });
         Register("crossed-doorway", () =>
         {
             var player = Avatar;
-            Require(player.Y < 2526 && player.InRange(new Point3D(3506, 2525, 27), 2),
-                $"Holding movement on the open inn door stopped at {player.Location}");
+            Require(innDoor.Open && player.Location == new Point3D(3506, 2525, 27),
+                $"Holding movement on the closed inn door did not open it and stop on the inside tile: {player.Location}");
+        });
+        Register("returned-through-doorway", () =>
+        {
+            var player = Avatar;
+            Require(innDoor.Open && player.Location == new Point3D(3506, 2527, 27),
+                $"Double-clicking the open inn door did not stop on the outside tile: {player.Location}");
             innDoor.Open = false;
         });
         Register("bandit-combat", () =>
@@ -645,6 +651,7 @@ public static class NewHavenStoryChecks
                 "Merryn did not return Iolo with his gear and guarding order intact");
         });
         Register("slice", CheckSlice);
+        Register("tutorial-xp", CheckTutorialExperience);
         Register("assist", () =>
         {
             var player = Avatar;
@@ -918,6 +925,43 @@ public static class NewHavenStoryChecks
         return gate;
     }
 
+    private static void CheckTutorialExperience()
+    {
+        var profiles = ClassCreation.Profiles;
+        var player = new PlayerMobile { Name = "Tutorial XP check", Body = 0x190, Player = true };
+        player.AddItem(new Backpack());
+        profiles.Assign(player, DiabloClass.Necromancer);
+        player.MoveToWorld(new Point3D(3598, 2452, 16), Map.Trammel);
+        try
+        {
+            profiles.AwardExperience(player, (int)ExperienceLevels.Threshold(Iolo.RequiredLevel - 1));
+            CheckReward("haven-skeleton", 2, 5);
+            CheckReward("haven-elemental", 6, 5);
+            profiles.TryGet(player.Serial, out var before);
+            profiles.AwardExperience(player, (int)(ExperienceLevels.Threshold(Iolo.RequiredLevel) - before.Experience - 1));
+            CheckReward("haven-skeleton", 2, 5);
+            Require(profiles.HasReached(player.Serial, Iolo.RequiredLevel), "The boosted kill did not reach Iolo's level");
+            CheckReward("haven-skeleton", 2, 2);
+            CheckReward("haven-elemental", 6, 3);
+        }
+        finally { player.Delete(); }
+
+        void CheckReward(string species, int level, int multiplier)
+        {
+            var monster = new HavenEncounter(species, level);
+            var corpse = GearDropChecks.Body(monster, player, player.Location);
+            try
+            {
+                profiles.TryGet(player.Serial, out var before);
+                int xp = MonsterExperience.Award(monster.Basis.Experience * multiplier, level, before.Level);
+                Require(RewardLife.Process(monster, corpse, new Random(42))
+                    && profiles.TryGet(player.Serial, out var after) && after.Experience - before.Experience == xp,
+                    $"Expected {multiplier}× base XP from {species} at Avatar level {before.Level}");
+            }
+            finally { corpse.Delete(); monster.Delete(); }
+        }
+    }
+
     private static void CheckSlice()
     {
         string[] areas = ["New Haven Graveyard", "South Farm", "Old Haven", "New Haven Mine", "Lower Mine"];
@@ -940,7 +984,7 @@ public static class NewHavenStoryChecks
                 int scaling = i >= 3 ? 3 : 2;
                 int eliteLife = EncounterProfiles.LifePermille(mob.Grade, ChampionKind.Champion, MonsterDifficulty.Normal);
                 int life = mob.RolledLife * eliteLife / 1000 * scaling;
-                int experience = mob.Basis.Experience * 5 * (mob.Leader ? 5 : 1);
+                int experience = mob.Basis.Experience * scaling * (mob.Leader ? 5 : 1);
                 Require(mob.HitsMax == life && CreatureProfiles.Experience(mob) == experience,
                     $"Wrong health or XP scaling for {mob.Name} in {areas[i]}");
             }

@@ -35,7 +35,8 @@ internal sealed class UnarmedPetWorld(SkeletonGuardian body,string profile,Func<
     internal SkeletonWorldState State=>World.State;
     internal IronGolemContact.Prepared Contact=>_contact;
     internal void Store(IronGolemWorldState state)=>World.Store(state);
-    internal void Initialize(PlayerMobile owner,DateTime at,ulong seed)=>World.Initialize(owner,at,()=>NpcEquipmentRandom.Set(body,seed));
+    internal void Initialize(PlayerMobile owner, DateTime at, ulong seed, int? firstThink = null) =>
+        World.Initialize(owner, at, () => NpcEquipmentRandom.Set(body, seed), initialThink: firstThink);
     internal void Prepare(PlayerMobile owner,IronGolemWorldState state,BaseCreature target)
     {
         Cancel();IronGolemContact.Rules rules;

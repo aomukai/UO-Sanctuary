@@ -72,7 +72,7 @@ public static class MarketChecks
     }
     private static void Check()
     {
-        Require(TownMarkets.Sites.Length == 477 && TownMarkets.Sites.Select(s => (s.Town, s.Map)).Distinct().Count() == 34,
+        Require(TownMarkets.Sites.Length == 466 && TownMarkets.Sites.Select(s => (s.Town, s.Map)).Distinct().Count() == 35,
             "Town/facet service coverage is incomplete");
         foreach (var site in TownMarkets.Sites)
         {
@@ -180,13 +180,14 @@ public static class MarketChecks
         Require(!smith.OnBuyItems(player, [new BuyItemResponse(stale.Item, 1)]) && Gold(player) == goldBefore,
             "Expired stock request charged gold");
         var bankOffer = stock.Offers.First(o => o.Equipment);
-        var priced = bankOffer with { Price = 2000 };
+        var priced = bankOffer with { Price = 100 };
         stock.Offers[stock.Offers.IndexOf(bankOffer)] = priced;
         Funds(player, 0);
         Require(Banker.Deposit(player, 3000), "Bank fixture could not be funded");
         int bankBefore = Banker.GetBalance(player);
-        Require(smith.OnBuyItems(player, [new BuyItemResponse(bankOffer.Item, 1)]) && Banker.GetBalance(player) == bankBefore - 2000
+        Require(smith.OnBuyItems(player, [new BuyItemResponse(bankOffer.Item, 1)]) && Banker.GetBalance(player) == bankBefore - priced.Price
             && World.FindItem(bankOffer.Item).Parent == player.Backpack && Gold(player) == 0, "Bank-funded purchase did not settle once");
+        Require(Banker.Withdraw(player, 3000 - priced.Price), "Could not clear the bank fixture before testing insufficient funds");
         World.FindItem(bankOffer.Item).Delete(); Funds(player, 5000);
         var quotes = new List<Item>(); var prices = new List<int>();
         foreach (var tier in Enum.GetValues<GearTier>())

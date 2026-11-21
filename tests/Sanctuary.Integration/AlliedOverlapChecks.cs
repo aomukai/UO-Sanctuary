@@ -33,6 +33,15 @@ public static class AlliedOverlapChecks
             int stamina=1; p.Stam=stamina; p.Direction=Direction.East;
             Require(p.Move(Direction.East) && p.Location==pet.Location && p.Stam==stamina,"Owner could not pass ally at low stamina");
             Require(AlliedOverlap.Blocked(p) && !AlliedOverlap.Blocked(pet),"Passer/holder priority wrong");
+            var combat = ClassCombat.For(p);
+            long stepTime = Core.TickCount;
+            ClassCombat.UpdateCombat(p, stepTime);
+            Require(combat.NextOverlapNotice <= stepTime, "Passive traversal sent an overlap warning");
+            combat.Target = enemy.Serial;
+            ClassCombat.UpdateCombat(p, stepTime);
+            Require(combat.NextOverlapNotice == stepTime + 5000, "Interrupted combat did not report the overlap");
+            ClassCombat.WarnOverlap(p, combat, stepTime + 1000);
+            Require(combat.NextOverlapNotice == stepTime + 5000, "Repeated input spammed the overlap warning");
             var scroll=new TownPortalScroll(); p.Backpack.DropItem(scroll); var id=new IdentifyTome(); p.Backpack.DropItem(id);
             Require(!p.AllowItemUse(scroll) && !p.AllowSkillUse(SkillName.Inscribe) && !p.OnDragLift(scroll)
                 && !EquipmentEconomy.Ready(p) && !ClassProfessions.Ready(p) && !PotionBelts.Ready(p),"Overlap permitted an item/skill/craft/belt action");

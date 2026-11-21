@@ -16,13 +16,15 @@ Double-click the raised rope handles to climb between galleries, even when a cor
 
 Pets and active summons follow through mine entrances, ropes, moongates, and player teleports. Summons wait outside when the Avatar enters a guarded town.
 
-Surface encounters have twice their base life (players-3). Upper and lower mine encounters have triple their base life (players-5). These settings affect life only. Each kill grants its existing experience reward.
+Surface encounters have twice their base life (Players-3). Upper and lower mine encounters have triple their base life (Players-5). Until the Avatar reaches level 6, island encounters award five times their base XP. After that, surface encounters award twice their base XP and the mines award three times their base XP. The character-level XP adjustment and the difficulty-based chance of an empty loot roll apply throughout.
 
 Old Haven’s undead are spread along the northern approach, streets, and southern ruins. Rabbits, birds, and deer populate the woods and hills around both towns. Old Haven’s furnishings and working doors come from a curated set of the stock Haven decoration files.
 
+Click the banker inside the First Bank of New Haven to open your bank box. Banked gold is shared by characters on the same account. Shops can charge your bank balance for purchases of any price. Say `check 10000` beside a banker to withdraw 10,000 gold as a check in your backpack.
+
 Merryn offers free resurrection at the signed healer’s house northwest of the arrival point, past the bank. Elin points ghosts toward the house when they come within speaking range. If Iolo falls, his pale spirit follows the Avatar. Bring him to Merryn out of combat and click her to ask her to call him back, free of charge.
 
-Island enemies use the Normal Act I treasure classes, with a chance of no drop, gold, consumables, or gear. Krulg rolls one random Normal modifier when he spawns. He uses two boosted gear rolls, three potion rolls and a guaranteed gold drop, then respawns after five to seven minutes. The island uses five times the normal archetype XP as a first tuning pass for the existing level curve.
+Island enemies use the Normal Act I treasure classes, with a chance of no drop, gold, consumables, or gear. Krulg rolls one random Normal modifier when he spawns. He uses two boosted gear rolls, three potion rolls and a guaranteed gold drop, then respawns after five to seven minutes.
 
 Click a trainer to buy supplies or pay for lessons. Training costs 1 gold per 0.1 skill up to 30.0. Choosing a first craft requires confirmation. Gathering skills remain available alongside the chosen craft. The lumberjack stocks hatchets and the miner stocks picks.
 

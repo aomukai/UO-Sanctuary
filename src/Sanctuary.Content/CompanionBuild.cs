@@ -76,10 +76,30 @@ internal static class CompanionBuild
             + (type == ResistanceType.Physical ? 0 : Bonus(actor, "res-all")), -100, 75);
     }
 
+    internal static int AttackSpeedBonus(BaseCreature actor) =>
+        Math.Clamp(Bonus(actor, "swing1") + Bonus(actor, "swing2") + Bonus(actor, "swing3"), 0, 10000);
+
     internal static ActionTiming Timing(BaseCreature actor, DiabloClass characterClass, CombatAbility ability, BaseWeapon weapon) =>
-        CombatTiming.Calculate(characterClass, ability, CombatTiming.Weapon(weapon),
-            Math.Clamp(Bonus(actor, "swing1") + Bonus(actor, "swing2") + Bonus(actor, "swing3"), 0, 10000),
+        CombatTiming.Calculate(characterClass, ability, CombatTiming.Weapon(weapon), AttackSpeedBonus(actor),
             chill: GearEffects.AttackSlowTotal(actor), skillAttackRate: CombatTiming.SkillAttackRate(actor));
+
+    internal static bool AllowedArcherGear(Item item, AttackFamily family) => item switch
+    {
+        BeltLantern => true,
+        BaseWeapon weapon => CombatTiming.Weapon(weapon).Family == family,
+        _ => ClassGear.Definition(item) is { Slot: GearSlot.Cosmetic or GearSlot.Belt or GearSlot.Ring or GearSlot.Amulet }
+            || ClassGear.Definition(item) is { Weight: GearWeight.Light, Slot: GearSlot.Head or GearSlot.Body or GearSlot.Hands or GearSlot.Feet }
+    };
+
+    internal static double BowPhysicalDamage(BaseCreature actor, BaseRanged weapon, int level, int skillPercent = 0)
+    {
+        var (minimum, maximum) = ClassGear.Damage(weapon, level);
+        var basis = ClassGear.Base(weapon);
+        int damagePercent = (basis == null ? 0 : ClassStats.WeaponStatPercent(actor.Str + Bonus(actor, "str"),
+            actor.Dex + Bonus(actor, "dex"), basis.StrengthBonus, basis.DexterityBonus))
+            + Bonus(actor, "dmg%", except: weapon) + skillPercent;
+        return Utility.RandomMinMax(minimum, maximum) * (100 + Math.Max(-90, damagePercent)) / 100.0;
+    }
 
     internal static int Recovery(BaseCreature actor, DiabloClass characterClass) =>
         HitRecovery.Frames(characterClass, Bonus(actor, "balance1") + Bonus(actor, "balance2") + Bonus(actor, "balance3"),

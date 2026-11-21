@@ -14,6 +14,7 @@ public static class SkillBindingNetwork
     {
         internal uint Sequence;
         internal byte Version;
+        internal bool WantsSummonCounts;
         internal long NextPoll = Core.TickCount, NextEdit = Core.TickCount;
     }
     private static readonly Dictionary<Serial, Session> _sessions = new();
@@ -39,6 +40,7 @@ public static class SkillBindingNetwork
         {
             if (now - session.NextPoll < 0) { return; }
             session.NextPoll = now + SkillBindingProtocol.PollMs / 2;
+            session.WantsSummonCounts = version == SkillBindingProtocol.Version && slot == SkillBindingProtocol.SummonCountsPollFlag;
         }
         else
         {
@@ -71,16 +73,18 @@ public static class SkillBindingNetwork
             || slot is < 0 or >= SkillBindingProtocol.Slots) { return false; }
         var ability = SkillBindings.Instance.GetQuick(player.Serial, profile.Class, slot);
         if (ability == CombatAbility.None || ability != quoted || !ClassCombat.Available(player, ability)) { return false; }
-        // Quick cast targets the hovered corpse exactly; ordinary summon macros may still find the nearest one.
-        if (ability == CombatAbility.RaiseSkeleton && (World.FindItem(target) is not Server.Items.Corpse corpse
-            || !NecromancerEffects.CheckMana(player, SkeletonPets.Mana(player) * 256) || !SkeletonPets.CanRaise(player, corpse))) { return false; }
+        if (!AlliedOverlap.Allowed(player))
+            ClassCombat.WarnOverlap(player, ClassCombat.For(player), Core.TickCount);
+        if (ability == CombatAbility.RaiseSkeleton)
+            return ClassCombat.CastSummon(player, Core.TickCount);
+        if (ability == CombatAbility.RaiseSkeletalMage)
+            return NecromancerCombat.Begin(player, ability, Serial.Zero, player.Location, Core.TickCount);
         ClassCombat.Stop(player);
         if(ability==CombatAbility.Telekinesis){return SorceressCombat.Begin(player,ability,target,World.FindEntity(target)?.Location??point,Core.TickCount);}
         if(ClassAbilities.ItemTarget(ability)){return NecromancerCombat.Begin(player,ability,target,point,Core.TickCount);}
         if (ClassCombat.CorpseCast(ability)) { return ClassCombat.BeginCorpse(player, ability, target, point, Core.TickCount); }
         return ability switch
         {
-            CombatAbility.RaiseSkeleton => ClassCombat.CastSummon(player, target, Core.TickCount),
             CombatAbility.Teleport => Teleportation.Begin(player, point, Core.TickCount),
             CombatAbility.Teeth => ClassCombat.Perform(player, ability, null, point, Core.TickCount),
             _ => ClassCombat.Perform(player, ability, World.FindMobile(target), point, Core.TickCount)
@@ -96,10 +100,14 @@ public static class SkillBindingNetwork
         var pair = SkillBindings.Instance.Get(player);
         var session = _sessions.GetValueOrDefault(player.Serial);
         bool includeMana = session?.Version == SkillBindingProtocol.Version;
-        int length = includeMana ? SkillBindingProtocol.StateLength : SkillBindingProtocol.LegacyStateLength;
+        bool includeSummons = includeMana && session.WantsSummonCounts && profile.Class == DiabloClass.Necromancer;
+        int length = includeSummons ? SkillBindingProtocol.SummonStateLength
+            : includeMana ? SkillBindingProtocol.StateLength : SkillBindingProtocol.LegacyStateLength;
         var writer = new SpanWriter(stackalloc byte[length]);
         writer.Write((byte)0xBF); writer.Write((ushort)length); writer.Write(SkillBindingProtocol.SubCommand);
-        writer.Write(includeMana ? SkillBindingProtocol.Version : SkillBindingProtocol.LegacyVersion); writer.Write(session?.Sequence ?? 0);
+        writer.Write(includeSummons ? SkillBindingProtocol.SummonStateVersion
+            : includeMana ? SkillBindingProtocol.Version : SkillBindingProtocol.LegacyVersion);
+        writer.Write(session?.Sequence ?? 0);
         writer.Write((byte)profile.Class); writer.Write((byte)pair.Left); writer.Write((byte)pair.Right); foreach (byte value in mask) { writer.Write(value); }
         int mana = includeMana ? NecromancerEffects.ManaBalance256(player) : 0;
         ushort lowMana = 0;
@@ -114,7 +122,38 @@ public static class SkillBindingNetwork
         }
         if (includeMana)
             writer.Write(lowMana);
+        if (includeSummons)
+        {
+            var counts = CountSummons(player);
+            writer.Write(counts.Warriors);
+            writer.Write(counts.Mages);
+            writer.Write(counts.Revives);
+        }
         player.NetState.Send(writer.Span);
+    }
+
+    internal static NecromancerSummonCounts CountSummons(PlayerMobile player)
+    {
+        int warriors = 0, mages = 0, revives = 0;
+        foreach (var follower in player.AllFollowers ?? [])
+        {
+            if (follower is not BaseCreature { Alive: true, Deleted: false, IsDeadBondedPet: false } pet
+                || pet.ControlMaster != player)
+                continue;
+            if (ReviveNativeActivation.State(pet)?.Owner == player.Serial.Value)
+                revives++;
+            else if (pet is SkeletonGuardian skeleton)
+            {
+                switch (NecromancerSkeletons.Kind(skeleton))
+                {
+                    case CombatAbility.RaiseSkeleton: warriors++; break;
+                    case CombatAbility.RaiseSkeletalMage: mages++; break;
+                }
+            }
+        }
+
+        return new((byte)Math.Min(warriors, byte.MaxValue), (byte)Math.Min(mages, byte.MaxValue),
+            (byte)Math.Min(revives, byte.MaxValue));
     }
 
     private static ushort ManaBit(PlayerMobile player, ReadOnlySpan<byte> available, int mana, CombatAbility ability, int position)

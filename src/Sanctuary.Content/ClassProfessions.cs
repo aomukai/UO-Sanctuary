@@ -193,9 +193,9 @@ public static class ClassProfessions
 
         int points = Math.Min(offered, TrainingMaximum(quote)) / GoldPerTenth;
         int cost = points * GoldPerTenth;
-        if (!player.Backpack.ConsumeTotal(typeof(Gold), cost))
+        if (!Banker.PayPurchase(player, cost, out _))
         {
-            player.SendMessage($"You need {cost} gold in your backpack for those lessons.");
+            player.SendMessage($"You need {cost} gold for those lessons.");
             return false;
         }
 

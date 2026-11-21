@@ -48,7 +48,7 @@ public static class ClayGolemWorldChecks
     internal static ulong Seed(ClayGolemWorldBody b,BaseCreature t)
     {
         double chance=ClassStats.HitChance(ClassStats.AttackRating(b),ClassStats.Defense(t),ClassStats.Level(b),ClassStats.Level(t));
-        for(ulong n=1;n<10000;n++){ulong s=n;SourceRandom.Roll(ref s);if(SourceRandom.Roll(ref s)%100<80&&SourceRandom.Roll(ref s)%100/100.0<chance){return n;}}
+        for(ulong n=1;n<10000;n++){ulong s=n;if(SourceRandom.Roll(ref s)%100/100.0<chance){return n;}}
         throw new InvalidOperationException("No Clay world hit seed");
     }
     private static void Combat()
@@ -100,9 +100,25 @@ public static class ClayGolemWorldChecks
         {NpcEquipmentRandom.Set(b,1);Require(IronGolemWorld.Eligible(b,p,t),"Clay native recipient excluded");Through(b,25);Require(b.WorldState.Controller.Mode==4&&b.WorldContact==null&&b.LegacyContactReason?.StartsWith("legacy: ")==true,"Clay native fallback not reported");Through(b,43);Require(b.WorldState.Controller.Attempts==1,"Clay native fallback did not finish");}
         finally{t.Delete();b.Delete();p.Delete();}
     }
+    private static void DetectNearbyEnemy()
+    {
+        var owner = Owner();
+        var golem = Learned(owner);
+        var enemy = Target(owner, golem);
+        try
+        {
+            enemy.MoveToWorld(new Point3D(golem.X + 5, golem.Y, golem.Z), owner.Map);
+            Require(owner.Combatant == null && ClassCombat.For(owner).Target == Serial.Zero, "Golem detection fixture has an owner target");
+            Through(golem, 25);
+            var state = golem.WorldState.Controller;
+            Require(state.Mode == 2 && state.Motion.FinalTarget == PetOwnerRoutes.Cell(enemy),
+                "Clay Golem did not approach an enemy beyond its old autonomous range");
+        }
+        finally { enemy.Delete(); golem.Delete(); owner.Delete(); }
+    }
     private static void Check()
     {
-        Combat();Movement();NativeRecipient();var p=Owner();var b=Learned(p);var t=Target(p,b);var roll=SourceBlocking.BlockRoll;SourceBlocking.BlockRoll=_=>99;
+        Combat();Movement();DetectNearbyEnemy();NativeRecipient();var p=Owner();var b=Learned(p);var t=Target(p,b);var roll=SourceBlocking.BlockRoll;SourceBlocking.BlockRoll=_=>99;
         try{NpcEquipmentRandom.Set(b,Seed(b,t));Through(b,25);Require(b.WorldContact!=null,"Saved Clay windup missing");}finally{SourceBlocking.BlockRoll=roll;}
         // Snapshot-only observation hold; Live checks the unheld natural clock.
         b.Ground.Store(b.WorldState.Controller with{NextUtc=TimedEffects.Now.AddHours(1)});

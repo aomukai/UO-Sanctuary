@@ -1,0 +1,30 @@
+diff --git a/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs b/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs
+--- a/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs
++++ b/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs
+@@ -38,6 +38,9 @@
+     private static Texture2D _wolfgangFace;
+     private static Texture2D _npcFaces;
+     private static Texture2D _demonFace;
++    private static readonly string[] _npcPortraitSheets =
++        ["portrait-npc-watch", "portrait-npc-outlaws", "portrait-npc-fighters", "portrait-npc-scholars"];
++    private static readonly Texture2D[] _npcPortraitTextures = new Texture2D[_npcPortraitSheets.Length];
+     private static readonly string[] _templateGroups =
+         ["human-male", "human-female", "elf-male", "elf-female", "gargoyle-male", "gargoyle-female"];
+     private static readonly Texture2D[,] _templateAtlases = new Texture2D[AppearanceTemplates.GroupCount, 3];
+@@ -73,6 +76,16 @@
+         var target = new Rectangle(x, y, Width, Height);
+         if (_npc is { } npc)
+         {
++            if (npc >= (byte)NpcPortrait.WatchGuardDuncan && npc < PortraitProtocol.NpcPortraitCount)
++            {
++                int index = npc - (byte)NpcPortrait.WatchGuardDuncan;
++                int sheet = index / 4, cell = index % 4;
++                var texture = _npcPortraitTextures[sheet] ??= Load(_npcPortraitSheets[sheet]);
++                int width = texture.Width / 2, height = texture.Height / 2;
++                var source = new Rectangle(cell % 2 * width + 1, cell / 2 * height + 1, width - 2, height - 2);
++                DrawFace(lists, texture, source, target, depth);
++                return true;
++            }
+             if (npc == PortraitProtocol.WolfgangPortrait)
+             {
+                 _wolfgangFace ??= Load("portrait-wolfgang");

@@ -21,6 +21,8 @@ internal sealed record IronGolemWorldState(int Map,ActorMotionState Motion,DateT
 // not current-executable certificates. Historical Iron state/API stays intact.
 internal static class IronGolemWorld
 {
+    internal const string LegacyFollowFault = "Iron Golem follow needs source AStar path binding";
+    private static bool ResponsiveMelee(SkeletonGuardian body) => body is SkeletonWorldBody || NecromancerGolems.Member(body);
     private static NecromancerGroundWorld Ground(SkeletonGuardian body)=>body is INecromancerGroundActor actor?actor.WorldGround:MageWorld.For(body)?.World;
     internal static IronGolemWorldState Controller(SkeletonGuardian body)=>body is IronGolemBody iron?iron.Prepared?.Controller:Ground(body)?.State?.Controller;
     private static uint Owner(SkeletonGuardian body)=>body is IronGolemBody iron?iron.Prepared.Recipe.Owner:Ground(body)?.State.Owner??throw new NotSupportedException("Unbound Necromancer ground owner");
@@ -106,7 +108,6 @@ internal static class IronGolemWorld
         if(target.X<=0||target.Y<=0||target.X>=body.Map.Width*2||target.Y>=body.Map.Height*2){if(delete){s=s with{NextThink=0};}return false;}
         int type=s.PathOverride==0?13:s.PathOverride,budget=s.PathBudget==0?5:s.PathBudget,bonus=s.VelocityBonus;
         s=s with{PathOverride=0,VelocityBonus=0,PathBudget=0};
-        if(type==1){throw new NotSupportedException("Iron Golem follow needs source AStar path binding");}
         var speed=MovementSpeed(body,bonus,run);
         var motion=s.Motion with{PathType=type,Flags=type==13?0x100:type==15?0x800:0,Velocity=speed.Velocity,MaximumVelocity=speed.Velocity,
             Acceleration=0,AccelerationCounter=0,Points=[],Index=0,Distance=budget};
@@ -271,10 +272,11 @@ internal static class IronGolemWorld
         if(body is INecromancerGroundBrain own){own.GroundThink(owner,s.Frame,at,queries);}
         else
         {
-            var memory=NecromancerPetAi.Think(new(s.Ai,NecromancerSummons.Source(body.SourceMonsterId,"Velocity"),NecromancerSummons.Source(body.SourceMonsterId,"Run"),MageWorld.For(body)!=null?4:0,MageWorld.For(body)!=null?338:0),queries);
+            var memory=NecromancerPetAi.Think(new(s.Ai,NecromancerSummons.Source(body.SourceMonsterId,"Velocity"),NecromancerSummons.Source(body.SourceMonsterId,"Run"),MageWorld.For(body)!=null?4:0,MageWorld.For(body)!=null?338:0),queries,
+                responsiveMelee: ResponsiveMelee(body));
             s=s with{Ai=memory};
         }
-        if(s.NextThink==0&&s.Mode is not(2 or 4 or 8)){s=s with{NextThink=s.Frame+15};}return s;
+        if(s.NextThink==0&&s.Mode is not(2 or 4 or 8)){s=s with{NextThink=s.Frame+(ResponsiveMelee(body)?4:15)};}return s;
     }
     internal static void Advance(SkeletonGuardian body,DateTime at,bool actions)
     {
@@ -332,7 +334,7 @@ internal static class IronGolemWorld
             if(s.Mode is 4 or 8&&s.EndAt==s.Frame)
             {
                 int initial=s.Mode==8&&Ground(body)!=null?s.NextThink:0;
-                s=Neutral(s);if(initial>=s.Frame){s=s with{NextThink=initial};}
+                s=Neutral(s,ResponsiveMelee(body)?4:15);if(initial>=s.Frame){s=s with{NextThink=initial};}
             }
             if(s.NextThink==s.Frame){s=Think(body,owner,s,frameAt);}
             Store(body,s);body.AIObject?.AITimer.Stop();
@@ -346,6 +348,14 @@ internal static class IronGolemWorld
     }
     internal static void Fault(SkeletonGuardian body,string reason)
     {if(Controller(body) is{} s){Store(body,Park(s) with{Fault=reason});}}
+
+    internal static void RecoverFollowFault(SkeletonGuardian body, DateTime at)
+    {
+        if (Controller(body) is { Fault: LegacyFollowFault } state)
+        {
+            Store(body, Park(state) with { Fault = null, NextUtc = at.AddMilliseconds(40) });
+        }
+    }
 }
 
 internal static class IronGolems
@@ -363,6 +373,7 @@ internal static class IronGolems
             if(body.Deleted){Forget(body);continue;}
             try
             {
+                IronGolemWorld.RecoverFollowFault(body, at);
                 if(actions??body.ControlMaster?.NetState is{Running:true}){active.Add(body);}
                 else{IronGolemWorld.Advance(body,at,false);}
             }

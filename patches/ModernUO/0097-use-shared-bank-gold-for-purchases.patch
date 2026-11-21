@@ -1,0 +1,225 @@
+diff --git a/Projects/Server/IAccount.cs b/Projects/Server/IAccount.cs
+--- a/Projects/Server/IAccount.cs
++++ b/Projects/Server/IAccount.cs
+@@ -1,4 +1,5 @@
+ using System;
++using Server.Items;
+ 
+ namespace Server.Accounting;
+ 
+@@ -28,9 +29,11 @@
+     /// </summary>
+     public static bool ConvertOnTrade { get; private set; }
+ 
++    public static Action<IAccount, Container> ConvertBankContents { get; set; }
++
+     public static void Configure()
+     {
+-        Enabled = ServerConfiguration.GetSetting("accountGold.enable", Core.TOL);
++        Enabled = ServerConfiguration.GetSetting("accountGold.enable", true);
+         ConvertOnBank = ServerConfiguration.GetSetting("accountGold.convertOnBank", true);
+         ConvertOnTrade = ServerConfiguration.GetSetting("accountGold.convertOnTrade", false);
+     }
+diff --git a/Projects/Server/Items/Containers.cs b/Projects/Server/Items/Containers.cs
+--- a/Projects/Server/Items/Containers.cs
++++ b/Projects/Server/Items/Containers.cs
+@@ -90,6 +90,26 @@
+         (from == Owner && Opened || from.AccessLevel >= AccessLevel.GameMaster) &&
+         base.OnDragDropInto(from, item, p);
+ 
++    public override void OnItemAdded(Item item)
++    {
++        base.OnItemAdded(item);
++        ConvertContainer(item);
++    }
++
++    public override void OnSubItemAdded(Item item)
++    {
++        base.OnSubItemAdded(item);
++        ConvertContainer(item);
++    }
++
++    private void ConvertContainer(Item item)
++    {
++        if (item is Container container && AccountGold.Enabled && AccountGold.ConvertOnBank && Owner?.Account is { } account)
++        {
++            AccountGold.ConvertBankContents?.Invoke(account, container);
++        }
++    }
++
+     public override bool CheckHold(Mobile m, Item item, bool message, bool checkItems, int plusItems, int plusWeight)
+     {
+         // This is a horrible hack.
+diff --git a/Projects/UOContent/Accounting/Account.cs b/Projects/UOContent/Accounting/Account.cs
+--- a/Projects/UOContent/Accounting/Account.cs
++++ b/Projects/UOContent/Accounting/Account.cs
+@@ -527,9 +527,13 @@
+             return false;
+         }
+ 
+-        var plat = Math.DivRem(amount, AccountGold.CurrencyThreshold, out var gold);
+-        TotalPlat += plat;
+-        TotalGold += gold;
++        long total = GetTotalGold() + amount;
++        if (total / AccountGold.CurrencyThreshold > int.MaxValue)
++        {
++            return false;
++        }
++
++        SetGoldBalance(total);
+ 
+         return true;
+     }
+@@ -564,12 +568,13 @@
+             return true;
+         }
+ 
+-        if (amount > _totalGold)
++        long total = GetTotalGold();
++        if (amount > total)
+         {
+             return false;
+         }
+ 
+-        TotalGold -= amount;
++        SetGoldBalance(total - amount);
+ 
+         return true;
+     }
+@@ -600,8 +605,15 @@
+     ///     Returns total gold inclusive of platinum.
+     ///     This is strictly for backwards compatibility
+     /// </summary>
+-    /// <returns>Total gold, capped at Int32.MaxValue</returns>
+-    public long GetTotalGold() => _totalGold + _totalPlat * AccountGold.CurrencyThreshold;
++    /// <returns>Total gold including the value of platinum.</returns>
++    public long GetTotalGold() => _totalGold + (long)_totalPlat * AccountGold.CurrencyThreshold;
++
++    private void SetGoldBalance(long total)
++    {
++        long platinum = Math.DivRem(total, AccountGold.CurrencyThreshold, out long gold);
++        TotalPlat = (int)platinum;
++        TotalGold = (int)gold;
++    }
+ 
+     public int CompareTo(Account other) => string.CompareOrdinal(_username, other?._username);
+ 
+diff --git a/Projects/UOContent/Mobiles/Townfolk/Banker.cs b/Projects/UOContent/Mobiles/Townfolk/Banker.cs
+--- a/Projects/UOContent/Mobiles/Townfolk/Banker.cs
++++ b/Projects/UOContent/Mobiles/Townfolk/Banker.cs
+@@ -23,6 +23,67 @@
+ 
+     public override NpcGuild NpcGuild => NpcGuild.MerchantsGuild;
+ 
++    public new static void Configure()
++    {
++        AccountGold.ConvertBankContents = ConvertBankContents;
++        EventSink.ServerStarted += () => Timer.DelayCall(MigrateBankBalances);
++    }
++
++    private static void MigrateBankBalances()
++    {
++        if (!AccountGold.Enabled || !AccountGold.ConvertOnBank)
++        {
++            return;
++        }
++
++        foreach (var account in Accounts.GetAccounts())
++        {
++            for (int slot = 0; slot < account.Length; slot++)
++            {
++                if (account[slot]?.FindBankNoCreate() is { } bank)
++                {
++                    ConvertBankContents(account, bank);
++                }
++            }
++        }
++    }
++
++    private static void ConvertBankContents(IAccount account, Container container)
++    {
++        using var deposits = PooledRefList<Item>.Create();
++        foreach (var gold in container.FindItemsByType<Gold>())
++        {
++            deposits.Add(gold);
++        }
++        foreach (var check in container.FindItemsByType<BankCheck>())
++        {
++            deposits.Add(check);
++        }
++
++        foreach (var item in deposits)
++        {
++            if (account.DepositGold(item is Gold gold ? gold.Amount : ((BankCheck)item).Worth))
++            {
++                item.Delete();
++            }
++        }
++    }
++
++    public static bool PayPurchase(Mobile buyer, int amount, out bool fromBank)
++    {
++        fromBank = false;
++        if (amount < 0)
++        {
++            return false;
++        }
++        if (amount == 0 || buyer.Backpack?.ConsumeTotal(typeof(Gold), amount) == true)
++        {
++            return true;
++        }
++
++        return fromBank = Withdraw(buyer, amount);
++    }
++
+     public override void InitSBInfo()
+     {
+         m_SBInfos.Add(new SBBanker());
+diff --git a/Projects/UOContent/Mobiles/Vendors/BaseVendor.cs b/Projects/UOContent/Mobiles/Vendors/BaseVendor.cs
+--- a/Projects/UOContent/Mobiles/Vendors/BaseVendor.cs
++++ b/Projects/UOContent/Mobiles/Vendors/BaseVendor.cs
+@@ -312,32 +312,15 @@
+ 
+             var bought = buyer.AccessLevel >= AccessLevel.GameMaster;
+ 
+-            var cont = buyer.Backpack;
+-            if (!bought && cont != null)
++            if (!bought)
+             {
+-                if (cont.ConsumeTotal(typeof(Gold), totalCost))
+-                {
+-                    bought = true;
+-                }
+-                else if (totalCost < 2000)
++                bought = Banker.PayPurchase(buyer, totalCost, out fromBank);
++                if (!bought)
+                 {
+                     SayTo(buyer, 500192); // Begging thy pardon, but thou canst not afford that.
+                 }
+             }
+ 
+-            if (!bought && totalCost >= 2000)
+-            {
+-                if (Banker.Withdraw(buyer, totalCost))
+-                {
+-                    bought = true;
+-                    fromBank = true;
+-                }
+-                else
+-                {
+-                    SayTo(buyer, 500191); // Begging thy pardon, but thy bank account lacks these funds.
+-                }
+-            }
+-
+             if (!bought)
+             {
+                 return false;
+@@ -345,7 +328,7 @@
+ 
+             buyer.PlaySound(0x32);
+ 
+-            cont = buyer.Backpack ?? buyer.BankBox;
++            var cont = buyer.Backpack ?? buyer.BankBox;
+ 
+             foreach (var buy in validBuy)
+             {

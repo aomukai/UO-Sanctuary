@@ -10,7 +10,11 @@ using Server.Network;
 
 namespace Sanctuary;
 
-public sealed record MercenaryCareState(Serial Owner, int Level, bool Retired, long[] Healing, DateTime NextDrinkUtc);
+public sealed record MercenaryCareState(Serial Owner, int Level, bool Retired, long[] Healing, DateTime NextDrinkUtc)
+{
+    internal bool Parked { get; init; }
+    internal bool Active => !Retired && !Parked;
+}
 public sealed class MercenaryServiceRequest
 {
     internal bool Claimed;
@@ -32,8 +36,12 @@ public static class MercenaryCare
     public static void Configure()
     {
         Profiles = new();
-        ClassCombatHooks.CompanionRangedSwing = (actor, target, weapon) =>
-            actor is Iolo iolo && iolo.Recruited ? iolo.BeginShot(target, weapon) : null;
+        ClassCombatHooks.CompanionRangedSwing = (actor, target, weapon) => actor switch
+        {
+            Iolo { Recruited: true } iolo => iolo.BeginShot(target, weapon),
+            Merydwen { Recruited: true } merydwen => merydwen.BeginShot(target, weapon),
+            _ => null
+        };
         ClassMercenaryHooks.RestoredOrder = (owner, pet) =>
             pet is IClassCompanion && !pet.IsDeadPet && IsCompanion(owner, pet) ? OrderType.Guard : null;
         EventSink.Connected += owner =>
@@ -68,16 +76,85 @@ public static class MercenaryCare
             { HealFollowers(owner, npc); }
         };
     }
-    public static void Initialize() => Timer.StartTimer(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1), () => Tick(TimedEffects.Now));
-    public static int ResurrectionPrice(int level) => level is >= 1 and <= 99 ? level * 1000 : throw new ArgumentOutOfRangeException(nameof(level));
+    public static void Initialize()
+    {
+        // Native pet loading starts a deletion timer for uncontrolled former followers.
+        foreach (var (serial, state) in States)
+            if (state.Parked && World.FindMobile(serial) is BaseCreature companion)
+                companion.StopDeleteTimer();
+
+        Timer.StartTimer(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1), () => Tick(TimedEffects.Now));
+    }
+    public static int ResurrectionPrice(int level) => level is >= 1 and <= 99 ? level * 100 : throw new ArgumentOutOfRangeException(nameof(level));
     internal static bool HasActiveCompanion(PlayerMobile owner)
     {
         foreach (var row in States.Values)
-            if (row.Owner == owner.Serial && !row.Retired)
+            if (row.Owner == owner.Serial && row.Active)
                 return true;
         return false;
     }
-    internal static bool Register(PlayerMobile owner, BaseCreature mercenary, int level)
+    internal static bool HasContract<T>(PlayerMobile owner) where T : BaseCreature, IClassCompanion
+    {
+        foreach (var (serial, state) in States)
+            if (state.Owner == owner.Serial && !state.Retired && World.FindMobile(serial) is T { Deleted: false })
+                return true;
+        return false;
+    }
+
+    internal static IEnumerable<BaseCreature> ParkedCompanions(PlayerMobile owner)
+    {
+        foreach (var (serial, state) in States)
+            if (state.Owner == owner.Serial && state.Parked
+                && World.FindMobile(serial) is BaseCreature { Deleted: false, Controlled: false } companion
+                && companion is IClassCompanion && companion.Map == Map.Internal)
+                yield return companion;
+    }
+
+    internal static bool ParkAtInn(PlayerMobile owner, BaseCreature companion)
+    {
+        if (companion is not IClassCompanion || !Owned(owner, companion, out var state))
+            return false;
+
+        States[companion.Serial] = state with { Parked = true };
+        TimedEffects.Clear(companion);
+        companion.Combatant = null;
+        companion.FocusMob = null;
+        companion.Warmode = false;
+        companion.AIObject?.ResetApproachState();
+        companion.SetControlMaster(null);
+        companion.StopDeleteTimer();
+        companion.Internalize();
+        return true;
+    }
+
+    internal static bool CallFromInn(PlayerMobile owner, BaseCreature companion, Map map, Point3D landing,
+        Point3D alongside, int fee)
+    {
+        if (companion is not IClassCompanion || companion.Deleted || companion.Controlled || companion.Map != Map.Internal
+            || !States.TryGetValue(companion.Serial, out var state) || state.Owner != owner.Serial || !state.Parked
+            || HasActiveCompanion(owner) || !companion.SetControlMaster(owner))
+            return false;
+
+        if (!SanctuaryBanking.TryPay(owner, fee))
+        {
+            companion.SetControlMaster(null);
+            companion.StopDeleteTimer();
+            return false;
+        }
+
+        state = state with { Parked = false };
+        States[companion.Serial] = state;
+        Sync(owner, companion, state);
+        ClassCombat.Stop(owner);
+        BaseCreature.TeleportPets(owner, landing, map);
+        owner.MoveToWorld(landing, map);
+        companion.MoveToWorld(alongside, map);
+        companion.ControlTarget = owner;
+        companion.ControlOrder = companion.IsDeadPet ? OrderType.Follow : OrderType.Guard;
+        return true;
+    }
+
+    internal static bool Register(PlayerMobile owner, BaseCreature mercenary, int level, Func<bool> pay = null)
     {
         if (owner is not { Deleted: false } || mercenary is not { Deleted: false, Summoned: false, Controlled: true }
             || mercenary.ControlMaster != owner || level is < 1 or > 99 || States.ContainsKey(mercenary.Serial)) { return false; }
@@ -86,24 +163,53 @@ public static class MercenaryCare
         mercenary.NoKillAwards = true;
         var state = new MercenaryCareState(owner.Serial, level, false, new long[5], TimedEffects.Now);
         States.Add(mercenary.Serial, state);
-        Sync(owner, mercenary, state, joining: true);
-        return true;
+        bool accepted = false;
+        try
+        {
+            Sync(owner, mercenary, state, joining: true);
+            accepted = pay == null || pay();
+            return accepted;
+        }
+        finally
+        {
+            if (!accepted)
+                States.Remove(mercenary.Serial);
+        }
     }
     internal static int? CompanionLevel(BaseCreature actor) =>
-        actor is IClassCompanion && States.TryGetValue(actor.Serial, out var state) && !state.Retired ? state.Level : null;
+        actor is IClassCompanion && States.TryGetValue(actor.Serial, out var state) && state.Active ? state.Level : null;
 
     internal static BaseCreature ActiveStoryCompanion(PlayerMobile owner)
     {
         foreach (var (serial, state) in States)
-            if (state.Owner == owner.Serial && !state.Retired && World.FindMobile(serial) is BaseCreature actor and IClassCompanion)
+            if (state.Owner == owner.Serial && state.Active && World.FindMobile(serial) is BaseCreature actor and IClassCompanion)
                 return actor;
         return null;
+    }
+
+    internal static void RestoreCompanionForGhost(PlayerMobile owner)
+    {
+        // The native login leaves auto-stabled followers behind while their owner is dead.
+        if (owner.Alive || owner.Deleted || owner.Map is not { } map || map == Map.Internal
+            || owner.AutoStabled is not { Count: > 0 } stabled
+            || ActiveStoryCompanion(owner) is not { Deleted: false, Controlled: false, IsStabled: true } companion
+            || companion.StabledBy != owner || !stabled.Contains(companion) || !companion.SetControlMaster(owner))
+            return;
+
+        stabled.Remove(companion);
+        owner.Stabled?.Remove(companion);
+        companion.IsStabled = false;
+        companion.StabledBy = null;
+        companion.Loyalty = BaseCreature.MaxLoyalty;
+        companion.ControlTarget = owner;
+        companion.ControlOrder = companion.IsDeadPet ? OrderType.Follow : OrderType.Guard;
+        companion.MoveToWorld(PersistentMinions.FindPosition(owner, out var nearby) ? nearby : owner.Location, map);
     }
 
     internal static BaseCreature SyncOwner(PlayerMobile owner)
     {
         foreach (var (serial, state) in States)
-            if (state.Owner == owner.Serial && !state.Retired && World.FindMobile(serial) is BaseCreature actor
+            if (state.Owner == owner.Serial && state.Active && World.FindMobile(serial) is BaseCreature actor
                 && (Owned(owner, actor, out _) || actor.IsStabled && actor.StabledBy == owner))
             {
                 Sync(owner, actor, state);
@@ -128,7 +234,7 @@ public static class MercenaryCare
         long total = 0;
         foreach (long amount in state.Healing)
             total += amount;
-        if (mercenary is Wolfgang { Backpack: { } pack })
+        if (mercenary is (Wolfgang or Merydwen) && mercenary.Backpack is { } pack)
             foreach (var item in pack.FindItems())
                 if (PackHealingTier(item) > 0)
                     total = Math.Min(total, long.MaxValue - item.Amount) + item.Amount;
@@ -146,7 +252,7 @@ public static class MercenaryCare
     {
         state = null;
         return owner is { Deleted: false } && mercenary is { Deleted: false, Controlled: true, IsBonded: true }
-            && mercenary.ControlMaster == owner && States.TryGetValue(mercenary.Serial, out state) && state.Owner == owner.Serial && !state.Retired;
+            && mercenary.ControlMaster == owner && States.TryGetValue(mercenary.Serial, out state) && state.Owner == owner.Serial && state.Active;
     }
     internal static bool IsCompanion(PlayerMobile owner,BaseCreature pet)=>Owned(owner,pet,out _);
 
@@ -189,14 +295,14 @@ public static class MercenaryCare
     }
     internal static bool TryDrink(BaseCreature mercenary, DateTime now)
     {
-        if (!States.TryGetValue(mercenary.Serial, out var state) || state.Retired || mercenary.Deleted || mercenary.IsDeadPet
+        if (!States.TryGetValue(mercenary.Serial, out var state) || !state.Active || mercenary.Deleted || mercenary.IsDeadPet
             || !mercenary.Alive || mercenary.Map == Map.Internal || mercenary.ControlMaster?.Serial != state.Owner
             || mercenary.HitsMax <= 0 || now < state.NextDrinkUtc) { return false; }
         TimedEffects.Settle(mercenary, now);
         if (mercenary.IsDeadPet || !mercenary.Alive || (long)mercenary.Hits * 2 > mercenary.HitsMax) { return false; }
         int tier = Array.FindIndex(state.Healing, count => count > 0) + 1;
         Item packedDose = null;
-        if (mercenary is Wolfgang { Backpack: { } pack })
+        if (mercenary is (Wolfgang or Merydwen) && mercenary.Backpack is { } pack)
             foreach (var item in pack.FindItems())
             {
                 int candidate = PackHealingTier(item);
@@ -299,16 +405,16 @@ public static class MercenaryCare
     }
     public static MercenaryServiceRequest Quote(PlayerMobile owner, BaseCreature mercenary, BaseCreature healer)
     {
-        bool ioloAtMerryn = healer is NewHavenHealer && mercenary is Iolo { IsDeadPet: true };
+        bool freeAtMerryn = healer is NewHavenHealer && mercenary is { IsDeadPet: true };
         if (!ClassProfessions.Ready(owner) || !Owned(owner, mercenary, out var state) || !Provider(healer)
-            || healer is not { Deleted: false, Alive: true } || !Near(owner, healer, ioloAtMerryn ? 4 : 3)
-            || !(ioloAtMerryn ? Near(owner, mercenary, 4) : Near(mercenary, healer))
+            || healer is not { Deleted: false, Alive: true } || !Near(owner, healer, freeAtMerryn ? 4 : 3)
+            || !(freeAtMerryn ? Near(owner, mercenary, 4) : Near(mercenary, healer))
             || !Peaceful(owner) || !Peaceful(mercenary) || !Peaceful(healer)
             || healer is BaseHealer native && !native.CheckResurrect(owner)
             || mercenary.IsDeadPet && !mercenary.Map.CanFit(mercenary.Location, 16, false, false)
             || !mercenary.IsDeadPet && mercenary.Hits >= mercenary.HitsMax) { return null; }
         return new() { Owner = owner, Mercenary = mercenary, Healer = healer, State = state, Connection = owner.NetState,
-            Resurrection = mercenary.IsDeadPet, Gold = mercenary.IsDeadPet && !ioloAtMerryn ? ResurrectionPrice(state.Level) : 0 };
+            Resurrection = mercenary.IsDeadPet, Gold = mercenary.IsDeadPet && !freeAtMerryn ? ResurrectionPrice(state.Level) : 0 };
     }
     public static bool Commit(MercenaryServiceRequest request)
     {
@@ -317,14 +423,38 @@ public static class MercenaryCare
         if (fresh == null || fresh.State != request.State || fresh.Resurrection != request.Resurrection || fresh.Gold != request.Gold
             || request.Owner.NetState != request.Connection || request.Gold > 0 && !Banker.Withdraw(request.Owner, request.Gold)) { return false; }
         var mercenary = request.Mercenary;
-        if (request.Resurrection)
-        {
-            _paidResurrection.Add(mercenary.Serial);
-            try { mercenary.ResurrectPet(); }
-            finally { _paidResurrection.Remove(mercenary.Serial); }
-        }
+        if (request.Resurrection) { RestoreLife(mercenary); }
         else { HealFollowers(request.Owner, request.Healer); }
-        TimedEffects.ClearRestoration(mercenary); mercenary.PlaySound(0x1F2); mercenary.FixedEffect(0x376A, 9, 32); return true;
+        FinishTreatment(mercenary);
+        return true;
+    }
+    internal static bool CanRaiseAtShrine(PlayerMobile owner, BaseCreature companion, Item shrine) =>
+        owner.Alive && companion is { IsDeadPet: true } && Owned(owner, companion, out _)
+        && ShrineResurrection.Near(owner, shrine, Ankhs.ResurrectRange) && ShrineResurrection.Near(companion, shrine, 4)
+        && Peaceful(owner) && Peaceful(companion) && companion.Map.CanFit(companion.Location, 16, false, false);
+
+    internal static bool RaiseAtShrine(PlayerMobile owner, BaseCreature companion, Item shrine)
+    {
+        if (!CanRaiseAtShrine(owner, companion, shrine))
+            return false;
+
+        RestoreLife(companion);
+        if (companion.IsDeadPet)
+            return false;
+        FinishTreatment(companion);
+        return true;
+    }
+    private static void RestoreLife(BaseCreature companion)
+    {
+        _paidResurrection.Add(companion.Serial);
+        try { companion.ResurrectPet(); }
+        finally { _paidResurrection.Remove(companion.Serial); }
+    }
+    private static void FinishTreatment(BaseCreature companion)
+    {
+        TimedEffects.ClearRestoration(companion);
+        companion.PlaySound(0x1F2);
+        companion.FixedEffect(0x376A, 9, 32);
     }
     private static void AddEntries(BaseCreature healer, Mobile from, ref PooledRefList<ContextMenuEntry> entries)
     {
@@ -332,7 +462,7 @@ public static class MercenaryCare
         entries.Add(new HealEntry(healer));
         foreach (var (serial, state) in States)
         {
-            if (state.Owner == owner.Serial && !state.Retired && World.FindMobile(serial) is BaseCreature { IsDeadPet: true } mercenary)
+            if (state.Owner == owner.Serial && state.Active && World.FindMobile(serial) is BaseCreature { IsDeadPet: true } mercenary)
             { entries.Add(new CareEntry(healer, mercenary)); break; }
         }
     }

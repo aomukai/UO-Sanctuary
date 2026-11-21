@@ -30,6 +30,9 @@ public static class SmoothMovementUiChecks
         Register("angle-c", () => Setup(-6, -2));
         Register("angle-d", () => Setup(-2, -6));
         Register("straight", () => Setup(7, 0));
+        Register("precision-cardinal", () => Setup(1, 0));
+        Register("precision-diagonal", () => Setup(1, -1));
+        Register("two-tiles", () => Setup(2, 0));
         Register("state", () => { });
         Register("arrived", () => Require(_player.Location == _goal, $"Route missed goal: {_player.Location}/{_goal}"));
         Register("mark", () => _stopped = _player.Location);
@@ -73,12 +76,13 @@ public static class SmoothMovementUiChecks
                     Add(0x21A4, 3, dy, 0);
                 }
             }
-            _door = new MetalDoor(DoorFacing.NorthCW);
+            _door = new MetalDoor(DoorFacing.NorthCW) { Locked = true };
             _door.MoveToWorld(new Point3D(_origin.X + 3, _origin.Y, _origin.Z), _player.Map);
             _fixtures.Add(_door);
         });
         Register("door-open", () =>
         {
+            _door.Locked = false;
             _door.Open = true;
             _player.MoveToWorld(_origin, _player.Map);
             _samples.Clear();

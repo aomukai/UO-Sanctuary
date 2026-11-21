@@ -19,6 +19,8 @@ ROLES = dict(Smith=['Blacksmith','Weaponsmith','Armorer','BlacksmithGuildmaster'
              Imbuer=['Alchemist','Mage','Scribe'], Miner=['Miner','Blacksmith','BlacksmithGuildmaster'],
              Lumberjack=['Lumberjack','Carpenter','Bowyer'], Fisher=['Fisherman','FisherGuildmaster'],
              Jeweller=['Jeweler','Tinker','Provisioner'])
+MAGE_TOWER = {'Alchemist': (3482, 2492, True), 'Scribe': (3487, 2494, True), 'Scholar': (3485, 2493, False)}
+ROADSIDE_TRAINERS = {'Fisher': (2733, 1061, 0), 'Cook': (2745, 1066, 0)}
 
 
 def build():
@@ -34,13 +36,31 @@ def build():
             inside = lambda p: any(a['x1'] <= p[0] < a['x2'] and a['y1'] <= p[1] < a['y2'] for a in region['Area'])
             choices = [(r,p) for r,p in spawns if inside(r['location'])]
             assert choices, (facet, name)
-            for role, types in ROLES.items():
+            roles = list(ROLES)
+            if facet == 'Trammel' and name == 'Cove':
+                roles = ['Jeweller']
+            elif facet == 'Trammel' and name == 'New Haven':
+                roles.insert(roles.index('Scribe') + 1, 'Scholar')
+            for role in roles:
+                if facet == 'Trammel' and name == 'New Haven' and role in MAGE_TOWER:
+                    x, y, relocate = MAGE_TOWER[role]
+                    site = dict(id=f'{facet}/{name}/{role}', town=name, map=facet, role=role, x=x, y=y, z=52,
+                                source='New Haven mage tower')
+                    if relocate:
+                        site['relocate'] = True
+                    site['sharedWorkshop'] = False
+                    result.append(site)
+                    continue
+                types = ROLES[role]
                 ranked = [(min((types.index(e['name']) for e in r['entries'] if e['name'] in types),default=999), r,p)
                           for r,p in choices]
                 _, spawn, path = min(ranked,key=lambda row:(row[0],row[1]['guid']))
                 x,y,z = spawn['location']
                 result.append(dict(id=f'{facet}/{name}/{role}',town=name,map=facet,role=role,x=x,y=y,z=z,
                                    source=f'{path}#{spawn["guid"]}',sharedWorkshop=not any(e['name'] in types for e in spawn['entries'])))
+    for role, (x, y, z) in ROADSIDE_TRAINERS.items():
+        result.append(dict(id=f'Trammel/Britannia/Roadside/{role}', town='Britannia', map='Trammel',
+                           role=role, x=x, y=y, z=z, source='Roadside trainer', sharedWorkshop=False))
     return result
 
 

@@ -33,7 +33,6 @@ public static class MarketUiChecks
             var state = ClassGear.Profiles.Convert(_hidden, 70, GearRarity.Magic, new Random(17));
             ClassGear.Profiles.Store(_hidden, state with { Identified = false, IdentifiedSaleOffer = 300 });
             _before = GoldCount();
-            _vendor.VendorSell(_player);
         });
         Register("sold", () => Require(_hidden.Deleted && GoldCount() == _before + 30 && !_vendor.BuyPack.Items.Contains(_hidden),
             "Client sale did not pay the unidentified quote or left buyback stock"));
@@ -44,7 +43,6 @@ public static class MarketUiChecks
     {
         _player = (PlayerMobile)Accounts.GetAccount("combatui")[0];
         ClassCombat.Stop(_player);
-        ClassCreation.Profiles.AdvanceLevel(_player, 99);
         _player.RawStr = 200; _player.RawDex = 200;
         var point = CombatPractice.FindFloor(Map.Felucca, 1382, 1495);
         _player.MoveToWorld(point, Map.Felucca);
@@ -53,7 +51,9 @@ public static class MarketUiChecks
         foreach (var item in removed) { item.Delete(); }
         _player.Backpack.DropItem(new Gold(5000));
         _vendor = new Blacksmith { Frozen = true, CantWalk = true, Name = "Market UI seller" };
-        _vendor.MoveToWorld(point, Map.Felucca); _vendor.AIObject.AITimer.Stop();
+        var vendorPoint = CombatPractice.FindFloor(Map.Felucca, point.X + 1, point.Y - 1);
+        _vendor.MoveToWorld(vendorPoint, Map.Felucca); _vendor.AIObject.AITimer.Stop();
+        Require(TownMarkets.Trading(_vendor, _player), "Shop test vendor is out of reach");
         var market = TownMarkets.Market(_vendor);
         foreach (var offer in market.Offers) { World.FindItem(offer.Item).Delete(); }
         market.Offers.Clear();
@@ -63,7 +63,6 @@ public static class MarketUiChecks
         ((MarketShelf)World.FindItem(market.Shelf)).DropItem(_stock);
         market.Offers.Add(new(_stock.Serial, 400, true, null));
         _before = GoldCount();
-        _vendor.VendorBuy(_player);
     }
     private static void Register(string command, Action action)
     {

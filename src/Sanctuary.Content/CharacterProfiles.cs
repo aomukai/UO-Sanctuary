@@ -592,7 +592,7 @@ public sealed class CharacterProfiles : GenericPersistence
 
     public override void Serialize(IGenericWriter writer)
     {
-        writer.Write(11);
+        writer.Write(12);
         writer.Write(_characters.Count);
         var serials = new List<Serial>(_characters.Keys); serials.Sort();
         foreach (var serial in serials)
@@ -610,7 +610,7 @@ public sealed class CharacterProfiles : GenericPersistence
             writer.Write(character.VisitedHavenMine);
             writer.Write(character.DefeatedKrulg);
             writer.Write(character.KrulgWitness.Value);
-            writer.Write((byte)character.BritainDiscoveries);
+            writer.Write((ushort)character.BritainDiscoveries);
             writer.Write(character.IoloGreetedBritain);
             writer.Write(character.ReceivedIoloRunebook);
             writer.Write(character.WolfgangOpenedUp);
@@ -635,7 +635,7 @@ public sealed class CharacterProfiles : GenericPersistence
     public override void Deserialize(IGenericReader reader)
     {
         int version = reader.ReadInt();
-        if (version is < 0 or > 11) { throw new InvalidDataException($"Unsupported Sanctuary character data version {version}."); }
+        if (version is < 0 or > 12) { throw new InvalidDataException($"Unsupported Sanctuary character data version {version}."); }
         int count = reader.ReadInt();
         if (count is < 0 or > 1000000) { throw new InvalidDataException("Invalid Sanctuary character count."); }
         // Decode and validate the complete replacement before changing the loaded authority.
@@ -677,7 +677,7 @@ public sealed class CharacterProfiles : GenericPersistence
                     }
                     if (version >= 11)
                     {
-                        character.BritainDiscoveries = (StoryDiscoveries)reader.ReadByte();
+                        character.BritainDiscoveries = (StoryDiscoveries)(version >= 12 ? reader.ReadUShort() : reader.ReadByte());
                         character.IoloGreetedBritain = reader.ReadBool();
                         character.ReceivedIoloRunebook = reader.ReadBool();
                         character.WolfgangOpenedUp = reader.ReadBool();

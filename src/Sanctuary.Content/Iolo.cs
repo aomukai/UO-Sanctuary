@@ -101,6 +101,8 @@ public partial class Iolo : ConversationNpc, IClassCompanion
         new("A song is best passed from one voice to another. I should like to teach a few to the young bards at the college, while I can still remember all the verses.", _departureTopics)
     ];
 
+    internal const int VoiceHue = 0x0035;
+
     [Constructible]
     public Iolo()
     {
@@ -277,12 +279,7 @@ public partial class Iolo : ConversationNpc, IClassCompanion
         return base.EquipItem(item);
     }
 
-    internal static bool AllowedGear(Item item) => item switch
-    {
-        BaseWeapon weapon => CombatTiming.Weapon(weapon).Family == AttackFamily.Crossbow,
-        _ => ClassGear.Definition(item) is { Slot: GearSlot.Cosmetic or GearSlot.Belt or GearSlot.Ring or GearSlot.Amulet }
-            || ClassGear.Definition(item) is { Weight: GearWeight.Light, Slot: GearSlot.Head or GearSlot.Body or GearSlot.Hands or GearSlot.Feet }
-    };
+    internal static bool AllowedGear(Item item) => CompanionBuild.AllowedArcherGear(item, AttackFamily.Crossbow);
 
     public override void OnThink()
     {
@@ -356,14 +353,8 @@ public partial class Iolo : ConversationNpc, IClassCompanion
         if (ClassStats.CheckHit(this, target, attackPercent, projectile: true, guaranteed: skill == CombatAbility.GuidedArrow) != true)
             return;
 
-        var (minimum, maximum) = ClassGear.Damage(weapon, level);
-        var basis = ClassGear.Base(weapon);
-        int damagePercent = (basis == null ? 0 : ClassStats.WeaponStatPercent(Str + CompanionBuild.Bonus(this, "str"),
-            Dex + CompanionBuild.Bonus(this, "dex"), basis.StrengthBonus, basis.DexterityBonus))
-            + CompanionBuild.Bonus(this, "dmg%", except: weapon);
-        if (skill == CombatAbility.GuidedArrow)
-            damagePercent += (int)values.Eval("calc1");
-        double physical = Utility.RandomMinMax(minimum, maximum) * (100 + Math.Max(-90, damagePercent)) / 100.0;
+        int skillPercent = skill == CombatAbility.GuidedArrow ? (int)values.Eval("calc1") : 0;
+        double physical = CompanionBuild.BowPhysicalDamage(this, weapon, level, skillPercent);
         double cold = 0, magic = 0;
         if (skill is CombatAbility.ColdArrow or CombatAbility.MagicArrow)
         {

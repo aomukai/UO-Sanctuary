@@ -45,17 +45,17 @@ public static class GraveyardPopulation
         _logger.Information("Graveyard: installed {Count} population spawners", created);
     }
 
-    internal static int InstallSpawners(string fileName, bool relocate = false)
+    internal static int InstallSpawners(string fileName, bool relocate = false, bool refreshCounts = false)
     {
         var definitions = JsonSerializer.Deserialize<SpawnerDto[]>(
             File.ReadAllText(Path.Join(Core.BaseDirectory, "Data", "Sanctuary", fileName)), SpawnerJsonSerializer.Options);
-        return InstallSpawners(definitions, relocate);
+        return InstallSpawners(definitions, relocate, refreshCounts);
     }
 
-    internal static int InstallSpawners(IEnumerable<SpawnerDto> definitions, bool relocate = false)
+    internal static int InstallSpawners(IEnumerable<SpawnerDto> definitions, bool relocate = false, bool refreshCounts = false)
     {
         var existing = new Dictionary<Guid, BaseSpawner>();
-        if (relocate)
+        if (relocate || refreshCounts)
             foreach (var item in World.Items.Values)
                 if (item is BaseSpawner spawner && spawner.Guid != Guid.Empty)
                     existing.TryAdd(spawner.Guid, spawner);
@@ -65,7 +65,7 @@ public static class GraveyardPopulation
             bool exists = false;
             foreach (var spawner in definition.Map.GetItemsInRange<BaseSpawner>(definition.Location, 4))
             {
-                if (spawner.Guid == definition.Guid)
+                if (spawner.Guid == definition.Guid && (!refreshCounts || spawner.Count == definition.Count))
                 {
                     exists = true;
                     break;

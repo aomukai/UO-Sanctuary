@@ -25,7 +25,7 @@ public static class WarriorSnapshotChecks
         try
         {
             NecromancerEffects.SetMana256(owner,owner.ManaMax*256);int before=NecromancerEffects.ManaBalance256(owner),cost=SkeletonPets.Mana(owner)*256;
-            Require(SkeletonPets.Raise(owner,corpse)&&NecromancerEffects.ManaBalance256(owner)==before-cost,"Learned warrior cast/payment");
+            Require(SkeletonPets.Raise(owner)&&NecromancerEffects.ManaBalance256(owner)==before-cost,"Learned warrior cast/payment");
             var b=NecromancerSkeletons.For(owner,CombatAbility.RaiseSkeleton).OfType<SkeletonWorldBody>().Last();
             b.StoreWorld(IronGolemWorld.Park(b.WorldState.Controller) with{NextUtc=TimedEffects.Now.AddDays(3)});return b;
         }

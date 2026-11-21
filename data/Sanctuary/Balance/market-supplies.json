@@ -1,6 +1,27 @@
 [
   {
     "Roles": [
+      "Provisioner"
+    ],
+    "Type": "BeltLantern",
+    "Price": 25,
+    "SellPrice": 2,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Provisioner",
+      "Tinker"
+    ],
+    "Type": "Beeswax",
+    "Price": 2,
+    "SellPrice": 1,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
       "Smith"
     ],
     "Type": "SmithHammer",

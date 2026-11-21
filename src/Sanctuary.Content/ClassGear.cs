@@ -386,6 +386,16 @@ public static class ClassGear
         }
         return true;
     }
+    internal static string AppearanceTitle(Item item, GearState state)
+    {
+        string name = EquipmentCrafting.AppearanceName(item.GetType().Name);
+        if (state?.Tier is GearTier.Exceptional or GearTier.Elite)
+            name = $"{state.Tier} {name}";
+        if (state?.Roll.Rarity is GearRarity.Magic or GearRarity.Rare)
+            name = $"{state.Roll.Rarity} {name}";
+        return name;
+    }
+
     public static bool AddProperties(Item item, IPropertyList list)
     {
         if (ClassProfessions.Enabled && SocketGems.Legacy(item.GetType()))
@@ -397,9 +407,10 @@ public static class ClassGear
         var basis = Base(item);
         var saved = State(item);
         var roll = saved?.Roll;
-        string name = item.Origin == ItemOrigin.Drop && saved?.NamedItemId == null && basis != null
-            ? roll?.Rarity is GearRarity.Magic or GearRarity.Rare ? $"{roll.Rarity} {basis.Name}" : basis.Name
-            : item.Name ?? basis?.Name;
+        bool useAppearance = saved is { NamedItemId: not null, Identified: false }
+            || item.Origin == ItemOrigin.Drop && saved?.NamedItemId == null && basis != null;
+        string name = useAppearance ? AppearanceTitle(item, saved)
+            : item.Name ?? (basis != null ? AppearanceTitle(item, saved) : null);
         if (name == null)
             item.AddNameProperty(list);
         else

@@ -1,0 +1,191 @@
+diff --git a/src/ClassicUO.Client/ClassicUO.Client.csproj b/src/ClassicUO.Client/ClassicUO.Client.csproj
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -57,6 +57,7 @@
+     <Compile Include="../../../../shared/TitleProtocol.cs" Link="TitleProtocol.cs" />
+     <Compile Include="../../../../shared/SkillBindingProtocol.cs" Link="SkillBindingProtocol.cs" />
+     <Compile Include="../../../../shared/NamedVisualProtocol.cs" Link="NamedVisualProtocol.cs" />
++    <Compile Include="../../../../shared/SkeletonAppearance.cs" Link="SkeletonAppearance.cs" />
+     <Compile Include="../../../../shared/DruidFormVisualProtocol.cs" Link="DruidFormVisualProtocol.cs" />
+     <Compile Include="../../../../shared/StatProtocol.cs" Link="Game/Data/StatProtocol.cs" />
+     <Compile Include="../../../../shared/BeltProtocol.cs" Link="Game/Data/BeltProtocol.cs" />
+diff --git a/src/ClassicUO.Client/Game/GameObjects/MobileAnimation.cs b/src/ClassicUO.Client/Game/GameObjects/MobileAnimation.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/MobileAnimation.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/MobileAnimation.cs
+@@ -53,6 +53,7 @@
+         private ushort _druidFormBody;
+         private ushort DruidFormBody => IsDead ? (ushort)0 : _druidFormBody;
+         private float DruidFormScale => DruidFormBody == 0 ? 1f : 1.2f;
++        internal Sanctuary.SkeletonAppearance SkeletonCosmetics { get; set; }
+ 
+         internal void SetDruidFormAppearance(byte form)
+         {
+@@ -79,6 +80,14 @@
+             }
+ 
+             ushort g = Graphic;
++            if (g == 50 && SkeletonCosmetics is Sanctuary.SkeletonAppearance.SwordAndShield or Sanctuary.SkeletonAppearance.ArmouredWarrior)
++            {
++                return 57;
++            }
++            if (g == 56 && SkeletonCosmetics >= Sanctuary.SkeletonAppearance.MageHat)
++            {
++                return 50;
++            }
+ 
+             switch (g)
+             {
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+@@ -33,6 +33,17 @@
+         private uint _weaponHexStart;
+         private long _weaponHexUntil;
+ 
++        // Skull displacement from idle in each native skeleton attack frame.
++        // The sword-and-shield skeleton shares the bare skeleton's body poses.
++        private static readonly Point[,] SkeletonAttackOffsets =
++        {
++            { new(4, -2), new(4, 6), new(5, 10), new(1, 1) },
++            { new(6, 0), new(-6, 6), new(-8, 10), new(0, 1) },
++            { new(6, 2), new(-11, 3), new(-15, 5), new(0, 0) },
++            { new(1, 3), new(-12, -2), new(-15, 0), new(-2, 0) },
++            { new(-4, 2), new(-4, -5), new(-5, -4), new(-1, -1) }
++        };
++
+         internal void SetWeaponHex(ushort graphic, Layer layer, int duration)
+         {
+             if (duration <= 0)
+@@ -463,6 +474,11 @@
+                 charSitting
+             );
+ 
++            if (!IsDead && SkeletonCosmetics is not (SkeletonAppearance.None or SkeletonAppearance.SwordAndShield) && Graphic is 50 or 56)
++            {
++                DrawSkeletonCosmetics(batcher, drawX, drawY, graphic, dir, animGroup, animIndex, hueVec.Z, overridedHue, depth);
++            }
++
+             if (!IsEmpty)
+             {
+                 // draw order built from the layer algorithm (PaperdollOrder), keyed on
+@@ -722,6 +738,97 @@
+                     break;
+             }
+         }
++
++        private void DrawSkeletonCosmetics(
++            UltimaBatcher2D batcher, int x, int y, ushort body, byte direction, byte group, byte index,
++            float alpha, ushort highlight, float depth
++        )
++        {
++            var animations = Client.Game.UO.Animations;
++            var bodyFrames = animations.GetAnimationFrames(body, group, direction, out _, out _);
++            if (bodyFrames.IsEmpty)
++            {
++                return;
++            }
++
++            int bodyFrameCount = bodyFrames.Length;
++            // Native monster and equipment sequences have different frame counts.
++            var phase = Math.Min(index, bodyFrameCount - 1) / (float)Math.Max(1, bodyFrameCount - 1);
++            var motion = (HighAnimationGroup)group;
++            bool mage = SkeletonCosmetics >= SkeletonAppearance.MageHat;
++            var pose = motion switch
++            {
++                HighAnimationGroup.Walk => PeopleAnimationGroup.WalkUnarmed,
++                HighAnimationGroup.Attack1 or HighAnimationGroup.Attack2 or HighAnimationGroup.Attack3 or HighAnimationGroup.Cast
++                    => mage ? PeopleAnimationGroup.CastDirected : PeopleAnimationGroup.AttackOnehanded,
++                HighAnimationGroup.GetHit1 or HighAnimationGroup.GetHit2 or HighAnimationGroup.GetHit3 => PeopleAnimationGroup.GetHit,
++                _ => PeopleAnimationGroup.Stand
++            };
++            var flip = IsFlipped ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
++            // The skeleton's neck sits farther forward than a human's in the side views.
++            int headShift = direction switch { 0 => 4, 1 => 0, 2 => -2, 3 => -6, _ => -4 };
++            bool lunging = motion == HighAnimationGroup.Attack1;
++            var fittedOffset = lunging ? SkeletonAttackOffsets[direction, Math.Min(index, (byte)3)] : Point.Zero;
++            var clothingPose = lunging ? PeopleAnimationGroup.Stand : pose;
++            const ushort MageClothHue = 0x04E3;
++
++            void DrawGear(ushort item, PeopleAnimationGroup gearPose, int dx, int dy, float scale, ushort dye, float layer)
++            {
++                var tiles = Client.Game.UO.FileManager.TileData.StaticData;
++                if (item >= tiles.Length || tiles[item].AnimID == 0)
++                {
++                    return;
++                }
++
++                ushort animation = tiles[item].AnimID;
++                var frames = animations.GetAnimationFrames(animation, (byte)gearPose, direction, out _, out _, true);
++                if (frames.IsEmpty)
++                {
++                    return;
++                }
++
++                ref var sprite = ref frames[(int)Math.Round(phase * (frames.Length - 1))];
++                if (sprite.Texture == null)
++                {
++                    return;
++                }
++
++                int anchorX = IsFlipped ? sprite.UV.Width - sprite.Center.X : sprite.Center.X;
++                int anchorY = sprite.UV.Height + sprite.Center.Y;
++                var position = new Vector2(x + (IsFlipped ? -dx : dx) - anchorX * scale, y + dy - anchorY * scale);
++                var ink = ShaderHueTranslator.GetHueVector(highlight == 0 ? dye : highlight, false, alpha);
++                batcher.Draw(sprite.Texture, position, sprite.UV, ink, 0f, Vector2.Zero, scale, flip, depth + layer);
++            }
++
++            switch (SkeletonCosmetics)
++            {
++                case SkeletonAppearance.Sword:
++                    DrawGear(0x0F5E, pose == PeopleAnimationGroup.WalkUnarmed ? PeopleAnimationGroup.WalkArmed : pose, 0, -1, 1f, 0, 2f);
++                    break;
++                case SkeletonAppearance.ArmouredWarrior:
++                    DrawGear(0x13BF, clothingPose, headShift / 2 + fittedOffset.X * 4 / 5, -5 + fittedOffset.Y, 0.9f, 0, 2f);
++                    break;
++                case SkeletonAppearance.MageHat:
++                case SkeletonAppearance.MageStaff:
++                case SkeletonAppearance.MageRobe:
++                    if (SkeletonCosmetics == SkeletonAppearance.MageRobe)
++                    {
++                        DrawGear(0x1F03, clothingPose, headShift / 2 + fittedOffset.X * 3 / 4, -2 + fittedOffset.Y / 2, 1f, MageClothHue, 2f);
++                    }
++                    if (SkeletonCosmetics >= SkeletonAppearance.MageStaff)
++                    {
++                        var staffPose = pose switch
++                        {
++                            PeopleAnimationGroup.WalkUnarmed => PeopleAnimationGroup.WalkArmed,
++                            PeopleAnimationGroup.CastDirected => PeopleAnimationGroup.AttackTwohandedJab,
++                            _ => pose
++                        };
++                        DrawGear(0x13F8, staffPose, direction == 3 ? 3 : 0, -2, 0.93f, 0, 3f);
++                    }
++                    DrawGear(0x1718, clothingPose, headShift + fittedOffset.X, -6 + fittedOffset.Y, 1f, MageClothHue, 4f);
++                    break;
++            }
++        }
+ 
+         private static bool GetTexture(
+             ushort graphic,
+diff --git a/src/ClassicUO.Client/Network/PacketHandlers.cs b/src/ClassicUO.Client/Network/PacketHandlers.cs
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -4160,6 +4160,19 @@
+                 NamedVisualsClient.Receive(world, ref p);
+                 return;
+             }
++            if (cmd == Sanctuary.SkeletonAppearanceProtocol.SubCommand)
++            {
++                if (world.InGame && p.Remaining == 6 && p.ReadUInt8() == Sanctuary.SkeletonAppearanceProtocol.Version)
++                {
++                    uint serial = p.ReadUInt32BE();
++                    var appearance = (Sanctuary.SkeletonAppearance)p.ReadUInt8();
++                    if (appearance <= Sanctuary.SkeletonAppearance.MageRobe && world.Mobiles.TryGetValue(serial, out var mobile))
++                    {
++                        mobile.SkeletonCosmetics = appearance;
++                    }
++                }
++                return;
++            }
+             if (cmd == Sanctuary.ClassGumpProtocol.PreviewSubCommand)
+             {
+                 SanctuaryTalentScreen.Receive(ref p);
