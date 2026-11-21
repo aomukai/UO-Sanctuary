@@ -1,0 +1,95 @@
+diff --git a/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs b/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs
+--- a/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs
++++ b/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs
+@@ -39,7 +39,7 @@
+     private static Texture2D _npcFaces;
+     private static Texture2D _demonFace;
+     private static readonly string[] _npcPortraitSheets =
+-        ["portrait-npc-watch", "portrait-npc-outlaws", "portrait-npc-fighters", "portrait-npc-scholars"];
++        ["portrait-npc-watch", "portrait-npc-outlaws", "portrait-npc-fighters", "portrait-npc-scholars", "portrait-npc-despise"];
+     private static readonly Texture2D[] _npcPortraitTextures = new Texture2D[_npcPortraitSheets.Length];
+     private static readonly string[] _templateGroups =
+         ["human-male", "human-female", "elf-male", "elf-female", "gargoyle-male", "gargoyle-female"];
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
+@@ -125,7 +125,15 @@
+         (StoryDiscoveries.RoyalAudience, "An Audience in Britain",
+             "Iolo told Lord British what he'd heard on the road. The king had been getting more reports of dangerous creatures from all over Britannia. He asked me to find out what was behind them. His duties kept him in Britain, but I could bring him word of anything I found."),
+         (StoryDiscoveries.IoloRetired, "The Bard's Last Journey",
+-            "Iolo retired after our audience with Lord British. He told me where I could find him, teaching his old songs at the bard's college. Walking out of the castle without the sound of his crossbow behind me felt strange.")
++            "Iolo retired after our audience with Lord British. He told me where I could find him, teaching his old songs at the bard's college. Walking out of the castle without the sound of his crossbow behind me felt strange."),
++        (StoryDiscoveries.DisplacedPixies, "The Pixies of Despise",
++            "I found a few pixies sheltering around an ankh in Despise. They told me these caves had been their home. Then the ratmen came, and their friends had to flee. The ones who stayed warned me to tread carefully."),
++        (StoryDiscoveries.UnquietRatman, "One Voice Apart",
++            "A ratman called Skrik had taken shelter at another ankh. He said something was driving his tribe. Whatever held them seemed to have passed him by. He could tell me neither what it was nor why he was free of it."),
++        (StoryDiscoveries.DespiseLetter, "A Letter in Despise",
++            "I found a dead adventurer beside an ankh in Despise. He carried a letter ordering him to steal something it called 'the pixie artifact' and return to the guild. The writer hadn't signed it."),
++        (StoryDiscoveries.StolenSapling, "A Sapling from Ilshenar",
++            "When I showed the pixies the letter, they told me what had been taken. It was a sapling of the Tree of Life in Ilshenar. I'd never heard that name before. The ratmen came soon after the theft. The pixies couldn't say who sent them or what had become of the sapling.")
+     ];
+ 
+     private SanctuaryJournalGump(World world) : base(world, 0, 0)
+diff --git a/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs b/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
+--- a/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
++++ b/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
+@@ -14,6 +14,7 @@
+ using ClassicUO.Utility;
+ using Microsoft.Xna.Framework;
+ using SDL3;
++using Sanctuary;
+ using MathHelper = ClassicUO.Utility.MathHelper;
+ 
+ namespace ClassicUO.Game.Scenes
+@@ -445,7 +446,7 @@
+                 UIManager.SystemChat.SetFocus();
+             }
+ 
+-            if (DirectInteractionTarget() is { } npc && SelectedObject.LastLeftDownObject == npc
++            if (DirectInteractionTarget() is { } target && SelectedObject.LastLeftDownObject == target
+                 && !UIManager.IsDragging && Math.Abs(Mouse.LDragOffset.X) <= Constants.MIN_GUMP_DRAG_DISTANCE
+                 && Math.Abs(Mouse.LDragOffset.Y) <= Constants.MIN_GUMP_DRAG_DISTANCE)
+             {
+@@ -454,7 +455,10 @@
+                 Mouse.LastLeftButtonClickTime = 0;
+                 StopFollowing();
+                 ClassCombatClient.Stop(_world);
+-                AvatarDialogueClient.Interact(npc.Serial);
++                if (target is Mobile)
++                    AvatarDialogueClient.Interact(target.Serial);
++                else
++                    GameActions.DoubleClick(_world, target.Serial);
+                 return true;
+             }
+ 
+@@ -796,13 +800,23 @@
+             return true;
+         }
+ 
+-        private Mobile DirectInteractionTarget() =>
+-            !Keyboard.Alt && !Keyboard.Ctrl && !Keyboard.Shift && !_world.Player.IsDead
+-            && !_world.TargetManager.IsTargeting && _world.CustomHouseManager == null
+-            && !Client.Game.UO.GameCursor.ItemHold.Enabled
+-            && SelectedObject.Object is Mobile npc
+-            && (npc.NotorietyFlag == NotorietyFlag.Invulnerable || AvatarDialogueClient.IsOwnCompanion(_world, npc))
+-            && AvatarDialogueClient.CanInteract(_world, npc) ? npc : null;
++        private Entity DirectInteractionTarget()
++        {
++            if (Keyboard.Alt || Keyboard.Ctrl || Keyboard.Shift || _world.Player.IsDead
++                || _world.TargetManager.IsTargeting || _world.CustomHouseManager != null
++                || Client.Game.UO.GameCursor.ItemHold.Enabled)
++                return null;
++
++            if (SelectedObject.Object is Mobile npc
++                && (npc.NotorietyFlag == NotorietyFlag.Invulnerable || AvatarDialogueClient.IsOwnCompanion(_world, npc))
++                && AvatarDialogueClient.CanInteract(_world, npc))
++                return npc;
++            if (_world.MapIndex == 1 && _world.Player.SanctuaryNpcInteraction
++                && SelectedObject.Object is Item { Graphic: DespiseClue.CorpseGraphic,
++                    X: DespiseClue.X, Y: DespiseClue.Y, Z: DespiseClue.Z } clue)
++                return clue;
++            return null;
++        }
+ 
+         private bool OnLeftMouseDoubleClick()
+         {

@@ -62,6 +62,7 @@ public abstract partial class GraveyardUndead : BaseCreature
     });
     public abstract MonsterProfile CombatProfile { get; }
     protected virtual int RaiseKind => 0;
+    internal virtual int HomeLeashRadius => LeashedMeleeAI.HomeRadius;
     protected virtual bool Caster => false;
     protected override BaseAI ForcedAI => new LeashedMeleeAI(this);
     public bool ReturningHome => AIObject is LeashedMeleeAI { ReturningHome: true };
@@ -289,9 +290,13 @@ public abstract partial class GraveyardUndead : BaseCreature
     }
     public virtual bool CanRaise(Corpse corpse) => Caster && RaisedMinions.CanRaise(this) && corpse is { Deleted: false, OwnerWasBaseCreature: true, Parent: null,
         Carved: false, Animated: false, SanctuaryHarvested: false, SanctuaryConsumed: false, SanctuaryRestInPeace: false, IsBones: false, OwnerWasSummoned: false }
-        && !CorpseSkillRules.BlocksReanimation(corpse) && corpse.SanctuaryUndeadKind is 1 or 2 && corpse.Map == Map && InRange(corpse, 8)
+        && !CorpseSkillRules.BlocksReanimation(corpse) && CanRaiseKind(corpse) && corpse.Map == Map && InRange(corpse, 8)
         && Math.Abs(corpse.Z - Z) < 16 && InLOS(corpse) && CanSee(corpse) && RaisedMinions.CorpseAllowed(this,corpse);
-    private Corpse FindRaiseTarget()
+    protected virtual bool CanRaiseKind(Corpse corpse) => corpse.SanctuaryUndeadKind is 1 or 2;
+    protected virtual GraveyardUndead CreateRaisedBody(Corpse corpse) =>
+        corpse.SanctuaryUndeadKind == 1 ? new GraveyardSkeleton() : new GraveyardZombie();
+    protected virtual bool RaisedBodyAwardsRewards => true;
+    protected Corpse FindRaiseTarget()
     {
         Corpse result = null;
         int distance = int.MaxValue;
@@ -343,10 +348,10 @@ public abstract partial class GraveyardUndead : BaseCreature
                 return;
             }
         }
-        GraveyardUndead raised = corpse.SanctuaryUndeadKind == 1 ? new GraveyardSkeleton() : new GraveyardZombie();
+        var raised = CreateRaisedBody(corpse);
         if (MonsterVariants.Difficulty(this) is not MonsterDifficulty.Normal and var difficulty) { MonsterVariants.Assign(raised, difficulty); }
         if(!RaisedMinions.Attach(this,raised)){raised.Delete();_actionMap=null;return;}
-        raised.MarkRaised(Controlled||Summoned||corpse.SanctuaryNoRewards);
+        raised.MarkRaised(!RaisedBodyAwardsRewards || Controlled || Summoned || corpse.SanctuaryNoRewards);
         raised.MoveToWorld(corpse.Location, corpse.Map);
         raised.Combatant = Combatant;
         if(RaisedMinions.State(raised)!=null){raised.IssueOrder(OrderType.Guard,null);}

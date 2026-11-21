@@ -122,7 +122,15 @@ public static class StatUiChecks
                         var skill = SkillMechanics.All.First(entry => entry.TalentId == talent.Id);
                         var draft = new Dictionary<string, int> { [talent.Id] = 1 };
                         var next = new Dictionary<string, int> { [talent.Id] = TalentCatalog.MaxRank };
-                        TalentDetails.Preview(player, skill, draft, next);
+                        string preview = TalentDetails.Preview(player, skill, draft, next);
+                        if (skill.Ability == CombatAbility.SummonTainted
+                            && (!preview.Contains("Fireball dmg\t5–7\t", StringComparison.Ordinal)
+                                || !preview.Contains("Life\t", StringComparison.Ordinal)
+                                || !preview.Contains("Defense\t", StringComparison.Ordinal)
+                                || !preview.Contains("Fire resist aura\t", StringComparison.Ordinal)))
+                        {
+                            throw new InvalidOperationException($"Missing Succubus rank comparison. {preview}");
+                        }
                     }
                 }
                 finally { player.Delete(); }

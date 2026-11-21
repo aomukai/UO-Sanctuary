@@ -35,11 +35,16 @@ public static class MageWorldChecks
     {var dead=new GraveyardZombie{NoKillAwards=true};dead.MoveToWorld(new(p.X+dx,p.Y,p.Z),p.Map);dead.Damage(100000,p);if(dead.Alive){dead.Kill();}var corpse=dead.Corpse as Corpse;Require(SkeletonPets.Usable(p,corpse),"Actual world Mage corpse");return corpse;}
     private static MageWorldBody Learned(PlayerMobile p,int dx=3,bool future=true)
     {
+        var combatStart=new Point3D(p.X+dx,p.Y,p.Z);
         var corpse=Corpse(p,dx);var roll=NecromancerSummons.ElementRoll;try{NecromancerSummons.ElementRoll=()=>2;NecromancerEffects.SetMana256(p,p.ManaMax*256);int mana=NecromancerEffects.ManaBalance256(p),cost=SkillMechanics.Values(p,CombatAbility.RaiseSkeletalMage).Mana256;
-            Require(NecromancerCombat.Release(p,CombatAbility.RaiseSkeletalMage,corpse.Serial,corpse.Location)&&NecromancerEffects.ManaBalance256(p)==mana-cost&&(corpse.Deleted||corpse.SanctuaryConsumed),"Learned world Mage corpse/payment");}finally{NecromancerSummons.ElementRoll=roll;corpse.Delete();}
+            Require(NecromancerCombat.Release(p,CombatAbility.RaiseSkeletalMage,corpse.Serial,corpse.Location)&&NecromancerEffects.ManaBalance256(p)==mana-cost&&(!corpse.Deleted&&!corpse.SanctuaryConsumed),"Learned world Mage did not preserve the corpse or charge mana");}finally{NecromancerSummons.ElementRoll=roll;corpse.Delete();}
         var b=NecromancerSkeletons.For(p,CombatAbility.RaiseSkeletalMage).OfType<MageWorldBody>().Last();
         Require(b.WorldState.Owner==p.Serial.Value&&b.WorldState.Controller is{Mode:8,EndAt:24,NextThink:25,Ai.Parameter0:1}&&NpcEquipmentRandom.State(b)==null&&b is not ISourceUnarmedNpc,"Mage birth/controller role or fake physical random binding");
-        if(future){b.Ground.Store(b.WorldState.Controller with{NextUtc=TimedEffects.Now.AddHours(1)});}return b;
+        // Keep the missile timing controls aligned in the fixture corridor.
+        b.MoveToWorld(combatStart,p.Map);
+        var controller=b.WorldState.Controller with{Motion=DruidRavenMotion.Center(b.X*2,b.Y*2)};
+        if(future){controller=controller with{NextUtc=TimedEffects.Now.AddHours(1)};}
+        b.Ground.Store(controller);return b;
     }
     private static GraveyardSkeleton Target(PlayerMobile p,MageWorldBody b,int dx=4)
     {var t=PoisonDaggerChecks.Target(p);t.SetHits(20000);t.MoveToWorld(new(b.X+dx,b.Y,b.Z),p.Map);t.SetResistance(ResistanceType.Fire,0);TimedEffects.PreventHealing(t,TimedEffects.Now);return t;}
@@ -122,7 +127,7 @@ public static class MageWorldChecks
             {
                 Require(Core.TickCount<deadline,"Mage input timeout");var session=ClassCombat.For(p);if(session.PendingAbility==CombatAbility.RaiseSkeletalMage&&!began){Require(NecromancerEffects.ManaBalance256(p)==mana&&!corpse.SanctuaryConsumed,"Mage paid/consumed during windup");began=true;Log.Information("{Label}: windup",label);}
                 var b=NecromancerSkeletons.For(p,CombatAbility.RaiseSkeletalMage).OfType<MageWorldBody>().SingleOrDefault();if(b==null){Timer.StartTimer(TimeSpan.FromMilliseconds(20),Inspect);return;}
-                Require(began&&b.WorldState.Controller.Ai.Parameter0==1&&NecromancerEffects.ManaBalance256(p)==mana-cost&&(corpse.Deleted||corpse.SanctuaryConsumed),"Mage real input role/corpse/payment");End();Log.Information("{Label}-result: passed",label);
+                Require(began&&b.WorldState.Controller.Ai.Parameter0==1&&NecromancerEffects.ManaBalance256(p)==mana-cost&&(!corpse.Deleted&&!corpse.SanctuaryConsumed),"Mage real input role/corpse/payment");End();Log.Information("{Label}-result: passed",label);
             }
             catch(Exception e){End();Log.Error(e,"{Label}-result: failed",label);}
         }

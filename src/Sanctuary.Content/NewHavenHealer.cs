@@ -36,13 +36,12 @@ public partial class NewHavenHealer : BaseHealer
             return;
         }
 
-        if (World.FindMobile(ClassCreation.Profiles.IoloCompanion(player.Serial)) is Iolo { IsDeadPet: true } iolo
-            && MercenaryCare.IsCompanion(player, iolo))
+        if (MercenaryCare.ActiveStoryCompanion(player) is { IsDeadPet: true } companion)
         {
-            if (MercenaryCare.Quote(player, iolo, this) is { } request)
+            if (MercenaryCare.Quote(player, companion, this) is { } request)
                 player.SendGump(new MerrynResurrectionGump(player, request));
             else
-                player.SendMessage("Bring Iolo's spirit close, and let the dust of battle settle. Then I can help him.");
+                player.SendMessage("Bring thy companion's spirit close, and let the dust of battle settle.");
         }
     }
 }
@@ -57,12 +56,12 @@ internal sealed class MerrynResurrectionGump(Mobile player, MercenaryServiceRequ
         builder.AddHtml(0, 20, 400, 35, "<center>Merryn</center>");
         builder.AddHtml(50, 70, 300, 105,
             companion == null ? "Thy thread is not yet severed. Come closer, and I shall guide thee back to the living."
-                : "Iolo's spirit lingers here. If thou art ready, I shall guide him back to the living.", background: true);
+                : "Thy companion's spirit lingers here. If thou art ready, I shall guide them back to the living.", background: true);
 
         builder.AddButton(200, 227, 4005, 4007, 0);
         builder.AddHtml(235, 230, 110, 35, "Not yet");
         builder.AddButton(65, 227, 4005, 4007, 1);
-        builder.AddHtml(100, 230, 110, 35, companion == null ? "Return to life" : "Call Iolo back");
+        builder.AddHtml(100, 230, 110, 35, companion == null ? "Return to life" : "Call them back");
     }
 
     public override void OnResponse(NetState sender, in RelayInfo info)
@@ -70,7 +69,7 @@ internal sealed class MerrynResurrectionGump(Mobile player, MercenaryServiceRequ
         if (companion == null)
             base.OnResponse(sender, info);
         else if (info.ButtonID == 1 && sender.Mobile == companion.Owner)
-            sender.Mobile.SendMessage(MercenaryCare.Commit(companion) ? "Iolo has returned to the living."
-                : "I could not reach Iolo's spirit. Bring him close and speak to me again.");
+            sender.Mobile.SendMessage(MercenaryCare.Commit(companion) ? $"{companion.Mercenary.Name} has returned to the living."
+                : "I could not reach thy companion's spirit. Bring them close and speak to me again.");
     }
 }

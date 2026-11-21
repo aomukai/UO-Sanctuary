@@ -325,6 +325,11 @@ def check():
                                 command = stem + ("-check" if iteration == 0 else "-reload-check")
                                 session.send(command)
                                 assert session.expect(command + r": (passed|failed)", timeout=120).group(1) == "passed"
+                                if iteration == 0 and flag == "MERCENARY_CARE":
+                                    session.send("mercenary-inn-check")
+                                    assert session.expect(r"mercenary-inn-check: (passed|failed)").group(1) == "passed"
+                                    session.send("mercenary-ghost-login-check")
+                                    assert session.expect(r"mercenary-ghost-login-check: (passed|failed)").group(1) == "passed"
                         if iteration == 0 and os.environ.get("SANCTUARY_TEST_MERCENARY_LOYALTY") == "1":
                             session.send("mercenary-care-loyalty-check")
                             assert session.expect(r"mercenary-care-loyalty-check: (passed|failed)").group(1) == "passed"

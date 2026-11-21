@@ -107,7 +107,8 @@ public static class BritanniaWorld
                 var definitions = JsonSerializer.Deserialize<SpawnerDto[]>(File.ReadAllText(path), SpawnerJsonSerializer.Options);
                 foreach (var definition in definitions.OfType<SpawnerDataDto>())
                 {
-                    if (definition.Map != map || !Include(definition.Location))
+                    if (definition.Map != map || !Include(definition.Location) || definition.Guid == AyilaInn.LegacyVendorSpawn
+                        || CoveWorld.ReplacedResident(definition.Guid))
                         continue;
                     var civilians = definition.Entries.Where(entry => entry.Enabled
                         && AssemblyHandler.FindTypeByName(entry.SpawnedName) is { } type

@@ -90,7 +90,7 @@ public static class AmazonInnerSight
         AmazonUtilityEffects.Burst(owner,SpellEffectGraphics.InnerSightCast,SpellEffectSounds.InnerSightCast);
         return true; // An empty or weaker-rank cast still spends its once-only mana.
     }
-    internal static bool Apply(PlayerMobile owner,Mobile target,SkillValues values,DateTime at)
+    internal static bool Apply(Mobile owner,Mobile target,SkillValues values,DateTime at)
     {
         if(!Alive(target) || values.Rank is <1 or >255){return false;}
         var next=Replacement(_states.GetValueOrDefault(target.Serial.Value),target.Serial.Value,owner.Serial.Value,values.Rank,

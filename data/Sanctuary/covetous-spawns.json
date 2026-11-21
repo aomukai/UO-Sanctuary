@@ -1,0 +1,1397 @@
+[
+  {
+    "$type": "Spawner",
+    "guid": "17578869-7f21-54ce-b357-a1d3f6de1372",
+    "name": "Vesper road western ettin",
+    "location": [2630, 966, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 14 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "5dfaa3ae-e3b9-59f4-a77a-69a96cf3bc5f",
+    "name": "Vesper road eastern ettin",
+    "location": [2640, 969, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 16 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "9f690266-9bf4-5e83-b8f4-cf2610a72548",
+    "name": "Vesper road boulder-throwing ettin",
+    "location": [2635, 966, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "BoulderEttin", "maxCount": 1, "probability": 100, "parameters": "18"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "51b60dd9-b089-5dbd-845d-b0819db6342b",
+    "name": "Covetous 1 rat",
+    "location": [5475, 1857, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "rat 14"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "f1fbe83f-2b09-5bed-82bb-7740633ea229",
+    "name": "Covetous 1 harpy",
+    "location": [5498, 1855, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "harpy 14"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "a300bafe-c41b-5ae4-9565-1f611adfdbdb",
+    "name": "Covetous 1 giant-rat",
+    "location": [5490, 1871, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "giant-rat 14"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "804d08ed-97a6-5bc5-9fc0-16deae9c6df9",
+    "name": "Covetous 1 headless",
+    "location": [5472, 1877, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "headless 15"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "d99df0f4-fa8c-5db7-a8ea-89702ef5a830",
+    "name": "Covetous 1 slime",
+    "location": [5480, 1892, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "slime 15"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "38e4c0c1-98e1-52c4-a48a-8fd64a674835",
+    "name": "Covetous 1 gazer",
+    "location": [5495, 1903, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "gazer 15"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "d28ddf5e-4ac9-56c6-8ece-2b933938215a",
+    "name": "Covetous 1 giant-serpent",
+    "location": [5504, 1889, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "giant-serpent 16"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "64fc897e-db7a-5ccd-b5d7-68ec28569a1f",
+    "name": "Covetous 1 harpy",
+    "location": [5478, 1910, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "harpy 16"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "db12f8e2-17a4-59b1-a903-8e6330d5d24f",
+    "name": "Covetous 1 corpser",
+    "location": [5497, 1925, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "corpser 16"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "72a0894e-4b3c-56cb-8a35-d3a110f3d2b9",
+    "name": "Covetous 1 headless",
+    "location": [5463, 1916, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "headless 16"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "7b95261c-a710-5f2e-881d-1d999faa6c9f",
+    "name": "Covetous 1 giant-rat",
+    "location": [5467, 1934, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "giant-rat 16"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "00b7f114-f252-522e-90be-2c9170a2b9a5",
+    "name": "Covetous 1 gazer",
+    "location": [5453, 1905, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "gazer 16"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "1b12978d-e8ca-5cee-8ccb-0cb51ee6a626",
+    "name": "Covetous 1 rat",
+    "location": [5449, 1937, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "rat 16"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "0cd51c00-4224-5cd2-9180-cd55fcdd1398",
+    "name": "Covetous 1 harpy",
+    "location": [5443, 1918, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "harpy 17"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "59a485fb-000b-5e99-ad81-11a0140d23b3",
+    "name": "Covetous 1 giant-rat",
+    "location": [5437, 1891, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "giant-rat 17"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "22aa093d-a7a7-5131-9843-05db2c7e43b1",
+    "name": "Covetous 1 headless",
+    "location": [5436, 1863, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "headless 17"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "a5c87796-46b9-5963-b35f-01a2bc2b6fc1",
+    "name": "Covetous 1 slime",
+    "location": [5451, 1884, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "slime 17"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "952df61b-31e7-549d-8735-329e43f56c75",
+    "name": "Covetous 1 gazer",
+    "location": [5418, 1876, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "gazer 17"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "6baaab84-d3bd-56b7-a46f-b33b6b44cf58",
+    "name": "Covetous 1 giant-serpent",
+    "location": [5402, 1870, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "giant-serpent 17"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "d125dfb9-b88d-539f-a7e8-cbe2aca5cd59",
+    "name": "Covetous 1 harpy",
+    "location": [5422, 1853, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "harpy 17"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "4a4aca20-0e79-5111-8fae-96b415a35d74",
+    "name": "Covetous 1 corpser",
+    "location": [5392, 1886, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "corpser 17"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "1c719855-0b83-5b2e-85ad-1e550fec2f9f",
+    "name": "Covetous 1 headless",
+    "location": [5394, 1855, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "headless 18"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "f52bdb91-c644-5b1e-a6d9-fb2fd20dd5fb",
+    "name": "Covetous 1 giant-rat",
+    "location": [5411, 1901, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "giant-rat 18"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "059850db-855b-5790-95cc-33cc2d0ba669",
+    "name": "Covetous 1 gazer",
+    "location": [5393, 1921, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "gazer 18"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "041974da-ad6e-51b0-a3c8-87ef46af9f47",
+    "name": "Covetous 1 rat",
+    "location": [5430, 1907, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "rat 18"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "f923f380-cad9-5da6-98b2-2bf3f7f3c8d0",
+    "name": "Covetous 1 harpy",
+    "location": [5400, 1937, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "harpy 18"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "4ae9543c-35c9-5b8e-8e1b-c7e054836cb9",
+    "name": "Covetous 1 giant-rat",
+    "location": [5411, 1932, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "giant-rat 18"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "c0aaf986-4c5a-5529-9282-0c6a862bcdf3",
+    "name": "Covetous 2 harpy",
+    "location": [5593, 2017, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "harpy 18"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "951e4199-b8ff-55aa-800c-8e2c6e6e1000",
+    "name": "Covetous 2 giant-rat",
+    "location": [5577, 2006, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "giant-rat 18"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "8b123d3b-d3ca-5685-8c92-031848066765",
+    "name": "Covetous 2 headless",
+    "location": [5569, 2030, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "headless 18"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "e6853619-8f3c-55a6-bd35-27a1de31d1e1",
+    "name": "Covetous 2 slime",
+    "location": [5552, 2016, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "slime 19"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "465ae24d-bd11-56e9-a8c3-6a1ea383546d",
+    "name": "Covetous 2 giant-serpent",
+    "location": [5542, 2036, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "giant-serpent 19"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "d3f12544-3687-5dba-b96c-e317ce5a1699",
+    "name": "Covetous 2 gazer",
+    "location": [5532, 2021, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "gazer 19"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "e6e5867b-a784-5368-a983-9fc531d5ad88",
+    "name": "Covetous 2 corpser",
+    "location": [5537, 1999, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "corpser 19"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "80447025-b594-5f9a-b440-fef528c19cff",
+    "name": "Covetous 2 elder-gazer",
+    "location": [5517, 2022, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "elder-gazer 19"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "80234ab8-2b04-5ee7-b0cc-69b79b1b23fe",
+    "name": "Covetous 2 harpy",
+    "location": [5518, 2004, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "harpy 19"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "b1870d9a-23c5-5004-b2ff-4271b9de2853",
+    "name": "Covetous 2 headless",
+    "location": [5500, 2029, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "headless 20"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "21f13d57-25d3-542a-9084-fba944a8f581",
+    "name": "Covetous 2 water-elemental",
+    "location": [5498, 1998, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "water-elemental 20"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "6f48fa40-df01-5e0d-8d32-724569f171dd",
+    "name": "Covetous 2 giant-rat",
+    "location": [5491, 2014, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "giant-rat 20"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "a4ea076f-b0a5-514d-b4ae-645416fffe97",
+    "name": "Covetous 2 gazer",
+    "location": [5482, 2034, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "gazer 20"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "a87b5738-1f98-5a48-85de-4c455aaee812",
+    "name": "Covetous 2 water-elemental",
+    "location": [5518, 1982, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "water-elemental 20"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "75577a97-45a9-5d60-9703-33d2b5e7fec2",
+    "name": "Covetous 2 harpy",
+    "location": [5461, 2020, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "harpy 20"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "6b8cc4ac-f7d4-53a4-a154-aa275b0affb2",
+    "name": "Covetous 2 giant-rat",
+    "location": [5461, 2008, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "giant-rat 20"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "3ea85763-be3b-548d-977c-5b51253f71bc",
+    "name": "Covetous 2 headless",
+    "location": [5472, 1997, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "headless 20"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "57a2fd65-be4b-5ae1-832f-7821c88cce4f",
+    "name": "Covetous 2 slime",
+    "location": [5444, 2024, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "slime 20"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "c24f8f1b-da5c-58ba-baff-a006c7780a98",
+    "name": "Covetous 2 giant-serpent",
+    "location": [5443, 2036, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "giant-serpent 21"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "b4486ee5-c046-5e3f-9339-62b13ac5a5d8",
+    "name": "Covetous 2 gazer",
+    "location": [5449, 1998, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "gazer 21"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "eda0b20e-2fe2-5b45-9bd5-dff61435d731",
+    "name": "Covetous 2 corpser",
+    "location": [5432, 2015, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "corpser 21"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "34457226-b6f5-5751-aed6-052ee1a64abd",
+    "name": "Covetous 2 elder-gazer",
+    "location": [5482, 1984, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "elder-gazer 21"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "8a582546-2abd-586b-95fe-890d15f375c9",
+    "name": "Covetous 2 harpy",
+    "location": [5457, 1971, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "harpy 21"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "d793c8cd-9f8e-5853-9f1c-6a81fea1753d",
+    "name": "Covetous 2 headless",
+    "location": [5440, 1968, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "headless 21"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "7690ccec-17a2-5efd-ae15-2970e22b4a5d",
+    "name": "Covetous 2 water-elemental",
+    "location": [5482, 1964, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "water-elemental 21"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "da7674f5-3ea1-519a-8df8-04300d02435f",
+    "name": "Covetous 2 giant-rat",
+    "location": [5437, 1956, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "giant-rat 22"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "b1e2c83c-7195-5865-a22d-48b2c93efa5a",
+    "name": "Covetous 2 gazer",
+    "location": [5417, 1975, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "gazer 22"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "3af0e179-6ac0-53c2-873b-76d441a76e38",
+    "name": "Covetous 2 water-elemental",
+    "location": [5429, 1989, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "water-elemental 22"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "38e0cca0-7a2d-51b9-aef6-bc3800de64e7",
+    "name": "Covetous 2 harpy",
+    "location": [5408, 2009, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "harpy 22"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "74f97b15-5b09-5d93-b3d6-3725b88ae93e",
+    "name": "Covetous 2 giant-rat",
+    "location": [5388, 2012, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "giant-rat 22"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "2772662f-0926-56ee-aeda-5b88a28241ba",
+    "name": "Covetous 3 skeleton",
+    "location": [5576, 1908, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "skeleton 22"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "f023425c-4c5c-57e7-9c99-192e1e7f88ce",
+    "name": "Covetous 3 zombie",
+    "location": [5578, 1890, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "zombie 23"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "88a8b100-3c0e-516c-a28f-8e9879d5ee24",
+    "name": "Covetous 3 giant-rat",
+    "location": [5596, 1903, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "giant-rat 23"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "975b4c8a-9ec0-541d-b7cd-b9563434a0ac",
+    "name": "Covetous 3 spectre",
+    "location": [5560, 1903, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "spectre 23"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "4fa06b86-b6de-5e0c-95a3-01a7cc7c8f18",
+    "name": "Covetous 3 giant-serpent",
+    "location": [5585, 1876, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "giant-serpent 23"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "e894f1c6-085d-584f-8c50-b40a894252f7",
+    "name": "Covetous 3 shade",
+    "location": [5604, 1914, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "shade 23"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "c52c4b7b-c0ba-5d22-a0ed-7f6d4a265967",
+    "name": "Covetous 3 lich",
+    "location": [5556, 1916, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "lich 23"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "b45bcc0c-77d9-55bd-8d6d-4a9d7ab81041",
+    "name": "Covetous 3 skeleton",
+    "location": [5556, 1892, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "skeleton 24"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "9380c2c8-6b5f-5929-949a-c656c098bef2",
+    "name": "Covetous 3 zombie",
+    "location": [5604, 1890, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "zombie 24"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "9ed9bb13-91a5-5abc-a620-2cca4051d435",
+    "name": "Covetous 3 drake",
+    "location": [5579, 1859, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "drake 24"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "b66455d2-66ca-5de9-8d48-08ab061f209a",
+    "name": "Covetous 3 dragon",
+    "location": [5558, 1873, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "dragon 24"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "1358c873-c75c-5931-abca-92e5a88eaea2",
+    "name": "Covetous 3 skeleton",
+    "location": [5603, 1875, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "skeleton 24"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "541a1ec4-7e88-5ae5-a3f0-9bfec0345a76",
+    "name": "Covetous 3 zombie",
+    "location": [5590, 1850, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "zombie 24"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "b4f60561-f014-5de9-8823-426ac718f5ce",
+    "name": "Covetous 3 giant-rat",
+    "location": [5555, 1857, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "giant-rat 25"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "53456c72-4819-5fb5-abb6-943406eb02cb",
+    "name": "Covetous 3 spectre",
+    "location": [5538, 1876, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "spectre 25"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "92884fbb-1785-576b-9681-f96aea166751",
+    "name": "Covetous 3 giant-serpent",
+    "location": [5622, 1875, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "giant-serpent 25"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "fcd7cfcf-25c1-570d-9065-c5d3fc2e8c8a",
+    "name": "Covetous 3 shade",
+    "location": [5560, 1843, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "shade 25"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "a48e379f-3249-5a2a-921c-6f4999a04be6",
+    "name": "Covetous 3 lich",
+    "location": [5626, 1861, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "lich 26"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "11f8f81c-ac83-5cf6-9b23-ce4a993112a7",
+    "name": "Covetous 3 skeleton",
+    "location": [5566, 1829, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "skeleton 26"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "ffa4c3b0-1577-5d87-a4f3-c420e0d51b8e",
+    "name": "Covetous 3 zombie",
+    "location": [5580, 1834, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "zombie 26"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "6bba967d-b7d5-512c-80e3-705e5816b17a",
+    "name": "Covetous 3 drake",
+    "location": [5615, 1838, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "drake 26"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "1c7b5229-2b3a-56e6-82b7-4c3d8763c329",
+    "name": "Covetous 3 dragon",
+    "location": [5590, 1825, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "dragon 26"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "c792f64d-7f30-5563-9db4-d723d493fb3e",
+    "name": "Covetous 3 drake",
+    "location": [5473, 1821, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "drake 24"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "be51ff03-ce46-579c-bd00-1a51ef801874",
+    "name": "Covetous 3 dragon",
+    "location": [5462, 1810, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "dragon 24"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "68ca816d-a516-5b3f-b36f-aa5f50224ad3",
+    "name": "Covetous 3 giant-serpent",
+    "location": [5477, 1805, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "giant-serpent 25"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "c7257349-e255-55a6-acab-62f20b871dbf",
+    "name": "Covetous 3 drake",
+    "location": [5457, 1825, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "drake 25"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "979578ce-65bd-5195-8df9-fee110059f70",
+    "name": "Covetous 3 rimejaw",
+    "location": [5452, 1799, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:05:00",
+    "maxDelay": "00:07:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "rimejaw 30"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "28aaad53-53b4-54c0-95fd-3444ebccbfc6",
+    "name": "Covetous 3 dragon",
+    "location": [5468, 1799, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "dragon 26"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "8e3c24ea-edbd-5a8d-b94e-f3f32f17c925",
+    "name": "Covetous 3 skeleton",
+    "location": [5542, 1817, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "skeleton 24"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "2a7cde85-3c65-5947-bbeb-50082d7c2215",
+    "name": "Covetous 3 zombie",
+    "location": [5528, 1808, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "zombie 24"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "d2d40362-e165-5b0b-9e17-6f7f26678f47",
+    "name": "Covetous 3 shade",
+    "location": [5517, 1800, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "shade 26"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "5e759cd7-4c20-572c-9a80-a867969eef80",
+    "name": "Covetous 3 spectre",
+    "location": [5517, 1818, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "spectre 26"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "86b16b03-6ee8-5178-af8d-2587f945ffee",
+    "name": "Covetous 3 lich",
+    "location": [5504, 1808, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:03:00",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "CovetousEncounter", "maxCount": 1, "probability": 100, "parameters": "lich 26"}
+    ]
+  }
+]

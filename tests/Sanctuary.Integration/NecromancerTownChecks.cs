@@ -58,10 +58,10 @@ public static class NecromancerTownChecks
             {
                 Ready(owner);int mana=NecromancerEffects.ManaBalance256(owner);var session=ClassCombat.For(owner);long effect=session.EffectAt;
                 Serial selected=NecromancerCombat.CorpseTarget(skill.Ability)?corpse.Serial:target.Serial;
-                bool started=skill.Ability==CombatAbility.RaiseSkeleton?ClassCombat.CastSummon(owner,corpse.Serial,Core.TickCount):NecromancerCombat.Begin(owner,skill.Ability,selected,World.FindEntity(selected).Location,Core.TickCount);
+                bool started=skill.Ability==CombatAbility.RaiseSkeleton?ClassCombat.CastSummon(owner, Core.TickCount):NecromancerCombat.Begin(owner,skill.Ability,selected,World.FindEntity(selected).Location,Core.TickCount);
                 Require(!started&&!NecromancerCombat.ValidTarget(owner,skill.Ability,selected,target.Location)&&session.PendingAbility==CombatAbility.None&&session.EffectAt==effect
                     &&NecromancerEffects.ManaBalance256(owner)==mana&&CorpseSkillRules.Profiles.Find(corpse)==before&&!corpse.SanctuaryConsumed,"Town cast animated,paid or consumed: "+skill.Ability);
-                if(skill.Ability==CombatAbility.RaiseSkeleton){Require(!SkeletonPets.CanRaise(owner,corpse)&&!SkeletonPets.Raise(owner,corpse),"Raise Skeleton bypassed town at release");}
+                if(skill.Ability==CombatAbility.RaiseSkeleton){Require(!SkeletonPets.TrySummonPosition(owner, CombatAbility.RaiseSkeleton, out _)&&!SkeletonPets.Raise(owner),"Raise Skeleton bypassed town at release");}
                 else{Require(!NecromancerCombat.Release(owner,skill.Ability,selected,target.Location),"Direct release bypassed town: "+skill.Ability);}blocked++;
             }
             Require(blocked==22&&CorpseExplosionCasts.Acquire(owner,corpse.Location)==null,"Active-skill domain or CE picker ignored town");
@@ -71,12 +71,12 @@ public static class NecromancerTownChecks
         // isolates the release guard from the ordinary movement cancellation.
         foreach(var ability in new[]{CombatAbility.CorpseExplosion,CombatAbility.RaiseSkeleton})
         {
-            Ready(owner);int mana=NecromancerEffects.ManaBalance256(owner);bool started=ability==CombatAbility.RaiseSkeleton?ClassCombat.CastSummon(owner,corpse.Serial,Core.TickCount):ClassCombat.BeginCorpse(owner,ability,corpse.Serial,corpse.Location,Core.TickCount);
+            Ready(owner);int mana=NecromancerEffects.ManaBalance256(owner);bool started=ability==CombatAbility.RaiseSkeleton?ClassCombat.CastSummon(owner, Core.TickCount):ClassCombat.BeginCorpse(owner,ability,corpse.Serial,corpse.Location,Core.TickCount);
             Require(started,"Field start refused before region change: "+ability);town=Town(owner);
             try{Require(!ClassCombat.ResolveAction(owner,ClassCombat.For(owner).EffectAt)&&NecromancerEffects.ManaBalance256(owner)==mana&&CorpseSkillRules.Profiles.Find(corpse)==before&&!corpse.SanctuaryConsumed,"Entering town after windup still paid/consumed: "+ability);}
             finally{town.Unregister();}
         }
-        Ready(owner);Require(ClassCombat.CastSummon(owner,corpse.Serial,Core.TickCount)&&ClassCombat.ResolveAction(owner,ClassCombat.For(owner).EffectAt)&&corpse.SanctuaryConsumed,"Field Raise Skeleton no longer works");
+        Ready(owner);Require(ClassCombat.CastSummon(owner, Core.TickCount)&&ClassCombat.ResolveAction(owner,ClassCombat.For(owner).EffectAt)&&!corpse.SanctuaryConsumed,"Field Raise Skeleton failed or consumed a nearby corpse");
         foreach(var follower in(owner.AllFollowers??[]).OfType<BaseCreature>()){follower.AIObject.AITimer.Stop();}
         corpse.Delete();target.Delete();town=Town(owner);Item material=null;IronGolemBody retained=null;
         try

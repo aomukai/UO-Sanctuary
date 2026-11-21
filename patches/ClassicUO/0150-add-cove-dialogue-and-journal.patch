@@ -1,0 +1,86 @@
+diff --git a/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs b/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs
+--- a/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs
++++ b/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs
+@@ -38,6 +38,9 @@
+     private static Texture2D _wolfgangFace;
+     private static Texture2D _merydwenFace;
+     private static Texture2D _ayilaFace;
++    private static readonly string[] _covePortraitNames =
++        ["portrait-gnaw", "portrait-thomas", "portrait-cove-ferryman", "portrait-jaana"];
++    private static readonly Texture2D[] _covePortraits = new Texture2D[_covePortraitNames.Length];
+     private static Texture2D _npcFaces;
+     private static Texture2D _demonFace;
+     private static readonly string[] _npcPortraitSheets =
+@@ -106,6 +109,13 @@
+                 DrawFace(lists, _ayilaFace, _ayilaFace.Bounds, target, depth);
+                 return true;
+             }
++            if (npc is >= PortraitProtocol.GnawPortrait and <= PortraitProtocol.JaanaPortrait)
++            {
++                int index = npc - PortraitProtocol.GnawPortrait;
++                var texture = _covePortraits[index] ??= Load(_covePortraitNames[index]);
++                DrawFace(lists, texture, texture.Bounds, target, depth);
++                return true;
++            }
+             if (npc == 6)
+             {
+                 _demonFace ??= Load("portrait-demon");
+diff --git a/src/ClassicUO.Client/Game/AvatarDialogueClient.cs b/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
+--- a/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
++++ b/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
+@@ -99,7 +99,14 @@
+         }
+         if (kind == PortraitProtocol.BritainDiscoveries && reader.Remaining == 1)
+         {
+-            world.Player.SanctuaryDiscoveries = (StoryDiscoveries)reader.ReadUInt8();
++            world.Player.SanctuaryDiscoveries = (StoryDiscoveries)(((ushort)world.Player.SanctuaryDiscoveries & 0xFF00)
++                | reader.ReadUInt8());
++            UIManager.GetGump<SanctuaryJournalGump>()?.RefreshDiscoveries();
++            return;
++        }
++        if (kind == PortraitProtocol.WorldDiscoveries && reader.Remaining == 2)
++        {
++            world.Player.SanctuaryDiscoveries = (StoryDiscoveries)reader.ReadUInt16BE();
+             UIManager.GetGump<SanctuaryJournalGump>()?.RefreshDiscoveries();
+             return;
+         }
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
+@@ -133,7 +133,19 @@
+         (StoryDiscoveries.DespiseLetter, "A Letter in Despise",
+             "I found a dead adventurer beside an ankh in Despise. He carried a letter ordering him to steal something it called 'the pixie artifact' and return to the guild. The writer hadn't signed it."),
+         (StoryDiscoveries.StolenSapling, "A Sapling from Ilshenar",
+-            "When I showed the pixies the letter, they told me what had been taken. It was a sapling of the Tree of Life in Ilshenar. I'd never heard that name before. The ratmen came soon after the theft. The pixies couldn't say who sent them or what had become of the sapling.")
++            "When I showed the pixies the letter, they told me what had been taken. It was a sapling of the Tree of Life in Ilshenar. I'd never heard that name before. The ratmen came soon after the theft. The pixies couldn't say who sent them or what had become of the sapling."),
++        (StoryDiscoveries.CoveSiege, "The Watch at Cove",
++            "Thomas looked as though he had been on his feet for days. The orcs kept coming back to the gate. Cove had held so far, but every raid took a little more out of the watch. A messenger they had sent to Vesper had been gone a month."),
++        (StoryDiscoveries.CoveJaana, "An Old Friend in Cove",
++            "I found Jaana in the mayor's office. I remembered how steady she was when we used to travel together. She was still steady now, but her relief when she saw me was plain. She hoped I could give her guards some respite."),
++        (StoryDiscoveries.CoveMessenger, "A Letter That Never Arrived",
++            "In the orc fort I found a dead messenger laid out on a table. The letter they carried was from Jaana, asking Vesper for guards or supplies. It had never reached the mayor."),
++        (StoryDiscoveries.CoveFerry, "Passage from Cove",
++            "I returned the letter to Jaana. She had been holding on to the hope that the messenger was simply delayed. When we had finished talking, she told me the town would cover my passage on the ferry to Britain or Vesper."),
++        (StoryDiscoveries.GnawFreed, "An Imp in the Circle",
++            "I met an imp named Gnaw in a pentagram in the woods. His master was dead, and he knew no way back to the Abyss. We made a bargain. I spoke the dispel, he left me his gold and a piece of gear, and the clearing was suddenly quiet."),
++        (StoryDiscoveries.CoveChief, "A Rune from the Orc Fort",
++            "The chief of the Cove raiders was carrying a marked rune. It led straight to Cove's gates. I wondered how often he had stood on that same road and watched Thomas's guards change shifts.")
+     ];
+ 
+     private SanctuaryJournalGump(World world) : base(world, 0, 0)
+diff --git a/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs b/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
+--- a/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
++++ b/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
+@@ -812,8 +812,10 @@
+                 && AvatarDialogueClient.CanInteract(_world, npc))
+                 return npc;
+             if (_world.MapIndex == 1 && _world.Player.SanctuaryNpcInteraction
+-                && SelectedObject.Object is Item { Graphic: DespiseClue.CorpseGraphic,
+-                    X: DespiseClue.X, Y: DespiseClue.Y, Z: DespiseClue.Z } clue)
++                && SelectedObject.Object is Item clue
++                && (clue is { Graphic: DespiseClue.CorpseGraphic, X: DespiseClue.X, Y: DespiseClue.Y, Z: DespiseClue.Z }
++                    || (clue is { Graphic: CoveClue.CorpseGraphic, X: CoveClue.X, Y: CoveClue.Y, Z: CoveClue.Z }
++                        && (_world.Player.SanctuaryDiscoveries & StoryDiscoveries.CoveMessenger) == 0)))
+                 return clue;
+             return null;
+         }

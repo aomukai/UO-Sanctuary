@@ -164,14 +164,22 @@ public static class GearDrops
         // Pick the UO appearance before quality so MF cannot select another base.
         var variant = basis.Variants[random.Next(basis.Variants.Length)];
         var quality = Quality(basis, level, find, random, factors);
+        return Generate(basis, variant, level, quality, random);
+    }
+
+    internal static Item GenerateMagic(DropBase basis, int level, Random random) =>
+        Generate(basis, basis.Variants[random.Next(basis.Variants.Length)], level, DropQuality.Magic, random);
+
+    private static Item Generate(DropBase basis, DropVariant variant, int level, DropQuality quality, Random random)
+    {
         if (quality is DropQuality.Set or DropQuality.Unique)
         { return NamedGear.Generate(basis.Code, quality == DropQuality.Unique ? GearRarity.Unique : GearRarity.Set, level, random, false, variant.Type); }
         var rarity = quality switch { DropQuality.Rare => GearRarity.Rare, DropQuality.Magic => GearRarity.Magic, _ => GearRarity.Normal };
         var item = ItemOrigins.Create(ItemOrigin.Drop, () => EquipmentCrafting.Resolve(variant.Type).CreateInstance<Item>());
         try
         {
-            ClassGear.Profiles.FromMonster(item, level, rarity, basis.Code, basis.Tier, random);
-            item.Name = $"{basis.Tier} {variant.Name}";
+            var state = ClassGear.Profiles.FromMonster(item, level, rarity, basis.Code, basis.Tier, random);
+            item.Name = ClassGear.AppearanceTitle(item, state);
             return item;
         }
         catch { item.Delete(); throw; }

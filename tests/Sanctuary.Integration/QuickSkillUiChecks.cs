@@ -15,7 +15,6 @@ public static class QuickSkillUiChecks
 {
     private static readonly ILogger _log = LogFactory.GetLogger(typeof(QuickSkillUiChecks));
     private static PlayerMobile _owner;
-    private static Corpse _corpse;
     private static int _mana;
     private static long _action;
     private static void Require(bool value, string why) => GearDropChecks.Require(value, why);
@@ -32,7 +31,9 @@ public static class QuickSkillUiChecks
             _owner.MoveToWorld(CombatPractice.FindFloor(Map.Trammel, 5450, 1160), Map.Trammel);
             _owner.Mana = _owner.ManaMax;
             SkillBindings.Instance.Assign(_owner, true, CombatAbility.BasicAttack); SkillBindings.Instance.Assign(_owner, false, CombatAbility.Teeth);
-            MakeCorpse();
+            Require(SkeletonPets.TrySummonPosition(_owner, CombatAbility.RaiseSkeleton, out _), "No open ground for the summon fixture");
+            foreach (var corpse in _owner.Map.GetItemsInRange<Corpse>(_owner.Location, SkeletonPets.Range))
+                throw new InvalidOperationException($"Unexpected corpse near the summon fixture at {corpse.Location}");
         });
         Command("assigned", () =>
         {
@@ -50,12 +51,12 @@ public static class QuickSkillUiChecks
                 && SkillBindings.Instance.Get(_owner) == (CombatAbility.Teeth, CombatAbility.RaiseSkeleton), "Quick Teeth did not cast at cursor or changed mouse pair");
             _owner.Mana = _owner.ManaMax; _mana = _owner.Mana;
         });
-        Command("invalid", () => Require(SkeletonPets.Count(_owner) == 0 && !_corpse.SanctuaryConsumed && _owner.Mana >= _mana,
-            "Empty/UI cursor summoned nearest corpse or spent mana"));
+        Command("invalid", () => Require(SkeletonPets.Count(_owner) == 0 && _owner.Mana >= _mana,
+            "A quick cast over the UI summoned or spent mana"));
         Command("raised", () =>
         {
-            Require(SkeletonPets.Count(_owner) == 1 && _corpse.SanctuaryConsumed && _owner.Mana < _mana
-                && SkillBindings.Instance.GetQuick(_owner.Serial, DiabloClass.Necromancer, 1) == CombatAbility.RaiseSkeleton, $"Quick Raise Skeleton failed: count={SkeletonPets.Count(_owner)} consumed={_corpse.SanctuaryConsumed} usable={SkeletonPets.Usable(_owner, _corpse)} pending={ClassCombat.For(_owner).PendingAbility} mana={_owner.Mana}/{_mana}");
+            Require(SkeletonPets.Count(_owner) == 1 && _owner.Mana < _mana
+                && SkillBindings.Instance.GetQuick(_owner.Serial, DiabloClass.Necromancer, 1) == CombatAbility.RaiseSkeleton, $"Quick Raise Skeleton failed: count={SkeletonPets.Count(_owner)} pending={ClassCombat.For(_owner).PendingAbility} mana={_owner.Mana}/{_mana}");
             SkeletonPets.Dismiss(_owner); ClassCreation.Profiles.TryGet(_owner.Serial, out var profile);
             ClassCreation.Profiles.ResetAllocatedPoints(_owner, profile); _owner.Mana = _owner.ManaMax;
             _mana = _owner.Mana; _action = ClassCombat.For(_owner).NextAction;
@@ -68,14 +69,6 @@ public static class QuickSkillUiChecks
             && SkillBindings.Instance.GetQuick(_owner.Serial, DiabloClass.Necromancer, 1) == CombatAbility.RaiseSkeleton
             && SkillBindings.Instance.GetQuick(_owner.Serial, DiabloClass.Necromancer, 11) == CombatAbility.None, "Final quick bar lost bindings"));
     }
-    private static void MakeCorpse()
-    {
-        var enemy = new GraveyardSkeleton { Frozen = true, CantWalk = true, NoKillAwards = true }; enemy.AIObject?.AITimer.Stop();
-        enemy.MoveToWorld(CombatPractice.FindFloor(_owner.Map, _owner.X + 2, _owner.Y), _owner.Map);
-        _owner.DoHarmful(enemy); enemy.Damage(1000, _owner); if (enemy.Alive) { enemy.Kill(); }
-        _corpse = (Corpse)enemy.Corpse;
-        Require(SkeletonPets.CanRaise(_owner, _corpse), $"Invalid summoning fixture: usable={SkeletonPets.Usable(_owner, _corpse)} spawn={_owner.Map.CanSpawnMobile(_corpse.X, _corpse.Y, _corpse.Z)}");
-    }
     private static object Position(IEntity entity) => new { x = entity.X, y = entity.Y, z = entity.Z, serial = entity.Serial.Value };
     private static void Command(string suffix, Action action)
     {
@@ -85,7 +78,7 @@ public static class QuickSkillUiChecks
             try
             {
                 action(); File.WriteAllText(Environment.GetEnvironmentVariable("SANCTUARY_TEST_UI_STATE"),
-                    JsonSerializer.Serialize(new { player = Position(_owner), corpse = Position(_corpse), mana = _owner.Mana }));
+                    JsonSerializer.Serialize(new { player = Position(_owner), mana = _owner.Mana }));
                 _log.Information("{Command}: passed", name);
             }
             catch (Exception error) { _log.Error(error, "{Command}: failed", name); }

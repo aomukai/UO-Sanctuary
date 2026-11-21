@@ -22,6 +22,7 @@ public static class NewHavenPopulation
     internal static readonly Point3D RopeDown = new(5994, 319, 0);
     internal static readonly Point3D RopeUp = new(5953, 319, 0);
     internal static readonly Point3D IslandGate = new(3450, 2677, 25);
+    internal static readonly Point3D BankCounter = new(3484, 2570, 20);
     internal static readonly Rectangle2D MineArea = new(5903, 268, 100, 110);
     private const int MineLandingGraphic = 0x051B;
     private static readonly ILogger _logger = LogFactory.GetLogger(typeof(NewHavenPopulation));
@@ -78,6 +79,7 @@ public static class NewHavenPopulation
         PlaceSign(map, new Point3D(3598, 2463, 6), "New Haven Graveyard");
         PlaceSign(map, new Point3D(3460, 2558, 36), "New Haven Healer");
         PlaceHealer(map);
+        PlaceBanker(map);
         RemoveOldGraveyardProps(map);
         PlaceStatic(map, new Point3D(3721, 2618, 20), 0x0FAC);
         PlaceStatic(map, new Point3D(3720, 2618, 20), 0x0E3C);
@@ -106,6 +108,15 @@ public static class NewHavenPopulation
             if (healer.Alive && !healer.Deleted)
                 return;
         new NewHavenHealer().MoveToWorld(NewHavenHealer.House, map);
+    }
+
+    private static void PlaceBanker(Map map)
+    {
+        foreach (var banker in map.GetMobilesInRange<Banker>(BankCounter, 4))
+            if (banker is { Alive: true, Deleted: false })
+                return;
+
+        new Banker { CantWalk = true, Direction = Direction.East }.MoveToWorld(BankCounter, map);
     }
 
     private static void PlaceCampMiners(Map map)
@@ -186,12 +197,13 @@ public static class NewHavenPopulation
     private static bool HasPassage(Map map, Point3D at, Point3D destination)
     {
         foreach (var item in map.GetItemsInRange<Teleporter>(at, 0))
-            if (item.Z == at.Z && item.PointDest == destination)
+            if (item is not InteractionTeleporter && item.Z == at.Z && item.PointDest == destination
+                && (item.MapDest == null || item.MapDest == map) && item.Active)
                 return true;
         return false;
     }
 
-    private static void PlacePassage(Map map, Point3D at, Point3D destination)
+    internal static void PlacePassage(Map map, Point3D at, Point3D destination)
     {
         if (!HasPassage(map, at, destination))
             new Teleporter(destination, map).MoveToWorld(at, map);

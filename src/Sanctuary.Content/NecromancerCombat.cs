@@ -19,7 +19,7 @@ public static class NecromancerCombat
     public static bool Handles(CombatAbility ability) => ClassAbilities.Find(ability)?.Class == DiabloClass.Necromancer
         && ability != CombatAbility.RaiseSkeleton && Implemented(ability);
     public static bool CorpseTarget(CombatAbility ability) => ability is CombatAbility.CorpseExplosion
-        or CombatAbility.PoisonExplosion or CombatAbility.RaiseSkeletalMage or CombatAbility.Revive;
+        or CombatAbility.PoisonExplosion or CombatAbility.Revive;
     public static bool Available(PlayerMobile owner, CombatAbility ability) => Implemented(ability)
         && ClassAbilities.Find(ability) is { Passive: false, Class: DiabloClass.Necromancer }
         && ClassCreation.Profiles.TryGet(owner.Serial, out var profile) && profile.Class == DiabloClass.Necromancer
@@ -27,6 +27,8 @@ public static class NecromancerCombat
     public static bool ValidTarget(PlayerMobile owner, CombatAbility ability, Serial selected, Point3D point)
     {
         if(!NecromancerCastRegions.Allowed(owner,ability)){return false;}
+        if (ability == CombatAbility.RaiseSkeletalMage)
+            return SkeletonPets.TrySummonPosition(owner, ability, out _);
         if(ability==CombatAbility.IronGolem){return IronGolemCasting.Plan(owner,World.FindItem(selected),out _,out _);}
         if(BoneBarrierCasts.Handles(ability)){return BoneBarrierCasts.Valid(owner,ability,selected,point);}
         if (owner.Map == null || owner.Map == Map.Internal || !owner.InRange(point, CombatProtocol.TeethRange)
@@ -36,9 +38,7 @@ public static class NecromancerCombat
         {
             var corpse=World.FindItem(selected) as Corpse;
             if(ability==CombatAbility.Revive){return ReviveCasts.Plan(owner,corpse,out _,out _,out _);}
-            return ability is CombatAbility.CorpseExplosion or CombatAbility.PoisonExplosion
-                ?CorpseCastTargets.Usable(owner,ability,corpse)
-                :NecromancerCastRegions.CorpseAllowed(owner,ability,corpse)&&SkeletonPets.Usable(owner,corpse);
+            return CorpseCastTargets.Usable(owner, ability, corpse);
         }
         if (ability == CombatAbility.Attract && selected == Serial.Zero) { return false; }
         if (ability == CombatAbility.PoisonDagger)
@@ -58,7 +58,12 @@ public static class NecromancerCombat
         if(ability==CombatAbility.Revive&&!ReviveCasts.Plan(owner,World.FindItem(selected) as Corpse,out _,out _,out var issue))
         {owner.SendMessage(0x22,issue);return false;}
         if(ability==CombatAbility.RaiseSkeletalMage)
-        {try{NecromancerMageBirth.Require(owner);}catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}
+        {
+            try { NecromancerMageBirth.Require(owner); }
+            catch (NotSupportedException e) { owner.SendMessage(0x22, e.Message); return false; }
+            selected = Serial.Zero;
+            point = owner.Location;
+        }
         if (ability is CombatAbility.BoneArmor or CombatAbility.PoisonNova) { selected = Serial.Zero; point = owner.Location; }
         if(ability is (CombatAbility.CorpseExplosion or CombatAbility.PoisonExplosion)&&selected==Serial.Zero)
         {if(CorpseCastTargets.Acquire(owner,ability,point) is not{} corpse){return false;}selected=corpse.Serial;point=corpse.Location;}
@@ -100,7 +105,7 @@ public static class NecromancerCombat
         }
         if (ability is CombatAbility.ClayGolem or CombatAbility.BloodGolem or CombatAbility.FireGolem or CombatAbility.RaiseSkeletalMage)
         {
-            return NecromancerSummons.CreatePaid(owner,ability,selected,point,values.Mana256);
+            return NecromancerSummons.CreatePaid(owner, ability, point, values.Mana256);
         }
         if (!NecromancerEffects.Pay(owner, values.Mana256)) { return false; }
         if (NecromancerEffects.IsCurse(ability))

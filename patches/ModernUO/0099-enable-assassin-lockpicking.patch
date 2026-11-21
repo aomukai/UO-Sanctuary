@@ -1,0 +1,55 @@
+diff --git a/Projects/UOContent/Mobiles/ClassCombatHooks.cs b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+--- a/Projects/UOContent/Mobiles/ClassCombatHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -72,6 +72,7 @@
+     public static Func<BaseWeapon, IPropertyList, bool> WeaponSpeedProperties { get; set; }
+     public static Action<Dagger, IPropertyList> DaggerProperties { get; set; }
+     public static Func<PlayerMobile, bool> MovementAllowed { get; set; }
++    public static Func<Mobile, Item, bool> BypassKey { get; set; }
+     public static Func<BaseCreature, int, int, int, int, int, int, int?> CreatureResistedDamage { get; set; }
+     public static Func<BaseCreature, int> CreatureRecoveryRemaining { get; set; }
+     public static Action<BaseCreature, Mobile, int, bool> CreatureDamaged { get; set; }
+diff --git a/Projects/UOContent/Items/Construction/Doors/BaseDoor.cs b/Projects/UOContent/Items/Construction/Doors/BaseDoor.cs
+--- a/Projects/UOContent/Items/Construction/Doors/BaseDoor.cs
++++ b/Projects/UOContent/Items/Construction/Doors/BaseDoor.cs
+@@ -2,6 +2,7 @@
+ using System.Collections.Generic;
+ using System.Runtime.CompilerServices;
+ using ModernUO.Serialization;
++using Server.Mobiles;
+ using Server.Targeting;
+ using CalcMoves = Server.Movement.Movement;
+ 
+@@ -323,7 +324,7 @@
+ 
+     public virtual void Use(Mobile from)
+     {
+-        if (Locked && !_open && UseLocks())
++        if (Locked && !_open && UseLocks() && ClassCombatHooks.BypassKey?.Invoke(from, this) != true)
+         {
+             if (from.AccessLevel >= AccessLevel.GameMaster)
+             {
+diff --git a/Projects/UOContent/Items/Containers/LockableContainer.cs b/Projects/UOContent/Items/Containers/LockableContainer.cs
+--- a/Projects/UOContent/Items/Containers/LockableContainer.cs
++++ b/Projects/UOContent/Items/Containers/LockableContainer.cs
+@@ -1,6 +1,7 @@
+ using System;
+ using ModernUO.Serialization;
+ using Server.Engines.Craft;
++using Server.Mobiles;
+ using Server.Network;
+ 
+ namespace Server.Items;
+@@ -153,6 +154,12 @@
+             return false;
+         }
+ 
++        if (ClassCombatHooks.BypassKey?.Invoke(from, this) == true)
++        {
++            LockPick(from);
++            return !from.Alive;
++        }
++
+         var inaccessible = from.AccessLevel < AccessLevel.GameMaster;
+ 
+         var number = inaccessible

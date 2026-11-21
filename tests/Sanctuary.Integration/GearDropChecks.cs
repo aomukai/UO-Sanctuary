@@ -47,7 +47,10 @@ public static class GearDropChecks
         public override int Next(int min, int max) => min;
     }
     public static void Configure()
-    { Register("gear-drop-check", Check); Register("gear-drop-reload-check", Reload); }
+    {
+        Register("gear-drop-check", Check); Register("gear-drop-reload-check", Reload);
+        Register("gear-appearance-name-check", AppearanceNames);
+    }
     private static void Register(string name, Action action) => ConsoleInputHandler.RegisterCommand(name,
         "Disposable shared treasure/gear/MF generation, consumers and persistence checks", _ => Core.LoopContext.Post(() =>
         {
@@ -154,6 +157,7 @@ public static class GearDropChecks
     }
     private static void Catalogue()
     {
+        AppearanceNames();
         foreach (var pool in GearDrops.Pools)
         {
             int ticket = 0;
@@ -203,6 +207,34 @@ public static class GearDropChecks
             }
         }
         Require(rolledValues.Count > 20, "Actual generated affix values were flattened to a baseline");
+    }
+
+    private static void AppearanceNames()
+    {
+        foreach (var (code, type, title, graphic, layer) in new[]
+        {
+            ("buc", nameof(OrderShield), "Order Shield", 0x1BC4, Layer.TwoHanded),
+            ("buc", nameof(Buckler), "Buckler", 0x1B73, Layer.TwoHanded),
+            ("lgl", nameof(GargishLeatherKiltType1), "Gargish Leather Kilt Type 1", 0x0311, Layer.Gloves),
+            ("lgl", nameof(LeatherGloves), "Leather Gloves", 0x13C6, Layer.Gloves)
+        })
+        {
+            var basis = GearDrops.Base(code);
+            int variant = Array.FindIndex(basis.Variants, choice => choice.Type == type);
+            Require(variant >= 0, "Expected native item appearance missing");
+            var item = GearDrops.Generate(basis, 5, 0, new QualityRoll(DropQuality.Normal, variant));
+            try
+            {
+                var state = ClassGear.State(item);
+                Require(item.Name == title && item.PropertyList.HeaderArgs == title && item.GetType().Name == type,
+                    "New drop did not display its own appearance name");
+                item.Name = "Normal " + type; // The generated name in earlier saves.
+                Require(item.PropertyList.HeaderArgs == title && item.ItemID == graphic && item.Layer == layer
+                    && state.BaseCode == code && ReferenceEquals(state, ClassGear.State(item)),
+                    "Saved drop tooltip used its balance category or changed its equipment data");
+            }
+            finally { item.Delete(); }
+        }
     }
     internal static Item[] FindEquipment(PlayerMobile p)
     {

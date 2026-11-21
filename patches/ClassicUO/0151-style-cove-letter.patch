@@ -1,0 +1,82 @@
+diff --git a/src/ClassicUO.Client/Network/PacketHandlers.cs b/src/ClassicUO.Client/Network/PacketHandlers.cs
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -7221,6 +7221,7 @@
+ 
+             SanctuaryGuildTheme.Apply(gump);
+             SanctuaryResurrectionTheme.Apply(gump);
++            SanctuaryLetterTheme.Apply(gump);
+             SanctuaryWorkshopTheme.Apply(gump);
+             TalentClickAreas.Attach(gump);
+             if (mustBeAdded)
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryLetterTheme.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryLetterTheme.cs
+new file mode 100644
+--- /dev/null
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryLetterTheme.cs
+@@ -0,0 +1,66 @@
++// SPDX-License-Identifier: BSD-2-Clause
++
++using System;
++using System.Linq;
++using System.Net;
++using ClassicUO.Assets;
++using ClassicUO.Configuration;
++using ClassicUO.Game.UI.Controls;
++
++namespace ClassicUO.Game.UI.Gumps;
++
++internal static class SanctuaryLetterTheme
++{
++    // ModernUO's hash of Sanctuary.CoveMessenger+LetterGump.
++    private const uint CoveLetter = 0xB7AA038B;
++    private const ushort Cream = 0x0481;
++
++    internal static void Apply(Gump gump)
++    {
++        if (gump.ServerSerial != CoveLetter)
++            return;
++
++        var labels = gump.Children.OfType<HtmlControl>().ToArray();
++        var title = labels.FirstOrDefault(label => label.Y == 20)?.Text;
++        var body = labels.FirstOrDefault(label => label.Y == 60)?.Text;
++        var dismiss = labels.FirstOrDefault(label => label.Y == 288 && label.X == 275)?.Text;
++        var take = labels.FirstOrDefault(label => label.Y == 288 && label.X == 70)?.Text;
++        if (title == null || body == null || dismiss == null)
++            return;
++
++        var viewport = Client.Game.ClientBounds;
++        int width = Math.Clamp(viewport.Width - 16, 280, 488);
++        int height = Math.Clamp(viewport.Height - 16, 240, 358);
++        int padding = width < 400 ? 20 : 30;
++        int buttonY = height - 48;
++        bool book = Settings.GlobalSettings.SanctuaryBookDialogueFont
++            && Client.Game.UO.FileManager.Fonts.UnicodeFontExists(FontsLoader.SanctuaryBookFont);
++        byte font = book ? FontsLoader.SanctuaryBookFont : (byte)1;
++
++        gump.Clear();
++        gump.Width = width;
++        gump.Height = height;
++        gump.X = Math.Clamp(gump.X, 0, Math.Max(0, viewport.Width - width));
++        gump.Y = Math.Clamp(gump.Y, 0, Math.Max(0, viewport.Height - height));
++        gump.Add(new SanctuaryBackdrop("character-frame", width, height, 54) { CanCloseWithRightClick = true });
++        gump.Add(new Label(Decode(title), true, Cream, maxwidth: width - 2 * padding, font: book ? font : (byte)0,
++            scale: book ? 1.15f : 1.35f) { X = padding, Y = 16 });
++
++        int textWidth = width - 2 * padding;
++        var letter = gump.Add(new ScrollArea(padding, 70, textWidth, buttonY - 82, true));
++        letter.Add(new Label(Decode(body), true, Cream, maxwidth: textWidth - 18, font: font, scale: book ? 1f : 1.2f));
++
++        gump.Add(new SanctuarySheetButton(padding, buttonY, 104, Decode(dismiss), () => gump.OnButtonClick(0),
++            height: 30, font: font));
++        if (take != null)
++        {
++            gump.Add(new SanctuarySheetButton(width - padding - 114, buttonY, 114, Decode(take),
++                () => gump.OnButtonClick(1), primary: true, height: 30, font: font));
++        }
++    }
++
++    private static string Decode(string text) => WebUtility.HtmlDecode(text
++        .Replace("<center>", "", StringComparison.OrdinalIgnoreCase)
++        .Replace("</center>", "", StringComparison.OrdinalIgnoreCase)
++        .Replace("<br>", "\n", StringComparison.OrdinalIgnoreCase));
++}

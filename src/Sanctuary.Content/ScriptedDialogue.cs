@@ -6,10 +6,12 @@ using System.Linq;
 using System.Text;
 using ModernUO.Serialization;
 using Server;
+using Server.Accounting;
 using Server.ContextMenus;
 using Server.Items;
 using Server.Mobiles;
 using Server.Network;
+using Server.Systems.FeatureFlags;
 
 namespace Sanctuary;
 
@@ -45,6 +47,7 @@ public static class ScriptedDialogue
     {
         IncomingExtendedCommandPackets.RegisterExtended(PortraitProtocol.SubCommand, true, &Receive);
         ClassCombatHooks.PlayerDied += (player, _) => _ghostBriefed.Remove(player.Serial);
+        ClassEconomyHooks.ShopListOpened = SendVendorShop;
     }
 
     private static void EnsureArrivalGuard()
@@ -99,9 +102,21 @@ public static class ScriptedDialogue
         writer.Write(profiles.HasMetIolo(player.Serial));
         writer.Write(MercenaryCare.ActiveStoryCompanion(player)?.Serial ?? Serial.Zero);
         player.NetState?.Send(writer.Span);
-        var discoveries = Packet(8, PortraitProtocol.BritainDiscoveries, stackalloc byte[8]);
-        discoveries.Write((byte)profiles.Discoveries(player.Serial));
+        var flags = profiles.Discoveries(player.Serial);
+        var legacy = Packet(8, PortraitProtocol.BritainDiscoveries, stackalloc byte[8]);
+        legacy.Write((byte)flags);
+        player.NetState?.Send(legacy.Span);
+        var discoveries = Packet(9, PortraitProtocol.WorldDiscoveries, stackalloc byte[9]);
+        discoveries.Write((ushort)flags);
         player.NetState?.Send(discoveries.Span);
+    }
+
+    internal static void RecordDiscovery(PlayerMobile player, StoryDiscoveries flag)
+    {
+        if (!ClassCreation.Profiles.Discover(player.Serial, flag))
+            return;
+        player.SendMessage("A new entry has been added to thy journal.");
+        SendStoryState(player);
     }
 
     internal static void Open(PlayerMobile player, Mobile speaker)
@@ -125,13 +140,25 @@ public static class ScriptedDialogue
     {
         int length = reader.Remaining + 5;
         if (state.Mobile is not PlayerMobile player
-            || length is not (PortraitProtocol.ReplyPacketLength or PortraitProtocol.InteractPacketLength)
+            || length is not (PortraitProtocol.ReplyPacketLength or PortraitProtocol.InteractPacketLength
+                or PortraitProtocol.ShopTabPacketLength)
             || reader.ReadByte() != PortraitProtocol.Version)
             return;
 
         if (length == PortraitProtocol.InteractPacketLength)
         {
             Interact(state, player, reader);
+            return;
+        }
+
+        if (length == PortraitProtocol.ShopTabPacketLength)
+        {
+            if (reader.ReadByte() == PortraitProtocol.VendorShop)
+            {
+                var tab = (VendorShopTabs)reader.ReadByte();
+                if (tab is VendorShopTabs.Buy or VendorShopTabs.Sell)
+                    Interact(state, player, reader, tab);
+            }
             return;
         }
 
@@ -164,7 +191,8 @@ public static class ScriptedDialogue
         }
     }
 
-    private static void Interact(NetState state, PlayerMobile player, SpanReader reader)
+    private static void Interact(NetState state, PlayerMobile player, SpanReader reader,
+        VendorShopTabs tab = VendorShopTabs.None)
     {
         var targetReader = reader;
         var npc = World.FindMobile((Serial)reader.ReadUInt32());
@@ -172,7 +200,11 @@ public static class ScriptedDialogue
             || player.Map != npc.Map || !player.CanSee(npc))
             return;
 
-        if (npc is not (IScriptedSpeaker or NewHavenHealer or Banker or BaseVendor { IsActiveSeller: true }))
+        if (tab != VendorShopTabs.None && (npc is not BaseVendor requestedVendor || (AvailableShopTabs(requestedVendor) & tab) == 0))
+            return;
+
+        if (npc is not (IScriptedSpeaker or NewHavenHealer or Banker
+            or BaseVendor { IsActiveSeller: true } or BaseVendor { IsActiveBuyer: true }))
         {
             ContextMenuSystem.ContextMenuRequest(state, targetReader);
             return;
@@ -204,7 +236,10 @@ public static class ScriptedDialogue
                     OpenBank(player);
                 break;
             case BaseVendor vendor:
-                vendor.VendorBuy(player);
+                if (tab == VendorShopTabs.Sell || tab == VendorShopTabs.None && !vendor.IsActiveSeller)
+                    vendor.VendorSell(player);
+                else
+                    vendor.VendorBuy(player);
                 break;
         }
     }
@@ -213,8 +248,12 @@ public static class ScriptedDialogue
     {
         if (player.Criminal)
             player.SendLocalizedMessage(500378);
-        else
-            player.BankBox?.Open();
+        else if (player.BankBox is { } bank)
+        {
+            bank.Open();
+            if (bank.Opened && AccountGold.Enabled && player.Account is { } account)
+                player.SendMessage($"Shared bank balance: {account.GetTotalGold():N0} gold.");
+        }
     }
 
     private static void Close(PlayerMobile player, uint token)
@@ -253,6 +292,47 @@ public static class ScriptedDialogue
         player.NetState.Send(writer.Span);
     }
 
+    private static VendorShopTabs AvailableShopTabs(BaseVendor vendor)
+    {
+        if (vendor is IScriptedSpeaker or Banker)
+            return VendorShopTabs.None;
+
+        var tabs = VendorShopTabs.None;
+        if (vendor.IsActiveSeller && ContentFeatureFlags.VendorPurchase)
+            tabs |= VendorShopTabs.Buy;
+        if (vendor.IsActiveBuyer && ContentFeatureFlags.VendorSell)
+            tabs |= VendorShopTabs.Sell;
+        return tabs;
+    }
+
+    private static bool SendVendorShop(BaseVendor vendor, Mobile customer, bool buying)
+    {
+        if (customer is not PlayerMobile { NetState: { } connection } player || !StatNetwork.SupportsCurrentProtocol(player))
+            return false;
+
+        var tab = buying ? VendorShopTabs.Buy : VendorShopTabs.Sell;
+        var tabs = AvailableShopTabs(vendor);
+        if ((tabs & tab) == 0)
+            return false;
+
+        string name = string.IsNullOrWhiteSpace(vendor.Name) ? "Shop" : vendor.Name;
+        if (!string.IsNullOrWhiteSpace(vendor.Title))
+            name += " " + vendor.Title;
+        byte[] title = Encoding.UTF8.GetBytes(name);
+        if (title.Length > PortraitProtocol.MaxTextBytes)
+            title = "Shop"u8.ToArray();
+
+        int length = 15 + title.Length;
+        var writer = Packet(length, PortraitProtocol.VendorShop, stackalloc byte[length]);
+        writer.Write(vendor.Serial);
+        writer.Write((byte)tab);
+        writer.Write((byte)tabs);
+        writer.Write((ushort)title.Length);
+        writer.Write(title.AsSpan());
+        connection.Send(writer.Span);
+        return true;
+    }
+
     private static SpanWriter Packet(int length, byte kind, Span<byte> buffer)
     {
         var writer = new SpanWriter(buffer);
@@ -279,6 +359,8 @@ public abstract class ConversationNpc : BaseCreature, IScriptedSpeaker
     protected ConversationNpc(Serial serial) : base(serial) { }
     public override bool IsInvulnerable => true;
     public override bool CanTeach => false;
+    public override DeathMoveResult GetParentMoveResultFor(Item item) =>
+        MercenaryCare.CompanionLevel(this).HasValue ? DeathMoveResult.RemainEquipped : base.GetParentMoveResultFor(item);
     internal abstract byte Portrait { get; }
     internal abstract IReadOnlyList<ScriptedDialogue.Node> Script { get; }
     internal virtual bool CanTalkTo(PlayerMobile player) => true;

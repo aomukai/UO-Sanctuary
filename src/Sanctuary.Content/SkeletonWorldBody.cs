@@ -19,7 +19,7 @@ public partial class SkeletonWorldBody:RaisedSkeleton,IUnarmedGroundPet
         target=>base.PrepareMeleeContact(target),target=>base.CanReleaseMeleeContact(target),target=>base.ResolveMeleeContact(target),()=>base.DiscardMeleeContact());
     UnarmedPetWorld IUnarmedGroundPet.Ground=>Ground;
     (int Action,int End) IUnarmedGroundPet.GroundAttackClock=>SourceAttackClock;
-    int IUnarmedGroundPet.GroundVelocityPercent=>SkeletonPetUpgrades.MovementPercent(this);
+    int IUnarmedGroundPet.GroundVelocityPercent => 50 + SkeletonPetUpgrades.MovementPercent(this);
     internal bool WorldLoaded{get=>Ground.Loaded;set=>Ground.Loaded=value;}
     internal SkeletonWorldState WorldState=>Ground.State;
     internal IronGolemContact.Prepared WorldContact=>Ground.Contact;
@@ -28,7 +28,7 @@ public partial class SkeletonWorldBody:RaisedSkeleton,IUnarmedGroundPet
     public override void OnThink(){AIObject?.AITimer.Stop();Combatant=null;FocusMob=null;Warmode=false;}
     public override TimeSpan BeginMelee(Mobile target)=>TimeSpan.FromMilliseconds(SourceAttackClock.End*40);
     internal void StoreWorld(IronGolemWorldState state)=>Ground.Store(state);
-    internal static SkeletonWorldBody CreatePrepared(PlayerMobile owner,int rank,int mastery,Point3D point,DateTime at,ulong seed)
+    internal static SkeletonWorldBody CreatePrepared(PlayerMobile owner,int rank,int mastery,Point3D point,DateTime at,ulong seed,int? hardRank=null)
     {
         if(owner?.Map==null||owner.Map==Map.Internal||!owner.Map.CanSpawnMobile(point)||at.Kind!=DateTimeKind.Utc)
         {throw new ArgumentException("Skeleton world actor needs legal placement and UTC time");}
@@ -37,7 +37,11 @@ public partial class SkeletonWorldBody:RaisedSkeleton,IUnarmedGroundPet
         {
             body.InitializeExact(owner,rank,mastery);
             if(!body.SetControlMaster(owner)){body.Delete();return null;}
-            body.MoveToWorld(point,owner.Map);body.Ground.Initialize(owner,at,seed);return body;
+            if (hardRank is int hardPoints)
+            {
+                SummonUpgradeSnapshots.Capture(owner, body, CombatAbility.RaiseSkeleton, hardPoints);
+            }
+            body.MoveToWorld(point,owner.Map);body.Ground.Initialize(owner,at,seed,firstThink:10);return body;
         }
         catch{body.Delete();throw;}
     }

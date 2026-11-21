@@ -11,7 +11,9 @@ namespace Sanctuary;
 public partial class RaisedSkeleton:SkeletonGuardian,ISourceLifeMaximum,ISourceUnarmedNpc
 {
     private SkeletonBirthStats _birth;
-    private SkeletonBirthStats Birth=>_birth??=NecromancerSkeletonBirth.Prepare(Level,Rank,Mastery,SummonDifficulty);
+    private SkeletonBirthStats Birth => _birth ??= this is SkeletonWorldBody
+        ? NecromancerSkeletonBirth.Warrior(Level, Rank, Mastery, SummonDifficulty)
+        : NecromancerSkeletonBirth.Prepare(Level, Rank, Mastery, SummonDifficulty);
     public override long SourceLife256=>Birth.Life256;
     internal override int SourceRegeneration256
     {

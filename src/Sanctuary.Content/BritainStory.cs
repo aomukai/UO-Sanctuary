@@ -81,7 +81,7 @@ public static class BritainStory
             return;
 
         profiles.RecordBritainGreeting(player.Serial);
-        iolo.PrivateOverheadMessage(MessageType.Regular, iolo.SpeechHue, false,
+        iolo.PrivateOverheadMessage(MessageType.Regular, Iolo.VoiceHue, false,
             "Britain at last. It is good to see her again. Come, let us find Lord British.", connection);
     }
 
@@ -93,10 +93,12 @@ public static class BritainStory
         if (viewer is not PlayerMobile player)
             return true;
         if (target is Wolfgang { Recruited: false })
-            return MercenaryCare.ActiveStoryCompanion(player) is not Wolfgang;
+            return !MercenaryCare.HasContract<Wolfgang>(player);
+        if (target is Merydwen { Recruited: false })
+            return !MercenaryCare.HasContract<Merydwen>(player);
         if (target is CollegeIolo)
             return Retired(player) || (ClassCreation.Profiles.HasDepartedNewHaven(player.Serial)
-                && MercenaryCare.ActiveStoryCompanion(player) is not Iolo);
+                && !MercenaryCare.HasContract<Iolo>(player));
         return true;
     }
 
@@ -194,7 +196,7 @@ public partial class Geoffrey : ConversationNpc
     internal override void BeginConversation(PlayerMobile player)
     {
         BritainStory.RecordGeoffrey(player);
-        var script = MercenaryCare.ActiveStoryCompanion(player) is Wolfgang ? _joined : BritainStory.Retired(player) ? _after : _before;
+        var script = MercenaryCare.HasContract<Wolfgang>(player) ? _joined : BritainStory.Retired(player) ? _after : _before;
         ScriptedDialogue.Show(player, this, script);
     }
 
@@ -359,6 +361,7 @@ public partial class CollegeIolo : ConversationNpc
             return false;
         }
         profiles.RecordIoloRunebook(player.Serial);
+        CoveGateRune.FileCarriedRune(player, book);
         return true;
     }
 

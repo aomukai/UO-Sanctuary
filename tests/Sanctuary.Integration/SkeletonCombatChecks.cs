@@ -36,7 +36,7 @@ public static class SkeletonCombatChecks
     private static RaisedSkeleton Pet(PlayerMobile p)
     {
         var enemy=new GraveyardZombie{NoKillAwards=true};enemy.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);enemy.Damage(100000,p);if(enemy.Alive){enemy.Kill();}
-        var corpse=(Corpse)enemy.Corpse;Require(SkeletonPets.Raise(p,corpse),"Actual learned skeleton creation");corpse.Delete();
+        var corpse=(Corpse)enemy.Corpse;Require(SkeletonPets.Raise(p),"Actual learned skeleton creation");corpse.Delete();
         var learned=NecromancerSkeletons.For(p,CombatAbility.RaiseSkeleton).OfType<RaisedSkeleton>().Single();
         Require(learned is SkeletonWorldBody,"Learned skeleton did not opt into world controller");learned.Delete();
         // Keep direct/native A1 and Strike checks on the historical type. The

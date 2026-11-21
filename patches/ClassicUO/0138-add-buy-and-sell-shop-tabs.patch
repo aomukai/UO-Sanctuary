@@ -1,0 +1,252 @@
+diff --git a/src/ClassicUO.Client/Game/AvatarDialogueClient.cs b/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
+--- a/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
++++ b/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
+@@ -1,5 +1,6 @@
+ // SPDX-License-Identifier: BSD-2-Clause
+ 
++using System;
+ using ClassicUO.Game.Managers;
+ using ClassicUO.Game.GameObjects;
+ using ClassicUO.Game.Data;
+@@ -43,6 +44,19 @@
+         NetClient.Socket.Send(writer.BufferWritten);
+     }
+ 
++    internal static void RequestShopTab(uint serial, VendorShopTabs tab)
++    {
++        using var writer = new StackDataWriter(PortraitProtocol.ShopTabPacketLength);
++        writer.WriteUInt8(0xBF);
++        writer.WriteUInt16BE(PortraitProtocol.ShopTabPacketLength);
++        writer.WriteUInt16BE(PortraitProtocol.SubCommand);
++        writer.WriteUInt8(PortraitProtocol.Version);
++        writer.WriteUInt8(PortraitProtocol.VendorShop);
++        writer.WriteUInt8((byte)tab);
++        writer.WriteUInt32BE(serial);
++        NetClient.Socket.Send(writer.BufferWritten);
++    }
++
+     internal static void Receive(World world, ref StackDataReader reader)
+     {
+         if (!world.InGame || world.Player == null || reader.Remaining < 2
+@@ -50,6 +64,23 @@
+             return;
+ 
+         byte kind = reader.ReadUInt8();
++        if (kind == PortraitProtocol.VendorShop && reader.Remaining >= 8)
++        {
++            uint vendor = reader.ReadUInt32BE();
++            var tab = (VendorShopTabs)reader.ReadUInt8();
++            var tabs = (VendorShopTabs)reader.ReadUInt8();
++            if (world.Mobiles.Get(vendor) != null && (tab is VendorShopTabs.Buy or VendorShopTabs.Sell)
++                && (tabs & tab) != 0 && ReadText(ref reader, out string title) && reader.Remaining == 0)
++            {
++                var shop = UIManager.GetGump<ShopGump>();
++                var bounds = Client.Game.ClientBounds;
++                int x = shop is { IsTabbed: true } ? shop.X : Math.Max(0, (bounds.Width - ShopGump.TradeWidth) / 2);
++                int y = shop is { IsTabbed: true } ? shop.Y : Math.Max(0, (bounds.Height - ShopGump.TradeHeight) / 2);
++                shop?.Dispose();
++                UIManager.Add(new ShopGump(world, vendor, tab == VendorShopTabs.Buy, x, y, tabs: tabs, title: title));
++            }
++            return;
++        }
+         if (kind == PortraitProtocol.IdentifyShop && reader.Remaining == 4)
+         {
+             _identifyPlayer = world.Player;
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/ShopGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/ShopGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/ShopGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/ShopGump.cs
+@@ -12,6 +12,7 @@
+ using ClassicUO.Resources;
+ using ClassicUO.Utility;
+ using Microsoft.Xna.Framework;
++using Sanctuary;
+ using System;
+ using System.Collections.Generic;
+ using System.Linq;
+@@ -39,6 +40,7 @@
+             _transactionScrollArea;
+         private readonly Label _totalLabel,
+             _playerGoldLabel;
++        private readonly Label _emptyTradeList;
+         private readonly DataBox _transactionDataBox;
+         private readonly Dictionary<uint, TransactionItem> _transactionItems;
+         private bool _updateTotal;
+@@ -62,8 +64,10 @@
+ 
+         private const int RIGHT_OFFSET = 32;
+         private const int RIGHT_BOTTOM_HEIGHT = 93;
+-
+-        public ShopGump(World world, uint serial, bool isBuyGump, int x, int y, bool identify = false) : base(world, serial, 0)
++        public const int TradeWidth = 596, TradeHeight = 404;
++
++        public ShopGump(World world, uint serial, bool isBuyGump, int x, int y, bool identify = false,
++            VendorShopTabs tabs = VendorShopTabs.None, string title = null) : base(world, serial, 0)
+         {
+             int height = identify ? Math.Clamp(Client.Game.ClientBounds.Height - 275, 115, 270)
+                 : ProfileManager.CurrentProfile.VendorGumpHeight;
+@@ -79,6 +83,44 @@
+             _transactionItems = new Dictionary<uint, TransactionItem>();
+             _shopItems = new Dictionary<uint, ShopItem>();
+             _updateTotal = false;
++
++            IsTabbed = tabs != VendorShopTabs.None;
++            if (IsTabbed)
++            {
++                Width = TradeWidth;
++                Height = TradeHeight;
++                Add(new SanctuaryBackdrop("character-frame", Width, Height, headerHeight: 59));
++                Add(new Label(title, true, 0x481, 470, font: 1) { X = 26, Y = 24 });
++                Add(new SanctuarySheetButton(514, 20, 58, "Close", Dispose));
++
++                Add(new SanctuarySheetButton(26, 65, 85, "Buy",
++                    () => AvatarDialogueClient.RequestShopTab(LocalSerial, VendorShopTabs.Buy), primary: IsBuyGump)
++                { AcceptMouseInput = !IsBuyGump && (tabs & VendorShopTabs.Buy) != 0 });
++                Add(new SanctuarySheetButton(117, 65, 85, "Sell",
++                    () => AvatarDialogueClient.RequestShopTab(LocalSerial, VendorShopTabs.Sell), primary: !IsBuyGump)
++                { AcceptMouseInput = IsBuyGump && (tabs & VendorShopTabs.Sell) != 0 });
++
++                Add(new Label("Selected items", true, 0x481, font: 1) { X = 335, Y = 71 });
++                Add(new Line(27, 99, 541, 1, 0xFF557B98) { AcceptMouseInput = false });
++                Add(new Line(307, 100, 1, 249, 0xFF557B98) { AcceptMouseInput = false });
++
++                _shopScrollArea = Add(new ScrollArea(27, 106, 268, 238, true));
++                _emptyTradeList = Add(new Label(IsBuyGump ? "This merchant is out of stock." :
++                    "This merchant won’t buy anything in your pack.", true, 0x481, 255, font: 1)
++                    { X = 31, Y = 126 });
++
++                _transactionScrollArea = Add(new ScrollArea(326, 106, 242, 202, true));
++                _transactionDataBox = _transactionScrollArea.Add(new DataBox(0, 0, 1, 1) { WantUpdateSize = true });
++
++                Add(new Label(IsBuyGump ? "Cost" : "Payment", true, 0x481, font: 1) { X = 335, Y = 324 });
++                _totalLabel = Add(new Label("0", true, 0x481, font: 1) { X = 414, Y = 324 });
++                Add(new Label("Gold", true, 0x481, font: 1) { X = 31, Y = 366 });
++                _playerGoldLabel = Add(new Label(World.Player.Gold.ToString(), true, 0x481, font: 1) { X = 94, Y = 366 });
++                Add(new SanctuarySheetButton(335, 356, 128, IsBuyGump ? "Buy selected" : "Sell selected",
++                    () => OnButtonClick((int)Buttons.Accept), primary: true));
++                Add(new SanctuarySheetButton(471, 356, 93, "Clear", () => OnButtonClick((int)Buttons.Clear)));
++                return;
++            }
+ 
+             WantUpdateSize = true;
+ 
+@@ -346,6 +388,7 @@
+         }
+ 
+         public bool IsBuyGump { get; }
++        public bool IsTabbed { get; }
+ 
+         //public void SetIfNameIsFromCliloc(Item it, bool fromcliloc)
+         //{
+@@ -392,6 +435,10 @@
+             shopItem.MouseUp += ShopItem_MouseClick;
+             shopItem.MouseDoubleClick += ShopItem_MouseDoubleClick;
+             _shopItems.Add(serial, shopItem);
++            if (_emptyTradeList != null)
++            {
++                _emptyTradeList.IsVisible = false;
++            }
+         }
+ 
+         public void SetNameTo(Item item, string name)
+@@ -459,7 +506,7 @@
+                 WantUpdateSize = true;
+             }
+ 
+-            if (_shopItems.Count == 0)
++            if (!IsTabbed && _shopItems.Count == 0)
+             {
+                 Dispose();
+             }
+@@ -626,6 +673,11 @@
+             switch ((Buttons)buttonID)
+             {
+                 case Buttons.Accept:
++                    if (IsTabbed && _transactionItems.Count == 0)
++                    {
++                        break;
++                    }
++
+                     Tuple<uint, ushort>[] items = _transactionItems
+                         .Select(t => new Tuple<uint, ushort>(t.Key, (ushort)t.Value.Amount))
+                         .ToArray();
+@@ -701,7 +753,7 @@
+                     _name = new Label(
+                         subname,
+                         true,
+-                        0x219,
++                        gump.IsTabbed ? (ushort)0x481 : (ushort)0x219,
+                         110,
+                         1,
+                         FontStyle.None,
+@@ -725,7 +777,7 @@
+                     _amountLabel = new Label(
+                         count.ToString(),
+                         true,
+-                        0x0219,
++                        gump.IsTabbed ? (ushort)0x481 : (ushort)0x0219,
+                         35,
+                         1,
+                         FontStyle.None,
+diff --git a/src/ClassicUO.Client/Network/PacketHandlers.cs b/src/ClassicUO.Client/Network/PacketHandlers.cs
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -1344,16 +1344,19 @@
+                     return;
+                 }
+ 
+-                UIManager.GetGump<ShopGump>(serial)?.Dispose();
+-
+-                ShopGump gump = new ShopGump(world, serial, true, 150, 5);
+-                UIManager.Add(gump);
++                ShopGump gump = UIManager.GetGump<ShopGump>(serial);
++                if (gump is not { IsTabbed: true, IsBuyGump: true })
++                {
++                    gump?.Dispose();
++                    gump = new ShopGump(world, serial, true, 150, 5);
++                    UIManager.Add(gump);
++                }
+ 
+                 for (Layer layer = Layer.ShopBuyRestock; layer < Layer.ShopBuy + 1; layer++)
+                 {
+                     Item item = vendor.FindItemByLayer(layer);
+ 
+-                    LinkedObject first = item.Items;
++                    LinkedObject first = item?.Items;
+ 
+                     if (first == null)
+                     {
+@@ -2695,7 +2698,7 @@
+                 return;
+             }
+ 
+-            ShopGump gump = UIManager.GetGump<ShopGump>();
++            ShopGump gump = UIManager.GetGump<ShopGump>(vendor) ?? UIManager.GetGump<ShopGump>();
+ 
+             if (gump != null && (gump.LocalSerial != vendor || !gump.IsBuyGump))
+             {
+@@ -3366,9 +3369,13 @@
+             }
+ 
+             ShopGump gump = UIManager.GetGump<ShopGump>(vendor);
+-            gump?.Dispose();
+-            gump = new ShopGump(world, vendor, false, 100, 0,
+-                identify: AvatarDialogueClient.TakeIdentifyShop(world.Player, vendor));
++            bool identify = AvatarDialogueClient.TakeIdentifyShop(world.Player, vendor);
++            if (identify || gump is not { IsTabbed: true, IsBuyGump: false })
++            {
++                gump?.Dispose();
++                gump = new ShopGump(world, vendor, false, 100, 0, identify: identify);
++                UIManager.Add(gump);
++            }
+ 
+             for (int i = 0; i < countItems; i++)
+             {
+@@ -3400,8 +3407,6 @@
+ 
+                 gump.AddItem(serial, graphic, hue, amount, price, name, fromcliloc);
+             }
+-
+-            UIManager.Add(gump);
+         }
+ 
+         private static void UpdateHitpoints(World world, ref StackDataReader p)

@@ -100,9 +100,7 @@ public partial class HavenEncounter : EncounterCreature
     public override Poison PoisonImmune => IsUndead(Dungeon) ? Poison.Lethal : null;
     public override OppositionGroup OppositionGroup => IsUndead(Dungeon) ? OppositionGroup.FeyAndUndead : null;
 
-    // Compress the introductory levels without changing thresholds or combat stats outside Haven.
-    protected override int ExperienceMultiplier => 5;
-    protected override int EncounterPlayers => Dungeon.Id is "haven-elemental" or Lizardman or Krulg ? 5 : 3;
+    internal override int EncounterPlayers => Dungeon.Id is "haven-elemental" or Lizardman or Krulg ? 5 : 3;
     protected override bool RollMissingModifiersOnLoad => Dungeon.Id == Krulg;
 
     protected override CreatureTraits EncounterTraits(DungeonProfile dungeon) =>

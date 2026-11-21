@@ -15,10 +15,13 @@ public static class CreatureExperience
         {
             return false;
         }
-        int basis = CreatureProfiles.Experience(life.Creature);
+        var profiles = ClassCreation.Profiles;
+        int basis = life.Creature is HavenEncounter haven && !profiles.HasReached(player.Serial, Iolo.RequiredLevel)
+            ? checked(haven.BaseExperience * 5)
+            : CreatureProfiles.Experience(life.Creature);
         if (basis <= 0) { return false; }
         int amount = MonsterExperience.Award(basis, life.Level, ClassStats.Level(player));
         amount = (int)System.Math.Clamp((long)amount * System.Math.Max(0, 100 + ClassGear.Bonus(player, "addxp")) / 100, 0, int.MaxValue);
-        return ClassCreation.Profiles.AwardExperience(player, amount);
+        return profiles.AwardExperience(player, amount);
     }
 }

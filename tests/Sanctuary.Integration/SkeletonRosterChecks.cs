@@ -32,12 +32,12 @@ public static class SkeletonRosterChecks
         var mob=new GraveyardZombie{NoKillAwards=true};mob.MoveToWorld(new(p.X+2,p.Y,p.Z),p.Map);mob.Damage(10000,p);if(mob.Alive){mob.Kill();}
         var corpse=mob.Corpse as Corpse;Require(SkeletonPets.Usable(p,corpse),"Real corpse unavailable");return corpse;
     }
-    private static bool Release(PlayerMobile p,CombatAbility kind,Corpse c)=>kind==CombatAbility.RaiseSkeleton?SkeletonPets.Raise(p,c):NecromancerCombat.Release(p,kind,c.Serial,c.Location);
+    private static bool Release(PlayerMobile p,CombatAbility kind,Corpse c)=>kind==CombatAbility.RaiseSkeleton?SkeletonPets.Raise(p):NecromancerCombat.Release(p,kind,Serial.Zero,p.Location);
     internal static SkeletonGuardian Cast(PlayerMobile p,CombatAbility kind)
     {
         p.Mana=p.ManaMax;var c=Corpse(p);int mana=NecromancerEffects.ManaBalance256(p),cost=SkillMechanics.Values(p,kind).Mana256;
         Require(Release(p,kind,c),"Learned summon refused: "+kind);var body=NecromancerSkeletons.For(p,kind).Last();
-        Require(NecromancerEffects.ManaBalance256(p)==mana-cost&&(c.Deleted||c.SanctuaryConsumed),"Actual cast lost exact payment/corpse "+kind);
+        Require(NecromancerEffects.ManaBalance256(p)==mana-cost&&(!c.Deleted&&!c.SanctuaryConsumed),"Actual cast lost exact payment/corpse "+kind);
         body.AIObject.AITimer.Stop();body.MoveToWorld(new(p.X+6,p.Y+3,p.Z),p.Map);body.SuspendActions();c.Delete();return body;
     }
     private static void End(PlayerMobile p){foreach(var pet in(p.AllFollowers??[]).OfType<BaseCreature>().ToArray()){pet.Delete();}p.Delete();}

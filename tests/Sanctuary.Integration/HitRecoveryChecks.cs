@@ -63,7 +63,7 @@ public static class HitRecoveryChecks
             Require(!player.Move(Direction.East | Direction.Running) && player.Location == point,
                 "Server accepted movement during recovery");
             Require(!ClassCombat.Perform(player, CombatAbility.Teeth, enemy, enemy.Location, now + 500)
-                && !ClassCombat.CastSummon(player, Serial.Zero, now + 500), "Casting bypassed recovery");
+                && !ClassCombat.CastSummon(player, now + 500), "Casting bypassed recovery");
             Require(!HitRecovery.Apply(player, player.HitsMax, now + 300) && session.RecoveryUntil == now + 520,
                 "A hit refreshed recovery while already recovering");
             Require(HitRecovery.Active(player, now + 519) && !HitRecovery.Active(player, now + 520),

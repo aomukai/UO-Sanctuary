@@ -18,6 +18,8 @@ public static class NewHavenInn
         EventSink.ServerStarted += Install;
         ClassMapHooks.StoryMobileVisible = (viewer, target) =>
         {
+            if (viewer is PlayerMobile coveViewer && !CoveWorld.MobileVisible(coveViewer, target))
+                return false;
             if (target is not Iolo { Recruited: false } || viewer is not PlayerMobile player)
                 return BritainStory.MobileVisible(viewer, target);
             var profiles = ClassCreation.Profiles;

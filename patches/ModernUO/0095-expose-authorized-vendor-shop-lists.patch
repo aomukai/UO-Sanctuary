@@ -1,0 +1,51 @@
+diff --git a/Projects/UOContent/Items/ClassEconomyHooks.cs b/Projects/UOContent/Items/ClassEconomyHooks.cs
+--- a/Projects/UOContent/Items/ClassEconomyHooks.cs
++++ b/Projects/UOContent/Items/ClassEconomyHooks.cs
+@@ -14,6 +14,7 @@
+     public static VendorServiceEntries ServiceEntries { get; set; }
+     public static Func<BaseVendor, IBuyItemInfo[]> Stock { get; set; }
+     public static Action<BaseVendor, Mobile> PurchaseOpened { get; set; }
++    public static Func<BaseVendor, Mobile, bool, bool> ShopListOpened { get; set; }
+     public static Func<BaseVendor, Mobile, int, int> PurchasePrice { get; set; }
+     public static Func<BaseVendor, IShopSellInfo[], IShopSellInfo[]> SellInfo { get; set; }
+     public static Func<BaseVendor, Mobile, List<BuyItemResponse>, bool?> BuyItems { get; set; }
+diff --git a/Projects/UOContent/Mobiles/Vendors/BaseVendor.cs b/Projects/UOContent/Mobiles/Vendors/BaseVendor.cs
+--- a/Projects/UOContent/Mobiles/Vendors/BaseVendor.cs
++++ b/Projects/UOContent/Mobiles/Vendors/BaseVendor.cs
+@@ -1000,6 +1000,7 @@
+                 }
+             }
+ 
++            var tabbedShop = ClassEconomyHooks.ShopListOpened?.Invoke(this, from, true) == true;
+             if (list.Count <= 0)
+             {
+                 return;
+@@ -1026,7 +1027,10 @@
+                 from.NetState?.Send(opls.Dequeue().Buffer);
+             }
+ 
+-            SayTo(from, 500186); // Greetings.  Have a look around.
++            if (!tabbedShop)
++            {
++                SayTo(from, 500186); // Greetings. Have a look around.
++            }
+         }
+ 
+         public virtual void SendPacksTo(Mobile from)
+@@ -1110,6 +1114,7 @@
+                 }
+             }
+ 
++            var tabbedShop = ClassEconomyHooks.ShopListOpened?.Invoke(this, from, false) == true;
+             if (set.Count > 0)
+             {
+                 SendPacksTo(from);
+@@ -1117,7 +1122,7 @@
+                 from.NetState.SendVendorSellList(Serial, set);
+                 foreach (var state in set) { from.NetState.Send(state.Item.PropertyList.Buffer); }
+             }
+-            else
++            else if (!tabbedShop)
+             {
+                 Say(true, "You have nothing I would be interested in.");
+             }

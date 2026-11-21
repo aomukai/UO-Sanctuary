@@ -88,7 +88,10 @@ class LocalGame:
     def spawn(self, spec, name, stdin):
         argv, folder, environment = spec
         self.logs.mkdir(parents=True, exist_ok=True)
-        with self.log_path(name).open("wb") as output:
+        log = self.log_path(name)
+        if log.is_file():
+            log.replace(log.with_suffix(".previous.log"))
+        with log.open("wb") as output:
             return subprocess.Popen(argv, cwd=folder, env=self.command_environment(environment),
                                     stdin=stdin, stdout=output, stderr=subprocess.STDOUT,
                                     start_new_session=True)

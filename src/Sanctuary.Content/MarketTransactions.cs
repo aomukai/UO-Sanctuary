@@ -54,7 +54,7 @@ public static partial class TownMarkets
         }
         if (remaining > 0)
         {
-            if (cost < 2000 || Banker.GetBalance(buyer) < cost)
+            if (Banker.GetBalance(buyer) < cost)
             { buyer.SendMessage("You cannot afford that purchase."); return false; }
             consumes.Clear(); bank = true;
         }

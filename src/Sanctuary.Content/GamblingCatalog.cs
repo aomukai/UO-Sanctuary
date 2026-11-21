@@ -39,9 +39,7 @@ public static partial class Gambling
             if (!_costs.TryGetValue(group.Key, out var cost)) { throw new InvalidDataException("Missing gamble base cost."); }
             foreach (var gear in group)
             {
-                string name = GearDrops.Bases.FirstOrDefault(b => b.Code == group.Key)?.Variants
-                    .FirstOrDefault(v => v.Type == gear.Type || v.Type.EndsWith("." + gear.Type, StringComparison.Ordinal))?.Name ?? gear.Type;
-                variants.Add(new(gear.Type, name, 0));
+                variants.Add(new(gear.Type, EquipmentCrafting.AppearanceName(gear.Type), 0));
             }
             _bases.Add(group.Key, new(group.Key, variants.ToArray()));
         }
@@ -124,7 +122,7 @@ public static partial class Gambling
             var state = ClassGear.Profiles.FromMonster(item, offer.ItemLevel,
                 quality == GambleQuality.Rare ? GearRarity.Rare : GearRarity.Magic, code, tier, random);
             ClassGear.Profiles.Store(item, state with { Identified = true });
-            item.Name = $"{tier} {offer.Variant.Name}";
+            item.Name = ClassGear.AppearanceTitle(item, state);
             return item;
         }
         catch { item.Delete(); throw; }

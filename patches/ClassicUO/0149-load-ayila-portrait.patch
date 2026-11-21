@@ -1,0 +1,24 @@
+diff --git a/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs b/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs
+--- a/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs
++++ b/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs
+@@ -37,6 +37,7 @@
+     private static FaceAtlas[] _faces;
+     private static Texture2D _wolfgangFace;
+     private static Texture2D _merydwenFace;
++    private static Texture2D _ayilaFace;
+     private static Texture2D _npcFaces;
+     private static Texture2D _demonFace;
+     private static readonly string[] _npcPortraitSheets =
+@@ -99,6 +100,12 @@
+                 DrawFace(lists, _merydwenFace, _merydwenFace.Bounds, target, depth);
+                 return true;
+             }
++            if (npc == PortraitProtocol.AyilaPortrait)
++            {
++                _ayilaFace ??= Load("portrait-ayila");
++                DrawFace(lists, _ayilaFace, _ayilaFace.Bounds, target, depth);
++                return true;
++            }
+             if (npc == 6)
+             {
+                 _demonFace ??= Load("portrait-demon");

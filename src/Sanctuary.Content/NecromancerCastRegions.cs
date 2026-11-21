@@ -10,11 +10,11 @@ namespace Sanctuary;
 // projection as the existing spell guards and approved summon parking.
 internal static class NecromancerCastRegions
 {
-    // Source starts15/17 check the corpse's room independently of InTown.
+    // Corpse explosions check the corpse's room independently of InTown.
     // Revive has a different start21; do not add this rule to its shared
     // material/access predicate by analogy.
     internal static bool CorpseAllowed(PlayerMobile owner,CombatAbility ability,Corpse corpse)
-        =>ability is (CombatAbility.RaiseSkeleton or CombatAbility.RaiseSkeletalMage or CombatAbility.CorpseExplosion or CombatAbility.PoisonExplosion)
+        =>ability is (CombatAbility.CorpseExplosion or CombatAbility.PoisonExplosion)
             &&Allowed(owner,ability)&&corpse is{Deleted:false}&&corpse.Map==owner.Map&&!SpellHelper.IsTown(corpse.Location,owner);
     internal static bool Allowed(PlayerMobile owner,CombatAbility ability)
     {

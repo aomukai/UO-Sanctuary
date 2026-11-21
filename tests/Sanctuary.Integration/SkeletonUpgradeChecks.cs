@@ -28,7 +28,7 @@ public static class SkeletonUpgradeChecks
     private static SkeletonWorldBody Learned(PlayerMobile p)
     {
         var dead=new GraveyardZombie{NoKillAwards=true};dead.MoveToWorld(new(p.X+2,p.Y,p.Z),p.Map);dead.Damage(100000,p);if(dead.Alive){dead.Kill();}var corpse=dead.Corpse as Corpse;
-        NecromancerEffects.SetMana256(p,p.ManaMax*256);Require(SkeletonPets.Raise(p,corpse),"Upgrade learned skeleton");corpse.Delete();dead.Delete();var pet=NecromancerSkeletons.For(p,CombatAbility.RaiseSkeleton).OfType<SkeletonWorldBody>().Last();Hold(pet);return pet;
+        NecromancerEffects.SetMana256(p,p.ManaMax*256);Require(SkeletonPets.Raise(p),"Upgrade learned skeleton");corpse.Delete();dead.Delete();var pet=NecromancerSkeletons.For(p,CombatAbility.RaiseSkeleton).OfType<SkeletonWorldBody>().Last();Hold(pet);return pet;
     }
     private static void Hold(SkeletonWorldBody b)=>b.StoreWorld(IronGolemWorld.Park(b.WorldState.Controller) with{NextUtc=TimedEffects.Now.AddHours(1)});
     private static Ogre Enemy(PlayerMobile p,Mobile pet)
@@ -74,8 +74,8 @@ public static class SkeletonUpgradeChecks
             b.StoreWorld(walk);IronGolemWorld.Advance(b,walk.NextUtc,true);var moved=b.WorldState.Controller.Motion;Hold(b);return(moved.X-motion.X,moved.Velocity);
         }
         var normal=Step(normalBody);var fast=Step(fastBody);
-        Require(normal.Delta>0&&fast.Delta==2*normal.Delta&&fast.Velocity==2*normal.Velocity
-            &&fastBody.SourceAttackClock==(12,19)&&fastBody.CombatProfile.AttackMs==760,"Born Extra Fast did not double source movement or changed attack speed");
+        Require(normal.Delta>0 && fast.Delta>normal.Delta && fast.Velocity>normal.Velocity
+            &&fastBody.SourceAttackClock==(12,19)&&fastBody.CombatProfile.AttackMs==760,"Born Extra Fast failed to increase movement or changed attack speed");
     }
     private static void Direct()
     {
@@ -126,7 +126,7 @@ public static class SkeletonUpgradeChecks
             {
                 Require(Core.TickCount<deadline&&b.WorldState.Controller.Fault==null,"Natural upgraded warrior movement timeout/fault");
                 if(b.Location==origin){Timer.StartTimer(TimeSpan.FromMilliseconds(10),Wait);return;}
-                var c=b.WorldState.Controller;var expected=SourceActorMotion.Speed(NecromancerSummons.Source("necroskeleton","Velocity"),NecromancerSummons.Source("necroskeleton-animation","WLSpeed"),checked(200+c.MovingBonus),0);
+                var c=b.WorldState.Controller;var expected=SourceActorMotion.Speed(NecromancerSummons.Source("necroskeleton","Velocity"),NecromancerSummons.Source("necroskeleton-animation","WLSpeed"),checked(100+((IUnarmedGroundPet)b).GroundVelocityPercent+c.MovingBonus),0);
                 Require(network.Running&&c.Motion.Velocity==expected.Velocity&&b.SourceAttackClock==(12,19)&&SkillHealth.Balance256(b)==life&&PaladinThorns.FlatDamage(b)==34, $"Natural Extra Fast network={network.Running},velocity={c.Motion.Velocity}/{expected.Velocity},followBonus={c.MovingBonus},mode={c.Mode},clock={b.SourceAttackClock},life={SkillHealth.Balance256(b)}/{life},ATD={PaladinThorns.FlatDamage(b)}");End();Log.Information("skeleton-upgrades-live-result: passed");
             }
             catch(Exception e){End();Log.Error(e,"skeleton-upgrades-live-result: failed");}

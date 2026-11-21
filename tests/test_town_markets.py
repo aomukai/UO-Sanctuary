@@ -14,18 +14,27 @@ class TownMarketTests(unittest.TestCase):
         rows = json.loads(raw)
         evidence = json.loads((ROOT / 'tools/reference/town-markets-evidence.json').read_text())
         self.assertEqual(hashlib.sha256(raw).hexdigest(), evidence['catalogSha256'])
-        self.assertEqual(len(rows), 476)
         towns = {}
+        roadside = {}
         for row in rows:
+            if row['source'] == 'Roadside trainer':
+                self.assertEqual(row['map'], 'Trammel')
+                self.assertNotIn(row['role'], roadside)
+                roadside[row['role']] = (row['x'], row['y'], row['z'])
+                continue
             key = (row['town'], row['map'])
             towns.setdefault(key, set())
             self.assertNotIn(row['role'], towns[key])
             towns[key].add(row['role'])
-            self.assertTrue(row['source'].startswith('Spawns/'))
+            self.assertTrue(row['source'].startswith('Spawns/') or
+                            (key == ('New Haven', 'Trammel') and row['source'] == 'New Haven mage tower'))
+        self.assertEqual(roadside, {'Fisher': (2733, 1061, 0), 'Cook': (2745, 1066, 0)})
         self.assertEqual(len(towns), 34)
         roles = {'Smith','Tailor','Bowyer','Carpenter','Alchemist','Cook','Cartographer','Scribe',
                  'Tinker','Imbuer','Miner','Lumberjack','Fisher','Jeweller'}
-        self.assertTrue(all(found == roles for found in towns.values()))
+        overrides = {('Cove', 'Trammel'): {'Jeweller'}, ('New Haven', 'Trammel'): roles | {'Scholar'}}
+        for key, found in towns.items():
+            self.assertEqual(found, overrides.get(key, roles), key)
         self.assertIn(('Ocllo','Felucca'), towns)
         self.assertIn(('New Haven','Trammel'), towns)
 

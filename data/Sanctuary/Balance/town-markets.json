@@ -2618,149 +2618,6 @@
     "sharedWorkshop": false
   },
   {
-    "id": "Trammel/Cove/Smith",
-    "town": "Cove",
-    "map": "Trammel",
-    "role": "Smith",
-    "x": 2216,
-    "y": 1167,
-    "z": 0,
-    "source": "Spawns/shared/trammel/Vendors.json#bfdfa0ef-f98a-4095-ad75-c87737eb95a2",
-    "sharedWorkshop": false
-  },
-  {
-    "id": "Trammel/Cove/Tailor",
-    "town": "Cove",
-    "map": "Trammel",
-    "role": "Tailor",
-    "x": 2245,
-    "y": 1231,
-    "z": 0,
-    "source": "Spawns/shared/trammel/Vendors.json#3a2fbed0-d494-4930-8238-a74b2489e23a",
-    "sharedWorkshop": true
-  },
-  {
-    "id": "Trammel/Cove/Bowyer",
-    "town": "Cove",
-    "map": "Trammel",
-    "role": "Bowyer",
-    "x": 2245,
-    "y": 1231,
-    "z": 0,
-    "source": "Spawns/shared/trammel/Vendors.json#3a2fbed0-d494-4930-8238-a74b2489e23a",
-    "sharedWorkshop": true
-  },
-  {
-    "id": "Trammel/Cove/Carpenter",
-    "town": "Cove",
-    "map": "Trammel",
-    "role": "Carpenter",
-    "x": 2245,
-    "y": 1231,
-    "z": 0,
-    "source": "Spawns/shared/trammel/Vendors.json#3a2fbed0-d494-4930-8238-a74b2489e23a",
-    "sharedWorkshop": true
-  },
-  {
-    "id": "Trammel/Cove/Alchemist",
-    "town": "Cove",
-    "map": "Trammel",
-    "role": "Alchemist",
-    "x": 2245,
-    "y": 1231,
-    "z": 0,
-    "source": "Spawns/shared/trammel/Vendors.json#3a2fbed0-d494-4930-8238-a74b2489e23a",
-    "sharedWorkshop": true
-  },
-  {
-    "id": "Trammel/Cove/Cook",
-    "town": "Cove",
-    "map": "Trammel",
-    "role": "Cook",
-    "x": 2245,
-    "y": 1231,
-    "z": 0,
-    "source": "Spawns/shared/trammel/Vendors.json#3a2fbed0-d494-4930-8238-a74b2489e23a",
-    "sharedWorkshop": true
-  },
-  {
-    "id": "Trammel/Cove/Cartographer",
-    "town": "Cove",
-    "map": "Trammel",
-    "role": "Cartographer",
-    "x": 2245,
-    "y": 1231,
-    "z": 0,
-    "source": "Spawns/shared/trammel/Vendors.json#3a2fbed0-d494-4930-8238-a74b2489e23a",
-    "sharedWorkshop": true
-  },
-  {
-    "id": "Trammel/Cove/Scribe",
-    "town": "Cove",
-    "map": "Trammel",
-    "role": "Scribe",
-    "x": 2245,
-    "y": 1231,
-    "z": 0,
-    "source": "Spawns/shared/trammel/Vendors.json#3a2fbed0-d494-4930-8238-a74b2489e23a",
-    "sharedWorkshop": true
-  },
-  {
-    "id": "Trammel/Cove/Tinker",
-    "town": "Cove",
-    "map": "Trammel",
-    "role": "Tinker",
-    "x": 2245,
-    "y": 1231,
-    "z": 0,
-    "source": "Spawns/shared/trammel/Vendors.json#3a2fbed0-d494-4930-8238-a74b2489e23a",
-    "sharedWorkshop": true
-  },
-  {
-    "id": "Trammel/Cove/Imbuer",
-    "town": "Cove",
-    "map": "Trammel",
-    "role": "Imbuer",
-    "x": 2245,
-    "y": 1231,
-    "z": 0,
-    "source": "Spawns/shared/trammel/Vendors.json#3a2fbed0-d494-4930-8238-a74b2489e23a",
-    "sharedWorkshop": true
-  },
-  {
-    "id": "Trammel/Cove/Miner",
-    "town": "Cove",
-    "map": "Trammel",
-    "role": "Miner",
-    "x": 2245,
-    "y": 1231,
-    "z": 0,
-    "source": "Spawns/shared/trammel/Vendors.json#3a2fbed0-d494-4930-8238-a74b2489e23a",
-    "sharedWorkshop": true
-  },
-  {
-    "id": "Trammel/Cove/Lumberjack",
-    "town": "Cove",
-    "map": "Trammel",
-    "role": "Lumberjack",
-    "x": 2245,
-    "y": 1231,
-    "z": 0,
-    "source": "Spawns/shared/trammel/Vendors.json#3a2fbed0-d494-4930-8238-a74b2489e23a",
-    "sharedWorkshop": true
-  },
-  {
-    "id": "Trammel/Cove/Fisher",
-    "town": "Cove",
-    "map": "Trammel",
-    "role": "Fisher",
-    "x": 2256,
-    "y": 1181,
-    "z": -2,
-    "source": "Spawns/shared/trammel/Vendors.json#a79cb65c-847a-4b9c-b544-48de9bd6d103",
-    "sharedWorkshop": false
-  },
-  {
     "id": "Trammel/Cove/Jeweller",
     "town": "Cove",
     "map": "Trammel",
@@ -5246,6 +5103,28 @@
     "y": 3150,
     "z": 13,
     "source": "Spawns/shared/trammel/Vendors.json#94a33c3d-2fd0-4c9a-8424-b0315ddb023c",
+    "sharedWorkshop": false
+  },
+  {
+    "id": "Trammel/Britannia/Roadside/Fisher",
+    "town": "Britannia",
+    "map": "Trammel",
+    "role": "Fisher",
+    "x": 2733,
+    "y": 1061,
+    "z": 0,
+    "source": "Roadside trainer",
+    "sharedWorkshop": false
+  },
+  {
+    "id": "Trammel/Britannia/Roadside/Cook",
+    "town": "Britannia",
+    "map": "Trammel",
+    "role": "Cook",
+    "x": 2745,
+    "y": 1066,
+    "z": 0,
+    "source": "Roadside trainer",
     "sharedWorkshop": false
   }
 ]

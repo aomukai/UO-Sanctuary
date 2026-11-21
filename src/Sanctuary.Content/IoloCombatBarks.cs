@@ -206,7 +206,7 @@ public partial class Iolo
 
     private void Bark(NetState listener, string[] lines, long now)
     {
-        PrivateOverheadMessage(MessageType.Regular, SpeechHue, false, lines[Random.Shared.Next(lines.Length)], listener);
+        PrivateOverheadMessage(MessageType.Regular, VoiceHue, false, lines[Random.Shared.Next(lines.Length)], listener);
         _nextBark = now + BarkPauseMs;
     }
 

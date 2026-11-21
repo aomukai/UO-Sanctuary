@@ -1,0 +1,24 @@
+diff --git a/Projects/Server/Mobiles/Mobile.cs b/Projects/Server/Mobiles/Mobile.cs
+--- a/Projects/Server/Mobiles/Mobile.cs
++++ b/Projects/Server/Mobiles/Mobile.cs
+@@ -7187,6 +7187,10 @@
+     {
+     }
+ 
++    public virtual void SendAppearanceTo(NetState state)
++    {
++    }
++
+     public virtual bool CanSee(object o)
+     {
+         return o switch
+diff --git a/Projects/Server/Network/Packets/OutgoingMobilePackets.cs b/Projects/Server/Network/Packets/OutgoingMobilePackets.cs
+--- a/Projects/Server/Network/Packets/OutgoingMobilePackets.cs
++++ b/Projects/Server/Network/Packets/OutgoingMobilePackets.cs
+@@ -711,5 +711,6 @@
+ 
+         writer.WritePacketLength();
+         ns.Send(writer.Span);
++        beheld.SendAppearanceTo(ns);
+     }
+ }

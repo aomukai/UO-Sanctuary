@@ -1,0 +1,21 @@
+diff --git a/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs b/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs
+--- a/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs
++++ b/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs
+@@ -39,7 +39,7 @@
+     private static Texture2D _merydwenFace;
+     private static Texture2D _ayilaFace;
+     private static readonly string[] _covePortraitNames =
+-        ["portrait-gnaw", "portrait-thomas", "portrait-cove-ferryman", "portrait-jaana"];
++        ["portrait-gnaw", "portrait-thomas", "portrait-cove-ferryman", "portrait-jaana", "portrait-perrin"];
+     private static readonly Texture2D[] _covePortraits = new Texture2D[_covePortraitNames.Length];
+     private static Texture2D _npcFaces;
+     private static Texture2D _demonFace;
+@@ -109,7 +109,7 @@
+                 DrawFace(lists, _ayilaFace, _ayilaFace.Bounds, target, depth);
+                 return true;
+             }
+-            if (npc is >= PortraitProtocol.GnawPortrait and <= PortraitProtocol.JaanaPortrait)
++            if (npc is >= PortraitProtocol.GnawPortrait and <= PortraitProtocol.PerrinPortrait)
+             {
+                 int index = npc - PortraitProtocol.GnawPortrait;
+                 var texture = _covePortraits[index] ??= Load(_covePortraitNames[index]);

@@ -56,7 +56,9 @@ internal sealed class NecromancerGroundWorld(SkeletonGuardian body,string profil
         {throw new ArgumentException("Ground actor needs owner,world placement and UTC time");}
         initializeRandom();
         var controller=new IronGolemWorldState(body.Map.MapID,DruidRavenMotion.Center(body.X*2,body.Y*2),at.AddMilliseconds(40),
-            Mode:adopt?1:8,NextThink:initialThink??(adopt?1:25),EndAt:adopt?0:DruidWolfGeometry.Clock("S1",source:body.SourceMonsterId+"-animation").End,Ai:new(ranged?1:0,0,0)){Profile=profile};
+            Mode:adopt?1:8,NextThink:initialThink??(adopt?1:25),
+            EndAt:adopt?0:initialThink is { } first ? first - 1 : DruidWolfGeometry.Clock("S1",source:body.SourceMonsterId+"-animation").End,
+            Ai:new(ranged?1:0,0,0)){Profile=profile};
         _state=new(owner.Serial.Value,controller);Store(controller);PetOwnerRoutes.For(owner,at);
         if(!adopt){BattleCommand.Track(body);}PersistentMinions.Profiles.Track(body);IronGolems.Track(body);
     }

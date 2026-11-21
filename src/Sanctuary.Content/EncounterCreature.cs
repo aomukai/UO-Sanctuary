@@ -36,6 +36,12 @@ public partial class EncounterCreature : GraveyardUndead
     private long _teleportAfter = Core.TickCount;
     public DungeonProfile Dungeon => EncounterProfiles.Profile(_profileId ?? "crypt-sentinel-60");
     public MonsterLevel Basis => MonsterBalance.For(Dungeon.Archetype, EncounterProfiles.Level(_baseLevel == 0 ? 60 : _baseLevel, _grade));
+    internal int BaseExperience => checked(Basis.Experience * (_grade switch
+    {
+        EncounterGrade.Ordinary => 1,
+        EncounterGrade.Champion when _champion != ChampionKind.Berserker => 3,
+        _ => 5
+    }));
     public EliteModifier[] Modifiers => _modifiers ??= string.IsNullOrEmpty(_modifierIds) ? []
         : Array.ConvertAll(_modifierIds.Split(','), value => Enum.Parse<EliteModifier>(value));
     public bool Has(EliteModifier modifier) => _grade != EncounterGrade.Minion && Inherits(modifier);
@@ -99,10 +105,26 @@ public partial class EncounterCreature : GraveyardUndead
         CreatureProfiles.Session(this).Initialized = false; CreatureProfiles.Initialize(this); Hits = HitsMax;
     }
     protected virtual int[] AdjustResistances(int[] resistances) => resistances;
-    protected virtual int ExperienceMultiplier => 1;
-    protected virtual int EncounterPlayers => 5;
+    internal virtual int EncounterPlayers => 5;
+    protected virtual ResistanceType MeleeElement => ResistanceType.Physical;
+    protected virtual int EncounterMoveInterval(int interval) => interval;
     protected virtual bool RollMissingModifiersOnLoad => false;
-    private int ScaleLifeForPlayers(int life) => Math.Min(65000, checked(life * (EncounterPlayers + 1) / 2));
+    internal bool RepelledByAnkh(Point3D point) => !Controlled && !Summoned && AnkhRefuges.Contains(Map, point);
+
+    public override bool IsEnemy(Mobile mobile) =>
+        mobile != null && !RepelledByAnkh(mobile.Location) && base.IsEnemy(mobile);
+
+    public override bool Move(Direction direction)
+    {
+        var next = Location;
+        Server.Movement.Movement.Offset(direction, ref next);
+        if (RepelledByAnkh(next) && !RepelledByAnkh(Location))
+            return false;
+        return base.Move(direction);
+    }
+
+    private int ScaleForPlayers(int amount) => checked(amount * (EncounterPlayers + 1) / 2);
+    private int ScaleLifeForPlayers(int life) => Math.Min(65000, ScaleForPlayers(life));
     private int LifeBeforePlayerScaling(MonsterDifficulty difficulty) => (_rolledLife == 0 ? Basis.Life.Min : _rolledLife)
         * EncounterProfiles.LifePermille(_grade, _champion, difficulty) / 1000;
     protected virtual CreatureTraits EncounterTraits(DungeonProfile dungeon) =>
@@ -138,12 +160,13 @@ public partial class EncounterCreature : GraveyardUndead
         res = AdjustResistances(res);
         int min = basis.MinDamage * (100 + damageBonus) / 100, max = basis.MaxDamage * (100 + damageBonus) / 100;
         rating = rating * (100 + ratingBonus) / 100;
-        int move = EncounterProfiles.MovementInterval(basis.MoveMs,moveBonus);
-        int xp = checked(basis.Experience * ExperienceMultiplier * (_grade == EncounterGrade.Ordinary ? 1 : _grade == EncounterGrade.Champion
-            ? _champion == ChampionKind.Berserker ? 5 : 3 : 5));
+        int move = EncounterMoveInterval(EncounterProfiles.MovementInterval(basis.MoveMs,moveBonus));
+        int xp = ScaleForPlayers(BaseExperience);
+        var element = dungeon.Archetype == MonsterArchetype.Caster ? ResistanceType.Fire : MeleeElement;
         var attack = new CreatureAttack(min, max, rating, Caster ? 10 : 1, basis.AttackMs + basis.RecoveryMs,
-            basis.EffectMs, basis.RecoveryMs, dungeon.Archetype == MonsterArchetype.Caster ? 0 : 100,
-            dungeon.Archetype == MonsterArchetype.Caster ? 100 : 0, 0, 0, 0, 0, basis.CriticalChance,
+            basis.EffectMs, basis.RecoveryMs, element == ResistanceType.Physical ? 100 : 0,
+            element == ResistanceType.Fire ? 100 : 0, 0, element == ResistanceType.Cold ? 100 : 0,
+            element == ResistanceType.Poison ? 100 : 0, 0, basis.CriticalChance,
             Caster ? dungeon.Archetype == MonsterArchetype.Caster ? "Firebolt" : "Arrow" : "Melee", 1);
         _profile = new(true, true, basis.Level, life, defense, new(res[0], res[1], res[2], res[3], res[4], res[5]),
             attack, attack, Caster ? attack : new(), new(true, dungeon.Archetype == MonsterArchetype.Tank ? 6 : 4),
@@ -157,8 +180,9 @@ public partial class EncounterCreature : GraveyardUndead
         _meleeStats = new(life, melee, melee, 100, 75, basis.RecoveryMs / 40, 10, basis.CriticalChance, 2, xp, new(100, 0, 400, false));
         _profileDifficulty=difficulty;
     }
-    protected override void Deal(Mobile target, int damage, bool fire) => EliteCombat.Hit(this, target, damage, fire ? ResistanceType.Fire : ResistanceType.Physical);
-    public override bool CanRaise(Corpse corpse) => false;
+    protected override void Deal(Mobile target, int damage, bool fire) =>
+        EliteCombat.Hit(this, target, damage, fire ? ResistanceType.Fire : MeleeElement);
+    protected override bool CanRaiseKind(Corpse corpse) => false;
     public override bool BeginFirebolt(Mobile target)
     {
         if (!Caster || !EliteCombat.CanAct(this) || _shot.Running || !ActionReady || !EliteCombat.Enemy(this, target, Basis.Range) || CreatureHitRecovery.Remaining(this) > 0)

@@ -47,15 +47,11 @@ public static class ColdCorpseProposalChecks
         {
             Require(CorpseSkillRules.Shattered(c)&&!CorpseSkillRules.Available(c)&&!CorpseSkillRules.Usable(p,c,12)
                 &&!CorpseRecoveryHooks.CanAnimate(c)&&!lich.CanRaise(c),"Shattered corpse entered shared/native/Lich consumers");
-            foreach(var a in new[]{CombatAbility.RaiseSkeleton,CombatAbility.RaiseSkeletalMage,CombatAbility.CorpseExplosion,CombatAbility.PoisonExplosion,CombatAbility.Revive})
+            foreach(var a in new[]{CombatAbility.CorpseExplosion,CombatAbility.PoisonExplosion,CombatAbility.Revive})
             {
                 ClassCombat.Stop(p);var action=ClassCombat.For(p);action.NextAction=action.RecoveryUntil=Core.TickCount;
-                bool started=a==CombatAbility.RaiseSkeleton?ClassCombat.CastSummon(p,c.Serial,Core.TickCount):ClassCombat.BeginCorpse(p,a,c.Serial,c.Location,Core.TickCount);
-                // Raise Skeleton may legitimately fall back to another usable
-                // corpse. It must never select the shattered preferred body.
-                bool refusedOrFallback=!started||a==CombatAbility.RaiseSkeleton&&action.PendingTarget!=c.Serial
-                    &&World.FindItem(action.PendingTarget)is Corpse fallback&&SkeletonPets.Usable(p,fallback);
-                Require(refusedOrFallback&&NecromancerEffects.ManaBalance256(p)==mana&&!c.SanctuaryConsumed&&!c.Animated&&Items(c).SequenceEqual(items)&&CorpseSkillRules.Profiles.Find(c)==row,"Shattered corpse public cast/payment/loot:"+a);
+                bool started=ClassCombat.BeginCorpse(p,a,c.Serial,c.Location,Core.TickCount);
+                Require(!started&&NecromancerEffects.ManaBalance256(p)==mana&&!c.SanctuaryConsumed&&!c.Animated&&Items(c).SequenceEqual(items)&&CorpseSkillRules.Profiles.Find(c)==row,"Shattered corpse public cast/payment/loot:"+a);
             }
         }
         finally{lich.Delete();}

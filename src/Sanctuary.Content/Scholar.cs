@@ -111,9 +111,9 @@ public partial class Scholar : BaseVendor, IScriptedSpeaker
         }
 
         int cost = selected.Count * IdentificationFee;
-        if (!player.Backpack.ConsumeTotal(typeof(Gold), cost))
+        if (!Banker.PayPurchase(player, cost, out _))
         {
-            player.SendMessage($"Thou needest {cost} gold in thy backpack for this appraisal.");
+            player.SendMessage($"Thou needest {cost} gold for this appraisal.");
             return false;
         }
 

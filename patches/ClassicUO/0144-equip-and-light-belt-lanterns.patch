@@ -1,0 +1,121 @@
+diff --git a/src/ClassicUO.Client/ClassicUO.Client.csproj b/src/ClassicUO.Client/ClassicUO.Client.csproj
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -60,6 +60,7 @@
+     <Compile Include="../../../../shared/DruidFormVisualProtocol.cs" Link="DruidFormVisualProtocol.cs" />
+     <Compile Include="../../../../shared/StatProtocol.cs" Link="Game/Data/StatProtocol.cs" />
+     <Compile Include="../../../../shared/BeltProtocol.cs" Link="Game/Data/BeltProtocol.cs" />
++    <Compile Include="../../../../shared/BeltLanternGraphics.cs" Link="Game/Data/BeltLanternGraphics.cs" />
+     <Compile Include="../../../../shared/LootProtocol.cs" Link="Game/Data/LootProtocol.cs" />
+     <Compile Include="../../../../shared/ClassGumpProtocol.cs" Link="Game/Data/ClassGumpProtocol.cs" />
+     <Compile Remove="Game/UI/Gumps/CharCreation/CreateCharTradeGump.cs" />
+diff --git a/src/ClassicUO.Client/Game/GameActions.cs b/src/ClassicUO.Client/Game/GameActions.cs
+--- a/src/ClassicUO.Client/Game/GameActions.cs
++++ b/src/ClassicUO.Client/Game/GameActions.cs
+@@ -569,7 +569,7 @@
+                     container = world.Player.Serial;
+                 }
+ 
+-                Socket.Send_EquipRequest(Client.Game.UO.GameCursor.ItemHold.Serial, (Layer)Client.Game.UO.GameCursor.ItemHold.ItemData.Layer, container);
++                Socket.Send_EquipRequest(Client.Game.UO.GameCursor.ItemHold.Serial, Client.Game.UO.GameCursor.ItemHold.EquipLayer, container);
+ 
+                 Client.Game.UO.GameCursor.ItemHold.Enabled = false;
+                 Client.Game.UO.GameCursor.ItemHold.Dropped = true;
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+@@ -479,6 +479,13 @@
+ 
+                     if (item == null)
+                     {
++                        continue;
++                    }
++
++                    if (layer == Layer.Talisman && BeltLanternGraphics.Matches(item.Graphic))
++                    {
++                        if (item.Graphic == BeltLanternGraphics.Lit && !IsDead)
++                            Client.Game.GetScene<GameScene>().AddSoftLight(drawX, drawY, 132, 0, 1f);
+                         continue;
+                     }
+ 
+diff --git a/src/ClassicUO.Client/Game/ItemHold.cs b/src/ClassicUO.Client/Game/ItemHold.cs
+--- a/src/ClassicUO.Client/Game/ItemHold.cs
++++ b/src/ClassicUO.Client/Game/ItemHold.cs
+@@ -4,6 +4,7 @@
+ using ClassicUO.Game.GameObjects;
+ using ClassicUO.Assets;
+ using Microsoft.Xna.Framework;
++using Sanctuary;
+ 
+ namespace ClassicUO.Game
+ {
+@@ -56,6 +57,7 @@
+         public bool Dropped { get; set; }
+         public bool UpdatedInWorld { get; set; }
+         public ref StaticTiles ItemData => ref Client.Game.UO.FileManager.TileData.StaticData[Graphic];
++        public Layer EquipLayer => BeltLanternGraphics.Matches(Graphic) ? Layer.Talisman : (Layer)ItemData.Layer;
+ 
+         public void Set(Item item, ushort amount, Point? offset = null)
+         {
+diff --git a/src/ClassicUO.Client/Game/UI/Controls/PaperDollInteractable.cs b/src/ClassicUO.Client/Game/UI/Controls/PaperDollInteractable.cs
+--- a/src/ClassicUO.Client/Game/UI/Controls/PaperDollInteractable.cs
++++ b/src/ClassicUO.Client/Game/UI/Controls/PaperDollInteractable.cs
+@@ -12,6 +12,7 @@
+ using ClassicUO.Utility;
+ using ClassicUO.Utility.Logging;
+ using Microsoft.Xna.Framework;
++using Sanctuary;
+ 
+ namespace ClassicUO.Game.UI.Controls
+ {
+@@ -128,6 +129,9 @@
+ 
+                 if (equipItem != null)
+                 {
++                    if (layer == Layer.Talisman && BeltLanternGraphics.Matches(equipItem.Graphic))
++                        continue;
++
+                     if (Mobile.IsCovered(mobile, layer))
+                     {
+                         continue;
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
+@@ -348,7 +348,8 @@
+                     && UIManager.MouseOverControl?.RootParent == this
+                 )
+                 {
+-                    if (Client.Game.UO.GameCursor.ItemHold.ItemData.AnimID != 0)
++                    if (Client.Game.UO.GameCursor.ItemHold.ItemData.AnimID != 0
++                        && !BeltLanternGraphics.Matches(Client.Game.UO.GameCursor.ItemHold.Graphic))
+                     {
+                         if (
+                             mobile != null
+@@ -399,7 +400,7 @@
+                             if (Client.Game.UO.GameCursor.ItemHold.ItemData.IsWearable)
+                             {
+                                 Item equipment = container.FindItemByLayer(
+-                                    (Layer)Client.Game.UO.GameCursor.ItemHold.ItemData.Layer
++                                    Client.Game.UO.GameCursor.ItemHold.EquipLayer
+                                 );
+ 
+                                 if (equipment == null)
+@@ -702,7 +703,7 @@
+                 {
+                     _itemGump?.Dispose();
+                     _itemGump = null;
+-                    SetTooltip($"{Layer} slot");
++                    SetTooltip(Layer == Layer.Talisman ? "Belt lantern slot" : $"{Layer} slot");
+                 }
+ 
+                 Mobile mobile = _paperDollGump.World.Mobiles.Get(_paperDollGump.LocalSerial);
+@@ -711,7 +712,8 @@
+                 {
+                     Item it_at_layer = mobile.FindItemByLayer(Layer);
+ 
+-                    if ((it_at_layer != null && _itemGump != null && _itemGump.LocalSerial != it_at_layer.Serial) || _itemGump == null)
++                    if (it_at_layer != null && (_itemGump == null || _itemGump.LocalSerial != it_at_layer.Serial
++                        || _itemGump.Graphic != it_at_layer.DisplayedGraphic))
+                     {
+                         if (_itemGump != null)
+                         {

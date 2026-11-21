@@ -173,7 +173,7 @@ public static class NamedGear
     public static void UpdateName(Item item, GearState state)
     {
         if (state?.NamedItemId != null)
-        { item.Name = state.Identified ? Catalog.Item(state.NamedItemId).Name : Catalog.Base(state.BaseCode).Name; }
+        { item.Name = state.Identified ? Catalog.Item(state.NamedItemId).Name : ClassGear.AppearanceTitle(item, state); }
     }
     public static int FixedValue(GearState state, string code)
     {

@@ -24,13 +24,14 @@ internal static class TalentDetails
 
         string detail = skill.Passive ? "Passive"
             : ability == CombatAbility.BindDemon ? "Hold to bind • 9 mana per second"
+            : ability == CombatAbility.SummonTainted ? "Stats apply to newly summoned succubi."
             : PaladinCombat.IsAura(ability) ? ability == CombatAbility.Prayer ? "Right-slot aura • Costs mana to heal"
                 : "Right-slot aura • No mana cost"
             : "";
         string milestones = ability switch
         {
-            CombatAbility.RaiseSkeleton => "10 hard points · Thorns (34 physical)\n20 hard points · Extra Fast",
-            CombatAbility.RaiseSkeletalMage => "10 hard points   Cold, fire and lightning mages can cast Glacial Spike, Meteor or Chain Lightning\n20 hard points   Cold gains Frozen Armor, fire casts Enchant, lightning can cast Static Field",
+            CombatAbility.RaiseSkeleton => "5 hard points · Sword\n10 hard points · Shield and Thorns (34 physical)\n20 hard points · Armour and Extra Fast",
+            CombatAbility.RaiseSkeletalMage => "5 hard points · Hat\n10 hard points · Staff. Cold, fire and lightning mages can cast Glacial Spike, Meteor or Chain Lightning\n20 hard points · Robe. Cold gains Frozen Armor, fire casts Enchant, lightning can cast Static Field",
             CombatAbility.ClayGolem => "10 hard points   Stone Skin\n20 hard points   Magic Resistant",
             CombatAbility.BloodGolem => "10 hard points   Open Wounds on every eligible hit\n20 hard points   5% chance to cast Life Tap on hit",
             CombatAbility.IronGolem => "10 hard points   Extra Strong\n20 hard points   Spectral Hit",
@@ -83,7 +84,7 @@ internal static class TalentDetails
                 int rank = SummonRank(v), mastery = Rank(v, "Skeleton Mastery");
                 if (!births.TryGetValue((rank, mastery), out var birth))
                 {
-                    births[(rank, mastery)] = birth = NecromancerSkeletonBirth.Prepare(level, rank, mastery, difficulty);
+                    births[(rank, mastery)] = birth = NecromancerSkeletonBirth.Warrior(level, rank, mastery, difficulty);
                 }
                 return birth;
             }
@@ -123,6 +124,21 @@ internal static class TalentDetails
             Add(passive, v => $"{v.Eval("passivecalc1")}%");
         if (ability is CombatAbility.RaiseSkeletalMage or CombatAbility.Revive)
             Add("Summon limit", v => NecromancerArmyLimits.ForRank(ability, v.Rank).ToString());
+        if (ability == CombatAbility.SummonTainted)
+        {
+            var currentBirth = current.Rank > 0 ? TaintedPrepared.Birth(player, current) : null;
+            var nextBirth = increased is { Rank: > 0 } ? TaintedPrepared.Birth(player, increased) : null;
+            TaintedBirth Birth(SkillValues values) => values == current ? currentBirth : nextBirth;
+
+            Add("Life", v => ((Birth(v).MaximumLife256 + 255) / 256).ToString());
+            Add("Fireball dmg", v =>
+            {
+                var damage = TaintedNpcSkills.FireBall(Birth(v).Suppliers);
+                return $"{damage.Minimum256 / 256.0:0.#}–{damage.Maximum256 / 256.0:0.#}";
+            });
+            Add("Defense", v => Birth(v).ProjectedArmor.ToString());
+            Add("Fire resist aura", v => $"+{TaintedNpcSkills.ResistFire(Birth(v).Suppliers).Percent}%");
+        }
         if (ability is CombatAbility.FrozenArmor or CombatAbility.ShiverArmor or CombatAbility.ChillingArmor
             or CombatAbility.Shout or CombatAbility.Defiance)
             Add("Defense", v => $"{v.Eval("aurastatcalc1")}%");

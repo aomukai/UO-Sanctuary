@@ -88,6 +88,13 @@ public static class CraftTransactions
         if (!ClassProfessions.Enabled) { return; }
         var system = DefTinkering.CraftSystem;
         var repair = EquipmentRepairs.Settings;
+        if (system.CraftItems.SearchFor(typeof(BeltLantern)) == null)
+        {
+            int index = system.AddCraft(typeof(BeltLantern), 1044050, "Belt lantern", 0, 50,
+                typeof(IronIngot), 1044036, 1, 1044037);
+            system.AddRes(index, typeof(Beeswax), "Beeswax", 1, "You need beeswax.");
+            system.SetUseSubRes2(index, true);
+        }
         if (system.CraftItems.SearchFor(typeof(RepairHammer)) == null)
         {
             int index = system.AddCraft(typeof(RepairHammer), 1044046, "repair hammer", repair.ToolRequiredSkill,

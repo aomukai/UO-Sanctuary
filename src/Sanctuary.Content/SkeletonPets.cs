@@ -58,27 +58,6 @@ public static class SkeletonPets
         && !CorpseSkillRules.Shattered(corpse) && !CorpseSkillRules.NoSelect(corpse) && corpse.Owner is not BaseVendor && corpse.Owner is not BaseCreature { Controlled: true }
         && corpse.Map == owner.Map && owner.InRange(corpse, Range) && Math.Abs(owner.Z - corpse.Z) < 16
         && owner.CanSee(corpse) && owner.InLOS(corpse) && corpse.CanLoot(owner, null) && !corpse.IsCriminalAction(owner);
-    private static bool RaiseUsable(PlayerMobile owner,Corpse corpse)
-        =>NecromancerCastRegions.CorpseAllowed(owner,CombatAbility.RaiseSkeleton,corpse)&&Usable(owner,corpse);
-    public static Corpse FindCorpse(PlayerMobile owner, Serial preferred)
-    {
-        if (World.FindItem(preferred) is Corpse hovered && RaiseUsable(owner, hovered))
-        {
-            return hovered;
-        }
-        Corpse best = null;
-        double distance = double.MaxValue;
-        foreach (var corpse in owner.Map.GetItemsInRange<Corpse>(owner.Location, Range))
-        {
-            double next = owner.GetDistanceToSqrt(corpse);
-            if (RaiseUsable(owner, corpse) && (next < distance || next == distance && (best == null || corpse.Serial.Value < best.Serial.Value)))
-            {
-                best = corpse;
-                distance = next;
-            }
-        }
-        return best;
-    }
     public static int Count(PlayerMobile owner)
     {
         int count = 0;
@@ -91,12 +70,18 @@ public static class SkeletonPets
         }
         return count;
     }
-    public static bool CanRaise(PlayerMobile owner, Corpse corpse) => Rank(owner) > 0
-        && owner.Mana >= Mana(owner) && RaiseUsable(owner, corpse)
-        && owner.Map.CanSpawnMobile(corpse.X, corpse.Y, corpse.Z);
-    public static bool Raise(PlayerMobile owner, Corpse corpse)
+    internal static bool TrySummonPosition(PlayerMobile owner, CombatAbility ability, out Point3D point)
     {
-        if (!CanRaise(owner, corpse))
+        point = default;
+        return NecromancerCastRegions.Allowed(owner, ability)
+            && PersistentMinions.FindPosition(owner.Map, owner.Location,
+                spot => owner.InLOS(spot) && !Server.Spells.SpellHelper.IsTown(spot, owner), out point);
+    }
+
+    public static bool Raise(PlayerMobile owner)
+    {
+        if (Rank(owner) <= 0 || owner.Mana < Mana(owner)
+            || !TrySummonPosition(owner, CombatAbility.RaiseSkeleton, out var position))
         {
             return false;
         }
@@ -105,16 +90,11 @@ public static class SkeletonPets
         // owner/pet seed transport remains a separately documented adapter.
         int hard=ClassCreation.Profiles.GetRank(owner.Serial,"necromancer.raiseskeleton");
         var pet=SkeletonWorldBody.CreatePrepared(owner,Rank(owner),NamedSkills.Rank(owner,"necromancer.skeletonmastery"),
-            corpse.Location,TimedEffects.Now,SourceRandom.InitLow(NpcEquipmentRandom.SeedLow()));
+            position,TimedEffects.Now,SourceRandom.InitLow(NpcEquipmentRandom.SeedLow()),hard);
         if(pet==null){return false;}
-        try{SummonUpgradeSnapshots.Capture(owner,pet,CombatAbility.RaiseSkeleton,hard);}
-        catch{pet.Delete();throw;}
         pet.IssueOrder(OrderType.Guard, null);
         if(!NecromancerEffects.Pay(owner,Mana(owner)*256)){pet.Delete();return false;}
         NecromancerSkeletons.Commit(owner,pet);
-        corpse.SanctuaryConsumed = true;
-        corpse.Animated = true;
-        ClassLoot.RemoveHarvestedIfEmpty(corpse);
         UndeadSummonVisuals.Arrive(pet);
         return true;
     }
@@ -138,6 +118,30 @@ public static class SkeletonPets
 [SerializationGenerator(0)]
 public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
 {
+    internal SkeletonAppearance CosmeticAppearance => NecromancerSkeletons.Kind(this) switch
+    {
+        CombatAbility.RaiseSkeleton => SkeletonAppearanceProtocol.For(false, SkeletonPetUpgrades.HardRank(this)),
+        CombatAbility.RaiseSkeletalMage => SkeletonAppearanceProtocol.For(true, MagePetBuffs.HardRank((NecromancerMinion)this)),
+        _ => SkeletonAppearance.None
+    };
+
+    public override void SendAppearanceTo(NetState state)
+    {
+        if (NecromancerSkeletons.Kind(this) == CombatAbility.None)
+        {
+            return;
+        }
+
+        var packet = new System.Buffers.SpanWriter(stackalloc byte[SkeletonAppearanceProtocol.Length]);
+        packet.Write((byte)0xBF);
+        packet.Write((ushort)SkeletonAppearanceProtocol.Length);
+        packet.Write(SkeletonAppearanceProtocol.SubCommand);
+        packet.Write(SkeletonAppearanceProtocol.Version);
+        packet.Write(Serial.Value);
+        packet.Write((byte)CosmeticAppearance);
+        state.Send(packet.Span);
+    }
+
     public virtual DiabloClass SummonClass => DiabloClass.Necromancer;
     public virtual bool Permitted(PlayerMobile owner)
     {

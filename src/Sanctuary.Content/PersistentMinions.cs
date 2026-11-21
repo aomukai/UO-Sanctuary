@@ -40,7 +40,11 @@ public static class PersistentMinions
             &&owner.Map==pet.Map&&pet.Map!=Map.Internal&&Active(owner,pet)&&Permitted(owner,pet,Behavior(pet).SummonClass)
             &&!MinionSafeAreas.ShouldPark(owner,pet)&&ClassCombat.IsHostile(owner,target)&&ClassCombatHooks.TargetAllowed?.Invoke(pet,target)!=false;
         ClassCombatHooks.SuspendMinions = Suspend;
-        ClassCombatHooks.ResumeMinions = Resume;
+        ClassCombatHooks.ResumeMinions = owner =>
+        {
+            MercenaryCare.RestoreCompanionForGhost(owner);
+            Resume(owner);
+        };
         ClassMapHooks.TeleportFollowers = TeleportFollowers;
         EventSink.Disconnected += OnDisconnected;
     }
@@ -247,7 +251,7 @@ public static class PersistentMinions
     internal static bool FindPosition(PlayerMobile owner, out Point3D point) =>
         FindPosition(owner.Map, owner.Location, owner.InLOS, out point);
 
-    private static bool FindPosition(Map map, Point3D center, Func<Point3D, bool> visible, out Point3D point)
+    internal static bool FindPosition(Map map, Point3D center, Func<Point3D, bool> visible, out Point3D point)
     {
         // A blocked login spot leaves the minion parked; accepted movement retries.
         for (int radius = 1; radius <= 4; radius++)

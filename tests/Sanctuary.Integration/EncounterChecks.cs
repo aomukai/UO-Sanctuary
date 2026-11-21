@@ -23,6 +23,7 @@ public static class EncounterChecks
     public static void Configure()
     {
         Register("encounter-check", Check); Register("encounter-reload-check", Reload);
+        Register("encounter-lethal-burst-check", LethalDeathEffects);
     }
     private static void Register(string name, Action action) => ConsoleInputHandler.RegisterCommand(name, "Dungeon encounters, full elite effects, rewards and persistence", _ => Core.LoopContext.Post(() =>
     {
@@ -51,7 +52,7 @@ public static class EncounterChecks
         c.Grade, c.Champion, string.Join(',', c.Modifiers), c.Aura, c.GroupLeader);
     private static void Check()
     {
-        Profiles(); Immunities(); Modifiers(); Auras(); Projectiles(); Death(); Navigation(); RewardsAndSave();
+        Profiles(); Immunities(); Modifiers(); Auras(); Projectiles(); Death(); LethalDeathEffects(); Navigation(); RewardsAndSave();
     }
     private static void Profiles()
     {
@@ -260,6 +261,30 @@ public static class EncounterChecks
             Require(!EliteAuras.Curses.Active(player.Serial, TimedEffects.Now), "Death did not clear the curse");
         }
         finally { fire.Delete(); cold.Delete(); player.Corpse?.Delete(); player.Delete(); }
+    }
+    private static void LethalDeathEffects()
+    {
+        foreach (var modifier in new[] { EliteModifier.FireEnchanted, EliteModifier.ColdEnchanted })
+        {
+            var player = Player(new Point3D(_point.X + 8, _point.Y, _point.Z));
+            var source = Create(mods: [modifier]);
+            var first = AlliedOverlapChecks.Pet(player, new Point3D(_point.X + 1, _point.Y, _point.Z));
+            var second = AlliedOverlapChecks.Pet(player, new Point3D(_point.X + 2, _point.Y, _point.Z));
+            try
+            {
+                SkillHealth.SetBalance256(first, 256);
+                int before = second.Hits;
+                Require(EliteCombat.Enemy(source, first, 4) && EliteCombat.Enemy(source, second, 4), "Lethal burst fixture needs two nearby enemies");
+                source.Kill();
+                Require((first.Deleted || !first.Alive) && second.Hits < before, $"{modifier} did not finish its burst after a lethal hit");
+            }
+            finally
+            {
+                first.Corpse?.Delete(); first.Delete();
+                second.Corpse?.Delete(); second.Delete();
+                source.Corpse?.Delete(); source.Delete(); player.Delete();
+            }
+        }
     }
     private static void Navigation()
     {

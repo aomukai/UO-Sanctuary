@@ -36,11 +36,11 @@ public static class NecromancerSummons
     }
     public static int Resistance(PlayerMobile owner) => SkillMechanics.Rank(owner, CombatAbility.SummonResist) is > 0
         ? SkillMechanics.Values(owner, CombatAbility.SummonResist).Diminishing(1, 2) : 0;
-    public static bool Create(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point)
-        =>Create(owner,ability,selected,point,null);
-    internal static bool CreatePaid(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,int cost)
-        =>Create(owner,ability,selected,point,()=>owner is{Alive:true,Deleted:false}&&NecromancerEffects.Pay(owner,cost));
-    private static bool Create(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,Func<bool> payment)
+    public static bool Create(PlayerMobile owner,CombatAbility ability,Serial _,Point3D point)
+        =>Create(owner,ability,point,null);
+    internal static bool CreatePaid(PlayerMobile owner,CombatAbility ability,Point3D point,int cost)
+        =>Create(owner,ability,point,()=>owner is{Alive:true,Deleted:false}&&NecromancerEffects.Pay(owner,cost));
+    private static bool Create(PlayerMobile owner,CombatAbility ability,Point3D point,Func<bool> payment)
     {
         if(ability is not(CombatAbility.ClayGolem or CombatAbility.BloodGolem or CombatAbility.FireGolem or CombatAbility.RaiseSkeletalMage)){return false;}
         bool mage = ability == CombatAbility.RaiseSkeletalMage;
@@ -48,9 +48,8 @@ public static class NecromancerSummons
         if(ability==CombatAbility.ClayGolem){try{NecromancerClayBirth.Require(owner);}catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}
         if(ability==CombatAbility.BloodGolem){try{NecromancerBloodBirth.Require(owner);}catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}
         if(ability==CombatAbility.FireGolem){try{NecromancerFireBirth.Require(owner);}catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}
-        var corpse = mage ? World.FindItem(selected) as Corpse : null;
-        if (mage && (!NecromancerCastRegions.CorpseAllowed(owner,ability,corpse)||!SkeletonPets.Usable(owner, corpse))
-            || !owner.Map.CanSpawnMobile(point.X, point.Y, point.Z)) { return false; }
+        if (mage ? !SkeletonPets.TrySummonPosition(owner, ability, out point) : !owner.Map.CanSpawnMobile(point))
+            return false;
         NecromancerMinion pet=ability switch{CombatAbility.ClayGolem=>new ClayGolemWorldBody(),CombatAbility.BloodGolem=>new BloodGolemWorldBody(),CombatAbility.FireGolem=>new FireGolemWorldBody(),_=>new MageWorldBody()};
         bool committed=false;
         try
@@ -65,20 +64,14 @@ public static class NecromancerSummons
             if(pet is MageWorldBody caster){caster.BeginWorld(owner,TimedEffects.Now,SourceRandom.InitLow(NecromancerMageMissiles.SeedLow()));}
             PersistentMinions.Profiles.Track(pet);
             // Debit after complete allocation, before replacing the paid old
-            // pet or consuming its corpse. Reentrant mana loss rejects only
+            // pet. Reentrant mana loss rejects only
             // this candidate; its birth supplement is removed on deletion.
             if(payment!=null&&!payment()){return false;}
             if(!mage)
-            {
                 NecromancerGolems.Commit(owner,pet);
-                UndeadSummonVisuals.Arrive(pet);
-            }
             else
-            {
                 NecromancerSkeletons.Commit(owner,pet);
-                NecromancerCombat.Consume(corpse);
-                UndeadSummonVisuals.Arrive(pet);
-            }
+            UndeadSummonVisuals.Arrive(pet);
             committed=true;return true;
         }
         finally{if(!committed&&!pet.Deleted){pet.Delete();}}

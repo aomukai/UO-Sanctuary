@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
 using Server;
+using Server.Collections;
 using Server.Items;
 using Server.Mobiles;
 
@@ -58,7 +59,8 @@ public static class EliteCombat
         bool minion = source.Grade == EncounterGrade.Minion;
         bool inheritElements = !minion || source.Difficulty != MonsterDifficulty.Normal;
         double physical = type == ResistanceType.Physical ? baseDamage : 0;
-        double fire = type == ResistanceType.Fire ? baseDamage : 0, cold = 0, lightning = 0, magic = 0, poison = 0;
+        double fire = type == ResistanceType.Fire ? baseDamage : 0, cold = 0, lightning = 0, magic = 0;
+        double poison = type == ResistanceType.Poison ? baseDamage : 0;
         // Shared STAT_DAMAGEPERCENT belongs to the native weapon ED pool;
         // Slow Missiles remains a distinct later multiplication.
         physical *= (100 + Math.Max(-90,EliteAuras.DamageBonus(source)+NecromancerEffects.DamageStatPercent(source))) / 100.0;
@@ -76,7 +78,7 @@ public static class EliteCombat
         {
             var roll=SpectralHit.Roll(source.Basis.MinDamage,source.Basis.MaxDamage,(low,high)=>Roll(low,high,random),random.Next);
             var added=SpectralHit.Direct(new(0,fire,cold,lightning,0,Magic:magic),roll);
-            fire=added.Fire;cold=added.Cold;lightning=added.Lightning;magic=added.Magic;poison=roll.PoisonTotal;
+            fire=added.Fire;cold=added.Cold;lightning=added.Lightning;magic=added.Magic;poison+=roll.PoisonTotal;
             coldMs=Math.Max(coldMs,roll.ColdMs);
         }
         foreach (var aura in new[] { EliteAura.HolyFire, EliteAura.HolyFreeze, EliteAura.HolyShock })
@@ -138,6 +140,25 @@ public static class EliteCombat
         if (damage <= 0 || creature is not EncounterCreature source || !Enemy(source, attacker, 18) || !source.Has(EliteModifier.LightningEnchanted)) { return; }
         EliteBolts.Lightning(source);
     }
+    private static void DeathBurst(EncounterCreature source, int radius, double physical = 0, double fire = 0,
+        int cold = 0, int chillMs = 0)
+    {
+        // A lethal hit can remove a mobile or dismiss its followers from the map sector.
+        using var targets = PooledRefList<Mobile>.Create();
+        foreach (var mobile in source.GetMobilesInRange<Mobile>(radius))
+        {
+            targets.Add(mobile);
+        }
+        foreach (var mobile in targets)
+        {
+            if (!Enemy(source, mobile, radius, death: true)) { continue; }
+            Damage(source, mobile, physical, fire, cold, death: true);
+            if (chillMs > 0 && mobile is { Deleted: false, Alive: true })
+            {
+                GearEffects.ApplyChill(mobile, Core.TickCount, chillMs);
+            }
+        }
+    }
     internal static void Death(EncounterCreature source)
     {
         if (source.Map == null || source.Map == Map.Internal) { return; }
@@ -148,8 +169,7 @@ public static class EliteCombat
             int amount = (int)((long)source.Basis.Life.Max * Roll(minimum[index], maximum[index], Random.Shared) / 10000);
             int radius = new[] { 3, 3, 4 }[index];
             source.FixedParticles(0x36BD, 10, 20, 5044, EffectLayer.Waist);
-            foreach (var mobile in source.Map.GetMobilesInRange<Mobile>(source.Location, radius))
-            { if (Enemy(source, mobile, radius, true)) { Damage(source, mobile, amount / 2.0, amount / 2.0, death: true); } }
+            DeathBurst(source, radius, physical: amount / 2.0, fire: amount / 2.0);
         }
         if (source.Has(EliteModifier.ColdEnchanted))
         {
@@ -158,12 +178,7 @@ public static class EliteCombat
             int max = EliteAuras.SkillDamage(8, [4, 5, 6, 8, 10], level);
             int amount = Roll(min, max, Random.Shared);
             source.FixedParticles(0x374A, 10, 30, 5052, EffectLayer.Waist);
-            foreach (var mobile in source.Map.GetMobilesInRange<Mobile>(source.Location, 6))
-            {
-                if (!Enemy(source, mobile, 6, true)) { continue; }
-                Damage(source, mobile, cold: amount, death: true);
-                GearEffects.ApplyChill(mobile, Core.TickCount, (3 + level - 1) * 1000);
-            }
+            DeathBurst(source, 6, cold: amount, chillMs: (level + 2) * 1000);
         }
     }
     internal static bool Teleport(EncounterCreature source)
@@ -177,7 +192,7 @@ public static class EliteCombat
                 int dir = (start + index) % 8;
                 int[] xs = [0, 1, 1, 1, 0, -1, -1, -1], ys = [-1, -1, 0, 1, 1, 1, 0, -1];
                 var point = new Point3D(source.X + xs[dir] * distance, source.Y + ys[dir] * distance, source.Z);
-                if (Math.Max(Math.Abs(point.X - source.Home.X), Math.Abs(point.Y - source.Home.Y)) > LeashedMeleeAI.HomeRadius || !EncounterProfiles.ClearSight(source.Map, source.Location, point)
+                if (!Utility.InRange(point, source.Home, source.HomeLeashRadius) || source.RepelledByAnkh(point) || !EncounterProfiles.ClearSight(source.Map, source.Location, point)
                     || !EncounterProfiles.Free(source.Map, point)) { continue; }
                 source.StopCombatActions(); source.FixedEffect(0x3728, 10, 13);
                 source.MoveToWorld(point, source.Map);

@@ -1,0 +1,31 @@
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryResurrectionTheme.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryResurrectionTheme.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryResurrectionTheme.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryResurrectionTheme.cs
+@@ -7,15 +7,16 @@
+ 
+ internal static class SanctuaryResurrectionTheme
+ {
+-    // ModernUO's hashes of Server.Gumps.ResurrectGump and Sanctuary.MerrynResurrectionGump.
++    // ModernUO's type hashes for the native, Merryn, and shrine resurrection gumps.
+     private const uint ResurrectionGump = 0xA0E1F83A;
+     private const uint MerrynResurrectionGump = 0xA26A046D;
++    private const uint ShrineResurrectionGump = 0x7E62499E;
+     private const uint Text = 0xD9F0FFFF;
+     private const uint Gold = 0x8AD8FFFF;
+ 
+     internal static void Apply(Gump gump)
+     {
+-        if (!ClassCombatClient.Enabled || gump.ServerSerial is not (ResurrectionGump or MerrynResurrectionGump))
++        if (!ClassCombatClient.Enabled || gump.ServerSerial is not (ResurrectionGump or MerrynResurrectionGump or ShrineResurrectionGump))
+             return;
+ 
+         // Match the free offer. Paid resurrection has its own radio buttons and layout.
+@@ -39,7 +40,7 @@
+             {
+                 int id = button.ButtonID;
+                 bool accept = id == 1;
+-                string caption = gump.ServerSerial == MerrynResurrectionGump
++                string caption = gump.ServerSerial != ResurrectionGump
+                     ? captions.FirstOrDefault(label => label.X == (accept ? 100 : 235))?.Text
+                     : null;
+                 caption ??= Client.Game.UO.FileManager.Clilocs.GetString(accept ? 1011011 : 1011012, true);

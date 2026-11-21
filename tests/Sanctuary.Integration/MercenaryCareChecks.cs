@@ -16,7 +16,14 @@ public static class MercenaryCareChecks
     private static readonly ILogger _log = LogFactory.GetLogger(typeof(MercenaryCareChecks));
     private sealed record Saved(uint Owner, uint Mercenary, uint Gear, uint Nested, long Stock, DateTime Next, int Level);
     private static string Filename => Path.Join(Core.BaseDirectory, "mercenary-care-checks.json");
-    public static void Configure() { Register("mercenary-care-check", Check); Register("mercenary-care-reload-check", Reload); Register("mercenary-care-loyalty-check", Loyalty); }
+    public static void Configure()
+    {
+        Register("mercenary-care-check", Check);
+        Register("mercenary-care-reload-check", Reload);
+        Register("mercenary-care-loyalty-check", Loyalty);
+        Register("mercenary-inn-check", RecallAfterLevelling);
+        Register("mercenary-ghost-login-check", GhostLogin);
+    }
     private static void Register(string name, Action action) => ConsoleInputHandler.RegisterCommand(name, "Disposable mercenary preparation checks", _ => Core.LoopContext.Post(() =>
     { try { action(); _log.Information("{Name}: passed", name); } catch (Exception e) { _log.Error(e, "{Name}: failed", name); } }));
     private static void Require(bool value, string message) { if (!value) { throw new InvalidOperationException(message); } }
@@ -27,6 +34,94 @@ public static class MercenaryCareChecks
         merc.MoveToWorld(CombatPractice.FindFloor(owner.Map, owner.X + 1, owner.Y), owner.Map); merc.AIObject.AITimer.Stop();
         if (merc.Backpack == null) { merc.AddItem(new Backpack()); } return merc;
     }
+
+    private static void RecallAfterLevelling()
+    {
+        var owner = new PlayerMobile { Body = 0x190, Player = true, Name = "Inn roster fixture" };
+        owner.AddItem(new Backpack());
+        Wolfgang companion = null;
+        try
+        {
+            var map = Map.Trammel;
+            ClassCreation.Profiles.Assign(owner, DiabloClass.Necromancer);
+            ClassCreation.Profiles.Discover(owner.Serial, StoryDiscoveries.IoloRetired);
+            owner.MoveToWorld(new Point3D(1594, 1588, 20), map);
+            companion = Wolfgang.Join(owner);
+            Require(companion != null && MercenaryCare.ParkAtInn(owner, companion), "Could not park Wolfgang");
+
+            owner.Backpack.DropItem(new Gold(AyilaInn.CallFee));
+            Require(ClassCreation.Profiles.AdvanceLevel(owner, 12), "Could not level while Wolfgang was parked");
+            Require(PersistentMinions.FindPosition(map, AyilaInn.Reunion, point => point.Z == AyilaInn.Reunion.Z,
+                out var alongside), "No floor beside the reunion tile");
+            Require(MercenaryCare.CallFromInn(owner, companion, map, AyilaInn.Reunion, alongside, AyilaInn.CallFee)
+                && MercenaryCare.ActiveStoryCompanion(owner) == companion && MercenaryCare.CompanionLevel(companion) == 12
+                && !MercenaryCare.ParkedCompanions(owner).Any() && owner.Location == AyilaInn.Reunion
+                && owner.Backpack.GetAmount(typeof(Gold)) == 0, "Recall at a higher level lost the active contract or fee");
+        }
+        finally
+        {
+            if (companion != null)
+            {
+                MercenaryCare.States.Remove(companion.Serial);
+                companion.Delete();
+            }
+            owner.Delete();
+        }
+    }
+
+    private static void GhostLogin()
+    {
+        var owner = new PlayerMobile { Body = 0x190, Player = true, Name = "Ghost login fixture" };
+        owner.AddItem(new Backpack());
+        Merydwen companion = null;
+        BaseCreature ordinaryPet = null;
+        try
+        {
+            ClassCreation.Profiles.Assign(owner, DiabloClass.Necromancer);
+            owner.MoveToWorld(new Point3D(1613, 1588, 0), Map.Trammel);
+            owner.Backpack.DropItem(new Gold(5000));
+            companion = Merydwen.Hire(owner, out _);
+            Require(companion != null, "Could not hire Merydwen");
+            var bow = companion.Weapon;
+            var lantern = new BeltLantern();
+            owner.Backpack.DropItem(lantern);
+            Require(companion.AllowEquipFrom(owner) && companion.EquipItem(lantern)
+                && companion.FindItemOnLayer(Layer.Talisman) == lantern && lantern.Burning && companion.Weapon == bow,
+                "Merydwen could not light a belt lantern while keeping her bow equipped");
+            ordinaryPet = Companion(owner);
+            owner.Kill();
+            Require(!owner.Alive && !companion.IsDeadPet, "The companion should outlive the Avatar");
+            owner.AutoStablePets();
+            Require(owner.AutoStabled.Contains(companion) && owner.AutoStabled.Contains(ordinaryPet),
+                "Logout did not keep both followers in temporary storage");
+
+            owner.ClaimAutoStabledPets();
+            Require(companion.ControlMaster == owner && companion.Map == owner.Map && companion.InRange(owner, 4)
+                && !companion.IsStabled && !companion.IsDeadPet && companion.Weapon == bow
+                && companion.FindItemOnLayer(Layer.Talisman) == lantern && lantern.Burning
+                && companion.ControlOrder == OrderType.Guard && !owner.AutoStabled.Contains(companion)
+                && owner.AutoStabled.Contains(ordinaryPet) && ordinaryPet.Map == Map.Internal,
+                "Ghost login did not restore the living story companion independently of ordinary pets");
+
+            companion.Kill();
+            owner.AutoStablePets();
+            owner.ClaimAutoStabledPets();
+            Require(companion.IsDeadPet && companion.Weapon == bow && companion.ControlMaster == owner
+                && companion.Map == owner.Map && companion.ControlOrder == OrderType.Follow,
+                "Ghost login did not preserve the companion's death state");
+        }
+        finally
+        {
+            if (companion != null)
+            {
+                MercenaryCare.States.Remove(companion.Serial);
+                companion.Delete();
+            }
+            ordinaryPet?.Delete();
+            owner.Delete();
+        }
+    }
+
     private static void Check()
     {
         var owner = ImbuingChecks.Player(SkillName.Blacksmith); var other = ImbuingChecks.Player(SkillName.Alchemy);
@@ -76,12 +171,12 @@ public static class MercenaryCareChecks
         merc.Kill(); Require(!merc.Deleted && merc.IsDeadPet && sword.IsChildOf(merc.Backpack) && ring.IsChildOf(merc.Backpack), "Death lost real equipment/inventory");
         merc.ResurrectPet(); Require(merc.IsDeadPet, "Native veterinary resurrection bypassed the mercenary fee");
         quote = MercenaryCare.Quote(owner, merc, healer);
-        Require(quote is { Gold: 12000, Resurrection: true } && !MercenaryCare.Commit(quote) && merc.IsDeadPet, "Insufficient funds resurrected");
-        owner.BankBox.DropItem(new Gold(13000)); quote = MercenaryCare.Quote(owner, merc, healer);
+        Require(quote is { Gold: 1200, Resurrection: true } && !MercenaryCare.Commit(quote) && merc.IsDeadPet, "Insufficient funds resurrected");
+        owner.BankBox.DropItem(new Gold(1300)); quote = MercenaryCare.Quote(owner, merc, healer);
         var point = healer.Location; healer.MoveToWorld(new Point3D(point.X + 20, point.Y, point.Z), healer.Map);
-        Require(!MercenaryCare.Commit(quote) && owner.BankBox.GetAmount(typeof(Gold)) == 13000, "Remote healer charged");
+        Require(!MercenaryCare.Commit(quote) && owner.BankBox.GetAmount(typeof(Gold)) == 1300, "Remote healer charged");
         healer.MoveToWorld(point, owner.Map); quote = MercenaryCare.Quote(owner, merc, healer);
-        Require(MercenaryCare.Commit(quote) && !merc.IsDeadPet && owner.BankBox.GetAmount(typeof(Gold)) == 1000
+        Require(MercenaryCare.Commit(quote) && !merc.IsDeadPet && owner.BankBox.GetAmount(typeof(Gold)) == 100
             && sword.IsChildOf(merc.Backpack) && ring.IsChildOf(merc.Backpack) && MercenaryCare.Stock(merc) == 1200001
             && !MercenaryCare.Commit(quote), "Paid resurrection lost gear/stock or charged twice");
         merc.IssueOrder(OrderType.Release, owner);
@@ -108,7 +203,7 @@ public static class MercenaryCareChecks
         Require(merc.IsDeadPet && gear.IsChildOf(merc.Backpack) && nested.IsChildOf(merc.Backpack) && MercenaryCare.Stock(merc) == row.Stock
             && MercenaryCare.States[merc.Serial].NextDrinkUtc == row.Next && MercenaryCare.States[merc.Serial].Level == row.Level,
             "Save/reload lost death state, gear, stock, level or drink deadline");
-        merc.ResurrectPet(); Require(merc.IsDeadPet && MercenaryCare.ResurrectionPrice(row.Level) == 99000, "Restart bypassed fee policy");
+        merc.ResurrectPet(); Require(merc.IsDeadPet && MercenaryCare.ResurrectionPrice(row.Level) == 9900, "Restart bypassed fee policy");
     }
     private sealed class LoyaltyProbe : LoyaltyTimer
     {

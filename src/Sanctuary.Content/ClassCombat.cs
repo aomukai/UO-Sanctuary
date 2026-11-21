@@ -81,7 +81,9 @@ public static class ClassCombat
         internal Map ActionMap;
         internal bool PendingLeft;
         internal int TooltipSignature;
-        internal bool TooltipKnown, WasOverlapped;
+        internal bool TooltipKnown;
+        internal long NextOverlapNotice = Core.TickCount;
+        internal long NextDoorCross = Core.TickCount;
         public bool Running { get; internal set; } = true;
         internal bool RunningStep;
         internal long RunningUntil = Core.TickCount;
@@ -123,6 +125,7 @@ public static class ClassCombat
         ClassCombatHooks.Friendly = Friendly;
         ClassCombatHooks.AttackRequested = (from, target) => Begin(from, target);
         ClassCombatHooks.Moved = ClassMovement.Moved;
+        ClassCombatHooks.BypassKey = AssassinLockpicking.CanPick;
         ClassCombatHooks.MovementAllowed = from => ChargeMotion.Active(from)
             || !HitRecovery.Active(from,Core.TickCount) && !AmazonStrafe.Locked(from,Core.TickCount) && !AmazonFend.Locked(from,Core.TickCount) && !AmazonImpale.Locked(from,Core.TickCount) && !AmazonJab.Locked(from,Core.TickCount) && !PaladinZeal.Locked(from,Core.TickCount) && !PaladinCharge.Locked(from,Core.TickCount) && !BarbarianConcentrate.Locked(from,Core.TickCount) && !BarbarianLeap.Locked(from) && !BarbarianWhirlwind.Locked(from);
         ClassCombatHooks.RunningDelay = (from, delay) => ClassCombat.Enabled(from)
@@ -202,7 +205,7 @@ public static class ClassCombat
         CombatAbility.Teleport => Teleportation.Rank(from) > 0,
         _ => NecromancerCombat.Available(from, ability) || SorceressCombat.Available(from, ability) || PaladinCombat.Available(from, ability) || BarbarianCombat.Available(from,ability) || AmazonCombat.Available(from,ability) || AssassinCombat.Available(from,ability) || DruidCombat.Available(from,ability)||WarlockCombat.Available(from,ability)
     });
-    public static bool CastSummon(PlayerMobile from, Serial preferred, long now)
+    public static bool CastSummon(PlayerMobile from, long now)
     {
         if(!NecromancerCastRegions.Allowed(from,CombatAbility.RaiseSkeleton)){return false;}
         if (!Enabled(from) || !from.Alive || !AlliedOverlap.Allowed(from) || from.Frozen || from.Paralyzed || from.Spell != null
@@ -217,8 +220,8 @@ public static class ClassCombat
         {
             return false;
         }
-        var corpse = SkeletonPets.FindCorpse(from, preferred);
-        if (corpse == null || !NecromancerEffects.CheckMana(from, SkeletonPets.Mana(from) * 256) || !SkeletonPets.CanRaise(from, corpse))
+        if (SkeletonPets.Rank(from) <= 0 || !NecromancerEffects.CheckMana(from, SkeletonPets.Mana(from) * 256)
+            || !SkeletonPets.TrySummonPosition(from, CombatAbility.RaiseSkeleton, out _))
         {
             return false;
         }
@@ -226,12 +229,11 @@ public static class ClassCombat
         session.NextAction = now + session.Timing.DurationMs;
         session.EffectAt = now + session.Timing.EffectMs;
         session.PendingAbility = CombatAbility.RaiseSkeleton;
-        session.PendingTarget = corpse.Serial;
+        session.PendingTarget = Serial.Zero;
         session.PendingWeapon = CombatTiming.Equipped(from)?.Serial ?? Serial.Zero;
         session.ActionOrigin = from.Location;
         session.ActionMap = from.Map;
         session.Animation = 16;
-        from.Direction = from.GetDirectionTo(corpse);
         from.RevealingAction();
         SendState(from, session);
         SendAnimation(from, session);
@@ -379,12 +381,13 @@ public static class ClassCombat
         if(BarbarianLeap.Locked(from) || BarbarianWhirlwind.Locked(from)){return;}
         if (!AlliedOverlap.Allowed(from))
         {
-            if(For(from).Charge!=null){ResolveAction(from,now);return;}
             var overlap = For(from);
-            if (!overlap.WasOverlapped) { from.SendMessage("You are sharing a tile with an ally. Walk clear before taking another action."); }
-            overlap.WasOverlapped = true; Stop(from); return;
+            if(overlap.Charge!=null){ResolveAction(from,now);return;}
+            if (overlap.Target != Serial.Zero || overlap.PendingAbility != CombatAbility.None || overlap.HeldAbility != CombatAbility.None)
+                WarnOverlap(from, overlap, now);
+            Stop(from);
+            return;
         }
-        For(from).WasOverlapped = false;
         ResolveAction(from, now);
         // Resolve a due weapon event before expiring its animation state, including
         // a delayed server tick that crosses both the impact and recovery deadline.
@@ -428,7 +431,7 @@ public static class ClassCombat
             Stop(from);
         }
     }
-    internal static bool CorpseCast(CombatAbility ability)=>ClassAbilities.CorpseTarget(ability) && ability!=CombatAbility.RaiseSkeleton;
+    internal static bool CorpseCast(CombatAbility ability)=>ClassAbilities.CorpseTarget(ability);
     internal static bool BeginCorpse(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now)=>ability==CombatAbility.Engorge?WarlockCombat.Begin(owner,ability,selected,point,now):ability==CombatAbility.GrimWard?BarbarianGrimWard.Begin(owner,selected,point,now):ability==CombatAbility.FindPotion?BarbarianFindPotion.Begin(owner,selected,point,now):ability==CombatAbility.FindItem
         ?BarbarianFindItem.Begin(owner,selected,point,now):NecromancerCombat.CorpseTarget(ability) && NecromancerCombat.Begin(owner,ability,selected,point,now);
     public static bool Perform(PlayerMobile from, CombatAbility ability, Mobile target, Point3D point, long now)
@@ -457,7 +460,7 @@ public static class ClassCombat
         }
         if (ability == CombatAbility.RaiseSkeleton)
         {
-            return CastSummon(from, Serial.Zero, now);
+            return CastSummon(from, now);
         }
         var session = For(from);
         if (!Enabled(from) || !from.Alive || !AlliedOverlap.Allowed(from) || from.Frozen || from.Paralyzed || from.Spell != null
@@ -621,7 +624,7 @@ public static class ClassCombat
         session.PendingAbility = CombatAbility.None;
         if (ability == CombatAbility.RaiseSkeleton)
         {
-            return SkeletonPets.Raise(from, World.FindItem(session.PendingTarget) as Corpse);
+            return SkeletonPets.Raise(from);
         }
         if (AmazonCombat.Handles(ability)) { return AmazonCombat.Release(from,ability,now); }
         if (BarbarianCombat.Handles(ability)) { return BarbarianCombat.Release(from,ability,session.PendingTarget,now); }
@@ -787,14 +790,33 @@ public static class ClassCombat
         var sequence = reader.ReadUInt32();
         var session = For(from);
         if (version != CombatProtocol.Version || unchecked((int)(sequence - session.Sequence)) <= 0
-            || reader.Remaining != (action == CombatRequest.Attack ? 4 : action is CombatRequest.Cast or CombatRequest.HoldCast or CombatRequest.HoldAttack ? 10 : action is CombatRequest.ChannelStart or CombatRequest.ChannelAim ? 11 : action is CombatRequest.MovementMode or CombatRequest.ChannelEnd ? 1 : 0)
-            || action is < CombatRequest.Hello or > CombatRequest.ChannelEnd)
+            || reader.Remaining != CombatProtocol.PayloadLength(action))
         {
             return;
         }
         session.Sequence = sequence;
+        if (action is CombatRequest.Attack or CombatRequest.Cast or CombatRequest.HoldCast or CombatRequest.HoldAttack or CombatRequest.ChannelStart
+            && !AlliedOverlap.Allowed(from))
+        {
+            WarnOverlap(from, session, Core.TickCount);
+        }
         switch (action)
         {
+            case CombatRequest.CrossDoor:
+                var door = (Serial)reader.ReadUInt32();
+                var crossing = reader.ReadByte();
+                if (session.Handshake && Core.TickCount - session.NextDoorCross >= 0)
+                {
+                    session.NextDoorCross = Core.TickCount + 400;
+                    if (World.FindItem(door) is BaseDoor targetDoor)
+                    {
+                        if (crossing == CombatProtocol.DoorDoubleClick)
+                            DoorwayTraversal.TryDoubleClick(from, targetDoor);
+                        else
+                            DoorwayTraversal.TryCross(from, targetDoor, (Direction)crossing);
+                    }
+                }
+                break;
             case CombatRequest.ChannelStart:
             case CombatRequest.ChannelAim:
                 int channelSource=reader.ReadByte();
@@ -868,17 +890,13 @@ public static class ClassCombat
                     { ContinueHold(from, ability, null, point, Core.TickCount, action == CombatRequest.HoldAttack); }
                     break;
                 }
-                if (ability == CombatAbility.RaiseSkeleton
+                if (ClassAbilities.SkeletonSummon(ability)
                     && (action == CombatRequest.Cast || ability == (action == CombatRequest.HoldAttack ? session.Left : session.Right)))
                 {
-                    if (action == CombatRequest.HoldAttack && World.FindItem(target) is Corpse { Owner: var owner } own && owner == from)
-                    {
-                        ClassDeath.Recover(from, own);
-                    }
+                    if (ability == CombatAbility.RaiseSkeleton)
+                        CastSummon(from, Core.TickCount);
                     else
-                    {
-                        CastSummon(from, target, Core.TickCount);
-                    }
+                        NecromancerCombat.Begin(from, ability, Serial.Zero, from.Location, Core.TickCount);
                     break;
                 }
                 if ((action == CombatRequest.Cast || ability == (action == CombatRequest.HoldAttack ? session.Left : session.Right))
@@ -905,6 +923,15 @@ public static class ClassCombat
             session.LastState = Core.TickCount;
             SendState(from, session);
         }
+    }
+
+    internal static void WarnOverlap(PlayerMobile player, Session session, long now)
+    {
+        if (now < session.NextOverlapNotice)
+            return;
+
+        session.NextOverlapNotice = now + 5000;
+        player.SendMessage("You are sharing a tile with an ally. Walk clear before taking another action.");
     }
     private static void Tick()
     {

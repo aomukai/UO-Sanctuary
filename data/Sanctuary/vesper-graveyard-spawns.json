@@ -1,0 +1,274 @@
+[
+  {
+    "$type": "Spawner",
+    "guid": "e360421c-dc3f-58fb-9f81-468b15d8b953",
+    "name": "Vesper graveyard northwestern wall",
+    "location": [2745, 845, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:30",
+    "maxDelay": "00:02:30",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "vesper-undead 13"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "df01f279-ead5-5460-9bac-32a54c7fa712",
+    "name": "Vesper graveyard north house lane",
+    "location": [2755, 852, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:30",
+    "maxDelay": "00:02:30",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "vesper-undead 12"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "3dabcf39-67fe-58f9-829f-b1251a4bebd5",
+    "name": "Vesper graveyard between the chapels",
+    "location": [2773, 850, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:30",
+    "maxDelay": "00:02:30",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "vesper-undead 13"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "4c6fa21d-0bd5-512b-bcae-08f6f11a19ea",
+    "name": "Vesper graveyard northern graves",
+    "location": [2756, 860, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:30",
+    "maxDelay": "00:02:30",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "vesper-undead 14"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "47d60280-5fcb-532b-b375-c0a29eeeb003",
+    "name": "Vesper graveyard east wall graves",
+    "location": [2777, 862, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:30",
+    "maxDelay": "00:02:30",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "vesper-undead 12"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "142a568e-57cc-5a2c-83af-5c04c29ac275",
+    "name": "Vesper graveyard centre path",
+    "location": [2768, 868, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:30",
+    "maxDelay": "00:02:30",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "vesper-undead 13"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "d6b76c9e-4b50-5078-a7f3-7e31282b2208",
+    "name": "Vesper graveyard west path",
+    "location": [2757, 870, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:30",
+    "maxDelay": "00:02:30",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "vesper-undead 15"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "23024740-434e-575c-8726-56c2243792f8",
+    "name": "Vesper graveyard west wall",
+    "location": [2744, 875, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:30",
+    "maxDelay": "00:02:30",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "vesper-undead 14"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "21b0c491-fbb9-5c54-8058-8fe2f2845a40",
+    "name": "Vesper graveyard near the gate",
+    "location": [2780, 873, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:30",
+    "maxDelay": "00:02:30",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "vesper-undead 12"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "01597a10-d22d-582d-b0dd-32f3525df774",
+    "name": "Vesper graveyard southern path",
+    "location": [2752, 883, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:30",
+    "maxDelay": "00:02:30",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "vesper-undead 14"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "8e7e8361-764f-5f64-9fbc-505c16cb9beb",
+    "name": "Vesper graveyard southwestern graves",
+    "location": [2746, 889, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:30",
+    "maxDelay": "00:02:30",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "vesper-undead 15"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "554001b4-1371-5187-b7d1-7b8df4ee9306",
+    "name": "Vesper graveyard south central graves",
+    "location": [2759, 888, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:30",
+    "maxDelay": "00:02:30",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "vesper-undead 16"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "023e9295-43ca-521f-825a-f15879c52b01",
+    "name": "Vesper graveyard eastern burial path",
+    "location": [2768, 881, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:30",
+    "maxDelay": "00:02:30",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "vesper-undead 15"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "954ec015-1e88-560c-a027-8ab4709a90c2",
+    "name": "Vesper graveyard southern wall",
+    "location": [2768, 894, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:30",
+    "maxDelay": "00:02:30",
+    "homeRange": 0,
+    "walkingRange": 2,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "vesper-undead 16"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "f7228e98-0b7a-5300-9a19-ab83dbc5acda",
+    "name": "Vesper graveyard skeletal knight",
+    "location": [2764, 851, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:04:00",
+    "maxDelay": "00:06:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "vesper-skeletal-knight 18"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "bb48dc49-96c6-5242-83fd-662c48d4038a",
+    "name": "Vesper graveyard mummy",
+    "location": [2779, 844, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:04:00",
+    "maxDelay": "00:06:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "vesper-mummy 18"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "0abeed1d-c07f-57ac-a060-9eef572363ca",
+    "name": "Vesper graveyard north lich",
+    "location": [2745, 858, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:04:00",
+    "maxDelay": "00:06:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "spawnPositionMode": "Disabled",
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-lich 19"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "ae25aa71-6b49-5ab2-a5a3-41d1f419b824",
+    "name": "Vesper graveyard south lich",
+    "location": [2749, 861, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:04:00",
+    "maxDelay": "00:06:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "spawnPositionMode": "Disabled",
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-lich 19"}
+    ]
+  }
+]
