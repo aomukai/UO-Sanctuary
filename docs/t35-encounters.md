@@ -13,18 +13,18 @@ Each spawn saves its profile, base level, rolled life/attack rating/defense, gra
 | Grade | Resolved level | Composition | Mould chance |
 | --- | --- | --- | --- |
 | Ordinary | Base level | One creature | 0.1% |
-| Champion | Base +2, capped at 99 | 2–4; all but the last are regular Champions | 1% each |
+| Paragon | Base +2, capped at 99 | 2–4; all but the last are regular Paragons | 1% each |
 | Random unique | Base +3, capped at 99 | One boss and exactly five minions | 5% boss |
 | Minion | Base +3, capped at 99 | Wild cohort member; saved leader identity | 0.1% each |
 | Named super-unique | Authored base +3 | One named encounter | 10% |
 
-The random elite factory chooses champion versus unique packs at 20%/80%. Explicit staff spawning can select either. Groups preflight clear cells within six tiles and common line of sight; failed placement leaves no partial pack. Reload never creates replacement minions. Corpses from these new families are not revivable; the earlier graveyard resurrection family remains separate.
+The random elite factory chooses Paragon versus unique packs at 20%/80%. Explicit staff spawning can select either. Groups preflight clear cells within six tiles and common line of sight; failed placement leaves no partial pack. Reload never creates replacement minions. Corpses from these new families are not revivable; the earlier graveyard resurrection family remains separate.
 
 Three named encounters reserve future boss reward hooks: **The Ossuary Warden** (97), **The Carrion Matriarch** (98), and **The Ashen Hierophant** (99). Their identities and signature modifiers are configurable. These are dungeon encounters, with no new act-boss system.
 
 ## Full elite roster
 
-Champion kinds are Champion, Ghostly, Fanatic, Berserker and Possessed. Random uniques select one/two/three distinct compatible modifiers in Normal/Nightmare/Hell; selection order is saved. Magic Resistant is excluded from random Normal rolls, and Multishot requires a missile family.
+Paragons can be regular, Ghostly, Fanatic, Berserker or Possessed. The `Champion` identifier remains in saves and balance data. Random uniques select one/two/three distinct compatible modifiers in Normal/Nightmare/Hell; selection order is saved. Magic Resistant is excluded from random Normal rolls, and Multishot requires a missile family.
 
 The roster includes Aura Enchanted, Cursed, Cold Enchanted, Extra Fast, Fire Enchanted, Lightning Enchanted, Magic Resistant, Mana Burn, Multishot, Spectral Hit, Stone Skin, Extra Strong and Teleport. Elemental additions, chill/poison, mana loss, Amplify Damage, reactive lightning and death bursts execute in combat. Possessed rejects curses. Added resistance bonuses cannot create a third immunity or increase one of two existing immunities. Existing immunities remain; Ghostly retains its explicit physical-resistance override. Grade and modifier formulas follow the [Arreat Summit monster bonuses](https://classic.battle.net/diablo2exp/monsters/bonus.shtml).
 
@@ -42,7 +42,7 @@ python3 tools/build_encounters.py --source-dir .local/research/foundation-pinned
 
 It retains positive and ordered negative Picks, NoDrop, weights, nested classes, level-based group upgrades outside Normal, inherited quality factors and fixed-point gold multipliers. Quality factors apply after the ordinary MF/minimum calculation. Existing ordinary treasure projections are unchanged.
 
-Champion trees reserve one gear/gold draw and two potion draws. Random unique trees reserve one item draw and four potion draws. Authored named bosses reserve two item draws and four potion draws, within six terminal outcomes. Unmapped outcomes and successful Set/Unique **item** rolls stay empty; they never reroll or substitute. This leaves their item-quality slots ready for later content. Real monster level supplies item level.
+Paragon trees reserve one gear/gold draw and two potion draws. Random unique trees reserve one item draw and four potion draws. Authored named bosses reserve two item draws and four potion draws, within six terminal outcomes. Unmapped outcomes and successful Set/Unique **item** rolls stay empty; they never reroll or substitute. This leaves their item-quality slots ready for later content. Real monster level supplies item level.
 
 Moulds remain one separate, MF-independent roll after ordinary treasure, sharing the saved reward-life claim with XP and gear. Minions use ordinary mould odds despite their increased XP/life. The dropped mould saves its encounter grade and uses the existing affix-frequency weights; levels 90–99 supply tier 8.
 
@@ -61,7 +61,7 @@ The selected skill/missile constants were checked against pinned `Skills.txt` an
 Examples (Game Master access; target clear ground within 12 tiles):
 
 ```text
-[SpawnEncounter crypt-sentinel-60 Nightmare Champion
+[SpawnEncounter crypt-sentinel-60 Nightmare Paragon
 [SpawnEncounter ossuary-archer-90 Hell Unique
 [SpawnEncounter ashen-hierophant Hell SuperUnique
 ```

@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
 using Server;
+using Server.Commands;
+using Server.Engines.Spawners;
 using Server.Items;
 using Server.Logging;
 using Server.Mobiles;
@@ -13,7 +15,62 @@ public static class FrontierChecks
 
     public static void Configure() =>
         ConsoleInputHandler.RegisterCommand("frontier-check", "Britannia frontier world and encounter checks",
-            _ => Core.LoopContext.Post(() => Step(CheckWorld)));
+            args => Core.LoopContext.Post(() => Step(args.Trim() switch
+            {
+                "deep-despise" => CheckDeepDespise,
+                "hedge-sight" => CheckHedgeMazeSight,
+                _ => CheckWorld
+            })));
+
+    private static void CheckHedgeMazeSight()
+    {
+        var map = Map.Trammel;
+        var start = new Point3D(1078, 2259, 0);
+        var across = new Point3D(1082, 2259, 0);
+        var lane = new Point3D(1079, 2259, 0);
+        Require(!EncounterProfiles.ClearSight(map, start, across)
+            && !EncounterProfiles.ClearSight(map, across, start)
+            && !EncounterProfiles.ClearSight(map, new(1082, 2254, 0), new(1082, 2256, 0)),
+            "Both orientations of baked hedge wall should block sight in either direction");
+        Require(EncounterProfiles.ClearSight(map, start, lane)
+            && map.LineOfSight(new Point3D(start.X, start.Y, 40), new Point3D(across.X, across.Y, 40)),
+            "Hedge cover should leave the open lane and upper floors clear");
+
+        var avatar = new PlayerMobile { Body = 0x190, Player = true, Name = "Hedge sight fixture" };
+        var gazer = new HedgeEncounter("hedge-gazer");
+        try
+        {
+            ClassCreation.Profiles.Assign(avatar, DiabloClass.Necromancer);
+            gazer.MoveToWorld(start, map);
+            avatar.MoveToWorld(across, map);
+            int life = avatar.Hits;
+            Require(!gazer.InLOS(avatar) && !avatar.InLOS(gazer) && !gazer.BeginFirebolt(avatar),
+                "A gazer could start casting across a hedge wall");
+
+            EliteBolts.Cast(gazer, avatar, CombatAbility.Lightning);
+            for (int step = 0; step < 4; step++)
+                EliteBolts.Tick();
+            Require(EliteBolts.Inspect(gazer).Length == 0 && avatar.Hits == life,
+                "An in-flight gazer bolt crossed the hedge");
+
+            avatar.MoveToWorld(lane, map);
+            Require(gazer.InLOS(avatar) && avatar.InLOS(gazer) && gazer.BeginFirebolt(avatar),
+                "The same gazer could not cast down a clear lane");
+        }
+        finally
+        {
+            gazer.Delete();
+            avatar.Delete();
+        }
+        _logger.Information("frontier-check hedge-sight: passed");
+    }
+
+    private static void CheckDeepDespise()
+    {
+        var map = Map.Trammel;
+        CheckDeepDespiseSpawns(map, World.Mobiles.Values.OfType<FrontierEncounter>().Where(m => m.Map == map).ToArray());
+        _logger.Information("frontier-check deep-despise: passed");
+    }
 
     private static void CheckWorld()
     {
@@ -55,11 +112,7 @@ public static class FrontierChecks
             && DespiseLighting.IsGlowingMushroom(item.X, item.Y, (ushort)item.ItemID, (ushort)item.Hue)).ToArray();
         Require(mushrooms.Length == 25 && mushrooms.Select(item => item.Location).Distinct().Count() == 25
             && mushrooms.Select(item => item.Hue).Distinct().Count() == 4, "Despise mushroom placement or palette");
-        var deep = encounters.Where(m => m.Dungeon.Id is FrontierEncounter.DespiseTroll or FrontierEncounter.DespiseOgre).ToArray();
-        var ogreLords = encounters.Where(m => m.Dungeon.Id == FrontierEncounter.DespiseOgreLord).ToArray();
-        Require(deep.Length == 20 && deep.All(m => m.Basis.Level is >= 20 and <= 25)
-            && ogreLords.Length == 3 && ogreLords.All(m => m.Grade == EncounterGrade.Champion && m.Basis.Level == 30
-                && EncounterTreasure.Root(m) == "Act 2 Champ B"), "Deep Despise population and champion loot");
+        CheckDeepDespiseSpawns(map, encounters);
         var dragon = encounters.Single(m => m.Dungeon.Id == "frontier-dragon");
         Require(dragon.Basis.Level == 30 && dragon.Modifiers.Length == 2 && dragon.FireResistance == 70,
             "Cindermaw's level, modifiers or fire resistance");
@@ -344,6 +397,64 @@ public static class FrontierChecks
                 });
             });
         });
+    }
+
+    private static void CheckDeepDespiseSpawns(Map map, FrontierEncounter[] encounters)
+    {
+        Require(encounters.Where(encounter => encounter.Dungeon.Id is FrontierEncounter.DespiseTroll
+                or FrontierEncounter.DespiseOgre or FrontierEncounter.DespiseOgreLord)
+            .All(encounter => encounter.Spawner is DespiseTroll or DespiseOgre or DespiseOgreLord),
+            "Deep Despise still has its preset encounters");
+        Require(Enumerable.Range(0, 100).Count(roll => FrontierEncounter.OgreLordGrade(roll) == EncounterGrade.Champion) == 10,
+            "Exactly 10% of Ogre Lords should be paragons");
+
+        CheckSpawner("despisetroll", FrontierEncounter.DespiseTroll, FrontierEncounter.DespiseHarpy, 24);
+        CheckSpawner("despiseogre", FrontierEncounter.DespiseOgre, FrontierEncounter.DespiseStoneHarpy, 26);
+        CheckSpawner("despiseogrelord", FrontierEncounter.DespiseOgreLord, FrontierEncounter.DespiseOgreMage, 28, 80, 20);
+
+        void CheckSpawner(string name, string first, string second, int minimumLevel, int firstWeight = 100, int secondWeight = 100)
+        {
+            var gm = new PlayerMobile { Name = "Despise fixture", AccessLevel = AccessLevel.GameMaster };
+            Spawner spawner = null;
+            try
+            {
+                var point = new Point3D(5407, 859, 45);
+                gm.MoveToWorld(point, map);
+                CommandSystem.Handle(gm, $"[Add {name}");
+                Require(gm.Target != null, $"[Add {name} did not request a target");
+                gm.Target.Invoke(gm, gm);
+                foreach (var placed in map.GetItemsAt<Spawner>(point))
+                    if (placed.Location == point && string.Equals(placed.Name, name, StringComparison.OrdinalIgnoreCase))
+                        spawner = placed;
+                Require(spawner != null, $"[Add {name} did not place a spawner");
+                spawner.Respawn();
+                spawner.Spawn();
+                Require(spawner.Spawned.Count == 1, $"{name} should keep one active monster");
+                Require(spawner.Entries.Count == 10, $"{name} should offer two variants at five levels");
+                for (int i = 0; i < spawner.Entries.Count; i++)
+                {
+                    Require(spawner.Entries[i].SpawnedProbability == (i % 2 == 0 ? firstWeight : secondWeight),
+                        $"{name} has the wrong weight for entry {i}");
+                    spawner.RemoveSpawns();
+                    Require(spawner.Spawn(i, out _), $"{name} could not spawn entry {i}");
+                    var monster = (FrontierEncounter)spawner.Spawned.Keys.Single();
+                    int level = minimumLevel + i / 2;
+                    string species = i % 2 == 0 ? first : second;
+                    Require(monster.Location == point && monster.EncounterPlayers == 5 && monster.Basis.Level == level
+                        && monster.Dungeon.Id == species, $"{name} spawned the wrong variant, level, floor, or difficulty");
+                    if (species == FrontierEncounter.DespiseOgreLord && monster.Grade == EncounterGrade.Champion)
+                        Require(monster.Name == "an ogre lord (Paragon)" && EncounterTreasure.Root(monster) == "Act 2 Champ B",
+                            "Paragon Ogre Lords should retain their loot tier and use the Paragon label");
+                    else
+                        Require(monster.Grade == EncounterGrade.Ordinary, $"{name} spawned an unexpected elite");
+                }
+            }
+            finally
+            {
+                spawner?.Delete();
+                gm.Delete();
+            }
+        }
     }
 
     private static void CheckPassage(PlayerMobile avatar, Point3D start, Direction direction, Point3D destination)

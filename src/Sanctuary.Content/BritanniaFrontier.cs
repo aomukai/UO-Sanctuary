@@ -38,9 +38,10 @@ public static class BritanniaFrontier
         InstallDespise(map);
         DespiseMushrooms.Install(map);
         DespiseStory.EnsureClue(map);
+        int retiredDespiseSpawns = DeepDespiseSpawns.RetirePresets();
         int despiseSpawns = GraveyardPopulation.InstallSpawners("despise-spawns.json");
         EnsureRoamingEttinUnique(map);
-        _logger.Information("Despise: installed {Count} population spawners", despiseSpawns);
+        _logger.Information("Despise: installed {Count} population spawners and retired {Retired} deep spawners", despiseSpawns, retiredDespiseSpawns);
 
         InstallSewerLadders(map);
 

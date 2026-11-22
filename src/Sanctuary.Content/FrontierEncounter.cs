@@ -28,6 +28,7 @@ public partial class FrontierEncounter : EncounterCreature
         Bogling = "fens-bogling", BogThing = "fens-bog-thing", PlagueBeast = "fens-plague-beast", SwampDragon = "fens-swamp-dragon";
     internal const string DespiseEttin = "despise-ettin", DespiseRatman = "despise-ratman";
     internal const string DespiseTroll = "despise-troll", DespiseOgre = "despise-ogre", DespiseOgreLord = "despise-ogre-lord";
+    internal const string DespiseHarpy = "despise-harpy", DespiseStoneHarpy = "despise-stone-harpy", DespiseOgreMage = "despise-ogre-mage";
     internal const string CampOgreId = "camp-ogre";
     private static readonly DungeonProfile _ogre =
         Species(DespiseOgre, "an ogre", MonsterArchetype.Tank, 20, 25, 1, 427, new(Physical: 15));
@@ -61,10 +62,14 @@ public partial class FrontierEncounter : EncounterCreature
         [DesertSnake] = Species(DesertSnake, "a snake", MonsterArchetype.Melee, 20, 25, 52, 0xDB, new(Poison: 35)),
         [DespiseEttin] = Species(DespiseEttin, "an ettin", MonsterArchetype.Tank, 18, 22, 18, 367, new(Physical: 10)),
         [DespiseRatman] = Species(DespiseRatman, "a ratman", MonsterArchetype.Melee, 12, 16, 42, 437, new()),
-        [DespiseTroll] = Species(DespiseTroll, "a troll", MonsterArchetype.Melee, 20, 25, 53, 461, new(Physical: 10)),
-        [DespiseOgre] = _ogre,
+        [DespiseTroll] = Species(DespiseTroll, "a troll", MonsterArchetype.Melee, 20, 28, 53, 461, new(Physical: 10)),
+        [DespiseHarpy] = Species(DespiseHarpy, "a harpy", MonsterArchetype.Melee, 24, 28, 30, 402, new()),
+        [DespiseOgre] = _ogre with { MaximumLevel = 30 },
+        [DespiseStoneHarpy] = Species(DespiseStoneHarpy, "a stone harpy", MonsterArchetype.Tank, 26, 30, 73, 402, new(Physical: 45)),
         [CampOgreId] = _ogre with { Id = CampOgreId, MinimumLevel = 24, MaximumLevel = 28 },
-        [DespiseOgreLord] = Species(DespiseOgreLord, "an ogre lord", MonsterArchetype.Tank, 28, 28, 83, 427, new(Physical: 20)),
+        // Paragons at level 28 still need a base profile at level 26.
+        [DespiseOgreLord] = Species(DespiseOgreLord, "an ogre lord", MonsterArchetype.Tank, 26, 32, 83, 427, new(Physical: 20)),
+        [DespiseOgreMage] = Species(DespiseOgreMage, "an ogre mage", MonsterArchetype.Caster, 28, 32, 83, 427, new(Physical: 15)),
         [Drake] = Species(Drake, "a drake", MonsterArchetype.Caster, 16, 22, 61, 362, new(Fire: 20)),
         [Wyvern] = Species(Wyvern, "a wyvern", MonsterArchetype.Melee, 16, 22, 62, 362, new(Poison: 70)),
         [Lizardman] = Species(Lizardman, "a lizardman", MonsterArchetype.Melee, 15, 25, 35, 417, new(Poison: 20)),
@@ -82,6 +87,7 @@ public partial class FrontierEncounter : EncounterCreature
     private long _infernoAfter;
 
     internal static DungeonProfile FindSpecies(string id) => id == null ? null : _species.GetValueOrDefault(id);
+    internal static EncounterGrade OgreLordGrade(int roll) => roll < 10 ? EncounterGrade.Champion : EncounterGrade.Ordinary;
     private static DungeonProfile Species(string id, string name, MonsterArchetype archetype, int min, int max, int body, int sound,
         CreatureResistances resistances) => new(id, id, name, archetype, "Britannia frontier", min, max, body, sound,
         new(resistances.Physical ?? 0, 0, resistances.Fire ?? 0, 0, resistances.Cold ?? 0, resistances.Poison ?? 0));
@@ -106,12 +112,12 @@ public partial class FrontierEncounter : EncounterCreature
             throw new ArgumentOutOfRangeException(nameof(modifierCount));
 
         const MonsterDifficulty difficulty = MonsterDifficulty.Normal;
-        var grade = rolledGrade ?? (id == Dragon ? EncounterGrade.SuperUnique : id == DespiseOgreLord ? EncounterGrade.Champion
+        var grade = rolledGrade ?? (id == Dragon ? EncounterGrade.SuperUnique : id == DespiseOgreLord ? OgreLordGrade(Utility.Random(100))
             : modifierCount > 0 ? EncounterGrade.Unique : EncounterGrade.Ordinary);
         int baseLevel = level - EncounterProfiles.Level(0, grade);
         if (rolledGrade.HasValue)
             baseLevel = Math.Max(baseLevel, profile.MinimumLevel);
-        int maxLevel = id is Dragon or DespiseOgreLord ? 30 : profile.MaximumLevel;
+        int maxLevel = id == Dragon ? EncounterProfiles.Level(profile.MaximumLevel, grade) : profile.MaximumLevel;
         int encounterLevel = EncounterProfiles.Level(baseLevel, grade);
         if (baseLevel < profile.MinimumLevel || baseLevel > profile.MaximumLevel || encounterLevel > maxLevel)
             throw new ArgumentOutOfRangeException(nameof(level));
@@ -124,7 +130,6 @@ public partial class FrontierEncounter : EncounterCreature
             Drake when modifierCount > 0 => "the drake broodkeeper",
             Wyvern when modifierCount > 0 => "the wyvern broodkeeper",
             DespiseEttin when modifierCount > 0 => "an ettin warlord",
-            DespiseOgreLord => "an ogre lord champion",
             _ => null
         };
         Assign(profile, baseLevel, difficulty, grade, ChampionKind.Champion, modifiers, aura, name, Random.Shared);
@@ -143,6 +148,8 @@ public partial class FrontierEncounter : EncounterCreature
                 Hue = Utility.RandomSnakeHue();
             else if (id == VesperSeaSerpent)
                 Hue = Utility.Random(0x530, 9);
+            else if (id == DespiseOgreMage)
+                Hue = 0x048D;
         }
         if (id == Lich)
             CantWalk = true;
@@ -164,7 +171,7 @@ public partial class FrontierEncounter : EncounterCreature
     private bool VesperSeaCreature => Dungeon.Id is VesperSeaSerpent or VesperKraken;
 
     private bool PlayersFive => Dungeon.Id is Drake or Wyvern or Dragon or DespiseEttin or DespiseRatman
-        or DespiseTroll or DespiseOgre or DespiseOgreLord;
+        or DespiseTroll or DespiseHarpy or DespiseOgre or DespiseStoneHarpy or DespiseOgreLord or DespiseOgreMage;
     private bool RestrictedRange => (PlayersFive && Dungeon.Id != Dragon) || Dungeon.Id == BridgeTroll
         || Dungeon.Id.StartsWith("fens-", StringComparison.Ordinal) || IsDesert(Dungeon.Id);
     private bool BritainCemeteryDead => (Dungeon.Id is Skeleton or Zombie) && HomeMap == Map.Trammel

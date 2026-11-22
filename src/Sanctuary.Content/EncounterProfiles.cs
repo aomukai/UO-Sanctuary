@@ -223,15 +223,27 @@ public static class EncounterProfiles
         { if (!mobile.Deleted && mobile.Alive && Math.Abs(mobile.Z - point.Z) < 16) { return false; } }
         return true;
     }
+    internal const string ParagonLabel = "Paragon";
+
+    private static bool TryParseGrade(string text, out EncounterGrade grade)
+    {
+        if (string.Equals(text, ParagonLabel, StringComparison.OrdinalIgnoreCase))
+        {
+            grade = EncounterGrade.Champion;
+            return true;
+        }
+        return Enum.TryParse(text, true, out grade);
+    }
+
     public static void Configure()
     {
         CommandSystem.Register("SpawnEncounter", AccessLevel.GameMaster, args =>
         {
             if (args.Length != 3 || !Enum.TryParse<MonsterDifficulty>(args.GetString(1), true, out var difficulty)
-                || !Enum.TryParse<EncounterGrade>(args.GetString(2), true, out var grade)
+                || !TryParseGrade(args.GetString(2), out var grade)
                 || !Enum.IsDefined(difficulty) || !Enum.IsDefined(grade) || grade == EncounterGrade.Minion
                 || !_profiles.ContainsKey(args.GetString(0)) && !_named.ContainsKey(args.GetString(0)))
-            { args.Mobile.SendMessage("Usage: [SpawnEncounter profile-or-name Normal|Nightmare|Hell Ordinary|Champion|Unique|SuperUnique"); return; }
+            { args.Mobile.SendMessage("Usage: [SpawnEncounter profile-or-name Normal|Nightmare|Hell Ordinary|Paragon|Unique|SuperUnique"); return; }
             args.Mobile.Target = new EncounterTarget(args.GetString(0), difficulty, grade);
         });
     }

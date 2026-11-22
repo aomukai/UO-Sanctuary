@@ -129,9 +129,9 @@ public partial class EncounterCreature : GraveyardUndead
         _rolledLife = roll.Life; _rolledAttack = roll.AttackRating; _rolledDefense = roll.Defense;
         _profile = null; EnsureProfile();
         Body = profile.Body; BaseSoundID = profile.Sound; RangeFight = Caster ? 10 : 1;
-        Name = name ?? (_grade == EncounterGrade.Champion ? $"{champion} {profile.Name}"
-            : _grade == EncounterGrade.Unique ? $"{profile.Name} the {new[] { "Ravager", "Accursed", "Unhallowed", "Dire" }[random.Next(4)]}"
+        string encounterName = name ?? (_grade == EncounterGrade.Unique ? $"{profile.Name} the {new[] { "Ravager", "Accursed", "Unhallowed", "Dire" }[random.Next(4)]}"
             : _grade == EncounterGrade.Minion ? $"{profile.Name} minion" : profile.Name);
+        Name = _grade == EncounterGrade.Champion ? ParagonName(encounterName) : encounterName;
         Hue = grade switch { EncounterGrade.Champion => 0x482, EncounterGrade.Unique or EncounterGrade.SuperUnique => 0x489, _ => 0 };
         CreatureProfiles.Session(this).Initialized = false; CreatureProfiles.Initialize(this); Hits = HitsMax;
     }
@@ -339,6 +339,12 @@ public partial class EncounterCreature : GraveyardUndead
         _inferno.Cancel();
         _shot.Cancel(); _shotTarget = null; _shotMap = null; base.StopCombatActions();
     }
+    public override void OnAfterSpawn()
+    {
+        base.OnAfterSpawn();
+        if (_grade == EncounterGrade.Champion)
+            Name = ParagonName(Name);
+    }
     public override void OnDelete()
     {
         EliteAuras.Forget(this); EliteBolts.Cancel(this); base.OnDelete();
@@ -346,13 +352,19 @@ public partial class EncounterCreature : GraveyardUndead
     public override void GetProperties(IPropertyList list)
     {
         base.GetProperties(list);
-        if (_grade == EncounterGrade.Champion) { list.Add($"{_champion}"); }
+        if (_grade == EncounterGrade.Champion && _champion != ChampionKind.Champion)
+            list.Add($"{_champion} {EncounterProfiles.ParagonLabel}");
         if (_grade != EncounterGrade.Minion)
         {
             foreach (var modifier in Modifiers) { list.Add(EncounterProfiles.ModifierLabel(modifier)); }
             if (_aura != EliteAura.None) { list.Add($"{"Aura: "}{_aura}"); }
         }
     }
+
+    private const string ParagonSuffix = " (" + EncounterProfiles.ParagonLabel + ")";
+
+    private static string ParagonName(string name) => name.EndsWith(ParagonSuffix, StringComparison.Ordinal) ? name : name + ParagonSuffix;
+
     [AfterDeserialization]
     private void RestoreEncounter()
     {
@@ -365,6 +377,13 @@ public partial class EncounterCreature : GraveyardUndead
             || _rolledAttack < basis.AttackRating.Min || _rolledAttack > basis.AttackRating.Max
             || _rolledDefense < basis.Defense.Min || _rolledDefense > basis.Defense.Max)
         { throw new InvalidDataException("Invalid saved encounter identity."); }
+        if (_grade == EncounterGrade.Champion)
+        {
+            string name = Name;
+            if (name == $"{_champion} {dungeon.Name}" || name == $"{dungeon.Name} champion")
+                name = dungeon.Name;
+            Name = ParagonName(name);
+        }
         if (RollMissingModifiersOnLoad && Modifiers.Length == 0)
         {
             _modifiers = EncounterProfiles.RollModifiers(dungeon, _difficulty, Random.Shared);

@@ -24,7 +24,7 @@ Reconciled 20 October 2026 (JST) from [the completed replies](economy-open-quest
 | Monster grade | Mould drop chance |
 | --- | ---: |
 | Ordinary | 0.1% |
-| Champion | 1% |
+| Paragon | 1% |
 | Unique random boss with minions | 5% |
 | Named dungeon super-unique | 10% |
 
