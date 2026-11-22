@@ -37,11 +37,15 @@ public static class StatNetwork
     private static void ReceiveCompanion(NetState net, SpanReader reader)
     {
         if (net.Mobile is not PlayerMobile owner || reader.Remaining != CompanionStatProtocol.RequestLength - 5
-            || reader.ReadByte() != CompanionStatProtocol.Version || !_sessions.TryGetValue(owner.Serial, out var session)
+            || !_sessions.TryGetValue(owner.Serial, out var session)
             || session.Version != StatProtocol.Version)
         {
             return;
         }
+
+        byte version = reader.ReadByte();
+        if (version is not (CompanionStatProtocol.Version or CompanionStatProtocol.LegacyVersion))
+            return;
 
         var request = (CompanionStatRequest)reader.ReadByte();
         switch (request)
@@ -70,7 +74,7 @@ public static class StatNetwork
         if (request == CompanionStatRequest.OpenSheet)
             companion.DisplayPaperdollTo(owner);
         else
-            CompanionCharacterStats.Send(net, companion, build, level);
+            CompanionCharacterStats.Send(net, companion, build, level, version);
     }
     private static void Receive(NetState state, SpanReader reader)
     {

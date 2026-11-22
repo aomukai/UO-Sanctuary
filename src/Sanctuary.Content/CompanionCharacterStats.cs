@@ -8,6 +8,11 @@ namespace Sanctuary;
 
 internal static class CompanionCharacterStats
 {
+    private static readonly CombatAbility[] _iolo = [CombatAbility.MagicArrow, CombatAbility.ColdArrow, CombatAbility.GuidedArrow];
+    private static readonly CombatAbility[] _wolfgang = [CombatAbility.IronSkin, CombatAbility.Shout, CombatAbility.SwordMastery, CombatAbility.HolyShield];
+    private static readonly CombatAbility[] _merydwen = [CombatAbility.GuidedArrow, CombatAbility.InnerSight, CombatAbility.Strafe, CombatAbility.Dodge, CombatAbility.Avoid, CombatAbility.Evade];
+    private static readonly CombatAbility[] _nightwind = [CombatAbility.GuidedArrow, CombatAbility.MultipleShot, CombatAbility.Dodge, CombatAbility.Avoid, CombatAbility.Evade];
+
     internal static int[] Snapshot(BaseCreature companion, IClassCompanion build, int level)
     {
         var weapon = companion.Weapon as BaseWeapon;
@@ -31,17 +36,77 @@ internal static class CompanionCharacterStats
         ];
     }
 
-    internal static void Send(NetState net, BaseCreature companion, IClassCompanion build, int level)
+    internal static CompanionSkillStat[] Skills(BaseCreature companion, int level)
     {
-        var writer = new SpanWriter(stackalloc byte[CompanionStatProtocol.SnapshotLength]);
+        var abilities = companion switch
+        {
+            Iolo => _iolo,
+            Wolfgang => _wolfgang,
+            Nightwind => _nightwind,
+            Merydwen => _merydwen,
+            _ => []
+        };
+        var result = new CompanionSkillStat[abilities.Length];
+        for (int i = 0; i < abilities.Length; i++)
+        {
+            var ability = abilities[i];
+            var values = companion is Iolo ? Iolo.ShotValues(ability, level) : CompanionBuild.Values(ability, level);
+            result[i] = SkillStat(ability, values, level);
+        }
+        return result;
+    }
+
+    private static CompanionSkillStat SkillStat(CombatAbility ability, SkillValues values, int level)
+    {
+        int rank = values.Rank;
+        if (rank == 0)
+            return new(ability, 0, Iolo.ShotUnlockLevel(ability));
+
+        int Eval(string field) => (int)values.Eval(field);
+        int Duration() => Eval("auralencalc") * ActionTiming.FrameMs;
+        return ability switch
+        {
+            CombatAbility.IronSkin => new(ability, rank, Eval("passivecalc1")),
+            CombatAbility.Shout => new(ability, rank, Eval("aurastatcalc1"), Duration()),
+            CombatAbility.SwordMastery => new(ability, rank, Eval("passivecalc1"), Eval("passivecalc2"), Eval("passivecalc3")),
+            CombatAbility.HolyShield => new(ability, rank, HolyShields.DefensePercent(values), HolyShields.BlockBonus(values)),
+            CombatAbility.GuidedArrow => new(ability, rank, Eval("calc1")),
+            CombatAbility.InnerSight => new(ability, rank, -Eval("aurastatcalc1"), Duration()),
+            CombatAbility.Strafe => new(ability, rank, Eval("calc2"), AmazonStrafe.Count(values, 2, false), Eval("calc1")),
+            CombatAbility.MultipleShot => new(ability, rank, 1 + rank),
+            CombatAbility.Dodge or CombatAbility.Avoid or CombatAbility.Evade => new(ability, rank, AmazonAvoidance.CompanionChance(ability, level)),
+            CombatAbility.MagicArrow => new(ability, rank, Iolo.ArrowConversion(ability, rank), values.PhysicalDamage256(false) / 256, values.PhysicalDamage256(true) / 256),
+            CombatAbility.ColdArrow => new(ability, rank, Iolo.ArrowConversion(ability, rank), values.Damage256(false) / 256, values.Damage256(true) / 256),
+            _ => new(ability, rank)
+        };
+    }
+
+    internal static void Send(NetState net, BaseCreature companion, IClassCompanion build, int level, byte version)
+    {
+        bool includeSkills = version == CompanionStatProtocol.Version;
+        var skills = includeSkills ? Skills(companion, level) : [];
+        int length = CompanionStatProtocol.SnapshotLength + (includeSkills ? 1 + skills.Length * CompanionStatProtocol.SkillLength : 0);
+        var writer = new SpanWriter(stackalloc byte[length]);
         writer.Write((byte)0xBF);
-        writer.Write((ushort)CompanionStatProtocol.SnapshotLength);
+        writer.Write((ushort)length);
         writer.Write(CompanionStatProtocol.SubCommand);
-        writer.Write(CompanionStatProtocol.Version);
+        writer.Write(version);
         writer.Write(companion.Serial.Value);
         writer.Write((byte)build.EquipmentStyle);
         foreach (int value in Snapshot(companion, build, level))
             writer.Write(value);
+        if (includeSkills)
+        {
+            writer.Write((byte)skills.Length);
+            foreach (var skill in skills)
+            {
+                writer.Write((byte)skill.Ability);
+                writer.Write((byte)skill.Rank);
+                writer.Write(skill.First);
+                writer.Write(skill.Second);
+                writer.Write(skill.Third);
+            }
+        }
         net.Send(writer.Span);
     }
 }

@@ -30,12 +30,17 @@ public enum CompanionStatField
     AttackSpeed, RecoveryFrames, Fire, Cold, Poison, Lightning, BlockChance, DodgeChance, AvoidChance, EvadeChance, Count
 }
 
+public readonly record struct CompanionSkillStat(CombatAbility Ability, int Rank, int First = 0, int Second = 0, int Third = 0);
+
 public static class CompanionStatProtocol
 {
     public const ushort SubCommand = 0xFF;
-    public const byte Version = 1;
+    public const byte LegacyVersion = 1;
+    public const byte Version = 2;
     public const int RequestLength = 11;
     public const int Values = (int)CompanionStatField.Count;
     public const int SnapshotLength = 11 + Values * 4;
+    public const int SkillLength = 14;
+    public const int MaxSkills = 6;
     public const int ResistanceCap = 75;
 }

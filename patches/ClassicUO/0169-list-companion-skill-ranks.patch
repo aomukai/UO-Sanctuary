@@ -1,0 +1,205 @@
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
+@@ -180,8 +180,8 @@
+             RequestUpdateContents();
+         }
+ 
+-        internal void SetCompanionStats(CompanionEquipmentStyle style, int[] values) =>
+-            _companionStats?.SetCompanionStats(style, values);
++        internal void SetCompanionStats(CompanionEquipmentStyle style, int[] values, CompanionSkillStat[] skills, bool includesSkills) =>
++            _companionStats?.SetCompanionStats(style, values, skills, includesSkills);
+ 
+         private void FitSheet()
+         {
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryCharacterStats.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryCharacterStats.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryCharacterStats.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryCharacterStats.cs
+@@ -20,7 +20,10 @@
+     private readonly HitBox _attackTooltip;
+     private readonly HitBox _defenseTooltip;
+     private readonly uint _companion;
++    private readonly List<(Label Name, Label Rank, HitBox Hint)> _skillRows = new();
+     private (CompanionEquipmentStyle Style, int[] Values)? _companionStats;
++    private CompanionSkillStat[] _companionSkills = [];
++    private bool _supportsCompanionSkills;
+     private uint _nextCompanionPoll, _lastCompanionUpdate;
+     private uint _refresh;
+ 
+@@ -89,20 +92,29 @@
+         Row(left, 155, "Life", () => _companionStats.HasValue
+             ? $"{CompanionValue(CompanionStatField.Life)} / {CompanionValue(CompanionStatField.MaximumLife)}" : "—");
+ 
+-        Heading(left, 207, "Equipment rules");
+-        Row(left, 232, "Weapon", () => _companionStats?.Style switch
++        Row(left, 174, "Weapon", () => _companionStats?.Style switch
+         {
+             CompanionEquipmentStyle.Bow => "Bows",
+             CompanionEquipmentStyle.Crossbow => "Crossbows",
+             CompanionEquipmentStyle.Sword => "Swords",
+             _ => "—"
+         });
+-        Row(left, 252, "Armour", () => _companionStats?.Style switch
++        Row(left, 193, "Armour", () => _companionStats?.Style switch
+         {
+             CompanionEquipmentStyle.Bow or CompanionEquipmentStyle.Crossbow => "Light only",
+             CompanionEquipmentStyle.Sword => "Any weight",
+             _ => "—"
+         });
++
++        Heading(left, 217, "Skills");
++        for (int i = 0; i < CompanionStatProtocol.MaxSkills; i++)
++        {
++            int y = 243 + i * 18;
++            var name = Add(new Label("", true, TextHue, font: 1) { X = left, Y = y, IsVisible = false });
++            var rank = Add(new Label("", true, TextHue, font: 1) { Y = y, IsVisible = false });
++            var hint = Add(new HitBox(left, y, 158, 18, alpha: 0f) { IsVisible = false });
++            _skillRows.Add((name, rank, hint));
++        }
+ 
+         Heading(right, 70, "Combat");
+         Row(right, 98, "Weapon damage", () => _companionStats is { } stats && stats.Values[(int)CompanionStatField.DamageMax] > 0
+@@ -127,8 +139,14 @@
+ 
+     internal static void ReceiveCompanion(World world, ref StackDataReader reader)
+     {
+-        if (!world.InGame || world.Player == null || reader.Remaining != CompanionStatProtocol.SnapshotLength - 5
+-            || reader.ReadUInt8() != CompanionStatProtocol.Version)
++        if (!world.InGame || world.Player == null || reader.Remaining < CompanionStatProtocol.SnapshotLength - 5)
++            return;
++
++        byte version = reader.ReadUInt8();
++        bool includesSkills = version == CompanionStatProtocol.Version;
++        if (version is not (CompanionStatProtocol.Version or CompanionStatProtocol.LegacyVersion)
++            || (includesSkills ? reader.Remaining <= CompanionStatProtocol.SnapshotLength - 6
++                : reader.Remaining != CompanionStatProtocol.SnapshotLength - 6))
+             return;
+ 
+         uint serial = reader.ReadUInt32BE();
+@@ -141,22 +159,84 @@
+         var values = new int[CompanionStatProtocol.Values];
+         for (int i = 0; i < values.Length; i++)
+             values[i] = reader.ReadInt32BE();
+-        gump.SetCompanionStats(style, values);
+-    }
+-
+-    internal void SetCompanionStats(CompanionEquipmentStyle style, int[] values)
+-    {
+-        if (_lastCompanionUpdate == 0 && style == CompanionEquipmentStyle.Bow)
+-        {
+-            Heading(CompanionAttributesX, 277, "Avoidance");
+-            Row(CompanionAttributesX, 302, "Dodge", () => CompanionValue(CompanionStatField.DodgeChance, "%"));
+-            Row(CompanionAttributesX, 321, "Avoid", () => CompanionValue(CompanionStatField.AvoidChance, "%"));
+-            Row(CompanionAttributesX, 340, "Evade", () => CompanionValue(CompanionStatField.EvadeChance, "%"));
+-        }
++        int count = includesSkills ? reader.ReadUInt8() : 0;
++        if (count > CompanionStatProtocol.MaxSkills || reader.Remaining != count * CompanionStatProtocol.SkillLength)
++            return;
++
++        var skills = new CompanionSkillStat[count];
++        for (int i = 0; i < skills.Length; i++)
++        {
++            var ability = (CombatAbility)reader.ReadUInt8();
++            int rank = reader.ReadUInt8();
++            skills[i] = new(ability, rank, reader.ReadInt32BE(), reader.ReadInt32BE(), reader.ReadInt32BE());
++        }
++        gump.SetCompanionStats(style, values, skills, includesSkills);
++    }
++
++    internal void SetCompanionStats(CompanionEquipmentStyle style, int[] values, CompanionSkillStat[] skills, bool includesSkills)
++    {
+         _companionStats = (style, values);
+         _lastCompanionUpdate = Time.Ticks;
++        _supportsCompanionSkills |= includesSkills;
++        SetCompanionSkills(skills);
+         Refresh();
+     }
++
++    private void SetCompanionSkills(CompanionSkillStat[] skills)
++    {
++        if (skills.AsSpan().SequenceEqual(_companionSkills))
++            return;
++
++        _companionSkills = skills;
++        for (int i = 0; i < _skillRows.Count; i++)
++        {
++            var (name, rank, hint) = _skillRows[i];
++            name.IsVisible = rank.IsVisible = hint.IsVisible = i < skills.Length;
++            if (i >= skills.Length)
++                continue;
++
++            var skill = skills[i];
++            name.Text = SkillName(skill.Ability);
++            rank.Text = skill.Rank > 0 ? $"Rank {skill.Rank}" : $"Level {skill.First}";
++            rank.X = CompanionAttributesX + 158 - rank.Width;
++            string details = skill.Rank > 0 ? SkillDetails(skill) : $"Unlocks when Iolo reaches level {skill.First}.";
++            hint.SetTooltip($"{name.Text} · {rank.Text}\n{details}", 320);
++        }
++    }
++
++    private static string SkillName(CombatAbility ability) => ability switch
++    {
++        CombatAbility.MagicArrow => "Magic Arrow",
++        CombatAbility.ColdArrow => "Cold Arrow",
++        CombatAbility.GuidedArrow => "Guided Arrow",
++        CombatAbility.IronSkin => "Iron Skin",
++        CombatAbility.SwordMastery => "Sword Mastery",
++        CombatAbility.HolyShield => "Holy Shield",
++        CombatAbility.InnerSight => "Inner Sight",
++        CombatAbility.MultipleShot => "Multiple Shot",
++        _ => ability.ToString()
++    };
++
++    private static string SkillDetails(CompanionSkillStat skill) => skill.Ability switch
++    {
++        CombatAbility.IronSkin => $"Passive. Increases defense by {skill.First}%.",
++        CombatAbility.Shout => $"Gives Wolfgang and nearby allies +{skill.First}% defense for {Seconds(skill.Second)}. Can draw nearby enemies to him.",
++        CombatAbility.SwordMastery => $"Passive with a sword. +{skill.First}% attack rating, +{skill.Second}% damage, and a {skill.Third}% chance to deal double physical damage.",
++        CombatAbility.HolyShield => $"Always active with a usable shield. +{skill.First}% defense and +{skill.Second} percentage points of block chance, up to the 75% block cap.",
++        CombatAbility.Dodge => $"{skill.First}% chance to avoid a melee hit while standing still.",
++        CombatAbility.Avoid => $"{skill.First}% chance to avoid a missile while standing still.",
++        CombatAbility.Evade => $"{skill.First}% chance to avoid a melee hit or missile while moving.",
++        CombatAbility.GuidedArrow => $"Bypasses the attack rating roll and adds {skill.First}% physical damage.",
++        CombatAbility.InnerSight => $"Reduces the defense of nearby enemies by {skill.First} for {Seconds(skill.Second)}.",
++        CombatAbility.Strafe => $"Fires {skill.Second}–{skill.Third} arrows in succession, depending on how many enemies are in range. Physical damage modifier per arrow {skill.First:+0;-0;0}%.",
++        CombatAbility.MultipleShot => $"Fires at up to {skill.First} different enemies. Each arrow deals 75% of normal physical damage.",
++        CombatAbility.MagicArrow => $"Converts {skill.First}% of the shot's physical damage to magic and adds {Range(skill.Second, skill.Third)} physical damage.",
++        CombatAbility.ColdArrow => $"Chills the target, converts {skill.First}% of physical damage to cold, and adds {Range(skill.Second, skill.Third)} cold damage.",
++        _ => ""
++    };
++
++    private static string Seconds(int milliseconds) => $"{milliseconds / 1000.0:0.#} seconds";
++    private static string Range(int minimum, int maximum) => minimum == maximum ? minimum.ToString() : $"{minimum}–{maximum}";
+ 
+     private void PollCompanion()
+     {
+@@ -165,18 +245,23 @@
+ 
+         _nextCompanionPoll = Time.Ticks + StatProtocol.PollMs;
+         if (unchecked((int)(Time.Ticks - _lastCompanionUpdate)) >= StatProtocol.PollMs * 3)
++        {
+             _companionStats = null;
+-
+-        RequestCompanion(_companion, CompanionStatRequest.Snapshot);
+-    }
+-
+-    internal static void RequestCompanion(uint serial, CompanionStatRequest request)
++            SetCompanionSkills([]);
++        }
++
++        RequestCompanion(_companion, CompanionStatRequest.Snapshot, CompanionStatProtocol.Version);
++        if (!_supportsCompanionSkills)
++            RequestCompanion(_companion, CompanionStatRequest.Snapshot);
++    }
++
++    internal static void RequestCompanion(uint serial, CompanionStatRequest request, byte version = CompanionStatProtocol.LegacyVersion)
+     {
+         using var writer = new StackDataWriter(CompanionStatProtocol.RequestLength);
+         writer.WriteUInt8(0xBF);
+         writer.WriteUInt16BE(CompanionStatProtocol.RequestLength);
+         writer.WriteUInt16BE(CompanionStatProtocol.SubCommand);
+-        writer.WriteUInt8(CompanionStatProtocol.Version);
++        writer.WriteUInt8(version);
+         writer.WriteUInt8((byte)request);
+         writer.WriteUInt32BE(serial);
+         NetClient.Socket.Send(writer.BufferWritten);
