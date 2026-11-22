@@ -1,0 +1,71 @@
+diff --git a/Projects/UOContent/Commands/Object Creation/Add.cs b/Projects/UOContent/Commands/Object Creation/Add.cs
+index bfa6e9d..f8ba85e 100644
+--- a/Projects/UOContent/Commands/Object Creation/Add.cs	
++++ b/Projects/UOContent/Commands/Object Creation/Add.cs	
+@@ -2,6 +2,7 @@
+ using System.Collections.Generic;
+ using System.Diagnostics;
+ using System.Reflection;
++using Server.Engines.Spawners;
+ using Server.Gumps;
+ using Server.Items;
+ using Server.Text;
+@@ -400,6 +401,11 @@ public static object[] ParseValues(ParameterInfo[] paramList, ReadOnlySpan<strin
+                         if (built is Item item)
+                         {
+                             item.MoveToWorld(new Point3D(x, y, z), map);
++                            if (item is Spawner spawner && (realProps == null
++                                || !Array.Exists(realProps, prop => prop?.Name == nameof(Spawner.SpawnBounds))))
++                            {
++                                spawner.AnchorToPlacedFloor();
++                            }
+                         }
+                         else if (built is Mobile m)
+                         {
+diff --git a/Projects/UOContent/Engines/Spawners/Spawner.cs b/Projects/UOContent/Engines/Spawners/Spawner.cs
+index 184558e..b9c6acf 100644
+--- a/Projects/UOContent/Engines/Spawners/Spawner.cs
++++ b/Projects/UOContent/Engines/Spawners/Spawner.cs
+@@ -64,6 +64,42 @@ public Spawner(string spawnedName) : base(spawnedName)
+ 
+     public override Region Region => Region.Find(Location, Map);
+ 
++    private bool HasUnboundedHeight => _spawnBounds.Start.Z == -128 && _spawnBounds.Depth == 256;
++
++    internal void AnchorToPlacedFloor()
++    {
++        if (HasUnboundedHeight && IsHomeRangeStyle)
++        {
++            SetSpawnFloor();
++        }
++    }
++
++    private void SetSpawnFloor() => SpawnBounds = new Rectangle3D(
++        _spawnBounds.Start.X, _spawnBounds.Start.Y, Z, _spawnBounds.Width, _spawnBounds.Height, 1
++    );
++
++    public override void OnLocationChange(Point3D oldLocation)
++    {
++        bool followFloor = Z != oldLocation.Z && _spawnBounds.Depth == 1 && _spawnBounds.Start.Z == oldLocation.Z
++            && IsHomeRangeStyleAt(oldLocation);
++        base.OnLocationChange(oldLocation);
++        if (followFloor)
++        {
++            SetSpawnFloor();
++        }
++    }
++
++    public override Point3D GetSpawnPosition(ISpawnable spawned, Map map)
++    {
++        // Older point spawners could retain the default all-floor Z range.
++        if (spawned is Mobile && _spawnBounds.Width == 1 && HasUnboundedHeight && IsHomeRangeStyle)
++        {
++            return Location;
++        }
++
++        return base.GetSpawnPosition(spawned, map);
++    }
++
+     protected override bool SupportsSpiralScan => _useSpiralScan;
+ 
+     protected override Rectangle3D GetBoundsForSpawnAttempt() => SpawnBounds;

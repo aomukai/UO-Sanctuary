@@ -1,0 +1,66 @@
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuarySkillsGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuarySkillsGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuarySkillsGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuarySkillsGump.cs
+@@ -123,7 +123,7 @@
+         var flags = (TradeSkillSheetFlags)reader.ReadUInt8();
+         byte craft = reader.ReadUInt8();
+         bool managed = flags.HasFlag(TradeSkillSheetFlags.Managed);
+-        if ((flags & ~(TradeSkillSheetFlags.Managed | TradeSkillSheetFlags.WardrobeUnlocked)) != 0
++        if ((flags & ~(TradeSkillSheetFlags.Managed | TradeSkillSheetFlags.WardrobeUnlocked | TradeSkillSheetFlags.TamingUnlocked)) != 0
+             || craft != TradeSkillSheetProtocol.NoActiveCraft && (!managed || !TradeSkills.IsCraft(craft)))
+         {
+             return;
+@@ -132,10 +132,11 @@
+         Span<ushort> points = stackalloc ushort[TradeSkills.Count];
+         for (int i = 0; i < points.Length; i++)
+             points[i] = reader.ReadUInt16BE();
+-        sheet.Refresh(managed, flags.HasFlag(TradeSkillSheetFlags.WardrobeUnlocked), craft, points);
+-    }
+-
+-    private void Refresh(bool managed, bool unlocked, byte craft, ReadOnlySpan<ushort> points)
++        sheet.Refresh(managed, flags.HasFlag(TradeSkillSheetFlags.WardrobeUnlocked),
++            !managed || flags.HasFlag(TradeSkillSheetFlags.TamingUnlocked), craft, points);
++    }
++
++    private void Refresh(bool managed, bool unlocked, bool tamingUnlocked, byte craft, ReadOnlySpan<ushort> points)
+     {
+         _leftHeading.Text = managed ? "Active skills" : "Gathering";
+         _rightHeading.Text = managed ? "Other crafts" : "Crafting";
+@@ -148,6 +149,11 @@
+         int activeRow = 0, otherRow = 0;
+         foreach (var row in _sortedRows)
+         {
++            if (row.Id == TradeSkills.AnimalTaming && !tamingUnlocked)
++            {
++                row.IsVisible = false;
++                continue;
++            }
+             bool left = TradeSkills.IsGathering(row.Id) || row.Id == craft;
+             row.Place(left, !managed || left, left ? activeRow++ : otherRow++);
+         }
+@@ -167,6 +173,7 @@
+         private readonly Label _name;
+         private readonly Label _points;
+         private readonly Line _background;
++        private readonly SanctuarySheetButton _use;
+ 
+         public byte Id { get; }
+         public string SkillName => _name.Text;
+@@ -181,6 +188,8 @@
+             _background = Add(new Line(0, 0, Width, RowHeight - 3, 0xFF242F3E) { AcceptMouseInput = false });
+             _name = Add(new Label(name, true, TextHue, font: 1) { X = 8, Y = 2 });
+             _points = Add(new Label("", true, TextHue, font: 1) { Y = 2 });
++            if (id == TradeSkills.AnimalTaming)
++                _use = Add(new SanctuarySheetButton(181, 0, 37, "Use", () => GameActions.UseSkill(id), height: 17));
+         }
+ 
+         public void SetPoints(ushort tenths)
+@@ -189,7 +198,7 @@
+             if (!string.Equals(_points.Text, amount, StringComparison.Ordinal))
+             {
+                 _points.Text = amount;
+-                _points.X = Width - 8 - _points.Width;
++                _points.X = Width - (_use == null ? 8 : 48) - _points.Width;
+             }
+             _name.Alpha = _points.Alpha = tenths == 0 ? 0.50f : 1f;
+         }

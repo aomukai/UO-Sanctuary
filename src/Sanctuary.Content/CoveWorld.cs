@@ -58,6 +58,7 @@ public static class CoveWorld
         RetireTrainers(map);
         InstallCamps(map);
         GraveyardPopulation.InstallSpawners("cove-spawns.json");
+        GraveyardPopulation.InstallSpawners("cove-fort-spawns.json", relocate: true);
 
         Place(new(2285, 1208, 0), () => new CoveGuard(true), mobile => mobile.Name == "Thomas");
         Place(new(2285, 1211, 0), () => new CoveGuard(false), mobile => mobile.Name == "Rowan");

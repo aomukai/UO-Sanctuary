@@ -27,6 +27,8 @@ internal static class DoorwayTraversal
 
     internal static bool TryCross(PlayerMobile player, BaseDoor door, Direction direction, bool doubleClick = false)
     {
+        if (MountTravel.BlocksTravel(player))
+            return false;
         if (player is not { Alive: true, Deleted: false, Frozen: false, Paralyzed: false, DesignContext: null }
             || player.Map is not { } map || map == Map.Internal || ClassCombatHooks.MovementAllowed?.Invoke(player) == false
             || door is not { Deleted: false, Parent: null } || door.Map != map

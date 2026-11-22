@@ -1,0 +1,123 @@
+diff --git a/Projects/UOContent/Mobiles/ClassMountHooks.cs b/Projects/UOContent/Mobiles/ClassMountHooks.cs
+--- a/Projects/UOContent/Mobiles/ClassMountHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassMountHooks.cs
+@@ -17,6 +17,7 @@
+     public static Action<BaseMount> BeforeDeath { get; set; }
+     public static MountContextEntries ContextEntries { get; set; }
+     public static Func<BaseCreature, Mobile, bool> Feed { get; set; }
++    public static Action<PlayerMobile> TamingChanged { get; set; }
+     public static Func<Mobile, bool> CanUseTaming { get; set; }
+     public static Func<Mobile, BaseCreature, bool> CanTame { get; set; }
+     public static Func<Mobile, BaseCreature, double> TameSkill { get; set; }
+diff --git a/Projects/UOContent/Mobiles/PlayerMobile.cs b/Projects/UOContent/Mobiles/PlayerMobile.cs
+--- a/Projects/UOContent/Mobiles/PlayerMobile.cs
++++ b/Projects/UOContent/Mobiles/PlayerMobile.cs
+@@ -3922,6 +3922,8 @@
+ 
+         public override void OnSkillChange(SkillName skill, double oldBase)
+         {
++            if (skill == SkillName.AnimalTaming && !World.Loading)
++                ClassMountHooks.TamingChanged?.Invoke(this);
+             if (Young && SkillsTotal >= 4500)
+             {
+                 // You have successfully obtained a respectable skill level, and have outgrown your status as a young player!
+diff --git a/Projects/UOContent/Mobiles/BaseCreature.cs b/Projects/UOContent/Mobiles/BaseCreature.cs
+--- a/Projects/UOContent/Mobiles/BaseCreature.cs
++++ b/Projects/UOContent/Mobiles/BaseCreature.cs
+@@ -968,7 +968,8 @@
+         public virtual bool ReduceSpeedWithDamage => true;
+         public virtual bool IsSubdued => SubdueBeforeTame && Hits < HitsMax / 10;
+ 
+-        public virtual bool Commandable => ClassCombatHooks.PersistentMinion?.Invoke(this) != true;
++        public virtual bool Commandable => ClassCombatHooks.PersistentMinion?.Invoke(this) != true
++                                           && ClassMountHooks.Managed?.Invoke(this) != true;
+ 
+         public virtual Poison HitPoison => null;
+         public virtual double HitPoisonChance => 0.5;
+diff --git a/Projects/UOContent/Items/Construction/Doors/BaseDoor.cs b/Projects/UOContent/Items/Construction/Doors/BaseDoor.cs
+--- a/Projects/UOContent/Items/Construction/Doors/BaseDoor.cs
++++ b/Projects/UOContent/Items/Construction/Doors/BaseDoor.cs
+@@ -322,6 +322,8 @@
+ 
+     public virtual bool UseLocks() => true;
+ 
++    public override bool OnMoveOver(Mobile from) => ClassMountHooks.BlockTravel?.Invoke(from) != true && base.OnMoveOver(from);
++
+     public virtual void Use(Mobile from)
+     {
+         if (ClassMountHooks.BlockTravel?.Invoke(from) == true)
+diff --git a/Projects/UOContent/Items/Misc/PublicMoongate.cs b/Projects/UOContent/Items/Misc/PublicMoongate.cs
+--- a/Projects/UOContent/Items/Misc/PublicMoongate.cs
++++ b/Projects/UOContent/Items/Misc/PublicMoongate.cs
+@@ -584,6 +584,9 @@
+         }
+         else
+         {
++            if (ClassMountHooks.BlockTravel?.Invoke(from) == true)
++                return;
++
+             BaseCreature.TeleportPets(from, entry.Location, list.Map);
+ 
+             from.Combatant = null;
+diff --git a/Projects/UOContent/Mobiles/Monsters/SE/FireBeetle.cs b/Projects/UOContent/Mobiles/Monsters/SE/FireBeetle.cs
+--- a/Projects/UOContent/Mobiles/Monsters/SE/FireBeetle.cs
++++ b/Projects/UOContent/Mobiles/Monsters/SE/FireBeetle.cs
+@@ -1,4 +1,6 @@
+ using ModernUO.Serialization;
++using Server.Collections;
++using Server.ContextMenus;
+ using Server.Engines.Craft;
+ using Server.Items;
+ 
+@@ -75,6 +77,29 @@
+ 
+         public override bool OverrideBondingReqs() => true;
+ 
++        public override bool IsSnoop(Mobile from) =>
++            !PackAnimal.CheckAccess(this, from) && base.IsSnoop(from);
++
++        public override bool OnDragDrop(Mobile from, Item item)
++        {
++            if (ClassMountHooks.Managed?.Invoke(this) != true)
++                return base.OnDragDrop(from, item);
++            return CheckFeed(from, item) || PackAnimal.CheckAccess(this, from) && Backpack?.TryDropItem(from, item, true) == true;
++        }
++
++        public override bool CheckNonlocalDrop(Mobile from, Item item, Item target) =>
++            PackAnimal.CheckAccess(this, from);
++
++        public override bool CheckNonlocalLift(Mobile from, Item item) =>
++            PackAnimal.CheckAccess(this, from);
++
++        public override void GetContextMenuEntries(Mobile from, ref PooledRefList<ContextMenuEntry> list)
++        {
++            base.GetContextMenuEntries(from, ref list);
++            if (ClassMountHooks.Managed?.Invoke(this) == true)
++                PackAnimal.GetContextMenuEntries(this, from, ref list);
++        }
++
+         public override int GetAngerSound() => 0x21D;
+ 
+         public override int GetIdleSound() => 0x21D;
+diff --git a/Projects/UOContent/Mobiles/Vendors/NPC/AnimalTrainer.cs b/Projects/UOContent/Mobiles/Vendors/NPC/AnimalTrainer.cs
+--- a/Projects/UOContent/Mobiles/Vendors/NPC/AnimalTrainer.cs
++++ b/Projects/UOContent/Mobiles/Vendors/NPC/AnimalTrainer.cs
+@@ -28,6 +28,9 @@
+             SetSkill(SkillName.Veterinary, 65.0, 88.0);
+         }
+ 
++        public override bool IsActiveVendor => ClassMountHooks.StableInteraction == null;
++        public override bool CanTeach => ClassMountHooks.StableInteraction == null;
++
+         protected override List<SBInfo> SBInfos => m_SBInfos;
+ 
+         public override VendorShoeType ShoeType => Female ? VendorShoeType.ThighBoots : VendorShoeType.Boots;
+@@ -48,7 +51,7 @@
+ 
+         public override void AddCustomContextEntries(Mobile from, ref PooledRefList<ContextMenuEntry> list)
+         {
+-            if (from is PlayerMobile { Alive: true } pm)
++            if (ClassMountHooks.StableInteraction == null && from is PlayerMobile { Alive: true } pm)
+             {
+                 list.Add(new StableEntry());
+ 

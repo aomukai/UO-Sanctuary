@@ -1,0 +1,1802 @@
+[
+  {
+    "$type": "Spawner",
+    "guid": "80348304-f412-5470-a23f-d3f601482020",
+    "name": "Compassion north road bridge troll",
+    "location": [1866, 740, 6],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:03:00",
+    "maxDelay": "00:05:00",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "bridge-troll 15 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "8de33562-72d9-50fb-8026-457e9064510d",
+    "name": "Compassion watch Aldric",
+    "location": [1819, 728, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "CompassionWatch", "maxCount": 1, "probability": 100, "parameters": "0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "b02e373c-8ecd-5d35-aaa8-eaa5088258a7",
+    "name": "Compassion watch Tamsin",
+    "location": [1817, 727, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "CompassionWatch", "maxCount": 1, "probability": 100, "parameters": "1"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "40323d98-be53-5626-b20d-56ab5a6f7f79",
+    "name": "Compassion watch Leofric",
+    "location": [2060, 804, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "CompassionWatch", "maxCount": 1, "probability": 100, "parameters": "2"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "cf0e606e-71f4-55ae-9cea-e0a4a2f390aa",
+    "name": "Compassion watch Edda",
+    "location": [2068, 798, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "CompassionWatch", "maxCount": 1, "probability": 100, "parameters": "3"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "5a7d2638-a2aa-5727-b43e-aa5cf9813a3b",
+    "name": "Compassion watch Hugh",
+    "location": [2067, 815, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "CompassionWatch", "maxCount": 1, "probability": 100, "parameters": "4"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "0cf69962-eb25-54ae-9c1a-31d028543968",
+    "name": "Desert of Compassion roaming creature 01",
+    "location": [2035, 841, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-harpy 20"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "6d86495c-55c0-538b-92ad-044304bbfbad",
+    "name": "Desert of Compassion roaming creature 02",
+    "location": [1835, 822, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-snake 25"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "59b405c0-960f-5ca5-9ce9-536da87ef698",
+    "name": "Desert of Compassion roaming creature 03",
+    "location": [1854, 811, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-earth-elemental 24"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "0337dd2e-f8ea-5897-a613-751f4ac0a8bd",
+    "name": "Desert of Compassion roaming creature 04",
+    "location": [1868, 809, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-scorpion 24"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "7d2d05aa-2d93-55b3-ad4d-6964cd8668d4",
+    "name": "Desert of Compassion roaming creature 05",
+    "location": [1892, 816, 7],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-dull-copper-elemental 23"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "4be595d8-46f2-5e35-a2ce-cb7e727ab730",
+    "name": "Desert of Compassion roaming creature 06",
+    "location": [1911, 816, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-sand-vortex 22"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "ed4d1255-5e4b-5a7f-9988-e003ddb54c7c",
+    "name": "Desert of Compassion roaming creature 07",
+    "location": [1938, 814, 6],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-scorpion 22"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "0afb44d0-5c9b-58a4-be3d-e47c6610c643",
+    "name": "Desert of Compassion roaming creature 08",
+    "location": [1952, 810, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-harpy 21"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "4f6a4fc9-7a25-5bd6-ad25-42dae49c1e53",
+    "name": "Desert of Compassion roaming creature 09",
+    "location": [1986, 819, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-earth-elemental 20"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "64fbe451-12d3-5a99-9f0e-22370d9682b4",
+    "name": "Desert of Compassion roaming creature 10",
+    "location": [2008, 816, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-snake 20"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "d99c8662-1521-5001-ae7b-224976c9d083",
+    "name": "Desert of Compassion roaming creature 11",
+    "location": [2022, 814, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-dull-copper-elemental 25"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "5540f90b-dab7-50c3-9bf8-38982f2fb9b5",
+    "name": "Desert of Compassion roaming creature 12",
+    "location": [1821, 835, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-harpy 24"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "00e78dea-2190-55e2-be8d-3978d1fcdc61",
+    "name": "Desert of Compassion roaming creature 13",
+    "location": [1849, 834, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-harpy 24"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "3dbd2acb-7515-5f03-ab8d-f64095c3e2e7",
+    "name": "Desert of Compassion roaming creature 14",
+    "location": [1864, 841, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-snake 23"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "cbc59348-2351-5548-84d4-2a15b4aabace",
+    "name": "Desert of Compassion roaming creature 15",
+    "location": [1897, 833, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-earth-elemental 22"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "f976bfbd-037d-51cf-8220-518377d53125",
+    "name": "Desert of Compassion roaming creature 16",
+    "location": [1921, 830, 6],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-scorpion 22"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "703b7f90-8624-53aa-97a1-c69ffc1e5a7b",
+    "name": "Desert of Compassion roaming creature 17",
+    "location": [1935, 830, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-dull-copper-elemental 21"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "f03847ed-cabb-5b78-ad51-0ab8ecf82faf",
+    "name": "Desert of Compassion roaming creature 18",
+    "location": [1952, 831, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-sand-vortex 20"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "3631ba6c-bd86-593f-99f4-e03e14c8924b",
+    "name": "Desert of Compassion roaming creature 19",
+    "location": [1983, 838, 7],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-scorpion 20"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "e5d48541-03aa-56ec-9ed6-5a1ee6090248",
+    "name": "Desert of Compassion roaming creature 20",
+    "location": [2004, 835, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-harpy 25"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "91d19886-fbea-592a-affd-9cd0dfef37ff",
+    "name": "Desert of Compassion roaming creature 21",
+    "location": [2021, 839, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-earth-elemental 24"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "52260ab0-62f9-5607-b92c-175889ce889e",
+    "name": "Desert of Compassion roaming creature 22",
+    "location": [1819, 856, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-snake 24"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "3b8ae8cd-ef74-5120-9900-6b2744e7acf4",
+    "name": "Desert of Compassion roaming creature 23",
+    "location": [1850, 848, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-dull-copper-elemental 23"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "27d99d76-7ba5-5d13-b12c-5a1194a66220",
+    "name": "Desert of Compassion roaming creature 24",
+    "location": [1878, 848, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-harpy 22"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "a78db715-1b56-5dc9-a226-e222fc932fda",
+    "name": "Desert of Compassion roaming creature 25",
+    "location": [1892, 852, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-harpy 22"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "fa16ca2c-422e-508c-a4a6-60f38bc99ec8",
+    "name": "Desert of Compassion roaming creature 26",
+    "location": [1920, 862, 7],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-snake 21"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "8c1e6cfc-d3e7-5353-a72d-dbc94e9a71e2",
+    "name": "Desert of Compassion roaming creature 27",
+    "location": [1934, 853, 7],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-earth-elemental 20"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "ab08e155-bbf2-5ac6-b7e9-a465bdb46f94",
+    "name": "Desert of Compassion roaming creature 28",
+    "location": [1956, 860, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-scorpion 20"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "62f6574e-89e1-572a-b224-39e315418098",
+    "name": "Desert of Compassion roaming creature 29",
+    "location": [1984, 854, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-dull-copper-elemental 25"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "2c0cd32c-0edb-50ba-ae0d-ece16556713f",
+    "name": "Desert of Compassion roaming creature 30",
+    "location": [2003, 863, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-sand-vortex 24"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "c03eb8df-0e01-5a64-8eee-2e14a4dc513a",
+    "name": "Desert of Compassion roaming creature 31",
+    "location": [2026, 855, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-scorpion 24"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "ff8764db-812b-5fd0-8658-f63f25988a1f",
+    "name": "Desert of Compassion roaming creature 32",
+    "location": [1828, 871, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-harpy 23"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "c2b001fe-2f95-5bfd-a564-f4e4a1c0b54e",
+    "name": "Desert of Compassion roaming creature 33",
+    "location": [1840, 885, 6],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-earth-elemental 22"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "6dc51120-0805-5182-9d06-909217ae6e11",
+    "name": "Desert of Compassion roaming creature 34",
+    "location": [1892, 879, 6],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-snake 22"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "116bab60-b0c7-5da1-9cde-e8accdca7eba",
+    "name": "Desert of Compassion roaming creature 35",
+    "location": [1909, 881, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-dull-copper-elemental 21"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "7ac1384f-6033-57e1-b095-69b961a224e6",
+    "name": "Desert of Compassion roaming creature 36",
+    "location": [1929, 882, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-harpy 20"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "2c3ace56-e021-5919-800e-b82b175d71af",
+    "name": "Desert of Compassion roaming creature 37",
+    "location": [1959, 882, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-harpy 20"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "6e9cd736-0d59-5ffa-8633-cc5255def238",
+    "name": "Desert of Compassion roaming creature 38",
+    "location": [1976, 873, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-snake 25"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "47bdfffc-3cb1-53c3-ad9d-e0465b3a47b9",
+    "name": "Desert of Compassion roaming creature 39",
+    "location": [2003, 883, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-earth-elemental 24"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "88d0c832-338a-5e01-825b-0f183f6cd7a2",
+    "name": "Desert of Compassion roaming creature 40",
+    "location": [2018, 877, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-scorpion 24"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "c702478d-57a0-58c4-a16c-282994c03493",
+    "name": "Desert of Compassion roaming creature 41",
+    "location": [1819, 895, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-dull-copper-elemental 23"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "4594dc65-9c78-55b1-892c-586902edec42",
+    "name": "Desert of Compassion roaming creature 42",
+    "location": [1852, 899, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-sand-vortex 22"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "adeb20db-4d33-5f0d-aad6-1ecb4f9cb324",
+    "name": "Desert of Compassion roaming creature 43",
+    "location": [1872, 904, 7],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-scorpion 22"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "bbb6bc96-ed41-5734-b6af-c6b7bde90aac",
+    "name": "Desert of Compassion roaming creature 44",
+    "location": [1887, 902, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-harpy 21"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "995de9a0-3c12-50ba-8afa-54b26814a1af",
+    "name": "Desert of Compassion roaming creature 45",
+    "location": [1920, 907, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-earth-elemental 20"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "51071e1a-e18c-5f23-9a38-2852e8cf5323",
+    "name": "Desert of Compassion roaming creature 46",
+    "location": [1938, 906, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-snake 20"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "f43417fb-9232-5b05-8cec-f435be07f6f7",
+    "name": "Desert of Compassion roaming creature 47",
+    "location": [1955, 897, 7],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-dull-copper-elemental 25"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "3efce32f-5b14-5a34-a080-cfc4c66bbc20",
+    "name": "Desert of Compassion roaming creature 48",
+    "location": [1985, 895, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-harpy 24"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "15666949-e852-56f4-b3a6-31f55d210510",
+    "name": "Desert of Compassion roaming creature 49",
+    "location": [1822, 912, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-harpy 24"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "e8f63ae7-1200-57bb-bc13-bd2b358b4a73",
+    "name": "Desert of Compassion roaming creature 50",
+    "location": [1849, 914, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-snake 23"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "1c7af4c2-7e61-5ec2-950c-826c53318320",
+    "name": "Desert of Compassion roaming creature 51",
+    "location": [1870, 918, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-earth-elemental 22"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "0de915ef-4516-51e6-a1cb-ead38c5b08c6",
+    "name": "Desert of Compassion roaming creature 52",
+    "location": [1898, 924, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-scorpion 22"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "88ae3ee5-b75a-56a7-87de-51497a5ec511",
+    "name": "Desert of Compassion roaming creature 53",
+    "location": [1912, 921, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-dull-copper-elemental 21"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "3e6e9273-1f8b-5807-abce-832bb87a76bd",
+    "name": "Desert of Compassion roaming creature 54",
+    "location": [1932, 924, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-sand-vortex 20"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "9e7c8aa8-56e7-5a0f-9fd8-3b84f4d7f4de",
+    "name": "Desert of Compassion roaming creature 55",
+    "location": [1955, 923, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-scorpion 20"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "16cff25f-3825-55d7-8032-68902015f9f1",
+    "name": "Desert of Compassion roaming creature 56",
+    "location": [1971, 917, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-harpy 25"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "5d49c5b7-13d2-50aa-bc3b-a0a66cfeec43",
+    "name": "Desert of Compassion roaming creature 57",
+    "location": [1829, 941, 7],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-earth-elemental 24"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "284f1069-7bc7-5064-a073-e45432079a83",
+    "name": "Desert of Compassion roaming creature 58",
+    "location": [1844, 950, 7],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-snake 24"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "0241b268-4f51-569b-8f9b-c149454e99a6",
+    "name": "Desert of Compassion roaming creature 59",
+    "location": [1874, 951, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-dull-copper-elemental 23"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "042983cd-5380-5fd7-a8e6-66e1b8c39f5a",
+    "name": "Desert of Compassion roaming creature 60",
+    "location": [1891, 944, 7],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-harpy 22"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "f8ca6427-85a9-5350-b8cb-b82c3cca8e9e",
+    "name": "Desert of Compassion roaming creature 61",
+    "location": [1907, 939, 7],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-harpy 22"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "73c5aafb-4f1e-5350-ae47-669211804e84",
+    "name": "Desert of Compassion roaming creature 62",
+    "location": [1929, 947, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-snake 21"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "082d6756-a195-52b2-9c94-a7f146c8e32b",
+    "name": "Desert of Compassion roaming creature 63",
+    "location": [1948, 939, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-earth-elemental 20"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "ab7e6834-cdeb-5c2e-8b8e-45ba8f402a62",
+    "name": "Desert of Compassion roaming creature 64",
+    "location": [1823, 961, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-scorpion 20"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "fadf5871-34b8-5479-9fcc-a081bcca4e40",
+    "name": "Desert of Compassion roaming creature 65",
+    "location": [1845, 973, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-dull-copper-elemental 25"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "88a72169-36d4-5298-967b-dc8d8c5ab26c",
+    "name": "Desert of Compassion roaming creature 66",
+    "location": [1865, 965, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-sand-vortex 24"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "0413bd1a-1bd8-57a2-a187-6de233e7c693",
+    "name": "Desert of Compassion roaming creature 67",
+    "location": [1889, 964, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-scorpion 24"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "2ed53e54-8272-5ae1-8746-2d9f698d377e",
+    "name": "Desert of Compassion roaming creature 68",
+    "location": [1915, 960, -1],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "compassion-desert-harpy 23"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "fe1382e4-c6ee-55ff-9a45-48d729968e36",
+    "name": "Compassion swamp roaming creature 01",
+    "location": [2007, 952, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 15 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "23011749-8211-5276-a4d1-a732b930729e",
+    "name": "Compassion swamp roaming creature 02",
+    "location": [1995, 938, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-alligator 16 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "3cdc0c96-5f31-5114-a3a4-7925d49c4021",
+    "name": "Compassion swamp roaming creature 03",
+    "location": [2020, 928, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-slime 16 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "3a9e8a04-1c58-5c7e-9a96-40aaa489af86",
+    "name": "Compassion swamp roaming creature 04",
+    "location": [2043, 932, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bogling 17 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "72d8f0dd-687b-5f49-86f7-b1b84c9845f0",
+    "name": "Compassion swamp roaming creature 05",
+    "location": [2058, 938, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 18 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "de6e41ec-bf96-58bf-bafc-dc0ae3aea978",
+    "name": "Compassion swamp roaming creature 06",
+    "location": [1980, 965, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-alligator 19 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "8f641c24-09db-5dab-9c48-d2269f452c2f",
+    "name": "Compassion swamp roaming creature 07",
+    "location": [2021, 959, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-swamp-dragon 25 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "ad0d444b-e726-5b55-82aa-cd607fe11728",
+    "name": "Compassion swamp roaming creature 08",
+    "location": [2029, 945, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bog-thing 20 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "5cdf33d2-0c67-5f6c-81df-dba2faadff15",
+    "name": "Compassion swamp roaming creature 09",
+    "location": [2058, 954, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-slime 16 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "44b9618d-9d4d-5f53-a40b-945d9c07ee36",
+    "name": "Compassion swamp roaming creature 10",
+    "location": [2072, 965, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bogling 17 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "c07be1b8-43dd-51a7-8b2f-87412d15f016",
+    "name": "Compassion swamp roaming creature 11",
+    "location": [1972, 983, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 18 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "4aeab301-9b10-5aac-bc98-c0abe5413755",
+    "name": "Compassion swamp roaming creature 12",
+    "location": [1986, 981, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 22 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "4e23e3e5-4048-5ae0-a919-6bde5d5c7645",
+    "name": "Compassion swamp roaming creature 13",
+    "location": [2019, 984, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-swamp-dragon 25 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "e7a7f769-1703-5baa-9f93-82441d8d1037",
+    "name": "Compassion swamp roaming creature 14",
+    "location": [2033, 980, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-plague-beast 24 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "5737496a-6d3a-5dab-bef5-8269e0b52608",
+    "name": "Compassion swamp roaming creature 15",
+    "location": [2062, 980, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 20 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "2ceba6b7-34c4-5de2-8deb-c4fafd513e77",
+    "name": "Compassion swamp roaming creature 16",
+    "location": [2081, 980, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bogling 17 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "ad478c18-8124-5df5-b0e7-66b6bab23f20",
+    "name": "Compassion swamp roaming creature 17",
+    "location": [1968, 1005, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 18 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "5f1c5ff9-37a0-5775-a38e-f2ea62440cce",
+    "name": "Compassion swamp roaming creature 18",
+    "location": [1997, 998, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-plague-beast 23 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "f0249ff8-ca70-5105-a1fc-029b3a1b54b8",
+    "name": "Compassion swamp roaming creature 19",
+    "location": [2014, 998, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-swamp-dragon 25 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "76e7b756-2450-51a9-84ef-1262276d58d0",
+    "name": "Compassion swamp roaming creature 20",
+    "location": [2033, 994, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-plague-beast 24 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "393035c9-587d-58f5-9816-48c258335fba",
+    "name": "Compassion swamp roaming creature 21",
+    "location": [2053, 1006, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 25 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "f83691b4-6dc4-564f-9836-38e333c25811",
+    "name": "Compassion swamp roaming creature 22",
+    "location": [2085, 1004, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bogling 17 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "1c8c618b-d284-5560-baef-f22e455bc2ee",
+    "name": "Compassion swamp roaming creature 23",
+    "location": [1970, 1019, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 18 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "7308aa0a-a34b-5d88-8ba2-2957ec2abeda",
+    "name": "Compassion swamp roaming creature 24",
+    "location": [1999, 1022, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-plague-beast 23 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "0ef209fd-2911-54e1-8717-cd5ea935c9cc",
+    "name": "Compassion swamp roaming creature 25",
+    "location": [2021, 1014, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-swamp-dragon 25 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "88d99c2b-e43a-50d7-ad28-6138a3060511",
+    "name": "Compassion swamp roaming creature 26",
+    "location": [2032, 1028, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-plague-beast 24 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "594cdc7b-30be-5ace-ad66-40f37e1faf75",
+    "name": "Compassion swamp roaming creature 27",
+    "location": [2051, 1028, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 25 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "cd875e1d-1733-5b3f-a0ee-91f301783d3d",
+    "name": "Compassion swamp roaming creature 28",
+    "location": [2082, 1018, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bog-thing 21 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "43a2af27-1669-5d9f-adae-7da8b8d1d190",
+    "name": "Compassion swamp roaming creature 29",
+    "location": [2102, 1019, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 18 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "acce0711-5de1-52f5-9dcc-97faee8e9e5d",
+    "name": "Compassion swamp roaming creature 30",
+    "location": [1975, 1038, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 22 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "ff4863d9-b493-5873-9df1-fc1d14e04102",
+    "name": "Compassion swamp roaming creature 31",
+    "location": [1997, 1044, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bogling 19 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "acad462a-72e0-5190-906d-67515d3cd058",
+    "name": "Compassion swamp roaming creature 32",
+    "location": [2013, 1045, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-plague-beast 24 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "6f02dab2-ed69-5246-b339-dadf95a03087",
+    "name": "Compassion swamp roaming creature 33",
+    "location": [2029, 1045, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 25 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "a70ac41d-4ef7-5f69-8618-139872f46b42",
+    "name": "Compassion swamp roaming creature 34",
+    "location": [2054, 1050, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bog-thing 24 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "821a324c-f48c-5fa4-9175-4a9129299353",
+    "name": "Compassion swamp roaming creature 35",
+    "location": [2074, 1043, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-plague-beast 22 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "82a1a1b6-d95d-5bc4-9599-9f0e6ddecdd2",
+    "name": "Compassion swamp roaming creature 36",
+    "location": [2092, 1041, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-alligator 19 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "7b4129b3-7cfa-5c0e-8752-87cdbc1c6048",
+    "name": "Compassion swamp roaming creature 37",
+    "location": [1977, 1055, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 15 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "fa63e8af-b14e-5dd6-8259-ac633c3af16e",
+    "name": "Compassion swamp roaming creature 38",
+    "location": [1999, 1059, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-alligator 16 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "e1095bc2-8ade-565e-8796-e8b672e8bf88",
+    "name": "Compassion swamp roaming creature 39",
+    "location": [2013, 1059, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 20 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "5a5f9592-185f-5ffe-9971-18b9e210e34d",
+    "name": "Compassion swamp roaming creature 40",
+    "location": [2040, 1071, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bog-thing 21 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "2b0614d8-4f96-5c27-9bdd-549d39fe72a1",
+    "name": "Compassion swamp roaming creature 41",
+    "location": [2058, 1070, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-plague-beast 22 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "8a84ac59-c125-5e1b-85cc-af80b66379d4",
+    "name": "Compassion swamp roaming creature 42",
+    "location": [2076, 1071, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-alligator 19 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "e10d746f-7d9b-5d30-b3ca-1ed200f46f7c",
+    "name": "Compassion swamp roaming creature 43",
+    "location": [2013, 1076, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-lizardman 15 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "f7515138-130c-534a-ac3c-32c4bcd48ee3",
+    "name": "Compassion swamp roaming creature 44",
+    "location": [2036, 1085, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-alligator 16 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "82a5f644-9251-57c2-86d8-3ca3995ea644",
+    "name": "Compassion swamp roaming creature 45",
+    "location": [2051, 1094, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-slime 16 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "49905123-2941-53b7-bd29-e96ae4dd7ccd",
+    "name": "Compassion swamp roaming creature 46",
+    "location": [2071, 1085, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:01:00",
+    "maxDelay": "00:01:45",
+    "homeRange": 0,
+    "walkingRange": 3,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "fens-bogling 17 0"}
+    ]
+  }
+]

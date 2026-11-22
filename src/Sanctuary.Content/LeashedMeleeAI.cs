@@ -8,7 +8,7 @@ namespace Sanctuary;
 // Wild project mobs keep their spawner home; guardians retain their own pet AI.
 public enum MonsterApproachPhase { Idle, Hesitating, Wandering, Pursuing, Melee, Returning }
 
-public sealed class LeashedMeleeAI : MeleeAI
+public class LeashedMeleeAI : MeleeAI
 {
     public const int HomeRadius = 24;
     public const int ChaseTimeoutMs = 12000;
@@ -160,8 +160,10 @@ public sealed class LeashedMeleeAI : MeleeAI
             Action = ActionType.Combat;
             return DoActionCombat();
         }
-        return base.DoActionWander();
+        return HandleIdleMovement() || base.DoActionWander();
     }
+
+    protected virtual bool HandleIdleMovement() => false;
 
     public override bool DoActionGuard() => UsesSpecies ? DoActionWander() : base.DoActionGuard();
 

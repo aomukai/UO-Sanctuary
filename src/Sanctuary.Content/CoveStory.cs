@@ -47,7 +47,7 @@ public partial class CoveGuard : ConversationNpc
         AddItem(new Boots());
     }
 
-    internal override byte Portrait => PortraitProtocol.ThomasPortrait;
+    internal override ushort Portrait => PortraitProtocol.ThomasPortrait;
     internal override IReadOnlyList<ScriptedDialogue.Node> Script => _report;
     internal override bool CanTalkTo(PlayerMobile player) => Name == "Thomas";
 
@@ -83,7 +83,7 @@ public partial class MayorJaana : ConversationNpc
     private static readonly ScriptedDialogue.Reply _letter = new("The Messenger's Letter", 0, (player, speaker) => ((MayorJaana)speaker).ReadLetter(player));
     private static readonly ScriptedDialogue.Reply _ferry = new("The Ferry", 2);
     private static readonly ScriptedDialogue.Reply _orcs = new("The Orcs", 1);
-    internal override byte Portrait => PortraitProtocol.JaanaPortrait;
+    internal override ushort Portrait => PortraitProtocol.JaanaPortrait;
     internal override IReadOnlyList<ScriptedDialogue.Node> Script => [];
 
     internal override void BeginConversation(PlayerMobile player)
@@ -185,7 +185,7 @@ public partial class CoveFerry : ConversationNpc
         AddItem(new Boots());
     }
 
-    internal override byte Portrait => PortraitProtocol.CoveFerrymanPortrait;
+    internal override ushort Portrait => PortraitProtocol.CoveFerrymanPortrait;
     internal override IReadOnlyList<ScriptedDialogue.Node> Script => _waiting;
     internal override void BeginConversation(PlayerMobile player) =>
         ScriptedDialogue.Show(player, this, Unlocked(player) ? _destinations : _waiting);
@@ -253,7 +253,7 @@ public partial class CoveCrier : ConversationNpc
         }
     }
 
-    internal override byte Portrait => PortraitProtocol.PerrinPortrait;
+    internal override ushort Portrait => PortraitProtocol.PerrinPortrait;
     internal override IReadOnlyList<ScriptedDialogue.Node> Script => _news;
 }
 

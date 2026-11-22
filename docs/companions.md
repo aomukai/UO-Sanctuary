@@ -118,3 +118,11 @@ The server saves the roster with the character. Keep an active companion slot an
 The existing care preparation already enforces one active mercenary contract per character. Its retirement operation consumes unused healing doses and retains gear for owner recovery. Lodging a companion at the inn needs its own reversible transition. Reconcile death, resurrection, and when independent story beats advance when designing the full companion loop. [Mercenary care preparation](t46-mercenary-preparation.md)
 
 On a community shard, decide how duplicate personal recruits appear to other players. A possible presentation gives the owner the companion’s name and other players a generic description. Verify that story attendance, equipment, and roster transitions stay tied to the right character.
+
+## Nightwind
+
+Nightwind's introduction begins with Vael, the vampire found among the cultists near Yew. He kept Rainsong's last letter and his wedding ring for thirty years, then tried to lure the Avatar close enough to become his next victim. The Avatar can bring the letter to Empath Abbey and return the ring to Nightwind in Heartwood. She can teach Animal Taming independently of joining the party.
+
+A later personal story can begin in another city where people have gone missing. One victim was brought to a doctor barely alive, died before the examination, then stood up and walked out. Hearing the account prompts Nightwind to ask the Avatar to investigate. She wants to find whoever turned her father, and the disappearances can lead into a wider conspiracy.
+
+The ring and letter leave a question that drives her investigation. How much of Vael remained in the creature the Avatar met? Nightwind may want the keepsakes to mean that he still loved his family. The same man kept them and lied to the Avatar, and the evidence can support more than one reading.

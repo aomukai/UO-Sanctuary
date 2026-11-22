@@ -41,9 +41,13 @@ public static class BritanniaFrontier
 
         int spawners = GraveyardPopulation.InstallSpawners("britannia-frontier-spawns.json", relocate: true, refreshCounts: true);
         spawners += GraveyardPopulation.InstallSpawners("southern-britannia-spawns.json", relocate: true, refreshCounts: true);
+        spawners += GraveyardPopulation.InstallSpawners("compassion-frontier-spawns.json");
         spawners += GraveyardPopulation.InstallSpawners("vesper-graveyard-spawns.json");
+        spawners += GraveyardPopulation.InstallSpawners("vesper-coast-spawns.json");
+        spawners += GraveyardPopulation.InstallSpawners("west-orc-fort-spawns.json", relocate: true);
         CovetousPassages.Install(map);
         spawners += GraveyardPopulation.InstallSpawners("covetous-spawns.json");
+        HedgeMazeStory.Install(map);
         _logger.Information("Britannia frontier: installed {Scenery} decorations and {Spawners} spawners", scenery, spawners);
     }
 
@@ -174,6 +178,6 @@ public partial class FrontierSentry : ConversationNpc
         AddItem(new Boots());
     }
 
-    internal override byte Portrait => (byte)(Female ? NpcPortrait.WatchGuardMara : NpcPortrait.WatchGuardDuncan);
+    internal override ushort Portrait => (byte)(Female ? NpcPortrait.WatchGuardMara : NpcPortrait.WatchGuardDuncan);
     internal override IReadOnlyList<ScriptedDialogue.Node> Script => _warning;
 }

@@ -58,6 +58,7 @@ public static partial class TownMarkets
                 || string.IsNullOrWhiteSpace(site.Town) || site.X < 0 || site.Y < 0 || string.IsNullOrWhiteSpace(site.Source))
             { throw new InvalidDataException("Invalid market site."); }
         }
+        LoadTrainerPortraits();
         _supplies.Clear(); _candidates.Clear(); _sellInfos.Clear();
         Supplies = BalanceCatalog.Read<MarketSupply>("market-supplies");
         foreach (var row in Supplies)

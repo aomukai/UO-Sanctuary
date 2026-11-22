@@ -5,6 +5,7 @@ using System.Linq;
 using ModernUO.Serialization;
 using Server;
 using Server.Items;
+using Server.Mobiles;
 
 namespace Sanctuary;
 
@@ -18,10 +19,19 @@ public partial class FrontierEncounter : EncounterCreature
     private const string Ettin = "frontier-ettin", Drake = "frontier-drake", Wyvern = "frontier-wyvern", Dragon = "frontier-dragon";
     internal const string BoulderEttinId = "boulder-ettin";
     private const string BridgeTroll = "bridge-troll";
+    private const string VesperSeaSerpent = "vesper-sea-serpent", VesperKraken = "vesper-kraken";
+    private const string Desert = "compassion-desert-";
+    private const string DesertCopper = Desert + "dull-copper-elemental", DesertEarth = Desert + "earth-elemental",
+        DesertHarpy = Desert + "harpy", DesertVortex = Desert + "sand-vortex",
+        DesertScorpion = Desert + "scorpion", DesertSnake = Desert + "snake";
     private const string Lizardman = "fens-lizardman", Alligator = "fens-alligator", Slime = "fens-slime",
         Bogling = "fens-bogling", BogThing = "fens-bog-thing", PlagueBeast = "fens-plague-beast", SwampDragon = "fens-swamp-dragon";
     internal const string DespiseEttin = "despise-ettin", DespiseRatman = "despise-ratman";
     internal const string DespiseTroll = "despise-troll", DespiseOgre = "despise-ogre", DespiseOgreLord = "despise-ogre-lord";
+    internal const string CampOgreId = "camp-ogre";
+    private static readonly DungeonProfile _ogre =
+        Species(DespiseOgre, "an ogre", MonsterArchetype.Tank, 20, 25, 1, 427, new(Physical: 15));
+
     private static readonly Dictionary<string, DungeonProfile> _species = new(StringComparer.Ordinal)
     {
         [Skeleton] = Species(Skeleton, "a skeleton", MonsterArchetype.Melee, 12, 20, 50, 451, new(Poison: 50)),
@@ -34,13 +44,26 @@ public partial class FrontierEncounter : EncounterCreature
             new(Physical: 15, Poison: 50)),
         [Mummy] = Species(Mummy, "a mummy", MonsterArchetype.Tank, 15, 18, 154, 471, new(Poison: 50)),
         [Ettin] = Species(Ettin, "an ettin", MonsterArchetype.Tank, 14, 20, 18, 367, new(Physical: 10)),
-        [BoulderEttinId] = Species(BoulderEttinId, "a boulder-throwing ettin", MonsterArchetype.Tank, 14, 18, 18, 367,
-            new(Physical: 10)),
+        [BoulderEttinId] = Species(BoulderEttinId, "an ettin", MonsterArchetype.Tank, 14, 18, 18, 367, new(Physical: 10)),
         [BridgeTroll] = Species(BridgeTroll, "a troll", MonsterArchetype.Melee, 15, 15, 53, 461, new(Physical: 10)),
+        [VesperSeaSerpent] = Species(VesperSeaSerpent, "a sea serpent", MonsterArchetype.Caster, 15, 27, 150, 447,
+            new(Physical: 25, Fire: 50, Cold: 35, Poison: 30)),
+        [VesperKraken] = Species(VesperKraken, "a kraken", MonsterArchetype.Tank, 20, 30, 77, 353,
+            new(Physical: 45, Fire: 30, Cold: 35, Poison: 20)),
+        [DesertCopper] = Species(DesertCopper, "a dull copper elemental", MonsterArchetype.Tank, 20, 25, 110, 268,
+            new(Physical: 35, Fire: 35)),
+        [DesertEarth] = Species(DesertEarth, "an earth elemental", MonsterArchetype.Tank, 20, 25, 14, 268,
+            new(Physical: 20)),
+        [DesertHarpy] = Species(DesertHarpy, "a harpy", MonsterArchetype.Melee, 20, 25, 30, 402, new()),
+        [DesertVortex] = Species(DesertVortex, "a sand vortex", MonsterArchetype.Melee, 20, 25, 790, 263,
+            new(Physical: 70, Fire: 60, Cold: 60, Poison: 60)),
+        [DesertScorpion] = Species(DesertScorpion, "a scorpion", MonsterArchetype.Melee, 20, 25, 48, 397, new(Poison: 45)),
+        [DesertSnake] = Species(DesertSnake, "a snake", MonsterArchetype.Melee, 20, 25, 52, 0xDB, new(Poison: 35)),
         [DespiseEttin] = Species(DespiseEttin, "an ettin", MonsterArchetype.Tank, 18, 22, 18, 367, new(Physical: 10)),
         [DespiseRatman] = Species(DespiseRatman, "a ratman", MonsterArchetype.Melee, 12, 16, 42, 437, new()),
         [DespiseTroll] = Species(DespiseTroll, "a troll", MonsterArchetype.Melee, 20, 25, 53, 461, new(Physical: 10)),
-        [DespiseOgre] = Species(DespiseOgre, "an ogre", MonsterArchetype.Tank, 20, 25, 1, 427, new(Physical: 15)),
+        [DespiseOgre] = _ogre,
+        [CampOgreId] = _ogre with { Id = CampOgreId, MinimumLevel = 24, MaximumLevel = 28 },
         [DespiseOgreLord] = Species(DespiseOgreLord, "an ogre lord", MonsterArchetype.Tank, 28, 28, 83, 427, new(Physical: 20)),
         [Drake] = Species(Drake, "a drake", MonsterArchetype.Caster, 16, 22, 61, 362, new(Fire: 20)),
         [Wyvern] = Species(Wyvern, "a wyvern", MonsterArchetype.Melee, 16, 22, 62, 362, new(Poison: 70)),
@@ -57,7 +80,6 @@ public partial class FrontierEncounter : EncounterCreature
     };
 
     private long _infernoAfter;
-    private TimerExecutionToken _inferno;
 
     internal static DungeonProfile FindSpecies(string id) => id == null ? null : _species.GetValueOrDefault(id);
     private static DungeonProfile Species(string id, string name, MonsterArchetype archetype, int min, int max, int body, int sound,
@@ -69,11 +91,11 @@ public partial class FrontierEncounter : EncounterCreature
     {
     }
 
-    // Vesper's spawners roll a fresh species and grade for each vacancy.
+    // These spawners roll a new grade for each vacancy and share one elite slot per area.
     [Constructible]
     public FrontierEncounter(string id, int level) : this(
         id == VesperUndead ? _vesperGraveyardUndead[Utility.Random(_vesperGraveyardUndead.Length)] : id,
-        level, 0, RollVesperGrade())
+        level, 0, RollPopulationGrade(id))
     {
     }
 
@@ -106,38 +128,57 @@ public partial class FrontierEncounter : EncounterCreature
             _ => null
         };
         Assign(profile, baseLevel, difficulty, grade, ChampionKind.Champion, modifiers, aura, name, Random.Shared);
+        if (VesperSeaCreature)
+        {
+            CanSwim = true;
+            CantWalk = true;
+        }
         if (grade == EncounterGrade.Ordinary)
         {
             if (id == Spectre)
                 Hue = 0x4001;
             else if (id == Wraith)
                 Hue = 0x04E3;
+            else if (id == DesertSnake)
+                Hue = Utility.RandomSnakeHue();
+            else if (id == VesperSeaSerpent)
+                Hue = Utility.Random(0x530, 9);
         }
         if (id == Lich)
             CantWalk = true;
         ApplyPerception();
     }
 
-    private static EncounterGrade RollVesperGrade()
+    private static EncounterGrade RollPopulationGrade(string species)
     {
         int roll = Utility.Random(100);
+        bool desert = IsDesert(species);
         if (roll >= 10 || World.Mobiles.Values.OfType<FrontierEncounter>().Any(mob =>
-            !mob.Deleted && mob.Alive && mob.Grade is (EncounterGrade.Champion or EncounterGrade.Unique) && mob.VesperGraveyardDead))
+            !mob.Deleted && mob.Alive && mob.Grade is (EncounterGrade.Champion or EncounterGrade.Unique)
+            && (desert ? IsDesert(mob.Dungeon.Id) : mob.VesperGraveyardDead)))
             return EncounterGrade.Ordinary;
         return roll < 3 ? EncounterGrade.Unique : EncounterGrade.Champion;
     }
 
+    private static bool IsDesert(string id) => id?.StartsWith(Desert, StringComparison.Ordinal) == true;
+    private bool VesperSeaCreature => Dungeon.Id is VesperSeaSerpent or VesperKraken;
+
     private bool PlayersFive => Dungeon.Id is Drake or Wyvern or Dragon or DespiseEttin or DespiseRatman
         or DespiseTroll or DespiseOgre or DespiseOgreLord;
     private bool RestrictedRange => (PlayersFive && Dungeon.Id != Dragon) || Dungeon.Id == BridgeTroll
-        || Dungeon.Id.StartsWith("fens-", StringComparison.Ordinal);
+        || Dungeon.Id.StartsWith("fens-", StringComparison.Ordinal) || IsDesert(Dungeon.Id);
     private bool BritainCemeteryDead => (Dungeon.Id is Skeleton or Zombie) && HomeMap == Map.Trammel
         && Home.X is >= 1373 and <= 1409 && Home.Y is >= 1476 and <= 1505;
     private bool VesperGraveyardDead => Undead && HomeMap == Map.Trammel
         && Home.X is >= 2742 and <= 2782 && Home.Y is >= 840 and <= 894;
     internal override int EncounterPlayers => PlayersFive ? 5 : 3;
-    internal override int HomeLeashRadius => BritainCemeteryDead || VesperGraveyardDead ? 7 : RestrictedRange ? 10 : base.HomeLeashRadius;
+    internal override int HomeLeashRadius => VesperSeaCreature ? 12 : BritainCemeteryDead || VesperGraveyardDead ? 7
+        : RestrictedRange ? 10 : base.HomeLeashRadius;
     public override int AcquireOnApproachRange => Math.Min(base.AcquireOnApproachRange, RangePerception);
+
+    public override bool IsEnemy(Mobile mobile) => mobile != null
+        && (!VesperSeaCreature || Controlled || Summoned || Utility.InRange(Home, mobile.Location, HomeLeashRadius))
+        && base.IsEnemy(mobile);
 
     public override void OnAfterSpawn()
     {
@@ -150,10 +191,12 @@ public partial class FrontierEncounter : EncounterCreature
     {
         if (BritainCemeteryDead || VesperGraveyardDead)
             RangePerception = 5;
+        else if (VesperSeaCreature)
+            RangePerception = 10;
         else if (RestrictedRange)
             RangePerception = 7;
     }
-    protected override ResistanceType MeleeElement => Dungeon.Id is Wyvern or Slime or BogThing or PlagueBeast
+    protected override ResistanceType MeleeElement => Dungeon.Id is Wyvern or Slime or BogThing or PlagueBeast or DesertScorpion or DesertSnake
         ? ResistanceType.Poison : base.MeleeElement;
     private bool Undead => Dungeon.Id is Skeleton or Zombie or Lich or Spectre or Wraith or Ghoul or SkeletalKnight or Mummy;
     public override bool BleedImmune => Undead;
@@ -167,7 +210,7 @@ public partial class FrontierEncounter : EncounterCreature
         Ettin or DespiseEttin => "an ettin's corpse",
         DespiseRatman => "a ratman's corpse",
         BridgeTroll or DespiseTroll => "a troll's corpse",
-        DespiseOgre => "an ogre's corpse",
+        DespiseOgre or CampOgreId => "an ogre's corpse",
         DespiseOgreLord => "an ogre lord's corpse",
         Drake => "a drake's corpse",
         Wyvern => "a wyvern's corpse",
@@ -191,61 +234,11 @@ public partial class FrontierEncounter : EncounterCreature
 
     public override bool BeginFirebolt(Mobile target)
     {
-        if (_inferno.Running)
-            return false;
-        if (Dungeon.Id is not (Drake or Dragon) || Core.TickCount < _infernoAfter || !ActionReady
-            || !EliteCombat.CanAct(this) || CreatureHitRecovery.Remaining(this) > 0
-            || !EliteCombat.Enemy(this, target, 5) || target.X == X && target.Y == Y)
-            return base.BeginFirebolt(target);
-
-        var origin = Location;
-        var map = Map;
-        int dx = target.X - X, dy = target.Y - Y;
-        int distance = Math.Max(Math.Abs(dx), Math.Abs(dy));
-        double stepX = dx / (double)distance, stepY = dy / (double)distance;
-        _infernoAfter = Core.TickCount + 7500;
-        StartAction(target);
-        Direction = GetDirectionTo(target);
-        Animate(4, 5, 1, true, false, 0);
-        int phase = 0;
-        Timer.StartTimer(TimeSpan.FromMilliseconds(520), TimeSpan.FromMilliseconds(180), 4,
-            () => InfernoPulse(map, origin, stepX, stepY, phase++), out _inferno);
-        return true;
-    }
-
-    private void InfernoPulse(Map map, Point3D origin, double stepX, double stepY, int phase)
-    {
-        if (Map != map || Location != origin || ReturningHome || !EliteCombat.CanAct(this)
-            || !NamedControl.SpecialAllowed(this) || CreatureHitRecovery.Remaining(this) > 0)
+        if (Dungeon.Id is (Drake or Dragon) && Core.TickCount >= _infernoAfter && BeginInferno(target))
         {
-            _inferno.Cancel();
-            return;
+            _infernoAfter = Core.TickCount + 7500;
+            return true;
         }
-        if (phase == 0)
-            PlaySound(SpellEffectSounds.InfernoJet);
-
-        var previous = origin;
-        var attack = EncounterProfile.Attack1;
-        int graphic = SorceressVisuals.DirectionalFrame(SpellEffectGraphics.InfernoFlight, stepX, stepY, phase);
-        for (int i = 1; i <= 5; i++)
-        {
-            var point = new Point3D(origin.X + (int)Math.Round(stepX * i), origin.Y + (int)Math.Round(stepY * i), origin.Z);
-            if (!EncounterProfiles.ClearSight(map, previous, point))
-                break;
-
-            Effects.SendLocationEffect(point, map, graphic, SpellEffectGraphics.FireFrames);
-            foreach (var target in map.GetMobilesInRange<Mobile>(point, 0))
-            {
-                if (EliteCombat.Enemy(this, target, 5))
-                    EliteCombat.Damage(this, target, fire: Utility.RandomMinMax(attack.MinDamage.Value, attack.MaxDamage.Value) / 3.0);
-            }
-            previous = point;
-        }
-    }
-
-    internal override void StopCombatActions()
-    {
-        _inferno.Cancel();
-        base.StopCombatActions();
+        return base.BeginFirebolt(target);
     }
 }

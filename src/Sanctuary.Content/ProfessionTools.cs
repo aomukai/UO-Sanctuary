@@ -47,7 +47,7 @@ public partial class ProfessionInstructor : BaseVendor, IScriptedSpeaker
     internal bool UsesDialogueTraining =>
         TownMarkets.Profiles?.Find(Serial)?.Site != null && TownMarkets.Role(this) is { } role && TownMarkets.Skill(role) != null;
 
-    byte IScriptedSpeaker.Portrait => Female ? (byte)0 : (byte)2;
+    ushort IScriptedSpeaker.Portrait => TownMarkets.PortraitOf(this);
     bool IScriptedSpeaker.CanTalkTo(PlayerMobile player) => UsesDialogueTraining && ClassProfessions.Affected(player);
 
     void IScriptedSpeaker.BeginConversation(PlayerMobile player)

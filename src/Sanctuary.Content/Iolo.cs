@@ -25,7 +25,7 @@ public partial class Iolo : ConversationNpc, IClassCompanion
     DiabloClass IClassCompanion.CombatClass => CombatClass;
     public override bool IsInvulnerable => !Recruited;
     public override bool CanRegenMana => false;
-    internal override byte Portrait => 11;
+    internal override ushort Portrait => (ushort)NpcPortrait.Iolo;
     internal override IReadOnlyList<ScriptedDialogue.Node> Script => _introduction;
 
     private long _nextSpecialShot = long.MinValue;

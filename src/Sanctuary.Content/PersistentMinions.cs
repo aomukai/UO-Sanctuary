@@ -234,7 +234,7 @@ public static class PersistentMinions
         using var snapshot = PooledRefList<BaseCreature>.Create();
         foreach (var follower in followers)
             if (follower is BaseCreature { Deleted: false, Map: not null } pet && pet.GetMaster() == owner
-                && pet.Map != Map.Internal && !pet.IsStabled && (pet.Alive || pet.IsDeadBondedPet))
+                && pet.Map != Map.Internal && !pet.IsStabled && !MountTravel.Managed(pet) && (pet.Alive || pet.IsDeadBondedPet))
                 snapshot.Add(pet);
 
         foreach (var pet in snapshot)

@@ -123,6 +123,11 @@ public static class ClassLoot
         {
             case LootRequest.Open:
                 var corpse = World.FindItem(serial) as Corpse;
+                if (corpse != null && MountTaming.OfferRaise(from, corpse))
+                {
+                    ClassCombat.Stop(from);
+                    break;
+                }
                 if (corpse is { OwnerWasBaseCreature: false })
                 {
                     session.Open = false;

@@ -60,7 +60,7 @@ public partial class AyilaInn : ConversationNpc
         AddItem(new Shoes(0x0455));
     }
 
-    internal override byte Portrait => PortraitProtocol.AyilaPortrait;
+    internal override ushort Portrait => PortraitProtocol.AyilaPortrait;
     internal override IReadOnlyList<ScriptedDialogue.Node> Script => _script;
 
     private void SayTo(PlayerMobile player, string line) =>
@@ -163,6 +163,7 @@ public partial class AyilaInn : ConversationNpc
     {
         Iolo => "It is good to see thee again, my friend. Quite a tale thou hast brought back. Give me a moment for my crossbow, and we shall be on our way.",
         Wolfgang => "I think I've got it. I should have taken notes, but I was listening. Just let me fetch my shield and I'm ready.",
+        Nightwind => "I am glad thou hast come. My bow is close at hand.",
         Merydwen => "I leave you alone for a little while and you come back with a story like that. Right, let me get my bow.",
         _ => "I'm glad to see thee again. Thank thee for bringing me up to date. Shall we set out?"
     };

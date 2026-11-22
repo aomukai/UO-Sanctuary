@@ -47,9 +47,11 @@ public static class ProfessionPowerScrolls
             previous = tier.MinimumLevel;
         }
         Settings = row;
-        _skills = new SkillName[TradeSkills.Count]; int index = 0;
+        _skills = new SkillName[TradeSkills.Count - 1]; int index = 0;
         foreach (byte skill in TradeSkills.Crafting) { _skills[index++] = (SkillName)skill; }
-        foreach (byte skill in TradeSkills.Gathering) { _skills[index++] = (SkillName)skill; }
+        foreach (byte skill in TradeSkills.Gathering)
+            if ((SkillName)skill != SkillName.AnimalTaming)
+                _skills[index++] = (SkillName)skill;
         Array.Sort(_skills);
     }
     public static void Configure()

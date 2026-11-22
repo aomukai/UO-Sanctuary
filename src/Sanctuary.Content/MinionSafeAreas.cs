@@ -17,7 +17,7 @@ internal static class MinionSafeAreas
         &&SpellHelper.IsTown(owner.Location,owner);
     internal static bool Candidate(PlayerMobile owner,BaseCreature pet)=>pet is{Deleted:false,Alive:true}
         &&pet.ControlMaster==owner&&PersistentMinions.Behavior(pet)!=null&&!MercenaryCare.IsCompanion(owner,pet);
-    internal static bool ShouldPark(PlayerMobile owner,BaseCreature pet)=>Candidate(owner,pet)&&Contains(owner);
+    internal static bool ShouldPark(PlayerMobile owner,BaseCreature pet)=>Candidate(owner,pet)&&(owner.Mounted||Contains(owner));
     internal static bool Parked(BaseCreature pet)=>pet is{Deleted:false,Map:not null}&&pet.Map==Map.Internal
         &&pet.ControlMaster is PlayerMobile owner&&Candidate(owner,pet)
         &&PersistentMinions.Profiles?.Find(pet) is{Parked:true} state&&state.Owner==owner.Serial.Value;
@@ -40,7 +40,8 @@ internal static class MinionSafeAreas
             return;
         waiting.RemoveWhere(serial => World.FindMobile(serial) is not BaseCreature { Alive: true, Deleted: false });
         if (newlyParked && waiting.Count == 1)
-            owner.SendMessage("Your minions await outside town. They will return when you leave the guarded area.");
+            owner.SendMessage(owner.Mounted ? "Your minions will return when you are on foot outside town."
+                : "Your minions await outside town. They will return when you leave the guarded area.");
     }
 
     internal static void Returned(PlayerMobile owner, BaseCreature pet)
@@ -56,7 +57,7 @@ internal static class MinionSafeAreas
     private static void LocationChanged(Mobile mobile)
     {
         if(World.Loading||mobile is not PlayerMobile{Alive:true,Deleted:false} owner){return;}
-        if(Contains(owner))
+        if(owner.Mounted||Contains(owner))
         {
             using var pets=PooledRefList<BaseCreature>.Create();
             foreach(var follower in owner.AllFollowers??[]){if(follower is BaseCreature pet){pets.Add(pet);}}

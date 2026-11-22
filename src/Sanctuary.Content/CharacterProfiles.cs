@@ -38,6 +38,7 @@ public sealed class CharacterProfiles : GenericPersistence
         internal bool IoloGreetedBritain;
         internal bool ReceivedIoloRunebook;
         internal bool WolfgangOpenedUp;
+        internal HedgeMazeProgress HedgeMaze;
         internal readonly Dictionary<DiabloClass, History> Classes = new();
     }
     private Dictionary<Serial, Character> _characters = new();
@@ -373,6 +374,17 @@ public sealed class CharacterProfiles : GenericPersistence
         return true;
     }
 
+    internal bool HasHedgeMazeProgress(Serial serial, HedgeMazeProgress flag) =>
+        _characters.TryGetValue(serial, out var character) && (character.HedgeMaze & flag) != 0;
+
+    internal bool AdvanceHedgeMaze(Serial serial, HedgeMazeProgress flag)
+    {
+        if (!_characters.TryGetValue(serial, out var character) || (character.HedgeMaze & flag) != 0)
+            return false;
+        character.HedgeMaze |= flag;
+        return true;
+    }
+
     internal bool GreetedBritain(Serial serial) =>
         _characters.TryGetValue(serial, out var character) && character.IoloGreetedBritain;
 
@@ -592,7 +604,7 @@ public sealed class CharacterProfiles : GenericPersistence
 
     public override void Serialize(IGenericWriter writer)
     {
-        writer.Write(12);
+        writer.Write(14);
         writer.Write(_characters.Count);
         var serials = new List<Serial>(_characters.Keys); serials.Sort();
         foreach (var serial in serials)
@@ -610,10 +622,11 @@ public sealed class CharacterProfiles : GenericPersistence
             writer.Write(character.VisitedHavenMine);
             writer.Write(character.DefeatedKrulg);
             writer.Write(character.KrulgWitness.Value);
-            writer.Write((ushort)character.BritainDiscoveries);
+            writer.Write((uint)character.BritainDiscoveries);
             writer.Write(character.IoloGreetedBritain);
             writer.Write(character.ReceivedIoloRunebook);
             writer.Write(character.WolfgangOpenedUp);
+            writer.Write((byte)character.HedgeMaze);
             writer.Write(character.Classes.Count);
             var classes = new List<DiabloClass>(character.Classes.Keys); classes.Sort();
             foreach (var id in classes) { WriteHistory(writer, character.Classes[id]); }
@@ -635,7 +648,7 @@ public sealed class CharacterProfiles : GenericPersistence
     public override void Deserialize(IGenericReader reader)
     {
         int version = reader.ReadInt();
-        if (version is < 0 or > 12) { throw new InvalidDataException($"Unsupported Sanctuary character data version {version}."); }
+        if (version is < 0 or > 14) { throw new InvalidDataException($"Unsupported Sanctuary character data version {version}."); }
         int count = reader.ReadInt();
         if (count is < 0 or > 1000000) { throw new InvalidDataException("Invalid Sanctuary character count."); }
         // Decode and validate the complete replacement before changing the loaded authority.
@@ -677,11 +690,26 @@ public sealed class CharacterProfiles : GenericPersistence
                     }
                     if (version >= 11)
                     {
-                        character.BritainDiscoveries = (StoryDiscoveries)(version >= 12 ? reader.ReadUShort() : reader.ReadByte());
+                        character.BritainDiscoveries = (StoryDiscoveries)(version switch
+                        {
+                            >= 14 => reader.ReadUInt(),
+                            >= 12 => reader.ReadUShort(),
+                            _ => reader.ReadByte()
+                        });
                         character.IoloGreetedBritain = reader.ReadBool();
                         character.ReceivedIoloRunebook = reader.ReadBool();
                         character.WolfgangOpenedUp = reader.ReadBool();
                     }
+                }
+                if (version >= 13)
+                {
+                    character.HedgeMaze = (HedgeMazeProgress)reader.ReadByte();
+                    const HedgeMazeProgress known = HedgeMazeProgress.PassageOpened | HedgeMazeProgress.DaemonBanished
+                        | HedgeMazeProgress.DaemonMet | HedgeMazeProgress.DaemonDefeated;
+                    if ((character.HedgeMaze & ~known) != 0)
+                        throw new InvalidDataException("Invalid Hedge Maze progress.");
+                    if (version == 13 && (character.HedgeMaze & HedgeMazeProgress.DaemonBanished) != 0)
+                        character.BritainDiscoveries |= StoryDiscoveries.HedgeOrvath;
                 }
                 int classes = reader.ReadInt();
                 if (classes < 1 || classes > Enum.GetValues<DiabloClass>().Length) { throw new InvalidDataException("Invalid class history count."); }

@@ -18,19 +18,14 @@ namespace Sanctuary;
 public static class ScriptedDialogue
 {
     internal sealed record Reply(string Text, byte Next, Action<PlayerMobile, Mobile> Select = null);
-    internal sealed record Voice(string Name, byte Portrait);
+    internal sealed record Voice(string Name, ushort Portrait);
     internal sealed record Node(string Line, Reply[] Replies, Voice Speaker = null);
-    private sealed record Session(Mobile Speaker, IReadOnlyList<Node> Script, byte Node, uint Token, long Until);
+    private sealed record Session(Mobile Speaker, IReadOnlyList<Node> Script, byte Node, uint Token, long Until,
+        Action<PlayerMobile, Mobile> Leave);
     private static readonly Dictionary<Serial, Session> _sessions = new();
     private static readonly HashSet<Serial> _ghostBriefed = new();
     private static uint _nextToken;
     private static ArrivalGuard _guard;
-    private static readonly Node[] _escrowBanker =
-    [
-        new("Some of thy belongings are being held here. Wouldst thou recover them, or dost thou wish to open thy bank box?",
-            [new("Bank", 0, (player, _) => OpenBank(player)),
-                new("Recover Belongings", 0, (player, banker) => CorpseEscrowGump.DisplayTo(player, (Banker)banker))])
-    ];
 
     public static void Configure()
     {
@@ -106,9 +101,13 @@ public static class ScriptedDialogue
         var legacy = Packet(8, PortraitProtocol.BritainDiscoveries, stackalloc byte[8]);
         legacy.Write((byte)flags);
         player.NetState?.Send(legacy.Span);
+        // Older clients read the two-byte snapshot. The four-byte snapshot carries newer journal entries.
         var discoveries = Packet(9, PortraitProtocol.WorldDiscoveries, stackalloc byte[9]);
         discoveries.Write((ushort)flags);
         player.NetState?.Send(discoveries.Span);
+        var expanded = Packet(11, PortraitProtocol.WorldDiscoveries, stackalloc byte[11]);
+        expanded.Write((uint)flags);
+        player.NetState?.Send(expanded.Span);
     }
 
     internal static void RecordDiscovery(PlayerMobile player, StoryDiscoveries flag)
@@ -170,6 +169,7 @@ public static class ScriptedDialogue
         if (choice == PortraitProtocol.Leave)
         {
             _sessions.Remove(player.Serial);
+            session.Leave?.Invoke(player, session.Speaker);
             return;
         }
 
@@ -187,7 +187,7 @@ public static class ScriptedDialogue
                 select(player, session.Speaker);
             }
             else
-                Show(player, session.Speaker, session.Script, reply.Next);
+                Show(player, session.Speaker, session.Script, reply.Next, session.Leave);
         }
     }
 
@@ -204,7 +204,7 @@ public static class ScriptedDialogue
             return;
 
         if (npc is not (IScriptedSpeaker or NewHavenHealer or Banker
-            or BaseVendor { IsActiveSeller: true } or BaseVendor { IsActiveBuyer: true }))
+            or AnimalTrainer or BaseHealer or BaseVendor { IsActiveSeller: true } or BaseVendor { IsActiveBuyer: true }))
         {
             ContextMenuSystem.ContextMenuRequest(state, targetReader);
             return;
@@ -227,13 +227,21 @@ public static class ScriptedDialogue
                 Open(player, npc);
                 break;
             case NewHavenHealer healer:
+                MountTravel.ResurrectNearHealer(player, healer);
                 healer.OnDoubleClick(player);
                 break;
             case Banker banker:
                 if (CorpseEscrow.CanUse(player, banker) && CorpseEscrow.Claims(player).Length > 0)
-                    Show(player, banker, _escrowBanker);
+                    CorpseEscrowGump.DisplayTo(player, banker);
                 else
                     OpenBank(player);
+                break;
+            case AnimalTrainer stablehand:
+                MountTravel.StableInteraction(player, stablehand);
+                break;
+            case BaseHealer healer:
+                if (!MountTravel.ResurrectNearHealer(player, healer))
+                    healer.OnDoubleClick(player);
                 break;
             case BaseVendor vendor:
                 if (tab == VendorShopTabs.Sell || tab == VendorShopTabs.None && !vendor.IsActiveSeller)
@@ -244,7 +252,7 @@ public static class ScriptedDialogue
         }
     }
 
-    private static void OpenBank(PlayerMobile player)
+    internal static void OpenBank(PlayerMobile player)
     {
         if (player.Criminal)
             player.SendLocalizedMessage(500378);
@@ -264,24 +272,38 @@ public static class ScriptedDialogue
         player.NetState?.Send(writer.Span);
     }
 
-    internal static void Show(PlayerMobile player, Mobile speaker, IReadOnlyList<Node> script, byte node = 0)
+    internal static void CloseForSpeaker(PlayerMobile player, Serial speaker)
     {
-        uint token = ++_nextToken;
+        if (_sessions.TryGetValue(player.Serial, out var session) && session.Speaker.Serial == speaker)
+            Close(player, session.Token);
+    }
+
+    internal static void Show(PlayerMobile player, Mobile speaker, IReadOnlyList<Node> script, byte node = 0,
+        Action<PlayerMobile, Mobile> onLeave = null)
+    {
         var page = script[node];
         var talkative = speaker as IScriptedSpeaker;
+        ushort portrait = page.Speaker?.Portrait ?? talkative?.Portrait
+            ?? throw new InvalidOperationException($"A dialogue portrait is required for {speaker.Name}.");
+        bool extendedPortrait = portrait > byte.MaxValue;
+        uint token = ++_nextToken;
         byte[][] texts = [Encoding.UTF8.GetBytes(page.Speaker?.Name ?? talkative?.DialogueName ?? speaker.Name), Encoding.UTF8.GetBytes(page.Line),
             .. page.Replies.Select(reply => Encoding.UTF8.GetBytes(reply.Text))];
-        int length = 13 + texts.Sum(text => 2 + text.Length);
-        var writer = Packet(length, PortraitProtocol.Conversation, stackalloc byte[length]);
+        int length = (extendedPortrait ? 14 : 13) + texts.Sum(text => 2 + text.Length);
+        var writer = Packet(length, extendedPortrait ? PortraitProtocol.ExtendedConversation : PortraitProtocol.Conversation,
+            stackalloc byte[length]);
         writer.Write(token);
-        writer.Write(page.Speaker?.Portrait ?? talkative?.Portrait ?? (speaker.Female ? (byte)0 : (byte)2));
+        if (extendedPortrait)
+            writer.Write(portrait);
+        else
+            writer.Write((byte)portrait);
         writer.Write((byte)page.Replies.Length);
         foreach (byte[] text in texts)
         {
             writer.Write((ushort)text.Length);
             writer.Write(text.AsSpan());
         }
-        _sessions[player.Serial] = new Session(speaker, script, node, token, Core.TickCount + 120_000);
+        _sessions[player.Serial] = new Session(speaker, script, node, token, Core.TickCount + 120_000, onLeave);
         player.NetState.Send(writer.Span);
     }
 
@@ -347,7 +369,7 @@ public static class ScriptedDialogue
 
 internal interface IScriptedSpeaker
 {
-    byte Portrait { get; }
+    ushort Portrait { get; }
     string DialogueName => null;
     bool CanTalkTo(PlayerMobile player) => true;
     void BeginConversation(PlayerMobile player);
@@ -361,11 +383,11 @@ public abstract class ConversationNpc : BaseCreature, IScriptedSpeaker
     public override bool CanTeach => false;
     public override DeathMoveResult GetParentMoveResultFor(Item item) =>
         MercenaryCare.CompanionLevel(this).HasValue ? DeathMoveResult.RemainEquipped : base.GetParentMoveResultFor(item);
-    internal abstract byte Portrait { get; }
+    internal abstract ushort Portrait { get; }
     internal abstract IReadOnlyList<ScriptedDialogue.Node> Script { get; }
     internal virtual bool CanTalkTo(PlayerMobile player) => true;
     internal virtual void BeginConversation(PlayerMobile player) => ScriptedDialogue.Show(player, this, Script);
-    byte IScriptedSpeaker.Portrait => Portrait;
+    ushort IScriptedSpeaker.Portrait => Portrait;
     bool IScriptedSpeaker.CanTalkTo(PlayerMobile player) => CanTalkTo(player);
     void IScriptedSpeaker.BeginConversation(PlayerMobile player) => BeginConversation(player);
 
@@ -415,7 +437,7 @@ public partial class ArrivalGuard : ConversationNpc
         AddItem(new Boots());
     }
 
-    internal override byte Portrait => 3;
+    internal override ushort Portrait => (ushort)NpcPortrait.Elin;
     internal override IReadOnlyList<ScriptedDialogue.Node> Script => _script;
 
     internal override void BeginConversation(PlayerMobile player)

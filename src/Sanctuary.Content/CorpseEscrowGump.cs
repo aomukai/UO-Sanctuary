@@ -70,7 +70,7 @@ public sealed class CorpseEscrowGump : DynamicGump
             }
             if (_page > 0) { Button(ref b, 22, 367, 5, "Previous"); }
             if ((_page + 1) * 3 < _claims.Length) { Button(ref b, 365, 367, 6, "Next"); }
-            Button(ref b, 22, 407, 0, "Leave for later"); Button(ref b, 300, 407, 7, "Refresh claims");
+            Button(ref b, 22, 407, 8, "Open bank box"); Button(ref b, 300, 407, 7, "Refresh claims");
             return;
         }
         b.AddLabel(22, 78, 0x481, $"Death: {_quote.Claim.Death:u}");
@@ -116,6 +116,7 @@ public sealed class CorpseEscrowGump : DynamicGump
         }
         if (id == 5 && _page > 0) { Show(null, _page - 1); }
         else if (id == 6 && (_page + 1) * 3 < _claims.Length) { Show(null, _page + 1); }
+        else if (id == 8) { ScriptedDialogue.OpenBank(_player); }
         else if (id >= 100 && id - 100 < _claims.Length && (id - 100) / 3 == _page)
         {
             var quote = CorpseEscrow.Quote(_player, _claims[id - 100]);

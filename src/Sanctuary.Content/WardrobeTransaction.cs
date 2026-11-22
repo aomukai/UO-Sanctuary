@@ -148,6 +148,7 @@ public static class WardrobeTransaction
         PersistentMinions.ParkClass(player, previous.Class);
         PersistentMinions.Resume(player);
         MercenaryCare.SyncOwner(player);
+        MountTravel.ClassChanged(player);
         return true;
     }
 

@@ -23,6 +23,8 @@ internal static class TradeSkillSheet
         {
             flags |= TradeSkillSheetFlags.WardrobeUnlocked;
         }
+        if (YewStory.Has(player, YewProgress.Taming))
+            flags |= TradeSkillSheetFlags.TamingUnlocked;
         writer.Write((byte)flags);
 
         byte craft = TradeSkillSheetProtocol.NoActiveCraft;

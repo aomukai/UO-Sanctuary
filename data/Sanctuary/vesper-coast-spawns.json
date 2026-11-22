@@ -1,0 +1,167 @@
+[
+  {
+    "$type": "Spawner",
+    "guid": "2de10212-7cfe-5818-80d0-52506fcde7ad",
+    "name": "Vesper coast north channel",
+    "location": [3067, 779, -5],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 4,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "vesper-sea-serpent 15 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "c66ea5fd-e609-5326-99e5-3d82947e498d",
+    "name": "Vesper coast outer north channel",
+    "location": [3087, 796, -5],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 4,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "vesper-sea-serpent 19 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "38872820-17c7-59ef-ade3-886fbb3e6664",
+    "name": "Vesper coast east offshore",
+    "location": [3082, 840, -5],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:04:00",
+    "maxDelay": "00:06:00",
+    "homeRange": 0,
+    "walkingRange": 4,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "vesper-kraken 23 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "ddf02d3a-f8c8-50bc-a841-0fcfc46b5310",
+    "name": "Vesper coast south of the harbour",
+    "location": [3062, 866, -5],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 4,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "vesper-sea-serpent 22 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "c158f873-de78-544a-bffd-f7ba0d375af4",
+    "name": "Vesper coast upper south shore",
+    "location": [3027, 879, -5],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 4,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "vesper-sea-serpent 17 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "5a45f095-b930-5391-b974-e74dc906bfdf",
+    "name": "Vesper coast south shore bend",
+    "location": [3005, 910, -5],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 4,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "vesper-sea-serpent 24 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "f7dca899-42db-516b-9038-e7707b0dab9a",
+    "name": "Vesper coast off the southern headland",
+    "location": [2991, 934, -5],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:04:00",
+    "maxDelay": "00:06:00",
+    "homeRange": 0,
+    "walkingRange": 4,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "vesper-kraken 20 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "29adcbbd-68da-5e1a-9608-7ce90266f0b8",
+    "name": "Vesper coast lower south shore",
+    "location": [2978, 953, -5],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 4,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "vesper-sea-serpent 26 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "685fae26-398a-5983-b375-6cfe2cbe6cc4",
+    "name": "Vesper coast outer south shore",
+    "location": [2970, 988, -5],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:04:00",
+    "maxDelay": "00:06:00",
+    "homeRange": 0,
+    "walkingRange": 4,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "vesper-kraken 27 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "eb62b3e0-09c7-5b57-8bad-b6d423970109",
+    "name": "Vesper coast deep southern water",
+    "location": [2952, 1015, -5],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:04:00",
+    "maxDelay": "00:06:00",
+    "homeRange": 0,
+    "walkingRange": 4,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "vesper-kraken 30 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "6d0e9dc9-9271-5778-9ba4-56e992c00d19",
+    "name": "Vesper coast southwest coast",
+    "location": [2915, 1030, -5],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 4,
+    "entries": [
+      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "vesper-sea-serpent 27 0"}
+    ]
+  }
+]

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using ModernUO.Serialization;
 using Server;
+using Server.Collections;
 using Server.Items;
 using Server.Mobiles;
 
@@ -30,6 +31,7 @@ public partial class EncounterCreature : GraveyardUndead
     private NormalMonsterStats _meleeStats;
     private EliteModifier[] _modifiers;
     private TimerExecutionToken _shot;
+    private TimerExecutionToken _inferno;
     private Mobile _shotTarget;
     private Map _shotMap;
     private Point3D _shotOrigin;
@@ -92,6 +94,35 @@ public partial class EncounterCreature : GraveyardUndead
             || !Enum.IsDefined(difficulty) || !Enum.IsDefined(grade) || !Enum.IsDefined(champion) || !Enum.IsDefined(aura)
             || !EncounterProfiles.Legal(modifiers, profile, difficulty))
         { throw new InvalidOperationException("An encounter identity requires a fresh wild creature."); }
+        ApplyIdentity(profile, baseLevel, difficulty, grade, champion, modifiers, aura, name, random);
+    }
+
+    protected void ChangeForm(DungeonProfile profile, int level)
+    {
+        // Refilling Hits clears native loot credit. Carry the existing damage
+        // and pet-owner credit across the change of form.
+        using var credit = PooledRefList<DamageEntry>.Create();
+        foreach (var entry in DamageEntries)
+            credit.Add(entry);
+
+        StopCombatActions();
+        EliteBolts.Cancel(this);
+        ApplyIdentity(profile, level, Difficulty, EncounterGrade.Ordinary, ChampionKind.Champion,
+            [], EliteAura.None, null, Random.Shared);
+        SkillHealth.Clear(this);
+        LastKiller = null;
+        foreach (var entry in credit)
+        {
+            var restored = RegisterDamage(entry.DamageGiven, entry.Damager);
+            restored.LastDamage = entry.LastDamage;
+            restored.Responsible = entry.Responsible;
+        }
+        this.MarkDirty();
+    }
+
+    private void ApplyIdentity(DungeonProfile profile, int baseLevel, MonsterDifficulty difficulty, EncounterGrade grade,
+        ChampionKind champion, EliteModifier[] modifiers, EliteAura aura, string name, Random random)
+    {
         _profileId = profile.Id; _baseLevel = baseLevel; _difficulty = difficulty; _grade = grade;
         _champion = champion; _modifierIds = string.Join(',', modifiers); _modifiers = (EliteModifier[])modifiers.Clone(); _aura = aura;
         var roll = Basis.Roll(random);
@@ -185,7 +216,7 @@ public partial class EncounterCreature : GraveyardUndead
     protected override bool CanRaiseKind(Corpse corpse) => false;
     public override bool BeginFirebolt(Mobile target)
     {
-        if (!Caster || !EliteCombat.CanAct(this) || _shot.Running || !ActionReady || !EliteCombat.Enemy(this, target, Basis.Range) || CreatureHitRecovery.Remaining(this) > 0)
+        if (!Caster || !EliteCombat.CanAct(this) || SpellInProgress || !ActionReady || !EliteCombat.Enemy(this, target, Basis.Range) || CreatureHitRecovery.Remaining(this) > 0)
         { return false; }
         StartAction(target); _shotTarget = target; _shotMap = Map; _shotOrigin = Location;
         Direction = GetDirectionTo(target); Animate(4, 5, 1, true, false, 0);
@@ -198,8 +229,89 @@ public partial class EncounterCreature : GraveyardUndead
         var target = _shotTarget; _shotTarget = null; var map = _shotMap; _shotMap = null;
         if (!NamedControl.SpecialAllowed(this) || Map != map || Location != _shotOrigin || Frozen || Paralyzed || !EliteCombat.Enemy(this, target, Basis.Range)
             || CreatureHitRecovery.Remaining(this) > 0) { return; }
+        ReleaseEncounterBolt(target);
+    }
+
+    protected virtual void ReleaseEncounterBolt(Mobile target)
+    {
         bool fire = Dungeon.Archetype == MonsterArchetype.Caster;
         EliteBolts.Fan(this, target, Has(EliteModifier.Multishot) ? 3 : 1, fire);
+    }
+
+    protected T FindWoundedAlly<T>(int range) where T : EncounterCreature
+    {
+        T wounded = null;
+        foreach (var ally in Map.GetMobilesInRange<T>(Location, range))
+        {
+            if (ally == this || !ally.Alive || ally.Controlled || ally.Summoned || !IsFriend(ally)
+                || Math.Abs(ally.Z - Z) >= 16 || SkillHealth.Full(ally) || !CanSee(ally) || !InLOS(ally))
+                continue;
+            if (wounded == null || (long)ally.Hits * wounded.HitsMax < (long)wounded.Hits * ally.HitsMax)
+                wounded = ally;
+        }
+        return wounded;
+    }
+
+    protected void HealAlly(Mobile ally, int percent)
+    {
+        Direction = GetDirectionTo(ally);
+        Animate(4, 5, 1, true, false, 0);
+        SkillHealth.Heal(ally, SkillHealth.Maximum256(ally) * percent / 100);
+        ally.FixedEffect(0x376A, 9, 32);
+        ally.PlaySound(0x1F2);
+    }
+
+    protected const int InfernoRange = 5;
+    protected bool SpellInProgress => _shot.Running || _inferno.Running;
+
+    protected bool BeginInferno(Mobile target)
+    {
+        if (SpellInProgress || !ActionReady || !EliteCombat.CanAct(this) || CreatureHitRecovery.Remaining(this) > 0
+            || !EliteCombat.Enemy(this, target, InfernoRange) || target.X == X && target.Y == Y)
+            return false;
+
+        var origin = Location;
+        var map = Map;
+        int dx = target.X - X, dy = target.Y - Y;
+        int distance = Math.Max(Math.Abs(dx), Math.Abs(dy));
+        double stepX = dx / (double)distance, stepY = dy / (double)distance;
+        StartAction(target);
+        Direction = GetDirectionTo(target);
+        Animate(4, 5, 1, true, false, 0);
+        int phase = 0;
+        Timer.StartTimer(TimeSpan.FromMilliseconds(520), TimeSpan.FromMilliseconds(180), 4,
+            () => InfernoPulse(map, origin, stepX, stepY, phase++), out _inferno);
+        return true;
+    }
+
+    private void InfernoPulse(Map map, Point3D origin, double stepX, double stepY, int phase)
+    {
+        if (Map != map || Location != origin || ReturningHome || !EliteCombat.CanAct(this)
+            || !NamedControl.SpecialAllowed(this) || CreatureHitRecovery.Remaining(this) > 0)
+        {
+            _inferno.Cancel();
+            return;
+        }
+        if (phase == 0)
+            PlaySound(SpellEffectSounds.InfernoJet);
+
+        var previous = origin;
+        var attack = EncounterProfile.Attack1;
+        int graphic = SorceressVisuals.DirectionalFrame(SpellEffectGraphics.InfernoFlight, stepX, stepY, phase);
+        for (int i = 1; i <= InfernoRange; i++)
+        {
+            var point = new Point3D(origin.X + (int)Math.Round(stepX * i), origin.Y + (int)Math.Round(stepY * i), origin.Z);
+            if (!EncounterProfiles.ClearSight(map, previous, point))
+                break;
+
+            Effects.SendLocationEffect(point, map, graphic, SpellEffectGraphics.FireFrames);
+            foreach (var target in map.GetMobilesInRange<Mobile>(point, 0))
+            {
+                if (EliteCombat.Enemy(this, target, InfernoRange))
+                    EliteCombat.Damage(this, target, fire: Utility.RandomMinMax(attack.MinDamage.Value, attack.MaxDamage.Value) / 3.0);
+            }
+            previous = point;
+        }
     }
     public override void OnThink()
     {
@@ -224,6 +336,7 @@ public partial class EncounterCreature : GraveyardUndead
     }
     internal override void StopCombatActions()
     {
+        _inferno.Cancel();
         _shot.Cancel(); _shotTarget = null; _shotMap = null; base.StopCombatActions();
     }
     public override void OnDelete()
@@ -259,9 +372,11 @@ public partial class EncounterCreature : GraveyardUndead
             _aura = EncounterProfiles.RollAura(_modifiers, basis.Level, Random.Shared);
         }
         _profile = null; EnsureProfile(); _teleportAfter = Core.TickCount;
-        // Give older mine spawns their new maximum at the same health percentage.
-        int oldLife = LifeBeforePlayerScaling(_difficulty);
-        int? migratedHits = HitsMaxSeed == oldLife ? (int)((long)Hits * ScaleLifeForPlayers(oldLife) / oldLife) : null;
+        // Preserve the health percentage of spawns that predate a change in regional player scaling.
+        int unscaledLife = LifeBeforePlayerScaling(_difficulty);
+        int savedLife = HitsMaxSeed;
+        bool rescale = savedLife == unscaledLife || this is HedgeEncounter && savedLife == Math.Min(65000, 2 * unscaledLife);
+        int? migratedHits = rescale ? (int)((long)Hits * ScaleLifeForPlayers(unscaledLife) / savedLife) : null;
         // Native mobile fields already contain the injured life and stat roll; do not roll or heal on load.
         CreatureProfiles.Session(this).Initialized = false; CreatureProfiles.Initialize(this,preserveLoadedLife:true);
         if (migratedHits is { } hits)

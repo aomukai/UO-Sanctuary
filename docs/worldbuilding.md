@@ -14,7 +14,15 @@ Regional shops can give a town an identity. Earlier candidate assortments includ
 
 Build an orc camp around hunting, food, traps, and scouts. Give ogres a place to eat and sleep. An evil mage’s books and familiar can show what happens there. A familiar might attack while enslaved, then thank the Avatar and leave after its captor dies. In Britain, a graveyard cult’s correspondence could point to Hythloth, where a captive’s account ties in with the fate of an expedition in Wrong. Discovering any piece can be a story in itself. [The Avatar’s journal and virtues](journal-and-virtues.md)
 
-The clearing at `(2337, 1222, 0)` outside Cove is the orc camp scenery template. On a GM character, enter `[OrcCamp` and target the center of the clearing, or use `[OrcCamp x y` on the current facet. A third coordinate sets the center height. The 19-by-17-tile layout follows the ground and saves as one linked camp. Set up the local encounter spawners separately.
+The clearing at `(2337, 1222, 0)` outside Cove is the orc camp scenery template. On a GM character, enter `[OrcCamp` and target the center of the clearing, or use `[OrcCamp x y` on the current facet. A third coordinate sets the center height.
+
+The command places six spread-out spawners with four warriors, one scout and one shaman at levels 18–20. These are Cove tribe orcs and can drop bounty ears. Use `[OrcCampDeco` for scenery alone. Both commands accept the same coordinates. Deleting the camp also removes its spawners and their orcs.
+
+Use `[EttinCamp` to place a compact hunting camp. Target the bonfire's tile or type the coordinates as `[EttinCamp x y`. The animated bonfire sits between a skinned deer and a pile of hides. Four ettins at levels 15–20 and one level 18 boulder thrower respawn at nearby posts. Deleting the camp clears its props and spawners. [Bonfire art](../art/world/ettin-camp/README.md)
+
+Use `[OgreCamp` or `[OgreCamp x y` for the same layout with four to six respawning ogres at levels 24–28.
+
+Use `[Add YewCultist` to place a spawner that rolls one black-robed cultist (75%) or red-robed cultist (25%) each time it spawns. Both cast Lightning and change form at full health when they fall below 25% life or take a lethal hit. Black-robed cultists become a level 28–34 imp (70%), hell hound with Inferno (10%), hell cat with Fire Bolt (10%), or gargoyle (10%). Red-robed cultists heal a wounded ally within eight tiles for 30% of maximum life on a ten-second cooldown and become a level 25 melee daemon. Marbas is a separate level 36 unique daemon at `(957, 701, 0)` who casts Lightning and Ice Blast.
 
 A patrol can hesitate briefly when it sees a player, then run toward a nearby pack. Give it a visible reaction and enough time for a player or companion to intervene. Wall geometry matters. Creature types can have different detection ranges. Light helps the player perceive danger and can come from fires, braziers, torches, or luminous mushrooms. Keep visibility for the player and enemy detection as separately tunable rules. [Companions and the Britain inn](companions.md) · [Monster reactions](monster-reactions.md)
 

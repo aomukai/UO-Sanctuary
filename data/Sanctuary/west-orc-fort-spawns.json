@@ -1,0 +1,497 @@
+[
+  {
+    "$type": "Spawner",
+    "guid": "9650392c-27d4-5edb-82c2-d5c168cfcfd1",
+    "name": "Western orc fort shaman at 633, 1478",
+    "location": [633, 1478, 15],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:06:00",
+    "maxDelay": "00:09:00",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "OrcFortEncounter", "maxCount": 1, "probability": 100, "parameters": "shaman"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "c666c8a9-7943-517f-9b68-998727c3cb7c",
+    "name": "Western orc fort guard at 632, 1477",
+    "location": [632, 1477, 15],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:03:00",
+    "maxDelay": "00:05:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "OrcFortEncounter", "maxCount": 1, "probability": 100, "parameters": "guard"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "810b6930-dd82-5459-99c4-14ab79b98c9e",
+    "name": "Western orc fort guard at 635, 1476",
+    "location": [635, 1476, 15],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:03:00",
+    "maxDelay": "00:05:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "OrcFortEncounter", "maxCount": 1, "probability": 100, "parameters": "guard"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "76ca39f8-3572-52cb-b6ed-ff6f78e58010",
+    "name": "Western orc fort guard at 629, 1485",
+    "location": [629, 1485, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:03:00",
+    "maxDelay": "00:05:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "OrcFortEncounter", "maxCount": 1, "probability": 100, "parameters": "guard"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "7215f915-3610-5b30-ac63-0480cdb952bc",
+    "name": "Western orc fort guard at 642, 1486",
+    "location": [642, 1486, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:03:00",
+    "maxDelay": "00:05:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "OrcFortEncounter", "maxCount": 1, "probability": 100, "parameters": "guard"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "1bb8ce75-3085-5c11-87ee-894105b31936",
+    "name": "Western orc fort northwest trapper at 619, 1472",
+    "location": [619, 1472, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "OrcFortEncounter", "maxCount": 1, "probability": 100, "parameters": "trapper"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "75f5cfac-873b-5576-b214-e32d55201e20",
+    "name": "Western orc fort northwest trapper at 622, 1473",
+    "location": [622, 1473, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "OrcFortEncounter", "maxCount": 1, "probability": 100, "parameters": "trapper"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "65739800-0ae9-5972-929d-6cdbf645b4fe",
+    "name": "Western orc fort northwest trapper at 618, 1476",
+    "location": [618, 1476, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "OrcFortEncounter", "maxCount": 1, "probability": 100, "parameters": "trapper"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "3bdd1003-e896-51d3-8835-9120bc262d09",
+    "name": "Western orc fort northwest trapper at 621, 1477",
+    "location": [621, 1477, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "OrcFortEncounter", "maxCount": 1, "probability": 100, "parameters": "trapper"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "387c091f-7941-53ef-844b-33b43b2ad84b",
+    "name": "Western orc fort northeast trapper at 646, 1473",
+    "location": [646, 1473, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "OrcFortEncounter", "maxCount": 1, "probability": 100, "parameters": "trapper"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "329c1217-b419-5e21-ba4c-5739bd681bc0",
+    "name": "Western orc fort northeast trapper at 649, 1475",
+    "location": [649, 1475, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "OrcFortEncounter", "maxCount": 1, "probability": 100, "parameters": "trapper"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "011c698a-6e19-5d2d-970f-d031ee5fd493",
+    "name": "Western orc fort northeast trapper at 648, 1478",
+    "location": [648, 1478, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "OrcFortEncounter", "maxCount": 1, "probability": 100, "parameters": "trapper"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "93f2d889-5ff0-5d23-a460-5c45f03f5494",
+    "name": "Western orc fort northeast trapper at 652, 1477",
+    "location": [652, 1477, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "OrcFortEncounter", "maxCount": 1, "probability": 100, "parameters": "trapper"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "a9a93d95-80fa-5a8e-97e7-130670377cfc",
+    "name": "Western orc fort southwest trapper at 618, 1491",
+    "location": [618, 1491, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "OrcFortEncounter", "maxCount": 1, "probability": 100, "parameters": "trapper"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "b26d0998-b0bf-5990-82d6-f3f9ed74795c",
+    "name": "Western orc fort southwest trapper at 619, 1495",
+    "location": [619, 1495, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "OrcFortEncounter", "maxCount": 1, "probability": 100, "parameters": "trapper"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "89f9ca91-4b63-5ae2-9b36-537504af5fcc",
+    "name": "Western orc fort southwest trapper at 621, 1498",
+    "location": [621, 1498, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "OrcFortEncounter", "maxCount": 1, "probability": 100, "parameters": "trapper"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "b61307a6-92ad-5261-ba9d-0612f7dd8222",
+    "name": "Western orc fort southwest trapper at 624, 1500",
+    "location": [624, 1500, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "OrcFortEncounter", "maxCount": 1, "probability": 100, "parameters": "trapper"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "0269feae-264b-53ef-8e52-c5cd12a1c966",
+    "name": "Western orc fort southeast trapper at 650, 1492",
+    "location": [650, 1492, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "OrcFortEncounter", "maxCount": 1, "probability": 100, "parameters": "trapper"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "36707182-5921-5008-b14d-1ae0b144e351",
+    "name": "Western orc fort southeast trapper at 650, 1496",
+    "location": [650, 1496, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "OrcFortEncounter", "maxCount": 1, "probability": 100, "parameters": "trapper"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "fb478563-2717-570b-9da4-cb5a88cbda0a",
+    "name": "Western orc fort southeast trapper at 652, 1499",
+    "location": [652, 1499, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "OrcFortEncounter", "maxCount": 1, "probability": 100, "parameters": "trapper"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "01839fa5-322b-5755-ad43-69150ba25605",
+    "name": "Western orc fort southeast trapper at 647, 1499",
+    "location": [647, 1499, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "OrcFortEncounter", "maxCount": 1, "probability": 100, "parameters": "trapper"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "54e3d204-1f60-5789-85d1-d75d9d3a04ee",
+    "name": "Western orc fort entrance trapper at 630, 1500",
+    "location": [630, 1500, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "OrcFortEncounter", "maxCount": 1, "probability": 100, "parameters": "trapper"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "87f3d930-b622-5fc1-9116-65ed361a6281",
+    "name": "Western orc fort entrance trapper at 633, 1502",
+    "location": [633, 1502, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "OrcFortEncounter", "maxCount": 1, "probability": 100, "parameters": "trapper"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "9c4ae721-08d7-564a-b43a-8db8efb70e5b",
+    "name": "Western orc fort entrance trapper at 636, 1501",
+    "location": [636, 1501, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "OrcFortEncounter", "maxCount": 1, "probability": 100, "parameters": "trapper"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "77d5db73-55d6-5388-87c1-11bcab46c85a",
+    "name": "Western orc fort entrance trapper at 638, 1498",
+    "location": [638, 1498, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "OrcFortEncounter", "maxCount": 1, "probability": 100, "parameters": "trapper"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "610637ab-70ae-510f-9d2c-add0681a1f7c",
+    "name": "Western orc fort scout at 648, 1435",
+    "location": [648, 1435, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "OrcFortScout", "maxCount": 1, "probability": 100, "parameters": "north-east"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "fb75b3ca-c3c1-551e-b7ad-35a9b65f8e6c",
+    "name": "Western orc fort scout at 625, 1451",
+    "location": [625, 1451, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "OrcFortScout", "maxCount": 1, "probability": 100, "parameters": "north-west"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "6a7352a7-92ed-5f5e-9fc5-851e0c4281dd",
+    "name": "Western orc fort scout at 599, 1471",
+    "location": [599, 1471, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "OrcFortScout", "maxCount": 1, "probability": 100, "parameters": "north-west"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "a62b77d1-7d1c-58b4-a7f4-917a3ef99d0d",
+    "name": "Western orc fort scout at 681, 1474",
+    "location": [681, 1474, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "OrcFortScout", "maxCount": 1, "probability": 100, "parameters": "east"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "b8d794d6-f6fa-502f-a1c1-cd4af28bdee1",
+    "name": "Western orc fort scout at 668, 1499",
+    "location": [668, 1499, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "OrcFortScout", "maxCount": 1, "probability": 100, "parameters": "south-east"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "df880b24-07e6-5eeb-93f1-d8ba557132ff",
+    "name": "Western orc fort scout at 653, 1522",
+    "location": [653, 1522, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "OrcFortScout", "maxCount": 1, "probability": 100, "parameters": "south-east"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "839350d5-a7dc-5f16-b8c4-b3c74ab25500",
+    "name": "Western orc fort scout at 620, 1514",
+    "location": [620, 1514, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "OrcFortScout", "maxCount": 1, "probability": 100, "parameters": "south-west"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "5aa4fb63-8297-539d-a3af-23246642225f",
+    "name": "Western orc fort scout at 587, 1485",
+    "location": [587, 1485, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "OrcFortScout", "maxCount": 1, "probability": 100, "parameters": "west"}
+    ]
+  }
+]

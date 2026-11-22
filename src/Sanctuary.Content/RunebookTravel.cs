@@ -14,7 +14,7 @@ public static class RunebookTravel
 
     private static void Travel(Mobile from, RunebookEntry entry)
     {
-        if (from is not PlayerMobile player || !player.CheckAlive())
+        if (from is not PlayerMobile player || !player.CheckAlive() || MountTravel.BlocksTravel(player))
             return;
 
         var map = entry.Map;

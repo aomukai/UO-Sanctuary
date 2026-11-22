@@ -1,0 +1,105 @@
+diff --git a/src/ClassicUO.Client/Game/AvatarDialogueClient.cs b/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
+--- a/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
++++ b/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
+@@ -135,11 +135,12 @@
+                 dialogue.CloseFromServer();
+             return;
+         }
+-        if (kind != PortraitProtocol.Conversation || reader.Remaining < 2)
++        bool extendedPortrait = kind == PortraitProtocol.ExtendedConversation;
++        if ((!extendedPortrait && kind != PortraitProtocol.Conversation) || reader.Remaining < (extendedPortrait ? 3 : 2))
+             return;
+-        byte portrait = reader.ReadUInt8();
++        ushort portrait = extendedPortrait ? reader.ReadUInt16BE() : reader.ReadUInt8();
+         int count = reader.ReadUInt8();
+-        if (portrait >= PortraitProtocol.NpcPortraitCount || count > PortraitProtocol.MaxReplies
++        if (!PortraitProtocol.IsNpcPortrait(portrait) || count > PortraitProtocol.MaxReplies
+             || !ReadText(ref reader, out string name) || !ReadText(ref reader, out string line))
+             return;
+         var replies = new string[count];
+diff --git a/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs b/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs
+--- a/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs
++++ b/src/ClassicUO.Client/Game/UI/Controls/SanctuaryPortrait.cs
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: BSD-2-Clause
+ 
+ using System;
++using System.Collections.Generic;
+ using ClassicUO.Game.Data;
+ using ClassicUO.Game.GameObjects;
+ using ClassicUO.Game.Scenes;
+@@ -47,6 +48,8 @@
+     private static readonly string[] _npcPortraitSheets =
+         ["portrait-npc-watch", "portrait-npc-outlaws", "portrait-npc-fighters", "portrait-npc-scholars", "portrait-npc-despise"];
+     private static readonly Texture2D[] _npcPortraitTextures = new Texture2D[_npcPortraitSheets.Length];
++    private static readonly Texture2D[] _trainerPortraitSheets = new Texture2D[PortraitProtocol.TrainerPortraitSheets];
++    private static readonly Dictionary<NpcPortrait, Texture2D> _standaloneNpcPortraits = new();
+     private static readonly string[] _templateGroups =
+         ["human-male", "human-female", "elf-male", "elf-female", "gargoyle-male", "gargoyle-female"];
+     private static readonly Texture2D[,] _templateAtlases = new Texture2D[AppearanceTemplates.GroupCount, 3];
+@@ -54,7 +57,7 @@
+     private static readonly int[] _gargoyleColumns = [0, 291, 560, 831, 1122];
+     private static readonly int[] _gargoyleRows = [0, 282, 557, 835, 1120, 1402];
+     private readonly Func<PortraitLook> _appearance;
+-    private readonly byte? _npc;
++    private readonly ushort? _npc;
+     private Texture2D _faceTexture;
+     private PortraitLook? _last;
+ 
+@@ -64,7 +67,7 @@
+     public SanctuaryPortrait(Func<PortraitLook> appearance, int x, int y, int width, int height)
+         : this(x, y, width, height) => _appearance = appearance;
+ 
+-    public SanctuaryPortrait(byte npc, int x, int y, int width, int height)
++    public SanctuaryPortrait(ushort npc, int x, int y, int width, int height)
+         : this(x, y, width, height) => _npc = npc;
+ 
+     private SanctuaryPortrait(int x, int y, int width, int height)
+@@ -82,6 +85,26 @@
+         var target = new Rectangle(x, y, Width, Height);
+         if (_npc is { } npc)
+         {
++            if (PortraitProtocol.IsTrainerPortrait(npc))
++            {
++                int index = npc - PortraitProtocol.FirstTrainerPortrait;
++                int sheet = index / PortraitProtocol.TrainerPortraitsPerSheet;
++                int cell = index % PortraitProtocol.TrainerPortraitsPerSheet;
++                const int grid = PortraitProtocol.TrainerPortraitGrid;
++                var texture = _trainerPortraitSheets[sheet] ??= Load($"portrait-trainers-{sheet:00}");
++                int width = texture.Width / grid, height = texture.Height / grid;
++                var source = new Rectangle(cell % grid * width + 1, cell / grid * height + 1, width - 2, height - 2);
++                DrawFace(lists, texture, source, target, depth);
++                return true;
++            }
++            if (npc >= PortraitProtocol.FirstStandaloneNpcPortrait)
++            {
++                NpcPortrait identity = (NpcPortrait)npc;
++                if (!_standaloneNpcPortraits.TryGetValue(identity, out var texture))
++                    _standaloneNpcPortraits[identity] = texture = Load($"portrait-npc-{identity.ToString().ToLowerInvariant()}");
++                DrawFace(lists, texture, texture.Bounds, target, depth);
++                return true;
++            }
+             if (npc >= (byte)NpcPortrait.WatchGuardDuncan && npc <= (byte)NpcPortrait.RatmanSkrik)
+             {
+                 int index = npc - (byte)NpcPortrait.WatchGuardDuncan;
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryDialogueGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryDialogueGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryDialogueGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryDialogueGump.cs
+@@ -11,7 +11,7 @@
+ internal sealed class SanctuaryDialogueGump : Gump
+ {
+     private bool _waiting, _closedByServer;
+-    private byte _portrait;
++    private ushort _portrait;
+     private string _name, _line;
+     private string[] _topics;
+ 
+@@ -26,7 +26,7 @@
+         WantUpdateSize = false;
+     }
+ 
+-    public void Show(uint token, byte portrait, string name, string line, string[] topics)
++    public void Show(uint token, ushort portrait, string name, string line, string[] topics)
+     {
+         Token = token;
+         _portrait = portrait;

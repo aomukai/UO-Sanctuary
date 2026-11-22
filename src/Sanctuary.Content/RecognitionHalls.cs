@@ -35,22 +35,29 @@ public static partial class TownRecognition
         foreach (var hall in Halls)
         {
             Map.TryParse(hall.Map, null, out var map);
+            bool vesper = hall.Id == VesperTownhall.Office;
             var saved = Profiles.Office(hall.Id);
             var registrar = saved == null ? null : World.FindMobile(saved.Registrar) as CivicRegistrar;
             var wardrobe = saved == null ? null : World.FindItem(saved.Wardrobe) as PublicRecognitionWardrobe;
             if (registrar is not { Deleted: false })
             {
                 registrar = new CivicRegistrar(hall.Id, hall.Town);
-                registrar.MoveToWorld(OfficeFloor(map, new(hall.X, hall.Y, hall.Z), used), map);
+                if (!vesper)
+                    registrar.MoveToWorld(OfficeFloor(map, new(hall.X, hall.Y, hall.Z), used), map);
                 created++;
             }
+            if (vesper && (registrar.Map != map || registrar.Location != VesperTownhall.RegistrarPost))
+                registrar.MoveToWorld(VesperTownhall.RegistrarPost, map);
             used.Add((map, registrar.Location));
             if (wardrobe is not { Deleted: false })
             {
                 wardrobe = new PublicRecognitionWardrobe(hall.Id, hall.Town);
-                wardrobe.MoveToWorld(OfficeFloor(map, new(registrar.X + 2, registrar.Y, registrar.Z), used), map);
+                if (!vesper)
+                    wardrobe.MoveToWorld(OfficeFloor(map, new(registrar.X + 2, registrar.Y, registrar.Z), used), map);
                 created++;
             }
+            if (vesper && (wardrobe.Map != map || wardrobe.Location != VesperTownhall.WardrobePost))
+                wardrobe.MoveToWorld(VesperTownhall.WardrobePost, map);
             used.Add((map, wardrobe.Location));
             Profiles.Office(hall.Id, new(registrar.Serial, wardrobe.Serial));
         }

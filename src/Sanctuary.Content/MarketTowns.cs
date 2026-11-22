@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Server;
 using Server.Items;
 using Server.Mobiles;
@@ -9,6 +11,43 @@ namespace Sanctuary;
 
 public static partial class TownMarkets
 {
+    private sealed record TrainerPortrait(string Site, ushort Portrait, bool Female);
+    private static Dictionary<string, TrainerPortrait> _trainerPortraits = new(StringComparer.Ordinal);
+
+    private static void LoadTrainerPortraits()
+    {
+        var sites = Sites.Where(site => Skill(site.Role) != null).Select(site => site.Id).ToHashSet(StringComparer.Ordinal);
+        var portraits = new HashSet<ushort>();
+        var assignments = new Dictionary<string, TrainerPortrait>(StringComparer.Ordinal);
+        foreach (var entry in BalanceCatalog.Read<TrainerPortrait>("trainer-portraits"))
+        {
+            if (entry.Site == null || !sites.Remove(entry.Site) || !PortraitProtocol.IsTrainerPortrait(entry.Portrait)
+                || !portraits.Add(entry.Portrait))
+                throw new InvalidDataException($"Invalid or duplicate trainer portrait assignment for {entry.Site}.");
+
+            assignments.Add(entry.Site, entry);
+        }
+        if (sites.Count != 0)
+            throw new InvalidDataException($"Missing trainer portraits for {string.Join(", ", sites.Order())}.");
+
+        _trainerPortraits = assignments;
+    }
+
+    internal static ushort PortraitOf(ProfessionInstructor trainer) =>
+        _trainerPortraits[Profiles.Find(trainer.Serial).Site].Portrait;
+
+    private static void MatchTrainerPortrait(BaseVendor vendor, MarketSite site)
+    {
+        if (!_trainerPortraits.TryGetValue(site.Id, out var portrait) || vendor.Female == portrait.Female)
+            return;
+
+        vendor.Female = portrait.Female;
+        vendor.Body = portrait.Female ? 0x191 : 0x190;
+        vendor.Name = NameList.RandomName(portrait.Female ? "female" : "male");
+        if (portrait.Female)
+            vendor.FacialHairItemID = 0;
+    }
+
     [CallPriority(200)]
     public static void Initialize()
     {
@@ -48,6 +87,7 @@ public static partial class TownMarkets
                     station.Delete();
                 market.Station = Serial.Zero;
             }
+            MatchTrainerPortrait(vendor, site);
             used.Add((map, vendor.Location));
             var state = Profiles.Find(vendor.Serial);
             if (Skill(site.Role) is { } craft && TradeSkills.IsCraft((int)craft))

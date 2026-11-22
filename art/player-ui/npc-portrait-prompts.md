@@ -1,5 +1,59 @@
 # Additional NPC portrait atlases
 
+## Portraits for new NPCs
+
+Generate a fresh painting when adding a new NPC with dialogue. Save it as
+`portrait-npc-<lowercase enum name>.png` and give the speaker a new
+`NpcPortrait` value. Prefer a frontal view with direct eye contact. A subtle
+head turn works when the eyes still meet the player's gaze. Reject off-screen
+glances. Reuse a portrait only when the speaker is the same
+character, such as Iolo at different stages of his story. Ordinary vendor
+windows use the Buy and Sell tabs. For a new trainer site, paint a new portrait, add its cell
+to the trainer sheets and register the site in
+[`trainer-portraits.json`](../../data/Sanctuary/Balance/trainer-portraits.json).
+The market catalog checks that every trainer has a distinct portrait ID. Trainer
+atlas files use six columns and six rows. Number sheets from zero and append a
+sheet by updating `TrainerPortraitSheets` in `PortraitProtocol.cs`.
+
+## Portrait audit
+
+The built-in ImageGen tool painted the new named portraits and trainer candidates.
+The shipped files are the standalone `portrait-npc-*.png` paintings and
+`portrait-trainers-00.png` through `portrait-trainers-12.png`. Trainer cells
+are assigned by permanent market site ID. The first sheet holds the thirteen
+New Haven trainers. The remaining sheets cover both market catalogs.
+
+**Shared generation prompt**
+
+> Make a game sprite atlas of independently painted fantasy role-playing game portraits in a precise edge-to-edge grid of equal square cells. Every person is having a conversation with the player, and both eyes meet the camera lens. The irises are visible and looking right at the observer. No eyes looking left, right, up, down, to a distant object, sideways out of frame, or closed. A few subjects can turn their heads subtly, at most fifteen degrees, or relax one shoulder, and still turn their eyes back toward the lens. Show two eyes with readable highlights. Vary shoulder direction, attitude and expressions substantially between neighbors. Face is the focus with close head-and-shoulders cropping. Each face fully inside its cell with breathing room and no overlapping or cut-off parts. No padding outside the grid, borders, gutter, words, labels, lines or frames. Detailed warm hand-painted 1990s CRPG style, practical medieval trade clothes and clean near-dark burnt umber background, soft directional light. Original faces with distinct anatomy, real ages and expressions.
+
+The named batch used a 3×3 grid in this order.
+
+| Row | Left | Center | Right |
+| --- | --- | --- | --- |
+| 1 | Garran, stocky short-haired miner with soot on his cheek | Bess, sturdy freckled miner with brown hair and plain work clothes | Leofric, square-jawed watch veteran with a short salt-and-pepper beard and ringmail |
+| 2 | Aldric, weathered redhead with ginger stubble and a flat nose | Tamsin, guard with tight dark curls and high cheekbones | Edda, long-faced older guard with silver hair and a lopsided smile |
+| 3 | Hugh, young sandy-haired guard with a narrow chin | Elara, freckled scholar with long dark hair and plum trim | Gareth, grizzled dark-haired watch captain in a blue cloak and plate |
+
+The New Haven 4×4 batch used the order smith, tailor, bowyer, carpenter,
+alchemist, cook, cartographer, scribe, tinker, imbuer, miner, lumberjack,
+and fisher. The three extra studies at the end were a weaver, a currier,
+and a carpenter. The wider trainer pool used 8×8 sheets of men or women and
+6×6 sheets with alternating rows of men and women. The briefs covered capital
+workshops, coastal villages, woodland and mountain trades, bookish trades,
+frontier artisans, and island settlements. Varied ages, face shapes, complexions,
+hair, temperament, and practical fabrics distinguished the subjects.
+
+**Existing character edits**
+
+> Make every visible iris look directly into the camera as if the character were speaking in person. A slight head tilt or subtle three-quarter turn is fine when the eyes meet the lens clearly. Preserve the exact same individuals and equal cell positions. Preserve their proportions, ages, eye colors, individual expressions, distinctive hair and original equipment. Keep the hand-painted CRPG style, warm amber light, dark brown backdrops and existing expressiveness. Preserve the pixies' ears, wings and costume colors and the ratman's muzzle, whiskers and rounded ears. Keep the pixel grid free of text or framing.
+
+The edits updated Elin, Geoffrey, Lord British and Iolo in `portrait-npcs.png`,
+Duncan in `portrait-npc-watch.png`, Wolfgang in `portrait-wolfgang.png`,
+and Linnet, Alder, Sorrel and Skrik in `portrait-npc-despise.png`.
+
+## Original expansion atlases
+
 Generated with the built-in ImageGen tool. Each atlas maps cells in reading order, from the top left. The shared part of the prompt below preceded each sheet's subject brief. The style reference was `portrait-npcs.png`.
 
 ## Shared prompt
@@ -21,6 +75,14 @@ Top left: broad older male northern barbarian with copper-tan skin leathery from
 ## portrait-npc-scholars.png
 
 Top left: older male mage with brown skin, long gaunt face and gray-black receding wavy hair, tired bright eyes, indigo wool robe and a simple pendant, no hat. Top right: middle-aged elven woman mage with ash-brown skin, visible pointed ears, a swept back silver-black braid and one raised eyebrow, plum robe with subdued geometric gold brocade. Bottom left: retired male field cleric with pale freckled skin, closely cut reddish-gray beard, broad nose, brown eyes and a plain cream linen collar over a brick-red worn habit, expression gentle and alert. Bottom right: older female temple cleric with dark umber skin, quiet deep set eyes under an ivory and sage head wrap, distinctive high forehead and a modest round bronze clasp. Human and elven faces are grounded in character with readable lines and expressions. No modern or real-world religious symbols.
+
+## portrait-npc-harlan.png
+
+Made with built-in ImageGen. The guard was named Harlan in the game.
+
+```text
+Create one square dialogue portrait for Sanctuary, an original old-school fantasy RPG. Warden Edric, an older weathered roadside guard and veteran fighter in his late fifties, has multiple distinct healed scars across his brow, cheek and chin, close-cropped grey hair and a greying short beard. He looks directly at the player with alert, tired, level eyes. Near straight-on shoulders-up crop, face centred and taking up most of the square so the eyes and scars read clearly at tiny dialogue size. Worn steel mail and a muted rust-brown leather surcoat, warm amber light, subdued dark olive-brown watchtower interior background. Painterly hand-painted late-1990s fantasy portrait with natural proportions and tactile brushwork, grounded medieval look. No text, frame, watermark, helmet or gruesome wounds.
+```
 
 ## portrait-npc-despise.png
 

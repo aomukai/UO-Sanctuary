@@ -1,16 +1,27 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
+using System;
+using System.Collections.Generic;
 using ModernUO.Serialization;
 using Server;
 using Server.Commands;
+using Server.Engines.Spawners;
 using Server.Items;
 using Server.Targeting;
 
 namespace Sanctuary;
 
-[SerializationGenerator(0)]
+[SerializationGenerator(1)]
 public partial class OrcCamp : BaseAddon
 {
     private readonly record struct Piece(int Graphic, int X, int Y, int Rise = 0, int Hue = 0, LightType? Light = null);
+    private static readonly (int X, int Y, string Role, int Level)[] _posts =
+    [
+        (-6, -5, "warrior", 18), (0, -7, "scout", 19), (7, -6, "warrior", 19),
+        (8, 3, "warrior", 20), (2, 7, "shaman", 20), (-6, 4, "warrior", 19)
+    ];
+
+    [SerializableField(0, getter: "private", setter: "private")]
+    private List<Spawner> _orcSpawners = [];
 
     // Offsets from the clearing at 2337, 1222 in Cove. Rise is measured from the ground under each prop.
     private static readonly Piece[] _pieces =
@@ -38,19 +49,29 @@ public partial class OrcCamp : BaseAddon
     public override string DefaultName => "an orc camp";
     public override bool ShareHue => false;
 
-    public static void Configure() => CommandSystem.Register("OrcCamp", AccessLevel.GameMaster, PlaceCommand);
+    public static void Configure()
+    {
+        CommandSystem.Register("OrcCamp", AccessLevel.GameMaster, PlaceCampCommand);
+        CommandSystem.Register("OrcCampDeco", AccessLevel.GameMaster, PlaceDecoCommand);
+    }
 
-    [Usage("OrcCamp [x y [z]]"), Description("Places the Cove-style orc camp scenery on the current facet.")]
-    private static void PlaceCommand(CommandEventArgs args)
+    [Usage("OrcCamp [x y [z]]"), Description("Places an orc camp with six Cove tribe spawners on the current facet.")]
+    private static void PlaceCampCommand(CommandEventArgs args) => PlaceCommand(args, populate: true);
+
+    [Usage("OrcCampDeco [x y [z]]"), Description("Places orc camp scenery on the current facet.")]
+    private static void PlaceDecoCommand(CommandEventArgs args) => PlaceCommand(args, populate: false);
+
+    private static void PlaceCommand(CommandEventArgs args, bool populate)
     {
         var gm = args.Mobile;
         var map = gm.Map;
         if (map == null || map == Map.Internal)
             return;
 
+        string command = populate ? "[OrcCamp" : "[OrcCampDeco";
         if (args.Length == 0)
         {
-            gm.Target = new CampTarget(map);
+            gm.Target = new CampTarget(map, populate);
             gm.SendMessage("Target the ground at the center of the orc camp.");
             return;
         }
@@ -59,7 +80,7 @@ public partial class OrcCamp : BaseAddon
         if (args.Length is not (2 or 3) || !int.TryParse(args.GetString(0), out int x)
             || !int.TryParse(args.GetString(1), out int y) || args.Length == 3 && !int.TryParse(args.GetString(2), out z))
         {
-            gm.SendMessage("Use [OrcCamp to target the ground, or [OrcCamp x y with an optional z.");
+            gm.SendMessage($"Use {command} x y with an optional z, or omit the coordinates to target the ground.");
             return;
         }
 
@@ -68,10 +89,10 @@ public partial class OrcCamp : BaseAddon
             gm.SendMessage("That camp center lies outside this facet.");
             return;
         }
-        PlaceFor(gm, map, new(x, y, args.Length == 2 ? map.GetAverageZ(x, y) : z));
+        PlaceFor(gm, map, new(x, y, args.Length == 2 ? map.GetAverageZ(x, y) : z), populate);
     }
 
-    private sealed class CampTarget(Map map) : Target(-1, true, TargetFlags.None)
+    private sealed class CampTarget(Map map, bool populate) : Target(-1, true, TargetFlags.None)
     {
         protected override void OnTarget(Mobile from, object targeted)
         {
@@ -79,20 +100,26 @@ public partial class OrcCamp : BaseAddon
                 return;
 
             if (targeted is LandTarget or StaticTarget && targeted is IPoint3D spot && OnMap(map, spot.X, spot.Y))
-                PlaceFor(from, map, new(spot.X, spot.Y, map.GetAverageZ(spot.X, spot.Y)));
+                PlaceFor(from, map, new(spot.X, spot.Y, map.GetAverageZ(spot.X, spot.Y)), populate);
             else
-                from.SendMessage("Target a ground tile or use [OrcCamp x y.");
+                from.SendMessage("Target a ground tile at the center of the camp.");
         }
     }
 
-    private static void PlaceFor(Mobile gm, Map map, Point3D center)
+    private static void PlaceFor(Mobile gm, Map map, Point3D center, bool populate)
     {
-        gm.SendMessage(TryPlace(map, center, out var camp, out string reason)
-            ? $"Placed an orc camp with {camp.Components.Count} props at {center}."
-            : reason);
+        if (!TryPlace(map, center, out var camp, out string reason, populate))
+        {
+            gm.SendMessage(reason);
+            return;
+        }
+
+        gm.SendMessage(populate
+            ? $"Placed an orc camp with {camp._orcSpawners.Count} orc spawners at {center}."
+            : $"Placed an orc camp with {camp.Components.Count} props at {center}.");
     }
 
-    internal static bool TryPlace(Map map, Point3D center, out OrcCamp camp, out string reason)
+    internal static bool TryPlace(Map map, Point3D center, out OrcCamp camp, out string reason, bool populate = false)
     {
         camp = null;
         if (map == null || map == Map.Internal || !OnMap(map, center.X, center.Y)
@@ -155,6 +182,13 @@ public partial class OrcCamp : BaseAddon
                 camp.AddComponent(prop, piece.X, piece.Y, offsets[i]);
             }
             camp.MoveToWorld(center, map);
+            if (populate && !camp.Populate(center.Z - centerGround))
+            {
+                camp.Delete();
+                camp = null;
+                reason = "The camp needs six separated, walkable tiles for the orcs.";
+                return false;
+            }
         }
         catch
         {
@@ -165,6 +199,71 @@ public partial class OrcCamp : BaseAddon
         reason = null;
         return true;
     }
+
+    private bool Populate(int elevation)
+    {
+        var posts = new List<Point3D>(_posts.Length);
+        foreach (var (x, y, _, _) in _posts)
+        {
+            if (!FindPost(X + x, Y + y, elevation, posts, out var spot))
+                return false;
+            posts.Add(spot);
+        }
+
+        for (int i = 0; i < posts.Count; i++)
+        {
+            var (_, _, role, level) = _posts[i];
+            var spawner = new Spawner
+            {
+                Name = $"Orc camp {role}",
+                MinDelay = TimeSpan.FromSeconds(90),
+                MaxDelay = TimeSpan.FromSeconds(150),
+                WalkingRange = 2
+            };
+            _orcSpawners.Add(spawner);
+            spawner.MoveToWorld(posts[i], Map);
+            spawner.HomeRange = 0;
+            spawner.AddEntry(nameof(CoveEncounter), 100, 1, parameters: $"cove-orc-{role} {level}");
+            spawner.Respawn();
+            if (spawner.IsEmpty)
+                return false;
+        }
+        this.MarkDirty();
+        return true;
+    }
+
+    private bool FindPost(int x, int y, int elevation, List<Point3D> posts, out Point3D spot)
+    {
+        for (int radius = 0; radius <= 2; radius++)
+        {
+            for (int dx = -radius; dx <= radius; dx++)
+            for (int dy = -radius; dy <= radius; dy++)
+            {
+                int nx = x + dx, ny = y + dy;
+                if (Math.Max(Math.Abs(dx), Math.Abs(dy)) != radius || !OnMap(Map, nx, ny) || !DryGround(Map, nx, ny))
+                    continue;
+                int z = Map.GetAverageZ(nx, ny) + elevation;
+                var candidate = new Point3D(nx, ny, z);
+                if (z is < sbyte.MinValue or > sbyte.MaxValue || !Map.CanSpawnMobile(candidate)
+                    || posts.Exists(p => Utility.InRange(p, candidate, 4)))
+                    continue;
+                spot = candidate;
+                return true;
+            }
+        }
+        spot = default;
+        return false;
+    }
+
+    public override void OnAfterDelete()
+    {
+        base.OnAfterDelete();
+        foreach (var spawner in _orcSpawners)
+            spawner?.Delete();
+    }
+
+    // Version 0 camps only contain scenery.
+    private void Deserialize(IGenericReader reader, int version) => _orcSpawners = [];
 
     private static bool OnMap(Map map, int x, int y) => (uint)x < map.Width && (uint)y < map.Height;
 

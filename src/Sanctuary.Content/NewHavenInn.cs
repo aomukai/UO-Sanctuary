@@ -20,6 +20,8 @@ public static class NewHavenInn
         {
             if (viewer is PlayerMobile coveViewer && !CoveWorld.MobileVisible(coveViewer, target))
                 return false;
+            if (viewer is PlayerMobile ghostViewer && target is HedgeHouseGhost ghost && !ghost.VisibleTo(ghostViewer))
+                return false;
             if (target is not Iolo { Recruited: false } || viewer is not PlayerMobile player)
                 return BritainStory.MobileVisible(viewer, target);
             var profiles = ClassCreation.Profiles;

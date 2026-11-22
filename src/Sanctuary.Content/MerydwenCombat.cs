@@ -18,7 +18,7 @@ public partial class Merydwen
         if (Recruited)
             RangeFight = Weapon is BaseRanged bow && !ClassGear.Broken(bow) ? Math.Min(BowRange, bow.MaxRange) : 1;
         base.OnThink();
-        if (Recruited)
+        if (Recruited && this is not Nightwind && !Mounted)
             ObserveBarks();
     }
 
@@ -29,8 +29,8 @@ public partial class Merydwen
         return new(row, Rank, Rank, level);
     }
 
-    private PlayerMobile ArcherOwner(BaseRanged bow) =>
-        Alive && !Deleted && !IsDeadPet && !Frozen && !Paralyzed && CreatureHitRecovery.Remaining(this) == 0
+    protected PlayerMobile ArcherOwner(BaseRanged bow) =>
+        Alive && !Deleted && !IsDeadPet && !Mounted && !Frozen && !Paralyzed && CreatureHitRecovery.Remaining(this) == 0
         && ClassCombatHooks.ActionAllowed?.Invoke(this) != false && Weapon == bow && !ClassGear.Broken(bow)
         && ControlMaster is PlayerMobile { Alive: true } owner && owner.Map == Map && Map != Map.Internal
         && MercenaryCare.IsCompanion(owner, this) ? owner : null;
@@ -47,7 +47,7 @@ public partial class Merydwen
         long now = Core.TickCount;
         int level = MercenaryCare.CompanionLevel(this) ?? 1;
         Direction = GetDirectionTo(target);
-        if (now >= _nextSight && AmazonInnerSight.State(target) == null)
+        if (this is not Nightwind && now >= _nextSight && AmazonInnerSight.State(target) == null)
         {
             _nextSight = now + 12000;
             int castSpeed = CompanionBuild.Bonus(this, "cast1") + CompanionBuild.Bonus(this, "cast2")
@@ -64,7 +64,7 @@ public partial class Merydwen
             if (targets.Count > 1)
             {
                 _nextStrafe = now + 7000;
-                return BeginStrafe(targets, bow, level);
+                return this is Nightwind ? BeginMultipleShot(targets, bow, level) : BeginStrafe(targets, bow, level);
             }
         }
 
@@ -79,7 +79,7 @@ public partial class Merydwen
         {
             if (ArcherOwner(bow) is not { } currentOwner || Combatant != target || !CanAim(currentOwner, target, bow))
                 return;
-            if (ability == CombatAbility.GuidedArrow)
+            if (ability == CombatAbility.GuidedArrow && this is not Nightwind)
                 SayBark(currentOwner, _guided, Core.TickCount);
             Shoot(target, bow, ability, level, ability == CombatAbility.GuidedArrow ? Values(ability, level) : null);
         }, out _shot);
@@ -114,6 +114,29 @@ public partial class Merydwen
                 AmazonInnerSight.Apply(this, creature, values, at);
         AmazonUtilityEffects.Burst(this, SpellEffectGraphics.InnerSightCast, SpellEffectSounds.InnerSightCast);
         SayBark(owner, _sight, Core.TickCount);
+    }
+
+    private TimeSpan BeginMultipleShot(List<Mobile> targets, BaseRanged bow, int level)
+    {
+        var timing = AmazonBow.Timing(AttackFamily.Bow, SequenceAdvance(bow));
+        var ability = CombatAbility.MultipleShot;
+        var values = Values(ability, level);
+        int arrows = 1 + values.Rank;
+        bow.PlaySwingAnimation(this);
+        Timer.StartTimer(TimeSpan.FromMilliseconds(timing.EffectMs), () =>
+        {
+            if (ArcherOwner(bow) is not { } owner)
+                return;
+            foreach (var target in targets)
+            {
+                if (!CanAim(owner, target, bow))
+                    continue;
+                Shoot(target, bow, ability, level, values);
+                if (--arrows == 0)
+                    break;
+            }
+        }, out _shot);
+        return TimeSpan.FromMilliseconds(timing.DurationMs);
     }
 
     private TimeSpan BeginStrafe(List<Mobile> targets, BaseRanged bow, int level)
@@ -169,6 +192,8 @@ public partial class Merydwen
             _ => 0
         };
         double physical = CompanionBuild.BowPhysicalDamage(this, bow, level, skillPercent);
+        if (skill == CombatAbility.MultipleShot)
+            physical *= 0.75;
         var parts = DefensiveArmors.Absorb(target, new GearDamage(physical, 0, 0, 0, 0), this);
         parts = parts with { Physical = GemCombat.Component(target, parts.Physical, target.PhysicalResistance, false) };
         var settled = DirectDamageParts.From(parts);

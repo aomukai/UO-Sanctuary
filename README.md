@@ -107,6 +107,8 @@ UO art and maps are downloaded separately; they are not included in this reposit
 
 Existing installations do not need to be configured again. The server console handles initial owner-account setup. The default server is local-only at `127.0.0.1:2593`.
 
+**Classic MIDI soundtrack.** After configuring the client, run `./dev install-classic-music` to render the original MIDI tracks into your local game data. The import uses FluidSynth, FFmpeg and a General MIDI soundfont. On Ubuntu, install `fluidsynth ffmpeg fluid-soundfont-gm`. Choose **Classic MIDI** under **Options → Music**. Cues without a classic recording use the modern track. Use `--archive` to import a ZIP of original MIDI files or `--soundfont` to choose the instruments for the recordings.
+
 For content changes, close the server, run `./dev build content`, then start with `./dev server` to stage the updated content and data. `--installed` starts the existing installed package without restaging it. Runtime configuration, saves and client settings live under `.local/`.
 
 </details>

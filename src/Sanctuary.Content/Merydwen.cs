@@ -25,7 +25,7 @@ public partial class Merydwen : ConversationNpc, IClassCompanion
     public override bool CanRegenMana => false;
     public override int ManaMax => 0;
     public override bool WandersWhileGuarding => false;
-    internal override byte Portrait => PortraitProtocol.MerydwenPortrait;
+    internal override ushort Portrait => PortraitProtocol.MerydwenPortrait;
     internal override IReadOnlyList<ScriptedDialogue.Node> Script => Recruited ? _company : _inn;
 
     private static readonly ScriptedDialogue.Reply[] _innTopics =
@@ -64,7 +64,7 @@ public partial class Merydwen : ConversationNpc, IClassCompanion
 
     private static void Install()
     {
-        if (!World.Mobiles.Values.OfType<Merydwen>().Any(pirate => !pirate.Deleted && !pirate.Recruited))
+        if (!World.Mobiles.Values.OfType<Merydwen>().Any(pirate => pirate.GetType() == typeof(Merydwen) && !pirate.Deleted && !pirate.Recruited))
             new Merydwen().MoveToWorld(InnLocation, Map.Trammel);
     }
 
@@ -122,8 +122,8 @@ public partial class Merydwen : ConversationNpc, IClassCompanion
         if (!SanctuaryBanking.CanPay(owner, HiringFee))
             return null;
 
-        var companion = new Merydwen { Recruited = true, CantWalk = false, AI = AIType.AI_Melee, ControlSlots = 0 };
-        companion.AddItem(new Backpack { Movable = false });
+        var companion = new Merydwen();
+        companion.PrepareRangedCompanion();
         bool hired = false;
         try
         {
@@ -144,6 +144,15 @@ public partial class Merydwen : ConversationNpc, IClassCompanion
             if (!hired)
                 companion.Delete();
         }
+    }
+
+    protected void PrepareRangedCompanion()
+    {
+        Recruited = true;
+        CantWalk = false;
+        AI = AIType.AI_Melee;
+        ControlSlots = 0;
+        AddItem(new Backpack { Movable = false });
     }
 
     private bool OwnedBy(Mobile from) => from is PlayerMobile owner && Recruited && MercenaryCare.IsCompanion(owner, this);
@@ -175,7 +184,7 @@ public partial class Merydwen : ConversationNpc, IClassCompanion
     {
         if (Recruited && !CompanionBuild.AllowedArcherGear(item, AttackFamily.Bow))
         {
-            ControlMaster?.SendMessage("Merydwen: I can't use that.");
+            ControlMaster?.SendMessage($"{Name}: I can't use that.");
             return false;
         }
         return base.EquipItem(item);
@@ -189,7 +198,8 @@ public partial class Merydwen : ConversationNpc, IClassCompanion
         {
             ControlTarget = owner;
             ControlOrder = OrderType.Guard;
-            SayBark(owner, _afterResurrection, Core.TickCount, force: true);
+            if (this is not Nightwind)
+                SayBark(owner, _afterResurrection, Core.TickCount, force: true);
         }
     }
 }

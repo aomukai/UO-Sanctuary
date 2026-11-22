@@ -303,6 +303,9 @@ def main():
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("setup", help="Download pinned sources and the project-local .NET SDK")
     commands.add_parser("install-data", help="Install Classic Client data from the publisher's patch servers")
+    classic_music = commands.add_parser("install-classic-music", help="Render the optional classic MIDI recordings")
+    classic_music.add_argument("--archive", help="ZIP of original .mid files, defaults to the UOGuide archive")
+    classic_music.add_argument("--soundfont", help="Path to a General MIDI .sf2 file")
     builder = commands.add_parser("build", help="Compile and stage a local Debug build")
     builder.add_argument("target", choices=["all", "server", "client", "content"], default="all", nargs="?")
     config = commands.add_parser("configure", help="Create local configs once UO data is installed")
@@ -320,6 +323,12 @@ def main():
             setup()
         elif args.command == "install-data":
             run([sys.executable, ROOT / "tools/install_game_data.py"])
+        elif args.command == "install-classic-music":
+            from tools.install_classic_music import install
+
+            data = Path(json.loads((CLIENT / "settings.json").read_text()).get("ultimaonlinedirectory", ""))
+            validate_data(data)
+            install(data, args.archive, args.soundfont)
         elif args.command == "build":
             build(args.target)
         elif args.command == "configure":
