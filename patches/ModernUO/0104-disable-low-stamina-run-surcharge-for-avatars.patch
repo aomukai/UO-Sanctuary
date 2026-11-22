@@ -1,0 +1,13 @@
+diff --git a/Projects/UOContent/Misc/StaminaSystem.cs b/Projects/UOContent/Misc/StaminaSystem.cs
+--- a/Projects/UOContent/Misc/StaminaSystem.cs
++++ b/Projects/UOContent/Misc/StaminaSystem.cs
+@@ -346,7 +346,8 @@
+             return;
+         }
+ 
+-        if (AdditionalLossWhenBelow > 0 && from.Stam / Math.Max(from.StamMax, 1.0) < AdditionalLossWhenBelow)
++        if (AdditionalLossWhenBelow > 0 && from.Stam / Math.Max(from.StamMax, 1.0) < AdditionalLossWhenBelow
++            && (from is not PlayerMobile player || ClassCombatHooks.Enabled?.Invoke(player) != true))
+         {
+             from.Stam -= ClassCombatHooks.RunningStaminaCost?.Invoke(from, 1) ?? 1;
+         }

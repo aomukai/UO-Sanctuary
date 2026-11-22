@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Server;
@@ -21,6 +22,7 @@ public static class EncounterTreasure
 {
     private static readonly Dictionary<string, EncounterTreasureClass> _classes = new(StringComparer.Ordinal);
     private static readonly Dictionary<(string, MonsterDifficulty, EncounterGrade), string> _roots = new();
+    private static readonly Dictionary<string, EncounterTreasureEntry[]> _equipmentEntries = new(StringComparer.Ordinal);
     public static void Load()
     {
         var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true, UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow };
@@ -29,7 +31,7 @@ public static class EncounterTreasure
             "Data", "Sanctuary", "Balance", "encounter-treasure.json")), options);
         if (catalog is not { SourceCommit: "45112569deb9384738ccafe5c24ebbb71f41c7c9", MaxDrops: 6, SetUniquePolicy: "NamedWhenAvailable", Roots.Length: 36 })
         { throw new InvalidDataException("Unsupported encounter treasure source."); }
-        _classes.Clear(); _roots.Clear();
+        _classes.Clear(); _roots.Clear(); _equipmentEntries.Clear();
         foreach (var row in catalog.Classes)
         {
             if (row.Picks is < -6 or 0 or > 6 || row.NoDrop < 0 || row.Entries is not { Length: > 0 }
@@ -71,7 +73,8 @@ public static class EncounterTreasure
                 _ => "Act 1 H2H A"
             };
         }
-        if (creature is FrontierEncounter or CovetousEncounter or CoveEncounter or HedgeEncounter or YewEncounter or YewVampire)
+        if (creature is FrontierEncounter or CovetousEncounter or CoveEncounter or HedgeEncounter or YewEncounter
+            or YewVampire or OrcFortEncounter or BrigandEncounter)
         {
             string tier = CreatureProfiles.Level(creature) >= 25 ? "B" : "A";
             string kind = creature.Leader ? "Unique" : creature.Grade == EncounterGrade.Champion ? "Champ"
@@ -90,6 +93,43 @@ public static class EncounterTreasure
             }
         }
         return root.Name;
+    }
+
+    private static EncounterTreasureEntry[] EquipmentEntries(EncounterTreasureClass row)
+    {
+        if (_equipmentEntries.TryGetValue(row.Name, out var entries)) { return entries; }
+        entries = row.Entries.Where(entry => _classes.TryGetValue(entry.Item, out var nested)
+            ? EquipmentEntries(nested).Length > 0
+            : GearDrops.HasEquipment(entry.Item)).ToArray();
+        _equipmentEntries[row.Name] = entries;
+        return entries;
+    }
+
+    internal static void AwardRequiredGear(RewardLife life, EncounterCreature creature, Random random) =>
+        life.Corpse.DropItem(RollEquipment(Root(creature), life.Level, life.MagicFind, random));
+
+    internal static Item RollEquipment(string name, int level, int magicFind, Random random)
+    {
+        int[] factors = new int[4];
+        while (_classes.TryGetValue(name, out var row))
+        {
+            for (int i = 0; i < factors.Length; i++) { factors[i] = Math.Max(factors[i], row.Factors[i]); }
+            var entries = EquipmentEntries(row);
+            if (entries.Length == 0) { throw new InvalidDataException($"No supported gear in encounter treasure class '{name}'."); }
+
+            int ticket = random.Next(entries.Sum(entry => entry.Weight));
+            foreach (var entry in entries)
+            {
+                ticket -= entry.Weight;
+                if (ticket >= 0) { continue; }
+                name = entry.Item;
+                break;
+            }
+        }
+        var basis = GearDrops.SelectBase(name, random, equipmentOnly: true);
+        // A Set or Unique quality roll can fail when the selected base lacks a named item.
+        return GearDrops.Generate(basis, level, magicFind, random, factors)
+            ?? GearDrops.GenerateMagic(basis, level, random);
     }
     internal static IReadOnlyList<EncounterDrop> Roll(EncounterCreature creature, Random random)
     {

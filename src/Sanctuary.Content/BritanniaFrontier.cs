@@ -17,6 +17,14 @@ public static class BritanniaFrontier
 
     public static void Configure() => EventSink.ServerStarted += Install;
 
+    public static void Initialize()
+    {
+        int end = WorldDecorationGraphics.DragonHoardGroundFirst + WorldDecorationGraphics.DragonHoardGroundCount;
+        var hoard = new ItemData("a dragon's hoard", TileFlag.Background, 255, 0, 0, 0, 0, 0);
+        for (int graphic = WorldDecorationGraphics.DragonHoard; graphic < end && graphic <= TileData.MaxItemValue; graphic++)
+            TileData.ItemTable[graphic] = hoard;
+    }
+
     private static void Install()
     {
         var map = Map.Trammel;
@@ -24,6 +32,8 @@ public static class BritanniaFrontier
         string path = Path.Join(Core.BaseDirectory, "Data", "Sanctuary", "britannia-frontier-decor.cfg");
         foreach (var list in DecorationList.ReadAll(path))
             scenery += list.Generate([map]);
+        scenery += DragonHoard.Install(map, new(1445, 902, 0));
+        RetireOldHoard(map);
 
         InstallDespise(map);
         DespiseMushrooms.Install(map);
@@ -31,6 +41,8 @@ public static class BritanniaFrontier
         int despiseSpawns = GraveyardPopulation.InstallSpawners("despise-spawns.json");
         EnsureRoamingEttinUnique(map);
         _logger.Information("Despise: installed {Count} population spawners", despiseSpawns);
+
+        InstallSewerLadders(map);
 
         // The old Magery pad is on the mountainside. Trigger on the walkable edge of the approach.
         for (int offset = -1; offset <= 1; offset++)
@@ -49,6 +61,49 @@ public static class BritanniaFrontier
         spawners += GraveyardPopulation.InstallSpawners("covetous-spawns.json");
         HedgeMazeStory.Install(map);
         _logger.Information("Britannia frontier: installed {Scenery} decorations and {Spawners} spawners", scenery, spawners);
+    }
+
+    private static void RetireOldHoard(Map map)
+    {
+        // Replace the stock piles and the previous anchor for the smaller hoard.
+        (Point3D Location, int Graphic)[] placements =
+        [
+            (new(1439, 898, 0), 0x0EEF), (new(1440, 899, 0), 0x0EEF), (new(1441, 898, 0), 0x0EEF),
+            (new(1440, 898, 0), 0x1BEB), (new(1441, 899, 0), 0x1BEB),
+            (new(1442, 898, 0), WorldDecorationGraphics.DragonHoard)
+        ];
+        using var old = PooledRefList<Static>.Create();
+        foreach (var (location, graphic) in placements)
+            foreach (var item in map.GetItemsAt<Static>(location))
+                if (item.GetType() == typeof(Static) && item.Location == location && item.ItemID == graphic)
+                    old.Add(item);
+        foreach (var item in old)
+            item.Delete();
+    }
+
+    private static void InstallSewerLadders(Map map)
+    {
+        for (int lane = 0; lane < 2; lane++)
+        {
+            var britain = new Point3D(1491, 1640 + lane * 2, 24);
+            var stockLanding = new Point3D(6032, 1499 + lane * 2, 31);
+            RetireStockPassage(map, britain, stockLanding);
+            RetireStockPassage(map, stockLanding, britain);
+
+            // The tunnel floor below the steps is clear of the ladder and stair collision.
+            int x = 6031 + lane;
+            PlaceSewerLadder(map, britain, new(x, 1494, 5), "ladder to the Britain sewers");
+            PlaceSewerLadder(map, new(x, 1495, 7), britain, "ladder to Britain");
+        }
+    }
+
+    private static void PlaceSewerLadder(Map map, Point3D from, Point3D to, string name)
+    {
+        foreach (var ladder in map.GetItemsAt<BritainSewerLadder>(from))
+            if (ladder.Location == from && ladder.PointDest == to && ladder.MapDest == map && ladder.Active)
+                return;
+
+        new BritainSewerLadder(to, map) { Name = name }.MoveToWorld(from, map);
     }
 
     private static void InstallDespise(Map map)

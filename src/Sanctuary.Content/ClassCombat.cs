@@ -164,7 +164,8 @@ public static class ClassCombat
             ? TimeSpan.FromSeconds(2) : stockManaRegen?.Invoke(mobile) ?? Mobile.DefaultManaRate;
         var stockStamRegen = Mobile.StamRegenRateHandler;
         Mobile.StamRegenRateHandler = mobile => mobile is PlayerMobile player && Enabled(player)
-            ? TimeSpan.FromSeconds(5) : stockStamRegen?.Invoke(mobile) ?? Mobile.DefaultStamRate;
+            ? TimeSpan.FromMilliseconds(ActionTiming.FrameMs) : stockStamRegen?.Invoke(mobile) ?? Mobile.DefaultStamRate;
+        Mobile.StaminaRegenOverride = PlayerStamina.Regenerate;
         IncomingExtendedCommandPackets.RegisterExtended(CombatProtocol.SubCommand, true, &Receive);
         Timer.StartTimer(TimeSpan.FromMilliseconds(CombatProtocol.CombatTickMs),
             TimeSpan.FromMilliseconds(CombatProtocol.CombatTickMs), Tick);

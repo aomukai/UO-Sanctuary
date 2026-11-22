@@ -73,7 +73,11 @@ public static class PaladinTravelChecks
             && ClassCombatHooks.WalkingDelay(ally,400)==EquipmentBalance.RunDelay(400,0,13)
             && ClassCombatHooks.RunningDelay(ally,200)==EquipmentBalance.RunDelay(200,EquipmentBalance.RunPenalty(ally),13),"Vigor native player speed consumers");
         Require(Math.Abs(ClassGearHooks.MovementDelay(pet,.24)-.24*100/113)<.000001
-            && Math.Abs(Mobile.StamRegenRateHandler(ally).TotalSeconds-5.0/1.5)<.00001,"Native pet movement/player recovery consumers");
+            && Mobile.StamRegenRateHandler(ally) == TimeSpan.FromMilliseconds(40), "Native pet movement/player recovery consumers");
+        int staminaBefore = BattleOrders.Stamina256(ally);
+        Require(Mobile.StaminaRegenOverride(ally)
+            && BattleOrders.Stamina256(ally) - staminaBefore == ally.StamMax + ally.StamMax / 2,
+            "Vigor must add 50 percent to the class stamina recovery amount");
         var necro=ClassSkillChecks.Player();var golem=new NecromancerMinion();golem.Prepare(necro,CombatAbility.ClayGolem);golem.SetControlMaster(necro);golem.MoveToWorld(new(vigor.X+3,vigor.Y,vigor.Z),vigor.Map);golem.AIObject.AITimer.Stop();
         var prison=BoneBarrierSegment.Spawn(necro,CombatAbility.BonePrison,new(vigor.X+6,vigor.Y,vigor.Z),SkillMechanics.Values(necro,CombatAbility.BonePrison),null);
         var wall=BoneBarrierSegment.Spawn(necro,CombatAbility.BoneWall,new(vigor.X+7,vigor.Y,vigor.Z),SkillMechanics.Values(necro,CombatAbility.BoneWall),null);

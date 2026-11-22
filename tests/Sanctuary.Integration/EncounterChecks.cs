@@ -333,6 +333,17 @@ public static class EncounterChecks
         RewardLife.Process(victim, corpse, new Random(42)); int count = corpse.Items.Count;
         Require(corpse.SanctuaryNoRewards && count <= 6, "Elite rewards escaped shared claim or six-item cap");
         RewardLife.Process(victim, corpse, new Random(42)); Require(corpse.Items.Count == count, "Elite reward callback paid twice");
+        var cindermaw = new FrontierEncounter("frontier-dragon", 30, 2);
+        var dragonCorpse = GearDropChecks.Body(cindermaw, player, victim.Location);
+        try
+        {
+            // This seed used to leave Cindermaw's corpse with just three potions.
+            RewardLife.Process(cindermaw, dragonCorpse, new Random(10));
+            Require(dragonCorpse.Items.Count(item => item is RestorationPotion) == 3
+                && dragonCorpse.Items.Count(item => ClassGear.State(item) != null) == 1,
+                "Cindermaw's loot did not keep its potions and guarantee gear");
+        }
+        finally { dragonCorpse.Delete(); cindermaw.Delete(); }
         var drops = EncounterTreasure.Roll(victim, new Random(45)); Require(drops.Count == 5
             && drops.Count(d => d.Factors[3] == 1024) == 1, "Unique tree lost its gear-plus-four-potion structure or quality factors");
         var super = Create(grade: EncounterGrade.SuperUnique); Require(EncounterTreasure.Roll(super, new Random(45)).Count == 6, "Named treasure did not reserve two gear and four potion outcomes"); super.Delete();

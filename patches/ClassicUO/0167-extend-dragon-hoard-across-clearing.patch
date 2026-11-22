@@ -1,0 +1,85 @@
+diff --git a/src/ClassicUO.Client/Client.cs b/src/ClassicUO.Client/Client.cs
+--- a/src/ClassicUO.Client/Client.cs
++++ b/src/ClassicUO.Client/Client.cs
+@@ -53,9 +53,10 @@
+                 bonfire.Name = "a bonfire";
+             }
+ 
+-            if (WorldDecorationGraphics.DragonHoard < tiles.Length)
+-            {
+-                ref var hoard = ref tiles[WorldDecorationGraphics.DragonHoard];
++            int hoardEnd = WorldDecorationGraphics.DragonHoardGroundFirst + WorldDecorationGraphics.DragonHoardGroundCount;
++            for (int graphic = WorldDecorationGraphics.DragonHoard; graphic < hoardEnd && graphic < tiles.Length; graphic++)
++            {
++                ref var hoard = ref tiles[graphic];
+                 hoard.Flags = TileFlag.Background;
+                 hoard.Height = 0;
+                 hoard.Weight = byte.MaxValue;
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs
+@@ -156,6 +156,9 @@
+             {
+                 hueVec.Z = 0.5f;
+             }
++
++            if (OnGround && WorldDecorationGraphics.IsDragonHoardGround(graphic))
++                posY += WorldDecorationGraphics.DragonHoardGroundDrawOffset;
+ 
+             DrawStaticAnimated(batcher, graphic, posX, posY, hueVec, false, depth);
+ 
+@@ -462,7 +465,7 @@
+ 
+         public override bool CheckMouseSelection()
+         {
+-            if (OnGround && Graphic == WorldDecorationGraphics.DragonHoard)
++            if (OnGround && (Graphic == WorldDecorationGraphics.DragonHoard || WorldDecorationGraphics.IsDragonHoardGround(Graphic)))
+                 return false;
+ 
+             if (!IsCorpse)
+diff --git a/src/ClassicUO.Client/Game/Scenes/RenderLists.cs b/src/ClassicUO.Client/Game/Scenes/RenderLists.cs
+--- a/src/ClassicUO.Client/Game/Scenes/RenderLists.cs
++++ b/src/ClassicUO.Client/Game/Scenes/RenderLists.cs
+@@ -67,6 +67,7 @@
+         private readonly List<GameObject> _tiles = [];
+         private readonly List<GameObject> _stretchedTiles = [];
+         private readonly List<GameObject> _groundDecorations = [];
++        private readonly List<GameObject> _dragonNests = [];
+         private readonly List<GameObject> _statics = [];
+         private readonly List<GameObject> _animations = [];
+         private readonly List<GameObject> _effects = [];
+@@ -79,6 +80,7 @@
+             _tiles.Clear();
+             _stretchedTiles.Clear();
+             _groundDecorations.Clear();
++            _dragonNests.Clear();
+             _statics.Clear();
+             _animations.Clear();
+             _effects.Clear();
+@@ -118,6 +120,10 @@
+                     break;
+ 
+                 case Item { OnGround: true, Graphic: WorldDecorationGraphics.DragonHoard }:
++                    _dragonNests.Add(toRender);
++                    break;
++
++                case Item { OnGround: true } ground when WorldDecorationGraphics.IsDragonHoardGround(ground.Graphic):
+                     _groundDecorations.Add(toRender);
+                     break;
+ 
+@@ -258,12 +264,13 @@
+ 
+         private int DrawGroundDecorations(UltimaBatcher2D batcher, sbyte maxGroundZ)
+         {
+-            if (_groundDecorations.Count == 0)
++            if (_groundDecorations.Count == 0 && _dragonNests.Count == 0)
+                 return 0;
+ 
+             // Cover the terrain without writing depth that could hide scenery or creatures.
+             batcher.SetStencil(DepthStencilState.None);
+-            int count = DrawRenderList(batcher, _groundDecorations, maxGroundZ);
++            int count = DrawRenderList(batcher, _groundDecorations, maxGroundZ) +
++                DrawRenderList(batcher, _dragonNests, maxGroundZ);
+             batcher.SetStencil(DepthStencilState.Default);
+             return count;
+         }
