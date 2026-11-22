@@ -1,0 +1,40 @@
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryWorkshopTheme.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryWorkshopTheme.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryWorkshopTheme.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryWorkshopTheme.cs
+@@ -35,6 +35,9 @@
+     private const uint TreasureKey = 0x1B59670C;
+     private const uint FortificationCraft = 0x86AC9094;
+     private const uint Carpentry = 0x8CEEFD0B;
++    private const uint MountConfirmation = 0x7E28FA8D;
++    private const uint MountMarket = 0x6031E3F5;
++    private const uint MountListingPrice = 0xD102092E;
+ 
+     private const ushort Cream = 0x0481, Gold = 0x0035;
+     private const uint Divider = 0xFF486581, Panel = 0xFF292D42, Input = 0xFFBBD5E4, Text = 0xD9F0FFFF;
+@@ -45,7 +48,7 @@
+             Moongate or Craft or CraftItem or MakersMark or ProfessionChoice or ProfessionTraining or Profession
+             or ProfessionTool or Inscription or EquipmentCraft or RuneCraft or Processing or Socket or Jewellery
+             or Essence or Survey or Repair or Alchemy or GemUpgrade or GemInsertion or Meal or TreasureKey
+-            or FortificationCraft or Carpentry))
++            or FortificationCraft or Carpentry or MountConfirmation or MountMarket or MountListingPrice))
+             return;
+ 
+         var children = gump.Children.ToArray();
+@@ -54,7 +57,7 @@
+             return;
+ 
+         int width = frame.Width, height = frame.Height;
+-        int headerHeight = gump.ServerSerial is Craft or CraftItem or MakersMark ? 0 : 42;
++        int headerHeight = gump.ServerSerial is Craft or CraftItem or MakersMark or MountConfirmation ? 0 : 42;
+         Replace(gump, frame, new SanctuaryBackdrop("character-frame", width, height, headerHeight) { CanCloseWithRightClick = true });
+         gump.X = Math.Clamp(gump.X, 0, Math.Max(0, Client.Game.ClientBounds.Width - width));
+         gump.Y = Math.Clamp(gump.Y, 0, Math.Max(0, Client.Game.ClientBounds.Height - height));
+@@ -131,7 +134,7 @@
+                 caption = label.Text;
+                 width = captionWidth;
+                 primary = label.Hue is Gold or 0x0034 || button.ButtonAction == ButtonAction.Activate
+-                    && button.ButtonID == 1 && gump.ServerSerial is ProfessionChoice or ProfessionTraining or Moongate;
++                    && button.ButtonID == 1 && gump.ServerSerial is ProfessionChoice or ProfessionTraining or Moongate or MountConfirmation or MountListingPrice;
+                 label.Dispose();
+             }
+         }

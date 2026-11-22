@@ -72,6 +72,24 @@ internal static class NecromancerCurseCasts
     internal static LowerResistDeltas ElementPenalties(int full,int fire,int lightning,int cold,int poison,bool monsterImmunity)
         =>new(PhysicalPenalty(full,fire,monsterImmunity),PhysicalPenalty(full,lightning,monsterImmunity),
             PhysicalPenalty(full,cold,monsterImmunity),PhysicalPenalty(full,poison,monsterImmunity));
+    private static NecromancerCurse DamageCurse(Mobile caster, Mobile target, CombatAbility ability, SkillValues values,
+        NecromancerCurse old, DateTime at, int frames)
+    {
+        bool monsterImmunity = target is BaseCreature and not BaseHire;
+        int? physical = ability switch
+        {
+            CombatAbility.AmplifyDamage => AmplifyDamageCasts.Penalty(EliteAuras.UnderlyingPhysical(target), monsterImmunity),
+            CombatAbility.Decrepify => PhysicalPenalty((int)values.Eval("aurastatcalc3"), EliteAuras.UnderlyingPhysical(target), monsterImmunity),
+            _ => null
+        };
+        var elements = ability == CombatAbility.LowerResist
+            ? ElementPenalties(-values.Diminishing(5, 6), target.FireResistance - EliteAuras.ConvictionOffset(target, "fire"),
+                target.EnergyResistance - EliteAuras.ConvictionOffset(target, "ltng"),
+                target.ColdResistance - EliteAuras.ConvictionOffset(target, "cold"), target.PoisonResistance, monsterImmunity)
+            : null;
+        return Replacement(old, ability, caster.Serial.Value, values.Rank, physical,
+            at.AddMilliseconds(frames * 40L), at, caster.X, caster.Y, elements);
+    }
     internal static bool Apply(PlayerMobile owner,Mobile target,CombatAbility ability,int rank)
         =>Handles(ability)&&rank is>=1 and<=255&&Apply(owner,owner,target,ability,rank,SkillMechanics.Values(owner,ability,rank),TimedEffects.Now);
     private static bool Apply(Mobile caster,PlayerMobile owner,Mobile target,CombatAbility ability,int rank,SkillValues values,DateTime at,bool indirect=false)
@@ -99,18 +117,7 @@ internal static class NecromancerCurseCasts
         // For current native hostile actors, PhysicalResistance is the base
         // pool: curse/skill mitigation does not mutate that property. Dynamic
         // source base/accrued item graphs remain a separately recorded gap.
-        int? penalty=ability switch
-        {
-            CombatAbility.AmplifyDamage=>AmplifyDamageCasts.Penalty(EliteAuras.UnderlyingPhysical(target),target is not BaseHire),
-            CombatAbility.Decrepify=>PhysicalPenalty((int)values.Eval("aurastatcalc3"),EliteAuras.UnderlyingPhysical(target),target is not BaseHire),
-            _=>null
-        };
-        var next=Replacement(state.Curse??EliteAuras.Curses.Metadata(target.Serial),ability,caster.Serial.Value,rank,penalty,
-            at.AddMilliseconds(frames*40L),at,caster.X,caster.Y,
-            ability==CombatAbility.LowerResist?ElementPenalties(-values.Diminishing(5,6),
-                target.FireResistance-EliteAuras.ConvictionOffset(target,"fire"),
-                target.EnergyResistance-EliteAuras.ConvictionOffset(target,"ltng"),
-                target.ColdResistance-EliteAuras.ConvictionOffset(target,"cold"),target.PoisonResistance,target is not BaseHire):null);
+        var next=DamageCurse(caster,target,ability,values,state.Curse??EliteAuras.Curses.Metadata(target.Serial),at,frames);
         if(next==null){return false;}
         if(ability==CombatAbility.DimVision){next=next with{Motion=NecromancerEffects.CaptureMotion(creature)};}
         // The source dispatcher reinitializes AI11 on every accepted factory
@@ -126,21 +133,45 @@ internal static class NecromancerCurseCasts
     // Qualified native elite callback. Its existing caller owns proc RNG,
     // selection and geometry;only the shared receiver/group is bound here.
     internal static bool NpcAmplify(EncounterCreature caster,Mobile target,int rank)
+        => NpcDamageCurse(caster, target, CombatAbility.AmplifyDamage, rank);
+
+    internal static bool NpcDamageCurse(EncounterCreature caster, Mobile target, CombatAbility ability, int rank)
     {
-        if(caster is not{Alive:true,Deleted:false}||target is not{Alive:true,Deleted:false}||rank is<1 or>255
-            ||target is EncounterCreature{Grade:EncounterGrade.Champion,Champion:ChampionKind.Possessed}){return false;}
-        DateTime at=TimedEffects.Now;
-        if(EliteAuras.Curses.Unknown(target.Serial,at)){Log.Warning("NPC Amplify unknown legacy replacement is unsupported:{Target}",target.Serial.Value);return false;}
+        if (ability is not (CombatAbility.AmplifyDamage or CombatAbility.Decrepify or CombatAbility.LowerResist)
+            || caster is not { Alive: true, Deleted: false } || target is not { Alive: true, Deleted: false }
+            || rank is < 1 or > 255 || target is EncounterCreature { Grade: EncounterGrade.Champion, Champion: ChampionKind.Possessed })
+            return false;
+        DateTime at = TimedEffects.Now;
+        if (EliteAuras.Curses.Unknown(target.Serial, at))
+        {
+            Log.Warning("NPC {Ability} unknown legacy replacement is unsupported: {Target}", ability, target.Serial.Value);
+            return false;
+        }
         EliteAuras.Refresh(target);
-        var row=SkillMechanics.For(CombatAbility.AmplifyDamage);
-        var values=new SkillValues(row,k=>k==row.SourceKey?rank:0,_=>0,ClassStats.Level(caster));
-        if(!SourceCurseDuration.Incoming(target,row.Text("auratargetstate"),(int)values.Eval("auralencalc"),out int frames)){return false;}
-        var state=NecromancerEffects.Profiles.Find(target)??new();
-        var next=Replacement(state.Curse??EliteAuras.Curses.Metadata(target.Serial),CombatAbility.AmplifyDamage,caster.Serial.Value,rank,
-            AmplifyDamageCasts.Penalty(EliteAuras.UnderlyingPhysical(target),target is BaseCreature and not BaseHire),at.AddMilliseconds(frames*40L),at,caster.X,caster.Y);
-        if(next==null){return false;}
-        if(!EliteAuras.ValidMetadata(next)){Log.Warning("NPC Amplify retained primary/creator is unsupported:{Target}",target.Serial.Value);return false;}
-        EliteAuras.Curses.Apply(target,next);EliteAuras.Refresh(target);NecromancerEffects.CurseApplied(caster,target);return true;
+        var row = SkillMechanics.For(ability);
+        var values = new SkillValues(row, k => k == row.SourceKey ? rank : 0, _ => 0, ClassStats.Level(caster));
+        if (!SourceCurseDuration.Incoming(target, row.Text("auratargetstate"), (int)values.Eval("auralencalc"), out int frames))
+            return false;
+        var state = NecromancerEffects.Profiles.Find(target) ?? new();
+        var next = DamageCurse(caster, target, ability, values, state.Curse ?? EliteAuras.Curses.Metadata(target.Serial), at, frames);
+        if (next == null)
+            return false;
+
+        if (ability == CombatAbility.AmplifyDamage)
+        {
+            if (!EliteAuras.ValidMetadata(next))
+            {
+                Log.Warning("NPC Amplify retained primary/creator is unsupported: {Target}", target.Serial.Value);
+                return false;
+            }
+            EliteAuras.Curses.Apply(target, next);
+            EliteAuras.Refresh(target);
+        }
+        else
+            NecromancerEffects.Profiles.Store(target, state with { Curse = next });
+
+        NecromancerEffects.CurseApplied(caster, target);
+        return true;
     }
     private static void Area(Mobile caster,PlayerMobile owner,CombatAbility ability,Point3D center,SkillValues values,DateTime at,bool indirect=false)
     {

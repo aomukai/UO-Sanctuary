@@ -38,6 +38,18 @@ class TownMarketTests(unittest.TestCase):
         self.assertIn(('Ocllo','Felucca'), towns)
         self.assertIn(('New Haven','Trammel'), towns)
 
+    def test_each_trainer_site_has_its_own_portrait(self):
+        sites = json.loads((BALANCE / 'town-markets.json').read_text())
+        assignments = json.loads((BALANCE / 'trainer-portraits.json').read_text())
+        trainer_sites = {row['id'] for row in sites if row['role'] not in {'Jeweller', 'Provisioner', 'Scholar'}}
+        self.assertCountEqual([row['site'] for row in assignments], trainer_sites)
+        portraits = [row['portrait'] for row in assignments]
+        self.assertEqual(len(portraits), len(set(portraits)))
+        self.assertTrue(all(portrait >= 256 for portrait in portraits))
+        art = ROOT / 'art/player-ui'
+        for sheet in {(portrait - 256) // 36 for portrait in portraits}:
+            self.assertTrue((art / f'portrait-trainers-{sheet:02}.png').is_file())
+
     def test_supply_sources_and_prices_do_not_reintroduce_banned_materials(self):
         supplies = json.loads((BALANCE / 'market-supplies.json').read_text())
         forbidden = {'IronIngot','Board','Log','Leather','Hides','IronOre','Bandage','MetalScraps','WoodenChips','LeatherStrips'}

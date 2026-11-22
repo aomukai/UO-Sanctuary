@@ -55,7 +55,10 @@ public static class EncounterProfiles
     public static IReadOnlyCollection<NamedEncounter> Named => _named.Values;
     public static DungeonProfile Profile(string id) => _profiles.TryGetValue(id ?? "", out var row) ? row
         : HavenEncounter.FindSpecies(id) ?? FrontierEncounter.FindSpecies(id) ?? CovetousEncounter.FindSpecies(id)
-            ?? CoveEncounter.FindSpecies(id) ?? TreasureHunts.Profile(id)
+            ?? CoveEncounter.FindSpecies(id) ?? YewEncounter.FindSpecies(id) ?? BrigandEncounter.FindSpecies(id)
+            ?? OrcFortEncounter.FindSpecies(id)
+            ?? HedgeEncounter.FindSpecies(id) ?? (id == YewVampire.Species.Id ? YewVampire.Species : null)
+            ?? TreasureHunts.Profile(id)
             ?? throw new ArgumentException("Unknown dungeon encounter profile.", nameof(id));
     public static void Load()
     {

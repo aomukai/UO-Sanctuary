@@ -128,9 +128,13 @@ public static class SkillHealth
         int before = target.Hits;
         bool lethal=(long)before*256-total<256;
         int whole=lethal?before:(int)Math.Min(total/256,int.MaxValue);
+        var cultist = target is YewEncounter { HumanForm: true } human ? human : null;
         if (whole>0) { target.Damage(whole, source); CombatDamage.Finish(target, source); }
+        // A cultist that just changed form starts at full health, including its fractional balance.
+        if (cultist is { HumanForm: false }) { return 0; }
         if (!lethal && target is { Alive: true, Deleted: false } && total % 256 != 0) { Profiles.Remainders[target.Serial] = ((int)(total % 256), target.Hits); }
         else { Clear(target); }
+        cultist?.TryTransform();
         return Math.Max(0, before - target.Hits);
     }
 }

@@ -45,7 +45,12 @@ public static class CorpseEscrowUiChecks
             _banker.MoveToWorld(new Point3D(_player.X + 1, _player.Y, _player.Z), _player.Map);
             _player.CloseGump<CorpseEscrowGump>();
         });
-        Command("opened", () => Require(_player.FindGump<CorpseEscrowGump>() != null, "The banker dialogue did not open escrow"));
+        Command("opened", () => Require(_player.FindGump<CorpseEscrowGump>() != null, "Clicking the banker did not open escrow"));
+        Command("bank-opened", () =>
+        {
+            Require(_player.BankBox.Opened && CorpseEscrow.Claims(_player).Length == 2, "Opening the bank box changed escrow");
+            _player.BankBox.Close();
+        });
         Command("no-funds", () => Require(CorpseEscrow.Claims(_player).Length == 2 && !_gear.Deleted && !_discarded.Deleted
             && Banker.GetBalance(_player) == 0 && _bag.Parent?.Serial == _recover.Storage, "No-funds UI deleted or moved contents"));
         Command("fund", () =>
@@ -89,6 +94,7 @@ public static class CorpseEscrowUiChecks
                 && CorpseEscrow.Profiles.Find((Serial)saved.Kept) is { Storage.IsItem: true },
                 "Client recovery/forfeiture/deferred claim did not survive restart");
         });
+        Command("disconnect", () => _player.NetState.Disconnect("Escrow UI test"));
     }
     private static void Command(string suffix, Action action)
     {

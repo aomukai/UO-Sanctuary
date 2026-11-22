@@ -207,6 +207,9 @@ public static class ClassCombat
     });
     public static bool CastSummon(PlayerMobile from, long now)
     {
+        if (MountTravel.RefuseCombat(from))
+            return false;
+
         if(!NecromancerCastRegions.Allowed(from,CombatAbility.RaiseSkeleton)){return false;}
         if (!Enabled(from) || !from.Alive || !AlliedOverlap.Allowed(from) || from.Frozen || from.Paralyzed || from.Spell != null
             || HitRecovery.Active(from, now))
@@ -242,6 +245,9 @@ public static class ClassCombat
     }
     public static bool Begin(PlayerMobile from, Mobile target)
     {
+        if (MountTravel.RefuseCombat(from))
+            return false;
+
         var session = For(from);
         Stop(from);
         if (!Enabled(from) || !from.Alive || !AlliedOverlap.Allowed(from) || !Available(from, session.Left) || !IsHostile(from, target)
@@ -439,6 +445,8 @@ public static class ClassCombat
 
     private static bool Perform(PlayerMobile from, CombatAbility ability, Mobile target, Point3D point, long now, bool attackInPlace)
     {
+        if (MountTravel.RefuseCombat(from))
+            return false;
         if(ability==CombatAbility.BindDemon){return false;} // Requires explicit channel press/aim/release.
         if(!ShapeRestrictions.Allowed(from,ability)){return false;}
         var previous=For(from);
@@ -795,6 +803,9 @@ public static class ClassCombat
             return;
         }
         session.Sequence = sequence;
+        if (action is CombatRequest.Attack or CombatRequest.Cast or CombatRequest.HoldCast or CombatRequest.HoldAttack or CombatRequest.ChannelStart
+            && MountTravel.RefuseCombat(from))
+            return;
         if (action is CombatRequest.Attack or CombatRequest.Cast or CombatRequest.HoldCast or CombatRequest.HoldAttack or CombatRequest.ChannelStart
             && !AlliedOverlap.Allowed(from))
         {

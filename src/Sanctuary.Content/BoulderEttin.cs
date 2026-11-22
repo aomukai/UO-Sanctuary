@@ -17,12 +17,20 @@ public partial class BoulderEttin : FrontierEncounter
     public BoulderEttin(int level) : base(BoulderEttinId, level, 0)
     {
         RangeFight = ThrowRange;
-        Hue = 0x0455;
     }
 
     protected override bool Caster => true;
     protected override int EncounterMoveInterval(int interval) => interval * 3 / 2;
     public override string CorpseName => "an ettin's corpse";
+
+    [AfterDeserialization]
+    private void RestoreAppearance()
+    {
+        if (Name == "a boulder-throwing ettin")
+            Name = Dungeon.Name;
+        if (Hue == 0x0455)
+            Hue = 0;
+    }
 
     public override bool BeginFirebolt(Mobile target)
     {

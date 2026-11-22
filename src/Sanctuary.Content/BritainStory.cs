@@ -94,6 +94,8 @@ public static class BritainStory
             return true;
         if (target is Wolfgang { Recruited: false })
             return !MercenaryCare.HasContract<Wolfgang>(player);
+        if (target is Nightwind { Recruited: false })
+            return YewStory.Has(player, YewProgress.Heartwood) && !MercenaryCare.HasContract<Nightwind>(player);
         if (target is Merydwen { Recruited: false })
             return !MercenaryCare.HasContract<Merydwen>(player);
         if (target is CollegeIolo)
@@ -173,7 +175,7 @@ public partial class Geoffrey : ConversationNpc
         AddItem(new Boots());
     }
 
-    internal override byte Portrait => 4;
+    internal override ushort Portrait => (ushort)NpcPortrait.Geoffrey;
     internal override IReadOnlyList<ScriptedDialogue.Node> Script => _before;
 
     private static readonly ScriptedDialogue.Node[] _before =
@@ -225,7 +227,7 @@ public partial class Geoffrey : ConversationNpc
 [SerializationGenerator(0)]
 public partial class LordBritish : ConversationNpc
 {
-    private static readonly ScriptedDialogue.Voice _iolo = new("Iolo", 11);
+    private static readonly ScriptedDialogue.Voice _iolo = new("Iolo", (ushort)NpcPortrait.Iolo);
 
     [Constructible]
     public LordBritish()
@@ -245,7 +247,7 @@ public partial class LordBritish : ConversationNpc
         AddItem(new Boots());
     }
 
-    internal override byte Portrait => 10;
+    internal override ushort Portrait => (ushort)NpcPortrait.LordBritish;
     internal override IReadOnlyList<ScriptedDialogue.Node> Script => _waiting;
     private static readonly ScriptedDialogue.Node[] _waiting =
     [
@@ -314,7 +316,7 @@ public partial class CollegeIolo : ConversationNpc
         AddItem(new Boots(0x0590));
     }
 
-    internal override byte Portrait => 11;
+    internal override ushort Portrait => (ushort)NpcPortrait.Iolo;
     internal override IReadOnlyList<ScriptedDialogue.Node> Script => _college;
     internal override bool CanTalkTo(PlayerMobile player) => BritainStory.MobileVisible(player, this);
     private static readonly ScriptedDialogue.Reply _identify = new("Identify Pack", 0, IdentifyPack);

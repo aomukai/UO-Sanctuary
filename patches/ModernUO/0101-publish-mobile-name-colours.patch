@@ -1,0 +1,122 @@
+diff --git a/Projects/Server/Mobiles/Mobile.cs b/Projects/Server/Mobiles/Mobile.cs
+--- a/Projects/Server/Mobiles/Mobile.cs
++++ b/Projects/Server/Mobiles/Mobile.cs
+@@ -2973,6 +2973,10 @@
+                     state.Send(deadBuffer);
+                 }
+             }
++            else if ((delta & MobileDelta.Noto) != 0)
++            {
++                Notoriety.SendNameStyle?.Invoke(state, beholder, this);
++            }
+ 
+             if (sendMoving || !state.StygianAbyss && (sendHealthbarPoison || sendHealthbarYellow))
+             {
+@@ -3310,21 +3314,7 @@
+ 
+         if (opl.Header > 0)
+         {
+-            int hue;
+-
+-            if (NameHue != -1)
+-            {
+-                hue = NameHue;
+-            }
+-            else if (m_AccessLevel > AccessLevel.Player)
+-            {
+-                hue = 11;
+-            }
+-            else
+-            {
+-                hue = Notoriety.GetHue(Notoriety.Compute(from, this));
+-            }
+-
++            int hue = Notoriety.GetNameHue(from, this);
+             from.NetState.SendMessageLocalized(Serial, Body, MessageType.Label, hue, 3, opl.Header, Name, opl.HeaderArgs);
+         }
+     }
+@@ -8054,20 +8044,7 @@
+             }
+         }
+ 
+-        int hue;
+-
+-        if (NameHue != -1)
+-        {
+-            hue = NameHue;
+-        }
+-        else if (AccessLevel > AccessLevel.Player)
+-        {
+-            hue = 11;
+-        }
+-        else
+-        {
+-            hue = Notoriety.GetHue(Notoriety.Compute(from, this));
+-        }
++        int hue = Notoriety.GetNameHue(from, this);
+ 
+         var name = Name ?? "";
+ 
+diff --git a/Projects/Server/Mobiles/Notoriety.cs b/Projects/Server/Mobiles/Notoriety.cs
+--- a/Projects/Server/Mobiles/Notoriety.cs
++++ b/Projects/Server/Mobiles/Notoriety.cs
+@@ -1,3 +1,6 @@
++using System;
++using Server.Network;
++
+ namespace Server;
+ 
+ public delegate int NotorietyHandler(Mobile source, Mobile target);
+@@ -13,6 +16,8 @@
+     public const int Invulnerable = 7;
+ 
+     public static NotorietyHandler Handler { get; set; }
++    public static NotorietyHandler NameStyleHandler { get; set; }
++    public static Action<NetState, Mobile, Mobile> SendNameStyle { get; set; }
+ 
+     public static int[] Hues { get; set; } =
+     {
+@@ -29,4 +34,16 @@
+     public static int GetHue(int noto) => noto < 0 || noto >= Hues.Length ? 0 : Hues[noto];
+ 
+     public static int Compute(Mobile source, Mobile target) => Handler?.Invoke(source, target) ?? CanBeAttacked;
++
++    public static int GetNameHue(Mobile source, Mobile target)
++    {
++        int style = NameStyleHandler?.Invoke(source, target) ?? 0;
++        if (style != 0)
++        {
++            return GetHue(style);
++        }
++
++        return target.NameHue != -1 ? target.NameHue : target.AccessLevel > AccessLevel.Player
++            ? 11 : GetHue(Compute(source, target));
++    }
+ }
+diff --git a/Projects/Server/Network/Packets/OutgoingMobilePackets.cs b/Projects/Server/Network/Packets/OutgoingMobilePackets.cs
+--- a/Projects/Server/Network/Packets/OutgoingMobilePackets.cs
++++ b/Projects/Server/Network/Packets/OutgoingMobilePackets.cs
+@@ -712,5 +712,6 @@
+         writer.WritePacketLength();
+         ns.Send(writer.Span);
+         beheld.SendAppearanceTo(ns);
++        Notoriety.SendNameStyle?.Invoke(ns, beholder, beheld);
+     }
+ }
+diff --git a/Projects/UOContent/Mobiles/BaseCreature.cs b/Projects/UOContent/Mobiles/BaseCreature.cs
+--- a/Projects/UOContent/Mobiles/BaseCreature.cs
++++ b/Projects/UOContent/Mobiles/BaseCreature.cs
+@@ -315,10 +315,12 @@
+ 
+         private void OnTeamChange(int oldValue, int newValue) => OnTeamChange();
+ 
+-        [SerializableField(6)]
++        [SerializableField(6, fieldChanged: nameof(OnFightModeChanged))]
+         [SaveFlag(nameof(ShouldSerializeFightMode), nameof(FightModeDefaultValue))]
+         [SerializedCommandProperty(AccessLevel.GameMaster)]
+         private FightMode _fightMode;
++
++        private void OnFightModeChanged(FightMode oldValue, FightMode newValue) => Delta(MobileDelta.Noto);
+ 
+         private bool ShouldSerializeFightMode() => _fightMode != FightMode.Closest;
+ 

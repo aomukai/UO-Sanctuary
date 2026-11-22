@@ -1,0 +1,41 @@
+diff --git a/src/ClassicUO.Client/Game/AvatarDialogueClient.cs b/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
+--- a/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
++++ b/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
+@@ -104,14 +104,16 @@
+         }
+         if (kind == PortraitProtocol.BritainDiscoveries && reader.Remaining == 1)
+         {
+-            world.Player.SanctuaryDiscoveries = (StoryDiscoveries)(((ushort)world.Player.SanctuaryDiscoveries & 0xFF00)
++            world.Player.SanctuaryDiscoveries = (StoryDiscoveries)(((uint)world.Player.SanctuaryDiscoveries & ~0xFFu)
+                 | reader.ReadUInt8());
+             UIManager.GetGump<SanctuaryJournalGump>()?.RefreshDiscoveries();
+             return;
+         }
+-        if (kind == PortraitProtocol.WorldDiscoveries && reader.Remaining == 2)
++        if (kind == PortraitProtocol.WorldDiscoveries && reader.Remaining is 2 or 4)
+         {
+-            world.Player.SanctuaryDiscoveries = (StoryDiscoveries)reader.ReadUInt16BE();
++            world.Player.SanctuaryDiscoveries = (StoryDiscoveries)(reader.Remaining == 4
++                ? reader.ReadUInt32BE()
++                : ((uint)world.Player.SanctuaryDiscoveries & ~0xFFFFu) | reader.ReadUInt16BE());
+             UIManager.GetGump<SanctuaryJournalGump>()?.RefreshDiscoveries();
+             return;
+         }
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
+@@ -145,7 +145,13 @@
+         (StoryDiscoveries.GnawFreed, "An Imp in the Circle",
+             "I met an imp named Gnaw in a pentagram in the woods. His master was dead, and he knew no way back to the Abyss. We made a bargain. I spoke the dispel, he left me his gold and a piece of gear, and the clearing was suddenly quiet."),
+         (StoryDiscoveries.CoveChief, "A Rune from the Orc Fort",
+-            "The chief of the Cove raiders was carrying a marked rune. It led straight to Cove's gates. I wondered how often he had stood on that same road and watched Thomas's guards change shifts.")
++            "The chief of the Cove raiders was carrying a marked rune. It led straight to Cove's gates. I wondered how often he had stood on that same road and watched Thomas's guards change shifts."),
++        (StoryDiscoveries.HedgeTobin, "Supper in the Maze",
++            "I found Tobin in the study at the Hedge Maze farm, bent over a book. He took me for one of the visitors his mother had promised and said he had to finish the page before supper. For a moment, I almost expected to hear someone call him to the table."),
++        (StoryDiscoveries.HedgeRoderic, "Roderic's Answer",
++            "Upstairs at the farm, I heard Roderic rehearse what he meant to tell the royal mage and his apprentices when they arrived. His family had lived there for generations. Whatever the mage might offer, Roderic wouldn't sell. I wondered whether he'd already given them that answer once."),
++        (StoryDiscoveries.HedgeOrvath, "Orvath's Watch",
++            "I met a daemon named Orvath beside a pentagram in the Hedge Maze. He said his master had summoned him to watch over the maze. His master had been gone a long time, and no one had come to relieve him. I wondered what he'd seen while he waited.")
+     ];
+ 
+     private SanctuaryJournalGump(World world) : base(world, 0, 0)

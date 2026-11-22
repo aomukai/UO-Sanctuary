@@ -33,7 +33,7 @@ public static class ClassProfessions
         TradeSkillHooks.ToolUsed = UseTool;
         TradeSkillHooks.RecipeAllowed = RecipeAllowed;
         TradeSkillHooks.IndependentSkills = Affected;
-        TradeSkillHooks.TeachingAllowed = (from, skill) => !Affected(from) || TradeSkills.Includes((int)skill);
+        TradeSkillHooks.TeachingAllowed = (from, skill) => !Affected(from) || TradeSkills.Includes((int)skill) && skill != SkillName.AnimalTaming;
         TradeSkillHooks.Training = Train;
         TradeSkillHooks.TrainingPayment = Pay;
         EventSink.WorldSave += () => { Profiles.Prune(); Cleanup(); };
@@ -61,7 +61,7 @@ public static class ClassProfessions
     public static string Name(SkillName skill) => skill switch
     {
         SkillName.Blacksmith => "Blacksmithing", SkillName.Fletching => "Bowcraft/Fletching",
-        SkillName.Inscribe => "Inscription", _ => skill.ToString()
+        SkillName.Inscribe => "Inscription", SkillName.AnimalTaming => "Animal Taming", _ => skill.ToString()
     };
     public static bool Active(Mobile from, SkillName skill) => !Affected(from) || TradeSkills.IsGathering((int)skill)
         || Profiles.Find(from) is { Confirmed: true } state && state.Craft == skill;
@@ -218,7 +218,7 @@ public static class ClassProfessions
         int payment, ref int price, bool apply)
     {
         if (!Affected(student)) { return null; }
-        if (!TradeSkills.Includes((int)skill) || !SourceValid(student, null, trainer, skill))
+        if (skill == SkillName.AnimalTaming || !TradeSkills.Includes((int)skill) || !SourceValid(student, null, trainer, skill))
         {
             return BaseCreature.TeachResult.Failure;
         }

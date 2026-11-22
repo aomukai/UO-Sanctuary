@@ -1,0 +1,278 @@
+diff --git a/Projects/UOContent/Mobiles/ClassMountHooks.cs b/Projects/UOContent/Mobiles/ClassMountHooks.cs
+new file mode 100644
+--- /dev/null
++++ b/Projects/UOContent/Mobiles/ClassMountHooks.cs
+@@ -0,0 +1,26 @@
++// SPDX-License-Identifier: GPL-3.0-or-later
++using System;
++using Server.Collections;
++using Server.ContextMenus;
++using Server.Items;
++
++namespace Server.Mobiles;
++
++public delegate bool MountContextEntries(BaseCreature mount, Mobile from, ref PooledRefList<ContextMenuEntry> entries);
++
++public static class ClassMountHooks
++{
++    public static Func<BaseCreature, bool> Managed { get; set; }
++    public static Func<Mobile, bool> BlockTravel { get; set; }
++    public static Func<Mobile, BaseMount, bool> CanRide { get; set; }
++    public static Action<BaseMount, Mobile, Mobile> RiderChanged { get; set; }
++    public static Action<BaseMount> BeforeDeath { get; set; }
++    public static MountContextEntries ContextEntries { get; set; }
++    public static Func<BaseCreature, Mobile, bool> Feed { get; set; }
++    public static Func<Mobile, bool> CanUseTaming { get; set; }
++    public static Func<Mobile, BaseCreature, bool> CanTame { get; set; }
++    public static Func<Mobile, BaseCreature, double> TameSkill { get; set; }
++    public static Func<Mobile, BaseCreature, bool> Tamed { get; set; }
++    public static Func<Mobile, Corpse, bool> CorpseInteraction { get; set; }
++    public static Func<Mobile, BaseCreature, bool> StableInteraction { get; set; }
++}
+diff --git a/Projects/UOContent/Mobiles/Animals/Mounts/BaseMount.cs b/Projects/UOContent/Mobiles/Animals/Mounts/BaseMount.cs
+--- a/Projects/UOContent/Mobiles/Animals/Mounts/BaseMount.cs
++++ b/Projects/UOContent/Mobiles/Animals/Mounts/BaseMount.cs
+@@ -84,6 +84,7 @@
+                 return;
+             }
+ 
++            var previousRider = _rider;
+             if (value == null)
+             {
+                 var loc = _rider.Location;
+@@ -133,12 +134,14 @@
+             }
+ 
+             this.MarkDirty();
++            if (!World.Loading)
++                ClassMountHooks.RiderChanged?.Invoke(this, previousRider, value);
+         }
+     }
+ 
+     public virtual void OnRiderDamaged(int amount, Mobile from, bool willKill)
+     {
+-        if (_rider == null)
++        if (_rider == null || ClassMountHooks.Managed?.Invoke(this) == true)
+         {
+             return;
+         }
+@@ -155,6 +158,7 @@
+     public override bool OnBeforeDeath()
+     {
+         Rider = null;
++        ClassMountHooks.BeforeDeath?.Invoke(this);
+         return base.OnBeforeDeath();
+     }
+ 
+@@ -189,7 +193,7 @@
+ 
+     public override void OnDoubleClick(Mobile from)
+     {
+-        if (IsDeadPet)
++        if (IsDeadPet || ClassMountHooks.CanRide?.Invoke(from, this) == false)
+         {
+             return;
+         }
+diff --git a/Projects/UOContent/Mobiles/BaseCreature.cs b/Projects/UOContent/Mobiles/BaseCreature.cs
+--- a/Projects/UOContent/Mobiles/BaseCreature.cs
++++ b/Projects/UOContent/Mobiles/BaseCreature.cs
+@@ -2885,6 +2885,8 @@
+         public override void GetContextMenuEntries(Mobile from, ref PooledRefList<ContextMenuEntry> list)
+         {
+             base.GetContextMenuEntries(from, ref list);
++            if (ClassMountHooks.ContextEntries?.Invoke(this, from, ref list) == true)
++                return;
+             ClassMercenaryHooks.ContextEntries?.Invoke(this, from, ref list);
+ 
+             if (Commandable)
+@@ -3799,7 +3801,7 @@
+ 
+         public override bool CanBeHarmful(Mobile target, bool message, bool ignoreOurBlessedness)
+         {
+-            if (ClassCombatHooks.TargetAllowed?.Invoke(this, target) == false)
++            if (ClassMountHooks.Managed?.Invoke(this) == true || ClassCombatHooks.TargetAllowed?.Invoke(this, target) == false)
+             {
+                 return false;
+             }
+@@ -3981,6 +3983,9 @@
+                 var delay = min + Utility.RandomDouble() * (max - min);
+                 m_NextRummageTime = tc + (int)TimeSpan.FromMinutes(delay).TotalMilliseconds;
+             }
++
++            if (ClassMountHooks.Managed?.Invoke(this) == true)
++                return;
+ 
+             // Fire breath, etc.
+             TriggerAbility(MonsterAbilityTrigger.Think, Combatant);
+@@ -4695,7 +4700,7 @@
+                     Animate(17, 5, 1, true, false, 0);
+                 }
+ 
+-                if (IsBondable && !IsBonded)
++                if (ClassMountHooks.Feed?.Invoke(this, from) != true && IsBondable && !IsBonded)
+                 {
+                     var master = ControlMaster;
+ 
+@@ -6099,6 +6104,9 @@
+                     continue;
+                 }
+ 
++                if (ClassMountHooks.Managed?.Invoke(c) == true)
++                    continue;
++
+                 if (ClassMercenaryHooks.KeepEquipment?.Invoke(c) == true)
+                 {
+                     c.OwnerAbandonTime = DateTime.MinValue;
+diff --git a/Projects/UOContent/Mobiles/PlayerMobile.cs b/Projects/UOContent/Mobiles/PlayerMobile.cs
+--- a/Projects/UOContent/Mobiles/PlayerMobile.cs
++++ b/Projects/UOContent/Mobiles/PlayerMobile.cs
+@@ -3643,7 +3643,7 @@
+                     continue;
+                 }
+ 
+-                if (ClassCombatHooks.PersistentMinion?.Invoke(pet) == true)
++                if (ClassCombatHooks.PersistentMinion?.Invoke(pet) == true || ClassMountHooks.Managed?.Invoke(pet) == true)
+                 {
+                     continue;
+                 }
+diff --git a/Projects/UOContent/Skills/AnimalTaming.cs b/Projects/UOContent/Skills/AnimalTaming.cs
+--- a/Projects/UOContent/Skills/AnimalTaming.cs
++++ b/Projects/UOContent/Skills/AnimalTaming.cs
+@@ -23,6 +23,8 @@
+ 
+         public static TimeSpan OnUse(Mobile m)
+         {
++            if (ClassMountHooks.CanUseTaming?.Invoke(m) == false)
++                return TimeSpan.Zero;
+             m.RevealingAction();
+ 
+             m.Target = new InternalTarget();
+@@ -126,6 +128,9 @@
+                     return;
+                 }
+ 
++                if (ClassMountHooks.CanTame?.Invoke(from, creature) == false)
++                    return;
++
+                 if (!creature.Tamable)
+                 {
+                     // That creature cannot be tamed.
+@@ -161,7 +166,7 @@
+                     return;
+                 }
+ 
+-                if (from.Followers + creature.ControlSlots > from.FollowersMax)
++                if (ClassMountHooks.Tamed == null && from.Followers + creature.ControlSlots > from.FollowersMax)
+                 {
+                     from.SendLocalizedMessage(1049611); // You have too many followers to tame that creature.
+                     return;
+@@ -181,7 +186,7 @@
+                     return;
+                 }
+ 
+-                if (!(CheckMastery(from, creature) || from.Skills.AnimalTaming.Value >= creature.MinTameSkill))
++                if (!(CheckMastery(from, creature) || from.Skills.AnimalTaming.Value >= (ClassMountHooks.TameSkill?.Invoke(from, creature) ?? creature.MinTameSkill)))
+                 {
+                     // You have no chance of taming this creature.
+                     creature.PrivateOverheadMessage(MessageType.Regular, 0x3B2, 502806, from.NetState);
+@@ -393,7 +398,8 @@
+                             m_Tamer.CheckTargetSkill(SkillName.AnimalLore, m_Creature, 0.0, 120.0);
+                         }
+ 
+-                        var minSkill = m_Creature.MinTameSkill + m_Creature.Owners.Count * 6.0;
++                        var minSkill = (ClassMountHooks.TameSkill?.Invoke(m_Tamer, m_Creature) ?? m_Creature.MinTameSkill)
++                                       + m_Creature.Owners.Count * 6.0;
+ 
+                         if (minSkill > -24.9 && CheckMastery(m_Tamer, m_Creature))
+                         {
+@@ -405,6 +411,9 @@
+                         if (CheckMastery(m_Tamer, m_Creature) || alreadyOwned ||
+                             m_Tamer.CheckTargetSkill(SkillName.AnimalTaming, m_Creature, minSkill - 25.0, minSkill + 25.0))
+                         {
++                            if (ClassMountHooks.Tamed?.Invoke(m_Tamer, m_Creature) == true)
++                                return;
++
+                             if (m_Creature.Owners.Count == 0) // First tame
+                             {
+                                 if (m_Creature is GreaterDragon)
+diff --git a/Projects/UOContent/Items/Misc/Teleporter.cs b/Projects/UOContent/Items/Misc/Teleporter.cs
+--- a/Projects/UOContent/Items/Misc/Teleporter.cs
++++ b/Projects/UOContent/Items/Misc/Teleporter.cs
+@@ -185,6 +185,9 @@
+ 
+     public virtual bool CanTeleport(Mobile m)
+     {
++        if (ClassMountHooks.BlockTravel?.Invoke(m) == true)
++            return false;
++
+         if (!Creatures && !m.Player)
+         {
+             return false;
+diff --git a/Projects/UOContent/Items/Misc/PublicMoongate.cs b/Projects/UOContent/Items/Misc/PublicMoongate.cs
+--- a/Projects/UOContent/Items/Misc/PublicMoongate.cs
++++ b/Projects/UOContent/Items/Misc/PublicMoongate.cs
+@@ -66,6 +66,9 @@
+ 
+     public bool UseGate(Mobile m)
+     {
++        if (ClassMountHooks.BlockTravel?.Invoke(m) == true)
++            return false;
++
+         if (ClassMapHooks.PublicGateAllowed?.Invoke(this, m) == false)
+         {
+             return false;
+diff --git a/Projects/UOContent/Items/Skill Items/Magical/Misc/Moongate.cs b/Projects/UOContent/Items/Skill Items/Magical/Misc/Moongate.cs
+--- a/Projects/UOContent/Items/Skill Items/Magical/Misc/Moongate.cs
++++ b/Projects/UOContent/Items/Skill Items/Magical/Misc/Moongate.cs
+@@ -86,6 +86,9 @@
+ 
+     public virtual void UseGate(Mobile m)
+     {
++        if (ClassMountHooks.BlockTravel?.Invoke(m) == true)
++            return;
++
+         var flags = m.NetState?.Flags ?? ClientFlags.None;
+ 
+         if (Sigil.ExistsOn(m))
+diff --git a/Projects/UOContent/Items/Construction/Doors/BaseDoor.cs b/Projects/UOContent/Items/Construction/Doors/BaseDoor.cs
+--- a/Projects/UOContent/Items/Construction/Doors/BaseDoor.cs
++++ b/Projects/UOContent/Items/Construction/Doors/BaseDoor.cs
+@@ -324,6 +324,9 @@
+ 
+     public virtual void Use(Mobile from)
+     {
++        if (ClassMountHooks.BlockTravel?.Invoke(from) == true)
++            return;
++
+         if (Locked && !_open && UseLocks() && ClassCombatHooks.BypassKey?.Invoke(from, this) != true)
+         {
+             if (from.AccessLevel >= AccessLevel.GameMaster)
+diff --git a/Projects/UOContent/Items/Misc/Corpses/Corpse.cs b/Projects/UOContent/Items/Misc/Corpses/Corpse.cs
+--- a/Projects/UOContent/Items/Misc/Corpses/Corpse.cs
++++ b/Projects/UOContent/Items/Misc/Corpses/Corpse.cs
+@@ -1171,6 +1171,9 @@
+ 
+     public override void OnDoubleClick(Mobile from)
+     {
++        if (ClassMountHooks.CorpseInteraction?.Invoke(from, this) == true)
++            return;
++
+         Open(from, Core.AOS);
+     }
+ 
+diff --git a/Projects/UOContent/Mobiles/Vendors/NPC/AnimalTrainer.cs b/Projects/UOContent/Mobiles/Vendors/NPC/AnimalTrainer.cs
+--- a/Projects/UOContent/Mobiles/Vendors/NPC/AnimalTrainer.cs
++++ b/Projects/UOContent/Mobiles/Vendors/NPC/AnimalTrainer.cs
+@@ -12,6 +12,12 @@
+     [SerializationGenerator(0, false)]
+     public partial class AnimalTrainer : BaseVendor
+     {
++        public override void OnDoubleClick(Mobile from)
++        {
++            if (ClassMountHooks.StableInteraction?.Invoke(from, this) != true)
++                base.OnDoubleClick(from);
++        }
++
+         private readonly List<SBInfo> m_SBInfos = new();
+ 
+         [Constructible]

@@ -71,7 +71,7 @@ public static class EncounterTreasure
                 _ => "Act 1 H2H A"
             };
         }
-        if (creature is FrontierEncounter or CovetousEncounter or CoveEncounter)
+        if (creature is FrontierEncounter or CovetousEncounter or CoveEncounter or HedgeEncounter or YewEncounter or YewVampire)
         {
             string tier = CreatureProfiles.Level(creature) >= 25 ? "B" : "A";
             string kind = creature.Leader ? "Unique" : creature.Grade == EncounterGrade.Champion ? "Champ"

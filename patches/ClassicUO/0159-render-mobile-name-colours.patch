@@ -1,0 +1,219 @@
+diff --git a/src/ClassicUO.Client/ClassicUO.Client.csproj b/src/ClassicUO.Client/ClassicUO.Client.csproj
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -63,6 +63,7 @@
+     <Compile Include="../../../../shared/NamedVisualProtocol.cs" Link="NamedVisualProtocol.cs" />
+     <Compile Include="../../../../shared/SkeletonAppearance.cs" Link="SkeletonAppearance.cs" />
+     <Compile Include="../../../../shared/DruidFormVisualProtocol.cs" Link="DruidFormVisualProtocol.cs" />
++    <Compile Include="../../../../shared/MobileNameProtocol.cs" Link="MobileNameProtocol.cs" />
+     <Compile Include="../../../../shared/StatProtocol.cs" Link="Game/Data/StatProtocol.cs" />
+     <Compile Include="../../../../shared/BeltProtocol.cs" Link="Game/Data/BeltProtocol.cs" />
+     <Compile Include="../../../../shared/BeltLanternGraphics.cs" Link="Game/Data/BeltLanternGraphics.cs" />
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Mobile.cs b/src/ClassicUO.Client/Game/GameObjects/Mobile.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Mobile.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Mobile.cs
+@@ -203,6 +203,9 @@
+         public bool IsRunning;
+         public long LastStepSoundTime;
+         public NotorietyFlag NotorietyFlag;
++        public Sanctuary.MobileNameStyle NameStyle { get; set; }
++        public NotorietyFlag NameNotoriety => NameStyle == Sanctuary.MobileNameStyle.Native
++            ? NotorietyFlag : (NotorietyFlag)NameStyle;
+         public RaceType Race;
+         public CharacterSpeedType SpeedMode = CharacterSpeedType.Normal;
+         public ushort Stamina;
+diff --git a/src/ClassicUO.Client/Game/Managers/MacroManager.cs b/src/ClassicUO.Client/Game/Managers/MacroManager.cs
+--- a/src/ClassicUO.Client/Game/Managers/MacroManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/MacroManager.cs
+@@ -1795,7 +1795,7 @@
+                 {
+                     if (ent != null)
+                     {
+-                        GameActions.MessageOverhead(_world, string.Format(ResGeneral.Target0, ent.Name), Notoriety.GetHue(((Mobile) ent).NotorietyFlag), _world.Player);
++                        GameActions.MessageOverhead(_world, string.Format(ResGeneral.Target0, ent.Name), Notoriety.GetHue(((Mobile) ent).NameNotoriety), _world.Player);
+ 
+                         _world.TargetManager.NewTargetSystemSerial = serial;
+                         _world.TargetManager.SelectedTarget = serial;
+diff --git a/src/ClassicUO.Client/Game/Managers/NameOverHeadManager.cs b/src/ClassicUO.Client/Game/Managers/NameOverHeadManager.cs
+--- a/src/ClassicUO.Client/Game/Managers/NameOverHeadManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/NameOverHeadManager.cs
+@@ -67,7 +67,7 @@
+ 
+             if (SerialHelper.IsMobile(entity.Serial) && entity is Mobile mobile)
+             {
+-                return mobile.NotorietyFlag switch
++                return mobile.NameNotoriety switch
+                 {
+                     NotorietyFlag.Innocent => TypeAllowed.HasFlag(NameOverheadTypeAllowed.Innocent),
+                     NotorietyFlag.Ally => TypeAllowed.HasFlag(NameOverheadTypeAllowed.Ally),
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/HealthBarGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/HealthBarGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/HealthBarGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/HealthBarGump.cs
+@@ -570,7 +570,7 @@
+ 
+                 if (mobile != null)
+                 {
+-                    textColor = Notoriety.GetHue(mobile.NotorietyFlag);
++                    textColor = Notoriety.GetHue(mobile.NameNotoriety);
+                 }
+ 
+                 if (_textBox != null && _textBox.Hue != textColor)
+@@ -735,7 +735,7 @@
+                             HPB_WIDTH,
+                             true,
+                             FontStyle.Cropped | FontStyle.BlackBorder,
+-                            Notoriety.GetHue((entity as Mobile)?.NotorietyFlag ?? NotorietyFlag.Gray),
++                            Notoriety.GetHue((entity as Mobile)?.NameNotoriety ?? NotorietyFlag.Gray),
+                             TEXT_ALIGN_TYPE.TS_CENTER
+                         )
+                         {
+@@ -898,7 +898,7 @@
+                             32,
+                             isunicode: true,
+                             style: FontStyle.Cropped | FontStyle.BlackBorder,
+-                            hue: Notoriety.GetHue((entity as Mobile)?.NotorietyFlag ?? NotorietyFlag.Gray),
++                            hue: Notoriety.GetHue((entity as Mobile)?.NameNotoriety ?? NotorietyFlag.Gray),
+                             maxWidth: Width,
+                             align: TEXT_ALIGN_TYPE.TS_CENTER
+                         )
+@@ -1152,7 +1152,7 @@
+                             32,
+                             HPB_WIDTH,
+                             true,
+-                            hue: Notoriety.GetHue((entity as Mobile)?.NotorietyFlag ?? NotorietyFlag.Gray),
++                            hue: Notoriety.GetHue((entity as Mobile)?.NameNotoriety ?? NotorietyFlag.Gray),
+                             style: FontStyle.Cropped | FontStyle.BlackBorder,
+                             align: TEXT_ALIGN_TYPE.TS_CENTER
+                         )
+@@ -1387,7 +1387,7 @@
+                             109,
+                             false,
+                             FontStyle.Fixed | FontStyle.BlackBorder,
+-                            Notoriety.GetHue((entity as Mobile)?.NotorietyFlag ?? NotorietyFlag.Gray)
++                            Notoriety.GetHue((entity as Mobile)?.NameNotoriety ?? NotorietyFlag.Gray)
+                         )
+                         {
+                             X = 0,
+@@ -1753,9 +1753,9 @@
+                     _bars[0].IsVisible = true;
+                 }
+ 
+-                if (inparty && mobile != null)
+-                {
+-                    textColor = Notoriety.GetHue(mobile.NotorietyFlag);
++                if (mobile != null && (inparty || mobile.NameStyle != Sanctuary.MobileNameStyle.Native))
++                {
++                    textColor = Notoriety.GetHue(mobile.NameNotoriety);
+                 }
+                 else
+                 {
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/NameOverheadGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/NameOverheadGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/NameOverheadGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/NameOverheadGump.cs
+@@ -44,7 +44,7 @@
+ 
+             _renderedText = RenderedText.Create(
+                 string.Empty,
+-                entity is Mobile m ? Notoriety.GetHue(m.NotorietyFlag) : (ushort)0x0481,
++                entity is Mobile m ? Notoriety.GetHue(m.NameNotoriety) : (ushort)0x0481,
+                 0xFF,
+                 true,
+                 FontStyle.BlackBorder,
+@@ -183,7 +183,7 @@
+                 _background = new AlphaBlendControl(.7f)
+                 {
+                     WantUpdateSize = false,
+-                    Hue = entity is Mobile m ? Notoriety.GetHue(m.NotorietyFlag) : (ushort)0x0481
++                    Hue = entity is Mobile m ? Notoriety.GetHue(m.NameNotoriety) : (ushort)0x0481
+                 }
+             );
+         }
+@@ -544,14 +544,14 @@
+                 {
+                     _borderColor = SolidColorTextureCache.GetTexture(Color.Red);
+                     _background.Hue = _renderedText.Hue = entity is Mobile m
+-                        ? Notoriety.GetHue(m.NotorietyFlag)
++                        ? Notoriety.GetHue(m.NameNotoriety)
+                         : (ushort)0x0481;
+                 }
+                 else
+                 {
+                     _borderColor = SolidColorTextureCache.GetTexture(Color.Black);
+                     _background.Hue = _renderedText.Hue = entity is Mobile m
+-                        ? Notoriety.GetHue(m.NotorietyFlag)
++                        ? Notoriety.GetHue(m.NameNotoriety)
+                         : (ushort)0x0481;
+                 }
+             }
+diff --git a/src/ClassicUO.Client/Game/UI/Tooltip.cs b/src/ClassicUO.Client/Game/UI/Tooltip.cs
+--- a/src/ClassicUO.Client/Game/UI/Tooltip.cs
++++ b/src/ClassicUO.Client/Game/UI/Tooltip.cs
+@@ -13,6 +13,7 @@
+     internal class Tooltip
+     {
+         private uint _hash;
++        private NotorietyFlag _nameNotoriety;
+         private uint _lastHoverTime;
+         private int _maxWidth;
+         private RenderedText _renderedText;
+@@ -29,10 +30,15 @@
+ 
+         public bool Draw(UltimaBatcher2D batcher, int x, int y)
+         {
+-            if (SerialHelper.IsValid(Serial) && _world.OPL.TryGetRevision(Serial, out uint revision) && _hash != revision)
+-            {
+-                _hash = revision;
+-                Text = ReadProperties(Serial, out _textHTML);
++            if (SerialHelper.IsValid(Serial) && _world.OPL.TryGetRevision(Serial, out uint revision))
++            {
++                var nameNotoriety = _world.Mobiles.Get(Serial)?.NameNotoriety ?? 0;
++                if (_hash != revision || _nameNotoriety != nameNotoriety)
++                {
++                    _hash = revision;
++                    _nameNotoriety = nameNotoriety;
++                    Text = ReadProperties(Serial, out _textHTML);
++                }
+             }
+ 
+             if (string.IsNullOrEmpty(Text))
+@@ -203,6 +209,7 @@
+                     _maxWidth = 0;
+                     Serial = serial;
+                     _hash = revision2;
++                    _nameNotoriety = _world.Mobiles.Get(serial)?.NameNotoriety ?? 0;
+                     Text = ReadProperties(serial, out _textHTML);
+ 
+                     _lastHoverTime = (uint) (Time.Ticks + (ProfileManager.CurrentProfile != null ? ProfileManager.CurrentProfile.TooltipDelayBeforeDisplay : 250));
+@@ -237,7 +244,7 @@
+ 
+                                 if (mob != null)
+                                 {
+-                                    sbHTML.Append(Notoriety.GetHTMLHue(mob.NotorietyFlag));
++                                    sbHTML.Append(Notoriety.GetHTMLHue(mob.NameNotoriety));
+                                     hasStartColor = true;
+                                 }
+                             }
+diff --git a/src/ClassicUO.Client/Network/PacketHandlers.cs b/src/ClassicUO.Client/Network/PacketHandlers.cs
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -4155,6 +4155,20 @@
+                 }
+                 return;
+             }
++            if (cmd == Sanctuary.MobileNameProtocol.SubCommand)
++            {
++                if (world.InGame && p.Remaining == 6 && p.ReadUInt8() == Sanctuary.MobileNameProtocol.Version)
++                {
++                    uint serial = p.ReadUInt32BE();
++                    var style = (Sanctuary.MobileNameStyle)p.ReadUInt8();
++                    if (style is Sanctuary.MobileNameStyle.Friendly or Sanctuary.MobileNameStyle.Neutral or Sanctuary.MobileNameStyle.Hostile
++                        && world.Mobiles.TryGetValue(serial, out var mobile))
++                    {
++                        mobile.NameStyle = style;
++                    }
++                }
++                return;
++            }
+             if (cmd == Sanctuary.NamedVisualProtocol.SubCommand)
+             {
+                 NamedVisualsClient.Receive(world, ref p);

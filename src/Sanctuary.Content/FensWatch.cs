@@ -47,6 +47,6 @@ public partial class FensWatchCaptain : ConversationNpc
         AddItem(new Boots());
     }
 
-    internal override byte Portrait => (byte)NpcPortrait.CoastalWarrior;
+    internal override ushort Portrait => (ushort)NpcPortrait.Gareth;
     internal override IReadOnlyList<ScriptedDialogue.Node> Script => _warning;
 }

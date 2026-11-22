@@ -1,6 +1,7 @@
 """Exercise banker interaction and escrow recovery, deferral, and forfeiture."""
 import os
 from pathlib import Path
+import subprocess
 import time
 
 
@@ -30,13 +31,15 @@ def exercise(window, click, capture):
     def open_bank_recovery():
         time.sleep(.4)
         click(342, 219)
-        click(406, 419)
         command('opened')
 
     click(605, 101)  # Close the initial character sheet before clicking the banker.
     command('setup')
     open_bank_recovery()
     capture('t44-escrow-claims.png')
+    click(62, 445)
+    command('bank-opened')
+    open_bank_recovery()
     click(410, 172)
     capture('t44-escrow-contents.png')
     click(330, 420)
@@ -66,4 +69,11 @@ def exercise(window, click, capture):
     click(325, 435)
     command('final')
     capture('t44-escrow-final.png')
-    print('Actual client: banker dialogue, no-funds/full-bank safety, close/reopen, exact nested recovery and explicit/backed-out forfeiture passed.', flush=True)
+    command('disconnect')
+    time.sleep(.8)
+    click(320, 306)  # Dismiss the connection-lost prompt and leave the world.
+    time.sleep(1)
+    client = os.environ['SANCTUARY_TEST_CLIENT_PID']
+    assert window in subprocess.check_output(['xdotool', 'search', '--onlyvisible', '--pid', client], text=True).splitlines()
+    capture('t44-escrow-disconnect.png')
+    print('Actual client: banker escrow, bank access, recovery, forfeiture, and clean disconnect passed.', flush=True)

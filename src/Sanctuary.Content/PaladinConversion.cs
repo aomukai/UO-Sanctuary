@@ -245,6 +245,7 @@ public static class PaladinConversion
         creature.Combatant=null;creature.FocusMob=null;
         creature.AIObject?.ResetApproachState();creature.AIObject?.ClearMoveIntent();
         if(creature is GraveyardUndead undead){undead.InterruptForRecovery();}
+        creature.Delta(MobileDelta.Noto);
         if(creature.AIObject is{} ai){ai.Action=ActionType.Wander;}
         // Preserve the species' timer/cooldown. Allegiance expiry has no invented grace period.
     }

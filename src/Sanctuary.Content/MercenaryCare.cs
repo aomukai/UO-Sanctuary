@@ -96,7 +96,7 @@ public static class MercenaryCare
     internal static bool HasContract<T>(PlayerMobile owner) where T : BaseCreature, IClassCompanion
     {
         foreach (var (serial, state) in States)
-            if (state.Owner == owner.Serial && !state.Retired && World.FindMobile(serial) is T { Deleted: false })
+            if (state.Owner == owner.Serial && !state.Retired && World.FindMobile(serial) is T { Deleted: false } companion && companion.GetType() == typeof(T))
                 return true;
         return false;
     }
@@ -116,6 +116,7 @@ public static class MercenaryCare
             return false;
 
         States[companion.Serial] = state with { Parked = true };
+        MountTravel.RemoveCompanionHorse(companion);
         TimedEffects.Clear(companion);
         companion.Combatant = null;
         companion.FocusMob = null;
@@ -262,7 +263,7 @@ public static class MercenaryCare
             || !IsCompanion(owner, companion))
             return null;
 
-        if (!owner.Alive || owner.Map != companion.Map || !ClassCombat.IsHostile(owner, target)
+        if (!owner.Alive || owner.Mounted || owner.Map != companion.Map || !ClassCombat.IsHostile(owner, target)
             || ClassCombatHooks.TargetAllowed?.Invoke(companion, target) == false)
             return false;
 
@@ -334,13 +335,18 @@ public static class MercenaryCare
         _keys.Clear(); foreach (var serial in States.Keys) { _keys.Add(serial); }
         foreach (var serial in _keys)
         {
-            if (World.FindMobile(serial) is BaseCreature mercenary && mercenary.ControlMaster?.NetState != null)
-            { TryDrink(mercenary, now); }
+            if (World.FindMobile(serial) is BaseCreature mercenary
+                && mercenary.ControlMaster is PlayerMobile { NetState: not null } owner)
+            {
+                MountTravel.SyncCompanion(owner);
+                TryDrink(mercenary, now);
+            }
         }
     }
     internal static bool Retire(PlayerMobile owner, BaseCreature mercenary, bool keepPotions = false)
     {
         if (!Owned(owner, mercenary, out var state)) { return false; }
+        MountTravel.RemoveCompanionHorse(mercenary);
         TimedEffects.Clear(mercenary); mercenary.Combatant = null;
         States[mercenary.Serial] = state with { Retired = true, Healing = keepPotions ? state.Healing : new long[5] };
         mercenary.SetControlMaster(null);

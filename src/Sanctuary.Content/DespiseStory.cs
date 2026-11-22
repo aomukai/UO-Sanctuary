@@ -74,7 +74,7 @@ public partial class DespiseWitness : ConversationNpc
     }
 
     private bool Ratman => _portraitId == (byte)NpcPortrait.RatmanSkrik;
-    internal override byte Portrait => _portraitId;
+    internal override ushort Portrait => _portraitId;
     internal override IReadOnlyList<ScriptedDialogue.Node> Script => Ratman ? _ratman : _pixies;
 
     internal override void BeginConversation(PlayerMobile player)

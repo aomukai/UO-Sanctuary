@@ -226,60 +226,6 @@
   },
   {
     "$type": "Spawner",
-    "guid": "9f2837fe-db91-5b96-b7e6-6f8ca9a0e8f7",
-    "name": "Eastern ettin camp",
-    "location": [1627, 1187, 0],
-    "map": "Trammel",
-    "count": 4,
-    "minDelay": "00:01:00",
-    "maxDelay": "00:01:45",
-    "homeRange": 3,
-    "walkingRange": 5,
-    "entries": [
-      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 15 0"},
-      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 16 0"},
-      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 18 0"},
-      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 20 0"}
-    ]
-  },
-  {
-    "$type": "Spawner",
-    "guid": "9cdf5c31-7134-5c5b-9381-eaff1064d1be",
-    "name": "Southern ettin camp",
-    "location": [1445, 1227, 0],
-    "map": "Trammel",
-    "count": 4,
-    "minDelay": "00:01:00",
-    "maxDelay": "00:01:45",
-    "homeRange": 3,
-    "walkingRange": 5,
-    "entries": [
-      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 15 0"},
-      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 16 0"},
-      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 18 0"},
-      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 20 0"}
-    ]
-  },
-  {
-    "$type": "Spawner",
-    "guid": "ef906567-609e-5baf-a436-7980e80d44f1",
-    "name": "Northern ettin camp",
-    "location": [1639, 972, 0],
-    "map": "Trammel",
-    "count": 4,
-    "minDelay": "00:01:00",
-    "maxDelay": "00:01:45",
-    "homeRange": 3,
-    "walkingRange": 5,
-    "entries": [
-      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 15 0"},
-      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 16 0"},
-      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 18 0"},
-      {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-ettin 20 0"}
-    ]
-  },
-  {
-    "$type": "Spawner",
     "guid": "e323c2ba-ea19-5f0d-af3f-cd3d4d6cf7bc",
     "name": "Mountain watch guard Mara",
     "location": [1254, 871, 16],
@@ -711,6 +657,378 @@
     "walkingRange": 2,
     "entries": [
       {"name": "FrontierEncounter", "maxCount": 1, "probability": 100, "parameters": "frontier-wyvern 19 0"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "1d812501-1f59-4adf-b3a1-63d251ae50e4",
+    "name": "Marbas of Yew",
+    "location": [957, 701, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:08:00",
+    "maxDelay": "00:12:00",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "YewEncounter", "maxCount": 1, "probability": 100, "parameters": "yew-daemon-marbas"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "dd877444-abe2-57f8-a81e-86501689455d",
+    "name": "Brigand camp west tent at 842, 1681",
+    "location": [842, 1681, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "BrigandEncounter", "maxCount": 1, "probability": 100}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "0dd32a72-b3ff-5591-9ca8-95f791991b4e",
+    "name": "Brigand camp west tent at 845, 1681",
+    "location": [845, 1681, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "BrigandEncounter", "maxCount": 1, "probability": 100}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "9bb86de4-6a13-5b23-8786-9b95ae774a13",
+    "name": "Brigand camp north tent at 858, 1680",
+    "location": [858, 1680, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "BrigandEncounter", "maxCount": 1, "probability": 100}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "33793ed8-aa55-5680-abbe-35a46c1c68e4",
+    "name": "Brigand camp north tent at 862, 1681",
+    "location": [862, 1681, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "BrigandEncounter", "maxCount": 1, "probability": 100}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "a80a63d5-f7e4-5b44-83c5-dc69e19b3c46",
+    "name": "Brigand camp south tent at 851, 1696",
+    "location": [851, 1696, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "BrigandEncounter", "maxCount": 1, "probability": 100}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "f8c63cb4-70ed-5349-b31c-6dd2a7b727f7",
+    "name": "Brigand camp south tent at 854, 1698",
+    "location": [854, 1698, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "BrigandEncounter", "maxCount": 1, "probability": 100}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "6ba1de48-0f81-5574-80a8-2ccf741dad76",
+    "name": "Brigand camp fire pit at 854, 1686",
+    "location": [854, 1686, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "BrigandEncounter", "maxCount": 1, "probability": 100}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "4b85e27d-01bc-5b7a-bd04-917fb6e5b343",
+    "name": "Brigand camp fire pit at 860, 1686",
+    "location": [860, 1686, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "BrigandEncounter", "maxCount": 1, "probability": 100}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "5326196f-fb31-5a22-a5b1-8fba78fe3f52",
+    "name": "Brigand camp fire pit at 854, 1690",
+    "location": [854, 1690, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "BrigandEncounter", "maxCount": 1, "probability": 100}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "b3184b54-f277-5a47-800f-e003c3d53b3e",
+    "name": "Brigand camp fire pit at 860, 1690",
+    "location": [860, 1690, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "BrigandEncounter", "maxCount": 1, "probability": 100}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "d22472e8-a91c-5dd1-8b96-e567abb338be",
+    "name": "Brigand camp east gate road at 882, 1683",
+    "location": [882, 1683, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "BrigandEncounter", "maxCount": 1, "probability": 100}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "dfc833fa-7b8a-5252-bab5-594d33b47c43",
+    "name": "Brigand camp east gate road at 885, 1684",
+    "location": [885, 1684, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 1,
+    "entries": [
+      {"name": "BrigandEncounter", "maxCount": 1, "probability": 100}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "a8a338ff-1a7b-5bbe-a666-412dba65afd2",
+    "name": "Western road watch warden at 723, 1486",
+    "location": [723, 1486, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "WesternRoadWarden", "maxCount": 1, "probability": 100}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "8621bd5f-f221-57b9-8c4b-7968c8af7fff",
+    "name": "Western road watch interior guard at 713, 1482",
+    "location": [713, 1482, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "WesternRoadSentry", "maxCount": 1, "probability": 100, "parameters": "false"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "675516ec-78ac-5780-b02f-7812c0fca8e5",
+    "name": "Western road watch interior guard at 718, 1484",
+    "location": [718, 1484, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "WesternRoadSentry", "maxCount": 1, "probability": 100, "parameters": "true"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "df5a6089-2e46-501a-8c82-3227ace62a71",
+    "name": "Western road watch roof guard at 713, 1481",
+    "location": [713, 1481, 40],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "WesternRoadSentry", "maxCount": 1, "probability": 100, "parameters": "true"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "bf77c006-d42d-5f34-b1ba-a47488272327",
+    "name": "Western road watch roof guard at 718, 1486",
+    "location": [718, 1486, 40],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "WesternRoadSentry", "maxCount": 1, "probability": 100, "parameters": "false"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "d5e584aa-160d-5fd7-92e1-ecefd21f1e16",
+    "name": "Western road watch bridge guard at 725, 1476",
+    "location": [725, 1476, 40],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "WesternRoadSentry", "maxCount": 1, "probability": 100, "parameters": "false"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "22f5cf5d-c5e6-59b8-a59b-00a65013be12",
+    "name": "Western road watch bridge guard at 731, 1478",
+    "location": [731, 1478, 40],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:02:00",
+    "maxDelay": "00:04:00",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "WesternRoadSentry", "maxCount": 1, "probability": 100, "parameters": "true"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "ccfb00a3-1115-5b16-8dc6-174a177e9cc6",
+    "name": "Hedge Maze evil mage",
+    "location": [1074, 2204, 0],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:08:00",
+    "maxDelay": "00:12:00",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "HedgeEncounter", "maxCount": 1, "probability": 100, "parameters": "hedge-evil-mage"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "9e8f69cc-4eb9-55b1-ac6e-2fa050603d5a",
+    "name": "Hedge Maze Veyr the Many-Eyed",
+    "location": [1070, 2257, 5],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:08:00",
+    "maxDelay": "00:12:00",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "HedgeEncounter", "maxCount": 1, "probability": 100, "parameters": "hedge-champion-gazer"}
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "ada62605-d832-5194-a04e-81fb1f3e5fac",
+    "name": "Hedge Maze Kethrax the Unblinking",
+    "location": [1214, 2262, 5],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:08:00",
+    "maxDelay": "00:12:00",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {
+        "name": "HedgeEncounter",
+        "maxCount": 1,
+        "probability": 100,
+        "parameters": "hedge-champion-gazer",
+        "properties": "Name \"Kethrax the Unblinking\""
+      }
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "9fe2b23d-8ec6-5d94-a719-992cc0392cc7",
+    "name": "Hedge Maze Ossyr the Storm-Eye",
+    "location": [1212, 2196, 5],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:08:00",
+    "maxDelay": "00:12:00",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {
+        "name": "HedgeEncounter",
+        "maxCount": 1,
+        "probability": 100,
+        "parameters": "hedge-champion-gazer",
+        "properties": "Name \"Ossyr the Storm-Eye\""
+      }
     ]
   }
 ]

@@ -1,0 +1,135 @@
+diff --git a/src/ClassicUO.Client/Configuration/Settings.cs b/src/ClassicUO.Client/Configuration/Settings.cs
+--- a/src/ClassicUO.Client/Configuration/Settings.cs
++++ b/src/ClassicUO.Client/Configuration/Settings.cs
+@@ -76,6 +76,8 @@
+ 
+         [JsonPropertyName("login_music_volume")] public int LoginMusicVolume { get; set; } = 70;
+ 
++        [JsonPropertyName("sanctuary_classic_midi")] public bool SanctuaryClassicMidi { get; set; }
++
+         [JsonPropertyName("fixed_time_step")] public bool FixedTimeStep { get; set; } = true;
+ 
+         [JsonPropertyName("run_mouse_in_separate_thread")]
+diff --git a/src/ClassicUO.Client/Game/Managers/AudioManager.cs b/src/ClassicUO.Client/Game/Managers/AudioManager.cs
+--- a/src/ClassicUO.Client/Game/Managers/AudioManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/AudioManager.cs
+@@ -2,6 +2,7 @@
+ 
+ using System;
+ using System.Collections.Generic;
++using System.IO;
+ using ClassicUO.Utility;
+ using ClassicUO.Configuration;
+ using ClassicUO.IO.Audio;
+@@ -20,6 +21,7 @@
+         private readonly LinkedList<UOSound> _currentSounds = new LinkedList<UOSound>();
+         private readonly UOMusic[] _currentMusic = { null, null };
+         private readonly int[] _currentMusicIndices = { 0, 0 };
++        private readonly Dictionary<int, UOMusic> _classicMusic = new();
+         public int LoginMusicIndex { get; private set; }
+         public int DeathMusicIndex { get; } = 42;
+ 
+@@ -206,22 +208,48 @@
+                 return;
+             }
+ 
+-            Sound m = Client.Game.UO.Sounds.GetMusic(music);
+-
+-            if (m == null && _currentMusic[0] != null)
++            UOMusic classic = GetClassicMusic(music);
++            var track = classic ?? (UOMusic)Client.Game.UO.Sounds.GetMusic(music);
++
++            if (track == null && _currentMusic[0] != null)
+             {
+                 StopMusic();
+             }
+-            else if (m != null && (m != _currentMusic[0] || iswarmode))
++            else if (track != null && (track != _currentMusic[0] || iswarmode))
+             {
+                 StopMusic();
+ 
+                 int idx = iswarmode ? 1 : 0;
+                 _currentMusicIndices[idx] = music;
+-                _currentMusic[idx] = (UOMusic) m;
+-
+-                _currentMusic[idx].Play(Time.Ticks, volume);
+-            }
++                _currentMusic[idx] = track;
++                if (!track.Play(Time.Ticks, volume) && classic != null)
++                {
++                    StopMusic();
++                    _classicMusic.Remove(music);
++                    _currentMusic[idx] = (UOMusic)Client.Game.UO.Sounds.GetMusic(music);
++                    _currentMusic[idx]?.Play(Time.Ticks, volume);
++                }
++            }
++        }
++
++        private UOMusic GetClassicMusic(int index)
++        {
++            var files = Client.Game.UO.FileManager;
++            if (!Settings.GlobalSettings.SanctuaryClassicMidi || !files.Sounds.TryGetMusicData(index, out string name, out bool loop))
++                return null;
++
++            if (_classicMusic.TryGetValue(index, out UOMusic track))
++                return track;
++
++            string path = files.GetUOFilePath($"Music/Classic/{index}.mp3");
++            return File.Exists(path) ? _classicMusic[index] = new UOMusic(index, name, loop, path) : null;
++        }
++
++        public void RefreshSoundtrack()
++        {
++            int slot = _currentMusic[1] != null ? 1 : 0;
++            if (_currentMusic[slot] != null)
++                PlayMusic(_currentMusicIndices[slot], iswarmode: slot == 1);
+         }
+ 
+         public void UpdateCurrentMusicVolume(bool isLogin = false)
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs
+@@ -24,6 +24,7 @@
+     private bool _borderless, _drawRoofs, _highlightObjects, _transparency;
+     private bool _bookDialogueFont = Settings.GlobalSettings.SanctuaryBookDialogueFont;
+     private bool _sound, _footsteps, _music, _combatMusic, _loginMusic;
++    private bool _classicMidi = Settings.GlobalSettings.SanctuaryClassicMidi;
+     private readonly ValueSlider _fps, _worldZoom, _screenScale, _soundsVolume, _musicVolume, _loginVolume;
+ 
+     private SanctuaryOptionsGump(World world, bool hotkeys) : base(world, 0, 0)
+@@ -75,6 +76,17 @@
+         AddToggle("Combat music", Music, 2, _profile.EnableCombatMusic, value => _combatMusic = value);
+         AddToggle("Login music", Music, 3, Settings.GlobalSettings.LoginMusic, value => _loginMusic = value);
+         _loginVolume = AddSlider("Login music volume", Music, 4, 0, 100, Settings.GlobalSettings.LoginMusicVolume, "%");
++        int soundtrackY = Row(5, Music);
++        AddText("Soundtrack", 30, soundtrackY + 4, Music);
++        SanctuarySheetButton modern = null, classic = null;
++        void SelectSoundtrack(bool useClassicMidi)
++        {
++            _classicMidi = useClassicMidi;
++            modern.SetPrimary(!useClassicMidi);
++            classic.SetPrimary(useClassicMidi);
++        }
++        modern = Add(new SanctuarySheetButton(225, soundtrackY, 100, "Modern", () => SelectSoundtrack(false), !_classicMidi), Music);
++        classic = Add(new SanctuarySheetButton(331, soundtrackY, 106, "Classic MIDI", () => SelectSoundtrack(true), _classicMidi), Music);
+ 
+         _keys = SanctuaryMenu.GetKeys(_profile);
+         string[] windows = ["Backpack", "Character", "Journal", "World map", "Class talents", "Skills"];
+@@ -236,6 +248,8 @@
+         _profile.EnableCombatMusic = _combatMusic;
+         settings.LoginMusic = _loginMusic;
+         settings.LoginMusicVolume = _loginVolume.Value;
++        bool soundtrackChanged = settings.SanctuaryClassicMidi != _classicMidi;
++        settings.SanctuaryClassicMidi = _classicMidi;
+         if (settings.SanctuaryBookDialogueFont != _bookDialogueFont)
+         {
+             settings.SanctuaryBookDialogueFont = _bookDialogueFont;
+@@ -250,6 +264,8 @@
+             game.Audio.StopMusic();
+         else if (resumeMusic)
+             game.Audio.StopWarMusic();
++        else if (soundtrackChanged)
++            game.Audio.RefreshSoundtrack();
+ 
+         if (_profile.SanctuaryMenuKeys != _keys)
+         {

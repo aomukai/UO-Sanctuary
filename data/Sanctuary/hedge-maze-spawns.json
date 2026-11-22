@@ -1,0 +1,17 @@
+[
+  {
+    "$type": "Spawner",
+    "guid": "8a654607-3377-4cb8-b4e0-49530ff79d7b",
+    "name": "Orvath at the Hedge Maze pentagram",
+    "location": [1164, 2210, 60],
+    "map": "Trammel",
+    "count": 1,
+    "minDelay": "00:08:00",
+    "maxDelay": "00:12:00",
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {"name": "HedgeDaemon", "maxCount": 1, "probability": 100}
+    ]
+  }
+]

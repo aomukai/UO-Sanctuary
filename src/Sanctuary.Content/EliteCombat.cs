@@ -28,7 +28,9 @@ public static class EliteCombat
         if (!Enemy(source, target, 18, death)) { return 0; }
         var armored=DefensiveArmors.Absorb(target,new(physical,fire,cold,lightning,0,Magic:magic),source);
         physical=armored.Physical;fire=armored.Fire;cold=armored.Cold;lightning=armored.Lightning;magic=armored.Magic;
-        double preparedPhysical=GemCombat.Component(target,physical,target.PhysicalResistance,false);
+        double preparedPhysical = physical > 0
+            ? GemCombat.Component(target, physical, NecromancerEffects.Resistance(target, "physical", target.PhysicalResistance), false)
+            : 0;
         var parts = new GearDamage(preparedPhysical,
             NamedElements.Damage(source, target, fire, "fire"),
             NamedElements.Damage(source, target, cold, "cold"),

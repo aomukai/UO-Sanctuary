@@ -1,0 +1,55 @@
+diff --git a/src/ClassicUO.Client/ClassicUO.Client.csproj b/src/ClassicUO.Client/ClassicUO.Client.csproj
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -46,6 +46,10 @@
+              CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+     <Compile Include="../../../../shared/FlareGraphics.cs" Link="Game/Data/FlareGraphics.cs" />
+     <Compile Include="../../../../shared/DespiseLighting.cs" Link="Game/Data/DespiseLighting.cs" />
++    <Compile Include="../../../../shared/CampGraphics.cs" Link="Game/Data/CampGraphics.cs" />
++    <Content Include="../../../../art/world/ettin-camp/statics/*.art"
++             Link="Data/Sanctuary/Art/Statics/%(Filename)%(Extension)"
++             CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+     <Content Include="../../../../art/succubus/statics/*.art"
+              Link="Data/Sanctuary/Art/Statics/%(Filename)%(Extension)"
+              CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+diff --git a/src/ClassicUO.Client/Client.cs b/src/ClassicUO.Client/Client.cs
+--- a/src/ClassicUO.Client/Client.cs
++++ b/src/ClassicUO.Client/Client.cs
+@@ -10,6 +10,7 @@
+ using ClassicUO.Utility.Logging;
+ using Microsoft.Xna.Framework.Graphics;
+ using SDL3;
++using Sanctuary;
+ using System;
+ using System.Diagnostics;
+ using System.IO;
+@@ -43,6 +44,14 @@
+         public unsafe void Load(GameController game)
+         {
+             LoadUOFiles();
++            var tiles = FileManager.TileData.StaticData;
++            if (CampGraphics.Bonfire < tiles.Length)
++            {
++                ref var bonfire = ref tiles[CampGraphics.Bonfire];
++                bonfire.Flags = TileFlag.Impassable;
++                bonfire.Height = CampGraphics.BonfireLogHeight;
++                bonfire.Name = "a bonfire";
++            }
+ 
+             const int TEXTURE_WIDTH = 512;
+             const int TEXTURE_HEIGHT = 1024;
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs
+@@ -60,6 +60,11 @@
+ 
+             ushort hue = Hue;
+             ushort graphic = DisplayedGraphic;
++            if (OnGround && graphic == CampGraphics.Bonfire)
++            {
++                graphic += (ushort)(Time.Ticks / CampGraphics.BonfireFrameMilliseconds % CampGraphics.BonfireFrames);
++                Client.Game.GetScene<GameScene>().AddSoftLight(posX + 22, posY + 19, 132, 0x0033, 0.9f);
++            }
+             bool partial = ItemData.IsPartialHue;
+ 
+             if (OnGround)

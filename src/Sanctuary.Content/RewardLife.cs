@@ -45,6 +45,8 @@ public sealed record RewardLife(BaseCreature Creature, Corpse Corpse, PlayerMobi
             Iolo.RecordKrulgDefeat(player, corpse);
         if (creature is CoveEncounter { OrcChief: true })
             CoveGateRune.Award(player);
+        if (creature is YewVampire)
+            YewVampire.LeaveKeepsakes(player, corpse);
 
         var life = new RewardLife(creature, corpse, player, CreatureProfiles.Level(creature), CreatureGold.GoldFind(player), GearDrops.MagicFind(player), MonsterVariants.Difficulty(creature));
         if(CombatItemEvents.KillRecoveryAllowed(player,creature)){NamedCombat.Killed(player, creature);}

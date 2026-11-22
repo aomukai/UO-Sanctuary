@@ -38,7 +38,7 @@ public partial class MineCampMiner : ConversationNpc
         AddItem(new Boots());
     }
 
-    internal override byte Portrait => Female ? (byte)0 : (byte)2;
+    internal override ushort Portrait => (ushort)(Female ? NpcPortrait.Bess : NpcPortrait.Garran);
     internal override IReadOnlyList<ScriptedDialogue.Node> Script => Female ? _bess : _garran;
 
     internal override void BeginConversation(PlayerMobile player)

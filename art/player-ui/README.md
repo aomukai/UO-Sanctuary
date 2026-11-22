@@ -110,3 +110,11 @@ These portraits were made with the built-in ImageGen tool.
 - [Perrin](portrait-perrin.png)
 
   > Use case: stylized-concept. Create one original square head-and-shoulders dialogue portrait for a warmly hand-painted late-1990s isometric fantasy RPG. Perrin is a human town crier in a small medieval coastal town, a lean man in his early fifties with a long expressive face, a slightly crooked nose, graying dark hair, and lively, observant eyes. His restrained little half-smile suggests wry pride in his neighbours, with worry around the eyes after watching too many nights of raids. He looks directly at us. A weathered deep fern-green cloak with a small round brass clasp over a cream linen shirt, sturdy everyday town clothes. An ordinary man used to standing in all weathers, neither a soldier nor wealthy. Soft warm daylight with faint muted timber and coastal stone in the background. Fill the square with his face and upper shoulders, both eyes clearly visible, details readable at a small UI size. Warm pigments, oil-painted shading, subtle pixel texture. No text, frame, hat, weapons, oversized props, or other people.
+
+### Vesper portrait
+
+The built-in ImageGen tool produced this portrait.
+
+- [Oswin, the mayor of Vesper](portrait-vesper-mayor.png)
+
+  > Use case: stylized-concept. Asset type: a single original square dialogue portrait for a late-1990s isometric fantasy RPG. Vesper's mayor is a dignified human man in his late fifties, a former fish merchant who still knows the docks well. Give him a broad, square, weathered face, a shaved chin, silver sideburns, close-cropped receding dark hair with gray at the temples, and a warm but slightly worried presence. His tailored dark teal wool coat with modest muted brass buttons looks appropriate for a prosperous coastal town. Show his head and shoulders straight-on, both eyes visible, with his face large and readable when cropped to a small square. Warm, hand-painted oil shading and fine retro game texture. Soft amber light in a modest timber town hall with faint harbor daylight behind him. No text, frames, weapons, hats, freestanding props or other people.

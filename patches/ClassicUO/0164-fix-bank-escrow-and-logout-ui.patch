@@ -1,0 +1,72 @@
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryWorkshopTheme.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryWorkshopTheme.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryWorkshopTheme.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryWorkshopTheme.cs
+@@ -38,6 +38,7 @@
+     private const uint MountConfirmation = 0x7E28FA8D;
+     private const uint MountMarket = 0x6031E3F5;
+     private const uint MountListingPrice = 0xD102092E;
++    private const uint CorpseEscrow = 0x02570348;
+ 
+     private const ushort Cream = 0x0481, Gold = 0x0035;
+     private const uint Divider = 0xFF486581, Panel = 0xFF292D42, Input = 0xFFBBD5E4, Text = 0xD9F0FFFF;
+@@ -48,7 +49,7 @@
+             Moongate or Craft or CraftItem or MakersMark or ProfessionChoice or ProfessionTraining or Profession
+             or ProfessionTool or Inscription or EquipmentCraft or RuneCraft or Processing or Socket or Jewellery
+             or Essence or Survey or Repair or Alchemy or GemUpgrade or GemInsertion or Meal or TreasureKey
+-            or FortificationCraft or Carpentry or MountConfirmation or MountMarket or MountListingPrice))
++            or FortificationCraft or Carpentry or MountConfirmation or MountMarket or MountListingPrice or CorpseEscrow))
+             return;
+ 
+         var children = gump.Children.ToArray();
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs
+@@ -67,7 +67,11 @@
+ 
+     public override void Update()
+     {
+-        IsVisible = World.InGame && ClassCombatClient.Enabled && ClassSkillBindingsClient.Ready;
++        var profile = ProfileManager.CurrentProfile;
++        IsVisible = World.InGame && profile != null && ClassCombatClient.Enabled && ClassSkillBindingsClient.Ready;
++        if (!IsVisible)
++            return;
++
+         int step = Math.Clamp((Client.Game.ClientBounds.Width - 60) / HotbarCells, 23, 40);
+         if (_step != step)
+         {
+@@ -76,7 +80,7 @@
+         }
+         base.Update();
+         if (UIManager.DraggingControl != this)
+-            PositionDock();
++            PositionDock(profile.CombatDockOffset);
+         RefreshExperience();
+     }
+ 
+@@ -84,18 +88,20 @@
+         Math.Max(0, (Client.Game.ClientBounds.Width - Width) / 2),
+         Math.Max(0, Client.Game.ClientBounds.Height - MainHeight - Edge));
+ 
+-    private void PositionDock()
+-    {
+-        Point anchor = DefaultPosition + ProfileManager.CurrentProfile.CombatDockOffset;
++    private void PositionDock(Point offset)
++    {
++        Point anchor = DefaultPosition + offset;
+         X = Math.Clamp(anchor.X, 0, Math.Max(0, Client.Game.ClientBounds.Width - Width));
+         Y = Math.Clamp(anchor.Y - _flyoutHeight, 0, Math.Max(0, Client.Game.ClientBounds.Height - Height));
+     }
+ 
+     protected override void OnDragEnd(int x, int y)
+     {
+-        ProfileManager.CurrentProfile.CombatDockOffset = new Point(X, Y + _flyoutHeight) - DefaultPosition;
+-        PositionDock();
+-        ProfileManager.CurrentProfile.CombatDockOffset = new Point(X, Y + _flyoutHeight) - DefaultPosition;
++        if (!World.InGame || ProfileManager.CurrentProfile is not { } profile)
++            return;
++
++        PositionDock(new Point(X, Y + _flyoutHeight) - DefaultPosition);
++        profile.CombatDockOffset = new Point(X, Y + _flyoutHeight) - DefaultPosition;
+     }
+ 
+     protected override void UpdateContents()

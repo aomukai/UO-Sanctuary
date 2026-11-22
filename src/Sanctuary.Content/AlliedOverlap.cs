@@ -29,7 +29,7 @@ public static class AlliedOverlap
     private static readonly ConditionalWeakTable<BaseCreature, State> _states = new();
     public static void Configure()
     {
-        ClassCombatHooks.ActionAllowed = actor=>Allowed(actor) && !BarbarianLeap.Locked(actor) && !BarbarianWhirlwind.Locked(actor);
+        ClassCombatHooks.ActionAllowed = actor=>actor is not (BaseCreature { Mount: CompanionTravelHorse }) && Allowed(actor) && !BarbarianLeap.Locked(actor) && !BarbarianWhirlwind.Locked(actor);
         ClassCombatHooks.OccupancyChanged = Arrived;
         ClassCombatHooks.PassThrough = (first,second)=>first?.BlocksFit==false || second?.BlocksFit==false || LandingReservations.PassThrough(first,second)
             || first is not SkillLandingReservation && second is not SkillLandingReservation
@@ -49,7 +49,8 @@ public static class AlliedOverlap
             if (!PassThrough(actor, other) || actor.Z + 16 <= other.Z || other.Z + 16 <= actor.Z)
                 continue;
 
-            if (actor is PlayerMobile player && other is BaseCreature companion && MercenaryCare.IsCompanion(player, companion))
+            if (other is BaseCreature mount && MountTravel.Managed(mount)
+                || actor is PlayerMobile player && other is BaseCreature companion && MercenaryCare.IsCompanion(player, companion))
                 continue;
             if (other is PlayerMobile owner && actor is BaseCreature pet && MercenaryCare.IsCompanion(owner, pet)
                 || PresenceOf(other).Order < PresenceOf(actor).Order)
@@ -79,7 +80,7 @@ public static class AlliedOverlap
     public static bool Allowed(Mobile actor) => !Blocked(actor);
     internal static bool UpdatePet(BaseCreature pet, long now)
     {
-        if (pet.GetMaster() is not PlayerMobile { Deleted: false, Alive: true } owner || !ClassCombat.Enabled(owner)) { return false; }
+        if (MountTravel.Managed(pet) || pet.GetMaster() is not PlayerMobile { Deleted: false, Alive: true } owner || !ClassCombat.Enabled(owner)) { return false; }
         var state = _states.GetValue(pet, static _ => new State());
         if (!Blocked(pet)) { state.Active = state.Retreating = false; return false; }
         if (!state.Active || state.Map != pet.Map || state.Position != pet.Location)
@@ -122,12 +123,12 @@ public static class AlliedOverlap
         foreach (var follower in owner.AllFollowers ?? [])
         {
             if (follower is BaseCreature { Deleted: false, Alive: true } pet && pet.GetMaster() == owner
-                && pet.Map == owner.Map && pet.Location == owner.Location
+                && !MountTravel.Managed(pet) && pet.Map == owner.Map && pet.Location == owner.Location
                 && PersistentMinions.FindPosition(owner, out var point))
             { pet.AIObject?.ResetApproachState(); pet.MoveToWorld(point, owner.Map); }
         }
     }
-    private static bool Managed(BaseCreature pet) => pet.GetMaster() is PlayerMobile owner && ClassCombat.Enabled(owner);
+    private static bool Managed(BaseCreature pet) => !MountTravel.Managed(pet) && pet.GetMaster() is PlayerMobile owner && ClassCombat.Enabled(owner);
     private static void Remember(BaseCreature pet, IPoint3D goal, int range)
     {
         if (!Managed(pet) || goal == null) { return; }

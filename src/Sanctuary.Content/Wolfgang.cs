@@ -24,7 +24,7 @@ public partial class Wolfgang : ConversationNpc, IClassCompanion
     public override bool CanRegenMana => false;
     public override int ManaMax => 0;
     public override bool WandersWhileGuarding => false;
-    internal override byte Portrait => PortraitProtocol.WolfgangPortrait;
+    internal override ushort Portrait => PortraitProtocol.WolfgangPortrait;
     internal override IReadOnlyList<ScriptedDialogue.Node> Script => Recruited ? _company : _recruit;
     internal static readonly ScriptedDialogue.Voice Voice = new("Wolfgang", PortraitProtocol.WolfgangPortrait);
 

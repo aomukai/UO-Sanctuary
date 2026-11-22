@@ -41,7 +41,7 @@ public partial class Scholar : BaseVendor, IScriptedSpeaker
     public override bool IsActiveBuyer => false;
     public override bool CanTeach => false;
 
-    byte IScriptedSpeaker.Portrait => 1;
+    ushort IScriptedSpeaker.Portrait => (ushort)NpcPortrait.Elara;
     string IScriptedSpeaker.DialogueName => $"{Name} {Title}";
     void IScriptedSpeaker.BeginConversation(PlayerMobile player) => ScriptedDialogue.Show(player, this, _dialogue);
 

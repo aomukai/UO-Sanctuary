@@ -70,6 +70,7 @@ public static class FrontierChecks
         Require(World.Mobiles.Values.OfType<FrontierSentry>().Count(guard => guard.Map == map
             && guard.InRange(new Point3D(1255, 870, 16), 3) && guard.Script.Count > 0) == 2, "Mountain watch guards");
         CheckSouthernFrontier(map, encounters, ratmen.First(m => m.Basis.Level == 15));
+        CheckCompassionFrontier(map, encounters);
         CheckVesperGraveyard(map, encounters);
         CheckCovetousTreasure();
 
@@ -77,6 +78,7 @@ public static class FrontierChecks
         ClassCreation.Profiles.Assign(avatar, DiabloClass.Necromancer);
         try
         {
+            CheckVesperCoast(avatar, map, encounters);
             CheckPassage(avatar, new(1298, 1081, 0), Direction.West, new(5586, 631, 30));
             CheckPassage(avatar, new(5587, 631, 30), Direction.East, new(1299, 1081, 0));
             CheckPassage(avatar, new(5576, 629, 30), Direction.West, new(5501, 570, 59));
@@ -119,10 +121,38 @@ public static class FrontierChecks
         });
     }
 
+    private static void CheckVesperCoast(PlayerMobile avatar, Map map, FrontierEncounter[] encounters)
+    {
+        var sea = encounters.Where(m => m.Dungeon.Id is "vesper-sea-serpent" or "vesper-kraken").ToArray();
+        Point3D[] docks = [CoveFerry.Vesper, new(3046, 840, -2), new(3014, 789, -2), new(2928, 935, -2)];
+        Require(sea.Count(m => m.Dungeon.Id == "vesper-sea-serpent") == 7
+            && sea.Count(m => m.Dungeon.Id == "vesper-kraken") == 4
+            && sea.Min(m => m.Basis.Level) == 15 && sea.Max(m => m.Basis.Level) == 30
+            && sea.Select(m => m.Basis.Level).Distinct().Count() >= 8, "Vesper's sea population or level mix is wrong");
+        foreach (var mob in sea)
+        {
+            var tile = map.Tiles.GetLandTile(mob.Home.X, mob.Home.Y);
+            Require(mob.CanSwim && mob.CantWalk && mob.Home.Z == -5 && mob.HomeMap == map
+                && (TileData.LandTable[tile.ID & TileData.MaxLandValue].Flags & TileFlag.Wet) != 0
+                && sea.Count(other => Utility.InRange(mob.Home, other.Home, 18)) == 1
+                && docks.All(dock => !Utility.InRange(mob.Home, dock, 24)),
+                "A Vesper sea spawn is clumped, on land, or too close to the docks");
+            Require(Server.Movement.Movement.CheckMovement(mob, map, mob.Home, Direction.East, out int z) && z == -5,
+                "A Vesper sea creature cannot move through water");
+            avatar.MoveToWorld(new(mob.Home.X + 1, mob.Home.Y, z), map);
+            Require(mob.IsEnemy(avatar), "A Vesper sea creature does not target nearby sailors");
+            foreach (var dock in docks)
+            {
+                avatar.MoveToWorld(dock, map);
+                Require(!mob.IsEnemy(avatar), "A Vesper sea creature targets players at the docks");
+            }
+        }
+    }
+
     private static void CheckSouthernFrontier(Map map, FrontierEncounter[] encounters, FrontierEncounter ratman)
     {
-        var troll = encounters.Single(m => m.Dungeon.Id == "bridge-troll");
         var bridge = new Point3D(1474, 2161, 6);
+        var troll = encounters.Single(m => m.Dungeon.Id == "bridge-troll" && m.Home == bridge);
         Require(troll.Home == bridge && troll.Location == bridge && troll.Basis.Level == 15
             && CreatureProfiles.Experience(troll) == troll.Basis.Experience * 2, "Bridge troll placement, level or Players-3 XP");
         Require(EncounterTreasure.Root(troll) == EncounterTreasure.Root(ratman)
@@ -145,13 +175,58 @@ public static class FrontierChecks
             && m.Dungeon.Id is "frontier-skeleton" or "frontier-zombie").ToArray();
         Require(burialGround.Length == 10 && burialGround.Min(m => m.Basis.Level) == 14
             && burialGround.Max(m => m.Basis.Level) == 18, "Fens burial ground levels or population");
-        var fenCreatures = encounters.Where(m => m.Dungeon.Id.StartsWith("fens-", StringComparison.Ordinal)).ToArray();
+        var fenCreatures = encounters.Where(m => m.Home.Y >= 2200 && m.Dungeon.Id.StartsWith("fens-", StringComparison.Ordinal)).ToArray();
         Require(fenCreatures.Length == 73 && fenCreatures.All(m => m.Basis.Level is >= 15 and <= 25
             && m.HomeLeashRadius == 10 && map.CanFit(m.Location, 16, false, false))
             && fenCreatures.GroupBy(m => m.Home).Count() == 42
             && fenCreatures.Any(m => m.Home == new Point3D(1823, 2389, 0) && m.Basis.Level == 15)
             && fenCreatures.Any(m => m.Home == new Point3D(1971, 2319, 0) && m.Basis.Level == 25),
             "Fens population is clumped, off its terrain, or missing the level gradient");
+    }
+
+    private static void CheckCompassionFrontier(Map map, FrontierEncounter[] encounters)
+    {
+        var bridge = new Point3D(1866, 740, 6);
+        Require(encounters.Any(m => m.Dungeon.Id == "bridge-troll" && m.Basis.Level == 15 && m.Home == bridge && m.Location == bridge),
+            "Missing level 15 troll on the Compassion bridge");
+        var desert = encounters.Where(m => m.Dungeon.Id.StartsWith("compassion-desert-", StringComparison.Ordinal)).ToArray();
+        Require(desert.Length == 68 && desert.Select(m => m.Dungeon.Id).Distinct().Count() == 6
+            && desert.All(m => m.Basis.Level is >= 20 and <= 25 && m.Location == m.Home
+                && map.CanFit(m.Location, 16, false, false) && !m.RepelledByAnkh(m.Home)
+                && desert.Count(other => Utility.InRange(other.Home, m.Home, 13)) == 1),
+            "Compassion desert levels, terrain, refuge clearance or individual spawn spacing");
+        Require(desert.Any(m => m.Home == new Point3D(2035, 841, 0))
+            && desert.All(m => m.RepelledByAnkh(new(1875, 865, -1)) && m.RepelledByAnkh(new(1857, 877, -1)))
+            && World.Items.Values.OfType<AnkhNorth>().Any(ankh => ankh.Map == map && ankh.Location == new Point3D(1857, 877, -1)),
+            "The Compassion ankh or safe approach is missing");
+        int elites = desert.Count(m => m.Grade is EncounterGrade.Champion or EncounterGrade.Unique);
+        Require(elites <= 1, "Compassion desert spawned multiple elites");
+        var eliteFixture = elites == 0 ? new FrontierEncounter("compassion-desert-snake", 23, 1) : null;
+        try
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                var respawn = new FrontierEncounter("compassion-desert-harpy", 25);
+                try { Require(respawn.Grade == EncounterGrade.Ordinary, "A desert respawn bypassed the existing elite slot"); }
+                finally { respawn.Delete(); }
+            }
+        }
+        finally { eliteFixture?.Delete(); }
+
+        var swamp = encounters.Where(m => m.Home.Y < 1200 && m.Dungeon.Id.StartsWith("fens-", StringComparison.Ordinal)).ToArray();
+        Require(swamp.Length == 46 && swamp.Select(m => m.Dungeon.Id).Distinct().Count() == 7
+            && swamp.All(m => m.Basis.Level is >= 15 and <= 25 && m.Location == m.Home
+                && map.CanFit(m.Location, 16, false, false)
+                && map.Tiles.GetLandTile(m.X, m.Y).ID is >= 0x3DC0 and <= 0x3DF0
+                && swamp.Count(other => Utility.InRange(other.Home, m.Home, 13)) == 1)
+            && swamp.Any(m => m.Home == new Point3D(2007, 952, 0) && m.Basis.Level == 15),
+            "Compassion swamp levels, species, terrain or individual spawn spacing");
+
+        var guards = World.Mobiles.Values.OfType<CompassionWatch>().Where(g => g.Map == map).ToArray();
+        Require(guards.Count(g => g.InRange(new Point3D(1819, 728, 0), 2) && g.Script[0].Line.Contains("do not stop")) == 2
+            && guards.Count(g => g.InRange(new Point3D(2060, 804, 0), 11)) == 3
+            && guards.Any(g => g.Name == "Leofric" && g.Location == new Point3D(2060, 804, 0) && g.Script[0].Replies.Length == 4),
+            "Compassion guards or road directions are missing");
     }
 
     private static void CheckVesperGraveyard(Map map, FrontierEncounter[] encounters)

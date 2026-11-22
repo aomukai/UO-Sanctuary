@@ -47,7 +47,7 @@ public partial class CoveGnaw : ConversationNpc
         Direction = Direction.South;
     }
 
-    internal override byte Portrait => PortraitProtocol.GnawPortrait;
+    internal override ushort Portrait => PortraitProtocol.GnawPortrait;
     internal override IReadOnlyList<ScriptedDialogue.Node> Script => _pact;
     internal override bool CanTalkTo(PlayerMobile player) => FriendlyTo(player);
     public override bool IsInvulnerable => true;
