@@ -20,6 +20,7 @@ public partial class Wolfgang : ConversationNpc, IClassCompanion
     private const DiabloClass CombatClass = DiabloClass.Barbarian;
     private const double CombatPace = 0.18, RushPace = 0.085;
     DiabloClass IClassCompanion.CombatClass => CombatClass;
+    CompanionEquipmentStyle IClassCompanion.EquipmentStyle => CompanionEquipmentStyle.Sword;
     public override bool IsInvulnerable => !Recruited;
     public override bool CanRegenMana => false;
     public override int ManaMax => 0;
@@ -156,17 +157,37 @@ public partial class Wolfgang : ConversationNpc, IClassCompanion
         }
     }
 
-    internal static int SkillRank(int level) => Math.Min(20, 1 + (level - 1) / 4);
+    private BaseShield ActiveShield => FindItemOnLayer(Layer.TwoHanded) is BaseShield shield
+        && !ClassGear.Broken(shield) && ClassGear.State(shield) is not { Identified: false } ? shield : null;
 
-    private static SkillValues Values(CombatAbility ability, int level)
+    internal int DefenseBonus
     {
-        var row = SkillMechanics.For(ability);
-        int Rank(string key) => key == row.SourceKey ? SkillRank(level) : 0;
-        return new SkillValues(row, Rank, Rank, level);
+        get
+        {
+            if (MercenaryCare.CompanionLevel(this) is not { } level)
+                return 0;
+
+            int ironSkin = (int)CompanionBuild.Values(CombatAbility.IronSkin, level).Eval("passivecalc1");
+            return ActiveShield == null ? ironSkin : ironSkin + HolyShields.DefensePercent(CompanionBuild.Values(CombatAbility.HolyShield, level));
+        }
     }
 
-    internal int IronSkinDefense => MercenaryCare.CompanionLevel(this) is { } level
-        ? (int)Values(CombatAbility.IronSkin, level).Eval("passivecalc1") : 0;
+    internal int BlockChance
+    {
+        get
+        {
+            if (ActiveShield is not { } shield || MercenaryCare.CompanionLevel(this) is not { } level)
+                return 0;
+
+            int shieldBlock = ClassGear.Base(shield)?.Block ?? 0;
+            int holyShield = HolyShields.BlockBonus(CompanionBuild.Values(CombatAbility.HolyShield, level));
+            // His starter shield and rank-one Holy Shield give 50% together.
+            return Math.Clamp(31 + Math.Max(5, shieldBlock) + holyShield + CompanionBuild.Bonus(this, "block"), 50, 75);
+        }
+    }
+
+    internal static SkillValues SwordMastery(BaseWeapon weapon, int level) =>
+        weapon is BaseSword ? CompanionBuild.Values(CombatAbility.SwordMastery, level) : null;
 
     private bool CanFight(Mobile target, out PlayerMobile owner)
     {
@@ -211,7 +232,7 @@ public partial class Wolfgang : ConversationNpc, IClassCompanion
             return;
 
         int level = MercenaryCare.CompanionLevel(this) ?? 1;
-        var shout = Values(CombatAbility.Shout, level);
+        var shout = CompanionBuild.Values(CombatAbility.Shout, level);
         _nextShout = now.AddMilliseconds(shout.Eval("auralencalc") * ActionTiming.FrameMs);
         TryShoutBark(owner);
         BarbarianCryVisuals.Cast(this, CombatAbility.Shout, now);
@@ -252,17 +273,13 @@ public partial class Wolfgang : ConversationNpc, IClassCompanion
         DoHarmful(target);
 
         int level = MercenaryCare.CompanionLevel(this) ?? 1;
-        var mastery = weapon is BaseSword ? Values(CombatAbility.SwordMastery, level) : null;
+        var mastery = SwordMastery(weapon, level);
         int attack = CompanionBuild.Bonus(this, "att%") + (int)(mastery?.Eval("passivecalc1") ?? 0);
         if (ClassStats.CheckHit(this, target, attack) != true)
             return;
 
-        var (minimum, maximum) = ClassGear.Damage(weapon, level);
-        var basis = ClassGear.Base(weapon);
-        int strength = Str + CompanionBuild.Bonus(this, "str"), dexterity = Dex + CompanionBuild.Bonus(this, "dex");
-        int damage = (basis == null ? strength : ClassStats.WeaponStatPercent(strength, dexterity, basis.StrengthBonus, basis.DexterityBonus))
-            + CompanionBuild.Bonus(this, "dmg%", except: weapon) + (int)(mastery?.Eval("passivecalc2") ?? 0);
-        double physical = Utility.RandomMinMax(minimum, maximum) * (100 + Math.Max(-90, damage)) / 100.0;
+        var (minimum, maximum, factor) = CompanionBuild.WeaponDamage(this, weapon, level, (int)(mastery?.Eval("passivecalc2") ?? 0));
+        double physical = Utility.RandomMinMax(minimum, maximum) * factor / 100.0;
         if (mastery != null && Utility.Random(100) < mastery.Eval("passivecalc3"))
             physical *= 2;
 

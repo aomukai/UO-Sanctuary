@@ -893,16 +893,24 @@ public static class NewHavenStoryChecks
         Require(!solo.CanSee(innIolo) && !innIolo.CanTalkTo(solo), "Iolo remained recruitable after leaving alone");
 
         var dog = new Dog();
+        var horse = new Horse();
         try
         {
             Require(dog.SetControlMaster(player), "Could not prepare the moongate test pet");
             dog.MoveToWorld(new Point3D(gate.X + 7, gate.Y, gate.Z), map);
             dog.ControlOrder = OrderType.Stay;
+            horse.MoveToWorld(player.Location, map);
+            Require(MountTravel.Adopt(player, horse), "Could not prepare the moongate test mount");
+            horse.OnDoubleClick(player);
+            Require(player.Mount == horse && companion.Mount is CompanionTravelHorse, "The Avatar and Iolo did not mount");
+            Require(gate.UseGate(player) && player.FindGump<MoongateGump>() is { }, "Mounted travel did not open the public moongate menu");
+            menu = player.FindGump<MoongateGump>();
             menu.OnResponse(player.NetState, new RelayInfo(1, [britain], [], [], []));
             player.CloseGump<MoongateGump>();
             Require(profiles.HasDepartedNewHaven(player.Serial) && player.Location == destination
+                && player.Mount == horse && horse.Rider == player && companion.Mount is CompanionTravelHorse
                 && companion.Map == player.Map && companion.InRange(player, 4) && MercenaryCare.IsCompanion(player, companion),
-                "Iolo did not travel to Britain with the Avatar");
+                "The Avatar or Iolo did not arrive in Britain with their mount");
             Require(dog.ControlMaster == player && dog.Map == player.Map && dog.InRange(player, 4),
                 "The moongate left a distant tamed pet behind");
             var active = (IDictionary)typeof(ScriptedDialogue).GetField("_sessions", BindingFlags.Static | BindingFlags.NonPublic)
@@ -912,7 +920,7 @@ public static class NewHavenStoryChecks
                 && active[solo.Serial] == null && !profiles.RecordNewHavenDeparture(player.Serial),
                 $"Iolo's dialogue did not open privately after the first journey ({companion.Location} to {player.Location})");
         }
-        finally { dog.Delete(); }
+        finally { horse.Rider = null; horse.Delete(); dog.Delete(); }
     }
 
     private static PublicMoongate CheckGate()

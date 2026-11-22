@@ -20,3 +20,22 @@ public static class StatProtocol
     public const int ExperiencePacketLength = 18;
     public const int Values = (int)StatField.Count;
 }
+
+public enum CompanionEquipmentStyle : byte { Crossbow, Sword, Bow }
+public enum CompanionStatRequest : byte { Snapshot, OpenSheet }
+
+public enum CompanionStatField
+{
+    Level, Strength, Dexterity, Life, MaximumLife, DamageMin, DamageMax, AttackRating, Defense,
+    AttackSpeed, RecoveryFrames, Fire, Cold, Poison, Lightning, BlockChance, DodgeChance, AvoidChance, EvadeChance, Count
+}
+
+public static class CompanionStatProtocol
+{
+    public const ushort SubCommand = 0xFF;
+    public const byte Version = 1;
+    public const int RequestLength = 11;
+    public const int Values = (int)CompanionStatField.Count;
+    public const int SnapshotLength = 11 + Values * 4;
+    public const int ResistanceCap = 75;
+}

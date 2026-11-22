@@ -47,7 +47,8 @@ public static class MercenaryCareChecks
             ClassCreation.Profiles.Discover(owner.Serial, StoryDiscoveries.IoloRetired);
             owner.MoveToWorld(new Point3D(1594, 1588, 20), map);
             companion = Wolfgang.Join(owner);
-            Require(companion != null && MercenaryCare.ParkAtInn(owner, companion), "Could not park Wolfgang");
+            Require(companion != null && companion.BlockChance == 50 && MercenaryCare.ParkAtInn(owner, companion),
+                "Wolfgang should have 50% block at level one with his starter shield");
 
             owner.Backpack.DropItem(new Gold(AyilaInn.CallFee));
             Require(ClassCreation.Profiles.AdvanceLevel(owner, 12), "Could not level while Wolfgang was parked");
@@ -57,6 +58,19 @@ public static class MercenaryCareChecks
                 && MercenaryCare.ActiveStoryCompanion(owner) == companion && MercenaryCare.CompanionLevel(companion) == 12
                 && !MercenaryCare.ParkedCompanions(owner).Any() && owner.Location == AyilaInn.Reunion
                 && owner.Backpack.GetAmount(typeof(Gold)) == 0, "Recall at a higher level lost the active contract or fee");
+
+            var stats = CompanionCharacterStats.Snapshot(companion, companion, 12);
+            Require(companion.RawDex == 20 && companion.DefenseBonus == 105 && stats[(int)CompanionStatField.BlockChance] == 56
+                && ClassStats.CheckHit(owner, companion, 0, () => 0.55, guaranteed: true, notifyMelee: false) == false
+                && ClassStats.CheckHit(owner, companion, 0, () => 0.56, guaranteed: true, notifyMelee: false) == true,
+                "Wolfgang's passive Holy Shield and live block chance should scale with his level");
+            var shield = companion.Items.OfType<WoodenShield>().Single();
+            owner.Backpack.DropItem(shield);
+            Require(companion.BlockChance == 0 && companion.DefenseBonus == 50
+                && ClassStats.CheckHit(owner, companion, 0, () => 0.49, guaranteed: true, notifyMelee: false) == true,
+                "Wolfgang kept Holy Shield without an equipped shield");
+            Require(companion.EquipItem(new MetalShield()) && companion.BlockChance == 63,
+                "A better shield should increase Wolfgang's block chance");
         }
         finally
         {
@@ -66,6 +80,31 @@ public static class MercenaryCareChecks
                 companion.Delete();
             }
             owner.Delete();
+        }
+    }
+
+    private static void CheckAvoidance(PlayerMobile owner, Merydwen companion, int[] stats)
+    {
+        Require(stats[(int)CompanionStatField.DodgeChance] == 18 && stats[(int)CompanionStatField.AvoidChance] == 24
+            && stats[(int)CompanionStatField.EvadeChance] == 18, "The companion sheet did not show the Amazon passives");
+        var restoreRoll = AmazonAvoidance.Roll;
+        long restoreMove = companion.LastMoveTime;
+        try
+        {
+            companion.LastMoveTime = 0;
+            AmazonAvoidance.Roll = _ => 20;
+            Require(ClassStats.CheckHit(owner, companion, 0, guaranteed: true, notifyMelee: false) == true
+                && ClassStats.CheckHit(owner, companion, 0, projectile: true, guaranteed: true) == false
+                && ClassAvoidance.Missile(companion), "Standing companions should use Dodge for melee and Avoid for missiles");
+            companion.LastMoveTime = Core.TickCount;
+            Require(!ClassAvoidance.Missile(companion), "Moving companions should use Evade in place of Avoid");
+            AmazonAvoidance.Roll = _ => 17;
+            Require(ClassAvoidance.Missile(companion), "Evade should avoid a missile below its roll threshold");
+        }
+        finally
+        {
+            AmazonAvoidance.Roll = restoreRoll;
+            companion.LastMoveTime = restoreMove;
         }
     }
 
@@ -83,6 +122,21 @@ public static class MercenaryCareChecks
             companion = Merydwen.Hire(owner, out _);
             Require(companion != null, "Could not hire Merydwen");
             var bow = companion.Weapon;
+            var bone = new BoneChest();
+            owner.Backpack.DropItem(bone);
+            Require(!companion.EquipItem(bone) && bone.Parent == owner.Backpack
+                && CompanionBuild.ArcherGearRefusal(bone, "bows") == "I can only wear light armour.",
+                "Bone armour bypassed Merydwen's light-armour rule or lost the reason for refusal");
+            var build = (IClassCompanion)companion;
+            var before = CompanionCharacterStats.Snapshot(companion, build, 1);
+            var armour = companion.Items.OfType<LeatherChest>().Single();
+            owner.Backpack.DropItem(armour);
+            var after = CompanionCharacterStats.Snapshot(companion, build, 1);
+            Require(build.EquipmentStyle == CompanionEquipmentStyle.Bow && before.Length == CompanionStatProtocol.Values
+                && before[(int)CompanionStatField.DamageMax] > 0 && before[(int)CompanionStatField.Defense] > after[(int)CompanionStatField.Defense]
+                && after[(int)CompanionStatField.Defense] == ClassStats.Defense(companion)
+                && companion.EquipItem(armour), "Companion sheet did not reflect the armour and combat stats");
+            CheckAvoidance(owner, companion, before);
             var lantern = new BeltLantern();
             owner.Backpack.DropItem(lantern);
             Require(companion.AllowEquipFrom(owner) && companion.EquipItem(lantern)
