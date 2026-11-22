@@ -1,0 +1,382 @@
+diff --git a/src/ClassicUO.Client/Game/SanctuaryMenu.cs b/src/ClassicUO.Client/Game/SanctuaryMenu.cs
+--- a/src/ClassicUO.Client/Game/SanctuaryMenu.cs
++++ b/src/ClassicUO.Client/Game/SanctuaryMenu.cs
+@@ -18,19 +18,20 @@
+     WorldMap,
+     Talents,
+     Skills,
++    Companion,
+     Options
+ }
+ 
+ internal static class SanctuaryMenu
+ {
+-    internal const string DefaultKeys = "bcjmtk";
++    internal const string DefaultKeys = "bcjmtko";
+ 
+     internal static bool IsMenuLetter(char key) => key is >= 'a' and <= 'z' and not 's';
+ 
+     internal static string GetKeys(Profile profile)
+     {
+         string keys = profile.SanctuaryMenuKeys;
+-        if (keys?.Length is not (4 or 6))
++        if (keys?.Length is not (4 or 6 or 7))
+             return DefaultKeys;
+ 
+         for (int i = 0; i < keys.Length; i++)
+@@ -112,6 +113,16 @@
+                 else
+                     GameActions.OpenPaperdoll(world, world.Player.Serial);
+                 break;
++            case SanctuaryWindow.Companion:
++                uint companion = world.Player.SanctuaryStoryCompanion;
++                if (companion != 0)
++                {
++                    if (UIManager.GetGump<PaperDollGump>(companion) is { } sheet)
++                        sheet.Dispose();
++                    else
++                        SanctuaryCharacterStats.RequestCompanion(companion, CompanionStatRequest.OpenSheet);
++                }
++                break;
+             case SanctuaryWindow.Journal:
+                 if (UIManager.GetGump<SanctuaryJournalGump>() is { } journal)
+                     journal.Dispose();
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
+@@ -24,6 +24,7 @@
+         private Point _sheetViewport;
+         private PaperDollInteractable _paperDollInteractable;
+         private SanctuaryBackdrop _sheet;
++        private SanctuaryCharacterStats _companionStats;
+         private SanctuarySheetButton _minimizedSheet;
+         private GumpPic _picBase;
+         private readonly List<EquipmentSlot> _slots = new List<EquipmentSlot>();
+@@ -100,9 +101,10 @@
+ 
+         private void BuildGump()
+         {
+-            if (LocalSerial == World.Player)
+-            {
+-                BuildCharacterSheet();
++            bool companion = CanLift && World.Player?.SanctuaryStoryCompanion == LocalSerial;
++            if (LocalSerial == World.Player || companion)
++            {
++                BuildCharacterSheet(companion);
+                 return;
+             }
+ 
+@@ -126,15 +128,16 @@
+             RequestUpdateContents();
+         }
+ 
+-        private void BuildCharacterSheet()
++        private void BuildCharacterSheet(bool companion)
+         {
+             Width = SheetWidth;
+             Height = SheetHeight;
+             WantUpdateSize = false;
+             _sheet = Add(new SanctuaryBackdrop("character-frame", SheetWidth, SheetHeight));
+-            _minimizedSheet = Add(new SanctuarySheetButton(0, 0, 126, "Character", () => IsMinimized = false)
++            var mobile = World.Mobiles.Get(LocalSerial);
++            _minimizedSheet = Add(new SanctuarySheetButton(0, 0, 126, companion ? mobile?.Name ?? "Companion" : "Character", () => IsMinimized = false)
+             { IsVisible = false, CanMove = true });
+-            _titleLabel = Add(new Label(World.Player.Name ?? "", true, 0x0481, 447, font: 0) { X = 28, Y = 13 });
++            _titleLabel = Add(new Label(mobile?.Name ?? "", true, 0x0481, 447, font: 0) { X = 28, Y = 13 });
+             _earnedTitleLabel = Add(new Label("", true, 0x0481, 447, font: 0)
+             { X = 28, Y = 13, IsVisible = false });
+             Add(new SanctuarySheetButton(483, 17, 53, "Fold", () => IsMinimized = true));
+@@ -144,6 +147,16 @@
+             Add(new Line(22, 90, 190, 1, 0xFF406989) { AcceptMouseInput = false });
+             Add(new Line(226, 70, 1, 278, 0xFF35516D) { AcceptMouseInput = false });
+             AddEquipment(22, 194, 107, 29, 85);
++
++            if (companion)
++            {
++                _companionStats = Add(new SanctuaryCharacterStats(World, LocalSerial) { Width = SheetWidth, Height = 356 });
++                Add(new Line(22, 358, 568, 1, 0xFF35516D) { AcceptMouseInput = false });
++                if (mobile?.FindItemByLayer(Layer.Backpack) != null)
++                    AddSheetButton(22, 369, 83, "Backpack", Buttons.Backpack).SetTooltip("Open this companion's backpack or drop an item here.");
++                RequestUpdateContents();
++                return;
++            }
+ 
+             if (World.ClientFeatures.PaperdollBooks)
+             {
+@@ -167,6 +180,9 @@
+             RequestUpdateContents();
+         }
+ 
++        internal void SetCompanionStats(CompanionEquipmentStyle style, int[] values) =>
++            _companionStats?.SetCompanionStats(style, values);
++
+         private void FitSheet()
+         {
+             var bounds = Client.Game.ClientBounds;
+@@ -298,7 +314,8 @@
+             }
+ 
+             Mobile mobile = World.Mobiles.Get(LocalSerial);
+-            if (mobile != null && mobile.IsDestroyed)
++            if (mobile is { IsDestroyed: true } || _companionStats != null
++                && (mobile == null || !CanLift || World.Player?.SanctuaryStoryCompanion != LocalSerial))
+             {
+                 Dispose();
+                 return;
+@@ -375,6 +392,8 @@
+             if (button == MouseButtonType.Left && World.InGame)
+             {
+                 Mobile container = World.Mobiles.Get(LocalSerial);
++                if (container == null)
++                    return;
+ 
+                 if (Client.Game.UO.GameCursor.ItemHold.Enabled)
+                 {
+@@ -501,7 +520,7 @@
+                 && !Client.Game.UO.GameCursor.ItemHold.IsFixedPosition
+             )
+             {
+-                if ((Buttons)buttonID == Buttons.Backpack && World.Player.FindItemByLayer(Layer.Backpack) is Item backpack)
++                if ((Buttons)buttonID == Buttons.Backpack && World.Mobiles.Get(LocalSerial)?.FindItemByLayer(Layer.Backpack) is Item backpack)
+                     GameActions.DropItem(Client.Game.UO.GameCursor.ItemHold.Serial, 0xFFFF, 0xFFFF, 0, backpack.Serial);
+                 else
+                     OnMouseUp(0, 0, MouseButtonType.Left);
+@@ -554,7 +573,10 @@
+                     break;
+ 
+                 case Buttons.Backpack:
+-                    GameActions.OpenBackpack(World);
++                    if (_companionStats == null)
++                        GameActions.OpenBackpack(World);
++                    else if (World.Mobiles.Get(LocalSerial)?.FindItemByLayer(Layer.Backpack) is { } companionPack)
++                        GameActions.DoubleClick(World, companionPack.Serial);
+                     break;
+ 
+                 case Buttons.AvatarJournal:
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryCharacterStats.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryCharacterStats.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryCharacterStats.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryCharacterStats.cs
+@@ -2,8 +2,11 @@
+ 
+ using System;
+ using System.Collections.Generic;
++using ClassicUO.Game.Managers;
+ using ClassicUO.Game.UI.Controls;
+ using ClassicUO.Input;
++using ClassicUO.IO;
++using ClassicUO.Network;
+ using Sanctuary;
+ 
+ namespace ClassicUO.Game.UI.Gumps;
+@@ -16,13 +19,24 @@
+     private readonly List<Label> _spend = new();
+     private readonly HitBox _attackTooltip;
+     private readonly HitBox _defenseTooltip;
++    private readonly uint _companion;
++    private (CompanionEquipmentStyle Style, int[] Values)? _companionStats;
++    private uint _nextCompanionPoll, _lastCompanionUpdate;
+     private uint _refresh;
+ 
+-    public SanctuaryCharacterStats(World world)
++    public SanctuaryCharacterStats(World world, uint companion = 0)
+     {
+         _world = world;
++        _companion = companion;
+         AcceptMouseInput = false;
+         WantUpdateSize = false;
++        if (companion != 0)
++        {
++            _nextCompanionPoll = Time.Ticks;
++            BuildCompanionRows();
++            Refresh();
++            return;
++        }
+         var player = world.Player;
+ 
+         const int left = 244, right = 432;
+@@ -63,6 +77,111 @@
+         Refresh();
+     }
+ 
++    private const int CompanionAttributesX = 244;
++
++    private void BuildCompanionRows()
++    {
++        const int left = CompanionAttributesX, right = 432;
++        Heading(left, 70, "Attributes");
++        Row(left, 98, "Level", () => CompanionValue(CompanionStatField.Level));
++        Row(left, 117, "Strength", () => CompanionValue(CompanionStatField.Strength));
++        Row(left, 136, "Dexterity", () => CompanionValue(CompanionStatField.Dexterity));
++        Row(left, 155, "Life", () => _companionStats.HasValue
++            ? $"{CompanionValue(CompanionStatField.Life)} / {CompanionValue(CompanionStatField.MaximumLife)}" : "—");
++
++        Heading(left, 207, "Equipment rules");
++        Row(left, 232, "Weapon", () => _companionStats?.Style switch
++        {
++            CompanionEquipmentStyle.Bow => "Bows",
++            CompanionEquipmentStyle.Crossbow => "Crossbows",
++            CompanionEquipmentStyle.Sword => "Swords",
++            _ => "—"
++        });
++        Row(left, 252, "Armour", () => _companionStats?.Style switch
++        {
++            CompanionEquipmentStyle.Bow or CompanionEquipmentStyle.Crossbow => "Light only",
++            CompanionEquipmentStyle.Sword => "Any weight",
++            _ => "—"
++        });
++
++        Heading(right, 70, "Combat");
++        Row(right, 98, "Weapon damage", () => _companionStats is { } stats && stats.Values[(int)CompanionStatField.DamageMax] > 0
++            ? $"{CompanionValue(CompanionStatField.DamageMin)}–{CompanionValue(CompanionStatField.DamageMax)}" : "—");
++        Add(new HitBox(right, 96, 158, 18, "Basic weapon damage before critical hits and target mitigation.", 0.06f));
++        Row(right, 117, "Attack rating", () => CompanionValue(CompanionStatField.AttackRating));
++        Row(right, 136, "Defense", () => CompanionValue(CompanionStatField.Defense));
++        Row(right, 155, "Attack speed bonus", () => CompanionValue(CompanionStatField.AttackSpeed, "%"));
++        Row(right, 174, "Hit recovery", () => CompanionValue(CompanionStatField.RecoveryFrames, " frames"));
++        Row(right, 193, "Block chance", () => CompanionValue(CompanionStatField.BlockChance, "%"));
++
++        Heading(right, 225, "Resistances");
++        string cap = $" / {CompanionStatProtocol.ResistanceCap}";
++        Row(right, 250, "Fire", () => CompanionValue(CompanionStatField.Fire, cap));
++        Row(right, 270, "Cold", () => CompanionValue(CompanionStatField.Cold, cap));
++        Row(right, 290, "Poison", () => CompanionValue(CompanionStatField.Poison, cap));
++        Row(right, 310, "Lightning", () => CompanionValue(CompanionStatField.Lightning, cap));
++    }
++
++    private string CompanionValue(CompanionStatField field, string suffix = "") =>
++        _companionStats is { } stats ? stats.Values[(int)field] + suffix : "—";
++
++    internal static void ReceiveCompanion(World world, ref StackDataReader reader)
++    {
++        if (!world.InGame || world.Player == null || reader.Remaining != CompanionStatProtocol.SnapshotLength - 5
++            || reader.ReadUInt8() != CompanionStatProtocol.Version)
++            return;
++
++        uint serial = reader.ReadUInt32BE();
++        if (serial != world.Player.SanctuaryStoryCompanion || UIManager.GetGump<PaperDollGump>(serial) is not { } gump)
++            return;
++
++        var style = (CompanionEquipmentStyle)reader.ReadUInt8();
++        if (!Enum.IsDefined(style))
++            return;
++        var values = new int[CompanionStatProtocol.Values];
++        for (int i = 0; i < values.Length; i++)
++            values[i] = reader.ReadInt32BE();
++        gump.SetCompanionStats(style, values);
++    }
++
++    internal void SetCompanionStats(CompanionEquipmentStyle style, int[] values)
++    {
++        if (_lastCompanionUpdate == 0 && style == CompanionEquipmentStyle.Bow)
++        {
++            Heading(CompanionAttributesX, 277, "Avoidance");
++            Row(CompanionAttributesX, 302, "Dodge", () => CompanionValue(CompanionStatField.DodgeChance, "%"));
++            Row(CompanionAttributesX, 321, "Avoid", () => CompanionValue(CompanionStatField.AvoidChance, "%"));
++            Row(CompanionAttributesX, 340, "Evade", () => CompanionValue(CompanionStatField.EvadeChance, "%"));
++        }
++        _companionStats = (style, values);
++        _lastCompanionUpdate = Time.Ticks;
++        Refresh();
++    }
++
++    private void PollCompanion()
++    {
++        if (!IsVisible || !_world.InGame || unchecked((int)(Time.Ticks - _nextCompanionPoll)) < 0)
++            return;
++
++        _nextCompanionPoll = Time.Ticks + StatProtocol.PollMs;
++        if (unchecked((int)(Time.Ticks - _lastCompanionUpdate)) >= StatProtocol.PollMs * 3)
++            _companionStats = null;
++
++        RequestCompanion(_companion, CompanionStatRequest.Snapshot);
++    }
++
++    internal static void RequestCompanion(uint serial, CompanionStatRequest request)
++    {
++        using var writer = new StackDataWriter(CompanionStatProtocol.RequestLength);
++        writer.WriteUInt8(0xBF);
++        writer.WriteUInt16BE(CompanionStatProtocol.RequestLength);
++        writer.WriteUInt16BE(CompanionStatProtocol.SubCommand);
++        writer.WriteUInt8(CompanionStatProtocol.Version);
++        writer.WriteUInt8((byte)request);
++        writer.WriteUInt32BE(serial);
++        NetClient.Socket.Send(writer.BufferWritten);
++    }
++
+     private static string ClassValue(StatField stat, string suffix = "") =>
+         ClassStatsClient.Ready ? ClassStatsClient.Get(stat) + suffix : "—";
+ 
+@@ -98,6 +217,8 @@
+ 
+     public override void Update()
+     {
++        if (_companion != 0)
++            PollCompanion();
+         if (unchecked((int)(Time.Ticks - _refresh)) >= 0)
+             Refresh();
+         base.Update();
+@@ -114,6 +235,9 @@
+             label.X = right - label.Width;
+         }
+ 
++        if (_companion != 0)
++            return;
++
+         string monster = ClassStatsClient.LastMonster;
+         SetTooltip(_attackTooltip, monster == null ? "Your chance to hit appears after you fight a monster."
+             : $"Chance to hit {monster}: {ClassStatsClient.ChanceToHit}%");
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryHelpGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryHelpGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryHelpGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryHelpGump.cs
+@@ -8,7 +8,7 @@
+ 
+ internal sealed class SanctuaryHelpGump : Gump
+ {
+-    private static readonly string[] WindowNames = ["Backpack", "Character", "Journal", "World map", "Class talents", "Skills"];
++    private static readonly string[] WindowNames = ["Backpack", "Character", "Journal", "World map", "Class talents", "Skills", "Companion"];
+     private readonly Label[] _windowLabels = new Label[WindowNames.Length];
+ 
+     private SanctuaryHelpGump(World world) : base(world, 0, 0)
+@@ -27,8 +27,8 @@
+         for (int i = 0; i < _windowLabels.Length; i++)
+             _windowLabels[i] = Text("", 26, 96 + i * 20);
+         RefreshShortcuts();
+-        Text("Esc   Options", 26, 216);
+-        Text("Enter   World chat", 26, 236);
++        Text("Esc   Options", 26, 232);
++        Text("Enter   World chat", 26, 250);
+ 
+         Text("S   Assign skills", 192, 96);
+         Text("F1–F12   Use an assigned skill", 192, 121);
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs
+@@ -89,11 +89,11 @@
+         classic = Add(new SanctuarySheetButton(331, soundtrackY, 106, "Classic MIDI", () => SelectSoundtrack(true), _classicMidi), Music);
+ 
+         _keys = SanctuaryMenu.GetKeys(_profile);
+-        string[] windows = ["Backpack", "Character", "Journal", "World map", "Class talents", "Skills"];
++        string[] windows = ["Backpack", "Character", "Journal", "World map", "Class talents", "Skills", "Companion"];
+         for (int i = 0; i < windows.Length; i++)
+         {
+             int binding = i;
+-            int y = Row(i);
++            int y = 93 + i * 27;
+             AddText(windows[i], 30, y + 4, Hotkeys);
+             _bindings[i] = Add(new SanctuarySheetButton(345, y, 92, "", () =>
+             {
+diff --git a/src/ClassicUO.Client/Network/PacketHandlers.cs b/src/ClassicUO.Client/Network/PacketHandlers.cs
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -4207,6 +4207,11 @@
+                 ClassStatsClient.Receive(world, ref p);
+                 return;
+             }
++            if (cmd == Sanctuary.CompanionStatProtocol.SubCommand)
++            {
++                SanctuaryCharacterStats.ReceiveCompanion(world, ref p);
++                return;
++            }
+             if (cmd == Sanctuary.CombatProtocol.AnimationSubCommand)
+             {
+                 ClassCombatClient.ReceiveAnimation(world, ref p);

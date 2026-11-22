@@ -310,7 +310,7 @@ public static class BritainStoryChecks
         Require(wolfgang != null && MercenaryCare.IsCompanion(player, wolfgang)
             && CreatureProfiles.Level(wolfgang) == ClassStats.Level(player)
             && wolfgang.RawStr == ClassStats.For(DiabloClass.Barbarian).Strength + 3 * (ClassStats.Level(player) - 1)
-            && wolfgang.ManaMax == 0 && wolfgang.IronSkinDefense > 0 && wolfgang.Weapon is Broadsword,
+            && wolfgang.ManaMax == 0 && wolfgang.DefenseBonus > 0 && wolfgang.Weapon is Broadsword,
             "Wolfgang did not use the level-matched Barbarian build");
         return wolfgang;
     }

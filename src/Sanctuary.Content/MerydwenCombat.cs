@@ -22,13 +22,6 @@ public partial class Merydwen
             ObserveBarks();
     }
 
-    private static SkillValues Values(CombatAbility skill, int level)
-    {
-        var row = SkillMechanics.For(skill);
-        int Rank(string key) => key == row.SourceKey ? Math.Min(20, 1 + (level - 1) / 4) : 0;
-        return new(row, Rank, Rank, level);
-    }
-
     protected PlayerMobile ArcherOwner(BaseRanged bow) =>
         Alive && !Deleted && !IsDeadPet && !Mounted && !Frozen && !Paralyzed && CreatureHitRecovery.Remaining(this) == 0
         && ClassCombatHooks.ActionAllowed?.Invoke(this) != false && Weapon == bow && !ClassGear.Broken(bow)
@@ -81,7 +74,7 @@ public partial class Merydwen
                 return;
             if (ability == CombatAbility.GuidedArrow && this is not Nightwind)
                 SayBark(currentOwner, _guided, Core.TickCount);
-            Shoot(target, bow, ability, level, ability == CombatAbility.GuidedArrow ? Values(ability, level) : null);
+            Shoot(target, bow, ability, level, ability == CombatAbility.GuidedArrow ? CompanionBuild.Values(ability, level) : null);
         }, out _shot);
         return TimeSpan.FromMilliseconds(shot.DurationMs);
     }
@@ -105,7 +98,7 @@ public partial class Merydwen
     {
         if (ArcherOwner(bow) is not { } owner || !CanAim(owner, primary, bow))
             return;
-        var values = Values(CombatAbility.InnerSight, level);
+        var values = CompanionBuild.Values(CombatAbility.InnerSight, level);
         int radius = (int)values.Eval("aurarangecalc");
         var at = TimedEffects.Now;
         foreach (var foe in Targets(owner, primary, bow))
@@ -120,7 +113,7 @@ public partial class Merydwen
     {
         var timing = AmazonBow.Timing(AttackFamily.Bow, SequenceAdvance(bow));
         var ability = CombatAbility.MultipleShot;
-        var values = Values(ability, level);
+        var values = CompanionBuild.Values(ability, level);
         int arrows = 1 + values.Rank;
         bow.PlaySwingAnimation(this);
         Timer.StartTimer(TimeSpan.FromMilliseconds(timing.EffectMs), () =>
@@ -141,7 +134,7 @@ public partial class Merydwen
 
     private TimeSpan BeginStrafe(List<Mobile> targets, BaseRanged bow, int level)
     {
-        var values = Values(CombatAbility.Strafe, level);
+        var values = CompanionBuild.Values(CombatAbility.Strafe, level);
         var (events, end) = AmazonStrafe.Schedule(AttackFamily.Bow, SequenceAdvance(bow), AmazonStrafe.Count(values, targets.Count, false));
         var origin = Location;
         var map = Map;

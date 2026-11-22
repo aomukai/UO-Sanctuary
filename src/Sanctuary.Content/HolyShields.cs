@@ -42,8 +42,10 @@ public static class HolyShields
         return null;
     }
     public static int BlockBonus(PlayerMobile owner)=>Shield(owner)!=null?State(owner)?.BlockBonus ?? 0:0;
+    internal static int BlockBonus(SkillValues values)=>(int)values.Eval("aurastatcalc1");
+    internal static int DefensePercent(SkillValues values)=>(int)values.Eval("calc1");
     public static int DefensePercent(PlayerMobile owner)=>Shield(owner)!=null && State(owner) is{} state
-        ?(int)SkillMechanics.Values(owner,CombatAbility.HolyShield,state.Rank).Eval("calc1"):0;
+        ?DefensePercent(SkillMechanics.Values(owner,CombatAbility.HolyShield,state.Rank)):0;
     public static (int Min256,int Max256) SmiteBonus(PlayerMobile owner)
     {
         if(Shield(owner)==null || State(owner) is not{} state){return(0,0);}
@@ -85,7 +87,7 @@ public static class HolyShields
     internal static bool Apply(PlayerMobile owner,SkillValues values,DateTime at)
     {
         Route(values);if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Holy Shield clock must be UTC");}
-        var next=new HolyShieldState(owner.Serial.Value,values.Rank,(int)values.Eval("aurastatcalc1"),at.AddMilliseconds(values.Eval("auralencalc")*40));Validate(next);
+        var next=new HolyShieldState(owner.Serial.Value,values.Rank,BlockBonus(values),at.AddMilliseconds(values.Eval("auralencalc")*40));Validate(next);
         // Ungrouped same-skill state: weaker lists refuse; equal rank refreshes
         // its values/deadline; stronger rank replaces. Cold armor is separate.
         if(State(owner) is{} old&&old.Rank>values.Rank){return false;}

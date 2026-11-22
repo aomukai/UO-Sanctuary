@@ -21,6 +21,7 @@ public partial class Merydwen : ConversationNpc, IClassCompanion
     [SerializableField(0, setter: "private")] private bool _recruited;
 
     DiabloClass IClassCompanion.CombatClass => CombatClass;
+    CompanionEquipmentStyle IClassCompanion.EquipmentStyle => CompanionEquipmentStyle.Bow;
     public override bool IsInvulnerable => !Recruited;
     public override bool CanRegenMana => false;
     public override int ManaMax => 0;
@@ -184,7 +185,7 @@ public partial class Merydwen : ConversationNpc, IClassCompanion
     {
         if (Recruited && !CompanionBuild.AllowedArcherGear(item, AttackFamily.Bow))
         {
-            ControlMaster?.SendMessage($"{Name}: I can't use that.");
+            ControlMaster?.SendMessage($"{Name}: {CompanionBuild.ArcherGearRefusal(item, "bows")}");
             return false;
         }
         return base.EquipItem(item);

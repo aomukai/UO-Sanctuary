@@ -19,6 +19,8 @@ public static class StatNetwork
         public long NextPoll = Core.TickCount;
         public long NextSpend = Core.TickCount;
         public long NextTradeSkills = Core.TickCount;
+        public long NextCompanion = Core.TickCount;
+        public long NextCompanionOpen = Core.TickCount;
     }
     private static readonly Dictionary<Serial, Session> _sessions = new();
     public static void Configure()
@@ -26,7 +28,50 @@ public static class StatNetwork
         EventSink.Disconnected += player => _sessions.Remove(player.Serial);
         EventSink.Logout += player => _sessions.Remove(player.Serial);
     }
-    public static unsafe void Initialize() => IncomingExtendedCommandPackets.RegisterExtended(StatProtocol.SubCommand, true, &Receive);
+    public static unsafe void Initialize()
+    {
+        IncomingExtendedCommandPackets.RegisterExtended(StatProtocol.SubCommand, true, &Receive);
+        IncomingExtendedCommandPackets.RegisterExtended(CompanionStatProtocol.SubCommand, true, &ReceiveCompanion);
+    }
+
+    private static void ReceiveCompanion(NetState net, SpanReader reader)
+    {
+        if (net.Mobile is not PlayerMobile owner || reader.Remaining != CompanionStatProtocol.RequestLength - 5
+            || reader.ReadByte() != CompanionStatProtocol.Version || !_sessions.TryGetValue(owner.Serial, out var session)
+            || session.Version != StatProtocol.Version)
+        {
+            return;
+        }
+
+        var request = (CompanionStatRequest)reader.ReadByte();
+        switch (request)
+        {
+            case CompanionStatRequest.Snapshot when Core.TickCount >= session.NextCompanion:
+                session.NextCompanion = Core.TickCount + StatProtocol.PollMs / 2;
+                break;
+            case CompanionStatRequest.OpenSheet when Core.TickCount >= session.NextCompanionOpen:
+                session.NextCompanionOpen = Core.TickCount + StatProtocol.PollMs / 2;
+                break;
+            default:
+                return;
+        }
+        var serial = (Serial)reader.ReadUInt32();
+        if (World.FindMobile(serial) is not BaseCreature companion || companion is not IClassCompanion build
+            || !MercenaryCare.IsCompanion(owner, companion) || MercenaryCare.CompanionLevel(companion) is not { } level)
+        {
+            return;
+        }
+        if (!companion.CanPaperdollBeOpenedBy(owner))
+        {
+            if (request == CompanionStatRequest.OpenSheet)
+                owner.SendMessage("You cannot reach your companion to open their character sheet.");
+            return;
+        }
+        if (request == CompanionStatRequest.OpenSheet)
+            companion.DisplayPaperdollTo(owner);
+        else
+            CompanionCharacterStats.Send(net, companion, build, level);
+    }
     private static void Receive(NetState state, SpanReader reader)
     {
         if (state.Mobile is not PlayerMobile player || !ClassCombat.Enabled(player)

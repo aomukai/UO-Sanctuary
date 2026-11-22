@@ -9,10 +9,18 @@ namespace Sanctuary;
 internal interface IClassCompanion
 {
     DiabloClass CombatClass { get; }
+    CompanionEquipmentStyle EquipmentStyle { get; }
 }
 
 internal static class CompanionBuild
 {
+    internal static SkillValues Values(CombatAbility ability, int level)
+    {
+        var skill = SkillMechanics.For(ability);
+        int Rank(string key) => key == skill.SourceKey ? Math.Min(20, 1 + (level - 1) / 4) : 0;
+        return new(skill, Rank, Rank, level);
+    }
+
     internal static void Apply(BaseCreature actor, DiabloClass characterClass, int level, bool joining)
     {
         var basis = ClassStats.For(characterClass);
@@ -73,7 +81,7 @@ internal static class CompanionBuild
             ResistanceType.Poison => "res-pois", _ => "res-physical"
         };
         return Math.Clamp(native + Bonus(actor, code)
-            + (type == ResistanceType.Physical ? 0 : Bonus(actor, "res-all")), -100, 75);
+            + (type == ResistanceType.Physical ? 0 : Bonus(actor, "res-all")), -100, CompanionStatProtocol.ResistanceCap);
     }
 
     internal static int AttackSpeedBonus(BaseCreature actor) =>
@@ -91,14 +99,29 @@ internal static class CompanionBuild
             || ClassGear.Definition(item) is { Weight: GearWeight.Light, Slot: GearSlot.Head or GearSlot.Body or GearSlot.Hands or GearSlot.Feet }
     };
 
-    internal static double BowPhysicalDamage(BaseCreature actor, BaseRanged weapon, int level, int skillPercent = 0)
+    internal static string ArcherGearRefusal(Item item, string weaponType) => item switch
+    {
+        BaseWeapon => $"I can only use {weaponType}.",
+        _ when ClassGear.Definition(item) is { Weight: GearWeight.Medium or GearWeight.Heavy,
+            Slot: GearSlot.Head or GearSlot.Body or GearSlot.Hands or GearSlot.Feet } => "I can only wear light armour.",
+        _ => "I can't use that."
+    };
+
+    internal static (int Min, int Max, int Factor) WeaponDamage(BaseCreature actor, BaseWeapon weapon, int level, int skillPercent = 0)
     {
         var (minimum, maximum) = ClassGear.Damage(weapon, level);
         var basis = ClassGear.Base(weapon);
-        int damagePercent = (basis == null ? 0 : ClassStats.WeaponStatPercent(actor.Str + Bonus(actor, "str"),
-            actor.Dex + Bonus(actor, "dex"), basis.StrengthBonus, basis.DexterityBonus))
+        int strength = actor.Str + Bonus(actor, "str"), dexterity = actor.Dex + Bonus(actor, "dex");
+        int damagePercent = (basis == null ? (weapon is BaseRanged ? 0 : strength)
+            : ClassStats.WeaponStatPercent(strength, dexterity, basis.StrengthBonus, basis.DexterityBonus))
             + Bonus(actor, "dmg%", except: weapon) + skillPercent;
-        return Utility.RandomMinMax(minimum, maximum) * (100 + Math.Max(-90, damagePercent)) / 100.0;
+        return (minimum, maximum, 100 + Math.Max(-90, damagePercent));
+    }
+
+    internal static double BowPhysicalDamage(BaseCreature actor, BaseRanged weapon, int level, int skillPercent = 0)
+    {
+        var (minimum, maximum, factor) = WeaponDamage(actor, weapon, level, skillPercent);
+        return Utility.RandomMinMax(minimum, maximum) * factor / 100.0;
     }
 
     internal static int Recovery(BaseCreature actor, DiabloClass characterClass) =>

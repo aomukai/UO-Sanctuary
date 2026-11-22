@@ -23,6 +23,7 @@ public partial class Iolo : ConversationNpc, IClassCompanion
     internal const DiabloClass CombatClass = DiabloClass.Amazon;
     public override bool WandersWhileGuarding => false;
     DiabloClass IClassCompanion.CombatClass => CombatClass;
+    CompanionEquipmentStyle IClassCompanion.EquipmentStyle => CompanionEquipmentStyle.Crossbow;
     public override bool IsInvulnerable => !Recruited;
     public override bool CanRegenMana => false;
     internal override ushort Portrait => (ushort)NpcPortrait.Iolo;
@@ -273,7 +274,7 @@ public partial class Iolo : ConversationNpc, IClassCompanion
     {
         if (Recruited && !AllowedGear(item))
         {
-            ControlMaster?.SendMessage("Iolo: I can't wear that.");
+            ControlMaster?.SendMessage($"{Name}: {CompanionBuild.ArcherGearRefusal(item, "crossbows")}");
             return false;
         }
         return base.EquipItem(item);

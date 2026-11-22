@@ -134,7 +134,7 @@ public static class ClassStats
         if (mobile is BaseCreature creature)
         {
             return AmazonInnerSight.Defense(creature,Math.Max(0,checked(CreatureProfiles.Defense(creature)+NpcEquipmentCombat.Defense(creature))-TimedEffects.DefenseLoss(creature)),(creature is SkeletonGuardian summon?summon.SourceDefensePercent:0)
-                +(creature is Wolfgang wolfgang ? wolfgang.IronSkinDefense : 0)+NpcEquipmentCombat.DefensePercent(creature)+SorceressEffects.Defense(creature)+PaladinAuras.DefensePercent(creature)+BarbarianShout.Defense(creature)+NecromancerEffects.DefenseStatPercent(creature)+HexBane.DefensePercent(creature)+SigilLethargy.Defense(creature));
+                +(creature is Wolfgang wolfgang ? wolfgang.DefenseBonus : 0)+NpcEquipmentCombat.DefensePercent(creature)+SorceressEffects.Defense(creature)+PaladinAuras.DefensePercent(creature)+BarbarianShout.Defense(creature)+NecromancerEffects.DefenseStatPercent(creature)+HexBane.DefensePercent(creature)+SigilLethargy.Defense(creature));
         }
         if (mobile is PlayerMobile player && ClassCombat.Enabled(player))
         {
@@ -253,6 +253,14 @@ public static class ClassStats
             }
         }
         if(hit && classDefense && ClassAvoidance.Weapon((PlayerMobile)defender,projectile,Core.TickCount)){hit=false;}
+        if (hit && npcDefense && defender is Wolfgang wolfgang && wolfgang.BlockChance is > 0 and var companionBlock
+            && roll() * 100 < companionBlock)
+        {
+            SourceBlocking.Present(wolfgang, false);
+            hit = false;
+        }
+        if (hit && npcDefense && defender is Merydwen archer && AmazonAvoidance.Weapon(archer, projectile, Core.TickCount))
+            hit = false;
         if(hit&&npcDefense&&defender is AssassinShadowBody shadowTarget&&ShadowEquipmentDefense.Active(shadowTarget))
         {hit=ShadowEquipmentDefense.World(shadowTarget,projectile,true)==0;}
         if(hit&&npcDefense&&ValkyrieEquipmentDefense.Active(defender))
