@@ -66,7 +66,7 @@ public partial class CoveGnaw : ConversationNpc
     {
         base.GetProperties(list);
         list.Add($"{"Level "}{ChampionLevel}");
-        list.Add("Champion");
+        list.Add(EncounterProfiles.ParagonLabel);
     }
 
     private void Dispel(PlayerMobile player)

@@ -1,0 +1,86 @@
+diff --git a/Projects/Server/Maps/Map.cs b/Projects/Server/Maps/Map.cs
+--- a/Projects/Server/Maps/Map.cs
++++ b/Projects/Server/Maps/Map.cs
+@@ -159,6 +159,9 @@
+     public static int[] InvalidLandTiles { get; set; } = { 0x244 };
+ 
+     public static int MaxLOSDistance { get; set; } = 25;
++
++    // An optional map-specific sight obstruction. It has no physical movement height.
++    public Func<int, int, int, int> AdditionalSightBlockHeight { get; set; }
+ 
+     public int CompareTo(Map other) => other == null ? -1 : MapID.CompareTo(other.MapID);
+ 
+@@ -1575,16 +1578,14 @@
+             {
+                 foundStatic = true;
+ 
+-                var id = TileData.ItemTable[t.ID & TileData.MaxItemValue];
+-
+-                var flags = id.Flags;
++                int itemID = t.ID & TileData.MaxItemValue;
++                int height = SightBlockHeight(point.X, point.Y, itemID, TileData.ItemTable[itemID]);
+ 
+                 if (
+-                    t.Z <= pointTop && t.Z + id.CalcHeight >= point.Z &&
+-                    (flags & (TileFlag.Window | TileFlag.NoShoot)) != 0 &&
++                    height >= 0 && t.Z <= pointTop && t.Z + height >= point.Z &&
+                     (point.X != end.X ||
+                      point.Y != end.Y ||
+-                     t.Z > endTop || t.Z + id.CalcHeight < end.Z)
++                     t.Z > endTop || t.Z + height < end.Z)
+                 )
+                 {
+                     return false;
+@@ -1629,8 +1630,10 @@
+ 
+             var id = item.ItemData;
+             var flags = id.Flags;
+-
+-            if ((flags & (TileFlag.Window | TileFlag.NoShoot)) == 0)
++            var itemLocation = item.Location;
++            int height = SightBlockHeight(itemLocation.X, itemLocation.Y, item.ItemID, id);
++
++            if (height < 0)
+             {
+                 continue;
+             }
+@@ -1639,7 +1642,6 @@
+             {
+                 var pathPoint = path[i];
+                 var pointTop = pathPoint.Z + 1;
+-                var itemLocation = item.Location;
+ 
+                 if (
+                     // Item is on same tile as this point along the LOS path
+@@ -1648,7 +1650,7 @@
+                     itemLocation.Z <= pointTop &&
+ 
+                     // Item rests on the same level as the path
+-                    itemLocation.Z + id.CalcHeight >= pathPoint.Z &&
++                    itemLocation.Z + height >= pathPoint.Z &&
+ 
+                     // Fix door bugging monsters when door is at the START or END of the LOS path by allowing LOS
+                     !(flags.HasFlag(TileFlag.Door) &&
+@@ -1663,7 +1665,7 @@
+                      itemLocation.Z > endTop ||
+ 
+                      // Item is diagonally looking UP at the target
+-                     itemLocation.Z + id.CalcHeight < end.Z)
++                     itemLocation.Z + height < end.Z)
+                 )
+                 {
+                     return false;
+@@ -1672,6 +1674,12 @@
+         }
+ 
+         return true;
++    }
++
++    private int SightBlockHeight(int x, int y, int itemID, in ItemData data)
++    {
++        int nativeHeight = (data.Flags & (TileFlag.Window | TileFlag.NoShoot)) != 0 ? data.CalcHeight : -1;
++        return AdditionalSightBlockHeight is { } additional ? Math.Max(nativeHeight, additional(x, y, itemID)) : nativeHeight;
+     }
+ 
+     public bool LineOfSight(object from, object dest) =>

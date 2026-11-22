@@ -13,7 +13,7 @@ internal static class ReviveCasts
     internal static ReviveAiStatus NativeStatus(BaseCreature actor,out string issue)
     {
         issue=NamedCombat.NativeQualityIssue(actor,"Revive")??(actor is BaseHire?"Hirelings cannot be revived."
-            :actor is EncounterCreature{Grade:EncounterGrade.Champion}?"Champion Revive eligibility is not corroborated."
+            :actor is EncounterCreature{Grade:EncounterGrade.Champion}?"Paragon corpses are unavailable for Revive."
             :PaladinConversion.SourceRule(actor)?.Base=="imp1"?"Attached-Imp eligibility has no native adapter."
             :null);
         // These are native actor facts, not inferred from body, hue or age.

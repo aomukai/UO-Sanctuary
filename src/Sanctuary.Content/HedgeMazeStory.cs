@@ -24,10 +24,15 @@ internal static class HedgeMazeStory
 {
     internal static readonly Point3D Woodpile = new(1168, 2256, 4);
     private static readonly Point3D TobinFormerLocation = new(1166, 2242, 40);
+    private static readonly Rectangle2D MazeWalls = new(1032, 2159, 225, 145);
     internal static Point3D Point((int X, int Y, int Z) at) => new(at.X, at.Y, at.Z);
 
     internal static void Install(Map map)
     {
+        // The maze hedges have movement collision but their native height stops below eye level.
+        map.AdditionalSightBlockHeight = static (x, y, itemID) =>
+            itemID is 0x0DB8 or 0x0DB9 && MazeWalls.Contains(x, y) ? 20 : -1;
+
         var residents = World.Mobiles.Values.OfType<HedgeHouseGhost>().Where(ghost => ghost.Map == map)
             .ToLookup(ghost => ghost.Part);
         for (int i = 0; i < HedgeMazeLayout.Ghosts.Length; i++)

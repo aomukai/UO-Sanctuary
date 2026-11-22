@@ -293,8 +293,32 @@ public partial class Iolo : ConversationNpc, IClassCompanion
 
     internal static int ShotRank(CombatAbility skill, int level)
     {
-        int unlock = skill switch { CombatAbility.MagicArrow => 6, CombatAbility.ColdArrow => 10, CombatAbility.GuidedArrow => 18, _ => 100 };
+        int unlock = ShotUnlockLevel(skill);
         return level < unlock ? 0 : Math.Min(20, 1 + (level - unlock) / 4);
+    }
+
+    internal static int ShotUnlockLevel(CombatAbility skill) => skill switch
+    {
+        CombatAbility.MagicArrow => 6, CombatAbility.ColdArrow => 10, CombatAbility.GuidedArrow => 18, _ => 100
+    };
+
+    internal static SkillValues ShotValues(CombatAbility skill, int level)
+    {
+        int Learned(string key) => key switch
+        {
+            "Magic Arrow" => ShotRank(CombatAbility.MagicArrow, level),
+            "Cold Arrow" => ShotRank(CombatAbility.ColdArrow, level),
+            "Guided Arrow" => ShotRank(CombatAbility.GuidedArrow, level),
+            _ => 0
+        };
+        return new(SkillMechanics.For(skill), Learned, Learned, level);
+    }
+
+    internal static int ArrowConversion(CombatAbility skill, int rank)
+    {
+        string missile = skill == CombatAbility.ColdArrow ? "coldarrow" : "magicarrow";
+        return Math.Clamp(NecromancerSummons.Source(missile, "dParam1")
+            + (rank - 1) * NecromancerSummons.Source(missile, "dParam2"), 0, 100);
     }
 
     internal TimeSpan BeginShot(Mobile target, BaseRanged weapon)
@@ -338,18 +362,7 @@ public partial class Iolo : ConversationNpc, IClassCompanion
         DoHarmful(target);
         MovingParticles(target, weapon.EffectID, 18, 1, false, false, 0, 0, 0, 0, 0, EffectLayer.RightHand, 0);
         int level = MercenaryCare.CompanionLevel(this) ?? 1;
-        SkillValues values = null;
-        if (skill != CombatAbility.BasicAttack)
-        {
-            int Learned(string key) => key switch
-            {
-                "Magic Arrow" => ShotRank(CombatAbility.MagicArrow, level),
-                "Cold Arrow" => ShotRank(CombatAbility.ColdArrow, level),
-                "Guided Arrow" => ShotRank(CombatAbility.GuidedArrow, level),
-                _ => 0
-            };
-            values = new(SkillMechanics.For(skill), Learned, Learned, level);
-        }
+        var values = skill == CombatAbility.BasicAttack ? null : ShotValues(skill, level);
         int attackPercent = CompanionBuild.Bonus(this, "att%") + (int)(values?.Formula("toht") ?? 0);
         if (ClassStats.CheckHit(this, target, attackPercent, projectile: true, guaranteed: skill == CombatAbility.GuidedArrow) != true)
             return;
@@ -359,9 +372,7 @@ public partial class Iolo : ConversationNpc, IClassCompanion
         double cold = 0, magic = 0;
         if (skill is CombatAbility.ColdArrow or CombatAbility.MagicArrow)
         {
-            string missile = skill == CombatAbility.ColdArrow ? "coldarrow" : "magicarrow";
-            int conversion = Math.Clamp(NecromancerSummons.Source(missile, "dParam1")
-                + (values.Rank - 1) * NecromancerSummons.Source(missile, "dParam2"), 0, 100);
+            int conversion = ArrowConversion(skill, values.Rank);
             double element = physical * conversion / 100;
             physical -= element;
             if (skill == CombatAbility.ColdArrow)

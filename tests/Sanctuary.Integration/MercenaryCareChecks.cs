@@ -60,6 +60,9 @@ public static class MercenaryCareChecks
                 && owner.Backpack.GetAmount(typeof(Gold)) == 0, "Recall at a higher level lost the active contract or fee");
 
             var stats = CompanionCharacterStats.Snapshot(companion, companion, 12);
+            var holyShield = CompanionCharacterStats.Skills(companion, 12).Single(skill => skill.Ability == CombatAbility.HolyShield);
+            Require(holyShield.Rank == 3 && holyShield.First == 55 && holyShield.Second == 20,
+                "Holy Shield's sheet rank and bonuses should match the active passive");
             Require(companion.RawDex == 20 && companion.DefenseBonus == 105 && stats[(int)CompanionStatField.BlockChance] == 56
                 && ClassStats.CheckHit(owner, companion, 0, () => 0.55, guaranteed: true, notifyMelee: false) == false
                 && ClassStats.CheckHit(owner, companion, 0, () => 0.56, guaranteed: true, notifyMelee: false) == true,
@@ -137,6 +140,10 @@ public static class MercenaryCareChecks
                 && after[(int)CompanionStatField.Defense] == ClassStats.Defense(companion)
                 && companion.EquipItem(armour), "Companion sheet did not reflect the armour and combat stats");
             CheckAvoidance(owner, companion, before);
+            var dodge = CompanionCharacterStats.Skills(companion, 1).Single(skill => skill.Ability == CombatAbility.Dodge);
+            Require(dodge.Rank == 1 && dodge.First == before[(int)CompanionStatField.DodgeChance]
+                && CompanionCharacterStats.Skills(companion, 5).Any(skill => skill.Ability == CombatAbility.Dodge && skill.Rank == 2 && skill.First > dodge.First),
+                "Dodge's displayed rank and chance should grow with the companion");
             var lantern = new BeltLantern();
             owner.Backpack.DropItem(lantern);
             Require(companion.AllowEquipFrom(owner) && companion.EquipItem(lantern)

@@ -198,7 +198,7 @@ Any permitted socket accepts a gem/rune without host-slot stat restrictions. Bon
 | Monster grade | Mould drop chance |
 | --- | ---: |
 | Ordinary | 0.1% |
-| Champion | 1% |
+| Paragon | 1% |
 | Unique random boss with minions | 5% |
 | Named dungeon super-unique | 10% |
 

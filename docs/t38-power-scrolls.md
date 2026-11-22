@@ -10,7 +10,7 @@ The mandatory ladder is **100 → 105 → 110 → 115 → 120**. A scroll increa
 |---|---:|
 | Dungeon random unique | 1% |
 | Named dungeon super-unique | 5% |
-| Ordinary monsters, champions and minions | None |
+| Ordinary monsters, Paragons and minions | None |
 
 The source is an authored T35 dungeon encounter, including T37's final unique boss. Native analogue monsters and unsupported Diablo act bosses do not become scroll sources. Difficulty does not alter these starting rates; Magic Find, Gold Find and player count do not affect them. This roll is additional to ordinary loot, moulds, chitin and maps, through the same saved once-only reward-life claim. Summons, controlled creatures, animated/raised creatures and other reward-disabled lives remain excluded. Pet kills use their existing credited owner.
 

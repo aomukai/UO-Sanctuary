@@ -47,7 +47,8 @@ public partial class RuneMould : Item
         list.Add($"{"Declared rune stat: "}{_statLabel}");
         list.Add($"{"Mould tier: "}{_tier}{" / 8 — "}{_tierName}");
         list.Add($"{"Rune percentages (Average / High / Superior): "}{Percentage(CraftQuality.Average)}{"% / "}{Percentage(CraftQuality.HighQuality)}{"% / "}{Percentage(CraftQuality.Superior)}{"%"}");
-        list.Add($"{"Source monster: Level "}{_sourceLevel}{", "}{_difficulty}{" / "}{_grade}");
+        string grade = _grade == MouldGrade.Champion ? EncounterProfiles.ParagonLabel : _grade.ToString();
+        list.Add($"{"Source monster: Level "}{_sourceLevel}{", "}{_difficulty}{" / "}{grade}");
         list.Add($"{"Single-use Inscription pattern. Use Craft rune on a scribe’s pen."}");
     }
     public override void OnDoubleClick(Mobile from)
