@@ -1,0 +1,36 @@
+diff --git a/Projects/UOContent/Items/Misc/PublicMoongate.cs b/Projects/UOContent/Items/Misc/PublicMoongate.cs
+--- a/Projects/UOContent/Items/Misc/PublicMoongate.cs
++++ b/Projects/UOContent/Items/Misc/PublicMoongate.cs
+@@ -66,9 +66,6 @@
+ 
+     public bool UseGate(Mobile m)
+     {
+-        if (ClassMountHooks.BlockTravel?.Invoke(m) == true)
+-            return false;
+-
+         if (ClassMapHooks.PublicGateAllowed?.Invoke(this, m) == false)
+         {
+             return false;
+@@ -584,9 +581,6 @@
+         }
+         else
+         {
+-            if (ClassMountHooks.BlockTravel?.Invoke(from) == true)
+-                return;
+-
+             BaseCreature.TeleportPets(from, entry.Location, list.Map);
+ 
+             from.Combatant = null;
+diff --git a/Projects/UOContent/Items/Skill Items/Magical/Misc/Moongate.cs b/Projects/UOContent/Items/Skill Items/Magical/Misc/Moongate.cs
+--- a/Projects/UOContent/Items/Skill Items/Magical/Misc/Moongate.cs
++++ b/Projects/UOContent/Items/Skill Items/Magical/Misc/Moongate.cs
+@@ -86,9 +86,6 @@
+ 
+     public virtual void UseGate(Mobile m)
+     {
+-        if (ClassMountHooks.BlockTravel?.Invoke(m) == true)
+-            return;
+-
+         var flags = m.NetState?.Flags ?? ClientFlags.None;
+ 
+         if (Sigil.ExistsOn(m))
