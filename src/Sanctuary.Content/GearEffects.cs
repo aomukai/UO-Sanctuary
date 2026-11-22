@@ -37,8 +37,10 @@ public static class GearEffects
         Mobile.StamRegenRateHandler = mobile =>
         {
             var baseline = stamina?.Invoke(mobile) ?? Mobile.DefaultStamRate;
-            int bonus=mobile is PlayerMobile player && ClassCombat.Enabled(player)?ClassGear.Bonus(player,"regen-stam"):0;
-            bonus+=PaladinVigor.RecoveryPercent(mobile);
+            if (mobile is PlayerMobile player && ClassCombat.Enabled(player))
+                return baseline;
+
+            int bonus = PaladinVigor.RecoveryPercent(mobile);
             return mobile.Alive && bonus!=0 ? TimeSpan.FromTicks(Math.Max(1,baseline.Ticks*100/Math.Max(1,100+bonus))):baseline;
         };
     }

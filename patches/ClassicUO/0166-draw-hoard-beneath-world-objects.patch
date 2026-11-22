@@ -1,0 +1,74 @@
+diff --git a/src/ClassicUO.Client/Game/Scenes/RenderLists.cs b/src/ClassicUO.Client/Game/Scenes/RenderLists.cs
+--- a/src/ClassicUO.Client/Game/Scenes/RenderLists.cs
++++ b/src/ClassicUO.Client/Game/Scenes/RenderLists.cs
+@@ -6,6 +6,8 @@
+ using System;
+ using System.Collections.Generic;
+ using System.Runtime.InteropServices;
++using Microsoft.Xna.Framework.Graphics;
++using Sanctuary;
+ 
+ namespace ClassicUO.Game.Scenes
+ {
+@@ -64,6 +66,7 @@
+     {
+         private readonly List<GameObject> _tiles = [];
+         private readonly List<GameObject> _stretchedTiles = [];
++        private readonly List<GameObject> _groundDecorations = [];
+         private readonly List<GameObject> _statics = [];
+         private readonly List<GameObject> _animations = [];
+         private readonly List<GameObject> _effects = [];
+@@ -75,6 +78,7 @@
+         {
+             _tiles.Clear();
+             _stretchedTiles.Clear();
++            _groundDecorations.Clear();
+             _statics.Clear();
+             _animations.Clear();
+             _effects.Clear();
+@@ -111,6 +115,10 @@
+ 
+                 case Mobile:
+                     _animations.Add(toRender);
++                    break;
++
++                case Item { OnGround: true, Graphic: WorldDecorationGraphics.DragonHoard }:
++                    _groundDecorations.Add(toRender);
+                     break;
+ 
+                 case Item item:
+@@ -185,6 +193,7 @@
+         {
+             int result = DrawRenderList(batcher, _tiles, maxGroundZ) +
+                    DrawRenderList(batcher, _stretchedTiles, maxGroundZ) +
++                   DrawGroundDecorations(batcher, maxGroundZ) +
+                    DrawRenderList(batcher, _statics, maxGroundZ) +
+                    DrawRenderList(batcher, _animations, maxGroundZ) +
+                    DrawRenderList(batcher, _effects, maxGroundZ);
+@@ -222,6 +231,7 @@
+             // Draw excluded land tiles (animated water, etc.)
+             result += DrawRenderList(batcher, _tiles, maxGroundZ);
+             result += DrawRenderList(batcher, _stretchedTiles, maxGroundZ);
++            result += DrawGroundDecorations(batcher, maxGroundZ);
+ 
+             // Draw chunk mesh statics from GPU buffers with per-frame visibility
+             batcher.SetWorldOffset(offsetX, offsetY);
+@@ -244,6 +254,18 @@
+             }
+ 
+             return result;
++        }
++
++        private int DrawGroundDecorations(UltimaBatcher2D batcher, sbyte maxGroundZ)
++        {
++            if (_groundDecorations.Count == 0)
++                return 0;
++
++            // Cover the terrain without writing depth that could hide scenery or creatures.
++            batcher.SetStencil(DepthStencilState.None);
++            int count = DrawRenderList(batcher, _groundDecorations, maxGroundZ);
++            batcher.SetStencil(DepthStencilState.Default);
++            return count;
+         }
+ 
+         private static int DrawMeshLayer(UltimaBatcher2D batcher, MeshLayer layer)

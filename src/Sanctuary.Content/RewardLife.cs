@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
+using System.Linq;
 using Server;
 using Server.Items;
 using Server.Mobiles;
@@ -56,6 +57,11 @@ public sealed record RewardLife(BaseCreature Creature, Corpse Corpse, PlayerMobi
         if (creature is TreasureMonster treasure && (treasure.TreasureTier < 4 || treasure.Grade is not (EncounterGrade.Unique or EncounterGrade.Champion or EncounterGrade.Minion))) { GearDrops.Award(life, random, treasure.SourceType); }
         else if (creature is EncounterCreature encounter) { EncounterTreasure.Award(life, encounter, random); }
         else { GearDrops.Award(life, random); }
+        if (creature is EncounterCreature { Grade: EncounterGrade.Champion or EncounterGrade.Unique or EncounterGrade.SuperUnique } elite
+            && !corpse.Items.Any(item => ClassGear.State(item) != null))
+        {
+            EncounterTreasure.AwardRequiredGear(life, elite, random);
+        }
         MouldRewards.Award(life, random);
         Fortification.Award(life, random);
         TreasureHunts.Award(life, random);

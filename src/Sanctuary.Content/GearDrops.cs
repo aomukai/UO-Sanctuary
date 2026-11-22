@@ -108,16 +108,31 @@ public static class GearDrops
     public static int MagicFind(PlayerMobile player) => Math.Max(0,
         checked(ClassGear.Bonus(player, "mag%") + ClassGear.Material(player, "magic-find") + MapSurveys.MagicFind(player)));
     internal static DropBase Base(string code) => _bases.GetValueOrDefault(code);
-    internal static DropBase SelectBase(string leaf, Random random)
+    internal static bool HasEquipment(string leaf) => _pools.TryGetValue(leaf, out var pool)
+        ? Array.Exists(pool.Entries, entry => _bases[entry.Code].Variants.Length > 0)
+        : Base(leaf) is { Variants.Length: > 0 };
+
+    internal static DropBase SelectBase(string leaf, Random random, bool equipmentOnly = false)
     {
         if (leaf == null) { return null; }
-        if (!_pools.TryGetValue(leaf, out var pool)) { return _bases.GetValueOrDefault(leaf); }
+        if (!_pools.TryGetValue(leaf, out var pool))
+        {
+            var basis = Base(leaf);
+            return !equipmentOnly || basis is { Variants.Length: > 0 } ? basis : null;
+        }
         int total = 0;
-        foreach (var entry in pool.Entries) { total += entry.Weight; }
+        foreach (var entry in pool.Entries)
+        {
+            if (!equipmentOnly || _bases[entry.Code].Variants.Length > 0) { total += entry.Weight; }
+        }
         if (total == 0) { return null; }
         int choice = random.Next(total);
         foreach (var entry in pool.Entries)
-        { choice -= entry.Weight; if (choice < 0) { return _bases[entry.Code]; } }
+        {
+            if (equipmentOnly && _bases[entry.Code].Variants.Length == 0) { continue; }
+            choice -= entry.Weight;
+            if (choice < 0) { return _bases[entry.Code]; }
+        }
         throw new InvalidDataException("Weighted drop selection escaped its pool.");
     }
     // D2's quality check order, fixed-point denominator and integer truncation.

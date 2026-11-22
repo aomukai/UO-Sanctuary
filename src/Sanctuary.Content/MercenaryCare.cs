@@ -84,6 +84,7 @@ public static class MercenaryCare
                 companion.StopDeleteTimer();
 
         Timer.StartTimer(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1), () => Tick(TimedEffects.Now));
+        Timer.StartTimer(TimeSpan.FromSeconds(30), TimeSpan.FromSeconds(30), CatchUpMountedCompanions);
     }
     public static int ResurrectionPrice(int level) => level is >= 1 and <= 99 ? level * 100 : throw new ArgumentOutOfRangeException(nameof(level));
     internal static bool HasActiveCompanion(PlayerMobile owner)
@@ -343,6 +344,29 @@ public static class MercenaryCare
             }
         }
     }
+
+    private static void CatchUpMountedCompanions()
+    {
+        foreach (var (serial, state) in States)
+        {
+            if (!state.Active || World.FindMobile(serial) is not BaseCreature { IsStabled: false, Map: { } companionMap } companion
+                || companion is not IClassCompanion || companionMap == Map.Internal
+                || !(companion.Alive || companion.IsDeadBondedPet)
+                || companion.ControlMaster is not PlayerMobile { Alive: true, Mounted: true, Map: { } map, NetState.Running: true } owner
+                || map == Map.Internal || !IsCompanion(owner, companion)
+                || companionMap == map && Utility.InUpdateRange(owner.Location, companion.Location))
+                continue;
+
+            companion.Combatant = null;
+            companion.FocusMob = null;
+            companion.Warmode = false;
+            companion.AIObject?.ResetApproachState();
+            companion.MoveToWorld(owner.Location, map);
+            companion.IssueOrder(OrderType.Follow, null, owner);
+            MountTravel.SyncCompanion(owner);
+        }
+    }
+
     internal static bool Retire(PlayerMobile owner, BaseCreature mercenary, bool keepPotions = false)
     {
         if (!Owned(owner, mercenary, out var state)) { return false; }
