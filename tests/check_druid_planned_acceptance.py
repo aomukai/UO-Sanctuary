@@ -229,7 +229,7 @@ def configuration():
         ROOT / 'tests/check_arctic_held_input.py', ROOT / 'tests/check_druid_fury.py',
         ROOT / 'tools/reference/item-content-scope-decision.json',
         ROOT / 'tools/reference/summon-snapshot-decision.json',
-        ROOT / 'docs/arctic-approved-input-rule.md')
+        ROOT / 'tools/reference/rules/arctic-approved-input-rule.md')
     for key in ('extra_families', 'extra_checks', 'extra_target_input_commands'):
         assert len(config[key]) == len(set(config[key])), key
     for path in (*config['extra_files'].values(), *config['extra_inputs']):

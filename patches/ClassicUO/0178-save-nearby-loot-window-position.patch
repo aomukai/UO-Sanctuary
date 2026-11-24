@@ -1,0 +1,79 @@
+diff --git a/src/ClassicUO.Client/Configuration/Profile.cs b/src/ClassicUO.Client/Configuration/Profile.cs
+--- a/src/ClassicUO.Client/Configuration/Profile.cs
++++ b/src/ClassicUO.Client/Configuration/Profile.cs
+@@ -271,6 +271,7 @@
+         public uint GrabBagSerial { get; set; }
+ 
+         public int GridLootType { get; set; } // 0 = none, 1 = only grid, 2 = both
++        [JsonConverter(typeof(NullablePoint2Converter))] public Point? NearbyLootPosition { get; set; }
+ 
+         public bool ReduceFPSWhenInactive { get; set; } = true;
+ 
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/GridLootGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/GridLootGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/GridLootGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/GridLootGump.cs
+@@ -20,8 +20,7 @@
+         private const int MAX_WIDTH = 300;
+         private const int MAX_HEIGHT = 420;
+ 
+-        private static int _lastX = ProfileManager.CurrentProfile.GridLootType == 2 ? 200 : 100;
+-        private static int _lastY = 100;
++        private static Point? _lastCorpsePosition;
+         private readonly Control _background;
+         private readonly Control _buttonPrev,
+             _buttonNext,
+@@ -62,9 +61,6 @@
+                 _hideIfEmpty = true;
+             }
+ 
+-            X = _lastX;
+-            Y = _lastY;
+-
+             CanMove = true;
+             AcceptMouseInput = true;
+             WantUpdateSize = true;
+@@ -75,6 +71,14 @@
+ 
+             Width = _background.Width;
+             Height = _background.Height;
++
++            var profile = ProfileManager.CurrentProfile;
++            Point? savedPosition = _nearby ? profile?.NearbyLootPosition : _lastCorpsePosition;
++            Location = savedPosition ?? new Point(profile?.GridLootType == 2 ? 200 : 100, 100);
++            if (_nearby && savedPosition.HasValue)
++            {
++                SetInScreen();
++            }
+ 
+             _setlootbag = Add(FooterButton(ResGumps.SetLootBag, 100, 2));
+             _setlootbag.IsVisible = !_nearby;
+@@ -252,6 +256,16 @@
+                 return group == 0;
+         }
+ 
++        protected override void OnDragEnd(int x, int y)
++        {
++            base.OnDragEnd(x, y);
++
++            if (_nearby && ProfileManager.CurrentProfile is { } profile)
++            {
++                profile.NearbyLootPosition = Location;
++            }
++        }
++
+         public override void Dispose()
+         {
+             if (_nearby)
+@@ -266,8 +280,10 @@
+                 }
+             }
+ 
+-            _lastX = X;
+-            _lastY = Y;
++            if (!_nearby && _corpse != null)
++            {
++                _lastCorpsePosition = Location;
++            }
+ 
+             base.Dispose();
+         }

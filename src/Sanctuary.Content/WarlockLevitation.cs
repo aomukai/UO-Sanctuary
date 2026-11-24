@@ -47,7 +47,7 @@ public static class WarlockLevitation
         strength=dexterity=0;if(!Applies(owner,item)){return false;}
         // Do not invent the modern combination with item-ease or ethereal10.
         if(NamedGear.Ethereal(item)||ClassGear.Bonus(item,"ease")!=0){return false;}
-        var basis=ClassGear.Base(item);int percent=Values(Rank(owner)).RequirementPercent;
+        var basis=ClassGear.CombatBase(item);int percent=Values(Rank(owner)).RequirementPercent;
         strength=NormalRequirement(basis.Strength,percent);dexterity=NormalRequirement(basis.Dexterity,percent);return true;
     }
     internal static void InvalidateProperties(PlayerMobile owner)

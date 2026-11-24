@@ -22,6 +22,8 @@ internal sealed record DireWolfBodyState(uint Owner,DireWolfSnapshot Snapshot,Mo
 [SerializationGenerator(0)]
 public partial class DruidDireWolfBody:SkeletonGuardian,ISourceLifeMaximum
 {
+    private const string SummonName = "Dire Wolf";
+    private const int DireWolfModel = 0x17;
     [SerializableField(0,setter:"private")] private string _saved="{}";
     private DireWolfBodyState _prepared;
     internal bool ControllerLoaded{get;set;}
@@ -62,7 +64,9 @@ public partial class DruidDireWolfBody:SkeletonGuardian,ISourceLifeMaximum
     public override (int Min,int Max) SkillWeaponDamage=>(0,0);
     public DruidDireWolfBody()
     {
-        Name="Dire Wolf [placeholder]";Body=0xE1;BaseSoundID=-1;CantWalk=true;ControlSlots=0;
+        Name = SummonName;
+        Body = DireWolfModel;
+        BaseSoundID=-1;CantWalk=true;ControlSlots=0;
         AIObject?.AITimer.Stop();SetHits(216);SetDamage(0,0);
     }
     public override TimeSpan BeginMelee(Mobile target)=>TimeSpan.FromSeconds(1);
@@ -98,7 +102,7 @@ public partial class DruidDireWolfBody:SkeletonGuardian,ISourceLifeMaximum
         {throw new ArgumentException("Dire Wolf needs a legal world point and UTC clock");}
         var snapshot=DruidDireWolfStats.Capture(owner);
         if(snapshot.Birth.PhysicalSunder!=0){throw new NotSupportedException("Dire Wolf physical-sunder consumer remains unverified");}
-        var state=new DireWolfBodyState(owner.Serial.Value,snapshot,SummonDifficulties.For(owner.Map),at.AddMilliseconds(40));
+        var state=new DireWolfBodyState(owner.Serial.Value,snapshot,SummonDifficulties.For(owner),at.AddMilliseconds(40));
         Validate(state);var body=new DruidDireWolfBody();
         try
         {
@@ -141,8 +145,25 @@ public partial class DruidDireWolfBody:SkeletonGuardian,ISourceLifeMaximum
         {SkillHealth.Heal(this,(int)Math.Min(int.MaxValue,frames*BattleOrders.Regeneration256(this)));}
         RestorePrepared(Prepared with{NextRecoveryUtc=next});AIObject?.AITimer.Stop();
     }
-    [AfterDeserialization]private void AfterWolfLoad()
-    {AIObject?.AITimer.Stop();_prepared=JsonSerializer.Deserialize<DireWolfBodyState>(_saved);Validate(_prepared);if(_prepared.Controller!=null){ControllerLoaded=true;DruidDireWolves.Track(this);}}
+    [AfterDeserialization]
+    private void AfterWolfLoad()
+    {
+        AIObject?.AITimer.Stop();
+        _prepared = JsonSerializer.Deserialize<DireWolfBodyState>(_saved);
+        Validate(_prepared);
+        if (RawName == "Dire Wolf [placeholder]")
+            Name = SummonName;
+        if (Body == 0xE1) // Legacy timber wolf model
+            Body = DireWolfModel;
+
+        if (_prepared.Controller is not { } controller)
+            return;
+
+        if (controller.Fault == DruidWolfGeometry.LegacyFollowFault)
+            RestorePrepared(_prepared with { Controller = DruidDireWolfWorld.Park(controller) with { Fault = null } });
+        ControllerLoaded = true;
+        DruidDireWolves.Track(this);
+    }
     public override void SuspendActions()
     {base.SuspendActions();if(Prepared is{Controller:{} c} s){RestorePrepared(s with{Controller=DruidDireWolfWorld.Park(c)});}}
     internal override void InterruptForRecovery()

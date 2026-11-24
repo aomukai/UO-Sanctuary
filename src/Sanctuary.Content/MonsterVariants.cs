@@ -91,6 +91,8 @@ public static class MonsterVariants
         try
         {
             Assign(creature, difficulty);
+            if (map == Map.Trammel && Region.Find(location, map).IsPartOf("Destard"))
+                CreatureProfiles.ApplyDestardResistances(creature);
             creature.Home = location;
             creature.MoveToWorld(location, map);
             return creature;

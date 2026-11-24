@@ -38,7 +38,6 @@ public static class AmazonBow
     {
         if(!Handles(ability) || !AmazonCombat.Available(owner,ability)){return false;}
         if(BowMissileContact.Handles(ability)){try{BowMissileContact.Require(owner,ability);}catch(NotSupportedException e){owner.SendMessage(0x22,e.Message);return false;}}
-        if(ability!=CombatAbility.MagicArrow && !BowAmmunition.CanRelease(owner,CombatTiming.Equipped(owner))){return false;}
         if(selected!=Serial.Zero)
         {
             var target=World.FindMobile(selected);if(!ClassCombat.IsHostile(owner,target)){return false;}point=target.Location;
@@ -81,14 +80,7 @@ public static class AmazonBow
         }
         if(created==0){return false;}
         pierce?.Commit();
-        if(ability!=CombatAbility.MagicArrow)
-        {
-            // Legacy do8/generic missile emission has no second quiver gate; its wrapper decrements
-            // once afterward, ignoring an absent/stale stack. Modern inventory
-            // transition equivalence remains recorded separately.
-            BowAmmunition.Consume(owner,CombatTiming.Equipped(owner));
-        }
-        else if(!NecromancerEffects.Pay(owner,values.Mana256)){throw new InvalidOperationException("Bow release lost validated mana within one event");}
+        if(ability==CombatAbility.MagicArrow && !NecromancerEffects.Pay(owner,values.Mana256)){throw new InvalidOperationException("Bow release lost validated mana within one event");}
         FireGround.Delay(owner,ability);
         AmazonBowEffects.Release(owner, ability);
         return true;

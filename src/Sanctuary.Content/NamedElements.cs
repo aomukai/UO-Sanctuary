@@ -39,6 +39,7 @@ public static class NamedElements
     public static int Resistance(Mobile source, Mobile target, string element, int resistance, int? pierceOverride = null,int skillResistanceDelta=0)
     {
         ResistanceType type=element switch {"fire"=>ResistanceType.Fire,"cold"=>ResistanceType.Cold,"ltng"=>ResistanceType.Energy,"pois"=>ResistanceType.Poison,_=>ResistanceType.Physical};
+        if (element != "mag" && target is ArchbishopLazarus lazarus && lazarus.Warded(type)) return 100;
         bool playerResistance=element!="mag" && target is PlayerMobile player && ClassCombat.Enabled(player);
         if(playerResistance)
         {
@@ -54,8 +55,18 @@ public static class NamedElements
         // Retain the pool before skill reductions. Legacy elite Conviction
         // may already be a native resistance mod; exclude its known offset.
         int beforeBreaking=resistance-(PaladinConviction.Managed(target)?0:EliteAuras.ConvictionOffset(target,element));
+        int beforeCurse = resistance;
         resistance = NecromancerEffects.Resistance(target, element, resistance,PaladinConviction.Managed(target)?immunityBase:null,PaladinConviction.Managed(target));
-        resistance+=PaladinConviction.ResistanceDelta(target,element,immunityBase);
+        int auraDelta = PaladinConviction.ResistanceDelta(target, element, immunityBase);
+        resistance += auraDelta;
+        if (NecromancerEffects.Curse(target) is { NonStackingResistance: true })
+        {
+            int conviction = beforeCurse - beforeBreaking + auraDelta;
+            int curse = resistance - beforeCurse - auraDelta;
+            // Destard's curse and Conviction share the strongest overlapping resistance cut.
+            if (conviction < 0 && curse < 0)
+                resistance -= Math.Max(conviction, curse);
+        }
         // A per-hit skill reduction sees the existing aggregate skill/aura
         // pool and can break immunity before ordinary item pierce is tested.
         if(skillResistanceDelta!=0){resistance+=PaladinConviction.ImmunityDelta(target,resistance,skillResistanceDelta);}

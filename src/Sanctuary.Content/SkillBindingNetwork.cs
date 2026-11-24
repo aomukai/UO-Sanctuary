@@ -14,7 +14,7 @@ public static class SkillBindingNetwork
     {
         internal uint Sequence;
         internal byte Version;
-        internal bool WantsSummonCounts;
+        internal bool WantsSummonCounts, WantsExtendedSummonCounts;
         internal long NextPoll = Core.TickCount, NextEdit = Core.TickCount;
     }
     private static readonly Dictionary<Serial, Session> _sessions = new();
@@ -41,6 +41,7 @@ public static class SkillBindingNetwork
             if (now - session.NextPoll < 0) { return; }
             session.NextPoll = now + SkillBindingProtocol.PollMs / 2;
             session.WantsSummonCounts = version == SkillBindingProtocol.Version && slot == SkillBindingProtocol.SummonCountsPollFlag;
+            session.WantsExtendedSummonCounts = session.WantsSummonCounts && ability == SkillBindingProtocol.ExtendedSummonCountsCapability;
         }
         else
         {
@@ -100,12 +101,17 @@ public static class SkillBindingNetwork
         var pair = SkillBindings.Instance.Get(player);
         var session = _sessions.GetValueOrDefault(player.Serial);
         bool includeMana = session?.Version == SkillBindingProtocol.Version;
-        bool includeSummons = includeMana && session.WantsSummonCounts && profile.Class == DiabloClass.Necromancer;
-        int length = includeSummons ? SkillBindingProtocol.SummonStateLength
+        bool includeExtendedSummons = includeMana && session.WantsExtendedSummonCounts
+            && profile.Class is DiabloClass.Necromancer or DiabloClass.Warlock;
+        bool includeSummons = includeMana && session.WantsSummonCounts
+            && profile.Class is DiabloClass.Necromancer or DiabloClass.Druid;
+        int length = includeExtendedSummons ? SkillBindingProtocol.ExtendedSummonStateLength
+            : includeSummons ? SkillBindingProtocol.SummonStateLength
             : includeMana ? SkillBindingProtocol.StateLength : SkillBindingProtocol.LegacyStateLength;
         var writer = new SpanWriter(stackalloc byte[length]);
         writer.Write((byte)0xBF); writer.Write((ushort)length); writer.Write(SkillBindingProtocol.SubCommand);
-        writer.Write(includeSummons ? SkillBindingProtocol.SummonStateVersion
+        writer.Write(includeExtendedSummons ? SkillBindingProtocol.ExtendedSummonStateVersion
+            : includeSummons ? SkillBindingProtocol.SummonStateVersion
             : includeMana ? SkillBindingProtocol.Version : SkillBindingProtocol.LegacyVersion);
         writer.Write(session?.Sequence ?? 0);
         writer.Write((byte)profile.Class); writer.Write((byte)pair.Left); writer.Write((byte)pair.Right); foreach (byte value in mask) { writer.Write(value); }
@@ -122,19 +128,37 @@ public static class SkillBindingNetwork
         }
         if (includeMana)
             writer.Write(lowMana);
-        if (includeSummons)
+        if (includeSummons && profile.Class == DiabloClass.Necromancer)
         {
-            var counts = CountSummons(player);
+            var counts = CountSummons(player, includeExtendedSummons);
             writer.Write(counts.Warriors);
             writer.Write(counts.Mages);
             writer.Write(counts.Revives);
+            if (includeExtendedSummons)
+                writer.Write((byte)(counts.Golem ?? CombatAbility.None));
+        }
+        else if (includeSummons)
+        {
+            var counts = CountDruidSummons(player);
+            writer.Write(counts.Ravens);
+            writer.Write(counts.SpiritWolves);
+            writer.Write(counts.DireWolves);
+        }
+        else if (includeExtendedSummons)
+        {
+            var counts = CountWarlockSummons(player);
+            writer.Write(counts.LesserDaemons);
+            writer.Write(counts.Succubi);
+            writer.Write(counts.Defilers);
+            writer.Write(counts.BoundDemons);
         }
         player.NetState.Send(writer.Span);
     }
 
-    internal static NecromancerSummonCounts CountSummons(PlayerMobile player)
+    internal static NecromancerSummonCounts CountSummons(PlayerMobile player, bool includeGolem = false)
     {
         int warriors = 0, mages = 0, revives = 0;
+        CombatAbility? golem = includeGolem ? CombatAbility.None : null;
         foreach (var follower in player.AllFollowers ?? [])
         {
             if (follower is not BaseCreature { Alive: true, Deleted: false, IsDeadBondedPet: false } pet
@@ -148,12 +172,73 @@ public static class SkillBindingNetwork
                 {
                     case CombatAbility.RaiseSkeleton: warriors++; break;
                     case CombatAbility.RaiseSkeletalMage: mages++; break;
+                    default:
+                        if (includeGolem && player.Map != null && player.Map != Map.Internal && skeleton.Map == player.Map)
+                        {
+                            var kind = NecromancerGolems.Kind(skeleton);
+                            if (kind != CombatAbility.None)
+                                golem = kind;
+                        }
+                        break;
                 }
             }
         }
 
         return new((byte)Math.Min(warriors, byte.MaxValue), (byte)Math.Min(mages, byte.MaxValue),
-            (byte)Math.Min(revives, byte.MaxValue));
+            (byte)Math.Min(revives, byte.MaxValue), golem);
+    }
+
+    internal static DruidSummonCounts CountDruidSummons(PlayerMobile player)
+    {
+        if (player.Map == null || player.Map == Map.Internal)
+        {
+            return default;
+        }
+
+        int ravens = 0, spiritWolves = 0, direWolves = 0;
+        foreach (var follower in player.AllFollowers ?? [])
+        {
+            if (follower is not BaseCreature { Alive: true, Deleted: false, IsDeadBondedPet: false } pet
+                || pet.ControlMaster != player || pet.Map != player.Map)
+                continue;
+
+            switch (pet)
+            {
+                case DruidRavenBody raven: ravens += raven.FlockSize; break;
+                case DruidSpiritWolfBody: spiritWolves++; break;
+                case DruidDireWolfBody: direWolves++; break;
+            }
+        }
+
+        return new((byte)Math.Min(ravens, byte.MaxValue), (byte)Math.Min(spiritWolves, byte.MaxValue),
+            (byte)Math.Min(direWolves, byte.MaxValue));
+    }
+
+    internal static WarlockSummonCounts CountWarlockSummons(PlayerMobile player)
+    {
+        if (player.Map == null || player.Map == Map.Internal)
+        {
+            return default;
+        }
+
+        int lesserDaemons = 0, succubi = 0, defilers = 0, boundDemons = 0;
+        foreach (var follower in player.AllFollowers ?? [])
+        {
+            if (follower is not BaseCreature { Alive: true, Deleted: false, IsDeadBondedPet: false } pet
+                || pet.ControlMaster != player || pet.Map != player.Map)
+                continue;
+
+            switch (pet)
+            {
+                case WarlockGoatmanBody: lesserDaemons++; break;
+                case WarlockTaintedBody: succubi++; break;
+                case WarlockDefilerBody: defilers++; break;
+                case var _ when BoundDemonHosts.State(pet) != null: boundDemons++; break;
+            }
+        }
+
+        return new((byte)Math.Min(lesserDaemons, byte.MaxValue), (byte)Math.Min(succubi, byte.MaxValue),
+            (byte)Math.Min(defilers, byte.MaxValue), (byte)Math.Min(boundDemons, byte.MaxValue));
     }
 
     private static ushort ManaBit(PlayerMobile player, ReadOnlySpan<byte> available, int mana, CombatAbility ability, int position)

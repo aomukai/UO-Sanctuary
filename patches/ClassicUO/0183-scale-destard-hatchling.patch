@@ -1,0 +1,47 @@
+diff --git a/src/ClassicUO.Client/Network/PacketHandlers.cs b/src/ClassicUO.Client/Network/PacketHandlers.cs
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -4180,7 +4180,7 @@
+                 {
+                     uint serial = p.ReadUInt32BE();
+                     var appearance = (Sanctuary.SkeletonAppearance)p.ReadUInt8();
+-                    if (appearance <= Sanctuary.SkeletonAppearance.Executioner && world.Mobiles.TryGetValue(serial, out var mobile))
++                    if (appearance <= Sanctuary.SkeletonAppearance.CorruptedHatchling && world.Mobiles.TryGetValue(serial, out var mobile))
+                     {
+                         mobile.SkeletonCosmetics = appearance;
+                     }
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+@@ -739,7 +739,12 @@
+             }
+         }
+ 
+-        private float SkeletonBodyScale => !IsDead && SkeletonCosmetics == SkeletonAppearance.Executioner ? 1.28f : 1f;
++        private float SpecialBodyScale => IsDead ? 1f : SkeletonCosmetics switch
++        {
++            SkeletonAppearance.Executioner => 1.28f,
++            SkeletonAppearance.CorruptedHatchling => 0.50f,
++            _ => 1f
++        };
+ 
+         private void DrawSkeletonCosmetics(
+             UltimaBatcher2D batcher, int x, int y, ushort body, byte direction, byte group, byte index,
+@@ -958,7 +963,7 @@
+ 
+             bool druidForm = entity == null && id == owner.DruidFormBody;
+             float scale = druidForm ? owner.DruidFormScale
+-                : entity == null ? owner.SkeletonBodyScale : 1f;
++                : entity == null ? owner.SpecialBodyScale : 1f;
+             int anchorX = (int)Math.Round((mirror ? spriteInfo.UV.Width - spriteInfo.Center.X : spriteInfo.Center.X) * scale);
+             int anchorY = (int)Math.Round((spriteInfo.UV.Height + spriteInfo.Center.Y) * scale);
+             if (spriteInfo.Texture == null)
+@@ -1362,7 +1367,7 @@
+ 
+             if (GetTexture(graphic, animGroup, ref animIndex, dir, out spriteInfo, out isUop))
+             {
+-                float scale = DruidFormScale * SkeletonBodyScale;
++                float scale = DruidFormScale * SpecialBodyScale;
+                 int x = position.X - (int)Math.Round((isFlipped ? spriteInfo.UV.Width - spriteInfo.Center.X : spriteInfo.Center.X) * scale);
+                 int y = position.Y - (int)Math.Round((spriteInfo.UV.Height + spriteInfo.Center.Y) * scale);
+                 var mouse = SelectedObject.TranslatedMousePositionByViewport;

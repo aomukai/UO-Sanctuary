@@ -224,6 +224,17 @@
       "name": "Act 1 (H) Unique A"
     }
   ],
+  "campaignBossRoots": {
+    "campaign-skeleton-king": "Diablo",
+    "campaign-lazarus": "Mephisto (N)",
+    "campaign-diablo": "Diablo (H)"
+  },
+  "hythlothMinibossRoots": {
+    "hythloth-herald": "Hythloth herald",
+    "hythloth-jester": "Hythloth jester",
+    "hythloth-chamberlain": "Hythloth chamberlain",
+    "hythloth-executioner": "Hythloth executioner"
+  },
   "classes": [
     {
       "name": "Act 1 (H) Bow A",
@@ -14261,6 +14272,41 @@
       ]
     },
     {
+      "name": "Act 5 (H) Junk",
+      "group": 0,
+      "level": 0,
+      "picks": 1,
+      "noDrop": 0,
+      "factors": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "item": "Act 5 Junk",
+          "weight": 2,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "Potion 6",
+          "weight": 8,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "Misc 2",
+          "weight": 4,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "Ammo",
+          "weight": 4,
+          "goldMultiplier": 256
+        }
+      ]
+    },
+    {
       "name": "Act 5 (H) Magic A",
       "group": 4,
       "level": 82,
@@ -17276,6 +17322,81 @@
       ]
     },
     {
+      "name": "Diablo",
+      "group": 0,
+      "level": 0,
+      "picks": 7,
+      "noDrop": 15,
+      "factors": [
+        983,
+        983,
+        983,
+        1024
+      ],
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 5,
+          "goldMultiplier": 1280
+        },
+        {
+          "item": "Act 5 Equip A",
+          "weight": 52,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "Act 5 Junk",
+          "weight": 5,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "Act 5 Good",
+          "weight": 3,
+          "goldMultiplier": 256
+        }
+      ]
+    },
+    {
+      "name": "Diablo (H)",
+      "group": 0,
+      "level": 0,
+      "picks": 7,
+      "noDrop": 15,
+      "factors": [
+        983,
+        983,
+        983,
+        1024
+      ],
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 5,
+          "goldMultiplier": 2048
+        },
+        {
+          "item": "Act 5 (H) Equip A",
+          "weight": 52,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "Act 5 (H) Junk",
+          "weight": 5,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "Act 5 (H) Good",
+          "weight": 3,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "bet",
+          "weight": 1,
+          "goldMultiplier": 256
+        }
+      ]
+    },
+    {
       "name": "Flawed Gem",
       "group": 0,
       "level": 0,
@@ -17631,6 +17752,301 @@
       ]
     },
     {
+      "name": "Hythloth chamberlain",
+      "group": 0,
+      "level": 0,
+      "picks": -4,
+      "noDrop": 0,
+      "factors": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "item": "Hythloth chamberlain equipment",
+          "weight": 2,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "Hythloth miniboss potions",
+          "weight": 2,
+          "goldMultiplier": 256
+        }
+      ]
+    },
+    {
+      "name": "Hythloth chamberlain equipment",
+      "group": 0,
+      "level": 0,
+      "picks": 1,
+      "noDrop": 0,
+      "factors": [
+        800,
+        800,
+        800,
+        1024
+      ],
+      "entries": [
+        {
+          "item": "mac",
+          "weight": 20,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "mst",
+          "weight": 25,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "mau",
+          "weight": 20,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "kit",
+          "weight": 20,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "tow",
+          "weight": 15,
+          "goldMultiplier": 256
+        }
+      ]
+    },
+    {
+      "name": "Hythloth executioner",
+      "group": 0,
+      "level": 0,
+      "picks": -4,
+      "noDrop": 0,
+      "factors": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "item": "Hythloth executioner equipment",
+          "weight": 2,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "Hythloth miniboss potions",
+          "weight": 2,
+          "goldMultiplier": 256
+        }
+      ]
+    },
+    {
+      "name": "Hythloth executioner equipment",
+      "group": 0,
+      "level": 0,
+      "picks": 1,
+      "noDrop": 0,
+      "factors": [
+        800,
+        800,
+        800,
+        1024
+      ],
+      "entries": [
+        {
+          "item": "gix",
+          "weight": 40,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "btx",
+          "weight": 20,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "gax",
+          "weight": 20,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "plt",
+          "weight": 20,
+          "goldMultiplier": 256
+        }
+      ]
+    },
+    {
+      "name": "Hythloth herald",
+      "group": 0,
+      "level": 0,
+      "picks": -4,
+      "noDrop": 0,
+      "factors": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "item": "Hythloth herald equipment",
+          "weight": 2,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "Hythloth miniboss potions",
+          "weight": 2,
+          "goldMultiplier": 256
+        }
+      ]
+    },
+    {
+      "name": "Hythloth herald equipment",
+      "group": 0,
+      "level": 0,
+      "picks": 1,
+      "noDrop": 0,
+      "factors": [
+        800,
+        800,
+        800,
+        1024
+      ],
+      "entries": [
+        {
+          "item": "mxb",
+          "weight": 30,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "hxb",
+          "weight": 25,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "cbw",
+          "weight": 25,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "chn",
+          "weight": 10,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "amu",
+          "weight": 10,
+          "goldMultiplier": 256
+        }
+      ]
+    },
+    {
+      "name": "Hythloth jester",
+      "group": 0,
+      "level": 0,
+      "picks": -4,
+      "noDrop": 0,
+      "factors": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "item": "Hythloth jester equipment",
+          "weight": 2,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "Hythloth miniboss potions",
+          "weight": 2,
+          "goldMultiplier": 256
+        }
+      ]
+    },
+    {
+      "name": "Hythloth jester equipment",
+      "group": 0,
+      "level": 0,
+      "picks": 1,
+      "noDrop": 0,
+      "factors": [
+        800,
+        800,
+        800,
+        1024
+      ],
+      "entries": [
+        {
+          "item": "cst",
+          "weight": 25,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "wst",
+          "weight": 25,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "wnd",
+          "weight": 20,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "rin",
+          "weight": 15,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "amu",
+          "weight": 15,
+          "goldMultiplier": 256
+        }
+      ]
+    },
+    {
+      "name": "Hythloth miniboss potions",
+      "group": 0,
+      "level": 0,
+      "picks": 2,
+      "noDrop": 0,
+      "factors": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "item": "hp1",
+          "weight": 1,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "hp2",
+          "weight": 4,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "hp3",
+          "weight": 3,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "mp2",
+          "weight": 2,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "mp3",
+          "weight": 2,
+          "goldMultiplier": 256
+        }
+      ]
+    },
+    {
       "name": "Jewelry A",
       "group": 0,
       "level": 0,
@@ -17761,6 +18177,41 @@
         {
           "item": "cm1",
           "weight": 2,
+          "goldMultiplier": 256
+        }
+      ]
+    },
+    {
+      "name": "Mephisto (N)",
+      "group": 0,
+      "level": 0,
+      "picks": 7,
+      "noDrop": 15,
+      "factors": [
+        983,
+        983,
+        983,
+        1024
+      ],
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 5,
+          "goldMultiplier": 1536
+        },
+        {
+          "item": "Act 4 (N) Equip A",
+          "weight": 52,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "Act 4 (N) Junk",
+          "weight": 5,
+          "goldMultiplier": 256
+        },
+        {
+          "item": "Act 4 (N) Good",
+          "weight": 3,
           "goldMultiplier": 256
         }
       ]

@@ -49,16 +49,33 @@ public static partial class TownRecognition
             || !ClassProfessions.Affected(player)) { return false; }
         var state = Profiles.Find(player);
         var eligible = state.Eligible;
-        if (ClassCreation.Profiles.TryGet(player.Serial, out var profile) && profile.Level >= 80)
+        if (BritanniaCampaign.Complete(player))
         { eligible |= RecognitionHonor.Hero; }
+        else if ((state.Earned & RecognitionHonor.Hero) == 0)
+        { eligible &= ~RecognitionHonor.Hero; }
         foreach (byte craft in TradeSkills.Crafting)
         {
             if (player.Skills[(SkillName)craft].BaseFixedPoint >= 1000) { eligible |= RecognitionHonor.Pillar; break; }
         }
         if (eligible == state.Eligible) { return false; }
         Profiles.Store(player, state with { Eligible = eligible });
+        if ((eligible & ~state.Eligible) == 0) { return false; }
         Invite(player);
         return true;
+    }
+    internal static void GrantCampaignHero(PlayerMobile player)
+    {
+        var state = Profiles.Find(player);
+        if ((state.Earned & RecognitionHonor.Hero) != 0)
+            return;
+        Profiles.Store(player, state with
+        {
+            Eligible = state.Eligible | RecognitionHonor.Hero,
+            Earned = state.Earned | RecognitionHonor.Hero
+        });
+        Housing.Grant(player);
+        player.SendMessage("Hero of the People. You have permanent wardrobe access and the right to acquire a home.");
+        player.SendMessage("Your recognition awards await collection at a town-hall office.");
     }
     public static bool HasHousingRights(Mobile player) => Housing.HasRights(player);
     public static bool HasAccess(Mobile player) => player is { Deleted: false } && Profiles != null && Profiles.Find(player).Earned != 0;
@@ -73,6 +90,8 @@ public static partial class TownRecognition
         if (!ClassProfessions.Affected(player) || !ClassProfessions.Ready(player) || !AtOffice(player, site)) { return false; }
         Refresh(player);
         var state = Profiles.Find(player);
+        if (honor == RecognitionHonor.Hero && !BritanniaCampaign.Has(player, CampaignProgress.RoyalProclamation))
+            return false;
         if (honor is not (RecognitionHonor.Hero or RecognitionHonor.Pillar)
             || (state.Eligible & honor) == 0 || (state.Earned & honor) != 0) { return false; }
         Profiles.Store(player, state with { Earned = state.Earned | honor });

@@ -40,16 +40,19 @@ def pack_nest(destination):
     (destination / f"{GRAPHIC}.art").write_bytes(frame(sprite, scale, origin, canvas, 22, alpha_threshold=128))
 
 
-def pack_ground_section(section, left, top):
+def pack_ground_section(section, left, top, *, draw_offset=GROUND_DRAW_OFFSET, anchor=None):
     # Map each section to a nearby tile, padding the bitmap to preserve pixel-perfect alignment.
     target_x = left + section.width / 2
-    target_y = top + section.height - GROUND_DRAW_OFFSET
-    dx = round((target_y + target_x) / 44)
-    dy = round((target_y - target_x) / 44)
+    target_y = top + section.height - draw_offset
+    dx, dy = anchor if anchor is not None else (
+        round((target_y + target_x) / 44), round((target_y - target_x) / 44)
+    )
     anchor_x, anchor_y = 22 * (dx - dy), 22 * (dx + dy)
 
     half_width = max(anchor_x - left, left + section.width - anchor_x)
-    width, height = half_width * 2, anchor_y + GROUND_DRAW_OFFSET - top + 22
+    width, height = half_width * 2, anchor_y + draw_offset - top + 22
+    if height < section.height:
+        raise ValueError("Ground section would be clipped against its art anchor")
     canvas = Image.new("RGBA", (width, height))
     canvas.paste(section, (left - anchor_x + half_width, 0))
     pixels = [max(1, (r >> 3) << 10 | (g >> 3) << 5 | (b >> 3)) if a >= ALPHA_THRESHOLD else 0

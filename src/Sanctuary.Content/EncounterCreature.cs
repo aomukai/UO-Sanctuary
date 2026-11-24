@@ -27,6 +27,7 @@ public partial class EncounterCreature : GraveyardUndead
     [SerializableField(11, setter: "private")] private bool _deathEffectsDone;
     private CreatureVariant _profile;
     private MonsterDifficulty? _profileDifficulty;
+    private int _profilePlayers;
     private MonsterProfile _combat;
     private NormalMonsterStats _meleeStats;
     private EliteModifier[] _modifiers;
@@ -136,26 +137,32 @@ public partial class EncounterCreature : GraveyardUndead
         CreatureProfiles.Session(this).Initialized = false; CreatureProfiles.Initialize(this); Hits = HitsMax;
     }
     protected virtual int[] AdjustResistances(int[] resistances) => resistances;
-    internal virtual int EncounterPlayers => 5;
+    internal int EncounterPlayers => RegionalEncounterPlayers == DungeonPlayerScaling.Players
+        || DungeonPlayerScaling.IsWildDungeonCreature(this) ? DungeonPlayerScaling.Players : RegionalEncounterPlayers;
+    protected virtual int RegionalEncounterPlayers => DungeonPlayerScaling.Players;
+    internal virtual int? AuraRankOverride => null;
     protected virtual ResistanceType MeleeElement => ResistanceType.Physical;
     protected virtual int EncounterMoveInterval(int interval) => interval;
+    protected virtual int EncounterDamageRegen => 2;
+    protected virtual int AdjustEncounterLife(int life) => life;
     protected virtual bool RollMissingModifiersOnLoad => false;
-    internal bool RepelledByAnkh(Point3D point) => !Controlled && !Summoned && AnkhRefuges.Contains(Map, point);
+    protected virtual bool IsRefuge(Point3D point) => AnkhRefuges.Contains(Map, point);
+    internal bool RepelledByRefuge(Point3D point) => !Controlled && !Summoned && IsRefuge(point);
 
-    public override bool IsEnemy(Mobile mobile) =>
-        mobile != null && !RepelledByAnkh(mobile.Location) && base.IsEnemy(mobile);
+    internal override bool IsEnemyIgnoringLeash(Mobile mobile) =>
+        mobile != null && !RepelledByRefuge(mobile.Location) && base.IsEnemyIgnoringLeash(mobile);
 
     public override bool Move(Direction direction)
     {
         var next = Location;
         Server.Movement.Movement.Offset(direction, ref next);
-        if (RepelledByAnkh(next) && !RepelledByAnkh(Location))
+        if (RepelledByRefuge(next) && !RepelledByRefuge(Location))
             return false;
         return base.Move(direction);
     }
 
-    private int ScaleForPlayers(int amount) => checked(amount * (EncounterPlayers + 1) / 2);
-    private int ScaleLifeForPlayers(int life) => Math.Min(65000, ScaleForPlayers(life));
+    private int ScaleLifeForPlayers(int life, int players) =>
+        AdjustEncounterLife(Math.Min(65000, DungeonPlayerScaling.Scale(life, players)));
     private int LifeBeforePlayerScaling(MonsterDifficulty difficulty) => (_rolledLife == 0 ? Basis.Life.Min : _rolledLife)
         * EncounterProfiles.LifePermille(_grade, _champion, difficulty) / 1000;
     protected virtual CreatureTraits EncounterTraits(DungeonProfile dungeon) =>
@@ -165,10 +172,11 @@ public partial class EncounterCreature : GraveyardUndead
     {
         var difficulty=requested??ReviveFacets.Difficulty(this)??_difficulty;
         if(!Enum.IsDefined(difficulty)){throw new ArgumentOutOfRangeException(nameof(requested));}
-        if (_profile != null&&_profileDifficulty==difficulty) { return; }
+        int players = EncounterPlayers;
+        if (_profile != null && _profileDifficulty == difficulty && _profilePlayers == players) { return; }
         var basis = Basis; var dungeon = Dungeon;
         int index = (int)difficulty;
-        int life = ScaleLifeForPlayers(LifeBeforePlayerScaling(difficulty));
+        int life = ScaleLifeForPlayers(LifeBeforePlayerScaling(difficulty), players);
         int rating = _rolledAttack == 0 ? basis.AttackRating.Min : _rolledAttack;
         int defense = _rolledDefense == 0 ? basis.Defense.Min : _rolledDefense;
         int damageBonus = 0, ratingBonus = 0, moveBonus = 0;
@@ -192,7 +200,7 @@ public partial class EncounterCreature : GraveyardUndead
         int min = basis.MinDamage * (100 + damageBonus) / 100, max = basis.MaxDamage * (100 + damageBonus) / 100;
         rating = rating * (100 + ratingBonus) / 100;
         int move = EncounterMoveInterval(EncounterProfiles.MovementInterval(basis.MoveMs,moveBonus));
-        int xp = ScaleForPlayers(BaseExperience);
+        int xp = DungeonPlayerScaling.Scale(BaseExperience, players);
         var element = dungeon.Archetype == MonsterArchetype.Caster ? ResistanceType.Fire : MeleeElement;
         var attack = new CreatureAttack(min, max, rating, Caster ? 10 : 1, basis.AttackMs + basis.RecoveryMs,
             basis.EffectMs, basis.RecoveryMs, element == ResistanceType.Physical ? 100 : 0,
@@ -202,24 +210,29 @@ public partial class EncounterCreature : GraveyardUndead
         _profile = new(true, true, basis.Level, life, defense, new(res[0], res[1], res[2], res[3], res[4], res[5]),
             attack, attack, Caster ? attack : new(), new(true, dungeon.Archetype == MonsterArchetype.Tank ? 6 : 4),
             new(move, move, move), new("Species", 0, 200, 100, 0, 400, false, 100, 75, basis.RecoveryMs),
-            new(xp, null, true, basis.Level, dungeon.Reference, $"Players-{EncounterPlayers} dungeon archetype with saved encounter grade"),
+            new(xp, null, true, basis.Level, dungeon.Reference, $"Players-{players} dungeon archetype with saved encounter grade"),
             EncounterTraits(dungeon), new("Native", null, true),
             new Dictionary<string, string>(), new Dictionary<string, string>());
         _combat = new(basis.Level, life, rating, defense, min, max, basis.AttackMs + basis.RecoveryMs, move,
             res[0], res[2], res[4], res[5], res[3]);
         var melee = new MonsterMelee(min, max, basis.AttackMs / 40, 256, basis.EffectMs / 40);
-        _meleeStats = new(life, melee, melee, 100, 75, basis.RecoveryMs / 40, 10, basis.CriticalChance, 2, xp, new(100, 0, 400, false));
+        _meleeStats = new(life, melee, melee, 100, 75, basis.RecoveryMs / 40, 10, basis.CriticalChance, EncounterDamageRegen, xp, new(100, 0, 400, false));
         _profileDifficulty=difficulty;
+        _profilePlayers = players;
     }
     protected override void Deal(Mobile target, int damage, bool fire) =>
         EliteCombat.Hit(this, target, damage, fire ? ResistanceType.Fire : MeleeElement);
     protected override bool CanRaiseKind(Corpse corpse) => false;
+    protected virtual bool CanCastEncounterBolt => Caster;
+    protected virtual int EncounterBoltRange => Basis.Range;
+    protected virtual int EncounterCastAnimation => 4;
+
     public override bool BeginFirebolt(Mobile target)
     {
-        if (!Caster || !EliteCombat.CanAct(this) || SpellInProgress || !ActionReady || !EliteCombat.Enemy(this, target, Basis.Range) || CreatureHitRecovery.Remaining(this) > 0)
+        if (!CanCastEncounterBolt || !EliteCombat.CanAct(this) || SpellInProgress || !ActionReady || !EliteCombat.Enemy(this, target, EncounterBoltRange) || CreatureHitRecovery.Remaining(this) > 0)
         { return false; }
         StartAction(target); _shotTarget = target; _shotMap = Map; _shotOrigin = Location;
-        Direction = GetDirectionTo(target); Animate(4, 5, 1, true, false, 0);
+        Direction = GetDirectionTo(target); Animate(EncounterCastAnimation, 5, 1, true, false, 0);
         int delay = Math.Max(40, Basis.EffectMs * 100 / (100 + EliteAuras.Speed(this)) * 100 / (100 - GearEffects.AttackSlow(this)));
         Timer.StartTimer(TimeSpan.FromMilliseconds(delay), ReleaseShot, out _shot);
         return true;
@@ -227,7 +240,7 @@ public partial class EncounterCreature : GraveyardUndead
     private void ReleaseShot()
     {
         var target = _shotTarget; _shotTarget = null; var map = _shotMap; _shotMap = null;
-        if (!NamedControl.SpecialAllowed(this) || Map != map || Location != _shotOrigin || Frozen || Paralyzed || !EliteCombat.Enemy(this, target, Basis.Range)
+        if (!NamedControl.SpecialAllowed(this) || Map != map || Location != _shotOrigin || Frozen || Paralyzed || !EliteCombat.Enemy(this, target, EncounterBoltRange)
             || CreatureHitRecovery.Remaining(this) > 0) { return; }
         ReleaseEncounterBolt(target);
     }
@@ -255,7 +268,7 @@ public partial class EncounterCreature : GraveyardUndead
     protected void HealAlly(Mobile ally, int percent)
     {
         Direction = GetDirectionTo(ally);
-        Animate(4, 5, 1, true, false, 0);
+        Animate(EncounterCastAnimation, 5, 1, true, false, 0);
         SkillHealth.Heal(ally, SkillHealth.Maximum256(ally) * percent / 100);
         ally.FixedEffect(0x376A, 9, 32);
         ally.PlaySound(0x1F2);
@@ -394,8 +407,10 @@ public partial class EncounterCreature : GraveyardUndead
         // Preserve the health percentage of spawns that predate a change in regional player scaling.
         int unscaledLife = LifeBeforePlayerScaling(_difficulty);
         int savedLife = HitsMaxSeed;
-        bool rescale = savedLife == unscaledLife || this is HedgeEncounter && savedLife == Math.Min(65000, 2 * unscaledLife);
-        int? migratedHits = rescale ? (int)((long)Hits * ScaleLifeForPlayers(unscaledLife) / savedLife) : null;
+        int scaledLife = ScaleLifeForPlayers(unscaledLife, EncounterPlayers);
+        bool rescale = savedLife != scaledLife
+            && (savedLife == ScaleLifeForPlayers(unscaledLife, 1) || savedLife == ScaleLifeForPlayers(unscaledLife, 3));
+        int? migratedHits = rescale ? (int)((long)Hits * scaledLife / savedLife) : null;
         // Native mobile fields already contain the injured life and stat roll; do not roll or heal on load.
         CreatureProfiles.Session(this).Initialized = false; CreatureProfiles.Initialize(this,preserveLoadedLife:true);
         if (migratedHits is { } hits)

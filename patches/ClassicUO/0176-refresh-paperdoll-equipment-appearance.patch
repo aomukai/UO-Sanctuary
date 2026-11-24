@@ -1,0 +1,110 @@
+diff --git a/src/ClassicUO.Client/Game/UI/Controls/PaperDollInteractable.cs b/src/ClassicUO.Client/Game/UI/Controls/PaperDollInteractable.cs
+--- a/src/ClassicUO.Client/Game/UI/Controls/PaperDollInteractable.cs
++++ b/src/ClassicUO.Client/Game/UI/Controls/PaperDollInteractable.cs
+@@ -19,8 +19,13 @@
+     internal class PaperDollInteractable : Control
+     {
+         private readonly PaperDollGump _paperDollGump;
+-
++        private readonly EquipmentAppearance[] _equipment = new EquipmentAppearance[PaperdollOrder.N];
++
++        private BodyAppearance _body;
+         private bool _updateUI;
++
++        private readonly record struct BodyAppearance(ushort Graphic, ushort Hue, bool IsFemale);
++        private readonly record struct EquipmentAppearance(uint Serial, ushort Graphic, ushort Hue);
+ 
+         public PaperDollInteractable(int x, int y, uint serial, PaperDollGump paperDollGump)
+         {
+@@ -38,36 +43,67 @@
+         {
+             base.Update();
+ 
+-            if (_updateUI)
+-            {
+-                UpdateUI();
+-
++            if (IsDisposed)
++            {
++                return;
++            }
++
++            Mobile mobile = _paperDollGump.World.Mobiles.Get(LocalSerial);
++
++            if (mobile == null || mobile.IsDestroyed)
++            {
++                Dispose();
++                return;
++            }
++
++            bool appearanceChanged = CaptureAppearance(mobile);
++            if (_updateUI || appearanceChanged)
++            {
+                 _updateUI = false;
++                UpdateUI(mobile);
+             }
+         }
+ 
+         public void SetFakeItem(bool value)
+         {
+-            _updateUI = HasFakeItem && !value || !HasFakeItem && value;
+-            HasFakeItem = value;
+-        }
+-
+-        private void UpdateUI()
+-        {
+-            if (IsDisposed)
+-            {
+-                return;
+-            }
+-
+-            Mobile mobile = _paperDollGump.World.Mobiles.Get(LocalSerial);
+-
+-            if (mobile == null || mobile.IsDestroyed)
+-            {
+-                Dispose();
+-
+-                return;
+-            }
+-
++            if (HasFakeItem != value)
++            {
++                HasFakeItem = value;
++                RequestUpdate();
++            }
++        }
++
++        private bool CaptureAppearance(Mobile mobile)
++        {
++            var body = new BodyAppearance(mobile.Graphic, mobile.Hue, mobile.IsFemale);
++            Span<EquipmentAppearance> equipment = stackalloc EquipmentAppearance[PaperdollOrder.N];
++            equipment.Clear();
++
++            // Equipment slots read the live mobile. Keep the figure in sync even when an
++            // appearance update arrives without a paperdoll refresh request.
++            for (LinkedObject entry = mobile.Items; entry != null; entry = entry.Next)
++            {
++                var item = (Item)entry;
++                int layer = (int)item.Layer;
++
++                if (!item.IsDestroyed && layer > 0 && layer < equipment.Length && equipment[layer].Serial == 0)
++                {
++                    equipment[layer] = new EquipmentAppearance(item.Serial, item.Graphic, item.Hue);
++                }
++            }
++
++            if (body == _body && equipment.SequenceEqual(_equipment))
++            {
++                return false;
++            }
++
++            _body = body;
++            equipment.CopyTo(_equipment);
++            return true;
++        }
++
++        private void UpdateUI(Mobile mobile)
++        {
+             Clear();
+ 
+             // Add the base gump - the semi-naked paper doll.

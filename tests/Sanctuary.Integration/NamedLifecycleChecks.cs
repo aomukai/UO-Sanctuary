@@ -36,7 +36,7 @@ internal static class NamedLifecycleChecks
         Appearance(saved); Trade(saved); Sockets(saved);
         var p = InsuranceChecks.Player();
         ClassProfessions.Profiles.Confirm(p, SkillName.Alchemy);
-        Require(TownRecognition.Claim(p, RecognitionChecks.Place(p), RecognitionHonor.Hero), "Named wardrobe right missing");
+        Require(RecognitionChecks.AwardHeroAndCollect(p, RecognitionChecks.Place(p)), "Named wardrobe right missing");
         for (int i = 0; i < 50; i++)
         { Require(ClassCreation.Profiles.TrySpendStat(p, CharacterStat.Strength), "Named wardrobe strength allocation failed"); }
         Require(ClassCreation.Profiles.TryTrain(p.Serial, "necromancer.teeth", out _), "Named wardrobe learned skill missing");
@@ -61,7 +61,7 @@ internal static class NamedLifecycleChecks
         saved.AddRange(equipment);
         // Leave a second class loadout parked across real saved-world boots.
         var parked = InsuranceChecks.Player(); ClassProfessions.Profiles.Confirm(parked, SkillName.Alchemy);
-        Require(TownRecognition.Claim(parked, RecognitionChecks.Place(parked), RecognitionHonor.Hero), "Parked named right missing");
+        Require(RecognitionChecks.AwardHeroAndCollect(parked, RecognitionChecks.Place(parked)), "Parked named right missing");
         var inactive = Create("The Stone of Jordan", parked); Require(parked.EquipItem(inactive), "Parked named ring equip failed");
         parked.Hits = parked.HitsMax;
         Require(Swap(parked, DiabloClass.Sorceress) && inactive.Parent is WardrobeSet, "Named parked save fixture failed");

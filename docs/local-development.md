@@ -1,13 +1,48 @@
 # Local development and deployment
 
-Use the [README’s local setup](../README.md#running-locally) for supported commands. The checkout, source build output, installed runtime, and currently running game can be at different stages. Check the one relevant to the work and use the repository instructions and tracked upstream patch stacks when editing native sources.
+Use the [README setup commands](../README.md#running-locally) for a fresh installation. The checkout, build output, installed runtime, and running processes can be at different stages. Check the stage relevant to the change.
 
-## Builds and checks
+## Build and run
 
-- Local server files are under `.local/server`, client files under `.local/client`, and Classic Client data under `.local/uo-data`. Use `./dev doctor` to check prerequisites and build/configuration readiness.
-- Stop the relevant installed process before replacing its binaries. Test fixtures can use source assemblies, so finish those checks before rebuilding their inputs. Check the selected test runner’s current flags, logs, and runtime paths before launching it.
-- Run actual-client tests with isolated settings and disposable worlds. Keep fixture assemblies and test worlds in the verification environment. Respect existing checkout and submodule changes while applying or verifying patches. [Character UI checkpoint](class-roster-ui-checkpoint.md) · [Storage and evidence locations](storage-cleanup-2026-11-18.md)
+| Need | Command or location |
+| --- | --- |
+| Diagnose prerequisites, configuration, and runtime | `./dev doctor` |
+| Build everything or just Sanctuary content | `./dev build` or `./dev build content` |
+| Stage and start the server from source | `./dev server` |
+| Start the existing installed server | `./dev server --installed` |
+| Connect the local client | `./dev client` |
+| Use the Linux desktop launcher | `./dev launcher` |
+| Runtime and saves | `.local/server` |
+| Client and profiles | `.local/client` |
+| Classic game data | `.local/uo-data` |
+| Launcher logs | `.local/logs/launcher-server.log` and `.local/logs/launcher-client.log` |
 
-## Installed runtime
+Keep native ModernUO and ClassicUO changes in the tracked [patch stacks](../patches). Preserve existing worktree and submodule edits. Runtime content reads copied data from `Data/Sanctuary` under the installed server. Pair server protocol updates with the matching ClassicUO build. For game-art changes, check which installed client data or patch actually supplies the asset. [Data layout](../data/Sanctuary/README.md)
 
-For an installed update, request a server save and wait for it to complete. Shut down the relevant live processes cleanly. Back up server saves and configuration, client settings, and the entire client `Data` directory, including profiles. Install matching server content and client assets as needed, then verify startup and preservation of the saved world. The archived starter-item migration documents a one-time operation. [Deployment record](deployment-t01-t09.md) · [Death and pets](death-and-pets.md)
+## Verification and evidence
+
+- For data or documentation, check links and generator inputs. Run the relevant Python checks and inspect exact differences before regenerating pinned evidence.
+- For game behavior, use disposable world copies and separate client settings. Check the selected runner’s flags and runtime paths before launching it. Finish tests that use source assemblies before rebuilding those inputs.
+- `python3 tests/check_current_class.py druid --plan` checks fixture inputs without starting a server. Substitute the class under test and consult `--help` for runtime and output options.
+- Keep a distinction between what a specific fixture exercised, what was seen in ClassicUO, and what is installed for play. When save migration is involved, exercise a saved character as well as a fresh one.
+- Generated reports and exact evidence inputs live under [tools/reference](../tools/reference/README.md). The old class release verifier currently stops on a source digest mismatch at `shared/ClassAbilities.cs`. Named-equipment, profession, and property report generators also have pending source/evidence drift. The archived class fixture plans can require local probes retired during disk cleanup. Requalification is tracked in the [roadmap](roadmap.md).
+
+## Dungeon layout trials
+
+The Hythloth layout tool creates a fixed four-room trial using installed floor and wall art. Its trial corridors are two tiles wide. The current Haven crypts have separate four-wide layouts.
+
+```sh
+python3 tools/generate_dungeon.py .local/dungeon-previews/trial --seed 27 --origin 7100 3950 0
+```
+
+Open `plan.svg` for the floor plan. `layout.cfg` contains ModernUO decoration placements and records the entry and suggested treasure location. Keep the configuration of a layout you want to reuse. Pass another seed, or omit `--seed` for a new layout. Use a clear 32×32 trial footprint with a suitable base Z.
+
+On a disposable world, copy `layout.cfg` into `Data/Decoration/Trammel` and use `[Decorate` as a Developer. This processes the entire stock decoration set as well. For seed 27 and the example origin, use `[Go 7108 3957 0` on Trammel. A permanent content installer can apply an individual file with `DecorationList.ReadAll` on the intended facet. [Custom placements](worldbuilding.md#placeable-templates)
+
+## Installed updates
+
+Save the world and wait for the snapshot to finish before shutting down the relevant live processes. Keep a focused rollback copy for the parts being changed. Include saves and configuration for world migrations and profiles and any affected client data for client changes. Stage matching server/client files as needed. Verify startup and load the affected saved state on a disposable copy before normal use. The launcher’s **Save & Shut Down** provides the local save-and-stop path.
+
+## Documentation maintenance
+
+Put ongoing system rules in the handbook, tasks in the [roadmap](roadmap.md), and generated technical records under `tools/reference`. Use the [historical tree](README.md#historical-records) for earlier checkpoint detail and exact old output paths. Keep release hashes tied to the evidence that supports them.

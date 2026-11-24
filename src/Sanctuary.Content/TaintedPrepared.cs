@@ -67,7 +67,7 @@ internal static class TaintedPrepared
     }
 
     internal static TaintedBirth Birth(PlayerMobile owner, SkillValues values) =>
-        Birth(values, SummonDifficulties.For(owner.Map), ClassStats.Level(owner),
+        Birth(values, SummonDifficulties.For(owner), ClassStats.Level(owner),
             stat => stat switch
             {
                 "item_pierce_damage_immunity" => ClassGear.Bonus(owner, "pierce-immunity-damage"),

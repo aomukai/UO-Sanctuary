@@ -18,6 +18,8 @@ public partial class MineCampMiner : ConversationNpc
     [
         new("We had to leave our picks behind. The mine is full of monsters now. Watch thy step if thou goest in, and take particular care below the rope.", [])
     ];
+    private static readonly ScriptedDialogue.Node _iolo =
+        new("Perhaps we should have a look, Avatar. I would sooner know what lurks beneath our feet.", [], Iolo.Voice);
 
     [Constructible]
     public MineCampMiner() : this(false) { }
@@ -47,8 +49,8 @@ public partial class MineCampMiner : ConversationNpc
         {
             ScriptedDialogue.Show(player, this,
             [
-                Script[0] with { Line = Script[0].Line
-                    + "\n\nIolo: “Perhaps we should have a look, Avatar. I would sooner know what lurks beneath our feet.”" }
+                Script[0] with { Replies = [new("Continue", 1)] },
+                _iolo
             ]);
         }
         else

@@ -1,0 +1,32 @@
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+@@ -1214,6 +1214,7 @@
+ 
+         public override bool CheckMouseSelection()
+         {
++            if (Sanctuary.RavenAppearance.IsFlock(Graphic)) { return false; }
+             if (_summonFrame == SpellEffectGraphics.SentryModelGone) { return false; }
+             if (SpellEffectGraphics.IsBladeSentinelBody(_summonFrame) || SpellEffectGraphics.IsSentryModelFrame(_summonFrame))
+             {
+diff --git a/src/ClassicUO.Client/Game/World.cs b/src/ClassicUO.Client/Game/World.cs
+--- a/src/ClassicUO.Client/Game/World.cs
++++ b/src/ClassicUO.Client/Game/World.cs
+@@ -645,7 +645,7 @@
+             {
+                 foreach (Mobile mobile in Mobiles.Values)
+                 {
+-                    if (mobile.IsDestroyed || mobile == Player)
++                    if (mobile.IsDestroyed || mobile == Player || Sanctuary.RavenAppearance.IsFlock(mobile.Graphic))
+                     {
+                         continue;
+                     }
+@@ -719,7 +719,7 @@
+                 IEnumerable<Mobile> mobiles = reverse ? Mobiles.Values.Reverse() : Mobiles.Values;
+                 foreach (Mobile mobile in mobiles)
+                 {
+-                    if (mobile.IsDestroyed || mobile == Player)
++                    if (mobile.IsDestroyed || mobile == Player || Sanctuary.RavenAppearance.IsFlock(mobile.Graphic))
+                     {
+                         continue;
+                     }

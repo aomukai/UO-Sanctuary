@@ -176,7 +176,7 @@ internal static class BoundDemonHosts
         var resources=BattleOrders.Capture(body);int slots=body.ControlSlots;
         body.AIObject?.AITimer.Stop();body.ControlSlots=0;
         if(!body.SetControlMaster(owner)){body.ControlSlots=slots;body.AIObject?.AITimer.Start();issue="Native owner assignment failed.";return false;}
-        BattleCommand.Track(body);var difficulty=SummonDifficulties.For(owner.Map);
+        BattleCommand.Track(body);var difficulty=SummonDifficulties.For(owner);
         var state=new BoundDemonState(body.Serial.Value,owner.Serial.Value,body.GetType().FullName,monster,birth,BattleCommand.PetOrder(body),difficulty,normal,
             BaseMaximum(body.GetType().FullName,monster,normal,difficulty)){Aura=aura};Validate(state);
         States=States.Add(state.Actor,state);Behavior(body).SuspendActions();spawner?.Remove(body);body.Spawner=null;body.NoKillAwards=true;body.Tamable=false;
@@ -195,7 +195,7 @@ internal static class BoundDemonHosts
     internal static void Sync(PlayerMobile owner)
     {
         if(owner is not{Alive:true,Deleted:false,Map:not null}||owner.Map==Map.Internal||World.Loading){return;}
-        var difficulty=SummonDifficulties.For(owner.Map);
+        var difficulty=SummonDifficulties.For(owner);
         foreach(var body in For(owner))
         {
             var old=State(body);if(body.Map!=Map.Internal&&body.Map!=owner.Map){PersistentMinions.Suspend(body);}

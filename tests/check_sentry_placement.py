@@ -9,5 +9,5 @@ if __name__=='__main__':
  c['extra_families']=('sentry-placement','shadow-sentry','sentry-cast')
  c['extra_manifest_names']={'sentry-cast':'sentry-cast-fixture.json'}
  c['extra_checks']=('sentry-learned-mechanics-check',)
- c['extra_inputs']+=(Path(__file__).resolve(),ROOT/'docs/sentry-occupied-placement-proposal.md')
+ c['extra_inputs']+=(Path(__file__).resolve(),ROOT/'tools/reference/rules/sentry-occupied-placement-proposal.md')
  os.environ.update(SANCTUARY_PROJECT_ROOT=str(ROOT),SANCTUARY_FIRST_LOOP_ROOT=str(ROOT));check(**c)

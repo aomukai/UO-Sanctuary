@@ -38,7 +38,7 @@ def review(check=False):
                      'src/Sanctuary.Content/TimedEffects.cs','src/Sanctuary.Content/ShadowEquipmentResources.cs',
                      'tests/Sanctuary.Integration/ArcticPotionChecks.cs','tests/Sanctuary.Integration/ArcticStreamChecks.cs',
                      'tests/check_arctic_potion.py','tools/build_skill_roadmap.py',
-                     'docs/arctic-approved-input-rule.md',
+                     'tools/reference/rules/arctic-approved-input-rule.md',
                      'data/Sanctuary/Balance/class-skill-status.json','data/Sanctuary/Balance/restoration-potions.json']:
         pin(e.ROOT/relative)
     before=json.loads(subprocess.check_output(['git','show',PARENT+':data/Sanctuary/Balance/class-skill-status.json'],cwd=e.ROOT))

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Server;
 using Server.Items;
 using Server.Mobiles;
@@ -11,7 +12,8 @@ namespace Sanctuary;
 
 public sealed record CorpseSourceRule(string Source,bool Selectable,bool NoAura,bool Soft=false);
 public sealed record CorpseTreasure(string Source,string TreasureClass,int Level,MonsterDifficulty Difficulty);
-public sealed record CorpseSkillRecord(uint Corpse,string Source,bool Selectable,bool Owned,bool Shattered=false,bool NoSelect=false,CorpseTreasure Treasure=null,CorpseBaseSnapshot BaseLife=null,int? MonsterLevel=null,ReviveCreatureSnapshot ReviveCreature=null,string ReviveSnapshotIssue=null,bool UnitReactivated=false);
+public sealed record CorpseSkillRecord(uint Corpse,string Source,bool Selectable,bool Owned,bool Shattered=false,bool NoSelect=false,CorpseTreasure Treasure=null,CorpseBaseSnapshot BaseLife=null,int? MonsterLevel=null,ReviveCreatureSnapshot ReviveCreature=null,string ReviveSnapshotIssue=null,bool UnitReactivated=false,
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] DeceitAllySnapshot DeceitAlly = null);
 public sealed class CorpseSkillProfiles : GenericPersistence
 {
     private readonly Dictionary<uint,CorpseSkillRecord> _rows=new();
@@ -106,7 +108,7 @@ public static class CorpseSkillRules
         bool shattered = ColdCorpseRules.Resolve(creature, PaladinHolyFreeze.Shattered(creature) || FreezeStates.Shattered(creature));
         Profiles.Store(new(corpse.Serial.Value,known?key:null,known && _selectable[key],creature.Controlled || creature.Summoned || creature is BaseVendor,shattered,false,Treasure(creature),
             known && _selectable[key]?CorpseBaseSnapshots.Capture(creature,key):null,level>0?level:null,
-            revive,issue));
+            revive,issue,DeceitAlly: (creature as DeceitEncounter)?.ResurrectionSnapshot()));
         if (shattered)
         {
             Effects.SendLocationEffect(creature.Location, creature.Map, SpellEffectGraphics.ColdCorpseShatter, 7);

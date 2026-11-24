@@ -7,9 +7,15 @@ namespace Sanctuary;
 
 public static class PaladinVigor
 {
-    public static int RecoveryPercent(Mobile actor)=>PaladinAuras.Effect(actor,CombatAbility.Vigor)?.Percent ?? 0;
-    public static int StaminaPercent(Mobile actor)=>PaladinAuras.Effect(actor,CombatAbility.Vigor)?.StaminaPercent ?? 0;
-    public static int VelocityPercent(Mobile actor)=>PaladinAuras.Effect(actor,CombatAbility.Vigor)?.VelocityPercent ?? 0;
+    public static int RecoveryPercent(Mobile actor)=>PaladinAuras.Effect(actor,CombatAbility.Vigor)?.Percent ?? EncounterBonus(actor, "aurastatcalc1");
+    public static int StaminaPercent(Mobile actor)=>PaladinAuras.Effect(actor,CombatAbility.Vigor)?.StaminaPercent ?? EncounterBonus(actor, "aurastatcalc2");
+    public static int VelocityPercent(Mobile actor)=>PaladinAuras.Effect(actor,CombatAbility.Vigor)?.VelocityPercent ?? EncounterBonus(actor, "aurastatcalc3");
+
+    private static int EncounterBonus(Mobile actor, string formula)
+    {
+        int rank = actor is DeceitEncounter { Freed: false } ? EliteAuras.Level(actor, EliteAura.Vigor, false) : 0;
+        return rank > 0 ? (int)DeceitEncounter.RankedValues(CombatAbility.Vigor, rank).Eval(formula) : 0;
+    }
     public static void Configure()
     {
         var previous=ClassGearHooks.StaminaMaximum;

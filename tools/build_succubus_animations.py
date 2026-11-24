@@ -39,7 +39,21 @@ def encode_strip(sheet, strip, direction):
     left, top, count = STRIPS[strip]
     top += direction * ROW_STRIDE
     strip_image = sheet.crop((left, top, left + count * CELL, top + CELL))
-    indexed = strip_image.quantize(colors=256, dither=Image.Dither.NONE)
+    mask = Image.new("L", strip_image.size)
+    mask.putdata([0 if pixel == CHROMA_KEY else 255 for pixel in strip_image.getdata()])
+    return encode_frames(strip_image, mask, CELL, ANCHOR_X, ANCHOR_Y)
+
+
+def encode_frames(strip_image, mask, cell_width, anchor_x, anchor_y, *, reserved_colors=()):
+    count = strip_image.width // cell_width
+    indexed = strip_image.quantize(colors=256 - len(reserved_colors), dither=Image.Dither.NONE)
+    if reserved_colors:
+        # Tiny, bright details can otherwise disappear among a monster's armour tones.
+        palette = list(indexed.getpalette()[:3 * (256 - len(reserved_colors))])
+        palette.extend([0] * (3 * (256 - len(reserved_colors)) - len(palette)))
+        palette.extend(channel for color in reserved_colors for channel in color)
+        indexed.putpalette(palette)
+        indexed = strip_image.quantize(palette=indexed, dither=Image.Dither.NONE)
     colors = indexed.getpalette()
     palette = [
         (colors[i] >> 3) << 10 | (colors[i + 1] >> 3) << 5 | (colors[i + 2] >> 3)
@@ -48,25 +62,24 @@ def encode_strip(sheet, strip, direction):
 
     frames = []
     for frame in range(count):
-        box = (frame * CELL, 0, (frame + 1) * CELL, CELL)
-        mask = Image.new("L", (CELL, CELL))
-        mask.putdata([0 if color == CHROMA_KEY else 255 for color in strip_image.crop(box).getdata()])
-        bounds = mask.getbbox()
+        box = (frame * cell_width, 0, (frame + 1) * cell_width, strip_image.height)
+        frame_mask = mask.crop(box)
+        bounds = frame_mask.getbbox()
         if bounds is None:
-            raise ValueError(f"Empty {strip} frame {frame} in direction {direction}")
+            raise ValueError(f"Empty animation frame {frame}")
 
         x0, y0, x1, y1 = bounds
         width, height = x1 - x0, y1 - y0
-        encoded = bytearray(pack("<hhhh", ANCHOR_X - x0, ANCHOR_Y - y1, width, height))
+        encoded = bytearray(pack("<hhhh", anchor_x - x0, anchor_y - y1, width, height))
         pixels = indexed.crop(box).load()
-        opaque = mask.load()
+        opaque = frame_mask.load()
         for y in range(y0, y1):
             for present, run in groupby(range(x0, x1), key=lambda x: opaque[x, y]):
                 if present:
                     start, *rest = run
                     length = 1 + len(rest)
                     # MUL runs store signed offsets relative to the common ground anchor.
-                    header = ((start - ANCHOR_X) & 0x3FF) << 22 | ((y - ANCHOR_Y) & 0x3FF) << 12 | length
+                    header = ((start - anchor_x) & 0x3FF) << 22 | ((y - anchor_y) & 0x3FF) << 12 | length
                     encoded.extend(pack("<I", header))
                     encoded.extend(pixels[x, y] for x in range(start, start + length))
         encoded.extend(pack("<I", 0x7FFF7FFF))

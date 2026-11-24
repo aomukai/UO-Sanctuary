@@ -80,7 +80,7 @@ internal static class ReviveFacets
     }
     internal static void Sync(PlayerMobile owner)
     {
-        var difficulty=SummonDifficulties.For(owner.Map);bool resume=false;
+        var difficulty=SummonDifficulties.For(owner);bool resume=false;
         foreach(var old in ReviveNativeActivation.Snapshot().Where(x=>x.Owner==owner.Serial.Value))
         {
             if(World.FindMobile((Serial)old.Actor) is not BaseCreature{Alive:true,Deleted:false} actor||actor.ControlMaster!=owner){continue;}

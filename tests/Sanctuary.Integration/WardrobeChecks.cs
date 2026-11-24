@@ -54,7 +54,7 @@ public static class WardrobeChecks
             Require(!Swap(p, wardrobe, SkillName.Tinkering), "Unrecognized character switched craft");
             if (throughCraft) { p.Skills.Cartography.Base = 100; }
             else { ClassCreation.Profiles.AdvanceLevel(p, 80); }
-            Require(TownRecognition.Claim(p, site, throughCraft ? RecognitionHonor.Pillar : RecognitionHonor.Hero), "First ceremony failed");
+            Require((throughCraft ? TownRecognition.Claim(p, site, RecognitionHonor.Pillar) : RecognitionChecks.AwardHeroAndCollect(p, site)), "First ceremony failed");
             Require(WardrobeAccess.Ready(p, wardrobe) && !ClassRespec.Ready(p, wardrobe), "First ceremony did not unlock switching alone");
             Require(Swap(p, wardrobe, SkillName.Alchemy) && ClassProfessions.Profiles.Find(p).Confirmed,
                 "Earned wardrobe could not confirm the preselected default craft");
@@ -168,7 +168,7 @@ public static class WardrobeChecks
     {
         var p = Player(); string site = RecognitionChecks.Place(p); var wardrobe = TownRecognition.PublicWardrobe(site);
         ClassCreation.Profiles.AdvanceLevel(p, 80); p.Skills.Cartography.Base = 100;
-        TownRecognition.Claim(p, site, RecognitionHonor.Hero); TownRecognition.Claim(p, site, RecognitionHonor.Pillar);
+        RecognitionChecks.AwardHeroAndCollect(p, site); TownRecognition.Claim(p, site, RecognitionHonor.Pillar);
         ClassCreation.Profiles.TrySpendStat(p, CharacterStat.Vitality); p.Backpack.DropItem(new Gold(5000));
         long token = TownRecognition.BeginSession(p); var profile = Profile(p); var profession = ClassProfessions.Profiles.Find(p);
         Require(ClassRespec.Commit(p, wardrobe, profile, ClassCreation.Profiles.Stats(p.Serial), ClassCreation.Profiles.AvailablePoints(p.Serial)), "Respec failed");

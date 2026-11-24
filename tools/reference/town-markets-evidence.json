@@ -1,6 +1,6 @@
 {
   "nativeRevision": "eff9de028136b11e544fd81375d1e0e710e22dd6",
-  "catalogSha256": "fc8a492211bb534cbb0ac03e43ed456762c9351a42dee51065154bd03fa6c189",
+  "catalogSha256": "e94a8f28069678d677eb95ec4a5b3bc9cc519ffd007f99b6a71f2c3f686c64d1",
   "sources": {
     "regions.json": "cbfe5df4097d16185ce3fd9b902b42f71029227c366247214ca16a401340687d",
     "Spawns/post-uoml/felucca/Vendors.json": "42dc32ac7d7fa5b69a84482102412f9c29239660a9b53494da0598541e9c4844",
@@ -9,6 +9,6 @@
     "Spawns/shared/trammel/Vendors.json": "102abacbc8d4a953628fa9a68c98ed47be03f6eb43c63fee9c1546e55fef8b01",
     "Spawns/uoml/trammel/Vendors.json": "a4e6c6d88fcb45e69a2164642ae51b032582d12db7d8b3d3028fb37450d7016a"
   },
-  "townsFacets": 35,
-  "services": 466
+  "townsFacets": 36,
+  "services": 469
 }

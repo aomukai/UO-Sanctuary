@@ -56,6 +56,17 @@ public static class ClassGear
         var definition = Definition(item);
         return (State(item)?.BaseCode ?? definition?.BaseCode) is { } code ? EquipmentBalance.Base(code) : null;
     }
+    internal static NormalBase CombatBase(Item item) => GargoyleBows.Stats(item, Base(item));
+
+    internal static (int Min, int Max) BaseDamage(Item item, NormalBase basis, bool? sourceTwoHanded = null, bool? sourceMelee = null)
+    {
+        if (GargoyleBows.Matches(item))
+            return (basis.TwoHandMin, basis.TwoHandMax);
+        if (!(sourceMelee ?? WeaponHands.Melee(item)) && Definition(item).Category == "Throwing" && basis.MissileMax > 0)
+            return (basis.MissileMin, basis.MissileMax);
+        return (sourceTwoHanded ?? WeaponHands.TwoHanded(item)) && basis.TwoHandMax > 0
+            ? (basis.TwoHandMin, basis.TwoHandMax) : (basis.MinDamage, basis.MaxDamage);
+    }
     public static GearSlot Slot(Item item)
     {
         var definition = Definition(item);
@@ -73,7 +84,7 @@ public static class ClassGear
     public static bool Active(PlayerMobile player, Item item)
     {
         var slot = Slot(item);
-        if (item.Parent != player || slot == GearSlot.Cosmetic || Broken(item) || State(item) is { Identified: false })
+        if (item.Parent != player || !GargoyleBows.CanUse(item, player) || slot == GearSlot.Cosmetic || Broken(item) || State(item) is { Identified: false })
         {
             return false;
         }
@@ -200,18 +211,11 @@ public static class ClassGear
         {
             return (1, 2);
         }
-        if (Slot(item) != GearSlot.Weapon || Broken(item) || Base(item) is not { } basis)
+        if (Slot(item) != GearSlot.Weapon || Broken(item) || CombatBase(item) is not { } basis)
         {
             return (0, 0);
         }
-        bool twoHanded = sourceTwoHanded ?? WeaponHands.TwoHanded(item);
-        int min = twoHanded && basis.TwoHandMax > 0 ? basis.TwoHandMin : basis.MinDamage;
-        int max = twoHanded && basis.TwoHandMax > 0 ? basis.TwoHandMax : basis.MaxDamage;
-        if (!(sourceMelee ?? WeaponHands.Melee(item)) && Definition(item).Category == "Throwing" && basis.MissileMax > 0)
-        {
-            min = basis.MissileMin;
-            max = basis.MissileMax;
-        }
+        var (min, max) = BaseDamage(item, basis, sourceTwoHanded, sourceMelee);
         int enhanced = Enhanced(item, "dmg%", recipientLevel);
         if (NamedGear.Ethereal(item)) { min = min * 3 / 2; max = max * 3 / 2; }
         int levelMaximum = ItemDamageOperations.LevelMaximum(max, Bonus(item, "dmg-max%", recipientLevel));
@@ -219,8 +223,16 @@ public static class ClassGear
         max = max * (100 + enhanced) / 100 + Bonus(item, "dmg-max", recipientLevel) + levelMaximum;
         return (min, Math.Max(min, max));
     }
-    public static int RequiredLevel(Item item) => Slot(item) == GearSlot.Cosmetic ? 0
-        : Math.Max(State(item)?.Roll.RequiredLevel ?? Base(item)?.RequiredLevel ?? 0, RuneSockets.RequiredLevel(State(item) is { } saved ? RuneSockets.Filled(saved) : 0));
+    public static int RequiredLevel(Item item)
+    {
+        if (Slot(item) == GearSlot.Cosmetic)
+            return 0;
+        var saved = State(item);
+        int level = saved?.Roll.RequiredLevel ?? Base(item)?.RequiredLevel ?? 0;
+        if (GargoyleBows.Matches(item))
+            level = Math.Max(level, CombatBase(item)?.RequiredLevel ?? 0);
+        return Math.Max(level, RuneSockets.RequiredLevel(saved != null ? RuneSockets.Filled(saved) : 0));
+    }
     public static int BlockChance(PlayerMobile player)
     {
         Item shield = null;
@@ -255,7 +267,7 @@ public static class ClassGear
         if(stat is ClassGearStat.StrengthRequirement or ClassGearStat.DexterityRequirement
             &&DualEquip.RequirementOwner(item) is{} actor&&WarlockLevitation.TryRequirements(actor,item,out int strength,out int dexterity))
         {return stat==ClassGearStat.StrengthRequirement?strength:dexterity;}
-        var basis = Slot(item) == GearSlot.Cosmetic ? null : Base(item);
+        var basis = Slot(item) == GearSlot.Cosmetic ? null : CombatBase(item);
         return stat switch
         {
             ClassGearStat.MinDamage => Damage(item).Min,
@@ -322,7 +334,7 @@ public static class ClassGear
             // before native NPC equip so the owner's skill cannot leak.
             if(Converted(item)&&item.Parent is PlayerMobile wearer&&WarlockLevitation.Applies(wearer,item))
             {
-                var npcBasis=Base(item);int strength=Math.Max(0,npcBasis.Strength-(NamedGear.Ethereal(item)?10:0))*Math.Max(0,100+Bonus(item,"ease"))/100;
+                var npcBasis=CombatBase(item);int strength=Math.Max(0,npcBasis.Strength-(NamedGear.Ethereal(item)?10:0))*Math.Max(0,100+Bonus(item,"ease"))/100;
                 int dexterity=Math.Max(0,npcBasis.Dexterity-(NamedGear.Ethereal(item)?10:0))*Math.Max(0,100+Bonus(item,"ease"))/100;
                 if(mobile.Str<strength||mobile.Dex<dexterity){return false;}
             }
@@ -337,6 +349,8 @@ public static class ClassGear
             player.SendMessage("Identify this item before equipping it.");
             return false;
         }
+        if (GargoyleBows.Matches(item) && !item.CheckRace(player))
+            return false;
         int requiredStrength,requiredDexterity;
         if(WarlockLevitation.Applies(player,item))
         {
@@ -346,7 +360,7 @@ public static class ClassGear
         else
         {
             // Explicit recipient: never inherit a previous owner's mastery.
-            var recipientBasis=Base(item);
+            var recipientBasis=CombatBase(item);
             requiredStrength=Math.Max(0,(recipientBasis?.Strength??0)-(NamedGear.Ethereal(item)?10:0))*Math.Max(0,100+Bonus(item,"ease"))/100;
             requiredDexterity=Math.Max(0,(recipientBasis?.Dexterity??0)-(NamedGear.Ethereal(item)?10:0))*Math.Max(0,100+Bonus(item,"ease"))/100;
         }
@@ -416,6 +430,14 @@ public static class ClassGear
         else
             list.Add(name);
 
+        if (!IgnoreAppearanceRestrictions(item))
+        {
+            if (item.RequiredRaces == Race.AllowGargoylesOnly)
+                list.Add(1111709); // Gargoyles Only
+            else if (item.RequiredRaces == Race.AllowElvesOnly)
+                list.Add(1075086); // Elves Only
+        }
+
         if (saved is { Identified: false })
         {
             list.Add("Unidentified");
@@ -432,6 +454,8 @@ public static class ClassGear
             string label = basis.TwoHanded ? "Two-handed damage" : "Weapon damage";
             list.Add($"{label}: {damage.Min}–{damage.Max}");
             CombatTiming.AddSpeedProperties(weapon, list);
+            if (GargoyleBows.Matches(weapon))
+                list.Add($"{"Range: "}{CombatTiming.WeaponRange(weapon)}{" tiles"}");
         }
         if (basis.MaxDefense > 0)
             list.Add($"Defense: {Defense(item)}");
@@ -491,12 +515,16 @@ public static class ClassGear
             {
                 foreach (var modifier in affix.Modifiers)
                 {
+                    if (modifier.Code is "rep-quant" or "stack")
+                        continue;
                     var source=new AffixModifier(modifier.Code,modifier.Parameter,modifier.Min,modifier.Max,modifier.Mode);
                     list.Add(NamedGear.PropertyText(OrdinaryAffixProperties.Template(source),
                         OrdinaryAffixProperties.Projection(source,modifier.Value),item.RootParent is PlayerMobile wearer?ClassStats.Level(wearer):1));
                 }
             }
         }
+        if (item is BaseThrown thrown && !GargoyleBows.Matches(item))
+            list.Add($"{"Minimum throw range: "}{thrown.MinThrowRange}");
         return true;
     }
     public static void Changed(PlayerMobile player)
@@ -562,13 +590,14 @@ public static class ClassGear
         WarlockLevitation.InvalidateProperties(player);
         PlayerItemProcs.Refresh(player);
     }
+    private static bool IgnoreAppearanceRestrictions(Item item) => !GargoyleBows.Matches(item)
+        && (State(item)?.NamedItemId != null || Converted(item) && Definition(item)?.Category == "Throwing"
+            && Base(item) is { } basis && ClassItemTypes.Is(basis.Type, "thro"));
+
     public static void Configure()
     {
         Profiles = new GearProfiles();
-        // Mapped throwing bodies are appearances, including ordinary gear.
-        // Their pinned class, level and attribute gates still run in CanEquip.
-        ClassGearHooks.IgnoreAppearanceRestrictions = item => State(item)?.NamedItemId != null
-            || Converted(item) && Definition(item)?.Category == "Throwing" && Base(item) is { } basis && ClassItemTypes.Is(basis.Type, "thro");
+        ClassGearHooks.IgnoreAppearanceRestrictions = IgnoreAppearanceRestrictions;
         ItemStateHooks.Copied = (source, copy) =>
         {
             RuneMould.Copy(source, copy);

@@ -130,16 +130,17 @@ public static class CreatureExperienceChecks
         Kill(At(new Skeleton()), legacy);
         Require(Xp(_owner) == 334 && !ClassCreation.Profiles.TryGet(legacy.Serial, out _), "Non-class killer gained a class profile");
         CheckOverrides();
+        CheckHavenRewards();
         // Crossing a real threshold must still grant the existing stat/talent budgets.
         ClassCreation.Profiles.AwardExperience(_owner, 150);
-        Require(Xp(_owner) == 484 && ClassStats.Level(_owner) == 1, "XP setup unexpectedly levelled");
+        Require(Xp(_owner) == 484 && ClassStats.Level(_owner) == 2, "XP setup unexpectedly levelled");
         var revivable = At(new GraveyardSkeleton());
         revivable.MoveToWorld(CombatPractice.FindFloor(Map.Trammel, _point.X + 3, _point.Y + 2), Map.Trammel);
         revivable.AIObject.AITimer.Stop();
         _source = Kill(revivable, _owner);
-        Require(Xp(_owner) == 518 && ClassStats.Level(_owner) == 2
-            && ClassCreation.Profiles.AvailableStatPoints(_owner.Serial) == 5
-            && ClassCreation.Profiles.AvailablePoints(_owner.Serial) == 1, "D2 threshold or level rewards changed");
+        Require(Xp(_owner) == 518 && ClassStats.Level(_owner) == 3
+            && ClassCreation.Profiles.AvailableStatPoints(_owner.Serial) == 10
+            && ClassCreation.Profiles.AvailablePoints(_owner.Serial) == 2, "XP threshold or level rewards changed");
         _before = Xp(_owner);
         _lich = At(new GraveyardLich { CantWalk = true });
         _lich.Frozen = false;
@@ -149,6 +150,28 @@ public static class CreatureExperienceChecks
             Later(950, Raised);
         });
     }
+    private static void CheckHavenRewards()
+    {
+        var novice = Player("HavenNoviceXP");
+        var adventurer = Player("HavenAdventurerXP");
+        ClassCreation.Profiles.AdvanceLevel(adventurer, Iolo.RequiredLevel);
+        foreach (var player in new[] { novice, adventurer })
+        {
+            foreach (var (species, level, scale) in new[]
+            {
+                (HavenEncounter.Bogling, 1, 2),
+                (HavenEncounter.EarthElemental, 6, 3)
+            })
+            {
+                var creature = At(new HavenEncounter(species, level));
+                int expected = MonsterExperience.Award(creature.BaseExperience * scale, level, ClassStats.Level(player));
+                long before = Xp(player);
+                Kill(creature, player);
+                Require(expected > 0 && Xp(player) - before == expected, "Haven kill bypassed its normal encounter XP");
+            }
+        }
+    }
+
     private static void CheckOverrides()
     {
         // Change one in-memory fixture row, synchronously, restoring before any timer tick.
@@ -267,7 +290,7 @@ public static class CreatureExperienceChecks
         var saved = JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));
         var player = World.FindMobile((Serial)saved.Player) as PlayerMobile;
         var corpse = World.FindItem((Serial)saved.Corpse) as Corpse;
-        Require(player != null && Xp(player) == saved.Experience && ClassStats.Level(player) == 2
+        Require(player != null && Xp(player) == saved.Experience && ClassStats.Level(player) == 3
             && corpse is { SanctuaryNoRewards: true }, "XP or spent corpse flag did not persist");
         // On the first reload, a saved live revived mob must still pay nothing.
         if (World.FindMobile((Serial)saved.Raised) is GraveyardUndead raised)

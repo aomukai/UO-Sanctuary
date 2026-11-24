@@ -181,7 +181,7 @@ public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum,INec
     {
         if(at.Kind!=DateTimeKind.Utc||at>DateTime.MaxValue.AddMilliseconds(-40)||owner?.Map==null||owner.Map==Map.Internal||!owner.Map.CanSpawnMobile(point))
         {throw new ArgumentException("Valkyrie needs a legal native point and UTC clock");}
-        var state=new ValkyrieBodyState(owner.Serial.Value,ValkyrieBirthNumbers.Capture(owner,suppliedSpawnLife256),SummonDifficulties.For(owner.Map),at.AddMilliseconds(40));
+        var state=new ValkyrieBodyState(owner.Serial.Value,ValkyrieBirthNumbers.Capture(owner,suppliedSpawnLife256),SummonDifficulties.For(owner),at.AddMilliseconds(40));
         Validate(state);var body=new AmazonValkyrieBody();
         try
         {
@@ -201,7 +201,7 @@ public partial class AmazonValkyrieBody:SkeletonGuardian,ISourceLifeMaximum,INec
         // world RNG. The actual body constructor succeeds before its unit draw.
         if(at.Kind!=DateTimeKind.Utc||at>DateTime.MaxValue.AddMilliseconds(-40)||owner?.Map==null||owner.Map==Map.Internal||!owner.Map.CanSpawnMobile(point))
         {throw new ArgumentException("Valkyrie needs a legal native point and UTC clock");}
-        var difficulty=SummonDifficulties.For(owner.Map);var birth=ValkyrieBirthNumbers.Capture(owner,NecromancerSummons.Source("valkyrie","minHP",difficulty)*256);
+        var difficulty=SummonDifficulties.For(owner);var birth=ValkyrieBirthNumbers.Capture(owner,NecromancerSummons.Source("valkyrie","minHP",difficulty)*256);
         var preflight=new ValkyrieBodyState(owner.Serial.Value,birth,difficulty,at.AddMilliseconds(40));Validate(preflight);
         var body=new AmazonValkyrieBody();
         try

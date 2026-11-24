@@ -45,7 +45,7 @@ internal static class BladeSentinelSummons
     }
     internal static void RescaleFor(PlayerMobile owner)
     {
-        var difficulty=SummonDifficulties.For(owner.Map);
+        var difficulty=SummonDifficulties.For(owner);
         foreach(var entry in AssassinTrapRoster.For(owner))
         {
             if(World.FindMobile((Serial)entry.Actor) is BladeSentinelBody{Deleted:false,Alive:true} body)
@@ -60,7 +60,7 @@ internal static class BladeSentinelSummons
             || !ClassCreation.Profiles.TryGet(owner.Serial,out var profile) || profile.Class!=DiabloClass.Assassin
             || rank is <1 or >255)
         {throw new InvalidOperationException("Blade summon needs a live learned Assassin world owner");}
-        var difficulty=SummonDifficulties.For(owner.Map);const string source="bladecreeper";
+        var difficulty=SummonDifficulties.For(owner);const string source="bladecreeper";
         // Non-evil alignment gives playerCount1/zero HP bonus in the source
         // initializer. noRatio uses the literal min/max HP and AC columns.
         // Current blade bounds coincide: there is no random HP result to choose.

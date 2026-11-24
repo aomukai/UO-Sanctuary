@@ -1,0 +1,134 @@
+--- a/src/ClassicUO.Assets/ClassicUO.Assets.csproj
++++ b/src/ClassicUO.Assets/ClassicUO.Assets.csproj
+@@ -12,6 +12,7 @@
+   <ItemGroup>
+     <InternalsVisibleTo Include="ClassicUO.UnitTests" />
+     <Compile Include="../../../../shared/RavenAppearance.cs" Link="RavenAppearance.cs" />
++    <Compile Include="../../../../shared/CampaignBossAppearance.cs" Link="CampaignBossAppearance.cs" />
+   </ItemGroup>
+ 
+ </Project>
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -42,6 +42,9 @@
+     <Content Include="../../../../art/player-ui/dialogue-font/Book.mul;../../../../art/player-ui/dialogue-font/OFL-*.txt"
+              Link="SanctuaryFonts/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+     <Content Include="../../../../art/succubus/succubus.idx;../../../../art/succubus/succubus.mul"
++             Link="Data/Sanctuary/Animations/%(Filename)%(Extension)"
++             CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
++    <Content Include="../../../../art/campaign-bosses/campaign-bosses.idx;../../../../art/campaign-bosses/campaign-bosses.mul"
+              Link="Data/Sanctuary/Animations/%(Filename)%(Extension)"
+              CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+     <Content Include="../../../../art/raven/raven.idx;../../../../art/raven/raven.mul"
+--- a/src/ClassicUO.Assets/AnimationsLoader.cs
++++ b/src/ClassicUO.Assets/AnimationsLoader.cs
+@@ -25,11 +25,14 @@
+         // The override has its own file index, outside the regular anim*.mul range.
+         private const int SuccubusFileIndex = 10;
+         private const int RavenFileIndex = 11;
++        private const int CampaignBossFileIndex = 12;
+         private const int OverrideBodyStride = (int)HighAnimationGroup.AnimationCount * MAX_DIRECTIONS;
+         private UOFileMul _succubusAnimations;
+         private AnimationDirection[] _succubusDirections;
+         private UOFileMul _ravenAnimations;
+         private AnimationDirection[] _ravenDirections;
++        private UOFileMul _bossAnimations;
++        private AnimationDirection[] _bossDirections;
+ 
+ 
+         [ThreadStatic]
+@@ -68,6 +71,7 @@
+             ClearResources();
+             (_succubusAnimations, _succubusDirections) = LoadAnimationOverride("succubus", 1);
+             (_ravenAnimations, _ravenDirections) = LoadAnimationOverride("raven", Sanctuary.RavenAppearance.MaxCount);
++            (_bossAnimations, _bossDirections) = LoadAnimationOverride("campaign-bosses", Sanctuary.CampaignBossAppearance.Count);
+ 
+             for (int i = 0; i < _files.Length; i++)
+             {
+@@ -329,6 +333,15 @@
+                 fileIndex = SuccubusFileIndex;
+                 animType = AnimationGroupsType.Monster;
+                 return _succubusDirections;
++            }
++
++            int boss = body - Sanctuary.CampaignBossAppearance.Leoric;
++            if (_bossDirections != null && boss >= 0 && boss < Sanctuary.CampaignBossAppearance.Count)
++            {
++                flags = AnimationFlags.Found;
++                fileIndex = CampaignBossFileIndex;
++                animType = AnimationGroupsType.Monster;
++                return _bossDirections.AsSpan(boss * OverrideBodyStride, OverrideBodyStride);
+             }
+ 
+             int flock = body - Sanctuary.RavenAppearance.FirstBody;
+@@ -1086,6 +1099,9 @@
+             _ravenAnimations?.Dispose();
+             _ravenAnimations = null;
+             _ravenDirections = null;
++            _bossAnimations?.Dispose();
++            _bossAnimations = null;
++            _bossDirections = null;
+         }
+ 
+ 
+@@ -1535,7 +1551,7 @@
+ 
+         public Span<FrameInfo> ReadMULAnimationFrames(int fileIndex, AnimationDirection index, bool isVerdata = false)
+         {
+-            if (!isVerdata && (fileIndex < 0 || fileIndex > RavenFileIndex))
++            if (!isVerdata && (fileIndex < 0 || fileIndex > CampaignBossFileIndex))
+             {
+                 return Span<FrameInfo>.Empty;
+             }
+@@ -1558,6 +1574,7 @@
+                 {
+                     SuccubusFileIndex => _succubusAnimations,
+                     RavenFileIndex => _ravenAnimations,
++                    CampaignBossFileIndex => _bossAnimations,
+                     _ => _files[fileIndex]
+                 };
+ 
+--- a/src/ClassicUO.Client/Game/GameObjects/Mobile.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Mobile.cs
+@@ -123,7 +123,7 @@
+ 
+         public Deque<Step> Steps { get; } = new Deque<Step>(Constants.MAX_STEP_COUNT);
+         public bool IsParalyzed => (Flags & Flags.Frozen) != 0;
+-        internal bool IsWardProtectedLazarus => World.MapIndex == 1 && Graphic == 0x190
++        internal bool IsWardProtectedLazarus => World.MapIndex == 1 && Graphic == Sanctuary.CampaignBossAppearance.Lazarus
+             && X == Sanctuary.WorldDecorationGraphics.MausoleumX + Sanctuary.WorldDecorationGraphics.PrelateX
+             && Y == Sanctuary.WorldDecorationGraphics.MausoleumY + Sanctuary.WorldDecorationGraphics.PrelateY
+             && (IsYellowHits || NotorietyFlag == NotorietyFlag.Invulnerable);
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs
+@@ -190,6 +190,12 @@
+             return true;
+         }
+ 
++        // Ground items can remain at their final frame between network updates.
++        // Read the flame phase from the render clock for both drawing and picking.
++        private byte CorpseFrameIndex => Amount == CampaignBossAppearance.Diablo
++            ? (byte)(CampaignBossAppearance.FirstFireFrame + Time.Ticks / 140 % CampaignBossAppearance.CorpseFireFrames)
++            : AnimIndex;
++
+         private bool DrawCorpse(
+             UltimaBatcher2D batcher,
+             int posX,
+@@ -209,7 +215,7 @@
+             byte direction = (byte)((byte)Layer & 0x7F & 7);
+             Client.Game.UO.Animations.GetAnimDirection(ref direction, ref IsFlipped);
+ 
+-            byte animIndex = (byte)AnimIndex;
++            byte animIndex = CorpseFrameIndex;
+             ushort graphic = GetGraphicForAnimation();
+ 
+             Client.Game.UO.Animations.ConvertBodyIfNeeded(ref graphic, isCorpse: IsCorpse);
+@@ -591,7 +597,7 @@
+ 
+                 byte direction = (byte)((byte)Layer & 0x7F & 7);
+                 animations.GetAnimDirection(ref direction, ref IsFlipped);
+-                byte animIndex = AnimIndex;
++                byte animIndex = CorpseFrameIndex;
+                 bool ishuman =
+                     MathHelper.InRange(Amount, 0x0190, 0x0193)
+                     || MathHelper.InRange(Amount, 0x00B7, 0x00BA)

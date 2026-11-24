@@ -72,7 +72,7 @@ def configuration(retained=False,isolate=False,shared=False):
     c['extra_connected_checks']=(*c.get('extra_connected_checks',()),'inferno-held-input-check','inferno-held-input-reload-check','arctic-held-input-check','arctic-held-input-reload-check')
     c['extra_connection_settle']=max(c.get('extra_connection_settle',0),.15)
     c['extra_wire_callbacks']=(*c.get('extra_wire_callbacks',()),wires)
-    c['extra_inputs']+=(Path(__file__).resolve(),ROOT/'docs/arctic-approved-input-rule.md')
+    c['extra_inputs']+=(Path(__file__).resolve(),ROOT/'tools/reference/rules/arctic-approved-input-rule.md')
     return c
 
 

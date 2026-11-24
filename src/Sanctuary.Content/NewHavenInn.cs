@@ -18,6 +18,8 @@ public static class NewHavenInn
         EventSink.ServerStarted += Install;
         ClassMapHooks.StoryMobileVisible = (viewer, target) =>
         {
+            if (viewer is PlayerMobile campaignViewer && !BritanniaCampaign.MobileVisible(campaignViewer, target))
+                return false;
             if (viewer is PlayerMobile coveViewer && !CoveWorld.MobileVisible(coveViewer, target))
                 return false;
             if (viewer is PlayerMobile ghostViewer && target is HedgeHouseGhost ghost && !ghost.VisibleTo(ghostViewer))
@@ -25,7 +27,8 @@ public static class NewHavenInn
             if (target is not Iolo { Recruited: false } || viewer is not PlayerMobile player)
                 return BritainStory.MobileVisible(viewer, target);
             var profiles = ClassCreation.Profiles;
-            return !profiles.HasDepartedNewHaven(player.Serial)
+            return BritanniaCampaign.TownsEmpty(player)
+                || !profiles.HasDepartedNewHaven(player.Serial)
                 && (World.FindMobile(profiles.IoloCompanion(player.Serial)) is not Iolo companion
                     || !MercenaryCare.IsCompanion(player, companion));
         };

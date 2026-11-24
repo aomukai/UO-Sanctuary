@@ -41,7 +41,7 @@ internal static class DruidRavenStats
         if(owner is not{Alive:true,Deleted:false} || !ClassCreation.Profiles.TryGet(owner.Serial,out var profile)
             || profile.Class!=DiabloClass.Druid || SkillMechanics.Rank(owner,CombatAbility.Raven)<1)
         {throw new InvalidOperationException("Raven needs a live learned Druid owner");}
-        return Birth(SkillMechanics.Values(owner,CombatAbility.Raven),SummonDifficulties.For(owner.Map),true,
+        return Birth(SkillMechanics.Values(owner,CombatAbility.Raven),SummonDifficulties.For(owner),true,
             name=>name=="item_pierce_damage_immunity"?ClassGear.Bonus(owner,"pierce-immunity-damage")
                 :throw new NotSupportedException("Unmapped inherited Raven stat: "+name));
     }

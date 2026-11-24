@@ -58,7 +58,7 @@ internal static class AssassinSentryCreation
             || !ClassCreation.Profiles.TryGet(owner.Serial,out var profile) || profile.Class!=DiabloClass.Assassin
             || rank is <1 or >255)
         {throw new InvalidOperationException("Sentry needs a living learned Assassin world owner");}
-        return Prepare(SkillMechanics.Values(owner,ability,rank),ClassStats.Level(owner),SummonDifficulties.For(owner.Map),
+        return Prepare(SkillMechanics.Values(owner,ability,rank),ClassStats.Level(owner),SummonDifficulties.For(owner),
             name=>AssassinTrapStats.Accrued(owner,name));
     }
     internal static SentryCreationStats Rescale(SentryCreationStats old,MonsterDifficulty difficulty)

@@ -18,7 +18,7 @@ public static class AmazonJab
     internal static Random WearRoll=Random.Shared;
     internal static string Code(PlayerMobile owner)=>PaladinZeal.AnimationCode(owner);
     internal static bool WeaponAllowed(PlayerMobile owner)=>CombatTiming.Equipped(owner) is{} weapon && ClassGear.State(weapon) is{Identified:true}
-        && ClassGear.Base(weapon) is{} basis && ClassItemTypes.Is(basis.Type,"spea") && Code(owner) is "1HT" or "2HT" && NamedAmmunition.CanAttack(weapon);
+        && ClassGear.CombatBase(weapon) is{} basis && ClassItemTypes.Is(basis.Type,"spea") && Code(owner) is "1HT" or "2HT";
     internal static int[] Points(string code)=>code=="1HT"?[3,9,15]:code=="2HT"?[3,10,17]:[];
     internal static int Range(PlayerMobile owner)=>CombatTiming.Weapon(CombatTiming.Equipped(owner)).Family==AttackFamily.Throw?1:CombatTiming.Range(owner,CombatAbility.BasicAttack);
     internal static (int End,int[] Events) Schedule(string code,int advance)
@@ -73,16 +73,12 @@ public static class AmazonJab
         session.Jab=new(weapon.Serial,selected,owner.Map,owner.Location,now,session.NextAction,0,basic,events);
         ClassCombat.SendState(owner,session);return true;
     }
-    // Expansion ordinary weapon wear: successful melee hit,4% weapon/10% throwable;
-    // a depleted throwable unit consumes one stack member and resets durability.
+    // Throwing weapons retain their higher chance of wear on melee hits.
     internal static void Wear(BaseWeapon weapon,Random random)
     {
         if(weapon==null || weapon.Deleted || NamedGear.Indestructible(weapon) || weapon.HitPoints<=0 || weapon.MaxHitPoints<=0){return;}
-        bool stack=NamedAmmunition.Maximum(weapon)>0;
-        if(random.Next(100)>=(stack?10:4)){return;}
-        if(weapon.HitPoints>1){weapon.HitPoints--;return;}
-        if(stack && NamedAmmunition.Remaining(weapon)>1 && NamedAmmunition.Consume(weapon,TimedEffects.Now)){weapon.HitPoints=weapon.MaxHitPoints;}
-        else{if(stack){NamedAmmunition.Consume(weapon,TimedEffects.Now);}weapon.HitPoints=0;}
+        if (random.Next(100) < (BarbarianThrowing.Throwable(weapon) ? 10 : 4))
+            weapon.HitPoints--;
     }
     internal static bool Resolve(PlayerMobile owner,long now)
     {

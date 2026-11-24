@@ -58,6 +58,7 @@ internal static class SigilActors
         var row=SkillMechanics.For(ability);return new(row,k=>k==row.SourceKey?rank:0,_=>0,level);
     }
     internal static SkillValues Values(SigilActor s)=>Values(s.Ability,s.Rank,s.Level);
+    internal static int BodyFrames(SkillValues values) => Body(values).Frames;
     internal static int RecipientFunction(CombatAbility ability)=>ability switch
     {CombatAbility.SigilLethargy or CombatAbility.SigilDeath=>30,CombatAbility.SigilRancor=>61,_=>throw new NotSupportedException("Unknown Sigil recipient")};
     private static (int Id,string Key,int Frames) Body(SkillValues values)

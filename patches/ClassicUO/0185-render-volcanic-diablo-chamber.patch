@@ -1,0 +1,165 @@
+diff --git a/src/ClassicUO.Client/ClassicUO.Client.csproj b/src/ClassicUO.Client/ClassicUO.Client.csproj
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -51,6 +51,7 @@
+     <Compile Include="../../../../shared/DespiseLighting.cs" Link="Game/Data/DespiseLighting.cs" />
+     <Compile Include="../../../../shared/CampGraphics.cs" Link="Game/Data/CampGraphics.cs" />
+     <Compile Include="../../../../shared/WorldDecorationGraphics.cs" Link="Game/Data/WorldDecorationGraphics.cs" />
++    <EmbeddedResource Include="../../../../art/world/diablo-ritual/volcanic-chamber.png" LogicalName="Sanctuary.World.VolcanicChamber.png" />
+     <Content Include="../../../../art/world/*/statics/*.art"
+              Link="Data/Sanctuary/Art/Statics/%(Filename)%(Extension)"
+              CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs
+@@ -19,6 +19,11 @@
+     internal partial class Item
+     {
+         private static EquipConvData? _equipConvData;
++
++        internal bool IsDiabloChamberScenery => (Flags & Flags.Movable) == 0
++            && WorldDecorationGraphics.IsDiabloCaveTerrain(World.MapIndex, X, Y, Graphic)
++            && World.Player is { } player && WorldDecorationGraphics.InDiabloCave(World.MapIndex, player.X, player.Y)
++            && (Z == 0 || (Z == 8 && Graphic is 0x1A07 or 0x1A08));
+ 
+         public override bool Draw(UltimaBatcher2D batcher, int posX, int posY, float depth)
+         {
+@@ -475,6 +480,10 @@
+ 
+         public override bool CheckMouseSelection()
+         {
++            if (OnGround && IsDiabloChamberScenery && Graphic != 0x051E
++                && !WorldDecorationGraphics.IsDiabloCaveFloor(World.MapIndex, X, Y, Graphic))
++                return false;
++
+             if (OnGround && (Graphic == WorldDecorationGraphics.DragonHoard || WorldDecorationGraphics.IsDragonHoardGround(Graphic)
+                 || WorldDecorationGraphics.IsDiabloFloorArt(Graphic) || Graphic == WorldDecorationGraphics.DiabloLavaBarrier))
+                 return false;
+diff --git a/src/ClassicUO.Client/Game/Scenes/GameScene.cs b/src/ClassicUO.Client/Game/Scenes/GameScene.cs
+--- a/src/ClassicUO.Client/Game/Scenes/GameScene.cs
++++ b/src/ClassicUO.Client/Game/Scenes/GameScene.cs
+@@ -272,6 +272,7 @@
+                 return;
+             }
+ 
++            _renderLists.ReleaseChamberPainting();
+             ProfileManager.CurrentProfile.DefaultScale = Camera.Zoom;
+ 
+             Client.Game.Audio?.StopMusic();
+diff --git a/src/ClassicUO.Client/Game/Scenes/RenderLists.cs b/src/ClassicUO.Client/Game/Scenes/RenderLists.cs
+--- a/src/ClassicUO.Client/Game/Scenes/RenderLists.cs
++++ b/src/ClassicUO.Client/Game/Scenes/RenderLists.cs
+@@ -6,6 +6,7 @@
+ using System;
+ using System.Collections.Generic;
+ using System.Runtime.InteropServices;
++using Microsoft.Xna.Framework;
+ using Microsoft.Xna.Framework.Graphics;
+ using Sanctuary;
+ 
+@@ -67,8 +68,8 @@
+         private readonly List<GameObject> _tiles = [];
+         private readonly List<GameObject> _stretchedTiles = [];
+         private readonly List<GameObject> _groundDecorations = [];
+-        private readonly List<GameObject> _ritualCarpets = [];
+-        private readonly List<GameObject> _ritualFloors = [];
++        private Item _chamberAnchor;
++        private Texture2D _chamberPainting;
+         private readonly List<GameObject> _dragonNests = [];
+         private readonly List<GameObject> _statics = [];
+         private readonly List<GameObject> _animations = [];
+@@ -82,8 +83,7 @@
+             _tiles.Clear();
+             _stretchedTiles.Clear();
+             _groundDecorations.Clear();
+-            _ritualCarpets.Clear();
+-            _ritualFloors.Clear();
++            _chamberAnchor = null;
+             _dragonNests.Clear();
+             _statics.Clear();
+             _animations.Clear();
+@@ -95,6 +95,16 @@
+ 
+         public void Add(GameObject toRender, bool isTransparent = false)
+         {
++            // Collision and picking still use the server's individual terrain items.
++            // Catch fading items here too, before they enter the transparent pass.
++            if (toRender is Item { OnGround: true } tile && tile.IsDiabloChamberScenery)
++            {
++                _chamberAnchor ??= tile;
++                // Lava blockers also contribute light to nearby actors and stone.
++                if (tile.Graphic != WorldDecorationGraphics.DiabloLavaBarrier)
++                    return;
++            }
++
+             if (isTransparent)
+             {
+                 _transparentObjects.Add(toRender);
+@@ -127,16 +137,7 @@
+                     _dragonNests.Add(toRender);
+                     break;
+ 
+-                case Item { OnGround: true } carpet when WorldDecorationGraphics.IsDiabloCarpet(carpet.Graphic):
+-                    _ritualCarpets.Add(toRender);
+-                    break;
+-
+-                case Item { OnGround: true } ritual when WorldDecorationGraphics.IsDiabloBlood(ritual.Graphic):
+-                    _ritualFloors.Add(toRender);
+-                    break;
+-
+-                case Item { OnGround: true } ground when WorldDecorationGraphics.IsDragonHoardGround(ground.Graphic)
+-                    || WorldDecorationGraphics.IsDiabloCaveFloor(ground.World.MapIndex, ground.X, ground.Y, ground.Graphic):
++                case Item { OnGround: true } ground when WorldDecorationGraphics.IsDragonHoardGround(ground.Graphic):
+                     _groundDecorations.Add(toRender);
+                     break;
+ 
+@@ -277,17 +278,45 @@
+ 
+         private int DrawGroundDecorations(UltimaBatcher2D batcher, sbyte maxGroundZ)
+         {
+-            if (_groundDecorations.Count == 0 && _dragonNests.Count == 0 && _ritualCarpets.Count == 0 && _ritualFloors.Count == 0)
++            if (_groundDecorations.Count == 0 && _dragonNests.Count == 0 && _chamberAnchor == null)
+                 return 0;
+ 
+             // Cover the terrain without writing depth that could hide scenery or creatures.
+             batcher.SetStencil(DepthStencilState.None);
+             int count = DrawRenderList(batcher, _groundDecorations, maxGroundZ) +
+-                DrawRenderList(batcher, _dragonNests, maxGroundZ) +
+-                DrawRenderList(batcher, _ritualCarpets, maxGroundZ) +
+-                DrawRenderList(batcher, _ritualFloors, maxGroundZ);
++                DrawRenderList(batcher, _dragonNests, maxGroundZ);
++            if (_chamberAnchor != null && maxGroundZ >= 0)
++            {
++                DrawDiabloChamber(batcher, _chamberAnchor);
++                count++;
++            }
+             batcher.SetStencil(DepthStencilState.Default);
+             return count;
++        }
++
++        private void DrawDiabloChamber(UltimaBatcher2D batcher, Item tile)
++        {
++            if (_chamberPainting == null)
++            {
++                using var stream = typeof(RenderLists).Assembly.GetManifestResourceStream("Sanctuary.World.VolcanicChamber.png")
++                    ?? throw new InvalidOperationException("Missing Diablo chamber painting");
++                _chamberPainting = Texture2D.FromStream(batcher.GraphicsDevice, stream);
++            }
++
++            int dx = WorldDecorationGraphics.DiabloCaveX + WorldDecorationGraphics.DiabloCaveSize / 2 - tile.X;
++            int dy = WorldDecorationGraphics.DiabloCaveY + WorldDecorationGraphics.DiabloCaveSize / 2 - tile.Y;
++            int centerX = tile.RealScreenPosition.X + 22 + (dx - dy) * 22;
++            int centerY = tile.RealScreenPosition.Y + 22 + (dx + dy) * 22 + tile.Z * 4;
++            // Source artwork is registered at half the native ground resolution.
++            int w = _chamberPainting.Width, h = _chamberPainting.Height;
++            batcher.Draw(_chamberPainting, new Rectangle(centerX - w, centerY - h, w * 2, h * 2),
++                ShaderHueTranslator.GetHueVector(0), 0);
++        }
++
++        public void ReleaseChamberPainting()
++        {
++            _chamberPainting?.Dispose();
++            _chamberPainting = null;
+         }
+ 
+         private static int DrawMeshLayer(UltimaBatcher2D batcher, MeshLayer layer)

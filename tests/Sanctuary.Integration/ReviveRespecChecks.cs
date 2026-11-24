@@ -45,7 +45,7 @@ public static class ReviveRespecChecks
         var profiles=ClassCreation.Profiles;
         ClassCreation.Profiles.AdvanceLevel(owner,80);owner.Skills[SkillName.Cartography].Base=100;
         string site=RecognitionChecks.Place(owner);var wardrobe=TownRecognition.PublicWardrobe(site);
-        Require(TownRecognition.Claim(owner,site,RecognitionHonor.Hero)&&TownRecognition.Claim(owner,site,RecognitionHonor.Pillar),"Required public ceremonies failed");
+        Require(RecognitionChecks.AwardHeroAndCollect(owner, site)&&TownRecognition.Claim(owner,site,RecognitionHonor.Pillar),"Required public ceremonies failed");
         owner.Backpack.DropItem(new Gold(6000));
         Require(profiles.TryGet(owner.Serial,out var quote),"Missing active Necromancer profile");
         var stats=profiles.Stats(owner.Serial);int points=profiles.AvailablePoints(owner.Serial);

@@ -84,6 +84,7 @@ public static class MountTravel
         mount.ControlSlots = 0;
         if (!mount.SetControlMaster(owner))
             return false;
+        CreatureProfiles.RestoreTamedMountLife(mount);
         if (!mount.Owners.Contains(owner))
             mount.Owners.Add(owner);
         mount.IsStabled = false;

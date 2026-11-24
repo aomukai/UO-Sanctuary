@@ -61,13 +61,21 @@ public static class ClassLoot
         && item.VerifyMove(from) && item.IsAccessibleTo(from);
     public static bool Take(PlayerMobile from, Item item)
     {
-        if (item?.Parent is not Corpse corpse || !CanTake(from, corpse, item) || from.Backpack == null
-            || from.Frozen || from.Paralyzed || from.Holding != null)
+        if (item?.Parent is not Corpse corpse || !CanTake(from, corpse, item)
+            || !MoveLootToBackpack(from, corpse, item))
+            return false;
+        RemoveHarvestedIfEmpty(corpse);
+        return true;
+    }
+
+    internal static bool MoveLootToBackpack(PlayerMobile from, Container source, Item item)
+    {
+        if (from.Backpack is not { } backpack || from.Frozen || from.Paralyzed || from.Holding != null)
         {
             return false;
         }
         var reject = LRReason.Inspecific;
-        if (!corpse.CheckLift(from, item, ref reject) || !item.CheckLift(from, item, ref reject))
+        if (!source.CheckLift(from, item, ref reject) || !item.CheckLift(from, item, ref reject))
         {
             return false;
         }
@@ -76,18 +84,17 @@ public static class ClassLoot
             from.SendMessage("You cannot carry that much weight.");
             return false;
         }
-        if (!from.OnDragLift(item) || !item.OnDragLift(from) || !from.Alive || item.Deleted || item.Parent != corpse)
+        if (!from.OnDragLift(item) || !item.OnDragLift(from) || !from.Alive || item.Deleted || item.Parent != source)
         {
             return false;
         }
-        if (!from.Backpack.TryDropItem(from, item, true))
+        if (!backpack.TryDropItem(from, item, true))
         {
             return false;
         }
-        corpse.OnItemLifted(from, item);
+        source.OnItemLifted(from, item);
         from.RevealingAction();
         from.PlaySound(0x57);
-        RemoveHarvestedIfEmpty(corpse);
         return true;
     }
     public static void RemoveHarvestedIfEmpty(Corpse corpse)
@@ -111,6 +118,12 @@ public static class ClassLoot
         }
         var action = (LootRequest)reader.ReadByte();
         var serial = (Serial)reader.ReadUInt32();
+        if (action == LootRequest.TakeChestGold)
+        {
+            if (World.FindItem(serial) is Gold { Parent: CryptGoldChest chest } gold)
+                chest.TakeGold(from, gold);
+            return;
+        }
         if (action is < LootRequest.Poll or > LootRequest.Close)
         {
             return;

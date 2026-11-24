@@ -15,7 +15,7 @@ public enum EncounterGrade { Ordinary, Champion, Unique, SuperUnique, Minion }
 public enum ChampionKind { Champion, Ghostly, Fanatic, Berserker, Possessed }
 public enum EliteModifier { AuraEnchanted, Cursed, ColdEnchanted, ExtraFast, FireEnchanted, LightningEnchanted,
     MagicResistant, ManaBurn, Multishot, SpectralHit, StoneSkin, ExtraStrong, Teleport }
-public enum EliteAura { None, Might, HolyFire, BlessedAim, HolyFreeze, HolyShock, Conviction, Fanaticism }
+public enum EliteAura { None, Might, HolyFire, BlessedAim, HolyFreeze, HolyShock, Conviction, Fanaticism, Vigor }
 public sealed record DungeonProfile(string Id, string Family, string Name, MonsterArchetype Archetype, string Reference,
     int MinimumLevel, int MaximumLevel, int Body, int Sound, CreatureResistances Resistances);
 public sealed record NamedEncounter(string Id, string Name, string Profile, int BaseLevel, EliteModifier[] Modifiers, EliteAura Aura);
@@ -56,9 +56,10 @@ public static class EncounterProfiles
     public static DungeonProfile Profile(string id) => _profiles.TryGetValue(id ?? "", out var row) ? row
         : HavenEncounter.FindSpecies(id) ?? FrontierEncounter.FindSpecies(id) ?? CovetousEncounter.FindSpecies(id)
             ?? CoveEncounter.FindSpecies(id) ?? YewEncounter.FindSpecies(id) ?? BrigandEncounter.FindSpecies(id)
-            ?? OrcFortEncounter.FindSpecies(id)
+            ?? OrcFortEncounter.FindSpecies(id) ?? HythlothEncounter.FindSpecies(id) ?? DestardEncounter.FindSpecies(id)
+            ?? DeceitEncounter.FindSpecies(id)
             ?? HedgeEncounter.FindSpecies(id) ?? (id == YewVampire.Species.Id ? YewVampire.Species : null)
-            ?? TreasureHunts.Profile(id)
+            ?? MausoleumDemon.FindSpecies(id) ?? TreasureHunts.Profile(id) ?? CampaignArenas.Profile(id)
             ?? throw new ArgumentException("Unknown dungeon encounter profile.", nameof(id));
     public static void Load()
     {

@@ -22,7 +22,7 @@ public static class StatProtocol
 }
 
 public enum CompanionEquipmentStyle : byte { Crossbow, Sword, Bow }
-public enum CompanionStatRequest : byte { Snapshot, OpenSheet }
+public enum CompanionStatRequest : byte { Snapshot, OpenSheet, Vitals }
 
 public enum CompanionStatField
 {
@@ -37,9 +37,11 @@ public static class CompanionStatProtocol
     public const ushort SubCommand = 0xFF;
     public const byte LegacyVersion = 1;
     public const byte Version = 2;
+    public const byte VitalsVersion = 3;
     public const int RequestLength = 11;
     public const int Values = (int)CompanionStatField.Count;
     public const int SnapshotLength = 11 + Values * 4;
+    public const int VitalsLength = 5 + 1 + 4 + 2 + 6 * 4;
     public const int SkillLength = 14;
     public const int MaxSkills = 6;
     public const int ResistanceCap = 75;

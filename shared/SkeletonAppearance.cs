@@ -8,7 +8,14 @@ public enum SkeletonAppearance : byte
     ArmouredWarrior,
     MageHat,
     MageStaff,
-    MageRobe
+    MageRobe,
+    BlackRobe,
+    Bow,
+    Crossbow,
+    Jester,
+    Mace,
+    Executioner,
+    CorruptedHatchling
 }
 
 public static class SkeletonAppearanceProtocol

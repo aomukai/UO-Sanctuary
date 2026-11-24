@@ -63,5 +63,5 @@ internal static class AssassinTrapTargets
         && !PaladinConversion.Active(target) && creature is not BaseVendor
         && !creature.Controlled && !creature.Summoned && creature.GetMaster()==null && !creature.InitialInnocent
         && creature.FightMode is not(FightMode.None or FightMode.Aggressor or FightMode.Evil)
-        && creature.IsEnemy(owner) && actor.CanSee(target) && harmful();
+        && ClassCombat.IsEnemyTarget(creature, owner) && actor.CanSee(target) && harmful();
 }

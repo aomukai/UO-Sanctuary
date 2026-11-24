@@ -23,6 +23,17 @@ DETAILS = {
     'Tinkering': ['Tinker tools; Tinkering workshop', 'Mined ingots/gems, Runebark and other mapped components', 'Tools, keys, white jewellery, keg parts and gem upgrades', 'crafting.md#tinkering-sockets--f01f08'],
 }
 
+PRODUCTION_LINKS = {
+    'crafting.md#alchemy--j01j05': '../../../docs/items-and-crafting.md#profession-progression',
+    'crafting.md#imbuing--e01e05': '../../../docs/items-and-crafting.md#equipment-lifecycle',
+    'crafting.md#tinkering-sockets--f01f08': '../../../docs/items-and-crafting.md#equipment-lifecycle',
+    't08-recipe-book.md': '../../../data/Sanctuary/Balance/equipment-recipes.json',
+    't31-carpentry.md': '../../../data/Sanctuary/Balance/carpentry.json',
+    't32-map-surveys.md': '../../../data/Sanctuary/Balance/map-surveys.json',
+    't30-cooking.md': '../../../data/Sanctuary/Balance/cooking-meals.json',
+    't34-inscription.md': '../../../data/Sanctuary/Balance/inscription-utilities.json',
+}
+
 
 def build():
     sources = {}
@@ -94,7 +105,7 @@ def render(data):
               '| --- | --- | --- | --- |']
     for skill in SKILLS:
         tool, supply, consumer, link = data['productionDetails'][skill]
-        lines.append(f'| {DISPLAY.get(skill, skill)} | {tool} | {supply} | [{consumer}]({link}) |')
+        lines.append(f'| {DISPLAY.get(skill, skill)} | {tool} | {supply} | [{consumer}]({PRODUCTION_LINKS[link]}) |')
     lines += ['', 'At 100, all ten crafts retain recognition/wardrobe eligibility and the Grandmaster title; gathering earns the title only. '
               'At 120, all thirteen retain the Legendary title and their cap. Existing profession-specific100/120 effects and recipe gates '
               'remain in the linked specifications: this pass adds no mastery bonuses. Equipment production retains100+ durability/socket quality; '
@@ -137,7 +148,7 @@ def render(data):
 def main():
     parser = argparse.ArgumentParser(description=__doc__); parser.add_argument('--check', action='store_true'); args = parser.parse_args()
     data = build()
-    for path, content in [(BALANCE / 'profession-coverage.json', json.dumps(data, indent=2) + '\n'), (ROOT / 'docs/t47-profession-coverage.md', render(data))]:
+    for path, content in [(BALANCE / 'profession-coverage.json', json.dumps(data, indent=2) + '\n'), (ROOT / 'tools/reference/reports/profession-coverage.md', render(data))]:
         if args.check:
             assert path.read_text() == content, f'Stale generated file: {path}'
         else:

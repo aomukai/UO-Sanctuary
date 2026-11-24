@@ -33,7 +33,7 @@ public static class FullWardrobeChecks
         var p = new PlayerMobile { Player = true, Body = 0x190, Name = "FullWardrobe" };
         p.AddItem(new Backpack()); ClassCreation.Profiles.Assign(p, DiabloClass.Necromancer);
         ClassCreation.Profiles.AdvanceLevel(p, 80); string site = RecognitionChecks.Place(p);
-        Require(TownRecognition.Claim(p, site, RecognitionHonor.Hero), "Wardrobe right was not earned");
+        Require(RecognitionChecks.AwardHeroAndCollect(p, site), "Wardrobe right was not earned");
         ClassProfessions.Profiles.Confirm(p, SkillName.Alchemy);
         Require(ClassCreation.Profiles.TryTrain(p.Serial, "necromancer.raiseskeleton", out _), "Summon allocation failed");
         return p;

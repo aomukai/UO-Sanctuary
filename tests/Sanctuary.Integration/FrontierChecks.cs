@@ -245,11 +245,11 @@ public static class FrontierChecks
         var desert = encounters.Where(m => m.Dungeon.Id.StartsWith("compassion-desert-", StringComparison.Ordinal)).ToArray();
         Require(desert.Length == 68 && desert.Select(m => m.Dungeon.Id).Distinct().Count() == 6
             && desert.All(m => m.Basis.Level is >= 20 and <= 25 && m.Location == m.Home
-                && map.CanFit(m.Location, 16, false, false) && !m.RepelledByAnkh(m.Home)
+                && map.CanFit(m.Location, 16, false, false) && !m.RepelledByRefuge(m.Home)
                 && desert.Count(other => Utility.InRange(other.Home, m.Home, 13)) == 1),
             "Compassion desert levels, terrain, refuge clearance or individual spawn spacing");
         Require(desert.Any(m => m.Home == new Point3D(2035, 841, 0))
-            && desert.All(m => m.RepelledByAnkh(new(1875, 865, -1)) && m.RepelledByAnkh(new(1857, 877, -1)))
+            && desert.All(m => m.RepelledByRefuge(new(1875, 865, -1)) && m.RepelledByRefuge(new(1857, 877, -1)))
             && World.Items.Values.OfType<AnkhNorth>().Any(ankh => ankh.Map == map && ankh.Location == new Point3D(1857, 877, -1)),
             "The Compassion ankh or safe approach is missing");
         int elites = desert.Count(m => m.Grade is EncounterGrade.Champion or EncounterGrade.Unique);
@@ -408,11 +408,12 @@ public static class FrontierChecks
         Require(Enumerable.Range(0, 100).Count(roll => FrontierEncounter.OgreLordGrade(roll) == EncounterGrade.Champion) == 10,
             "Exactly 10% of Ogre Lords should be paragons");
 
-        CheckSpawner("despisetroll", FrontierEncounter.DespiseTroll, FrontierEncounter.DespiseHarpy, 24);
-        CheckSpawner("despiseogre", FrontierEncounter.DespiseOgre, FrontierEncounter.DespiseStoneHarpy, 26);
-        CheckSpawner("despiseogrelord", FrontierEncounter.DespiseOgreLord, FrontierEncounter.DespiseOgreMage, 28, 80, 20);
+        CheckSpawner("despisetroll", FrontierEncounter.DespiseTroll, FrontierEncounter.DespiseHarpy, 24, 28);
+        CheckSpawner("despiseogre", FrontierEncounter.DespiseOgre, FrontierEncounter.DespiseStoneHarpy, 26, 30);
+        CheckSpawner("despiseogrelord", FrontierEncounter.DespiseOgreLord, FrontierEncounter.DespiseOgreMage, 28, 30, 80, 20);
 
-        void CheckSpawner(string name, string first, string second, int minimumLevel, int firstWeight = 100, int secondWeight = 100)
+        void CheckSpawner(string name, string first, string second, int minimumLevel, int maximumLevel,
+            int firstWeight = 100, int secondWeight = 100)
         {
             var gm = new PlayerMobile { Name = "Despise fixture", AccessLevel = AccessLevel.GameMaster };
             Spawner spawner = null;
@@ -430,7 +431,8 @@ public static class FrontierChecks
                 spawner.Respawn();
                 spawner.Spawn();
                 Require(spawner.Spawned.Count == 1, $"{name} should keep one active monster");
-                Require(spawner.Entries.Count == 10, $"{name} should offer two variants at five levels");
+                Require(spawner.Entries.Count == 2 * (maximumLevel - minimumLevel + 1),
+                    $"{name} should offer two variants at each level from {minimumLevel} to {maximumLevel}");
                 for (int i = 0; i < spawner.Entries.Count; i++)
                 {
                     Require(spawner.Entries[i].SpawnedProbability == (i % 2 == 0 ? firstWeight : secondWeight),

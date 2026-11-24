@@ -14,7 +14,7 @@ def review(check=False):
     def pin(relative):
         p=e.ROOT/relative;inputs[relative]=e.sha(p)
         return e.load(p) if p.suffix=='.json' else None if p.suffix in('.dll','.pdb') else p.read_text()
-    approval=pin('docs/arctic-approved-input-rule.md')
+    approval=pin('tools/reference/rules/arctic-approved-input-rule.md')
     assert 'Approve this Arctic Blast rule' in approval and '0.375' in approval and '4.6875' in approval
     client=pin('tools/reference/arctic-held-input-client-evidence.json')
     assert client['patches']==42 and client['buildErrors']==0 and not client['graphicalInputVerified']

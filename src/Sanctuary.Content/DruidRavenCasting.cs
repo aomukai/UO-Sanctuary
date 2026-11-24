@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
+using System.Linq;
 using Server;
 using Server.Mobiles;
 namespace Sanctuary;
@@ -50,15 +51,35 @@ public static class DruidRavenCasting
             || !Destination(owner,action.PendingTarget,action.PendingPoint,true,out var point,out var focus)){return false;}
         var values=SkillMechanics.Values(owner,CombatAbility.Raven);
         if(!NecromancerEffects.CanPay(owner,values.Mana256)){return false;}
+        var current=DruidRavens.For(owner).LastOrDefault();
+        var at=TimedEffects.Now;
+        if(current?.CanRefresh(owner)==true)
+        {
+            var target=AimFocus(owner,current,point,focus)??current.CurrentFocus(owner);
+            RavenBodyState renewed;
+            try{renewed=current.PrepareRefresh(owner,target,at,SourceRandom.InitLow(SeedLow()));}
+            catch(NotSupportedException){owner.SendMessage(0x22,"Raven cannot be used in this context yet.");return false;}
+            if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
+            current.Refresh(owner,renewed);
+            DruidRavens.KeepLatest(owner);
+            return true;
+        }
+        var spawn=PersistentMinions.FindPosition(owner,out var nearby)?nearby:owner.Location;
         DruidRavenBody body;
-        try{body=DruidRavenBody.CreatePrepared(owner,point,TimedEffects.Now,SourceRandom.InitLow(SeedLow()),enforce:false);}
+        try{body=DruidRavenBody.CreatePrepared(owner,spawn,at,SourceRandom.InitLow(SeedLow()),enforce:false);}
         catch(NotSupportedException){owner.SendMessage(0x22,"Raven cannot be used in this context yet.");return false;}
-        // Allocation must succeed before payment; cap replacement and flock
-        // commands wait until payment succeeds, preserving existing birds on
+        // Allocation must succeed before payment; replacing the flock and
+        // commanding it wait until payment succeeds, preserving old birds on
         // any failed cast. All of this runs on the server loop.
         if(!NecromancerEffects.Pay(owner,values.Mana256)){body.Delete();return false;}
-        DruidRavens.Enforce(owner);if(focus!=null){DruidRavens.Focus(owner,focus);}
+        DruidRavens.KeepLatest(owner);
+        focus=AimFocus(owner,body,point,focus);
+        if(focus!=null){DruidRavens.Focus(owner,focus);}
         DruidSummonVisuals.Arrive(body);
         return true;
     }
+
+    private static Mobile AimFocus(PlayerMobile owner,DruidRavenBody body,Point3D point,Mobile focus)
+        =>body.Eligible(owner,focus)?focus:NearClickTargets.Acquire(owner,point,CombatProtocol.TeethRange,
+            target=>body.Eligible(owner,target)&&owner.InLOS(target),stableTies:true);
 }

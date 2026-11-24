@@ -35,7 +35,7 @@ internal static class GrimWardCurseTransport
     }
     internal static bool Apply(PlayerMobile owner,Item missile,BaseCreature target,SkillValues context,DateTime at)
         =>Eligible(owner,missile,target,at)&&ApplyPacket(owner,missile,target,
-            GrimWardCurseOperation.Packet(context,SummonDifficulties.For(owner.Map)),at);
+            GrimWardCurseOperation.Packet(context,SummonDifficulties.For(owner)),at);
     private static bool Eligible(PlayerMobile owner,Item missile,BaseCreature target,DateTime at)
     {
         return !(owner is not{Alive:true,Deleted:false}||missile is not{Deleted:false}||target is not{Alive:true,Deleted:false}

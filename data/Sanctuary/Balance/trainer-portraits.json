@@ -429,5 +429,7 @@
   {"site": "Trammel/Papua/Lumberjack", "portrait": 706, "female": false},
   {"site": "Trammel/Papua/Fisher", "portrait": 707, "female": false},
   {"site": "Trammel/Britannia/Roadside/Fisher", "portrait": 708, "female": false},
-  {"site": "Trammel/Britannia/Roadside/Cook", "portrait": 709, "female": true}
+  {"site": "Trammel/Britannia/Roadside/Cook", "portrait": 709, "female": true},
+  {"site": "Trammel/Heartwood/Bowyer", "portrait": 710, "female": true},
+  {"site": "Trammel/Heartwood/Carpenter", "portrait": 711, "female": false}
 ]

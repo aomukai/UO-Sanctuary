@@ -17,9 +17,10 @@ namespace Sanctuary;
 
 public static class ScriptedDialogue
 {
-    internal sealed record Reply(string Text, byte Next, Action<PlayerMobile, Mobile> Select = null);
+    internal sealed record Reply(string Text, byte Next, Action<PlayerMobile, Mobile> Select = null,
+        StoryDiscoveries Learns = StoryDiscoveries.None);
     internal sealed record Voice(string Name, ushort Portrait);
-    internal sealed record Node(string Line, Reply[] Replies, Voice Speaker = null);
+    internal sealed record Node(string Line, Reply[] Replies, Voice Speaker = null, StoryDiscoveries Learns = StoryDiscoveries.None);
     private sealed record Session(Mobile Speaker, IReadOnlyList<Node> Script, byte Node, uint Token, long Until,
         Action<PlayerMobile, Mobile> Leave);
     private static readonly Dictionary<Serial, Session> _sessions = new();
@@ -101,13 +102,16 @@ public static class ScriptedDialogue
         var legacy = Packet(8, PortraitProtocol.BritainDiscoveries, stackalloc byte[8]);
         legacy.Write((byte)flags);
         player.NetState?.Send(legacy.Span);
-        // Older clients read the two-byte snapshot. The four-byte snapshot carries newer journal entries.
+        // Keep the shorter snapshots for clients built before the journal grew to 64 bits.
         var discoveries = Packet(9, PortraitProtocol.WorldDiscoveries, stackalloc byte[9]);
         discoveries.Write((ushort)flags);
         player.NetState?.Send(discoveries.Span);
         var expanded = Packet(11, PortraitProtocol.WorldDiscoveries, stackalloc byte[11]);
         expanded.Write((uint)flags);
         player.NetState?.Send(expanded.Span);
+        var full = Packet(15, PortraitProtocol.WorldDiscoveries, stackalloc byte[15]);
+        full.Write((ulong)flags);
+        player.NetState?.Send(full.Span);
     }
 
     internal static void RecordDiscovery(PlayerMobile player, StoryDiscoveries flag)
@@ -187,7 +191,11 @@ public static class ScriptedDialogue
                 select(player, session.Speaker);
             }
             else
+            {
+                if (reply.Learns != StoryDiscoveries.None)
+                    ClassCreation.Profiles.Discover(player.Serial, reply.Learns);
                 Show(player, session.Speaker, session.Script, reply.Next, session.Leave);
+            }
         }
     }
 
@@ -282,6 +290,8 @@ public static class ScriptedDialogue
         Action<PlayerMobile, Mobile> onLeave = null)
     {
         var page = script[node];
+        if (page.Learns != StoryDiscoveries.None)
+            RecordDiscovery(player, page.Learns);
         var talkative = speaker as IScriptedSpeaker;
         ushort portrait = page.Speaker?.Portrait ?? talkative?.Portrait
             ?? throw new InvalidOperationException($"A dialogue portrait is required for {speaker.Name}.");

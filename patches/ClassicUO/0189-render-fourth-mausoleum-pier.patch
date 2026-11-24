@@ -1,0 +1,35 @@
+--- a/src/ClassicUO.Client/Game/Scenes/RenderLists.cs
++++ b/src/ClassicUO.Client/Game/Scenes/RenderLists.cs
+@@ -72,7 +72,8 @@
+         private Texture2D _chamberPainting, _mausoleumPainting;
+         private readonly Texture2D[] _mausoleumPiers = new Texture2D[3];
+         // Offsets from the painting's top left, in source texels.
+-        private static readonly Point[] PierArtOrigins = [new(472, 1280), new(1200, 1280), new(840, 1980)];
++        private static readonly (Point Origin, int Texture)[] PierArt =
++            [(new(472, 1280), 0), (new(1200, 1280), 1), (new(840, 1980), 2), (new(840, 924), 2)];
+         private readonly List<GameObject> _dragonNests = [];
+         private readonly List<GameObject> _statics = [];
+         private readonly List<GameObject> _animations = [];
+@@ -334,15 +335,15 @@
+             // Leave a silhouette visible when an actor passes behind tall cover.
+             // The world depth buffer keeps actors on the near side fully visible.
+             batcher.SetStencil(DepthStencilState.DepthRead);
+-            for (int i = 0; i < _mausoleumPiers.Length; ++i)
+-            {
+-                if (_mausoleumPiers[i] == null)
++            for (int i = 0; i < PierArt.Length; ++i)
++            {
++                var (pos, textureIndex) = PierArt[i];
++                if (_mausoleumPiers[textureIndex] == null)
+                 {
+-                    using var stream = typeof(RenderLists).Assembly.GetManifestResourceStream($"Sanctuary.World.pier-{i}.png");
+-                    _mausoleumPiers[i] = Texture2D.FromStream(batcher.GraphicsDevice, stream);
++                    using var stream = typeof(RenderLists).Assembly.GetManifestResourceStream($"Sanctuary.World.pier-{textureIndex}.png");
++                    _mausoleumPiers[textureIndex] = Texture2D.FromStream(batcher.GraphicsDevice, stream);
+                 }
+-                var texture = _mausoleumPiers[i];
+-                var pos = PierArtOrigins[i];
++                var texture = _mausoleumPiers[textureIndex];
+                 var pier = WorldDecorationGraphics.MausoleumPiers[i];
+                 float depth = WorldDecorationGraphics.MausoleumX + WorldDecorationGraphics.MausoleumY + pier.X + pier.Y + 1.27f;
+                 batcher.Draw(texture, new Rectangle(origin.X + pos.X * 2, origin.Y + pos.Y * 2,

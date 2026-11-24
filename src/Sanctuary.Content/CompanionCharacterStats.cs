@@ -81,6 +81,25 @@ internal static class CompanionCharacterStats
         };
     }
 
+    internal static void SendVitals(NetState net, BaseCreature companion)
+    {
+        const int length = CompanionStatProtocol.VitalsLength;
+        var writer = new SpanWriter(stackalloc byte[length]);
+        writer.Write((byte)0xBF);
+        writer.Write((ushort)length);
+        writer.Write(CompanionStatProtocol.SubCommand);
+        writer.Write(CompanionStatProtocol.VitalsVersion);
+        writer.Write(companion.Serial.Value);
+        writer.Write(companion is IScriptedSpeaker speaker ? speaker.Portrait : (ushort)0);
+        writer.Write(companion.Alive && !companion.IsDeadPet ? companion.Hits : 0);
+        writer.Write(companion.HitsMax);
+        writer.Write(companion.Mana);
+        writer.Write(companion.ManaMax);
+        writer.Write(companion.Stam);
+        writer.Write(companion.StamMax);
+        net.Send(writer.Span);
+    }
+
     internal static void Send(NetState net, BaseCreature companion, IClassCompanion build, int level, byte version)
     {
         bool includeSkills = version == CompanionStatProtocol.Version;

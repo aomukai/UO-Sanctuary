@@ -1,0 +1,192 @@
+diff --git a/src/ClassicUO.Assets/AnimationsLoader.cs b/src/ClassicUO.Assets/AnimationsLoader.cs
+--- a/src/ClassicUO.Assets/AnimationsLoader.cs
++++ b/src/ClassicUO.Assets/AnimationsLoader.cs
+@@ -24,8 +24,12 @@
+         private const ushort SuccubusBody = 149;
+         // The override has its own file index, outside the regular anim*.mul range.
+         private const int SuccubusFileIndex = 10;
++        private const int RavenFileIndex = 11;
++        private const int OverrideBodyStride = (int)HighAnimationGroup.AnimationCount * MAX_DIRECTIONS;
+         private UOFileMul _succubusAnimations;
+         private AnimationDirection[] _succubusDirections;
++        private UOFileMul _ravenAnimations;
++        private AnimationDirection[] _ravenDirections;
+ 
+ 
+         [ThreadStatic]
+@@ -61,7 +65,9 @@
+         {
+             // the verdata.mul patch map (FileID 6) is rebuilt on every file load
+             _verdataAnimationBlocks = null;
+-            LoadSuccubusAnimations();
++            ClearResources();
++            (_succubusAnimations, _succubusDirections) = LoadAnimationOverride("succubus", 1);
++            (_ravenAnimations, _ravenDirections) = LoadAnimationOverride("raven", Sanctuary.RavenAppearance.MaxCount);
+ 
+             for (int i = 0; i < _files.Length; i++)
+             {
+@@ -224,22 +230,21 @@
+         public bool HasSuccubusAnimationOverride(ushort body) =>
+             body == SuccubusBody && _succubusDirections != null;
+ 
+-        private void LoadSuccubusAnimations()
+-        {
+-            ClearResources();
+-            string path = Path.Combine(AppContext.BaseDirectory, "Data", "Sanctuary", "Animations", "succubus");
++        private static (UOFileMul, AnimationDirection[]) LoadAnimationOverride(string name, int bodies)
++        {
++            string path = Path.Combine(AppContext.BaseDirectory, "Data", "Sanctuary", "Animations", name);
+             var index = new FileInfo(path + ".idx");
+             var data = new FileInfo(path + ".mul");
+             if (!index.Exists || !data.Exists)
+             {
+-                return;
+-            }
+-
+-            const int directionCount = (int)HighAnimationGroup.AnimationCount * MAX_DIRECTIONS;
++                return (null, null);
++            }
++
++            int directionCount = bodies * OverrideBodyStride;
+             if (index.Length != directionCount * sizeof(AnimIdxBlock) || data.Length == 0)
+             {
+-                Log.Warn("Invalid Sanctuary succubus animation files");
+-                return;
++                Log.Warn($"Invalid Sanctuary {name} animation files");
++                return (null, null);
+             }
+ 
+             var file = new UOFileMul(data.FullName, index.FullName);
+@@ -250,13 +255,12 @@
+                 if (direction.Size < 520 || (long)direction.Position + direction.Size > file.Length)
+                 {
+                     file.Dispose();
+-                    Log.Warn("Invalid Sanctuary succubus animation entry");
+-                    return;
+-                }
+-            }
+-
+-            _succubusAnimations = file;
+-            _succubusDirections = directions;
++                    Log.Warn($"Invalid Sanctuary {name} animation entry");
++                    return (null, null);
++                }
++            }
++
++            return (file, directions);
+         }
+ 
+         public bool ReplaceBody(ref ushort body, ref ushort hue)
+@@ -325,6 +329,15 @@
+                 fileIndex = SuccubusFileIndex;
+                 animType = AnimationGroupsType.Monster;
+                 return _succubusDirections;
++            }
++
++            int flock = body - Sanctuary.RavenAppearance.FirstBody;
++            if (_ravenDirections != null && flock >= 0 && flock < Sanctuary.RavenAppearance.MaxCount)
++            {
++                flags = AnimationFlags.Found;
++                fileIndex = RavenFileIndex;
++                animType = AnimationGroupsType.Monster;
++                return _ravenDirections.AsSpan(flock * OverrideBodyStride, OverrideBodyStride);
+             }
+ 
+             fileIndex = 0;
+@@ -1070,6 +1083,9 @@
+             _succubusAnimations?.Dispose();
+             _succubusAnimations = null;
+             _succubusDirections = null;
++            _ravenAnimations?.Dispose();
++            _ravenAnimations = null;
++            _ravenDirections = null;
+         }
+ 
+ 
+@@ -1519,7 +1535,7 @@
+ 
+         public Span<FrameInfo> ReadMULAnimationFrames(int fileIndex, AnimationDirection index, bool isVerdata = false)
+         {
+-            if (!isVerdata && (fileIndex < 0 || fileIndex > SuccubusFileIndex))
++            if (!isVerdata && (fileIndex < 0 || fileIndex > RavenFileIndex))
+             {
+                 return Span<FrameInfo>.Empty;
+             }
+@@ -1538,7 +1554,12 @@
+             // anim*.mul contains no bytes for them at all.
+             var file = isVerdata
+                 ? FileManager.Verdata?.File
+-                : (fileIndex == SuccubusFileIndex ? _succubusAnimations : _files[fileIndex]);
++                : fileIndex switch
++                {
++                    SuccubusFileIndex => _succubusAnimations,
++                    RavenFileIndex => _ravenAnimations,
++                    _ => _files[fileIndex]
++                };
+ 
+             if (file == null || index.Position + index.Size > file.Length)
+             {
+diff --git a/src/ClassicUO.Assets/ClassicUO.Assets.csproj b/src/ClassicUO.Assets/ClassicUO.Assets.csproj
+--- a/src/ClassicUO.Assets/ClassicUO.Assets.csproj
++++ b/src/ClassicUO.Assets/ClassicUO.Assets.csproj
+@@ -11,6 +11,7 @@
+ 
+   <ItemGroup>
+     <InternalsVisibleTo Include="ClassicUO.UnitTests" />
++    <Compile Include="../../../../shared/RavenAppearance.cs" Link="RavenAppearance.cs" />
+   </ItemGroup>
+ 
+ </Project>
+diff --git a/src/ClassicUO.Client/ClassicUO.Client.csproj b/src/ClassicUO.Client/ClassicUO.Client.csproj
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -42,6 +42,9 @@
+     <Content Include="../../../../art/player-ui/dialogue-font/Book.mul;../../../../art/player-ui/dialogue-font/OFL-*.txt"
+              Link="SanctuaryFonts/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+     <Content Include="../../../../art/succubus/succubus.idx;../../../../art/succubus/succubus.mul"
++             Link="Data/Sanctuary/Animations/%(Filename)%(Extension)"
++             CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
++    <Content Include="../../../../art/raven/raven.idx;../../../../art/raven/raven.mul"
+              Link="Data/Sanctuary/Animations/%(Filename)%(Extension)"
+              CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+     <Compile Include="../../../../shared/FlareGraphics.cs" Link="Game/Data/FlareGraphics.cs" />
+diff --git a/src/ClassicUO.Client/Game/ClassCombatClient.cs b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+--- a/src/ClassicUO.Client/Game/ClassCombatClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -402,6 +402,7 @@
+         uint target = ClassAbilities.DemonSummon(ability)
+             || ability is CombatAbility.CorpseExplosion or CombatAbility.PoisonExplosion or CombatAbility.FindItem
+             || ability == CombatAbility.BonePrison && SelectedObject.Object is not Mobile
++            || ability == CombatAbility.Raven && (SelectedObject.Object is not Mobile ravenTarget || !Hostile(ravenTarget))
+             ? 0 : SelectedObject.Object is Entity entity ? entity.Serial : 0;
+         Stop(world);
+         ClassSkillBindingsClient.Use(slot, ability, target, x, y, z);
+@@ -813,7 +814,8 @@
+         var obj = SelectedObject.Object;
+         bool groundAim = ClassAbilities.DemonSummon(Right)
+             || Right is CombatAbility.Teleport or CombatAbility.CorpseExplosion or CombatAbility.PoisonExplosion or CombatAbility.FindItem;
+-        if (obj is Mobile mobile && !Hostile(mobile) && !groundAim && !ClassAbilities.SkeletonSummon(Right)
++        if (obj is Mobile mobile && !Hostile(mobile) && Right != CombatAbility.Raven
++            && !groundAim && !ClassAbilities.SkeletonSummon(Right)
+             && !ClassAbilities.SelfTarget(Right) && !(ClassAbilities.AllyTarget(Right) && (Ally(mobile) || mobile == world.Player)))
+         {
+             Stop(world);
+@@ -824,7 +826,7 @@
+         _target = 0;
+         _rightHeld = true;
+         _heldAbility = Right;
+-        _heldUnit = !groundAim && obj is Mobile enemy ? enemy.Serial : 0;
++        _heldUnit = !groundAim && obj is Mobile enemy && (Right != CombatAbility.Raven || Hostile(enemy)) ? enemy.Serial : 0;
+         SendHeldAim(world);
+         _nextHoldUpdate = Time.Ticks + CombatProtocol.HoldHeartbeatMs;
+         return true;
+@@ -901,7 +903,8 @@
+             Send(CombatRequest.HoldCast, unit.Serial, _heldAbility, unit.X, unit.Y, unit.Z);
+             return;
+         }
+-        if (SelectedObject.Object is Mobile friendly && !Hostile(friendly) && !ClassAbilities.AllyTarget(_heldAbility))
++        if (_heldAbility != CombatAbility.Raven && SelectedObject.Object is Mobile friendly
++            && !Hostile(friendly) && !ClassAbilities.AllyTarget(_heldAbility))
+         {
+             EndRightHold();
+             return;

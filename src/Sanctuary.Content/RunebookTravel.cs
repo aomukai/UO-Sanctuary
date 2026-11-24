@@ -12,9 +12,13 @@ public static class RunebookTravel
 {
     public static void Configure() => ClassMapHooks.RunebookTravel = Travel;
 
+    internal static bool AllowsMountedTravel(RunebookEntry entry) => entry.MountedTravel == RuneMountTravel.Allowed
+        || entry.MountedTravel == RuneMountTravel.Unspecified && entry.Map == Map.Trammel && entry.Location == CoveGateRune.Gates;
+
     private static void Travel(Mobile from, RunebookEntry entry)
     {
-        if (from is not PlayerMobile player || !player.CheckAlive() || MountTravel.BlocksTravel(player))
+        if (from is not PlayerMobile player || !player.CheckAlive()
+            || (!AllowsMountedTravel(entry) && MountTravel.BlocksTravel(player)))
             return;
 
         var map = entry.Map;

@@ -114,10 +114,10 @@ public static class BoundDemonHostChecks
             life=SkillHealth.Balance256(body);maximum=SkillHealth.Maximum256(body);SummonDifficulties.SetFacets(facets);p.Location=new(p.X,p.Y-1,p.Z);Require(BoundDemonHosts.State(body).Difficulty==MonsterDifficulty.Normal&&SkillHealth.Maximum256(body)==20000*256,"Normal bound baseline/cap was not restored");Ratio(body,life,maximum,"Returning Normal healed original");
             var intact=BoundDemonHosts.SaveSnapshot();bool invalid=false;try{BoundDemonHosts.Restore([intact[0]with{Order=0}]);}catch(InvalidDataException){invalid=true;}
             Require(invalid&&BoundDemonHosts.SaveSnapshot().SequenceEqual(intact),"Invalid bound host partially replaced ledger");
-            phase="town parking";town=new GuardedRegion("BoundDemonTown"+p.Serial.Value,p.Map,1000,new Rectangle2D(p.X+18,p.Y-2,6,5));town.Register();life=SkillHealth.Balance256(body);p.Location=new(p.X+20,p.Y,p.Z);
-            Require(MinionSafeAreas.Parked(body)&&body.Blessed&&!ClassGearHooks.CanRegenerateHits(body)&&!ClassGearHooks.CanRegenerateMana(body)&&!ClassGearHooks.CanRegenerateStamina(body)
-                &&SkillHealth.Balance256(body)==life&&weapon.Parent==body&&loot.Parent==body.Backpack,"Town parking granted recovery/reset or dropped original items");
-            p.Location=new(p.X-20,p.Y,p.Z);Require(body.Map==p.Map&&!body.Blessed&&BoundDemonHosts.CanAct(body)&&SkillHealth.Balance256(body)==life,"Leaving town failed original resume/wounds");town.Unregister();town=null;
+            phase="town entry";town=new GuardedRegion("BoundDemonTown"+p.Serial.Value,p.Map,1000,new Rectangle2D(p.X+18,p.Y-2,6,5));town.Register();life=SkillHealth.Balance256(body);p.Location=new(p.X+20,p.Y,p.Z);
+            Require(MinionSafeAreas.Contains(p)&&!MinionSafeAreas.Parked(body)&&!body.Blessed&&BoundDemonHosts.CanAct(body)
+                &&SkillHealth.Balance256(body)==life&&weapon.Parent==body&&loot.Parent==body.Backpack,"Town entry hid or modified the bound demon");
+            p.Location=new(p.X-20,p.Y,p.Z);Require(body.Map==p.Map&&!body.Blessed&&BoundDemonHosts.CanAct(body)&&SkillHealth.Balance256(body)==life,"Leaving town changed the bound demon");town.Unregister();town=null;
             SkillHealth.SetBalance256(body,SkillHealth.Maximum256(body)/2-17);body.Mana=Math.Max(0,body.ManaMax-3);body.Stam=Math.Max(0,body.StamMax-5);PersistentMinions.Suspend(p);
             Require(body.Map==Map.Internal&&!BoundDemonHosts.CanAct(body)&&!ClassGearHooks.CanRegenerateHits(body),"Offline original combat/recovery remained active");
             // The preceding physical-only prototype stored this derived flat
@@ -125,7 +125,7 @@ public static class BoundDemonHostChecks
             // and rebuild the original base before adding packet damage once.
             var legacy=BoundDemonHosts.State(body);body.SetDamage(legacy.Normal.Minimum+legacy.Birth.FlatDamage,legacy.Normal.Maximum+legacy.Birth.FlatDamage);
             phase="save";File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(0,p.Serial.Value,body.Serial.Value,weapon.Serial.Value,loot.Serial.Value,BoundDemonHosts.State(body),SkillHealth.Balance256(body),SkillHealth.Maximum256(body),body.Mana,body.Stam,ai,magery)));kept=true;
-            Log.Information("Bound host:original Daemon identity and actual native guard acquisition/stop/resume,real gear snapshot/native AR/armor/damage/speed/resist consumers,health commitment,one-bound/shared FIFO,source life cap,facet wound ratios,town/offline parking and atomic restore pass;channel/chance/modifier/underling delivery remain gated");
+            Log.Information("Bound host:original Daemon identity and actual native guard acquisition/stop/resume,real gear snapshot/native AR/armor/damage/speed/resist consumers,health commitment,one-bound/shared FIFO,source life cap,facet wound ratios,town presence,offline parking and atomic restore pass;channel/chance/modifier/underling delivery remain gated");
         }
         catch(Exception e){throw new InvalidOperationException("Bound host scene failed during "+phase,e);}
         finally

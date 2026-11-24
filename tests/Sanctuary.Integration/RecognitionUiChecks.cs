@@ -79,6 +79,7 @@ public static class RecognitionUiChecks
         _site = RecognitionChecks.Place(_player, Array.FindIndex(TownRecognition.Halls, h => h.Id == "Felucca/Britain"));
         ClassCreation.Profiles.TryGet(_player.Serial, out _profile);
         _stats = ClassCreation.Profiles.Stats(_player.Serial);
+        RecognitionChecks.ProclaimHero(_player);
         TownRecognition.Open(_player, _site);
     }
     private static void Require(bool condition, string message)

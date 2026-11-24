@@ -8,7 +8,7 @@ from pathlib import Path
 from build_named_equipment import ROOT, SOURCE, build, read_sources
 
 DATA = ROOT / 'data/Sanctuary/Balance/named-skill-backlog.json'
-REPORT = ROOT / 'docs/deferred-named-skills.md'
+REPORT = ROOT / 'tools/reference/reports/deferred-named-skills.md'
 MODES = {
     'att-skill': 'on-attack proc dispatcher', 'hit-skill': 'on-hit proc dispatcher',
     'gethit-skill': 'on-taking-hit proc dispatcher', 'kill-skill': 'on-kill proc dispatcher',

@@ -45,7 +45,7 @@ internal static class DefilerPrepared
         if(owner is not{Alive:true,Deleted:false}||!ClassCreation.Profiles.TryGet(owner.Serial,out var profile)||profile.Class!=DiabloClass.Warlock
             ||ClassCreation.Profiles.GetRank(owner.Serial,"warlock.summondefiler")<1)
         {throw new InvalidOperationException("Defiler needs a live trained Warlock owner");}
-        return new(Birth(SkillMechanics.Values(owner,CombatAbility.SummonDefiler),SummonDifficulties.For(owner.Map),profile.Level,
+        return new(Birth(SkillMechanics.Values(owner,CombatAbility.SummonDefiler),SummonDifficulties.For(owner),profile.Level,
             stat=>stat=="item_pierce_damage_immunity"?ClassGear.Bonus(owner,"pierce-immunity-damage")
                 :throw new NotSupportedException("Unmapped Defiler inherited stat")),SkillMechanics.Rank(owner,CombatAbility.DemonicMastery),
             SkillMechanics.Rank(owner,CombatAbility.BloodOath),ClassCreation.Profiles.GetRank(owner.Serial,"warlock.demonicmastery"));

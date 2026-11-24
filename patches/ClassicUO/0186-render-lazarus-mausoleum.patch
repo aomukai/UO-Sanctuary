@@ -1,0 +1,213 @@
+diff --git a/src/ClassicUO.Client/Game/ClassCombatClient.cs b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+--- a/src/ClassicUO.Client/Game/ClassCombatClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -149,7 +149,7 @@
+         while (tile.TPrevious != null) { tile = tile.TPrevious; }
+         for (var obj = tile; obj != null; obj = obj.TNext)
+         {
+-            if (obj is Mobile mob && mob != world.Player && !RavenAppearance.IsFlock(mob.Graphic)
++            if (obj is Mobile mob && mob != world.Player && !mob.IsWardProtectedLazarus && !RavenAppearance.IsFlock(mob.Graphic)
+                 && !mob.IsDead && mob.Z + 16 > z && z + 16 > mob.Z
+                 && !AvatarDialogueClient.IsOwnCompanion(world, mob))
+                 return true;
+diff --git a/src/ClassicUO.Client/ClassicUO.Client.csproj b/src/ClassicUO.Client/ClassicUO.Client.csproj
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -51,6 +51,8 @@
+     <Compile Include="../../../../shared/DespiseLighting.cs" Link="Game/Data/DespiseLighting.cs" />
+     <Compile Include="../../../../shared/CampGraphics.cs" Link="Game/Data/CampGraphics.cs" />
+     <Compile Include="../../../../shared/WorldDecorationGraphics.cs" Link="Game/Data/WorldDecorationGraphics.cs" />
++    <EmbeddedResource Include="../../../../art/world/lazarus-mausoleum/pier-*.png" LogicalName="Sanctuary.World.%(Filename).png" />
++    <EmbeddedResource Include="../../../../art/world/lazarus-mausoleum/chamber.jpg" LogicalName="Sanctuary.World.Mausoleum.jpg" />
+     <EmbeddedResource Include="../../../../art/world/diablo-ritual/volcanic-chamber.png" LogicalName="Sanctuary.World.VolcanicChamber.png" />
+     <Content Include="../../../../art/world/*/statics/*.art"
+              Link="Data/Sanctuary/Art/Statics/%(Filename)%(Extension)"
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs
+@@ -19,6 +19,10 @@
+     internal partial class Item
+     {
+         private static EquipConvData? _equipConvData;
++
++        internal bool IsMausoleumScenery => OnGround && Z == 0 && (Flags & Flags.Movable) == 0
++            && Graphic is 0x051C or 0x027E && WorldDecorationGraphics.InMausoleum(World.MapIndex, X, Y)
++            && World.Player is { } viewer && WorldDecorationGraphics.InMausoleum(World.MapIndex, viewer.X, viewer.Y);
+ 
+         internal bool IsDiabloChamberScenery => (Flags & Flags.Movable) == 0
+             && WorldDecorationGraphics.IsDiabloCaveTerrain(World.MapIndex, X, Y, Graphic)
+@@ -480,6 +484,7 @@
+ 
+         public override bool CheckMouseSelection()
+         {
++            if (Graphic == 0x027E && IsMausoleumScenery) return false;
+             if (OnGround && IsDiabloChamberScenery && Graphic != 0x051E
+                 && !WorldDecorationGraphics.IsDiabloCaveFloor(World.MapIndex, X, Y, Graphic))
+                 return false;
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Mobile.cs b/src/ClassicUO.Client/Game/GameObjects/Mobile.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Mobile.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Mobile.cs
+@@ -123,6 +123,11 @@
+ 
+         public Deque<Step> Steps { get; } = new Deque<Step>(Constants.MAX_STEP_COUNT);
+         public bool IsParalyzed => (Flags & Flags.Frozen) != 0;
++        internal bool IsWardProtectedLazarus => World.MapIndex == 1 && Graphic == 0x190
++            && X == Sanctuary.WorldDecorationGraphics.MausoleumX + Sanctuary.WorldDecorationGraphics.MausoleumMid
++            && Y == Sanctuary.WorldDecorationGraphics.MausoleumY + Sanctuary.WorldDecorationGraphics.MausoleumMid
++            && (IsYellowHits || NotorietyFlag == NotorietyFlag.Invulnerable);
++
+         public bool IsYellowHits => (Flags & Flags.YellowBar) != 0;
+         public bool IsPoisoned =>
+             Client.Game.UO.Version >= ClientVersion.CV_7000
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+@@ -1246,7 +1246,7 @@
+ 
+         public override bool CheckMouseSelection()
+         {
+-            if (Sanctuary.RavenAppearance.IsFlock(Graphic)) { return false; }
++            if (IsWardProtectedLazarus || Sanctuary.RavenAppearance.IsFlock(Graphic)) { return false; }
+             if (_summonFrame == SpellEffectGraphics.SentryModelGone) { return false; }
+             if (SpellEffectGraphics.IsBladeSentinelBody(_summonFrame) || SpellEffectGraphics.IsSentryModelFrame(_summonFrame))
+             {
+diff --git a/src/ClassicUO.Client/Game/Scenes/RenderLists.cs b/src/ClassicUO.Client/Game/Scenes/RenderLists.cs
+--- a/src/ClassicUO.Client/Game/Scenes/RenderLists.cs
++++ b/src/ClassicUO.Client/Game/Scenes/RenderLists.cs
+@@ -69,7 +69,10 @@
+         private readonly List<GameObject> _stretchedTiles = [];
+         private readonly List<GameObject> _groundDecorations = [];
+         private Item _chamberAnchor;
+-        private Texture2D _chamberPainting;
++        private Texture2D _chamberPainting, _mausoleumPainting;
++        private readonly Texture2D[] _mausoleumPiers = new Texture2D[3];
++        // Offsets from the painting's top left, in source texels.
++        private static readonly Point[] PierArtOrigins = [new(472, 1280), new(1200, 1280), new(840, 1980)];
+         private readonly List<GameObject> _dragonNests = [];
+         private readonly List<GameObject> _statics = [];
+         private readonly List<GameObject> _animations = [];
+@@ -97,7 +100,7 @@
+         {
+             // Collision and picking still use the server's individual terrain items.
+             // Catch fading items here too, before they enter the transparent pass.
+-            if (toRender is Item { OnGround: true } tile && tile.IsDiabloChamberScenery)
++            if (toRender is Item { OnGround: true } tile && (tile.IsDiabloChamberScenery || tile.IsMausoleumScenery))
+             {
+                 _chamberAnchor ??= tile;
+                 // Lava blockers also contribute light to nearby actors and stone.
+@@ -218,6 +221,9 @@
+                    DrawRenderList(batcher, _animations, maxGroundZ) +
+                    DrawRenderList(batcher, _effects, maxGroundZ);
+ 
++            if (maxGroundZ >= 0 && _chamberAnchor is { IsMausoleumScenery: true } mausoleum)
++                DrawMausoleumPiers(batcher, mausoleum);
++
+             if (_transparentObjects.Count > 0 || _gumpSprites.Count > 0 || _gumpTexts.Count > 0)
+             {
+                 result += DrawRenderList(batcher, _transparentObjects, maxGroundZ);
+@@ -264,6 +270,9 @@
+                    DrawRenderList(batcher, _animations, maxGroundZ) +
+                    DrawRenderList(batcher, _effects, maxGroundZ);
+ 
++            if (maxGroundZ >= 0 && _chamberAnchor is { IsMausoleumScenery: true } mausoleum)
++                DrawMausoleumPiers(batcher, mausoleum);
++
+             if (_transparentObjects.Count > 0 || _gumpSprites.Count > 0 || _gumpTexts.Count > 0)
+             {
+                 //batcher.SetStencil(DepthStencilState.DepthRead);
+@@ -287,11 +296,59 @@
+                 DrawRenderList(batcher, _dragonNests, maxGroundZ);
+             if (_chamberAnchor != null && maxGroundZ >= 0)
+             {
+-                DrawDiabloChamber(batcher, _chamberAnchor);
++                if (_chamberAnchor.IsMausoleumScenery)
++                    DrawMausoleum(batcher, _chamberAnchor);
++                else
++                    DrawDiabloChamber(batcher, _chamberAnchor);
+                 count++;
+             }
+             batcher.SetStencil(DepthStencilState.Default);
+             return count;
++        }
++
++        private void DrawMausoleum(UltimaBatcher2D batcher, Item tile)
++        {
++            if (_mausoleumPainting == null)
++            {
++                using var stream = typeof(RenderLists).Assembly.GetManifestResourceStream("Sanctuary.World.Mausoleum.jpg");
++                _mausoleumPainting = Texture2D.FromStream(batcher.GraphicsDevice, stream);
++            }
++
++            var origin = MausoleumArtOrigin(tile);
++            batcher.Draw(_mausoleumPainting, new Rectangle(origin.X, origin.Y, 3920, 5760),
++                ShaderHueTranslator.GetHueVector(0), 0);
++        }
++
++        private static Point MausoleumArtOrigin(Item tile)
++        {
++            int dx = WorldDecorationGraphics.MausoleumX + WorldDecorationGraphics.MausoleumMid - tile.X;
++            int dy = WorldDecorationGraphics.MausoleumY + WorldDecorationGraphics.MausoleumMid - tile.Y;
++            int x = tile.RealScreenPosition.X + 22 + (dx - dy) * 22;
++            int y = tile.RealScreenPosition.Y + 22 + (dx + dy) * 22;
++            return new Point(x - 1960, y - 3760);
++        }
++
++        private void DrawMausoleumPiers(UltimaBatcher2D batcher, Item tile)
++        {
++            var origin = MausoleumArtOrigin(tile);
++            // Leave a silhouette visible when an actor passes behind tall cover.
++            // The world depth buffer keeps actors on the near side fully visible.
++            batcher.SetStencil(DepthStencilState.DepthRead);
++            for (int i = 0; i < _mausoleumPiers.Length; ++i)
++            {
++                if (_mausoleumPiers[i] == null)
++                {
++                    using var stream = typeof(RenderLists).Assembly.GetManifestResourceStream($"Sanctuary.World.pier-{i}.png");
++                    _mausoleumPiers[i] = Texture2D.FromStream(batcher.GraphicsDevice, stream);
++                }
++                var texture = _mausoleumPiers[i];
++                var pos = PierArtOrigins[i];
++                var pier = WorldDecorationGraphics.MausoleumPiers[i];
++                float depth = WorldDecorationGraphics.MausoleumX + WorldDecorationGraphics.MausoleumY + pier.X + pier.Y + 1.27f;
++                batcher.Draw(texture, new Rectangle(origin.X + pos.X * 2, origin.Y + pos.Y * 2,
++                    texture.Width * 2, texture.Height * 2), ShaderHueTranslator.GetHueVector(0, false, 0.68f), depth);
++            }
++            batcher.SetStencil(DepthStencilState.Default);
+         }
+ 
+         private void DrawDiabloChamber(UltimaBatcher2D batcher, Item tile)
+@@ -315,6 +372,13 @@
+ 
+         public void ReleaseChamberPainting()
+         {
++            for (int i = 0; i < _mausoleumPiers.Length; ++i)
++            {
++                _mausoleumPiers[i]?.Dispose();
++                _mausoleumPiers[i] = null;
++            }
++            _mausoleumPainting?.Dispose();
++            _mausoleumPainting = null;
+             _chamberPainting?.Dispose();
+             _chamberPainting = null;
+         }
+diff --git a/src/ClassicUO.Client/Game/World.cs b/src/ClassicUO.Client/Game/World.cs
+--- a/src/ClassicUO.Client/Game/World.cs
++++ b/src/ClassicUO.Client/Game/World.cs
+@@ -648,7 +648,7 @@
+             {
+                 foreach (Mobile mobile in Mobiles.Values)
+                 {
+-                    if (mobile.IsDestroyed || mobile == Player || Sanctuary.RavenAppearance.IsFlock(mobile.Graphic))
++                    if (mobile.IsDestroyed || mobile == Player || mobile.IsWardProtectedLazarus || Sanctuary.RavenAppearance.IsFlock(mobile.Graphic))
+                     {
+                         continue;
+                     }
+@@ -722,7 +722,7 @@
+                 IEnumerable<Mobile> mobiles = reverse ? Mobiles.Values.Reverse() : Mobiles.Values;
+                 foreach (Mobile mobile in mobiles)
+                 {
+-                    if (mobile.IsDestroyed || mobile == Player || Sanctuary.RavenAppearance.IsFlock(mobile.Graphic))
++                    if (mobile.IsDestroyed || mobile == Player || mobile.IsWardProtectedLazarus || Sanctuary.RavenAppearance.IsFlock(mobile.Graphic))
+                     {
+                         continue;
+                     }

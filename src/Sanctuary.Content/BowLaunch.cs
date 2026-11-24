@@ -29,12 +29,10 @@ public static class BowLaunch
             Math.Max(-90,missilePercent+(weapon?ownerPercent:0)),weapon?demonPercent:0,weapon?undeadPercent:0,
             weapon && critical,weapon?elements.Scale(sourceDamage):new());
     }
-    internal static bool WeaponAllowed(PlayerMobile owner)=>BowAmmunition.AmmoType(owner,CombatTiming.Equipped(owner))!=null;
+    internal static bool WeaponAllowed(PlayerMobile owner)=>BowAmmunition.WeaponAllowed(owner,CombatTiming.Equipped(owner));
     private static double MaterialReference(PlayerMobile owner,BaseWeapon weapon,double roll,bool physical,int skillPercent)
     {
-        var basis=ClassGear.Base(weapon);bool two=WeaponHands.TwoHanded(weapon);
-        int min=two && basis.TwoHandMax>0?basis.TwoHandMin:basis.MinDamage,max=two && basis.TwoHandMax>0?basis.TwoHandMax:basis.MaxDamage;
-        if(!WeaponHands.Melee(weapon) && ClassGear.Definition(weapon)?.Category=="Throwing" && basis.MissileMax>0){min=basis.MissileMin;max=basis.MissileMax;}
+        var (min,max)=ClassGear.BaseDamage(weapon,ClassGear.CombatBase(weapon));
         int percent=physical?Math.Max(10,100+ClassStats.PhysicalDamageBonus(owner,weapon)+skillPercent)
             :Math.Max(0,100+ClassStats.DamageBonus(owner,weapon)-CombatAuras.DamagePercent(owner));
         return (min+(max-min)*roll)*percent/10000.0;
@@ -121,7 +119,7 @@ public static class BowLaunch
     {
         if(ability is not(CombatAbility.DoubleThrow or CombatAbility.LightningFury or CombatAbility.PlagueJavelin or CombatAbility.LightningBolt or CombatAbility.PoisonJavelin or CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.ExplodingArrow or CombatAbility.IceArrow or CombatAbility.GuidedArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow or CombatAbility.Strafe))
         {throw new NotSupportedException("This bow collector requires a separately integrated skill elemental source.");}
-        if(!(ability==CombatAbility.DoubleThrow?NamedAmmunition.Maximum(CombatTiming.Equipped(owner))>0:AmazonJavelins.Handles(ability)?AmazonJavelins.WeaponAllowed(owner):WeaponAllowed(owner))){return null;}
+        if(!(ability==CombatAbility.DoubleThrow?BarbarianThrowing.Throwable(CombatTiming.Equipped(owner)):AmazonJavelins.Handles(ability)?AmazonJavelins.WeaponAllowed(owner):WeaponAllowed(owner))){return null;}
         var weapon=CombatTiming.Equipped(owner);var values=preparedValues??SkillMechanics.Values(owner,ability);var row=SkillMechanics.For(ability);
         if(values.Rank<=0){return null;}
         int skillPercent=missilePercent??(ability==CombatAbility.DoubleThrow?(int)values.Eval("calc1"):ability==CombatAbility.MultipleShot?(int)values.Eval("calc5"):ability==CombatAbility.GuidedArrow?(int)values.Eval("calc1"):ability==CombatAbility.Strafe?(int)values.Eval("calc2"):0);

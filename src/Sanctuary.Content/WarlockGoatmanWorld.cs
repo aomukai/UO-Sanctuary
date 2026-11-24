@@ -94,7 +94,7 @@ public static class WarlockGoatmanWorld
                 if(body.ControlMaster is PlayerMobile owner&&PersistentMinions.Active(owner,body)&&body.Permitted(owner)&&owners.Add(owner)){Enforce(owner);}
                 if(body.Deleted){continue;}
                 bool online=body.ControlMaster is PlayerMobile{Alive:true,Deleted:false,NetState:{Running:true}} master
-                    &&PersistentMinions.Active(master,body)&&body.Permitted(master)&&!MinionSafeAreas.Contains(master);
+                    &&PersistentMinions.Active(master,body)&&body.Permitted(master)&&!MinionSafeAreas.ShouldPark(master,body);
                 // Suspension/load/placement observations skip the whole
                 // inactive interval before joining active frame ordering.
                 if(loaded||!online||host.NeedsObservation){host.Advance(at);Store(body,host);}

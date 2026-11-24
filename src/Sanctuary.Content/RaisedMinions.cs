@@ -113,7 +113,7 @@ public static class RaisedMinions
     }
     internal static void Sync(PlayerMobile owner)
     {
-        var difficulty=SummonDifficulties.For(owner.Map);bool resume=false;
+        var difficulty=SummonDifficulties.For(owner);bool resume=false;
         foreach(var old in Snapshot().Where(row=>row.Owner==owner.Serial.Value))
         {
             if(World.FindMobile((Serial)old.Actor)is not GraveyardUndead{Alive:true,Deleted:false} body||body.ControlMaster!=owner){continue;}

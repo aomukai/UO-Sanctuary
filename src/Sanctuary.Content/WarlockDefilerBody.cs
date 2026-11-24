@@ -97,7 +97,7 @@ public partial class WarlockDefilerBody : SkeletonGuardian, ISourceLifeMaximum
             || owner.Map == Map.Internal || !owner.Map.CanSpawnMobile(point))
         { throw new ArgumentException("Defiler needs a legal world point and UTC clock"); }
         var capture = DefilerPrepared.Capture(owner);
-        var state = new DefilerBodyState(owner.Serial.Value, capture, SummonDifficulties.For(owner.Map), at.AddMilliseconds(40));
+        var state = new DefilerBodyState(owner.Serial.Value, capture, SummonDifficulties.For(owner), at.AddMilliseconds(40));
         Validate(state); var body = new WarlockDefilerBody();
         try
         {

@@ -1,0 +1,60 @@
+diff --git a/src/ClassicUO.Client/Game/ClassSkillBindingsClient.cs b/src/ClassicUO.Client/Game/ClassSkillBindingsClient.cs
+--- a/src/ClassicUO.Client/Game/ClassSkillBindingsClient.cs
++++ b/src/ClassicUO.Client/Game/ClassSkillBindingsClient.cs
+@@ -18,6 +18,7 @@
+     public static CombatAbility Left { get; private set; }
+     public static CombatAbility Right { get; private set; }
+     public static NecromancerSummonCounts? Summons { get; private set; }
++    public static DruidSummonCounts? DruidSummons { get; private set; }
+     public static bool Ready { get; private set; }
+     public static bool Available(CombatAbility ability) => ability == CombatAbility.None || ClassAbilities.Valid(ability) && (_available[(int)ability / 8] & 1 << ((int)ability % 8)) != 0;
+     public static bool LowMana(int slot) => (_lowMana & 1 << slot) != 0;
+@@ -26,6 +27,7 @@
+     {
+         _lowMana = 0;
+         Summons = null;
++        DruidSummons = null;
+         Array.Clear(_quick); _sequence = 0; Array.Clear(_available); _nextPoll = Time.Ticks; Ready = false; Class = default;
+         UIManager.GetGump<ClassSkillBarGump>()?.Dispose(); UIManager.GetGump<ClassSkillsPanelGump>()?.Dispose();
+     }
+@@ -94,12 +96,21 @@
+         for (int i = 0; i < quick.Length; i++) { changed |= _quick[i] != quick[i]; _quick[i] = quick[i]; }
+         Class = id; Left = left; Right = right; available.CopyTo(_available); Ready = true;
+         ushort lowMana = version != SkillBindingProtocol.LegacyVersion ? reader.ReadUInt16BE() : (ushort)0;
+-        NecromancerSummonCounts? summons = version == SkillBindingProtocol.SummonStateVersion
+-            ? new(reader.ReadUInt8(), reader.ReadUInt8(), reader.ReadUInt8()) : null;
+-        if (changed || lowMana != _lowMana || summons != Summons)
++        NecromancerSummonCounts? summons = null;
++        DruidSummonCounts? druidSummons = null;
++        if (version == SkillBindingProtocol.SummonStateVersion)
++        {
++            byte first = reader.ReadUInt8(), second = reader.ReadUInt8(), third = reader.ReadUInt8();
++            if (id == DiabloClass.Necromancer)
++                summons = new(first, second, third);
++            else if (id == DiabloClass.Druid)
++                druidSummons = new(first, second, third);
++        }
++        if (changed || lowMana != _lowMana || summons != Summons || druidSummons != DruidSummons)
+         {
+             _lowMana = lowMana;
+             Summons = summons;
++            DruidSummons = druidSummons;
+             UIManager.GetGump<ClassSkillBarGump>()?.RequestUpdateContents();
+         }
+         if (changed)
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs
+@@ -143,6 +143,12 @@
+             SummonCell(8, y + 49, CombatAbility.RaiseSkeleton, summons.Warriors, "Skeletal Warriors");
+             SummonCell(41, y + 49, CombatAbility.RaiseSkeletalMage, summons.Mages, "Skeletal Mages");
+             SummonCell(74, y + 49, CombatAbility.Revive, summons.Revives, "Revives");
++        }
++        else if (ClassSkillBindingsClient.DruidSummons is { } druid && ClassSkillBindingsClient.Class == DiabloClass.Druid)
++        {
++            SummonCell(8, y + 49, CombatAbility.Raven, druid.Ravens, "Ravens");
++            SummonCell(41, y + 49, CombatAbility.SummonSpiritWolf, druid.SpiritWolves, "Spirit Wolves");
++            SummonCell(74, y + 49, CombatAbility.SummonDireWolf, druid.DireWolves, "Dire Wolves");
+         }
+         for (int i = 0; i < Menu.Length; i++)
+         {

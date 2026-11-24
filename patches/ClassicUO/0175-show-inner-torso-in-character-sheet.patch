@@ -1,0 +1,26 @@
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
+@@ -211,6 +211,8 @@
+                 _slots.Add(Add(new EquipmentSlot(0, left, y + 21 * i, leftLayers[i], this)));
+             for (int i = 0; i < rightLayers.Length; i++)
+                 _slots.Add(Add(new EquipmentSlot(0, right, y + 21 * i, rightLayers[i], this)));
++            if (_sheet != null)
++                _slots.Add(Add(new EquipmentSlot(0, right, y + 21 * rightLayers.Length, Layer.Torso, this)));
+             _paperDollInteractable = Add(new PaperDollInteractable(bodyX, bodyY, LocalSerial, this));
+         }
+ 
+@@ -725,7 +727,12 @@
+                 {
+                     _itemGump?.Dispose();
+                     _itemGump = null;
+-                    SetTooltip(Layer == Layer.Talisman ? "Belt lantern slot" : $"{Layer} slot");
++                    SetTooltip(Layer switch
++                    {
++                        Layer.Talisman => "Belt lantern slot",
++                        Layer.Torso => "Chest armor slot",
++                        _ => $"{Layer} slot"
++                    });
+                 }
+ 
+                 Mobile mobile = _paperDollGump.World.Mobiles.Get(_paperDollGump.LocalSerial);

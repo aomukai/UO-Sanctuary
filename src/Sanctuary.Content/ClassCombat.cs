@@ -180,13 +180,17 @@ public static class ClassCombat
             : mobile is SkeletonGuardian || mobile is BaseCreature pet && pet.GetMaster() is PlayerMobile owner && Enabled(owner);
         return source != null && target != null && Allied(source) && Allied(target);
     }
+    // Returning creatures still count as targets while their own AI stands down.
+    internal static bool IsEnemyTarget(BaseCreature creature, Mobile from) =>
+        creature is GraveyardUndead undead ? undead.IsEnemyIgnoringLeash(from) : creature.IsEnemy(from);
+
     public static bool IsHostile(PlayerMobile from, Mobile target) =>
         target is BaseCreature creature && target != from && target.Alive && !target.Deleted
         && target.Map == from.Map && !target.Blessed && !target.IsDeadBondedPet && !PaladinConversion.Active(target)
         && creature is not BaseVendor
         && !creature.Controlled && !creature.Summoned && creature.GetMaster() == null
         && !creature.InitialInnocent && creature.FightMode is not (FightMode.None or FightMode.Aggressor or FightMode.Evil)
-        && creature.IsEnemy(from) && from.CanSee(target) && from.CanBeHarmful(target, false);
+        && IsEnemyTarget(creature, from) && from.CanSee(target) && from.CanBeHarmful(target, false);
 
     public static int TeethRank(PlayerMobile from) => TeethRank(from, ClassCreation.Profiles.GetRank(from.Serial, "necromancer.teeth"));
 
@@ -200,7 +204,7 @@ public static class ClassCombat
     }
     public static bool Available(PlayerMobile from, CombatAbility ability) => ShapeRestrictions.Allowed(from,ability)&&(ability switch
     {
-        CombatAbility.BasicAttack => Enabled(from) && (DruidFormAttacks.Active(from)?DruidFormAttacks.Supported(from):NamedAmmunition.CanAttack(CombatTiming.Equipped(from))),
+        CombatAbility.BasicAttack => Enabled(from) && (!DruidFormAttacks.Active(from) || DruidFormAttacks.Supported(from)),
         CombatAbility.Teeth => TeethRank(from) > 0,
         CombatAbility.RaiseSkeleton => SkeletonPets.Rank(from) > 0,
         CombatAbility.Teleport => Teleportation.Rank(from) > 0,
@@ -690,11 +694,13 @@ public static class ClassCombat
                 return true;
             }
             if(ability==CombatAbility.BasicAttack && BarbarianThrowing.Supported(from))
-            {throwing=BarbarianThrowing.Release(from,TimedEffects.Now);if(throwing==null){return false;}}
-            else if (!formMelee&&!NamedAmmunition.Consume(CombatTiming.Equipped(from), TimedEffects.Now)) { return false; }
-            if (CombatTiming.Weapon(CombatTiming.Equipped(from)).Family is AttackFamily.Bow or AttackFamily.Crossbow or AttackFamily.Throw)
+            {throwing=BarbarianThrowing.Release(from);if(throwing==null){return false;}}
+            var shotWeapon = CombatTiming.Equipped(from);
+            if (CombatTiming.Weapon(shotWeapon).Family is AttackFamily.Bow or AttackFamily.Crossbow or AttackFamily.Throw)
             {
-                from.MovingEffect(target ?? (IEntity)new Entity(Serial.Zero,point,from.Map), 0xF42, 5, 0, false, false);
+                bool gargoyleThrow = GargoyleBows.Matches(shotWeapon);
+                from.MovingEffect(target ?? (IEntity)new Entity(Serial.Zero,point,from.Map), gargoyleThrow ? shotWeapon.ItemID : 0xF42,
+                    5, 0, false, false, gargoyleThrow ? shotWeapon.Hue : 0, 0);
             }
         }
         int pierces = throwing?.Pierces ?? (ability == CombatAbility.BasicAttack ? NamedProjectiles.Budget(from) : 0);
@@ -737,7 +743,7 @@ public static class ClassCombat
             {
                 var releasedWeapon = CombatTiming.Equipped(from);
                 NamedProjectiles.Continue(from, target, point, pierces,projectileCritical:throwing?.Critical);
-                if (weaponHit && releasedWeapon != null && NamedAmmunition.Maximum(releasedWeapon) == 0)
+                if (weaponHit && releasedWeapon != null)
                 { releasedWeapon.WearOnHit(from, target); }
             }
             if (session.PendingTarget == target.Serial && (!target.Alive || target.Deleted))

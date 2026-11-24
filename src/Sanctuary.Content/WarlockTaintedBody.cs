@@ -99,7 +99,7 @@ public partial class WarlockTaintedBody : SkeletonGuardian, ISourceLifeMaximum
             || owner.Map == Map.Internal || !owner.Map.CanSpawnMobile(point))
         { throw new ArgumentException("Tainted needs a legal world point and UTC clock"); }
         var capture = TaintedPrepared.Capture(owner);
-        var state = new TaintedBodyState(owner.Serial.Value, capture, SummonDifficulties.For(owner.Map), at.AddMilliseconds(40));
+        var state = new TaintedBodyState(owner.Serial.Value, capture, SummonDifficulties.For(owner), at.AddMilliseconds(40));
         Validate(state); var body = new WarlockTaintedBody();
         try
         {

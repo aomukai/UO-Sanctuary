@@ -1,0 +1,16 @@
+diff --git a/Distribution/Data/bodyTable.cfg b/Distribution/Data/bodyTable.cfg
+index 4b2407d..be58130 100644
+--- a/Distribution/Data/bodyTable.cfg
++++ b/Distribution/Data/bodyTable.cfg
+@@ -1157,4 +1157,9 @@
+ 1304	Equipment	# Turtle Chest (Female)
+ 1305	Equipment	# Turtle Long Pants
+ 1306	Equipment	# Turtle Helm
+-1307	Equipment	# Turtle Bracers
+\ No newline at end of file
++1307	Equipment	# Turtle Bracers
++
++# Sanctuary campaign boss animation bodies
++2005	Monster
++2006	Monster
++2007	Monster

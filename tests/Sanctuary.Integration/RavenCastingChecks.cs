@@ -45,13 +45,13 @@ public static class RavenCastingChecks
     {var t=new GraveyardZombie{CantWalk=true,NoKillAwards=true};t.MoveToWorld(new(p.X+dx,p.Y,p.Z),p.Map);t.AIObject.AITimer.Stop();return t;}
     private static DruidRavenBody Cast(PlayerMobile p,Mobile target=null,Point3D? aim=null)
     {
-        Ready(p);int mana=NecromancerEffects.ManaBalance256(p);long order=DruidRavens.For(p).Select(BattleCommand.PetOrder).DefaultIfEmpty().Max();
+        Ready(p);int mana=NecromancerEffects.ManaBalance256(p);
         Require(ClassCombat.Perform(p,CombatAbility.Raven,target,aim??target?.Location??p.Location,Core.TickCount),"Raven start");
         var s=ClassCombat.For(p);Require(s.PendingAbility==CombatAbility.Raven && s.Animation==16 && NecromancerEffects.ManaBalance256(p)==mana,"Unpaid SC windup");
         Require(!ClassCombat.ResolveAction(p,s.EffectAt-1),"Early release");ClassCombat.ReleaseCast(p);
         Require(ClassCombat.ResolveAction(p,s.EffectAt) && !ClassCombat.ResolveAction(p,s.EffectAt),"Once-only release");
         Require(NecromancerEffects.ManaBalance256(p)==mana-1536,"Exactly six mana per release");
-        return DruidRavens.For(p).Single(x=>BattleCommand.PetOrder(x)>order);
+        return DruidRavens.For(p).Single();
     }
     private static void Cancellation()
     {
@@ -92,24 +92,73 @@ public static class RavenCastingChecks
         {
             var helm=NamedGear.Create(NamedGear.Catalog.Items.Single(x=>x.Name=="Tarnhelm").Id,99,new Random(173),true);
             Require(p.EquipItem(helm),"Actual Tarnhelm");ClassGear.Refresh(p);
-            var first=Cast(p,t);Require(first.Location==t.Location && first.Prepared.Focus==t.Serial.Value && first.Prepared.Birth.Rank==2,"Explicit-target birth/focus/gear");
-            var next=Cast(p,second);Require(DruidRavens.For(p).Length==2 && DruidRavens.For(p).All(x=>x.Prepared.Focus==second.Serial.Value),"Paid cast whole-flock focus");
+            var first=Cast(p,t);Require(first.InRange(p,4) && first.Prepared.Focus==t.Serial.Value && first.FlockSize==2,"Explicit-target birth near caster/focus/gear");
+            var next=Cast(p,second);Require(next==first && next.Prepared.Focus==second.Serial.Value,"Paid recast did not retarget the same flock");
             Ready(p);Mana(p);Require(ClassCombat.Perform(p,CombatAbility.Raven,t,t.Location,Core.TickCount),"Live target start");
             t.MoveToWorld(new(t.X+2,t.Y,t.Z),t.Map);Require(ClassCombat.ResolveAction(p,ClassCombat.For(p).EffectAt),"Live target release");
-            var moved=DruidRavens.For(p).Last();Require(first.Deleted && moved.Location==t.Location && DruidRavens.For(p).All(x=>x.Prepared.Focus==t.Serial.Value),"Live target follow and FIFO replacement");
-            Ready(p);Mana(p);Require(ClassCombat.Perform(p,CombatAbility.Raven,second,second.Location,Core.TickCount),"Deleted target start");var cached=second.Location;second.Delete();
-            Require(ClassCombat.ResolveAction(p,ClassCombat.For(p).EffectAt) && DruidRavens.For(p).Last().Location==cached,"Deleted target cached ground fallback");
-            var held=DruidRavens.For(p).Select(x=>x.Serial).ToArray();Ready(p);NecromancerEffects.SetMana256(p,1536);
+            var moved=DruidRavens.For(p).Single();Require(moved==next && moved.Prepared.Focus==t.Serial.Value,"Live target recast did not retarget the same flock");
+            Ready(p);Mana(p);Require(ClassCombat.Perform(p,CombatAbility.Raven,second,second.Location,Core.TickCount),"Deleted target start");second.Delete();
+            Require(ClassCombat.ResolveAction(p,ClassCombat.For(p).EffectAt) && DruidRavens.For(p).Single().Prepared.Focus==t.Serial.Value,"Deleted target cached ground fallback");
+            var held=moved.SavedText;Ready(p);NecromancerEffects.SetMana256(p,1536);
             Require(ClassCombat.Perform(p,CombatAbility.Raven,t,t.Location,Core.TickCount),"Lost mana at cap start");NecromancerEffects.SetMana256(p,0);
-            Require(!ClassCombat.ResolveAction(p,ClassCombat.For(p).EffectAt) && DruidRavens.For(p).Select(x=>x.Serial).SequenceEqual(held),"Failed cast replaced existing flock");
+            Require(!ClassCombat.ResolveAction(p,ClassCombat.For(p).EffectAt) && DruidRavens.For(p).Single()==moved
+                && moved.SavedText==held,"Failed recast changed the active flock");
             supplier=new PlayerMobile{Body=0x190,Player=true,Name="RavenCastFixtureSupplier"};supplier.AddItem(new Backpack());ClassCreation.Profiles.Assign(supplier,DiabloClass.Barbarian);ClassCreation.Profiles.AdvanceLevel(supplier,99);BattleCommand.Apply(supplier,p,1,TimedEffects.Now);
-            Ready(p);Mana(p);var commanded=Cast(p,t);Require(DruidRavens.For(p).Length==3 && commanded.Prepared.Birth.Rank==3,"Battle Command current cap/rank");
-            p.Backpack.DropItem(helm);ClassGear.Refresh(p);DruidRavens.Tick(TimedEffects.Now.AddMilliseconds(80),true);Require(DruidRavens.For(p).Length==2,"Gear loss cap enforcement");
+            Ready(p);Mana(p);var commanded=Cast(p,t);Require(DruidRavens.For(p).Single()==commanded && commanded.FlockSize==3,"Battle Command at cast sets flock size");
+            p.Backpack.DropItem(helm);ClassGear.Refresh(p);DruidRavens.Tick(TimedEffects.Now.AddMilliseconds(80),true);Require(commanded.FlockSize==3,"Gear loss shrank an existing flock");
             BattleCommand.Clear(p);DruidRavens.Tick(TimedEffects.Now.AddMilliseconds(160),true);
-            Require(DruidRavens.For(p).Length==1 && DruidRavens.For(p)[0]==commanded && commanded.Prepared.Birth.Rank==3,"Command loss cap/FIFO/retained birth");
+            Require(DruidRavens.For(p).Single()==commanded && commanded.FlockSize==3,"Command loss shrank or replaced the flock");
             Ready(p);p.Kill();Require(!p.Alive && commanded.Deleted,"Owner death retained Raven");p.Corpse?.Delete();
         }
         finally{t.Delete();second.Delete();if(supplier!=null){Drop(supplier);}Drop(p);}
+    }
+    private static void FlockFocusesHavenMonster()
+    {
+        var p=Fresh();
+        var target=new HavenEncounter(HavenEncounter.Bogling,3){CantWalk=true,NoKillAwards=true};
+        var other=Enemy(p,2);
+        try
+        {
+            for(int i=1;i<6;i++){Require(ClassCreation.Profiles.TryTrain(p.Serial,"druid.raven",out _),"Train flock rank");}
+            target.SetHits(10000);target.SetResistance(ResistanceType.Physical,0);
+            target.MoveToWorld(new(p.X+3,p.Y,p.Z),p.Map);target.AIObject.AITimer.Stop();
+            var flock=Cast(p,target);
+            Require(flock.FlockSize==5 && flock.Body.BodyID==RavenAppearance.FirstBody+4 && flock.Name=="Raven Flock"
+                && flock.Prepared.Focus==target.Serial.Value,"Five-bird appearance or Haven focus");
+            var ground=Cast(p,aim:p.Location);
+            Require(ground==flock && ground.InRange(p,4) && ground.Prepared.Focus==other.Serial.Value,
+                "Ground cast at caster did not lock the nearest monster");
+
+            other.Delete();
+            var perch=new Point3D(p.X+6,p.Y,p.Z);
+            target.MoveToWorld(new(p.X+8,p.Y,p.Z),p.Map);
+            ground.MoveToWorld(perch,p.Map);
+            target.Home=target.Location;target.HomeMap=target.Map;
+            var ai=(LeashedMeleeAI)target.AIObject;
+            long now=Core.TickCount;
+            target.Combatant=p;
+            Require(target.Combatant==p&&!ai.UpdateLeash(now),"Bogling did not engage");
+            Mana(p);Require(Cast(p,target)==flock,"Direct cast replaced the active flock");
+            int budget=flock.Prepared.Remaining;
+            flock.Advance(flock.Prepared.NextFrameUtc.AddMilliseconds(160),true);
+            var first=flock.Prepared;
+            Require(first.Attempts==1&&first.Remaining==budget-1,"Flock did not strike before recast");
+            target.Combatant=null;
+            var home=target.Home;
+            target.Home=new(target.X-target.HomeLeashRadius-1,target.Y,target.Z);
+            Require(ai.UpdateLeash(now+1)&&flock.Eligible(p,target),"Returning bogling stopped being targetable");
+
+            Mana(p);var renewed=Cast(p,aim:p.Location);var state=renewed.Prepared;
+            Require(renewed==flock && renewed.Location==perch && state.Focus==target.Serial.Value
+                && state.Remaining==budget && state.NextAttack==first.NextAttack,"Ground recast lost the flock's position, focus, budget or cooldown");
+            renewed.Advance(state.NextFrameUtc.AddMilliseconds(1600),true);
+            for(int i=0;i<4&&renewed.Prepared.Attempts==0;i++){renewed.Advance(renewed.Prepared.NextFrameUtc,true);}
+            Require(renewed.Location==perch && renewed.Prepared.Attempts>0 && renewed.Prepared.Hits==renewed.Prepared.Attempts,
+                "Refreshed flock stopped hitting its original bogling during its return");
+            target.Home=home;
+            Require(ai.UpdateLeash(now+2)&&!ai.UpdateLeash(now+3003),"Being hit stopped the bogling from finishing its return");
+        }
+        finally{target.Delete();other.Delete();Drop(p);}
     }
     private static void Town()
     {
@@ -119,13 +168,13 @@ public static class RavenCastingChecks
     }
     private static void Check()
     {
-        Require(DruidCombat.Implemented(CombatAbility.Raven),"Learned Raven not routed");Cancellation();TargetsAndCaps();Town();
+        Require(DruidCombat.Implemented(CombatAbility.Raven),"Learned Raven not routed");Cancellation();TargetsAndCaps();Town();FlockFocusesHavenMonster();
         var p=Fresh();var body=Cast(p);var s=body.Prepared;body.RestorePrepared(s with{NextFrameUtc=TimedEffects.Now.AddDays(2)});PersistentMinions.Suspend(p);
         Require(SkillBindings.Instance.Assign(p,false,CombatAbility.Raven) && SkillBindings.Instance.AssignQuick(p,7,CombatAbility.Raven),"Saved Raven binding");
         var pending=Fresh();Ready(pending);Mana(pending);Require(ClassCombat.Perform(pending,CombatAbility.Raven,null,pending.Location,Core.TickCount),"Saved unpaid Raven windup");
         ClassCombat.For(pending).EffectAt=Core.TickCount+3600000;ClassCombat.For(pending).NextAction=Core.TickCount+3601000;
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,body.Serial.Value,body.SavedText,pending.Serial.Value,NecromancerEffects.ManaBalance256(pending),p.Map.MapID,p.Location)));
-        Log.Information("Learned Raven: once-only6mana, cancellation/low/lost mana, live/deleted targeting, paid whole-flock focus, actual Tarnhelm/Command cap/FIFO and town/owner-death controls pass");
+        Log.Information("Learned Raven: six mana, cancellation, in-place refresh and retargeting, town casting, and a ground recast through a bogling leash reset pass");
     }
     private static void Reload()
     {
@@ -161,7 +210,7 @@ public static class RavenCastingChecks
                     }
                 }
                 if(bodies.Length==0){Timer.StartTimer(TimeSpan.FromMilliseconds(20),Inspect);return;}
-                Require(began && (quick || ClassCombat.For(p).HeldAbility==CombatAbility.None) && bodies.Length==1 && NecromancerEffects.ManaBalance256(p)==mana-1536 && bodies[0].Location==new Point3D(p.X+2,p.Y,p.Z),"Real input cast/payment/placement");
+                Require(began && (quick || ClassCombat.For(p).HeldAbility==CombatAbility.None) && bodies.Length==1 && NecromancerEffects.ManaBalance256(p)==mana-1536 && bodies[0].InRange(p,4),"Real input cast/payment/placement");
                 Drop(p);Log.Information("{Label}-result: passed",label);
             }
             catch(Exception e){Drop(p);Log.Error(e,"{Label}-result: failed",label);}

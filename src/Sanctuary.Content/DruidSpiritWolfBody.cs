@@ -66,7 +66,9 @@ public partial class DruidSpiritWolfBody:SkeletonGuardian,ISourceLifeMaximum
     public override (int Min,int Max) SkillWeaponDamage=>(0,0);
     public DruidSpiritWolfBody()
     {
-        Name="Spirit Wolf [placeholder]";Body=0xE1;BaseSoundID=-1;CantWalk=true;ControlSlots=0;
+        Name="Spirit Wolf";
+        Body=0xE1; // Timber wolf
+        BaseSoundID=-1;CantWalk=true;ControlSlots=0;
         AIObject?.AITimer.Stop();SetHits(130);SetDamage(0,0);
     }
     public override TimeSpan BeginMelee(Mobile target)=>TimeSpan.FromSeconds(1);
@@ -102,7 +104,7 @@ public partial class DruidSpiritWolfBody:SkeletonGuardian,ISourceLifeMaximum
         {throw new ArgumentException("Spirit Wolf needs a legal world point and UTC clock");}
         var snapshot=DruidSpiritWolfStats.Capture(owner);
         if(snapshot.Birth.ColdSunder!=0){throw new NotSupportedException("Spirit Wolf cold-sunder consumer remains unverified");}
-        var state=new SpiritWolfBodyState(owner.Serial.Value,snapshot,SummonDifficulties.For(owner.Map),at.AddMilliseconds(40));
+        var state=new SpiritWolfBodyState(owner.Serial.Value,snapshot,SummonDifficulties.For(owner),at.AddMilliseconds(40));
         Validate(state);var body=new DruidSpiritWolfBody();
         try
         {
@@ -146,7 +148,13 @@ public partial class DruidSpiritWolfBody:SkeletonGuardian,ISourceLifeMaximum
         RestorePrepared(Prepared with{NextRecoveryUtc=next});AIObject?.AITimer.Stop();
     }
     [AfterDeserialization]private void AfterWolfLoad()
-    {AIObject?.AITimer.Stop();_prepared=JsonSerializer.Deserialize<SpiritWolfBodyState>(_saved);Validate(_prepared);if(_prepared.Controller!=null){RestorePrepared(_prepared);ControllerLoaded=true;DruidSpiritWolves.Track(this);}}
+    {
+        AIObject?.AITimer.Stop();
+        _prepared=JsonSerializer.Deserialize<SpiritWolfBodyState>(_saved);
+        Validate(_prepared);
+        if(RawName=="Spirit Wolf [placeholder]"){Name="Spirit Wolf";}
+        if(_prepared.Controller!=null){RestorePrepared(_prepared);ControllerLoaded=true;DruidSpiritWolves.Track(this);}
+    }
     public override void SuspendActions()
     {
         base.SuspendActions();

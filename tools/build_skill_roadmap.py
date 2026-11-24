@@ -8,6 +8,7 @@ import re
 
 ROOT = Path(__file__).resolve().parents[1]
 BALANCE = ROOT/'data/Sanctuary/Balance'
+REPORTS = ROOT/'tools/reference/reports'
 ORDER = ['Necromancer','Sorceress','Paladin','Barbarian','Amazon','Assassin','Druid','Warlock']
 BLOCKERS = {
     'warlock.ringoffire':'Owned3.3.93847skill394/missile689and visual730are pinned separately. Current count is16before effective10,32from10;rank1cost8mana usesmanashift7. New do154launch and damage17frame-scaling/rounding are absent from the older source. Current cast-table candidate has three inaccessible unwind fragments;dispatcher linkage is unverified and no process memory was read. Standard fire/motion/knockback kernels are reuse points,not proof of new launch/collision/NextHit/explosion/immune/post-first-hit semantics. Visual730has no server do/hit fields;do not invent a second damage child. See ring-of-fire-preflight.json and warlock-ring-of-fire-preflight.md. Continue unaffected work;no handler enabled;effects/audio/icons remain separate.',
@@ -1238,8 +1239,8 @@ def generated_tables(path, rendered, keys):
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('--check',action='store_true');args=p.parse_args();data=build()
-    products={BALANCE/'class-skill-status.json':json.dumps(data,indent=2)+'\n',ROOT/'docs/class-skill-roadmap.md':generated_tables(ROOT/'docs/class-skill-roadmap.md',render(data),('class-overview',*('class-'+name.lower() for name in ORDER))),
-              ROOT/'docs/skill-icons.md':generated_tables(ROOT/'docs/skill-icons.md',assets('icons'),('skill-icons',)),ROOT/'docs/skill-effects.md':generated_tables(ROOT/'docs/skill-effects.md',assets('effects'),('skill-effects',))}
+    products={BALANCE/'class-skill-status.json':json.dumps(data,indent=2)+'\n',REPORTS/'class-skill-roadmap.md':generated_tables(REPORTS/'class-skill-roadmap.md',render(data),('class-overview',*('class-'+name.lower() for name in ORDER))),
+              REPORTS/'skill-icons.md':generated_tables(REPORTS/'skill-icons.md',assets('icons'),('skill-icons',)),REPORTS/'skill-effects.md':generated_tables(REPORTS/'skill-effects.md',assets('effects'),('skill-effects',))}
     for path,text in products.items():
         if args.check:
             if path.read_text()!=text:raise SystemExit('Stale skill roadmap: '+str(path))

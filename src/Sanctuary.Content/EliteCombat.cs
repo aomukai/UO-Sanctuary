@@ -194,7 +194,7 @@ public static class EliteCombat
                 int dir = (start + index) % 8;
                 int[] xs = [0, 1, 1, 1, 0, -1, -1, -1], ys = [-1, -1, 0, 1, 1, 1, 0, -1];
                 var point = new Point3D(source.X + xs[dir] * distance, source.Y + ys[dir] * distance, source.Z);
-                if (!Utility.InRange(point, source.Home, source.HomeLeashRadius) || source.RepelledByAnkh(point) || !EncounterProfiles.ClearSight(source.Map, source.Location, point)
+                if (!Utility.InRange(point, source.Home, source.HomeLeashRadius) || source.RepelledByRefuge(point) || !EncounterProfiles.ClearSight(source.Map, source.Location, point)
                     || !EncounterProfiles.Free(source.Map, point)) { continue; }
                 source.StopCombatActions(); source.FixedEffect(0x3728, 10, 13);
                 source.MoveToWorld(point, source.Map);

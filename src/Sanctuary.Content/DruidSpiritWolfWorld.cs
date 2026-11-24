@@ -27,7 +27,7 @@ internal static class DruidSpiritWolfWorld
     internal static SpiritWolfWorldState Copy(SpiritWolfWorldState s)=>s with{Motion=s.Motion with{Points=[..s.Motion.Points],SavedSteps=[..s.Motion.SavedSteps]}};
     internal static SpiritWolfWorldState Upgrade(SpiritWolfWorldState s)
     {
-        if(s.Fault=="Spirit Wolf AI event overlaps unfinished A1; source/current busy-mode dispatch is unverified")
+        if(s.Fault is DruidWolfGeometry.LegacyFollowFault or "Spirit Wolf AI event overlaps unfinished A1; source/current busy-mode dispatch is unverified")
         {s=Park(s with{Fault=null});}
         // Old saves have no attack-entry owner rank. Cancel that queued bite
         // rather than fabricate a packet using the owner's current gear/rank.
@@ -106,7 +106,6 @@ internal static class DruidSpiritWolfWorld
         {if(deleteOnFailure){s=s with{NextThink=0};}return false;}
         int type=s.PathOverride==0?13:s.PathOverride,budget=s.PathBudget==0?5:s.PathBudget,bonus=s.VelocityBonus;
         s=s with{PathOverride=0,VelocityBonus=0,PathBudget=0};
-        if(type==1){throw new NotSupportedException("Wolf follow needs unimplemented source AStar fallback");}
         var curse=NecromancerEffects.Curse(body);
         if(run && curse?.Ability==CombatAbility.Decrepify){run=false;type=13;bonus=0;budget=5;}
         int percent=100+bonus+PaladinVigor.VelocityPercent(body)-GearEffects.MovementSlow(body);

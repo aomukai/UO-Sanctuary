@@ -18,7 +18,7 @@ public sealed class PowerScrollRequest
     internal PlayerMobile Owner;
     internal PowerScroll Scroll;
     internal SkillName Skill;
-    internal int Base, Cap, Target, Amount;
+    internal int Base, Cap, CapBonus, Target, Amount;
     internal SkillLock Lock;
     internal object Parent;
     internal ItemOrigin Origin;
@@ -87,25 +87,27 @@ public static class ProfessionPowerScrolls
         if (!TradeSkills.Includes((int)scroll.Skill) || scroll.Value is not (105 or 110 or 115 or 120))
         { owner.SendMessage("This scroll does not name a retained trade skill and supported cap."); return null; }
         var skill = owner.Skills[scroll.Skill]; int target = (int)(scroll.Value * 10);
-        if (skill.CapFixedPoint >= target)
-        { owner.SendMessage($"Your {ClassProfessions.Name(scroll.Skill)} cap is already at least {scroll.Value:F1}. The scroll is unchanged."); return null; }
-        if (skill.CapFixedPoint != target - 50)
-        { owner.SendMessage($"First unlock the {scroll.Value - 5:F1} {ClassProfessions.Name(scroll.Skill)} cap. The scroll is unchanged."); return null; }
-        return new() { Owner = owner, Scroll = scroll, Skill = scroll.Skill, Base = skill.BaseFixedPoint, Cap = skill.CapFixedPoint,
+        if (skill.BaseCapFixedPoint >= target)
+        { owner.SendMessage($"Your {ClassProfessions.Name(scroll.Skill)} base cap is already at least {scroll.Value:F1}. The scroll is unchanged."); return null; }
+        if (skill.BaseCapFixedPoint != target - 50)
+        { owner.SendMessage($"First unlock the {scroll.Value - 5:F1} {ClassProfessions.Name(scroll.Skill)} base cap. The scroll is unchanged."); return null; }
+        return new() { Owner = owner, Scroll = scroll, Skill = scroll.Skill, Base = skill.BaseFixedPoint, Cap = skill.BaseCapFixedPoint,
+            CapBonus = skill.CapFixedPoint - skill.BaseCapFixedPoint,
             Target = target, Lock = skill.Lock, Parent = scroll.Parent, Amount = scroll.Amount, Origin = scroll.Origin, Connection = owner.NetState };
     }
     private static bool Valid(PowerScrollRequest q) => q is { Claimed: false } && ClassProfessions.Affected(q.Owner)
         && ClassProfessions.Ready(q.Owner) && RuneCrafting.Accessible(q.Owner, q.Scroll)
         && q.Owner.NetState == q.Connection && q.Scroll.Parent == q.Parent && q.Scroll.Amount == q.Amount && q.Scroll.Origin == q.Origin
         && q.Scroll.Skill == q.Skill && q.Scroll.Value * 10 == q.Target && TradeSkills.Includes((int)q.Skill)
-        && q.Owner.Skills[q.Skill].BaseFixedPoint == q.Base && q.Owner.Skills[q.Skill].CapFixedPoint == q.Cap
+        && q.Owner.Skills[q.Skill].BaseFixedPoint == q.Base && q.Owner.Skills[q.Skill].BaseCapFixedPoint == q.Cap
+        && q.Owner.Skills[q.Skill].CapFixedPoint == q.Cap + q.CapBonus
         && q.Owner.Skills[q.Skill].Lock == q.Lock && q.Target == q.Cap + 50;
     internal static bool Commit(PowerScrollRequest q)
     {
         if (!Valid(q)) { if (q != null) { q.Claimed = true; } return false; }
         q.Claimed = true;
-        q.Owner.Skills[q.Skill].CapFixedPoint = q.Target; q.Scroll.Consume(1);
-        q.Owner.SendMessage($"Your {ClassProfessions.Name(q.Skill)} cap is now {q.Target / 10.0:F1}. Your trained skill remains {q.Base / 10.0:F1}.");
+        q.Owner.Skills[q.Skill].BaseCapFixedPoint = q.Target; q.Scroll.Consume(1);
+        q.Owner.SendMessage($"Your {ClassProfessions.Name(q.Skill)} cap is now {q.Owner.Skills[q.Skill].Cap:F1}. Your trained skill remains {q.Base / 10.0:F1}.");
         q.Owner.PlaySound(0x243);
         return true;
     }

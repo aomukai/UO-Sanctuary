@@ -1,0 +1,68 @@
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -57,6 +57,7 @@
+     <EmbeddedResource Include="../../../../art/world/leoric-throne/hall.png" LogicalName="Sanctuary.World.ThroneRoom.png" />
+     <EmbeddedResource Include="../../../../art/world/lazarus-mausoleum/pier-*.png" LogicalName="Sanctuary.World.%(Filename).png" />
+     <EmbeddedResource Include="../../../../art/world/lazarus-mausoleum/chamber.jpg" LogicalName="Sanctuary.World.Mausoleum.jpg" />
++    <EmbeddedResource Include="../../../../art/world/diablo-ritual/lava-glow-*.png" LogicalName="Sanctuary.World.%(Filename)%(Extension)" />
+     <EmbeddedResource Include="../../../../art/world/diablo-ritual/volcanic-chamber.png" LogicalName="Sanctuary.World.VolcanicChamber.png" />
+     <Content Include="../../../../art/world/*/statics/*.art"
+              Link="Data/Sanctuary/Art/Statics/%(Filename)%(Extension)"
+--- a/src/ClassicUO.Client/Game/Scenes/RenderLists.cs
++++ b/src/ClassicUO.Client/Game/Scenes/RenderLists.cs
+@@ -70,6 +70,9 @@
+         private readonly List<GameObject> _groundDecorations = [];
+         private Item _chamberAnchor;
+         private Texture2D _chamberPainting, _mausoleumPainting, _throneRoomFloor;
++        // Registered half-resolution origins, in tools/build_diablo_lava_light.py order.
++        private static readonly Point[] LavaOrigins = [new(710, 593), new(1114, 676), new(708, 1098), new(501, 686)];
++        private readonly Texture2D[] _lavaGlows = new Texture2D[LavaOrigins.Length];
+         private readonly Texture2D[] _mausoleumPiers = new Texture2D[3];
+         // Offsets from the painting's top left, in source texels.
+         private static readonly (Point Origin, int Texture)[] PierArt =
+@@ -377,6 +380,12 @@
+                 using var stream = typeof(RenderLists).Assembly.GetManifestResourceStream("Sanctuary.World.VolcanicChamber.png")
+                     ?? throw new InvalidOperationException("Missing Diablo chamber painting");
+                 _chamberPainting = Texture2D.FromStream(batcher.GraphicsDevice, stream);
++                for (int i = 0; i < _lavaGlows.Length; ++i)
++                {
++                    using var glow = typeof(RenderLists).Assembly.GetManifestResourceStream($"Sanctuary.World.lava-glow-{i}.png")
++                        ?? throw new InvalidOperationException("Missing Diablo lava lighting");
++                    _lavaGlows[i] = Texture2D.FromStream(batcher.GraphicsDevice, glow);
++                }
+             }
+ 
+             int dx = WorldDecorationGraphics.DiabloCaveX + WorldDecorationGraphics.DiabloCaveSize / 2 - tile.X;
+@@ -385,8 +394,19 @@
+             int centerY = tile.RealScreenPosition.Y + 22 + (dx + dy) * 22 + tile.Z * 4;
+             // Source artwork is registered at half the native ground resolution.
+             int w = _chamberPainting.Width, h = _chamberPainting.Height;
+-            batcher.Draw(_chamberPainting, new Rectangle(centerX - w, centerY - h, w * 2, h * 2),
++            int left = centerX - w, top = centerY - h;
++            batcher.Draw(_chamberPainting, new Rectangle(left, top, w * 2, h * 2),
+                 ShaderHueTranslator.GetHueVector(0), 0);
++            double seconds = Time.Ticks * .001;
++            for (int i = 0; i < _lavaGlows.Length; ++i)
++            {
++                var glow = _lavaGlows[i];
++                var origin = LavaOrigins[i];
++                float intensity = (float)(.32 + .20 * Math.Sin(seconds * (1.39 + .09 * i) + 1.67 * i)
++                    + .09 * Math.Sin(seconds * 3.15 - 2.27 * i));
++                batcher.Draw(glow, new Rectangle(left + 2 * origin.X, top + 2 * origin.Y, 2 * glow.Width, 2 * glow.Height),
++                    ShaderHueTranslator.GetHueVector(0, false, intensity), 0);
++            }
+         }
+ 
+         public void ReleaseChamberPainting()
+@@ -400,6 +420,11 @@
+             _throneRoomFloor = null;
+             _mausoleumPainting?.Dispose();
+             _mausoleumPainting = null;
++            for (int i = 0; i < _lavaGlows.Length; ++i)
++            {
++                _lavaGlows[i]?.Dispose();
++                _lavaGlows[i] = null;
++            }
+             _chamberPainting?.Dispose();
+             _chamberPainting = null;
+         }

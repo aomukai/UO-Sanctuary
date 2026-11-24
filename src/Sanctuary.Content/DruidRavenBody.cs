@@ -8,7 +8,6 @@ using ModernUO.Serialization;
 using Server;
 using Server.Logging;
 using Server.Mobiles;
-using Server.Spells;
 namespace Sanctuary;
 
 internal sealed record RavenBodyState(uint Owner,RavenBirth Birth,MonsterDifficulty Difficulty,int Map,ActorMotionState Motion,
@@ -30,6 +29,9 @@ public partial class DruidRavenBody:SkeletonGuardian
 {
     internal const string LegacyStats="legacy-live-owner-mode-v1";
     internal const string SnapshotStats="sanctuary-summon-snapshot-v1";
+    private const int StrikeRange=2;
+    private const int CombatPollFrames=2;
+    private const int DiveRecoveryFrames=15;
     [SerializableField(0,setter:"private")] private string _saved="{}";
     private RavenBodyState _prepared;
     private static RavenBodyState Copy(RavenBodyState state)=>state with{Motion=state.Motion with{Points=[..state.Motion.Points],SavedSteps=[..state.Motion.SavedSteps]}};
@@ -46,30 +48,39 @@ public partial class DruidRavenBody:SkeletonGuardian
     public override bool Permitted(PlayerMobile owner)=>ClassCreation.Profiles.Histories(owner.Serial)
         .Any(x=>x.Profile.Class==DiabloClass.Druid && x.Ranks.GetValueOrDefault("druid.raven")>0);
     public override bool BlocksFit=>false;
+    public override bool CanTarget=>false;
     public override bool CanBeDamaged()=>false;
+    // A living native Mobile needs one internal hit point. The flock has no health pool.
+    public override int HitsMax=>1;
     public override bool CanRegenStam=>false;
     public override bool UsesNativeSummonTimer=>false;
     public override bool IsDispellable=>false;
     public override bool OnMoveOver(Mobile mobile)=>true;
-    public override long SourceLife256=>Prepared?.Birth.Life256??26*256;
+    internal int FlockSize=>Math.Clamp(Prepared?.Birth.Rank??1,1,RavenAppearance.MaxCount);
+    public override long SourceLife256=>256;
     public override MonsterProfile CombatProfile=>Prepared is{} s
-        ?new(s.Birth.Level,s.Birth.Life256/256,s.Birth.Attack+s.Packet.AttackBonus,s.Birth.Defense,
-            s.Packet.Minimum256/256,s.Packet.Maximum256/256,1000,400,0,0,0,0,0)
-        :new(1,26,0,25,2,4,1000,400,0,0,0,0,0);
+        ?new(s.Birth.Level,1,s.Birth.Attack+s.Packet.AttackBonus,s.Birth.Defense,
+            s.Packet.Minimum256/256*FlockSize,s.Packet.Maximum256/256*FlockSize,1000,200,0,0,0,0,0)
+        :new(1,1,0,25,2,4,1000,200,0,0,0,0,0);
     public override (int Min,int Max) SkillWeaponDamage=>(CombatProfile.MinDamage,CombatProfile.MaxDamage);
     public DruidRavenBody()
     {
-        Name="Raven [placeholder]";Body=0x6;BaseSoundID=-1;Blessed=true;CantWalk=true;ControlSlots=0;
-        AIObject?.AITimer.Stop();SetHits(26);SetDamage(0,0);
+        ApplyAppearance(1);
+        BaseSoundID=-1;Blessed=true;ControlSlots=0;
+        AIObject?.AITimer.Stop();SetHits(1);SetDamage(0,0);
     }
-    // The native skeleton swing is suppressed; only the source frame actor
-    // may request an attack. CantWalk also suppresses ordinary native AI moves.
+    private void ApplyAppearance(int count)
+    {
+        Name=count==1?"Raven":"Raven Flock";
+        Body=RavenAppearance.FirstBody+count-1;
+    }
+    // Drive native pathfinding from the flock controller and keep a single dive clock.
     public override TimeSpan BeginMelee(Mobile target)=>TimeSpan.FromSeconds(1);
     public override void OnThink(){AIObject?.AITimer.Stop();Combatant=null;FocusMob=null;Warmode=false;}
+    public override void OnDoubleClick(Mobile from) { }
     public override bool CanBeHarmful(Mobile target,bool message,bool ignoreOurBlessedness)
         =>IsEnemy(target)&&base.CanBeHarmful(target,message,true);
     internal static Point2D Cell(RavenBodyState s)=>DruidRavenMotion.Cell(s.Motion);
-    private Point3D Position(RavenBodyState s)=>new((Cell(s).X+1)/2,(Cell(s).Y+1)/2,Z);
     private static ActorMotionState Stop(ActorMotionState motion)=>motion with{Points=[],Index=0,Flags=motion.Flags&~0x28,Vector=new(0,0)};
     internal static void Validate(RavenBodyState s)
     {
@@ -96,7 +107,7 @@ public partial class DruidRavenBody:SkeletonGuardian
         SourceActorMotion.Advance(s.Motion with{Flags=s.Motion.Flags&~0x20},(_,_)=>throw new InvalidOperationException());
     }
     internal void RestorePrepared(RavenBodyState state){Validate(state);var copy=Copy(state);string json=JsonSerializer.Serialize(copy);_prepared=copy;_saved=json;}
-    internal static DruidRavenBody CreatePrepared(PlayerMobile owner,Point3D point,DateTime at,ulong seed,bool enforce=true)
+    private static RavenBodyState Birth(PlayerMobile owner,Point3D point,DateTime at,ulong seed)
     {
         if(at.Kind!=DateTimeKind.Utc || owner.Map==null || owner.Map==Map.Internal || point.X<=0 || point.Y<=0
             || point.X>=owner.Map.Width || point.Y>=owner.Map.Height || Math.Abs(point.Z-owner.Z)>=16)
@@ -104,16 +115,47 @@ public partial class DruidRavenBody:SkeletonGuardian
         var birth=DruidRavenStats.Capture(owner);int orbit=(int)(SourceRandom.Roll(ref seed)&1);
         var values=SkillMechanics.Values(owner,CombatAbility.Raven);
         var packet=DruidRavenStats.Attack(values);
-        var state=new RavenBodyState(owner.Serial.Value,birth,SummonDifficulties.For(owner.Map),owner.Map.MapID,
+        return new RavenBodyState(owner.Serial.Value,birth,SummonDifficulties.For(owner),owner.Map.MapID,
             DruidRavenMotion.Center(point.X*2,point.Y*2),seed,at.AddMilliseconds(40),packet,Remaining:DruidRavenStats.InitialBudget(values),EndAt:DruidRavenMotion.Clock(true).End,Orbit:orbit){StatProfile=SnapshotStats};
+    }
+    private void ApplyBirth(PlayerMobile owner,RavenBodyState state)
+    {
+        RestorePrepared(state);
+        ApplyAppearance(FlockSize);
+        Initialize(owner,state.Birth.Rank,0);
+        foreach(var kind in new[]{ResistanceType.Physical,ResistanceType.Fire,ResistanceType.Cold,ResistanceType.Poison,ResistanceType.Energy})
+        {SetResistance(kind,0);}
+    }
+    internal bool CanRefresh(PlayerMobile owner)=>Map==owner.Map && InRange(owner,CombatProtocol.SightRange)
+        && Math.Abs(Z-owner.Z)<16 && Prepared is{Fault:null};
+    internal RavenBodyState PrepareRefresh(PlayerMobile owner,Mobile target,DateTime at,ulong seed)
+    {
+        var previous=Prepared;
+        var next=Birth(owner,Location,at,seed) with
+        {
+            Frame=previous.Frame,Mode=1,NextThink=checked(previous.Frame+1),EndAt=0,
+            NextAttack=previous.NextAttack,Focus=target?.Serial.Value??0
+        };
+        Validate(next);
+        return next;
+    }
+    internal void Refresh(PlayerMobile owner,RavenBodyState state)
+    {
+        ApplyBirth(owner,state);
+        AIObject?.ResetApproachState();
+        AIObject?.AITimer.Stop();
+    }
+    internal static DruidRavenBody CreatePrepared(PlayerMobile owner,Point3D point,DateTime at,ulong seed,bool enforce=true)
+    {
+        var state=Birth(owner,point,at,seed);
         Validate(state);var body=new DruidRavenBody();
         try
         {
-            body.RestorePrepared(state);body.Initialize(owner,birth.Rank,0);
-            foreach(var kind in new[]{ResistanceType.Physical,ResistanceType.Fire,ResistanceType.Cold,ResistanceType.Poison,ResistanceType.Energy}){body.SetResistance(kind,0);}
+            body.ApplyBirth(owner,state);
             if(!body.SetControlMaster(owner)){throw new InvalidOperationException("Raven control master refused");}
+            body.Direction=owner.Location==point?owner.Direction&Direction.Mask:owner.GetDirectionTo(point);
             BattleCommand.Track(body);PersistentMinions.Profiles.Track(body);body.MoveToWorld(point,owner.Map);body.AIObject?.AITimer.Stop();
-            DruidRavens.Track(body);if(enforce){DruidRavens.Enforce(owner);}return body;
+            DruidRavens.Track(body);if(enforce){DruidRavens.KeepLatest(owner);}return body;
         }
         catch{body.Delete();throw;}
     }
@@ -125,105 +167,86 @@ public partial class DruidRavenBody:SkeletonGuardian
     public override void SuspendActions()
     {
         base.SuspendActions();
+        AIObject?.ResetApproachState();
         if(Prepared is{} s && s.Mode is 2 or 4)
         {RestorePrepared(s with{Mode=1,NextThink=checked(s.Frame+1),ActionAt=0,EndAt=0,Target=0,Motion=Stop(s.Motion)});}
     }
-    internal bool Eligible(PlayerMobile owner,Mobile target)=>target is BaseCreature creature && target is{Alive:true,Deleted:false}
-        && target.Map==Map && !target.Blessed && target.CanBeDamaged() && creature is not BaseVendor
-        && CreatureProfiles.For(creature).Traits.Size is >=0 and <=3 && Math.Abs(target.Z-Z)<16
-        && ClassCombat.IsHostile(owner,target) && !SpellHelper.IsTown(target.Location,owner)
-        && base.CanBeHarmful(target,false,true);
+    private bool InEngagementRange(PlayerMobile owner,Mobile target)=>target is{Alive:true,Deleted:false}
+        && target.Map==Map && owner.Map==Map && owner.InRange(target.Location,CombatProtocol.SightRange);
+    internal bool Eligible(PlayerMobile owner,Mobile target)=>InEngagementRange(owner,target)
+        && target.CanBeDamaged() && CanBeHarmful(target,false,true);
+    internal Mobile CurrentFocus(PlayerMobile owner)
+    {
+        var target=World.FindMobile((Serial)(Prepared?.Focus??0));
+        return Eligible(owner,target)?target:null;
+    }
     internal void FocusOn(Mobile target)
     {
         if(Prepared is{} s && ControlMaster is PlayerMobile owner && Eligible(owner,target))
         {RestorePrepared(s with{Focus=target.Serial.Value});}
     }
-    private Mobile SelectTarget(PlayerMobile owner,RavenBodyState s)
+    private Mobile FindTarget(PlayerMobile owner)
     {
-        var focused=World.FindMobile((Serial)s.Focus);if(Eligible(owner,focused)){return focused;}
-        Mobile chosen=null;int best=int.MaxValue;var cell=Cell(s);
-        foreach(var candidate in Map.GetMobilesInRange<BaseCreature>(Location,19))
+        var ownerTarget=World.FindMobile(ClassCombat.For(owner).Target);
+        if(Eligible(owner,ownerTarget)){return ownerTarget;}
+        Mobile chosen=null;double best=double.MaxValue;
+        foreach(var candidate in Map.GetMobilesInRange<BaseCreature>(Location,CombatProtocol.SightRange))
         {
-            if(!Eligible(owner,candidate)){continue;}
-            int distance=DruidRavenMotion.Distance(cell,new(candidate.X*2,candidate.Y*2),0,CreatureProfiles.For(candidate).Traits.Size.Value);
-            if(distance<35 && distance<best){chosen=candidate;best=distance;}
+            if(!Eligible(owner,candidate)||!owner.InLOS(candidate)){continue;}
+            double distance=this.GetDistanceToSqrt(candidate);
+            if(distance<best){chosen=candidate;best=distance;}
         }
         return chosen;
     }
     private static int Draw(ref ulong seed,int bound)=>(int)SourceRandom.Limited(ref seed,bound);
-    private bool Melee(Mobile target,RavenBodyState s)
-        =>target is BaseCreature creature && DruidRavenMotion.MeleeDistance(Cell(s),new(target.X*2,target.Y*2),CreatureProfiles.For(creature).Traits.Size.Value)<=1
-            && Map.LineOfSight(new Point3D(X,Y,Z+12),new Point3D(target.X,target.Y,target.Z+12));
+    private bool InStrikeRange(Mobile target)
+        =>InRange(target,StrikeRange) && Math.Abs(target.Z-Z)<16 && InLOS(target);
     private RavenBodyState Idle(RavenBodyState s,int delay=15)=>s with{Mode=1,NextThink=checked(s.Frame+delay),ActionAt=0,EndAt=0,Target=0,Motion=Stop(s.Motion)};
-    private bool Path(RavenBodyState s,Point2D target,int type,int budget,int velocityBonus,out RavenBodyState moved)
+    private RavenBodyState Follow(Mobile target,int range,RavenBodyState s)
     {
-        moved=s;
-        if(target.X<=0 || target.Y<=0 || target.X>=Map.Width*2 || target.Y>=Map.Height*2){return false;}
-        var speed=SourceActorMotion.Speed(NecromancerSummons.Source("druidhawk","Velocity"),208,100+velocityBonus,0);
-        var motion=s.Motion with{PathType=type,Flags=0,Points=[],Index=0,Velocity=speed.Velocity,MaximumVelocity=speed.Velocity,Distance=budget};
-        var path=SourceActorPath.Initialize(new(motion,target,motion.FinalTarget),budget,new(1,1,Map.Width*2-1,Map.Height*2-1),
-            (x,y)=>x>0&&y>0&&x<Map.Width*2&&y<Map.Height*2?0:0x3c01);
-        moved=s with{Mode=2,NextThink=0,ActionAt=0,EndAt=0,Motion=path.Motion};
-        return path.Motion.Points.Length!=0 && (path.Motion.Flags&0x20)!=0;
-    }
-    private RavenBodyState Spread(PlayerMobile owner,RavenBodyState s)
-    {
-        var cell=Cell(s);var center=new Point2D(owner.X*2,owner.Y*2);
-        int distance=DruidRavenMotion.Distance(cell,center,0,2);
-        if(distance>0 && Path(s,new(center.X+8*(cell.X-center.X)/distance,center.Y+8*(cell.Y-center.Y)/distance),2,20,0,out var moved)){return moved;}
-        return Warp(owner,s);
-    }
-    private RavenBodyState Warp(PlayerMobile owner,RavenBodyState s)
-    {
-        MoveToWorld(owner.Location,owner.Map);AIObject?.AITimer.Stop();
-        return Idle(s with{Map=owner.Map.MapID,Motion=DruidRavenMotion.Center(owner.X*2,owner.Y*2)});
+        AIObject?.MoveTo(target,range);
+        return Idle(s with{Motion=DruidRavenMotion.Center(X*2,Y*2)},CombatPollFrames);
     }
     private RavenBodyState Think(PlayerMobile owner,RavenBodyState s)
     {
         if(s.Remaining<0){s=s with{Remaining=DruidRavenStats.InitialBudget(SkillMechanics.Values(owner,CombatAbility.Raven))};}
         else if(s.Remaining==0){Delete();return s;}
-        var cell=Cell(s);var center=new Point2D(owner.X*2,owner.Y*2);int ownerDistance=DruidRavenMotion.Distance(cell,center);
-        if(ownerDistance>50){return Warp(owner,s);}
-        if(ownerDistance>28){return Path(s,center,2,20,100,out var follow)?follow:Idle(s);}
-        var target=SelectTarget(owner,s);ulong seed=s.Seed;
-        if(target!=null && s.NextAttack<s.Frame)
+        var target=World.FindMobile((Serial)s.Focus);
+        if(!Eligible(owner,target))
         {
-            bool chance=Draw(ref seed,100)<NecromancerSummons.Source("druidhawk","aip4");s=s with{Seed=seed};
-            int distance=DruidRavenMotion.Distance(cell,new(target.X*2,target.Y*2),0,CreatureProfiles.For((BaseCreature)target).Traits.Size.Value);
-            if(chance && distance<NecromancerSummons.Source("druidhawk","aip5"))
-            {
-                if(Melee(target,s))
-                {
-                    var clock=DruidRavenMotion.Clock(false);Direction=GetDirectionTo(target);Animate(4,5,1,true,false,0); // Identified bird-attack placeholder.
-                    return s with{Mode=4,NextThink=0,ActionAt=checked(s.Frame+clock.Action),EndAt=checked(s.Frame+clock.End),Target=target.Serial.Value,
-                        Packet=s.StatProfile==SnapshotStats?s.Packet:DruidRavenStats.Attack(SkillMechanics.Values(owner,CombatAbility.Raven)),Remaining=s.Remaining-1,
-                        NextAttack=checked(s.Frame+10*NecromancerSummons.Source("druidhawk","aip3")),Attempts=checked(s.Attempts+1),Motion=Stop(s.Motion)};
-                }
-                return Path(s,new(target.X*2,target.Y*2),2,20,0,out var chase)?chase:Idle(s);
-            }
+            target=FindTarget(owner);
+            s=s with{Focus=target?.Serial.Value??0};
         }
-        if(ownerDistance<6 || ownerDistance>10){return Spread(owner,s);}
-        if(Path(s,center,s.Orbit==0?6:5,4,0,out var orbit)){return orbit;}
-        s=s with{Orbit=1-s.Orbit};
-        return Path(s,center,s.Orbit==0?6:5,4,0,out orbit)?orbit:Spread(owner,s);
+        if(target!=null)
+        {
+            if(!InStrikeRange(target))
+            {return Follow(target,InRange(target,StrikeRange)?0:StrikeRange,s);}
+            AIObject?.ResetApproachState();
+            if(s.Frame<s.NextAttack){return Idle(s,Math.Min(CombatPollFrames,s.NextAttack-s.Frame));}
+            var clock=DruidRavenMotion.Clock(false);
+            if(target.X!=X||target.Y!=Y){Direction=GetDirectionTo(target);}
+            ClassCombat.SendAnimation(this,RavenAppearance.DiveAction,clock.End*40);
+            Animate(RavenAppearance.DiveAction,RavenAppearance.DiveFrames,1,true,false,0);
+            return Strike(target,s with{Mode=4,NextThink=0,ActionAt=0,EndAt=checked(s.Frame+clock.End),Target=target.Serial.Value,
+                Packet=s.StatProfile==SnapshotStats?s.Packet:DruidRavenStats.Attack(SkillMechanics.Values(owner,CombatAbility.Raven)),
+                NextAttack=checked(s.Frame+clock.End+DiveRecoveryFrames),Motion=Stop(s.Motion)});
+        }
+        if(!InRange(owner,3)){return Follow(owner,3,s);}
+        AIObject?.ResetApproachState();
+        return Idle(s);
     }
-    private RavenBodyState Strike(PlayerMobile owner,RavenBodyState s)
+    private RavenBodyState Strike(Mobile target,RavenBodyState s)
     {
-        var target=World.FindMobile((Serial)s.Target);if(!Eligible(owner,target)||!Melee(target,s)){return s with{ActionAt=0};}
         ulong seed=s.Seed;int Next(int bound)=>Draw(ref seed,bound);
-        using var attempted=PaladinThorns.Attempt(this,target,false);
-        bool hit=ClassStats.CheckHit(this,target,0,()=>Next(1_000_000)/1_000_000.0)==true;
-        if(hit)
-        {
-            int min=s.Packet.Minimum256/256,max=s.Packet.Maximum256/256;int damage=checked(min+Next(max-min+1));
-            if(Next(100)<NecromancerSummons.Source("druidhawk","Crit")){damage=checked(damage*2);}
-            var point = target.Location;
-            var map = target.Map;
-            var contact = SkillCombat.ResolveHitParts(this,target,new(damage,0,0,0,0),true,true);
-            bool blinded = NamedControl.ApplySummonBlind(this,target,s.Birth.Blind,false,()=>Next(100));
-            if (contact.LifeLost > 0 || blinded) { DruidSummonVisuals.Contact(this, point, map); }
-        }
-        return s with{ActionAt=0,Seed=seed,Hits=checked(s.Hits+(hit?1:0))};
+        int min=s.Packet.Minimum256/256,max=s.Packet.Maximum256/256;
+        int damage=checked(min+Next(max-min+1));
+        if(Next(100)<NecromancerSummons.Source("druidhawk","Crit")){damage=checked(damage*2);}
+        var point=target.Location;
+        var map=target.Map;
+        var contact=SkillCombat.ResolveHitParts(this,target,new(damage*FlockSize,0,0,0,0),true,spell:true);
+        bool blinded=NamedControl.ApplySummonBlind(this,target,s.Birth.Blind,false,()=>Next(100));
+        if(contact.LifeLost>0 || blinded){DruidSummonVisuals.Contact(this,point,map);}
+        return s with{Seed=seed,Remaining=s.Remaining-1,Attempts=checked(s.Attempts+1),Hits=checked(s.Hits+1)};
     }
     internal void Advance(DateTime at,bool actions)
     {
@@ -233,7 +256,9 @@ public partial class DruidRavenBody:SkeletonGuardian
         if(!PersistentMinions.Active(owner,this)||!Permitted(owner))
         {PersistentMinions.ParkClass(owner,DiabloClass.Druid);Inactive(at);return;}
         if(!actions || owner.Map==null || owner.Map==Map.Internal)
-        {PersistentMinions.Suspend(owner);Inactive(at);return;}
+        {PersistentMinions.Suspend(this);Inactive(at);return;}
+        if(MinionSafeAreas.ShouldPark(owner,this))
+        {PersistentMinions.Park(this);Inactive(at);return;}
         if(Map==Map.Internal)
         {
             PersistentMinions.Resume(owner);
@@ -242,25 +267,26 @@ public partial class DruidRavenBody:SkeletonGuardian
             if(Map==Map.Internal){MoveToWorld(owner.Location,owner.Map);AIObject?.AITimer.Stop();}
         }
         s=Prepared;
-        if(Map!=owner.Map){s=Warp(owner,s);}
-        if(s.Map!=Map.MapID || Location!=Position(s))
-        {s=Idle(s with{Map=Map.MapID,Motion=DruidRavenMotion.Center(X*2,Y*2)});}
+        if(Map!=owner.Map)
+        {
+            MoveToWorld(PersistentMinions.FindPosition(owner,out var point)?point:owner.Location,owner.Map);
+            s=Idle(s with{Map=Map.MapID,Motion=DruidRavenMotion.Center(X*2,Y*2)},1);
+        }
+        // Replan old projected paths and any old dive that hadn't made contact yet.
+        if(s.Mode==2 || s is{Mode:4,ActionAt:>0})
+        {s=Idle(s with{Motion=DruidRavenMotion.Center(X*2,Y*2)},1);}
         while(!Deleted && s.NextFrameUtc<=at)
         {
             s=s with{Frame=checked(s.Frame+1),NextFrameUtc=s.NextFrameUtc.AddMilliseconds(40)};
-            if(s.Mode==2)
-            {
-                var moved=SourceActorMotion.Advance(s.Motion,(x,y)=>x>0&&y>0&&x<Map.Width*2&&y<Map.Height*2?0:0x3c01);
-                if(moved.RepathRequired){throw new NotSupportedException("Raven unit-target path repair is not connected");}
-                s=s with{Motion=moved.State};
-                if(!moved.Moving){s=Idle(s,0);}
-            }
-            if(s.Mode==4 && s.ActionAt==s.Frame){s=Strike(owner,s);}
             if(s.Mode is 4 or 8 && s.EndAt==s.Frame)
-            {int next=s.NextThink>s.Frame?s.NextThink:checked(s.Frame+15);s=Idle(s) with{NextThink=next};}
+            {
+                s=Idle(s,s.Mode==4?1:s.NextThink-s.Frame);
+                if(s.Remaining==0){RestorePrepared(s);Delete();return;}
+            }
             if(s.NextThink==s.Frame)
             {s=Think(owner,s);if(Deleted){return;}}
-            RestorePrepared(s);var position=Position(s);if(Location!=position){MoveToWorld(position,Map);}AIObject?.AITimer.Stop();
+            RestorePrepared(s);
+            AIObject?.AITimer.Stop();
         }
     }
     private void Inactive(DateTime at)
@@ -275,7 +301,10 @@ public partial class DruidRavenBody:SkeletonGuardian
     public override bool OnBeforeDeath(){Delete();return false;}
     public override void OnAfterDelete(){DruidRavens.Forget(this);base.OnAfterDelete();}
     [AfterDeserialization]private void AfterRavenLoad()
-    {AIObject?.AITimer.Stop();_prepared=JsonSerializer.Deserialize<RavenBodyState>(_saved);Validate(_prepared);DruidRavens.Track(this);}
+    {
+        AIObject?.AITimer.Stop();_prepared=JsonSerializer.Deserialize<RavenBodyState>(_saved);Validate(_prepared);
+        CantWalk=false;Hits=1;ApplyAppearance(FlockSize);DruidRavens.Track(this);
+    }
 }
 
 internal static class DruidRavens
@@ -286,10 +315,10 @@ internal static class DruidRavens
     internal static void Forget(DruidRavenBody body)=>Bodies.Remove(body);
     internal static DruidRavenBody[] For(PlayerMobile owner)=>(owner.AllFollowers??[]).OfType<DruidRavenBody>()
         .Where(x=>x is{Alive:true,Deleted:false}&&x.ControlMaster==owner).OrderBy(BattleCommand.PetOrder).ThenBy(x=>x.Serial.Value).ToArray();
-    internal static void Enforce(PlayerMobile owner)
+    internal static void KeepLatest(PlayerMobile owner)
     {
-        var bodies=For(owner);int limit=DruidRavenStats.Limit(SkillMechanics.Values(owner,CombatAbility.Raven));
-        foreach(var body in bodies.Take(Math.Max(0,bodies.Length-limit))){body.Delete();}
+        var bodies=For(owner);
+        foreach(var body in bodies.Take(bodies.Length-1)){body.Delete();}
     }
     internal static void Focus(PlayerMobile owner,Mobile target){foreach(var body in For(owner)){body.FocusOn(target);}}
     public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),()=>Tick(TimedEffects.Now));
@@ -302,7 +331,7 @@ internal static class DruidRavens
             try
             {
                 if(body.ControlMaster is PlayerMobile owner && body.Prepared.NextFrameUtc<=at && owners.Add(owner)
-                    && PersistentMinions.Active(owner,body)&&body.Permitted(owner)){Enforce(owner);}
+                    && PersistentMinions.Active(owner,body)&&body.Permitted(owner)){KeepLatest(owner);}
                 if(!body.Deleted){body.Advance(at,actions??body.ControlMaster?.NetState is{Running:true});}
             }
             catch(Exception e){body.Fault(e.Message);Log.Error(e,"Prepared Raven controller refused unsupported context for {Serial}",body.Serial);}

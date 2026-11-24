@@ -24,7 +24,7 @@ public partial class OrcFortEncounter : EncounterCreature
     private long _nextCry;
 
     internal bool FortDefender => Dungeon.Id is Guard or Shaman;
-    internal override int EncounterPlayers => 3;
+    protected override int RegionalEncounterPlayers => 3;
     internal override int HomeLeashRadius => FortDefender ? 20 : 10;
     public override string CorpseName => $"{Name}'s corpse";
     private bool Alerted => AIObject is OrcFortAI { Alerted: true };

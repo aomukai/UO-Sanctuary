@@ -136,7 +136,7 @@ public partial class BoneBarrierSegment : BaseCreature
         =>SpawnCore(owner,ability,point,values,root,true);
     private static BoneBarrierSegment SpawnCore(PlayerMobile owner, CombatAbility ability, Point3D point, SkillValues values, BoneBarrierSegment root,bool retirement)
     {
-        var prepared=root is BoneBarrierBody parent?parent.Prepared:root==null?BoneBarrierBirth.Capture(values,SummonDifficulties.For(owner.Map)):null;
+        var prepared=root is BoneBarrierBody parent?parent.Prepared:root==null?BoneBarrierBirth.Capture(values,SummonDifficulties.For(owner)):null;
         int life = root?.Life ?? (prepared!=null?(prepared.Numbers.Life256+255)/256:Math.Max(1, (int)((long)NecromancerSummons.Source("bonewall", "minHP") * (100 + values.Eval("calc1")) / 100)));
         bool thinking=prepared!=null&&(root==null||root is IBarrierThinkClock);
         if(retirement&&(!thinking||root!=null&&root is not IBarrierRetirement))

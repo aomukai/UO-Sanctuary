@@ -74,7 +74,7 @@ public partial class IronGolemBody:SkeletonGuardian
         var recipe=IronGolemBodyRecipes.Capture(owner,original);
         // Preflight every difficulty before transferring the original.
         foreach(var difficulty in new[]{MonsterDifficulty.Normal,MonsterDifficulty.Nightmare,MonsterDifficulty.Hell}){IronGolemBodyRecipes.Build(recipe,difficulty);}
-        var difficultyNow=SummonDifficulties.For(owner.Map);var numbers=IronGolemBodyRecipes.Build(recipe,difficultyNow);
+        var difficultyNow=SummonDifficulties.For(owner);var numbers=IronGolemBodyRecipes.Build(recipe,difficultyNow);
         var map=original.Map;var location=original.Location;bool visible=original.Visible,movable=original.Movable;
         var body=new IronGolemBody();
         try

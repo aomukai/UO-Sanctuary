@@ -87,7 +87,7 @@ internal static class ConsumeEffects
         if(!States.TryGetValue(owner.Serial.Value,out var state)){return;}
         if(!Owner(owner)||state.UntilUtc<=at){Clear(owner);return;}
         if(owner.Map==null||owner.Map==Map.Internal){return;}
-        var difficulty=SummonDifficulties.For(owner.Map);if(difficulty==state.Suppliers.Difficulty){return;}
+        var difficulty=SummonDifficulties.For(owner);if(difficulty==state.Suppliers.Difficulty){return;}
         // The consumed slot follows the approved summon facet rule. Preserve
         // its captured ranks,hard synergy,original order and exact deadline.
         var saved=state.Suppliers;var values=new SkillValues(SkillMechanics.For(CombatAbility.Consume),_=>saved.Rank,_=>0,99);

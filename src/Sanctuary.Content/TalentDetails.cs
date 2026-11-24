@@ -77,7 +77,7 @@ internal static class TalentDetails
             int Rank(SkillValues v, string key) => (int)v.Formula($"skill('{key}'.lvl)");
             int SummonRank(SkillValues v) => Rank(v, summon.SourceKey);
             int level = ClassStats.Level(player);
-            var difficulty = SummonDifficulties.For(player.Map);
+            var difficulty = SummonDifficulties.For(player);
             var births = new Dictionary<(int, int), SkeletonBirthStats>();
             SkeletonBirthStats Birth(SkillValues v)
             {

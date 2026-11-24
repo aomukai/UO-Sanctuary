@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using Server;
+using Server.Items;
 using Server.Mobiles;
 namespace Sanctuary;
 
@@ -60,6 +61,10 @@ internal static class SigilLethargy
         if(owner is not{Alive:true,Deleted:false}||marker is not{Deleted:false}||target is not{Alive:true,Deleted:false}
             ||owner.Map==null||owner.Map!=marker.Map||target.Map!=marker.Map||!ClassCombat.IsHostile(owner,target)
             ||!NecromancerCurseCasts.Eligible(target)||rank is <1 or >255||at.Kind!=DateTimeKind.Utc){return false;}
+        return ApplyStatus(owner, marker, target, rank, at);
+    }
+    private static bool ApplyStatus(Mobile owner, Item marker, Mobile target, int rank, DateTime at)
+    {
         var row=SkillMechanics.For(CombatAbility.SigilLethargy);
         if(row.SourceId!=393||row.Text("auratargetstate")!="sigillethargy"||row.Number("aurafilter")!=3||row.Number("auralencalc")!=12
             ||row.Text("aurastat1")!="attackrate"||row.Text("aurastat2")!="item_armor_percent"||row.Text("aurastat3")!="velocitypercent"
@@ -71,8 +76,37 @@ internal static class SigilLethargy
         var until=at.AddMilliseconds(480);
         _states=_states.SetItem(target.Serial.Value,new(target.Serial.Value,result.List.Creator,result.List.Rank,until));
         target.Delta(MobileDelta.Stat);owner.DoHarmful(target,true);
-        SigilVisuals.Mark(target,SpellEffectGraphics.LethargySigilMark,until,at);
+        if (!target.Hidden) PaladinAuraVisuals.Attach(target,SpellEffectGraphics.LethargySigilMark,until,at);
         return true;
+    }
+    internal static void CastEncounter(EncounterCreature caster, Point3D center, SkillValues values)
+    {
+        var map = caster.Map;
+        int radius = (int)values.Eval("aurarangecalc");
+        int tiles = (int)Math.Ceiling(SkillGeometry.Tiles(radius));
+        var duration = TimeSpan.FromMilliseconds(SigilActors.BodyFrames(values) * 40);
+        var delay = TimeSpan.FromMilliseconds(240);
+        var marker = EffectItem.Create(center, map, duration);
+        caster.FixedEffect(SpellEffectGraphics.LethargySigilCast, 10, 8);
+        caster.PlaySound(SpellEffectSounds.LethargySigilCast);
+        TimerExecutionToken pulse = default;
+        Timer.StartTimer(TimeSpan.Zero, delay, (int)Math.Ceiling(duration / delay), () =>
+        {
+            if (marker.Deleted || caster is not { Alive: true, Deleted: false, ReturningHome: false }
+                || caster.Map != map || !caster.InRange(center, 18))
+            {
+                pulse.Cancel();
+                return;
+            }
+            Effects.SendLocationEffect(center, map, SpellEffectGraphics.LethargySigilField, 6,
+                hue: radius * SpellEffectGraphics.HolyAuraRadiusUnitsPerTile / 2);
+            var now = TimedEffects.Now;
+            foreach (var enemy in map.GetMobilesInRange<Mobile>(center, tiles))
+                if (Math.Abs(enemy.Z - center.Z) < 16
+                    && AmazonInnerSight.InRadius(enemy.X - center.X, enemy.Y - center.Y, radius)
+                    && EliteCombat.Enemy(caster, enemy, 18) && EncounterProfiles.ClearSight(map, center, enemy.Location))
+                    ApplyStatus(caster, marker, enemy, values.Rank, now);
+        }, out pulse);
     }
     private static void Pulse(SigilActor actor,PlayerMobile owner,DateTime at)
     {

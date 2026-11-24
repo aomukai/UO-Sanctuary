@@ -29,6 +29,7 @@ public sealed class MercenaryServiceRequest
 // Recruitment registers real companions here after their class/skill implementation exists.
 public static class MercenaryCare
 {
+    private const int CompanionCombatRange = 12;
     internal static readonly Dictionary<Serial, MercenaryCareState> States = new();
     private static readonly HashSet<Serial> _paidResurrection = new();
     private static readonly List<Serial> _keys = new();
@@ -258,13 +259,18 @@ public static class MercenaryCare
     }
     internal static bool IsCompanion(PlayerMobile owner,BaseCreature pet)=>Owned(owner,pet,out _);
 
+    internal static bool WithinCompanionLeash(PlayerMobile owner, BaseCreature companion, Mobile target) =>
+        owner is { Alive: true, Mounted: false, Map: { } map } && map != Map.Internal && companion.Map == map
+        && target?.Map == map && owner.InRange(companion, CompanionCombatRange) && owner.InRange(target, CompanionCombatRange)
+        && Math.Abs(owner.Z - companion.Z) < 16 && Math.Abs(owner.Z - target.Z) < 16;
+
     internal static bool? GuardTarget(BaseCreature companion, Mobile target)
     {
         if (companion is not IClassCompanion || companion.ControlMaster is not PlayerMobile owner
             || !IsCompanion(owner, companion))
             return null;
 
-        if (!owner.Alive || owner.Mounted || owner.Map != companion.Map || !ClassCombat.IsHostile(owner, target)
+        if (!WithinCompanionLeash(owner, companion, target) || !ClassCombat.IsHostile(owner, target)
             || ClassCombatHooks.TargetAllowed?.Invoke(companion, target) == false)
             return false;
 
@@ -340,9 +346,41 @@ public static class MercenaryCare
                 && mercenary.ControlMaster is PlayerMobile { NetState: not null } owner)
             {
                 MountTravel.SyncCompanion(owner);
+                UpdateCompanionRetreat(owner, mercenary);
                 TryDrink(mercenary, now);
             }
         }
+    }
+
+    internal static void UpdateCompanionRetreat(PlayerMobile owner, BaseCreature companion)
+    {
+        if (companion is not IClassCompanion || !IsCompanion(owner, companion)
+            || companion is not { Alive: true, IsDeadPet: false, IsStabled: false }
+            || owner is not { Alive: true, Mounted: false, Map: { } map } || map == Map.Internal || companion.Map != map
+            || !(companion.ControlOrder is OrderType.Guard or OrderType.Attack
+                || companion.ControlOrder == OrderType.Follow && companion.ControlTarget == owner))
+            return;
+
+        var target = companion.ControlOrder == OrderType.Attack ? companion.ControlTarget : companion.Combatant;
+        Point3D spot = default;
+        bool catchUp = !Utility.InUpdateRange(owner.Location, companion.Location)
+            && PersistentMinions.FindPosition(owner, out spot);
+        if (!catchUp && (target == null || WithinCompanionLeash(owner, companion, target)))
+            return;
+
+        ClearCompanionCombat(companion);
+        if (companion.ControlOrder == OrderType.Attack)
+            companion.IssueOrder(OrderType.Guard, null, owner);
+        if (catchUp)
+            companion.MoveToWorld(spot, map);
+    }
+
+    private static void ClearCompanionCombat(BaseCreature companion)
+    {
+        companion.Combatant = null;
+        companion.FocusMob = null;
+        companion.Warmode = false;
+        companion.AIObject?.ResetApproachState();
     }
 
     private static void CatchUpMountedCompanions()
@@ -357,10 +395,7 @@ public static class MercenaryCare
                 || companionMap == map && Utility.InUpdateRange(owner.Location, companion.Location))
                 continue;
 
-            companion.Combatant = null;
-            companion.FocusMob = null;
-            companion.Warmode = false;
-            companion.AIObject?.ResetApproachState();
+            ClearCompanionCombat(companion);
             companion.MoveToWorld(owner.Location, map);
             companion.IssueOrder(OrderType.Follow, null, owner);
             MountTravel.SyncCompanion(owner);

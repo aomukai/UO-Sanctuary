@@ -22,7 +22,7 @@ internal static class AttractCasts
         if(EliteAuras.Curses.Unknown(selected.Serial,TimedEffects.Now))
         {Log.Warning("Attract legacy elite-curse replacement is unsupported: {Target}",selected.Serial.Value);return false;}
         var values=SkillMechanics.Values(owner,CombatAbility.Attract,rank);DateTime at=TimedEffects.Now;
-        int resetFrames=NecromancerCurseCasts.AiFrames((int)values.Eval("auralencalc"),SummonDifficulties.For(owner.Map));
+        int resetFrames=NecromancerCurseCasts.AiFrames((int)values.Eval("auralencalc"),SummonDifficulties.For(owner));
         if(!SourceCurseDuration.Incoming(selected,"attract",resetFrames,out int frames))
         {
             // Legacy do59 mutates alignment/targets before a failed factory,

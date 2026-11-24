@@ -110,7 +110,7 @@ internal static class NecromancerCurseCasts
         int frames=(int)values.Eval("auralencalc");
         // Do30 uses game difficulty before the curse-resistance factory. In
         // Sanctuary that is the owner's configured facet, not the NPC's spawn.
-        if(ability is CombatAbility.DimVision or CombatAbility.Terror or CombatAbility.Confuse){frames=AiFrames(frames,SummonDifficulties.For(owner.Map));}
+        if(ability is CombatAbility.DimVision or CombatAbility.Terror or CombatAbility.Confuse){frames=AiFrames(frames,SummonDifficulties.For(owner));}
         int aiFrames=frames; // AIRESET uses this duration before curse resistance.
         if(!SourceCurseDuration.Incoming(target,SkillMechanics.For(ability).Text("auratargetstate"),frames,out frames)){return false;}
         var state=NecromancerEffects.Profiles.Find(target)??new();
@@ -137,7 +137,7 @@ internal static class NecromancerCurseCasts
 
     internal static bool NpcDamageCurse(EncounterCreature caster, Mobile target, CombatAbility ability, int rank)
     {
-        if (ability is not (CombatAbility.AmplifyDamage or CombatAbility.Decrepify or CombatAbility.LowerResist)
+        if (ability is not (CombatAbility.AmplifyDamage or CombatAbility.Decrepify or CombatAbility.LowerResist or CombatAbility.Weaken or CombatAbility.LifeTap)
             || caster is not { Alive: true, Deleted: false } || target is not { Alive: true, Deleted: false }
             || rank is < 1 or > 255 || target is EncounterCreature { Grade: EncounterGrade.Champion, Champion: ChampionKind.Possessed })
             return false;
@@ -168,7 +168,10 @@ internal static class NecromancerCurseCasts
             EliteAuras.Refresh(target);
         }
         else
-            NecromancerEffects.Profiles.Store(target, state with { Curse = next });
+            NecromancerEffects.Profiles.Store(target, state with
+            {
+                Curse = next with { NonStackingResistance = caster is DestardEncounter && ability == CombatAbility.LowerResist }
+            });
 
         NecromancerEffects.CurseApplied(caster, target);
         return true;

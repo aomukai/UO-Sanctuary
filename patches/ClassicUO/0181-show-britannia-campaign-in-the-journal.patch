@@ -1,0 +1,31 @@
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
+@@ -151,7 +151,27 @@
+         (StoryDiscoveries.HedgeRoderic, "Roderic's Answer",
+             "Upstairs at the farm, I heard Roderic rehearse what he meant to tell the royal mage and his apprentices when they arrived. His family had lived there for generations. Whatever the mage might offer, Roderic wouldn't sell. I wondered whether he'd already given them that answer once."),
+         (StoryDiscoveries.HedgeOrvath, "Orvath's Watch",
+-            "I met a daemon named Orvath beside a pentagram in the Hedge Maze. He said his master had summoned him to watch over the maze. His master had been gone a long time, and no one had come to relieve him. I wondered what he'd seen while he waited.")
++            "I met a daemon named Orvath beside a pentagram in the Hedge Maze. He said his master had summoned him to watch over the maze. His master had been gone a long time, and no one had come to relieve him. I wondered what he'd seen while he waited."),
++        (StoryDiscoveries.CampaignSummons, "The King's Call",
++            "Geoffrey caught me as I entered Britain. He'd been looking for me everywhere. Lord British had important news and wanted me at the castle as soon as I could come."),
++        (StoryDiscoveries.FireIsland, "Tremors on Fire Island",
++            "Mariah and the mages of the Lycaeum traced the tremors on Fire Island to an outpouring of magic from Hythloth. Lord British asked me to investigate. Elowen Marr at the Britain docks can arrange passage on the king's authority."),
++        (StoryDiscoveries.SkeletonKing, "The Skeleton King",
++            "I defeated the Skeleton King in the chamber below Hythloth."),
++        (StoryDiscoveries.BlackthornSummons, "A Guard in Disarray",
++            "Geoffrey told me Lord British had fallen ill. Too few guards answer his call. Some are turning up drunk or taking bribes, and he has no one to replace them. Blackthorn is receiving reports at his keep on Britain's north side."),
++        (StoryDiscoveries.DaggerIsle, "Shamino's Guess",
++            "Blackthorn could narrow the search only to the anti-virtue dungeons. Shamino suggested Deceit on Dagger Isle. After the Skeleton King at Hythloth, he thought it fitting that the next enemy might hide on an island too. Blackthorn scoffed, but offered to arrange a ship from Britain through Elowen Marr."),
++        (StoryDiscoveries.Lazarus, "Lazarus",
++            "I defeated Lazarus at the bottom of Deceit."),
++        (StoryDiscoveries.EmptyTowns, "The Empty Streets",
++            "I found Geoffrey alone at the guard tower by the bridge. Both Lord British and Blackthorn are gravely ill. Most folk on the mainland have gone into hiding. Geoffrey thinks one more source of evil remains in another dungeon, but he cannot tell me which."),
++        (StoryDiscoveries.DestardLead, "Three Guesses at the Harvest",
++            "At the Bountiful Harvest Inn in New Haven, Jaana suspected the mages in Shame. Iolo favoured Wrong. Dupre came in and suggested Destard. A great evil could find shelter among dragons and wyrms, he said. Iolo remained unconvinced. Jaana agreed that Destard was worth a look."),
++        (StoryDiscoveries.Diablo, "The Depths of Destard",
++            "I defeated Diablo in the arena beneath Destard."),
++        (StoryDiscoveries.RoyalProclamation, "Hero of the People",
++            "I returned to Britain and saw the streets full again. Lord British named me Hero of the People. Britannia's wardrobes are open to me, and I may purchase a home here.")
+     ];
+ 
+     private SanctuaryJournalGump(World world) : base(world, 0, 0)

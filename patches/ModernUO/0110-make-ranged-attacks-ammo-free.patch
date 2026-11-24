@@ -1,0 +1,107 @@
+diff --git a/Projects/UOContent/Items/Weapons/BaseWeapon.cs b/Projects/UOContent/Items/Weapons/BaseWeapon.cs
+--- a/Projects/UOContent/Items/Weapons/BaseWeapon.cs
++++ b/Projects/UOContent/Items/Weapons/BaseWeapon.cs
+@@ -3194,6 +3194,12 @@
+         {
+             list.Add(1060639, $"{_hitPoints}\t{_maxHitPoints}"); // durability ~1_val~ / ~2_val~
+         }
++
++        AddNativeWeaponProperties(list);
++    }
++
++    protected virtual void AddNativeWeaponProperties(IPropertyList list)
++    {
+     }
+ 
+     public override void OnSingleClick(Mobile from)
+diff --git a/Projects/UOContent/Items/Weapons/Ranged/BaseRanged.cs b/Projects/UOContent/Items/Weapons/Ranged/BaseRanged.cs
+--- a/Projects/UOContent/Items/Weapons/Ranged/BaseRanged.cs
++++ b/Projects/UOContent/Items/Weapons/Ranged/BaseRanged.cs
+@@ -109,12 +109,6 @@
+ 
+         public override void OnHit(Mobile attacker, Mobile defender, double damageBonus = 1)
+         {
+-            if (attacker.Player && !defender.Player && (defender.Body.IsAnimal || defender.Body.IsMonster) &&
+-                Utility.RandomDouble() < 0.4 && Ammo is { } ammo && !defender.AddToBackpack(ammo))
+-            {
+-                ammo.Delete();
+-            }
+-
+             if (Core.ML && _velocity > 0)
+             {
+                 var bonus = (int)attacker.GetDistanceToSqrt(defender);
+@@ -138,60 +132,8 @@
+             base.OnHit(attacker, defender, damageBonus);
+         }
+ 
+-        public override void OnMiss(Mobile attacker, Mobile defender)
+-        {
+-            if (attacker.Player && Utility.RandomDouble() < 0.4)
+-            {
+-                if (Core.SE)
+-                {
+-                    if (attacker is PlayerMobile pm)
+-                    {
+-                        // Bank the spent ammo; it is gathered back up once the archer disengages.
+-                        AmmoRecovery.Bank(pm, AmmoType);
+-                    }
+-                }
+-                else
+-                {
+-                    Ammo?.MoveToWorld(
+-                        new Point3D(
+-                            defender.X + Utility.RandomMinMax(-1, 1),
+-                            defender.Y + Utility.RandomMinMax(-1, 1),
+-                            defender.Z
+-                        ),
+-                        defender.Map
+-                    );
+-                }
+-            }
+-
+-            base.OnMiss(attacker, defender);
+-        }
+-
+         public virtual bool OnFired(Mobile attacker, Mobile defender)
+         {
+-            if (attacker.Player)
+-            {
+-                var quiver = attacker.FindItemOnLayer<BaseQuiver>(Layer.Cloak);
+-                var pack = attacker.Backpack;
+-
+-                if (quiver == null || Utility.Random(100) >= quiver.LowerAmmoCost)
+-                {
+-                    // consume ammo
+-                    if (quiver?.ConsumeTotal(AmmoType) == true)
+-                    {
+-                        quiver.InvalidateWeight();
+-                    }
+-                    else if (pack?.ConsumeTotal(AmmoType) != true)
+-                    {
+-                        return false;
+-                    }
+-                }
+-                else if (quiver.FindItemByType(AmmoType) == null && pack?.FindItemByType(AmmoType) == null)
+-                {
+-                    // lower ammo cost should not work when we have no ammo at all
+-                    return false;
+-                }
+-            }
+-
+             attacker.MovingParticles(defender, EffectID, 18, 1, false, false, 0, 0, 0, 0, 0, EffectLayer.RightHand, 0);
+ 
+             return true;
+diff --git a/Projects/UOContent/Items/Weapons/Throwing/BaseThrown.cs b/Projects/UOContent/Items/Weapons/Throwing/BaseThrown.cs
+--- a/Projects/UOContent/Items/Weapons/Throwing/BaseThrown.cs
++++ b/Projects/UOContent/Items/Weapons/Throwing/BaseThrown.cs
+@@ -164,9 +164,8 @@
+         }
+     }
+ 
+-    public override void GetProperties(IPropertyList list)
++    protected override void AddNativeWeaponProperties(IPropertyList list)
+     {
+-        base.GetProperties(list);
+         list.Add($"{"Minimum throw range: "}{MinThrowRange}");
+     }
+ }

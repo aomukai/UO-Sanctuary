@@ -1,5 +1,10 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
+using System;
+using ModernUO.Serialization;
 using Server;
+using Server.Collections;
+using Server.Items;
+using Server.Mobiles;
 using static Sanctuary.NewHavenPopulation;
 
 namespace Sanctuary;
@@ -23,9 +28,6 @@ internal static class CovetousPassages
             PlacePassage(map, new(2545 + lane, 850, 0), new(5579 + lane, 1925, 0));
             PlacePassage(map, new(5579 + lane, 1926, 0), new(2545 + lane, 849, 0));
 
-            PlacePassage(map, new(5468, 1805 + lane, 2), new(5592, 1843, 0));
-            PlacePassage(map, new(5552 + lane, 1807, 2), new(5558, 1824, 0));
-
             // Buccaneer's Den portal. Use the foot of the arch on both sides.
             PlacePassage(map, new(2618 + lane, 976, 2), new(2724, 2133, 0));
             PlacePassage(map, new(2618 + lane, 978, 2), new(2724, 2133, 0));
@@ -37,8 +39,57 @@ internal static class CovetousPassages
         PlacePassage(map, new(5455, 1863, 0), new(2498, 918, 0));
         PlacePassage(map, new(5456, 1863, 0), new(2499, 918, 0));
 
-        PlacePassage(map, new(5592, 1842, 0), new(5469, 1805, 0));
-        PlacePassage(map, new(5556, 1824, 0), new(5552, 1808, 0));
-        PlacePassage(map, new(5557, 1824, 0), new(5552, 1808, 0));
+        ReplaceStairs(new(5468, 1805, 2), new(5592, 1842, 0),
+            deeper: new(5469, 1805, 0), deeperLanding: new(5592, 1844, 0),
+            back: new(5592, 1843, 0), backLanding: new(5470, 1805, 0));
+        ReplaceStairs(new(5552, 1807, 2), new(5557, 1824, 0),
+            deeper: new(5552, 1808, 0), deeperLanding: new(5559, 1825, 0),
+            back: new(5557, 1824, 0), backLanding: new(5552, 1809, 0));
+
+        void ReplaceStairs(Point3D oldTop, Point3D oldBottom, Point3D deeper, Point3D deeperLanding,
+            Point3D back, Point3D backLanding)
+        {
+            RemoveWalkTriggers(oldTop, oldBottom);
+            RemoveWalkTriggers(oldBottom, oldTop);
+            PlaceStairs(deeper, deeperLanding, "stairs deeper into Covetous");
+            PlaceStairs(back, backLanding, "stairs back through Covetous");
+        }
+
+        void RemoveWalkTriggers(Point3D from, Point3D to)
+        {
+            using var obsolete = PooledRefList<Teleporter>.Create();
+            foreach (var portal in map.GetItemsInRange<Teleporter>(from, 3))
+                if (portal.GetType() == typeof(Teleporter) && Utility.InRange(portal.PointDest, to, 3)
+                    && Math.Abs(portal.Z - from.Z) <= 15 && (portal.MapDest == null || portal.MapDest == map))
+                    obsolete.Add(portal);
+            foreach (var portal in obsolete)
+                portal.Delete();
+        }
+
+        void PlaceStairs(Point3D at, Point3D destination, string name)
+        {
+            foreach (var portal in map.GetItemsAt<CovetousStairs>(at))
+                if (portal.Location == at && portal.PointDest == destination)
+                    return;
+            new CovetousStairs(destination, map) { Name = name }.MoveToWorld(at, map);
+        }
+    }
+}
+
+[SerializationGenerator(0)]
+public partial class CovetousStairs : Teleporter
+{
+    internal CovetousStairs(Point3D destination, Map map) : base(destination, map)
+    {
+        Visible = true;
+        ItemID = 0x375A;
+    }
+
+    public override bool OnMoveOver(Mobile mobile) => true;
+
+    public override void OnDoubleClick(Mobile from)
+    {
+        if (from is PlayerMobile && CanDoubleClick(from) && CanTeleport(from))
+            StartTeleport(from);
     }
 }

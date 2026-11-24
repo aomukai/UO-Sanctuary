@@ -177,7 +177,7 @@ internal static class PlayerWeaponContact
         internal override void AfterHitPresentation(PreparedMonsterDamagePacket packet)
         {
             scope.Prepared.WeaponWear?.Invoke();
-            if(!scope.Prepared.SuppressWear&&CombatTiming.Equipped(source) is{} weapon&&NamedAmmunition.Maximum(weapon)==0){weapon.WearOnHit(source,target);}
+            if(!scope.Prepared.SuppressWear&&CombatTiming.Equipped(source) is{} weapon){weapon.WearOnHit(source,target);}
             if(scope.Loss>0&&scope.Map!=null&&scope.Map!=Map.Internal&&ClassGear.Bonus(source,"bloody")>0)
             {new Blood().MoveToWorld(scope.Point,scope.Map);}
         }

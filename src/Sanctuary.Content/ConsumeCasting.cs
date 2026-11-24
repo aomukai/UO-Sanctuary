@@ -4,7 +4,6 @@ using System.Linq;
 using Server;
 using Server.Gumps;
 using Server.Mobiles;
-using Server.Spells;
 namespace Sanctuary;
 
 internal sealed record ConsumeRelease(bool Consumed,int ManaPaid256,ConsumeEffect Effect,string Fault=null);
@@ -26,10 +25,11 @@ internal static class ConsumeCasting
     {
         if(!Actor(owner)||!WarlockDemonRecipients.Owned(owner,body))
         {return false;}
-        try{if(!ConsumePrepared.RuntimeSupported(ConsumePrepared.Capture(owner,Monster(body),SummonDifficulties.For(owner.Map)))){return false;}}
+        try{if(!ConsumePrepared.RuntimeSupported(ConsumePrepared.Capture(owner,Monster(body),SummonDifficulties.For(owner)))){return false;}}
         catch(Exception e)when(e is NotSupportedException or System.IO.InvalidDataException or ArgumentException){return false;}
-        if(MinionSafeAreas.Contains(owner)){return MinionSafeAreas.Parked(body);}
-        return WarlockDemonRecipients.InRange(owner,body,19)&&owner.InLOS(body);
+        if(MinionSafeAreas.Parked(body)){return MinionSafeAreas.Contains(owner);}
+        if(!MinionSafeAreas.Contains(owner)){return WarlockDemonRecipients.InRange(owner,body,19)&&owner.InLOS(body);}
+        return body.Map==owner.Map&&!body.Blessed&&body.GetDistanceToSqrt(owner)<=19&&owner.InLOS(body);
     }
     internal static BaseCreature[] Roster(PlayerMobile owner)=>Actor(owner)?WarlockDemonRecipients.Roster(owner).Where(b=>Eligible(owner,b)).ToArray():[];
     internal static bool OpenPrepared(PlayerMobile owner)
@@ -59,7 +59,7 @@ internal static class ConsumeCasting
         ConsumeEffect state;
         try
         {
-            var captured=ConsumePrepared.Capture(owner,Monster(body),SummonDifficulties.For(owner.Map));ConsumePrepared.RequireRuntime(captured);
+            var captured=ConsumePrepared.Capture(owner,Monster(body),SummonDifficulties.For(owner));ConsumePrepared.RequireRuntime(captured);
             state=new(owner.Serial.Value,body.Serial.Value,BattleCommand.PetOrder(body),at,at.AddMilliseconds(40L*captured.DurationFrames),captured);
             ConsumeEffects.Validate(state);
         }

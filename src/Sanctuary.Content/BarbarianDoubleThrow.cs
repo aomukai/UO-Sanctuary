@@ -14,9 +14,7 @@ public static class BarbarianDoubleThrow
     internal static Func<double> ElementRoll=Utility.RandomDouble;
     internal static Func<int,int> PhysicalRoll=Utility.Random;
     internal static Random Effects=Random.Shared;
-    private static bool Throwable(BaseWeapon weapon)=>ClassGear.Base(weapon) is{} basis && ClassItemTypes.Is(basis.Type,"thro")
-        && NamedAmmunition.Maximum(weapon)>0;
-    internal static WeaponPair? Pair(PlayerMobile owner)=>WeaponHands.Pair(owner) is{} pair && Throwable(pair.Primary) && Throwable(pair.Secondary)?pair:null;
+    internal static WeaponPair? Pair(PlayerMobile owner)=>WeaponHands.Pair(owner) is{} pair && BarbarianThrowing.Throwable(pair.Primary) && BarbarianThrowing.Throwable(pair.Secondary)?pair:null;
     private static bool Aim(PlayerMobile owner,Serial selected,Point3D point)
     {
         if(selected!=Serial.Zero)
@@ -27,7 +25,7 @@ public static class BarbarianDoubleThrow
     }
     public static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now)
     {
-        if(!BarbarianCombat.Available(owner,CombatAbility.DoubleThrow) || Pair(owner) is not{} pair || !NamedAmmunition.CanAttack(pair.Primary)
+        if(!BarbarianCombat.Available(owner,CombatAbility.DoubleThrow) || Pair(owner) is not{} pair
             || !SkillCombat.Begin(owner,CombatAbility.DoubleThrow,selected,point,now,(_,_,id,p)=>Aim(owner,id,p))){return false;}
         try{using(WeaponHands.Use(owner,pair.Primary)){DoubleThrowMissiles.Require(owner);}using(WeaponHands.Use(owner,pair.Secondary)){DoubleThrowMissiles.Require(owner);}}
         catch(NotSupportedException e){ClassCombat.For(owner).PendingAbility=CombatAbility.None;owner.SendMessage(0x22,e.Message);return false;}
@@ -60,14 +58,11 @@ public static class BarbarianDoubleThrow
             var values=SkillMechanics.Values(owner,CombatAbility.DoubleThrow);
             var selected=World.FindMobile(session.PendingTarget);
             var aim=selected is{Deleted:false} && selected.Map==owner.Map?selected.Location:session.PendingPoint;
-            var release=BarbarianThrowing.Release(owner,TimedEffects.Now,allowUntrained:true);
+            var release=BarbarianThrowing.Release(owner,allowUntrained:true);
             if(release is{} thrown)
             {
                 DoubleThrowMissiles.Launch(owner,aim,thrown,TimedEffects.Now);
             }
-            // No srv-start: the legacy wrapper consumes after each successful
-            // do74, even if quantity/allocation failed, and ignores debit failure.
-            // Exact modern low-mana outcome remains a separate reference gap.
             NecromancerEffects.Pay(owner,values.Mana256);
         }
         if(series.Released==0)

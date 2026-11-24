@@ -17,7 +17,7 @@ internal sealed class ConsumeRosterGump:Gump
         AddLabel(20,40,1152,"The power occupies one summon slot until it expires.");
         for(int i=0;i<pets.Length;i++)
         {
-            var body=pets[i];var s=ConsumePrepared.Capture(owner,ConsumeCasting.Monster(body),SummonDifficulties.For(owner.Map));int y=75+90*i;
+            var body=pets[i];var s=ConsumePrepared.Capture(owner,ConsumeCasting.Monster(body),SummonDifficulties.For(owner));int y=75+90*i;
             AddButton(20,y,4005,4007,i+1,GumpButtonType.Reply,0);AddLabel(60,y,1152,body.Name);
             AddLabel(60,y+23,1152,$"Life +{s.LifePercent}%, Run/Walk +{s.VelocityPercent}%");
             AddHtml(60,y+46,390,40,ConsumePrepared.Description(s),false,false);

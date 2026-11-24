@@ -62,7 +62,7 @@ public static class ConsumeLearnedChecks
             if(mode=="menu")
             {
                 town=new GuardedRegion("ConsumeLearnedTown"+p.Serial.Value,p.Map,1000,new Rectangle2D(p.X+18,p.Y-2,6,5));town.Register();p.Location=new(p.X+20,p.Y,p.Z);Ready(p);
-                Require(MinionSafeAreas.Contains(p)&&body.Map==Map.Internal&&MinionSafeAreas.Parked(body)&&SkillHealth.Balance256(body)==wound,"Town did not park same injured body");
+                Require(MinionSafeAreas.Contains(p)&&body.Map==p.Map&&!MinionSafeAreas.Parked(body)&&SkillHealth.Balance256(body)==wound,"Town did not retain same injured body");
             }
             SkillHealth.SetBalance256(p,SkillHealth.Maximum256(p)/3-17);int life=SkillHealth.Balance256(p),maximum=SkillHealth.Maximum256(p);bool began=false;long deadline=Core.TickCount+8000;ConsumeCasting.Pending pending=null;ConsumeSuppliers capture=null;
             void Inspect()
@@ -74,7 +74,7 @@ public static class ConsumeLearnedChecks
                     if(mode=="menu"&&selectedMenu==null&&p.FindGump<ConsumeRosterGump>()is{} menu)
                     {
                         Require(s.Consume==null&&!body.Deleted&&NecromancerEffects.ManaBalance256(p)==mana,"Opening roster consumed resources");selectedMenu=menu;button=Array.IndexOf(ConsumeCasting.Roster(p),body)+1;
-                        Require(button>0,"Actual sent menu omitted parked bound demon");menu.OnResponse(network,new RelayInfo(button,[],[],[],[]));
+                        Require(button>0,"Actual sent town menu omitted bound demon");menu.OnResponse(network,new RelayInfo(button,[],[],[],[]));
                     }
                     if(!began&&s.PendingAbility==Ability)
                     {

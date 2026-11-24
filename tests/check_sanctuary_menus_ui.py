@@ -124,7 +124,7 @@ def exercise(window, click, profile):
     values = profile_values()
     assert 48 <= values["sound_volume"] <= 52, values["sound_volume"]
     assert values["enable_music"] is False
-    assert values["sanctuary_menu_keys"] == "icjmtk"
+    assert values["sanctuary_menu_keys"] == "icjmtkof"
     key("b")
     assert "2" not in desktop(), "The old backpack shortcut was still active"
     key("i")
