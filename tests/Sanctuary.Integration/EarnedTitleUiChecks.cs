@@ -27,7 +27,7 @@ public static class EarnedTitleUiChecks
             _owner.Frozen = _owner.Paralyzed = false; _owner.Blessed = true; _owner.Name = "AlexandertheExtremelyPersistent";
             ClassCreation.Profiles.AdvanceLevel(_owner, 99);
             string site = RecognitionChecks.Place(_owner, Array.FindIndex(TownRecognition.Halls, h => h.Id == "Felucca/Britain"));
-            TownRecognition.Claim(_owner, site, RecognitionHonor.Hero); _wardrobe = TownRecognition.PublicWardrobe(site);
+            RecognitionChecks.AwardHeroAndCollect(_owner, site); _wardrobe = TownRecognition.PublicWardrobe(site);
             Swap(DiabloClass.Sorceress); ClassCreation.Profiles.AdvanceLevel(_owner, 99); Swap(DiabloClass.Necromancer);
             _owner.Skills.Blacksmith.Cap = 120; _owner.Skills.Blacksmith.Base = 120; _owner.Skills.Mining.Base = 100;
             _initial = Gameplay(); WardrobeGump.DisplayTo(_owner, _wardrobe);

@@ -54,7 +54,7 @@ internal static class DruidSpiritStats
         if(owner is not{Alive:true,Deleted:false} || !ClassCreation.Profiles.TryGet(owner.Serial,out var profile)
             || profile.Class!=DiabloClass.Druid || SkillMechanics.Rank(owner,ability)<1)
         {throw new InvalidOperationException("Spirit needs a live learned Druid owner");}
-        return Birth(SkillMechanics.Values(owner,ability),SummonDifficulties.For(owner.Map));
+        return Birth(SkillMechanics.Values(owner,ability),SummonDifficulties.For(owner));
     }
     internal static OakBirth Rescale(OakBirth birth,MonsterDifficulty difficulty,CombatAbility ability)
     {

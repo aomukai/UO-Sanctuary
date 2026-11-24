@@ -8,7 +8,7 @@ from check_warcry_link import configuration as prior
 STAGE=ROOT/'.local/class-skills/warcry-potion'
 def configuration():
     c=prior();c['stage']=STAGE;c['extra_families']+=('warcry-potion',)
-    c['extra_inputs']+=(Path(__file__).resolve(),ROOT/'tools/reference/warcry-link-native-evidence.json',ROOT/'docs/t29-combat-potions.md')
+    c['extra_inputs']+=(Path(__file__).resolve(),ROOT/'tools/reference/warcry-link-native-evidence.json',ROOT/'tools/reference/rules/t29-combat-potions.md')
     helpers=tuple(Path(m.__file__).resolve()for m in tuple(sys.modules.values())if getattr(m,'__file__',None)and Path(m.__file__).resolve().parent==ROOT/'tests')
     c['extra_inputs']=tuple(dict.fromkeys((*c['extra_inputs'],*helpers)))
     return c

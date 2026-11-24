@@ -1,0 +1,343 @@
+diff --git a/src/ClassicUO.Client/Configuration/Profile.cs b/src/ClassicUO.Client/Configuration/Profile.cs
+--- a/src/ClassicUO.Client/Configuration/Profile.cs
++++ b/src/ClassicUO.Client/Configuration/Profile.cs
+@@ -568,7 +568,7 @@
+                                     break;
+ 
+                                 case GumpType.HealthBar:
+-                                    if (serial == world.Player.Serial)
++                                    if (serial == world.Player.Serial || SanctuaryAvatarHealthGump.IsSavedCompanion(xml))
+                                     {
+                                         gump = new SanctuaryAvatarHealthGump(world);
+                                     }
+@@ -737,7 +737,7 @@
+                                         break;
+ 
+                                     case GumpType.HealthBar:
+-                                        if (serial == world.Player.Serial)
++                                        if (serial == world.Player.Serial || SanctuaryAvatarHealthGump.IsSavedCompanion(xml))
+                                         {
+                                             gump = new SanctuaryAvatarHealthGump(world);
+                                         }
+diff --git a/src/ClassicUO.Client/Game/AvatarDialogueClient.cs b/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
+--- a/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
++++ b/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
+@@ -99,6 +99,7 @@
+             else
+                 world.Player.SanctuaryDiscoveries &= ~StoryDiscoveries.UnexpectedSummons;
+             world.Player.SanctuaryStoryCompanion = reader.ReadUInt32BE();
++            world.Player.SanctuaryStoryStateReceived = true;
+             UIManager.GetGump<SanctuaryJournalGump>()?.RefreshDiscoveries();
+             return;
+         }
+diff --git a/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs b/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs
+@@ -21,6 +21,7 @@
+         internal bool SanctuaryNpcInteraction { get; set; }
+         internal StoryDiscoveries SanctuaryDiscoveries { get; set; }
+         internal uint SanctuaryStoryCompanion { get; set; }
++        internal bool SanctuaryStoryStateReceived { get; set; }
+         private readonly Dictionary<BuffIconType, BuffIcon> _buffIcons = new Dictionary<BuffIconType, BuffIcon>();
+ 
+         public PlayerMobile(World world, uint serial) : base(world, serial)
+diff --git a/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs b/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
+--- a/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
++++ b/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
+@@ -214,9 +214,9 @@
+ 
+                         BaseHealthBarGump hbgc;
+ 
+-                        if (mobile == _world.Player)
+-                        {
+-                            hbgc = new SanctuaryAvatarHealthGump(_world, _world.Player);
++                        if (SanctuaryAvatarHealthGump.UsesPortrait(_world, mobile))
++                        {
++                            hbgc = new SanctuaryAvatarHealthGump(_world, mobile);
+                         }
+                         else if (useCHB)
+                         {
+@@ -1196,9 +1196,9 @@
+                                 StatusGumpBase.GetStatusGump()?.Dispose();
+                             }
+ 
+-                            if (obj == _world.Player)
+-                            {
+-                                UIManager.Add(customgump = SanctuaryAvatarHealthGump.At(_world,
++                            if (SanctuaryAvatarHealthGump.UsesPortrait(_world, obj))
++                            {
++                                UIManager.Add(customgump = SanctuaryAvatarHealthGump.At(_world, (Mobile)obj,
+                                     Mouse.LClickPosition.X - SanctuaryAvatarHealthGump.FrameWidth / 2,
+                                     Mouse.LClickPosition.Y - SanctuaryAvatarHealthGump.FrameHeight / 2));
+                             }
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/AnchorableGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/AnchorableGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/AnchorableGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/AnchorableGump.cs
+@@ -14,7 +14,8 @@
+     {
+         NONE,
+         SPELL,
+-        HEALTHBAR
++        HEALTHBAR,
++        SANCTUARY_HEALTHBAR
+     }
+ 
+     internal abstract class AnchorableGump : Gump
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/NameOverheadGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/NameOverheadGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/NameOverheadGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/NameOverheadGump.cs
+@@ -232,9 +232,9 @@
+                     StatusGumpBase.GetStatusGump()?.Dispose();
+                 }
+ 
+-                if (entity == World.Player)
+-                {
+-                    UIManager.Add(gump = SanctuaryAvatarHealthGump.At(World,
++                if (SanctuaryAvatarHealthGump.UsesPortrait(World, entity))
++                {
++                    UIManager.Add(gump = SanctuaryAvatarHealthGump.At(World, (Mobile)entity,
+                         Mouse.Position.X - SanctuaryAvatarHealthGump.FrameWidth / 2,
+                         Mouse.Position.Y - SanctuaryAvatarHealthGump.FrameHeight / 2));
+                 }
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
+@@ -621,9 +621,9 @@
+                             break;
+                         }
+ 
+-                        if (LocalSerial == World.Player.Serial)
+-                        {
+-                            UIManager.Add(SanctuaryAvatarHealthGump.At(World,
++                        if (World.Mobiles.Get(LocalSerial) is { } mobile && SanctuaryAvatarHealthGump.UsesPortrait(World, mobile))
++                        {
++                            UIManager.Add(SanctuaryAvatarHealthGump.At(World, mobile,
+                                 Mouse.Position.X - SanctuaryAvatarHealthGump.FrameWidth / 2, Mouse.Position.Y - 5));
+                         }
+                         else if (ProfileManager.CurrentProfile.CustomBarsToggled)
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryAvatarHealthGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryAvatarHealthGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryAvatarHealthGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryAvatarHealthGump.cs
+@@ -1,8 +1,13 @@
+ // SPDX-License-Identifier: BSD-2-Clause
+ 
+ using System;
++using System.Xml;
++using ClassicUO.Configuration;
+ using ClassicUO.Game.GameObjects;
++using ClassicUO.Game.Managers;
+ using ClassicUO.Game.UI.Controls;
++using ClassicUO.IO;
++using Sanctuary;
+ 
+ namespace ClassicUO.Game.UI.Gumps;
+ 
+@@ -12,10 +17,46 @@
+     internal const int FrameHeight = 101;
+     private Label _title;
+     private ResourceBar _life, _mana, _stamina;
+-
+-    public SanctuaryAvatarHealthGump(World world) : base(world, 0, 0) { }
+-
+-    public SanctuaryAvatarHealthGump(World world, PlayerMobile player) : base(world, player) { }
++    private SanctuaryPortrait _portrait;
++    private ushort _portraitId;
++    private uint _nextVitalsPoll, _lastVitals;
++    private bool _hasVitals;
++
++    private bool IsCompanion => LocalSerial != World.Player?.Serial;
++
++    public SanctuaryAvatarHealthGump(World world) : base(world, 0, 0) =>
++        AnchorType = ANCHOR_TYPE.SANCTUARY_HEALTHBAR;
++
++    public SanctuaryAvatarHealthGump(World world, Mobile subject) : base(world, subject) =>
++        AnchorType = ANCHOR_TYPE.SANCTUARY_HEALTHBAR;
++
++    internal static bool UsesPortrait(World world, Entity entity) =>
++        entity is Mobile mobile && (mobile == world.Player || AvatarDialogueClient.IsOwnCompanion(world, mobile));
++
++    internal static bool IsSavedCompanion(XmlElement xml) => xml.GetAttribute("storycompanion") == "true";
++
++    public override void Save(XmlTextWriter writer)
++    {
++        base.Save(writer);
++        if (!IsCompanion)
++            return;
++
++        writer.WriteAttributeString("storycompanion", "true");
++        if (!ProfileManager.CurrentProfile.SaveHealthbars)
++            writer.WriteAttributeString("name", _name ?? "");
++    }
++
++    public override void Restore(XmlElement xml)
++    {
++        if (!IsCompanion)
++        {
++            base.Restore(xml);
++            return;
++        }
++
++        _name = xml.GetAttribute("name");
++        BuildGump();
++    }
+ 
+     protected override void BuildGump()
+     {
+@@ -26,8 +67,9 @@
+         Add(new SanctuaryBackdrop("character-frame", Width, Height));
+         Add(new Line(9, 26, 58, 66, 0xFF547896) { AcceptMouseInput = false });
+         Add(new Line(10, 27, 56, 64, 0xFF2E333F) { AcceptMouseInput = false });
+-        Add(new SanctuaryPortrait(World.Player, 11, 28, 54, 62));
+-        _title = Add(new Label(World.Player.Name ?? "", true, 0x0481, maxwidth: 200, font: 1) { X = 10, Y = 4 });
++        if ((IsCompanion ? World.Mobiles.Get(LocalSerial) : World.Player) is { } subject)
++            _portrait = Add(new SanctuaryPortrait(subject, 11, 28, 54, 62));
++        _title = Add(new Label(_name ?? "", true, 0x0481, maxwidth: 200, font: 1) { X = 10, Y = 4 });
+         _life = Add(new ResourceBar(75, 28, "Life", 0xFF3D49BD));
+         _mana = Add(new ResourceBar(75, 50, "Mana", 0xFFA26453));
+         _stamina = Add(new ResourceBar(75, 72, "Stamina", 0xFF57A16D));
+@@ -39,23 +81,92 @@
+         if (IsDisposed || _title == null || World.Player is not { } player)
+             return;
+ 
+-        _name = player.Name;
++        if (IsCompanion)
++        {
++            UpdateCompanion(player);
++            return;
++        }
++
++        SetTitle(player.Name ?? "");
+         _isDead = player.IsDead;
+-        if (_title.Text != _name)
+-            _title.Text = _name ?? "";
+         _life.Set(player.Hits, player.HitsMax);
+         _mana.Set(player.Mana, player.ManaMax);
+         _stamina.Set(player.Stamina, player.StaminaMax);
+     }
+ 
+     public static SanctuaryAvatarHealthGump At(World world, int x, int y) =>
+-        new(world, world.Player) { X = x, Y = y };
++        At(world, world.Player, x, y);
++
++    public static SanctuaryAvatarHealthGump At(World world, Mobile subject, int x, int y) =>
++        new(world, subject) { X = x, Y = y };
++
++    private void SetTitle(string name)
++    {
++        _name = name;
++        if (_title.Text != name)
++            _title.Text = name;
++    }
++
++    private void UpdateCompanion(PlayerMobile player)
++    {
++        if (!player.SanctuaryStoryStateReceived)
++            return;
++        if (player.SanctuaryStoryCompanion != LocalSerial)
++        {
++            Dispose();
++            return;
++        }
++
++        if (World.Mobiles.Get(LocalSerial) is { Name: { Length: > 0 } name })
++            SetTitle(name);
++
++        uint now = Time.Ticks;
++        if (_hasVitals && unchecked(now - _lastVitals) >= StatProtocol.PollMs * 3)
++        {
++            _hasVitals = false;
++            _life.Set(0, -1);
++            _mana.Set(0, -1);
++            _stamina.Set(0, -1);
++        }
++        if (World.InGame && unchecked((int)(now - _nextVitalsPoll)) >= 0)
++        {
++            _nextVitalsPoll = now + StatProtocol.PollMs;
++            SanctuaryCharacterStats.RequestCompanion(LocalSerial, CompanionStatRequest.Vitals, CompanionStatProtocol.Version);
++        }
++    }
++
++    internal static void ReceiveVitals(World world, ref StackDataReader reader)
++    {
++        if (reader.Remaining != CompanionStatProtocol.VitalsLength - 6)
++            return;
++        uint serial = reader.ReadUInt32BE();
++        if (serial != world.Player.SanctuaryStoryCompanion
++            || UIManager.GetGump<SanctuaryAvatarHealthGump>(serial) is not { IsCompanion: true } gump)
++            return;
++
++        ushort portrait = reader.ReadUInt16BE();
++        if (portrait != 0 && portrait != gump._portraitId)
++        {
++            gump._portrait?.Dispose();
++            gump._portrait = gump.Add(new SanctuaryPortrait(portrait, 11, 28, 54, 62));
++            gump._portraitId = portrait;
++        }
++
++        int life = reader.ReadInt32BE();
++        gump._isDead = life == 0;
++        gump._life.Set(life, reader.ReadInt32BE());
++        gump._mana.Set(reader.ReadInt32BE(), reader.ReadInt32BE());
++        gump._stamina.Set(reader.ReadInt32BE(), reader.ReadInt32BE());
++        gump._lastVitals = Time.Ticks;
++        gump._hasVitals = true;
++    }
+ 
+     private sealed class ResourceBar : Control
+     {
+         private const int TrackWidth = 141;
+         private readonly Line _fill;
+         private readonly Label _value;
++        private int _current, _maximum = int.MinValue;
+ 
+         public ResourceBar(int x, int y, string label, uint color)
+         {
+@@ -69,18 +180,20 @@
+             _fill = Add(new Line(1, 1, 0, Height - 2, color) { AcceptMouseInput = false });
+             Add(new Label(label, true, 0x0481, font: 1) { X = 4 });
+             _value = Add(new Label("", true, 0x0481, font: 1));
++            Set(0, -1);
+         }
+ 
+         public void Set(int current, int max)
+         {
++            if (current == _current && max == _maximum)
++                return;
++
++            _current = current;
++            _maximum = max;
+             int length = max > 0 ? Math.Clamp(current, 0, max) * (TrackWidth - 2) / max : 0;
+             _fill.Width = length;
+             _fill.IsVisible = length > 0;
+-            string value = $"{current} / {max}";
+-            if (_value.Text == value)
+-                return;
+-
+-            _value.Text = value;
++            _value.Text = max < 0 ? "—" : $"{current} / {max}";
+             _value.X = Width - 4 - _value.Width;
+         }
+     }
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryCharacterStats.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryCharacterStats.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryCharacterStats.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryCharacterStats.cs
+@@ -139,10 +139,18 @@
+ 
+     internal static void ReceiveCompanion(World world, ref StackDataReader reader)
+     {
+-        if (!world.InGame || world.Player == null || reader.Remaining < CompanionStatProtocol.SnapshotLength - 5)
++        if (!world.InGame || world.Player == null || reader.Remaining == 0)
+             return;
+ 
+         byte version = reader.ReadUInt8();
++        if (version == CompanionStatProtocol.VitalsVersion)
++        {
++            SanctuaryAvatarHealthGump.ReceiveVitals(world, ref reader);
++            return;
++        }
++        if (reader.Remaining < CompanionStatProtocol.SnapshotLength - 6)
++            return;
++
+         bool includesSkills = version == CompanionStatProtocol.Version;
+         if (version is not (CompanionStatProtocol.Version or CompanionStatProtocol.LegacyVersion)
+             || (includesSkills ? reader.Remaining <= CompanionStatProtocol.SnapshotLength - 6

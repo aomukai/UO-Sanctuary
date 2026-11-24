@@ -103,7 +103,7 @@ public partial class WarlockGoatmanBody:SkeletonGuardian,ISourceLifeMaximum,ISou
         var snapshot=GoatmanPrepared.Capture(owner);
         if(snapshot.Birth.Suppliers is not{InheritedPhysical5:0,InheritedPhysical7:0})
         {throw new NotSupportedException("Goatman duplicate nonzero inherited sunder aggregation remains unverified");}
-        var state=new GoatmanBodyState(owner.Serial.Value,snapshot,SummonDifficulties.For(owner.Map),at.AddMilliseconds(40));Validate(state);var body=new WarlockGoatmanBody();
+        var state=new GoatmanBodyState(owner.Serial.Value,snapshot,SummonDifficulties.For(owner),at.AddMilliseconds(40));Validate(state);var body=new WarlockGoatmanBody();
         try
         {
             body.RestorePrepared(state);body.Initialize(owner,snapshot.Birth.Suppliers.Rank,0);body.SetResistances();

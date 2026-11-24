@@ -501,7 +501,7 @@ public static class WeaponMissiles
                 if((flight.Flags&0x10000)==0)
                 {
                     NecromancerEffects.WeaponHit(player,selected,Math.Min(loss,(int)parts.Physical),true,lifeTap:false,ironMaiden:false);
-                    NamedCombat.AfterStrike(player,selected,true,ItemEffects);
+                    NamedCombat.AfterStrike(player,selected,true,ItemEffects,weaponProjectile:!bladeFury);
                 }
                 GemCombat.WeaponHit(player,selected,loss,true);
             }

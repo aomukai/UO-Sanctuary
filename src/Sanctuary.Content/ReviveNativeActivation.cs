@@ -96,7 +96,7 @@ public static class ReviveNativeActivation
     {
         public DiabloClass SummonClass=>DiabloClass.Necromancer;
         public bool Permitted(PlayerMobile owner)=>State(actor) is{} row&&row.Owner==owner.Serial.Value&&Trained(owner)
-            &&(owner.Map==null||owner.Map==Map.Internal||SummonDifficulties.For(owner.Map)==row.Difficulty);
+            &&(owner.Map==null||owner.Map==Map.Internal||SummonDifficulties.For(owner)==row.Difficulty);
         public void SuspendActions(){ReviveSwings.Cancel(actor,true);if(actor is GraveyardUndead undead){undead.StopCombatActions();}actor.AIObject?.AITimer.Stop();actor.Blessed=true;}
         public void ResumeActions(){if(CanAct(actor)){actor.Blessed=false;actor.AIObject?.AITimer.Start();}}
     }
@@ -133,7 +133,7 @@ public static class ReviveNativeActivation
         if(setup.EquipmentDefenseProfile!=null){ReviveEquipmentDefenses.RequireBody(original);}
         if(setup.EquipmentIncomingProfile!=null){ReviveEquipmentIncoming.RequireBody(original);}
         MonsterVariantBaselines.RememberNormal(original);
-        var row=new ReviveNativeState(original.Serial.Value,owner.Serial.Value,saved,setup,checked(NextOrder+1),SummonDifficulties.For(owner.Map));Validate(row);
+        var row=new ReviveNativeState(original.Serial.Value,owner.Serial.Value,saved,setup,checked(NextOrder+1),SummonDifficulties.For(owner));Validate(row);
         int slots=original.ControlSlots,maximum=original.HitsMaxSeed;bool noRewards=original.NoKillAwards,tamable=original.Tamable;bool detached=false;
         var home=original.Home;var homeMap=original.HomeMap;var waypoint=original.CurrentWayPoint;
         try

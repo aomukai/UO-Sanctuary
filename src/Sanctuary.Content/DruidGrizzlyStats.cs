@@ -54,7 +54,7 @@ internal static class DruidGrizzlyStats
         if(owner is not{Alive:true,Deleted:false}||!ClassCreation.Profiles.TryGet(owner.Serial,out var profile)
             ||profile.Class!=DiabloClass.Druid||SkillMechanics.Rank(owner,CombatAbility.SummonGrizzly)<1)
         {throw new InvalidOperationException("Grizzly needs a live learned Druid owner");}
-        return new(Birth(SkillMechanics.Values(owner,CombatAbility.SummonGrizzly),SummonDifficulties.For(owner.Map),true,
+        return new(Birth(SkillMechanics.Values(owner,CombatAbility.SummonGrizzly),SummonDifficulties.For(owner),true,
             name=>name=="item_pierce_damage_immunity"?ClassGear.Bonus(owner,"pierce-immunity-damage")
                 :throw new NotSupportedException("Unmapped inherited Grizzly stat: "+name)),
             SkillMechanics.Rank(owner,CombatAbility.SummonSpiritWolf),SkillMechanics.Rank(owner,CombatAbility.SummonDireWolf),true);

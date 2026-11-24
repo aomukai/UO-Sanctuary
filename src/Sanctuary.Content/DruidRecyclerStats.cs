@@ -49,7 +49,7 @@ internal static class DruidRecyclerStats
     {
         if(owner is not{Alive:true,Deleted:false}||!ClassCreation.Profiles.TryGet(owner.Serial,out var profile)||profile.Class!=DiabloClass.Druid
             ||SkillMechanics.Rank(owner,ability)<1){throw new InvalidOperationException("Recycler needs a live Druid owner");}
-        return new(Birth(SkillMechanics.Values(owner,ability),SummonDifficulties.For(owner.Map)),ClassStats.Level(owner));
+        return new(Birth(SkillMechanics.Values(owner,ability),SummonDifficulties.For(owner)),ClassStats.Level(owner));
     }
     internal static RecyclerSnapshot Rescale(RecyclerSnapshot snapshot,MonsterDifficulty difficulty)
     {

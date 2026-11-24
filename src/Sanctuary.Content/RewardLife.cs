@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using Server;
+using Server.Engines.Craft;
 using Server.Items;
 using Server.Mobiles;
 
@@ -29,6 +30,11 @@ public sealed record RewardLife(BaseCreature Creature, Corpse Corpse, PlayerMobi
             foreach (var item in corpse.Items) { items.Add(item); }
             foreach (var item in items)
             {
+                if (creature is HavenEncounter { Dungeon.Id: HavenEncounter.Bogling }
+                    && item is Log { Resource: CraftResource.RegularWood, Origin: ItemOrigin.Drop })
+                {
+                    continue;
+                }
                 // Approved Revive adaptation: captured droppable equipment
                 // remains loot. Its separate effect payload never owns it.
                 if (!TreasureHunts.FishingReward(item) && !ReviveBeforeDeath.PreserveLoot(creature,corpse,item)) { item.Delete(); }
@@ -58,6 +64,7 @@ public sealed record RewardLife(BaseCreature Creature, Corpse Corpse, PlayerMobi
         else if (creature is EncounterCreature encounter) { EncounterTreasure.Award(life, encounter, random); }
         else { GearDrops.Award(life, random); }
         if (creature is EncounterCreature { Grade: EncounterGrade.Champion or EncounterGrade.Unique or EncounterGrade.SuperUnique } elite
+            && !EncounterTreasure.HasDedicatedLoot(elite)
             && !corpse.Items.Any(item => ClassGear.State(item) != null))
         {
             EncounterTreasure.AwardRequiredGear(life, elite, random);

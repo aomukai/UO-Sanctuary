@@ -1,0 +1,86 @@
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -51,6 +51,7 @@
+     <Compile Include="../../../../shared/DespiseLighting.cs" Link="Game/Data/DespiseLighting.cs" />
+     <Compile Include="../../../../shared/CampGraphics.cs" Link="Game/Data/CampGraphics.cs" />
+     <Compile Include="../../../../shared/WorldDecorationGraphics.cs" Link="Game/Data/WorldDecorationGraphics.cs" />
++    <EmbeddedResource Include="../../../../art/world/leoric-throne/hall.png" LogicalName="Sanctuary.World.ThroneRoom.png" />
+     <EmbeddedResource Include="../../../../art/world/lazarus-mausoleum/pier-*.png" LogicalName="Sanctuary.World.%(Filename).png" />
+     <EmbeddedResource Include="../../../../art/world/lazarus-mausoleum/chamber.jpg" LogicalName="Sanctuary.World.Mausoleum.jpg" />
+     <EmbeddedResource Include="../../../../art/world/diablo-ritual/volcanic-chamber.png" LogicalName="Sanctuary.World.VolcanicChamber.png" />
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs
+@@ -19,6 +19,10 @@
+     internal partial class Item
+     {
+         private static EquipConvData? _equipConvData;
++
++        internal bool IsThroneRoomFloor => Graphic == WorldDecorationGraphics.ThroneRoomFloor && Z == 0
++            && (Flags & Flags.Movable) == 0 && WorldDecorationGraphics.InThroneRoom(World.MapIndex, X, Y)
++            && World.Player is { } viewer && WorldDecorationGraphics.InThroneRoom(World.MapIndex, viewer.X, viewer.Y);
+ 
+         internal bool IsMausoleumScenery => OnGround && Z is >= 0 and <= 6 && (Flags & Flags.Movable) == 0
+             && (Graphic is 0x051C or 0x027E || Graphic == WorldDecorationGraphics.MausoleumAltarBlocker
+--- a/src/ClassicUO.Client/Game/Scenes/RenderLists.cs
++++ b/src/ClassicUO.Client/Game/Scenes/RenderLists.cs
+@@ -69,7 +69,7 @@
+         private readonly List<GameObject> _stretchedTiles = [];
+         private readonly List<GameObject> _groundDecorations = [];
+         private Item _chamberAnchor;
+-        private Texture2D _chamberPainting, _mausoleumPainting;
++        private Texture2D _chamberPainting, _mausoleumPainting, _throneRoomFloor;
+         private readonly Texture2D[] _mausoleumPiers = new Texture2D[3];
+         // Offsets from the painting's top left, in source texels.
+         private static readonly (Point Origin, int Texture)[] PierArt =
+@@ -101,7 +101,7 @@
+         {
+             // Collision and picking still use the server's individual terrain items.
+             // Catch fading items here too, before they enter the transparent pass.
+-            if (toRender is Item { OnGround: true } tile && (tile.IsDiabloChamberScenery || tile.IsMausoleumScenery))
++            if (toRender is Item { OnGround: true } tile && (tile.IsDiabloChamberScenery || tile.IsMausoleumScenery || tile.IsThroneRoomFloor))
+             {
+                 _chamberAnchor ??= tile;
+                 // Lava blockers also contribute light to nearby actors and stone.
+@@ -297,7 +297,9 @@
+                 DrawRenderList(batcher, _dragonNests, maxGroundZ);
+             if (_chamberAnchor != null && maxGroundZ >= 0)
+             {
+-                if (_chamberAnchor.IsMausoleumScenery)
++                if (_chamberAnchor.IsThroneRoomFloor)
++                    DrawThroneRoomFloor(batcher, _chamberAnchor);
++                else if (_chamberAnchor.IsMausoleumScenery)
+                     DrawMausoleum(batcher, _chamberAnchor);
+                 else
+                     DrawDiabloChamber(batcher, _chamberAnchor);
+@@ -305,6 +307,22 @@
+             }
+             batcher.SetStencil(DepthStencilState.Default);
+             return count;
++        }
++
++        private void DrawThroneRoomFloor(UltimaBatcher2D batcher, Item tile)
++        {
++            if (_throneRoomFloor == null)
++            {
++                using var stream = typeof(RenderLists).Assembly.GetManifestResourceStream("Sanctuary.World.ThroneRoom.png");
++                _throneRoomFloor = Texture2D.FromStream(batcher.GraphicsDevice, stream);
++            }
++            // Register the back corner of the painted floor to the back point of tile (0, 0).
++            int dx = WorldDecorationGraphics.ThroneRoomX - tile.X;
++            int dy = WorldDecorationGraphics.ThroneRoomY - tile.Y;
++            int x = tile.RealScreenPosition.X + 22 + (dx - dy - WorldDecorationGraphics.ThroneRoomHeight) * 22;
++            int y = tile.RealScreenPosition.Y + (dx + dy) * 22;
++            batcher.Draw(_throneRoomFloor, new Rectangle(x, y, _throneRoomFloor.Width, _throneRoomFloor.Height),
++                ShaderHueTranslator.GetHueVector(0), 0);
+         }
+ 
+         private void DrawMausoleum(UltimaBatcher2D batcher, Item tile)
+@@ -378,6 +396,8 @@
+                 _mausoleumPiers[i]?.Dispose();
+                 _mausoleumPiers[i] = null;
+             }
++            _throneRoomFloor?.Dispose();
++            _throneRoomFloor = null;
+             _mausoleumPainting?.Dispose();
+             _mausoleumPainting = null;
+             _chamberPainting?.Dispose();

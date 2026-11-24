@@ -178,14 +178,14 @@ public partial class FrontierEncounter : EncounterCreature
         && Home.X is >= 1373 and <= 1409 && Home.Y is >= 1476 and <= 1505;
     private bool VesperGraveyardDead => Undead && HomeMap == Map.Trammel
         && Home.X is >= 2742 and <= 2782 && Home.Y is >= 840 and <= 894;
-    internal override int EncounterPlayers => PlayersFive ? 5 : 3;
+    protected override int RegionalEncounterPlayers => PlayersFive ? 5 : 3;
     internal override int HomeLeashRadius => VesperSeaCreature ? 12 : BritainCemeteryDead || VesperGraveyardDead ? 7
         : RestrictedRange ? 10 : base.HomeLeashRadius;
     public override int AcquireOnApproachRange => Math.Min(base.AcquireOnApproachRange, RangePerception);
 
-    public override bool IsEnemy(Mobile mobile) => mobile != null
+    internal override bool IsEnemyIgnoringLeash(Mobile mobile) => mobile != null
         && (!VesperSeaCreature || Controlled || Summoned || Utility.InRange(Home, mobile.Location, HomeLeashRadius))
-        && base.IsEnemy(mobile);
+        && base.IsEnemyIgnoringLeash(mobile);
 
     public override void OnAfterSpawn()
     {

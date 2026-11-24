@@ -86,7 +86,7 @@ internal sealed class GoatmanNativeHostCandidate:IDisposable
     private void ClearEvents()
     {foreach(int id in Events.Unit(checked((int)Body.Serial.Value))){Events.Remove(id);}}
     private bool Active()=>Body is{Alive:true,Deleted:false}&&Owner is{Alive:true,Deleted:false,NetState:{Running:true}}
-        &&Body.ControlMaster==Owner&&PersistentMinions.Active(Owner,Body)&&Body.Permitted(Owner)&&Owner.Map!=null&&Owner.Map!=Map.Internal&&!MinionSafeAreas.Contains(Owner);
+        &&Body.ControlMaster==Owner&&PersistentMinions.Active(Owner,Body)&&Body.Permitted(Owner)&&Owner.Map!=null&&Owner.Map!=Map.Internal&&!MinionSafeAreas.ShouldPark(Owner,Body);
     internal void Advance(DateTime observed)
     {
         if(observed.Kind!=DateTimeKind.Utc){throw new ArgumentException("Candidate world observation must be UTC");}
@@ -95,7 +95,9 @@ internal sealed class GoatmanNativeHostCandidate:IDisposable
         if(!Active())
         {
             Combat.Cancel();Motion.Stop();ClearEvents();Pump=new(Events,SourceFrameTimeline.Skip(Pump.Position,observed));
-            DemonNativeState.Recovery(Body,Pump.Position.NextUtc);PersistentMinions.Suspend(Owner);Suspended=true;return;
+            DemonNativeState.Recovery(Body,Pump.Position.NextUtc);
+            if(!MinionSafeAreas.Enforce(Body)){PersistentMinions.Suspend(Body);}
+            Suspended=true;return;
         }
         bool pathMatchesBody = DeathMarkWorld.TryGetCurrentPath(Body, out var registered);
         if(Body.Map==Owner.Map&&pathMatchesBody&&!Suspended

@@ -1,0 +1,130 @@
+--- a/src/ClassicUO.Client/Game/GameObjects/Mobile.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Mobile.cs
+@@ -254,6 +254,78 @@
+             _lastAnimationIdleDelay = Time.Ticks + (TIME + RandomHelper.GetValue(0, TIME));
+         }
+ 
++        private int _bossHeading = -1; // Sixteen half-headings, zero facing down-screen.
++        private uint _bossTurnTime;
++        private ushort _bossPreviousX, _bossPreviousY;
++        private bool _bossRightStep;
++        private uint _bossContactTime;
++        private bool _bossHasContact;
++
++        private void UpdateBossHeading(byte direction)
++        {
++            int target = (((direction & 7) + 5) & 7) * 2;
++            if (_bossHeading < 0 || Math.Abs(X - _bossPreviousX) > 1 || Math.Abs(Y - _bossPreviousY) > 1
++                || AnimationFromServer)
++            {
++                // First sight, a teleport or a directed combat action starts at its actual facing.
++                _bossHeading = target;
++                _bossHasContact = false;
++                _bossTurnTime = Time.Ticks;
++            }
++            _bossPreviousX = X;
++            _bossPreviousY = Y;
++            if (_bossHeading == target)
++            {
++                _bossTurnTime = Time.Ticks;
++                return;
++            }
++            const int turnInterval = 38;
++            int delta = (target - _bossHeading + 16) % 16;
++            if (delta > 8) delta -= 16;
++            int steps = (int)Math.Min((Time.Ticks - _bossTurnTime) / turnInterval, (uint)Math.Abs(delta));
++            _bossHeading = (_bossHeading + Math.Sign(delta) * steps + 16) % 16;
++            _bossTurnTime += (uint)(steps * turnInterval);
++        }
++
++        // Drawing and pixel picking must use the same facing and the same frame.
++        private void ApplyBossMotion(ref byte group, ref byte direction, ref byte frame, ref bool mirror)
++        {
++            if (!Sanctuary.CampaignBossAppearance.IsBoss(Graphic) || _bossHeading < 0 || AnimationFromServer
++                || (Serial & 0x80000000) != 0 || IsDead || group is not (0 or 1 or 19))
++                return;
++
++            bool travelling = Steps.Count > 0 && (Steps.Front().X != X || Steps.Front().Y != Y);
++            int target = ((((byte)Direction & 7) + 5) & 7) * 2;
++            bool holdContact = _bossHasContact && _bossHeading == target && Time.Ticks - _bossContactTime < 250;
++            int heading = _bossHeading;
++            if (travelling || holdContact)
++            {
++                group = 0;
++                // A tile projects to 44 pixels of combined horizontal and vertical travel.
++                // Each tile carries one foot to the next contact, even across packet gaps.
++                const int halfStride = Sanctuary.CampaignBossAppearance.WalkFramesPerStep;
++                int pixels = Math.Abs((int)Offset.X) + Math.Abs((int)Offset.Y);
++                int progress = Math.Min(halfStride - 1, pixels * halfStride / 44);
++                frame = (byte)((_bossRightStep ? halfStride : 0) + progress);
++                heading = (heading + 1) & 14;
++            }
++            else if ((heading & 1) != 0)
++            {
++                group = Sanctuary.CampaignBossAppearance.TurnGroup;
++                frame = 0;
++            }
++            else
++            {
++                group = 1;
++                frame = Graphic == Sanctuary.CampaignBossAppearance.Diablo
++                    ? (byte)(Time.Ticks % Sanctuary.CampaignBossAppearance.BreathPeriodMs
++                             * Sanctuary.CampaignBossAppearance.BreathFrames / Sanctuary.CampaignBossAppearance.BreathPeriodMs)
++                    : (byte)0;
++            }
++            mirror = heading > 8;
++            direction = (byte)((mirror ? 16 - heading : heading) / 2);
++        }
++
+         public override void Update()
+         {
+             if (IsDestroyed)
+@@ -263,7 +335,7 @@
+ 
+             base.Update();
+ 
+-            if (_lastAnimationIdleDelay < Time.Ticks)
++            if (_lastAnimationIdleDelay < Time.Ticks && !Sanctuary.CampaignBossAppearance.IsBoss(Graphic))
+             {
+                 SetIdleAnimation();
+             }
+@@ -580,6 +652,8 @@
+         public override void ProcessAnimation(bool evalutate = false)
+         {
+             ProcessSteps(out var dir, evalutate);
++            if (evalutate && Sanctuary.CampaignBossAppearance.IsBoss(Graphic))
++                UpdateBossHeading(dir);
+             ProcessFootstepsSound();
+ 
+             if (LastAnimationChangeTime >= Time.Ticks || NoIterateAnimIndex())
+@@ -847,6 +921,12 @@
+                             }
+                         }
+ 
++                        if (!directionChange && Sanctuary.CampaignBossAppearance.IsBoss(Graphic))
++                        {
++                            _bossRightStep = !_bossRightStep;
++                            _bossContactTime = Time.Ticks;
++                            _bossHasContact = true;
++                        }
+                         X = (ushort)step.X;
+                         Y = (ushort)step.Y;
+                         Z = step.Z;
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+@@ -284,6 +284,7 @@
+             ushort graphic = GetGraphicForAnimation();
+             byte animGroup = GetGroupForAnimation(this, graphic, true);
+             byte animIndex = AnimIndex;
++            ApplyBossMotion(ref animGroup, ref dir, ref animIndex, ref IsFlipped);
+ 
+             Item mount = FindItemByLayer(Layer.Mount);
+             sbyte mountOffsetY = 0;
+@@ -1297,6 +1298,7 @@
+             ushort graphic = GetGraphicForAnimation();
+             byte animGroup = GetGroupForAnimation(this, graphic, true);
+             byte animIndex = AnimIndex;
++            ApplyBossMotion(ref animGroup, ref dir, ref animIndex, ref isFlipped);
+ 
+             byte animGroupBackup = animGroup;
+             byte animIndexBackup = animIndex;

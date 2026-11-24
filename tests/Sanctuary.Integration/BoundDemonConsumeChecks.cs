@@ -98,7 +98,7 @@ public static class BoundDemonConsumeChecks
             Require(!ClassCombat.ResolveAction(p,ClassCombat.For(p).EffectAt)&&stale.Released&&!goat.Deleted&&NecromancerEffects.ManaBalance256(p)==mana,"Cast consumed a replacement creation identity");
             SkillHealth.SetBalance256(body,SkillHealth.Maximum256(body)/2-17);int wounds=SkillHealth.Balance256(body);var origin=p.Location;
             town=new GuardedRegion("BoundConsumeTown"+p.Serial.Value,p.Map,1000,new Rectangle2D(p.X+18,p.Y-2,6,5));town.Register();p.Location=new(p.X+20,p.Y,p.Z);
-            Require(body.Map==Map.Internal&&body.Blessed&&SkillHealth.Balance256(body)==wounds&&ConsumeCasting.Eligible(p,body),"Parked blessed native body unavailable or healed");
+            Require(body.Map==p.Map&&!body.Blessed&&!MinionSafeAreas.Parked(body)&&SkillHealth.Balance256(body)==wounds&&ConsumeCasting.Eligible(p,body),"Native body unavailable or healed in town");
             Ready(p);Require(ConsumeCasting.OpenPrepared(p),"Town native roster did not open");menu=p.FindGump<ConsumeRosterGump>();button=Array.IndexOf(ConsumeCasting.Roster(p),body)+1;menu.OnResponse(network,new RelayInfo(button,[],[],[],[]));var action=ClassCombat.For(p).Consume;
             Require(action!=null,"Town native menu did not start cast");mana=NecromancerEffects.ManaBalance256(p);SkillHealth.SetBalance256(p,SkillHealth.Maximum256(p)/2-23);int life=SkillHealth.Balance256(p),maximum=SkillHealth.Maximum256(p);
             Require(!ClassCombat.ResolveAction(p,ClassCombat.For(p).EffectAt-1)&&NecromancerEffects.ManaBalance256(p)==mana,"Native windup spent mana");
@@ -109,7 +109,7 @@ public static class BoundDemonConsumeChecks
             p.Location=origin;town.Unregister();town=null;p.AddToBackpack(helm);ClassGear.Refresh(p);Require(ConsumeEffects.State(p)==state&&JsonSerializer.Serialize(goat.Prepared.Snapshot)==birth,"Gear change rewrote consumed snapshot or remaining pet birth");
             SkillHealth.SetBalance256(p,SkillHealth.Maximum256(p)-513);SkillHealth.SetBalance256(goat,SkillHealth.Maximum256(goat)/2-17);PersistentMinions.Suspend(p);
             File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(0,p.Serial.Value,enemy.Serial.Value,state,SkillHealth.Balance256(p),SkillHealth.Maximum256(p),goat.Serial.Value,birth,SkillHealth.Balance256(goat),NpcEquipmentRandom.State(goat))));kept=true;
-            Log.Information("Bound Consume:actual wounded blessed parked Daemon selected through town gump/shared SC,retired with native item graph and bound ledger once,rank20fire25snapshot and relative life retained;stale menu/cast creation identities refuse without payment;original summon birth preserved");
+            Log.Information("Bound Consume:actual wounded Daemon present and selected through town gump/shared SC,retired with native item graph and bound ledger once,rank20fire25snapshot and relative life retained;stale menu/cast creation identities refuse without payment;original summon birth preserved");
         }
         finally{town?.Unregister();ClassCombat.Stop(p);network.Mobile=null;p.NetState=null;account[0]=null;network.Account=null;account.Delete();if(!kept){enemy.Delete();goat?.Delete();body.Delete();p.Delete();ConsumeEffects.Clear(p);BoundDemonHosts.Tick();}}
     }

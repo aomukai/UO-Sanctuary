@@ -67,7 +67,7 @@ internal static class DruidSpiritWolfStats
         if(owner is not{Alive:true,Deleted:false} || !ClassCreation.Profiles.TryGet(owner.Serial,out var profile)
             || profile.Class!=DiabloClass.Druid || SkillMechanics.Rank(owner,CombatAbility.SummonSpiritWolf)<1)
         {throw new InvalidOperationException("Spirit Wolf needs a live learned Druid owner");}
-        return new(Birth(SkillMechanics.Values(owner,CombatAbility.SummonSpiritWolf),SummonDifficulties.For(owner.Map),true,
+        return new(Birth(SkillMechanics.Values(owner,CombatAbility.SummonSpiritWolf),SummonDifficulties.For(owner),true,
             name=>name=="item_pierce_cold_immunity"?ClassGear.Bonus(owner,"pierce-immunity-cold")
                 :throw new NotSupportedException("Unmapped inherited Spirit Wolf stat: "+name)),
             SkillMechanics.Rank(owner,CombatAbility.SummonDireWolf),SkillMechanics.Rank(owner,CombatAbility.SummonGrizzly),true);

@@ -173,13 +173,17 @@ public static class GearDrops
         int denominator = Denominator(basis, level, find, quality, factor);
         return denominator <= 0 || random.Next(denominator) < 128;
     }
-    internal static Item Generate(DropBase basis, int level, int find, Random random, int[] factors = null)
+    internal static Item Generate(DropBase basis, int level, int find, Random random, int[] factors = null, bool fallbackNamed = false)
     {
         if (basis == null || basis.Variants.Length == 0) { return null; }
         // Pick the UO appearance before quality so MF cannot select another base.
         var variant = basis.Variants[random.Next(basis.Variants.Length)];
         var quality = Quality(basis, level, find, random, factors);
-        return Generate(basis, variant, level, quality, random);
+        var item = Generate(basis, variant, level, quality, random);
+        if (item != null || !fallbackNamed)
+            return item;
+        var fallback = quality == DropQuality.Unique && basis.Rare ? DropQuality.Rare : DropQuality.Magic;
+        return Generate(basis, variant, level, fallback, random);
     }
 
     internal static Item GenerateMagic(DropBase basis, int level, Random random) =>
@@ -202,7 +206,8 @@ public static class GearDrops
     internal static void Award(RewardLife life, Random random, Type source = null)
     {
         // Gold and gear share one terminal treasure outcome, not independent rolls.
-        string leaf = CreatureGold.Select(source ?? life.Creature.GetType(), random, life.Difficulty);
+        string leaf = CreatureGold.Select(source ?? life.Creature.GetType(), random, life.Difficulty,
+            players: DungeonPlayerScaling.For(life.Creature));
         AwardSelection(life,leaf,random);
     }
     internal static bool FindItem(PlayerMobile owner,Corpse corpse,CorpseTreasure context,Random random)

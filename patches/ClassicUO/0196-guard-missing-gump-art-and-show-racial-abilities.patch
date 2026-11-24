@@ -1,0 +1,206 @@
+diff --git a/src/ClassicUO.Assets/GumpsLoader.cs b/src/ClassicUO.Assets/GumpsLoader.cs
+old mode 100644
+new mode 100755
+index 88c56753..ee0c417c
+--- a/src/ClassicUO.Assets/GumpsLoader.cs
++++ b/src/ClassicUO.Assets/GumpsLoader.cs
+@@ -228,7 +228,9 @@ namespace ClassicUO.Assets
+ 
+             ref var entry = ref _file.GetValidRefEntry((int)index);
+ 
+-            if (entry.CompressionFlag != CompressionType.ZlibBwt && entry.Width <= 0 && entry.Height <= 0)
++            // A missing entry has no payload even if the shared invalid index has cached art dimensions.
++            if (entry.Length <= 0
++                || (entry.CompressionFlag != CompressionType.ZlibBwt && entry.Width <= 0 && entry.Height <= 0))
+             {
+                 return default;
+             }
+diff --git a/src/ClassicUO.Client/Game/Managers/AudioManager.cs b/src/ClassicUO.Client/Game/Managers/AudioManager.cs
+old mode 100644
+new mode 100755
+index a3f428e0..6064ff4e
+--- a/src/ClassicUO.Client/Game/Managers/AudioManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/AudioManager.cs
+@@ -404,4 +404,4 @@ namespace ClassicUO.Game.Managers
+             return null;
+         }
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/src/ClassicUO.Client/Game/Managers/EffectManager.cs b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+old mode 100644
+new mode 100755
+index 0e430d96..83ae1e8d
+--- a/src/ClassicUO.Client/Game/Managers/EffectManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/EffectManager.cs
+@@ -375,4 +375,4 @@ namespace ClassicUO.Game.Managers
+             Items = null;
+         }
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/RacialAbilitiesBookGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/RacialAbilitiesBookGump.cs
+old mode 100644
+new mode 100755
+index b46fc077..80b9d1ba
+--- a/src/ClassicUO.Client/Game/UI/Gumps/RacialAbilitiesBookGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/RacialAbilitiesBookGump.cs
+@@ -22,7 +22,6 @@ namespace ClassicUO.Game.UI.Gumps
+         };
+         private static readonly string[] _gargoyleNames = { "Flying", "Berserk", "Master Artisan", "Deadly Aim", "Mystic Insight" };
+         private int _abilityCount = 4;
+-        private int _dictionaryPagesCount = 1;
+         private GumpPic _pageCornerLeft, _pageCornerRight;
+         private int _pagesCount = 3;
+         private int _tooltipOffset = 1112198;
+@@ -58,68 +57,66 @@ namespace ClassicUO.Game.UI.Gumps
+ 
+             GetSummaryBookInfo(ref abilityOnPage, ref iconStartGraphic);
+ 
+-            _pagesCount = _dictionaryPagesCount + (_abilityCount >> 1);
++            _pagesCount = 1 + ((_abilityCount + 1) >> 1);
+ 
+             int offs = 0;
+ 
+-            for (int page = 1, topage = _dictionaryPagesCount - 1; page <= _dictionaryPagesCount; page++)
++            int topage = 1;
++
++            for (int j = 0; j < 2; j++)
+             {
+-                for (int j = 0; j < 2; j++)
++                int indexX = 106;
++                int dataX = 62;
++                int y = 0;
++
++                if (j % 2 != 0)
+                 {
+-                    int indexX = 106;
+-                    int dataX = 62;
+-                    int y = 0;
++                    indexX = 269;
++                    dataX = 225;
++                }
+ 
+-                    if (j % 2 != 0)
+-                    {
+-                        indexX = 269;
+-                        dataX = 225;
+-                    }
+ 
++                Label text = new Label(ResGumps.Index, false, 0x0288, font: 6) { X = indexX, Y = 10 };
++                Add(text, 1);
+ 
+-                    Label text = new Label(ResGumps.Index, false, 0x0288, font: 6) { X = indexX, Y = 10 };
+-                    Add(text, page);
++                for (int i = 0; i < abilityOnPage; i++)
++                {
++                    if (offs >= _abilityCount)
++                    {
++                        break;
++                    }
+ 
+-                    for (int i = 0; i < abilityOnPage; i++)
++                    if (offs % 2 == 0)
+                     {
+-                        if (offs >= _abilityCount)
+-                        {
+-                            break;
+-                        }
++                        topage++;
++                    }
+ 
+-                        if (offs % 2 == 0)
+-                        {
+-                            topage++;
+-                        }
++                    bool passive = true;
+ 
+-                        bool passive = true;
+-
+-                        text = new HoveredLabel
+-                        (
+-                            GetAbilityName(offs, ref passive),
+-                            false,
+-                            0x0288,
+-                            0x33,
+-                            0x0288,
+-                            font: 9
+-                        )
+-                        {
+-                            X = dataX,
+-                            Y = 52 + y,
+-                            AcceptMouseInput = true,
+-                            LocalSerial = (uint) topage
+-                        };
++                    text = new HoveredLabel
++                    (
++                        GetAbilityName(offs, ref passive),
++                        false,
++                        0x0288,
++                        0x33,
++                        0x0288,
++                        font: 9
++                    )
++                    {
++                        X = dataX,
++                        Y = 52 + y,
++                        AcceptMouseInput = true,
++                        LocalSerial = (uint) topage
++                    };
+ 
+-                        text.MouseUp += OnClicked;
+-                        Add(text, page);
++                    text.MouseUp += OnClicked;
++                    Add(text, 1);
+ 
+-                        y += 15;
+-                        offs++;
+-                    }
++                    y += 15;
++                    offs++;
+                 }
+             }
+-
+-            int page1 = _dictionaryPagesCount - 1;
++            int page1 = 1;
+ 
+             for (int i = 0; i < _abilityCount; i++)
+             {
+@@ -199,7 +196,7 @@ namespace ClassicUO.Game.UI.Gumps
+                 }
+ 
+                 Add(pic, page1);
+-                pic.SetTooltip(Client.Game.UO.FileManager.Clilocs.GetString(_tooltipOffset + i), 150);
++                pic.SetTooltip(AbilityTooltip(_tooltipOffset + i), 175);
+ 
+                 Add
+                 (
+@@ -238,7 +235,6 @@ namespace ClassicUO.Game.UI.Gumps
+ 
+         private void GetSummaryBookInfo(ref int abilityOnPage, ref ushort iconStartGraphic)
+         {
+-            _dictionaryPagesCount = 2;
+             abilityOnPage = 3;
+ 
+             switch (World.Player.Race)
+@@ -267,6 +263,18 @@ namespace ClassicUO.Game.UI.Gumps
+         }
+ 
+ 
++        private static string AbilityTooltip(int id) => id switch
++        {
++            1112203 => "Elves have an 80% maximum Lightning resistance. Equipment and effects provide the actual resistance.",
++            1112206 => "Hostile creatures need to be 3 tiles closer to notice an elf. Creatures can still retaliate when attacked.",
++            1112207 => "Elves gain 20 maximum mana.",
++            1112209 => "Gargoyles naturally regenerate 3 hit points per second.",
++            1112210 => "Gargoyles can train Imbuing 5.0 points above their unlocked cap, up to 125.0.",
++            1112211 => "Ranged weapon hits have an additional 5% chance to inflict Open Wounds.",
++            1112212 => "Gargoyles have an 80% maximum Fire, Cold, Poison, and Lightning resistance.",
++            _ => Client.Game.UO.FileManager.Clilocs.GetString(id)
++        };
++
+         private string GetAbilityName(int offset, ref bool passive)
+         {
+             passive = true;

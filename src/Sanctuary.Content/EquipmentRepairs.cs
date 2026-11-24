@@ -156,9 +156,8 @@ public static class EquipmentRepairs
         var native = GearDetails.Read(item);
         bool damaged = native.MaximumDurability > 0 && native.Durability >= 0 && native.Durability < native.MaximumDurability;
         durability &= damaged;
-        bool throwing = NamedAmmunition.Maximum(item) > 0;
-        int capacity = item is BaseWand wand ? Capacity(wand) : NamedAmmunition.Maximum(item);
-        int current = item is BaseWand charged ? charged.Charges : throwing ? NamedAmmunition.Remaining(item) : 0;
+        int capacity = item is BaseWand wand ? Capacity(wand) : 0;
+        int current = item is BaseWand charged ? charged.Charges : 0;
         if (charges < -1 || capacity > 60000 || current < 0 || current > capacity) { return null; }
         int restore = charges == -1 ? capacity - current : charges;
         if (restore > capacity - current || !durability && restore == 0) { return null; }
@@ -167,9 +166,8 @@ public static class EquipmentRepairs
         var rarity = state?.Roll.Rarity ?? GearRarity.Normal;
         var band = Tier(tier);
         var costs = new List<RepairCost>();
-        // Throwing refills use the existing repair material bundle, not wand essence per projectile.
-        int essence = throwing ? 0 : restore * Settings.EssencePerCharge;
-        if (durability || throwing && restore > 0)
+        int essence = restore * Settings.EssencePerCharge;
+        if (durability)
         {
             Type processed = Processed(native);
             if (processed == null) { return null; }
@@ -225,8 +223,6 @@ public static class EquipmentRepairs
             || !ReferenceEquals(item.Parent, request.Parent) || item.Origin != request.Origin
             || !ReferenceEquals(ClassGear.State(item), request.State) || GearDetails.Read(item) != request.Native
             || item is BaseWand wand && (wand.Charges != request.Charges || Capacity(wand) != request.Capacity)
-            || NamedAmmunition.Maximum(item) > 0 && (NamedAmmunition.Remaining(item) != request.Charges
-                || NamedAmmunition.Maximum(item) != request.Capacity)
             || (request.Vendor != null ? !ServiceReady(player, request.Vendor) || ServiceSkill(request.Vendor) != request.Skill
                 : !ToolReady(player, request.Tool, request.Skill) || request.Tool.UsesRemaining != request.Uses
                     || !ReferenceEquals(request.Tool.Parent, request.ToolParent) || player.Skills[request.Skill].Base != request.SkillValue))
@@ -268,8 +264,6 @@ public static class EquipmentRepairs
             Profiles.Forget(item);
         }
         if (request.RestoreCharges > 0 && item is BaseWand recharge) { recharge.Charges += request.RestoreCharges; }
-        else if (request.RestoreCharges > 0 && NamedAmmunition.Maximum(item) > 0)
-        { NamedAmmunition.Restore(item, request.RestoreCharges); Profiles.Forget(item); }
         item.InvalidateProperties();
         ClassGear.Changed(player);
         result = new(saved, loss, request.RestoreCharges);

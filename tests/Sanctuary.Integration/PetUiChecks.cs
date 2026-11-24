@@ -30,7 +30,7 @@ public static class PetUiChecks
             Require(dagger != null && (dagger.Parent == _player || _player.EquipItem(dagger)), "No starting dagger for binding Teeth");
             _origin = CombatPractice.FindFloor(Map.Felucca, 1382, 1495);
             _player.MoveToWorld(_origin, Map.Felucca);
-            ClassCreation.Profiles.AwardExperience(_player, 500);
+            ClassCreation.Profiles.AwardExperience(_player, (int)ExperienceLevels.Threshold(2));
             _player.Mana = _player.ManaMax;
             _near = MakeCorpse(1);
             _hovered = MakeCorpse(4);

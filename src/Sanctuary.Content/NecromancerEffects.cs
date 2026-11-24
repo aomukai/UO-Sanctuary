@@ -16,7 +16,8 @@ public sealed record NecromancerCurse(CombatAbility Ability, uint Source, int Ra
     NecromancerMotion Motion = null, TerrorAi Terror = null, bool CloakBlind = false,
     [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] int? PhysicalDelta = null,
     [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] LowerResistDeltas ElementDeltas = null,
-    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] GrimWardDeltas Ward = null);
+    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] GrimWardDeltas Ward = null,
+    [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingDefault)] bool NonStackingResistance = false);
 public sealed record BoneArmorState(int? Rank,int Remaining256,int? Maximum256);
 public sealed record NecromancerState(NecromancerCurse Curse = null, int BoneArmor = 0, int ManaFraction = 0,
     [property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] BoneArmorState BoneArmorPool=null,
@@ -321,7 +322,9 @@ public static class NecromancerEffects
         BoneArmorVisuals.Absorbed(target, step);
         return step.Damage256/256.0;
     }
-    public static void BoneArmor(PlayerMobile owner, SkillValues values)
+    public static void BoneArmor(PlayerMobile owner, SkillValues values) => ApplyBoneArmor(owner, values);
+
+    internal static void ApplyBoneArmor(Mobile owner, SkillValues values)
     {
         var row=SkillMechanics.For(CombatAbility.BoneArmor);
         int amount=checked((int)values.Eval("aurastatcalc1"));
@@ -329,7 +332,8 @@ public static class NecromancerEffects
             ||row.Text("aurastat1")!="bonearmor"||row.Text("aurastat2")!="bonearmormax"||row.Number("auraeventfunc1")!=22
             ||amount<=0||amount!=values.Eval("aurastatcalc2"))
         {throw new NotSupportedException("Unmapped Bone Armor pool");}
-        DefensiveArmors.ClearGroup(owner);
+        if (owner is PlayerMobile player)
+            DefensiveArmors.ClearGroup(player);
         Profiles.Store(owner, (Profiles.Find(owner) ?? new()) with { BoneArmor=(int)((amount+255L)/256),BoneArmorPool=new(values.Rank,amount,amount) });
         owner.PlaySound(SpellEffectSounds.BoneArmorRaise);
     }

@@ -24,7 +24,7 @@ def exercise(window, click, capture):
     command('setup')
     time.sleep(.7)
     capture('t14-recognition-hero.png')
-    click(350, 140)
+    click(75, 390)
     command('first')
     time.sleep(.5)
     capture('t14-recognition-pillar.png')

@@ -24,6 +24,30 @@ public static class FoundationChecks
         int Life, int Stamina, int Mana, int LifeLevel4, int StaminaLevel4, int ManaLevel4,
         int LifeVitality4, int StaminaVitality4, int ManaEnergy4, int AttackBonus, int StatPerLevel);
     private sealed record ExperienceRow(int Level, long Threshold, int Ratio1024);
+    internal static void CheckExperience()
+    {
+        foreach (var row in BalanceCatalog.Read<ExperienceRow>("experience"))
+        {
+            long threshold = ExperienceLevels.Threshold(row.Level);
+            Require(threshold == (row.Threshold + 2) / 3
+                && MonsterExperience.Ratio1024(row.Level) == row.Ratio1024,
+                $"XP threshold or reduction diverged at level {row.Level}");
+            Require(ExperienceLevels.MigrateLegacyExperience(row.Level, row.Threshold) == threshold,
+                $"Saved XP at the start of level {row.Level} did not migrate to its new threshold");
+            if (row.Level > 1)
+                Require(ExperienceLevels.MigrateLegacyExperience(row.Level - 1, row.Threshold - 1) == threshold - 1,
+                    $"Saved XP just short of level {row.Level} crossed its new threshold");
+        }
+        Require(MonsterExperience.Award(10000, 16, 10) == 8800
+            && MonsterExperience.Award(10000, 4, 10) == 8100
+            && MonsterExperience.Award(10000, 20, 10) == 200
+            && MonsterExperience.Award(10000, 1, 20) == 500
+            && MonsterExperience.Award(10000, 50, 25) == 5000
+            && MonsterExperience.Award(10000, 70, 70) == 9531
+            && MonsterExperience.Award(10000, 98, 98) == 58
+            && MonsterExperience.Award(int.MaxValue, 99, 99) == 0, "Solo XP adjustment is incorrect");
+    }
+
     public static void Check()
     {
         foreach (var row in BalanceCatalog.Read<ClassRow>("classes"))
@@ -66,20 +90,7 @@ public static class FoundationChecks
                 ClassCreation.Profiles.PruneDeleted();
             }
         }
-        foreach (var row in BalanceCatalog.Read<ExperienceRow>("experience"))
-        {
-            Require(ExperienceLevels.Threshold(row.Level) == row.Threshold
-                && MonsterExperience.Ratio1024(row.Level) == row.Ratio1024,
-                $"XP threshold or reduction diverged at level {row.Level}");
-        }
-        Require(MonsterExperience.Award(10000, 16, 10) == 8800
-            && MonsterExperience.Award(10000, 4, 10) == 8100
-            && MonsterExperience.Award(10000, 20, 10) == 200
-            && MonsterExperience.Award(10000, 1, 20) == 500
-            && MonsterExperience.Award(10000, 50, 25) == 5000
-            && MonsterExperience.Award(10000, 70, 70) == 9531
-            && MonsterExperience.Award(10000, 98, 98) == 58
-            && MonsterExperience.Award(int.MaxValue, 99, 99) == 0, "Solo XP adjustment is incorrect");
+        CheckExperience();
         Require(MonsterBalance.All.Count == 396, "Expected exactly one players-1 curve per archetype");
         foreach (var row in MonsterBalance.All)
         {

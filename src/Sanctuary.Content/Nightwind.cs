@@ -46,7 +46,7 @@ public partial class Nightwind : Merydwen
     ];
 
     internal override bool CanTalkTo(PlayerMobile owner) => Recruited ? base.CanTalkTo(owner)
-        : YewStory.Has(owner, YewProgress.Heartwood);
+        : YewStory.HasHeartwoodAccess(owner);
 
     internal override void BeginConversation(PlayerMobile owner)
     {

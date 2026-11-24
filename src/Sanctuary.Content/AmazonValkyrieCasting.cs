@@ -30,7 +30,7 @@ internal static class AmazonValkyrieCasting
             {throw new NotSupportedException("Unmapped learned Valkyrie row");}
             if(NpcOriginalItemProcs.Allocator==null||ChainLightning.OriginalNpcAllocator==null||World.Loading)
             {throw new NotSupportedException("Valkyrie needs its original world allocation services");}
-            var difficulty=SummonDifficulties.For(owner.Map);var birth=ValkyrieBirthNumbers.Capture(owner,NecromancerSummons.Source("valkyrie","minHP",difficulty)*256);
+            var difficulty=SummonDifficulties.For(owner);var birth=ValkyrieBirthNumbers.Capture(owner,NecromancerSummons.Source("valkyrie","minHP",difficulty)*256);
             AmazonValkyrieBody.Validate(new(owner.Serial.Value,birth,difficulty,TimedEffects.Now.AddMilliseconds(40)));_=ValkyrieStartup.Rates;
             issue=null;return true;
         }

@@ -18,7 +18,7 @@ public static class StatUiChecks
     {
         Register("setup", player =>
         {
-            if (!ClassCreation.Profiles.AwardExperience(player, 500))
+            if (!ClassCreation.Profiles.AwardExperience(player, (int)ExperienceLevels.Threshold(2)))
             {
                 throw new InvalidOperationException("Could not award test level");
             }

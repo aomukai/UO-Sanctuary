@@ -349,6 +349,8 @@ public static class NamedGear
         var definition = Catalog.Item(state.NamedItemId);
         foreach (var template in NamedPropertyRuntime.Templates(definition))
         {
+            if (template.Property.Code is "rep-quant" or "stack")
+                continue;
             var value = state.NamedProperties.Single(r => r.Key == template.Key);
             string suffix = "";
             if (template.Key.StartsWith("a/", StringComparison.Ordinal))
@@ -363,8 +365,6 @@ public static class NamedGear
             string label = PropertyText(template.Property, value, item.RootParent is PlayerMobile owner ? ClassStats.Level(owner) : 1,state.Roll.ItemLevel);
             list.Add($"{label}{suffix}");
         }
-        int capacity = NamedAmmunition.Maximum(item);
-        if (capacity > 0) { list.Add($"{"Throwing Quantity: "}{NamedAmmunition.Remaining(item)}{"/"}{capacity}"); }
         if (definition.SetId != null)
         {
             var set = Catalog.Set(definition.SetId);

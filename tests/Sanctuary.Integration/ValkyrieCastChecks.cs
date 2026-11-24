@@ -98,7 +98,7 @@ public static class ValkyrieCastChecks
         var origin=p.Location;var point=new Point3D(p.X+12,p.Y,p.Z);var region=new GuardedRegion("ValkyrieLearnedTown"+p.Serial.Value,p.Map,1000,new Rectangle2D(point.X-2,point.Y-2,7,7));region.Register();
         try
         {
-            p.MoveToWorld(point,p.Map);Require(MinionSafeAreas.Contains(p),"Learned town fixture");var b=Cast(p,new(p.X+1,p.Y,p.Z));Require(MinionSafeAreas.Parked(b),"Paid town Valkyrie did not park");SkillHealth.SetBalance256(b,b.MaximumLife256-1025);int life=SkillHealth.Balance256(b);var rng=NpcEquipmentRandom.Require(b);string items=Json(ValkyrieEquipment.Originals(b).Select(i=>i.SavedText).ToArray());
+            p.MoveToWorld(point,p.Map);Require(MinionSafeAreas.Contains(p),"Learned town fixture");var b=Cast(p,new(p.X+1,p.Y,p.Z));Require(b.Map==p.Map&&!MinionSafeAreas.Parked(b),"Paid town Valkyrie did not stay present");SkillHealth.SetBalance256(b,b.MaximumLife256-1025);int life=SkillHealth.Balance256(b);var rng=NpcEquipmentRandom.Require(b);string items=Json(ValkyrieEquipment.Originals(b).Select(i=>i.SavedText).ToArray());
             p.MoveToWorld(origin,p.Map);PersistentMinions.Resume(p);Require(!MinionSafeAreas.Parked(b)&&b.Map==p.Map&&SkillHealth.Balance256(b)==life&&NpcEquipmentRandom.Require(b)==rng&&Json(ValkyrieEquipment.Originals(b).Select(i=>i.SavedText).ToArray())==items,"Town return changed learned originals or wounds");ValkyrieEquipmentDefense.Require(b);
         }
         finally{region.Unregister();}
@@ -129,7 +129,7 @@ public static class ValkyrieCastChecks
         SkillHealth.SetBalance256(b,b.MaximumLife256-1025);PersistentMinions.Park(b);Ready(p);
         Require(ClassCombat.Perform(p,CombatAbility.Valkyrie,null,new(p.X+3,p.Y,p.Z),Core.TickCount),"Saved unpaid windup");var a=ClassCombat.For(p);a.EffectAt+=FixtureSpace.RetentionMilliseconds;a.NextAction+=FixtureSpace.RetentionMilliseconds;
         PersistentMinions.Suspend(p);p.Internalize();NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());File.WriteAllText(Manifest,Json(new Saved(p.Serial.Value,point,Capture(b),NecromancerEffects.ManaBalance256(p),generation)));
-        Log.Information("Learned Valkyrie:shared Amazon SC/right/quick admission,exact fractional once-only payment,candidate rollback/forward allocation and learned-only replacement;town parking and original items/resources/wounds/RNG/paid roster through two reloads,unpaid windup not replayed;current executable/search/item-only/sunder/client limits remain");
+        Log.Information("Learned Valkyrie:shared Amazon SC/right/quick admission,exact fractional once-only payment,candidate rollback/forward allocation and learned-only replacement;town presence and original items/resources/wounds/RNG/paid roster through two reloads,unpaid windup not replayed;current executable/search/item-only/sunder/client limits remain");
     }
     private static void Input(NetState network,bool quick)
     {

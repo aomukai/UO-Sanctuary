@@ -49,6 +49,22 @@ public static class RecognitionChecks
             $"Office is inaccessible at {hall.Id}/{wardrobe.Location}");
         return hall.Id;
     }
+    internal static void ProclaimHero(PlayerMobile player)
+    {
+        BritanniaCampaign.Record(player, CampaignProgress.SkeletonKing | CampaignProgress.Lazarus
+            | CampaignProgress.Diablo | CampaignProgress.RoyalProclamation);
+        TownRecognition.GrantCampaignHero(player);
+    }
+
+    internal static bool AwardHeroAndCollect(PlayerMobile player, string hall)
+    {
+        if (!TownRecognition.AtOffice(player, hall) ||
+            (TownRecognition.Profiles.Find(player).Earned & RecognitionHonor.Hero) != 0)
+            return false;
+        ProclaimHero(player);
+        return TownRecognition.Collect(player, hall);
+    }
+
     private static Item[] Awards(PlayerMobile p) => p.Backpack.Items.Where(i => i is RecognitionCertificate or EarnedWardrobe).ToArray();
     private static void Delete(PlayerMobile p)
     { p.Delete(); ClassCreation.Profiles.PruneDeleted(); TownRecognition.Profiles.Prune(); }
@@ -56,7 +72,7 @@ public static class RecognitionChecks
     {
         ClassCreation.Profiles.AdvanceLevel(p, 80);
         p.Skills[SkillName.Cartography].Base = 100;
-        Require(TownRecognition.Claim(p, hall, RecognitionHonor.Hero), "Hero ceremony failed");
+        Require(AwardHeroAndCollect(p, hall), "Hero ceremony failed");
         Require(!ClassRespec.Ready(p, TownRecognition.PublicWardrobe(hall)), "First ceremony unlocked respec");
         Require(TownRecognition.Claim(p, hall, RecognitionHonor.Pillar), "Pillar ceremony failed");
     }
@@ -93,9 +109,9 @@ public static class RecognitionChecks
                 Require(TownRecognition.HasAccess(p), "Skill loss erased earned access");
                 ClassCreation.Profiles.AdvanceLevel(p, 80);
                 hall = Place(p, TownRecognition.Halls.Length - 1);
-                Require(TownRecognition.Claim(p, hall, RecognitionHonor.Hero) && Awards(p).Length == 3,
+                Require(AwardHeroAndCollect(p, hall) && Awards(p).Length == 3,
                     "Second ceremony in another town/facet failed or duplicated furniture");
-                Require(!TownRecognition.Claim(p, hall, RecognitionHonor.Hero) && Awards(p).Length == 3, "Repeated ceremony duplicated awards");
+                Require(!AwardHeroAndCollect(p, hall) && Awards(p).Length == 3, "Repeated ceremony duplicated awards");
                 foreach (var award in Awards(p)) { award.Delete(); }
                 TownRecognition.Collect(p, hall);
                 Require(Awards(p).Length == 0 && TownRecognition.HasAccess(p), "Lost awards were reissued or erased rights");
@@ -107,8 +123,10 @@ public static class RecognitionChecks
         {
             string site = Place(first);
             ClassCreation.Profiles.AdvanceLevel(first, 80);
-            Require(!TownRecognition.Claim(first, "unknown", RecognitionHonor.Hero), "Unregistered office accepted ceremony");
-            Require(TownRecognition.Claim(first, site, RecognitionHonor.Hero) && !TownRecognition.HasAccess(other), "Rights leaked to another character");
+            Require(!TownRecognition.HasAccess(first) && !TownRecognition.Claim(first, site, RecognitionHonor.Hero),
+                "Level 80 alone granted the Hero honor");
+            Require(!AwardHeroAndCollect(first, "unknown"), "Unregistered office accepted ceremony");
+            Require(AwardHeroAndCollect(first, site) && !TownRecognition.HasAccess(other), "Rights leaked to another character");
             first.Skills[SkillName.Cartography].Base = 100;
             first.MoveToWorld(new Point3D(first.X + 40, first.Y, first.Z), first.Map);
             Require(!TownRecognition.Claim(first, site, RecognitionHonor.Pillar), "Remote ceremony accepted");

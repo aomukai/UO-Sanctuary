@@ -90,7 +90,7 @@ public partial class DruidCreeperBody:SkeletonGuardian,ISourceLifeMaximum
         {throw new ArgumentException("Creeper needs a legal prepared ground point and UTC clock");}
         var snapshot=DruidCreeperStats.Capture(owner);
         if(snapshot.Birth.Pierce!=0){throw new NotSupportedException("Creeper poison-sunder consumer remains unverified");}
-        var state=new CreeperBodyState(owner.Serial.Value,snapshot,SummonDifficulties.For(owner.Map),at.AddMilliseconds(40));
+        var state=new CreeperBodyState(owner.Serial.Value,snapshot,SummonDifficulties.For(owner),at.AddMilliseconds(40));
         Validate(state);var body=new DruidCreeperBody();
         try
         {

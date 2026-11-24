@@ -100,7 +100,7 @@ class LocalGame:
         return self.logs / f"launcher-{name}.log"
 
     def play(self, progress, closing):
-        server = self.prepare_launch("server", installed=True)
+        server = self.prepare_launch("server")
         client_argv, client_folder, client_env = self.prepare_launch("client")
         addresses = local_addresses(client_folder / "settings.json")
         if any(map(socket_open, addresses)):

@@ -8,17 +8,20 @@ using Server.Mobiles;
 
 namespace Sanctuary;
 
-[SerializationGenerator(0)]
+[SerializationGenerator(1)]
 public partial class Wolfgang : ConversationNpc, IClassCompanion
 {
     [SerializableField(0)]
     private bool _recruited;
+    [SerializableField(1)]
+    private bool _starterArmorIssued;
     private TimerExecutionToken _swing;
     private DateTime _nextShout;
     private DateTime _rushUntil, _nextRush;
 
     private const DiabloClass CombatClass = DiabloClass.Barbarian;
     private const double CombatPace = 0.18, RushPace = 0.085;
+    private const int RecruitLeatherHue = 0x0590, RecruitPantsHue = 0x0455;
     DiabloClass IClassCompanion.CombatClass => CombatClass;
     CompanionEquipmentStyle IClassCompanion.EquipmentStyle => CompanionEquipmentStyle.Sword;
     public override bool IsInvulnerable => !Recruited;
@@ -83,11 +86,13 @@ public partial class Wolfgang : ConversationNpc, IClassCompanion
         Direction = Direction.North;
         AddItem(new Broadsword());
         AddItem(new WoodenShield());
-        AddItem(new LeatherChest { Hue = 0x0590 });
+        AddItem(new LeatherChest { Hue = RecruitLeatherHue });
         AddItem(new FancyShirt(0x0591));
-        AddItem(new LongPants(0x0455));
+        AddItem(new LongPants(RecruitPantsHue));
         AddItem(new Boots(0x0590));
     }
+
+    private void Deserialize(IGenericReader reader, int version) => _recruited = reader.ReadBool();
 
     internal static Wolfgang Join(PlayerMobile player)
     {
@@ -119,9 +124,42 @@ public partial class Wolfgang : ConversationNpc, IClassCompanion
     {
         if (Backpack == null)
             AddItem(new Backpack { Movable = false });
+        if (!StarterArmorIssued)
+        {
+            IssueStarterArmor(new StuddedChest());
+            IssueStarterArmor(new StuddedArms());
+            IssueStarterArmor(new StuddedGloves());
+            IssueStarterArmor(new StuddedGorget());
+            IssueStarterArmor(new StuddedLegs());
+            IssueStarterArmor(new ChainCoif());
+            StarterArmorIssued = true;
+        }
         if (ActiveSpeed != 0.12)
             SetSpeed(0.12, PassiveSpeed, isPassive: !Warmode);
         ActiveMoveSpeed = CombatPace;
+    }
+
+    private void IssueStarterArmor(BaseArmor armor)
+    {
+        var existing = FindItemOnLayer(armor.Layer);
+        if (existing != null)
+        {
+            bool recruitOutfit = existing is LeatherChest { Hue: RecruitLeatherHue, Quality: ArmorQuality.Regular }
+                or LongPants { Hue: RecruitPantsHue };
+            if (!recruitOutfit || existing.Name != null || existing.Origin != ItemOrigin.Drop
+                || ClassGear.State(existing) != null || !Backpack.TryDropItem(this, existing, false))
+            {
+                armor.Delete();
+                return;
+            }
+        }
+
+        if (!EquipItem(armor))
+        {
+            armor.Delete();
+            if (existing != null)
+                AddItem(existing);
+        }
     }
 
     public override bool CanPaperdollBeOpenedBy(Mobile from) => CanHandleGear(from);
@@ -193,7 +231,7 @@ public partial class Wolfgang : ConversationNpc, IClassCompanion
     {
         owner = ControlMaster as PlayerMobile;
         return Alive && !Deleted && !IsDeadPet && !Frozen && !Paralyzed && owner is { Alive: true }
-            && owner.Map == Map && MercenaryCare.IsCompanion(owner, this) && Combatant == target
+            && MercenaryCare.IsCompanion(owner, this) && Combatant == target && MercenaryCare.WithinCompanionLeash(owner, this, target)
             && ClassCombatHooks.ActionAllowed?.Invoke(this) != false && CreatureHitRecovery.Remaining(this) == 0
             && target.Map == Map && ClassCombat.IsHostile(owner, target) && Math.Abs(Z - target.Z) < 16 && InLOS(target);
     }

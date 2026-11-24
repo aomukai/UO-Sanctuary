@@ -23,7 +23,7 @@ class NamedSkillBacklogTests(unittest.TestCase):
 
     def test_reproducible_data_and_readable_checklist(self):
         self.assertEqual(self.data, json.loads((ROOT / 'data/Sanctuary/Balance/named-skill-backlog.json').read_text()))
-        self.assertEqual(render(self.data), (ROOT / 'docs/deferred-named-skills.md').read_text())
+        self.assertEqual(render(self.data), (ROOT / 'tools/reference/reports/deferred-named-skills.md').read_text())
 
     def test_proc_arguments_resolve_actual_source_spells(self):
         coldkill = self.items['unique/129']['dependencies']

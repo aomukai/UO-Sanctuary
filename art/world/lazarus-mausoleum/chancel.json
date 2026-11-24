@@ -1,0 +1,5 @@
+[
+  { "HalfWidth": 16, "HalfDepth": 10, "Chamfer": 4, "Z": 2 },
+  { "HalfWidth": 14, "HalfDepth": 8, "Chamfer": 3, "Z": 4 },
+  { "HalfWidth": 12, "HalfDepth": 6, "Chamfer": 3, "Z": 6 }
+]

@@ -148,18 +148,14 @@ public static class GearEffects
             int rolled=(physicalRoll??Utility.Random)(span);
             value=(range.Min+Math.Clamp(rolled,0,span-1))/256.0+CombatPotions.Bonus(player,"deep-wounds");
         }
-        if (weapon == null || ClassGear.Base(weapon) is not { } basis)
+        if (weapon == null || ClassGear.CombatBase(weapon) is not { } basis)
         {
             var unarmed = NamedGear.Poison(player, roll);
             int duration = unarmed.Count == 0 ? 3000 : unarmed.Length / unarmed.Count;
             return new(value, NamedGear.Elemental(player, "fire", roll) + SorceressEffects.EnchantFire(player, roll) + PaladinElements.Weapon(player,"fire",roll), NamedGear.Elemental(player, "cold", roll) + PaladinElements.Weapon(player,"cold",roll),
                 NamedGear.Elemental(player, "lightning", roll) + PaladinElements.Weapon(player,"ltng",roll), unarmed.Rate * duration, duration, NamedGear.ColdDuration(player), NamedGear.Elemental(player, "magic", roll));
         }
-        bool two = WeaponHands.TwoHanded(weapon);
-        int min = two && basis.TwoHandMax > 0 ? basis.TwoHandMin : basis.MinDamage;
-        int max = two && basis.TwoHandMax > 0 ? basis.TwoHandMax : basis.MaxDamage;
-        if (!WeaponHands.Melee(weapon) && ClassGear.Definition(weapon).Category == "Throwing" && basis.MissileMax > 0)
-        { min = basis.MissileMin; max = basis.MissileMax; }
+        var (min, max) = ClassGear.BaseDamage(weapon, basis);
         double physicalReference = (min + (max - min) * roll) * Math.Max(10, 100 + ClassStats.PhysicalDamageBonus(player, weapon)+(skillPhysicalPercent??0)) / 10000.0;
         double reference = (min + (max - min) * roll) * Math.Max(0, 100 + ClassStats.DamageBonus(player, weapon) - CombatAuras.DamagePercent(player)) / 10000.0;
         var poison = GemCombat.PoisonCombined(weapon, reference * ClassGear.Material(weapon, "damage-poison"), NamedGear.Poison(player, roll));
@@ -257,7 +253,7 @@ public static class GearEffects
         NecromancerEffects.WeaponHit(player, target, Math.Min(loss, (int)physical), ranged,lifeTap:false,ironMaiden:false,frozenArmor:false);
         NamedCombat.AfterStrike(player, target, ranged, effects,skipKnockback:skillKnockback);
         GemCombat.WeaponHit(player, target, loss, ranged);
-        if (wearWeapon && weapon != null && NamedAmmunition.Maximum(weapon) == 0) { weapon.WearOnHit(player, target); }
+        if (wearWeapon && weapon != null) { weapon.WearOnHit(player, target); }
         return Math.Max(0, before - target.Hits);
     }
     public static void WearArmor(PlayerMobile player, BaseWeapon weapon, int damage)

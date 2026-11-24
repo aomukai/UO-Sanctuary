@@ -11,5 +11,5 @@ if __name__=='__main__':
  c['extra_families']=('shadow-fury-packets','item-execution-metadata','npc-item-skills','blade-fury-missile')
  c['extra_manifest_names']={'blade-fury-missile':'blade-fury-missile-fixture.json'}
  c['extra_files'].update({'item-execution-raw-skills.json':ROOT/'tools/reference/d2r-named-equipment/json/skills.json','item-execution-raw-missiles.json':ROOT/'tools/reference/d2r-named-equipment/json/missiles.json','blade-fury-damage-source-probe.json':ROOT/'.local/class-skills/blade-fury-damage-source-probe.json'})
- c['extra_inputs']+=(Path(__file__).resolve(),ROOT/'tools/reference/shadow-fury-packets-source-evidence.json',ROOT/'docs/shadow-fury-mana-proposal.md')
+ c['extra_inputs']+=(Path(__file__).resolve(),ROOT/'tools/reference/shadow-fury-packets-source-evidence.json',ROOT/'tools/reference/rules/shadow-fury-mana-proposal.md')
  os.environ.update(SANCTUARY_PROJECT_ROOT=str(ROOT),SANCTUARY_FIRST_LOOP_ROOT=str(ROOT));check(**c)

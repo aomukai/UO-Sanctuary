@@ -2,10 +2,12 @@
 using System;
 namespace Sanctuary;
 
-// Cumulative thresholds: https://classic.battle.net/diablo2exp/basics/levels.shtml
 public static class ExperienceLevels
 {
-    private static readonly long[] _thresholds = [
+    private const int ThresholdDivisor = 3;
+
+    // The original cumulative thresholds also describe the XP in pre-v15 character saves.
+    private static readonly long[] _legacyThresholds = [
         0, 500, 1500, 3750, 7875, 14175, 22680, 32886, 44396, 57715,
         72144, 90180, 112725, 140906, 176132, 220165, 275207, 344008, 430010, 537513,
         671891, 839864, 1049830, 1312287, 1640359, 2050449, 2563061, 3203826, 3902260, 4663553,
@@ -17,5 +19,17 @@ public static class ExperienceLevels
         742730244, 809986056, 883294891, 963201521, 1050299747, 1145236814, 1248718217, 1361512946, 1484459201, 1618470619,
         1764543065, 1923762030, 2097310703, 2286478756, 2492671933, 2717422497, 2962400612, 3229426756, 3520485254,
     ];
-    public static long Threshold(int level) => _thresholds[Math.Clamp(level, 1, 99) - 1];
+    public static long Threshold(int level) => Reduce(LegacyThreshold(level));
+
+    internal static long MigrateLegacyExperience(int level, long experience)
+    {
+        long reduced = Reduce(Math.Min(experience, LegacyThreshold(99)));
+        // Rounding up must keep a character who was just short of a level below that level.
+        return level < 99 && experience < LegacyThreshold(level + 1)
+            ? Math.Min(reduced, Threshold(level + 1) - 1)
+            : reduced;
+    }
+
+    private static long LegacyThreshold(int level) => _legacyThresholds[Math.Clamp(level, 1, 99) - 1];
+    private static long Reduce(long experience) => (experience + ThresholdDivisor - 1) / ThresholdDivisor;
 }

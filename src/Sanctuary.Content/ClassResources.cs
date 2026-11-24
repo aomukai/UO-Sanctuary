@@ -41,7 +41,7 @@ public static class ClassResources
         var basis=ClassStats.For(profile.Class);var allocated=ClassCreation.Profiles.Stats(owner.Serial);
         int coefficient=resource==0?basis.LifeVitality4:resource==1?basis.StaminaVitality4:basis.ManaEnergy4;
         int growth=resource==0?basis.LifeLevel4:resource==1?basis.StaminaLevel4:basis.ManaLevel4;
-        int initial=resource==0?basis.Life:resource==1?basis.Stamina:basis.Mana;
+        int initial=resource==0?basis.Life:resource==1?basis.Stamina:basis.Mana+(owner.Race==Race.Elf?20:0);
         int attribute=resource==2?allocated.Energy:allocated.Vitality;
         int bonusAttribute=resource==2?owner.Int-basis.Energy-allocated.Energy:VitalityBonus(owner);
         string code=resource==0?"hp":resource==1?"stam":"mana";

@@ -45,7 +45,7 @@ public partial class YewEncounter : EncounterCreature
     private bool _castIceNext;
 
     internal bool HumanForm => Dungeon.Id is BlackCultist or RedCultist;
-    internal override int EncounterPlayers => 3;
+    protected override int RegionalEncounterPlayers => 3;
     public override bool AlwaysAttackable => HumanForm && !PaladinConversion.Active(this);
     public override string CorpseName => $"{Name}'s corpse";
 

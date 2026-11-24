@@ -45,7 +45,7 @@ public class LeashedMeleeAI : MeleeAI
         {
             var target = Mobile.Combatant;
             bool valid = target is { Deleted: false, Alive: true } && target.Map == Mobile.Map
-                && !(Mobile is EncounterCreature encounter && encounter.RepelledByAnkh(target.Location));
+                && !(Mobile is EncounterCreature encounter && encounter.RepelledByRefuge(target.Location));
             if (valid && !_engaged)
             {
                 _engaged = true;
@@ -57,7 +57,7 @@ public class LeashedMeleeAI : MeleeAI
                 _lastContact = now;
             }
             if (!Mobile.InRange(Mobile.Home, ((GraveyardUndead)Mobile).HomeLeashRadius) || Mobile.Map != Mobile.HomeMap
-                || _engaged && (!valid || now - _lastContact >= ChaseTimeoutMs))
+                || _engaged && (!valid || now - _lastContact >= ChaseTimeoutMs) && !UnderPetPressure(now))
             {
                 ReturningHome = true;
                 ResetSpecies(now);
@@ -91,6 +91,27 @@ public class LeashedMeleeAI : MeleeAI
             }
         }
         return ReturningHome;
+    }
+
+    private bool UnderPetPressure(long now)
+    {
+        // Blindness and other control effects can clear the monster's combatant.
+        // Recent attacks from a nearby player's pet still count as engagement.
+        var cutoff = TimedEffects.TimeAt(now).AddMilliseconds(-ChaseTimeoutMs);
+        foreach (var aggression in Mobile.Aggressors)
+        {
+            if (aggression.LastCombatTime < cutoff
+                || aggression.Attacker is not BaseCreature { Alive: true, Deleted: false } pet
+                || pet.GetMaster() is not PlayerMobile { Alive: true, Deleted: false } owner
+                || pet.Map != Mobile.Map || owner.Map != Mobile.Map
+                || !pet.InRange(Mobile, CombatProtocol.SightRange) || !owner.InRange(Mobile, CombatProtocol.SightRange)
+                || Mobile is EncounterCreature encounter
+                    && (encounter.RepelledByRefuge(owner.Location) || encounter.RepelledByRefuge(pet.Location)))
+                continue;
+
+            return true;
+        }
+        return false;
     }
 
     private void ResetSpecies(long now)

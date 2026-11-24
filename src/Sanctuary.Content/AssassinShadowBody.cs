@@ -198,7 +198,7 @@ public partial class AssassinShadowBody:SkeletonGuardian,ISourceLifeMaximum,IPer
     {
         if(at.Kind!=DateTimeKind.Utc||at>DateTime.MaxValue.AddMilliseconds(-40)||owner?.Map==null||owner.Map==Map.Internal)
         {throw new ArgumentException("Shadow needs its world owner and UTC clock");}
-        var capture=ShadowOwnerSnapshot.Capture(owner,ability);var difficulty=SummonDifficulties.For(owner.Map);
+        var capture=ShadowOwnerSnapshot.Capture(owner,ability);var difficulty=SummonDifficulties.For(owner);
         _=ShadowInitializer.Roll(ability,SourceRandom.InitLow(1),difficulty);var body=new AssassinShadowBody();
         try
         {

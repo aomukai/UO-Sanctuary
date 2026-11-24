@@ -181,8 +181,17 @@ public static class BattleOrders
     }
     internal static void Apply(PlayerMobile supplier,Mobile recipient,int rank,DateTime at)
     {
+        if (Alive(recipient))
+            Apply(supplier, recipient, rank, at, SkillMechanics.Values(supplier, CombatAbility.BattleOrders, rank));
+    }
+
+    internal static void ApplyEncounter(EncounterCreature supplier, Mobile recipient, int rank, DateTime at) =>
+        Apply(supplier, recipient, rank, at, new SkillValues(SkillMechanics.For(CombatAbility.BattleOrders), _ => rank, _ => 0, 1));
+
+    private static void Apply(Mobile supplier, Mobile recipient, int rank, DateTime at, SkillValues values)
+    {
         if(!Alive(recipient)){return;}
-        var before=Capture(recipient);var values=SkillMechanics.Values(supplier,CombatAbility.BattleOrders,rank);
+        var before=Capture(recipient);
         uint creator=_states.TryGetValue(recipient.Serial.Value,out var prior)?prior.Creator:supplier.Serial.Value;
         _states[recipient.Serial.Value]=new(recipient.Serial.Value,creator,supplier.Serial.Value,rank,(int)values.Eval("aurastatcalc1"),at.AddMilliseconds(values.Eval("auralencalc")*40));
         Change(recipient,before);

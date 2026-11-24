@@ -51,11 +51,11 @@ def review(check=False):
     assert 'return ClassResources.Parts(player,resource).NativeMaximum;' in stats.read_text()
     observations = ROOT / 'tools/reference/druid-form-removal-user-observations.json'
     assert json.loads(observations.read_text())['observed']['relativeLifeOnRemoval']
-    foundation = ROOT / 'docs/balance-foundations.md'
+    foundation = ROOT / 'tools/reference/rules/balance-foundations.md'
     assert 'Approved native whole maxima remain a documented projection.' in foundation.read_text()
     result = dict(referenceVersion='3.3.93847', reviewOnly=True, exactD2RMaximaImplemented=False,
         wholeNativeMaximumProjectionApproved=True, requiresPlayerPrecisionRewrite=False,
-        precedence=dict(path='docs/balance-foundations.md', section='Resource percentage operation correction', sha256=sha(foundation)),
+        precedence=dict(path='tools/reference/rules/balance-foundations.md', section='Resource percentage operation correction', sha256=sha(foundation)),
         table=dict(path=str(path.relative_to(ROOT)), sha256=sha(path), publicSha256=sha(cached_path), publicCommit=manifest['commit'], corroboratedFields=compared, rows=rows),
         legacySource=dict(commit=tree['sha'], path=source_path, sha256=hashlib.sha256(raw).hexdigest(), routineHashes={name:hashlib.sha256(body.encode()).hexdigest() for name,body in routines.items()}),
         nativeInputs={str(path.relative_to(ROOT)):sha(path) for path in [resources, health, stats]},

@@ -66,7 +66,7 @@ internal static class DruidCreeperStats
         if(owner is not{Alive:true,Deleted:false} || !ClassCreation.Profiles.TryGet(owner.Serial,out var profile)
             || profile.Class!=DiabloClass.Druid || SkillMechanics.Rank(owner,CombatAbility.PoisonCreeper)<1)
         {throw new InvalidOperationException("Creeper needs a live learned Druid owner");}
-        return new(Birth(SkillMechanics.Values(owner,CombatAbility.PoisonCreeper),SummonDifficulties.For(owner.Map),
+        return new(Birth(SkillMechanics.Values(owner,CombatAbility.PoisonCreeper),SummonDifficulties.For(owner),
             name=>name=="item_pierce_poison_immunity"?ClassGear.Bonus(owner,"pierce-immunity-poison")
                 :throw new NotSupportedException("Unmapped inherited Creeper stat: "+name)),
             ClassStats.Level(owner),ClassCreation.Profiles.GetRank(owner.Serial,"druid.rabies"));

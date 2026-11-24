@@ -42,7 +42,7 @@ public static class WeaponHands
     {
         if(weapon==null || ClassGear.Broken(weapon) || ClassGear.Slot(weapon)!=GearSlot.Weapon
             || ClassGear.State(weapon) is not{Identified:true} state || ClassGear.Base(weapon) is not{} basis
-            || state.CraftedEquipment || state.Runes.Length!=0 || state.MaterialRolls.Length!=0){return false;}
+            || GargoyleBows.Matches(weapon) || state.CraftedEquipment || state.Runes.Length!=0 || state.MaterialRolls.Length!=0){return false;}
         // Pure source one-handed bases and Barbarian one/two-handed swords.
         return !basis.TwoHanded || basis.OneOrTwoHanded && ClassItemTypes.Is(basis.Type,"swor");
     }

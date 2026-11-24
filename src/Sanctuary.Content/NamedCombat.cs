@@ -111,7 +111,7 @@ public static class NamedCombat
         else if (elite) { rate /= 2; }
         return rate * 200.0 / 256;
     }
-    public static void AfterStrike(PlayerMobile player, Mobile target, bool ranged, Random random,bool smite=false,bool skipKnockback=false,bool setupApplied=false)
+    public static void AfterStrike(PlayerMobile player, Mobile target, bool ranged, Random random,bool smite=false,bool skipKnockback=false,bool setupApplied=false,bool weaponProjectile=true)
     {
         if (!target.Alive || target.Deleted) { return; }
         TimedEffects.Slow(target, ClassGear.Bonus(player, "slow"), TimedEffects.Now);
@@ -120,7 +120,8 @@ public static class NamedCombat
         if(!smite){NamedControl.Freeze(player, target, ClassGear.Bonus(player, "freeze"), ranged, random);}
         NamedControl.ApplyBlind(player, target, ClassGear.Bonus(player, "stupidity"), ranged, random);
         NamedControl.ApplyFear(player, target, ClassGear.Bonus(player, "howl"), random);
-        int wounds = Math.Clamp(ClassGear.Bonus(player, "openwounds"), 0, 100);
+        int racialWounds = ranged && weaponProjectile && player.Race == Race.Gargoyle ? 5 : 0;
+        int wounds = Math.Clamp(ClassGear.Bonus(player, "openwounds") + racialWounds, 0, 100);
         if (wounds > 0 && random.Next(100) < wounds)
         { TimedEffects.Bleed(player, target, OpenWoundsDamage(ClassStats.Level(player), target, ranged), TimedEffects.Now); }
         if (!setupApplied && target is BaseCreature && ClassGear.Bonus(player, "noheal") > 0)
@@ -145,7 +146,8 @@ public static class NamedCombat
         if (type == ResistanceType.Physical) { return 50; }
         string code = type switch
         { ResistanceType.Fire => "res-fire-max", ResistanceType.Cold => "res-cold-max", ResistanceType.Poison => "res-pois-max", _ => "res-ltng-max" };
-        return Math.Clamp(75 + ClassGear.Bonus(player, code) + ClassGear.Bonus(player, "res-all-max") + PaladinResistance.Maximum(player,type), 0, 95);
+        int racialMaximum = player.Race == Race.Gargoyle || (player.Race == Race.Elf && type == ResistanceType.Energy) ? 5 : 0;
+        return Math.Clamp(75 + racialMaximum + ClassGear.Bonus(player, code) + ClassGear.Bonus(player, "res-all-max") + PaladinResistance.Maximum(player,type), 0, 95);
     }
     public static void Killed(PlayerMobile player, BaseCreature target)
     {

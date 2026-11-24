@@ -10,8 +10,13 @@ namespace Sanctuary;
 internal static class NecromancerGolems
 {
     internal static bool Ability(CombatAbility ability)=>ability is CombatAbility.ClayGolem or CombatAbility.BloodGolem or CombatAbility.IronGolem or CombatAbility.FireGolem;
-    internal static bool Member(SkeletonGuardian pet)=>pet is IronGolemBody{Prepared:{RosterMember:true}}
-        ||pet is NecromancerMinion minion&&Ability(minion.Kind);
+    internal static CombatAbility Kind(SkeletonGuardian pet) => pet switch
+    {
+        IronGolemBody { Prepared.RosterMember: true } => CombatAbility.IronGolem,
+        NecromancerMinion minion when Ability(minion.Kind) => minion.Kind,
+        _ => CombatAbility.None
+    };
+    internal static bool Member(SkeletonGuardian pet)=>Kind(pet)!=CombatAbility.None;
     internal static SkeletonGuardian[] For(PlayerMobile owner)=>owner==null?[]:(owner.AllFollowers??[]).OfType<SkeletonGuardian>()
         .Where(p=>p is{Alive:true,Deleted:false,IsDeadBondedPet:false}&&p.ControlMaster==owner&&Member(p)).ToArray();
     internal static int Limit(PlayerMobile owner)

@@ -1,0 +1,149 @@
+diff --git a/src/ClassicUO.Client/Client.cs b/src/ClassicUO.Client/Client.cs
+index 4ca9a28..eeaabf4 100755
+--- a/src/ClassicUO.Client/Client.cs
++++ b/src/ClassicUO.Client/Client.cs
+@@ -63,6 +63,25 @@ namespace ClassicUO
+                 hoard.Name = "a dragon's hoard";
+             }
+ 
++            for (int graphic = WorldDecorationGraphics.DiabloCarpetFirst;
++                graphic < WorldDecorationGraphics.DiabloBloodEnd && graphic < tiles.Length; graphic++)
++            {
++                ref var tile = ref tiles[graphic];
++                tile.Flags = TileFlag.Background;
++                tile.Weight = byte.MaxValue;
++                tile.Height = 0;
++                tile.Name = "ritual floor art";
++            }
++
++            if (WorldDecorationGraphics.DiabloLavaBarrier < tiles.Length)
++            {
++                ref var lava = ref tiles[WorldDecorationGraphics.DiabloLavaBarrier];
++                lava.Flags = TileFlag.Impassable;
++                lava.Weight = byte.MaxValue;
++                lava.Height = 20;
++                lava.Name = "lava";
++            }
++
+             const int TEXTURE_WIDTH = 512;
+             const int TEXTURE_HEIGHT = 1024;
+             const int LIGHTS_TEXTURE_WIDTH = 32;
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs
+index 0718dab..9d55ad2 100755
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs
+@@ -43,6 +43,12 @@ namespace ClassicUO.Game.GameObjects
+ 
+             if (OnGround && World.MapIndex == 1 && DespiseLighting.IsGlowingMushroom(X, Y, Graphic, Hue))
+                 Client.Game.GetScene<GameScene>().AddSoftLight(posX + 22, posY + 22, 94, Hue, 0.64f);
++            else if (OnGround && Graphic == WorldDecorationGraphics.DiabloLavaBarrier)
++            {
++                if (X % 4 == Y % 4 && (X & 1) == 0)
++                    Client.Game.GetScene<GameScene>().AddSoftLight(posX + 22, posY + 22, 126, 0x0030, 0.75f);
++                return false;
++            }
+ 
+             //Engine.DebugInfo.ItemsRendered++;
+             Vector3 hueVec;
+@@ -159,6 +165,10 @@ namespace ClassicUO.Game.GameObjects
+ 
+             if (OnGround && WorldDecorationGraphics.IsDragonHoardGround(graphic))
+                 posY += WorldDecorationGraphics.DragonHoardGroundDrawOffset;
++            else if (OnGround && WorldDecorationGraphics.IsDiabloCarpet(graphic))
++                posY += WorldDecorationGraphics.DiabloCarpetDrawOffset;
++            else if (OnGround && WorldDecorationGraphics.IsDiabloBlood(graphic))
++                posY += WorldDecorationGraphics.DiabloRitualDrawOffset;
+ 
+             DrawStaticAnimated(batcher, graphic, posX, posY, hueVec, false, depth);
+ 
+@@ -465,7 +475,8 @@ namespace ClassicUO.Game.GameObjects
+ 
+         public override bool CheckMouseSelection()
+         {
+-            if (OnGround && (Graphic == WorldDecorationGraphics.DragonHoard || WorldDecorationGraphics.IsDragonHoardGround(Graphic)))
++            if (OnGround && (Graphic == WorldDecorationGraphics.DragonHoard || WorldDecorationGraphics.IsDragonHoardGround(Graphic)
++                || WorldDecorationGraphics.IsDiabloFloorArt(Graphic) || Graphic == WorldDecorationGraphics.DiabloLavaBarrier))
+                 return false;
+ 
+             if (!IsCorpse)
+diff --git a/src/ClassicUO.Client/Game/Scenes/RenderLists.cs b/src/ClassicUO.Client/Game/Scenes/RenderLists.cs
+index c2cd6e1..490724b 100755
+--- a/src/ClassicUO.Client/Game/Scenes/RenderLists.cs
++++ b/src/ClassicUO.Client/Game/Scenes/RenderLists.cs
+@@ -67,6 +67,8 @@ namespace ClassicUO.Game.Scenes
+         private readonly List<GameObject> _tiles = [];
+         private readonly List<GameObject> _stretchedTiles = [];
+         private readonly List<GameObject> _groundDecorations = [];
++        private readonly List<GameObject> _ritualCarpets = [];
++        private readonly List<GameObject> _ritualFloors = [];
+         private readonly List<GameObject> _dragonNests = [];
+         private readonly List<GameObject> _statics = [];
+         private readonly List<GameObject> _animations = [];
+@@ -80,6 +82,8 @@ namespace ClassicUO.Game.Scenes
+             _tiles.Clear();
+             _stretchedTiles.Clear();
+             _groundDecorations.Clear();
++            _ritualCarpets.Clear();
++            _ritualFloors.Clear();
+             _dragonNests.Clear();
+             _statics.Clear();
+             _animations.Clear();
+@@ -123,7 +127,16 @@ namespace ClassicUO.Game.Scenes
+                     _dragonNests.Add(toRender);
+                     break;
+ 
+-                case Item { OnGround: true } ground when WorldDecorationGraphics.IsDragonHoardGround(ground.Graphic):
++                case Item { OnGround: true } carpet when WorldDecorationGraphics.IsDiabloCarpet(carpet.Graphic):
++                    _ritualCarpets.Add(toRender);
++                    break;
++
++                case Item { OnGround: true } ritual when WorldDecorationGraphics.IsDiabloBlood(ritual.Graphic):
++                    _ritualFloors.Add(toRender);
++                    break;
++
++                case Item { OnGround: true } ground when WorldDecorationGraphics.IsDragonHoardGround(ground.Graphic)
++                    || WorldDecorationGraphics.IsDiabloCaveFloor(ground.World.MapIndex, ground.X, ground.Y, ground.Graphic):
+                     _groundDecorations.Add(toRender);
+                     break;
+ 
+@@ -264,13 +277,15 @@ namespace ClassicUO.Game.Scenes
+ 
+         private int DrawGroundDecorations(UltimaBatcher2D batcher, sbyte maxGroundZ)
+         {
+-            if (_groundDecorations.Count == 0 && _dragonNests.Count == 0)
++            if (_groundDecorations.Count == 0 && _dragonNests.Count == 0 && _ritualCarpets.Count == 0 && _ritualFloors.Count == 0)
+                 return 0;
+ 
+             // Cover the terrain without writing depth that could hide scenery or creatures.
+             batcher.SetStencil(DepthStencilState.None);
+             int count = DrawRenderList(batcher, _groundDecorations, maxGroundZ) +
+-                DrawRenderList(batcher, _dragonNests, maxGroundZ);
++                DrawRenderList(batcher, _dragonNests, maxGroundZ) +
++                DrawRenderList(batcher, _ritualCarpets, maxGroundZ) +
++                DrawRenderList(batcher, _ritualFloors, maxGroundZ);
+             batcher.SetStencil(DepthStencilState.Default);
+             return count;
+         }
+diff --git a/src/ClassicUO.Client/Game/World.cs b/src/ClassicUO.Client/Game/World.cs
+index d173d5f..180c5f4 100755
+--- a/src/ClassicUO.Client/Game/World.cs
++++ b/src/ClassicUO.Client/Game/World.cs
+@@ -16,6 +16,7 @@ using ClassicUO.Game.Scenes;
+ using ClassicUO.Utility.Logging;
+ using ClassicUO.Assets;
+ using ClassicUO.Network;
++using Sanctuary;
+ 
+ namespace ClassicUO.Game
+ {
+@@ -356,7 +357,9 @@ namespace ClassicUO.Game
+                 {
+                     item.Update();
+ 
+-                    if (do_delete && item.OnGround && item.Distance > ClientViewRange /*CheckToRemove(item, ClientViewRange)*/)
++                    if (do_delete && item.OnGround && item.Distance >
++                        (WorldDecorationGraphics.IsDiabloCaveTerrain(MapIndex, item.X, item.Y, item.Graphic)
++                            ? WorldDecorationGraphics.DiabloTerrainRange : ClientViewRange))
+                     {
+                         if (item.IsMulti)
+                         {

@@ -33,7 +33,7 @@ internal static class AssassinShadowCasting
             {throw new NotSupportedException("Unmapped learned Shadow row");}
             if(World.Loading||NpcOriginalItemProcs.Allocator==null||ChainLightning.OriginalNpcAllocator==null)
             {throw new NotSupportedException("Shadow needs its original world allocation services");}
-            var capture=ShadowOwnerSnapshot.Capture(owner,ability);capture.Validate();_=ShadowInitializer.Roll(ability,SourceRandom.InitLow(1),SummonDifficulties.For(owner.Map));
+            var capture=ShadowOwnerSnapshot.Capture(owner,ability);capture.Validate();_=ShadowInitializer.Roll(ability,SourceRandom.InitLow(1),SummonDifficulties.For(owner));
             issue=null;return true;
         }
         catch(Exception e)when(e is NotSupportedException or InvalidDataException or OverflowException or ArgumentException)

@@ -14,7 +14,7 @@ def configuration(broader=False,isolate=False):
     c['extra_families']+=('dragon-talon',)
     c['extra_checks']=(*c.get('extra_checks',()),'dragon-talon-mechanics-check')
     c['extra_target_input_commands']=(*c.get('extra_target_input_commands',()),'dragon-talon-left','dragon-talon-right','dragon-talon-quick')
-    c['extra_inputs']+=(Path(__file__).resolve(),ROOT/'docs/dragon-talon-approved-action-rule.md')
+    c['extra_inputs']+=(Path(__file__).resolve(),ROOT/'tools/reference/rules/dragon-talon-approved-action-rule.md')
     return c
 
 

@@ -64,6 +64,8 @@ public abstract partial class GraveyardUndead : BaseCreature
     protected virtual int RaiseKind => 0;
     internal virtual int HomeLeashRadius => LeashedMeleeAI.HomeRadius;
     protected virtual bool Caster => false;
+    protected virtual bool BusyWithSpecial => false;
+    protected virtual byte MeleeAnimation => 4;
     protected override BaseAI ForcedAI => new LeashedMeleeAI(this);
     public bool ReturningHome => AIObject is LeashedMeleeAI { ReturningHome: true };
     protected GraveyardUndead() : base(AIType.AI_Melee, FightMode.Closest, 14)
@@ -97,9 +99,11 @@ public abstract partial class GraveyardUndead : BaseCreature
     public override bool BleedImmune => true;
     public override Poison PoisonImmune => Poison.Lethal;
     public override OppositionGroup OppositionGroup => OppositionGroup.FeyAndUndead;
-    public override bool IsEnemy(Mobile mobile) => !ReturningHome && (ClassCombatHooks.CreatureEnemy?.Invoke(this,mobile)
+    public override bool IsEnemy(Mobile mobile) => !ReturningHome && IsEnemyIgnoringLeash(mobile);
+
+    internal virtual bool IsEnemyIgnoringLeash(Mobile mobile) => ClassCombatHooks.CreatureEnemy?.Invoke(this,mobile)
         ?? (ControlMaster is PlayerMobile owner&&PersistentMinions.Behavior(this)!=null?ClassCombat.IsHostile(owner,mobile)
-            :(mobile is PlayerMobile||mobile is BaseCreature { Controlled: true } or BaseCreature { Summoned: true })&&base.IsEnemy(mobile)));
+            :(mobile is PlayerMobile||mobile is BaseCreature { Controlled: true } or BaseCreature { Summoned: true })&&base.IsEnemy(mobile));
     public override void GetSpeeds(out double activeSpeed, out double passiveSpeed)
     {
         activeSpeed = 0.1;
@@ -133,7 +137,7 @@ public abstract partial class GraveyardUndead : BaseCreature
     }
     internal TimeSpan BeginMelee(Mobile target, long now)
     {
-        if (Caster && !NamedControl.Blind(this) && !SourceTerror.InCombat(this) || !ValidEnemy(target, 1))
+        if (BusyWithSpecial || Caster && !NamedControl.Blind(this) && !SourceTerror.InCombat(this) || !ValidEnemy(target, 1))
         {
             return TimeSpan.FromMilliseconds(40);
         }
@@ -159,18 +163,19 @@ public abstract partial class GraveyardUndead : BaseCreature
         _nextAction = now + _melee.DurationMs + normal.AiDelayMs;
         AIObject?.ResetApproachState();
         Direction = GetDirectionTo(target);
-        ClassCombat.SendAnimation(this, 4, _melee.DurationMs);
-        Animate(4, 5, 1, true, false, 0);
+        ClassCombat.SendAnimation(this, MeleeAnimation, _melee.DurationMs);
+        Animate(MeleeAnimation, 5, 1, true, false, 0);
         Timer.StartTimer(TimeSpan.FromMilliseconds(_melee.EffectMs), ResolveMelee, out _actionTimer);
         return TimeSpan.FromMilliseconds(_melee.DurationMs + normal.AiDelayMs);
     }
-    protected void StartAction(Mobile target)
+    protected void StartAction(Mobile target, bool harmful = true)
     {
         _actionTarget = target;
         _actionOrigin = Location;
         _actionMap = Map;
         _nextAction = Core.TickCount + CombatProfile.AttackMs;
-        DoHarmful(target);
+        if (harmful)
+            DoHarmful(target);
     }
     protected bool ActionReady => !_actionTimer.Running && Core.TickCount - _nextAction >= 0;
     private bool SameOrigin => Map == _actionMap && Location == _actionOrigin;
@@ -296,6 +301,8 @@ public abstract partial class GraveyardUndead : BaseCreature
     protected virtual GraveyardUndead CreateRaisedBody(Corpse corpse) =>
         corpse.SanctuaryUndeadKind == 1 ? new GraveyardSkeleton() : new GraveyardZombie();
     protected virtual bool RaisedBodyAwardsRewards => true;
+    protected virtual int RaiseCooldownMs => 8000;
+    protected virtual int RaiseAnimation => 4;
     protected Corpse FindRaiseTarget()
     {
         Corpse result = null;
@@ -322,9 +329,9 @@ public abstract partial class GraveyardUndead : BaseCreature
         _actionOrigin = Location;
         _actionMap = Map;
         _nextAction = Core.TickCount + 1600;
-        _nextRaise = Core.TickCount + 8000;
+        _nextRaise = Core.TickCount + RaiseCooldownMs;
         Direction = GetDirectionTo(corpse);
-        Animate(4, 5, 1, true, false, 0);
+        Animate(RaiseAnimation, 5, 1, true, false, 0);
         Effects.SendLocationParticles(EffectItem.Create(corpse.Location, corpse.Map, EffectItem.DefaultDuration), 0x376A, 9, 20, 5024);
         Timer.StartTimer(TimeSpan.FromMilliseconds(800), ResolveRaise, out _actionTimer);
         return true;
@@ -349,7 +356,9 @@ public abstract partial class GraveyardUndead : BaseCreature
             }
         }
         var raised = CreateRaisedBody(corpse);
-        if (MonsterVariants.Difficulty(this) is not MonsterDifficulty.Normal and var difficulty) { MonsterVariants.Assign(raised, difficulty); }
+        if (MonsterVariants.Difficulty(this) is not MonsterDifficulty.Normal and var difficulty
+            && MonsterVariants.Difficulty(raised) == MonsterDifficulty.Normal)
+            MonsterVariants.Assign(raised, difficulty);
         if(!RaisedMinions.Attach(this,raised)){raised.Delete();_actionMap=null;return;}
         raised.MarkRaised(!RaisedBodyAwardsRewards || Controlled || Summoned || corpse.SanctuaryNoRewards);
         raised.MoveToWorld(corpse.Location, corpse.Map);

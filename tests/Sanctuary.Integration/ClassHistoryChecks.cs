@@ -65,7 +65,7 @@ public static class ClassHistoryChecks
                 for (int i = 0; i < players.Length; i++)
                 {
                     var histories = Profiles.Histories(players[i].Serial);
-                    Require(histories.Length == 1 && histories[0].Profile == new CharacterProfile(Enum.GetValues<DiabloClass>()[i], 42, 123456L + i)
+                    Require(histories.Length == 1 && histories[0].Profile == new CharacterProfile(Enum.GetValues<DiabloClass>()[i], 42, (123456L + i + 2) / 3)
                         && histories[0].Allocation == (version >= 2 ? new StatAllocation(3, 4, 5, 6) : default)
                         && histories[0].Ranks.Values.Sum(b => b) == (version >= 1 ? 2 : 0), "Legacy version lost class IDs/progress/allocations");
                 }

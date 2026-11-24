@@ -43,16 +43,25 @@ public partial class DespiseOgreLord : Spawner
     }
 
     [AfterDeserialization]
-    private void UpdateDefaultOdds()
+    private void UpdateSavedEntries()
     {
         foreach (var entry in Entries)
         {
-            if (entry.SpawnedProbability != 100 || entry.SpawnedName != nameof(FrontierEncounter))
+            if (entry.SpawnedName != nameof(FrontierEncounter) || entry.Parameters is not { } parameters)
                 continue;
 
-            if (entry.Parameters?.StartsWith(FrontierEncounter.DespiseOgreLord + " ", StringComparison.Ordinal) == true)
+            var args = parameters.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            if (args.Length < 2 || args[0] is not (FrontierEncounter.DespiseOgreLord or FrontierEncounter.DespiseOgreMage))
+                continue;
+
+            if (int.TryParse(args[1], out int level) && level > DeepDespiseSpawns.MaximumLevel)
+                entry.Enabled = false;
+
+            if (entry.SpawnedProbability != 100)
+                continue;
+            if (args[0] == FrontierEncounter.DespiseOgreLord)
                 entry.SpawnedProbability = LordWeight;
-            else if (entry.Parameters?.StartsWith(FrontierEncounter.DespiseOgreMage + " ", StringComparison.Ordinal) == true)
+            else
                 entry.SpawnedProbability = MageWeight;
         }
     }
@@ -60,6 +69,8 @@ public partial class DespiseOgreLord : Spawner
 
 internal static class DeepDespiseSpawns
 {
+    internal const int MaximumLevel = 30;
+
     private static readonly HashSet<Guid> _retiredPresets =
     [
         new("06aceaf6-1a2d-5816-b6de-affe59edc760"),
@@ -91,7 +102,7 @@ internal static class DeepDespiseSpawns
     {
         spawner.SpawnBounds = default;
         spawner.WalkingRange = 2;
-        for (int level = minimumLevel; level <= minimumLevel + 4; level++)
+        for (int level = minimumLevel; level <= Math.Min(minimumLevel + 4, MaximumLevel); level++)
         {
             spawner.AddEntry(nameof(FrontierEncounter), firstWeight, dotimer: false, parameters: $"{first} {level} 0");
             spawner.AddEntry(nameof(FrontierEncounter), secondWeight, dotimer: false, parameters: $"{second} {level} 0");

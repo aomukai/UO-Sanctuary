@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -157,6 +158,8 @@ public static class SpiritWolfWorldChecks
     private static void Check()
     {
         Require(DruidCombat.Implemented(CombatAbility.SummonSpiritWolf),"Learned wolf route missing");Routes();Movement();TargetsAndTeleport();
+        FollowDetour();
+        PursuesReturningMonster();
         var p=Fresh();var at=TimedEffects.Now.AddDays(2);var body=DruidSpiritWolfWorld.Create(p,new(p.X+1,p.Y,p.Z),at,9001);var target=Enemy(p,2);
         PetOwnerRoutes.Teleported(p,at);Through(body,45);Require(body.Prepared.Controller.StrikeRequests>0 && body.Prepared.Controller.LastHit!=null,"No resolved ordinary hit saved");
         NecromancerEffects.Profiles.Store(body,new(Curse:new(CombatAbility.Decrepify,p.Serial.Value,1,at.AddDays(1),body.X,body.Y)));
@@ -166,6 +169,83 @@ public static class SpiritWolfWorldChecks
         var route=PetOwnerRoutes.Snapshot().Single(x=>x.Owner==p.Serial.Value);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,body.Serial.Value,body.Prepared,SkillHealth.Balance256(body),route,p.Map.MapID,p.Location)));
         Log.Information("Prepared Spirit Wolf world: actual run/follow, individual target retention, resolved A1event, delayed teleport, owner history, offline/wardrobe and atomic pose controls pass; learned cast and full geometry pending");
+    }
+
+    private static void FollowDetour()
+    {
+        var owner = Fresh();
+        var origin = new Point3D(owner.X + 16, owner.Y, owner.Z);
+        var wolf = DruidSpiritWolfWorld.Create(owner, origin, TimedEffects.Now.AddHours(1), 71);
+        int wallArt = Enumerable.Range(1, 0x200).First(id =>
+            TileData.ItemTable[id].Impassable && TileData.ItemTable[id].CalcHeight >= 16);
+        var walls = new List<Static>();
+        try
+        {
+            for (int dx = -1; dx <= 1; dx++)
+            for (int dy = -1; dy <= 1; dy++)
+            {
+                if (dx == 0 && dy == 0) continue;
+                var wall = new Static(wallArt);
+                wall.MoveToWorld(new(origin.X + dx, origin.Y + dy, origin.Z), owner.Map);
+                walls.Add(wall);
+            }
+
+            void SelectDetour()
+            {
+                var saved = wolf.Prepared;
+                wolf.RestorePrepared(saved with { Controller = DruidSpiritWolfWorld.Park(saved.Controller) with { PathOverride = 1 } });
+            }
+
+            SelectDetour();
+            Through(wolf, 25);
+            Require(wolf.Location == origin && wolf.Prepared.Controller is { Frame: 25, Fault: null },
+                "An unreachable Spirit Wolf follow froze or crossed a wall");
+
+            foreach (var wall in walls.Where(wall => wall.Y != origin.Y || wall.X > origin.X))
+                wall.Delete();
+            SelectDetour();
+            Through(wolf, 26);
+            Require(wolf.Prepared.Controller is { Mode: 15, Fault: null, Motion.PathType: 7 }
+                && wolf.Prepared.Controller.Motion.Points.Any(point => Math.Abs(point.Y - origin.Y * 2) >= 2),
+                "Spirit Wolf did not plan a detour around the remaining wall");
+            Through(wolf, 155);
+            Require(wolf.X < origin.X - 1 && wolf.Prepared.Controller is { Frame: 155, Fault: null },
+                "Spirit Wolf did not resume following after a route opened");
+        }
+        finally
+        {
+            foreach (var wall in walls) wall.Delete();
+            End(owner);
+        }
+    }
+
+    private static void PursuesReturningMonster()
+    {
+        var owner=Fresh();
+        var wolf=DruidSpiritWolfWorld.Create(owner,new(owner.X+1,owner.Y,owner.Z),TimedEffects.Now.AddHours(1),812);
+        var target=new HavenEncounter(HavenEncounter.Zombie,4){CantWalk=true,NoKillAwards=true};
+        try
+        {
+            target.SetHits(10000);
+            target.MoveToWorld(new(owner.X+2,owner.Y,owner.Z),owner.Map);
+            target.AIObject.AITimer.Stop();
+            Through(wolf,65);
+            Require(wolf.Prepared.Controller.StrikeRequests>0 && wolf.Prepared.Controller.Target==target.Serial.Value,
+                "Wolf did not first engage the Haven zombie");
+
+            target.MoveToWorld(new(owner.X+8,owner.Y,owner.Z),owner.Map);
+            target.Home=new(target.X-target.HomeLeashRadius-1,target.Y,target.Z);
+            target.HomeMap=target.Map;
+            Require(((LeashedMeleeAI)target.AIObject).UpdateLeash(Core.TickCount) && !target.IsEnemy(owner),
+                "Zombie did not enter its passive home return");
+            var origin=wolf.Location;
+            int life=SkillHealth.Balance256(target);
+            Through(wolf,240);
+            Require(wolf.Location.X>origin.X && wolf.Prepared.Controller.Target==target.Serial.Value
+                && SkillHealth.Balance256(target)<life && target.ReturningHome && target.Combatant==null,
+                "Wolf did not close the gap and hit the zombie while it was returning");
+        }
+        finally{target.Delete();End(owner);}
     }
     private static void Reload()
     {

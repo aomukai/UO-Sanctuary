@@ -58,7 +58,7 @@ def configuration(retained=False, isolate=False, shared=False):
     c['extra_families'] += ('blade-fury-held-input',)
     c['extra_connected_checks'] += ('blade-fury-held-input-check', 'blade-fury-held-input-reload-check')
     c['extra_wire_callbacks'] += (fury_wires,)
-    c['extra_inputs'] += (Path(__file__).resolve(), ROOT / 'docs/blade-fury-approved-input-rule.md')
+    c['extra_inputs'] += (Path(__file__).resolve(), ROOT / 'tools/reference/rules/blade-fury-approved-input-rule.md')
     return c
 
 

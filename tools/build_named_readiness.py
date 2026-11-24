@@ -8,7 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 AUDIT = ROOT / 'tools/reference/named-item-runtime-audit.json'
-OUTPUT = ROOT / 'docs/named-item-readiness.md'
+OUTPUT = ROOT / 'tools/reference/reports/named-item-readiness.md'
 
 
 def digest(path):

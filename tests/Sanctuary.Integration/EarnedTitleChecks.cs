@@ -43,7 +43,7 @@ public static class EarnedTitleChecks
             && !Select(p, 0, (byte)SkillName.Blacksmith, 1), "Unearned title selected");
         ClassCreation.Profiles.AdvanceLevel(p, 98); Require(EarnedTitles.Profiles.Find(p.Serial).Classes == 0, "Class prefix unlocked early");
         ClassCreation.Profiles.AdvanceLevel(p, 99); Require(EarnedTitles.Profiles.Find(p.Serial).Classes == 4, "Level 99 did not unlock its prefix");
-        Require(TownRecognition.Claim(p, RecognitionChecks.Place(p), RecognitionHonor.Hero), "Title fixture recognition failed");
+        Require(RecognitionChecks.AwardHeroAndCollect(p, RecognitionChecks.Place(p)), "Title fixture recognition failed");
         for (int i = 0; i < EarnedTitles.Skills.Length; i++)
         {
             var skill = p.Skills[EarnedTitles.Skills[i]]; skill.Cap = 120;

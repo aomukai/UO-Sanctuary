@@ -1,66 +1,40 @@
 # Sanctuary
 
-**Diablo II character builds and combat in the persistent world of Ultima Online.**
+**Diablo II builds and loot in the persistent Britannia of Ultima Online.**
 
-Sanctuary is a solo-developed game set in Britannia, combining Diablo-style classes, loot and progression with UO's gathering, crafting, towns and player housing. The aim is a world where adventuring and making a home both matter.
+Sanctuary is about discovering what Britannia has to offer and deciding what to do with it. Spend an evening clearing crypts and chasing better gear, follow rumours into a dungeon with Iolo, or make a living at the forge and build a home. You can change direction and keep playing the same character.
 
-## Current state
+## What makes Sanctuary different
 
-All **eight classes and their 240 talents** have mechanical implementations, including **Warlock / Witch**. The mechanical reference is **Diablo II: Resurrected — Reign of the Warlock, version 3.3.93847**, with deliberate Sanctuary adaptations for the persistent world.
+- **One Avatar, eight classes.** Play a Necromancer today and a Druid tomorrow. Once you unlock the wardrobe through the campaign or crafting recognition, you can change classes and professions. Each class keeps its own level, attributes, talents, bindings, and equipment. Your crafting progress is saved when you switch trades, and gathering stays available alongside your active craft. [Items, crafting, and wardrobe access](docs/items-and-crafting.md)
+- **An interface built for both sides of the game.** Move, attack, and cast with the mouse. Assign quick skills to the hotbar, drink from the belt with **1–4**, and track summons on their skill icons. The character sheet brings equipment and combat stats together, trade skills have their own window, and your companion’s portrait and vitals can dock beside yours. Conversations use illustrated portraits, and the journal records what you learn. [Controls and companions](docs/player-guide.md)
+- **A campaign you can take at your own pace.** Follow a three-chapter story through Britannia, skip the story audiences and pursue the bosses with a party, or spend your time elsewhere. Boss victories open later encounters, and finishing the campaign opens boat travel and the post-campaign facets. You can also earn local trust and hear different accounts depending on what your Avatar has done. [Campaign guide, with spoilers](docs/campaign.md)
+- **Three custom bosses and arenas.** Face King Leoric in a ruined throne room below Hythloth, Lazarus in a vast mausoleum beneath Deceit, and Diablo on a basalt platform above lava under Destard. Each has its own fight and animated character art. [Boss art and in-game previews](art/campaign-bosses/README.md)
+- **Companions with stories and combat roles.** Recruit Iolo for crossbow support or take Wolfgang along when you need someone with a shield. Companions have their own skills, equipment, and supplies. You can leave them at the inn when you want to travel alone. [Companion guide](docs/player-guide.md#companions)
+- **Loot hunting in a world you can live in.** Hunt for socketed and magical equipment in hand-built dungeons, buy a shovel to try one of New Haven’s graveyard crypts, or gather, craft, and trade in town. Banks, housing, and workshops give you reasons to come back between expeditions. [Items and crafting](docs/items-and-crafting.md)
 
-The current build is a **PvE development build**. [New Haven](docs/new-haven.md) is the first playable stretch, with encounters for levels 1–10, trade training, a mine boss, and the option to recruit Iolo. The wider campaign and world progression are in development.
+## Classes and skills
 
-All talents have UO-style icons that also appear on their available bindings. All 210 active skills have art and audio verified in ClassicUO. [Skill effects and sound](docs/skill-effects.md)
+The eight classes have **240 talents across 24 trees**, including the Warlock from Reign of the Warlock. Combat uses Diablo-style levels, attributes, and talent points alongside Ultima Online’s gathering and crafting skills. Sanctuary adapts skills to its own terrain and persistent world. Supported summons can persist, ranged attacks work without ammunition management, and selected skills can pick a nearby target from a ground click.
 
-### Classes
-
-Each class has three talent trees with ten talents each.
-
-| Class | Play styles |
+| Class | A few ways to play |
 | --- | --- |
-| Amazon | Bows, crossbows, javelins and spears |
-| Sorceress | Fire, cold and lightning magic |
-| Necromancer | Skeletons, golems, revives, curses, bone and poison magic |
-| Paladin | Auras, holy magic, shields and weapon combat |
-| Barbarian | Weapon combat, dual wielding, war cries and movement skills |
-| Druid | Animal companions, spirits, vines, elemental magic and shapeshifting |
-| Assassin | Martial arts, traps and shadow disciplines |
-| Warlock / Witch | Demons, Hexes, Sigils, Entropy magic and weapon skills |
+| Amazon | Lightning Fury, Strafe, or a Valkyrie alongside your bow or spear |
+| Sorceress | Frozen Orb, Chain Lightning, and Hydra |
+| Necromancer | Skeletons and golems, curses, Bone Spear, and Corpse Explosion |
+| Paladin | Zeal, Holy Shield, Blessed Hammer, and defensive or offensive auras |
+| Barbarian | Whirlwind, dual wielding, Leap Attack, and war cries |
+| Druid | Raven flocks and wolves, elemental spells, Werewolf, and Werebear |
+| Assassin | Martial arts, Lightning Sentry, and Shadow Master |
+| Warlock / Witch | Bound daemons, Cleave, Hexes, Sigils, and Entropy magic |
 
-Sanctuary makes its own choices where D2's rules do not suit a persistent UO world. These include persistent summons, safe-area summon parking, improvements to Necromancer and Druid pets, and targeting assistance for selected skills. Charms and runewords are not planned.
+[Full talent trees and Sanctuary’s combat rules](docs/classes.md)
 
-### Other systems already in place
+## Start in New Haven
 
-- Character levels, attributes, talent points, equipment bonuses and potion belts.
-- Equipment drops, magical properties, sockets, materials and crafting.
-- Gathering and crafting trades, town merchants, banking and repairs.
-- Housing, equipment insurance, death penalties and corpse recovery.
-- Persistent characters, inventories and supported companions across server restarts.
-- A unified character screen, class talent trees, a journal, and private scripted NPC dialogue.
+The harbour guard will point you toward Iolo at the Bountiful Harvest Inn. Speak to him again at level 6 to open the island’s moongate. You can recruit him or set out alone. The [player guide](docs/player-guide.md#new-haven-and-leaving-the-island) covers the island, travel, and the default controls.
 
-## Playing
-
-New characters begin in **New Haven**. Follow the harbour guard’s directions to the Bountiful Harvest Inn to meet Iolo and unlock the first journal entry. Speak to him again after reaching level 6 to open the island’s moongate. He can travel with you, or you can leave on your own.
-
-Click NPCs to talk, trade, bank, or train. Trainers teach trades for 1 gold per 0.1 skill up to 30.0. Elara the Scholar at the north mage tower identifies equipment for 50 gold per item and sells Identify and Town Portal scrolls.
-
-| Control | Action |
-| --- | --- |
-| Left-click / hold on the ground | Move / steer |
-| Left-click / hold on an enemy | Approach and attack with the assigned left action |
-| Shift + left-click / hold | Attack while standing in place |
-| Right-click / hold | Use the assigned right action |
-| B / C | Toggle the backpack / character screen |
-| J / M | Toggle the journal / world map |
-| T / K | Toggle class talents / trade skills |
-| Esc | Toggle Options |
-| S | Assign learned skills to the hotbar |
-| F1–F12 | Use assigned quick skills |
-| 1–4 | Drink from the potion belt |
-| Tab | Toggle Run / Walk |
-| Enter | Enter chat |
-
-Change the window shortcuts under **Options → Hotkeys**. Available combat bindings depend on the skill. Running trades defense for movement speed, so positioning and the Run / Walk choice matter in combat.
+Sanctuary is a solo-developed **PvE development build**. New Haven is playable and the three campaign encounters are implemented. Dungeon populations and the wider world are still being built. [Development roadmap](docs/roadmap.md)
 
 ## Running locally
 
@@ -70,7 +44,7 @@ The development installation uses **ClassicUO**, **ModernUO** and separately ins
 ./dev launcher
 ```
 
-Click **Play** to start the installed server and open the client. **Save & Shut Down** closes the game and waits for the server to write the world save. Closing ClassicUO or the launcher window also saves and stops the local server. The Linux launcher uses X11 or XWayland, Tkinter, and Python Xlib (`python3-tk` and `python3-xlib` on Ubuntu). Logs go to `.local/logs/launcher-server.log` and `.local/logs/launcher-client.log`.
+Click **Play** to install the latest built content and data, start the server, and open the client. **Save & Shut Down** closes the game and waits for the server to write the world save. Closing ClassicUO or the launcher window also saves and stops the local server. The Linux launcher uses X11 or XWayland, Tkinter, and Python Xlib (`python3-tk` and `python3-xlib` on Ubuntu). Logs go to `.local/logs/launcher-server.log` and `.local/logs/launcher-client.log`.
 
 To run the server from a terminal, including for first-time owner account setup, use:
 
@@ -98,7 +72,7 @@ You need Git, Bash, Python 3.10 or later, a working graphics driver and network 
 ./dev install-data
 ```
 
-UO art and maps are downloaded separately; they are not included in this repository. Configure a fresh installation using the version that matches its installed client data. The development installation currently uses **7.0.117.1**, with `SA` as its provisional era:
+Install the base UO client data separately. Configure a fresh installation using the version that matches its installed client data. The development installation currently uses **7.0.117.1**, with `SA` as its provisional era:
 
 ```bash
 ./dev configure .local/uo-data --client-version 7.0.117.1 --expansion SA
@@ -109,7 +83,7 @@ Existing installations do not need to be configured again. The server console ha
 
 **Classic MIDI soundtrack.** After configuring the client, run `./dev install-classic-music` to render the original MIDI tracks into your local game data. The import uses FluidSynth, FFmpeg and a General MIDI soundfont. On Ubuntu, install `fluidsynth ffmpeg fluid-soundfont-gm`. Choose **Classic MIDI** under **Options → Music**. Cues without a classic recording use the modern track. Use `--archive` to import a ZIP of original MIDI files or `--soundfont` to choose the instruments for the recordings.
 
-For content changes, close the server, run `./dev build content`, then start with `./dev server` to stage the updated content and data. `--installed` starts the existing installed package without restaging it. Runtime configuration, saves and client settings live under `.local/`.
+For content changes, close the server, run `./dev build content`, and then use the launcher’s **Play** or `./dev server` to install the updated content and data. `--installed` starts the existing installed package without restaging it. Runtime configuration, saves and client settings live under `.local/`.
 
 </details>
 
@@ -119,16 +93,8 @@ If you're using a coding agent on Linux, you can give it this request in the San
 
 > Set up Sanctuary for local play using the Running locally instructions in this README. Check what's already installed, reuse my existing configuration and saves, and run the documented setup commands for anything missing. Run `./dev doctor`, start the local server and client, and tell me when the game is ready or if the server needs me to create the first account.
 
-The [launcher design](docs/launcher.md) describes the planned guided setup, local and community play, and optional LLM settings.
-
 For source builds, test isolation, and installed updates, see [local development and deployment](docs/local-development.md).
 
-## Work ahead
+## Handbook and roadmap
 
-- The campaign beyond New Haven, including optional investigations and difficulty progression.
-- More companions, personal stories, and journal discoveries.
-- D2-style ability repertoires for UO monsters and more authored encounters and dungeons.
-- Remaining equipment effects and later designs for charged or crafted skill-granting gear.
-- World difficulty, rewards, combat balance and targeted control improvements.
-
-The [design overview](docs/design-overview.md) links to the current direction and implementation records.
+The [Sanctuary handbook](docs/README.md) covers playing, classes, GM placement, story, crafting, and local development. Track open work on the [roadmap](docs/roadmap.md).

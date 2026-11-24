@@ -33,7 +33,7 @@ internal static class StaticFields
         var definition=SkillMechanics.For(CombatAbility.StaticField);
         if(definition.SourceId!=42||definition.Number("srvdofunc")!=20||definition.Text("EType")!="ltng")
         {throw new NotSupportedException("Unmapped Static Field route");}
-        int floor=FloorPercent(SummonDifficulties.For(caster.Map));
+        int floor=FloorPercent(SummonDifficulties.For(caster));
         double radius = SkillGeometry.Tiles(values.Eval("aurarangecalc"));
         foreach(var target in SkillCombat.Targets(caster,allegiance,caster.Location,radius))
         {

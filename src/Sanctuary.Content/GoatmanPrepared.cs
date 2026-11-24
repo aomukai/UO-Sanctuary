@@ -26,7 +26,7 @@ internal static class GoatmanPrepared
             ||profile.Class!=DiabloClass.Warlock||ClassCreation.Profiles.GetRank(owner.Serial,"warlock.summongoatman")<1)
         {throw new InvalidOperationException("Goatman needs a live learned Warlock owner");}
         var values=SkillMechanics.Values(owner,CombatAbility.SummonGoatman);
-        return new(Birth(values,SummonDifficulties.For(owner.Map),profile.Level,
+        return new(Birth(values,SummonDifficulties.For(owner),profile.Level,
             name=>name=="item_pierce_damage_immunity"?ClassGear.Bonus(owner,"pierce-immunity-damage")
                 :throw new NotSupportedException("Unmapped inherited Goatman stat: "+name)),
             SkillMechanics.Rank(owner,CombatAbility.DemonicMastery),SkillMechanics.Rank(owner,CombatAbility.BloodOath),

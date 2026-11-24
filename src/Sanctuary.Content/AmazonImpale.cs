@@ -33,13 +33,8 @@ public static class AmazonImpale
     }
     internal static void SpecialWear(BaseWeapon weapon,int chance,int amount,Random random)
     {
-        if(!Durable(weapon)){return;}bool stack=NamedAmmunition.Maximum(weapon)>0;
-        if(stack && NamedAmmunition.Remaining(weapon)<=0 || random.Next(100)>=chance){return;}
-        if(stack)
-        {
-            if(NamedAmmunition.Consume(weapon,TimedEffects.Now)){weapon.HitPoints=weapon.MaxHitPoints;}
-        }
-        else{weapon.HitPoints=Math.Max(0,weapon.HitPoints-amount);}
+        if (Durable(weapon) && random.Next(100) < chance)
+            weapon.HitPoints = Math.Max(0, weapon.HitPoints - amount);
     }
     private static BaseWeapon Weapon(PlayerMobile owner,Attack attack)=>World.FindItem(attack.Weapon) is BaseWeapon{Deleted:false} weapon
         && weapon.Parent==owner && weapon.Layer==attack.Layer && owner.FindItemOnLayer(attack.Layer)==weapon?weapon:null;
@@ -48,8 +43,8 @@ public static class AmazonImpale
         if(attack==null || owner is not{Alive:true,Deleted:false,Frozen:false,Paralyzed:false,Spell:null} || owner.Map!=attack.Map || owner.Location!=attack.Origin
             || !AlliedOverlap.Allowed(owner) || !ClassCreation.Profiles.TryGet(owner.Serial,out var profile) || profile.Class!=DiabloClass.Amazon
             || SkillMechanics.Rank(owner,CombatAbility.Impale) is <1 or >255 || Weapon(owner,attack) is not{} weapon
-            || ClassGear.State(weapon) is not{Identified:true} || ClassGear.Base(weapon) is not{} basis || !ClassItemTypes.Is(basis.Type,"spea")){return false;}
-        return (attack.OwnDepletion || CombatTiming.Equipped(owner)==weapon && NamedAmmunition.CanAttack(weapon)) && (!attack.Basic || !HitRecovery.Active(owner,now));
+            || ClassGear.State(weapon) is not{Identified:true} || ClassGear.CombatBase(weapon) is not{} basis || !ClassItemTypes.Is(basis.Type,"spea")){return false;}
+        return (attack.OwnDepletion || CombatTiming.Equipped(owner)==weapon) && (!attack.Basic || !HitRecovery.Active(owner,now));
     }
     public static bool Locked(PlayerMobile owner,long now)=>ClassCombat.Existing(owner)?.Impale is{Basic:false} attack && now<attack.Until && Valid(owner,attack,now);
     internal static void Cancel(PlayerMobile owner)
@@ -108,7 +103,7 @@ public static class AmazonImpale
         // starts were already validated as affordable and pay exactly once.
         if(!basic){NecromancerEffects.Pay(owner,values.Mana256);}
         session.Impale=new(weapon.Serial,weapon.Layer,selected,owner.Map,owner.Location,reach,session.NextAction,session.EffectAt,values.Rank,
-            basic,hit,false,ClassGear.Broken(weapon) || !NamedAmmunition.CanAttack(weapon),packet,roll){Contact=contact};return true;
+            basic,hit,false,ClassGear.Broken(weapon),packet,roll){Contact=contact};return true;
     }
     public static bool Resolve(PlayerMobile owner,long now)
     {
@@ -135,7 +130,7 @@ public static class AmazonImpale
                 }
             }
             if(attack.Basic){Cancel(owner);ClassCombat.SendState(owner,session);return processed;}
-            attack=attack with{OwnDepletion=attack.OwnDepletion || ClassGear.Broken(weapon) || !NamedAmmunition.CanAttack(weapon)};session.Impale=attack;
+            attack=attack with{OwnDepletion=attack.OwnDepletion || ClassGear.Broken(weapon)};session.Impale=attack;
         }
         if(now>=attack.Until){Cancel(owner);processed=true;}if(processed){ClassCombat.SendState(owner,session);}return processed;
     }

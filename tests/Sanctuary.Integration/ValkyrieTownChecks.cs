@@ -80,7 +80,11 @@ public static class ValkyrieTownChecks
             if(!reload)
             {
                 var at=TimedEffects.Now.AddHours(4);var first=AmazonValkyrieBody.CreateInitializedController(p,new(p.X+1,p.Y,p.Z),at);var second=AmazonValkyrieBody.CreateInitializedController(p,new(p.X,p.Y+1,p.Z),at);bodies=[first,second];
-                foreach(var b in bodies){Parked(b);SkillHealth.SetBalance256(b,b.MaximumLife256-1025);}
+                foreach(var b in bodies)
+                {
+                    Require(b.Map==p.Map&&!MinionSafeAreas.Parked(b),"Valkyrie was hidden by the guarded-town rule");
+                    PersistentMinions.Park(b);Parked(b);SkillHealth.SetBalance256(b,b.MaximumLife256-1025);
+                }
             }
             foreach(var b in bodies)
             {
@@ -94,21 +98,28 @@ public static class ValkyrieTownChecks
             // Keep the original wound available for the next reload's parked
             // restoration check;the deliberate live frame may otherwise heal it.
             foreach(var b in bodies){TimedEffects.PreventHealing(b,TimedEffects.Now);}
-            p.MoveToWorld(origin,Map.Maps[map]);PersistentMinions.Resume(p);
+            PersistentMinions.Resume(p); // A saved or parked Valkyrie can return inside town.
             for(int i=0;i<bodies.Length;i++)
             {
-                var b=bodies[i];Require(b.Map==p.Map&&!MinionSafeAreas.Parked(b)&&NpcItemSpellFlights.Attached(b,p,p.Map.MapID),"Original parked roster failed return");_=NpcOriginalItemProcs.RequireHost(b);ValkyrieEquipmentDefense.Require(b);
+                var b=bodies[i];Require(b.Map==p.Map&&!MinionSafeAreas.Parked(b),"Original parked roster failed return inside town");
                 Require(SkillHealth.Balance256(b)==lives[i]&&NpcEquipmentRandom.Require(b)==seeds[i]&&Json(ValkyrieEquipment.Originals(b).Select(x=>x.SavedText).ToArray())==items[i]&&NpcWorldAllocation.Capture()==worldBefore,"Town return rerolled items/streams or restored wounds");
+                PersistentMinions.Park(b);
+            }
+            p.MoveToWorld(origin,Map.Maps[map]);PersistentMinions.Resume(p);
+            foreach(var b in bodies)
+            {
+                Require(NpcItemSpellFlights.Attached(b,p,p.Map.MapID),"Valkyrie did not recover spell eligibility outside town");
+                _=NpcOriginalItemProcs.RequireHost(b);ValkyrieEquipmentDefense.Require(b);
                 // The existing conductor repairs the projected pose before its
                 // next decision. No movement while parked is replayed.
                 var s=b.Ground.State.Controller;IronGolemWorld.Advance(b,s.NextUtc,true);Require(b.Ground.State.Controller.Fault==null,"Returned source controller fault");
             }
             Overlap(bodies[0],p);NpcExpandedItemSpellChecks.Flights(bodies[0]);
             p.MoveToWorld(townPoint,Map.Maps[map]);
-            for(int i=0;i<bodies.Length;i++){var b=bodies[i];Parked(b);Guards(b,p);Require(SkillHealth.Balance256(b)==lives[i],"Live observation lost the original test wound");TimedEffects.Clear(b);}
+            for(int i=0;i<bodies.Length;i++){var b=bodies[i];Require(b.Map==p.Map&&!MinionSafeAreas.Parked(b),"Valkyrie parked on return to town");PersistentMinions.Park(b);Guards(b,p);Require(SkillHealth.Balance256(b)==lives[i],"Live observation lost the original test wound");TimedEffects.Clear(b);}
             NpcWorldAllocationChecks.Checked(NpcWorldAllocation.Capture());p.Internalize();
             File.WriteAllText(Manifest,Json(new Saved(p.Serial.Value,origin,townPoint,map,bodies.Select(Capture).ToArray(),generation)));
-            Log.Information("Valkyrie town:two unfiltered initialized original rosters created and parked in a real safe region;structural registration with zero live callback/cast/allocation admission,normal effect expiry/no recovery,original wounds/items/RNG on return and two reloads;resumed39/49/66effects reuse actual execution;learned casting/sunder/contact gaps remain separate");
+            Log.Information("Valkyrie town: original bodies stay active in guarded town and resume there from storage; explicit parking preserves items, wounds and RNG and refuses live callbacks");
         }
         finally{region.Unregister();}
     }

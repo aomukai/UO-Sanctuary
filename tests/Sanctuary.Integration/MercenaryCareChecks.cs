@@ -23,10 +23,86 @@ public static class MercenaryCareChecks
         Register("mercenary-care-loyalty-check", Loyalty);
         Register("mercenary-inn-check", RecallAfterLevelling);
         Register("mercenary-ghost-login-check", GhostLogin);
+        Register("companion-retreat-check", CheckCompanionRetreat);
     }
     private static void Register(string name, Action action) => ConsoleInputHandler.RegisterCommand(name, "Disposable mercenary preparation checks", _ => Core.LoopContext.Post(() =>
     { try { action(); _log.Information("{Name}: passed", name); } catch (Exception e) { _log.Error(e, "{Name}: failed", name); } }));
     private static void Require(bool value, string message) { if (!value) { throw new InvalidOperationException(message); } }
+
+    private static void CheckCompanionRetreat()
+    {
+        CheckRetreat(Wolfgang.Join);
+        CheckRetreat(owner => (Iolo)typeof(Iolo)
+            .GetMethod("Recruit", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic)
+            ?.Invoke(null, [owner]));
+        CheckRetreat(owner => Merydwen.Hire(owner, out _));
+    }
+
+    private static void CheckRetreat(Func<PlayerMobile, BaseCreature> recruit)
+    {
+        var owner = new PlayerMobile { Body = 0x190, Player = true, Name = "Companion retreat fixture" };
+        var foe = new GraveyardSkeleton { CantWalk = true, NoKillAwards = true };
+        BaseCreature companion = null;
+        try
+        {
+            owner.AddItem(new Backpack());
+            owner.Backpack.DropItem(new Gold(60000));
+            ClassCreation.Profiles.Assign(owner, DiabloClass.Necromancer);
+            ClassCreation.Profiles.Discover(owner.Serial, StoryDiscoveries.IoloRetired);
+            FixtureSpace.Corridor(owner, 5440, 56);
+            var origin = owner.Location;
+            var map = owner.Map;
+            Point3D At(int offset) => new(origin.X + offset, origin.Y, origin.Z);
+            companion = recruit(owner);
+            Require(companion != null, "Could not create a story companion.");
+            companion.MoveToWorld(At(2), map);
+            companion.AIObject.AITimer.Stop();
+            foe.MoveToWorld(At(1), map);
+            foe.AIObject.AITimer.Stop();
+            foe.Combatant = companion;
+            companion.Combatant = foe;
+
+            owner.MoveToWorld(At(13), map);
+            Require(MercenaryCare.GuardTarget(companion, foe) == true, "A nearby fight should stay active.");
+            owner.MoveToWorld(At(14), map);
+            companion.AIObject.NextMove = Core.TickCount;
+            companion.AIObject.DoOrderGuard();
+            Require(companion.Combatant == null && companion.FocusMob == null && !companion.Warmode
+                && companion.ControlOrder == OrderType.Guard && companion.X > At(2).X,
+                "Guard did not break off from a living attacker and move toward the owner.");
+
+            owner.MoveToWorld(At(4), map);
+            companion.AIObject.DoOrderGuard();
+            Require(companion.Combatant == foe, "Guard could not rejoin a nearby fight.");
+
+            companion.IssueOrder(OrderType.Attack, null, foe);
+            owner.MoveToWorld(At(20), map);
+            MercenaryCare.UpdateCompanionRetreat(owner, companion);
+            Require(companion.ControlOrder == OrderType.Guard && companion.Combatant == null
+                && companion.ControlTarget == owner, "An explicit attack kept the companion fighting after retreat.");
+
+            owner.MoveToWorld(At(47), map);
+            MercenaryCare.UpdateCompanionRetreat(owner, companion);
+            Require(companion.InRange(owner, 4) && companion.ControlOrder == OrderType.Guard
+                && companion.Combatant == null, "A distant guard could not catch up to the owner.");
+
+            companion.IssueOrder(OrderType.Stay, null);
+            var post = companion.Location;
+            owner.MoveToWorld(At(2), map);
+            MercenaryCare.UpdateCompanionRetreat(owner, companion);
+            Require(companion.ControlOrder == OrderType.Stay && companion.Location == post, "Retreat overrode a Stay order.");
+        }
+        finally
+        {
+            foe.Delete();
+            if (companion != null)
+            {
+                MercenaryCare.States.Remove(companion.Serial);
+                companion.Delete();
+            }
+            owner.Delete();
+        }
+    }
     internal static BaseCreature Companion(PlayerMobile owner)
     {
         var merc = new Dog { Body = 0x190, Name = "Mercenary care fixture", CantWalk = true };
@@ -47,8 +123,18 @@ public static class MercenaryCareChecks
             ClassCreation.Profiles.Discover(owner.Serial, StoryDiscoveries.IoloRetired);
             owner.MoveToWorld(new Point3D(1594, 1588, 20), map);
             companion = Wolfgang.Join(owner);
-            Require(companion != null && companion.BlockChance == 50 && MercenaryCare.ParkAtInn(owner, companion),
+            Require(companion != null && companion.BlockChance == 50,
                 "Wolfgang should have 50% block at level one with his starter shield");
+            var chest = companion.Items.OfType<StuddedChest>().Single();
+            Require(companion.Items.OfType<StuddedGloves>().Any() && companion.Items.OfType<ChainCoif>().Any()
+                && companion.Items.OfType<StuddedArms>().Any() && companion.Items.OfType<StuddedGorget>().Any()
+                && companion.Items.OfType<StuddedLegs>().Any(), "Wolfgang did not receive the full starter armour");
+            int armoredDefense = ClassStats.Defense(companion);
+            companion.Backpack.DropItem(chest);
+            MercenaryCare.SyncOwner(owner);
+            Require(ClassStats.Defense(companion) < armoredDefense && !companion.Items.OfType<StuddedChest>().Any()
+                && companion.EquipItem(chest), "Wolfgang's armour did not affect defense or was issued twice");
+            Require(MercenaryCare.ParkAtInn(owner, companion), "Wolfgang could not be parked at the inn");
 
             owner.Backpack.DropItem(new Gold(AyilaInn.CallFee));
             Require(ClassCreation.Profiles.AdvanceLevel(owner, 12), "Could not level while Wolfgang was parked");

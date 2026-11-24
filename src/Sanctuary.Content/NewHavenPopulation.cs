@@ -1,7 +1,11 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
+using System;
+using System.Collections.Generic;
 using System.IO;
 using Server;
+using Server.Collections;
 using Server.Commands;
+using Server.Engines.Spawners;
 using Server.Items;
 using Server.Logging;
 using Server.Mobiles;
@@ -24,18 +28,52 @@ public static class NewHavenPopulation
     internal static readonly Point3D IslandGate = new(3450, 2677, 25);
     internal static readonly Point3D BankCounter = new(3484, 2570, 20);
     internal static readonly Rectangle2D MineArea = new(5903, 268, 100, 110);
+    // Fixed encounter spawners in existing worlds, including both levels of the mine.
+    private static readonly HashSet<Guid> _retiredEncounters =
+    [
+        new("155b8aa5-0ee7-43c1-9359-d2b060968856"),
+        new("ce99dc95-aa4b-4931-a1d6-00b0f8b77339"),
+        new("a1f9d010-fcfc-5f35-b021-95bfcb671328"),
+        new("94641133-a96a-50c5-b7b0-5a718014fa43"),
+        new("491ef282-24bc-5912-88dc-ccd35a2b9db2"),
+        new("cf0f9847-c10b-500c-8998-93b7c8fdb978"),
+        new("826eb7a6-3c48-5f12-aced-b57357c999c4"),
+        new("68002c83-a051-515a-b5fb-4850c65cc839"),
+        new("aa3b3a89-d677-5123-b34f-13eaa6bdd80d"),
+        new("411f77fd-bbc9-596f-b14e-31587ec650f2"),
+        new("567ec576-7949-5571-a961-f01bdf1457d0"),
+        new("5591ad6e-5c72-519d-b312-ab6bb7e2f99b"),
+        new("abfdebb1-45f4-5968-a88a-4bf2fd11a3a1"),
+        new("9c691ae5-1bbb-5514-a2aa-0d1deaa47bcc"),
+        new("71373eac-f629-5af4-99c0-a0f65367b038"),
+        new("f77dd3f7-437d-592f-9178-462089f598d1"),
+        new("99effd66-ab6f-5bb4-8dfb-34ac4557033d"),
+        new("4b0dab98-658c-50e4-9907-1f5a3e086cb6"),
+        new("78b66db0-f0ad-5b98-a8b4-2b2a01ad92c4"),
+        new("21619f7b-cfac-56ef-b2c9-32b5747e5ae5"),
+        new("b18601f3-32cc-5378-be21-b77045b7bf9c"),
+        new("f3736ef1-7ec1-5225-84e9-4c931475d434"),
+        new("d853152d-3970-5cab-b2a8-8ef6e51e0dcd"),
+        new("064d6448-494a-55f1-b9f5-bf326fcb9278"),
+        new("e42339ac-8f2b-54e4-a70e-b3c6e332e3f2"),
+    ];
+
     private const int MineLandingGraphic = 0x051B;
     private static readonly ILogger _logger = LogFactory.GetLogger(typeof(NewHavenPopulation));
     private static PMList[] _publicWorlds;
     private static PMList[] PublicWorlds => _publicWorlds ??=
         [new(PMList.Trammel.Number, PMList.Trammel.SelNumber, Map.Trammel, PMList.Trammel.Entries, "Britannia")];
+    private static PMList[] _unlockedWorlds;
+    private static PMList[] UnlockedWorlds => _unlockedWorlds ??=
+        [PublicWorlds[0], PMList.Felucca, PMList.Ilshenar, PMList.Malas, PMList.Tokuno, PMList.TerMur];
 
     public static void Configure()
     {
         EventSink.ServerStarted += Install;
         ClassMapHooks.LocationChanged += RecordMineVisit;
         ClassMapHooks.PublicGateAllowed = CanUseGate;
-        ClassMapHooks.PublicGateWorlds = _ => PublicWorlds;
+        ClassMapHooks.PublicGateWorlds = from => from is PlayerMobile player && BritanniaCampaign.Complete(player)
+            ? UnlockedWorlds : PublicWorlds;
         ClassMapHooks.PublicGateTraveled = (gate, mobile) =>
         {
             if (IsIslandGate(gate) && mobile is PlayerMobile player && ClassCreation.Profiles.RecordNewHavenDeparture(player.Serial))
@@ -54,6 +92,7 @@ public static class NewHavenPopulation
         var map = Map.Trammel;
         InstallDecorations(map, "haven-decor.cfg", "Haven decorations");
         InstallDecorations(map, "haven-doors.cfg", "Haven doors");
+        int retired = RetireEncounters();
         int created = GraveyardPopulation.InstallSpawners("new-haven-encounters.json", relocate: true);
         foreach (var mobile in World.Mobiles.Values)
             if (mobile is HavenEncounter encounter)
@@ -84,7 +123,18 @@ public static class NewHavenPopulation
         PlaceStatic(map, new Point3D(3721, 2618, 20), 0x0FAC);
         PlaceStatic(map, new Point3D(3720, 2618, 20), 0x0E3C);
         InstallPublicGates();
-        _logger.Information("New Haven: installed {Count} population spawners", created);
+        _logger.Information("New Haven: installed {Count} population spawners and retired {Retired} encounter spawners", created, retired);
+    }
+
+    private static int RetireEncounters()
+    {
+        using var retired = PooledRefList<BaseSpawner>.Create();
+        foreach (var item in World.Items.Values)
+            if (item is BaseSpawner spawner && _retiredEncounters.Contains(spawner.Guid))
+                retired.Add(spawner);
+        foreach (var spawner in retired)
+            spawner.Delete();
+        return retired.Count;
     }
 
     private static void InstallDecorations(Map map, string file, string decoration)
@@ -148,7 +198,8 @@ public static class NewHavenPopulation
         if (!IsIslandGate(gate)
             || from is not PlayerMobile { AccessLevel: AccessLevel.Player } player
             || !ClassCreation.Profiles.TryGet(player.Serial, out _)
-            || ClassCreation.Profiles.NewHavenGateUnlocked(player.Serial))
+            || ClassCreation.Profiles.NewHavenGateUnlocked(player.Serial)
+            || BritanniaCampaign.Complete(player))
             return true;
 
         player.SendMessage("You’re not sure it’s wise to leave yet. Perhaps you should speak with Iolo at the inn.");
@@ -236,7 +287,7 @@ public static class NewHavenPopulation
         PlaceSign(map, new Point3D(5912, 354, 0), "Exit to the mountain trail");
     }
 
-    private static void PlaceRope(Map map, Point3D at, Point3D destination, string name)
+    internal static void PlaceRope(Map map, Point3D at, Point3D destination, string name)
     {
         // Keep the usable end above ground clutter while both landings remain at floor height.
         var handle = new Point3D(at.X, at.Y, at.Z + 12);

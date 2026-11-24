@@ -71,6 +71,7 @@ public static partial class TownMarkets
                     vendor.SetSkill(trained, 100);
                     vendor.Title = $"the {ClassProfessions.Name(trained)} trainer";
                 }
+                HeartwoodTown.StyleMerchant(vendor, site);
                 Profiles.Add(vendor, site.Role, site.Id);
                 vendor.Home = point; vendor.RangeHome = 0;
                 vendor.MoveToWorld(point, map); created++;

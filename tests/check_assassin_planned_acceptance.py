@@ -191,7 +191,7 @@ def configuration():
                               ROOT / 'tests/fists_claw_input.py', ROOT / 'tests/check_blade_fury_held_input.py',
                               ROOT / 'tools/reference/item-content-scope-decision.json',
                               ROOT / 'tools/reference/wake-learned-sanctuary-decision.json',
-                              ROOT / 'docs/blade-fury-approved-input-rule.md')
+                              ROOT / 'tools/reference/rules/blade-fury-approved-input-rule.md')
     for key in ('extra_families', 'extra_checks', 'extra_target_input_commands'):
         assert len(config[key]) == len(set(config[key])), key
     for path in (*config['extra_files'].values(), *config['extra_inputs']):

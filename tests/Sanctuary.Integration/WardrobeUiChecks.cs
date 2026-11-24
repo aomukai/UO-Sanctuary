@@ -86,7 +86,7 @@ public static class WardrobeUiChecks
         foreach (var i in gold) { i.Delete(); }
         _player.Backpack.DropItem(new Gold(6000));
         _site = RecognitionChecks.Place(_player, Array.FindIndex(TownRecognition.Halls, h => h.Id == "Felucca/Britain"));
-        Require(TownRecognition.Claim(_player, _site, RecognitionHonor.Hero), "UI first ceremony failed");
+        Require(RecognitionChecks.AwardHeroAndCollect(_player, _site), "UI first ceremony failed");
         _initial = ClassProfessions.Profiles.Find(_player); ClassCreation.Profiles.TryGet(_player.Serial, out _profile);
         _stats = ClassCreation.Profiles.Stats(_player.Serial); _skills = Skills();
         _worn = _player.Items.Select(i => i.Serial.Value).Order().ToArray();

@@ -41,6 +41,9 @@ public static class YewStory
     internal static bool Has(PlayerMobile owner, YewProgress flag) =>
         (_profiles.States.GetValueOrDefault(owner.Serial) & flag) == flag;
 
+    internal static bool HasHeartwoodAccess(PlayerMobile owner) =>
+        owner.Race == Race.Elf || Has(owner, YewProgress.Heartwood);
+
     internal static bool Add(PlayerMobile owner, YewProgress flag)
     {
         if (Has(owner, flag))
@@ -77,6 +80,7 @@ public static class YewStory
             new EmpathAbbeyCleric().MoveToWorld(ClericPost, map);
         if (!World.Mobiles.Values.OfType<Nightwind>().Any(npc => !npc.Recruited))
             new Nightwind().MoveToWorld(NightwindPost, map);
+        HeartwoodTown.Install(map);
         YewVampire.EnsurePresent();
     }
 
@@ -134,7 +138,7 @@ public partial class HeartwoodPassage : Teleporter
     {
         if (!base.CanTeleport(mobile))
             return false;
-        if (mobile is not PlayerMobile owner || owner.AccessLevel > AccessLevel.Player || YewStory.Has(owner, YewProgress.Heartwood))
+        if (mobile is not PlayerMobile owner || owner.AccessLevel > AccessLevel.Player || YewStory.HasHeartwoodAccess(owner))
             return true;
         owner.SendMessage("The way to Heartwood is closed. The mayor of Yew can grant permission to enter.");
         return false;

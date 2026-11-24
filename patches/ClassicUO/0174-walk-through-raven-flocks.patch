@@ -1,0 +1,33 @@
+diff --git a/src/ClassicUO.Client/Game/ClassCombatClient.cs b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+--- a/src/ClassicUO.Client/Game/ClassCombatClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -149,7 +149,8 @@
+         while (tile.TPrevious != null) { tile = tile.TPrevious; }
+         for (var obj = tile; obj != null; obj = obj.TNext)
+         {
+-            if (obj is Mobile mob && mob != world.Player && !mob.IsDead && mob.Z + 16 > z && z + 16 > mob.Z
++            if (obj is Mobile mob && mob != world.Player && !RavenAppearance.IsFlock(mob.Graphic)
++                && !mob.IsDead && mob.Z + 16 > z && z + 16 > mob.Z
+                 && !AvatarDialogueClient.IsOwnCompanion(world, mob))
+                 return true;
+         }
+diff --git a/src/ClassicUO.Client/Game/Pathfinder.cs b/src/ClassicUO.Client/Game/Pathfinder.cs
+--- a/src/ClassicUO.Client/Game/Pathfinder.cs
++++ b/src/ClassicUO.Client/Game/Pathfinder.cs
+@@ -10,6 +10,7 @@
+ using ClassicUO.Game.Managers;
+ using ClassicUO.Assets;
+ using Microsoft.Xna.Framework;
++using Sanctuary;
+ using MathHelper = ClassicUO.Utility.MathHelper;
+ 
+ namespace ClassicUO.Game
+@@ -149,7 +150,7 @@
+                         {
+                             case Mobile mobile:
+                             {
+-                                if (!mobile.IsDead && !mobile.IgnoreCharacters && !ClassCombatClient.Ally(mobile)
++                                if (!RavenAppearance.IsFlock(mobile.Graphic) && !mobile.IsDead && !mobile.IgnoreCharacters && !ClassCombatClient.Ally(mobile)
+                                     && (!ignoreGameCharacters || ClassCombatClient.Enabled && !_world.Player.IsDead))
+                                 {
+                                     list.Add

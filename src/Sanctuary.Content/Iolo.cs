@@ -15,6 +15,7 @@ namespace Sanctuary;
 public partial class Iolo : ConversationNpc, IClassCompanion
 {
     internal const int RequiredLevel = 6;
+    internal static readonly ScriptedDialogue.Voice Voice = new("Iolo", (ushort)NpcPortrait.Iolo);
     private const byte JoinedNode = 3;
     [SerializableField(0)]
     private Serial _recruitedBy;
@@ -26,22 +27,25 @@ public partial class Iolo : ConversationNpc, IClassCompanion
     CompanionEquipmentStyle IClassCompanion.EquipmentStyle => CompanionEquipmentStyle.Crossbow;
     public override bool IsInvulnerable => !Recruited;
     public override bool CanRegenMana => false;
-    internal override ushort Portrait => (ushort)NpcPortrait.Iolo;
+    internal override ushort Portrait => Voice.Portrait;
     internal override IReadOnlyList<ScriptedDialogue.Node> Script => _introduction;
 
     private long _nextSpecialShot = long.MinValue;
     private TimerExecutionToken _shot;
 
     private const string Summons = "Aye, 'twas I who summoned thee. I would scarce have called thee from thy own world had I thought Britannia could weather this alone.";
-    private const string Danger = "There are signs of trouble in the dark places of Britannia. The reports agree on little save that the trouble grows. I would have thee find thy footing before we go looking for its source.";
+    internal const string DungeonReports = "Reports speak of danger coming from the eight dungeons tied to the Anti-Virtues. They agree on little save that the trouble grows.";
+    private const string Danger = "There are signs of trouble in the dark places of Britannia. " + DungeonReports
+        + " I would have thee find thy footing before we go looking for its source.";
     private const string Graveyard = "There is an old graveyard northeast of town. The dead there have grown restless. Test thy mettle there if thou wilt, while I finish my business in New Haven. Come find me here at the inn when thou art ready.";
     private const string Ready = "Thou art finding thy footing again, I see. My business here is concluded—and this old crossbow has gathered quite enough dust.";
 
     private static readonly ScriptedDialogue.Reply[] _topics =
-        [new("Summons", 1), new("Danger", 2), new("Graveyard", 3)];
+        [new("Summons", 1), new("Danger", 2, Learns: StoryDiscoveries.IoloDungeonReports), new("Graveyard", 3)];
     private static readonly ScriptedDialogue.Reply _join = new("Travel Together", 0, AcceptCompany);
     private static readonly ScriptedDialogue.Reply[] _invitation = [_join, new("Travel Alone", 1), new("Summons", 2), new("Graveyard", 4)];
-    private static readonly ScriptedDialogue.Reply[] _readyTopics = [new("Summons", 2), new("Danger", 3), new("Graveyard", 4), _join];
+    private static readonly ScriptedDialogue.Reply[] _readyTopics =
+        [new("Summons", 2), new("Danger", 3, Learns: StoryDiscoveries.IoloDungeonReports), new("Graveyard", 4), _join];
 
     private static readonly ScriptedDialogue.Node[] _introduction =
     [
@@ -71,13 +75,14 @@ public partial class Iolo : ConversationNpc, IClassCompanion
 
     private static ScriptedDialogue.Node[] CompanyScript(string danger, string ogre = null)
     {
+        var reports = new ScriptedDialogue.Reply("Danger", 2, Learns: StoryDiscoveries.IoloDungeonReports);
         ScriptedDialogue.Reply[] topics = ogre == null
-            ? [new("Summons", 1), new("Danger", 2), new("Equipment", 0, OpenEquipment)]
-            : [new("Summons", 1), new("Danger", 2), new("Equipment", 0, OpenEquipment), new("Ogre", 4)];
+            ? [new("Summons", 1), reports, new("Equipment", 0, OpenEquipment)]
+            : [new("Summons", 1), reports, new("Equipment", 0, OpenEquipment), new("Ogre", 4)];
         ScriptedDialogue.Node[] nodes =
         [
             new("What is it, my friend? I've time for a word before we go on.", topics),
-            new(Summons, topics), new(danger, topics),
+            new(Summons, topics), new(danger + " " + DungeonReports, topics),
             new("Come, let us go together.", topics)
         ];
         return ogre == null ? nodes : [..nodes, new(ogre, topics)];
@@ -130,6 +135,8 @@ public partial class Iolo : ConversationNpc, IClassCompanion
 
     internal override void BeginConversation(PlayerMobile player)
     {
+        if (!Recruited && CampaignActors.InnCouncil(player, this))
+            return;
         if (Recruited)
         {
             if (IsDeadPet)
@@ -352,7 +359,8 @@ public partial class Iolo : ConversationNpc, IClassCompanion
     private bool CanShoot(Mobile target, BaseRanged weapon) => Alive && !Deleted && !IsDeadPet && !Frozen && !Paralyzed
         && ClassCombatHooks.ActionAllowed?.Invoke(this) != false
         && Weapon == weapon && !ClassGear.Broken(weapon) && Combatant == target && ControlMaster is PlayerMobile owner
-        && MercenaryCare.IsCompanion(owner, this) && ClassCombat.IsHostile(owner, target)
+        && MercenaryCare.IsCompanion(owner, this) && MercenaryCare.WithinCompanionLeash(owner, this, target)
+        && ClassCombat.IsHostile(owner, target)
         && InRange(target, Math.Min(5, weapon.MaxRange)) && Math.Abs(Z - target.Z) < 16 && InLOS(target);
 
     private void ReleaseShot(Mobile target, BaseRanged weapon, CombatAbility skill)

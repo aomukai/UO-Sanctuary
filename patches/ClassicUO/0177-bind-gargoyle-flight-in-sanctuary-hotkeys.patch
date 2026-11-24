@@ -1,0 +1,81 @@
+diff --git a/src/ClassicUO.Client/Game/SanctuaryMenu.cs b/src/ClassicUO.Client/Game/SanctuaryMenu.cs
+--- a/src/ClassicUO.Client/Game/SanctuaryMenu.cs
++++ b/src/ClassicUO.Client/Game/SanctuaryMenu.cs
+@@ -5,6 +5,7 @@
+ using ClassicUO.Game.Managers;
+ using ClassicUO.Game.UI.Gumps;
+ using ClassicUO.Input;
++using ClassicUO.Network;
+ using Sanctuary;
+ using SDL3;
+ 
+@@ -24,14 +25,15 @@
+ 
+ internal static class SanctuaryMenu
+ {
+-    internal const string DefaultKeys = "bcjmtko";
++    internal const string DefaultKeys = "bcjmtkof";
++    private const int FlightKeyIndex = 7;
+ 
+     internal static bool IsMenuLetter(char key) => key is >= 'a' and <= 'z' and not 's';
+ 
+     internal static string GetKeys(Profile profile)
+     {
+         string keys = profile.SanctuaryMenuKeys;
+-        if (keys?.Length is not (4 or 6 or 7))
++        if (keys?.Length is not (4 or 6 or 7 or 8))
+             return DefaultKeys;
+ 
+         for (int i = 0; i < keys.Length; i++)
+@@ -84,6 +86,16 @@
+             : -1;
+         if (!escape && menu < 0)
+             return false;
++
++        if (menu == FlightKeyIndex)
++        {
++            if (world.Player?.Race != RaceType.GARGOYLE)
++                return false;
++
++            if (!e.repeat)
++                NetClient.Socket.Send_ToggleGargoyleFlying();
++            return true;
++        }
+ 
+         if (!e.repeat)
+         {
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs
+@@ -89,17 +89,17 @@
+         classic = Add(new SanctuarySheetButton(331, soundtrackY, 106, "Classic MIDI", () => SelectSoundtrack(true), _classicMidi), Music);
+ 
+         _keys = SanctuaryMenu.GetKeys(_profile);
+-        string[] windows = ["Backpack", "Character", "Journal", "World map", "Class talents", "Skills", "Companion"];
+-        for (int i = 0; i < windows.Length; i++)
++        string[] actions = ["Backpack", "Character", "Journal", "World map", "Class talents", "Skills", "Companion", "Fly / Land (Gargoyle)"];
++        for (int i = 0; i < actions.Length; i++)
+         {
+             int binding = i;
+-            int y = 93 + i * 27;
+-            AddText(windows[i], 30, y + 4, Hotkeys);
++            int y = 93 + i * 24;
++            AddText(actions[i], 30, y + 3, Hotkeys);
+             _bindings[i] = Add(new SanctuarySheetButton(345, y, 92, "", () =>
+             {
+                 _capturing = binding;
+                 RefreshBindings("Press a letter. Esc cancels.");
+-            }), Hotkeys);
++            }, height: 22), Hotkeys);
+         }
+ 
+         AddText("Esc  Options     Enter  Chat     Tab  Run/Walk", 30, 287, Hotkeys);
+@@ -151,7 +151,7 @@
+         int taken = _keys.IndexOf(letter);
+         if (taken >= 0 && taken != _capturing)
+         {
+-            RefreshBindings("That letter is assigned to another window.");
++            RefreshBindings("That letter is assigned to another action.");
+             return;
+         }
+ 

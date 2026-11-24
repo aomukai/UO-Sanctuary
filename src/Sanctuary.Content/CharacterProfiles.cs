@@ -15,6 +15,8 @@ public sealed record ClassHistorySnapshot(CharacterProfile Profile, StatAllocati
 
 public sealed class CharacterProfiles : GenericPersistence
 {
+    private const int SaveVersion = 16;
+
     private sealed class History(CharacterProfile profile)
     {
         internal CharacterProfile Profile = profile;
@@ -429,6 +431,9 @@ public sealed class CharacterProfiles : GenericPersistence
     internal bool NewHavenGateUnlocked(Serial serial) =>
         _characters.TryGetValue(serial, out var character) && character.NewHavenGateUnlocked;
 
+    internal bool DefeatedKrulg(Serial serial) =>
+        _characters.TryGetValue(serial, out var character) && character.DefeatedKrulg;
+
     internal bool HasDepartedNewHaven(Serial serial) =>
         _characters.TryGetValue(serial, out var character) && character.DepartedNewHaven;
 
@@ -604,7 +609,7 @@ public sealed class CharacterProfiles : GenericPersistence
 
     public override void Serialize(IGenericWriter writer)
     {
-        writer.Write(14);
+        writer.Write(SaveVersion);
         writer.Write(_characters.Count);
         var serials = new List<Serial>(_characters.Keys); serials.Sort();
         foreach (var serial in serials)
@@ -622,7 +627,7 @@ public sealed class CharacterProfiles : GenericPersistence
             writer.Write(character.VisitedHavenMine);
             writer.Write(character.DefeatedKrulg);
             writer.Write(character.KrulgWitness.Value);
-            writer.Write((uint)character.BritainDiscoveries);
+            writer.Write((ulong)character.BritainDiscoveries);
             writer.Write(character.IoloGreetedBritain);
             writer.Write(character.ReceivedIoloRunebook);
             writer.Write(character.WolfgangOpenedUp);
@@ -648,7 +653,7 @@ public sealed class CharacterProfiles : GenericPersistence
     public override void Deserialize(IGenericReader reader)
     {
         int version = reader.ReadInt();
-        if (version is < 0 or > 14) { throw new InvalidDataException($"Unsupported Sanctuary character data version {version}."); }
+        if (version is < 0 or > SaveVersion) { throw new InvalidDataException($"Unsupported Sanctuary character data version {version}."); }
         int count = reader.ReadInt();
         if (count is < 0 or > 1000000) { throw new InvalidDataException("Invalid Sanctuary character count."); }
         // Decode and validate the complete replacement before changing the loaded authority.
@@ -692,6 +697,7 @@ public sealed class CharacterProfiles : GenericPersistence
                     {
                         character.BritainDiscoveries = (StoryDiscoveries)(version switch
                         {
+                            >= 16 => reader.ReadULong(),
                             >= 14 => reader.ReadUInt(),
                             >= 12 => reader.ReadUShort(),
                             _ => reader.ReadByte()
@@ -730,7 +736,9 @@ public sealed class CharacterProfiles : GenericPersistence
         byte classId = reader.ReadByte(); int level = reader.ReadInt(); long experience = reader.ReadLong();
         if (!DiabloClasses.TryFromWire(classId, out var characterClass) || level is < 1 or > 99 || experience < 0)
         { throw new InvalidDataException("Invalid Sanctuary character profile."); }
-        // Preserve legacy staff-granted levels and XP exactly; they need not agree with XP thresholds.
+        // Legacy staff-granted levels can sit above the level earned by XP.
+        if (version < 15)
+            experience = ExperienceLevels.MigrateLegacyExperience(level, experience);
         var history = new History(new(characterClass, level, experience));
         if (version >= 2)
         {

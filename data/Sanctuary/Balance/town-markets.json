@@ -5126,5 +5126,38 @@
     "z": 0,
     "source": "Roadside trainer",
     "sharedWorkshop": false
+  },
+  {
+    "id": "Trammel/Heartwood/Bowyer",
+    "town": "Heartwood",
+    "map": "Trammel",
+    "role": "Bowyer",
+    "x": 7053,
+    "y": 338,
+    "z": 0,
+    "source": "Heartwood workshop",
+    "sharedWorkshop": false
+  },
+  {
+    "id": "Trammel/Heartwood/Carpenter",
+    "town": "Heartwood",
+    "map": "Trammel",
+    "role": "Carpenter",
+    "x": 7048,
+    "y": 382,
+    "z": 0,
+    "source": "Heartwood workshop",
+    "sharedWorkshop": false
+  },
+  {
+    "id": "Trammel/Heartwood/Provisioner",
+    "town": "Heartwood",
+    "map": "Trammel",
+    "role": "Provisioner",
+    "x": 7090,
+    "y": 387,
+    "z": 0,
+    "source": "Heartwood market",
+    "sharedWorkshop": false
   }
 ]

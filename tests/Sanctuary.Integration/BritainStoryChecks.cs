@@ -28,6 +28,7 @@ public static class BritainStoryChecks
 
     public static void Configure()
     {
+        Register("mounted-runebook", CheckMountedRunebook);
         Register("bridge", () =>
         {
             var player = Player;
@@ -299,6 +300,63 @@ public static class BritainStoryChecks
         NecromancerEffects.SetMana256(player, 0);
         book.OnDoubleClick(player);
         Require(player.FindGump<RunebookGump>()?.Book == book, "The runebook did not open");
+    }
+
+    private static void CheckMountedRunebook()
+    {
+        var map = Map.Trammel;
+        var origin = new Point3D(6560, 3610, 0);
+        var player = new PlayerMobile { Body = 0x190, Player = true, Name = "Mounted runebook fixture" };
+        player.AddItem(new Backpack());
+        var book = new Runebook();
+        player.Backpack.DropItem(book);
+        var copy = new Runebook();
+        var horse = new Horse();
+        var dog = new Dog();
+        var dungeonEntrance = new Teleporter(new Point3D(5518, 674, 20), map);
+        try
+        {
+            ClassCreation.Profiles.Assign(player, DiabloClass.Necromancer);
+            var legacyCollege = new RunebookEntry(book, BritainStory.CollegeRune, map);
+            var legacyCove = new RunebookEntry(book, CoveGateRune.Gates, map);
+            var dismountCove = new RunebookEntry(book, CoveGateRune.Gates, map, mountedTravel: RuneMountTravel.DismountRequired);
+            Require(!RunebookTravel.AllowsMountedTravel(legacyCollege) && RunebookTravel.AllowsMountedTravel(legacyCove)
+                && !RunebookTravel.AllowsMountedTravel(dismountCove), "Legacy fallback overrode an authored mounted-travel rule");
+
+            player.MoveToWorld(origin, map);
+            var rune = new CoveGateRune();
+            player.Backpack.DropItem(rune);
+            Require(book.OnDragDrop(player, rune) && book.Entries[0].MountedTravel == RuneMountTravel.Allowed,
+                "Filing the Cove rune lost its mounted-travel flag");
+            book.OnAfterDuped(copy);
+            Require(copy.Entries[0].MountedTravel == RuneMountTravel.Allowed, "Copying the book lost the rune flag");
+            book.DropRune(player, book.Entries[0], 0);
+            var looseRune = player.Backpack.FindItemByType<RecallRune>();
+            Require(looseRune?.MountedTravel == RuneMountTravel.Allowed && book.OnDragDrop(player, looseRune),
+                "Removing and refiling a rune lost its mounted-travel flag");
+
+            horse.MoveToWorld(origin, map);
+            Require(MountTravel.Adopt(player, horse) && dog.SetControlMaster(player), "Could not set up travel followers");
+            horse.OnDoubleClick(player);
+            dog.MoveToWorld(new Point3D(origin.X + 6, origin.Y, origin.Z), map);
+            Require(player.Mount == horse && !dungeonEntrance.CanTeleport(player), "Mounting or dungeon restriction failed");
+            ClassMapHooks.RunebookTravel(player, legacyCollege);
+            Require(player.Location == origin && player.Mount == horse, "The indoor college rune let a rider through");
+            ClassMapHooks.RunebookTravel(player, book.Entries[0]);
+            Require(player.Location == CoveGateRune.Gates && player.Mount == horse && horse.Rider == player
+                && dog.Map == player.Map && dog.InRange(player, 4), "Cove travel lost the rider, mount, or follower");
+            horse.Rider = null;
+            ClassMapHooks.RunebookTravel(player, legacyCollege);
+            Require(player.Location == BritainStory.CollegeRune, "The college rune failed on foot");
+        }
+        finally
+        {
+            dungeonEntrance.Delete();
+            dog.Delete();
+            horse.Delete();
+            copy.Delete();
+            player.Delete();
+        }
     }
 
     private static long BarkDeadline(Wolfgang wolfgang) =>

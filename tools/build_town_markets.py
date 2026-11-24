@@ -21,6 +21,11 @@ ROLES = dict(Smith=['Blacksmith','Weaponsmith','Armorer','BlacksmithGuildmaster'
              Jeweller=['Jeweler','Tinker','Provisioner'])
 MAGE_TOWER = {'Alchemist': (3482, 2492, True), 'Scribe': (3487, 2494, True), 'Scholar': (3485, 2493, False)}
 ROADSIDE_TRAINERS = {'Fisher': (2733, 1061, 0), 'Cook': (2745, 1066, 0)}
+HEARTWOOD_MARKETS = {
+    'Bowyer': (7053, 338, 'Heartwood workshop'),
+    'Carpenter': (7048, 382, 'Heartwood workshop'),
+    'Provisioner': (7090, 387, 'Heartwood market'),
+}
 
 
 def build():
@@ -61,6 +66,9 @@ def build():
     for role, (x, y, z) in ROADSIDE_TRAINERS.items():
         result.append(dict(id=f'Trammel/Britannia/Roadside/{role}', town='Britannia', map='Trammel',
                            role=role, x=x, y=y, z=z, source='Roadside trainer', sharedWorkshop=False))
+    for role, (x, y, source) in HEARTWOOD_MARKETS.items():
+        result.append(dict(id=f'Trammel/Heartwood/{role}', town='Heartwood', map='Trammel',
+                           role=role, x=x, y=y, z=0, source=source, sharedWorkshop=False))
     return result
 
 

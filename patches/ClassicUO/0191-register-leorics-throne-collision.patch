@@ -1,0 +1,18 @@
+--- a/src/ClassicUO.Client/Client.cs
++++ b/src/ClassicUO.Client/Client.cs
+@@ -73,6 +73,15 @@
+                 tile.Name = "ritual floor art";
+             }
+ 
++            if (WorldDecorationGraphics.LeoricThrone < tiles.Length)
++            {
++                ref var throne = ref tiles[WorldDecorationGraphics.LeoricThrone];
++                throne.Flags = TileFlag.Impassable;
++                throne.Height = WorldDecorationGraphics.LeoricThroneBlockHeight;
++                throne.Weight = byte.MaxValue;
++                throne.Name = "the broken lion throne";
++            }
++
+             if (WorldDecorationGraphics.DiabloLavaBarrier < tiles.Length)
+             {
+                 ref var lava = ref tiles[WorldDecorationGraphics.DiabloLavaBarrier];

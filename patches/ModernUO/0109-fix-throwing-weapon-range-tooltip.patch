@@ -1,0 +1,11 @@
+diff --git a/Projects/UOContent/Items/Weapons/Throwing/BaseThrown.cs b/Projects/UOContent/Items/Weapons/Throwing/BaseThrown.cs
+--- a/Projects/UOContent/Items/Weapons/Throwing/BaseThrown.cs
++++ b/Projects/UOContent/Items/Weapons/Throwing/BaseThrown.cs
+@@ -167,6 +167,6 @@
+     public override void GetProperties(IPropertyList list)
+     {
+         base.GetProperties(list);
+-        list.Add(1149791, MinThrowRange); // Min Throw Range: ~1_val~
++        list.Add($"{"Minimum throw range: "}{MinThrowRange}");
+     }
+ }

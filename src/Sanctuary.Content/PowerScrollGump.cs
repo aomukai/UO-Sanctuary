@@ -23,7 +23,7 @@ public sealed class PowerScrollGump : DynamicGump
         b.AddPage(); b.AddBackground(0, 0, 560, 310, 5054);
         b.AddLabel(22, 20, 0x481, "Increase skill cap");
         b.AddLabel(22, 65, 0x481, $"{ClassProfessions.Name(q.Skill)}");
-        b.AddLabel(22, 105, 0x47E, $"Skill cap: {q.Cap / 10.0:F1} → {q.Target / 10.0:F1}");
+        b.AddLabel(22, 105, 0x47E, $"Skill cap: {(q.Cap + q.CapBonus) / 10.0:F1} → {(q.Target + q.CapBonus) / 10.0:F1}");
         b.AddLabel(22, 140, 0x47E, $"Trained skill remains {q.Base / 10.0:F1}; your skill lock stays unchanged.");
         b.AddLabel(22, 175, 0x47E, "Permanent for this character, including inactive crafts.");
         b.AddLabel(22, 210, 0x47E, "Consumes this scroll. Other skills keep their existing caps.");

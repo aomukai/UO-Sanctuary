@@ -1,0 +1,68 @@
+diff --git a/src/ClassicUO.Client/Game/ClassLootClient.cs b/src/ClassicUO.Client/Game/ClassLootClient.cs
+--- a/src/ClassicUO.Client/Game/ClassLootClient.cs
++++ b/src/ClassicUO.Client/Game/ClassLootClient.cs
+@@ -11,6 +11,7 @@
+ internal static class ClassLootClient
+ {
+     private static readonly HashSet<uint> _empty = new();
++    private static readonly HashSet<uint> _cryptChests = new();
+     private static readonly List<uint> _items = new();
+     private static uint _nextPoll;
+     public static IReadOnlyList<uint> Items => _items;
+@@ -18,6 +19,7 @@
+     public static void Reset()
+     {
+         _empty.Clear();
++        _cryptChests.Clear();
+         _items.Clear();
+         Open = false;
+         _nextPoll = Time.Ticks;
+@@ -33,6 +35,15 @@
+     }
+     public static void OpenCorpse(uint serial) => Send(LootRequest.Open, serial);
+     public static void Take(uint serial) => Send(LootRequest.Take, serial);
++    public static bool TryTakeChestGold(World world, uint chest, uint item)
++    {
++        if (!_cryptChests.Contains(chest) || world.Items.Get(item) is not { IsCoin: true } gold || gold.Container != chest)
++        {
++            return false;
++        }
++        Send(LootRequest.TakeChestGold, item);
++        return true;
++    }
+     public static void Close()
+     {
+         if (Open)
+@@ -43,7 +54,16 @@
+     }
+     public static void Receive(World world, ref StackDataReader reader)
+     {
+-        if (!world.InGame || reader.Remaining < 9 || reader.ReadUInt8() != LootProtocol.Version)
++        if (!world.InGame || reader.Remaining < LootProtocol.ChestAnnouncementLength || reader.ReadUInt8() != LootProtocol.Version)
++        {
++            return;
++        }
++        if (reader.Remaining == LootProtocol.ChestAnnouncementLength - 1)
++        {
++            _cryptChests.Add(reader.ReadUInt32BE());
++            return;
++        }
++        if (reader.Remaining < 8)
+         {
+             return;
+         }
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/ContainerGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/ContainerGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/ContainerGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/ContainerGump.cs
+@@ -445,6 +445,11 @@
+                 }
+                 else if (!Client.Game.UO.GameCursor.ItemHold.Enabled && SerialHelper.IsValid(serial))
+                 {
++                    if (it is Item && ClassLootClient.TryTakeChestGold(World, LocalSerial, serial))
++                    {
++                        Mouse.CancelDoubleClick = true;
++                        return;
++                    }
+                     if (!World.DelayedObjectClickManager.IsEnabled)
+                     {
+                         Point off = Mouse.LDragOffset;

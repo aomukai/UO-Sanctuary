@@ -19,7 +19,8 @@ public static partial class TownMarkets
         ? MapSurveys.Price(price, quote.City != null) : price;
     internal static bool Trading(BaseVendor vendor, Mobile from) => vendor is { Deleted: false, Alive: true }
         && from is { Deleted: false, Alive: true, Backpack: not null, Holding: null }
-        && AlliedOverlap.Allowed(from) && from.Map == vendor.Map && from.InRange(vendor, 3) && from.InLOS(vendor) && vendor.CheckVendorAccess(from);
+        && AlliedOverlap.Allowed(from) && from.Map == vendor.Map && from.InRange(vendor, 3)
+        && from.CanSee(vendor) && from.InLOS(vendor) && vendor.CheckVendorAccess(from);
     private static bool? Buy(BaseVendor vendor, Mobile buyer, List<BuyItemResponse> list)
     {
         if (Role(vendor) == null) { return null; }

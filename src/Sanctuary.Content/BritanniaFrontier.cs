@@ -109,6 +109,9 @@ public static class BritanniaFrontier
 
     private static void InstallDespise(Map map)
     {
+        var deepLanding = new Point3D(5407, 859, 45);
+        var middleLanding = new Point3D(5475, 750, 5);
+
         // The three lanes of each staircase reach the actual stair surface at different heights from the entry hall.
         for (int offset = 0; offset < 3; offset++)
         {
@@ -141,12 +144,23 @@ public static class BritanniaFrontier
             NewHavenPopulation.PlacePassage(map, new(5520, lowerY, 22), southFoyer);
             NewHavenPopulation.PlacePassage(map, new(5522, lowerY, 32), southFoyer);
 
-            NewHavenPopulation.PlacePassage(map, new(5472 + offset, 753, 10), new(5407, 859, 45));
-            NewHavenPopulation.PlacePassage(map, new(5408, 858 + offset, 45), new(5475, 750, 5));
+            NewHavenPopulation.PlacePassage(map, new(5472 + offset, 753, 10), deepLanding);
+            RetireStockPassage(map, new(5408, 858 + offset, 45), middleLanding);
         }
-        NewHavenPopulation.PlacePassage(map, new(5475, 752, 5), new(5407, 859, 45));
-        NewHavenPopulation.PlacePassage(map, new(5474, 752, 10), new(5407, 859, 45));
-        NewHavenPopulation.PlacePassage(map, new(5472, 752, 20), new(5407, 859, 45));
+        NewHavenPopulation.PlacePassage(map, new(5475, 752, 5), deepLanding);
+        NewHavenPopulation.PlacePassage(map, new(5474, 752, 10), deepLanding);
+        NewHavenPopulation.PlacePassage(map, new(5472, 752, 20), deepLanding);
+
+        var sparkleLocation = new Point3D(5408, 859, 47);
+        foreach (var passage in map.GetItemsAt<InteractionTeleporter>(sparkleLocation))
+            if (passage.Location == sparkleLocation && passage.PointDest == middleLanding && passage.MapDest == map)
+                return;
+
+        new InteractionTeleporter(middleLanding, map)
+        {
+            ItemID = 0x375A,
+            Name = "a sparkle to Despise level 2"
+        }.MoveToWorld(sparkleLocation, map);
     }
 
     private static void EnsureRoamingEttinUnique(Map map)

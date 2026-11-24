@@ -35,7 +35,7 @@ public sealed class RecognitionGump : DynamicGump
         Row(ref b, RecognitionHonor.Hero, 95);
         Row(ref b, RecognitionHonor.Pillar, 155);
         b.AddHtml(22, 220, 510, 72,
-            "<BASEFONT COLOR=#FFFFFF>Class level 80 earns Hero of the People. Any crafting skill at 100.0 earns Pillar of Society; gathering does not qualify. Cartography is a craft.</BASEFONT>", background: false, scrollbar: false);
+            "<BASEFONT COLOR=#FFFFFF>Lord British names the Avatar Hero of the People after the campaign. Any crafting skill at 100.0 earns Pillar of Society. Cartography is a craft.</BASEFONT>", background: false, scrollbar: false);
         if (_state.Earned != 0 && _wardrobe != null)
         { b.AddButton(22, 300, 4005, 4007, 5); b.AddLabel(57, 300, 0x481, "Open wardrobe — free craft switching"); }
         else { b.AddLabel(22, 305, 0x47E, _state.Earned != 0 ? "Permanent wardrobe and housing rights earned" : "Recognition unlocks wardrobe and housing rights"); }

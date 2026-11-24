@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build reviewable balance catalogs from local D2 1.13 tables and pinned UO source.
 
-No network access or persistent search index is used. See docs/balance-foundations.md.
+No network access or persistent search index is used. See docs/items-and-crafting.md.
 """
 import argparse
 import csv
@@ -378,8 +378,8 @@ def write_affix_summary(types, affixes):
             cells.append(' / '.join(values))
         lines.append('| ' + label + ' | ' + ' | '.join(cells) + ' |')
     lines.extend(['', 'Belts, headgear, class-specific items, and other weapon families have their own pools; consult the source eligibility rules for those types.', '',
-                  'These are full source-pool ceilings. Only implemented effects are enabled for live item creation, as described in [Balance foundations](balance-foundations.md#affixes-and-rarity); monster drops are disabled.\n\nExamples of level gates: gloves gain 10% IAS at affix level 20 (required character level 15), then 20% IAS at affix level 43 (required level 35). Leather Gloves have quality level 3, so the latter needs item level 44. Boots gain 10/20/30% run/walk at affix levels 12/22/37; magic-only 40% needs affix level 51 (required level 43). Leather Boots have quality level 3, so 40% needs item level 52. Boots never roll IAS. Item level, affix level, and required character level are separate gates.', ''])
-    (ROOT / 'docs/affix-pools.md').write_text('\n'.join(lines))
+                  'These are full source-pool ceilings. Only implemented effects are enabled for live item creation, as described in [Balance foundations](../rules/balance-foundations.md#affixes-and-rarity). See the item guide for live drop rules.\n\nExamples of level gates: gloves gain 10% IAS at affix level 20 (required character level 15), then 20% IAS at affix level 43 (required level 35). Leather Gloves have quality level 3, so the latter needs item level 44. Boots gain 10/20/30% run/walk at affix levels 12/22/37; magic-only 40% needs affix level 51 (required level 43). Leather Boots have quality level 3, so 40% needs item level 52. Boots never roll IAS. Item level, affix level, and required character level are separate gates.', ''])
+    (ROOT / 'tools/reference/reports/affix-pools.md').write_text('\n'.join(lines))
 
 
 if __name__ == '__main__':

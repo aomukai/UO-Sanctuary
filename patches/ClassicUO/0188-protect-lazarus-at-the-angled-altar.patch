@@ -1,0 +1,14 @@
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Mobile.cs b/src/ClassicUO.Client/Game/GameObjects/Mobile.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Mobile.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Mobile.cs
+@@ -124,8 +124,8 @@
+         public Deque<Step> Steps { get; } = new Deque<Step>(Constants.MAX_STEP_COUNT);
+         public bool IsParalyzed => (Flags & Flags.Frozen) != 0;
+         internal bool IsWardProtectedLazarus => World.MapIndex == 1 && Graphic == 0x190
+-            && X == Sanctuary.WorldDecorationGraphics.MausoleumX + Sanctuary.WorldDecorationGraphics.MausoleumMid
+-            && Y == Sanctuary.WorldDecorationGraphics.MausoleumY + Sanctuary.WorldDecorationGraphics.MausoleumMid
++            && X == Sanctuary.WorldDecorationGraphics.MausoleumX + Sanctuary.WorldDecorationGraphics.PrelateX
++            && Y == Sanctuary.WorldDecorationGraphics.MausoleumY + Sanctuary.WorldDecorationGraphics.PrelateY
+             && (IsYellowHits || NotorietyFlag == NotorietyFlag.Invulnerable);
+ 
+         public bool IsYellowHits => (Flags & Flags.YellowBar) != 0;

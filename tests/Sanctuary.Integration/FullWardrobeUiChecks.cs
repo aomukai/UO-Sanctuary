@@ -39,7 +39,7 @@ public static class FullWardrobeUiChecks
             _pet.Hits = _life = _pet.HitsMax / 2; PersistentMinions.Profiles.Track(_pet);
             ClassProfessions.Profiles.Confirm(_owner, SkillName.Alchemy);
             string site = RecognitionChecks.Place(_owner, Array.FindIndex(TownRecognition.Halls, h => h.Id == "Felucca/Britain"));
-            Require(TownRecognition.Claim(_owner, site, RecognitionHonor.Hero), "UI recognition failed");
+            Require(RecognitionChecks.AwardHeroAndCollect(_owner, site), "UI recognition failed");
             _wardrobe = TownRecognition.PublicWardrobe(site); _owner.Hits = _owner.HitsMax;
             SkillBindingNetwork.Send(_owner); Open();
         });

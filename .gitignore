@@ -10,3 +10,6 @@ tests/**/obj/
 
 # Local operational handoff includes installation and character details.
 HANDOFF.md
+
+# Local export from installed UO data, used when regenerating the chamber.
+/art/world/diablo-ritual/uo-bloody-pentagram.png

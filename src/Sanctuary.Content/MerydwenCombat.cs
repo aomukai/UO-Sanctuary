@@ -30,7 +30,8 @@ public partial class Merydwen
 
     private bool CanAim(PlayerMobile owner, Mobile target, BaseRanged bow) =>
         target is { Deleted: false, Alive: true } && target.Map == Map && InRange(target, Math.Min(BowRange, bow.MaxRange))
-        && Math.Abs(Z - target.Z) < 16 && CanSee(target) && InLOS(target) && ClassCombat.IsHostile(owner, target);
+        && Math.Abs(Z - target.Z) < 16 && CanSee(target) && InLOS(target)
+        && MercenaryCare.WithinCompanionLeash(owner, this, target) && ClassCombat.IsHostile(owner, target);
 
     internal TimeSpan BeginShot(Mobile target, BaseRanged bow)
     {

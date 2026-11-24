@@ -91,7 +91,7 @@ public static class TimedEffectChecks
         var before = TimedEffects.Buff(p, TimedEffectCategory.Food);
         EventSink.InvokeDisconnected(p); EventSink.InvokeLogout(p); EventSink.InvokeConnected(p);
         Require(TimedEffects.Buff(p, TimedEffectCategory.Food) == before, "Reconnect cleared/refreshed buff");
-        string site = RecognitionChecks.Place(p); Require(TownRecognition.Claim(p, site, RecognitionHonor.Hero), "Career ceremony missing");
+        string site = RecognitionChecks.Place(p); Require(RecognitionChecks.AwardHeroAndCollect(p, site), "Career ceremony missing");
         ClassCombat.Stop(p); var wardrobe = WardrobeAccess.NearbyWardrobe(p); ClassCreation.Profiles.TryGet(p.Serial, out var profile);
         Require(WardrobeSwitch.Commit(p, wardrobe, TownRecognition.BeginSession(p), profile, ClassProfessions.Profiles.Find(p), profile.Class, SkillName.Tinkering)
             && TimedEffects.Buff(p, TimedEffectCategory.Food) == before, "Craft switch changed shared effect"); TimedEffects.Clear(p);

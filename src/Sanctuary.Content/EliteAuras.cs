@@ -40,13 +40,15 @@ public static class EliteAuras
         _keys.Clear(); _keys.AddRange(_debuffs.Keys);
         foreach (var serial in _keys) { if (_debuffs.TryGetValue(serial, out var state)) { Refresh(state.Owner); } }
     }
-    internal static int SkillLevel(EncounterCreature source)=>SkillLevel(source.Aura,CreatureProfiles.Level(source));
+    internal static int SkillLevel(EncounterCreature source)=>source.AuraRankOverride ?? SkillLevel(source.Aura,CreatureProfiles.Level(source));
     internal static int SkillLevel(EliteAura aura,int level) => Math.Max(1, level / (aura switch
     { EliteAura.Might or EliteAura.HolyFire => 6, EliteAura.BlessedAim => 5, EliteAura.HolyFreeze => 7, _ => 8 }));
     internal static int OwnConvictionRank(Mobile actor)=>actor is EncounterCreature{Alive:true,Deleted:false,Aura:EliteAura.Conviction} source
         && _emitters.Contains(source)?SkillLevel(source):0;
     internal static int Radius(EliteAura aura, int level)
     {
+        if (aura == EliteAura.Vigor)
+            return (int)Math.Ceiling(SkillGeometry.Tiles(DeceitEncounter.RankedValues(CombatAbility.Vigor, level).Eval("aurarangecalc")));
         // LoD subtiles are mapped to three per UO tile, bounded by the project's sight range.
         int range = aura switch { EliteAura.Might or EliteAura.BlessedAim => 16 + 2 * (level - 1),
             EliteAura.Conviction => 20, EliteAura.Fanaticism => 11 + level - 1, _ => 6 + level - 1 };
@@ -67,6 +69,8 @@ public static class EliteAuras
         if(source is not{Deleted:false,Alive:true}||source.Controlled||source.Summoned||source.ReturningHome||source.Aura!=aura){return false;}
         // Share admission with pulse arbitration: an emitter on another floor
         // or outside this recipient's allegiance must not suppress its winner.
+        if (aura == EliteAura.Vigor && (target is not DeceitEncounter { Freed: false } || !source.IsFriend(target)))
+            return false;
         bool enemy=PaladinConversion.Enemy(source,target)
             ??(target is PlayerMobile||target is BaseCreature{Controlled:true}or BaseCreature{Summoned:true});
         return enemy==hostile&&(enemy||target is EncounterCreature)&&Math.Abs(source.Z-target.Z)<16
@@ -183,6 +187,15 @@ public static class EliteAuras
             if (source is not { Deleted: false, Alive: true } || source.Map == null || source.Map == Map.Internal)
             { _emitters.Remove(source); continue; }
             int level = SkillLevel(source), radius = Radius(source.Aura, level);
+            if (source.Aura == EliteAura.Vigor)
+            {
+                if (!source.ReturningHome && !source.Controlled && !source.Summoned)
+                {
+                    var at = TimedEffects.Now;
+                    PaladinAuraVisuals.Attach(source, SpellEffectGraphics.VigorAura, at.AddMilliseconds(400), at);
+                }
+                continue;
+            }
             foreach (var target in source.Map.GetMobilesInRange<Mobile>(source.Location, radius))
             {
                 if (!EliteCombat.Enemy(source, target, radius)) { continue; }

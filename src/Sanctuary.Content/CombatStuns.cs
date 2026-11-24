@@ -27,6 +27,7 @@ public static class CombatStuns
 {
     private static readonly Dictionary<uint,CombatStunState> _states=new();
     private static readonly Dictionary<uint,DateTime> _visuals=new();
+    private static readonly Dictionary<Serial, DateTime> _familiarFreezes = new();
     public static CombatStunProfiles Profiles{get;private set;}
     internal static Func<int,int> Roll=Utility.Random;
     public static void Configure()=>Profiles=new();
@@ -93,6 +94,34 @@ public static class CombatStuns
         if(target is not{Alive:true,Deleted:false}){return false;}
         var until=at.AddMilliseconds(duration*40);
         return until>TimedEffects.Now&&Commit(target,until);
+    }
+
+    internal static void ApplyFamiliar(Mobile target)
+    {
+        var now = TimedEffects.Now;
+        if (target is BaseCreature creature)
+        {
+            ApplyPreparedDuration(creature, 75, now);
+            return;
+        }
+        if (target is not PlayerMobile player
+            || player.Frozen && _familiarFreezes.GetValueOrDefault(player.Serial) <= now)
+            return;
+
+        var duration = TimeSpan.FromSeconds(3);
+        var until = now + duration;
+        _familiarFreezes[player.Serial] = until;
+        ClassCombat.Stop(player);
+        if (player.Spell is Spell spell)
+            spell.Disturb(DisturbType.Hurt);
+        player.Frozen = false;
+        player.Freeze(duration);
+        player.FixedEffect(SpellEffectGraphics.CombatStun, 10, 30);
+        Timer.DelayCall(duration, () =>
+        {
+            if (_familiarFreezes.GetValueOrDefault(player.Serial) == until)
+                _familiarFreezes.Remove(player.Serial);
+        });
     }
     private static bool Commit(BaseCreature target,DateTime until)
     {

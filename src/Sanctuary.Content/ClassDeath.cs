@@ -19,6 +19,7 @@ public static class ClassDeath
     private static void OnDeath(PlayerMobile player, Container corpse)
     {
         GamblingGump.Forget(player.Serial);
+        HavenCrypts.ReturnOnDeath(player, corpse);
         if (!ClassCombat.Enabled(player) || player.Alive || player.Deleted
             || corpse is not Corpse { Deleted: false } body || body.Owner != player || player.Corpse != body)
         {

@@ -112,7 +112,6 @@ internal static class DruidDireWolfWorld
         {if(deleteOnFailure){s=s with{NextThink=0};}return false;}
         int type=s.PathOverride==0?13:s.PathOverride,budget=s.PathBudget==0?5:s.PathBudget,bonus=s.VelocityBonus;
         s=s with{PathOverride=0,VelocityBonus=0,PathBudget=0};
-        if(type==1){throw new NotSupportedException("Wolf follow needs unimplemented source AStar fallback");}
         var curse=NecromancerEffects.Curse(body);
         if(run && curse?.Ability==CombatAbility.Decrepify){run=false;type=13;bonus=0;budget=5;}
         int percent=MovementPercent(body,bonus);

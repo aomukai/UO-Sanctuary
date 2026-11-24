@@ -12,6 +12,17 @@ FAMILIES = [('crypt-sentinel', 'Crypt Sentinel', 'Melee', 'skeleton1', 50, 0x48D
             ('bog-revenant', 'Bog Revenant', 'Tank', 'zombie1', 3, 471),
             ('ossuary-archer', 'Ossuary Archer', 'Ranged', 'sk_archer1', 50, 0x48D),
             ('cinder-hierophant', 'Cinder Hierophant', 'Caster', 'fallenshaman1', 24, 0x3E9)]
+CAMPAIGN_BOSSES = {
+    'campaign-skeleton-king': 'Diablo',
+    'campaign-lazarus': 'Mephisto (N)',
+    'campaign-diablo': 'Diablo (H)',
+}
+HYTHLOTH_MINIBOSSES = {
+    'herald': {'mxb': 30, 'hxb': 25, 'cbw': 25, 'chn': 10, 'amu': 10},
+    'jester': {'cst': 25, 'wst': 25, 'wnd': 20, 'rin': 15, 'amu': 15},
+    'chamberlain': {'mac': 20, 'mst': 25, 'mau': 20, 'kit': 20, 'tow': 15},
+    'executioner': {'gix': 40, 'btx': 20, 'gax': 20, 'plt': 20},
+}
 
 def read(path):
     with path.open(encoding='utf-8-sig') as stream:
@@ -21,10 +32,12 @@ def build(source):
     rows = read(source / 'TreasureClassEx.txt')
     classes = {r['Treasure Class']: r for r in rows if r['Treasure Class'] and r['Treasure Class'] != 'Expansion'}
     monsters = {r['Id']: r for r in read(source / 'MonStats.txt')}
-    pools = set()
+    pools, equipment = set(), set()
     for suffix in ['', '-nightmare', '-hell']:
-        pools.update(r['name'] for r in json.loads((ROOT / f'data/Sanctuary/Balance/gear-drops{suffix}.json').read_text())['pools'])
-    roots, pending = [], []
+        catalog = json.loads((ROOT / f'data/Sanctuary/Balance/gear-drops{suffix}.json').read_text())
+        pools.update(r['name'] for r in catalog['pools'])
+        equipment.update(r['code'] for r in catalog['bases'] if r['variants'])
+    roots, pending = [], list(CAMPAIGN_BOSSES.values())
     for family, _, _, ref, _, _ in FAMILIES:
         for diff, suffix in [('Normal', ''), ('Nightmare', '(N)'), ('Hell', '(H)')]:
             for grade, column in [('Ordinary', 1), ('Champion', 2), ('Unique', 3)]:
@@ -53,9 +66,30 @@ def build(source):
         result[name] = dict(name=name, group=int(row['group'] or 0), level=int(row['level'] or 0),
                             picks=int(row['Picks'] or 0), noDrop=int(row['NoDrop'] or 0),
                             factors=[int(row[k] or 0) for k in ['Unique', 'Set', 'Rare', 'Magic']], entries=entries)
+    miniboss_roots = {}
+    quality = result['Act 2 Uitem B']['factors']
+    potion_pool = 'Hythloth miniboss potions'
+    source_potions = result['Hpotion 2']
+    result[potion_pool] = dict(source_potions, name=potion_pool, picks=2,
+                               entries=[entry for entry in source_potions['entries']
+                                        if entry['item'].startswith(('hp', 'mp'))])
+    for role, weights in HYTHLOTH_MINIBOSSES.items():
+        if not weights.keys() <= equipment:
+            raise ValueError(f'Unsupported equipment for Hythloth {role}')
+        name = f'Hythloth {role}'
+        miniboss_roots[f'hythloth-{role}'] = name
+        gear = f'{name} equipment'
+        result[name] = dict(name=name, group=0, level=0, picks=-4, noDrop=0, factors=[0]*4, entries=[
+            dict(item=gear, weight=2, goldMultiplier=256),
+            dict(item=potion_pool, weight=2, goldMultiplier=256),
+        ])
+        result[gear] = dict(name=gear, group=0, level=0, picks=1, noDrop=0, factors=quality, entries=[
+            dict(item=code, weight=weight, goldMultiplier=256) for code, weight in weights.items()
+        ])
     provenance = {name: hashlib.sha256((source/name).read_bytes()).hexdigest() for name in ['MonStats.txt', 'TreasureClassEx.txt']}
     treasure = dict(sourceCommit=COMMIT, sourceSha256=provenance, maxDrops=6, setUniquePolicy='NamedWhenAvailable',
-                    roots=roots, classes=sorted(result.values(), key=lambda r:r['name']))
+                    roots=roots, campaignBossRoots=CAMPAIGN_BOSSES, hythlothMinibossRoots=miniboss_roots,
+                    classes=sorted(result.values(), key=lambda r:r['name']))
     profiles = []
     for family, name, archetype, ref, body, sound in FAMILIES:
         for index, (lo, hi) in enumerate([(60,69), (70,79), (80,89), (90,99)]):

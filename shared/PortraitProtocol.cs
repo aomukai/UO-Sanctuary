@@ -3,13 +3,20 @@ using System;
 namespace Sanctuary;
 
 [Flags]
-public enum StoryDiscoveries : uint
+public enum StoryDiscoveries : ulong
 {
     None = 0, UnexpectedSummons = 1, MetGeoffrey = 2, IoloRetired = 4, RoyalAudience = 8,
     DisplacedPixies = 16, UnquietRatman = 32, DespiseLetter = 64, StolenSapling = 128,
     CoveSiege = 256, CoveJaana = 512, CoveMessenger = 1024, CoveFerry = 2048, GnawFreed = 4096, CoveChief = 8192,
     // New entries travel outside the original 16-bit journal snapshot.
-    HedgeTobin = 1u << 16, HedgeRoderic = 1u << 17, HedgeOrvath = 1u << 18
+    HedgeTobin = 1u << 16, HedgeRoderic = 1u << 17, HedgeOrvath = 1u << 18,
+    IoloDungeonReports = 1u << 19, RoyalInvestigation = 1u << 20, JaanaBeltReceived = 1u << 21,
+    CampaignSummons = 1u << 22, FireIsland = 1u << 23, SkeletonKing = 1u << 24,
+    BlackthornSummons = 1u << 25, DaggerIsle = 1u << 26, Lazarus = 1u << 27,
+    EmptyTowns = 1u << 28, DestardLead = 1u << 29, Diablo = 1u << 30, RoyalProclamation = 1u << 31,
+    DestardQueen = 1UL << 32, DestardConsort = 1UL << 33, DestardNursery = 1UL << 34,
+    DestardBetrayal = 1UL << 35, DestardDaemons = 1UL << 36, DestardEnslaved = 1UL << 37,
+    DestardAftermath = 1UL << 38
 }
 
 [Flags]
@@ -76,7 +83,21 @@ public enum NpcPortrait : ushort
     YewMayor,
     YewVampire,
     AbbeyCleric,
-    Nightwind
+    Nightwind,
+    JensWon,
+    GeoffreyDishevelled,
+    GeoffreyExhausted,
+    GeoffreyRelieved,
+    BritainHarbourMaster,
+    Blackthorn,
+    Dupre,
+    Shamino,
+    DestardQueen,
+    DestardConsort,
+    Lazarus,
+    DestardGuardWest,
+    DestardGuardNorth,
+    DestardServant
 }
 
 public static class DespiseClue

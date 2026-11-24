@@ -51,9 +51,9 @@ public static class SourceBlind
     private static BlindAiRule Rule(BaseCreature actor)=>Rules.GetValueOrDefault(CreatureProfiles.Definition(actor).Reference??"")
         ??throw new NotSupportedException("Blind source timing/range metadata is unmapped");
     internal static int NeutralDelay(BaseCreature actor)
-    {int n=Rule(actor).Delay[(int)SummonDifficulties.For(actor.Map)];return n<=0?15:n;}
+    {int n=Rule(actor).Delay[(int)SummonDifficulties.For(actor)];return n<=0?15:n;}
     private static int Range(BaseCreature actor)
-    {int n=Rule(actor).Range[(int)SummonDifficulties.For(actor.Map)];return n==0?35:n;}
+    {int n=Rule(actor).Range[(int)SummonDifficulties.For(actor)];return n==0?35:n;}
     internal static void Validate(BlindAiState s)
     {
         if(s.Map<0||s.Map>=Map.Maps.Length||Map.Maps[s.Map]==null||Map.Maps[s.Map]==Map.Internal

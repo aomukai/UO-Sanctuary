@@ -1,0 +1,233 @@
+diff --git a/Projects/UOContent/Items/Skill Items/Magical/Runebook.cs b/Projects/UOContent/Items/Skill Items/Magical/Runebook.cs
+--- a/Projects/UOContent/Items/Skill Items/Magical/Runebook.cs
++++ b/Projects/UOContent/Items/Skill Items/Magical/Runebook.cs
+@@ -167,7 +167,8 @@
+             TargetMap = e.Map,
+             Description = e.Description,
+             House = e.House,
+-            Marked = true
++            Marked = true,
++            MountedTravel = e.MountedTravel
+         };
+ 
+         from.AddToBackpack(rune);
+@@ -280,7 +281,7 @@
+         {
+             var entry = Entries[i];
+ 
+-            book.Entries.Add(new RunebookEntry(this, entry.Location, entry.Map, entry.Description, entry.House));
++            book.Entries.Add(new RunebookEntry(book, entry.Location, entry.Map, entry.Description, entry.House, entry.MountedTravel));
+         }
+     }
+ 
+@@ -321,7 +322,7 @@
+ 
+             if (rune.Marked && rune.TargetMap != null)
+             {
+-                Entries.Add(new RunebookEntry(this, rune.Target, rune.TargetMap, rune.Description, rune.House));
++                AddToEntries(new RunebookEntry(this, rune.Target, rune.TargetMap, rune.Description, rune.House, rune.MountedTravel));
+ 
+                 rune.Delete();
+ 
+@@ -365,7 +366,14 @@
+     }
+ }
+ 
+-[SerializationGenerator(2)]
++public enum RuneMountTravel : byte
++{
++    Unspecified,
++    DismountRequired,
++    Allowed
++}
++
++[SerializationGenerator(3)]
+ public partial class RunebookEntry
+ {
+     [CanBeNull]
+@@ -396,12 +404,19 @@
+ 
+     public bool ShouldSerializeDesc() => _house?.Deleted != false;
+ 
++    [SerializableField(4)]
++    [SaveFlag(nameof(HasMountedTravel))]
++    private RuneMountTravel _mountedTravel;
++
++    private bool HasMountedTravel() => _mountedTravel != RuneMountTravel.Unspecified;
++
+     public RunebookEntry(
+         Runebook runebook,
+         Point3D loc = default,
+         Map map = null,
+         string description = null,
+-        BaseHouse house = null
++        BaseHouse house = null,
++        RuneMountTravel mountedTravel = RuneMountTravel.Unspecified
+     )
+     {
+         _runebook = runebook;
+@@ -409,6 +424,15 @@
+         _location = loc;
+         _map = map;
+         _description = description;
++        _mountedTravel = mountedTravel;
++    }
++
++    private void MigrateFrom(V2Content content)
++    {
++        _house = content.House;
++        _location = content.Location ?? default;
++        _map = content.Map;
++        _description = content.Description;
+     }
+ 
+     private void Deserialize(IGenericReader reader, int version)
+diff --git a/Projects/UOContent/Items/Skill Items/Magical/Misc/RecallRune.cs b/Projects/UOContent/Items/Skill Items/Magical/Misc/RecallRune.cs
+--- a/Projects/UOContent/Items/Skill Items/Magical/Misc/RecallRune.cs
++++ b/Projects/UOContent/Items/Skill Items/Magical/Misc/RecallRune.cs
+@@ -6,7 +6,7 @@
+ namespace Server.Items;
+ 
+ [Flippable(0x1f14, 0x1f15, 0x1f16, 0x1f17)]
+-[SerializationGenerator(2, false)]
++[SerializationGenerator(3, false)]
+ public partial class RecallRune : Item
+ {
+     [InvalidateProperties]
+@@ -63,6 +63,22 @@
+     [InvalidateProperties]
+     private Map _targetMap;
+ 
++    [SerializableField(5)]
++    [SerializedCommandProperty(AccessLevel.GameMaster)]
++    [SaveFlag(nameof(HasMountedTravel))]
++    private RuneMountTravel _mountedTravel;
++
++    private bool HasMountedTravel() => _mountedTravel != RuneMountTravel.Unspecified;
++
++    private void MigrateFrom(V2Content content)
++    {
++        _house = content.House;
++        _description = content.Description;
++        _marked = content.Marked;
++        _target = content.Target;
++        _targetMap = content.TargetMap;
++    }
++
+     private void OnTargetMapChanged(Map oldValue, Map newValue)
+     {
+         CalculateHue();
+@@ -121,6 +137,7 @@
+     public void Mark(Mobile m)
+     {
+         _marked = true;
++        MountedTravel = RuneMountTravel.Unspecified;
+ 
+         var setDesc = false;
+         if (Core.AOS)
+diff --git a/Projects/UOContent/Migrations/Server.Items.RecallRune.v3.json b/Projects/UOContent/Migrations/Server.Items.RecallRune.v3.json
+new file mode 100644
+--- /dev/null
++++ b/Projects/UOContent/Migrations/Server.Items.RecallRune.v3.json
+@@ -0,0 +1,49 @@
++{
++  "version": 3,
++  "type": "Server.Items.RecallRune",
++  "properties": [
++    {
++      "name": "House",
++      "type": "Server.Multis.BaseHouse",
++      "rule": "SerializableInterfaceMigrationRule"
++    },
++    {
++      "name": "Description",
++      "type": "string",
++      "rule": "PrimitiveTypeMigrationRule",
++      "ruleArguments": [
++        ""
++      ]
++    },
++    {
++      "name": "Marked",
++      "type": "bool",
++      "rule": "PrimitiveTypeMigrationRule",
++      "ruleArguments": [
++        ""
++      ]
++    },
++    {
++      "name": "Target",
++      "type": "Server.Point3D",
++      "rule": "PrimitiveUOTypeMigrationRule",
++      "ruleArguments": [
++        "Point3D"
++      ]
++    },
++    {
++      "name": "TargetMap",
++      "type": "Server.Map",
++      "rule": "PrimitiveUOTypeMigrationRule",
++      "ruleArguments": [
++        "Map"
++      ]
++    },
++    {
++      "name": "MountedTravel",
++      "type": "Server.Items.RuneMountTravel",
++      "usesSaveFlag": true,
++      "rule": "EnumMigrationRule"
++    }
++  ]
++}
+\ No newline at end of file
+diff --git a/Projects/UOContent/Migrations/Server.Items.RunebookEntry.v3.json b/Projects/UOContent/Migrations/Server.Items.RunebookEntry.v3.json
+new file mode 100644
+--- /dev/null
++++ b/Projects/UOContent/Migrations/Server.Items.RunebookEntry.v3.json
+@@ -0,0 +1,45 @@
++{
++  "version": 3,
++  "type": "Server.Items.RunebookEntry",
++  "properties": [
++    {
++      "name": "House",
++      "type": "Server.Multis.BaseHouse",
++      "usesSaveFlag": true,
++      "rule": "SerializableInterfaceMigrationRule"
++    },
++    {
++      "name": "Location",
++      "type": "Server.Point3D",
++      "usesSaveFlag": true,
++      "rule": "PrimitiveUOTypeMigrationRule",
++      "ruleArguments": [
++        "Point3D"
++      ]
++    },
++    {
++      "name": "Map",
++      "type": "Server.Map",
++      "usesSaveFlag": true,
++      "rule": "PrimitiveUOTypeMigrationRule",
++      "ruleArguments": [
++        "Map"
++      ]
++    },
++    {
++      "name": "Description",
++      "type": "string",
++      "usesSaveFlag": true,
++      "rule": "PrimitiveTypeMigrationRule",
++      "ruleArguments": [
++        ""
++      ]
++    },
++    {
++      "name": "MountedTravel",
++      "type": "Server.Items.RuneMountTravel",
++      "usesSaveFlag": true,
++      "rule": "EnumMigrationRule"
++    }
++  ]
++}
+\ No newline at end of file

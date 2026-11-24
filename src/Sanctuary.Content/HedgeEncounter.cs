@@ -55,7 +55,6 @@ public partial class HedgeEncounter : EncounterCreature
     private long _curseAfter = Core.TickCount;
     private TimerExecutionToken _curseCast;
 
-    internal override int EncounterPlayers => 5;
     public override bool AlwaysAttackable => Dungeon.Id == Mage && !PaladinConversion.Active(this);
     public override string CorpseName => $"{Name}'s corpse";
 

@@ -1,0 +1,37 @@
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs
+@@ -20,8 +20,10 @@
+     {
+         private static EquipConvData? _equipConvData;
+ 
+-        internal bool IsMausoleumScenery => OnGround && Z == 0 && (Flags & Flags.Movable) == 0
+-            && Graphic is 0x051C or 0x027E && WorldDecorationGraphics.InMausoleum(World.MapIndex, X, Y)
++        internal bool IsMausoleumScenery => OnGround && Z is >= 0 and <= 6 && (Flags & Flags.Movable) == 0
++            && (Graphic is 0x051C or 0x027E || Graphic == WorldDecorationGraphics.MausoleumAltarBlocker
++                && WorldDecorationGraphics.InAltarFootprint(X - WorldDecorationGraphics.MausoleumX, Y - WorldDecorationGraphics.MausoleumY))
++            && WorldDecorationGraphics.InMausoleum(World.MapIndex, X, Y)
+             && World.Player is { } viewer && WorldDecorationGraphics.InMausoleum(World.MapIndex, viewer.X, viewer.Y);
+ 
+         internal bool IsDiabloChamberScenery => (Flags & Flags.Movable) == 0
+@@ -484,7 +486,7 @@
+ 
+         public override bool CheckMouseSelection()
+         {
+-            if (Graphic == 0x027E && IsMausoleumScenery) return false;
++            if (Graphic is 0x027E or WorldDecorationGraphics.MausoleumAltarBlocker && IsMausoleumScenery) return false;
+             if (OnGround && IsDiabloChamberScenery && Graphic != 0x051E
+                 && !WorldDecorationGraphics.IsDiabloCaveFloor(World.MapIndex, X, Y, Graphic))
+                 return false;
+diff --git a/src/ClassicUO.Client/Game/Scenes/RenderLists.cs b/src/ClassicUO.Client/Game/Scenes/RenderLists.cs
+--- a/src/ClassicUO.Client/Game/Scenes/RenderLists.cs
++++ b/src/ClassicUO.Client/Game/Scenes/RenderLists.cs
+@@ -324,7 +324,7 @@
+             int dx = WorldDecorationGraphics.MausoleumX + WorldDecorationGraphics.MausoleumMid - tile.X;
+             int dy = WorldDecorationGraphics.MausoleumY + WorldDecorationGraphics.MausoleumMid - tile.Y;
+             int x = tile.RealScreenPosition.X + 22 + (dx - dy) * 22;
+-            int y = tile.RealScreenPosition.Y + 22 + (dx + dy) * 22;
++            int y = tile.RealScreenPosition.Y + 22 + (dx + dy) * 22 + tile.Z * 4;
+             return new Point(x - 1960, y - 3760);
+         }
+ 

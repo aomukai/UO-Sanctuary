@@ -115,8 +115,8 @@ public static class ConsumeWorldChecks
             Require(invalid&&ConsumeEffects.State(p)==intact[0],"Malformed restored buff partially replaced state");
             life=SkillHealth.Balance256(p);maximum=SkillHealth.Maximum256(p);ConsumeEffects.Prune(intact[0].UntilUtc);Require(ConsumeEffects.State(p)==null&&ConsumeEffects.ElementBonus(p,"extra-mag")==0,"Expiry retained buff");Ratio(p,life,maximum,"Expiry lost old maximum before percentage transition");
             var final=Summon(p,CombatAbility.SummonDefiler,9);town=new GuardedRegion("ConsumeTown"+p.Serial.Value,p.Map,1000,new Rectangle2D(p.X+18,p.Y-2,6,5));town.Register();p.Location=new(p.X+20,p.Y,p.Z);
-            Require(MinionSafeAreas.Contains(p)&&WarlockGoatmanWorld.Demons(p).All(MinionSafeAreas.Parked),"Actual town did not park roster");Ready(p);Require(ClassCombat.Perform(p,CombatAbility.Consume,null,p.Location,Core.TickCount),"Normal town roster picker did not open");
-            var menu=p.FindGump<ConsumeRosterGump>();var roster=ConsumeCasting.Roster(p);int button=Array.IndexOf(roster,final)+1;Require(menu!=null&&button>0,"Parked target absent from actual sent gump");
+            Require(MinionSafeAreas.Contains(p)&&WarlockGoatmanWorld.Demons(p).All(demon=>demon.Map==p.Map&&!MinionSafeAreas.Parked(demon)),"Town hid a Warlock summon");Ready(p);Require(ClassCombat.Perform(p,CombatAbility.Consume,null,p.Location,Core.TickCount),"Normal town roster picker did not open");
+            var menu=p.FindGump<ConsumeRosterGump>();var roster=ConsumeCasting.Roster(p);int button=Array.IndexOf(roster,final)+1;Require(menu!=null&&button>0,"Town target absent from actual sent gump");
             menu.OnResponse(network,new RelayInfo(button,[],[],[],[]));var action=ClassCombat.For(p).Consume;Require(action!=null,"Town gump response did not enter cast");
             int mana=NecromancerEffects.ManaBalance256(p);Require(!ClassCombat.ResolveAction(p,ClassCombat.For(p).EffectAt-1)&&!final.Deleted&&NecromancerEffects.ManaBalance256(p)==mana,"Town windup paid/consumed early");
             Require(ClassCombat.ResolveAction(p,ClassCombat.For(p).EffectAt)&&action.Result is{Consumed:true,ManaPaid256:11264,Fault:null}&&final.Deleted,"Town release failed");
@@ -125,7 +125,7 @@ public static class ConsumeWorldChecks
             town.Unregister();town=null;SkillHealth.SetBalance256(p,SkillHealth.Maximum256(p)-13);foreach(var pet in WarlockGoatmanWorld.Demons(p)){SkillHealth.SetBalance256(pet,SkillHealth.Maximum256(pet)-513);}PersistentMinions.Suspend(p);BattleCommand.AfterLoad();
             Require(BattleCommand.Snapshot().Pets.All(pet=>pet.Order<state.Order),"Fixture failed to exercise highest retired slot-order reservation");
             File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(0,p.Serial.Value,SkillHealth.Balance256(p),SkillHealth.Maximum256(p),state,WarlockGoatmanWorld.Demons(p).Select(Save).ToArray())));kept=true;
-            Log.Information("Prepared Consume:actual owner life/movement/weaponED,one aggregateCB,fire/magic damage/pierce,caps/immune,replace/expiry/FIFO/difficulty and actual parked-town gump SC/payment/no replay pass");
+            Log.Information("Prepared Consume:actual owner life/movement/weaponED,one aggregateCB,fire/magic damage/pierce,caps/immune,replace/expiry/FIFO/difficulty and actual town gump SC/payment/no replay pass");
         }
         finally
         {

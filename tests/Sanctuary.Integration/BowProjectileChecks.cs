@@ -19,7 +19,7 @@ public static class BowProjectileChecks
     {
         Register("bow-projectile-check",Check);Register("bow-projectile-reload-check",Reload);
     }
-    private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Bow ammunition and source projectile stats foundation",_=>Core.LoopContext.Post(()=>
+    private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Ammo-free bow eligibility and source projectile stats",_=>Core.LoopContext.Post(()=>
     {try{action();Log.Information("{Name}: passed",name);}catch(Exception ex){Log.Error(ex,"{Name}: failed",name);}}));
     private static void Require(bool value,string reason){if(!value){throw new InvalidOperationException(reason);}}
     private static MissileSourceStats Stats(JsonElement values,string[] fields)
@@ -53,24 +53,18 @@ public static class BowProjectileChecks
         while(owner.RawStr<100){Require(ClassCreation.Profiles.TrySpendStat(owner,CharacterStat.Strength),"Strength");}
         while(owner.RawDex<100){Require(ClassCreation.Profiles.TrySpendStat(owner,CharacterStat.Dexterity),"Dexterity");}
         if(owner.Backpack==null){owner.AddItem(new Backpack());}var bow=Equip(owner,new Bow());var bag=new Bag();owner.AddToBackpack(bag);
-        var wrong=new Bolt(9);owner.AddToBackpack(wrong);
-        Require(!BowAmmunition.CanRelease(owner,bow) && !BowAmmunition.Consume(owner,bow) && wrong.Amount==9,"Wrong/no ammunition accepted");
+        Require(BowAmmunition.WeaponAllowed(owner,bow) && BowAmmunition.AmmoType(owner,bow)==typeof(Arrow),"Empty inventory blocked a bow");
+        var bolts=new Bolt(9);owner.AddToBackpack(bolts);
         var arrows=new Arrow(7);bag.DropItem(arrows);
-        Require(BowAmmunition.CanRelease(owner,bow) && arrows.Amount==7,"Eligibility debited ammunition");
-        int mana=NecromancerEffects.ManaBalance256(owner),wear=bow.HitPoints;
-        var fan=FanGeometry.Create(20,0,24,2,1);Require(fan.Length==24 && BowAmmunition.Consume(owner,bow)
-            && arrows.Amount==6 && wrong.Amount==9 && bow.HitPoints==wear && NecromancerEffects.ManaBalance256(owner)==mana,"One fan debit touched mana/weapon or consumed per missile");
-        owner.AddToBackpack(bow);Require(!BowAmmunition.Consume(owner,bow) && arrows.Amount==6,"Backpack weapon consumed ammo");
-        var crossbow=Equip(owner,new Crossbow());Require(BowAmmunition.Consume(owner,crossbow) && wrong.Amount==8 && arrows.Amount==6,"Crossbow did not select bolts");
+        var fan=FanGeometry.Create(20,0,24,2,1);Require(fan.Length==24 && BowAmmunition.WeaponAllowed(owner,bow)
+            && arrows.Amount==7 && bolts.Amount==9,"Bow eligibility altered inventory");
+        owner.AddToBackpack(bow);Require(!BowAmmunition.WeaponAllowed(owner,bow),"Backpack bow was active");
+        var crossbow=Equip(owner,new Crossbow());
+        Require(BowAmmunition.WeaponAllowed(owner,crossbow) && BowAmmunition.AmmoType(owner,crossbow)==typeof(Bolt),
+            "Crossbow did not select bolt visuals");
         owner.AddToBackpack(crossbow);crossbow.Delete();Require(owner.EquipItem(bow),"Re-equip saved bow");
-        var external=new Arrow(3);external.MoveToWorld(owner.Location,owner.Map);
-        bag.MoveToWorld(owner.Location,owner.Map);Require(!BowAmmunition.CanRelease(owner,bow) && !BowAmmunition.Consume(owner,bow)
-            && external.Amount==3 && arrows.Amount==6,"Ground/foreign stack consumed");
-        var last=new Arrow(1);owner.AddToBackpack(last);Require(BowAmmunition.Consume(owner,bow) && last.Deleted
-            && !BowAmmunition.Consume(owner,bow) && wrong.Amount==8,"Last arrow depletion/wrong-type fallback");
-        owner.AddToBackpack(bag);external.Delete();
-        int hp=bow.HitPoints;bow.HitPoints=0;Require(!BowAmmunition.Consume(owner,bow) && arrows.Amount==6,"Broken bow consumed ammo");bow.HitPoints=hp;
-        File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,bow.Serial.Value,arrows.Serial.Value,wrong.Serial.Value,bag.Serial.Value,6,8)));
+        int hp=bow.HitPoints;bow.HitPoints=0;Require(!BowAmmunition.WeaponAllowed(owner,bow),"Broken bow was active");bow.HitPoints=hp;
+        File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,bow.Serial.Value,arrows.Serial.Value,bolts.Serial.Value,bag.Serial.Value,7,9)));
     }
     private static void Reload()
     {
@@ -78,8 +72,6 @@ public static class BowProjectileChecks
         var owner=World.FindMobile((Serial)saved.Owner) as PlayerMobile;var bow=World.FindItem((Serial)saved.Bow) as BaseWeapon;
         var arrow=World.FindItem((Serial)saved.Arrow);var bolts=World.FindItem((Serial)saved.Bolts);var bag=World.FindItem((Serial)saved.Bag);
         Require(owner!=null && bow?.Parent==owner && arrow?.Parent==bag && bag?.RootParent==owner && bolts?.RootParent==owner
-            && arrow.Amount==saved.ArrowsLeft && bolts.Amount==saved.BoltsLeft && BowAmmunition.CanRelease(owner,bow),"Saved native stacks/ownership or ammo replay");
-        Require(BowAmmunition.Consume(owner,bow) && arrow.Amount==saved.ArrowsLeft-1 && bolts.Amount==saved.BoltsLeft,"Resumed once-only ammunition debit");
-        File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{ArrowsLeft=saved.ArrowsLeft-1}));
+            && arrow.Amount==saved.ArrowsLeft && bolts.Amount==saved.BoltsLeft && BowAmmunition.WeaponAllowed(owner,bow),"Saved native stacks, ownership or bow eligibility");
     }
 }

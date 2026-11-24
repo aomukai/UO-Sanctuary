@@ -1,45 +1,156 @@
-# Building Britannia
+# Worldbuilding and GM catalog
 
-The playable Britannia facet loads the bundled decorations, town vendors, road and shop signs, and doorways. Its animal population loads from the bundled wildlife data. New Haven uses its authored town and encounter layout. Dungeon monsters and quest machinery are placed through Sanctuary’s own content.
+Build towns around residents, trades, homes, and roads. Give recurring enemies places to live and each encounter room enough space for an approach and a retreat. Sanctuary’s world installer handles stock Britannia decoration, doors, signs, vendors, and wildlife. The tables below cover Sanctuary’s custom population and placement tools. [World installer](../src/Sanctuary.Content/BritanniaWorld.cs)
 
-Sanctuary brings Diablo-style combat and itemisation into Britannia’s towns, homes, crafts, and wilderness. The intended scale is solo play or a small PvE community, with time for fishing, cooking, gathering, and housing. A player can follow a story when it catches their interest. Author memorable places and encounters individually. Bulk placement can establish ordinary animals or merchants around them. [The invasion campaign](invasion-campaign.md)
+## Spawners
 
-## Towns and neighbours
+Use `[Add <type>` and target the tile. The spawners in this first table maintain one encounter. The values are per draw, so a 10% entry replaces the common spawn.
 
-Give important NPCs a home, a job, and people they know. A shop might close in the evenings, or the smith’s son might mind it while his father is away. Secondary residents can enter and leave offscreen. Reserve NPC homes and let eligible players buy suitable nearby houses. Public workshops give neighbours a reason to meet. Private workshops and facilities charging fees are open ideas. [Housing](t42-housing.md) · [Social encounters](social-encounters.md)
+| Type | Draw and behavior | Respawn |
+| --- | --- | --- |
+| `HavenBogling` | Slow bogling, level 1–3. 25% chance of one plain log. | 75–120 seconds |
+| `HavenBandit` | 90% farm bandit, 10% Haven thief, level 4–6. Both melee. A thief can vanish for three seconds once, on a 30% roll below half health. | 75–120 seconds |
+| `HavenUndead` | Equal draw of slow melee skeleton or zombie, level 4–6. | 75–120 seconds |
+| `HavenGhost` | 10% spectre caster (6–8), 40% wraith melee (6–8), 20% skeleton knight (8–10), 30% ghoul (9–11). A ghoul can feed at a nearby corpse for 25% maximum health, with a one-minute cooldown. The corpse stays, and healing requires a corpse. | 75–120 seconds |
+| `HavenMines` | 90% earth elemental (6–8), with a 10% iron ore drop. 10% granite elemental (7–9), which throws rocks. | 75–120 seconds |
+| `DespiseTroll` | Troll or harpy, level 24–28, equal weights. | 75–120 seconds |
+| `DespiseOgre` | Ogre or stone harpy, level 26–30, equal weights. | 75–120 seconds |
+| `DespiseOgreLord` | 80% ogre lord, 20% ogre mage, level 28–30. Lord variants can roll Champion. | 75–120 seconds |
+| `DespiseEttinSpawner` | Wandering level 22 ettin warlord. Uses built-in Despise spawn points, so use it at its authored site. | 5–7 minutes |
+| `YewCultist` | 75% black-robed mage and 25% red-robed healer. Black becomes a level 28–34 imp, hell hound, hell cat, or gargoyle (70/10/10/10). Red heals an ally within eight tiles for 30% maximum life and transforms into a level 25 daemon. | 2–4 minutes |
+| `HedgeGazer` | 30% larva or 30% imp (30–35), 15% gazer or 15% gargoyle (33–38), 5% elder gazer or 5% stone gargoyle (38–42). | 2–4 minutes |
 
-Regional shops can give a town an identity. Earlier candidate assortments included basic gear in Cove and Vesper, broad stock in Britain, higher-level caster gear in Moonglow, physical gear in Skara Brae, heavy armour and shields in Trinsic, a Barbarian-oriented selection in Serpent’s Hold, and higher-level bows in Yew. Basic gear remains available broadly. Reconcile this placement idea with implemented vendor tiers and refresh rules. [Ordinary gear vendors](t11-vendors.md)
+[Haven spawners](../src/Sanctuary.Content/HavenSpawners.cs) · [Haven specials](../src/Sanctuary.Content/HavenEncounterSpecials.cs) · [Despise spawners](../src/Sanctuary.Content/DespiseSpawners.cs) · [Ettin warlord](../src/Sanctuary.Content/BritanniaFrontier.cs) · [Yew cult](../src/Sanctuary.Content/YewEncounter.cs) · [Hedge encounters](../src/Sanctuary.Content/HedgeEncounter.cs)
 
-## Places and encounters
+The default Haven monster population was retired for hand placement. The named mine ogre **Krulg** and wildlife are retained. Haven surface encounters scale at Players 3 and the mines at Players 5. Saved placements can differ from a fresh world. [Haven encounter data](../data/Sanctuary/new-haven-encounters.json)
 
-Build an orc camp around hunting, food, traps, and scouts. Give ogres a place to eat and sleep. An evil mage’s books and familiar can show what happens there. A familiar might attack while enslaved, then thank the Avatar and leave after its captor dies. In Britain, a graveyard cult’s correspondence could point to Hythloth, where a captive’s account ties in with the fate of an expedition in Wrong. Discovering any piece can be a story in itself. [The Avatar’s journal and virtues](journal-and-virtues.md)
+### Hythloth spawners
 
-The clearing at `(2337, 1222, 0)` outside Cove is the orc camp scenery template. On a GM character, enter `[OrcCamp` and target the center of the clearing, or use `[OrcCamp x y` on the current facet. A third coordinate sets the center height.
+Target the center of a clear area. Each ordinary Hythloth spawner maintains one creature at a time. Each respawn draws a role using the listed odds and rolls that creature’s level. Ordinary respawn checks run every 75–120 seconds. The named court bosses use individual spawners with 5–7 minute respawn checks.
 
-The command places six spread-out spawners with four warriors, one scout and one shaman at levels 18–20. These are Cove tribe orcs and can drop bounty ears. Use `[OrcCampDeco` for scenery alone. Both commands accept the same coordinates. Deleting the camp also removes its spawners and their orcs.
+| Placement | Creature | Level | Chance | Appearance and abilities |
+| --- | --- | ---: | ---: | --- |
+| `[Add HythLow` | Acolyte | 30–32 | 34% | Bald human in a black robe. Dagger melee. |
+| | Royal Soldier | 31–33 | 33% | Skeletal knight model. Melee. |
+| | Undead Servant | 32–34 | 33% | Skeleton. Ice Blast and single-target healing for other undead. |
+| `[Add HythMed` | Temple Guard | 33–35 | 25% | Human in Shadow Iron chain and ringmail with a chaos shield. Melee and one Paladin aura rolled at spawn. |
+| | Royal Arbalest | 33–35 | 25% | Skeletal crossbowman. Fires bolts. |
+| | Apprentice | 34–36 | 25% | Robed human. Lightning and staff melee. |
+| | Undead Cleric | 35–37 | 25% | Skeleton in a black robe. Fireball, nearby undead healing, and raises fallen human Hythloth allies as skeletal knights. |
+| `[Add HythHigh` | Royal Knight | 36–38 | 50% | Human in Shadow Iron plate with a halberd. Whirlwind and Battle Orders for the nearby court. |
+| | Skeletal Mage | 37–39 | 50% | Skeleton in a black robe. Fire Bolt. |
+| `[Add HythBoss Herald` | The Herald | 32 | — | Skeletal bowman. Announces the Avatar as an unwelcome guest and calls four Royal Soldiers once per life. |
+| `[Add HythBoss Jester` | The Jester | 35 | — | Skeleton with a jester’s hat. Teleport and Frozen Orb. One combat bark at most every 30 seconds. |
+| `[Add HythBoss Chamberlain` | The Chamberlain | 36 | — | Skeleton with a mace. Landed hits have a 25% chance to stun for three seconds, followed by five seconds of immunity to that stun. Scolds servants at most every 30 seconds. |
+| `[Add HythBoss Executioner` | The Executioner | 38 | — | Oversized skeleton with an executioner’s axe. Landed hits have 10% Crushing Blow and apply Open Wounds. |
+| `[Go Leoric` | King Leoric | 40 | — | The existing arena manages his spawn and awards campaign victory. |
 
-Use `[EttinCamp` to place a compact hunting camp. Target the bonfire's tile or type the coordinates as `[EttinCamp x y`. The animated bonfire sits between a skinned deer and a pile of hides. Four ettins at levels 15–20 and one level 18 boulder thrower respawn at nearby posts. Deleting the camp clears its props and spawners. [Bonfire art](../art/world/ettin-camp/README.md)
+The Undead Servant and Cleric heal 25% of maximum life within eight tiles on an eight-second cooldown. The Cleric’s raised knights give no kill rewards. Individual roles can also be placed with `[Add HythlothEncounter <Role>` using the role name without spaces. The custom skeleton outfits and Executioner scale use the matching ClassicUO build. [Spawner definitions](../src/Sanctuary.Content/HythlothSpawners.cs) · [Role behavior and bark text](../src/Sanctuary.Content/HythlothEncounter.cs) · [Leoric arena](campaign.md#progression-and-arena-access)
 
-Use `[OgreCamp` or `[OgreCamp x y` for the same layout with four to six respawning ogres at levels 24–28.
+Each miniboss drops two pieces of equipment from its own pool and four healing or mana potions. The Herald rolls bows, crossbows, chain armour, and amulets. The Jester rolls staffs, wands, and jewellery. The Chamberlain rolls maces, mauls, and shields. The Executioner rolls axes and plate. Gear rolls use the miniboss’s level and the credited player’s Magic Find.
 
-Use `[Add YewCultist` to place a spawner that rolls one black-robed cultist (75%) or red-robed cultist (25%) each time it spawns. Both cast Lightning and change form at full health when they fall below 25% life or take a lethal hit. Black-robed cultists become a level 28–34 imp (70%), hell hound with Inferno (10%), hell cat with Fire Bolt (10%), or gargoyle (10%). Red-robed cultists heal a wounded ally within eight tiles for 30% of maximum life on a ten-second cooldown and become a level 25 melee daemon. Marbas is a separate level 36 unique daemon at `(957, 701, 0)` who casts Lightning and Ice Blast.
+### Deceit spawners
 
-A patrol can hesitate briefly when it sees a player, then run toward a nearby pack. Give it a visible reaction and enough time for a player or companion to intervene. Wall geometry matters. Creature types can have different detection ranges. Light helps the player perceive danger and can come from fires, braziers, torches, or luminous mushrooms. Keep visibility for the player and enemy detection as separately tunable rules. [Companions and the Britain inn](companions.md) · [Monster reactions](monster-reactions.md)
+Each Nightmare spawner draws **one creature**, with a 25% chance per row in its pool and a 75–120 second respawn interval. Slave and follower ancestry is rolled separately, with equal chances for human, elf, and gargoyle. Use `[Add DeceitEncounter <Role>` to place a specific role, using its name without spaces.
 
-Public dungeons can use fixed layouts, lasting population themes, and increasingly challenging depths. Give players alternatives when an optional Hell area is a difficult matchup for their build. Hythloth with physical- and poison-resistant undead, Covetous with lightning-resistant populations, and Destard with fire-resistant dragons are earlier regional examples. Define outgoing damage separately. Match creature levels and difficulty profiles to the location, and apply the campaign’s special rules in Shame and in authored mandatory encounters. [Difficulty variants](t19-difficulties.md) · [Campaign boss encounters](boss-encounters.md)
+| Placement | Creature | Level | Appearance and combat |
+| --- | --- | ---: | --- |
+| `[Add DecLow` | Slave | 35–37 | Human, elf, or gargoyle in worn cloth. Melee. At quarter health, becomes neutral, calls out in confusion, and flees before despawning. |
+| | Demonic Taskmaster | 37–39 | Monster gargoyle. Melee and Might 10. |
+| | Watchful Overseer | 39–41 | Gazer. Decrepify 5 and Bone Spear 10. |
+| | Devout Follower | 39–41 | Human, elf, or gargoyle in black. Resurrects a fallen Deceit ally within eight tiles, with a 10-second cooldown. Resurrected allies yield no kill rewards and their corpses cannot be raised again. |
+| `[Add DecMed` | Familiar | 41 | Horde Minion with half normal life. Landed melee hits have a 25% chance to stun for three seconds, with no immunity or diminishing returns. |
+| | Necromancer Apprentice | 41–43 | Bald human in a black robe. Bone Spear 15. |
+| | Cultist Enslaver | 43–45 | Human in medium armour. Melee and Vigor 5. |
+| | Demonic Torturer | 45–47 | Horrific Beast. Melee and Sigil: Lethargy 10. |
+| `[Add DecHigh` | Necromancer | 47–49 | Lich. Weaken 10, Life Tap 10, and Bone Armor 10. Summons a level-25 skeleton every 30 seconds in combat, up to five living skeletons. |
+| | Seductress | 49–51 | Custom succubus. Lower Resist 10 and blue cold bolts. |
+| | Infernal Mistress | 51–53 | Custom succubus. Amplify Damage 10 and red fire bolts. |
+| | Bishop | 53–54 | Bald human in a black robe with a black staff. Heals nearby wounded Deceit allies and casts Lightning 20 and Miasma Bolt 20. |
 
-Leave enough space between encounters for travel and recovery. Lost Lands favouring jewellery and Ter Mur favouring caster gear are candidate loot identities with other places to find the same families. Treasure expeditions already document saved room layouts, reward state, and deciphered defence profiles. [Treasure expeditions](t37-treasure-hunts.md)
+### Destard spawners
 
-Shared-dungeon grouping was proposed for public areas. Consider party invitations or automatic grouping on entry, occupancy, how XP and loot are shared, and whether someone can reserve a spot during a short town trip. Decide the rules together against the intended small-community scale. The working population target is a design goal for a future playtest.
+The bottom red moongate leads to the [Diablo cave and boss arena](campaign.md#destard-and-the-dragons). GMs can enter directly with `[go Diablo`.
 
-## New Haven class introduction
+Each spawner draws one creature and checks for a respawn after 75–120 seconds. Destard uses the campaign’s Hell resistance rules, with an 85% ceiling and no dual immunities.
 
-One proposal begins the Avatar classless in New Haven. A local NPC uses scenario questions to suggest classes and introduce trainers. The player can leave the conversation and visit trainers directly. Trainers show what the class plays like and ask for a confirmation before committing, with an explanation of how the wardrobe opens additional classes later. Reconcile this proposal with the current class-at-creation flow and existing characters. [Character creation](character-creation.md) · [Wardrobe progression](wardrobe-progression.md)
+| Placement | Creature | Level | Chance | Combat |
+| --- | --- | ---: | ---: | --- |
+| `[Add DestLow` | Wyvern | 55–57 | 34% | Poison melee and poison bolt. 75% poison resistance. |
+| | Enslaved Drake | 56–58 | 33% | Melee and Inferno. 75% fire resistance. |
+| | Lesser Daemon | 57–59 | 33% | Imp model. Lightning and Fireball. |
+| `[Add DestMed` | Daemon | 59–60 | 50% | Melee and Fire Wall. |
+| | Enslaved Dragon | 60–62 | 50% | Melee, Fireball, and Meteor. 75% fire resistance. |
+| `[Add DestHigh` | Wyrm | 61–63 | 50% | Black wyrm. Melee, Blizzard, and Frozen Orb. 75% cold resistance. |
+| | Archdaemon | 62–64 | 50% | Black daemon. Hydras and rank-10 Conviction. |
+| `[Add DestSpawn` | Corrupted Hatchling | 20 | 50% | Miniature dragon. Melee and rank-10 Conviction. |
+| | Daemon Spawn | 20 | 50% | Horde Minion model. Melee and rank-10 Lower Resist. |
 
-A starting virtue could suggest a spiritual home city with a story connection. Character history would carry that connection through class changes. The class, virtue, and city mappings are open. An example associates Necromancer with Humility through awareness of mortality. Use values and perspectives that leave room for the player’s choices.
+Use `[Add DestardEncounter <Role>` to place an individual creature. Write the role without spaces. Enslaved drakes and dragons speak their last words on death. Identical Conviction auras and repeated curses use the shared strongest aura and curse rules. For Destard’s Lower Resist and Conviction, the stronger overlapping resistance penalty applies. [Spawn pools](../src/Sanctuary.Content/DestardSpawners.cs) · [Creature behaviors](../src/Sanctuary.Content/DestardEncounter.cs)
 
-## Optional local events
+Place **Vaelith, the dragon queen** with `[Add DestardQueen` and **Rhazek, the queen’s consort** with `[Add DestardConsort`. Put them within talking range of a shared spot near the entrance so both appear in the queen’s dialogue. Vaelith pays for daemon horns. Rhazek explains who betrayed them and who was enslaved. The hatchling scale and both portraits use the matching ClassicUO build. [Destard court](../src/Sanctuary.Content/DestardCourt.cs) · [Bounty and campaign aid](campaign.md#destard-and-the-dragons)
 
-A later idea gives a GM model a small menu of supported world events. Orcs might steal grain during harvest, or Vesper fishermen might report a kraken offshore. An event can move from rumour to active encounter to resolution or expiry. If nobody intervenes, the orcs leave with grain or the kraken moves on. Local residents can remember the result through plausible sources.
+### Single creatures and encounter packs
 
-The server controls spawns, rewards, and valid outcomes. Shared shard history records confirmed events and their sources alongside what people merely heard. Each character’s campaign and companion memories keep their own records. Authored world events can use the same lifecycle.
+| GM command or spawn entry | Use |
+| --- | --- |
+| `[SpawnEncounter <profile-or-name> <difficulty> <grade>` | Target clear ground within 12 tiles. Difficulty is Normal, Nightmare, or Hell. Grades include Ordinary, Paragon, Unique, and SuperUnique. Profiles and named encounters are data-driven. [Encounter profiles](../data/Sanctuary/Balance/encounters.json) |
+| `[SpawnVariant <difficulty> <CreatureType>` | Target a position for a supported ordinary creature with the chosen difficulty. [Variant code](../src/Sanctuary.Content/MonsterVariants.cs) |
+| `HavenEncounter <id> <level>` or `<id> <minimum> <maximum>` | Specific New Haven species. [Species IDs](../src/Sanctuary.Content/HavenEncounter.cs) |
+| `FrontierEncounter <id> <level> [modifierCount]` | Frontier and Despise species. [Species IDs](../src/Sanctuary.Content/FrontierEncounter.cs) |
+| `CoveEncounter <id> <level>` · `CovetousEncounter <species> <level>` | Cove and Covetous species. [Cove](../src/Sanctuary.Content/CoveEncounter.cs) · [Covetous](../src/Sanctuary.Content/CovetousEncounter.cs) |
+| `OrcFortEncounter <role>` · `BrigandEncounter` | Orc fort roles and randomized brigands. [Fort](../src/Sanctuary.Content/OrcFortEncounter.cs) · [Brigands](../src/Sanctuary.Content/BrigandEncounter.cs) |
+| `YewEncounter [id]` · `HedgeEncounter [id]` | A rolled cultist or maze monster, or a supported named entry. Consult the constructors for valid IDs. [Yew](../src/Sanctuary.Content/YewEncounter.cs) · [Hedge](../src/Sanctuary.Content/HedgeEncounter.cs) |
+| `GraveyardSkeleton` · `GraveyardZombie` · `GraveyardLich` | Custom cemetery creature types. `[Graveyard` takes a GM to the Britain cemetery test site in Felucca. [Creature types](../src/Sanctuary.Content/GraveyardUndead.cs) · [Command](../src/Sanctuary.Content/GraveyardPopulation.cs) |
+
+## Placeable templates
+
+For camps and the hoard, target the center after entering the command, or pass `x y [z]` on the current facet. Omitting Z uses the surface height. Check the footprint before placing against walls, roads, low ceilings, or another encounter.
+
+| Command or fixture | Places |
+| --- | --- |
+| `[OrcCamp` | Scenery with six Cove orc spawners (four warriors, a scout, a shaman, all level 18–20). The template clearing is outside Cove at `(2337, 1222, 0)`. The orcs can drop bounty ears. [Implementation](../src/Sanctuary.Content/OrcCamp.cs) |
+| `[OrcCampDeco` | The same grouped scenery without spawners. [Implementation](../src/Sanctuary.Content/OrcCamp.cs) |
+| `[EttinCamp` | Animated bonfire, skinned deer, hides, four level 15–20 ettins, and one level 18 boulder thrower. [Implementation](../src/Sanctuary.Content/EttinCamp.cs) · [Bonfire art](../art/world/ettin-camp/README.md) |
+| `[OgreCamp` | The hunting-camp scenery with four to six level 24–28 ogres. [Implementation](../src/Sanctuary.Content/EttinCamp.cs) |
+| `[DragonHoard` | Grouped nest and ground scatter. [Placement](../src/Sanctuary.Content/DragonHoard.cs) · [Template](../data/Sanctuary/dragon-hoard-template.json) |
+| `[Add DragonHoardChest` | Standalone hoard reward chest. Stocks immediately and refills 10–30 minutes after emptying. One roll of gold, a potion, or equipment. [Chest](../src/Sanctuary.Content/DragonHoardChest.cs) |
+| `[MarkHouse` | GM survey gump for authoring a town housing footprint and its placement data. [Housing](../src/Sanctuary.Content/Housing.cs) |
+| Sanctuary travel fixtures | Double-click stairs, route sparkles, ferry points, and story gates. Use the relevant installer for quest access and arrival Z. See the campaign routes, Covetous stairs, and Britain sewer ladder. [Campaign stairs](../src/Sanctuary.Content/CampaignDungeonRoutes.cs) · [Covetous](../src/Sanctuary.Content/CovetousPassages.cs) · [Sewers](../src/Sanctuary.Content/BritainSewerLadder.cs) |
+| Public facilities and resurrection refuges | Authored civic/vendor placements and public workshop or shrine locations. [Town authoring data](../data/Sanctuary/Balance/town-markets.json) · [Ankh refuges](../src/Sanctuary.Content/AnkhRefuges.cs) |
+
+Deleting a grouped camp removes its props, owned spawners, and their creatures. Treat associated standalone loot and unguided GM spawners as separate placements.
+
+## Bundled populations and scenery
+
+| Area | Placement files |
+| --- | --- |
+| New Haven | [Encounters](../data/Sanctuary/new-haven-encounters.json) · [Decor](../data/Sanctuary/haven-decor.cfg) · [Doors](../data/Sanctuary/haven-doors.cfg) |
+| Britain | [Cemetery](../data/Sanctuary/graveyard.json) · [Britain decor](../data/Sanctuary/britain.cfg) · [Vendors](../data/Sanctuary/vendors.json) |
+| Frontiers and southern Britannia | [Frontier spawns](../data/Sanctuary/britannia-frontier-spawns.json) · [Frontier decor](../data/Sanctuary/britannia-frontier-decor.cfg) · [Compassion frontier](../data/Sanctuary/compassion-frontier-spawns.json) · [Southern Britannia](../data/Sanctuary/southern-britannia-spawns.json) |
+| Cove and the orc forts | [Cove](../data/Sanctuary/cove-spawns.json) · [Cove fort](../data/Sanctuary/cove-fort-spawns.json) · [West orc fort](../data/Sanctuary/west-orc-fort-spawns.json) |
+| Vesper | [Coast](../data/Sanctuary/vesper-coast-spawns.json) · [Graveyard](../data/Sanctuary/vesper-graveyard-spawns.json) |
+| Dungeons and maze | [Despise](../data/Sanctuary/despise-spawns.json) · [Covetous](../data/Sanctuary/covetous-spawns.json) · [Hedge Maze](../data/Sanctuary/hedge-maze-spawns.json) |
+
+Use stable GUIDs for bundled spawners. For existing saves, check whether the installer updates an existing GUID’s position or counts and handles removed GUIDs. Test both initial installation and reload when changing a population. [Spawner installer](../src/Sanctuary.Content/GraveyardPopulation.cs) · [Data layout](../data/Sanctuary/README.md)
+
+### Heartwood
+
+The Yew passage opens directly for elves and via the mayor’s permission for others. Heartwood has shopkeepers, a banker, a healer, named residents, and Nightwind’s authored role. Its services and characters have separate placements. [Residents](../src/Sanctuary.Content/HeartwoodTown.cs) · [Passage](../src/Sanctuary.Content/YewStory.cs) · [Nightwind](../src/Sanctuary.Content/Nightwind.cs)
+
+## Dungeons
+
+Dungeon encounters use players 5 for life, experience, and treasure-table NoDrop odds. Sanctuary applies the same scaling to native dungeon creatures through their existing stat and reward profiles.
+
+- **New Haven crypts.** Four saved Hythloth-art layouts, drawn randomly by Jens Won’s shovels. Each has a small empty arrival room and return rope, three differently themed combat rooms, and four-wide corridors. Each combat room draws two Haven ghost encounters, each corridor one. Eligible rooms roll a 50% chest chance, with 50–100 gold. Visits remain cleared until a fresh visit refills a vacant crypt. [Layouts](../data/Sanctuary/HavenCrypts) · [Layout builder](../tools/build_haven_crypts.py)
+- **Static layout trials.** Use the seedable Hythloth layout tool to draft standalone treasure or utility maps. Review the floor plan and the complete props in game before installing the fixed decoration file. [Local workflow](local-development.md#dungeon-layout-trials)
+- **Treasure expeditions.** Deciphered maps open owner-specific timed expeditions from authored room masks with randomized connections. Their monsters, layout and treasure persist through leaving and reloading. [Treasure rules](items-and-crafting.md#treasure-expeditions)
+- **Campaign arenas.** Use the named GM destinations to inspect the three arenas. Author access from the last floor, verify red gate eligibility and return routes, and keep ordinary populations separate from campaign boss state. [Campaign](campaign.md#progression-and-arena-access)
+
+## Dialogue and journal
+
+Give a speaking NPC their own portrait with eyes meeting the player’s gaze. Reuse the art when they return unless an authored change of age or mood calls for a variant. Trainers also get their own artwork. Chain different speakers into separate dialogue pages with each speaker’s portrait. Write durable discoveries and permissions to the character’s journal when the interaction grants them. Keep shared world facts distinct from personal story and companion state. [Portrait asset guide](../art/player-ui/npc-portrait-prompts.md) · [Dialogue and journal protocol](../shared/PortraitProtocol.cs)
+
+Use first-person journal entries that reflect what this particular Avatar learned. Let books, people, places, and choices unlock lore in any order. Reveal a connection when the player has found both sides. An NPC can refer to what they saw, what the Avatar told them, or what they heard as rumour. Preserve those sources when branching dialogue.
+
+Scripted dialogue is the established path. Optional model-assisted conversations, personal NPC variants, and voiced localization are planned work. Keep authored discoveries and transactions server-controlled so both conversation paths can use the same state. [Roadmap](roadmap.md#local-play)

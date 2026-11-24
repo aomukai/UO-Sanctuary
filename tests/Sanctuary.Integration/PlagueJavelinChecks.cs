@@ -142,7 +142,7 @@ public static class PlagueJavelinChecks
             control.SetResistance(ResistanceType.Physical,0);int controlLife=SkillHealth.Balance256(control);
             MagicArrowChecks.Mana(attacker);MagicArrowChecks.Ready(attacker);
             bool began=ClassCombat.Perform(attacker,CombatAbility.MultipleShot,null,new Point3D(saved.Origin.X+10,saved.Origin.Y,saved.Origin.Z),Core.TickCount);
-            Require(began,$"Cross-fixture Multiple Shot start: point={attacker.Location}/{target.Location}, available={AmazonCombat.Available(attacker,CombatAbility.MultipleShot)}, overlap={AlliedOverlap.Allowed(attacker)}, ammo={BowAmmunition.CanRelease(attacker,CombatTiming.Equipped(attacker))}, mana={NecromancerEffects.ManaBalance256(attacker)}, los={attacker.InLOS(target.Location)}");
+            Require(began,$"Cross-fixture Multiple Shot start: point={attacker.Location}/{target.Location}, available={AmazonCombat.Available(attacker,CombatAbility.MultipleShot)}, overlap={AlliedOverlap.Allowed(attacker)}, weapon={BowAmmunition.WeaponAllowed(attacker,CombatTiming.Equipped(attacker))}, mana={NecromancerEffects.ManaBalance256(attacker)}, los={attacker.InLOS(target.Location)}");
             ClassCombat.ReleaseCast(attacker);
             Require(ClassCombat.ResolveAction(attacker,ClassCombat.For(attacker).EffectAt),"Cross-fixture Multiple Shot release");
             for(int i=0;i<100&&SkillHealth.Balance256(control)==controlLife;i++)

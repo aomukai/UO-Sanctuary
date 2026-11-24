@@ -1,0 +1,102 @@
+diff --git a/src/ClassicUO.Client/Network/PacketHandlers.cs b/src/ClassicUO.Client/Network/PacketHandlers.cs
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -4180,7 +4180,7 @@
+                 {
+                     uint serial = p.ReadUInt32BE();
+                     var appearance = (Sanctuary.SkeletonAppearance)p.ReadUInt8();
+-                    if (appearance <= Sanctuary.SkeletonAppearance.MageRobe && world.Mobiles.TryGetValue(serial, out var mobile))
++                    if (appearance <= Sanctuary.SkeletonAppearance.Executioner && world.Mobiles.TryGetValue(serial, out var mobile))
+                     {
+                         mobile.SkeletonCosmetics = appearance;
+                     }
+diff --git a/src/ClassicUO.Client/Game/GameObjects/MobileAnimation.cs b/src/ClassicUO.Client/Game/GameObjects/MobileAnimation.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/MobileAnimation.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/MobileAnimation.cs
+@@ -84,7 +84,7 @@
+             {
+                 return 57;
+             }
+-            if (g == 56 && SkeletonCosmetics >= Sanctuary.SkeletonAppearance.MageHat)
++            if (g == 56 && SkeletonCosmetics is >= Sanctuary.SkeletonAppearance.MageHat and <= Sanctuary.SkeletonAppearance.MageRobe)
+             {
+                 return 50;
+             }
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+@@ -739,6 +739,8 @@
+             }
+         }
+ 
++        private float SkeletonBodyScale => !IsDead && SkeletonCosmetics == SkeletonAppearance.Executioner ? 1.28f : 1f;
++
+         private void DrawSkeletonCosmetics(
+             UltimaBatcher2D batcher, int x, int y, ushort body, byte direction, byte group, byte index,
+             float alpha, ushort highlight, float depth
+@@ -755,7 +757,8 @@
+             // Native monster and equipment sequences have different frame counts.
+             var phase = Math.Min(index, bodyFrameCount - 1) / (float)Math.Max(1, bodyFrameCount - 1);
+             var motion = (HighAnimationGroup)group;
+-            bool mage = SkeletonCosmetics >= SkeletonAppearance.MageHat;
++            bool mage = SkeletonCosmetics is >= SkeletonAppearance.MageHat and <= SkeletonAppearance.MageRobe
++                or SkeletonAppearance.BlackRobe or SkeletonAppearance.Jester;
+             var pose = motion switch
+             {
+                 HighAnimationGroup.Walk => PeopleAnimationGroup.WalkUnarmed,
+@@ -771,6 +774,7 @@
+             var fittedOffset = lunging ? SkeletonAttackOffsets[direction, Math.Min(index, (byte)3)] : Point.Zero;
+             var clothingPose = lunging ? PeopleAnimationGroup.Stand : pose;
+             const ushort MageClothHue = 0x04E3;
++            const ushort HythlothClothHue = 0x0455;
+ 
+             void DrawGear(ushort item, PeopleAnimationGroup gearPose, int dx, int dy, float scale, ushort dye, float layer)
+             {
+@@ -807,6 +811,28 @@
+                     break;
+                 case SkeletonAppearance.ArmouredWarrior:
+                     DrawGear(0x13BF, clothingPose, headShift / 2 + fittedOffset.X * 4 / 5, -5 + fittedOffset.Y, 0.9f, 0, 2f);
++                    break;
++                case SkeletonAppearance.BlackRobe:
++                    DrawGear(0x1F03, clothingPose, headShift / 2 + fittedOffset.X * 3 / 4, -2 + fittedOffset.Y / 2, 1f, HythlothClothHue, 2f);
++                    break;
++                case SkeletonAppearance.Jester:
++                    DrawGear(0x171C, clothingPose, headShift + fittedOffset.X, -6 + fittedOffset.Y, 1f, 0x0481, 4f);
++                    break;
++                case SkeletonAppearance.Bow:
++                case SkeletonAppearance.Crossbow:
++                    bool crossbow = SkeletonCosmetics == SkeletonAppearance.Crossbow;
++                    var bowPose = lunging
++                        ? (crossbow ? PeopleAnimationGroup.AttackCrossbow : PeopleAnimationGroup.AttackBow)
++                        : pose == PeopleAnimationGroup.WalkUnarmed ? PeopleAnimationGroup.WalkArmed : pose;
++                    DrawGear(crossbow ? (ushort)0x0F50 : (ushort)0x13B2, bowPose, fittedOffset.X, -2 + fittedOffset.Y, 1f, 0, 3f);
++                    break;
++                case SkeletonAppearance.Mace:
++                    DrawGear(0x0F5C, pose == PeopleAnimationGroup.WalkUnarmed ? PeopleAnimationGroup.WalkArmed : pose, 0, -1, 1f, 0, 3f);
++                    break;
++                case SkeletonAppearance.Executioner:
++                    var axePose = lunging ? PeopleAnimationGroup.AttackTwohandedDown
++                        : pose == PeopleAnimationGroup.WalkUnarmed ? PeopleAnimationGroup.WalkArmed : pose;
++                    DrawGear(0x0F45, axePose, fittedOffset.X, -1 + fittedOffset.Y, 1.28f, 0, 3f);
+                     break;
+                 case SkeletonAppearance.MageHat:
+                 case SkeletonAppearance.MageStaff:
+@@ -931,7 +957,8 @@
+             ref var spriteInfo = ref frames[frameIndex % frames.Length];
+ 
+             bool druidForm = entity == null && id == owner.DruidFormBody;
+-            float scale = druidForm ? owner.DruidFormScale : 1f;
++            float scale = druidForm ? owner.DruidFormScale
++                : entity == null ? owner.SkeletonBodyScale : 1f;
+             int anchorX = (int)Math.Round((mirror ? spriteInfo.UV.Width - spriteInfo.Center.X : spriteInfo.Center.X) * scale);
+             int anchorY = (int)Math.Round((spriteInfo.UV.Height + spriteInfo.Center.Y) * scale);
+             if (spriteInfo.Texture == null)
+@@ -1335,7 +1362,7 @@
+ 
+             if (GetTexture(graphic, animGroup, ref animIndex, dir, out spriteInfo, out isUop))
+             {
+-                float scale = DruidFormScale;
++                float scale = DruidFormScale * SkeletonBodyScale;
+                 int x = position.X - (int)Math.Round((isFlipped ? spriteInfo.UV.Width - spriteInfo.Center.X : spriteInfo.Center.X) * scale);
+                 int y = position.Y - (int)Math.Round((spriteInfo.UV.Height + spriteInfo.Center.Y) * scale);
+                 var mouse = SelectedObject.TranslatedMousePositionByViewport;

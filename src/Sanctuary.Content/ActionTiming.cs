@@ -52,7 +52,7 @@ public static class CombatTiming
     {
         var weapon = WeaponHands.Selected(from) ?? from.FindItemOnLayer(Layer.OneHanded) as BaseWeapon
             ?? from.FindItemOnLayer(Layer.TwoHanded) as BaseWeapon;
-        return ClassGear.Broken(weapon) ? null : weapon;
+        return ClassGear.Broken(weapon) || !GargoyleBows.CanUse(weapon, from) ? null : weapon;
     }
     public static WeaponTiming Weapon(BaseWeapon weapon)
     {
@@ -60,6 +60,8 @@ public static class CombatTiming
         {
             return new WeaponTiming(AttackFamily.Unarmed, 0);
         }
+        if (GargoyleBows.Matches(weapon) && !WeaponHands.Melee(weapon) && ClassGear.CombatBase(weapon) is { } bow)
+            return new WeaponTiming(AttackFamily.Bow, bow.Speed);
         var family = WeaponHands.Melee(weapon)?(WeaponHands.TwoHanded(weapon)?AttackFamily.TwoHandedThrust:AttackFamily.Thrust):Animation(weapon) switch
         {
             WeaponAnimation.Pierce1H => AttackFamily.Thrust,
@@ -218,6 +220,8 @@ public static class CombatTiming
     internal static int WeaponRange(BaseWeapon weapon)
     {
         if (ClassGear.Broken(weapon)) { return 1; }
+        if (GargoyleBows.Matches(weapon) && !WeaponHands.Melee(weapon))
+            return 10; // Same reach as the three matched native bow models.
         // Provisional class-combat comparison; native UO reach and other bases stay intact.
         int range = Math.Max(weapon?.MaxRange ?? 1, weapon is Halberd ? 2 : 1);
         return Math.Clamp(range, 1, CombatProtocol.SightRange);

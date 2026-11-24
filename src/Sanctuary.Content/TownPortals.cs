@@ -27,6 +27,7 @@ public static class TownPortals
     internal static void Deleted(TownPortalEnd end)
     { if (_pairs.TryGetValue(end.Owner, out var pair) && (pair.Field == end || pair.Town == end)) { Close(end.Owner); } }
     private static bool Ready(PlayerMobile p) => EquipmentEconomy.Ready(p) && p.Map != null && p.Map != Map.Internal
+        && CampaignArenas.At(p.Map, p.Location) == null
         && p.Spell == null && !HitRecovery.Active(p, Core.TickCount) && !StaminaSystem.IsOverloaded(p) && !Sigil.ExistsOn(p);
     private static bool Allowed(PlayerMobile p, Point3D from, Point3D to) =>
         SpellHelper.CheckTravel(p, p.Map, from, TravelCheckType.GateFrom, out _)

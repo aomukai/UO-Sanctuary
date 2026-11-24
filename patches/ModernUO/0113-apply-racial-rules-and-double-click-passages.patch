@@ -1,0 +1,244 @@
+diff --git a/Projects/Server/Mobiles/Mobile.cs b/Projects/Server/Mobiles/Mobile.cs
+old mode 100644
+new mode 100755
+index 47cb64c6..92a1ef78
+--- a/Projects/Server/Mobiles/Mobile.cs
++++ b/Projects/Server/Mobiles/Mobile.cs
+@@ -412,6 +412,8 @@ public Race Race
+ 
+     public virtual double RacialSkillBonus => 0;
+ 
++    public virtual int GetRacialSkillCapBonus(SkillName skill) => 0;
++
+     public int[] Resistances { get; private set; }
+ 
+     public virtual int BasePhysicalResistance => 0;
+diff --git a/Projects/Server/Skills.cs b/Projects/Server/Skills.cs
+old mode 100644
+new mode 100755
+index 5b10aec5..85df42ec
+--- a/Projects/Server/Skills.cs
++++ b/Projects/Server/Skills.cs
+@@ -203,6 +203,12 @@ public double Base
+     }
+ 
+     public int CapFixedPoint
++    {
++        get => Math.Min(ushort.MaxValue, m_Cap + (Owner.Owner?.GetRacialSkillCapBonus(SkillName) ?? 0));
++        set => BaseCapFixedPoint = value;
++    }
++
++    public int BaseCapFixedPoint
+     {
+         get => m_Cap;
+         set
+@@ -221,8 +227,8 @@ public int CapFixedPoint
+     [CommandProperty(AccessLevel.Counselor, AccessLevel.GameMaster)]
+     public double Cap
+     {
+-        get => m_Cap / 10.0;
+-        set => CapFixedPoint = (int)(value * 10.0);
++        get => CapFixedPoint / 10.0;
++        set => BaseCapFixedPoint = (int)(value * 10.0);
+     }
+ 
+     public int Fixed => (int)(Value * 10);
+@@ -507,7 +513,7 @@ public Skills(Mobile owner, IGenericReader reader)
+                         {
+                             var sk = new Skill(this, info[i], reader);
+ 
+-                            if (sk.BaseFixedPoint != 0 || sk.CapFixedPoint != 1000 || sk.Lock != SkillLock.Up)
++                            if (sk.BaseFixedPoint != 0 || sk.BaseCapFixedPoint != 1000 || sk.Lock != SkillLock.Up)
+                             {
+                                 m_Skills[i] = sk;
+                                 Total += sk.BaseFixedPoint;
+diff --git a/Projects/UOContent/Items/Misc/Teleporter.cs b/Projects/UOContent/Items/Misc/Teleporter.cs
+old mode 100644
+new mode 100755
+index 89f0ca5a..7fa1ec5b
+--- a/Projects/UOContent/Items/Misc/Teleporter.cs
++++ b/Projects/UOContent/Items/Misc/Teleporter.cs
+@@ -258,6 +258,33 @@ public virtual void DoTeleport(Mobile m)
+         }
+     }
+ 
++    protected bool CanDoubleClick(Mobile from)
++    {
++        if (Deleted || !Active || !Visible || from.Map != Map || !from.CanSee(this))
++        {
++            return false;
++        }
++
++        if (from.InRange(this, 2) && Math.Abs(from.Z - Z) < 16 && from.InLOS(this))
++        {
++            return true;
++        }
++
++        from.SendLocalizedMessage(500446); // That is too far away.
++        return false;
++    }
++
++    public override void OnDoubleClick(Mobile from)
++    {
++        if (CanDoubleClick(from))
++        {
++            // Use the passage's normal activation so quest and timed triggers keep their rules.
++            OnMoveOver(from);
++        }
++    }
++
++    public override void OnDoubleClickDead(Mobile from) => OnDoubleClick(from);
++
+     public override bool OnMoveOver(Mobile m)
+     {
+         if (Active && CanTeleport(m))
+@@ -1049,13 +1076,10 @@ public InteractionTeleporter(Point3D pointDest, Map mapDest = null) : base(point
+ 
+     public override void OnDoubleClick(Mobile m)
+     {
+-        base.OnDoubleClick(m);
+-
+-        if (Active && CanTeleport(m) && m.InRange(GetWorldLocation(), 2))
++        if (CanDoubleClick(m) && CanTeleport(m))
+         {
+             StartTeleport(m);
+         }
+     }
+ 
+-    public override void OnDoubleClickDead(Mobile m) => OnDoubleClick(m);
+ }
+diff --git "a/Projects/UOContent/Items/Special/Special Scrolls/PowerScroll.cs" "b/Projects/UOContent/Items/Special/Special Scrolls/PowerScroll.cs"
+old mode 100644
+new mode 100755
+index beeedd4e..e5990799
+--- "a/Projects/UOContent/Items/Special/Special Scrolls/PowerScroll.cs"
++++ "b/Projects/UOContent/Items/Special/Special Scrolls/PowerScroll.cs"
+@@ -250,7 +250,7 @@ public override bool CanUse(Mobile from)
+             return false;
+         }
+ 
+-        if (skill.Cap >= Value)
++        if (skill.BaseCapFixedPoint >= Value * 10)
+         {
+             // Your ~1_type~ is too high for this power scroll.
+             from.SendLocalizedMessage(1049511, $"#{AosSkillBonuses.GetLowercaseLabel(Skill)}");
+diff --git a/Projects/UOContent/Misc/RegenRates.cs b/Projects/UOContent/Misc/RegenRates.cs
+old mode 100644
+new mode 100755
+index 02ffc1e4..fc85c7d9
+--- a/Projects/UOContent/Misc/RegenRates.cs
++++ b/Projects/UOContent/Misc/RegenRates.cs
+@@ -72,6 +72,12 @@ private static TimeSpan Mobile_HitsRegenRate(Mobile from)
+                 points = 0;
+             }
+ 
++            if (Core.SA && from is PlayerMobile { Race: var race } && race == Race.Gargoyle)
++            {
++                // One tick per 10 / (1 + points) seconds gives a base rate of 3 hits per second.
++                points += 29;
++            }
++
+             if (TransformationSpellHelper.UnderTransformation(from, typeof(HorrificBeastSpell)))
+             {
+                 points += 20;
+diff --git a/Projects/UOContent/Mobiles/AI/BaseAI/BaseAI.cs b/Projects/UOContent/Mobiles/AI/BaseAI/BaseAI.cs
+old mode 100644
+new mode 100755
+index a6b6aa0b..e2b6d603
+--- a/Projects/UOContent/Mobiles/AI/BaseAI/BaseAI.cs
++++ b/Projects/UOContent/Mobiles/AI/BaseAI/BaseAI.cs
+@@ -1006,7 +1006,7 @@ private bool AcquireNewFocusMob(Map map, int iRange, FightMode acqType, bool bPl
+ 
+         foreach (var m in map.GetMobilesInRange(Mobile.Location, iRange))
+         {
+-            if (IsInvalidTarget(m, bPlayerOnly))
++            if (IsInvalidTarget(m, bPlayerOnly) || (!bFacFriend && !Mobile.InRange(m, Mobile.AcquisitionRangeFor(m, iRange))))
+             {
+                 continue;
+             }
+diff --git a/Projects/UOContent/Mobiles/BaseCreature.cs b/Projects/UOContent/Mobiles/BaseCreature.cs
+old mode 100644
+new mode 100755
+index f1ccffac..6498510e
+--- a/Projects/UOContent/Mobiles/BaseCreature.cs
++++ b/Projects/UOContent/Mobiles/BaseCreature.cs
+@@ -1378,9 +1378,28 @@ private void ScheduleAcquireOnApproach()
+             Combatant == null &&
+             !Controlled && !Summoned && !BardPacified &&
+             FightMode != FightMode.None && FightMode != FightMode.Aggressor &&
+-            InRange(m.Location, AcquireOnApproachRange) &&
++            InRange(m.Location, AcquisitionRangeFor(m, AcquireOnApproachRange)) &&
+             IsEnemy(m) && CanBeHarmful(m, false);
+ 
++        internal int AcquisitionRangeFor(Mobile target, int range)
++        {
++            if (range <= 1 || target is not PlayerMobile player || player.Race != Race.Elf
++                || !Core.ML || Controlled || Summoned || this is BaseVendor
++                || Combatant == target || target.Combatant == this)
++            {
++                return range;
++            }
++
++            foreach (var entry in Aggressors)
++                if (entry.Attacker == target)
++                    return range;
++            foreach (var entry in Aggressed)
++                if (entry.Defender == target)
++                    return range;
++
++            return Math.Max(1, range - 3);
++        }
++
+         public virtual bool ReacquireOnMovement => false;
+ 
+         public static bool Summoning { get; set; }
+@@ -3138,9 +3157,10 @@ public override void OnMovement(Mobile m, Point3D oldLocation)
+             SpeechType?.OnMovement(this, m, oldLocation);
+ 
+             // Notice sound
++            int noticeRange = AcquisitionRangeFor(m, 18);
+             if ((!m.Hidden || m.AccessLevel == AccessLevel.Player) && m.Player && FightMode != FightMode.Aggressor &&
+                 FightMode != FightMode.None && Combatant == null && !Controlled && !Summoned && !BardPacified &&
+-                InRange(m.Location, 18) && !InRange(oldLocation, 18))
++                InRange(m.Location, noticeRange) && !InRange(oldLocation, noticeRange))
+             {
+                 if (Body.IsMonster)
+                 {
+diff --git a/Projects/UOContent/Mobiles/PlayerMobile.cs b/Projects/UOContent/Mobiles/PlayerMobile.cs
+old mode 100644
+new mode 100755
+index 9dd86c3c..eaea8523
+--- a/Projects/UOContent/Mobiles/PlayerMobile.cs
++++ b/Projects/UOContent/Mobiles/PlayerMobile.cs
+@@ -271,6 +271,9 @@ public override double RacialSkillBonus
+             }
+         }
+ 
++        public override int GetRacialSkillCapBonus(SkillName skill) =>
++            Core.SA && Race == Race.Gargoyle && skill == SkillName.Imbuing ? 50 : 0;
++
+         public List<Item> EquipSnapshot { get; private set; }
+ 
+         public SkillName Learning { get; set; } = (SkillName)(-1);
+@@ -1145,6 +1148,10 @@ protected override void OnRaceChange(Race oldRace)
+         {
+             ValidateEquipment();
+             UpdateResistances();
++            if (Core.SA && (Race == Race.Gargoyle || oldRace == Race.Gargoyle))
++            {
++                Skills.Imbuing.Update();
++            }
+         }
+ 
+         public override void OnNetStateChanged()
+@@ -4015,9 +4022,7 @@ public override int ComputeMovementSpeed(Direction dir, bool checkTurning = true
+ 
+             var running = (dir & Direction.Running) != 0;
+ 
+-            var onHorse = Mount != null;
+-
+-            var mounted = onHorse || AnimalForm.GetContext(this)?.SpeedBoost == true;
++            var mounted = Mounted || Flying || AnimalForm.GetContext(this)?.SpeedBoost == true;
+             var delay = mounted ? running ? CalcMoves.RunMountDelay : CalcMoves.WalkMountDelay
+                 : running ? CalcMoves.RunFootDelay : CalcMoves.WalkFootDelay;
+             if (running)

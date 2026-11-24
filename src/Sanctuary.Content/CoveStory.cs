@@ -90,10 +90,22 @@ public partial class MayorJaana : ConversationNpc
     {
         var flags = ClassCreation.Profiles.Discoveries(player.Serial);
         ScriptedDialogue.RecordDiscovery(player, StoryDiscoveries.CoveJaana);
-        Show(player, (flags & StoryDiscoveries.CoveJaana) == 0
+        bool firstMeeting = (flags & StoryDiscoveries.CoveJaana) == 0;
+        if (IsDruid(player))
+        {
+            Show(player, (firstMeeting
+                ? "Avatar! Come, sit with me a while. It does my heart good to see another druid in Cove. I have spent so much time listening for the orcs that I almost missed what the woods were telling me."
+                : "Welcome back, my friend. I'm glad thou hast come. I have been out among the trees again, trying to make sense of what I feel there.")
+                + "\n\nI cannot put my finger on it, but something feels wrong of late. Even on still days, the woods have the hush that comes before the first frost, as if all of nature were bracing for winter. I cannot tell what it is bracing against.");
+            return;
+        }
+        Show(player, firstMeeting
             ? "Avatar. Oh, it is good to see thee. Come in. I had begun to wonder whom I might ask for help. The orcs have worn the guard thin, and I would be grateful for anything thou canst do to give them some rest."
             : "Welcome back, my friend. How hast thou fared on the road?");
     }
+
+    private static bool IsDruid(PlayerMobile player) =>
+        ClassCreation.Profiles.TryGet(player.Serial, out var profile) && profile.Class == DiabloClass.Druid;
 
     private void Show(PlayerMobile player, string line)
     {
@@ -102,12 +114,70 @@ public partial class MayorJaana : ConversationNpc
             replies.Add(_ferry);
         else if (FindLetter(player) != null)
             replies.Add(_letter);
+        if (IsDruid(player))
+            replies.Add(new("Signs in the Wild", 0, (viewer, speaker) => ((MayorJaana)speaker).DiscussSigns(viewer)));
         ScriptedDialogue.Show(player, this,
         [
             new(line, [.. replies]),
             new("They raid often enough that the guards hardly sleep. The town will pay fifty gold for each orc ear from this tribe. I had hoped Vesper would send help, but my messenger has yet to return.", [.. replies]),
             new("The ferryman waits at the north end of the docks. Tell him I sent thee. He will take thee to Britain or Vesper whenever thou hast need.", [.. replies])
         ]);
+    }
+
+    private void DiscussSigns(PlayerMobile player)
+    {
+        if (!IsDruid(player) || !ScriptedDialogue.CanTalk(player, this))
+            return;
+
+        var profiles = ClassCreation.Profiles;
+        var flags = profiles.Discoveries(player.Serial);
+        var replies = new List<ScriptedDialogue.Reply>();
+        if ((flags & (StoryDiscoveries.RoyalInvestigation | StoryDiscoveries.RoyalAudience)) != 0)
+            replies.Add(new("Lord British's Quest", 0, (viewer, speaker) => ((MayorJaana)speaker).DiscussCovetous(viewer,
+                "So Lord British has asked thee to learn what lies behind the trouble. I'm glad he is listening. By the time word reaches the throne, folk out here have usually been living with it for weeks.")));
+        if ((flags & StoryDiscoveries.IoloDungeonReports) != 0)
+            replies.Add(new("Iolo's Reports", 0, (viewer, speaker) => ((MayorJaana)speaker).DiscussCovetous(viewer,
+                "All eight dungeons? I trust Iolo to know the difference between a rumour and a warning. If the trouble has stirred in so many places at once, I wonder what else he and I have been overlooking.")));
+        if (profiles.DefeatedKrulg(player.Serial))
+            replies.Add(new("The Ogre in the Mine", 0, (viewer, speaker) => ((MayorJaana)speaker).DiscussCovetous(viewer,
+                "I am glad thou brought down that ogre. Powers like those in the New Haven mine give me more cause for worry than its size or its strength ever could.")));
+        replies.Add(new("The Nearest Dungeon", 0, (viewer, speaker) => ((MayorJaana)speaker).DiscussCovetous(viewer, null)));
+        ScriptedDialogue.Show(player, this,
+            [new("Thou hast been farther afield than I. Tell me what thou hast learned, and perhaps we can make better sense of what the woods are telling us.", [.. replies])]);
+    }
+
+    private void DiscussCovetous(PlayerMobile player, string reply)
+    {
+        if (!IsDruid(player) || !ScriptedDialogue.CanTalk(player, this))
+            return;
+
+        const string advice = "Covetous is the nearest dungeon to Cove. It was dangerous long before any of this began, and it sprawls. Go prepared if thou meanest to explore it. A short way down can turn into a long way back.";
+        Show(player, (reply == null ? advice : reply + "\n\n" + advice) + CovetousGift(player));
+    }
+
+    private static string CovetousGift(PlayerMobile player)
+    {
+        var profiles = ClassCreation.Profiles;
+        var flags = profiles.Discoveries(player.Serial);
+        const StoryDiscoveries helpedCove = StoryDiscoveries.CoveChief | StoryDiscoveries.CoveFerry;
+        if ((flags & helpedCove) != helpedCove || (flags & StoryDiscoveries.JaanaBeltReceived) != 0)
+            return "";
+
+        const string fullPack = "\n\nI have a belt for thee. Make some room in thy pack and ask me about Covetous again before thou goest.";
+        if (player.Backpack is not { } pack)
+            return fullPack;
+
+        var random = Random.Shared;
+        PotionTabard belt = random.Next(2) == 0 ? new PotionSash() : new PotionLightBelt();
+        ClassGear.Profiles.Convert(belt, ClassStats.Level(player), GearRarity.Magic, random);
+        if (!pack.TryDropItem(player, belt, false))
+        {
+            belt.Delete();
+            return fullPack;
+        }
+
+        profiles.Discover(player.Serial, StoryDiscoveries.JaanaBeltReceived);
+        return "\n\nCove owes thee, my friend. Take this belt. It holds eight potions, and down there thou wilt need them.";
     }
 
     private void PayBounty(PlayerMobile player)

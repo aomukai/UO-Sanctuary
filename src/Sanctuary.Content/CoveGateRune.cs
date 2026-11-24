@@ -20,6 +20,7 @@ public partial class CoveGateRune : RecallRune
         Target = Gates;
         TargetMap = Map.Trammel;
         Marked = true;
+        MountedTravel = RuneMountTravel.Allowed;
         LootType = LootType.Blessed;
     }
 
@@ -75,7 +76,7 @@ public partial class CoveGateRune : RecallRune
     {
         if (ContainsGates(book))
             return;
-        book.Entries.Add(new RunebookEntry(book, Gates, Map.Trammel, Label));
+        book.Entries.Add(new RunebookEntry(book, Gates, Map.Trammel, Label, mountedTravel: RuneMountTravel.Allowed));
         book.MarkDirty();
         book.InvalidateProperties();
     }

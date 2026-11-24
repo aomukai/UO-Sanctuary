@@ -42,7 +42,7 @@ public partial class YewVampire : EncounterCreature, IScriptedSpeaker
     public override bool IsInvulnerable => !_hostile;
     public override bool AlwaysMurderer => _hostile;
     public override bool AlwaysAttackable => _hostile && !PaladinConversion.Active(this);
-    public override bool IsEnemy(Mobile target) => _hostile && base.IsEnemy(target);
+    internal override bool IsEnemyIgnoringLeash(Mobile target) => _hostile && base.IsEnemyIgnoringLeash(target);
 
     ushort IScriptedSpeaker.Portrait => (ushort)NpcPortrait.YewVampire;
     bool IScriptedSpeaker.CanTalkTo(PlayerMobile owner) => !_hostile && Math.Abs(Z - owner.Z) <= 5;

@@ -427,11 +427,11 @@ public static class NewHavenStoryChecks
         Register("town-summon-return", () =>
         {
             var player = Avatar;
-            Require(MinionSafeAreas.Parked(townWolf), "The in-town summon did not wait outside");
+            Require(townWolf.Map == player.Map && !MinionSafeAreas.Parked(townWolf), "The wolf did not stay present in town");
             player.MoveToWorld(outside, Map.Trammel);
             Require(DruidSpiritWolves.For(player).Single() == townWolf
                 && townWolf.Map == player.Map && !MinionSafeAreas.Parked(townWolf),
-                "The in-town summon did not return when leaving");
+                "Leaving town did not retain the same wolf");
             townWolf.Delete();
             restore();
             MercenaryCare.SyncOwner(player);
@@ -492,15 +492,9 @@ public static class NewHavenStoryChecks
         {
             var player = Avatar;
             var rope = NewHavenPopulation.RopeDown;
-            var elementals = World.Mobiles.Values.OfType<HavenEncounter>().Where(mob => mob.Dungeon.Id == "haven-elemental").ToArray();
-            foreach (var elemental in elementals)
-            {
-                elemental.MoveToWorld(elemental.Home, elemental.Map);
-                elemental.Frozen = true;
-            }
-            var corpseSource = elementals[0];
+            var corpseSource = new HavenEncounter("haven-elemental", 6);
             _ropeCorpse = GearDropChecks.Body(corpseSource, player, rope);
-            corpseSource.MoveToWorld(corpseSource.Home, Map.Trammel);
+            corpseSource.Delete();
             var iolo = CheckCompanion();
             iolo.Frozen = true;
             iolo.MoveToWorld(new Point3D(rope.X - 1, rope.Y + 1, rope.Z), Map.Trammel);
@@ -509,12 +503,7 @@ public static class NewHavenStoryChecks
         Register("rope-arrived", () =>
         {
             Require(Avatar.Location == NewHavenPopulation.RopeUp, $"The rope under a corpse could not be used: {Avatar.Location}");
-            Require(!World.Mobiles.Values.OfType<HavenEncounter>().Any(mob => mob.Dungeon.Id == "haven-lizardman"
-                && mob.Combatant == Avatar), "Lizardmen acquired the Avatar at the rope landing");
             CheckCompanion().Frozen = false;
-            foreach (var mob in World.Mobiles.Values.OfType<HavenEncounter>())
-                if (mob.Dungeon.Id == "haven-elemental")
-                    mob.Frozen = false;
             _ropeCorpse.Delete();
         });
         Register("krulg-start", () =>
@@ -972,31 +961,22 @@ public static class NewHavenStoryChecks
 
     private static void CheckSlice()
     {
-        string[] areas = ["New Haven Graveyard", "South Farm", "Old Haven", "New Haven Mine", "Lower Mine"];
-        int[] minimum = [1, 4, 4, 6, 8];
-        int[] maximum = [3, 6, 6, 8, 10];
-        for (int i = 0; i < areas.Length; i++)
-        {
-            var spawners = World.Items.Values.OfType<BaseSpawner>().Where(s => s.Map == Map.Trammel
-                && s.Name?.StartsWith(areas[i], StringComparison.Ordinal) == true && !s.Name.EndsWith("Wildlife")).ToArray();
-            // Combat earlier in the disposable world can leave a pending respawn.
-            foreach (var spawner in spawners)
-                for (int attempt = 0; attempt < spawner.Count && !spawner.IsFull; attempt++)
-                    spawner.Spawn();
-            Require(spawners.Length > 0 && spawners.All(s => s.IsFull), $"Unfilled spawners in {areas[i]}");
-            var enemies = spawners.SelectMany(s => s.Spawned.Keys).Cast<HavenEncounter>().ToArray();
-            var levels = enemies.Select(mob => CreatureProfiles.Level(mob)).ToArray();
-            Require(levels.Min() == minimum[i] && levels.Max() == maximum[i], $"Wrong level range in {areas[i]}");
-            foreach (var mob in enemies)
-            {
-                int scaling = i >= 3 ? 3 : 2;
-                int eliteLife = EncounterProfiles.LifePermille(mob.Grade, ChampionKind.Champion, MonsterDifficulty.Normal);
-                int life = mob.RolledLife * eliteLife / 1000 * scaling;
-                int experience = mob.Basis.Experience * scaling * (mob.Leader ? 5 : 1);
-                Require(mob.HitsMax == life && CreatureProfiles.Experience(mob) == experience,
-                    $"Wrong health or XP scaling for {mob.Name} in {areas[i]}");
-            }
-        }
+        var krulgSpawner = World.Items.Values.OfType<BaseSpawner>().Single(s => s.Name == "Lower Mine Boss Krulg");
+        if (!krulgSpawner.IsFull)
+            krulgSpawner.Spawn();
+        var encounters = World.Mobiles.Values.OfType<HavenEncounter>().Where(m => m.Map == Map.Trammel
+            && !HavenCrypts.IsCryptArea(m.Map, m.Home)).ToArray();
+        Require(encounters is [{ IsKrulg: true }] && CreatureProfiles.Level(encounters[0]) == 10,
+            "Only level 10 Boss Krulg should spawn automatically in Haven");
+        Require(World.Items.Values.OfType<BaseSpawner>().Count(s => s.Map == Map.Trammel
+            && s.Name?.Contains("Haven") == true && s.Name.EndsWith("Wildlife", StringComparison.Ordinal)) == 4,
+            "Haven should retain its four wildlife spawners");
+        CheckManualSpawner(new HavenBandit(), [("haven-bandit 4 6", 90), ("haven-thief 4 6", 10)]);
+        CheckManualSpawner(new HavenUndead(), [("haven-skeleton 4 6", 50), ("haven-zombie 4 6", 50)]);
+        CheckManualSpawner(new HavenGhost(), [("haven-spectre 6 8", 10), ("haven-wraith 6 8", 40),
+            ("haven-skeleton-knight 8 10", 20), ("haven-ghoul 9 11", 30)]);
+        CheckManualSpawner(new HavenMines(), [("haven-elemental 6 8", 90), ("haven-granite-elemental 7 9", 10)]);
+        CheckManualSpawner(new HavenBogling(), [("haven-bogling 1 3", 100)]);
         CheckTooltips();
 
         var player = new PlayerMobile { Name = "New Haven check", Body = 0x190, Player = true };
@@ -1016,8 +996,9 @@ public static class NewHavenStoryChecks
                 ("haven-bandit", "a farm bandit's corpse"), ("haven-skeleton", "a skeleton's corpse"), ("haven-zombie", "a zombie's corpse")
             })
             {
-                var encounter = World.Mobiles.Values.OfType<HavenEncounter>().First(mob => mob.Dungeon.Id == id);
-                Require(Corpse.GetCorpseName(encounter) == name, $"Wrong corpse label for {id}");
+                var encounter = new HavenEncounter(id, 4);
+                try { Require(Corpse.GetCorpseName(encounter) == name, $"Wrong corpse label for {id}"); }
+                finally { encounter.Delete(); }
             }
             var surface = WalkableFrom(new Point3D(3503, 2574, 14), new Rectangle2D(3390, 2438, 370, 252));
             Require(surface.Contains(NewHavenPopulation.MineDoor) && surface.Any(p => p.X == 3710 && p.Y == 2621)
@@ -1041,14 +1022,7 @@ public static class NewHavenStoryChecks
             var mountainMine = WalkableFrom(NewHavenPopulation.MountainMineArrival, new Rectangle2D(5903, 268, 100, 110));
             Require(mountainMine.Contains(NewHavenPopulation.MineArrival), "The mountain entrance does not reach the upper galleries");
             var lowerMine = WalkableFrom(NewHavenPopulation.RopeUp, new Rectangle2D(5939, 304, 26, 32));
-            var elementals = World.Mobiles.Values.OfType<HavenEncounter>().Where(mob => mob.Dungeon.Id == "haven-elemental").ToArray();
-            Require(elementals.Length == 12 && elementals.All(mob => mountainMine.Contains(mob.Home))
-                && elementals.Any(mob => mob.Home.X < 5925) && elementals.Any(mob => mob.Home.Y > 358)
-                && elementals.Any(mob => mob.Home.Y < 285), "Elementals do not populate the full upper mine loop");
-            var lizardmen = World.Mobiles.Values.OfType<HavenEncounter>().Where(mob => mob.Dungeon.Id == "haven-lizardman").ToArray();
-            Require(lizardmen.Length == 8 && lizardmen.All(mob => !Utility.InRange(mob.Home, NewHavenPopulation.RopeUp,
-                mob.RangePerception + mob.RangeHome + 1)), "Lizardmen can gather in aggro range of the rope landing");
-            var krulg = World.Mobiles.Values.OfType<HavenEncounter>().Single(mob => mob.Name == "Boss Krulg");
+            var krulg = encounters[0];
             var chamber = krulg.Home;
             Require(lowerMine.Any(p => p.Z == chamber.Z && Utility.InRange(p, chamber, 2)
                 && EncounterProfiles.ClearSight(map, p, chamber)), "The rope does not lead to Krulg's chamber");
@@ -1190,6 +1164,17 @@ public static class NewHavenStoryChecks
         }
     }
 
+    private static void CheckManualSpawner(Spawner spawner, (string Parameters, int Weight)[] expected)
+    {
+        try
+        {
+            Require(spawner.Count == 1 && spawner.Entries.All(e => e.SpawnedName == nameof(HavenEncounter))
+                && spawner.Entries.Select(e => (e.Parameters, e.SpawnedProbability)).SequenceEqual(expected),
+                $"Incorrect Haven spawn pool for {spawner.Name}");
+        }
+        finally { spawner.Delete(); }
+    }
+
     private static void CheckTooltips()
     {
         var boss = new EncounterCreature();
@@ -1233,8 +1218,6 @@ public static class NewHavenStoryChecks
             "The inn sign was missing or duplicated");
         Require(World.Mobiles.Values.OfType<HarvestBarkeeper>().Count() == 1
             && World.Mobiles.Values.OfType<HarvestResident>().Count() == 3, "The inn staff or patrons were missing");
-        Require(World.Mobiles.Values.OfType<GraveyardUndead>().Any(actor => actor.Map == Map.Trammel
-            && actor.InRange(new Point3D(3598, 2450, 16), 12)), "The New Haven graveyard was empty");
         return iolo;
     }
 

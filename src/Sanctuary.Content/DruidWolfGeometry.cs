@@ -6,6 +6,8 @@ namespace Sanctuary;
 
 internal static class DruidWolfGeometry
 {
+    internal const string LegacyFollowFault = "Wolf follow needs unimplemented source AStar fallback";
+
     // D2Common11055, indices0..7. These are distinct from the clockwise
     // source path kernel's direction table and from native Direction values.
     private static readonly Point2D[] Offsets=[new(0,-1),new(-1,-1),new(-1,0),new(-1,1),new(0,1),new(1,1),new(1,0),new(1,-1)];

@@ -271,7 +271,7 @@ public static class ClassStats
     public static int DamageBonus(PlayerMobile player, BaseWeapon weapon)
     {
         int strength = player.Str, dexterity = player.Dex;
-        var basis = weapon == null ? null : ClassGear.Base(weapon);
+        var basis = weapon == null ? null : ClassGear.CombatBase(weapon);
         int statBonus = basis == null ? strength : WeaponStatPercent(strength,dexterity,basis.StrengthBonus,basis.DexterityBonus);
         foreach (var item in player.Items)
         {

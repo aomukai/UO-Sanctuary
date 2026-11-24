@@ -1,0 +1,115 @@
+--- a/Projects/UOContent/Mobiles/ClassMapHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassMapHooks.cs
+@@ -11,9 +11,12 @@
+     public static Func<Mobile, TreasureMap, bool> TreasureUsed { get; set; }
+     public static Func<Mobile, int, Map, Item> TreasureFished { get; set; }
+     public static Action<Mobile> LocationChanged { get; set; }
++    public static Action<BaseCreature, Point3D, Map> CreatureSpawning { get; set; }
++    public static Func<Mobile, bool> BoatOperationAllowed { get; set; }
+     public static Action<PlayerMobile, Point3D, Map> TeleportFollowers { get; set; }
+     public static Func<Mobile, int, int> SearchRange { get; set; }
+     public static Func<Mobile, Mobile, bool> StoryMobileVisible { get; set; }
++    public static Func<PlayerMobile, Item, bool> StoryItemVisible { get; set; }
+     public static Func<PublicMoongate, Mobile, bool> PublicGateAllowed { get; set; }
+     public static Func<Mobile, PMList[]> PublicGateWorlds { get; set; }
+     public static Action<PublicMoongate, Mobile> PublicGateTraveled { get; set; }
+--- a/Projects/UOContent/Mobiles/BaseCreature.cs
++++ b/Projects/UOContent/Mobiles/BaseCreature.cs
+@@ -1959,6 +1959,7 @@
+                 IsParagon = true;
+             }
+ 
++            ClassMapHooks.CreatureSpawning?.Invoke(this, location, m);
+             base.OnBeforeSpawn(location, m);
+         }
+ 
+--- a/Projects/UOContent/Mobiles/PlayerMobile.cs
++++ b/Projects/UOContent/Mobiles/PlayerMobile.cs
+@@ -3407,7 +3407,8 @@
+         }
+ 
+         public override bool CanSee(Item item) =>
+-            DesignContext?.Foundation.IsHiddenToCustomizer(item) != true && base.CanSee(item);
++            ClassMapHooks.StoryItemVisible?.Invoke(this, item) != false
++            && DesignContext?.Foundation.IsHiddenToCustomizer(item) != true && base.CanSee(item);
+ 
+         public override void OnAfterDelete()
+         {
+--- a/Projects/UOContent/Multis/Boats/BaseBoat.cs
++++ b/Projects/UOContent/Multis/Boats/BaseBoat.cs
+@@ -6,6 +6,7 @@
+ using Server.Engines.Spawners;
+ using Server.Gumps;
+ using Server.Items;
++using Server.Mobiles;
+ using Server.Multis.Boats;
+ using Server.Network;
+ using CalcMoves = Server.Movement.Movement;
+@@ -1013,6 +1014,9 @@
+ 
+                     if (keyword >= 0x42 && keyword <= 0x6B)
+                     {
++                        if (ClassMapHooks.BoatOperationAllowed?.Invoke(from) == false)
++                            return;
++
+                         switch (keyword)
+                         {
+                             case 0x42:
+--- a/Projects/UOContent/Multis/Boats/BaseBoatDeed.cs
++++ b/Projects/UOContent/Multis/Boats/BaseBoatDeed.cs
+@@ -1,5 +1,6 @@
+ using ModernUO.Serialization;
+ using Server.Engines.CannedEvil;
++using Server.Mobiles;
+ using Server.Regions;
+ using Server.Systems.FeatureFlags;
+ using Server.Targeting;
+@@ -34,6 +35,9 @@
+ 
+     public override void OnDoubleClick(Mobile from)
+     {
++        if (ClassMapHooks.BoatOperationAllowed?.Invoke(from) == false)
++            return;
++
+         if (!IsChildOf(from.Backpack))
+         {
+             from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.
+@@ -59,6 +63,9 @@
+ 
+     public void OnPlacement(Mobile from, Point3D p)
+     {
++        if (ClassMapHooks.BoatOperationAllowed?.Invoke(from) == false)
++            return;
++
+         if (Deleted)
+         {
+             return;
+--- a/Projects/UOContent/Multis/Boats/BaseDockedBoat.cs
++++ b/Projects/UOContent/Multis/Boats/BaseDockedBoat.cs
+@@ -1,5 +1,6 @@
+ using ModernUO.Serialization;
+ using Server.Engines.CannedEvil;
++using Server.Mobiles;
+ using Server.Regions;
+ using Server.Systems.FeatureFlags;
+ using Server.Targeting;
+@@ -38,6 +39,9 @@
+ 
+     public override void OnDoubleClick(Mobile from)
+     {
++        if (ClassMapHooks.BoatOperationAllowed?.Invoke(from) == false)
++            return;
++
+         if (!IsChildOf(from.Backpack))
+         {
+             from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.
+@@ -76,6 +80,9 @@
+ 
+     public void OnPlacement(Mobile from, Point3D p)
+     {
++        if (ClassMapHooks.BoatOperationAllowed?.Invoke(from) == false)
++            return;
++
+         if (Deleted)
+         {
+             return;

@@ -51,7 +51,7 @@ public partial class CoveEncounter : EncounterCreature
     internal bool OrcChief => Dungeon.Id == Chief;
     internal bool PentagramImp => Dungeon.Id == Imp;
     private bool Undead => Dungeon.Id is Skeleton or Zombie or Mummy or LichLord;
-    internal override int EncounterPlayers => 3;
+    protected override int RegionalEncounterPlayers => 3;
     internal override int HomeLeashRadius => Dungeon.Id == LichLord ? 12 : PentagramImp ? 8 : 10;
     public override int AcquireOnApproachRange => Math.Min(base.AcquireOnApproachRange, RangePerception);
     public override bool BleedImmune => Undead;
@@ -61,8 +61,8 @@ public partial class CoveEncounter : EncounterCreature
     protected override CreatureTraits EncounterTraits(DungeonProfile dungeon) =>
         new(dungeon.Family, Undead, PentagramImp, Leader, false, true, 1, 0, 100, Leader ? 50 : 100, 0);
 
-    public override bool IsEnemy(Mobile target) =>
-        (!PentagramImp || CoveGnaw.HostileTo(target)) && base.IsEnemy(target);
+    internal override bool IsEnemyIgnoringLeash(Mobile target) =>
+        (!PentagramImp || CoveGnaw.HostileTo(target)) && base.IsEnemyIgnoringLeash(target);
 
     public override bool CanBeHarmful(Mobile target, bool message, bool ignoreOurBlessedness) =>
         (!PentagramImp || CoveGnaw.HostileTo(target)) && base.CanBeHarmful(target, message, ignoreOurBlessedness);

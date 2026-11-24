@@ -78,19 +78,20 @@ public static class ThrowingMasteryChecks
     {
         int cap=NamedAmmunition.Maximum(weapon),durability=weapon.HitPoints;Require(cap>3,"Source quantity capacity");
         int mana=NecromancerEffects.ManaBalance256(owner);
-        Quantity(weapon,1);var critical=new Rolls(99,0,99);
-        var first=BarbarianThrowing.Release(owner,TimedEffects.Now,critical);
-        Require(first is{Critical:true,Pierces:0} && critical.Calls==3 && NamedAmmunition.Remaining(weapon)==2,"Launch mastery critical must conserve and recover one before any hit");
-        Quantity(weapon,1);var conserve=new Rolls(99,99,0,99);
-        Require(BarbarianThrowing.Release(owner,TimedEffects.Now,conserve) is{Critical:false,Pierces:0} && conserve.Calls==4 && NamedAmmunition.Remaining(weapon)==1,"Noncritical conservation");
-        Quantity(weapon,1);var spent=new Rolls(99,99,99,0,0,0,0);
-        Require(BarbarianThrowing.Release(owner,TimedEffects.Now,spent) is{Critical:false,Pierces:4} && spent.Calls==7 && NamedAmmunition.Remaining(weapon)==0,"One consumed quantity and source four-continuation budget");
-        var empty=new Rolls(0);Require(BarbarianThrowing.Release(owner,TimedEffects.Now,empty)==null && empty.Calls==0,"Empty stack rolled critical or generated quantity");
-        Quantity(weapon,cap);var full=new Rolls(99,0,99);Require(BarbarianThrowing.Release(owner,TimedEffects.Now,full) is{Critical:true} && NamedAmmunition.Remaining(weapon)==cap,"Critical exceeded capacity");
-        Require(weapon.HitPoints==durability && NecromancerEffects.ManaBalance256(owner)==mana,"Passive throw consumed durability or mana");
+        Quantity(weapon,0);var critical=new Rolls(99,0,99);
+        var first=BarbarianThrowing.Release(owner,critical);
+        Require(first is{Critical:true,Pierces:0} && critical.Calls==3 && NamedAmmunition.Remaining(weapon)==0,"An empty legacy stack blocked mastery critical or gained quantity");
+        var piercing=new Rolls(99,99,0,0,0,0);
+        Require(BarbarianThrowing.Release(owner,piercing) is{Critical:false,Pierces:4} && piercing.Calls==6
+            && NamedAmmunition.Remaining(weapon)==0,"Ammo-free release changed quantity or the four-hit continuation limit");
+        Quantity(weapon,cap);var full=new Rolls(99,0,99);Require(BarbarianThrowing.Release(owner,full) is{Critical:true}
+            && NamedAmmunition.Remaining(weapon)==cap,"Critical changed saved quantity");
+        Require(weapon.HitPoints==durability && NecromancerEffects.ManaBalance256(owner)==mana,"Preparing a throw consumed durability or mana");
         var amulet=Named(owner,"Highlord's Wrath");Require(ClassGear.Bonus(owner,"deadly")>0,"Actual Deadly Strike fixture");
-        Quantity(weapon,1);var deadly=new Rolls(99,0,99);Require(BarbarianThrowing.Release(owner,TimedEffects.Now,deadly) is{Critical:true} && deadly.Calls==3 && NamedAmmunition.Remaining(weapon)==2,"Projectile Deadly Strike should precede mastery and replenish");
-        Quantity(weapon,1);var fallback=new Rolls(99,99,0,99);Require(BarbarianThrowing.Release(owner,TimedEffects.Now,fallback) is{Critical:true} && fallback.Calls==4 && NamedAmmunition.Remaining(weapon)==2,"Failed Deadly Strike did not try throw mastery");
+        Quantity(weapon,1);var deadly=new Rolls(99,0,99);Require(BarbarianThrowing.Release(owner,deadly) is{Critical:true}
+            && deadly.Calls==3 && NamedAmmunition.Remaining(weapon)==1,"Projectile Deadly Strike should precede mastery");
+        var fallback=new Rolls(99,99,0,99);Require(BarbarianThrowing.Release(owner,fallback) is{Critical:true}
+            && fallback.Calls==4 && NamedAmmunition.Remaining(weapon)==1,"Failed Deadly Strike did not try throw mastery");
         amulet.Delete();ClassGear.Refresh(owner);
     }
     private static void Damage(PlayerMobile owner,BaseWeapon weapon)
@@ -119,17 +120,17 @@ public static class ThrowingMasteryChecks
         var original=BarbarianThrowing.RandomSource;var origin=owner.Location;BarbarianThrowing.RandomSource=()=>new Rolls(99,0,99);
         try
         {
-            Quantity(weapon,1);ClassCombat.Stop(owner);var session=ClassCombat.For(owner);session.NextAction=0;
+            Quantity(weapon,0);ClassCombat.Stop(owner);var session=ClassCombat.For(owner);session.NextAction=0;
             var point=new[]{new Point3D(owner.X+3,owner.Y,owner.Z),new Point3D(owner.X,owner.Y+3,owner.Z),new Point3D(owner.X-3,owner.Y,owner.Z),new Point3D(owner.X,owner.Y-3,owner.Z)}.First(p=>owner.InLOS(new Point3D(p.X,p.Y,p.Z+14)));
             Require(ClassCombat.Perform(owner,CombatAbility.BasicAttack,null,point,Core.TickCount),"Begin empty-ground throw");
-            Require(NamedAmmunition.Remaining(weapon)==1 && !ClassCombat.ResolveAction(owner,session.EffectAt-1),"Windup changed quantity");
+            Require(NamedAmmunition.Remaining(weapon)==0 && !ClassCombat.ResolveAction(owner,session.EffectAt-1),"Windup changed quantity");
             bool resolved=ClassCombat.ResolveAction(owner,session.EffectAt);
-            Require(resolved && NamedAmmunition.Remaining(weapon)==2,$"Empty-ground release: resolved={resolved}, quantity={NamedAmmunition.Remaining(weapon)}, supported={BarbarianThrowing.Supported(owner)}, alive={owner.Alive}, frozen={owner.Frozen}, paralyzed={owner.Paralyzed}, point={point}, origin={owner.Location}, LOS={owner.InLOS(point)}, active={ClassGear.Active(owner,weapon)}");
-            Require(!ClassCombat.ResolveAction(owner,session.EffectAt+1) && NamedAmmunition.Remaining(weapon)==2,"Repeated impact duplicated quantity");
+            Require(resolved && NamedAmmunition.Remaining(weapon)==0,$"Empty-ground release: resolved={resolved}, quantity={NamedAmmunition.Remaining(weapon)}, supported={BarbarianThrowing.Supported(owner)}, alive={owner.Alive}, frozen={owner.Frozen}, paralyzed={owner.Paralyzed}, point={point}, origin={owner.Location}, LOS={owner.InLOS(point)}, active={ClassGear.Active(owner,weapon)}");
+            Require(!ClassCombat.ResolveAction(owner,session.EffectAt+1) && NamedAmmunition.Remaining(weapon)==0,"Repeat action resolved a second throw or changed legacy quantity");
             ClassCombat.Stop(owner);session.NextAction=0;Require(ClassCombat.Perform(owner,CombatAbility.BasicAttack,null,point,Core.TickCount),"Begin cancel probe");
-            owner.AddToBackpack(weapon);Require(!ClassCombat.ResolveAction(owner,session.EffectAt) && NamedAmmunition.Remaining(weapon)==2,"Weapon swap released canceled throw");Equip(owner,weapon);
+            owner.AddToBackpack(weapon);Require(!ClassCombat.ResolveAction(owner,session.EffectAt) && NamedAmmunition.Remaining(weapon)==0,"Weapon swap released canceled throw");Equip(owner,weapon);
             ClassCombat.Stop(owner);session.NextAction=0;Require(ClassCombat.Perform(owner,CombatAbility.BasicAttack,null,point,Core.TickCount),"Begin movement cancellation");
-            owner.MoveToWorld(new(owner.X,owner.Y+1,owner.Z),owner.Map);Require(!ClassCombat.ResolveAction(owner,session.EffectAt) && NamedAmmunition.Remaining(weapon)==2,"Movement released canceled throw");
+            owner.MoveToWorld(new(owner.X,owner.Y+1,owner.Z),owner.Map);Require(!ClassCombat.ResolveAction(owner,session.EffectAt) && NamedAmmunition.Remaining(weapon)==0,"Movement released canceled throw");
         }
         finally{BarbarianThrowing.RandomSource=original;ClassCombat.Stop(owner);owner.MoveToWorld(origin,owner.Map);}
     }
@@ -139,7 +140,7 @@ public static class ThrowingMasteryChecks
         Require(!SkillBindings.Instance.Assign(owner,true,CombatAbility.ThrowingMastery) && !SkillBindings.Instance.Assign(owner,false,CombatAbility.ThrowingMastery) && !SkillBindings.Instance.AssignQuick(owner,0,CombatAbility.ThrowingMastery),"Passive accepted active binding");
         Require(BarbarianMasteries.Bonus(owner,weapon,1)==44,"Rank1 throw AR");Train(owner,20);Stats(owner,weapon);CriticalAndQuantity(owner,weapon);Damage(owner,weapon);Actions(owner,weapon);
         var helm=Named(owner,"Tarnhelm");Require(SkillMechanics.Rank(owner,CombatAbility.ThrowingMastery)==21 && BarbarianMasteries.Bonus(owner,weapon,1)==204,"Effective throw rank/real soft gear");Stats(owner,weapon);
-        var ordinary=new NamedThrowingKnife();ClassGear.Profiles.Convert(ordinary,1,GearRarity.Normal,new Random(173));Equip(owner,ordinary);Require(NamedAmmunition.Maximum(ordinary)>1 && BarbarianThrowing.Supported(owner),"Ordinary converted quantity/type adapter");Quantity(ordinary,1);Require(BarbarianThrowing.Release(owner,TimedEffects.Now,new Rolls(99,0,99)) is{Critical:true} && NamedAmmunition.Remaining(ordinary)==2,"Ordinary converted quantity recovery");
+        var ordinary=new NamedThrowingKnife();ClassGear.Profiles.Convert(ordinary,1,GearRarity.Normal,new Random(173));Equip(owner,ordinary);Require(NamedAmmunition.Maximum(ordinary)>1 && BarbarianThrowing.Supported(owner),"Ordinary converted quantity/type adapter");Quantity(ordinary,1);Require(BarbarianThrowing.Release(owner,new Rolls(99,0,99)) is{Critical:true} && NamedAmmunition.Remaining(ordinary)==1,"Ordinary throw changed legacy quantity");
         Equip(owner,weapon);Require(BarbarianMasteries.Throwing(owner,ordinary,1)==0,"Backpack weapon gained mastery");Quantity(weapon,17);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,weapon.Serial.Value,helm.Serial.Value,ordinary.Serial.Value,owner.Location,owner.Map.MapID,17,NamedAmmunition.Maximum(weapon),ClassStats.AttackRating(owner),ClassStats.DamageBonus(owner,weapon),weapon.HitPoints)));
     }
@@ -150,11 +151,11 @@ public static class ThrowingMasteryChecks
         // Restore this fixture's saved world position before action/LOS checks.
         owner.MoveToWorld(row.Origin,Map.Maps[row.Map]);
         Require(ClassCreation.Profiles.GetRank(owner.Serial,SkillMechanics.For(CombatAbility.ThrowingMastery).TalentId)==20 && SkillMechanics.Rank(owner,CombatAbility.ThrowingMastery)==21,"Throw rank save");Stats(owner,weapon);
-        Require(NamedAmmunition.Maximum(weapon)==row.Maximum && NamedAmmunition.Remaining(weapon)==row.Quantity && NamedAmmunition.Remaining(ordinary)==2 && weapon.HitPoints==row.Durability,"Saved native quantity/item payload");
+        Require(NamedAmmunition.Maximum(weapon)==row.Maximum && NamedAmmunition.Remaining(weapon)==row.Quantity && NamedAmmunition.Remaining(ordinary)==1 && weapon.HitPoints==row.Durability,"Saved native quantity/item payload");
         Require(ClassStats.AttackRating(owner)==row.Attack && ClassStats.DamageBonus(owner,weapon)==row.Damage,"Saved throw stat pools");
         owner.AddToBackpack(helm);ClassGear.Refresh(owner);Require(BarbarianMasteries.Bonus(owner,weapon,1)==196,"Soft rank removal");Require(owner.EquipItem(helm),"Reequip saved helm");ClassGear.Refresh(owner);
         int durability=weapon.HitPoints;weapon.HitPoints=0;Require(!BarbarianThrowing.Supported(owner) && BarbarianMasteries.Throwing(owner,weapon,1)==0,"Broken throw weapon retained passive");weapon.HitPoints=durability;ClassGear.Refresh(owner);
-        Actions(owner,weapon);Quantity(weapon,row.Quantity);Equip(owner,ordinary);Require(NamedAmmunition.Remaining(ordinary)==2,"Trade/equip reset ordinary quantity");Equip(owner,weapon);Stats(owner,weapon);
+        Actions(owner,weapon);Quantity(weapon,row.Quantity);Equip(owner,ordinary);Require(NamedAmmunition.Remaining(ordinary)==1,"Trade/equip reset ordinary quantity");Equip(owner,weapon);Stats(owner,weapon);
         // History/respec must remove the live passive without rewriting its
         // trained rank or granting quantity. Use a disposable independent actor.
         var other=Fresh();Train(other,1);var blade=new NamedThrowingKnife();ClassGear.Profiles.Convert(blade,1,GearRarity.Normal,new Random(173));Equip(other,blade);Quantity(blade,3);

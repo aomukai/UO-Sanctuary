@@ -21,6 +21,7 @@ public static class StatNetwork
         public long NextTradeSkills = Core.TickCount;
         public long NextCompanion = Core.TickCount;
         public long NextCompanionOpen = Core.TickCount;
+        public long NextCompanionVitals = Core.TickCount;
     }
     private static readonly Dictionary<Serial, Session> _sessions = new();
     public static void Configure()
@@ -56,6 +57,10 @@ public static class StatNetwork
             case CompanionStatRequest.OpenSheet when Core.TickCount >= session.NextCompanionOpen:
                 session.NextCompanionOpen = Core.TickCount + StatProtocol.PollMs / 2;
                 break;
+            case CompanionStatRequest.Vitals when version == CompanionStatProtocol.Version
+                && Core.TickCount >= session.NextCompanionVitals:
+                session.NextCompanionVitals = Core.TickCount + StatProtocol.PollMs / 2;
+                break;
             default:
                 return;
         }
@@ -63,6 +68,11 @@ public static class StatNetwork
         if (World.FindMobile(serial) is not BaseCreature companion || companion is not IClassCompanion build
             || !MercenaryCare.IsCompanion(owner, companion) || MercenaryCare.CompanionLevel(companion) is not { } level)
         {
+            return;
+        }
+        if (request == CompanionStatRequest.Vitals)
+        {
+            CompanionCharacterStats.SendVitals(net, companion);
             return;
         }
         if (!companion.CanPaperdollBeOpenedBy(owner))

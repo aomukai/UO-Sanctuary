@@ -1,0 +1,55 @@
+diff --git a/src/ClassicUO.Client/Game/AvatarDialogueClient.cs b/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
+--- a/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
++++ b/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
+@@ -105,16 +105,20 @@
+         }
+         if (kind == PortraitProtocol.BritainDiscoveries && reader.Remaining == 1)
+         {
+-            world.Player.SanctuaryDiscoveries = (StoryDiscoveries)(((uint)world.Player.SanctuaryDiscoveries & ~0xFFu)
++            world.Player.SanctuaryDiscoveries = (StoryDiscoveries)(((ulong)world.Player.SanctuaryDiscoveries & ~0xFFUL)
+                 | reader.ReadUInt8());
+             UIManager.GetGump<SanctuaryJournalGump>()?.RefreshDiscoveries();
+             return;
+         }
+-        if (kind == PortraitProtocol.WorldDiscoveries && reader.Remaining is 2 or 4)
++        if (kind == PortraitProtocol.WorldDiscoveries && reader.Remaining is 2 or 4 or 8)
+         {
+-            world.Player.SanctuaryDiscoveries = (StoryDiscoveries)(reader.Remaining == 4
+-                ? reader.ReadUInt32BE()
+-                : ((uint)world.Player.SanctuaryDiscoveries & ~0xFFFFu) | reader.ReadUInt16BE());
++            ulong known = (ulong)world.Player.SanctuaryDiscoveries;
++            world.Player.SanctuaryDiscoveries = (StoryDiscoveries)(reader.Remaining switch
++            {
++                8 => reader.ReadUInt64BE(),
++                4 => (known & ~0xFFFFFFFFUL) | reader.ReadUInt32BE(),
++                _ => (known & ~0xFFFFUL) | reader.ReadUInt16BE()
++            });
+             UIManager.GetGump<SanctuaryJournalGump>()?.RefreshDiscoveries();
+             return;
+         }
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
+@@ -168,8 +168,22 @@
+             "I found Geoffrey alone at the guard tower by the bridge. Both Lord British and Blackthorn are gravely ill. Most folk on the mainland have gone into hiding. Geoffrey thinks one more source of evil remains in another dungeon, but he cannot tell me which."),
+         (StoryDiscoveries.DestardLead, "Three Guesses at the Harvest",
+             "At the Bountiful Harvest Inn in New Haven, Jaana suspected the mages in Shame. Iolo favoured Wrong. Dupre came in and suggested Destard. A great evil could find shelter among dragons and wyrms, he said. Iolo remained unconvinced. Jaana agreed that Destard was worth a look."),
++        (StoryDiscoveries.DestardQueen, "Vaelith, Queen of the Brood",
++            "The royal servant told me the dragons love Queen Vaelith. She barred their halls against the daemons, but could not shield her people from the influence that reached them even there."),
++        (StoryDiscoveries.DestardConsort, "The Consort's Stand",
++            "The royal servant said the consort Rhazek held a passage to give his people time to withdraw. Even he could not keep the invaders from driving them out of their home."),
++        (StoryDiscoveries.DestardNursery, "The Red Gate in the Nursery",
++            "I learned where the invasion began. The red gate opened in the old nursery, in the far quarters of Destard. The daemons brought corruption through with them. The dragons held them at bay until the wyrms and wyverns attacked from behind and forced the brood to retreat."),
++        (StoryDiscoveries.DestardBetrayal, "The Wyrms and Wyverns",
++            "The wyrms and wyverns had long sought power over the home they shared with the dragons. They chose to betray the brood while it was holding back the daemons."),
++        (StoryDiscoveries.DestardDaemons, "The Daemons of Destard",
++            "The royal servant said the daemons brought a voice through the red gate that bent many to its will. Vaelith pays for daemon horns, even after the source of the corruption has been defeated."),
++        (StoryDiscoveries.DestardEnslaved, "The Enslaved and the Young",
++            "Some drakes and dragons were overcome and forced to serve. The hatchlings were corrupted in the nursery before they could fly. The royal servant asked me to remember that the young never had a choice."),
+         (StoryDiscoveries.Diablo, "The Depths of Destard",
+             "I defeated Diablo in the arena beneath Destard."),
++        (StoryDiscoveries.DestardAftermath, "The Voice Falls Silent",
++            "The royal servant confirmed that Diablo's defeat silenced the voice below Destard. Some daemons still prowl the halls, and the queen still honours her bounty."),
+         (StoryDiscoveries.RoyalProclamation, "Hero of the People",
+             "I returned to Britain and saw the streets full again. Lord British named me Hero of the People. Britannia's wardrobes are open to me, and I may purchase a home here.")
+     ];

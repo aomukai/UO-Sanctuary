@@ -132,14 +132,7 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
             return;
         }
 
-        var packet = new System.Buffers.SpanWriter(stackalloc byte[SkeletonAppearanceProtocol.Length]);
-        packet.Write((byte)0xBF);
-        packet.Write((ushort)SkeletonAppearanceProtocol.Length);
-        packet.Write(SkeletonAppearanceProtocol.SubCommand);
-        packet.Write(SkeletonAppearanceProtocol.Version);
-        packet.Write(Serial.Value);
-        packet.Write((byte)CosmeticAppearance);
-        state.Send(packet.Span);
+        SkeletonAppearancePackets.Send(state, Serial, CosmeticAppearance);
     }
 
     public virtual DiabloClass SummonClass => DiabloClass.Necromancer;

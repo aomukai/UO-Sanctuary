@@ -21,14 +21,13 @@ internal static class MirroredBladesPackets
     internal static bool Approved=>MirroredBladesAction.Approved;
     internal static MirroredWeaponKind Kind(PlayerMobile owner,BaseWeapon weapon)
     {
-        if(weapon==null||!ClassGear.Active(owner,weapon)||ClassGear.Base(weapon)is not{} basis
+        if(weapon==null||!ClassGear.Active(owner,weapon)||ClassGear.CombatBase(weapon)is not{} basis
             ||!ClassItemTypes.Is(basis.Type,"weap")||ClassItemTypes.Is(basis.Type,"tpot"))
         {throw new NotSupportedException("Mirrored Blades needs an active non-potion source weapon");}
         if(ClassItemTypes.Is(basis.Type,"bow")){return MirroredWeaponKind.Arrow;}
         if(ClassItemTypes.Is(basis.Type,"xbow")){return MirroredWeaponKind.Bolt;}
         if(ClassGear.Definition(weapon)?.Category=="Throwing")
         {
-            if(NamedAmmunition.Maximum(weapon)<=0){throw new NotSupportedException("Unmapped Mirrored throwing quantity");}
             return MirroredWeaponKind.Throw;
         }
         if(!PlayerMeleeGeometry.WarlockMelee(owner)){throw new NotSupportedException("Unmapped Mirrored weapon kind");}
@@ -42,7 +41,7 @@ internal static class MirroredBladesPackets
         var skill=MirroredBladesPrepared.Capture(SkillMechanics.Values(owner,CombatAbility.MirroredBlades));
         _=MirroredBladesPrepared.Attacks(skill);
         var raw=ClassStats.WeaponBaseDamage(owner);int undead=ClassGear.Bonus(owner,"dmg-undead%");
-        if(ClassItemTypes.Is(ClassGear.Base(weapon).Type,"blun")){undead=checked(undead+50);}
+        if(ClassItemTypes.Is(ClassGear.CombatBase(weapon).Type,"blun")){undead=checked(undead+50);}
         // Source128 keeps Damage+ and ordinary min/max affixes. Unlike Echoing,
         // no ledger is subtracted and no116/128 reduction is introduced.
         var damage=new WeaponMissileDamage(checked(raw.Min*256),checked(raw.Max*256),ClassStats.PhysicalDamageBonus(owner,weapon),

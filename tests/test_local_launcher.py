@@ -14,6 +14,15 @@ ON_DISK = "Writing world save snapshot done (0.02 seconds)"
 
 
 class LocalLauncherTests(unittest.TestCase):
+    def test_play_uses_the_staging_server_launch(self):
+        prepare = Mock(return_value=([], Path(".local/client"), {}))
+        game = LocalGame(Path(".local"), prepare, Mock())
+        with patch("tools.local_launcher.local_addresses", return_value=[("127.0.0.1", 2593)]), \
+                patch("tools.local_launcher.socket_open", return_value=True):
+            with self.assertRaisesRegex(ValueError, "local game port is already in use"):
+                game.play(Mock(), Mock())
+        self.assertEqual(prepare.call_args_list, [call("server"), call("client")])
+
     def test_keeps_previous_launch_log(self):
         with TemporaryDirectory() as directory:
             folder = Path(directory)

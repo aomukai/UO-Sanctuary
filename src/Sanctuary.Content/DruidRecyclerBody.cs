@@ -83,7 +83,7 @@ public partial class DruidRecyclerBody:SkeletonGuardian,ISourceLifeMaximum
         if(at.Kind!=DateTimeKind.Utc||at>DateTime.MaxValue.AddMilliseconds(-40)||owner?.Map==null||owner.Map==Map.Internal
             ||!PetGroundWorld.ZeroFootprint(owner.Map,point)){throw new ArgumentException("Recycler needs a legal ground point and UTC clock");}
         var snapshot=DruidRecyclerStats.Capture(owner,ability);
-        var state=new RecyclerBodyState(owner.Serial.Value,snapshot,SummonDifficulties.For(owner.Map),at.AddMilliseconds(40));Validate(state);
+        var state=new RecyclerBodyState(owner.Serial.Value,snapshot,SummonDifficulties.For(owner),at.AddMilliseconds(40));Validate(state);
         var body=new DruidRecyclerBody();
         try
         {

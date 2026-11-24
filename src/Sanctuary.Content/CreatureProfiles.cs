@@ -45,6 +45,7 @@ public sealed record CreatureSnapshot(string Type, MonsterDifficulty Difficulty,
 
 public static class CreatureProfiles
 {
+    private const int DestardResistanceCap = 85;
     private static readonly Dictionary<string, CreatureDefinition> _definitions = new(StringComparer.Ordinal);
     private static readonly Dictionary<(string, MonsterDifficulty), CreatureVariant> _variants = new();
     private static CreatureVariant _native;
@@ -57,6 +58,7 @@ public static class CreatureProfiles
     {
         internal long RecoveryUntil = Core.TickCount;
         internal bool Initialized;
+        internal int InitializedPlayers;
         internal NormalMonsterStats DifficultyMelee;
     }
     private static readonly ConditionalWeakTable<BaseCreature, State> _states = new();
@@ -218,6 +220,45 @@ public static class CreatureProfiles
                 {"mKB",((NativeMonsterReturn.Identity(key).ModeFlags>>13)&1).ToString()}
             },HitRecovery=new(false)};
     public static CreatureVariant Variant(BaseCreature creature, MonsterDifficulty? difficulty = null)
+    {
+        var variant = ResolveVariant(creature, difficulty);
+        if (creature is not EncounterCreature && DungeonPlayerScaling.IsWildDungeonCreature(creature))
+        {
+            const int players = DungeonPlayerScaling.Players;
+            variant = variant with
+            {
+                Life = variant.Life is { } life ? Math.Min(65000, DungeonPlayerScaling.Scale(life, players)) : null,
+                Rewards = variant.Rewards.Experience is { } xp
+                    ? variant.Rewards with { Experience = DungeonPlayerScaling.Scale(xp, players) } : variant.Rewards
+            };
+        }
+        if (creature.Controlled || creature.Summoned
+            || creature.Map != Map.Trammel || !creature.Region.IsPartOf("Destard"))
+            return variant;
+
+        var res = variant.Resistances;
+        if (res.Physical.GetValueOrDefault() <= DestardResistanceCap && res.Magic.GetValueOrDefault() <= DestardResistanceCap
+            && res.Fire.GetValueOrDefault() <= DestardResistanceCap && res.Lightning.GetValueOrDefault() <= DestardResistanceCap
+            && res.Cold.GetValueOrDefault() <= DestardResistanceCap && res.Poison.GetValueOrDefault() <= DestardResistanceCap)
+            return variant;
+        return variant with { Resistances = CapDestardResistances(res) };
+    }
+
+    private static CreatureResistances CapDestardResistances(CreatureResistances res)
+    {
+        static int? Cap(int? value) => value > DestardResistanceCap ? DestardResistanceCap : value;
+        return new(Cap(res.Physical), Cap(res.Magic), Cap(res.Fire), Cap(res.Lightning), Cap(res.Cold), Cap(res.Poison));
+    }
+
+    internal static void ApplyDestardResistances(BaseCreature creature)
+    {
+        // Native spawners call this on the internal map, before the Destard region can affect Variant.
+        var profile = ResolveVariant(creature, null);
+        if (profile.ApplyStats && !creature.Controlled && !creature.Summoned)
+            ApplyResistances(creature, CapDestardResistances(profile.Resistances));
+    }
+
+    private static CreatureVariant ResolveVariant(BaseCreature creature, MonsterDifficulty? difficulty)
         => creature is AssassinShadowBody shadow ? SummonVariant(shadow,shadow.SourceMonsterId,shadow.SourceResistances(difficulty),difficulty,false,"Shadow")
             : creature is AmazonValkyrieBody valkyrie ? SummonVariant(valkyrie,"valkyrie",valkyrie.SourceResistances(difficulty),difficulty,false)
             : creature is WarlockDefilerBody defiler ? SummonVariant(defiler,"warputriddefiler",defiler.SourceResistances(difficulty),difficulty)
@@ -335,11 +376,13 @@ public static class CreatureProfiles
     internal static void Initialize(BaseCreature creature,bool preserveLoadedLife=false)
     {
         var state = Session(creature);
-        if (state.Initialized)
+        int players = DungeonPlayerScaling.For(creature);
+        if (state.Initialized && state.InitializedPlayers == players)
         {
             return;
         }
         state.Initialized = true;
+        state.InitializedPlayers = players;
         var row = For(creature);
         if (!row.Enabled || !row.ApplyStats || creature.Controlled || creature.Summoned || creature is BaseVendor)
         {
@@ -347,7 +390,8 @@ public static class CreatureProfiles
         }
         if (row.Life is { } life)
         {
-            int before = creature.Hits, maximum = creature.HitsMax;
+            int before = creature.Hits, maximum = World.Loading && players == DungeonPlayerScaling.Players
+                && creature.HitsMaxSeed > 0 ? creature.HitsMaxSeed : creature.HitsMax;
             creature.SetHits(life);
             // During world load the resource hook intentionally exposes a
             // temporary 65000 maximum. A saved encounter already contains its
@@ -360,12 +404,7 @@ public static class CreatureProfiles
         {
             creature.SetDamage(min, max);
         }
-        var res = row.Resistances;
-        SetResistance(creature, ResistanceType.Physical, res.Physical);
-        SetResistance(creature, ResistanceType.Fire, res.Fire);
-        SetResistance(creature, ResistanceType.Cold, res.Cold);
-        SetResistance(creature, ResistanceType.Energy, res.Lightning);
-        SetResistance(creature, ResistanceType.Poison, res.Poison);
+        ApplyResistances(creature, row.Resistances);
         if (row.Movement.WalkMs is { } walk)
         {
             creature.ActiveMoveSpeed = walk / 1000.0;
@@ -383,6 +422,29 @@ public static class CreatureProfiles
             creature.SetDamageType(ResistanceType.Poison, row.Attack1.Poison ?? 0);
         }
     }
+
+    private static void ApplyResistances(BaseCreature creature, CreatureResistances res)
+    {
+        SetResistance(creature, ResistanceType.Physical, res.Physical);
+        SetResistance(creature, ResistanceType.Fire, res.Fire);
+        SetResistance(creature, ResistanceType.Cold, res.Cold);
+        SetResistance(creature, ResistanceType.Energy, res.Lightning);
+        SetResistance(creature, ResistanceType.Poison, res.Poison);
+    }
+
+    internal static void RestoreTamedMountLife(BaseMount mount)
+    {
+        var state = Session(mount);
+        if (!state.Initialized || state.InitializedPlayers != DungeonPlayerScaling.Players
+            || ResolveVariant(mount, null) is not { ApplyStats: true, Life: { } life })
+            return;
+
+        int before = mount.Hits, maximum = mount.HitsMax;
+        mount.SetHits(life);
+        mount.Hits = Math.Clamp((int)((long)before * mount.HitsMax / Math.Max(1, maximum)), 1, mount.HitsMax);
+        state.InitializedPlayers = 1;
+    }
+
     private static void SetResistance(BaseCreature creature, ResistanceType type, int? value)
     {
         if (value is { } resistance)

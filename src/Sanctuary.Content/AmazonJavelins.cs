@@ -10,7 +10,7 @@ public static class AmazonJavelins
 {
     public static bool Handles(CombatAbility ability)=>ability is CombatAbility.PoisonJavelin or CombatAbility.LightningBolt or CombatAbility.PlagueJavelin or CombatAbility.LightningFury;
     internal static bool WeaponAllowed(PlayerMobile owner)=>CombatTiming.Equipped(owner) is{} weapon
-        && ClassGear.State(weapon) is{Identified:true} && ClassGear.Base(weapon) is{} basis
+        && ClassGear.State(weapon) is{Identified:true} && ClassGear.CombatBase(weapon) is{} basis
         && ClassItemTypes.Is(basis.Type,"jave") && !ClassGear.Broken(weapon);
     internal static ActionTiming Timing(int advance)
     {
@@ -26,7 +26,7 @@ public static class AmazonJavelins
         && !SpellHelper.IsTown(owner.Location,owner) && !SpellHelper.IsTown(point,owner);
     public static bool Begin(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now)
     {
-        if(!Handles(ability) || !AmazonCombat.Available(owner,ability) || !NamedAmmunition.CanAttack(CombatTiming.Equipped(owner))){return false;}
+        if(!Handles(ability) || !AmazonCombat.Available(owner,ability)){return false;}
         if(selected!=Serial.Zero)
         {var target=World.FindMobile(selected);if(!ClassCombat.IsHostile(owner,target)){return false;}point=target.Location;}
         if(!SkillCombat.Begin(owner,ability,selected,point,now,(p,_,_,aim)=>Aim(p,aim))){return false;}
@@ -57,7 +57,7 @@ public static class AmazonJavelins
         if(id<=0){return false;}
         pierce?.Commit();
         if(ability==CombatAbility.PlagueJavelin){NecromancerEffects.Pay(owner,values.Mana256);}
-        NamedAmmunition.Consume(CombatTiming.Equipped(owner),TimedEffects.Now);FireGround.Delay(owner,ability);
+        FireGround.Delay(owner,ability);
         AmazonJavelinEffects.Release(owner,ability);
         return true;
     }

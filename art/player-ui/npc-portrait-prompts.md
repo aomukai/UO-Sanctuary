@@ -17,6 +17,14 @@ sheet by updating `TrainerPortraitSheets` in `PortraitProtocol.cs`.
 
 ## Portrait audit
 
+### Jens Won
+
+The built-in ImageGen tool used `portrait-npc-harlan.png` as the painting-style reference. The shipped portrait is `portrait-npc-jenswon.png`.
+
+> Use case: stylized-concept. Create one new square full-bleed dialogue portrait for Sanctuary, a grounded medieval dark fantasy CRPG. Input image is a STYLE and crop reference only: retain its tactile hand-painted oil/gouache brushwork, slightly grainy late-1990s CRPG portrait finish, human proportions, earthy warm shadows, detailed direct eye contact, and tight shoulders-up scale. Do not depict the reference guard or any armour. Subject: Jens Won, a medieval shovel merchant and an affectionate satirical medieval reimagining of Jensen Huang, the recognizable contemporary Taiwanese-American public figure. Capture Jensen Huang's recognizable swept-back silver-and-black hair, rounded distinct eyeglass frames (medieval iron spectacles), clean shaven face, recognizable expressive cheeks and warm confident slightly mischievous smile. His signature dark silhouette is rendered as a practical black leather medieval merchant's doublet over dark linen with a simple clasp, muted forest green thread at the collar. Face the player, with both eyes visibly meeting the viewer's gaze even if the shoulders are turned. Tight centered head and shoulders, entire hairline inside frame, clear readable silhouette at 100 pixels. Amber sidelight, muted umber graveyard-road stone backdrop, soft low-detail. One person, one portrait. No text, frame, modern branding, logos, modern zipper, watermark, shovel in the crop, glamour photo or caricature distortion.
+
+### Named portraits and trainers
+
 The built-in ImageGen tool painted the new named portraits and trainer candidates.
 The shipped files are the standalone `portrait-npc-*.png` paintings and
 `portrait-trainers-00.png` through `portrait-trainers-12.png`. Trainer cells
@@ -84,6 +92,19 @@ Made with built-in ImageGen. The guard was named Harlan in the game.
 Create one square dialogue portrait for Sanctuary, an original old-school fantasy RPG. Warden Edric, an older weathered roadside guard and veteran fighter in his late fifties, has multiple distinct healed scars across his brow, cheek and chin, close-cropped grey hair and a greying short beard. He looks directly at the player with alert, tired, level eyes. Near straight-on shoulders-up crop, face centred and taking up most of the square so the eyes and scars read clearly at tiny dialogue size. Worn steel mail and a muted rust-brown leather surcoat, warm amber light, subdued dark olive-brown watchtower interior background. Painterly hand-painted late-1990s fantasy portrait with natural proportions and tactile brushwork, grounded medieval look. No text, frame, watermark, helmet or gruesome wounds.
 ```
 
+## Heartwood trainer portraits
+
+Built-in ImageGen generated these individually with `portrait-npc-nightwind.png` as the style reference.
+Caelira (710, row 4 column 5) and Orren (711, row 4 column 6) are on `portrait-trainers-12.png`.
+
+```text
+Use case: stylized-concept. Create one new square, full-bleed head-and-shoulders character portrait for Sanctuary’s dialogue window. Use the existing Nightwind image only for the painterly late-1990s fantasy RPG style, earthy warm directional light, surface texture, and tight crop. The character is a distinct original Heartwood elf. Both fully visible eyes look directly at the viewer. Center the face, keep the hairline inside frame, and keep the silhouette and expression readable at 150px. No border, text, weapon, watermark, or photorealistic finish.
+
+Caelira: a mature elven bowcraft trainer with tawny brown skin, long ash-silver hair tied back, large pointed ears, broad cheekbones, level amber eyes, and a quick, knowing half-smile. A moss-blue linen collar and simple leather bowyer’s apron. Shadowed wooden workshop behind her.
+
+Orren: a middle-aged elven carpentry trainer with walnut-brown skin, narrow face and a prominent nose, dark cropped curls, pointed ears and a warm patient gaze. A muted umber apron and flax linen shirt. The low-detail background is a warmly lit timber workshop.
+```
+
 ## portrait-npc-despise.png
 
 Built-in ImageGen used `portrait-npc-watch.png` as its style reference for this sheet.
@@ -91,3 +112,56 @@ Built-in ImageGen used `portrait-npc-watch.png` as its style reference for this 
 ```text
 Use case: stylized-concept. Draw a square production dialogue portrait atlas for the original Sanctuary dark medieval fantasy RPG. Reference image is exclusively for the existing painterly late 1990s RPG style, earthy amber directional lighting, subtle pixel texture, warm dark brown backdrop, head-and-shoulders crop. Every face is new. Layout must be exactly 2×2 with equal full-bleed square quadrants, at the precise 50% boundaries, one large head and shoulders per quadrant, no gutters, dividers, frames, lettering, or figures spilling across quadrants. Readable eyes and faces in a 150px UI crop. Pixies are adult tiny winged forest spirits with subtle long pointed ears, organic moth or dragonfly wings softly visible low behind the shoulders, vivid unusual features, earthy fabric and forest ornament, adult mature facial proportions. Top left: clear-eyed adult woman pixie with copper-brown skin, dusty rose hair in a messy knot, gray-violet translucent wings and a yellow-gold mantle, wary and protective. Top right: weathered mature man pixie, umber complexion, clean-shaven, sage wisps of swept hair, narrow angular face and amber translucent wings, patient, teal thistle clasp. Bottom left: older woman pixie with pale freckled skin, slit brows, dark lavender hair, a moss-green wrap and blue-veined wings, serious and kind. Bottom right: friendly adult ratman, unmistakably anthropomorphic rat with long rat muzzle and prominent rounded ragged ears, wiry brown-and-gray fur, dark amber eyes and visible whiskers, plain frayed russet leather scarf, reserved and worried, composed and intelligent. Keep close portrait framing and eye-level composition varied across subjects, realistic carved facial structure, substantially different silhouettes and hair, no weapons, text, watermark or borders.
 ```
+
+## Britannia campaign portraits
+
+Built-in ImageGen generated each painting individually. The style reference was the original Geoffrey portrait cropped from `portrait-npcs.png`. The three Geoffrey scenes also use it as their character reference.
+
+The shared part of each prompt was:
+
+> Create a single square head-and-shoulders painting for Sanctuary, a grounded medieval dark fantasy RPG dialogue window. Both eyes look at the viewer. Tight centered shoulders-up crop, face readable when reduced to 150px, amber sidelight, deep low-detail background, late 1990s painterly CRPG style, no frame, text, watermark, weapons, or contemporary items.
+
+### `portrait-npc-geoffreydishevelled.png`
+
+> Use the reference to preserve this exact captain's recognizable facial structure, scar, skin tone, rusty red cloak and worn steel helmet or chain mail. The city guard captain has been working nights. His helmet is off, revealing tousled dark brown hair, and he wears his chain mail. Unshaven jaw, tense brow and tired but urgent expression, a little road dust, the same man at the same age.
+
+### `portrait-npc-geoffreyexhausted.png`
+
+> Use the reference to preserve this exact captain's recognizable facial structure, scar, skin tone, rusty red cloak and worn steel helmet or chain mail. The city guard captain is prematurely aged by the crisis. No helmet, grey streaks through his untidy hair, deeper lines and sunken, tired eyes, scuffed chain mail and a faded red cloak. He is quietly exhausted and looks straight into the viewer's eyes.
+
+### `portrait-npc-geoffreyrelieved.png`
+
+> Use the reference to preserve this exact captain's recognizable facial structure, scar, skin tone, rusty red cloak and worn steel helmet or chain mail. Same helmet, armor, red cloak, scar and face as reference. He gives the player a broad genuine relieved smile for the first time, crinkling around both eyes. Warm light on his face, recognizably the same man.
+
+### `portrait-npc-britainharbourmaster.png`
+
+> The input is a style reference only. Paint a distinct original face and clothing. Elowen Marr, a weathered middle-aged woman running the Britain docks. Tawny skin, a strong broad face, sun lines, straight dark hair with silver temples tied under a navy linen scarf, cream shirt and dark teal seafarer's vest. Calm practical regard. Shadowy timber harbour office.
+
+### `portrait-npc-blackthorn.png`
+
+> The input is a style reference only. Paint a distinct original face and clothing. A grave, aristocratic dark-haired medieval regent, around fifty years old. Olive skin, angular face, short neatly cut dark beard with silver through the chin, black wool court coat with subtle burgundy piping, plain garnet clasp. Measured concern and restrained fatigue. Dim stone stronghold.
+
+### `portrait-npc-dupre.png`
+
+> The input is a style reference only. Paint a distinct original face and clothing. An affable veteran knight with light freckled skin, wavy light-brown hair, a close russet beard, warm grey eyes and a strong rounded face. Scuffed breastplate over a cream gambeson, plain muted blue cloak, open earnest expression. Warm lamplit wood-and-plaster tavern.
+
+### `portrait-npc-shamino.png`
+
+> The input is a style reference only. Paint a distinct original face. Shamino, a seasoned, rangy wilderness scout in his forties with pale grey-green eyes, ruddy complexion, high cheekbones, tied-back chestnut hair graying at the temples, and a short rough beard. He wears a dark sage-green wool hood down on his shoulders, weathered leather collar and small bronze leaf clasp. Quiet curiosity and confidence, as though he has just noticed a trail that the others overlooked. Warm dim stone keep in the background.
+
+### Destard's dragon court
+
+Vaelith and Rhazek were generated with the built-in ImageGen tool using [Jaana’s portrait](portrait-jaana.png) as the painting-style reference. The guards and servant used [Vaelith’s portrait](portrait-npc-destardqueen.png) as their painting-style reference. All five look directly at the player.
+
+**Shared prompt.** Square individual dialogue portrait for Sanctuary, stylized-concept. True non-human European dragon head and neck, dangerous, powerful and weathered. Eyes meet the viewer directly. Tight face portrait with the major features inside the center 80 percent of the square, readable at 100 px. Hand-painted textured late-1990s fantasy RPG portrait like the reference in brushwork and small-size clarity only. Warm amber raking light against a dark simple cavern background. No border, text or other character.
+
+- **Vaelith.** Ancient female dragon queen, long regal narrow angular reptilian face, swept-back imposing horns, direct appraising gaze. Restrained copper-red scale tones and elegant crownlike anatomy. [Queen portrait](portrait-npc-destardqueen.png)
+- **Rhazek.** Ancient male dragon consort, broad square reptilian jaw, battered asymmetrical horns with one broken tip, old visible facial scars, direct disdainful scowl. Charcoal-bronze scales. [Consort portrait](portrait-npc-destardconsort.png)
+- **Western royal guard.** Stern rust-brown dragon, blunt muzzle, slate brow, outward horns and an iron-and-bronze gorget. [Western guard portrait](portrait-npc-destardguardwest.png)
+- **Northern royal guard.** Angular slate-green dragon, upright ivory horns and the same iron-and-bronze gorget. [Northern guard portrait](portrait-npc-destardguardnorth.png)
+- **Royal servant.** Older pale-bronze dragon, low horns, grey-green eyes and a burgundy cord. Weary and attentive. [Servant portrait](portrait-npc-destardservant.png)
+
+
+### Archbishop Lazarus
+
+A severe, aging human archbishop in dark wine-red vestments with tarnished gold embroidery. Deep-set eyes meet the Avatar’s gaze. Warm light falls across his face in a dim cathedral undercroft. The portrait accompanies his greeting at the sacrificial altar below Deceit. [Lazarus portrait](portrait-npc-lazarus.png)

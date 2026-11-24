@@ -93,7 +93,7 @@ public partial class DruidOakBody:SkeletonGuardian,ISourceLifeMaximum
             || !owner.Map.CanSpawnMobile(point))
         {throw new ArgumentException("Oak Sage needs a legal prepared ground point and UTC clock");}
         var birth=DruidSpiritStats.Capture(owner,ability);
-        var state=new OakBodyState(owner.Serial.Value,birth,SummonDifficulties.For(owner.Map),at.AddMilliseconds(40));
+        var state=new OakBodyState(owner.Serial.Value,birth,SummonDifficulties.For(owner),at.AddMilliseconds(40));
         Validate(state,ability);DruidOakBody body=ability switch{CombatAbility.OakSage=>new DruidOakBody(),CombatAbility.HeartOfWolverine=>new DruidWolverineBody(),CombatAbility.SpiritOfBarbs=>new DruidBarbsBody(),_=>throw new NotSupportedException("Unmapped spirit body")};
         try
         {

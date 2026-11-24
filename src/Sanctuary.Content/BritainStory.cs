@@ -95,7 +95,7 @@ public static class BritainStory
         if (target is Wolfgang { Recruited: false })
             return !MercenaryCare.HasContract<Wolfgang>(player);
         if (target is Nightwind { Recruited: false })
-            return YewStory.Has(player, YewProgress.Heartwood) && !MercenaryCare.HasContract<Nightwind>(player);
+            return YewStory.HasHeartwoodAccess(player) && !MercenaryCare.HasContract<Nightwind>(player);
         if (target is Merydwen { Recruited: false })
             return !MercenaryCare.HasContract<Merydwen>(player);
         if (target is CollegeIolo)
@@ -197,6 +197,8 @@ public partial class Geoffrey : ConversationNpc
 
     internal override void BeginConversation(PlayerMobile player)
     {
+        if (CampaignActors.Geoffrey(player, this))
+            return;
         BritainStory.RecordGeoffrey(player);
         var script = MercenaryCare.HasContract<Wolfgang>(player) ? _joined : BritainStory.Retired(player) ? _after : _before;
         ScriptedDialogue.Show(player, this, script);
@@ -227,8 +229,6 @@ public partial class Geoffrey : ConversationNpc
 [SerializationGenerator(0)]
 public partial class LordBritish : ConversationNpc
 {
-    private static readonly ScriptedDialogue.Voice _iolo = new("Iolo", (ushort)NpcPortrait.Iolo);
-
     [Constructible]
     public LordBritish()
     {
@@ -260,6 +260,8 @@ public partial class LordBritish : ConversationNpc
 
     internal override void BeginConversation(PlayerMobile player)
     {
+        if (CampaignActors.British(player, this))
+            return;
         if (BritainStory.Retired(player))
             ScriptedDialogue.Show(player, this, _after);
         else if (Iolo.NearbyCompanion(player) is { } iolo)
@@ -271,7 +273,8 @@ public partial class LordBritish : ConversationNpc
     internal static IReadOnlyList<ScriptedDialogue.Node> AudienceFor(PlayerMobile player, Iolo iolo)
     {
         var profiles = ClassCreation.Profiles;
-        string report = "I have heard the same story from too many corners of Britannia. Creatures are driving folk from places where they once worked in peace.";
+        string report = "I have heard the same story from too many corners of Britannia. Creatures are driving folk from places where they once worked in peace. "
+            + Iolo.DungeonReports;
         if (profiles.HasInvestigatedHavenMine(player.Serial, out var witness))
             report += witness == iolo.Serial
                 ? " We fought an ogre below the New Haven mine. It had powers I have never seen in one of its kind."
@@ -282,11 +285,12 @@ public partial class LordBritish : ConversationNpc
             : "Before thou settest out again, find me at the bard's college. I have something for thee.";
         return
         [
-            new("Welcome, old friend. Iolo, thou hast brought the Avatar a long way. What news dost thou bring?", [new("Reports", 1)]),
-            new(report, [new("How can I help?", 2)], _iolo),
+            new("Welcome, old friend. Iolo, thou hast brought the Avatar a long way. What news dost thou bring?",
+                [new("Reports", 1, Learns: StoryDiscoveries.IoloDungeonReports)]),
+            new(report, [new("How can I help?", 2, Learns: StoryDiscoveries.RoyalInvestigation)], Iolo.Voice),
             new("The reports that reach me grow more troubling by the day. Find out what lies behind them, Avatar. My duties bind me to Britain, but I can hear whatever thou learnest.", [new("Iolo", 3)]),
-            new("Here we part ways, my friend. I have carried this crossbow further than I meant to. There are young bards at the college who ought to learn these songs while I can still remember the verses.", [new("The Bard's College", 4)], _iolo),
-            new(farewell, [new("Until Then", 0, BritainStory.FinishAudience)], _iolo)
+            new("Here we part ways, my friend. I have carried this crossbow further than I meant to. There are young bards at the college who ought to learn these songs while I can still remember the verses.", [new("The Bard's College", 4)], Iolo.Voice),
+            new(farewell, [new("Until Then", 0, BritainStory.FinishAudience)], Iolo.Voice)
         ];
     }
 }
@@ -321,18 +325,21 @@ public partial class CollegeIolo : ConversationNpc
     internal override bool CanTalkTo(PlayerMobile player) => BritainStory.MobileVisible(player, this);
     private static readonly ScriptedDialogue.Reply _identify = new("Identify Pack", 0, IdentifyPack);
     private static readonly ScriptedDialogue.Reply _recover = new("Recover Gear", 0, RecoverGear);
-    private static readonly ScriptedDialogue.Reply[] _topics = [new("Runes", 1), _identify, _recover];
+    private static readonly ScriptedDialogue.Reply _reports = new("Dungeon Reports", 4, Learns: StoryDiscoveries.IoloDungeonReports);
+    private static readonly ScriptedDialogue.Reply[] _topics = [new("Runes", 1), _identify, _recover, _reports];
     private static readonly ScriptedDialogue.Node[] _college =
     [
         new("My first class knew every tune and none of the words. We shall get there. If thou hast something mysterious in thy pack, let me look it over. For thee, there is no charge.", _topics),
         new("There may be more travel runes out there. If thou findest one already marked, slip it into the book. An old road is worth keeping, even when thou hast no plans to take it.", _topics),
         new("Here is my runebook. I've put a rune to this college inside it. More marked runes may be out there for thee to find. And shouldst thou find something thou canst not identify, bring it here. An old friend pays nothing.", _topics),
-        new("I have the runebook here. Make a little room in thy pack, and I shall give it to thee.", [_identify, _recover])
+        new("I have the runebook here. Make a little room in thy pack, and I shall give it to thee.", [_identify, _recover, _reports]),
+        new(Iolo.DungeonReports, _topics)
     ];
     private static readonly ScriptedDialogue.Node[] _solo =
     [
         new("I came on ahead to the college. They have given me a room full of eager voices and only one lute between them. I think we shall manage.",
-            [_identify])
+            [_identify, new("Dungeon Reports", 1, Learns: StoryDiscoveries.IoloDungeonReports)]),
+        new(Iolo.DungeonReports, [_identify])
     ];
 
     internal override void BeginConversation(PlayerMobile player)
@@ -354,7 +361,7 @@ public partial class CollegeIolo : ConversationNpc
             return false;
 
         var book = new Runebook { Description = "Iolo's Runebook" };
-        var entry = new RunebookEntry(book, BritainStory.CollegeRune, Map.Trammel, RuneName);
+        var entry = new RunebookEntry(book, BritainStory.CollegeRune, Map.Trammel, RuneName, mountedTravel: RuneMountTravel.DismountRequired);
         book.Entries.Add(entry);
         book.Default = entry;
         if (!player.Backpack.TryDropItem(player, book, false))

@@ -61,7 +61,7 @@ public partial class BrigandEncounter : EncounterCreature
 
     public override bool AlwaysMurderer => true;
     public override string CorpseName => "a brigand's corpse";
-    internal override int EncounterPlayers => 3;
+    protected override int RegionalEncounterPlayers => 3;
     internal override int HomeLeashRadius => 10;
     protected override CreatureTraits EncounterTraits(DungeonProfile dungeon) =>
         new(dungeon.Family, false, false, false, false, true, 1, 0, 100, 100, 0);

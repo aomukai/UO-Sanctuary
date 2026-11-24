@@ -28,7 +28,7 @@ public static class DruidSafeAreaChecks
     }
 
     private static void Register(string command, Action action) => ConsoleInputHandler.RegisterCommand(command,
-        "Original Druid summon identities across actual safe-region parking and saved return", _ => Core.LoopContext.Post(() =>
+        "Druid summons stay present in guarded towns and can resume there from storage", _ => Core.LoopContext.Post(() =>
         {
             try { action(); Log.Information("{Command}: passed", command); }
             catch (Exception error) { Log.Error(error, "{Command}: failed", command); }
@@ -92,19 +92,27 @@ public static class DruidSafeAreaChecks
         try
         {
             owner.MoveToWorld(saved.Town, Map.Maps[saved.Map]);
-            Verify(owner, pet, saved, true);
+            Require(MinionSafeAreas.Contains(owner)&&!MinionSafeAreas.ShouldPark(owner,pet),"Town policy parked a Druid summon");
             PersistentMinions.Resume(owner);
+            Verify(owner, pet, saved, false);
+            PersistentMinions.Park(pet);
             Verify(owner, pet, saved, true);
             int followers = owner.Followers;
             DateTime at = TimedEffects.Now;
-            Require(TimedEffects.AddRestoration(pet, true, 10, 1000, at), "Missing parked restoration control");
+            if(pet is not DruidRavenBody)
+            {
+                Require(TimedEffects.AddRestoration(pet, true, 10, 1000, at), "Missing parked restoration control");
+            }
             TimedEffects.Settle(pet, at.AddMilliseconds(1001));
             Verify(owner, pet, saved, true);
-            owner.MoveToWorld(saved.Origin, owner.Map);
-            PersistentMinions.Resume(owner); // Offline fixture: reuse the same return admission called on login/movement.
+            PersistentMinions.Resume(owner); // A previously parked summon can now return inside the same town.
             Verify(owner, pet, saved, false);
             Require(owner.Followers == followers + saved.Slots, "Return restored follower slots twice");
+            owner.MoveToWorld(saved.Origin, owner.Map);
+            Verify(owner, pet, saved, false);
             owner.MoveToWorld(saved.Town, owner.Map);
+            Verify(owner, pet, saved, false);
+            PersistentMinions.Park(pet);
             Verify(owner, pet, saved, true);
         }
         finally { region.Unregister(); }
@@ -118,7 +126,7 @@ public static class DruidSafeAreaChecks
             var owner = SpiritWolfWorldChecks.Fresh(sceneOffset: i * 96, column: 6000);
             ClassSkillChecks.Train(owner, SkillMechanics.For(Skills[i]).TalentId, 1);
             var pet = Create(owner, Skills[i]);
-            SkillHealth.SetBalance256(pet, SkillHealth.Maximum256(pet) / 2 + 1);
+            if(pet is not DruidRavenBody){SkillHealth.SetBalance256(pet, SkillHealth.Maximum256(pet) / 2 + 1);}
             var saved = new Actor(owner.Serial.Value, pet.Serial.Value, Skills[i], owner.Location,
                 new Point3D(owner.X + 16, owner.Y, owner.Z), owner.Map.MapID,
                 SkillHealth.Balance256(pet), SkillHealth.Maximum256(pet), pet.Mana, pet.Rank,

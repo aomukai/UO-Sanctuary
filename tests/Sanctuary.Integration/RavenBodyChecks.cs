@@ -9,6 +9,7 @@ using Server.Items;
 using Server.Logging;
 using Server.Mobiles;
 using Server.Network;
+using Server.Regions;
 namespace Sanctuary.Integration;
 
 public static class RavenBodyChecks
@@ -60,24 +61,65 @@ public static class RavenBodyChecks
         var p=Fresh();var t=Enemy(p);var at=TimedEffects.Now.AddHours(1);var body=DruidRavenBody.CreatePrepared(p,p.Location,at,1);
         try
         {
-            Require(body is{Blessed:true,BlocksFit:false,CanRegenHits:false,CanRegenMana:false,CanRegenStam:false,ControlSlots:0}
+            Require(body is{Blessed:true,BlocksFit:false,CanTarget:false,Hits:1,HitsMax:1,CanRegenHits:false,CanRegenMana:false,CanRegenStam:false,ControlSlots:0}
                 && !body.CanBeDamaged() && body.ControlMaster==p && body.SummonClass==DiabloClass.Druid && body.Permitted(p),"Actual source invulnerability/ownership/body contract");
             Require(body.Prepared is{Mode:8,Frame:0,Remaining:12,NextThink:25,EndAt:14,StatProfile:DruidRavenBody.SnapshotStats},"Birth clock context");
             var unmapped=new GraveyardLich();unmapped.MoveToWorld(p.Location,p.Map);unmapped.AIObject.AITimer.Stop();
-            Require(!body.Eligible(p,unmapped),"Unmapped source-size target silently accepted");unmapped.Delete();
+            Require(body.Eligible(p,unmapped),"Native monster without a source footprint cannot be targeted");unmapped.Delete();
             int life=SkillHealth.Balance256(t);body.BeginMelee(t);body.OnThink();Require(SkillHealth.Balance256(t)==life,"Native skeleton swing leaked");
             Through(body,14);Require(body.Prepared is{Mode:1,NextThink:25},"S1 end must preserve initial AI event");
-            Through(body,25);Require(body.Prepared is{Mode:4,Remaining:11,Attempts:1,ActionAt:36,EndAt:50},"First source-profile attack and attempted-hit budget: "+JsonSerializer.Serialize(body.Prepared)+" eligible="+body.Eligible(p,t)+" size="+CreatureProfiles.For(t).Traits.Size+" pos="+t.Location+"/"+body.Location);
-            Through(body,35);Require(SkillHealth.Balance256(t)==life,"Damage before action event");
-            Through(body,36);Require(body.Prepared.ActionAt==0,"Action event not consumed");
-            Through(body,50);Require(body.Prepared is{Mode:1,NextThink:65},"A1 end/default AI delay");
-            Through(body,65);Require(body.Prepared is{Mode:4,Remaining:10,Attempts:2},"Second attempted-hit budget");
-            t.MoveToWorld(new(p.X+10,p.Y,p.Z),p.Map);Through(body,76);Require(SkillHealth.Balance256(t)<=life && body.Prepared.ActionAt==0,"Moved target action not consumed");
+            Through(body,24);Require(SkillHealth.Balance256(t)==life,"Damage before strike decision");
+            Through(body,25);Require(body.Prepared is{Mode:4,Remaining:11,Attempts:1,Hits:1,ActionAt:0,EndAt:50}
+                && SkillHealth.Balance256(t)<life,"Attack did not resolve immediately");
+            int afterFirst=SkillHealth.Balance256(t);
+            t.MoveToWorld(new(p.X+10,p.Y,p.Z),p.Map);
+            Through(body,50);Require(body.Prepared is{Mode:1,NextThink:51},"Chase should resume after the attack animation");
+            Through(body,65);Require(body.Prepared is{ActionAt:0,Remaining:11,Attempts:1} && SkillHealth.Balance256(t)==afterFirst,
+                "Flock spent an attack while the monster was out of reach");
             t.MoveToWorld(p.Location,p.Map);body.MoveToWorld(p.Location,p.Map);
             // Keep a stationary target in source melee range and run the
             // declared legacy timing profile through natural budget exhaustion.
-            for(int frame=77;frame<2000&&!body.Deleted;frame++){Through(body,frame);}
+            for(int frame=66;frame<2000&&!body.Deleted;frame++){Through(body,frame);}
             Require(body.Deleted && SkillHealth.Balance256(t)<life && NamedControl.Blind(t),"Natural finite dives/damage/signed blind did not complete");
+        }
+        finally{t.Delete();End(p);}
+    }
+    private static void BoglingFocus()
+    {
+        var p=Fresh(5);
+        var at=TimedEffects.Now.AddHours(1);
+        var perch=new Point3D(p.X+6,p.Y,p.Z);
+        var body=DruidRavenBody.CreatePrepared(p,perch,at,1);
+        var t=new HavenEncounter(HavenEncounter.Bogling,1){CantWalk=true,NoKillAwards=true};
+        try
+        {
+            t.SetHits(10000);t.SetResistance(ResistanceType.Physical,0);
+            t.MoveToWorld(new(p.X+8,p.Y,p.Z),p.Map);
+            var ai=(LeashedMeleeAI)t.AIObject;
+            ai.AITimer.Stop();
+            long now=Core.TickCount;
+            t.Combatant=p;
+            Require(t.Combatant==p && !ai.UpdateLeash(now),"Start with an engaged bogling");
+            int life=SkillHealth.Balance256(t);
+            Through(body,25);
+            Require(body.Location==perch && body.Prepared is{Attempts:1,Hits:1,ActionAt:0}
+                && body.Prepared.Focus==t.Serial.Value && SkillHealth.Balance256(t)<life,"The first two-tile strike did not land immediately");
+            Require(NamedControl.ApplySummonBlind(body,t,-1,false,()=>0) && NamedControl.Think(t)
+                && t.Combatant==null && !ai.UpdateLeash(now+1) && body.Eligible(p,t),
+                "The bogling's blindness made it enter the leash reset despite the flock's attack");
+            life=SkillHealth.Balance256(t);
+            Through(body,72);
+            Require(body.Location==perch && body.Prepared.Focus==t.Serial.Value && body.Prepared is{Attempts:2,Hits:2}
+                && SkillHealth.Balance256(t)<life,"The flock stopped attacking its blinded target");
+
+            t.Home=new(t.X-t.HomeLeashRadius-1,t.Y,t.Z);
+            Require(ai.UpdateLeash(now+2) && !t.IsEnemy(p) && body.Eligible(p,t),
+                "Returning bogling either stayed in combat or stopped being a target");
+            life=SkillHealth.Balance256(t);
+            Through(body,120);
+            Require(body.Location==perch && body.Prepared.Focus==t.Serial.Value && body.Prepared.Attempts>2
+                && SkillHealth.Balance256(t)<life && t.ReturningHome && t.Combatant==null,
+                "The flock stopped damaging the bogling or interrupted its return home");
         }
         finally{t.Delete();End(p);}
     }
@@ -87,11 +129,12 @@ public static class RavenBodyChecks
         try
         {
             var bodies=Enumerable.Range(0,6).Select(i=>DruidRavenBody.CreatePrepared(p,p.Location,at,(ulong)(100+i))).ToArray();
-            Require(bodies[0].Deleted && DruidRavens.For(p).Length==5,"Shared FIFO five-Raven cap");
+            Require(bodies.Take(5).All(x=>x.Deleted) && DruidRavens.For(p).Single()==bodies[^1]
+                && bodies[^1].FlockSize==5,"One logical five-bird flock");
             DruidRavens.Focus(p,t);Require(DruidRavens.For(p).All(x=>x.Prepared.Focus==t.Serial.Value),"Whole-flock explicit target");
             DruidRavens.Focus(p,other);Require(DruidRavens.For(p).All(x=>x.Prepared.Focus==other.Serial.Value),"Whole-flock target switch");
             DruidRavens.Focus(p,p);Require(DruidRavens.For(p).All(x=>x.Prepared.Focus==other.Serial.Value),"Friendly focus accepted");
-            var body=bodies[1];Snapshots(body);var before=body.Prepared;
+            var body=bodies[^1];Snapshots(body);var before=body.Prepared;
             body.Advance(at.AddMinutes(1),false);var offline=body.Prepared;
             Require(body.Map==Map.Internal && offline.Seed==before.Seed && offline.Remaining==before.Remaining && offline.Attempts==0 && offline.Hits==0,"Offline attacks/RNG/budget replay");
             body.Advance(at.AddMinutes(1).AddMilliseconds(40),true);Require(body.Map==p.Map && body.Prepared.Frame>offline.Frame,"Resume parked zero-size body");
@@ -99,10 +142,10 @@ public static class RavenBodyChecks
             try
             {
                 SummonDifficulties.SetFacets([new(Map.Trammel.MapID,MonsterDifficulty.Normal),new(Map.Felucca.MapID,MonsterDifficulty.Hell)]);
-                SkillHealth.SetBalance256(body,13*256-7);int life=SkillHealth.Balance256(body);var old=body.Prepared.Birth;
+                var old=body.Prepared.Birth;
                 p.MoveToWorld(p.Location,Map.Felucca);
                 Require(body.Prepared.Difficulty==MonsterDifficulty.Hell && body.Prepared.Birth.Level==old.Level
-                    && body.Prepared.Birth.Rank==old.Rank && SkillHealth.Balance256(body)==life,"Facet callback changed birth rank/level or life ratio");
+                    && body.Prepared.Birth.Rank==old.Rank && body is{Alive:true,Hits:1,HitsMax:1},"Facet callback changed birth or native alive marker");
                 body.Advance(body.Prepared.NextFrameUtc,true);Require(body.Map==p.Map && body.Prepared.Map==p.Map.MapID,"Raven owner facet follow");
             }
             finally{SummonDifficulties.SetFacets(oldFacets);}
@@ -120,8 +163,8 @@ public static class RavenBodyChecks
         var p=Fresh();var at=TimedEffects.Now.AddHours(1);var body=DruidRavenBody.CreatePrepared(p,new(p.X+15,p.Y,p.Z),at,42);
         try
         {
-            var start=body.Location;Through(body,25);Require(body.Prepared.Mode==2,"Distant owner follow did not request flight");
-            Through(body,100);Require(body.Location!=start && body.Prepared.Fault==null,"Connected source path/motion did not fly");
+            var start=body.Location;Through(body,100);
+            Require(body.X==start.X-1 && body.Y==start.Y && body.Prepared.Fault==null,"Flock did not take a native follow step");
         }
         finally{End(p);}
     }
@@ -135,9 +178,9 @@ public static class RavenBodyChecks
             var helm=NamedGear.Create(NamedGear.Catalog.Items.Single(x=>x.Name=="Tarnhelm").Id,99,new Random(173),true);
             Require(p.EquipItem(helm),"Mode capture actual Tarnhelm");ClassGear.Refresh(p);
             Through(body,36);Require(body.Prepared.Packet.Rank==1 && body.Prepared.Birth.Rank==1,"Mid-mode gear rewrote stored packet/birth");
-            Through(body,65);Require(body.Prepared.Packet.Rank==2 && body.Prepared.Remaining==10 && body.Prepared.Birth.Rank==1,"Next mode ignored live gear or recaptured finite budget/birth");
+            Through(body,65);Require(body.Prepared.Packet.Rank==2 && body.Prepared.Remaining==10 && body.Prepared.Birth.Rank==1,"Next strike ignored live gear or recaptured finite budget/birth");
             var before=body.Prepared;int life=SkillHealth.Balance256(t);PersistentMinions.Suspend(p);
-            Require(body.Prepared is{Mode:1,ActionAt:0,Target:0} && body.Prepared.Remaining==before.Remaining,"Offline did not cancel pending attack without refunding attempt");
+            Require(body.Prepared is{Mode:1,ActionAt:0,Target:0} && body.Prepared.Remaining==before.Remaining,"Offline cancellation changed attack budget");
             body.Advance(before.NextFrameUtc.AddMinutes(5),false);
             Require(body.Prepared.Seed==before.Seed && body.Prepared.Attempts==before.Attempts && SkillHealth.Balance256(t)==life,"Offline pending strike replayed");
         }
@@ -145,11 +188,11 @@ public static class RavenBodyChecks
     }
     private static void Check()
     {
-        Require(DruidCombat.Implemented(CombatAbility.Raven),"Learned Raven route missing");Attacks();ModeCapture();FlockAndLifecycle();Flight();
+        Require(DruidCombat.Implemented(CombatAbility.Raven),"Learned Raven route missing");Attacks();BoglingFocus();ModeCapture();FlockAndLifecycle();Flight();
         var p=Fresh();var at=TimedEffects.Now.AddDays(2);var body=DruidRavenBody.CreatePrepared(p,p.Location,at,442);
         Through(body,14);Snapshots(body);PersistentMinions.Suspend(p);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,body.Serial.Value,body.Prepared,p.Map.MapID,p.Location)));
-        Log.Information("Prepared Raven body: finite attacks, damage/blind, FIFO/focus, offline/wardrobe/facet lifecycle, flight and snapshot controls pass; legacy AI timing profile remains unverified against current D2R");
+        Log.Information("Prepared Raven flock: instant two-tile damage, bogling focus through leash reset, finite strikes, damage/blind, movement and lifecycle pass");
     }
     private static void Reload()
     {
@@ -165,22 +208,36 @@ public static class RavenBodyChecks
     }
     private static void Live(NetState network)
     {
-        var p=Fresh();var t=Enemy(p);TimedEffects.PreventHealing(t,TimedEffects.Now);int life=SkillHealth.Balance256(t);
+        var p=Fresh();var t=Enemy(p,5);TimedEffects.PreventHealing(t,TimedEffects.Now);int life=SkillHealth.Balance256(t);
+        var town=new GuardedRegion("Raven live guard test",p.Map,1000,new Rectangle2D(p.X-3,p.Y-3,15,7));
+        town.Register();
         network.Seeded=true;network.SentFirstPacket=true;network.CompressionEnabled=false;network.Mobile=p;p.NetState=network;
         var field=typeof(NetState).GetField("_protocolState",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);
         Require(field!=null,"Protocol bootstrap");field.SetValue(network,Enum.Parse(field.FieldType,"GameServer_LoggedIn"));network.ResetMovementState();
-        var body=DruidRavenBody.CreatePrepared(p,p.Location,TimedEffects.Now,1);long deadline=Core.TickCount+30000;
+        var start=p.Location;var body=DruidRavenBody.CreatePrepared(p,start,TimedEffects.Now,1);
+        body.FocusOn(t);
+        t.MoveToWorld(new(p.X+7,p.Y,p.Z),p.Map);
+        p.Direction=Direction.North;Require(p.Move(Direction.North),"Owner move inside guarded town");
+        long deadline=Core.TickCount+30000;var previous=start;int steps=0;
+        void Clean(){town.Unregister();t.Delete();End(p);}
         void Inspect()
         {
             try
             {
                 Require(network.Running,"Fixture transport stopped: "+JsonSerializer.Serialize(body.Prepared));
                 Require(Core.TickCount<deadline,"Natural Raven attack exhaustion timed out: "+JsonSerializer.Serialize(body.Prepared));
-                if(!body.Deleted){Require(body.Prepared.Fault==null,"Natural Raven fault: "+body.Prepared.Fault);Timer.StartTimer(TimeSpan.FromMilliseconds(30),Inspect);return;}
-                Require(SkillHealth.Balance256(t)<life && body.Prepared.Attempts==12 && body.Prepared.Remaining==0,"Connected timer/budget/damage completion: "+life+" -> "+SkillHealth.Balance256(t)+" state="+JsonSerializer.Serialize(body.Prepared));
-                t.Delete();End(p);Log.Information("raven-body-live-result: passed");
+                if(!body.Deleted)
+                {
+                    Require(body.Map==p.Map && !MinionSafeAreas.Parked(body) && body.Prepared.Fault==null
+                        && body.InRange(previous,1),"Flock warped or parked during native guarded-town pursuit");
+                    if(body.Location!=previous){previous=body.Location;steps++;}
+                    Timer.StartTimer(TimeSpan.FromMilliseconds(30),Inspect);return;
+                }
+                Require(steps>=5 && SkillHealth.Balance256(t)<life && body.Prepared.Attempts==12 && body.Prepared.Remaining==0,
+                    "Native pursuit and twelve contact attempts: steps "+steps+" life "+life+" -> "+SkillHealth.Balance256(t)+" state="+JsonSerializer.Serialize(body.Prepared));
+                Clean();Log.Information("raven-body-live-result: passed");
             }
-            catch(Exception e){t.Delete();End(p);Log.Error(e,"raven-body-live-result: failed");}
+            catch(Exception e){Clean();Log.Error(e,"raven-body-live-result: failed");}
         }
         Timer.StartTimer(TimeSpan.FromMilliseconds(30),()=>{Log.Information("raven-body-live: ready");Inspect();});
     }

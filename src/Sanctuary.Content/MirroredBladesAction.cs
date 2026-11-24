@@ -120,8 +120,6 @@ internal static class MirroredBladesAction
                 }
                 else
                 {
-                    var weapon=CombatTiming.Equipped(p);bool arrow=input.Kind is MirroredWeaponKind.Arrow or MirroredWeaponKind.Bolt;
-                    if(arrow?!BowAmmunition.CanRelease(p,weapon):!NamedAmmunition.CanAttack(weapon)){return false;}
                     var aim=target!=null&&Enemy(p,target)?target.Location:a.Aim;if(!Aim(p,aim)){return false;}
                     long cast=WeaponMissiles.NewCast();var created=new List<long>();var at=TimedEffects.Now;
                     foreach(var packet in packets)
@@ -136,8 +134,6 @@ internal static class MirroredBladesAction
                     }
                     if(!a.UsedBasic&&!NecromancerEffects.Pay(p,input.Skill.Mana256)){foreach(long id in created){WeaponMissiles.RemovePrepared(id);}return false;}
                     a.ManaPaid256=a.UsedBasic?0:input.Skill.Mana256;
-                    bool consumed=arrow?BowAmmunition.Consume(p,weapon):NamedAmmunition.Consume(weapon,at);
-                    if(!consumed){foreach(long id in created){WeaponMissiles.RemovePrepared(id);}NecromancerEffects.AddMana(p,a.ManaPaid256);a.ManaPaid256=0;return false;}
                     a.Flights=created.ToArray();a.Attempts=count;
                     if (!a.UsedBasic)
                     {

@@ -15,7 +15,8 @@ public sealed record EncounterTreasureClass(string Name, int Group, int Level, i
     int[] Factors, EncounterTreasureEntry[] Entries);
 public sealed record EncounterTreasureRoot(string Family, MonsterDifficulty Difficulty, EncounterGrade Grade, string Name);
 public sealed record EncounterTreasureCatalog(string SourceCommit, Dictionary<string, string> SourceSha256, int MaxDrops,
-    string SetUniquePolicy, EncounterTreasureRoot[] Roots, EncounterTreasureClass[] Classes);
+    string SetUniquePolicy, EncounterTreasureRoot[] Roots, Dictionary<string, string> CampaignBossRoots,
+    Dictionary<string, string> HythlothMinibossRoots, EncounterTreasureClass[] Classes);
 internal sealed record EncounterDrop(string Leaf, int GoldMultiplier, int[] Factors);
 
 public static class EncounterTreasure
@@ -23,6 +24,8 @@ public static class EncounterTreasure
     private static readonly Dictionary<string, EncounterTreasureClass> _classes = new(StringComparer.Ordinal);
     private static readonly Dictionary<(string, MonsterDifficulty, EncounterGrade), string> _roots = new();
     private static readonly Dictionary<string, EncounterTreasureEntry[]> _equipmentEntries = new(StringComparer.Ordinal);
+    private static Dictionary<string, string> _campaignBossRoots;
+    private static Dictionary<string, string> _hythlothMinibossRoots;
     public static void Load()
     {
         var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true, UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow };
@@ -34,7 +37,7 @@ public static class EncounterTreasure
         _classes.Clear(); _roots.Clear(); _equipmentEntries.Clear();
         foreach (var row in catalog.Classes)
         {
-            if (row.Picks is < -6 or 0 or > 6 || row.NoDrop < 0 || row.Entries is not { Length: > 0 }
+            if (row.Picks is < -6 or 0 or > 7 || row.NoDrop < 0 || row.Entries is not { Length: > 0 }
                 || row.Factors is not { Length: 4 } || row.Level is < 0 or > 99 || row.Group < 0)
             { throw new InvalidDataException("Invalid encounter treasure class."); }
             foreach (int factor in row.Factors) { if (factor is < 0 or > 1024) { throw new InvalidDataException("Invalid quality factor."); } }
@@ -53,6 +56,16 @@ public static class EncounterTreasure
                 || !Enum.IsDefined(root.Difficulty) || !_classes.ContainsKey(root.Name)) { throw new InvalidDataException("Invalid encounter treasure root."); }
             _roots.Add((root.Family, root.Difficulty, root.Grade), root.Name);
         }
+        if (catalog.CampaignBossRoots is not { Count: 3 } bossRoots || CampaignArenas.All.Any(arena =>
+                !bossRoots.TryGetValue(arena.Profile.Id, out var name) || !_classes.TryGetValue(name, out var row) || row.Picks != 7))
+            throw new InvalidDataException("Missing or invalid campaign boss treasure root.");
+        _campaignBossRoots = bossRoots;
+        if (catalog.HythlothMinibossRoots is not { Count: 4 } minibossRoots || Enum.GetValues<HythlothRole>()
+                .Where(role => role >= HythlothRole.Herald)
+                .Any(role => !minibossRoots.TryGetValue($"hythloth-{role.ToString().ToLowerInvariant()}", out var name)
+                    || !_classes.TryGetValue(name, out var row) || row.Picks != -4 || row.Entries.Length != 2))
+            throw new InvalidDataException("Missing or invalid Hythloth miniboss treasure root.");
+        _hythlothMinibossRoots = minibossRoots;
         foreach (var row in _classes.Values) { Validate(row.Name, new HashSet<string>(), 0); }
     }
     private static void Validate(string name, HashSet<string> path, int depth)
@@ -64,6 +77,10 @@ public static class EncounterTreasure
     }
     internal static string Root(EncounterCreature creature)
     {
+        if (creature is CampaignBoss)
+            return _campaignBossRoots[creature.Dungeon.Id];
+        if (creature is HythlothEncounter { Leader: true })
+            return _hythlothMinibossRoots[creature.Dungeon.Id];
         if (creature is HavenEncounter haven)
         {
             return haven.Leader ? "Act 1 Unique B" : CreatureProfiles.Level(haven) switch
@@ -73,8 +90,16 @@ public static class EncounterTreasure
                 _ => "Act 1 H2H A"
             };
         }
+        if (creature is DestardEncounter destard)
+        {
+            if (destard.Role is DestardRole.CorruptedHatchling or DestardRole.DaemonSpawn)
+                return "Act 2 H2H B";
+
+            string kind = destard.Dungeon.Archetype == MonsterArchetype.Caster ? "Cast" : "H2H";
+            return $"Act 1 (H) {kind} A";
+        }
         if (creature is FrontierEncounter or CovetousEncounter or CoveEncounter or HedgeEncounter or YewEncounter
-            or YewVampire or OrcFortEncounter or BrigandEncounter)
+            or YewVampire or OrcFortEncounter or BrigandEncounter or HythlothEncounter)
         {
             string tier = CreatureProfiles.Level(creature) >= 25 ? "B" : "A";
             string kind = creature.Leader ? "Unique" : creature.Grade == EncounterGrade.Champion ? "Champ"
@@ -83,7 +108,16 @@ public static class EncounterTreasure
         }
         var grade = creature.Grade switch { EncounterGrade.Minion => EncounterGrade.Ordinary,
             EncounterGrade.SuperUnique => EncounterGrade.Unique, var value => value };
-        var root = _classes[_roots[(creature.Dungeon.Family, creature.Difficulty, grade)]];
+        string name;
+        if (creature is DeceitEncounter or MausoleumDemon)
+        {
+            var kind = grade == EncounterGrade.Unique ? "Unique" : grade == EncounterGrade.Champion ? "Champ"
+                : creature.Dungeon.Archetype == MonsterArchetype.Caster ? "Cast" : "H2H";
+            name = $"Act 1 (N) {kind} A";
+        }
+        else
+            name = _roots[(creature.Dungeon.Family, creature.Difficulty, grade)];
+        var root = _classes[name];
         if (creature.Difficulty != MonsterDifficulty.Normal && root.Group != 0)
         {
             foreach (var candidate in _classes.Values)
@@ -135,15 +169,13 @@ public static class EncounterTreasure
     {
         var drops = new List<EncounterDrop>(6);
         var root = _classes[Root(creature)];
-        if (creature.Grade == EncounterGrade.SuperUnique)
+        if (creature.Grade == EncounterGrade.SuperUnique && !HasDedicatedLoot(creature))
         {
             // Project named bosses reserve two gear outcomes plus four potion outcomes within D2's six-drop bound.
             if (root.Picks != -3 || root.Entries.Length != 2) { throw new InvalidDataException("Named encounter root is not a unique tree."); }
             root = root with { Picks = -4, Entries = [root.Entries[0] with { Weight = 2 }, root.Entries[1] with { Weight = 2 }] };
         }
-        // Simulated players are unpartied. The killer counts once and each pair of extra players counts once.
-        int dropPlayers = (creature.EncounterPlayers + 1) / 2;
-        Walk(root, new int[4], 0, 256, dropPlayers, random, drops);
+        Walk(root, new int[4], 0, 256, creature.EncounterPlayers, random, drops);
         if (creature is HavenEncounter { Leader: true })
         {
             // Keep the named encounter's two gear rolls and six-drop budget.
@@ -152,18 +184,13 @@ public static class EncounterTreasure
         return drops;
     }
     private static void Walk(EncounterTreasureClass row, int[] inherited, int depth, int multiplier,
-        int dropPlayers, Random random, List<EncounterDrop> drops)
+        int players, Random random, List<EncounterDrop> drops)
     {
         if (depth > 64 || drops.Count >= 6) { return; }
         int[] factors = new int[4];
         for (int i = 0; i < 4; i++) { factors[i] = Math.Max(inherited[i], row.Factors[i]); }
         int weight = 0; foreach (var entry in row.Entries) { weight = checked(weight + entry.Weight); }
-        int noDrop = row.NoDrop;
-        if (row.Picks > 0 && noDrop > 0 && dropPlayers > 1)
-        {
-            double probability = Math.Pow((double)noDrop / (noDrop + weight), dropPlayers);
-            noDrop = (int)(weight * probability / (1 - probability));
-        }
+        int noDrop = row.Picks > 0 ? DungeonPlayerScaling.NoDrop(row.NoDrop, weight, players) : 0;
         for (int pick = 0; pick < Math.Abs(row.Picks) && drops.Count < 6; pick++)
         {
             int ticket = row.Picks < 0 ? pick : random.Next(checked(noDrop + weight)) - noDrop;
@@ -174,14 +201,18 @@ public static class EncounterTreasure
                 if (ticket >= 0) { continue; }
                 int goldMultiplier = entry.GoldMultiplier == 256 ? multiplier : entry.GoldMultiplier;
                 if (_classes.TryGetValue(entry.Item, out var nested))
-                    Walk(nested, factors, depth + 1, goldMultiplier, dropPlayers, random, drops);
+                    Walk(nested, factors, depth + 1, goldMultiplier, players, random, drops);
                 else { drops.Add(new(entry.Item, goldMultiplier, factors)); }
                 break;
             }
         }
     }
+    internal static bool HasDedicatedLoot(EncounterCreature creature) =>
+        creature is CampaignBoss or HythlothEncounter { Leader: true };
+
     internal static void Award(RewardLife life, EncounterCreature creature, Random random)
     {
+        bool dedicated = HasDedicatedLoot(creature);
         foreach (var drop in Roll(creature, random))
         {
             if (drop.Leaf == "gld")
@@ -190,11 +221,16 @@ public static class EncounterTreasure
                 while (amount > 0) { int stack = Math.Min(60000, amount); life.Corpse.DropItem(new Gold(stack)); amount -= stack; }
                 continue;
             }
-            var item = AlchemyRestoratives.Drop(drop.Leaf) ?? GearDrops.Generate(GearDrops.SelectBase(drop.Leaf, random),
-                life.Level, life.MagicFind, random, drop.Factors);
+            var item = AlchemyRestoratives.Drop(drop.Leaf) ?? GearDrops.Generate(
+                GearDrops.SelectBase(drop.Leaf, random, equipmentOnly: dedicated),
+                life.Level, life.MagicFind, random, drop.Factors, fallbackNamed: dedicated);
             if (item != null) { life.Corpse.DropItem(item); }
         }
         if (creature is CoveEncounter { Orc: true } && random.Next(10) == 0)
             life.Corpse.DropItem(new OrcEar());
+        if (creature is DestardEncounter { DropsHorn: true } && !creature.Controlled && !creature.Summoned && random.Next(10) < 9)
+            life.Corpse.DropItem(new DaemonHorn());
+        if (creature is HavenEncounter { Dungeon.Id: HavenEncounter.EarthElemental } && random.Next(10) == 0)
+            life.Corpse.DropItem(new IronOre(1));
     }
 }

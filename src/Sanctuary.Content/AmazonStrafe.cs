@@ -52,7 +52,7 @@ public static class AmazonStrafe
     {var session=ClassCombat.Existing(owner);if(session==null){return;}session.Strafe=null;if(session.PendingAbility==CombatAbility.Strafe){session.PendingAbility=CombatAbility.None;}}
     public static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now)
     {
-        if(!AmazonCombat.Available(owner,CombatAbility.Strafe) || !BowAmmunition.CanRelease(owner,CombatTiming.Equipped(owner))){return false;}
+        if(!AmazonCombat.Available(owner,CombatAbility.Strafe)){return false;}
         bool ground=selected==Serial.Zero;
         if(!ground && !ClassCombat.IsHostile(owner,World.FindMobile(selected))){return false;}
         var values=SkillMechanics.Values(owner,CombatAbility.Strafe);var candidates=Candidates(owner);
@@ -60,9 +60,7 @@ public static class AmazonStrafe
         var timing=Timing(CombatTiming.Weapon(CombatTiming.Equipped(owner)).Family,CombatTiming.WeaponSequenceAdvance(owner));
         if(!SkillCombat.Begin(owner,CombatAbility.Strafe,selected,point,now,(p,_,_,_)=>p.Map!=null && p.Map!=Map.Internal && !SpellHelper.IsTown(p.Location,p),timing:timing)){return false;}
         var session=ClassCombat.For(owner);
-        // Complete start8/generic wrapper: quantity precedes one start debit.
-        // Later do-events have neither a quantity gate nor another mana debit.
-        if(!BowAmmunition.Consume(owner,CombatTiming.Equipped(owner)) || !NecromancerEffects.Pay(owner,values.Mana256))
+        if(!NecromancerEffects.Pay(owner,values.Mana256))
         {session.PendingAbility=CombatAbility.None;return false;}
         session.PendingLeft=session.HeldAbility==CombatAbility.Strafe && session.HeldAttack;
         session.Strafe=new(CombatTiming.Equipped(owner).Serial,target?.Serial??(Serial)uint.MaxValue,owner.Map,owner.Location,WeaponMissiles.NewCast(),

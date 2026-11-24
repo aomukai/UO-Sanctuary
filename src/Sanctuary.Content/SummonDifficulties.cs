@@ -87,9 +87,11 @@ public static class SummonDifficulties
     }
     public static MonsterDifficulty For(Map map) => map == null || map == Map.Internal
         ? MonsterDifficulty.Normal : _facets.GetValueOrDefault(map.MapID);
+    public static MonsterDifficulty For(Mobile mobile) =>
+        BritanniaCampaign.DungeonDifficulty(mobile.Map, mobile.Location, mobile.Region) ?? For(mobile.Map);
     public static MonsterDifficulty For(SkeletonGuardian pet) => Profiles?.States.GetValueOrDefault(pet.Serial)?.Difficulty ?? MonsterDifficulty.Normal;
     internal static void Created(SkeletonGuardian pet, PlayerMobile owner)
-        => Profiles.States[pet.Serial] = new(owner.Serial.Value, For(owner.Map));
+        => Profiles.States[pet.Serial] = new(owner.Serial.Value, For(owner));
     private static void LocationChanged(Mobile mobile)
     { if (!World.Loading && mobile is PlayerMobile owner) { Sync(owner); } }
     // Quantize down once to FP256. Retain a living fractional point at the lower
@@ -102,7 +104,7 @@ public static class SummonDifficulties
     internal static void Sync(PlayerMobile owner)
     {
         if (owner is not { Alive: true, Deleted: false } || owner.Map == null || owner.Map == Map.Internal || World.Loading) { return; }
-        var difficulty = For(owner.Map);
+        var difficulty = For(owner);
         foreach (var follower in owner.AllFollowers ?? [])
         {
             if (follower is not SkeletonGuardian { Deleted: false, Alive: true } pet || pet.ControlMaster != owner) { continue; }

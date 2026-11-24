@@ -76,7 +76,7 @@ public static class DruidCreeperGround
             && !target.IsDeadBondedPet && !target.Hidden && !PaladinConversion.Active(target)
             && !target.Controlled && !target.Summoned && target.GetMaster()==null && !target.InitialInnocent
             && target.FightMode is not(FightMode.None or FightMode.Aggressor or FightMode.Evil)
-            && target.IsEnemy(owner) && !SpellHelper.IsTown(target.Location,owner) && owner.CanBeHarmful(target,false);
+            && ClassCombat.IsEnemyTarget(target, owner) && !SpellHelper.IsTown(target.Location,owner) && owner.CanBeHarmful(target,false);
     private static CreeperFields Step(CreeperGround s,PlayerMobile owner)
     {
         var map=Map.Maps[s.Map];var actor=World.FindMobile((Serial)s.Actor) as DruidCreeperBody;

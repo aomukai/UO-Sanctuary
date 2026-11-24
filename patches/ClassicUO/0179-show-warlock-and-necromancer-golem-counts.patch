@@ -1,0 +1,135 @@
+diff --git a/src/ClassicUO.Client/Game/ClassSkillBindingsClient.cs b/src/ClassicUO.Client/Game/ClassSkillBindingsClient.cs
+--- a/src/ClassicUO.Client/Game/ClassSkillBindingsClient.cs
++++ b/src/ClassicUO.Client/Game/ClassSkillBindingsClient.cs
+@@ -19,6 +19,7 @@
+     public static CombatAbility Right { get; private set; }
+     public static NecromancerSummonCounts? Summons { get; private set; }
+     public static DruidSummonCounts? DruidSummons { get; private set; }
++    public static WarlockSummonCounts? WarlockSummons { get; private set; }
+     public static bool Ready { get; private set; }
+     public static bool Available(CombatAbility ability) => ability == CombatAbility.None || ClassAbilities.Valid(ability) && (_available[(int)ability / 8] & 1 << ((int)ability % 8)) != 0;
+     public static bool LowMana(int slot) => (_lowMana & 1 << slot) != 0;
+@@ -28,6 +29,7 @@
+         _lowMana = 0;
+         Summons = null;
+         DruidSummons = null;
++        WarlockSummons = null;
+         Array.Clear(_quick); _sequence = 0; Array.Clear(_available); _nextPoll = Time.Ticks; Ready = false; Class = default;
+         UIManager.GetGump<ClassSkillBarGump>()?.Dispose(); UIManager.GetGump<ClassSkillsPanelGump>()?.Dispose();
+     }
+@@ -36,7 +38,11 @@
+         if (!ClassCombatClient.Enabled) { return; }
+         if (Ready && UIManager.GetGump<ClassSkillBarGump>() == null) { UIManager.Add(new ClassSkillBarGump(world)); }
+         if (unchecked((int)(Time.Ticks - _nextPoll)) >= 0)
+-        { _nextPoll = Time.Ticks + SkillBindingProtocol.PollMs; Send(SkillBindingRequest.Poll, SkillBindingProtocol.SummonCountsPollFlag); }
++        {
++            _nextPoll = Time.Ticks + SkillBindingProtocol.PollMs;
++            Send(SkillBindingRequest.Poll, SkillBindingProtocol.SummonCountsPollFlag,
++                SkillBindingProtocol.ExtendedSummonCountsCapability);
++        }
+     }
+     public static void TogglePanel(World world)
+     {
+@@ -77,6 +83,7 @@
+         int length = reader.Remaining + 5;
+         byte version = length switch
+         {
++            SkillBindingProtocol.ExtendedSummonStateLength => SkillBindingProtocol.ExtendedSummonStateVersion,
+             SkillBindingProtocol.SummonStateLength => SkillBindingProtocol.SummonStateVersion,
+             SkillBindingProtocol.StateLength => SkillBindingProtocol.Version,
+             SkillBindingProtocol.LegacyStateLength => SkillBindingProtocol.LegacyVersion,
+@@ -98,6 +105,7 @@
+         ushort lowMana = version != SkillBindingProtocol.LegacyVersion ? reader.ReadUInt16BE() : (ushort)0;
+         NecromancerSummonCounts? summons = null;
+         DruidSummonCounts? druidSummons = null;
++        WarlockSummonCounts? warlockSummons = null;
+         if (version == SkillBindingProtocol.SummonStateVersion)
+         {
+             byte first = reader.ReadUInt8(), second = reader.ReadUInt8(), third = reader.ReadUInt8();
+@@ -106,11 +114,24 @@
+             else if (id == DiabloClass.Druid)
+                 druidSummons = new(first, second, third);
+         }
+-        if (changed || lowMana != _lowMana || summons != Summons || druidSummons != DruidSummons)
++        else if (version == SkillBindingProtocol.ExtendedSummonStateVersion)
++        {
++            byte first = reader.ReadUInt8(), second = reader.ReadUInt8(), third = reader.ReadUInt8(), fourth = reader.ReadUInt8();
++            if (id == DiabloClass.Warlock)
++                warlockSummons = new(first, second, third, fourth);
++            else if (id == DiabloClass.Necromancer)
++            {
++                var golem = (CombatAbility)fourth;
++                if (golem is CombatAbility.None or CombatAbility.ClayGolem or CombatAbility.BloodGolem or CombatAbility.IronGolem or CombatAbility.FireGolem)
++                    summons = new(first, second, third, golem);
++            }
++        }
++        if (changed || lowMana != _lowMana || summons != Summons || druidSummons != DruidSummons || warlockSummons != WarlockSummons)
+         {
+             _lowMana = lowMana;
+             Summons = summons;
+             DruidSummons = druidSummons;
++            WarlockSummons = warlockSummons;
+             UIManager.GetGump<ClassSkillBarGump>()?.RequestUpdateContents();
+         }
+         if (changed)
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs
+@@ -138,17 +138,34 @@
+ 
+         const int stride = 34;
+         int menuX = (Width - Menu.Length * stride) / 2;
++        int summonWidth = Math.Min(32, (menuX - 8 - 3) / 4);
++        int summonStride = summonWidth + 1;
+         if (ClassSkillBindingsClient.Summons is { } summons && ClassSkillBindingsClient.Class == DiabloClass.Necromancer)
+         {
+-            SummonCell(8, y + 49, CombatAbility.RaiseSkeleton, summons.Warriors, "Skeletal Warriors");
+-            SummonCell(41, y + 49, CombatAbility.RaiseSkeletalMage, summons.Mages, "Skeletal Mages");
+-            SummonCell(74, y + 49, CombatAbility.Revive, summons.Revives, "Revives");
++            int width = summons.Golem.HasValue ? summonWidth : 32;
++            int spacing = width + 1;
++            SummonCell(8, y + 49, CombatAbility.RaiseSkeleton, summons.Warriors, "Skeletal Warriors", width);
++            SummonCell(8 + spacing, y + 49, CombatAbility.RaiseSkeletalMage, summons.Mages, "Skeletal Mages", width);
++            SummonCell(8 + 2 * spacing, y + 49, CombatAbility.Revive, summons.Revives, "Revives", width);
++            if (summons.Golem is { } golem)
++            {
++                bool active = golem != CombatAbility.None;
++                SummonCell(8 + 3 * spacing, y + 49, active ? golem : CombatAbility.ClayGolem, active ? (byte)1 : (byte)0,
++                    active ? CombatProtocol.Label(golem) : "Golem", width);
++            }
+         }
+         else if (ClassSkillBindingsClient.DruidSummons is { } druid && ClassSkillBindingsClient.Class == DiabloClass.Druid)
+         {
+             SummonCell(8, y + 49, CombatAbility.Raven, druid.Ravens, "Ravens");
+             SummonCell(41, y + 49, CombatAbility.SummonSpiritWolf, druid.SpiritWolves, "Spirit Wolves");
+             SummonCell(74, y + 49, CombatAbility.SummonDireWolf, druid.DireWolves, "Dire Wolves");
++        }
++        else if (ClassSkillBindingsClient.WarlockSummons is { } warlock && ClassSkillBindingsClient.Class == DiabloClass.Warlock)
++        {
++            SummonCell(8, y + 49, CombatAbility.SummonGoatman, warlock.LesserDaemons, "Lesser Daemons", summonWidth);
++            SummonCell(8 + summonStride, y + 49, CombatAbility.SummonTainted, warlock.Succubi, "Succubi", summonWidth);
++            SummonCell(8 + 2 * summonStride, y + 49, CombatAbility.SummonDefiler, warlock.Defilers, "Defilers", summonWidth);
++            SummonCell(8 + 3 * summonStride, y + 49, CombatAbility.BindDemon, warlock.BoundDemons, "Bound Demons", summonWidth);
+         }
+         for (int i = 0; i < Menu.Length; i++)
+         {
+@@ -175,13 +192,14 @@
+         y >= _flyoutHeight || x >= 16 + (2 + SkillBindingProtocol.Slots) * _step
+             && x < 24 + HotbarCells * _step;
+ 
+-    private void SummonCell(int x, int y, CombatAbility ability, byte count, string name)
+-    {
+-        var cell = Add(new DockCell(x, y, 32, 24, CellFill, $"{name} · {count} alive"));
+-        if (ClassSkillIcon.Create(ability, 2, 4, 16, count > 0) is { } icon)
+-            cell.Add(icon);
++    private void SummonCell(int x, int y, CombatAbility ability, byte count, string name, int width = 32)
++    {
++        var cell = Add(new DockCell(x, y, width, 24, CellFill, $"{name} · {count} alive"));
+         var label = cell.Add(new Label(count.ToString(), true, 0x0035, font: 1) { Y = 4 });
+         label.X = cell.Width - label.Width - 2;
++        int iconSize = Math.Min(16, label.X - 3);
++        if (iconSize > 0 && ClassSkillIcon.Create(ability, 2, (cell.Height - iconSize) / 2, iconSize, count > 0) is { } icon)
++            cell.Add(icon);
+     }
+ 
+     private void SkillCell(int x, int y, string key, CombatAbility ability, int slot, Action action = null)
