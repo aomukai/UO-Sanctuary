@@ -59,6 +59,7 @@ public static class BritanniaFrontier
         spawners += GraveyardPopulation.InstallSpawners("vesper-coast-spawns.json");
         spawners += GraveyardPopulation.InstallSpawners("west-orc-fort-spawns.json", relocate: true);
         CovetousPassages.Install(map);
+        Celeste.Install(map);
         spawners += GraveyardPopulation.InstallSpawners("covetous-spawns.json");
         HedgeMazeStory.Install(map);
         _logger.Information("Britannia frontier: installed {Scenery} decorations and {Spawners} spawners", scenery, spawners);

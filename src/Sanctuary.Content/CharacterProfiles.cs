@@ -331,7 +331,8 @@ public sealed class CharacterProfiles : GenericPersistence
         mobile.Stam = mobile.StamMax;
         if (mobile is PlayerMobile player)
         {
-            MercenaryCare.SyncOwner(player);
+            if (MercenaryCare.SyncOwner(player) is Celeste celeste)
+                celeste.RecordLevelsTogether(level - profile.Level);
             StatNetwork.Send(player);
             TownRecognition.Refresh(player);
             if (!EarnedTitles.Refresh(player)) { EarnedTitles.Changed(player); }
@@ -374,6 +375,12 @@ public sealed class CharacterProfiles : GenericPersistence
             return false;
         character.BritainDiscoveries |= discoveries;
         return true;
+    }
+
+    internal void ForgetDiscovery(Serial serial, StoryDiscoveries discovery)
+    {
+        if (_characters.TryGetValue(serial, out var character))
+            character.BritainDiscoveries &= ~discovery;
     }
 
     internal bool HasHedgeMazeProgress(Serial serial, HedgeMazeProgress flag) =>

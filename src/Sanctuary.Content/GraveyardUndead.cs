@@ -23,6 +23,7 @@ public static class GraveyardProfiles
             attacker is GraveyardUndead undead ? undead.NormalStats==null&&(NamedControl.Blind(undead)||SourceTerror.InCombat(undead))
                 ?null:undead.BeginMelee(target)
                 : attacker is SkeletonGuardian pet ? pet.BeginMelee(target)
+                : attacker is Celeste { Recruited: true } celeste ? celeste.BeginMelee(target)
                 : attacker is Wolfgang { Recruited: true } wolfgang ? wolfgang.BeginMelee(target) : null;
     }
     private static MonsterProfile Profile(MonsterLevel row) => new(row.Level, row.Life.Min, row.AttackRating.Min,

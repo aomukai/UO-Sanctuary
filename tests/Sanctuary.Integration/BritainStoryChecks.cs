@@ -29,6 +29,7 @@ public static class BritainStoryChecks
     public static void Configure()
     {
         Register("mounted-runebook", CheckMountedRunebook);
+        Register("cove-rune", CheckCoveRune);
         Register("bridge", () =>
         {
             var player = Player;
@@ -300,6 +301,65 @@ public static class BritainStoryChecks
         NecromancerEffects.SetMana256(player, 0);
         book.OnDoubleClick(player);
         Require(player.FindGump<RunebookGump>()?.Book == book, "The runebook did not open");
+    }
+
+    private static void CheckCoveRune()
+    {
+        var player = new PlayerMobile { Body = 0x190, Player = true, Name = "Cove rune fixture" };
+        player.AddItem(new Backpack());
+        player.MoveToWorld(new Point3D(6560, 3610, 0), Map.Trammel);
+        Profiles.Assign(player, DiabloClass.Paladin);
+        var iolo = new Iolo { RecruitedBy = player.Serial, ControlSlots = 0 };
+        try
+        {
+            Require(iolo.SetControlMaster(player) && MercenaryCare.Register(player, iolo, ClassStats.Level(player)),
+                "Could not set up Iolo before the royal audience");
+            iolo.MoveToWorld(player.Location, player.Map);
+            KillChief(iolo);
+            Require((Profiles.Discoveries(player.Serial) & StoryDiscoveries.CoveChief) == 0,
+                "Killing the chief without a runebook consumed the rune award");
+
+            Require(MercenaryCare.Retire(player, iolo), "Could not retire Iolo");
+            Profiles.Discover(player.Serial, StoryDiscoveries.IoloRetired);
+            Require(CollegeIolo.GiveRunebook(player), "Could not obtain Iolo's runebook after the first kill");
+            var book = player.Backpack.FindItemByType<Runebook>();
+            Require(book is { Entries.Count: 1 } && book.Default?.Location == BritainStory.CollegeRune,
+                "Obtaining a book retroactively filed the skipped rune");
+
+            KillChief(player);
+            Require(book.Entries.Count == 2 && book.Entries[1] is { MountedTravel: RuneMountTravel.Allowed } cove
+                && cove.Location == CoveGateRune.Gates && cove.Map == Map.Trammel
+                && (Profiles.Discoveries(player.Serial) & StoryDiscoveries.CoveChief) != 0,
+                "A later chief kill did not file and record the Cove Gates rune");
+
+            KillChief(player);
+            Require(book.Entries.Count == 2, "Another chief kill duplicated the entry");
+        }
+        finally
+        {
+            MercenaryCare.States.Remove(iolo.Serial);
+            iolo.Delete();
+            player.Delete();
+        }
+
+        void KillChief(Mobile killer)
+        {
+            var chief = new CoveEncounter("cove-orc-chief", 25);
+            try
+            {
+                chief.MoveToWorld(player.Location, player.Map);
+                chief.Damage(100_000, killer);
+                Require(chief.Corpse is Corpse { SanctuaryNoRewards: true } corpse
+                    && corpse.FindItemByType<CoveGateRune>() == null
+                    && player.Backpack.FindItemByType<CoveGateRune>() == null,
+                    "The chief death did not finish processing or produced a loose rune");
+            }
+            finally
+            {
+                chief.Corpse?.Delete();
+                chief.Delete();
+            }
+        }
     }
 
     private static void CheckMountedRunebook()

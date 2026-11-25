@@ -57,6 +57,12 @@ public static class RunebookTravel
             return;
         }
 
+        var departure = player.Location;
+        if (Celeste.LeavingCovetous(player, map, destination)
+            && Celeste.StopDeparture(player, () => player.Location == departure && Celeste.LeavingCovetous(player, map, destination),
+                () => Travel(player, entry)))
+            return;
+
         ClassCombat.Stop(player);
         player.RevealingAction();
         BaseCreature.TeleportPets(player, destination, map);

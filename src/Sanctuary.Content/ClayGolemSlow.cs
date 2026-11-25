@@ -34,14 +34,20 @@ internal static class ClayGolemSlow
     }
     internal static void Incoming(Mobile attacker,Mobile defender,bool ranged,DateTime at)
     {
-        if(ranged||defender is not ClayGolemBody{Alive:true,Deleted:false} golem||attacker is not{Alive:true,Deleted:false}
-            ||attacker==golem||attacker.Map!=golem.Map||golem.Map==null||golem.Map==Map.Internal||ClassCombat.Friendly(attacker,golem)){return;}
+        int slow = defender switch
+        {
+            ClayGolemBody golem => golem.ReactiveSlowPercent,
+            ShameEncounter { Role: ShameRole.Corundum } => 35,
+            _ => 0
+        };
+        if(ranged||slow==0||defender is not{Alive:true,Deleted:false}||attacker is not{Alive:true,Deleted:false}
+            ||attacker==defender||attacker.Map!=defender.Map||defender.Map==null||defender.Map==Map.Internal||ClassCombat.Friendly(attacker,defender)){return;}
         if(!Flags(attacker,out int flags))
         {
             string key=attacker.GetType().FullName;
             if(Reported.Add(key)){Log.Warning("Clay incoming slow needs reviewed monster flags for {Type};other combat continues",key);}return;
         }
-        if(Amount(attacker is PlayerMobile?0:1,golem.ReactiveSlowPercent,flags) is{} amount)
+        if(Amount(attacker is PlayerMobile?0:1,slow,flags) is{} amount)
         {TimedEffects.SlowReaction(attacker,amount,at);}
     }
 }

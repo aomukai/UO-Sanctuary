@@ -17,6 +17,14 @@ sheet by updating `TrainerPortraitSheets` in `PortraitProtocol.cs`.
 
 ## Portrait audit
 
+### Shame’s pirate captains
+
+Built-in ImageGen painted two original square dialogue portraits with direct eye contact, a tight head-and-shoulders crop, a dark cave backdrop, and cool spectral light around the silhouette.
+
+- `portrait-npc-shameghostcaptain.png` depicts the castaway captain in a faded teal coat and headscarf, with a salt-and-pepper beard and a crooked grin.
+- `portrait-npc-shamefleetcaptain.png` depicts the fleet captain in a weathered charcoal hat and burgundy coat, with hollow cheeks and a defiant stare.
+
+
 ### Jens Won
 
 The built-in ImageGen tool used `portrait-npc-harlan.png` as the painting-style reference. The shipped portrait is `portrait-npc-jenswon.png`.
@@ -165,3 +173,11 @@ Vaelith and Rhazek were generated with the built-in ImageGen tool using [Jaana�
 ### Archbishop Lazarus
 
 A severe, aging human archbishop in dark wine-red vestments with tarnished gold embroidery. Deep-set eyes meet the Avatar’s gaze. Warm light falls across his face in a dim cathedral undercroft. The portrait accompanies his greeting at the sacrificial altar below Deceit. [Lazarus portrait](portrait-npc-lazarus.png)
+
+### Celeste
+
+The built-in ImageGen tool painted [Celeste in Covetous](portrait-npc-celeste.png) and [Celeste with her gear](portrait-npc-celestearmored.png). The first portrait is the identity reference for the second. The armored portrait starts with the gear-recovery dialogue.
+
+> Use case: stylized-concept. Create one original square full-bleed dialogue portrait of Celeste, an adult woman paladin held captive in a medieval dungeon, for Sanctuary’s grounded dark fantasy RPG. She has dark auburn hair drawn back in an untidy, practical braid, a weathered lightly freckled face and steady gray eyes with a tired, resolute expression. Her armor has been taken. Dress her in a plain worn gray linen gambeson with a muted blue collar. Both eyes fully visible, looking directly into the player's eyes, slight turn of shoulders allowed. Tight centered head and shoulders, entire hairline in frame, face readable at 150 pixels. Hand-painted late-1990s CRPG oil and gouache brushwork, natural proportions, warm amber sidelight, and dark low-detail brown dungeon stone. No border, text, weapon, shield, watermark, blood or photorealism.
+
+> Use case: identity-preserve. Paint the post-recovery version of this exact square Sanctuary dialogue portrait. Preserve Celeste’s recognizable face, gray eyes meeting the player, lightly freckled complexion, auburn braid, calm resolute expression, head-and-shoulders scale, painterly late-1990s CRPG brushwork, amber sidelight and dim dungeon stone. Replace the prison gambeson with her complete practical medieval paladin kit, with a visible fitted steel ringmail hauberk, mail at the shoulders, a restrained steel gorget and muted blue textile accents. A coif can lie down on her shoulders so the face and auburn hair remain recognizable. Show the upper edge of her father’s worn Order Shield low in the crop, with a restrained blue and silver heraldic emblem, with clear unobstructed eyes. Square full bleed. No frame, text, watermark or modern elements.

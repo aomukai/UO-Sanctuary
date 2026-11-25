@@ -60,7 +60,7 @@ public static class PaladinConviction
         int amount=Math.Min(150,30+(legacy-1)*5);
         return ImmunityDelta(target,baseline,-amount);
     }
-    internal static bool Apply(PlayerMobile owner,Mobile target,SkillValues values,DateTime until)
+    internal static bool Apply(Mobile owner,Mobile target,SkillValues values,DateTime until)
     {
         if(Protected(target,values.Rank)){return false;}
         var old=Effect(target);
@@ -72,7 +72,8 @@ public static class PaladinConviction
         PaladinHostileAuraVisuals.ConvictionRecipient(target, lease, TimedEffects.Now, old == null || old.Rank < lease.Rank);
         return true;
     }
-    internal static void Pulse(PlayerMobile owner,SkillValues values,DateTime now)
+    internal static void Pulse(PlayerMobile owner,SkillValues values,DateTime now) => Pulse(owner,owner,values,now);
+    internal static void Pulse(Mobile owner,PlayerMobile hostilityOwner,SkillValues values,DateTime now)
     {
         int frames=Math.Max(5,(int)values.Eval("perdelay"));var until=now.AddMilliseconds((frames+1)*40);
         bool starting = ClassSupplierRank(owner) == 0;
@@ -86,7 +87,7 @@ public static class PaladinConviction
         foreach(var target in owner.Map.GetMobilesInRange<Mobile>(owner.Location,(int)Math.Ceiling(radius)))
         {
             double dx=target.X-owner.X,dy=target.Y-owner.Y;
-            if(ClassCombat.IsHostile(owner,target) && CorpseSkillRules.AllowsAura(target) && Math.Abs(target.Z-owner.Z)<16
+            if(ClassCombat.IsHostile(hostilityOwner,target) && CorpseSkillRules.AllowsAura(target) && Math.Abs(target.Z-owner.Z)<16
                 && dx*dx+dy*dy<=radius*radius && !SpellHelper.IsTown(target.Location,target))
             { Apply(owner,target,values,until); }
         }

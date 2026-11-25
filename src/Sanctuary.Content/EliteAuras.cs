@@ -69,7 +69,8 @@ public static class EliteAuras
         if(source is not{Deleted:false,Alive:true}||source.Controlled||source.Summoned||source.ReturningHome||source.Aura!=aura){return false;}
         // Share admission with pulse arbitration: an emitter on another floor
         // or outside this recipient's allegiance must not suppress its winner.
-        if (aura == EliteAura.Vigor && (target is not DeceitEncounter { Freed: false } || !source.IsFriend(target)))
+        if (aura == EliteAura.Vigor && (!source.IsFriend(target)
+            || (source is ShameEncounter ? target is not ShameEncounter : target is not DeceitEncounter { Freed: false })))
             return false;
         bool enemy=PaladinConversion.Enemy(source,target)
             ??(target is PlayerMobile||target is BaseCreature{Controlled:true}or BaseCreature{Summoned:true});

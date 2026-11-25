@@ -151,6 +151,8 @@ public static class BritanniaCampaign
         bool wasEmpty = TownsEmpty(player);
         if (!Record(player, victory))
             return;
+        if (MercenaryCare.ActiveStoryCompanion(player) is Celeste celeste && MercenaryCare.IsCompanion(player, celeste))
+            celeste.RecordCampaignVictory(victory);
         ScriptedDialogue.RecordDiscovery(player, victory switch
         {
             CampaignProgress.SkeletonKing => StoryDiscoveries.SkeletonKing,

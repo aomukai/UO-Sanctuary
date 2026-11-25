@@ -18,15 +18,21 @@ internal static class CovetousPassages
             // Each level has a mountainside mouth. Leave a tile between each arrival and its return trigger.
             PlacePassage(map, new(2499 + lane, 917, 0), new(5456, 1862, 0));
             PlacePassage(map, new(2421 + lane, 884, 0), new(5393 + lane, 1957, 0));
-            PlacePassage(map, new(5393 + lane, 1958, 0), new(2421 + lane, 885, 0));
+            PlaceExit(new(5393 + lane, 1958, 0), new(2421 + lane, 885, 0));
 
             PlacePassage(map, new(2385, 837 + lane, 0), new(5613, 1997 + lane, 0));
-            PlacePassage(map, new(5614, 1997 + lane, 0), new(2386, 837 + lane, 0));
+            PlaceExit(new(5614, 1997 + lane, 0), new(2386, 837 + lane, 0));
             PlacePassage(map, new(2456 + lane, 859, 0), new(5389 + lane, 2025, 0));
-            PlacePassage(map, new(5389 + lane, 2026, 0), new(2456 + lane, 860, 0));
+            PlaceExit(new(5389 + lane, 2026, 0), new(2456 + lane, 860, 0));
 
             PlacePassage(map, new(2545 + lane, 850, 0), new(5579 + lane, 1925, 0));
-            PlacePassage(map, new(5579 + lane, 1926, 0), new(2545 + lane, 849, 0));
+            PlaceExit(new(5579 + lane, 1926, 0), new(2545 + lane, 849, 0));
+
+            GuardStockExit(new(5393 + lane, 1959, 0));
+            GuardStockExit(new(5615, 1997 + lane, 0));
+            GuardStockExit(new(5389 + lane, 2027, 0));
+            GuardStockExit(new(5579 + lane, 1927, 0));
+            GuardStockExit(new(5456 + lane, 1864, 0));
 
             // Buccaneer's Den portal. Use the foot of the arch on both sides.
             PlacePassage(map, new(2618 + lane, 976, 2), new(2724, 2133, 0));
@@ -36,8 +42,39 @@ internal static class CovetousPassages
         }
 
         PlacePassage(map, new(2501, 917, 0), new(5456, 1862, 0));
-        PlacePassage(map, new(5455, 1863, 0), new(2498, 918, 0));
-        PlacePassage(map, new(5456, 1863, 0), new(2499, 918, 0));
+        PlaceExit(new(5455, 1863, 0), new(2498, 918, 0));
+        PlaceExit(new(5456, 1863, 0), new(2499, 918, 0));
+
+        void PlaceExit(Point3D at, Point3D destination)
+        {
+            using var old = PooledRefList<Teleporter>.Create();
+            foreach (var portal in map.GetItemsAt<Teleporter>(at))
+            {
+                if (portal is CovetousExit && portal.Location == at && portal.PointDest == destination)
+                    return;
+                if (portal.GetType() == typeof(Teleporter) && Math.Abs(portal.Z - at.Z) <= 4
+                    && Utility.InRange(portal.PointDest, destination, 4))
+                    old.Add(portal);
+            }
+            foreach (var portal in old)
+                portal.Delete();
+            new CovetousExit(destination, map).MoveToWorld(at, map);
+        }
+
+        void GuardStockExit(Point3D at)
+        {
+            using var old = PooledRefList<Teleporter>.Create();
+            foreach (var portal in map.GetItemsAt<Teleporter>(at))
+                if (portal.GetType() == typeof(Teleporter) && portal.Location == at
+                    && !Region.Find(portal.PointDest, portal.MapDest ?? map).IsPartOf("Covetous"))
+                    old.Add(portal);
+            foreach (var portal in old)
+            {
+                var replacement = new CovetousExit(portal.PointDest, portal.MapDest ?? map);
+                portal.Delete();
+                replacement.MoveToWorld(at, map);
+            }
+        }
 
         ReplaceStairs(new(5468, 1805, 2), new(5592, 1842, 0),
             deeper: new(5469, 1805, 0), deeperLanding: new(5592, 1844, 0),
@@ -77,6 +114,30 @@ internal static class CovetousPassages
 }
 
 [SerializationGenerator(0)]
+public partial class CovetousExit : Teleporter
+{
+    internal CovetousExit(Point3D destination, Map map) : base(destination, map) { }
+
+    internal static bool WaitingForCeleste(Teleporter portal, Mobile mobile) => mobile is PlayerMobile player
+        && Celeste.StopDeparture(player, () => !portal.Deleted && portal.Active && player.Map == portal.Map
+            && player.InRange(portal, 2) && Math.Abs(player.Z - portal.Z) < 16,
+            () =>
+            {
+                if (portal.CanTeleport(player))
+                    portal.StartTeleport(player);
+            });
+
+    public override bool OnMoveOver(Mobile mobile)
+    {
+        if (!Active || !CanTeleport(mobile))
+            return true;
+        if (!WaitingForCeleste(this, mobile))
+            StartTeleport(mobile);
+        return false;
+    }
+}
+
+[SerializationGenerator(0)]
 public partial class CovetousStairs : Teleporter
 {
     internal CovetousStairs(Point3D destination, Map map) : base(destination, map)
@@ -89,7 +150,7 @@ public partial class CovetousStairs : Teleporter
 
     public override void OnDoubleClick(Mobile from)
     {
-        if (from is PlayerMobile && CanDoubleClick(from) && CanTeleport(from))
+        if (from is PlayerMobile && CanDoubleClick(from) && CanTeleport(from) && !CovetousExit.WaitingForCeleste(this, from))
             StartTeleport(from);
     }
 }

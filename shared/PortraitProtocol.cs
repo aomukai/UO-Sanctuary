@@ -16,7 +16,9 @@ public enum StoryDiscoveries : ulong
     EmptyTowns = 1u << 28, DestardLead = 1u << 29, Diablo = 1u << 30, RoyalProclamation = 1u << 31,
     DestardQueen = 1UL << 32, DestardConsort = 1UL << 33, DestardNursery = 1UL << 34,
     DestardBetrayal = 1UL << 35, DestardDaemons = 1UL << 36, DestardEnslaved = 1UL << 37,
-    DestardAftermath = 1UL << 38
+    DestardAftermath = 1UL << 38, CelesteDrake = 1UL << 39, CelesteWaiting = 1UL << 40,
+    CelesteAbandoned = 1UL << 41, CelesteRescued = 1UL << 42, CelestePast = 1UL << 43,
+    CelesteTrinsicReport = 1UL << 44
 }
 
 [Flags]
@@ -97,7 +99,11 @@ public enum NpcPortrait : ushort
     Lazarus,
     DestardGuardWest,
     DestardGuardNorth,
-    DestardServant
+    DestardServant,
+    Celeste,
+    CelesteArmored,
+    ShameGhostCaptain,
+    ShameFleetCaptain
 }
 
 public static class DespiseClue

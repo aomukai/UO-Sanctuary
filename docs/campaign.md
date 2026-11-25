@@ -11,10 +11,11 @@ Leoric wields a two-handed sword in the ruined court. Lazarus lifts off the floo
 | Despise and Covetous | Up to 30 | Normal | No campaign arena |
 | Hythloth | Up to 40 | Normal | King Leoric, level 40 · `[go Leoric` |
 | Deceit | 35–55 | Nightmare | Lazarus, level 55 · `[go Lazarus` |
+| Shame | 20–40 | Optional route | Pirate islet expedition, fleet captain level 38 |
 | Wrong | 50–60 | Optional route | No campaign arena |
 | Destard | 55–65 | Hell resistance rules | Diablo, level 65 · `[go Diablo` |
 
-The bands are authoring targets. The [Hythloth roster](worldbuilding.md#hythloth-spawners) is available for GM placement. The regular spawn and elite placement pass for Hythloth, Deceit, Wrong, and Destard is tracked in the [roadmap](roadmap.md#campaign-and-world). Destard’s campaign difficulty uses high resistances with an 85% ceiling and without dual immunities. Arena definitions contain the effective boss levels, fixed layouts, and arrival points. [Arena code](../src/Sanctuary.Content/CampaignArenas.cs) · [Dungeon routes](../src/Sanctuary.Content/CampaignDungeonRoutes.cs)
+The three campaign dungeons are complete. The population bands are authoring targets, and Wrong’s optional level 50–60 population is tracked in the [roadmap](roadmap.md#campaign-and-world). The [Hythloth roster](worldbuilding.md#hythloth-spawners) is available for GM placement. Destard’s campaign difficulty uses high resistances with an 85% ceiling and without dual immunities. Arena definitions contain the effective boss levels, fixed layouts, and arrival points. [Arena code](../src/Sanctuary.Content/CampaignArenas.cs) · [Dungeon routes](../src/Sanctuary.Content/CampaignDungeonRoutes.cs)
 
 Double-click a red gate at the bottom of the corresponding dungeon. Lazarus requires Leoric’s defeat. Diablo requires both previous defeats. A completed boss’s gate disappears for that Avatar. A party member eligible to open a gate can bring already-cleared members. A player at least ten levels below a boss receives a recommended-level confirmation and can enter anyway. The gates are one-way. Use the runebook to leave.
 

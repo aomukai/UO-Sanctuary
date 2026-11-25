@@ -10,10 +10,13 @@ Check an item when its described behavior is in the project and the relevant ver
 - [x] Add Heartwood residents and local services, and give elves direct access.
 - [x] Build Leoric’s ruined throne hall and verify the Hythloth gate, GM destination, and walk up the royal aisle. [Throne room](campaign.md#the-ruined-throne-room-below-hythloth)
 - [x] Build the Lazarus mausoleum, the bodyguard phase and the five-circle fight. [Encounter and playtest views](campaign.md#the-cathedral-below-deceit)
-- [ ] Review all three boss arenas in game via the named GM destinations. Check entrances, collision and sightlines, travel back by runebook, party re-entry, and defeat destinations.
+- [ ] Review all three boss arenas in game via the named GM destinations. Walk each approach and last-floor gate from the preceding dungeon level. Check collision and sightlines, travel back by runebook, party re-entry, and defeat destinations.
 - [x] Add the Hythloth spawn pools and court boss spawner templates. [GM catalog](worldbuilding.md#hythloth-spawners)
 - [x] Add the Destard spawn pools, dragon court, daemon horn bounty, and Diablo assistance. [GM catalog](worldbuilding.md#destard-spawners)
-- [ ] Populate Hythloth, Deceit, Wrong, and Destard along the agreed level bands. After arena review, walk each approach and last-floor gate from the preceding dungeon level.
+- [x] Complete the three campaign dungeons, Hythloth, Deceit, and Destard.
+- [x] Complete Covetous.
+- [x] Add Shame’s level 20–40 population, mining clues, and pirate expedition. [Shame spawners and route](worldbuilding.md#shame)
+- [ ] Populate Wrong as an optional level 50–60 dungeon.
 - [ ] Fill the ordinary progression gaps around levels 30–65. Verify sustained solo and small-party XP pacing at existing population density.
 - [ ] Decide which static closed rooms in Old Haven need interaction teleporters. Survey the room pairs in game and establish a usable return route for each.
 - [ ] Continue optional regional and virtue stories. The archived notes cover the graveyard cult correspondence, Hythloth captives, and an expedition in Wrong. Tie each authored discovery to the journal.
@@ -30,7 +33,7 @@ Check an item when its described behavior is in the project and the relevant ver
 - [ ] Finish the UO monster spell conversion in bounded creature cohorts. Check charge-up, projectile lifetime, valid targets, visible effects, and dismissal or cleanup through reload. Verify wild and revived forms together, retaining explicitly authored ally-healer roles.
 - [ ] Run the full Human, Elf, and Gargoyle racial play pass. Record any unavailable racial or unsupported interaction, including flight speed, detection, mana, resistances, Imbuing caps, and ranged wounds.
 - [ ] Continue the existing companion arcs. Start with Wolfgang’s Justice story and review Merydwen and Nightwind’s remaining authored beats. Keep unbuilt recruitment and departure scenes on the companion pass.
-- [ ] Re-qualify the class release evidence when the testing scope is agreed. The historic release verifier currently stops at a changed `shared/ClassAbilities.cs` digest.
+- [ ] Re-qualify the class release evidence when the testing scope is agreed. The current class roadmap still carries source digests from the previous qualification.
 
 [Class rules](classes.md) · [Historical decisions and evidence](README.md#historical-records)
 

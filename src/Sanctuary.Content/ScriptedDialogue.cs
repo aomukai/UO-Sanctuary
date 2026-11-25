@@ -22,7 +22,7 @@ public static class ScriptedDialogue
     internal sealed record Voice(string Name, ushort Portrait);
     internal sealed record Node(string Line, Reply[] Replies, Voice Speaker = null, StoryDiscoveries Learns = StoryDiscoveries.None);
     private sealed record Session(Mobile Speaker, IReadOnlyList<Node> Script, byte Node, uint Token, long Until,
-        Action<PlayerMobile, Mobile> Leave);
+        Action<PlayerMobile, Mobile> Leave, Func<PlayerMobile, Mobile, bool> CanReply);
     private static readonly Dictionary<Serial, Session> _sessions = new();
     private static readonly HashSet<Serial> _ghostBriefed = new();
     private static uint _nextToken;
@@ -178,7 +178,7 @@ public static class ScriptedDialogue
         }
 
         var replies = session.Script[session.Node].Replies;
-        if (Core.TickCount >= session.Until || !CanTalk(player, session.Speaker))
+        if (Core.TickCount >= session.Until || !(session.CanReply ?? CanTalk)(player, session.Speaker))
         {
             Close(player, token);
         }
@@ -194,7 +194,7 @@ public static class ScriptedDialogue
             {
                 if (reply.Learns != StoryDiscoveries.None)
                     ClassCreation.Profiles.Discover(player.Serial, reply.Learns);
-                Show(player, session.Speaker, session.Script, reply.Next, session.Leave);
+                Show(player, session.Speaker, session.Script, reply.Next, session.Leave, session.CanReply);
             }
         }
     }
@@ -286,8 +286,12 @@ public static class ScriptedDialogue
             Close(player, session.Token);
     }
 
+    internal static bool HasScopedConversation(PlayerMobile player, Mobile speaker) =>
+        _sessions.TryGetValue(player.Serial, out var session) && session.Speaker == speaker
+        && session.CanReply != null && Core.TickCount < session.Until && session.CanReply(player, speaker);
+
     internal static void Show(PlayerMobile player, Mobile speaker, IReadOnlyList<Node> script, byte node = 0,
-        Action<PlayerMobile, Mobile> onLeave = null)
+        Action<PlayerMobile, Mobile> onLeave = null, Func<PlayerMobile, Mobile, bool> canReply = null)
     {
         var page = script[node];
         if (page.Learns != StoryDiscoveries.None)
@@ -313,7 +317,7 @@ public static class ScriptedDialogue
             writer.Write((ushort)text.Length);
             writer.Write(text.AsSpan());
         }
-        _sessions[player.Serial] = new Session(speaker, script, node, token, Core.TickCount + 120_000, onLeave);
+        _sessions[player.Serial] = new Session(speaker, script, node, token, Core.TickCount + 120_000, onLeave, canReply);
         player.NetState.Send(writer.Span);
     }
 

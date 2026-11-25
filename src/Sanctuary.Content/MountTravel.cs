@@ -218,7 +218,7 @@ public static class MountTravel
             horse.Rider = null;
             horse.Delete();
             if (companion.ControlMaster is PlayerMobile owner && companion.Alive && !companion.IsDeadPet)
-                companion.IssueOrder(OrderType.Guard, null, owner);
+                companion.IssueOrder(MercenaryCare.CompanionOrder(companion), null, owner);
         }
     }
 

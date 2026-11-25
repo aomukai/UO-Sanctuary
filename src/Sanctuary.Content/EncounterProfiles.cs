@@ -57,7 +57,7 @@ public static class EncounterProfiles
         : HavenEncounter.FindSpecies(id) ?? FrontierEncounter.FindSpecies(id) ?? CovetousEncounter.FindSpecies(id)
             ?? CoveEncounter.FindSpecies(id) ?? YewEncounter.FindSpecies(id) ?? BrigandEncounter.FindSpecies(id)
             ?? OrcFortEncounter.FindSpecies(id) ?? HythlothEncounter.FindSpecies(id) ?? DestardEncounter.FindSpecies(id)
-            ?? DeceitEncounter.FindSpecies(id)
+            ?? DeceitEncounter.FindSpecies(id) ?? ShameEncounter.FindSpecies(id)
             ?? HedgeEncounter.FindSpecies(id) ?? (id == YewVampire.Species.Id ? YewVampire.Species : null)
             ?? MausoleumDemon.FindSpecies(id) ?? TreasureHunts.Profile(id) ?? CampaignArenas.Profile(id)
             ?? throw new ArgumentException("Unknown dungeon encounter profile.", nameof(id));

@@ -13,7 +13,7 @@ public static class PaladinVigor
 
     private static int EncounterBonus(Mobile actor, string formula)
     {
-        int rank = actor is DeceitEncounter { Freed: false } ? EliteAuras.Level(actor, EliteAura.Vigor, false) : 0;
+        int rank = actor is DeceitEncounter { Freed: false } or ShameEncounter ? EliteAuras.Level(actor, EliteAura.Vigor, false) : 0;
         return rank > 0 ? (int)DeceitEncounter.RankedValues(CombatAbility.Vigor, rank).Eval(formula) : 0;
     }
     public static void Configure()

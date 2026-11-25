@@ -249,15 +249,15 @@ public static class ClassGear
         {
             return 0;
         }
-        int classBlock = profile.Class switch
-        {
-            DiabloClass.Paladin => 30,
-            DiabloClass.Amazon or DiabloClass.Barbarian or DiabloClass.Assassin or DiabloClass.Warlock => 25,
-            _ => 20
-        };
-        return Math.Clamp(((Base(shield)?.Block ?? 0) + classBlock + Bonus(player, "block")+HolyShields.BlockBonus(player))
+        return Math.Clamp(((Base(shield)?.Block ?? 0) + ClassBlock(profile.Class) + Bonus(player, "block")+HolyShields.BlockBonus(player))
             * Math.Max(0, player.Dex - 15) / (2 * profile.Level), 0, 75);
     }
+    internal static int ClassBlock(DiabloClass characterClass) => characterClass switch
+    {
+        DiabloClass.Paladin => 30,
+        DiabloClass.Amazon or DiabloClass.Barbarian or DiabloClass.Assassin or DiabloClass.Warlock => 25,
+        _ => 20
+    };
     public static int? Stat(Item item, ClassGearStat stat)
     {
         if (!Converted(item))

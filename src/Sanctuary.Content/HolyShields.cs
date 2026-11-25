@@ -49,8 +49,12 @@ public static class HolyShields
     public static (int Min256,int Max256) SmiteBonus(PlayerMobile owner)
     {
         if(Shield(owner)==null || State(owner) is not{} state){return(0,0);}
+        return SmiteBonus(state.Rank);
+    }
+    internal static (int Min256,int Max256) SmiteBonus(int rank)
+    {
         var definition=SkillMechanics.For(CombatAbility.HolyShield);
-        int Damage(bool maximum)=>SkillValues.Tier(definition.Number(maximum?"MaxDam":"MinDam"),state.Rank,
+        int Damage(bool maximum)=>SkillValues.Tier(definition.Number(maximum?"MaxDam":"MinDam"),rank,
             tier=>definition.Number((maximum?"MaxLevDam":"MinLevDam")+tier))<<definition.Number("HitShift");
         return(Damage(false),Damage(true));
     }

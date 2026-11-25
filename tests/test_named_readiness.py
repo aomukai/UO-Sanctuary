@@ -14,14 +14,14 @@ class NamedReadinessTests(unittest.TestCase):
     def setUp(self):
         self.audit = json.loads(builder.AUDIT.read_text())
 
-    def test_complete_current_export_and_document(self):
-        rows = builder.validate(self.audit)
+    def test_recorded_export_accounts_for_every_definition_and_matches_document(self):
+        rows = builder.validate_definitions(self.audit)
         self.assertEqual(len(rows), 573)
         self.assertEqual(builder.render(self.audit), builder.OUTPUT.read_text())
         self.assertEqual(len({r['Id'] for r in rows if r['Name'] == 'Rainbow Facet'}), 8)
 
     def test_charms_are_excluded_from_eligibility_and_return_tasks(self):
-        rows = builder.validate(self.audit)
+        rows = builder.validate_definitions(self.audit)
         charms = [r for r in rows if r['BaseCode'] in {'cm1', 'cm2', 'cm3'}]
         self.assertEqual(len(charms), 15)
         for row in charms:
@@ -33,20 +33,20 @@ class NamedReadinessTests(unittest.TestCase):
         row = next(r for r in self.audit['Definitions'] if r['BaseCode'] == 'cm1' and r['SourceAvailability'] == 'SpawnableDefinition')
         row.update(Available=True, Reasons=[])
         with self.assertRaisesRegex(ValueError, 'Excluded charm'):
-            builder.validate(self.audit)
+            builder.validate_definitions(self.audit)
 
     def test_missing_variant_cannot_disappear(self):
         self.audit['Definitions'].pop()
         with self.assertRaisesRegex(ValueError, 'lost or duplicated'):
-            builder.validate(self.audit)
+            builder.validate_definitions(self.audit)
 
     def test_stale_runtime_inputs_require_reexport(self):
-        key = next(iter(self.audit['InputHashes']))
-        self.audit['InputHashes'][key] = 'stale'
+        self.audit['InputHashes'] = dict.fromkeys(sorted(builder.runtime_inputs(ROOT)), 'stale')
         with self.assertRaisesRegex(ValueError, 'Stale named runtime evidence'):
             builder.validate(self.audit)
 
     def test_missing_source_fingerprint_requires_reexport(self):
+        self.audit['InputHashes'] = dict.fromkeys(sorted(builder.runtime_inputs(ROOT)), 'unused')
         self.audit['InputHashes'].pop(next(iter(self.audit['InputHashes'])))
         with self.assertRaisesRegex(ValueError, 'Incomplete runtime input inventory'):
             builder.validate(self.audit)
@@ -55,7 +55,7 @@ class NamedReadinessTests(unittest.TestCase):
         row = next(r for r in self.audit['Definitions'] if r['SourceAvailability'] != 'SpawnableDefinition')
         row.update(Available=True, Reasons=[])
         with self.assertRaisesRegex(ValueError, 'Source-inactive'):
-            builder.validate(self.audit)
+            builder.validate_definitions(self.audit)
 
     def test_partial_set_activation_is_rejected(self):
         sets = json.loads((ROOT / 'data/Sanctuary/Balance/equipment-sets.json').read_text())
@@ -67,7 +67,7 @@ class NamedReadinessTests(unittest.TestCase):
             rows[i].update(Available=False, Reasons=['Missing prerequisite'])
         rows[item_set['pieceIds'][0]].update(Available=True, Reasons=[])
         with self.assertRaisesRegex(ValueError, 'Partially enabled set'):
-            builder.validate(self.audit)
+            builder.validate_definitions(self.audit)
 
 
 if __name__ == '__main__':

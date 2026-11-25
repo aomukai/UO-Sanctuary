@@ -25,7 +25,9 @@ Keep native ModernUO and ClassicUO changes in the tracked [patch stacks](../patc
 - For game behavior, use disposable world copies and separate client settings. Check the selected runner’s flags and runtime paths before launching it. Finish tests that use source assemblies before rebuilding those inputs.
 - `python3 tests/check_current_class.py druid --plan` checks fixture inputs without starting a server. Substitute the class under test and consult `--help` for runtime and output options.
 - Keep a distinction between what a specific fixture exercised, what was seen in ClassicUO, and what is installed for play. When save migration is involved, exercise a saved character as well as a fresh one.
-- Generated reports and exact evidence inputs live under [tools/reference](../tools/reference/README.md). The old class release verifier currently stops on a source digest mismatch at `shared/ClassAbilities.cs`. Named-equipment, profession, and property report generators also have pending source/evidence drift. The archived class fixture plans can require local probes retired during disk cleanup. Requalification is tracked in the [roadmap](roadmap.md).
+- Run the Python suite with `python3 -m pytest -p no:cacheprovider -q tests`. Its catalogue checks use tracked inputs. The named-item and affix tests exercise report rules separately from live export provenance.
+- Use `tests/export_runtime_audits.py --stage <stage>` for current native named-item and affix evidence. Keep the export stage in a disposable directory under `.local/` with the current content and integration assemblies, and remove it once its reports have been verified. [Report and evidence commands](../tools/reference/README.md#items-and-professions)
+- The original class release verifier and its installed-build summary are available in Git history at `bc09bbc9`. The class roadmap still distinguishes that historical qualification from current evidence. The archived class fixture plans can require local probes retired during disk cleanup. [Requalification](roadmap.md#combat-classes-and-companions)
 
 ## Dungeon layout trials
 

@@ -48,16 +48,18 @@ class ClassSkillCatalogueTests(unittest.TestCase):
         for path,text in builder.products().items():
             self.assertEqual(path.read_text(),text,str(path.relative_to(ROOT)))
 
-    def test_generated_corpse_routing_matches_pinned_skill_flags(self):
-        # Runtime UI routing must survive regeneration,including disabled skills.
-        # Derive expected IDs from the source flags independently of the template.
-        expected={r['ability'] for r in self.skills if r['sourceFields'].get('TargetCorpse')}
+    def test_generated_corpse_routing_preserves_sanctuary_summons(self):
+        # Skeleton skills have their own routing, including ground casts in Sanctuary.
+        skeletons = {3, 67}
+        expected = {r['ability'] for r in self.skills if r['sourceFields'].get('TargetCorpse')} - skeletons
         for text in [builder.generated_protocol(self.skills),(ROOT/'shared/ClassAbilities.cs').read_text()]:
             ids={name:int(value) for name,value in re.findall(r'^    (\w+) = (\d+),$',text,re.M)}
             body=re.search(r'bool CorpseTarget\(CombatAbility value\) => value is ([^;]+);',text).group(1)
             actual={ids[name] for name in re.findall(r'CombatAbility\.(\w+)',body)}
             self.assertEqual(actual,expected)
             self.assertIn(123,actual)  # Find Potion's stable saved/wire ID.
+            body = re.search(r'bool SkeletonSummon\(CombatAbility value\) => value is ([^;]+);', text).group(1)
+            self.assertEqual({ids[name] for name in re.findall(r'CombatAbility\.(\w+)', body)}, skeletons)
 
     def test_icon_coverage_is_independent_of_effects(self):
         icons=json.loads((ROOT/'data/Sanctuary/Balance/skill-icons.json').read_text())

@@ -14,7 +14,7 @@ Unavailable outcomes keep their original weight: empty drops or refunded gambles
 4. Run the native named fixture, export a fresh runtime audit and regenerate both return lists. Stale input hashes fail verification.
 5. Verify acquisition → identification → equip/bonuses → durability/socket changes → trade/wardrobe → death/recovery → save/reload before enabling the definition.
 
-Class integration contract: consume `NamedSkills.Rank` and shared damage, defence, status and control APIs. New throwing/missile skills must spend quantity once at release and share the pierce budget; corpse skills must honor Rest in Peace. Recheck actual-life-loss damage-to-mana when Energy Shield or another mitigation layer is introduced.
+Class integration contract: consume `NamedSkills.Rank` and shared damage, defence, status and control APIs. Ranged skills use the ammo-free attack path and share the pierce budget. Corpse skills must honor Rest in Peace. Recheck actual-life-loss damage-to-mana when Energy Shield or another mitigation layer is introduced.
 
 
 ## Dependency map

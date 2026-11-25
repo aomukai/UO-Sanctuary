@@ -15,7 +15,9 @@ public enum SkeletonAppearance : byte
     Jester,
     Mace,
     Executioner,
-    CorruptedHatchling
+    CorruptedHatchling,
+    ShameGhost,
+    FleetCaptain
 }
 
 public static class SkeletonAppearanceProtocol

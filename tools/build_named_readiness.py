@@ -66,21 +66,31 @@ def revisit(reason):
     return 'Honor the stated class, quest, recipe or source-acquisition restriction; add its actual prerequisite before enabling it.'
 
 
-def validate(audit, root=ROOT, assembly=None):
-    require(audit['SchemaVersion'] == 1, 'Unknown runtime audit version')
-    for name, expected in audit['InputHashes'].items():
-        path = (root / name).resolve()
-        require(path.is_relative_to(root.resolve()), 'Audit input escapes workspace')
-        require(digest(path) == expected, 'Stale named runtime evidence: ' + name)
+def runtime_inputs(root):
     inputs = {p.relative_to(root).as_posix()
               for directory in ['src/Sanctuary.Content', 'shared', 'data/Sanctuary/Balance']
               for p in (root / directory).iterdir() if p.is_file() and p.suffix in {'.cs', '.json'}}
     inputs.update(p.relative_to(root).as_posix() for p in (root / 'patches/ModernUO').glob('*.patch'))
     inputs.update(p.relative_to(root).as_posix() for p in (root / 'patches/ClassicUO').glob('*.patch'))
     inputs.update('tests/Sanctuary.Integration/' + name for name in ['NamedGearChecks.cs', 'NamedLifecycleChecks.cs', 'NamedVisualUiChecks.cs'])
-    require(set(audit['InputHashes']) == inputs, 'Incomplete runtime input inventory: reexport after adding/removing sources')
+    return inputs
+
+
+def validate(audit, root=ROOT, assembly=None):
+    require(audit['SchemaVersion'] == 1, 'Unknown runtime audit version')
+    require(set(audit['InputHashes']) == runtime_inputs(root),
+            'Incomplete runtime input inventory: reexport after adding/removing sources')
+    for name, expected in audit['InputHashes'].items():
+        path = (root / name).resolve()
+        require(path.is_relative_to(root.resolve()), 'Audit input escapes workspace')
+        require(digest(path) == expected, 'Stale named runtime evidence: ' + name)
     if assembly:
         require(digest(assembly) == audit['ContentAssemblySha256'], 'Runtime audit assembly differs')
+    return validate_definitions(audit, root)
+
+
+def validate_definitions(audit, root=ROOT):
+    require(audit['SchemaVersion'] == 1, 'Unknown runtime audit version')
     balance = root / 'data/Sanctuary/Balance'
     source = {d['id']: d for file in ['unique-items', 'set-items']
               for d in json.loads((balance / (file + '.json')).read_text())}
@@ -127,7 +137,7 @@ def render(audit):
              '4. Run the native named fixture, export a fresh runtime audit and regenerate both return lists. Stale input hashes fail verification.',
              '5. Verify acquisition → identification → equip/bonuses → durability/socket changes → trade/wardrobe → death/recovery → save/reload before enabling the definition.', '',
              'Class integration contract: consume `NamedSkills.Rank` and shared damage, defence, status and control APIs. '
-             'New throwing/missile skills must spend quantity once at release and share the pierce budget; corpse skills must honor Rest in Peace. '
+             'Ranged skills use the ammo-free attack path and share the pierce budget. Corpse skills must honor Rest in Peace. '
              'Recheck actual-life-loss damage-to-mana when Energy Shield or another mitigation layer is introduced.', '',
              '## Outstanding blocker inventory', '', 'A definition may have several blockers. These include shared item mechanics as well as class skills.', '',
              '| Blocker | Definitions | Return requirement |', '| --- | ---: | --- |']

@@ -44,7 +44,7 @@ public static class MercenaryCare
             _ => null
         };
         ClassMercenaryHooks.RestoredOrder = (owner, pet) =>
-            pet is IClassCompanion && !pet.IsDeadPet && IsCompanion(owner, pet) ? OrderType.Guard : null;
+            pet is IClassCompanion && !pet.IsDeadPet && IsCompanion(owner, pet) ? CompanionOrder(pet) : null;
         EventSink.Connected += owner =>
         {
             if (owner is PlayerMobile player)
@@ -127,6 +127,23 @@ public static class MercenaryCare
         companion.SetControlMaster(null);
         companion.StopDeleteTimer();
         companion.Internalize();
+        if (companion is Celeste)
+            ScriptedDialogue.RecordDiscovery(owner, StoryDiscoveries.CelesteWaiting);
+        return true;
+    }
+
+    internal static bool RegisterAtInn(PlayerMobile owner, Celeste companion, int level)
+    {
+        if (companion.Controlled || companion.Map != Map.Internal || level is < 1 or > 99
+            || States.ContainsKey(companion.Serial) || HasContract<Celeste>(owner))
+            return false;
+
+        companion.IsBonded = true;
+        companion.NoKillAwards = true;
+        var state = new MercenaryCareState(owner.Serial, level, false, new long[5], TimedEffects.Now) { Parked = true };
+        States.Add(companion.Serial, state);
+        Sync(owner, companion, state, joining: true);
+        companion.StopDeleteTimer();
         return true;
     }
 
@@ -153,15 +170,21 @@ public static class MercenaryCare
         owner.MoveToWorld(landing, map);
         companion.MoveToWorld(alongside, map);
         companion.ControlTarget = owner;
-        companion.ControlOrder = companion.IsDeadPet ? OrderType.Follow : OrderType.Guard;
+        companion.ControlOrder = CompanionOrder(companion);
+        if (companion is Celeste)
+            ClassCreation.Profiles.ForgetDiscovery(owner.Serial, StoryDiscoveries.CelesteWaiting);
         return true;
     }
 
-    internal static bool Register(PlayerMobile owner, BaseCreature mercenary, int level, Func<bool> pay = null)
+    internal static OrderType CompanionOrder(BaseCreature companion) => companion.IsDeadPet ? OrderType.Follow
+        : companion is Celeste celeste ? celeste.TravelOrder : OrderType.Guard;
+
+    internal static bool Register(PlayerMobile owner, BaseCreature mercenary, int level, Func<bool> pay = null,
+        BaseCreature replacing = null)
     {
         if (owner is not { Deleted: false } || mercenary is not { Deleted: false, Summoned: false, Controlled: true }
             || mercenary.ControlMaster != owner || level is < 1 or > 99 || States.ContainsKey(mercenary.Serial)) { return false; }
-        if (HasActiveCompanion(owner)) { return false; }
+        if (replacing == null ? HasActiveCompanion(owner) : !Owned(owner, replacing, out _)) { return false; }
         mercenary.IsBonded = true;
         mercenary.NoKillAwards = true;
         var state = new MercenaryCareState(owner.Serial, level, false, new long[5], TimedEffects.Now);
@@ -170,7 +193,7 @@ public static class MercenaryCare
         try
         {
             Sync(owner, mercenary, state, joining: true);
-            accepted = pay == null || pay();
+            accepted = (pay == null || pay()) && (replacing == null || ParkAtInn(owner, replacing));
             return accepted;
         }
         finally
@@ -205,7 +228,7 @@ public static class MercenaryCare
         companion.StabledBy = null;
         companion.Loyalty = BaseCreature.MaxLoyalty;
         companion.ControlTarget = owner;
-        companion.ControlOrder = companion.IsDeadPet ? OrderType.Follow : OrderType.Guard;
+        companion.ControlOrder = CompanionOrder(companion);
         companion.MoveToWorld(PersistentMinions.FindPosition(owner, out var nearby) ? nearby : owner.Location, map);
     }
 
@@ -227,6 +250,8 @@ public static class MercenaryCare
             return;
         if (actor is Wolfgang wolfgang)
             wolfgang.PrepareForDuty();
+        if (state.Active && actor is Celeste celeste)
+            celeste.RecordLevelCap(profile.Level);
         CompanionBuild.Apply(actor, build.CombatClass, profile.Level, joining);
         if (state.Level != profile.Level)
             States[actor.Serial] = state with { Level = profile.Level };
@@ -237,7 +262,7 @@ public static class MercenaryCare
         long total = 0;
         foreach (long amount in state.Healing)
             total += amount;
-        if (mercenary is (Wolfgang or Merydwen) && mercenary.Backpack is { } pack)
+        if (mercenary is (Wolfgang or Merydwen or Celeste) && mercenary.Backpack is { } pack)
             foreach (var item in pack.FindItems())
                 if (PackHealingTier(item) > 0)
                     total = Math.Min(total, long.MaxValue - item.Amount) + item.Amount;
@@ -271,6 +296,7 @@ public static class MercenaryCare
             return null;
 
         if (!WithinCompanionLeash(owner, companion, target) || !ClassCombat.IsHostile(owner, target)
+            || companion is Celeste { GearRecovered: false }
             || ClassCombatHooks.TargetAllowed?.Invoke(companion, target) == false)
             return false;
 
@@ -281,7 +307,7 @@ public static class MercenaryCare
             if (!aggression.Expired && OnOwnersSide(owner, aggression.Attacker))
                 return true;
 
-        if (companion is Wolfgang && owner.InRange(target, 8) && owner.InLOS(target))
+        if (companion is Wolfgang or Celeste && owner.InRange(target, 8) && owner.InLOS(target))
             return true;
 
         return null;
@@ -295,6 +321,7 @@ public static class MercenaryCare
     public static bool Deposit(PlayerMobile owner, BaseCreature mercenary, RestorationPotion potion)
     {
         if (!Owned(owner, mercenary, out var state) || !owner.Alive || !Near(owner, mercenary)
+            || mercenary is Celeste { GearRecovered: false }
             || potion is not { Deleted: false, Movable: true, Amount: > 0, Kind: RestorationKind.Healing, Tier: >= 1 and <= 5 }
             || owner.Backpack == null || !(potion.IsChildOf(owner.Backpack) || owner.Holding == potion)
             || !potion.VerifyMove(owner) || potion.IsLockedDown || potion.IsSecure || Stock(mercenary) > long.MaxValue - potion.Amount) { return false; }
@@ -310,7 +337,7 @@ public static class MercenaryCare
         if (mercenary.IsDeadPet || !mercenary.Alive || (long)mercenary.Hits * 2 > mercenary.HitsMax) { return false; }
         int tier = Array.FindIndex(state.Healing, count => count > 0) + 1;
         Item packedDose = null;
-        if (mercenary is (Wolfgang or Merydwen) && mercenary.Backpack is { } pack)
+        if (mercenary is (Wolfgang or Merydwen or Celeste) && mercenary.Backpack is { } pack)
             foreach (var item in pack.FindItems())
             {
                 int candidate = PackHealingTier(item);
@@ -370,7 +397,7 @@ public static class MercenaryCare
 
         ClearCompanionCombat(companion);
         if (companion.ControlOrder == OrderType.Attack)
-            companion.IssueOrder(OrderType.Guard, null, owner);
+            companion.IssueOrder(CompanionOrder(companion), null, owner);
         if (catchUp)
             companion.MoveToWorld(spot, map);
     }
@@ -411,6 +438,18 @@ public static class MercenaryCare
         mercenary.SetControlMaster(null);
         // Keep the real gear on its saved carrier until it can be returned; never delete it with the contract.
         mercenary.Internalize(); return true;
+    }
+
+    internal static bool AbandonCeleste(PlayerMobile owner, Celeste companion)
+    {
+        if (companion.GearRecovered || !Retire(owner, companion))
+            return false;
+
+        States.Remove(companion.Serial);
+        companion.Delete();
+        ClassCreation.Profiles.ForgetDiscovery(owner.Serial, StoryDiscoveries.CelesteWaiting);
+        ScriptedDialogue.RecordDiscovery(owner, StoryDiscoveries.CelesteAbandoned);
+        return true;
     }
     internal static bool RecoverRetiredGear(PlayerMobile owner, BaseCreature mercenary, Item item) =>
         States.TryGetValue(mercenary.Serial, out var state) && state.Owner == owner.Serial && state.Retired
