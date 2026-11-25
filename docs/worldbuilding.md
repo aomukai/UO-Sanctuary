@@ -90,6 +90,21 @@ Use `[Add DestardEncounter <Role>` to place an individual creature. Write the ro
 
 Place **Vaelith, the dragon queen** with `[Add DestardQueen` and **Rhazek, the queen’s consort** with `[Add DestardConsort`. Put them within talking range of a shared spot near the entrance so both appear in the queen’s dialogue. Vaelith pays for daemon horns. Rhazek explains who betrayed them and who was enslaved. The hatchling scale and both portraits use the matching ClassicUO build. [Destard court](../src/Sanctuary.Content/DestardCourt.cs) · [Bounty and campaign aid](campaign.md#destard-and-the-dragons)
 
+### Shame
+
+Shame is an optional level 20–40 dungeon on Trammel. The first level has the excavations and the dead miner’s note. The second has pirates and the shipboy’s cargo manifest. Both mage houses on the third level have clues, and the western house has the unstable mineral. On the fourth level, the main pirate ship lies at **5749, 60 (-5)**. Board from the east via the gangplank.
+
+The world installs Shame’s spawn sites at startup. Each of the following GM spawners maintains one of each listed enemy, with a 75–120 second respawn check.
+
+| Placement | Level | Roster |
+| --- | ---: | --- |
+| `[Add ShameOne` | 20–25 | Silicon, chrysoberyl, corundum, and tungsten elementals |
+| `[Add ShameTwo` | 24–29 | Titanium and moissanite elementals, pirate, and tidesinger |
+| `[Add ShameThree` | 28–33 | Stishovite and diamond elementals, stormcaller, and corsair |
+| `[Add ShameFour` | 38–40 | Wind, fire, water, and earth elementals |
+
+Clear the ship’s crew to open the wheel. It admits the first Avatar and then their original party members for five minutes. The ship has one shared expedition at a time. The route begins with Keelbone, then Brine and his daemon, then Cutwater and Cinders. The castaway captain points out two shields. Order leads to shore. Chaos leads to the level-38 fleet captain and the plunder chest. The normal run lasts 30 minutes from the first crossing. A final victory sets the end ten minutes from the kill. Taking Order sets it to ten minutes once the last admitted player leaves. Death sends the player’s ghost to the Shame entrance and their corpse to the fourth-level shore at **5748, 89 (0)**.
+
 ### Single creatures and encounter packs
 
 | GM command or spawn entry | Use |

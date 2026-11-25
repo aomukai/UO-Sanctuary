@@ -102,6 +102,10 @@ public static class TownPortals
         var other = end == pair.Field ? pair.Town : pair.Field;
         if (other.Deleted || other.Map != p.Map || !Arrival(p, other.Location, out var target))
         { p.SendMessage("The other end of your portal is blocked or travel is restricted."); return false; }
+        if (Celeste.LeavingCovetous(p, other.Map, target)
+            && Celeste.StopDeparture(p, () => !end.Deleted && !other.Deleted && p.Map == end.Map
+                && p.InRange(end, 1) && Math.Abs(p.Z - end.Z) < 16 && p.InLOS(end), () => Travel(p, end)))
+            return false;
         bool returning = end == pair.Town;
         if (returning) { Close(p.Serial); }
         ClassCombat.Stop(p); p.RevealingAction(); BaseCreature.TeleportPets(p, target, p.Map);

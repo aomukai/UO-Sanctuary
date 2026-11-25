@@ -1,0 +1,51 @@
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+@@ -744,6 +744,7 @@
+         {
+             SkeletonAppearance.Executioner => 1.28f,
+             SkeletonAppearance.CorruptedHatchling => 0.50f,
++            SkeletonAppearance.FleetCaptain => 2f,
+             _ => 1f
+         };
+ 
+@@ -963,8 +964,10 @@
+             ref var spriteInfo = ref frames[frameIndex % frames.Length];
+ 
+             bool druidForm = entity == null && id == owner.DruidFormBody;
++            bool fleetCaptain = owner.SkeletonCosmetics == SkeletonAppearance.FleetCaptain;
+             float scale = druidForm ? owner.DruidFormScale
+-                : entity == null ? owner.SpecialBodyScale : 1f;
++                : entity == null || fleetCaptain ? owner.SpecialBodyScale : 1f;
++            bool spectral = !owner.IsDead && owner.SkeletonCosmetics is SkeletonAppearance.ShameGhost or SkeletonAppearance.FleetCaptain;
+             int anchorX = (int)Math.Round((mirror ? spriteInfo.UV.Width - spriteInfo.Center.X : spriteInfo.Center.X) * scale);
+             int anchorY = (int)Math.Round((spriteInfo.UV.Height + spriteInfo.Center.Y) * scale);
+             if (spriteInfo.Texture == null)
+@@ -984,6 +987,8 @@
+ 
+             if (hasShadow)
+             {
++                if (spectral)
++                    return;
+                 batcher.DrawShadow(
+                     spriteInfo.Texture,
+                     new Vector2(x, y),
+@@ -1022,7 +1027,7 @@
+                     }
+                 }
+ 
+-                hueVec = ShaderHueTranslator.GetHueVector(hue, partialHue, hueVec.Z);
++                hueVec = ShaderHueTranslator.GetHueVector(hue, partialHue, spectral ? hueVec.Z * 0.62f : hueVec.Z);
+ 
+                 if (spriteInfo.Texture != null)
+                 {
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -4180,7 +4180,7 @@
+                 {
+                     uint serial = p.ReadUInt32BE();
+                     var appearance = (Sanctuary.SkeletonAppearance)p.ReadUInt8();
+-                    if (appearance <= Sanctuary.SkeletonAppearance.CorruptedHatchling && world.Mobiles.TryGetValue(serial, out var mobile))
++                    if (appearance <= Sanctuary.SkeletonAppearance.FleetCaptain && world.Mobiles.TryGetValue(serial, out var mobile))
+                     {
+                         mobile.SkeletonCosmetics = appearance;
+                     }

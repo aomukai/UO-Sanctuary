@@ -1,0 +1,352 @@
+diff --git a/src/ClassicUO.Assets/FontsLoader.cs b/src/ClassicUO.Assets/FontsLoader.cs
+--- a/src/ClassicUO.Assets/FontsLoader.cs
++++ b/src/ClassicUO.Assets/FontsLoader.cs
+@@ -30,7 +30,9 @@
+         private const int MAX_HTML_TEXT_HEIGHT = 18;
+         private const byte NOPRINT_CHARS = 32;
+         private const float ITALIC_FONT_KOEFFICIENT = 3.3f;
++        private const int NativeUnicodeFontCount = 20;
+         public const byte SanctuaryBookFont = 19;
++        public const byte SanctuaryBlackletterFont = NativeUnicodeFontCount;
+ 
+         public struct Margin
+         {
+@@ -73,8 +75,8 @@
+ 
+         private FontCharacterData[,] _fontDataASCII;
+         private FontCharacterDataUnicode[,] _fontDataUNICODE;
+-        private readonly UOFile[] _unicodeFontAddress = new UOFile[20];
+-        private readonly long[] _unicodeFontSize = new long[20];
++        private readonly UOFile[] _unicodeFontAddress = new UOFile[SanctuaryBlackletterFont + 1];
++        private readonly long[] _unicodeFontSize = new long[SanctuaryBlackletterFont + 1];
+         private readonly VisitedUrlCache _visitedUrls = new VisitedUrlCache(1024);
+         private readonly int[] _offsetCharTable = { 2, 0, 2, 2, 0, 0, 2, 2, 0, 0 };
+         private readonly int[] _offsetSymbolTable = { 1, 0, 1, 1, -1, 0, 1, 1, 0, 0 };
+@@ -117,7 +119,7 @@
+         {
+             UOFileMul fonts = new UOFileMul(FileManager.GetUOFilePath("fonts.mul"));
+ 
+-            for (int i = 0; i < 20; i++)
++            for (int i = 0; i < NativeUnicodeFontCount; i++)
+             {
+                 string path = FileManager.GetUOFilePath(
+                     "unifont" + (i == 0 ? "" : i.ToString()) + ".mul"
+@@ -132,6 +134,9 @@
+             string bookFont = Path.Combine(AppContext.BaseDirectory, "SanctuaryFonts", "Book.mul");
+             if (File.Exists(bookFont))
+                 _unicodeFontAddress[SanctuaryBookFont] = new UOFileMul(bookFont);
++            string blackletterFont = Path.Combine(AppContext.BaseDirectory, "SanctuaryFonts", "Blackletter.mul");
++            if (File.Exists(blackletterFont))
++                _unicodeFontAddress[SanctuaryBlackletterFont] = new UOFileMul(blackletterFont);
+ 
+             int fontHeaderSize = sizeof(FontHeader);
+             FontCount = 0;
+@@ -301,7 +306,7 @@
+ 
+         public bool UnicodeFontExists(byte font)
+         {
+-            return font < 20 && _unicodeFontAddress[font] != null;
++            return font < _unicodeFontAddress.Length && _unicodeFontAddress[font] != null;
+         }
+ 
+         /// <summary> Get the index in ASCII fonts of a character. </summary>
+@@ -1182,7 +1187,7 @@
+             ushort flags
+         )
+         {
+-            if (font >= 20 || _unicodeFontAddress[font] == null || str.IsEmpty)
++            if (!UnicodeFontExists(font) || str.IsEmpty)
+             {
+                 return string.Empty;
+             }
+@@ -1268,7 +1273,7 @@
+ 
+         public int GetWidthUnicode(byte font, string str)
+         {
+-            if (font >= 20 || _unicodeFontAddress[font] == null || string.IsNullOrEmpty(str))
++            if (!UnicodeFontExists(font) || string.IsNullOrEmpty(str))
+             {
+                 return 0;
+             }
+@@ -1278,7 +1283,7 @@
+ 
+         private int GetWidthUnicode(byte font, ReadOnlySpan<char> str)
+         {
+-            if (font >= 20 || _unicodeFontAddress[font] == null || str.IsEmpty)
++            if (!UnicodeFontExists(font) || str.IsEmpty)
+             {
+                 return 0;
+             }
+@@ -1310,7 +1315,7 @@
+ 
+         public int GetCharWidthUnicode(byte font, char c)
+         {
+-            if (font >= 20 || _unicodeFontAddress[font] == null || c == 0 || c == '\r')
++            if (!UnicodeFontExists(font) || c == 0 || c == '\r')
+             {
+                 return 0;
+             }
+@@ -1339,7 +1344,7 @@
+         )
+         {
+             if (
+-                font >= 20 || _unicodeFontAddress[font] == null || string.IsNullOrEmpty(text)
++                !UnicodeFontExists(font) || string.IsNullOrEmpty(text)
+             )
+             {
+                 return 0;
+@@ -1388,7 +1393,7 @@
+             _htmlStatus.BackgroundColor = 0;
+             _htmlStatus.Margins = Margin.Empty;
+ 
+-            if (font >= 20 || _unicodeFontAddress[font] == null)
++            if (!UnicodeFontExists(font))
+             {
+                 return null;
+             }
+@@ -1678,7 +1683,7 @@
+             bool saveHitmap
+         )
+         {
+-            if (font >= 20 || _unicodeFontAddress[font] == null)
++            if (!UnicodeFontExists(font))
+             {
+                 return FontInfo.Empty;
+             }
+@@ -3523,7 +3528,7 @@
+             ushort flags
+         )
+         {
+-            if (font >= 20 || _unicodeFontAddress[font] == null || string.IsNullOrEmpty(str))
++            if (!UnicodeFontExists(font) || string.IsNullOrEmpty(str))
+             {
+                 return 0;
+             }
+@@ -3582,7 +3587,7 @@
+                     break;
+             }
+ 
+-            if (font >= 20 || _unicodeFontAddress[font] == null || string.IsNullOrEmpty(str))
++            if (!UnicodeFontExists(font) || string.IsNullOrEmpty(str))
+             {
+                 return (x, y);
+             }
+@@ -3857,7 +3862,7 @@
+         /// </summary>
+         public SingleGlyphInfo RenderSingleGlyphUnicode(byte font, char c, bool hasBorder, bool isSolid, bool isItalic = false, uint charcolor = 0)
+         {
+-            if (font >= 20 || _unicodeFontAddress[font] == null)
++            if (!UnicodeFontExists(font))
+                 return SingleGlyphInfo.Empty;
+ 
+             if (c == ' ')
+diff --git a/src/ClassicUO.Client/ClassicUO.Client.csproj b/src/ClassicUO.Client/ClassicUO.Client.csproj
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -39,7 +39,7 @@
+              CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+     <EmbeddedResource Include="../../../../art/player-ui/*.png" LogicalName="Sanctuary.UI.%(Filename)%(Extension)" />
+     <EmbeddedResource Include="../../../../art/player-ui/avatar-templates/*.png" LogicalName="Sanctuary.UI.Templates.%(Filename)%(Extension)" />
+-    <Content Include="../../../../art/player-ui/dialogue-font/Book.mul;../../../../art/player-ui/dialogue-font/OFL-*.txt"
++    <Content Include="../../../../art/player-ui/dialogue-font/*.mul;../../../../art/player-ui/dialogue-font/OFL-*.txt"
+              Link="SanctuaryFonts/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+     <Content Include="../../../../art/succubus/succubus.idx;../../../../art/succubus/succubus.mul"
+              Link="Data/Sanctuary/Animations/%(Filename)%(Extension)"
+diff --git a/src/ClassicUO.Client/Configuration/Settings.cs b/src/ClassicUO.Client/Configuration/Settings.cs
+--- a/src/ClassicUO.Client/Configuration/Settings.cs
++++ b/src/ClassicUO.Client/Configuration/Settings.cs
+@@ -4,6 +4,7 @@
+ using System.IO;
+ using System.Text.Json;
+ using System.Text.Json.Serialization;
++using ClassicUO.Assets;
+ using ClassicUO.Configuration.Json;
+ using Microsoft.Xna.Framework;
+ 
+@@ -21,6 +22,8 @@
+                 Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+             });
+     }
++
++    internal enum DialogueTypeface { Blackletter, Classic, Book }
+ 
+     internal sealed class Settings
+     {
+@@ -49,7 +52,39 @@
+         [JsonPropertyName("clientversion")] public string ClientVersion { get; set; } = string.Empty;
+ 
+         [JsonPropertyName("lang")] public string Language { get; set; } = "";
+-        [JsonPropertyName("sanctuary_book_dialogue_font")] public bool SanctuaryBookDialogueFont { get; set; }
++        [JsonPropertyName("sanctuary_book_dialogue_font"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
++        public bool LegacyBookDialogueFont { get; set; }
++
++        [JsonPropertyName("sanctuary_dialogue_typeface"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
++        public DialogueTypeface? SelectedDialogueTypeface { get; set; }
++
++        [JsonIgnore]
++        public DialogueTypeface DialogueFont
++        {
++            get => SelectedDialogueTypeface switch
++            {
++                DialogueTypeface.Classic => DialogueTypeface.Classic,
++                DialogueTypeface.Book => DialogueTypeface.Book,
++                null when LegacyBookDialogueFont => DialogueTypeface.Book,
++                _ => DialogueTypeface.Blackletter
++            };
++            set
++            {
++                SelectedDialogueTypeface = value;
++                LegacyBookDialogueFont = false;
++            }
++        }
++
++        public byte ResolveDialogueFont(FontsLoader fonts)
++        {
++            byte font = DialogueFont switch
++            {
++                DialogueTypeface.Blackletter => FontsLoader.SanctuaryBlackletterFont,
++                DialogueTypeface.Book => FontsLoader.SanctuaryBookFont,
++                _ => 1
++            };
++            return fonts.UnicodeFontExists(font) ? font : (byte)1;
++        }
+ 
+         [JsonPropertyName("lastservernum")] public ushort LastServerNum { get; set; } = 1;
+ 
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryDialogueGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryDialogueGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryDialogueGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryDialogueGump.cs
+@@ -1,7 +1,6 @@
+ // SPDX-License-Identifier: BSD-2-Clause
+ 
+ using System;
+-using ClassicUO.Assets;
+ using ClassicUO.Configuration;
+ using ClassicUO.Game.UI.Controls;
+ using Sanctuary;
+@@ -53,13 +52,12 @@
+ 
+         SizeToViewport();
+         Clear();
+-        bool book = Settings.GlobalSettings.SanctuaryBookDialogueFont
+-            && Client.Game.UO.FileManager.Fonts.UnicodeFontExists(FontsLoader.SanctuaryBookFont);
+-        byte textFont = book ? FontsLoader.SanctuaryBookFont : (byte)1;
+-        byte titleFont = book ? textFont : (byte)0;
++        byte textFont = Settings.GlobalSettings.ResolveDialogueFont(Client.Game.UO.FileManager.Fonts);
++        bool customTypeface = textFont != 1;
++        byte titleFont = customTypeface ? textFont : (byte)0;
+         bool compact = Height < 350 || Width < 540;
+-        float bodyScale = book ? 1f : compact ? 1.25f : 1.6f;
+-        float topicScale = book ? 1f : compact ? 1f : 1.3f;
++        float bodyScale = customTypeface ? 1f : compact ? 1.25f : 1.6f;
++        float topicScale = customTypeface ? 1f : compact ? 1f : 1.3f;
+         int pad = compact ? 14 : 24, gap = compact ? 12 : 22;
+         int artTop = compact ? 49 : 65;
+         int artSize = Math.Min(206, Math.Min(Width / 3, Height - artTop - (compact ? 95 : 140)));
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryLetterTheme.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryLetterTheme.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryLetterTheme.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryLetterTheme.cs
+@@ -3,7 +3,6 @@
+ using System;
+ using System.Linq;
+ using System.Net;
+-using ClassicUO.Assets;
+ using ClassicUO.Configuration;
+ using ClassicUO.Game.UI.Controls;
+ 
+@@ -33,9 +32,8 @@
+         int height = Math.Clamp(viewport.Height - 16, 240, 358);
+         int padding = width < 400 ? 20 : 30;
+         int buttonY = height - 48;
+-        bool book = Settings.GlobalSettings.SanctuaryBookDialogueFont
+-            && Client.Game.UO.FileManager.Fonts.UnicodeFontExists(FontsLoader.SanctuaryBookFont);
+-        byte font = book ? FontsLoader.SanctuaryBookFont : (byte)1;
++        byte font = Settings.GlobalSettings.ResolveDialogueFont(Client.Game.UO.FileManager.Fonts);
++        bool customTypeface = font != 1;
+ 
+         gump.Clear();
+         gump.Width = width;
+@@ -43,12 +41,12 @@
+         gump.X = Math.Clamp(gump.X, 0, Math.Max(0, viewport.Width - width));
+         gump.Y = Math.Clamp(gump.Y, 0, Math.Max(0, viewport.Height - height));
+         gump.Add(new SanctuaryBackdrop("character-frame", width, height, 54) { CanCloseWithRightClick = true });
+-        gump.Add(new Label(Decode(title), true, Cream, maxwidth: width - 2 * padding, font: book ? font : (byte)0,
+-            scale: book ? 1.15f : 1.35f) { X = padding, Y = 16 });
++        gump.Add(new Label(Decode(title), true, Cream, maxwidth: width - 2 * padding, font: customTypeface ? font : (byte)0,
++            scale: customTypeface ? 1.15f : 1.35f) { X = padding, Y = 16 });
+ 
+         int textWidth = width - 2 * padding;
+         var letter = gump.Add(new ScrollArea(padding, 70, textWidth, buttonY - 82, true));
+-        letter.Add(new Label(Decode(body), true, Cream, maxwidth: textWidth - 18, font: font, scale: book ? 1f : 1.2f));
++        letter.Add(new Label(Decode(body), true, Cream, maxwidth: textWidth - 18, font: font, scale: customTypeface ? 1f : 1.2f));
+ 
+         gump.Add(new SanctuarySheetButton(padding, buttonY, 104, Decode(dismiss), () => gump.OnButtonClick(0),
+             height: 30, font: font));
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs
+@@ -22,7 +22,7 @@
+     private int _capturing = -1;
+ 
+     private bool _borderless, _drawRoofs, _highlightObjects, _transparency;
+-    private bool _bookDialogueFont = Settings.GlobalSettings.SanctuaryBookDialogueFont;
++    private DialogueTypeface _dialogueFont = Settings.GlobalSettings.DialogueFont;
+     private bool _sound, _footsteps, _music, _combatMusic, _loginMusic;
+     private bool _classicMidi = Settings.GlobalSettings.SanctuaryClassicMidi;
+     private readonly ValueSlider _fps, _worldZoom, _screenScale, _soundsVolume, _musicVolume, _loginVolume;
+@@ -59,13 +59,7 @@
+         AddToggle("Show roofs", Graphics, 4, _profile.DrawRoofs, value => _drawRoofs = value);
+         AddToggle("Highlight objects on hover", Graphics, 5, _profile.HighlightGameObjects, value => _highlightObjects = value);
+         AddToggle("Circle of transparency", Graphics, 6, _profile.SanctuaryTransparency, value => _transparency = value);
+-        AddText("Dialogue font", 30, Row(6) + 4, Graphics);
+-        SanctuarySheetButton typeface = null;
+-        typeface = Add(new SanctuarySheetButton(345, Row(6), 92, _bookDialogueFont ? "Book" : "Classic", () =>
+-        {
+-            _bookDialogueFont = !_bookDialogueFont;
+-            typeface.SetCaption(_bookDialogueFont ? "Book" : "Classic");
+-        }), Graphics);
++        AddDialogueFonts();
+ 
+         AddToggle("Sound effects", Sound, 0, _profile.EnableSound, value => _sound = value);
+         _soundsVolume = AddSlider("Effects volume", Sound, 1, 0, 100, _profile.SoundVolume, "%");
+@@ -198,6 +192,27 @@
+             button.SetPrimary(value);
+         }, value), page);
+         set(value);
++    }
++
++    private void AddDialogueFonts()
++    {
++        int y = Row(7, Graphics);
++        AddText("Dialogue font", 30, y + 4, Graphics);
++        DialogueTypeface[] choices = [DialogueTypeface.Blackletter, DialogueTypeface.Classic, DialogueTypeface.Book];
++        var buttons = new SanctuarySheetButton[choices.Length];
++        int x = 206;
++        for (int i = 0; i < choices.Length; i++)
++        {
++            var font = choices[i];
++            int width = font == DialogueTypeface.Blackletter ? 93 : 63;
++            buttons[i] = Add(new SanctuarySheetButton(x, y, width, font.ToString(), () =>
++            {
++                _dialogueFont = font;
++                for (int j = 0; j < buttons.Length; j++)
++                    buttons[j].SetPrimary(choices[j] == font);
++            }, _dialogueFont == font), Graphics);
++            x += width + 6;
++        }
+     }
+ 
+     private ValueSlider AddSlider(string title, int page, int row, int min, int max, int value, string suffix)
+@@ -250,9 +265,9 @@
+         settings.LoginMusicVolume = _loginVolume.Value;
+         bool soundtrackChanged = settings.SanctuaryClassicMidi != _classicMidi;
+         settings.SanctuaryClassicMidi = _classicMidi;
+-        if (settings.SanctuaryBookDialogueFont != _bookDialogueFont)
+-        {
+-            settings.SanctuaryBookDialogueFont = _bookDialogueFont;
++        if (settings.DialogueFont != _dialogueFont)
++        {
++            settings.DialogueFont = _dialogueFont;
+             UIManager.GetGump<SanctuaryDialogueGump>()?.RefreshStyle();
+         }
+ 

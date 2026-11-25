@@ -10,6 +10,7 @@ internal static class CompanionCharacterStats
 {
     private static readonly CombatAbility[] _iolo = [CombatAbility.MagicArrow, CombatAbility.ColdArrow, CombatAbility.GuidedArrow];
     private static readonly CombatAbility[] _wolfgang = [CombatAbility.IronSkin, CombatAbility.Shout, CombatAbility.SwordMastery, CombatAbility.HolyShield];
+    private static readonly CombatAbility[] _celeste = [CombatAbility.HolyShield, CombatAbility.Charge, CombatAbility.Smite, CombatAbility.Conviction, CombatAbility.Zeal];
     private static readonly CombatAbility[] _merydwen = [CombatAbility.GuidedArrow, CombatAbility.InnerSight, CombatAbility.Strafe, CombatAbility.Dodge, CombatAbility.Avoid, CombatAbility.Evade];
     private static readonly CombatAbility[] _nightwind = [CombatAbility.GuidedArrow, CombatAbility.MultipleShot, CombatAbility.Dodge, CombatAbility.Avoid, CombatAbility.Evade];
 
@@ -29,7 +30,7 @@ internal static class CompanionCharacterStats
             ClassStats.AttackRating(companion, attack), ClassStats.Defense(companion),
             CompanionBuild.AttackSpeedBonus(companion), CompanionBuild.Recovery(companion, build.CombatClass),
             companion.FireResistance, companion.ColdResistance, companion.PoisonResistance, companion.EnergyResistance,
-            companion is Wolfgang wolfgang ? wolfgang.BlockChance : 0,
+            companion switch { Wolfgang wolfgang => wolfgang.BlockChance, Celeste celeste => celeste.BlockChance, _ => 0 },
             companion is Merydwen ? AmazonAvoidance.CompanionChance(CombatAbility.Dodge, level) : 0,
             companion is Merydwen ? AmazonAvoidance.CompanionChance(CombatAbility.Avoid, level) : 0,
             companion is Merydwen ? AmazonAvoidance.CompanionChance(CombatAbility.Evade, level) : 0
@@ -42,6 +43,7 @@ internal static class CompanionCharacterStats
         {
             Iolo => _iolo,
             Wolfgang => _wolfgang,
+            Celeste { GearRecovered: true } => _celeste,
             Nightwind => _nightwind,
             Merydwen => _merydwen,
             _ => []
@@ -70,6 +72,10 @@ internal static class CompanionCharacterStats
             CombatAbility.Shout => new(ability, rank, Eval("aurastatcalc1"), Duration()),
             CombatAbility.SwordMastery => new(ability, rank, Eval("passivecalc1"), Eval("passivecalc2"), Eval("passivecalc3")),
             CombatAbility.HolyShield => new(ability, rank, HolyShields.DefensePercent(values), HolyShields.BlockBonus(values)),
+            CombatAbility.Charge => new(ability, rank, (int)values.Formula("toht"), Eval("calc1")),
+            CombatAbility.Smite => new(ability, rank, Eval("calc1"), Eval("calc2") * ActionTiming.FrameMs),
+            CombatAbility.Conviction => new(ability, rank, Eval("aurastatcalc1"), Eval("aurastatcalc2")),
+            CombatAbility.Zeal => new(ability, rank, Eval("calc1"), (int)values.Formula("toht"), Eval("calc2")),
             CombatAbility.GuidedArrow => new(ability, rank, Eval("calc1")),
             CombatAbility.InnerSight => new(ability, rank, -Eval("aurastatcalc1"), Duration()),
             CombatAbility.Strafe => new(ability, rank, Eval("calc2"), AmazonStrafe.Count(values, 2, false), Eval("calc1")),

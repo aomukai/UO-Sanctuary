@@ -21,7 +21,7 @@ public static class StatProtocol
     public const int Values = (int)StatField.Count;
 }
 
-public enum CompanionEquipmentStyle : byte { Crossbow, Sword, Bow }
+public enum CompanionEquipmentStyle : byte { Crossbow, Sword, Bow, MaceAndShield }
 public enum CompanionStatRequest : byte { Snapshot, OpenSheet, Vitals }
 
 public enum CompanionStatField

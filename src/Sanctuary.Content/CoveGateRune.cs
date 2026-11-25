@@ -32,14 +32,21 @@ public partial class CoveGateRune : RecallRune
             return;
 
         Runebook available = null;
+        bool hasRunebook = false;
         foreach (var book in pack.FindItemsByType<Runebook>())
         {
-            if (ContainsGates(book) || book.Entries.Count < 16
-                && (available == null || book.Description == "Iolo's Runebook"))
-                available = book;
+            hasRunebook = true;
             if (ContainsGates(book))
+            {
+                available = book;
                 break;
+            }
+            if (book.Entries.Count < 16 && (available == null || book.Description == "Iolo's Runebook"))
+                available = book;
         }
+
+        if (!hasRunebook)
+            return;
 
         if (available != null)
         {

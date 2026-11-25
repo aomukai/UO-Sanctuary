@@ -20,7 +20,8 @@ public static class PaladinSmite
         foreach(var row in BalanceCatalog.Read<SmiteShield>("smite-shields"))
         {if(row.MinDamage<0 || row.MaxDamage<row.MinDamage){throw new InvalidOperationException("Invalid Smite shield damage");}_shields.Add(row.Code,row);}
     }
-    public static SmiteShield Shield(PlayerMobile owner)=>HolyShields.Shield(owner) is{} shield && ClassGear.Base(shield) is{} basis
+    public static SmiteShield Shield(PlayerMobile owner)=>Shield(HolyShields.Shield(owner));
+    internal static SmiteShield Shield(Item shield)=>shield!=null && ClassGear.Base(shield) is{} basis
         ?_shields.GetValueOrDefault(basis.Code):null;
     public static int Range(PlayerMobile owner)=>CombatTiming.Weapon(CombatTiming.Equipped(owner)).Family==AttackFamily.Throw?1:CombatTiming.Range(owner,CombatAbility.BasicAttack);
     public static bool ValidTarget(PlayerMobile owner,Serial selected)

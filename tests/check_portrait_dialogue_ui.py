@@ -172,13 +172,19 @@ def arrival(window, click, profile, expected_portrait):
     click(366, 152)
     time.sleep(0.4)
     assert client_capture(window, area=line) in lines, "A single click did not open Elin's dialogue"
-    original_typeface = client_capture(window, area=line)
-    subprocess.run(["xdotool", "key", "Escape"], check=True)
-    time.sleep(0.35)
-    click(480, 356)  # Options → Graphics → Dialogue font.
-    click(487, 403)  # Apply.
-    book_typeface = client_capture(window, "new-haven-book.png", area=line)
-    assert book_typeface != original_typeface, "The Book typeface did not redraw the active dialogue"
+    blackletter = client_capture(window, "new-haven-blackletter.png", area=line)
+
+    def choose_typeface(x, name):
+        subprocess.run(["xdotool", "key", "Escape"], check=True)
+        time.sleep(0.35)
+        click(x, 353)  # Options → Graphics → Dialogue font.
+        click(487, 403)  # Apply.
+        return client_capture(window, f"new-haven-{name}.png", area=line)
+
+    classic = choose_typeface(423, "classic")
+    book = choose_typeface(492, "book")
+    assert len({blackletter, classic, book}) == 3, "The three typefaces did not redraw the active dialogue distinctly"
+    assert choose_typeface(339, "blackletter-restored") == blackletter, "Returning to Blackletter did not restore the default face"
     click(130, 419)
 
     command("banker")

@@ -20,7 +20,6 @@ public static class NamedGearChecks
     private static string Manifest => Path.Join(Core.BaseDirectory, "named-gear-checks.json");
     private sealed record SavedItem(uint Serial, string State, string Name);
     private sealed record Saved(uint Owner, SavedItem[] Items);
-    private sealed record SavedThrow(uint Item, int Remaining, int Maximum, DateTime Due, int Period, string State, int Durability);
     private sealed class FirstRoll(int quality = 0) : Random
     {
         public override int Next(int max) => max == 100000 ? quality : 0;
@@ -94,7 +93,7 @@ public static class NamedGearChecks
             saved.Add(new(item.Serial.Value, State(item), item.Name));
         }
         Require(saved.Count > 0, "No named items available");
-        SetEffects(); SkillRanks(); Insurance(); Upkeep(); Statuses(); SharedStatuses(); Maintenance(); DamageToMana(); Throwing(); Control(); StaminaDrain(); RestInPeace(); FireRanks(); Projectiles(); SetVisuals(); FadeVisual(); BloodVisual(); Combat(); Elements(); MagicPierce(); NamedLifecycleChecks.Check(); LegacyMigration(); Acquisition();
+        SetEffects(); SkillRanks(); Insurance(); Upkeep(); Statuses(); SharedStatuses(); Maintenance(); DamageToMana(); ThrowingWithoutAmmo(); Control(); StaminaDrain(); RestInPeace(); FireRanks(); Projectiles(); SetVisuals(); FadeVisual(); BloodVisual(); Combat(); Elements(); MagicPierce(); NamedLifecycleChecks.Check(); LegacyMigration(); Acquisition();
         File.WriteAllText(Path.Join(Core.BaseDirectory, "named-availability.json"), JsonSerializer.Serialize(report));
         string destination = Environment.GetEnvironmentVariable("SANCTUARY_NAMED_AVAILABILITY");
         if (!string.IsNullOrEmpty(destination)) { File.WriteAllText(destination, JsonSerializer.Serialize(report, new JsonSerializerOptions { WriteIndented = true })); }
@@ -434,69 +433,33 @@ public static class NamedGearChecks
         Require(p.Mana == p.ManaMax, "Damage-to-mana exceeded maximum mana");
         TimedEffects.Clear(p); attacker.Delete(); p.Backpack.DropItem(item); item.Delete();
     }
-    private static void Throwing()
+    private static void ThrowingWithoutAmmo()
     {
-        var owner = Player(); owner.RawStr = owner.RawDex = 1000;
-        var scalper = (BaseWeapon)NamedGear.Create("unique/288", 99, new FirstRoll()); owner.Backpack.DropItem(scalper);
-        Require(owner.EquipItem(scalper), "Cannot equip replenishing throwing weapon"); ClassGear.Refresh(owner);
-        int maximum = NamedAmmunition.Maximum(scalper), durability = scalper.HitPoints;
-        Require(maximum == 200 && NamedAmmunition.Remaining(scalper) == maximum, "Throwing source stack capacity was lost");
-        var target = new Zombie(); target.MoveToWorld(new Point3D(owner.X + 1, owner.Y, owner.Z), owner.Map);
-        target.AIObject.AITimer.Stop(); target.Hits = target.HitsMax;
-        Require(ClassCombat.Perform(owner, CombatAbility.BasicAttack, target, target.Location, Core.TickCount), "Could not begin real throwing attack");
-        Require(NamedAmmunition.Remaining(scalper) == maximum, "Windup consumed throwing quantity before release");
-        Require(ClassCombat.ResolveAction(owner, ClassCombat.For(owner).EffectAt) && NamedAmmunition.Remaining(scalper) == maximum - 1,
-            "Real attack release failed to consume exactly one throwing quantity");
-        Require(scalper.HitPoints == durability, "Throwing incorrectly consumed native durability"); target.Delete();
-        var now = TimedEffects.Now; var due = NamedAmmunition.Quantities[scalper.Serial].DueUtc;
-        NamedAmmunition.Settle(scalper, due.AddMilliseconds(-1)); Require(NamedAmmunition.Remaining(scalper) == maximum - 1, "Quantity replenished too early");
-        NamedAmmunition.Settle(scalper, due); Require(NamedAmmunition.Remaining(scalper) == maximum, "Quantity did not replenish at its source rate");
-        for (int i = 0; i < maximum; i++) { Require(NamedAmmunition.Consume(scalper, now), "Quantity exhausted too early"); }
-        Require(!NamedAmmunition.Consume(scalper, now) && !ClassCombat.Available(owner, CombatAbility.BasicAttack)
-            && !scalper.Deleted && owner.Items.Contains(scalper), "Empty throwing weapon was deleted or allowed another throw");
-        var writer = new BufferWriter(new byte[1048576], true); NamedAmmunition.Profiles.Capture();
-        NamedAmmunition.Profiles.Serialize(writer); NamedAmmunition.Profiles.Deserialize(new BufferReader(writer.Buffer[..(int)writer.Position]));
-        Require(NamedAmmunition.Remaining(scalper) == 0 && NamedAmmunition.Quantities[scalper.Serial].DueUtc == due,
-            "Empty weapon quantity/clock changed on persistence reload");
-        owner.Backpack.DropItem(scalper); var other = Player(); other.Backpack.DropItem(scalper);
-        Require(NamedAmmunition.Remaining(scalper) == 0 && NamedAmmunition.Quantities[scalper.Serial].DueUtc == due,
-            "Storage/trade reset quantity or replenishment clock");
-        NamedAmmunition.Settle(scalper, due);
-        Require(NamedAmmunition.Remaining(scalper) == 1 && NamedAmmunition.CanAttack(scalper), "Empty replenishing weapon did not become usable again");
-        var titan = NamedGear.Create("unique/281", 99, new FirstRoll()); other.Backpack.DropItem(titan);
-        Require(NamedAmmunition.Maximum(titan) == 180 && NamedAmmunition.Remaining(titan) == 180, "Titan's Revenge lost increased stack size");
-        var gimmer = NamedGear.Create("unique/335", 99, new FirstRoll()); other.Backpack.DropItem(gimmer);
-        Require(NamedAmmunition.Maximum(gimmer) == 330, "Gimmershred lost increased stack size");
-        for (int i = 0; i < 330; i++) { Require(NamedAmmunition.Consume(gimmer, now), "Non-replenishing stack consumed incorrectly"); }
-        NamedAmmunition.Settle(gimmer, now.AddDays(30));
-        Require(NamedAmmunition.Remaining(gimmer) == 0 && !gimmer.Deleted, "Non-replenishing weapon acquired quantity or disappeared");
-        var knife = NamedGear.Create("unique/291", 99, new FirstRoll()); other.Backpack.DropItem(knife);
-        Require(knife is NamedThrowingKnife && CombatTiming.Weapon((BaseWeapon)knife).Family == AttackFamily.Throw
-            && NamedAmmunition.Maximum(knife) == 240, "Deathbit did not receive its throwing-knife appearance and quantity consumer");
-        var records = new List<SavedThrow>();
-        foreach (var item in new[] { scalper, titan, gimmer, knife })
-        {
-            var quantity = NamedAmmunition.Quantities[item.Serial];
-            records.Add(new(item.Serial.Value, quantity.Remaining, NamedAmmunition.Maximum(item), quantity.DueUtc,
-                NamedMaintenance.PeriodMs(NamedAmmunition.Rate(item)), State(item), GearDetails.Read(item).Durability.Value));
-        }
-        File.WriteAllText(Path.Join(Core.BaseDirectory, "named-throwing-checks.json"), JsonSerializer.Serialize(records));
-    }
-    private static void ReloadThrowing()
-    {
-        var records = JsonSerializer.Deserialize<SavedThrow[]>(File.ReadAllText(Path.Join(Core.BaseDirectory, "named-throwing-checks.json")));
-        var now = TimedEffects.Now;
-        foreach (var row in records)
-        {
-            var item = World.FindItem((Serial)row.Item);
-            Require(item is { Deleted: false } && State(item) == row.State && GearDetails.Read(item).Durability == row.Durability,
-                "Throwing weapon identity, rolls or native durability changed across real restart");
-            long replenished = row.Period > 0 && now >= row.Due ? (long)(now - row.Due).TotalMilliseconds / row.Period + 1 : 0;
-            int expected = row.Remaining + (int)Math.Min(row.Maximum - row.Remaining, replenished);
-            NamedAmmunition.Settle(item, now);
-            Require(NamedAmmunition.Maximum(item) == row.Maximum && NamedAmmunition.Remaining(item) == expected,
-                "Throwing quantity or elapsed replenishment failed real restart: " + row.Item);
-        }
+        var owner = Player();
+        owner.RawStr = owner.RawDex = 1000;
+        var scalper = (BaseWeapon)NamedGear.Create("unique/288", 99, new FirstRoll());
+        owner.Backpack.DropItem(scalper);
+        Require(owner.EquipItem(scalper), "Cannot equip a named throwing axe");
+        ClassGear.Refresh(owner);
+
+        // A pre-ammo-removal save can still have a depleted throwing ledger.
+        NamedAmmunition.Quantities[scalper.Serial] = new(0, DateTime.MaxValue);
+        var target = new Zombie();
+        target.MoveToWorld(new Point3D(owner.X + 1, owner.Y, owner.Z), owner.Map);
+        target.AIObject.AITimer.Stop();
+        Require(ClassCombat.Available(owner, CombatAbility.BasicAttack)
+            && ClassCombat.Perform(owner, CombatAbility.BasicAttack, target, target.Location, Core.TickCount)
+            && ClassCombat.ResolveAction(owner, ClassCombat.For(owner).EffectAt),
+            "A depleted throwing ledger blocked a real named weapon attack");
+        Require(NamedAmmunition.Remaining(scalper) == 0 && scalper.Parent == owner,
+            "A named throwing attack altered the old quantity ledger or removed the weapon");
+
+        var knife = NamedGear.Create("unique/291", 99, new FirstRoll());
+        owner.Backpack.DropItem(knife);
+        Require(knife is NamedThrowingKnife && CombatTiming.Weapon((BaseWeapon)knife).Family == AttackFamily.Throw,
+            "Deathbit did not receive its throwing-knife appearance and attack family");
+        target.Delete();
+        owner.Delete();
     }
     private static void Control()
     {
@@ -858,7 +821,7 @@ public static class NamedGearChecks
     }
     private static void Reload()
     {
-        NamedLifecycleChecks.Reload(); ReloadThrowing(); ReloadCorpse(); ReloadSetVisuals(); ReloadFade();
+        NamedLifecycleChecks.Reload(); ReloadCorpse(); ReloadSetVisuals(); ReloadFade();
         var saved = JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));
         Require(World.FindMobile((Serial)saved.Owner) is PlayerMobile, "Named owner vanished");
         foreach (var row in saved.Items)

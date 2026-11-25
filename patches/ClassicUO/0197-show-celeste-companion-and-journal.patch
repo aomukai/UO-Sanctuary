@@ -1,0 +1,66 @@
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryCharacterStats.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryCharacterStats.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryCharacterStats.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryCharacterStats.cs
+@@ -97,12 +97,14 @@
+             CompanionEquipmentStyle.Bow => "Bows",
+             CompanionEquipmentStyle.Crossbow => "Crossbows",
+             CompanionEquipmentStyle.Sword => "Swords",
++            CompanionEquipmentStyle.MaceAndShield => "Maces and shields",
+             _ => "—"
+         });
+         Row(left, 193, "Armour", () => _companionStats?.Style switch
+         {
+             CompanionEquipmentStyle.Bow or CompanionEquipmentStyle.Crossbow => "Light only",
+             CompanionEquipmentStyle.Sword => "Any weight",
++            CompanionEquipmentStyle.MaceAndShield => "Up to medium",
+             _ => "—"
+         });
+ 
+@@ -220,6 +222,7 @@
+         CombatAbility.IronSkin => "Iron Skin",
+         CombatAbility.SwordMastery => "Sword Mastery",
+         CombatAbility.HolyShield => "Holy Shield",
++        CombatAbility.Conviction => "Conviction Aura",
+         CombatAbility.InnerSight => "Inner Sight",
+         CombatAbility.MultipleShot => "Multiple Shot",
+         _ => ability.ToString()
+@@ -231,6 +234,10 @@
+         CombatAbility.Shout => $"Gives Wolfgang and nearby allies +{skill.First}% defense for {Seconds(skill.Second)}. Can draw nearby enemies to him.",
+         CombatAbility.SwordMastery => $"Passive with a sword. +{skill.First}% attack rating, +{skill.Second}% damage, and a {skill.Third}% chance to deal double physical damage.",
+         CombatAbility.HolyShield => $"Always active with a usable shield. +{skill.First}% defense and +{skill.Second} percentage points of block chance, up to the 75% block cap.",
++        CombatAbility.Charge => $"Rushes an enemy with {skill.First:+0;-0;0}% attack rating and {skill.Second:+0;-0;0}% physical damage.",
++        CombatAbility.Smite => $"Strikes with her shield at {skill.First:+0;-0;0}% shield damage and stuns for up to {Seconds(skill.Second)}.",
++        CombatAbility.Conviction => $"Reduces nearby enemies' defense by {Math.Abs(skill.First)}% and their fire, cold and lightning resistance by up to {Math.Abs(skill.Second)} points.",
++        CombatAbility.Zeal => $"Makes up to {skill.First} rapid strikes with {skill.Second:+0;-0;0}% attack rating and {skill.Third:+0;-0;0}% physical damage.",
+         CombatAbility.Dodge => $"{skill.First}% chance to avoid a melee hit while standing still.",
+         CombatAbility.Avoid => $"{skill.First}% chance to avoid a missile while standing still.",
+         CombatAbility.Evade => $"{skill.First}% chance to avoid a melee hit or missile while moving.",
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
+@@ -146,6 +146,16 @@
+             "I met an imp named Gnaw in a pentagram in the woods. His master was dead, and he knew no way back to the Abyss. We made a bargain. I spoke the dispel, he left me his gold and a piece of gear, and the clearing was suddenly quiet."),
+         (StoryDiscoveries.CoveChief, "A Rune from the Orc Fort",
+             "The chief of the Cove raiders was carrying a marked rune. It led straight to Cove's gates. I wondered how often he had stood on that same road and watched Thomas's guards change shifts."),
++        (StoryDiscoveries.CelesteDrake, "A Paladin in Covetous",
++            "I found Celeste in a cell in Covetous. We were both investigating rumours of evil deep in the anti-virtue dungeons. A drake overcame her with powerful magic. She woke in the cell without her armour or weapons. She thought the gaoler had taken them to the torture chamber beside her cell."),
++        (StoryDiscoveries.CelesteWaiting, "Celeste at the Inn",
++            "Celeste is waiting at Ayila's inn in Britain. I can ask Ayila to send for her."),
++        (StoryDiscoveries.CelesteAbandoned, "Celeste Went Back Alone",
++            "Celeste went back into Covetous alone to recover the Order Shield her father gave her. She will no longer join me."),
++        (StoryDiscoveries.CelestePast, "The Captain's Daughter",
++            "Celeste's father captained the paladins of Trinsic. Her fellow paladins thought he gave her advantages. She set out to prove she had earned her place through patience and discipline. She told me she had taken on more than she could handle in Covetous."),
++        (StoryDiscoveries.CelesteTrinsicReport, "A Report for Trinsic",
++            "I agreed to go to Trinsic with Celeste so we can tell the paladins what we discovered."),
+         (StoryDiscoveries.HedgeTobin, "Supper in the Maze",
+             "I found Tobin in the study at the Hedge Maze farm, bent over a book. He took me for one of the visitors his mother had promised and said he had to finish the page before supper. For a moment, I almost expected to hear someone call him to the table."),
+         (StoryDiscoveries.HedgeRoderic, "Roderic's Answer",
+@@ -225,7 +235,7 @@
+     internal void RefreshDiscoveries()
+     {
+         var visible = _category.Text == "All discoveries"
+-            ? World.Player?.SanctuaryDiscoveries ?? StoryDiscoveries.None
++            ? (World.Player?.SanctuaryDiscoveries ?? StoryDiscoveries.None) & ~StoryDiscoveries.CelesteRescued
+             : StoryDiscoveries.None;
+         _empty.IsVisible = visible == StoryDiscoveries.None;
+         _discoveries.IsVisible = !_empty.IsVisible;

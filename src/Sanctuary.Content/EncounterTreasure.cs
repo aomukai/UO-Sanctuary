@@ -99,7 +99,7 @@ public static class EncounterTreasure
             return $"Act 1 (H) {kind} A";
         }
         if (creature is FrontierEncounter or CovetousEncounter or CoveEncounter or HedgeEncounter or YewEncounter
-            or YewVampire or OrcFortEncounter or BrigandEncounter or HythlothEncounter)
+            or YewVampire or OrcFortEncounter or BrigandEncounter or HythlothEncounter or ShameEncounter)
         {
             string tier = CreatureProfiles.Level(creature) >= 25 ? "B" : "A";
             string kind = creature.Leader ? "Unique" : creature.Grade == EncounterGrade.Champion ? "Champ"
@@ -208,10 +208,12 @@ public static class EncounterTreasure
         }
     }
     internal static bool HasDedicatedLoot(EncounterCreature creature) =>
-        creature is CampaignBoss or HythlothEncounter { Leader: true };
+        creature is CampaignBoss or HythlothEncounter { Leader: true } or ShameEncounter { Role: ShameRole.FleetCaptain };
 
     internal static void Award(RewardLife life, EncounterCreature creature, Random random)
     {
+        if (creature is ShameEncounter { Role: ShameRole.FleetCaptain })
+            return; // This captain's reward is placed in the expedition chest.
         bool dedicated = HasDedicatedLoot(creature);
         foreach (var drop in Roll(creature, random))
         {

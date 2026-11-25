@@ -165,6 +165,8 @@ public partial class AyilaInn : ConversationNpc
         Wolfgang => "I think I've got it. I should have taken notes, but I was listening. Just let me fetch my shield and I'm ready.",
         Nightwind => "I am glad thou hast come. My bow is close at hand.",
         Merydwen => "I leave you alone for a little while and you come back with a story like that. Right, let me get my bow.",
+        Celeste { GearRecovered: true } => "I have my kit, and my father's shield is with me. Shall we carry on with our investigation?",
+        Celeste => "I'm ready to travel, but my kit is still in the torture chamber in Covetous. Wilt thou help me fetch it?",
         _ => "I'm glad to see thee again. Thank thee for bringing me up to date. Shall we set out?"
     };
 }

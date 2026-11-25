@@ -43,6 +43,23 @@ def row_evidence(name, rows, key, value, fields):
                 fields={field: row[field] for field in fields if field in row})
 
 
+def project_affix_pool(query, affixes, units):
+    base, level, rarity = query['BaseCode'], query['ItemLevel'], query['Rarity']
+    key = (base, level, rarity)
+    require(rarity in ['Magic', 'Rare'], 'Unsupported rarity in audit')
+    ids = query['AffixIds']
+    require(ids and len(ids) == len(set(ids)), f'Empty/duplicate affix pool: {key}')
+    rows = [affixes[affix_id] for affix_id in ids]
+    require(all(m['mode'] in ('Numeric', 'Parameter', 'DamageRange') and m['code'] in units and m['code'] != 'sock'
+                for row in rows for m in row['modifiers']), f'Unsupported compound effect: {key}')
+    affix_level = query['AffixLevel']
+    require(all(row['level'] <= affix_level and (not row['maxLevel'] or row['maxLevel'] >= affix_level)
+                and (rarity != 'Rare' or row['rare']) for row in rows), f'Level/rarity gate drift: {key}')
+    return dict(baseCode=base, itemLevel=level, affixLevel=affix_level, rarity=rarity, count=len(rows),
+                effectCodes=sorted({m['code'] for row in rows for m in row['modifiers']}),
+                maximumSingleAffixRequiredLevel=max(row['requiredLevel'] for row in rows))
+
+
 def build(source, audit_path, root=ROOT):
     pins, tables = source_tables(source)
     manifest_path = REFERENCE / 'first-loop-cohort.json'
@@ -107,17 +124,7 @@ def build(source, audit_path, root=ROOT):
         key = (query['BaseCode'], query['ItemLevel'], query['Rarity'])
         require(key not in pool_keys, f'Duplicate pool: {key}')
         pool_keys.add(key)
-        require(query['Rarity'] in ['Magic', 'Rare'], 'Unsupported rarity in audit')
-        rows = [affixes[id] for id in query['AffixIds']]
-        require(len(rows) == len(set(query['AffixIds'])) and rows, f'Empty/duplicate affix pool: {key}')
-        require(all(m['mode'] in ('Numeric', 'Parameter', 'DamageRange') and m['code'] in units and m['code'] != 'sock'
-                    for row in rows for m in row['modifiers']), f'Unsupported compound effect: {key}')
-        require(all(row['level'] <= query['AffixLevel'] and (not row['maxLevel'] or row['maxLevel'] >= query['AffixLevel'])
-                    and (query['Rarity'] != 'Rare' or row['rare']) for row in rows), f'Level/rarity gate drift: {key}')
-        pools.append(dict(baseCode=query['BaseCode'], itemLevel=query['ItemLevel'], affixLevel=query['AffixLevel'],
-                          rarity=query['Rarity'], count=len(rows),
-                          effectCodes=sorted({m['code'] for row in rows for m in row['modifiers']}),
-                          maximumSingleAffixRequiredLevel=max(row['requiredLevel'] for row in rows)))
+        pools.append(project_affix_pool(query, affixes, units))
     expected_keys = {(i['baseCode'], level, rarity) for i in manifest['items']
                      for level in manifest['affixQueryItemLevels'] for rarity in ['Magic', 'Rare']}
     require(pool_keys == expected_keys, 'Missing or extra affix query')
