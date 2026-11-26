@@ -10,7 +10,7 @@ namespace Sanctuary;
 
 public enum GearWeight { None, Light, Medium, Heavy }
 public enum GearRarity { Normal = 0, Magic = 1, Rare = 2, Set = 3, Unique = 4 }
-public enum GearSlot { Cosmetic, Weapon, Shield, Head, Body, Hands, Feet, Belt, Ring, Amulet }
+public enum GearSlot { Cosmetic, Weapon, Shield, Head, Body, Hands, Feet, Belt, Ring, Amulet, Quiver }
 public sealed record GearDefinition(string Type, string Category, string AffixType, GearWeight Weight,
     string Tier, bool NormalDrop, int? MaxSockets, string Source, string ExcludedReason,
     GearSlot Slot, string BaseCode, bool AllowsAffixes);
@@ -164,6 +164,7 @@ public static class EquipmentBalance
             _gear.Add(gear.Type, gear);
         }
         GrimoireEquipment.Register(_types,_bases,_gear);
+        QuiverEquipment.Register(_types, _bases, _gear);
         ValidateType("grim",new HashSet<string>());
     }
     private static void ValidateType(string code, HashSet<string> path)

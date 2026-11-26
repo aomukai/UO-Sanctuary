@@ -11,6 +11,7 @@ public sealed record ThunderStormState(DateTime UntilUtc, DateTime NextStrikeUtc
 
 public static class ThunderStorm
 {
+    private const int StrikeFrameMs = 20;
     private static readonly Dictionary<Serial, TimerExecutionToken> _timers = new();
     internal static bool Valid(ThunderStormState state)=>state!=null&&state.IntervalFrames is >=25 and <=110&&state.RadiusSubtiles==17&&state.Rank is >=1 and <=255
         &&state.UntilUtc.Kind==DateTimeKind.Utc&&state.NextStrikeUtc.Kind==DateTimeKind.Utc&&(state.LastTarget==0||((Serial)state.LastTarget).IsMobile);
@@ -24,7 +25,7 @@ public static class ThunderStorm
             ||M("pSrvDoFunc")!=3||M("Range")!=9||M("CanSlow")!=0||M("Size")!=3||M("ReturnFire")!=1||M("GetHit")!=1||M("ResultFlags")!=4)
         {throw new NotSupportedException("Unmapped Thunder Storm route");}
         int frames=checked((int)values.Eval("perdelay"));
-        var storm=new ThunderStormState(now.AddMilliseconds(values.Eval("auralencalc")*40),now.AddMilliseconds(frames*40),frames,values.Param(7),values.Rank);
+        var storm=new ThunderStormState(now.AddMilliseconds(values.Eval("auralencalc")*40),now.AddMilliseconds(frames*StrikeFrameMs),frames,values.Param(7),values.Rank);
         if(!Valid(storm)){throw new NotSupportedException("Unsupported Thunder Storm state");}return storm;
     }
     private static void Commit(PlayerMobile owner,ThunderStormState storm)
@@ -66,7 +67,7 @@ public static class ThunderStorm
         // attacks or replay. Keep target memory while action is suspended.
         if(owner.Map==null||owner.Map==Map.Internal||!(actions??owner.NetState is{Running:true}))
         {
-            storm=storm with{NextStrikeUtc=now.AddMilliseconds(storm.IntervalFrames*40)};
+            storm=storm with{NextStrikeUtc=now.AddMilliseconds(storm.IntervalFrames*StrikeFrameMs)};
             SorceressEffects.Profiles.Store(owner,state with{Storm=storm});Schedule(serial,storm);return;
         }
         Mobile selected = null;
@@ -80,7 +81,7 @@ public static class ThunderStorm
                 if (candidate.Serial.Value > storm.LastTarget) { selected = candidate; break; }
             }
         }
-        storm = storm with { NextStrikeUtc = now.AddMilliseconds(storm.IntervalFrames * 40), LastTarget = selected?.Serial.Value ?? 0 };
+        storm = storm with { NextStrikeUtc = now.AddMilliseconds(storm.IntervalFrames * StrikeFrameMs), LastTarget = selected?.Serial.Value ?? 0 };
         SorceressEffects.Profiles.Store(owner, state with { Storm = storm });
         Schedule(serial, storm); // Missed/offline periods never replay a burst of strikes.
         if (SpellHelper.IsTown(owner.Location, owner)) { return; }
@@ -93,7 +94,7 @@ public static class ThunderStorm
         var ends=DruidFirestorm.Endpoints(values,modifiers.LightningMastery,slow);
         ulong seed=SourceRandom.InitLow(SorceressSpellMissiles.SeedLow());int raw=SorceressSpellMissiles.Roll(ends.Min,ends.Max,seed,out _);
         var impact = selected.Location;
-        SorceressSpellMissiles.ImpactPrepared(owner,selected,"thunderstorm1","ltng",raw,modifiers,now);
+        SorceressSpellMissiles.ImpactPrepared(owner,selected,"thunderstorm1","ltng",raw,modifiers,now,stunFrames:25);
         Effects.SendLocationEffect(impact, owner.Map, SpellEffectGraphics.ThunderStormStrike,
             SpellEffectGraphics.ThunderStormStrikeDuration);
         Effects.PlaySound(impact, owner.Map, SpellEffectSounds.ThunderStormStrike);

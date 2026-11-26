@@ -28,13 +28,14 @@ public static class NamedCombat
         ?$"Paragon {action} classification is not configured.":null;
     public static bool Elite(Mobile target) => target is BaseCreature creature &&
         (CreatureProfiles.For(creature).Traits.Boss == true || creature is EncounterCreature { Grade: EncounterGrade.Champion or EncounterGrade.Unique or EncounterGrade.SuperUnique });
-    public static double Deadly(PlayerMobile player, Random random)
+    public static double Deadly(PlayerMobile player, Random random, int procBonus = 0)
     {
         if(Ranged(player)){return ProjectileCritical(player,random)?2:1;}
         // Normal melee tries mastery, generic critical, then Deadly Strike; double once.
         int mastery=WeaponMasteries.Bonus(player,CombatTiming.Equipped(player),3);
         int chance = Math.Clamp(ClassGear.Bonus(player, "deadly"), 0, 100);
-        return MeleeCritical(mastery,AmazonCombat.CriticalChance(player),chance,random)?2:1;
+        return MeleeCritical(mastery,AmazonCombat.CriticalChance(player),chance,
+            () => (uint)PaladinZeal.ProcRoll(random, 100, procBonus)) ? 2 + procBonus / 100.0 : 1;
     }
     internal static bool MeleeCritical(int mastery,int generic,int deadly,Random random)
         =>MeleeCritical(mastery,generic,deadly,()=>unchecked((uint)random.Next(100)));
@@ -78,17 +79,18 @@ public static class NamedCombat
         return CrushingLoss256(SkillHealth.Balance256(target),divisor,target.PhysicalResistance,ranged:ranged);
     }
     public static int CrushingLoss(Mobile target, bool ranged)=>CrushingLoss256(target,ranged)/256;
-    public static void Crushing(PlayerMobile player, Mobile target, bool ranged, Random random,int? rawDivisor=null)
+    public static void Crushing(PlayerMobile player, Mobile target, bool ranged, Random random,int? rawDivisor=null,int procBonus=0)
     {
         if(target is not{Alive:true,Deleted:false} || !target.CanBeDamaged()){return;}
         int chance = Math.Clamp(checked(ClassGear.Bonus(player, "crush")+ConsumeEffects.Crushing(player)), 0, 100);
-        if (chance <= 0 || random.Next(100) >= chance) { return; }
-        ApplyCrushing(target,ranged,rawDivisor);
+        if (chance <= 0 || PaladinZeal.ProcRoll(random, 100, procBonus) >= chance) { return; }
+        ApplyCrushing(target,ranged,rawDivisor,procBonus);
     }
     // Shared item/NPC callback commitment; callers own eligibility/chance and RNG.
-    internal static int ApplyCrushing(Mobile target,bool ranged,int? rawDivisor=null)
+    internal static int ApplyCrushing(Mobile target,bool ranged,int? rawDivisor=null,int procBonus=0)
     {
         int damage=rawDivisor is{} divisor?CrushingLoss256(SkillHealth.Balance256(target),divisor,target.PhysicalResistance):CrushingLoss256(target,ranged);
+        damage = Math.Min(SkillHealth.Balance256(target), PaladinZeal.ScaleProcDamage(damage, procBonus));
         if(damage>0)
         {
             // The source callback writes life directly before the ordinary packet;
@@ -111,26 +113,26 @@ public static class NamedCombat
         else if (elite) { rate /= 2; }
         return rate * 200.0 / 256;
     }
-    public static void AfterStrike(PlayerMobile player, Mobile target, bool ranged, Random random,bool smite=false,bool skipKnockback=false,bool setupApplied=false,bool weaponProjectile=true)
+    public static void AfterStrike(PlayerMobile player, Mobile target, bool ranged, Random random,bool smite=false,bool skipKnockback=false,bool setupApplied=false,bool weaponProjectile=true,int procBonus=0)
     {
         if (!target.Alive || target.Deleted) { return; }
         TimedEffects.Slow(target, ClassGear.Bonus(player, "slow"), TimedEffects.Now);
         if (!setupApplied && target is BaseCreature defender)
         { TimedEffects.ReduceDefense(defender, Math.Max(0, -ClassGear.Bonus(player, "dmg-ac")), TimedEffects.Now); }
-        if(!smite){NamedControl.Freeze(player, target, ClassGear.Bonus(player, "freeze"), ranged, random);}
-        NamedControl.ApplyBlind(player, target, ClassGear.Bonus(player, "stupidity"), ranged, random);
-        NamedControl.ApplyFear(player, target, ClassGear.Bonus(player, "howl"), random);
+        if(!smite){NamedControl.Freeze(player, target, ClassGear.Bonus(player, "freeze"), ranged, random,procBonus);}
+        NamedControl.ApplyBlind(player, target, ClassGear.Bonus(player, "stupidity"), ranged, random,procBonus);
+        NamedControl.ApplyFear(player, target, ClassGear.Bonus(player, "howl"), random,procBonus);
         int racialWounds = ranged && weaponProjectile && player.Race == Race.Gargoyle ? 5 : 0;
         int wounds = Math.Clamp(ClassGear.Bonus(player, "openwounds") + racialWounds, 0, 100);
-        if (wounds > 0 && random.Next(100) < wounds)
-        { TimedEffects.Bleed(player, target, OpenWoundsDamage(ClassStats.Level(player), target, ranged), TimedEffects.Now); }
+        if (wounds > 0 && PaladinZeal.ProcRoll(random, 100, procBonus) < wounds)
+        { TimedEffects.Bleed(player, target, OpenWoundsDamage(ClassStats.Level(player), target, ranged) * (100 + procBonus) / 100, TimedEffects.Now); }
         if (!setupApplied && target is BaseCreature && ClassGear.Bonus(player, "noheal") > 0)
         { TimedEffects.PreventHealing(target, TimedEffects.Now); }
         if (!smite && !skipKnockback && ClassGear.Bonus(player, "knock") > 0 && !Elite(target) && target.Map == player.Map)
         {
             int size = target is BaseCreature creature ? CreatureProfiles.For(creature).Traits.Size ?? 2 : 2;
             int chance = size <= 1 ? 100 : size >= 3 ? 25 : 50;
-            if (random.Next(100) < chance)
+            if (PaladinZeal.ProcRoll(random, 100, procBonus) < chance)
             {
                 // Use ordinary movement validation, including terrain, collision
                 // and private housing entry, for the displaced tile.
@@ -141,13 +143,16 @@ public static class NamedCombat
     }
     public static bool Demon(Mobile target) => target is BaseCreature creature
         && (CreatureProfiles.For(creature).Traits.Demon ?? SlayerGroup.GetEntryByName(SlayerName.Exorcism)?.Slays(creature) == true);
-    public static int ResistanceCap(PlayerMobile player, ResistanceType type)
+    public static int ResistanceCap(PlayerMobile player, ResistanceType type) => (int)ResistanceCapExact(player, type);
+
+    internal static double ResistanceCapExact(PlayerMobile player, ResistanceType type)
     {
         if (type == ResistanceType.Physical) { return 50; }
         string code = type switch
         { ResistanceType.Fire => "res-fire-max", ResistanceType.Cold => "res-cold-max", ResistanceType.Poison => "res-pois-max", _ => "res-ltng-max" };
         int racialMaximum = player.Race == Race.Gargoyle || (player.Race == Race.Elf && type == ResistanceType.Energy) ? 5 : 0;
-        return Math.Clamp(75 + racialMaximum + ClassGear.Bonus(player, code) + ClassGear.Bonus(player, "res-all-max") + PaladinResistance.Maximum(player,type), 0, 95);
+        return Math.Clamp(75 + racialMaximum + ClassGear.Bonus(player, code) + ClassGear.Bonus(player, "res-all-max")
+            + PaladinResistance.Maximum(player,type) + DruidPlayerForms.WerebearRank(player) * 0.5, 0, 95);
     }
     public static void Killed(PlayerMobile player, BaseCreature target)
     {

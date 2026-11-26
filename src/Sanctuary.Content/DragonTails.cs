@@ -96,6 +96,8 @@ public static class DragonTails
     {
         if(finisher is not(CombatAbility.DragonTail or CombatAbility.DragonTalon or CombatAbility.DragonClaw or CombatAbility.DragonFlight)){throw new NotSupportedException("Unapproved dragon finisher consumption policy");}
         var states=AssassinCharges.Finisher(owner);
+        int retention = ClassCreation.Profiles.GetRank(owner.Serial, SkillMechanics.For(finisher).TalentId);
+        bool retainCharges = states.Length > 0 && retention > 0 && Utility.Random(100) < retention;
         foreach(var ability in ProgressiveOrder)
         {
             var state=states.FirstOrDefault(x=>x.Ability==ability);if(state==null){continue;}
@@ -107,7 +109,8 @@ public static class DragonTails
                 case CombatAbility.ClawsOfThunder:MartialLightning.AfterParent(owner,center,map,MartialLightning.Capture(owner,state,rollInline:false),TimedEffects.Now);break;
             }
             AssassinMartialVisuals.Contact(owner, center, map, state.Ability, TimedEffects.Now);
-            AssassinCharges.Consume(owner,state,SkillMechanics.For(finisher).Number("prgchargesconsumed"));
+            if (!retainCharges)
+                AssassinCharges.Consume(owner,state,SkillMechanics.For(finisher).Number("prgchargesconsumed"));
         }
     }
     public static bool Release(PlayerMobile owner,Serial selected,long now)

@@ -19,6 +19,18 @@ Use the [README setup commands](../README.md#running-locally) for a fresh instal
 
 Keep native ModernUO and ClassicUO changes in the tracked [patch stacks](../patches). Preserve existing worktree and submodule edits. Runtime content reads copied data from `Data/Sanctuary` under the installed server. Pair server protocol updates with the matching ClassicUO build. For game-art changes, check which installed client data or patch actually supplies the asset. [Data layout](../data/Sanctuary/README.md)
 
+## Authored dialogue and reading
+
+Choose **English**, **Deutsch**, or **日本語** in the launcher before starting the client. The launcher writes `lang` in the ClassicUO settings file. In game, **Options → Sound** controls speech playback and its volume independently of effects and music.
+
+Use stable semantic IDs in new scripts. For portrait dialogue, supply a `LineId` and `SpeakerId` on each `ScriptedDialogue.Node`. Use a `TextId` on replies for translation. The Avatar’s choices are silent. For overhead NPC lines, use `AuthoredWriting.Bark` with a line ID and speaker ID.
+
+Place an `AuthoredReadable` for a sign, letter, or book. The short constructor creates a sign from an ID, title, and text. The full constructor accepts a graphic, kind, ID, title, author, text, and optional narrator recording ID. Existing scripted interactions can call `AuthoredWriting.Show` after their usual access checks. The reading window displays the document, and its Play button appears when a recording is available. Short second-person narrator observations can use `AuthoredWriting.Observe` to show yellow text above the Avatar. Reading a letter aloud keeps the text in the window.
+
+Put translation catalogs in `data/Sanctuary/Localization/en.json`, `de.json`, or `ja.json`. Each catalog is a JSON object mapping IDs to translated strings. Use the line ID for dialogue, the speaker ID plus `.name` for display names, and the document ID plus `.title`, `.author`, or `.body` for readings. Missing translations fall back to English. The English text in the script or item is the final fallback.
+
+When recordings are ready, place PCM WAV clips under `data/Sanctuary/Voice/<locale>/<id>.wav`. Dialogue and observations use their line IDs. Documents use their optional narration IDs, such as `despise.guild.folded_letter.body`. The client tries the selected language first, then English. If neither recording exists, the text remains available and playback is silent.
+
 ## Verification and evidence
 
 - For data or documentation, check links and generator inputs. Run the relevant Python checks and inspect exact differences before regenerating pinned evidence.

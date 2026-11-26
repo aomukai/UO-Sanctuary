@@ -61,7 +61,7 @@ public static class DruidArcticStream
         Routes();
         if(values.Ability!=CombatAbility.ArcticBlast||values.Rank is <1 or >255||mastery<0)
         {throw new NotSupportedException("Unsupported Arctic cold supplier");}
-        int Enhance(int raw)=>checked(raw+(int)((long)raw*mastery/100));
+        int Enhance(int raw)=>checked((int)((raw+(long)raw*mastery/100)*110/100));
         return new(Enhance(values.Damage256(false)),Enhance(values.Damage256(true)),values.DurationFrames,Math.Max(1,(int)values.Eval("calc1")));
     }
     // Aim is absolute source-subtile coordinates,as supplied by player do19.

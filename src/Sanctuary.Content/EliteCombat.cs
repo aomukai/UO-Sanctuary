@@ -23,16 +23,16 @@ public static class EliteCombat
     // One composite hit reaches PlayerMobile once, so Protection and hit recovery are not multiplied by its component count.
     internal static int Damage(EncounterCreature source, Mobile target, double physical = 0, double fire = 0,
         double cold = 0, double lightning = 0, double magic = 0, bool weapon = false, bool ranged = false, bool death = false,
-        SkillDamageKind kind = SkillDamageKind.Direct)
+        SkillDamageKind kind = SkillDamageKind.Direct, int damageRate = 0)
     {
         if (!Enemy(source, target, 18, death)) { return 0; }
-        var armored=DefensiveArmors.Absorb(target,new(physical,fire,cold,lightning,0,Magic:magic),source);
+        var armored=DefensiveArmors.Absorb(target,new(physical,fire,cold,lightning,0,Magic:magic),source, melee: weapon && !ranged);
         physical=armored.Physical;fire=armored.Fire;cold=armored.Cold;lightning=armored.Lightning;magic=armored.Magic;
         double preparedPhysical = physical > 0
             ? GemCombat.Component(target, physical, NecromancerEffects.Resistance(target, "physical", target.PhysicalResistance), false)
             : 0;
         var parts = new GearDamage(preparedPhysical,
-            NamedElements.Damage(source, target, fire, "fire"),
+            NamedElements.Damage(source, target, fire, "fire", damageRate: damageRate),
             NamedElements.Damage(source, target, cold, "cold"),
             NamedElements.Damage(source, target, lightning, "ltng"), 0,
             Magic: NamedElements.Damage(source, target, magic, "mag"));
@@ -112,11 +112,11 @@ public static class EliteCombat
         }
         if (source.Has(EliteModifier.Cursed) && random.Next(100) < 75)
         {
-            int level = CreatureProfiles.Level(source) / 5 + 1;
+            int level = source.SpellEffectRank;
             int radius = Math.Clamp((3 + level - 1 + 2) / 3, 1, 18);
             foreach (var mobile in source.Map.GetMobilesInRange<Mobile>(target.Location, radius))
             {
-                if (Enemy(source, mobile, 18)) { EliteAuras.Amplify(source,mobile,level); }
+                if (Enemy(source, mobile, 18)) { EliteAuras.Amplify(source, mobile); }
             }
         }
     }

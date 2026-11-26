@@ -11,12 +11,14 @@ public sealed record NativeGearDetails(GearMaterial Material, CraftResource Reso
 public static class GearDetails
 {
     public static bool Socketable(Item item) => ClassGear.Slot(item) is
-        GearSlot.Weapon or GearSlot.Shield or GearSlot.Head or GearSlot.Body;
+        GearSlot.Weapon or GearSlot.Shield or GearSlot.Head or GearSlot.Body or GearSlot.Quiver;
+
+    internal static int SocketLimit(Item item) => item is SanctuaryQuiver ? QuiverEquipment.SocketLimit : 5;
 
     // Native serializers remain the sole owners of resource, maker and wear state.
     public static NativeGearDetails Read(Item item)
     {
-        var material = item is BaseArmor { MaterialType: ArmorMaterialType.Bone }
+        var material = item is SanctuaryQuiver ? GearMaterial.Leather : item is BaseArmor { MaterialType: ArmorMaterialType.Bone }
             || ClassGear.State(item)?.CraftedEquipment == true && EquipmentCrafting.PhysicalMaterial(item.GetType()) == GearMaterial.Bone
             ? GearMaterial.Bone
             : EquipmentEconomy.Material(item) switch
@@ -33,6 +35,7 @@ public static class GearDetails
             BaseArmor armor => armor.Resource,
             BaseClothing clothing => clothing.Resource,
             BaseJewel jewel => jewel.Resource,
+            SanctuaryQuiver quiver => quiver.Resource,
             _ => CraftResource.None
         };
         // Some native wood weapons default to Iron; hue is never a material identifier.
@@ -50,6 +53,7 @@ public static class GearDetails
             BaseArmor armor => new(material, resource, armor.Crafter, armor.HitPoints, armor.MaxHitPoints),
             BaseClothing clothing => new(material, resource, clothing.Crafter, clothing.HitPoints, clothing.MaxHitPoints),
             BaseJewel jewel => new(material, resource, null, jewel.HitPoints, jewel.MaxHitPoints),
+            SanctuaryQuiver quiver => new(material, resource, quiver.Crafter, null, null),
             _ => new(material, resource, null, null, null)
         };
     }

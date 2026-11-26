@@ -13,6 +13,8 @@ namespace Sanctuary;
 [SerializationGenerator(0)]
 public partial class EncounterCreature : GraveyardUndead
 {
+    internal const int ParagonBodyHue = 0x482;
+
     [SerializableField(0, setter: "private")] private string _profileId;
     [SerializableField(1, setter: "private")] private int _baseLevel;
     [SerializableField(2, setter: "private")] private MonsterDifficulty _difficulty;
@@ -38,7 +40,8 @@ public partial class EncounterCreature : GraveyardUndead
     private Point3D _shotOrigin;
     private long _teleportAfter = Core.TickCount;
     public DungeonProfile Dungeon => EncounterProfiles.Profile(_profileId ?? "crypt-sentinel-60");
-    public MonsterLevel Basis => MonsterBalance.For(Dungeon.Archetype, EncounterProfiles.Level(_baseLevel == 0 ? 60 : _baseLevel, _grade));
+    public MonsterLevel Basis => MonsterBalance.For(Dungeon.Archetype, EncounterLevel(_baseLevel == 0 ? 60 : _baseLevel));
+    protected virtual int EncounterLevel(int baseLevel) => EncounterProfiles.Level(baseLevel, _grade);
     internal int BaseExperience => checked(Basis.Experience * (_grade switch
     {
         EncounterGrade.Ordinary => 1,
@@ -133,14 +136,33 @@ public partial class EncounterCreature : GraveyardUndead
         string encounterName = name ?? (_grade == EncounterGrade.Unique ? $"{profile.Name} the {new[] { "Ravager", "Accursed", "Unhallowed", "Dire" }[random.Next(4)]}"
             : _grade == EncounterGrade.Minion ? $"{profile.Name} minion" : profile.Name);
         Name = _grade == EncounterGrade.Champion ? ParagonName(encounterName) : encounterName;
-        Hue = grade switch { EncounterGrade.Champion => 0x482, EncounterGrade.Unique or EncounterGrade.SuperUnique => 0x489, _ => 0 };
+        Hue = 0;
+        ApplyElitePalette();
         CreatureProfiles.Session(this).Initialized = false; CreatureProfiles.Initialize(this); Hits = HitsMax;
     }
+    private void ApplyElitePalette()
+    {
+        if (IsParagon)
+            return;
+        if (_grade == EncounterGrade.Champion)
+            Hue = ParagonBodyHue;
+        else if (Leader)
+        {
+            if (!Body.IsHuman && !Body.IsGargoyle)
+                Hue = 0;
+            else
+            {
+                int skin = Hue & 0x7FFF;
+                if ((Hue & 0x8000) == 0 || Race.ClipSkinHue(skin) != skin)
+                    Hue = Race.RandomSkinHue();
+            }
+        }
+    }
+
     protected virtual int[] AdjustResistances(int[] resistances) => resistances;
     internal int EncounterPlayers => RegionalEncounterPlayers == DungeonPlayerScaling.Players
         || DungeonPlayerScaling.IsWildDungeonCreature(this) ? DungeonPlayerScaling.Players : RegionalEncounterPlayers;
     protected virtual int RegionalEncounterPlayers => DungeonPlayerScaling.Players;
-    internal virtual int? AuraRankOverride => null;
     protected virtual ResistanceType MeleeElement => ResistanceType.Physical;
     protected virtual int EncounterMoveInterval(int interval) => interval;
     protected virtual int EncounterDamageRegen => 2;
@@ -222,6 +244,19 @@ public partial class EncounterCreature : GraveyardUndead
     }
     protected override void Deal(Mobile target, int damage, bool fire) =>
         EliteCombat.Hit(this, target, damage, fire ? ResistanceType.Fire : MeleeElement);
+
+    // Map levels 1–99 into the effect formulas' normal 1–20 range.
+    internal int SpellEffectRank => Basis.Level / 5 + 1;
+
+    internal SkillValues SpellEffects(CombatAbility ability) =>
+        SkillMechanics.UnsynergizedValues(ability, SpellEffectRank, Basis.Level);
+
+    internal int RollSpellDamage256()
+    {
+        var attack = EncounterProfile.Attack1;
+        return 256 * Utility.RandomMinMax(attack.MinDamage.Value, attack.MaxDamage.Value);
+    }
+
     protected override bool CanRaiseKind(Corpse corpse) => false;
     protected virtual bool CanCastEncounterBolt => Caster;
     protected virtual int EncounterBoltRange => Basis.Range;
@@ -309,7 +344,6 @@ public partial class EncounterCreature : GraveyardUndead
             PlaySound(SpellEffectSounds.InfernoJet);
 
         var previous = origin;
-        var attack = EncounterProfile.Attack1;
         int graphic = SorceressVisuals.DirectionalFrame(SpellEffectGraphics.InfernoFlight, stepX, stepY, phase);
         for (int i = 1; i <= InfernoRange; i++)
         {
@@ -321,7 +355,7 @@ public partial class EncounterCreature : GraveyardUndead
             foreach (var target in map.GetMobilesInRange<Mobile>(point, 0))
             {
                 if (EliteCombat.Enemy(this, target, InfernoRange))
-                    EliteCombat.Damage(this, target, fire: Utility.RandomMinMax(attack.MinDamage.Value, attack.MaxDamage.Value) / 3.0);
+                    EliteCombat.Damage(this, target, fire: RollSpellDamage256() / (3.0 * 256));
             }
             previous = point;
         }
@@ -355,6 +389,7 @@ public partial class EncounterCreature : GraveyardUndead
     public override void OnAfterSpawn()
     {
         base.OnAfterSpawn();
+        ApplyElitePalette();
         if (_grade == EncounterGrade.Champion)
             Name = ParagonName(Name);
     }
@@ -397,6 +432,8 @@ public partial class EncounterCreature : GraveyardUndead
                 name = dungeon.Name;
             Name = ParagonName(name);
         }
+        ApplyElitePalette();
+
         if (RollMissingModifiersOnLoad && Modifiers.Length == 0)
         {
             _modifiers = EncounterProfiles.RollModifiers(dungeon, _difficulty, Random.Shared);

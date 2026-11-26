@@ -9,6 +9,7 @@ namespace Sanctuary;
 public readonly record struct GearDamage(double Physical, double Fire, double Cold, double Lightning, double Poison, int PoisonMs = 3000, int ColdMs = 2000, double Magic = 0)
 {
     public WeaponPoisonRoll SourcePoison{get;init;}
+    internal double ImpactPoison { get; init; }
     public double Total => Physical + Fire + Cold + Lightning + Poison + Magic;
 }
 
@@ -16,6 +17,7 @@ public readonly record struct PreparedWeaponImpact(GearDamage Damage,GearDamage 
 {
     public int SourceStunFrames{get;init;}
     internal PreparedPoison? AllocatedPoison{get;init;}
+    internal int ElementalLeech256 { get; init; }
 }
 
 public static class GearEffects
@@ -173,11 +175,11 @@ public static class GearEffects
         double enhanced=NamedElements.Enhance(player,total-aura,element)+aura;
         return enhanced;
     }
-    internal static PreparedWeaponImpact PrepareWeaponImpact(PlayerMobile player,Mobile target,double roll,Random effects,GearDamage damage,GearDamage? skillElements=null,int physicalToMagicPercent=0,bool? projectileCritical=null,int physicalToFirePercent=0,Func<GearDamage> skillElementsFactory=null,Func<int,int> physicalAfterCritical=null)
+    internal static PreparedWeaponImpact PrepareWeaponImpact(PlayerMobile player,Mobile target,double roll,Random effects,GearDamage damage,GearDamage? skillElements=null,int physicalToMagicPercent=0,bool? projectileCritical=null,int physicalToFirePercent=0,Func<GearDamage> skillElementsFactory=null,Func<int,int> physicalAfterCritical=null,bool leechSkillElements=false,int procBonus=0)
     {
         if(skillElementsFactory!=null&&skillElements.HasValue){throw new ArgumentException("Use one skill-element provider");}
         bool ranged=NamedCombat.Ranged(player);
-        double rawPhysical=damage.Physical*(projectileCritical is{} critical?(critical?2:1):NamedCombat.Deadly(player,effects));
+        double rawPhysical=damage.Physical*(projectileCritical is{} critical?(critical?2:1):NamedCombat.Deadly(player,effects,procBonus));
         // Skill elements already include their source percentage/mastery rounding.
         // Ordinary weapon hits must also reach Energy Shield before resistance.
         double convertedMagic=0,convertedFire=0;
@@ -195,13 +197,20 @@ public static class GearEffects
         // Fire Claws rolls its skill element after weapon critical, before mitigation.
         var extra=skillElementsFactory?.Invoke()??skillElements.GetValueOrDefault();
         if(physicalAfterCritical!=null){rawPhysical=physicalAfterCritical(NamedElements.To256(rawPhysical))/256.0;}
-        var parts=SkillCombat.MitigatePrepared(player,target,new(NamedElements.Enhance(player,rawPhysical,"physical"),
+        var rawParts = new GearDamage(NamedElements.Enhance(player,rawPhysical,"physical"),
             WeaponElement(player,damage.Fire,"fire",roll,ranged)+extra.Fire+convertedFire,
             WeaponElement(player,damage.Cold,"cold",roll,ranged)+extra.Cold,
             WeaponElement(player,damage.Lightning,"ltng",roll,ranged)+extra.Lightning,0,
-            Magic:NamedElements.Enhance(player,damage.Magic,"mag")+convertedMagic),out int absorbed256);
+            Magic:NamedElements.Enhance(player,damage.Magic,"mag")+convertedMagic);
+        rawParts = QuiverEquipment.Convert(rawParts, QuiverEquipment.Element(player));
+        rawParts = rawParts with { Poison = rawParts.ImpactPoison };
+        var parts = SkillCombat.MitigatePrepared(player,target,rawParts,out int absorbed256, melee: !ranged);
         damage=damage with{Cold=damage.Cold+extra.Cold,ColdMs=damage.ColdMs+extra.ColdMs};
-        return new(damage,parts,absorbed256){SourceStunFrames=DruidAttackCharges.StunFrames(player)};
+        double Share(double landed, double raw, double skill) => raw > 0 ? landed * Math.Clamp(skill / raw, 0, 1) : 0;
+        int elementalLeech = leechSkillElements ? NamedElements.To256(
+            Share(parts.Fire, rawParts.Fire, extra.Fire) + Share(parts.Cold, rawParts.Cold, extra.Cold)
+            + Share(parts.Lightning, rawParts.Lightning, extra.Lightning)) : 0;
+        return new(damage,parts,absorbed256){SourceStunFrames=DruidAttackCharges.StunFrames(player), ElementalLeech256=elementalLeech};
     }
     public static int Strike(PlayerMobile player, Mobile target, double roll, Random effects = null, bool wearWeapon = true,GearDamage? skillElements=null,
         int? skillPhysicalPercent=null,Func<int,int> physicalRoll=null,Func<int,bool> beforeCommit=null,bool skillKnockback=false,GearDamage? preparedDamage=null,PreparedWeaponImpact? preparedImpact=null,bool? projectileCritical=null,PlayerWeaponDrain? sourceDrain=null,bool softHit=false,int? sourceColdFrames=null,int sourceFreezeFrames=0)
@@ -217,7 +226,7 @@ public static class GearEffects
         NamedCombat.Crushing(player, target, ranged, effects);
         var drain=sourceDrain??WeaponLeech.Capture(player);
         PreparedWeaponEvents.BeforeReturn(player,target,NamedElements.To256(physical),ranged,absorbed256,
-            target is BaseCreature victim?clipped=>WeaponLeech.Apply(player,victim,clipped,drain):null);
+            target is BaseCreature victim?clipped=>WeaponLeech.Apply(player,victim,checked(clipped + packet.ElementalLeech256),drain):null);
         if(sourceColdFrames is{} coldFrames){ColdStates.Apply(player,target,coldFrames,Core.TickCount);FreezeStates.Apply(player,target,sourceFreezeFrames,Core.TickCount);}
         int normalBefore = target.Hits;
         if (total > 0 && target.Alive && !target.Deleted)

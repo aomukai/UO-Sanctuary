@@ -111,6 +111,22 @@ public static class HexBane
         WeaponHexVisuals.Mark(target,CombatAbility.HexBane,next.UntilUtc,at,old==null);
         return true;
     }
+    internal static void ApplyEncounter(WrongEncounter source, Mobile target, HexBaneValues values)
+    {
+        var old = Debuff(target);
+        int rank = source.SpellEffectRank;
+        if (old?.Rank > rank)
+            return;
+        var now = TimedEffects.Now;
+        var until = now.AddMilliseconds(values.DebuffFrames * 40L);
+        var next = new HexBaneDebuff(target.Serial.Value, source.Serial.Value, rank, until,
+            values.DefensePercent, values.TargetAttackPercent) { RefreshFrames = values.DebuffFrames };
+        Validate(next);
+        WeaponHexGroups.ReplaceTarget(target, CombatAbility.HexBane);
+        _debuffs = _debuffs.SetItem(next.Target, next);
+        WeaponHexVisuals.Mark(target, CombatAbility.HexBane, until, now, old == null);
+    }
+
     internal static bool RefreshPrepared(HexBaneDebuff expected,DateTime at)
     {
         if(expected?.RefreshFrames is not{} frames||expected.UntilUtc<=at||!_debuffs.TryGetValue(expected.Target,out var actual)||actual!=expected){return false;}

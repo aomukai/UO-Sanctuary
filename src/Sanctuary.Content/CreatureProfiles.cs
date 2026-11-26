@@ -306,6 +306,18 @@ public static class CreatureProfiles
             HitRecovery=new(true,7,256)}
             : creature is EncounterCreature encounter ? encounter.ProfileFor(difficulty)
             : _variants.TryGetValue((Definition(creature).Type, difficulty ?? MonsterVariants.Difficulty(creature)), out var row) ? row : _native;
+    internal static int WorldChestSpawnLevel(Type type, MonsterDifficulty difficulty)
+    {
+        if (CreatureGold.Policy(type, difficulty) is not { Eligible: true })
+        {
+            return 0;
+        }
+
+        return _variants.TryGetValue((type.FullName, difficulty), out var row)
+            ? ConfiguredLevel(row) ?? 1
+            : 1;
+    }
+
     internal static bool ActiveVariant(Type type, MonsterDifficulty difficulty) =>
         _variants.TryGetValue((type.FullName, difficulty), out var row) && row is { Enabled: true, ApplyStats: true };
     internal static bool TryVariant(string definition,MonsterDifficulty difficulty,out CreatureVariant profile)
@@ -360,10 +372,13 @@ public static class CreatureProfiles
         if (MercenaryCare.CompanionLevel(mob) is { } companionLevel) { return companionLevel; }
         if(PaladinConversion.Life(mob) is{} conversion){return conversion.Level;}
         if(ReviveCombat.Level(mob) is{} revived){return revived;}
-        var row = Variant(mob, difficulty);
-        return row is { Enabled: true, ApplyStats: true, Level: { } level } ? level
-            : row.Rewards is { Enabled: true, Level: { } rewardLevel } ? rewardLevel : NativeLevel(mob);
+        return ConfiguredLevel(Variant(mob, difficulty)) ?? NativeLevel(mob);
     }
+
+    private static int? ConfiguredLevel(CreatureVariant row) =>
+        row is { Enabled: true, ApplyStats: true, Level: { } level } ? level
+            : row.Rewards is { Enabled: true } ? row.Rewards.Level : null;
+
     // Reward policy has its own opt-in: a reviewed level/XP mapping does not
     // activate an unrelated combat proposal.
     public static int Experience(BaseCreature creature, MonsterDifficulty? difficulty = null)

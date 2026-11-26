@@ -156,6 +156,8 @@ public static class BowLaunch
         {damage=damage with{Conversion=new("cold",Math.Min(100,NecromancerSummons.Source("coldarrow","dParam1")+(values.Rank-1)*NecromancerSummons.Source("coldarrow","dParam2")))};}
         if(ability==CombatAbility.IceArrow){damage=damage with{FreezeColdLength=true};}
         damage=damage with{PhysicalSupplement=PhysicalSupplement(owner,weapon,sourceDamage,skillPercent)};
+        if (AmazonBow.Handles(ability) || ability == CombatAbility.Strafe)
+            damage = damage with { Quiver = QuiverEquipment.Element(owner) };
         if(ability is CombatAbility.Strafe or CombatAbility.DoubleThrow){damage=damage with{SkillAttackPercent=(int)values.Formula("toht")};}
         if(ability==CombatAbility.DoubleThrow||Venoms.State(owner)!=null){damage=damage with{SourcePoisonFrames=true};}
         if(BowMissileContact.Handles(ability)){WeaponStartEffects.Require(owner);damage=damage with{ArmorDelta=ClassGear.Bonus(owner,"dmg-ac")};}

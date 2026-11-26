@@ -20,7 +20,6 @@ public sealed class ShameExpedition : Item
     private sealed record Island(Point3D Arrival, Rectangle2D Bounds, (ShameRole, Point3D)[] Enemies);
 
     internal static readonly Point3D ReturnShore = new(5748, 89, 0);
-    internal static readonly Point3D Entrance = new(514, 1561, 0);
     private static readonly Island[] _islands =
     [
         new(new(5741, 52, 0), new(5735, 47, 11, 10), [(ShameRole.BoneCaptain, new(5737, 49, 5))]),
@@ -29,11 +28,14 @@ public sealed class ShameExpedition : Item
         new(new(5703, 80, 0), new(5695, 79, 9, 4), []),
         new(new(5703, 61, 5), new(5695, 55, 9, 8), [(ShameRole.FleetCaptain, new(5697, 57, 5))])
     ];
-    private static readonly (string, string)[] _quarrel =
+    private static readonly (string FirstId, string First, string SecondId, string Second)[] _quarrel =
     [
-        ("Ye sold our navigator for a cask of rum!", "And he found his way home, didn’t he?"),
-        ("Mind where ye cast, ye bilge rat!", "Mind where ye stand, ye walking kindling!"),
-        ("I outrank ye!", "Then die in command and leave me to it!")
+        ("shame.cutwater.navigator", "Ye sold our navigator for a cask of rum!",
+            "shame.cinders.navigator", "And he found his way home, didn’t he?"),
+        ("shame.cutwater.bilge_rat", "Mind where ye cast, ye bilge rat!",
+            "shame.cinders.kindling", "Mind where ye stand, ye walking kindling!"),
+        ("shame.cutwater.outrank", "I outrank ye!",
+            "shame.cinders.command", "Then die in command and leave me to it!")
     ];
 
     private static ShameExpedition _wheel;
@@ -418,7 +420,7 @@ public sealed class ShameExpedition : Item
         run._participants[player.Serial] = run._participants[player.Serial] with { Departed = true };
         if (corpse is { Deleted: false })
             corpse.MoveToWorld(ReturnShore, Map.Trammel);
-        Travel(player, Entrance);
+        Travel(player, CampaignDungeonRoutes.ShameSurfaceLanding);
         run.SettleDepartures(Core.Now);
         run.MarkDirty();
     }
@@ -452,12 +454,12 @@ public sealed class ShameExpedition : Item
             var mage = captains.FirstOrDefault(actor => actor.Role == ShameRole.BickeringMage);
             if (mate == null || mage == null || mate.Combatant == null && mage.Combatant == null)
                 return;
-            var (first, second) = _quarrel[_bark++ % _quarrel.Length];
-            mate.PublicOverheadMessage(MessageType.Regular, 0x3B2, false, first);
+            var (firstId, first, secondId, second) = _quarrel[_bark++ % _quarrel.Length];
+            AuthoredWriting.Bark(mate, firstId, "shame.cutwater", first);
             Timer.DelayCall(TimeSpan.FromSeconds(2), () =>
             {
                 if (!mate.Deleted && mate.Alive && !mage.Deleted && mage.Alive)
-                    mage.PublicOverheadMessage(MessageType.Regular, 0x59, false, second);
+                    AuthoredWriting.Bark(mage, secondId, "shame.cinders", second, 0x59);
             });
         }
     }

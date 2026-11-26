@@ -42,7 +42,7 @@ public partial class FrontierEncounter : EncounterCreature
         [Wraith] = Species(Wraith, "a wraith", MonsterArchetype.Caster, 12, 16, 26, 0x482, new(Cold: 50, Poison: 50)),
         [Ghoul] = Species(Ghoul, "a ghoul", MonsterArchetype.Melee, 12, 16, 153, 0x482, new(Poison: 50)),
         [SkeletalKnight] = Species(SkeletalKnight, "a skeletal knight", MonsterArchetype.Tank, 15, 18, 147, 451,
-            new(Physical: 15, Poison: 50)),
+            new(Physical: 15, Poison: 50)) with { SkeletalRole = SkeletalMonsterRole.Warrior },
         [Mummy] = Species(Mummy, "a mummy", MonsterArchetype.Tank, 15, 18, 154, 471, new(Poison: 50)),
         [Ettin] = Species(Ettin, "an ettin", MonsterArchetype.Tank, 14, 20, 18, 367, new(Physical: 10)),
         [BoulderEttinId] = Species(BoulderEttinId, "an ettin", MonsterArchetype.Tank, 14, 18, 18, 367, new(Physical: 10)),

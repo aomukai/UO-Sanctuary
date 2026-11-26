@@ -1,0 +1,52 @@
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Mobile.cs b/src/ClassicUO.Client/Game/GameObjects/Mobile.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Mobile.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Mobile.cs
+@@ -209,6 +209,7 @@
+         public long LastStepSoundTime;
+         public NotorietyFlag NotorietyFlag;
+         public Sanctuary.MobileNameStyle NameStyle { get; set; }
++        internal bool ClickThroughSummon { get; set; }
+         public NotorietyFlag NameNotoriety => NameStyle == Sanctuary.MobileNameStyle.Native
+             ? NotorietyFlag : (NotorietyFlag)NameStyle;
+         public RaceType Race;
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+@@ -4,6 +4,7 @@
+ using ClassicUO.Configuration;
+ using ClassicUO.Game.Data;
+ using ClassicUO.Game.Scenes;
++using ClassicUO.Input;
+ using ClassicUO.Renderer;
+ using ClassicUO.Utility;
+ using Microsoft.Xna.Framework;
+@@ -1254,6 +1255,11 @@
+ 
+         public override bool CheckMouseSelection()
+         {
++            if (ClickThroughSummon && !World.TargetManager.IsTargeting && !Keyboard.Ctrl)
++            {
++                return false;
++            }
++
+             if (IsWardProtectedLazarus || Sanctuary.RavenAppearance.IsFlock(Graphic)) { return false; }
+             if (_summonFrame == SpellEffectGraphics.SentryModelGone) { return false; }
+             if (SpellEffectGraphics.IsBladeSentinelBody(_summonFrame) || SpellEffectGraphics.IsSentryModelFrame(_summonFrame))
+diff --git a/src/ClassicUO.Client/Network/PacketHandlers.cs b/src/ClassicUO.Client/Network/PacketHandlers.cs
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -4160,11 +4160,13 @@
+                 if (world.InGame && p.Remaining == 6 && p.ReadUInt8() == Sanctuary.MobileNameProtocol.Version)
+                 {
+                     uint serial = p.ReadUInt32BE();
+-                    var style = (Sanctuary.MobileNameStyle)p.ReadUInt8();
++                    byte flags = p.ReadUInt8();
++                    var style = (Sanctuary.MobileNameStyle)(flags & ~Sanctuary.MobileNameProtocol.ClickThroughSummon);
+                     if (style is Sanctuary.MobileNameStyle.Friendly or Sanctuary.MobileNameStyle.Neutral or Sanctuary.MobileNameStyle.Hostile
+                         && world.Mobiles.TryGetValue(serial, out var mobile))
+                     {
+                         mobile.NameStyle = style;
++                        mobile.ClickThroughSummon = (flags & Sanctuary.MobileNameProtocol.ClickThroughSummon) != 0;
+                     }
+                 }
+                 return;

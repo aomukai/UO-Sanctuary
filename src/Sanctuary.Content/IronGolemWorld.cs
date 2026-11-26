@@ -311,7 +311,13 @@ internal static class IronGolemWorld
                 var speed=MovementSpeed(body,s.MovingBonus,s.Mode==15);
                 var moved=SourceActorMotion.Advance(s.Motion with{Velocity=speed.Velocity,MaximumVelocity=speed.Velocity},(x,y)=>PetGroundWorld.Collision(body,x,y));s=s with{Motion=moved.State};
                 if(!moved.Moving){s=Neutral(s,1);}
-                if(PetGroundWorld.Point(body,Cell(s),out var position)&&body.Location!=position){body.MoveToWorld(position,body.Map);}
+                if (PetGroundWorld.Point(body, Cell(s), out var position) && body.Location != position)
+                {
+                    var previous = body.Location;
+                    body.MoveToWorld(position, body.Map);
+                    if (body is BloodGolemWorldBody bloodGolem)
+                        bloodGolem.DripBlood(previous);
+                }
             }
             if(s.ActionAt==s.Frame)
             {

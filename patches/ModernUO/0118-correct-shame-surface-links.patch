@@ -1,0 +1,47 @@
+diff --git a/Distribution/Data/teleporters.json b/Distribution/Data/teleporters.json
+index d92711e..a9ea35f 100644
+--- a/Distribution/Data/teleporters.json
++++ b/Distribution/Data/teleporters.json
+@@ -2190,19 +2190,34 @@
+     "back": false
+   },
+   {
+-    "src": { "map": "Trammel", "loc": [512, 1559, 0] },
+-    "dst": { "map": "Trammel", "loc": [5394, 127, 0] },
+-    "back": true
++    "src": { "map": "Trammel", "loc": [512, 1560, 0] },
++    "dst": { "map": "Trammel", "loc": [5394, 127, -2] },
++    "back": false
+   },
+   {
+-    "src": { "map": "Trammel", "loc": [513, 1559, 0] },
+-    "dst": { "map": "Trammel", "loc": [5395, 127, 0] },
+-    "back": true
++    "src": { "map": "Trammel", "loc": [5394, 127, -2] },
++    "dst": { "map": "Trammel", "loc": [512, 1564, 0] },
++    "back": false
+   },
+   {
+-    "src": { "map": "Trammel", "loc": [514, 1559, 0] },
++    "src": { "map": "Trammel", "loc": [513, 1560, 0] },
++    "dst": { "map": "Trammel", "loc": [5395, 127, -2] },
++    "back": false
++  },
++  {
++    "src": { "map": "Trammel", "loc": [5395, 127, -2] },
++    "dst": { "map": "Trammel", "loc": [512, 1564, 0] },
++    "back": false
++  },
++  {
++    "src": { "map": "Trammel", "loc": [514, 1560, 0] },
+     "dst": { "map": "Trammel", "loc": [5396, 127, 0] },
+-    "back": true
++    "back": false
++  },
++  {
++    "src": { "map": "Trammel", "loc": [5396, 127, 0] },
++    "dst": { "map": "Trammel", "loc": [512, 1564, 0] },
++    "back": false
+   },
+   {
+     "src": { "map": "Trammel", "loc": [588, 1637, 0] },

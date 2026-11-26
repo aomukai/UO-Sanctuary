@@ -29,15 +29,19 @@ public static class FoundationChecks
         foreach (var row in BalanceCatalog.Read<ExperienceRow>("experience"))
         {
             long threshold = ExperienceLevels.Threshold(row.Level);
-            Require(threshold == (row.Threshold + 2) / 3
+            long previousThreshold = (row.Threshold + 2) / 3;
+            Require(threshold == (previousThreshold + 1) / 2
                 && MonsterExperience.Ratio1024(row.Level) == row.Ratio1024,
                 $"XP threshold or reduction diverged at level {row.Level}");
-            Require(ExperienceLevels.MigrateLegacyExperience(row.Level, row.Threshold) == threshold,
-                $"Saved XP at the start of level {row.Level} did not migrate to its new threshold");
+            Require(ExperienceLevels.LevelForExperience(1, threshold) == row.Level,
+                $"XP at the start of level {row.Level} did not earn that level");
             if (row.Level > 1)
-                Require(ExperienceLevels.MigrateLegacyExperience(row.Level - 1, row.Threshold - 1) == threshold - 1,
-                    $"Saved XP just short of level {row.Level} crossed its new threshold");
+                Require(ExperienceLevels.LevelForExperience(1, threshold - 1) == row.Level - 1,
+                    $"XP just short of level {row.Level} crossed its new threshold");
         }
+        Require(ExperienceLevels.LevelForExperience(1, 167) == 2
+            && ExperienceLevels.LevelForExperience(2, 400) == 3
+            && ExperienceLevels.LevelForExperience(99, 0) == 99, "Saved XP and earned levels did not reconcile");
         Require(MonsterExperience.Award(10000, 16, 10) == 8800
             && MonsterExperience.Award(10000, 4, 10) == 8100
             && MonsterExperience.Award(10000, 20, 10) == 200

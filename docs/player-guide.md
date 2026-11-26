@@ -12,7 +12,7 @@ Jens Won sells one shovel for 100 gold at `(3555, 2456, 15)` and restocks every 
 
 ## Progression and controls
 
-Level 99 is the class cap. The current cumulative XP curve is one-third the original progression curve, rounded up. Each level grants five spendable stat points and one talent point. The old New Haven starting XP multiplier was removed. [Experience curve](../src/Sanctuary.Content/ExperienceLevels.cs)
+Level 99 is the class cap. Cumulative XP requirements are half the previous curve, rounded up to whole XP. Existing characters keep their earned XP and gain any levels it now qualifies them for when the world loads. Each level grants five spendable stat points and one talent point. The old New Haven starting XP multiplier was removed. [Experience curve](../src/Sanctuary.Content/ExperienceLevels.cs)
 
 | Control | Action |
 | --- | --- |
@@ -33,6 +33,8 @@ The starter belt holds one row. A dose removed by its hotkey frees that position
 
 ## Travel and recovery
 
+You can open and ride through outdoor gates such as Cove’s town gates. Dismount at doors that lead indoors.
+
 Double-click a teleporter or moongate to use it. After the shared audience with Lord British, visit Iolo at Britain’s bard college for a runebook with the college rune. Use **Travel** on an unlocked rune to go there with eligible allies, without charges, mana, or reagents. Some destinations require dismounting. Elves can use the Yew route to Heartwood without requesting the mayor’s permission. Arena gates and island voyages follow [campaign progression](campaign.md#progression-and-arena-access).
 
 Normal defeats use corpse recovery, equipment insurance, and carried-gold death rules. Bank-held gold is protected. Unclaimed corpses can reach banker escrow under the recovery rules. The graveyard crypts and solo story boss encounters have their own defeat destinations. [Equipment, insurance, and recovery](items-and-crafting.md#rewards-insurance-and-recovery)
@@ -44,7 +46,8 @@ One active story companion fights alongside the Avatar and matches the active cl
 | Companion | Role and where to look |
 | --- | --- |
 | Iolo | New Haven’s inn, ranged crossbow support. Retires to Britain’s bard college after his introductory story. |
-| Wolfgang | Geoffrey’s young recruit in Britain, sword-and-shield tank. Starts with medium armour. |
+| Wolfgang | Geoffrey’s young recruit in Britain, sword-and-shield tank. Starts with medium armour and can wear heavy armour. |
+| Celeste | Paladin found in Covetous. Uses a mace and shield and can wear heavy armour once she recovers her kit. |
 | Merydwen | A bow-using freebooter who hires out for 5,000 gold. [Recruitment](../src/Sanctuary.Content/Merydwen.cs) |
 | Nightwind | A scout connected to Yew and Heartwood. |
 

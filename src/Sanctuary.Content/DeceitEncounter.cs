@@ -163,12 +163,6 @@ public partial class DeceitEncounter : EncounterCreature
         || Role != DeceitRole.DevoutFollower && base.CanCastEncounterBolt;
     protected override int EncounterBoltRange => Role == DeceitRole.DemonicTorturer ? 9 : base.EncounterBoltRange;
     protected override int AdjustEncounterLife(int life) => Role == DeceitRole.Familiar ? life / 2 : life;
-    internal override int? AuraRankOverride => Role switch
-    {
-        DeceitRole.DemonicTaskmaster => 10,
-        DeceitRole.CultistEnslaver => 5,
-        _ => null
-    };
 
     protected override CreatureTraits EncounterTraits(DungeonProfile dungeon)
     {
@@ -176,12 +170,6 @@ public partial class DeceitEncounter : EncounterCreature
         bool demon = role is DeceitRole.DemonicTaskmaster or DeceitRole.WatchfulOverseer
             or DeceitRole.Familiar or DeceitRole.DemonicTorturer or DeceitRole.Seductress or DeceitRole.InfernalMistress;
         return new(dungeon.Family, IsUndead(role), demon, false, false, true, 1, 0, 0, 100, 0);
-    }
-
-    internal static SkillValues RankedValues(CombatAbility ability, int rank, int level = 1)
-    {
-        var row = SkillMechanics.For(ability);
-        return new(row, key => key == row.SourceKey ? rank : 0, _ => 0, level);
     }
 
     public override bool BeginFirebolt(Mobile target)
@@ -192,18 +180,13 @@ public partial class DeceitEncounter : EncounterCreature
         return true;
     }
 
-    private static readonly (CombatAbility Ability, int Rank)[] _overseerSpells =
-        [(CombatAbility.Decrepify, 5), (CombatAbility.BoneSpear, 10)];
-    private static readonly (CombatAbility Ability, int Rank)[] _necromancerSpells =
-        [(CombatAbility.BoneArmor, 10), (CombatAbility.Weaken, 10), (CombatAbility.LifeTap, 10)];
-    private static readonly (CombatAbility Ability, int Rank)[] _bishopSpells =
-        [(CombatAbility.Lightning, 20), (CombatAbility.MiasmaBolt, 20)];
-    private static readonly (CombatAbility Ability, int Rank)[] _seductressSpells =
-        [(CombatAbility.LowerResist, 10), (CombatAbility.IceBlast, 0)];
-    private static readonly (CombatAbility Ability, int Rank)[] _mistressSpells =
-        [(CombatAbility.AmplifyDamage, 10), (CombatAbility.FireBolt, 0)];
+    private static readonly CombatAbility[] _overseerSpells = [CombatAbility.Decrepify, CombatAbility.BoneSpear];
+    private static readonly CombatAbility[] _necromancerSpells = [CombatAbility.BoneArmor, CombatAbility.Weaken, CombatAbility.LifeTap];
+    private static readonly CombatAbility[] _bishopSpells = [CombatAbility.Lightning, CombatAbility.MiasmaBolt];
+    private static readonly CombatAbility[] _seductressSpells = [CombatAbility.LowerResist, CombatAbility.IceBlast];
+    private static readonly CombatAbility[] _mistressSpells = [CombatAbility.AmplifyDamage, CombatAbility.FireBolt];
 
-    private (CombatAbility Ability, int Rank) NextSpell((CombatAbility Ability, int Rank)[] spells)
+    private CombatAbility NextSpell(CombatAbility[] spells)
     {
         var spell = spells[_spellIndex];
         _spellIndex = (_spellIndex + 1) % spells.Length;
@@ -219,16 +202,16 @@ public partial class DeceitEncounter : EncounterCreature
 
     protected override void ReleaseEncounterBolt(Mobile target)
     {
-        var (ability, rank) = Role switch
+        var ability = Role switch
         {
             DeceitRole.WatchfulOverseer => NextSpell(_overseerSpells),
-            DeceitRole.NecromancerApprentice => (CombatAbility.BoneSpear, 15),
-            DeceitRole.DemonicTorturer => (CombatAbility.SigilLethargy, 10),
+            DeceitRole.NecromancerApprentice => CombatAbility.BoneSpear,
+            DeceitRole.DemonicTorturer => CombatAbility.SigilLethargy,
             DeceitRole.Necromancer => NextSpell(_necromancerSpells),
             DeceitRole.Seductress => NextSpell(_seductressSpells),
             DeceitRole.InfernalMistress => NextSpell(_mistressSpells),
             DeceitRole.Bishop => NextSpell(_bishopSpells),
-            _ => (CombatAbility.None, 0)
+            _ => CombatAbility.None
         };
         switch (ability)
         {
@@ -236,16 +219,16 @@ public partial class DeceitEncounter : EncounterCreature
                 break;
             case CombatAbility.Decrepify or CombatAbility.Weaken or CombatAbility.LifeTap
                 or CombatAbility.LowerResist or CombatAbility.AmplifyDamage:
-                NecromancerCurseCasts.NpcDamageCurse(this, target, ability, rank);
+                NecromancerCurseCasts.CastEncounterCurse(this, target, ability);
                 break;
             case CombatAbility.BoneArmor:
-                NecromancerEffects.ApplyBoneArmor(this, RankedValues(ability, rank, Basis.Level));
+                NecromancerEffects.ApplyBoneArmor(this, SpellEffects(ability));
                 break;
             case CombatAbility.SigilLethargy:
-                SigilLethargy.CastEncounter(this, target.Location, RankedValues(ability, rank, Basis.Level));
+                SigilLethargy.CastEncounter(this, target.Location, SpellEffects(ability));
                 break;
             default:
-                EliteBolts.Cast(this, target, ability, rank);
+                EliteBolts.Cast(this, target, ability);
                 break;
         }
     }

@@ -33,7 +33,7 @@ public static class EquipmentCrafting
     public static void Load()
     {
         _scope.Clear(); _outputs.Clear(); _cache.Clear(); _selections.Clear(); _appearanceNames.Clear();
-        Scope = BalanceCatalog.Read<EquipmentCraftScope>("equipment-crafting-scope");
+        Scope = [.. BalanceCatalog.Read<EquipmentCraftScope>("equipment-crafting-scope"), QuiverEquipment.CraftScope];
         foreach (var scope in Scope)
         {
             var type = Resolve(scope.Type);
@@ -55,7 +55,7 @@ public static class EquipmentCrafting
         {
             if (!_scope.ContainsKey(Resolve(belt.Type))) { throw new InvalidDataException("Potion tabard has no recipe scope: " + belt.Type); }
         }
-        Recipes = BalanceCatalog.Read<EquipmentRecipe>("equipment-recipes");
+        Recipes = [.. BalanceCatalog.Read<EquipmentRecipe>("equipment-recipes"), .. QuiverEquipment.Recipes];
         var ids = new HashSet<string>();
         var identities = new HashSet<(Type, GearTier)>();
         foreach (var row in Recipes)
@@ -90,9 +90,9 @@ public static class EquipmentCrafting
         }
     }
     private static bool Ordinary(Type type, GearDefinition definition) => ManagedSlot(definition.Slot)
-        && (definition.NormalDrop || typeof(PotionTabard).IsAssignableFrom(type));
+        && (definition.NormalDrop || definition.Slot == GearSlot.Quiver || typeof(PotionTabard).IsAssignableFrom(type));
     private static bool ManagedSlot(GearSlot slot) => slot is GearSlot.Weapon or GearSlot.Shield or GearSlot.Head
-        or GearSlot.Body or GearSlot.Hands or GearSlot.Feet or GearSlot.Belt;
+        or GearSlot.Body or GearSlot.Hands or GearSlot.Feet or GearSlot.Belt or GearSlot.Quiver;
     private static SkillName Maker(GearMaterial material) => material switch
     { GearMaterial.Metal => SkillName.Blacksmith, GearMaterial.Wood => SkillName.Fletching, _ => SkillName.Tailoring };
     private static string Primary(GearMaterial material) => material switch
@@ -104,6 +104,7 @@ public static class EquipmentCrafting
     {
         TradeSkillHooks.MinimumChance = (from, system, recipe) => ClassProfessions.Affected(from) && recipe.ItemType == typeof(TreasureSkeletonKey)
             && recipe.Skills.Count == 1 && recipe.Skills[0].SkillToMake == SkillName.Tinkering && recipe.Skills[0].MinSkill == 120 ? 1.0
+            : ClassProfessions.Affected(from) && recipe.ItemType == typeof(WorldChestKey) ? 0.20
             : ClassProfessions.Affected(from) && recipe.ItemType == typeof(SocketGem) ? 1.0
             : ClassProfessions.Affected(from) && recipe.ItemType == typeof(SurveyMap) ? Math.Max(.01, system.GetChanceAtMin(recipe))
             : ClassProfessions.Affected(from) && _selections.TryGetValue(recipe, out var selection) && selection.Row.RequiredSkill == 120
@@ -292,10 +293,11 @@ public static class EquipmentCrafting
                 if (resource != CraftResource.None) { armor.Resource = resource; } break;
             case BaseClothing clothing: clothing.Quality = ClothingQuality.Regular;
                 if (resource != CraftResource.None) { clothing.Resource = resource; } break;
+            case SanctuaryQuiver quiver: quiver.Resource = resource; break;
         }
         item.Hue = hue; item.Name = $"{row.Tier} {row.Name}"; item.PlayerConstructed = true;
         var basis = EquipmentBalance.Base(row.BaseCode);
-        int level = ItemLevel(row.Tier), durability = maker.Skills[row.Skill].Base >= 100 ? random.Next(10, 21) : 0;
+        int level = ItemLevel(row.Tier), durability = maker.Skills[row.Skill].Base >= 100 && item is not SanctuaryQuiver ? random.Next(10, 21) : 0;
         var roll = new GearRoll(GearRarity.Normal, level, AffixBalance.Level(level, basis.QualityLevel, basis.MagicLevel),
             Math.Max(EquipFloor(row.Tier), basis.RequiredLevel), []);
         var state = new GearState(row.BaseCode, random.Next(basis.MinDefense, basis.MaxDefense + 1), false, roll)
@@ -312,6 +314,7 @@ public static class EquipmentCrafting
             case BaseWeapon weapon: weapon.MaxHitPoints = maximum; weapon.HitPoints = maximum; weapon.Crafter = name; break;
             case BaseArmor armor: armor.MaxHitPoints = maximum; armor.HitPoints = maximum; armor.Crafter = name; break;
             case BaseClothing clothing: clothing.MaxHitPoints = maximum; clothing.HitPoints = maximum; clothing.Crafter = name; break;
+            case SanctuaryQuiver quiver: quiver.Crafter = maker.RawName; break;
         }
     }
     private static readonly string[] _elements = ["fire", "cold", "lightning", "poison"];

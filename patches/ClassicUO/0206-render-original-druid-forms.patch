@@ -1,0 +1,160 @@
+diff --git a/src/ClassicUO.Assets/ClassicUO.Assets.csproj b/src/ClassicUO.Assets/ClassicUO.Assets.csproj
+--- a/src/ClassicUO.Assets/ClassicUO.Assets.csproj
++++ b/src/ClassicUO.Assets/ClassicUO.Assets.csproj
+@@ -14,6 +14,7 @@
+     <Compile Include="../../../../shared/RavenAppearance.cs" Link="RavenAppearance.cs" />
+     <Compile Include="../../../../shared/CampaignBossAppearance.cs" Link="CampaignBossAppearance.cs" />
+     <Compile Include="../../../../shared/SkeletonAppearance.cs" Link="SkeletonAppearance.cs" />
++    <Compile Include="../../../../shared/DruidFormVisualProtocol.cs" Link="DruidFormVisualProtocol.cs" />
+   </ItemGroup>
+ 
+ </Project>
+diff --git a/src/ClassicUO.Assets/AnimationsLoader.cs b/src/ClassicUO.Assets/AnimationsLoader.cs
+--- a/src/ClassicUO.Assets/AnimationsLoader.cs
++++ b/src/ClassicUO.Assets/AnimationsLoader.cs
+@@ -27,6 +27,7 @@
+         private const int RavenFileIndex = 11;
+         private const int CampaignBossFileIndex = 12;
+         private const int SummonBodyFileIndex = 13;
++        private const int DruidFormFileIndex = 14;
+         private const int OverrideBodyStride = (int)HighAnimationGroup.AnimationCount * MAX_DIRECTIONS;
+         private UOFileMul _succubusAnimations;
+         private AnimationDirection[] _succubusDirections;
+@@ -36,6 +37,8 @@
+         private AnimationDirection[] _bossDirections;
+         private UOFileMul _summonAnimations;
+         private AnimationDirection[] _summonDirections;
++        private UOFileMul _druidFormAnimations;
++        private AnimationDirection[] _druidFormDirections;
+ 
+ 
+         [ThreadStatic]
+@@ -76,6 +79,7 @@
+             (_ravenAnimations, _ravenDirections) = LoadAnimationOverride("raven", Sanctuary.RavenAppearance.MaxCount);
+             (_bossAnimations, _bossDirections) = LoadAnimationOverride("campaign-bosses", Sanctuary.CampaignBossAppearance.Count);
+             (_summonAnimations, _summonDirections) = LoadAnimationOverride("summon-bodies", Sanctuary.SummonBodyAppearance.Count);
++            (_druidFormAnimations, _druidFormDirections) = LoadAnimationOverride("druid-forms", Sanctuary.DruidFormVisualProtocol.BodyCount);
+ 
+             for (int i = 0; i < _files.Length; i++)
+             {
+@@ -240,6 +244,8 @@
+ 
+         public bool HasSummonBody(ushort body) => _summonDirections != null && Sanctuary.SummonBodyAppearance.IsBody(body);
+ 
++        public bool HasDruidFormBody(ushort body) => _druidFormDirections != null && Sanctuary.DruidFormVisualProtocol.IsCustomBody(body);
++
+         private static (UOFileMul, AnimationDirection[]) LoadAnimationOverride(string name, int bodies)
+         {
+             string path = Path.Combine(AppContext.BaseDirectory, "Data", "Sanctuary", "Animations", name);
+@@ -357,6 +363,15 @@
+                 animType = AnimationGroupsType.Monster;
+                 int index = body - Sanctuary.SummonBodyAppearance.FirstBody;
+                 return _summonDirections.AsSpan(index * OverrideBodyStride, OverrideBodyStride);
++            }
++
++            if (HasDruidFormBody(body))
++            {
++                flags = AnimationFlags.Found | AnimationFlags.Unknown1000;
++                fileIndex = DruidFormFileIndex;
++                animType = AnimationGroupsType.Monster;
++                int index = body - Sanctuary.DruidFormVisualProtocol.WerewolfBody;
++                return _druidFormDirections.AsSpan(index * OverrideBodyStride, OverrideBodyStride);
+             }
+ 
+             int flock = body - Sanctuary.RavenAppearance.FirstBody;
+@@ -1120,6 +1135,9 @@
+             _summonAnimations?.Dispose();
+             _summonAnimations = null;
+             _summonDirections = null;
++            _druidFormAnimations?.Dispose();
++            _druidFormAnimations = null;
++            _druidFormDirections = null;
+         }
+ 
+ 
+@@ -1569,7 +1587,7 @@
+ 
+         public Span<FrameInfo> ReadMULAnimationFrames(int fileIndex, AnimationDirection index, bool isVerdata = false)
+         {
+-            if (!isVerdata && (fileIndex < 0 || fileIndex > SummonBodyFileIndex))
++            if (!isVerdata && (fileIndex < 0 || fileIndex > DruidFormFileIndex))
+             {
+                 return Span<FrameInfo>.Empty;
+             }
+@@ -1594,6 +1612,7 @@
+                     RavenFileIndex => _ravenAnimations,
+                     CampaignBossFileIndex => _bossAnimations,
+                     SummonBodyFileIndex => _summonAnimations,
++                    DruidFormFileIndex => _druidFormAnimations,
+                     _ => _files[fileIndex]
+                 };
+ 
+diff --git a/src/ClassicUO.Client/ClassicUO.Client.csproj b/src/ClassicUO.Client/ClassicUO.Client.csproj
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -54,6 +54,9 @@
+     <Content Include="../../../../art/summon-bodies/summon-bodies.idx;../../../../art/summon-bodies/summon-bodies.mul"
+              Link="Data/Sanctuary/Animations/%(Filename)%(Extension)"
+              CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
++    <Content Include="../../../../art/druid-forms/druid-forms.idx;../../../../art/druid-forms/druid-forms.mul"
++             Link="Data/Sanctuary/Animations/%(Filename)%(Extension)"
++             CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+     <Content Include="../../../../art/raven/raven.idx;../../../../art/raven/raven.mul"
+              Link="Data/Sanctuary/Animations/%(Filename)%(Extension)"
+              CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+@@ -80,7 +83,6 @@
+     <Compile Include="../../../../shared/TitleProtocol.cs" Link="TitleProtocol.cs" />
+     <Compile Include="../../../../shared/SkillBindingProtocol.cs" Link="SkillBindingProtocol.cs" />
+     <Compile Include="../../../../shared/NamedVisualProtocol.cs" Link="NamedVisualProtocol.cs" />
+-    <Compile Include="../../../../shared/DruidFormVisualProtocol.cs" Link="DruidFormVisualProtocol.cs" />
+     <Compile Include="../../../../shared/MobileNameProtocol.cs" Link="MobileNameProtocol.cs" />
+     <Compile Include="../../../../shared/StatProtocol.cs" Link="Game/Data/StatProtocol.cs" />
+     <Compile Include="../../../../shared/BeltProtocol.cs" Link="Game/Data/BeltProtocol.cs" />
+diff --git a/src/ClassicUO.Client/Game/GameObjects/MobileAnimation.cs b/src/ClassicUO.Client/Game/GameObjects/MobileAnimation.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/MobileAnimation.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/MobileAnimation.cs
+@@ -52,16 +52,19 @@
+ 
+         private ushort _druidFormBody;
+         private ushort DruidFormBody => IsDead ? (ushort)0 : _druidFormBody;
+-        private float DruidFormScale => DruidFormBody == 0 ? 1f : 1.2f;
++        private float DruidFormScale => DruidFormBody == 0 || Sanctuary.DruidFormVisualProtocol.IsCustomBody(DruidFormBody) ? 1f : 1.2f;
+         internal Sanctuary.SkeletonAppearance SkeletonCosmetics { get; set; }
+ 
+         internal void SetDruidFormAppearance(byte form)
+         {
++            var animations = Client.Game.UO.FileManager.Animations;
+             ushort body = form switch
+             {
+                 Sanctuary.DruidFormVisualProtocol.Human => 0,
+-                Sanctuary.DruidFormVisualProtocol.Wolf => 0xE1,
+-                Sanctuary.DruidFormVisualProtocol.Bear => 0xD4,
++                Sanctuary.DruidFormVisualProtocol.Wolf => animations.HasDruidFormBody(Sanctuary.DruidFormVisualProtocol.WerewolfBody)
++                    ? Sanctuary.DruidFormVisualProtocol.WerewolfBody : (ushort)0xE1,
++                Sanctuary.DruidFormVisualProtocol.Bear => animations.HasDruidFormBody(Sanctuary.DruidFormVisualProtocol.WerebearBody)
++                    ? Sanctuary.DruidFormVisualProtocol.WerebearBody : (ushort)0xD4,
+                 _ => _druidFormBody
+             };
+             if (_druidFormBody != body)
+@@ -579,6 +582,21 @@
+ 
+             if (mobile.DruidFormBody != 0 && graphic == mobile.DruidFormBody)
+             {
++                if (Sanctuary.DruidFormVisualProtocol.IsCustomBody(graphic))
++                {
++                    if (mobile.AnimationFromServer && mobile._animationGroup != 0xFF)
++                    {
++                        return (byte)(mobile._animationGroup switch
++                        {
++                            20 or 21 => HighAnimationGroup.GetHit1,
++                            16 or 17 => HighAnimationGroup.Cast,
++                            _ => HighAnimationGroup.Attack1
++                        });
++                    }
++
++                    return (byte)(mobile.Steps.Count == 0 ? HighAnimationGroup.Stand : HighAnimationGroup.Walk);
++                }
++
+                 if (mobile.AnimationFromServer && mobile._animationGroup != 0xFF)
+                 {
+                     // The server still sends player actions. These animals have

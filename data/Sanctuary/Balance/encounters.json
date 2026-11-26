@@ -3,6 +3,7 @@
   "profiles": [
     {
       "id": "crypt-sentinel-60",
+      "skeletalRole": "Warrior",
       "family": "crypt-sentinel",
       "name": "Crypt Sentinel",
       "archetype": "Melee",
@@ -22,6 +23,7 @@
     },
     {
       "id": "crypt-sentinel-70",
+      "skeletalRole": "Warrior",
       "family": "crypt-sentinel",
       "name": "Crypt Sentinel",
       "archetype": "Melee",
@@ -41,6 +43,7 @@
     },
     {
       "id": "crypt-sentinel-80",
+      "skeletalRole": "Warrior",
       "family": "crypt-sentinel",
       "name": "Crypt Sentinel",
       "archetype": "Melee",
@@ -60,6 +63,7 @@
     },
     {
       "id": "crypt-sentinel-90",
+      "skeletalRole": "Warrior",
       "family": "crypt-sentinel",
       "name": "Crypt Sentinel",
       "archetype": "Melee",

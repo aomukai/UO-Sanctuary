@@ -156,7 +156,7 @@ public static class CreatureGold
         }
         return null;
     }
-    private static int Amount(int level, int goldFind, Random random)
+    internal static int Amount(int level, int goldFind, Random random)
     {
         int basis = level + random.Next(5 * level);
         return checked((int)((long)basis * (100L + goldFind) / 100));

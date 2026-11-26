@@ -25,7 +25,9 @@ public sealed record WeaponMissileDamage(int Min256,int Max256,int Percent,int D
     public bool FreezeColdLength{get;init;}
     public bool SourcePoisonFrames{get;init;}
     public int? LightningJavelinPercent{get;init;}
-    internal bool ValidConversion=>ArmorDelta<=0&&ArmorDelta!=int.MinValue&&(LightningJavelinPercent==null || Conversion==null && PhysicalToMagicPercent==0 && !FreezeColdLength) && (!FreezeColdLength || Conversion==null && PhysicalToMagicPercent==0) && (Conversion==null || PhysicalToMagicPercent==0 && Conversion.Element is "fire" or "cold" or "mag");
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    public QuiverElement Quiver { get; init; }
+    internal bool ValidConversion=>Enum.IsDefined(Quiver)&&ArmorDelta<=0&&ArmorDelta!=int.MinValue&&(LightningJavelinPercent==null || Conversion==null && PhysicalToMagicPercent==0 && !FreezeColdLength && Quiver==QuiverElement.None) && (!FreezeColdLength || Conversion==null && PhysicalToMagicPercent==0) && (Conversion==null || PhysicalToMagicPercent==0 && Conversion.Element is "fire" or "cold" or "mag");
     // Existing Sanctuary material/potion physical additions are separate from
     // the source weapon endpoints, so victim-specific ED cannot multiply them.
     public WeaponPhysicalSupplement PhysicalSupplement{get;init;}
@@ -79,8 +81,8 @@ public sealed record WeaponMissileDamage(int Min256,int Max256,int Percent,int D
             case "mag":magic+=converted.Magic256;break;
             default:throw new NotSupportedException("Unsupported saved weapon conversion element");
         }
-        return new(physical/256.0,fire/256.0,cold/256.0,lightning/256.0,
-            (long)poison*e.PoisonImpactFrames/256.0,e.PoisonImpactFrames*40,e.ColdFrames*40,magic/256.0);
+        return QuiverEquipment.Convert(new(physical/256.0,fire/256.0,cold/256.0,lightning/256.0,
+            (long)poison*e.PoisonImpactFrames/256.0,e.PoisonImpactFrames*40,e.ColdFrames*40,magic/256.0), Quiver);
     }
 }
 public sealed record WeaponFlight(long Id,long Cast,uint Owner,int Map,CombatAbility Ability,double X,double Y,int Z,
@@ -276,6 +278,7 @@ public static class WeaponMissiles
         bool expires = flight.Guided == null && next.Frame >= flight.Frames;
         bool leavesMap = next.X < 0 || next.Y < 0 || next.X >= owner.Map.Width || next.Y >= owner.Map.Height;
         bool bladeFury = flight.Ability == CombatAbility.BladeFury;
+        bool piercingBlade = bladeFury && flight.Npc == null;
         if(expires || leavesMap
             || !owner.Map.LineOfSight(new Point3D((int)Math.Round(flight.X),(int)Math.Round(flight.Y),flight.Z+12),
                 new Point3D((int)Math.Round(next.X),(int)Math.Round(next.Y),flight.Z+12)))
@@ -314,6 +317,7 @@ public static class WeaponMissiles
                     // LastCollide belongs to the source candidate filter as
                     // well as the router. Bladefragment1 has no such flag.
                     if(candidate.Serial.Value==flight.LastCollision && flight.Ability is CombatAbility.LightningBolt or CombatAbility.LightningFury or CombatAbility.DoubleThrow){continue;}
+                    if (piercingBlade && _leases.ContainsKey((flight.Cast, candidate.Serial.Value))) { continue; }
                     int size=candidate is BaseCreature c?CreatureProfiles.For(c).Traits.Size??2:2;
                     if(Math.Abs(candidate.Z-flight.Z)<16 && (flight.Npc!=null?ShadowFuryMissiles.Target((AssassinShadowBody)owner,candidate):ClassCombat.IsHostile((PlayerMobile)owner,candidate))
                         && CombatHitboxes.SourceTouches(flight.Ability is CombatAbility.BladeFury or CombatAbility.DoubleThrow?1:2,size,cell.X-candidate.X*2,cell.Y-candidate.Y*2)){selected=candidate;break;}
@@ -373,10 +377,13 @@ public static class WeaponMissiles
         if(_leases.TryGetValue((flight.Cast,selected.Serial.Value),out var lease) && lease.UntilUtc>flight.NextUtc){return;}
         next=next with{LastCollision=selected.Serial.Value};_flights[flight.Id]=next;
         if(flight.NextDelay>0){_leases[(flight.Cast,selected.Serial.Value)]=new(flight.Cast,selected.Serial.Value,flight.NextUtc.AddMilliseconds(flight.NextDelay*40L)){RetainWithoutFlight=flight.Ability==CombatAbility.Strafe};}
+        if (piercingBlade)
+            _leases[(flight.Cast, selected.Serial.Value)] = new(flight.Cast, selected.Serial.Value, flight.NextUtc.AddMilliseconds((flight.Frames - flight.Frame) * 40L));
         if(next.Guided!=null && !GuidedArrows.Accepts(next,selected)){return;}
         bool furyChild=AmazonLightningFury.IsChild(flight);
-        bool pierce=furyChild || CurrentPierce(player)>0 && flight.Pierces>0;
-        if(pierce && !furyChild){next=next with{Pierces=flight.Pierces-1};_flights[flight.Id]=next;}
+        bool equipmentPierce = CurrentPierce(player) > 0 && flight.Pierces > 0;
+        bool pierce = furyChild || piercingBlade || equipmentPierce;
+        if (equipmentPierce && !furyChild && !piercingBlade){next=next with{Pierces=flight.Pierces-1};_flights[flight.Id]=next;}
         if(flight.Mirrored!=null)
         {
             try
@@ -415,6 +422,7 @@ public static class WeaponMissiles
         BowExplosions.Create(player,next,flight.NextUtc);PlagueJavelins.Burst(player,next,selected,flight.NextUtc);AmazonLightningFury.Burst(player,next,flight.NextUtc); // AlwaysExplode survives a parent attack miss.
         if(!hit)
         {
+            if (piercingBlade) { return; }
             if (bladeFury) { AssassinBladeVisuals.FuryFade(owner, flight, selected.Location); }
             _flights.Remove(flight.Id);return;
         }

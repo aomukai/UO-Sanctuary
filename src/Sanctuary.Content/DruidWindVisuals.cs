@@ -13,8 +13,8 @@ internal static class DruidWindVisuals
         owner.PlaySound(sound);
     }
 
-    internal static void Travel(Map map, double x, double y, int z, int art, int frame)
-        => Sample(map, x, y, z, art + (frame / 2) % SpellEffectGraphics.DruidWindFrames, 1);
+    internal static void Travel(Map map, double x, double y, int z, int art, int frame, int duration = 1)
+        => Sample(map, x, y, z, art + (frame / 2) % SpellEffectGraphics.DruidWindFrames, duration);
 
     internal static void Disperse(Map map, double x, double y, int z, int art)
         => Sample(map, x, y, z, art, 6);

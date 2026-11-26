@@ -110,9 +110,9 @@ public static class ClassStats
     internal static int PlayerAttackBase(PlayerMobile player)
     {
         if(!ClassCreation.Profiles.TryGet(player.Serial,out var profile)){throw new ArgumentException("Missing class attack context");}
-        return 5*player.Dex-35+For(profile.Class).AttackBonus+ClassGear.Bonus(player,"att");
+        return 5*player.Dex-35+For(profile.Class).AttackBonus+ClassGear.Bonus(player,"att")+5*(profile.Level-1);
     }
-    internal static int PlayerItemAttackPercent(PlayerMobile player)=>AosAttributes.GetValue(player,AosAttribute.AttackChance)
+    internal static int PlayerItemAttackPercent(PlayerMobile player)=>AosAttributes.GetValue(player,AosAttribute.AttackChance)+QuiverEquipment.AttackPercent(player)
         +AmazonCombat.AttackPercent(player)+(SorceressEffects.Enchantment(player)?.AttackPercent??0)+CombatAuras.AttackPercent(player)+DruidPlayerForms.AttackPercent(player)+HexBane.AttackPercent(player)+HexBane.TargetAttackPercent(player)+HexSiphon.AttackPercent(player)+HexPurge.AttackPercent(player);
     internal static int PlayerAttackPercent(int basis,int percent)=>Math.Max(1,basis*(100+percent)/100);
     internal static int AttackRatingAgainst(Mobile attacker,Mobile defender,int skillPercent=0)
@@ -210,12 +210,13 @@ public static class ClassStats
             return 1;
         }
         return HitChance(AttackRatingAgainst(attacker, defender, skillPercent),
-            NamedCombat.DefenseFor(attacker, defender, Defense(defender), projectile), Level(attacker), Level(defender));
+            NamedCombat.DefenseFor(attacker, defender, Defense(defender), projectile), Level(attacker), Level(defender),
+            attacker is PlayerMobile owner && ClassCombat.Enabled(owner) ? 1.0 : 0.95);
     }
 
-    public static double HitChance(int attack, int defense, int attackerLevel, int defenderLevel) =>
+    public static double HitChance(int attack, int defense, int attackerLevel, int defenderLevel, double maximum = 0.95) =>
         Math.Clamp(2.0 * Math.Max(1, attack) / (Math.Max(1, attack) + Math.Max(0, defense))
-            * Math.Max(1, attackerLevel) / (Math.Max(1, attackerLevel) + Math.Max(1, defenderLevel)), 0.05, 0.95);
+            * Math.Max(1, attackerLevel) / (Math.Max(1, attackerLevel) + Math.Max(1, defenderLevel)), 0.05, maximum);
     public static bool? CheckHit(Mobile attacker, Mobile defender)=>CheckHit(attacker,defender,0,projectile:
         attacker is PlayerMobile formed&&DruidFormAttacks.Active(formed)?false:
         attacker.Weapon is BaseRanged || attacker is PlayerMobile player && CombatTiming.Weapon(CombatTiming.Equipped(player)).Family==AttackFamily.Throw);

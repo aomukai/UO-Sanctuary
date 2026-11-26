@@ -42,7 +42,8 @@ public partial class HavenEncounter : EncounterCreature
         [Thief] = Species(Thief, "a Haven thief", MonsterArchetype.Melee, 4, 6, 0x190, 0),
         [Spectre] = Species(Spectre, "a spectre", MonsterArchetype.Caster, 6, 8, 26, 0x482),
         [Wraith] = Species(Wraith, "a wraith", MonsterArchetype.Melee, 6, 8, 26, 0x482),
-        [SkeletonKnight] = Species(SkeletonKnight, "a skeleton knight", MonsterArchetype.Melee, 8, 10, 147, 451),
+        [SkeletonKnight] = Species(SkeletonKnight, "a skeleton knight", MonsterArchetype.Melee, 8, 10, 147, 451)
+            with { SkeletalRole = SkeletalMonsterRole.Warrior },
         [Ghoul] = Species(Ghoul, "a ghoul", MonsterArchetype.Melee, 9, 11, 153, 0x482),
         [EarthElemental] = Species(EarthElemental, "an earth elemental", MonsterArchetype.Tank, 6, 8, 14, 268, physical: 10),
         [GraniteElemental] = Species(GraniteElemental, "a granite elemental", MonsterArchetype.Tank, 7, 9, 14, 268, physical: 10),

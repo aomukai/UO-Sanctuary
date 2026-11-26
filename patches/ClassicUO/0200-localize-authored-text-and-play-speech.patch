@@ -1,0 +1,582 @@
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -38,6 +38,10 @@
+     <Content Include="../../../../art/skill-icons/gumps/*.gump" Link="Data/Sanctuary/Gumps/%(Filename)%(Extension)"
+              CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+     <EmbeddedResource Include="../../../../art/player-ui/*.png" LogicalName="Sanctuary.UI.%(Filename)%(Extension)" />
++    <Content Include="../../../../data/Sanctuary/Localization/*.json" Link="Data/Sanctuary/Localization/%(Filename)%(Extension)"
++             CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
++    <Content Include="../../../../data/Sanctuary/Voice/**/*.wav" Link="Data/Sanctuary/Voice/%(RecursiveDir)%(Filename)%(Extension)"
++             CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+     <EmbeddedResource Include="../../../../art/player-ui/avatar-templates/*.png" LogicalName="Sanctuary.UI.Templates.%(Filename)%(Extension)" />
+     <Content Include="../../../../art/player-ui/dialogue-font/*.mul;../../../../art/player-ui/dialogue-font/OFL-*.txt"
+              Link="SanctuaryFonts/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+--- a/src/ClassicUO.Client/Configuration/Settings.cs
++++ b/src/ClassicUO.Client/Configuration/Settings.cs
+@@ -52,6 +52,8 @@
+         [JsonPropertyName("clientversion")] public string ClientVersion { get; set; } = string.Empty;
+ 
+         [JsonPropertyName("lang")] public string Language { get; set; } = "";
++        [JsonPropertyName("sanctuary_speech_enabled")] public bool SanctuarySpeechEnabled { get; set; } = true;
++        [JsonPropertyName("sanctuary_speech_volume")] public int SanctuarySpeechVolume { get; set; } = 100;
+         [JsonPropertyName("sanctuary_book_dialogue_font"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+         public bool LegacyBookDialogueFont { get; set; }
+ 
+--- a/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
++++ b/src/ClassicUO.Client/Game/AvatarDialogueClient.cs
+@@ -125,6 +125,28 @@
+         if (kind == PortraitProtocol.InteractionEnabled && reader.Remaining == 0)
+         {
+             world.Player.SanctuaryNpcInteraction = true;
++            using var writer = new StackDataWriter(AuthoredTextProtocol.ReadyLength);
++            writer.WriteUInt8(0xBF);
++            writer.WriteUInt16BE(AuthoredTextProtocol.ReadyLength);
++            writer.WriteUInt16BE(PortraitProtocol.SubCommand);
++            writer.WriteUInt8(PortraitProtocol.Version);
++            writer.WriteUInt8(AuthoredTextProtocol.Ready);
++            NetClient.Socket.Send(writer.BufferWritten);
++            return;
++        }
++        if (kind is AuthoredTextProtocol.Reading or AuthoredTextProtocol.Observation)
++        {
++            ReadAuthoredWriting(world, kind, ref reader);
++            return;
++        }
++        if (kind == AuthoredTextProtocol.Bark)
++        {
++            ReadAuthoredBark(world, ref reader);
++            return;
++        }
++        if (kind == AuthoredTextProtocol.Conversation)
++        {
++            ReadAuthoredConversation(world, ref reader);
+             return;
+         }
+         if (kind == PortraitProtocol.AvatarFace && reader.Remaining is 1 or 3)
+@@ -168,15 +190,110 @@
+         dialogue.BringOnTop();
+     }
+ 
+-    private static bool ReadText(ref StackDataReader reader, out string text)
++    private static void ReadAuthoredWriting(World world, byte packetKind, ref StackDataReader reader)
++    {
++        if (reader.Remaining < 2)
++            return;
++        var kind = (AuthoredTextKind)reader.ReadUInt8();
++        var presentation = (SpeechPresentation)reader.ReadUInt8();
++        if (!ReadText(ref reader, out string id, AuthoredTextProtocol.MaxIdBytes)
++            || !AuthoredTextProtocol.ValidId(id))
++            return;
++
++        if (packetKind == AuthoredTextProtocol.Observation)
++        {
++            if (kind == AuthoredTextKind.Observation && presentation is SpeechPresentation.None or SpeechPresentation.AvatarOverhead
++                && ReadText(ref reader, out string text) && reader.Remaining == 0)
++            {
++                string subtitle = presentation == SpeechPresentation.AvatarOverhead
++                    ? SanctuaryLocalization.Text(id, text) : null;
++                Client.Game.Audio.PlaySpeech(world, world.Player, id, subtitle);
++            }
++            return;
++        }
++
++        if (kind is not (AuthoredTextKind.Letter or AuthoredTextKind.Book or AuthoredTextKind.Sign)
++            || presentation != SpeechPresentation.None
++            || !ReadText(ref reader, out string narrationId, AuthoredTextProtocol.MaxIdBytes, allowEmpty: true)
++            || narrationId.Length != 0 && !AuthoredTextProtocol.ValidId(narrationId)
++            || !ReadText(ref reader, out string title)
++            || !ReadText(ref reader, out string author, allowEmpty: true)
++            || !ReadText(ref reader, out string body, AuthoredTextProtocol.MaxBodyBytes) || reader.Remaining != 0)
++            return;
++
++        UIManager.GetGump<SanctuaryReadingGump>()?.Dispose();
++        UIManager.Add(new SanctuaryReadingGump(world,
++            SanctuaryLocalization.Text(id + ".title", title), SanctuaryLocalization.Text(id + ".author", author),
++            SanctuaryLocalization.Text(id + ".body", body), narrationId));
++    }
++
++    private static void ReadAuthoredBark(World world, ref StackDataReader reader)
++    {
++        if (reader.Remaining < 7)
++            return;
++        var speaker = world.Mobiles.Get(reader.ReadUInt32BE());
++        ushort hue = reader.ReadUInt16BE();
++        var kind = (AuthoredTextKind)reader.ReadUInt8();
++        if (speaker == null || kind is not (AuthoredTextKind.CombatBark or AuthoredTextKind.Companion)
++            || !ReadText(ref reader, out string id, AuthoredTextProtocol.MaxIdBytes)
++            || !ReadText(ref reader, out string speakerId, AuthoredTextProtocol.MaxIdBytes)
++            || !AuthoredTextProtocol.ValidId(id) || !AuthoredTextProtocol.ValidId(speakerId)
++            || !ReadText(ref reader, out string text) || reader.Remaining != 0)
++            return;
++        speaker.AddMessage(MessageType.Regular, SanctuaryLocalization.Text(id, text), 1, hue, true, TextType.OBJECT);
++        if (!Client.Game.Audio.Speech.Busy && SanctuarySpeech.HasRecording(id))
++            Client.Game.Audio.PlaySpeech(world, speaker, id);
++    }
++
++    private static void ReadAuthoredConversation(World world, ref StackDataReader reader)
++    {
++        if (reader.Remaining < 8)
++            return;
++
++        uint token = reader.ReadUInt32BE();
++        ushort portrait = reader.ReadUInt16BE();
++        var kind = (AuthoredTextKind)reader.ReadUInt8();
++        int count = reader.ReadUInt8();
++        if (!PortraitProtocol.IsNpcPortrait(portrait) || count > PortraitProtocol.MaxReplies
++            || kind is not (AuthoredTextKind.Dialogue or AuthoredTextKind.Companion)
++            || !ReadText(ref reader, out string id, AuthoredTextProtocol.MaxIdBytes)
++            || !ReadText(ref reader, out string speakerId, AuthoredTextProtocol.MaxIdBytes)
++            || !AuthoredTextProtocol.ValidId(id) || !AuthoredTextProtocol.ValidId(speakerId)
++            || !ReadText(ref reader, out string name)
++            || !ReadText(ref reader, out string line, AuthoredTextProtocol.MaxBodyBytes))
++            return;
++
++        var replies = new string[count];
++        for (int i = 0; i < count; i++)
++        {
++            if (!ReadText(ref reader, out string replyId, AuthoredTextProtocol.MaxIdBytes, allowEmpty: true)
++                || !ReadText(ref reader, out string reply))
++                return;
++            replies[i] = SanctuaryLocalization.Text(replyId, reply);
++        }
++        if (reader.Remaining != 0)
++            return;
++
++        var dialogue = UIManager.GetGump<SanctuaryDialogueGump>();
++        if (dialogue == null)
++            UIManager.Add(dialogue = new SanctuaryDialogueGump(world));
++        dialogue.Show(token, portrait, SanctuaryLocalization.Text(speakerId + ".name", name),
++            SanctuaryLocalization.Text(id, line), replies);
++        dialogue.BringOnTop();
++        if (SanctuarySpeech.HasRecording(id))
++            Client.Game.Audio.PlaySpeech(world, dialogue, id);
++    }
++
++    private static bool ReadText(ref StackDataReader reader, out string text,
++        int max = PortraitProtocol.MaxTextBytes, bool allowEmpty = false)
+     {
+         text = null;
+         if (reader.Remaining < 2)
+             return false;
+         int length = reader.ReadUInt16BE();
+-        if (length is < 1 or > PortraitProtocol.MaxTextBytes || reader.Remaining < length)
++        if (length == 0 && !allowEmpty || length > max || reader.Remaining < length)
+             return false;
+-        text = reader.ReadUTF8(length);
++        text = length == 0 ? "" : reader.ReadUTF8(length);
+         return true;
+     }
+ 
+--- a/src/ClassicUO.Client/Game/Managers/AudioManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/AudioManager.cs
+@@ -22,6 +22,11 @@
+         private readonly UOMusic[] _currentMusic = { null, null };
+         private readonly int[] _currentMusicIndices = { 0, 0 };
+         private readonly Dictionary<int, UOMusic> _classicMusic = new();
++        public SanctuarySpeech Speech { get; } = new();
++
++        public void PlaySpeech(World world, object owner, string id, string overhead = null) =>
++            Speech.Play(world, owner, id, overhead, _canReproduceAudio);
++
+         public int LoginMusicIndex { get; private set; }
+         public int DeathMusicIndex { get; } = 42;
+ 
+@@ -345,6 +350,7 @@
+ 
+         public void Update()
+         {
++            Speech.Update();
+             if (!_canReproduceAudio)
+             {
+                 return;
+--- /dev/null
++++ b/src/ClassicUO.Client/Game/Managers/SanctuarySpeech.cs
+@@ -0,0 +1,113 @@
++// SPDX-License-Identifier: BSD-2-Clause
++
++using System;
++using System.IO;
++using ClassicUO.Configuration;
++using ClassicUO.Game.Data;
++using ClassicUO.Game.GameObjects;
++using ClassicUO.Utility.Logging;
++using Microsoft.Xna.Framework.Audio;
++using Sanctuary;
++
++namespace ClassicUO.Game.Managers;
++
++internal sealed class SanctuarySpeech
++{
++    private SoundEffect _clip;
++    private SoundEffectInstance _voice;
++    private object _owner;
++    private TextObject _overhead;
++
++    internal bool Busy => _voice?.State == SoundState.Playing;
++    internal bool Playing(object owner) => _owner == owner && Busy;
++
++    private static float Volume => Math.Clamp(Settings.GlobalSettings.SanctuarySpeechVolume, 0, 100) / 100f;
++    private static bool Enabled => Settings.GlobalSettings.SanctuarySpeechEnabled && Volume > 0;
++    private static string ClipPath(string locale, string id) =>
++        Path.Combine(SanctuaryLocalization.DataPath, "Voice", locale, id + ".wav");
++
++    internal static bool HasRecording(string id)
++    {
++        if (!AuthoredTextProtocol.ValidId(id))
++            return false;
++        string locale = SanctuaryLocalization.Locale;
++        return File.Exists(ClipPath(locale, id)) || locale != "en" && File.Exists(ClipPath("en", id));
++    }
++
++    internal void Play(World world, object owner, string id, string subtitle = null, bool canPlayAudio = true)
++    {
++        Stop();
++        _owner = owner;
++        if (canPlayAudio && Enabled && AuthoredTextProtocol.ValidId(id))
++        {
++            string locale = SanctuaryLocalization.Locale;
++            if (!TryPlay(ClipPath(locale, id)) && locale != "en")
++                TryPlay(ClipPath("en", id));
++        }
++
++        if (!string.IsNullOrWhiteSpace(subtitle) && world.Player is { } avatar)
++        {
++            byte font = Settings.GlobalSettings.ResolveDialogueFont(Client.Game.UO.FileManager.Fonts);
++            _overhead = world.MessageManager.CreateMessage(subtitle, 0x0035, font, true, MessageType.Regular, TextType.OBJECT);
++            if (_clip != null)
++                _overhead.Time = Time.Ticks + (long)Math.Ceiling(_clip.Duration.TotalMilliseconds);
++            avatar.AddMessage(_overhead);
++        }
++
++        if (_clip == null && _overhead == null)
++            _owner = null;
++    }
++
++    private bool TryPlay(string path)
++    {
++        if (!File.Exists(path))
++            return false;
++        SoundEffect clip = null;
++        SoundEffectInstance voice = null;
++        try
++        {
++            using var stream = File.OpenRead(path);
++            clip = SoundEffect.FromStream(stream);
++            voice = clip.CreateInstance();
++            voice.Volume = Volume;
++            voice.Play();
++            _clip = clip;
++            _voice = voice;
++            return true;
++        }
++        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or ArgumentException
++            or InvalidOperationException or NotSupportedException or NoAudioHardwareException)
++        {
++            voice?.Dispose();
++            clip?.Dispose();
++            Log.Warn($"Could not play a Sanctuary speech recording: {ex.Message}");
++            return false;
++        }
++    }
++
++    internal void Update()
++    {
++        if (_voice == null)
++            return;
++        if (!Enabled || _voice.State == SoundState.Stopped)
++        {
++            Stop();
++            return;
++        }
++        _voice.Volume = Volume;
++    }
++
++    internal void Stop(object owner = null)
++    {
++        if (owner != null && _owner != owner)
++            return;
++        _voice?.Dispose();
++        _clip?.Dispose();
++        if (_overhead != null && !_overhead.IsDestroyed)
++            _overhead.Time = 0;
++        _voice = null;
++        _clip = null;
++        _overhead = null;
++        _owner = null;
++    }
++}
+--- /dev/null
++++ b/src/ClassicUO.Client/Game/SanctuaryLocalization.cs
+@@ -0,0 +1,64 @@
++// SPDX-License-Identifier: BSD-2-Clause
++
++using System;
++using System.Collections.Generic;
++using System.IO;
++using System.Text.Json;
++using ClassicUO.Configuration;
++using ClassicUO.Utility.Logging;
++using Sanctuary;
++
++namespace ClassicUO.Game;
++
++internal static class SanctuaryLocalization
++{
++    private static readonly Dictionary<string, Dictionary<string, string>> _catalogs = new(StringComparer.Ordinal);
++    internal static string Locale => AuthoredTextProtocol.Locale(Settings.GlobalSettings.Language);
++    internal static string DataPath => Path.Combine(CUOEnviroment.ExecutablePath, "Data", "Sanctuary");
++
++    internal static string Text(string key, string fallback)
++    {
++        if (!AuthoredTextProtocol.ValidId(key))
++            return fallback;
++        return Catalog(Locale).GetValueOrDefault(key)
++            ?? (Locale != "en" ? Catalog("en").GetValueOrDefault(key) : null)
++            ?? fallback;
++    }
++
++    internal static string Ui(string english, string german, string japanese) => Locale switch
++    {
++        "de" => german,
++        "ja" => japanese,
++        _ => english
++    };
++
++    private static Dictionary<string, string> Catalog(string locale)
++    {
++        if (_catalogs.TryGetValue(locale, out var cached))
++            return cached;
++
++        var catalog = new Dictionary<string, string>(StringComparer.Ordinal);
++        _catalogs.Add(locale, catalog);
++        var path = Path.Combine(DataPath, "Localization", locale + ".json");
++        if (!File.Exists(path))
++            return catalog;
++        try
++        {
++            using var file = File.OpenRead(path);
++            using var json = JsonDocument.Parse(file);
++            if (json.RootElement.ValueKind != JsonValueKind.Object)
++                return catalog;
++
++            foreach (var entry in json.RootElement.EnumerateObject())
++                if (AuthoredTextProtocol.ValidId(entry.Name) && entry.Value.ValueKind == JsonValueKind.String
++                    && !string.IsNullOrWhiteSpace(entry.Value.GetString()))
++                    catalog[entry.Name] = entry.Value.GetString();
++        }
++        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or JsonException)
++        {
++            Log.Warn($"Could not read the Sanctuary {locale} localization catalog: {ex.Message}");
++        }
++
++        return catalog;
++    }
++}
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryDialogueGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryDialogueGump.cs
+@@ -27,6 +27,7 @@
+ 
+     public void Show(uint token, ushort portrait, string name, string line, string[] topics)
+     {
++        Client.Game.Audio.Speech.Stop(this);
+         Token = token;
+         _portrait = portrait;
+         _name = name;
+@@ -112,6 +113,8 @@
+ 
+     public override void Dispose()
+     {
++        if (!IsDisposed)
++            Client.Game.Audio.Speech.Stop(this);
+         if (!IsDisposed && !_closedByServer && World.InGame && Token != 0)
+             AvatarDialogueClient.Reply(Token, PortraitProtocol.Leave);
+         base.Dispose();
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryJournalGump.cs
+@@ -63,7 +63,7 @@
+     }
+ }
+ 
+-internal sealed class SanctuarySheetButton : Control
++internal class SanctuarySheetButton : Control
+ {
+     private readonly Label _label;
+     private readonly Action _activate;
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryLetterTheme.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryLetterTheme.cs
+@@ -4,6 +4,7 @@
+ using System.Linq;
+ using System.Net;
+ using ClassicUO.Configuration;
++using ClassicUO.Game.Managers;
+ using ClassicUO.Game.UI.Controls;
+ 
+ namespace ClassicUO.Game.UI.Gumps;
+@@ -27,6 +28,14 @@
+         if (title == null || body == null || dismiss == null)
+             return;
+ 
++        const string id = "cove.jaana.dispatch";
++        title = SanctuaryLocalization.Text(id + ".title", Decode(title));
++        body = SanctuaryLocalization.Text(id + ".body", Decode(body));
++        dismiss = take == null ? SanctuaryLocalization.Ui("Close", "Schließen", "閉じる")
++            : SanctuaryLocalization.Ui("Leave", "Gehen", "立ち去る");
++        if (take != null)
++            take = SanctuaryLocalization.Ui("Take Letter", "Brief nehmen", "手紙を取る");
++
+         var viewport = Client.Game.ClientBounds;
+         int width = Math.Clamp(viewport.Width - 16, 280, 488);
+         int height = Math.Clamp(viewport.Height - 16, 240, 358);
+@@ -41,18 +50,26 @@
+         gump.X = Math.Clamp(gump.X, 0, Math.Max(0, viewport.Width - width));
+         gump.Y = Math.Clamp(gump.Y, 0, Math.Max(0, viewport.Height - height));
+         gump.Add(new SanctuaryBackdrop("character-frame", width, height, 54) { CanCloseWithRightClick = true });
+-        gump.Add(new Label(Decode(title), true, Cream, maxwidth: width - 2 * padding, font: customTypeface ? font : (byte)0,
++        gump.Add(new Label(title, true, Cream, maxwidth: width - 2 * padding, font: customTypeface ? font : (byte)0,
+             scale: customTypeface ? 1.15f : 1.35f) { X = padding, Y = 16 });
+ 
+         int textWidth = width - 2 * padding;
+         var letter = gump.Add(new ScrollArea(padding, 70, textWidth, buttonY - 82, true));
+-        letter.Add(new Label(Decode(body), true, Cream, maxwidth: textWidth - 18, font: font, scale: customTypeface ? 1f : 1.2f));
++        letter.Add(new Label(body, true, Cream, maxwidth: textWidth - 18, font: font, scale: customTypeface ? 1f : 1.2f));
+ 
+-        gump.Add(new SanctuarySheetButton(padding, buttonY, 104, Decode(dismiss), () => gump.OnButtonClick(0),
++        bool narratable = SanctuarySpeech.HasRecording(id + ".body");
++        int buttons = 1 + (take != null ? 1 : 0) + (narratable ? 1 : 0);
++        int buttonWidth = Math.Min(114, (textWidth - 8 * (buttons - 1)) / buttons);
++        gump.Add(new SanctuarySheetButton(padding, buttonY, buttonWidth, dismiss, () => gump.OnButtonClick(0),
+             height: 30, font: font));
++        if (narratable)
++        {
++            int playX = take == null ? width - padding - buttonWidth : (width - buttonWidth) / 2;
++            gump.Add(new SanctuaryNarrationButton(gump, id + ".body", playX, buttonY, buttonWidth, font));
++        }
+         if (take != null)
+         {
+-            gump.Add(new SanctuarySheetButton(width - padding - 114, buttonY, 114, Decode(take),
++            gump.Add(new SanctuarySheetButton(width - padding - buttonWidth, buttonY, buttonWidth, take,
+                 () => gump.OnButtonClick(1), primary: true, height: 30, font: font));
+         }
+     }
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryOptionsGump.cs
+@@ -24,8 +24,9 @@
+     private bool _borderless, _drawRoofs, _highlightObjects, _transparency;
+     private DialogueTypeface _dialogueFont = Settings.GlobalSettings.DialogueFont;
+     private bool _sound, _footsteps, _music, _combatMusic, _loginMusic;
++    private bool _speech;
+     private bool _classicMidi = Settings.GlobalSettings.SanctuaryClassicMidi;
+-    private readonly ValueSlider _fps, _worldZoom, _screenScale, _soundsVolume, _musicVolume, _loginVolume;
++    private readonly ValueSlider _fps, _worldZoom, _screenScale, _soundsVolume, _speechVolume, _musicVolume, _loginVolume;
+ 
+     private SanctuaryOptionsGump(World world, bool hotkeys) : base(world, 0, 0)
+     {
+@@ -64,6 +65,10 @@
+         AddToggle("Sound effects", Sound, 0, _profile.EnableSound, value => _sound = value);
+         _soundsVolume = AddSlider("Effects volume", Sound, 1, 0, 100, _profile.SoundVolume, "%");
+         AddToggle("Footsteps", Sound, 2, _profile.EnableFootstepsSound, value => _footsteps = value);
++        AddToggle(SanctuaryLocalization.Ui("Speech", "Sprachausgabe", "音声"),
++            Sound, 3, Settings.GlobalSettings.SanctuarySpeechEnabled, value => _speech = value);
++        _speechVolume = AddSlider(SanctuaryLocalization.Ui("Speech volume", "Sprachlautstärke", "音声の音量"),
++            Sound, 4, 0, 100, Settings.GlobalSettings.SanctuarySpeechVolume, "%");
+ 
+         AddToggle("Game music", Music, 0, _profile.EnableMusic, value => _music = value);
+         _musicVolume = AddSlider("Music volume", Music, 1, 0, 100, _profile.MusicVolume, "%");
+@@ -256,6 +261,9 @@
+         _profile.EnableSound = _sound;
+         _profile.SoundVolume = _soundsVolume.Value;
+         _profile.EnableFootstepsSound = _footsteps;
++        settings.SanctuarySpeechEnabled = _speech;
++        settings.SanctuarySpeechVolume = _speechVolume.Value;
++        game.Audio.Speech.Update();
+         _profile.EnableMusic = _music;
+         _profile.MusicVolume = _musicVolume.Value;
+         if (_profile.EnableCombatMusic && !_combatMusic && _music)
+--- /dev/null
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryReadingGump.cs
+@@ -0,0 +1,75 @@
++// SPDX-License-Identifier: BSD-2-Clause
++
++using System;
++using ClassicUO.Configuration;
++using ClassicUO.Game.Managers;
++using ClassicUO.Game.UI.Controls;
++
++namespace ClassicUO.Game.UI.Gumps;
++
++internal sealed class SanctuaryReadingGump : Gump
++{
++    internal SanctuaryReadingGump(World world, string title, string author, string body, string narrationId) : base(world, 0, 0)
++    {
++        var bounds = Client.Game.ClientBounds;
++        Width = Math.Clamp(bounds.Width - 16, 280, 560);
++        Height = Math.Clamp(bounds.Height - 16, 224, 420);
++        X = Math.Max(0, (bounds.Width - Width) / 2);
++        Y = Math.Max(0, (bounds.Height - Height) / 2);
++        CanMove = CanCloseWithRightClick = true;
++        WantUpdateSize = false;
++
++        const int pad = 24;
++        int textWidth = Width - 2 * pad;
++        int footer = Height - 48;
++        byte font = Settings.GlobalSettings.ResolveDialogueFont(Client.Game.UO.FileManager.Fonts);
++        Add(new SanctuaryBackdrop("character-frame", Width, Height) { CanCloseWithRightClick = true });
++        var headline = Add(new Label(title, true, 0x0481, maxwidth: textWidth, font: font, scale: 1.2f)
++            { X = pad, Y = 16 });
++        int top = headline.Y + headline.Height;
++        if (!string.IsNullOrWhiteSpace(author))
++        {
++            var byline = Add(new Label(author, true, 0x0481, maxwidth: textWidth, font: font) { X = pad, Y = top + 5 });
++            top = byline.Y + byline.Height;
++        }
++
++        top = Math.Min(top + 12, footer - 35);
++        Add(new Line(pad, top - 4, textWidth, 1, 0xFF486581) { AcceptMouseInput = false });
++        var reading = Add(new ScrollArea(pad, top + 8, textWidth, footer - top - 16, true));
++        reading.Add(new Label(body, true, 0x0481, maxwidth: textWidth - 18, font: font));
++        Add(new SanctuarySheetButton(pad, footer, 104, SanctuaryLocalization.Ui("Close", "Schließen", "閉じる"),
++            Dispose, height: 30, font: font));
++
++        if (SanctuarySpeech.HasRecording(narrationId))
++            Add(new SanctuaryNarrationButton(this, narrationId, Width - pad - 114, footer, 114, font));
++    }
++}
++
++internal sealed class SanctuaryNarrationButton(Gump owner, string voiceId, int x, int y, int width, byte font)
++    : SanctuarySheetButton(x, y, width, SanctuaryLocalization.Ui("Play", "Abspielen", "再生"),
++        () => Toggle(owner, voiceId), primary: true, height: 30, font: font)
++{
++    public override void Update()
++    {
++        var speech = Client.Game.Audio.Speech;
++        SetCaption(speech.Playing(owner) ? SanctuaryLocalization.Ui("Stop", "Stopp", "停止")
++            : SanctuaryLocalization.Ui("Play", "Abspielen", "再生"));
++        IsEnabled = Settings.GlobalSettings.SanctuarySpeechEnabled && Settings.GlobalSettings.SanctuarySpeechVolume > 0;
++        base.Update();
++    }
++
++    private static void Toggle(Gump owner, string voiceId)
++    {
++        if (Client.Game.Audio.Speech.Playing(owner))
++            Client.Game.Audio.Speech.Stop(owner);
++        else
++            Client.Game.Audio.PlaySpeech(owner.World, owner, voiceId);
++    }
++
++    public override void Dispose()
++    {
++        if (!IsDisposed)
++            Client.Game.Audio.Speech.Stop(owner);
++        base.Dispose();
++    }
++}
+--- a/src/ClassicUO.Client/Game/World.cs
++++ b/src/ClassicUO.Client/Game/World.cs
+@@ -780,6 +780,7 @@
+ 
+         public void Clear()
+         {
++            Client.Game.Audio.Speech.Stop();
+             foreach (Mobile mobile in Mobiles.Values)
+             {
+                 RemoveMobile(mobile);

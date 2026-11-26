@@ -1,0 +1,164 @@
+--- a/src/ClassicUO.Assets/ClassicUO.Assets.csproj
++++ b/src/ClassicUO.Assets/ClassicUO.Assets.csproj
+@@ -13,6 +13,7 @@
+     <InternalsVisibleTo Include="ClassicUO.UnitTests" />
+     <Compile Include="../../../../shared/RavenAppearance.cs" Link="RavenAppearance.cs" />
+     <Compile Include="../../../../shared/CampaignBossAppearance.cs" Link="CampaignBossAppearance.cs" />
++    <Compile Include="../../../../shared/SkeletonAppearance.cs" Link="SkeletonAppearance.cs" />
+   </ItemGroup>
+ 
+ </Project>
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -51,6 +51,9 @@
+     <Content Include="../../../../art/campaign-bosses/campaign-bosses.idx;../../../../art/campaign-bosses/campaign-bosses.mul"
+              Link="Data/Sanctuary/Animations/%(Filename)%(Extension)"
+              CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
++    <Content Include="../../../../art/summon-bodies/summon-bodies.idx;../../../../art/summon-bodies/summon-bodies.mul"
++             Link="Data/Sanctuary/Animations/%(Filename)%(Extension)"
++             CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+     <Content Include="../../../../art/raven/raven.idx;../../../../art/raven/raven.mul"
+              Link="Data/Sanctuary/Animations/%(Filename)%(Extension)"
+              CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+@@ -77,7 +80,6 @@
+     <Compile Include="../../../../shared/TitleProtocol.cs" Link="TitleProtocol.cs" />
+     <Compile Include="../../../../shared/SkillBindingProtocol.cs" Link="SkillBindingProtocol.cs" />
+     <Compile Include="../../../../shared/NamedVisualProtocol.cs" Link="NamedVisualProtocol.cs" />
+-    <Compile Include="../../../../shared/SkeletonAppearance.cs" Link="SkeletonAppearance.cs" />
+     <Compile Include="../../../../shared/DruidFormVisualProtocol.cs" Link="DruidFormVisualProtocol.cs" />
+     <Compile Include="../../../../shared/MobileNameProtocol.cs" Link="MobileNameProtocol.cs" />
+     <Compile Include="../../../../shared/StatProtocol.cs" Link="Game/Data/StatProtocol.cs" />
+--- a/src/ClassicUO.Assets/AnimationsLoader.cs
++++ b/src/ClassicUO.Assets/AnimationsLoader.cs
+@@ -26,6 +26,7 @@
+         private const int SuccubusFileIndex = 10;
+         private const int RavenFileIndex = 11;
+         private const int CampaignBossFileIndex = 12;
++        private const int SummonBodyFileIndex = 13;
+         private const int OverrideBodyStride = (int)HighAnimationGroup.AnimationCount * MAX_DIRECTIONS;
+         private UOFileMul _succubusAnimations;
+         private AnimationDirection[] _succubusDirections;
+@@ -33,6 +34,8 @@
+         private AnimationDirection[] _ravenDirections;
+         private UOFileMul _bossAnimations;
+         private AnimationDirection[] _bossDirections;
++        private UOFileMul _summonAnimations;
++        private AnimationDirection[] _summonDirections;
+ 
+ 
+         [ThreadStatic]
+@@ -72,6 +75,7 @@
+             (_succubusAnimations, _succubusDirections) = LoadAnimationOverride("succubus", 1);
+             (_ravenAnimations, _ravenDirections) = LoadAnimationOverride("raven", Sanctuary.RavenAppearance.MaxCount);
+             (_bossAnimations, _bossDirections) = LoadAnimationOverride("campaign-bosses", Sanctuary.CampaignBossAppearance.Count);
++            (_summonAnimations, _summonDirections) = LoadAnimationOverride("summon-bodies", Sanctuary.SummonBodyAppearance.Count);
+ 
+             for (int i = 0; i < _files.Length; i++)
+             {
+@@ -234,6 +238,8 @@
+         public bool HasSuccubusAnimationOverride(ushort body) =>
+             body == SuccubusBody && _succubusDirections != null;
+ 
++        public bool HasSummonBody(ushort body) => _summonDirections != null && Sanctuary.SummonBodyAppearance.IsBody(body);
++
+         private static (UOFileMul, AnimationDirection[]) LoadAnimationOverride(string name, int bodies)
+         {
+             string path = Path.Combine(AppContext.BaseDirectory, "Data", "Sanctuary", "Animations", name);
+@@ -342,6 +348,15 @@
+                 fileIndex = CampaignBossFileIndex;
+                 animType = AnimationGroupsType.Monster;
+                 return _bossDirections.AsSpan(boss * OverrideBodyStride, OverrideBodyStride);
++            }
++
++            if (HasSummonBody(body))
++            {
++                flags = AnimationFlags.Found | AnimationFlags.Unknown1000;
++                fileIndex = SummonBodyFileIndex;
++                animType = AnimationGroupsType.Monster;
++                int index = body - Sanctuary.SummonBodyAppearance.FirstBody;
++                return _summonDirections.AsSpan(index * OverrideBodyStride, OverrideBodyStride);
+             }
+ 
+             int flock = body - Sanctuary.RavenAppearance.FirstBody;
+@@ -1102,6 +1117,9 @@
+             _bossAnimations?.Dispose();
+             _bossAnimations = null;
+             _bossDirections = null;
++            _summonAnimations?.Dispose();
++            _summonAnimations = null;
++            _summonDirections = null;
+         }
+ 
+ 
+@@ -1551,7 +1569,7 @@
+ 
+         public Span<FrameInfo> ReadMULAnimationFrames(int fileIndex, AnimationDirection index, bool isVerdata = false)
+         {
+-            if (!isVerdata && (fileIndex < 0 || fileIndex > CampaignBossFileIndex))
++            if (!isVerdata && (fileIndex < 0 || fileIndex > SummonBodyFileIndex))
+             {
+                 return Span<FrameInfo>.Empty;
+             }
+@@ -1575,6 +1593,7 @@
+                     SuccubusFileIndex => _succubusAnimations,
+                     RavenFileIndex => _ravenAnimations,
+                     CampaignBossFileIndex => _bossAnimations,
++                    SummonBodyFileIndex => _summonAnimations,
+                     _ => _files[fileIndex]
+                 };
+ 
+--- a/src/ClassicUO.Client/Game/GameObjects/MobileAnimation.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/MobileAnimation.cs
+@@ -80,6 +80,12 @@
+             }
+ 
+             ushort g = Graphic;
++            ushort summonBody = Sanctuary.SummonBodyAppearance.For(g, SkeletonCosmetics);
++            if (summonBody != 0 && Client.Game.UO.FileManager.Animations.HasSummonBody(summonBody))
++            {
++                return summonBody;
++            }
++
+             if (g == 50 && SkeletonCosmetics is Sanctuary.SkeletonAppearance.SwordAndShield or Sanctuary.SkeletonAppearance.ArmouredWarrior)
+             {
+                 return 57;
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+@@ -475,7 +475,8 @@
+                 charSitting
+             );
+ 
+-            if (!IsDead && SkeletonCosmetics is not (SkeletonAppearance.None or SkeletonAppearance.SwordAndShield) && Graphic is 50 or 56)
++            if (!IsDead && !SummonBodyAppearance.IsBody(graphic) && Graphic is 50 or 56
++                && SkeletonCosmetics is not (SkeletonAppearance.None or SkeletonAppearance.SwordAndShield))
+             {
+                 DrawSkeletonCosmetics(batcher, drawX, drawY, graphic, dir, animGroup, animIndex, hueVec.Z, overridedHue, depth);
+             }
+@@ -964,6 +965,7 @@
+             ref var spriteInfo = ref frames[frameIndex % frames.Length];
+ 
+             bool druidForm = entity == null && id == owner.DruidFormBody;
++            bool summonBody = entity == null && SummonBodyAppearance.IsBody(id);
+             bool fleetCaptain = owner.SkeletonCosmetics == SkeletonAppearance.FleetCaptain;
+             float scale = druidForm ? owner.DruidFormScale
+                 : entity == null || fleetCaptain ? owner.SpecialBodyScale : 1f;
+@@ -1005,7 +1007,7 @@
+ 
+                 if (hue == 0)
+                 {
+-                    hue = druidForm ? (ushort)0 : entity?.Hue ?? owner.Hue;
++                    hue = druidForm || summonBody ? (ushort)0 : entity?.Hue ?? owner.Hue;
+                     partialHue = !isMount && entity != null && entity.ItemData.IsPartialHue;
+ 
+                     if ((hue & 0x8000) != 0)
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -4180,7 +4180,7 @@
+                 {
+                     uint serial = p.ReadUInt32BE();
+                     var appearance = (Sanctuary.SkeletonAppearance)p.ReadUInt8();
+-                    if (appearance <= Sanctuary.SkeletonAppearance.FleetCaptain && world.Mobiles.TryGetValue(serial, out var mobile))
++                    if (appearance <= Sanctuary.SkeletonAppearance.FireGolem && world.Mobiles.TryGetValue(serial, out var mobile))
+                     {
+                         mobile.SkeletonCosmetics = appearance;
+                     }

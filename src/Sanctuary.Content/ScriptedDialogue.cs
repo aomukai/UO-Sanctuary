@@ -18,9 +18,11 @@ namespace Sanctuary;
 public static class ScriptedDialogue
 {
     internal sealed record Reply(string Text, byte Next, Action<PlayerMobile, Mobile> Select = null,
-        StoryDiscoveries Learns = StoryDiscoveries.None);
+        StoryDiscoveries Learns = StoryDiscoveries.None, string TextId = null);
     internal sealed record Voice(string Name, ushort Portrait);
-    internal sealed record Node(string Line, Reply[] Replies, Voice Speaker = null, StoryDiscoveries Learns = StoryDiscoveries.None);
+    internal sealed record Node(string Line, Reply[] Replies, Voice Speaker = null,
+        StoryDiscoveries Learns = StoryDiscoveries.None, string LineId = null, string SpeakerId = null,
+        AuthoredTextKind Kind = AuthoredTextKind.Dialogue);
     private sealed record Session(Mobile Speaker, IReadOnlyList<Node> Script, byte Node, uint Token, long Until,
         Action<PlayerMobile, Mobile> Leave, Func<PlayerMobile, Mobile, bool> CanReply);
     private static readonly Dictionary<Serial, Session> _sessions = new();
@@ -142,6 +144,13 @@ public static class ScriptedDialogue
     private static void Receive(NetState state, SpanReader reader)
     {
         int length = reader.Remaining + 5;
+        if (length == AuthoredTextProtocol.ReadyLength)
+        {
+            if (state.Mobile is PlayerMobile viewer && reader.ReadByte() == PortraitProtocol.Version
+                && reader.ReadByte() == AuthoredTextProtocol.Ready)
+                AuthoredWriting.Enable(viewer, state);
+            return;
+        }
         if (state.Mobile is not PlayerMobile player
             || length is not (PortraitProtocol.ReplyPacketLength or PortraitProtocol.InteractPacketLength
                 or PortraitProtocol.ShopTabPacketLength)
@@ -303,6 +312,11 @@ public static class ScriptedDialogue
         uint token = ++_nextToken;
         byte[][] texts = [Encoding.UTF8.GetBytes(page.Speaker?.Name ?? talkative?.DialogueName ?? speaker.Name), Encoding.UTF8.GetBytes(page.Line),
             .. page.Replies.Select(reply => Encoding.UTF8.GetBytes(reply.Text))];
+        _sessions[player.Serial] = new Session(speaker, script, node, token, Core.TickCount + 120_000, onLeave, canReply);
+        if (AuthoredWriting.Supported(player) && AuthoredTextProtocol.ValidId(page.LineId)
+            && AuthoredTextProtocol.ValidId(page.SpeakerId)
+            && TrySendAuthoredConversation(player, token, portrait, page, texts))
+            return;
         int length = (extendedPortrait ? 14 : 13) + texts.Sum(text => 2 + text.Length);
         var writer = Packet(length, extendedPortrait ? PortraitProtocol.ExtendedConversation : PortraitProtocol.Conversation,
             stackalloc byte[length]);
@@ -317,8 +331,29 @@ public static class ScriptedDialogue
             writer.Write((ushort)text.Length);
             writer.Write(text.AsSpan());
         }
-        _sessions[player.Serial] = new Session(speaker, script, node, token, Core.TickCount + 120_000, onLeave, canReply);
         player.NetState.Send(writer.Span);
+    }
+
+    private static bool TrySendAuthoredConversation(PlayerMobile player, uint token, ushort portrait, Node page, byte[][] text)
+    {
+        if (page.Kind is not (AuthoredTextKind.Dialogue or AuthoredTextKind.Companion)
+            || page.Replies.Any(reply => reply.TextId != null && !AuthoredTextProtocol.ValidId(reply.TextId))
+            || text[1].Length is < 1 or > AuthoredTextProtocol.MaxBodyBytes
+            || text.Where((_, i) => i != 1).Any(field => field.Length is < 1 or > PortraitProtocol.MaxTextBytes))
+            return false;
+
+        byte[][] fields = [Encoding.UTF8.GetBytes(page.LineId), Encoding.UTF8.GetBytes(page.SpeakerId), text[0], text[1],
+            .. page.Replies.SelectMany((reply, i) => new[] { Encoding.UTF8.GetBytes(reply.TextId ?? ""), text[i + 2] })];
+        int length = 15 + fields.Sum(field => 2 + field.Length);
+        Span<byte> packet = new byte[length];
+        var writer = AuthoredWriting.StartPacket(packet, AuthoredTextProtocol.Conversation);
+        writer.Write(token);
+        writer.Write(portrait);
+        writer.Write((byte)page.Kind);
+        writer.Write((byte)page.Replies.Length);
+        AuthoredWriting.WriteFields(ref writer, fields);
+        player.NetState.Send(writer.Span);
+        return true;
     }
 
     internal static void SendIdentifyShop(PlayerMobile player, Serial scholar)
@@ -395,6 +430,7 @@ public abstract class ConversationNpc : BaseCreature, IScriptedSpeaker
     protected ConversationNpc(Serial serial) : base(serial) { }
     public override bool IsInvulnerable => true;
     public override bool CanTeach => false;
+    protected override bool ShowBondedLabel => this is not IClassCompanion;
     public override DeathMoveResult GetParentMoveResultFor(Item item) =>
         MercenaryCare.CompanionLevel(this).HasValue ? DeathMoveResult.RemainEquipped : base.GetParentMoveResultFor(item);
     internal abstract ushort Portrait { get; }

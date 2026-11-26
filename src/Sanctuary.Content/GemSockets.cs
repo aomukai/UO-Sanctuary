@@ -34,7 +34,7 @@ public static class GemSockets
     public static GemEffect[] Effects(Item host, InstalledGem gem) => ClassGear.Slot(host) switch
     {
         GearSlot.Weapon => gem.Effects.Weapon, GearSlot.Shield => gem.Effects.Shield,
-        GearSlot.Head or GearSlot.Body => gem.Effects.Armor, _ => []
+        GearSlot.Head or GearSlot.Body or GearSlot.Quiver => gem.Effects.Armor, _ => []
     };
     internal static int Bonus(Item host, GearState state, string code)
     {

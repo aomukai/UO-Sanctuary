@@ -50,10 +50,10 @@ public static class NamedControl
         int difference = Math.Clamp(chance, 0, 100) - roll;
         return difference > 0 ? Math.Clamp(2 * difference + 25, 25, 250) : 0;
     }
-    public static bool Freeze(PlayerMobile source, Mobile target, int bonus, bool ranged, Random random)
+    public static bool Freeze(PlayerMobile source, Mobile target, int bonus, bool ranged, Random random, int procBonus=0)
     {
         if (bonus <= 0 || target is not { Alive: true, Deleted: false } || target.ColdResistance >= 100) { return false; }
-        int frames = FreezeFrames(ClassStats.Level(source), ClassStats.Level(target), bonus, ranged, random.Next(100));
+        int frames = FreezeFrames(ClassStats.Level(source), ClassStats.Level(target), bonus, ranged, PaladinZeal.ProcRoll(random, 100, procBonus));
         if (frames == 0) { return false; }
         int duration = frames * ActionTiming.FrameMs;
         if (target is not BaseCreature creature || NamedCombat.Elite(target) || creature.Controlled)
@@ -79,10 +79,10 @@ public static class NamedControl
         int difference = Math.Clamp(chance, 1, 99) - roll;
         return difference > 0 ? Math.Clamp(difference / 5 + 1, 1, 20) : 0;
     }
-    public static bool ApplyBlind(PlayerMobile source, Mobile target, int bonus, bool ranged, Random random)
+    public static bool ApplyBlind(PlayerMobile source, Mobile target, int bonus, bool ranged, Random random, int procBonus=0)
     {
         if (bonus <= 0 || !AiTarget(target) || NecromancerEffects.Curse(target)?.Ability is CombatAbility.Attract or CombatAbility.Confuse) { return false; }
-        int level = BlindLevel(ClassStats.Level(source), ClassStats.Level(target), bonus, ranged, random.Next(100));
+        int level = BlindLevel(ClassStats.Level(source), ClassStats.Level(target), bonus, ranged, PaladinZeal.ProcRoll(random, 100, procBonus));
         return ApplyBlindLevel(target, level);
     }
     // Raven's monprop supplies a signed -1. Event09 accepts any nonzero value
@@ -111,9 +111,9 @@ public static class NamedControl
         else { target.FixedEffect(0x375A, 10, 15, 0x455, 0); }
         return true;
     }
-    public static bool ApplyFear(PlayerMobile source, Mobile target, int chance, Random random)
+    public static bool ApplyFear(PlayerMobile source, Mobile target, int chance, Random random, int procBonus=0)
     {
-        if (chance <= 0 || !AiTarget(target) || NecromancerEffects.Curse(target)?.Ability == CombatAbility.Attract || random.Next(128) >= chance) { return false; }
+        if (chance <= 0 || !AiTarget(target) || NecromancerEffects.Curse(target)?.Ability == CombatAbility.Attract || PaladinZeal.ProcRoll(random, 128, procBonus) >= chance) { return false; }
         var now = TimedEffects.Now; TimedEffects.Settle(target, now);
         if (!target.Alive || target.Deleted) { return false; }
         var actor = TimedEffects.Actor(target, now);

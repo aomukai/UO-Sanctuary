@@ -1,0 +1,32 @@
+--- a/Projects/UOContent/Mobiles/BaseCreature.cs
++++ b/Projects/UOContent/Mobiles/BaseCreature.cs
+@@ -3239,6 +3239,8 @@
+             ClassCombatHooks.CreatureTooltipProperties?.Invoke(this, list);
+         }
+ 
++        protected virtual bool ShowBondedLabel => true;
++
+         public override void AddNameProperties(IPropertyList list)
+         {
+             base.AddNameProperties(list);
+@@ -3270,7 +3272,10 @@
+                 // Deliberate: show only (bonded), never (bonded) and (tame) together.
+                 if (IsBonded)
+                 {
+-                    list.Add(1049608); // (bonded)
++                    if (ShowBondedLabel)
++                    {
++                        list.Add(1049608); // (bonded)
++                    }
+                 }
+                 else
+                 {
+@@ -3281,7 +3286,7 @@
+ 
+         public override void OnSingleClick(Mobile from)
+         {
+-            if (Controlled && Commandable)
++            if (Controlled && Commandable && (Summoned || !IsBonded || ShowBondedLabel))
+             {
+                 int number;
+ 

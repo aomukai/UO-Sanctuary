@@ -22,7 +22,7 @@ internal static class PlayerItemSpellCasts
     internal static PlayerItemCastContext Context(PlayerMobile owner)=>owner!=null&&Frames.TryGetValue(owner.Serial.Value,out var s)
         ?new(s.Target?.Identity.Id??0,s.Point.X,s.Point.Y,s.ServerDo):null;
     private sealed class Services(PlayerMobile owner,bool uninterruptible,DateTime at,Func<NpcItemMissileRequest,NpcItemSpellAllocation> allocate,
-        Action<ItemEffectResult> notify):ItemEffectServices<Actor>
+        Action<ItemEffectResult> notify,int procBonus):ItemEffectServices<Actor>
     {
         private readonly State Frame=Frames.GetValueOrDefault(owner.Serial.Value)??new(owner);
         internal override Actor Source=>new(owner,null);
@@ -44,7 +44,7 @@ internal static class PlayerItemSpellCasts
         {
             if(skill!=47||mode!=0||item!=1||flag is <0 or >1){throw Missing();}
             uint id=owner.Serial.Value;bool had=Frames.TryGetValue(id,out var prior);Frames[id]=Frame;
-            try{return SorceressSpellMissiles.EmitPlayerItemFireBall(owner,Frame.Target?.Point(owner.Map),new(Frame.Point.X,Frame.Point.Y,owner.Z),level,flag,at,allocate,Frame.ServerDo,value=>Frame.ServerDo=value).Result;}
+            try{return SorceressSpellMissiles.EmitPlayerItemFireBall(owner,Frame.Target?.Point(owner.Map),new(Frame.Point.X,Frame.Point.Y,owner.Z),level,flag,at,allocate,Frame.ServerDo,value=>Frame.ServerDo=value,procBonus).Result;}
             finally{if(had){Frames[id]=prior;}else{Frames.Remove(id);}}
         }
         internal override void NotifyTarget(int skill,int level,int type,int id,int flag)
@@ -54,17 +54,17 @@ internal static class PlayerItemSpellCasts
         private static NotSupportedException Missing()=>new("Player item frame has no admitted service for this skill/context");
     }
     internal static int Target(PlayerMobile owner,NpcItemTarget target,int rank,int flag,bool uninterruptible,DateTime at,
-        Func<NpcItemMissileRequest,NpcItemSpellAllocation> allocate,Action<ItemEffectResult> notify=null)
+        Func<NpcItemMissileRequest,NpcItemSpellAllocation> allocate,Action<ItemEffectResult> notify=null,int procBonus=0)
     {
         ArgumentNullException.ThrowIfNull(allocate);if(owner==null||target==null){return 0;}
         using var scope=NpcItemSpellCasts.PreserveCombatTarget(owner);
-        return ItemEffectCasts.Target(new Services(owner,uninterruptible,at,allocate,notify),47,rank,new(null,target),flag);
+        return ItemEffectCasts.Target(new Services(owner,uninterruptible,at,allocate,notify,procBonus),47,rank,new(null,target),flag);
     }
     internal static int Position(PlayerMobile owner,Point3D point,int rank,int flag,bool uninterruptible,DateTime at,
-        Func<NpcItemMissileRequest,NpcItemSpellAllocation> allocate,Action<ItemEffectResult> notify=null)
+        Func<NpcItemMissileRequest,NpcItemSpellAllocation> allocate,Action<ItemEffectResult> notify=null,int procBonus=0)
     {
         ArgumentNullException.ThrowIfNull(allocate);if(owner==null){return 0;}
         using var scope=NpcItemSpellCasts.PreserveCombatTarget(owner);
-        return ItemEffectCasts.Position(new Services(owner,uninterruptible,at,allocate,notify),47,rank,point.X,point.Y,flag);
+        return ItemEffectCasts.Position(new Services(owner,uninterruptible,at,allocate,notify,procBonus),47,rank,point.X,point.Y,flag);
     }
 }

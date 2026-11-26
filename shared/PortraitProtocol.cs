@@ -112,6 +112,49 @@ public static class DespiseClue
     public const ushort CorpseGraphic = 0x1B1D;
 }
 
+public enum AuthoredTextKind : byte
+{
+    Dialogue, CombatBark, Companion, Letter, Book, Sign, Observation
+}
+
+public enum SpeechPresentation : byte
+{
+    None, AvatarOverhead
+}
+
+public static class AuthoredTextProtocol
+{
+    public const byte Ready = 10, Reading = 11, Observation = 12, Conversation = 13, Bark = 14;
+    public const int ReadyLength = 7, MaxIdBytes = 80, MaxBodyBytes = 8192;
+    public const string Narrator = "narrator";
+
+    public static string Locale(string value)
+    {
+        string language = (value ?? "").Trim().ToLowerInvariant();
+        int separator = language.IndexOfAny(['-', '_']);
+        if (separator >= 0)
+            language = language[..separator];
+        return language switch
+        {
+            "de" or "deu" => "de",
+            "ja" or "jpn" => "ja",
+            _ => "en"
+        };
+    }
+
+    public static bool ValidId(string id)
+    {
+        if (string.IsNullOrEmpty(id) || id.Length > MaxIdBytes || !LetterOrDigit(id[0]) || !LetterOrDigit(id[^1]))
+            return false;
+        foreach (char c in id)
+            if (!LetterOrDigit(c) && c is not ('.' or '_'))
+                return false;
+        return !id.Contains("..", StringComparison.Ordinal);
+    }
+
+    private static bool LetterOrDigit(char c) => c is >= 'a' and <= 'z' or >= '0' and <= '9';
+}
+
 public static class PortraitProtocol
 {
     public const ushort SubCommand = 0xF1;

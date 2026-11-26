@@ -58,7 +58,15 @@ public partial class HythlothEncounter : EncounterCreature
         int bonus = boss ? EncounterProfiles.Level(0, EncounterGrade.SuperUnique) : 0;
         bool human = body == 0x190;
         return new($"hythloth-{role.ToString().ToLowerInvariant()}", "Hythloth", name, kind, "Hythloth royal court",
-            min - bonus, max - bonus, body, human ? 0 : 0x48D, new(0, 0, 0, 0, 0, human ? 0 : 50));
+            min - bonus, max - bonus, body, human ? 0 : 0x48D, new(0, 0, 0, 0, 0, human ? 0 : 50))
+        {
+            SkeletalRole = role switch
+            {
+                HythlothRole.RoyalSoldier => SkeletalMonsterRole.Warrior,
+                HythlothRole.UndeadServant or HythlothRole.UndeadCleric or HythlothRole.SkeletalMage => SkeletalMonsterRole.Mage,
+                _ => SkeletalMonsterRole.None
+            }
+        };
     }
 
     [Constructible]
@@ -141,7 +149,6 @@ public partial class HythlothEncounter : EncounterCreature
     {
         var outfit = Role switch
         {
-            HythlothRole.UndeadCleric or HythlothRole.SkeletalMage => SkeletonAppearance.BlackRobe,
             HythlothRole.Herald => SkeletonAppearance.Bow,
             HythlothRole.RoyalArbalest => SkeletonAppearance.Crossbow,
             HythlothRole.Jester => SkeletonAppearance.Jester,
@@ -151,6 +158,8 @@ public partial class HythlothEncounter : EncounterCreature
         };
         if (outfit != SkeletonAppearance.None)
             SkeletonAppearancePackets.Send(state, Serial, outfit);
+        else
+            base.SendAppearanceTo(state);
     }
 
     public override void OnThink()

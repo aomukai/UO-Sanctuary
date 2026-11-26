@@ -85,6 +85,7 @@ public static class DruidPlayerForms
     internal static int AttackPercent(PlayerMobile owner)=>State(owner)?.Form.Modifiers.AttackPercent??0;
     internal static int DamagePercent(PlayerMobile owner)=>State(owner)?.Form.Modifiers.DamagePercent??0;
     internal static int ArmorPercent(PlayerMobile owner)=>State(owner)?.Form.Modifiers.ArmorPercent??0;
+    internal static int WerebearRank(PlayerMobile owner) => State(owner)?.Form is { Ability: CombatAbility.Werebear } bear ? bear.Rank : 0;
     internal static DruidPlayerForm Capture(PlayerMobile owner,CombatAbility ability,DateTime at)
     {
         if(!Owner(owner)||ability is not(CombatAbility.Werewolf or CombatAbility.Werebear)

@@ -59,7 +59,8 @@ public partial class Celeste : ConversationNpc, IClassCompanion
     ];
     private static readonly ScriptedDialogue.Node[] _ready =
     [
-        new("My father's shield, and the rest of my kit. I'm ready now. Let's go.", [])
+        new("My father's shield, and the rest of my kit. I'm ready now. Let's go.", [],
+            LineId: "covetous.celeste.gear_recovered", SpeakerId: "celeste", Kind: AuthoredTextKind.Companion)
     ];
 
     DiabloClass IClassCompanion.CombatClass => DiabloClass.Paladin;
@@ -274,10 +275,9 @@ public partial class Celeste : ConversationNpc, IClassCompanion
 
     public override bool EquipItem(Item item)
     {
-        if (Recruited && (item is BaseWeapon and not Fists && item is not BaseBashing { Layer: Layer.OneHanded }
-            || ClassGear.Definition(item) is { Weight: GearWeight.Heavy, Slot: GearSlot.Head or GearSlot.Body or GearSlot.Hands or GearSlot.Feet }))
+        if (Recruited && item is BaseWeapon and not Fists and not BaseBashing { Layer: Layer.OneHanded })
         {
-            ControlMaster?.SendMessage("Celeste: I use a one-handed mace and can wear up to medium armour.");
+            ControlMaster?.SendMessage("Celeste: I fight with a one-handed mace.");
             return false;
         }
         return base.EquipItem(item);

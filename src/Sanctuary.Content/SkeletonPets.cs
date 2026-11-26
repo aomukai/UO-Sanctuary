@@ -118,21 +118,27 @@ public static class SkeletonPets
 [SerializationGenerator(0)]
 public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
 {
-    internal SkeletonAppearance CosmeticAppearance => NecromancerSkeletons.Kind(this) switch
+    internal SkeletonAppearance CosmeticAppearance => this switch
     {
-        CombatAbility.RaiseSkeleton => SkeletonAppearanceProtocol.For(false, SkeletonPetUpgrades.HardRank(this)),
-        CombatAbility.RaiseSkeletalMage => SkeletonAppearanceProtocol.For(true, MagePetBuffs.HardRank((NecromancerMinion)this)),
+        NecromancerMinion { Kind: CombatAbility.BloodGolem } => SkeletonAppearance.BloodGolem,
+        NecromancerMinion { Kind: CombatAbility.FireGolem } => SkeletonAppearance.FireGolem,
+        IronGolemBody => SkeletonAppearance.IronGolem,
+        AmazonValkyrieBody => SkeletonAppearance.Valkyrie,
+        NecromancerMinion { IsMage: true } mage => SkeletonAppearanceProtocol.For(true, MagePetBuffs.HardRank(mage)),
+        _ when NecromancerSkeletons.Kind(this) == CombatAbility.RaiseSkeleton =>
+            SkeletonAppearanceProtocol.For(false, SkeletonPetUpgrades.HardRank(this)),
         _ => SkeletonAppearance.None
     };
 
     public override void SendAppearanceTo(NetState state)
     {
-        if (NecromancerSkeletons.Kind(this) == CombatAbility.None)
+        var appearance = CosmeticAppearance;
+        if (appearance == SkeletonAppearance.None && NecromancerSkeletons.Kind(this) == CombatAbility.None)
         {
             return;
         }
 
-        SkeletonAppearancePackets.Send(state, Serial, CosmeticAppearance);
+        SkeletonAppearancePackets.Send(state, Serial, appearance);
     }
 
     public virtual DiabloClass SummonClass => DiabloClass.Necromancer;

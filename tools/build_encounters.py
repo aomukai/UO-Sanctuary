@@ -98,8 +98,12 @@ def build(source):
             if family == 'cinder-hierophant': resist.update(Fire=40 + index*20, Poison=0)
             if family == 'bog-revenant': resist.update(Physical=index*10, Poison=70 + index*10)
             if family == 'ossuary-archer': resist.update(Cold=20 + index*20)
-            profiles.append(dict(id=f'{family}-{lo}', family=family, name=name, archetype=archetype, reference=ref,
-                                 minimumLevel=lo, maximumLevel=hi, body=body, sound=sound, resistances=resist))
+            profile = dict(id=f'{family}-{lo}')
+            if family == 'crypt-sentinel':
+                profile['skeletalRole'] = 'Warrior'
+            profile.update(family=family, name=name, archetype=archetype, reference=ref,
+                           minimumLevel=lo, maximumLevel=hi, body=body, sound=sound, resistances=resist)
+            profiles.append(profile)
     named = [dict(id='ossuary-warden', name='The Ossuary Warden', profile='crypt-sentinel-90', baseLevel=94,
                   modifiers=['ExtraStrong', 'StoneSkin', 'Cursed'], aura='None'),
              dict(id='carrion-matriarch', name='The Carrion Matriarch', profile='bog-revenant-90', baseLevel=95,
