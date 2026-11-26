@@ -134,7 +134,7 @@ public partial class HedgeEncounter : EncounterCreature
         Timer.StartTimer(TimeSpan.FromMilliseconds(Basis.EffectMs), () =>
         {
             if (Map == map && Location == origin && Combatant == target && CanCurse(target))
-                NecromancerCurseCasts.NpcDamageCurse(this, target, ability, rank: 1);
+                NecromancerCurseCasts.CastEncounterCurse(this, target, ability);
         }, out _curseCast);
     }
 

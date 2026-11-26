@@ -1,0 +1,27 @@
+diff --git a/src/ClassicUO.Client/Game/GameObjects/MobileAnimation.cs b/src/ClassicUO.Client/Game/GameObjects/MobileAnimation.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/MobileAnimation.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/MobileAnimation.cs
+@@ -80,6 +80,11 @@
+             }
+ 
+             ushort g = Graphic;
++            if (SkeletonCosmetics == Sanctuary.SkeletonAppearance.PlainSkeleton && g is 56 or 57 or 147 or 148)
++            {
++                return 50;
++            }
++
+             ushort summonBody = Sanctuary.SummonBodyAppearance.For(g, SkeletonCosmetics);
+             if (summonBody != 0 && Client.Game.UO.FileManager.Animations.HasSummonBody(summonBody))
+             {
+diff --git a/src/ClassicUO.Client/Network/PacketHandlers.cs b/src/ClassicUO.Client/Network/PacketHandlers.cs
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -4180,7 +4180,7 @@
+                 {
+                     uint serial = p.ReadUInt32BE();
+                     var appearance = (Sanctuary.SkeletonAppearance)p.ReadUInt8();
+-                    if (appearance <= Sanctuary.SkeletonAppearance.FireGolem && world.Mobiles.TryGetValue(serial, out var mobile))
++                    if (appearance <= Sanctuary.SkeletonAppearance.PlainSkeleton && world.Mobiles.TryGetValue(serial, out var mobile))
+                     {
+                         mobile.SkeletonCosmetics = appearance;
+                     }

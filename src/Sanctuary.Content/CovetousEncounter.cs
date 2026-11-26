@@ -75,7 +75,6 @@ public partial class CovetousEncounter : EncounterCreature
             "elder-gazer" => 0x048F,
             "giant-serpent" => Utility.RandomSnakeHue(),
             "slime" => Utility.RandomSlimeHue(),
-            Boss => 0x0482,
             _ => Hue
         };
         RangePerception = 7;

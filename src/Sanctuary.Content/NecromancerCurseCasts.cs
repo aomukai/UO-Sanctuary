@@ -130,16 +130,32 @@ internal static class NecromancerCurseCasts
         if(ability==CombatAbility.Terror){SourceTerror.Reset(creature);}
         NecromancerEffects.CurseApplied(caster,target,indirect);return true;
     }
-    // Qualified native elite callback. Its existing caller owns proc RNG,
-    // selection and geometry;only the shared receiver/group is bound here.
-    internal static bool NpcAmplify(EncounterCreature caster,Mobile target,int rank)
-        => NpcDamageCurse(caster, target, CombatAbility.AmplifyDamage, rank);
-
-    internal static bool NpcDamageCurse(EncounterCreature caster, Mobile target, CombatAbility ability, int rank)
+    internal static void CastEncounterCurse(EncounterCreature caster, Mobile target, CombatAbility ability)
     {
+        if (!EliteCombat.Enemy(caster, target, 18))
+            return;
+
+        var values = caster.SpellEffects(ability);
+        var center = target.Location;
+        var map = caster.Map;
+        int radius = (int)values.Eval("aurarangecalc");
+        int tiles = (int)Math.Ceiling(SkillGeometry.Tiles(radius));
+        foreach (var enemy in map.GetMobilesInRange<Mobile>(center, tiles))
+            if (Math.Abs(enemy.Z - center.Z) < 16 && AmazonInnerSight.InRadius(enemy.X - center.X, enemy.Y - center.Y, radius)
+                && EliteCombat.Enemy(caster, enemy, 18) && EncounterProfiles.ClearSight(map, center, enemy.Location))
+                ApplyEncounterCurse(caster, enemy, values, indirect: enemy != target);
+    }
+
+    // On-hit curse procs supply their own radius and target selection.
+    internal static bool NpcDamageCurse(EncounterCreature caster, Mobile target, CombatAbility ability) =>
+        caster is { Alive: true, Deleted: false } && ApplyEncounterCurse(caster, target, caster.SpellEffects(ability));
+
+    private static bool ApplyEncounterCurse(EncounterCreature caster, Mobile target, SkillValues values, bool indirect = false)
+    {
+        var ability = values.Ability;
         if (ability is not (CombatAbility.AmplifyDamage or CombatAbility.Decrepify or CombatAbility.LowerResist or CombatAbility.Weaken or CombatAbility.LifeTap)
             || caster is not { Alive: true, Deleted: false } || target is not { Alive: true, Deleted: false }
-            || rank is < 1 or > 255 || target is EncounterCreature { Grade: EncounterGrade.Champion, Champion: ChampionKind.Possessed })
+            || target is EncounterCreature { Grade: EncounterGrade.Champion, Champion: ChampionKind.Possessed })
             return false;
         DateTime at = TimedEffects.Now;
         if (EliteAuras.Curses.Unknown(target.Serial, at))
@@ -149,7 +165,6 @@ internal static class NecromancerCurseCasts
         }
         EliteAuras.Refresh(target);
         var row = SkillMechanics.For(ability);
-        var values = new SkillValues(row, k => k == row.SourceKey ? rank : 0, _ => 0, ClassStats.Level(caster));
         if (!SourceCurseDuration.Incoming(target, row.Text("auratargetstate"), (int)values.Eval("auralencalc"), out int frames))
             return false;
         var state = NecromancerEffects.Profiles.Find(target) ?? new();
@@ -173,7 +188,7 @@ internal static class NecromancerCurseCasts
                 Curse = next with { NonStackingResistance = caster is DestardEncounter && ability == CombatAbility.LowerResist }
             });
 
-        NecromancerEffects.CurseApplied(caster, target);
+        NecromancerEffects.CurseApplied(caster, target, indirect);
         return true;
     }
     private static void Area(Mobile caster,PlayerMobile owner,CombatAbility ability,Point3D center,SkillValues values,DateTime at,bool indirect=false)

@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using ModernUO.Serialization;
 using Server;
@@ -357,10 +356,10 @@ public partial class CoveDispatch : BaseBook
     {
         if (from is PlayerMobile { NetState: { Running: true } } player && IsChildOf(player.Backpack))
         {
-            string text = string.Join("\n\n", Pages
-                .SelectMany(page => string.Join("\n", page.Lines).Split("\n\n", StringSplitOptions.RemoveEmptyEntries))
-                .Select(paragraph => paragraph.Trim().Replace('\n', ' ')));
-            player.SendGump(new CoveMessenger.LetterGump(player, title: Title, text: text));
+            const string id = "cove.jaana.dispatch_copy";
+            string text = AuthoredWriting.BookBody(this);
+            if (!AuthoredWriting.Show(player, id, AuthoredTextKind.Letter, Title, Author, text, id + ".body"))
+                player.SendGump(new CoveMessenger.LetterGump(player, title: Title, text: text));
         }
         else
         {

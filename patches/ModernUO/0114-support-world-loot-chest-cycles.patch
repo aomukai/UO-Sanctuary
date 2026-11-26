@@ -1,0 +1,258 @@
+--- a/Projects/UOContent/Mobiles/ClassLootHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassLootHooks.cs
+@@ -11,4 +11,7 @@
+     public static Action<BaseCreature, Container> CreatureDied { get; set; }
+     public static Action<Mobile, Corpse> Carved { get; set; }
+     public static Action<Corpse> ContentsChanged { get; set; }
++    // A null result leaves the container on its native rules.
++    public static Func<LockableContainer, bool?> WorldChestLocked { get; set; }
++    public static Func<Mobile, LockableContainer, bool?> OpenWorldChest { get; set; }
+ }
+--- a/Projects/UOContent/Items/Containers/LockableContainer.cs
++++ b/Projects/UOContent/Items/Containers/LockableContainer.cs
+@@ -11,9 +11,15 @@
+ {
+     public LockableContainer(int itemID) : base(itemID) => MaxLockLevel = 100;
+ 
+-    public override bool TrapOnOpen => !_trapOnLockpick;
+-
+-    public override bool DisplaysContent => !_locked;
++    internal bool IsWorldLootChest => ClassLootHooks.WorldChestLocked?.Invoke(this).HasValue == true;
++
++    private bool ContentsLocked => ClassLootHooks.WorldChestLocked?.Invoke(this) ?? _locked;
++
++    public override bool TrapOnOpen => !_trapOnLockpick && !IsWorldLootChest;
++
++    public override bool IsDecoContainer => base.IsDecoContainer && !IsWorldLootChest;
++
++    public override bool DisplaysContent => !ContentsLocked;
+ 
+     public int OnCraft(
+         int quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool,
+@@ -94,6 +100,11 @@
+ 
+     public virtual void LockPick(Mobile from)
+     {
++        if (IsWorldLootChest)
++        {
++            return;
++        }
++
+         Locked = false;
+         Picker = from;
+ 
+@@ -103,7 +114,22 @@
+         }
+     }
+ 
+-    public override bool CheckContentDisplay(Mobile from) => !_locked && base.CheckContentDisplay(from);
++    public override bool CheckContentDisplay(Mobile from) => !ContentsLocked && base.CheckContentDisplay(from);
++
++    public override bool CheckHold(Mobile from, Item item, bool message, bool checkItems, int plusItems, int plusWeight)
++    {
++        if (from is not { AccessLevel: >= AccessLevel.GameMaster } && IsWorldLootChest)
++        {
++            if (message && from != null)
++            {
++                SendCantStoreMessage(from, item);
++            }
++
++            return false;
++        }
++
++        return base.CheckHold(from, item, message, checkItems, plusItems, plusWeight);
++    }
+ 
+     public override bool TryDropItem(Mobile from, Item dropped, bool sendFullMessage)
+     {
+@@ -129,7 +155,7 @@
+ 
+     public override bool CheckLift(Mobile from, Item item, ref LRReason reject) =>
+         base.CheckLift(from, item, ref reject) &&
+-        (item == this || from.AccessLevel >= AccessLevel.GameMaster || !_locked);
++        (item == this || from.AccessLevel >= AccessLevel.GameMaster || !ContentsLocked);
+ 
+     public override bool CheckItemUse(Mobile from, Item item)
+     {
+@@ -138,7 +164,7 @@
+             return false;
+         }
+ 
+-        if (item != this && from.AccessLevel < AccessLevel.GameMaster && _locked)
++        if (item != this && from.AccessLevel < AccessLevel.GameMaster && ContentsLocked)
+         {
+             from.LocalOverheadMessage(MessageType.Regular, 0x3B2, 1019045); // I can't reach that.
+             return false;
+@@ -149,6 +175,16 @@
+ 
+     public virtual bool CheckLocked(Mobile from)
+     {
++        if (ClassLootHooks.WorldChestLocked?.Invoke(this) is { } worldChestLocked)
++        {
++            if (worldChestLocked)
++            {
++                from.SendMessage("It's locked.");
++            }
++
++            return worldChestLocked;
++        }
++
+         if (!_locked)
+         {
+             return false;
+@@ -201,21 +237,22 @@
+ 
+     public override void Open(Mobile from)
+     {
++        var worldChestOpen = ClassLootHooks.OpenWorldChest?.Invoke(from, this);
++        if (worldChestOpen == false || worldChestOpen == null && CheckLocked(from))
++        {
++            return;
++        }
++
++        base.Open(from);
++    }
++
++    public override void OnSnoop(Mobile from)
++    {
+         if (CheckLocked(from))
+         {
+             return;
+         }
+ 
+-        base.Open(from);
+-    }
+-
+-    public override void OnSnoop(Mobile from)
+-    {
+-        if (CheckLocked(from))
+-        {
+-            return;
+-        }
+-
+         base.OnSnoop(from);
+     }
+ 
+--- a/Projects/UOContent/Items/Containers/BaseTreasureChest.cs
++++ b/Projects/UOContent/Items/Containers/BaseTreasureChest.cs
+@@ -100,6 +100,11 @@
+     private void StartResetTimer()
+     {
+         _resetTimer.Cancel();
++        if (IsWorldLootChest)
++        {
++            return;
++        }
++
+ 
+         var randomDuration = Utility.RandomMinMax(_minSpawnTime.Ticks, _maxSpawnTime.Ticks);
+         Timer.StartTimer(TimeSpan.FromTicks(randomDuration), Reset, out _resetTimer);
+@@ -134,6 +139,11 @@
+     public void Reset()
+     {
+         _resetTimer.Cancel();
++        if (IsWorldLootChest)
++        {
++            return;
++        }
++
+         Locked = true;
+         ClearContents();
+         GenerateTreasure();
+--- a/Projects/UOContent/Items/Containers/Fillable Containers/FillableContainer.cs	
++++ b/Projects/UOContent/Items/Containers/Fillable Containers/FillableContainer.cs	
+@@ -127,7 +127,7 @@
+ 
+     public void CheckRespawn()
+     {
+-        if (_respawnTimer?.Running == true)
++        if (IsWorldLootChest || _respawnTimer?.Running == true)
+         {
+             return;
+         }
+@@ -141,7 +141,7 @@
+         _respawnTimer?.Stop();
+         _respawnTimer = null;
+ 
+-        if (_contentType == FillableContentType.None || Deleted)
++        if (_contentType == FillableContentType.None || Deleted || IsWorldLootChest)
+         {
+             return;
+         }
+--- a/Projects/UOContent/Items/TreasureChests/TreasureChestLevel1.cs
++++ b/Projects/UOContent/Items/TreasureChests/TreasureChestLevel1.cs
+@@ -68,7 +68,7 @@
+         }
+     }
+ 
+-    public override bool Decays => true;
++    public override bool Decays => !IsWorldLootChest;
+ 
+     public override bool IsDecoContainer => false;
+ 
+--- a/Projects/UOContent/Items/TreasureChests/TreasureChestLevel2.cs
++++ b/Projects/UOContent/Items/TreasureChests/TreasureChestLevel2.cs
+@@ -65,7 +65,7 @@
+         }
+     }
+ 
+-    public override bool Decays => true;
++    public override bool Decays => !IsWorldLootChest;
+ 
+     public override bool IsDecoContainer => false;
+ 
+--- a/Projects/UOContent/Items/TreasureChests/TreasureChestLevel3.cs
++++ b/Projects/UOContent/Items/TreasureChests/TreasureChestLevel3.cs
+@@ -110,7 +110,7 @@
+         }
+     }
+ 
+-    public override bool Decays => true;
++    public override bool Decays => !IsWorldLootChest;
+ 
+     public override bool IsDecoContainer => false;
+ 
+--- a/Projects/UOContent/Items/TreasureChests/TreasureChestLevel4.cs
++++ b/Projects/UOContent/Items/TreasureChests/TreasureChestLevel4.cs
+@@ -113,7 +113,7 @@
+         // Crystal ball (not implemented)
+     }
+ 
+-    public override bool Decays => true;
++    public override bool Decays => !IsWorldLootChest;
+ 
+     public override bool IsDecoContainer => false;
+ 
+--- a/Projects/UOContent/Items/Misc/Key.cs
++++ b/Projects/UOContent/Items/Misc/Key.cs
+@@ -173,7 +173,7 @@
+ 
+     public bool UseOn(Mobile from, ILockable o)
+     {
+-        if (o.KeyValue != KeyValue)
++        if (o is LockableContainer { IsWorldLootChest: true } || o.KeyValue != KeyValue)
+         {
+             return false;
+         }
+--- a/Projects/UOContent/Spells/Third/Unlock.cs
++++ b/Projects/UOContent/Spells/Third/Unlock.cs
+@@ -42,7 +42,7 @@
+                     // That did not need to be unlocked.
+                     Caster.LocalOverheadMessage(MessageType.Regular, 0x3B2, 503101);
+                 }
+-                else if (p is not LockableContainer cont)
++                else if (p is not LockableContainer cont || cont.IsWorldLootChest)
+                 {
+                     Caster.SendLocalizedMessage(501666); // You can't unlock that!
+                 }
+--- a/Projects/UOContent/Spells/Third/MagicLock.cs
++++ b/Projects/UOContent/Spells/Third/MagicLock.cs
+@@ -23,7 +23,7 @@
+ 
+         public void Target(Item item)
+         {
+-            if (item is not LockableContainer cont)
++            if (item is not LockableContainer cont || cont.IsWorldLootChest)
+             {
+                 Caster.SendLocalizedMessage(501762); // Target must be an unlocked chest.
+             }

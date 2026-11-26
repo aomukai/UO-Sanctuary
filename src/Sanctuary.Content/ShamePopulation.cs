@@ -15,32 +15,40 @@ namespace Sanctuary;
 public partial class ShameOne : Spawner
 {
     [Constructible]
-    public ShameOne() : base(4, TimeSpan.FromSeconds(75), TimeSpan.FromSeconds(120)) =>
-        ShamePopulation.Configure(this, ShameRole.Silicon, ShameRole.Chrysoberyl, ShameRole.Corundum, ShameRole.Tungsten);
+    public ShameOne() : base(1, TimeSpan.FromSeconds(75), TimeSpan.FromSeconds(120)) =>
+        ShamePopulation.ConfigurePool(this);
 }
 
 [SerializationGenerator(0)]
 public partial class ShameTwo : Spawner
 {
     [Constructible]
-    public ShameTwo() : base(4, TimeSpan.FromSeconds(75), TimeSpan.FromSeconds(120)) =>
-        ShamePopulation.Configure(this, ShameRole.Titanium, ShameRole.Moissanite, ShameRole.Pirate, ShameRole.Tidesinger);
+    public ShameTwo() : base(1, TimeSpan.FromSeconds(75), TimeSpan.FromSeconds(120)) =>
+        ShamePopulation.ConfigurePool(this);
 }
 
 [SerializationGenerator(0)]
 public partial class ShameThree : Spawner
 {
     [Constructible]
-    public ShameThree() : base(4, TimeSpan.FromSeconds(75), TimeSpan.FromSeconds(120)) =>
-        ShamePopulation.Configure(this, ShameRole.Stishovite, ShameRole.Diamond, ShameRole.Stormcaller, ShameRole.Corsair);
+    public ShameThree() : base(1, TimeSpan.FromSeconds(75), TimeSpan.FromSeconds(120)) =>
+        ShamePopulation.ConfigurePool(this);
 }
 
 [SerializationGenerator(0)]
 public partial class ShameFour : Spawner
 {
     [Constructible]
-    public ShameFour() : base(4, TimeSpan.FromSeconds(75), TimeSpan.FromSeconds(120)) =>
-        ShamePopulation.Configure(this, ShameRole.Wind, ShameRole.Fire, ShameRole.Water, ShameRole.Earth);
+    public ShameFour() : base(1, TimeSpan.FromSeconds(75), TimeSpan.FromSeconds(120)) =>
+        ShamePopulation.ConfigurePool(this);
+}
+
+[SerializationGenerator(0)]
+public partial class ShameMage : Spawner
+{
+    [Constructible]
+    public ShameMage() : base(1, TimeSpan.FromSeconds(75), TimeSpan.FromSeconds(120)) =>
+        ShamePopulation.ConfigurePool(this);
 }
 
 public static class ShamePopulation
@@ -50,17 +58,54 @@ public static class ShamePopulation
     internal static readonly Point3D BoardingShore = new(5752, 60, 0);
     internal static readonly Point3D Wheel = new(5749, 57, -2);
 
+    private sealed record Pool(ShameRole[] Roles, Point3D[] LegacySites);
+
+    private static readonly Pool _one = new(
+        [ShameRole.Silicon, ShameRole.Chrysoberyl, ShameRole.Corundum, ShameRole.Tungsten],
+        [new(5395, 117, 0), new(5404, 93, 10), new(5425, 58, 10), new(5387, 41, 20),
+         new(5394, 11, 30), new(5468, 109, 35), new(5474, 20, 0), new(5477, 67, 20)]);
+
+    private static readonly Pool _two = new(
+        [ShameRole.Titanium, ShameRole.Moissanite, ShameRole.Pirate, ShameRole.Tidesinger],
+        [new(5535, 22, 0), new(5549, 60, 0), new(5568, 36, 0), new(5575, 16, 10),
+         new(5603, 93, 0), new(5603, 116, 0), new(5615, 18, 10)]);
+
+    private static readonly Pool _three = new(
+        [ShameRole.Stishovite, ShameRole.Diamond, ShameRole.Stormcaller, ShameRole.Corsair],
+        [new(5411, 163, 0), new(5412, 201, 0), new(5394, 230, 10), new(5477, 183, 0),
+         new(5505, 180, 0), new(5527, 210, 0), new(5571, 158, -10), new(5593, 141, 10)]);
+
+    private static readonly Pool _four = new(
+        [ShameRole.Wind, ShameRole.Fire, ShameRole.Water, ShameRole.Earth],
+        [new(5649, 101, 10), new(5661, 16, -10), new(5684, 117, 0), new(5721, 12, 10), new(5724, 118, 0),
+         new(5760, 99, 0), new(5804, 12, 0), new(5818, 80, 0), new(5845, 57, 0), new(5856, 107, 10), new(5875, 44, 0)]);
+
+    private static readonly Pool _mage = new([ShameRole.CrazedResearcher, ShameRole.FanaticExperimenter], []);
+
+    private const int ParagonChance = 10;
+
     public static void Configure() => EventSink.ServerStarted += Install;
 
-    internal static void Configure(Spawner spawner, params ShameRole[] roles)
+    private static Pool PoolFor(Spawner spawner) => spawner switch
     {
-        if (spawner.GetType() != typeof(Spawner))
-            spawner.Name = spawner.GetType().Name;
+        ShameOne => _one,
+        ShameTwo => _two,
+        ShameThree => _three,
+        ShameFour => _four,
+        ShameMage => _mage,
+        _ => null
+    };
+
+    internal static void ConfigurePool(Spawner spawner)
+    {
+        spawner.Name = spawner.GetType().Name;
         spawner.HomeRange = 4;
         spawner.WalkingRange = 4;
         spawner.SpawnLocationIsHome = true;
+        var roles = PoolFor(spawner).Roles;
         foreach (var role in roles)
-            spawner.AddEntry(nameof(ShameEncounter), dotimer: false, parameters: role.ToString());
+            spawner.AddEntry(nameof(ShameEncounter), probability: 100 / roles.Length, dotimer: false,
+                parameters: $"{role} {ParagonChance}");
     }
 
     internal static bool OnMainDeck(Point3D location, Map map) => map == Map.Trammel
@@ -70,50 +115,119 @@ public static class ShamePopulation
     internal static void Install()
     {
         var map = Map.Trammel;
-        Points<ShameOne>(map, () => new ShameOne(),
-            new(5395, 117, 0), new(5404, 93, 10), new(5425, 58, 10), new(5387, 41, 20),
-            new(5394, 11, 30), new(5468, 109, 35), new(5474, 20, 0), new(5477, 67, 20));
-        Points<ShameTwo>(map, () => new ShameTwo(),
-            new(5535, 22, 0), new(5549, 60, 0), new(5568, 36, 0), new(5575, 16, 10),
-            new(5603, 93, 0), new(5603, 116, 0), new(5615, 18, 10));
-        Points<ShameThree>(map, () => new ShameThree(),
-            new(5411, 163, 0), new(5412, 201, 0), new(5394, 230, 10), new(5477, 183, 0),
-            new(5505, 180, 0), new(5527, 210, 0), new(5571, 158, -10), new(5593, 141, 10));
-        Points<ShameFour>(map, () => new ShameFour(),
-            new(5649, 101, 10), new(5661, 16, -10), new(5684, 117, 0), new(5721, 12, 10), new(5724, 118, 0),
-            new(5760, 99, 0), new(5804, 12, 0), new(5818, 80, 0), new(5845, 57, 0), new(5856, 107, 10), new(5875, 44, 0));
-
-        PlacePack(map, "Shame manifest crew", new(5521, 17, 0), 2, ShameRole.Deckhand, ShameRole.Deckhand, ShameRole.Shipboy);
-        PlacePack(map, "Shame west house", new(5438, 186, 22), 1, ShameRole.Researcher);
-        PlacePack(map, "Shame east house", new(5572, 200, 0), 1, ShameRole.Researcher);
+        RetireLegacyPopulation(map);
+        InstallManifestCrew(map);
 
         Ensure(map, new(5402, 46, 30), () => new ShameClue(ShameClueKind.Miner));
         Ensure(map, new(5401, 45, 30), () => new ShameMinerRemains());
         Ensure(map, new(5438, 185, 22), () => new ShameClue(ShameClueKind.Almanach));
-        Ensure(map, new(5572, 201, 0), () => new ShameShelf());
+        InstallStudyShelf(map);
         Ensure(map, new(5436, 185, 28), () => new ShameMineral());
         Ensure(map, new(5438, 184, 22), () => new ShameClue(ShameClueKind.Handling));
 
         Ensure(map, MainBoat, () => new ShameBoat(4));
-        Ensure(map, new(5549, 79, -5), () => new ShameBoat(4));
         Ensure(map, new(5751, 60, -2), () => new ShameGangplank());
         ShameExpedition.Install(map, Wheel);
+        ShameShipCrossing.Install(map);
     }
 
-    private static void Points<T>(Map map, Func<T> create, params Point3D[] points) where T : Spawner
+    private static void InstallStudyShelf(Map map)
     {
-        foreach (var point in points)
-            Ensure(map, point, create);
-    }
-
-    private static void PlacePack(Map map, string name, Point3D point, int range, params ShameRole[] roles)
-    {
-        Ensure(map, point, () =>
+        var destination = new Point3D(5573, 199, 0);
+        Point3D[] placements = [destination, new(5572, 200, 0), new(5572, 201, 0)];
+        using var shelves = PooledRefList<ShameShelf>.Create();
+        foreach (var point in placements)
         {
-            var spawner = new Spawner(roles.Length, TimeSpan.FromMinutes(3), TimeSpan.FromMinutes(5)) { Name = name };
-            Configure(spawner, roles);
-            spawner.HomeRange = range;
-            spawner.WalkingRange = range;
+            foreach (var shelf in map.GetItemsAt<ShameShelf>(point))
+                if (shelf.Location == point)
+                    shelves.Add(shelf);
+        }
+
+        if (shelves.Count == 0)
+        {
+            Ensure(map, destination, () => new ShameShelf());
+            return;
+        }
+
+        var moved = shelves[0];
+        if (moved.Location != destination)
+            moved.MoveToWorld(destination, map);
+
+        for (int i = 1; i < shelves.Count; i++)
+        {
+            var duplicate = shelves[i];
+            foreach (var book in duplicate.Items.ToArray())
+                moved.AddItem(book);
+            duplicate.Delete();
+        }
+    }
+
+    private static void RetireLegacyPopulation(Map map)
+    {
+        // The original installer used four 100-weight entries with no grade argument.
+        // Its placement coordinates distinguish those spawners from saved manual copies.
+        foreach (var spawner in World.Items.Values.OfType<Spawner>()
+            .Where(spawner => PoolFor(spawner) != null).ToArray())
+        {
+            var pool = PoolFor(spawner);
+            if (pool.LegacySites.Length == 0 || spawner.Count != pool.Roles.Length || spawner.Entries.Count != pool.Roles.Length
+                || !pool.Roles.All(role => spawner.Entries.Any(entry => MatchesLegacyEntry(entry, role))))
+                continue;
+
+            if (spawner.Map == map && spawner.Name == spawner.GetType().Name && pool.LegacySites.Contains(spawner.Location))
+            {
+                spawner.Delete();
+                continue;
+            }
+
+            spawner.Count = 1;
+            foreach (var entry in spawner.Entries)
+            {
+                entry.SpawnedProbability = 100 / pool.Roles.Length;
+                entry.Parameters = $"{entry.Parameters} {ParagonChance}";
+            }
+            foreach (var excess in spawner.Spawned.Keys.Where(spawn => !spawn.Deleted)
+                .OrderBy(spawn => spawn.Serial.Value).Skip(1).ToArray())
+            {
+                spawner.Remove(excess);
+                excess.Delete();
+            }
+        }
+
+        RetireHouseSpawner(new(5438, 186, 22), "Shame west house");
+        RetireHouseSpawner(new(5572, 200, 0), "Shame east house");
+
+        void RetireHouseSpawner(Point3D location, string name)
+        {
+            using var retired = PooledRefList<Spawner>.Create();
+            foreach (var spawner in map.GetItemsAt<Spawner>(location))
+                if (spawner.Location == location && spawner.GetType() == typeof(Spawner) && spawner.Name == name
+                    && spawner.Count == 1 && spawner.Entries.Count == 1
+                    && MatchesLegacyEntry(spawner.Entries[0], ShameRole.Researcher))
+                    retired.Add(spawner);
+            foreach (var spawner in retired)
+                spawner.Delete();
+        }
+    }
+
+    private static bool MatchesLegacyEntry(SpawnerEntry entry, ShameRole role) =>
+        entry.SpawnedName == nameof(ShameEncounter) && entry.SpawnedProbability == 100
+        && entry.Parameters == role.ToString() && string.IsNullOrEmpty(entry.Properties);
+
+    private static void InstallManifestCrew(Map map)
+    {
+        const string name = "Shame manifest crew";
+        Ensure(map, new(5521, 17, 0), () =>
+        {
+            var spawner = new Spawner(3, TimeSpan.FromMinutes(3), TimeSpan.FromMinutes(5))
+            {
+                Name = name,
+                HomeRange = 2,
+                WalkingRange = 2,
+                SpawnLocationIsHome = true
+            };
+            foreach (var role in new[] { ShameRole.Deckhand, ShameRole.Deckhand, ShameRole.Shipboy })
+                spawner.AddEntry(nameof(ShameEncounter), dotimer: false, parameters: role.ToString());
             return spawner;
         }, spawner => spawner.Name == name);
     }
@@ -178,6 +292,8 @@ public partial class ShameClue : BaseBook
 {
     private static readonly string[] _titles =
         ["A Miner’s Note", "Cargo Manifest", "An Alchemical Almanach", "A Scribbled Note"];
+    private static readonly string[] _textIds =
+        ["shame.miners.note", "shame.pirates.manifest", "shame.research.almanach", "shame.research.handling_note"];
     private static readonly string[][] _lines =
     [
         ["We exposed a new seam today.", "By supper it had crept right", "back into the passage. No", "one will take the night shift.", "I heard it moving again."],
@@ -196,8 +312,13 @@ public partial class ShameClue : BaseBook
 
     public override void OnDoubleClick(Mobile from)
     {
-        if (IsChildOf(from.Backpack) || from.Map == Map && from.InRange(this, 2) && Math.Abs(from.Z - Z) < 12 && from.InLOS(this))
-            base.OnDoubleClick(from);
+        if (from is not PlayerMobile player || !AuthoredWriting.CanRead(player, this))
+            return;
+        int index = Array.IndexOf(_titles, Title);
+        if (index < 0 || !AuthoredWriting.Show(player, _textIds[index],
+            index == (int)ShameClueKind.Almanach ? AuthoredTextKind.Book : AuthoredTextKind.Letter,
+            Title, Author, AuthoredWriting.BookBody(this), _textIds[index] + ".body"))
+            base.OnDoubleClick(player);
     }
 }
 
@@ -223,7 +344,10 @@ public partial class ShameShelf : Item
                 book.Pages[1] = new BookPageInfo("Does mineral flesh retain", "an impression of the dead?", "I shall not pretend to know", "whose voices I heard. More", "inquiry is required.");
                 AddItem(book);
             }
-            book.OnDoubleClick(player);
+            const string id = "shame.research.teaching_stones";
+            if (!AuthoredWriting.Show(player, id, AuthoredTextKind.Book, book.Title, book.Author,
+                AuthoredWriting.BookBody(book), id + ".body"))
+                book.OnDoubleClick(player);
         }
     }
 }

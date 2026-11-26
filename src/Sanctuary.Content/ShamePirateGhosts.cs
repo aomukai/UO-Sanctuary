@@ -16,18 +16,25 @@ public partial class ShameCaptainGhost : ConversationNpc
     private static readonly ScriptedDialogue.Node[] _castaway =
     [
         new("Hold there, ye’ve got living feet. What business brings thee to these rocks?",
-            [new("What happened to your crew?", 1)]),
+            [new("What happened to your crew?", 1, TextId: "shame.castaway.ask_crew")],
+            LineId: "shame.castaway.greeting", SpeakerId: "shame.castaway"),
         new("We came for gemstones and found a curse. My crew are bound to these rocks, and so am I. An elemental crushed my body years ago. It’s the one thing down here I can’t haul back aboard.",
-            [new("Do you regret coming here?", 2), new("What’s on the last isle?", 3)]),
+            [new("Do you regret coming here?", 2, TextId: "shame.castaway.ask_regret"),
+             new("What’s on the last isle?", 3, TextId: "shame.castaway.ask_last_isle")],
+            LineId: "shame.castaway.curse", SpeakerId: "shame.castaway"),
         new("Regret? Booty is a pirate’s life. I’d sail for it again tomorrow, if I had a ship and hands to hold the wheel.",
-            [new("What’s on the last isle?", 3)]),
+            [new("What’s on the last isle?", 3, TextId: "shame.castaway.ask_last_isle")],
+            LineId: "shame.castaway.regret", SpeakerId: "shame.castaway"),
         new("The fleet captain. Death made him stronger than he ever was in life. Leave him his rock, if ye have any liking for the surface.",
-            [new("How do I get off this island?", 4)]),
-        new("The shield of Order will put solid ground beneath thy feet. Chaos will take thee to the fleet captain. I’ve given thee directions, not encouragement.", [])
+            [new("How do I get off this island?", 4, TextId: "shame.castaway.ask_exit")],
+            LineId: "shame.castaway.warning", SpeakerId: "shame.castaway"),
+        new("The shield of Order will put solid ground beneath thy feet. Chaos will take thee to the fleet captain. I’ve given thee directions, not encouragement.", [],
+            LineId: "shame.castaway.exit_advice", SpeakerId: "shame.castaway")
     ];
     private static readonly ScriptedDialogue.Node[] _fleetScript =
     [
-        new("Expecting thanks? Ye’ve broken nothing but me bones. The curse holds. Take yer plunder and get off my island.", [])
+        new("Expecting thanks? Ye’ve broken nothing but me bones. The curse holds. Take yer plunder and get off my island.", [],
+            LineId: "shame.fleet_captain.farewell", SpeakerId: "shame.fleet_captain")
     ];
 
     internal ShameCaptainGhost(bool fleet)
@@ -38,6 +45,9 @@ public partial class ShameCaptainGhost : ConversationNpc
         CantWalk = true;
         ShameEncounter.Dress(this, fleet ? ShameRole.FleetCaptain : ShameRole.BoneCaptain);
     }
+
+    [AfterDeserialization]
+    private void RestoreCostume() => ShameEncounter.RestoreGhostCostumeAfterLoad(this);
 
     public override void SendAppearanceTo(NetState state) =>
         SkeletonAppearancePackets.Send(state, Serial, SkeletonAppearance.ShameGhost);

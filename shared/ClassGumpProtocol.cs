@@ -24,7 +24,8 @@ public sealed record TalentMenuData(string Title, int Level, int Points, long Ex
     int MaxRank, string[] Trees, TalentMenuSkill[] Skills);
 
 public sealed record TalentMenuSkill(string Name, int Icon, int Level, int Learned,
-    int[] Prerequisites, string Description, string Mechanics);
+    int[] Prerequisites, string Description, string Mechanics, int[] Dependencies = null,
+    string[] Synergies = null, string[] Improves = null);
 
 [JsonSerializable(typeof(TalentMenuData))]
 internal sealed partial class TalentMenuJsonContext : JsonSerializerContext { }

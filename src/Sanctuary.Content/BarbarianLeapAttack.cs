@@ -123,7 +123,7 @@ public static class BarbarianLeapAttack
         try
         {
             var v=SkillMechanics.Values(owner,CombatAbility.LeapAttack);
-            var packet=PlayerWeaponContact.PrepareOrdinary(owner,target,(int)v.Formula("toht"),(int)v.Eval("calc1"),
+            var packet=PlayerWeaponContact.PrepareOrdinary(owner,target,(int)v.Formula("toht"),checked(2*(int)v.Eval("calc1")),
                 ()=>InRange(owner,target),HitRoll,ElementRoll,PhysicalRoll,PoisonRoll,Effects,true);
             if((packet.Flags&SourceMeleeResult.Successful)!=0){packet=packet with{Flags=packet.Flags|8,SkillKnockback=true,HitFlags=0x20};}
             packet=packet with{RangeCheck=bonus=>Recipient(owner,target)&&PlayerMeleeGeometry.Within(owner,target,bonus)};

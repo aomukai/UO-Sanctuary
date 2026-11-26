@@ -18,7 +18,8 @@ internal enum ShameRole
     Wind, Fire, Water, Earth,
     Researcher, Deckhand, Shipboy, BoardingCaptain,
     BoneCaptain, DaemonCaptain, BickeringMate, BickeringMage, FleetCaptain,
-    Skeleton, Daemon, Unassigned
+    Skeleton, Daemon, Unassigned,
+    CrazedResearcher, FanaticExperimenter
 }
 
 [SerializationGenerator(0)]
@@ -43,6 +44,8 @@ public partial class ShameEncounter : EncounterCreature
         [ShameRole.Water] = Species(ShameRole.Water, "a frenzied water elemental", 38, 40, 16, cold: 75),
         [ShameRole.Earth] = Species(ShameRole.Earth, "an enraged earth elemental", 38, 40, 14),
         [ShameRole.Researcher] = Species(ShameRole.Researcher, "a mineral researcher", 30, 33, 400, MonsterArchetype.Caster),
+        [ShameRole.CrazedResearcher] = Species(ShameRole.CrazedResearcher, "a crazed researcher", 33, 33, 400, MonsterArchetype.Caster),
+        [ShameRole.FanaticExperimenter] = Species(ShameRole.FanaticExperimenter, "a fanatic experimenter", 35, 35, 400, MonsterArchetype.Caster),
         [ShameRole.Deckhand] = Species(ShameRole.Deckhand, "a pirate deckhand", 35, 35, 400),
         [ShameRole.Shipboy] = Species(ShameRole.Shipboy, "a shipboy", 35, 35, 400),
         [ShameRole.BoardingCaptain] = Species(ShameRole.BoardingCaptain, "the pirate captain", 35, 35, 400),
@@ -62,6 +65,10 @@ public partial class ShameEncounter : EncounterCreature
     [SerializableField(2)] private DateTime _summonAfter;
     [SerializableField(3)] private bool _alternate;
 
+    private const int PirateSkin = 0x83EA, PirateHair = 0x455, PirateShirt = 0x47E;
+    private const int PirateTrousers = 0x455, PirateBoots = 0x455, PirateBandana = 0x21;
+    private const int GhostCaptainHat = 0x497;
+
     private long _nextSpell;
     private int _spellGeneration;
 
@@ -79,7 +86,6 @@ public partial class ShameEncounter : EncounterCreature
     public override OppositionGroup OppositionGroup => null;
     public override bool AlwaysMurderer => true;
     public override string CorpseName => $"{Name}'s corpse";
-    internal override int? AuraRankOverride => Role switch { ShameRole.Moissanite => 10, ShameRole.Diamond => 5, _ => null };
 
     private static DungeonProfile Species(ShameRole role, string name, int min, int max, int body,
         MonsterArchetype archetype = MonsterArchetype.Melee, int fire = 0, int cold = 0) =>
@@ -91,11 +97,31 @@ public partial class ShameEncounter : EncounterCreature
         ? EncounterProfiles.Level(0, EncounterGrade.Unique) : 0;
 
     [Constructible]
-    public ShameEncounter(string role) : this(
-        Enum.TryParse<ShameRole>(role, true, out var parsed) && parsed != ShameRole.Unassigned && Enum.IsDefined(parsed)
-            ? parsed : throw new ArgumentException("Unknown Shame encounter role.", nameof(role))) { }
+    public ShameEncounter(string role) : this(ParseRole(role)) { }
 
-    internal ShameEncounter(ShameRole role, ShameExpedition expedition = null, int stage = 0)
+    [Constructible]
+    public ShameEncounter(string role, int paragonChance)
+        : this(ParseRole(role), paragon: RollParagon(paragonChance)) { }
+
+    private static ShameRole ParseRole(string role) =>
+        Enum.TryParse<ShameRole>(role, true, out var parsed) && parsed != ShameRole.Unassigned && Enum.IsDefined(parsed)
+            ? parsed : throw new ArgumentException("Unknown Shame encounter role.", nameof(role));
+
+    private static bool RollParagon(int chance)
+    {
+        ArgumentOutOfRangeException.ThrowIfNegative(chance);
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(chance, 100);
+        return Utility.Random(100) < chance;
+    }
+
+    private static bool LabMage(ShameRole role) => role is ShameRole.Researcher or ShameRole.CrazedResearcher
+        or ShameRole.FanaticExperimenter;
+
+    // Paragons keep the same level band as their normal counterparts.
+    protected override int EncounterLevel(int baseLevel) => Grade == EncounterGrade.Champion
+        ? baseLevel : base.EncounterLevel(baseLevel);
+
+    internal ShameEncounter(ShameRole role, ShameExpedition expedition = null, int stage = 0, bool paragon = false)
     {
         var species = _roster[role];
         var modifiers = role switch
@@ -107,8 +133,11 @@ public partial class ShameEncounter : EncounterCreature
         };
         var aura = role switch { ShameRole.Moissanite => EliteAura.Might, ShameRole.Diamond => EliteAura.Vigor, _ => EliteAura.None };
         bool boss = role is >= ShameRole.BoneCaptain and <= ShameRole.FleetCaptain;
+        bool canBeParagon = role is <= ShameRole.Earth or ShameRole.CrazedResearcher or ShameRole.FanaticExperimenter;
+        var grade = boss ? EncounterGrade.Unique : paragon && canBeParagon
+            ? EncounterGrade.Champion : EncounterGrade.Ordinary;
         Assign(species, Utility.RandomMinMax(species.MinimumLevel, species.MaximumLevel), MonsterDifficulty.Normal,
-            boss ? EncounterGrade.Unique : EncounterGrade.Ordinary, ChampionKind.Champion, modifiers, aura, species.Name, Random.Shared);
+            grade, ChampionKind.Champion, modifiers, aura, species.Name, Random.Shared);
         Hue = role switch
         {
             ShameRole.Silicon => 0x455, ShameRole.Chrysoberyl => 0x59A, ShameRole.Corundum => 0x489,
@@ -118,6 +147,8 @@ public partial class ShameEncounter : EncounterCreature
         };
         if (species.Body == 400)
             Dress(this, role);
+        if (grade == EncounterGrade.Champion)
+            Hue = ParagonBodyHue;
         if (expedition != null)
         {
             Expedition = expedition.Serial;
@@ -131,25 +162,56 @@ public partial class ShameEncounter : EncounterCreature
     {
         bool ghost = role is >= ShameRole.BoneCaptain and <= ShameRole.FleetCaptain;
         creature.Body = 400;
-        creature.Hue = ghost ? 0x482 : 0x83EA;
+        creature.Hue = PirateSkin;
         creature.HairItemID = 0x203C;
-        creature.HairHue = ghost ? 0x482 : 0x455;
-        var shirt = new FancyShirt(ghost ? 0x482 : 0x47E);
-        var pants = new LongPants(ghost ? 0x482 : 0x455);
-        var boots = new Boots(ghost ? 0x482 : 0x455);
+        creature.HairHue = PirateHair;
+        var shirt = new FancyShirt(PirateShirt);
+        var pants = new LongPants(PirateTrousers);
+        var boots = new Boots(PirateBoots);
         creature.AddItem(shirt);
         creature.AddItem(pants);
         creature.AddItem(boots);
-        if (role is ShameRole.Researcher or ShameRole.Tidesinger or ShameRole.Stormcaller)
-            creature.AddItem(new Robe(role == ShameRole.Researcher ? 0x497 : 0x59B));
+        if (LabMage(role) || role is ShameRole.Tidesinger or ShameRole.Stormcaller)
+            creature.AddItem(new Robe(role switch { ShameRole.FanaticExperimenter => 0x21, _ when LabMage(role) => 0x497, _ => 0x59B }));
         else if (role is ShameRole.BoardingCaptain or ShameRole.FleetCaptain)
-            creature.AddItem(new TricorneHat(ghost ? 0x482 : 0x489));
+            creature.AddItem(new TricorneHat(ghost ? GhostCaptainHat : 0x489));
         else
-            creature.AddItem(new Bandana(ghost ? 0x482 : 0x21));
+            creature.AddItem(new Bandana(PirateBandana));
         if (role == ShameRole.Corsair)
             creature.AddItem(new Crossbow { Movable = false });
-        else if (creature is ShameEncounter && role != ShameRole.Researcher)
-            creature.AddItem(new Cutlass { Hue = ghost ? 0x482 : 0, Movable = false });
+        else if (creature is ShameEncounter && !LabMage(role))
+            creature.AddItem(new Cutlass { Movable = false });
+    }
+
+    [AfterDeserialization]
+    private void RestoreBossCostume()
+    {
+        if (Role is >= ShameRole.BoneCaptain and <= ShameRole.FleetCaptain)
+            RestoreGhostCostumeAfterLoad(this);
+    }
+
+    internal static void RestoreGhostCostumeAfterLoad(BaseCreature creature) =>
+        Timer.DelayCall(() => RestoreGhostCostume(creature));
+
+    private static void RestoreGhostCostume(BaseCreature creature)
+    {
+        if (creature.Deleted)
+            return;
+        if (creature.HairHue == ParagonBodyHue)
+        {
+            creature.Hue = PirateSkin;
+            creature.HairHue = PirateHair;
+        }
+        foreach (var item in creature.Items)
+        {
+            if (item.Hue != ParagonBodyHue)
+                continue;
+            item.Hue = item switch
+            {
+                FancyShirt => PirateShirt, LongPants => PirateTrousers, Boots => PirateBoots,
+                TricorneHat => GhostCaptainHat, Bandana => PirateBandana, Cutlass => 0, _ => item.Hue
+            };
+        }
     }
 
     protected override CreatureTraits EncounterTraits(DungeonProfile dungeon)
@@ -188,26 +250,23 @@ public partial class ShameEncounter : EncounterCreature
         return base.Move(direction);
     }
 
-    private static readonly (CombatAbility, int)[] _tungsten = [(CombatAbility.MoltenBoulder, 10)];
-    private static readonly (CombatAbility, int)[] _titanium = [(CombatAbility.Weaken, 10)];
-    private static readonly (CombatAbility, int)[] _pirate = [(CombatAbility.DimVision, 10)];
-    private static readonly (CombatAbility, int)[] _tidesinger = [(CombatAbility.GlacialSpike, 20), (CombatAbility.Blizzard, 20)];
-    private static readonly (CombatAbility, int)[] _stishovite = [(CombatAbility.Decrepify, 10)];
-    private static readonly (CombatAbility, int)[] _stormcaller = [(CombatAbility.Lightning, 15), (CombatAbility.Nova, 10)];
-    private static readonly (CombatAbility, int)[] _wind = [(CombatAbility.Nova, 20)];
-    private static readonly (CombatAbility, int)[] _fire = [(CombatAbility.FireWall, 20)];
-    private static readonly (CombatAbility, int)[] _water = [(CombatAbility.GlacialSpike, 20)];
-    private static readonly (CombatAbility, int)[] _earth = [(CombatAbility.Fissure, 20)];
-    private static readonly (CombatAbility, int)[] _researcher = [(CombatAbility.Lightning, 12), (CombatAbility.Fireball, 12)];
-    private static readonly (CombatAbility, int)[] _mate = [(CombatAbility.LowerResist, 10)];
-    private static readonly (CombatAbility, int)[] _mage = [(CombatAbility.Volcano, 20), (CombatAbility.Armageddon, 10)];
-
-    private static ReadOnlySpan<(CombatAbility Ability, int Rank)> Spells(ShameRole role) => role switch
+    private static ReadOnlySpan<CombatAbility> Spells(ShameRole role) => role switch
     {
-        ShameRole.Tungsten => _tungsten, ShameRole.Titanium => _titanium, ShameRole.Pirate => _pirate,
-        ShameRole.Tidesinger => _tidesinger, ShameRole.Stishovite => _stishovite, ShameRole.Stormcaller => _stormcaller,
-        ShameRole.Wind => _wind, ShameRole.Fire => _fire, ShameRole.Water => _water, ShameRole.Earth => _earth,
-        ShameRole.Researcher => _researcher, ShameRole.BickeringMate => _mate, ShameRole.BickeringMage => _mage,
+        ShameRole.Tungsten => [CombatAbility.MoltenBoulder],
+        ShameRole.Titanium => [CombatAbility.Weaken],
+        ShameRole.Pirate => [CombatAbility.DimVision],
+        ShameRole.Tidesinger => [CombatAbility.GlacialSpike, CombatAbility.Blizzard],
+        ShameRole.Stishovite => [CombatAbility.Decrepify],
+        ShameRole.Stormcaller => [CombatAbility.Lightning, CombatAbility.Nova],
+        ShameRole.Wind => [CombatAbility.Nova],
+        ShameRole.Fire => [CombatAbility.FireWall],
+        ShameRole.Water => [CombatAbility.GlacialSpike],
+        ShameRole.Earth => [CombatAbility.Fissure],
+        ShameRole.Researcher => [CombatAbility.Lightning, CombatAbility.Fireball],
+        ShameRole.BickeringMate => [CombatAbility.LowerResist],
+        ShameRole.BickeringMage => [CombatAbility.Volcano, CombatAbility.Armageddon],
+        ShameRole.CrazedResearcher => [CombatAbility.Twister, CombatAbility.Tornado],
+        ShameRole.FanaticExperimenter => [CombatAbility.Hurricane, CombatAbility.Firestorm],
         _ => []
     };
 
@@ -247,10 +306,10 @@ public partial class ShameEncounter : EncounterCreature
         var spells = Spells(Role);
         if (spells.IsEmpty)
             return;
-        var (ability, rank) = spells[spells.Length == 2 && _alternate ? 1 : 0];
+        var ability = spells[spells.Length == 2 && _alternate ? 1 : 0];
         Alternate = !_alternate;
         int generation = _spellGeneration;
-        ShameCombat.Cast(this, target, ability, rank, () => generation == _spellGeneration);
+        ShameCombat.Cast(this, target, ability, () => generation == _spellGeneration);
     }
 
     protected override void Deal(Mobile target, int damage, bool fire)
@@ -280,7 +339,7 @@ public partial class ShameEncounter : EncounterCreature
         if (Role == ShameRole.Water && Utility.Random(100) < 20)
             ShameCombat.Sidestep(this);
         else if (Role == ShameRole.FleetCaptain && Utility.Random(100) < 10)
-            ShameCombat.Cast(this, from, CombatAbility.FrostNova, 10, () => Alive && !Deleted);
+            ShameCombat.Cast(this, from, CombatAbility.FrostNova, () => Alive && !Deleted);
     }
 
     public override void OnGotMeleeAttack(Mobile attacker, int damage)

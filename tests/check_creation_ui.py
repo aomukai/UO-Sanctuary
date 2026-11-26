@@ -184,10 +184,14 @@ def check(port, combat=False):
                 time.sleep(0.4)
                 click(150, 453)  # Paperdoll Class.
                 capture("paladin-talent-trees.png")
-                click(77, 150)  # Draft Prayer.
-                click(551, 442)  # Apply the allocation.
+                from check_stats_ui import talent_frame
+                geometry = subprocess.check_output(["xdotool", "getwindowgeometry", "--shell", window], text=True)
+                bounds = dict(line.split("=", 1) for line in geometry.splitlines() if "=" in line)
+                menu_x, menu_y, menu_width, menu_height = talent_frame(int(bounds["WIDTH"]), int(bounds["HEIGHT"]))
+                click(menu_x + 67, menu_y + 125)  # Draft Prayer.
+                click(menu_x + menu_width - 69, menu_y + menu_height - 24)
                 capture("talents-learned.png")
-                click(568, 61)  # Close the Class window.
+                click(menu_x + menu_width - 55, menu_y + 34)
                 managed_skills = os.environ.get("SANCTUARY_TEST_TRADE_SKILLS_UI") == "1"
                 if managed_skills:
                     log = Path(os.environ["SANCTUARY_TEST_LOG"])

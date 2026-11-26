@@ -11,7 +11,7 @@ public partial class EncounterCreature
     private const int RockGraphic = 0x1362;
     protected const int RockThrowRange = 9;
 
-    protected bool BeginRockThrow(Mobile target, ref TimerExecutionToken windup)
+    protected bool BeginRockThrow(Mobile target, ref TimerExecutionToken windup, int graphic = RockGraphic)
     {
         if (windup.Running || !ActionReady || !CanThrowAt(target))
             return false;
@@ -28,8 +28,8 @@ public partial class EncounterCreature
 
             var point = target.Location;
             int distance = Math.Max(Math.Abs(point.X - X), Math.Abs(point.Y - Y));
-            MovingEffect(new Entity(Serial.Zero, point, map), RockGraphic, 10, 0, false, false);
-            Timer.StartTimer(TimeSpan.FromMilliseconds(150 + distance * 40), () => LandRock(map, origin, point));
+            MovingEffect(new Entity(Serial.Zero, point, map), graphic, 10, 0, false, false);
+            Timer.StartTimer(TimeSpan.FromMilliseconds(150 + distance * 40), () => LandRock(map, origin, point, graphic));
         }, out windup);
         return true;
     }
@@ -38,7 +38,7 @@ public partial class EncounterCreature
         EliteCombat.CanAct(this) && NamedControl.SpecialAllowed(this) && CreatureHitRecovery.Remaining(this) == 0
         && EliteCombat.Enemy(this, target, RockThrowRange);
 
-    private void LandRock(Map map, Point3D origin, Point3D point)
+    private void LandRock(Map map, Point3D origin, Point3D point, int graphic)
     {
         if (Deleted || !Alive || Map != map || ReturningHome || !EncounterProfiles.ClearSight(map, origin, point))
             return;
@@ -59,6 +59,6 @@ public partial class EncounterCreature
         }
 
         if (map.CanFit(point, 5, checkBlocksFit: true, checkMobiles: false))
-            EffectItem.Create(point, map, TimeSpan.FromSeconds(10)).ItemID = RockGraphic;
+            EffectItem.Create(point, map, TimeSpan.FromSeconds(10)).ItemID = graphic;
     }
 }

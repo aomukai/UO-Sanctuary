@@ -132,15 +132,16 @@ public static class CreatureExperienceChecks
         CheckOverrides();
         CheckHavenRewards();
         // Crossing a real threshold must still grant the existing stat/talent budgets.
-        ClassCreation.Profiles.AwardExperience(_owner, 150);
-        Require(Xp(_owner) == 484 && ClassStats.Level(_owner) == 2, "XP setup unexpectedly levelled");
+        long beforeLevel = ExperienceLevels.Threshold(4) - 16;
+        ClassCreation.Profiles.AwardExperience(_owner, checked((int)(beforeLevel - Xp(_owner))));
+        Require(Xp(_owner) == beforeLevel && ClassStats.Level(_owner) == 3, "XP setup unexpectedly levelled");
         var revivable = At(new GraveyardSkeleton());
         revivable.MoveToWorld(CombatPractice.FindFloor(Map.Trammel, _point.X + 3, _point.Y + 2), Map.Trammel);
         revivable.AIObject.AITimer.Stop();
         _source = Kill(revivable, _owner);
-        Require(Xp(_owner) == 518 && ClassStats.Level(_owner) == 3
-            && ClassCreation.Profiles.AvailableStatPoints(_owner.Serial) == 10
-            && ClassCreation.Profiles.AvailablePoints(_owner.Serial) == 2, "XP threshold or level rewards changed");
+        Require(Xp(_owner) == beforeLevel + 34 && ClassStats.Level(_owner) == 4
+            && ClassCreation.Profiles.AvailableStatPoints(_owner.Serial) == 15
+            && ClassCreation.Profiles.AvailablePoints(_owner.Serial) == 3, "XP threshold or level rewards changed");
         _before = Xp(_owner);
         _lich = At(new GraveyardLich { CantWalk = true });
         _lich.Frozen = false;
@@ -290,7 +291,7 @@ public static class CreatureExperienceChecks
         var saved = JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));
         var player = World.FindMobile((Serial)saved.Player) as PlayerMobile;
         var corpse = World.FindItem((Serial)saved.Corpse) as Corpse;
-        Require(player != null && Xp(player) == saved.Experience && ClassStats.Level(player) == 3
+        Require(player != null && Xp(player) == saved.Experience && ClassStats.Level(player) == 4
             && corpse is { SanctuaryNoRewards: true }, "XP or spent corpse flag did not persist");
         // On the first reload, a saved live revived mob must still pay nothing.
         if (World.FindMobile((Serial)saved.Raised) is GraveyardUndead raised)

@@ -1,0 +1,15 @@
+diff --git a/Projects/Server/Mobiles/Mobile.cs b/Projects/Server/Mobiles/Mobile.cs
+--- a/Projects/Server/Mobiles/Mobile.cs
++++ b/Projects/Server/Mobiles/Mobile.cs
+@@ -7181,8 +7181,11 @@
+     {
+     }
+ 
++    public static event Action<Mobile, NetState> SendingDefaultAppearance;
++
+     public virtual void SendAppearanceTo(NetState state)
+     {
++        SendingDefaultAppearance?.Invoke(this, state);
+     }
+ 
+     public virtual bool CanSee(object o)

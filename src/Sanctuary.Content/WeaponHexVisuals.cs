@@ -61,7 +61,7 @@ internal static class WeaponHexVisuals
         Renew(owner, ability, true, until, at);
     }
 
-    internal static void Mark(BaseCreature target, CombatAbility ability, DateTime until, DateTime at, bool newMark)
+    internal static void Mark(Mobile target, CombatAbility ability, DateTime until, DateTime at, bool newMark)
     {
         if (Renew(target, ability, false, until, at) && newMark) { target.PlaySound(Style(ability).MarkCue); }
     }

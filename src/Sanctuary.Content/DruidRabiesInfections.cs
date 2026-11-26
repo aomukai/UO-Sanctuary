@@ -113,7 +113,7 @@ public static class DruidRabiesInfections
         _pool=_pool with{Seeds=_pool.Seeds.SetItem(state.Caster,seed)};
         if(dx==0&&dy==0){dx=dy=1;} // Complete factory accepts zero offset and nudges aim.
         var slow=AmazonSlowMissiles.Capture(owner,true);
-        int velocity=SlowMissilePayload.VelocityFp8(5,0,state.Rank,2,0,true,slow.VelocityPercent);
+        int velocity=2*SlowMissilePayload.VelocityFp8(5,0,state.Rank,2,0,true,slow.VelocityPercent);
         var vector=MissileVectors.VelocityFp8(dx,dy,velocity);
         long id=checked(_pool.NextId+1);
         var child=new RabiesContagion(id,state.Caster,state.Rank,host.Map.MapID,host.Z,host.X,host.Y,vector.X,vector.Y,0,
@@ -228,7 +228,7 @@ public static class DruidRabiesInfections
         var e=s?.Damage?.Elements;
         if(s==null||s.Id<=0||s.Id>nextId||!Identity(s.Caster)||s.Rank is <1 or >255||!MapId(s.Map)||s.Age is <0 or >=20
             ||!Utc(s.InfectionUntilUtc)||!Utc(s.NextUtc)||!double.IsFinite(s.X+s.Y+s.Vx+s.Vy)||s.X<0||s.Y<0||s.X>=Map.Maps[s.Map].Width||s.Y>=Map.Maps[s.Map].Height
-            ||Math.Abs(s.Vx)>.12||Math.Abs(s.Vy)>.12||s.LastCollision!=0&&!Identity(s.LastCollision)||s.Steps?.Cells is not{Length:>=1 and <=10}
+            ||Math.Abs(s.Vx)>.24||Math.Abs(s.Vy)>.24||s.LastCollision!=0&&!Identity(s.LastCollision)||s.Steps?.Cells is not{Length:>=1 and <=10}
             ||s.Steps.Cells.Any(c=>c.X<0||c.Y<0||c.X>=Map.Maps[s.Map].Width*2||c.Y>=Map.Maps[s.Map].Height*2)
             ||e==null||e.PoisonMin<0||e.PoisonMax<e.PoisonMin||e.PoisonFrames!=100+10*(s.Rank-1)
             ||e!=new MissileSourceStats(PoisonMin:e.PoisonMin,PoisonMax:e.PoisonMax,PoisonFrames:e.PoisonFrames)||s.Damage!=new WeaponMissileDamage(0,0,0,0,0,false,e))

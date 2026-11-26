@@ -10,6 +10,12 @@ namespace Sanctuary;
 
 public static class PaladinZeal
 {
+    internal static int ProcRoll(Random random, int maximum, int rank) =>
+        rank == 0 ? random.Next(maximum) : random.Next(maximum * 100) / (100 + rank);
+
+    internal static int ScaleProcDamage(int damage256, int rank) =>
+        (int)Math.Min(int.MaxValue, (long)damage256 * (100 + rank) / 100);
+
     internal sealed class Series
     {
         internal Serial Target,Weapon;
@@ -118,7 +124,7 @@ public static class PaladinZeal
             // Only the series count and one start payment are captured at start.
             var values=SkillMechanics.Values(owner,CombatAbility.Zeal);
             var prepared=PlayerWeaponContact.PrepareOrdinary(owner,recipient,(int)values.Formula("toht"),(int)values.Eval("calc2"),
-                ()=>PaladinVengeance.ValidTarget(owner,target.Serial),HitRoll,ElementRoll,Roll,PoisonRoll,Effects,true);
+                ()=>PaladinVengeance.ValidTarget(owner,target.Serial),HitRoll,ElementRoll,Roll,PoisonRoll,Effects,true,procBonus:values.Rank);
             owner.Direction=owner.GetDirectionTo(target);owner.DoHarmful(target,true);
             PaladinMeleeVisuals.Swing(owner, CombatAbility.Zeal);
             var point = target.Location;

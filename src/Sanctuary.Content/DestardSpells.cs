@@ -127,7 +127,7 @@ internal static class DestardSpells
                 || !EncounterProfiles.ClearSight(caster.Map, center, victim.Location))
                 continue;
 
-            double amount = Utility.RandomMinMax(caster.Basis.MinDamage, caster.Basis.MaxDamage) * scale;
+            double amount = caster.RollSpellDamage256() / 256.0 * scale;
             if (cold)
             {
                 if (EliteCombat.Damage(caster, victim, cold: amount) > 0)

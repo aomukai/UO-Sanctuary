@@ -185,13 +185,16 @@ public static class SkillCombat
     private static ClassSkillDamage? UnresistedDamageCore(Mobile target,Mobile source,int damage,int physical,bool weapon,bool ranged,GearDamage? typed)
     {
         bool boundWeapon=weapon&&damage>0&&BoundDemonHosts.Active(source);
-        if(typed==null&&!boundWeapon&&NecromancerEffects.Armor(target)==0&&PsychicWard.State(target)==null&&!HexPurgeReactionProposal.ManagedPrepared(target)&&!BloodOathDamageProposal.ManagedPrepared(target)){return null;}
+        if(typed==null&&!boundWeapon&&NecromancerEffects.Armor(target)==0&&PsychicWard.State(target)==null&&target is not WrongEncounter { HasWard: true }&&!HexPurgeReactionProposal.ManagedPrepared(target)&&!BloodOathDamageProposal.ManagedPrepared(target)){return null;}
         if(damage<0||physical is <0 or >100){throw new NotSupportedException("Unsupported Ward native armor-ignore packet");}
         double physicalBase=damage*physical/100.0;int originalPhysical=NamedElements.To256(physicalBase);
         int raw=boundWeapon?NamedElements.To256((physicalBase+BoundDemonHosts.FlatDamage(source))*PaladinAuras.NativeWeaponMultiplier(source,true)):originalPhysical;
         var ward=PsychicWardReactionProposal.Capture(source,target,raw,weapon&&!ranged,weapon);
-        var parts=typed is{} channels?DefensiveArmors.Absorb(target,channels with{Physical=raw/256.0},source)
-            :new GearDamage(PsychicWard.AbsorbPhysical(target,NecromancerEffects.AbsorbPhysical(target,raw/256.0)),0,0,0,0);
+        var parts = typed is { } channels
+            ? DefensiveArmors.Absorb(target, channels with { Physical = raw / 256.0 }, source, melee: weapon && !ranged)
+            : new GearDamage(PsychicWard.AbsorbPhysical(target, NecromancerEffects.AbsorbPhysical(target, raw / 256.0)), 0, 0, 0, 0);
+        if (typed == null && target is WrongEncounter { HasWard: true } merchant)
+            parts = parts with { Physical = merchant.AbsorbWard(parts.Physical, source, weapon && !ranged) };
         int remaining=NamedElements.To256(parts.Physical);
         var spectral=BoundDemonUpgrades.Capture(source,target,weapon,ranged,damage);
         var added=SpectralHit.Direct(default,spectral?.Roll);
@@ -230,9 +233,9 @@ public static class SkillCombat
         if(healing256>0){SkillHealth.Heal(target,healing256);}
         return parts;
     }
-    internal static GearDamage MitigatePrepared(Mobile source,Mobile target,GearDamage damage,out int absorbed256,int damageRate=0,Func<string,int?> pierceOverride=null,Func<string,int> skillResistanceDelta=null)
+    internal static GearDamage MitigatePrepared(Mobile source,Mobile target,GearDamage damage,out int absorbed256,int damageRate=0,Func<string,int?> pierceOverride=null,Func<string,int> skillResistanceDelta=null, bool melee = false)
     {
-        var raw = DefensiveArmors.Absorb(target, damage, source);
+        var raw = DefensiveArmors.Absorb(target, damage, source, melee);
         long healing256=0;
         double Channel(double value,string element)
         {

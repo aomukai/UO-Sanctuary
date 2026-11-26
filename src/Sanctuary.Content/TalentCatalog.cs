@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Server;
@@ -23,6 +24,21 @@ public static class TalentCatalog
     public static string Description(string id) => _descriptions.GetValueOrDefault(id, "");
 
     public static ClassTalents ForClass(DiabloClass characterClass) => _classes[characterClass];
+
+    internal static TalentDefinition[] Dependencies(TalentDefinition talent)
+    {
+        var required = new HashSet<string>();
+        Visit(talent);
+        return required.Select(id => _talents[id].Talent)
+            .OrderBy(dependency => dependency.RequiredLevel).ThenBy(dependency => dependency.Name, StringComparer.Ordinal).ToArray();
+
+        void Visit(TalentDefinition skill)
+        {
+            foreach (var id in skill.Prerequisites)
+                if (required.Add(id))
+                    Visit(_talents[id].Talent);
+        }
+    }
 
     public static bool TryGet(DiabloClass characterClass, string id, out TalentDefinition talent)
     {

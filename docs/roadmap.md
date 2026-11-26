@@ -15,7 +15,7 @@ Check an item when its described behavior is in the project and the relevant ver
 - [x] Add the Destard spawn pools, dragon court, daemon horn bounty, and Diablo assistance. [GM catalog](worldbuilding.md#destard-spawners)
 - [x] Complete the three campaign dungeons, Hythloth, Deceit, and Destard.
 - [x] Complete Covetous.
-- [x] Add Shame’s level 20–40 population, mining clues, and pirate expedition. [Shame spawners and route](worldbuilding.md#shame)
+- [x] Add Shame’s level 20–40 GM spawners, mining clues, and pirate expedition. [Shame spawners and route](worldbuilding.md#shame)
 - [ ] Populate Wrong as an optional level 50–60 dungeon.
 - [ ] Fill the ordinary progression gaps around levels 30–65. Verify sustained solo and small-party XP pacing at existing population density.
 - [ ] Decide which static closed rooms in Old Haven need interaction teleporters. Survey the room pairs in game and establish a usable return route for each.
@@ -52,6 +52,7 @@ Check an item when its described behavior is in the project and the relevant ver
 - [x] Provide a local launcher with save-and-shutdown, a terminal workflow, and separate installed/test runtimes.
 - [ ] Decide package sources, supported platforms, and first-run account and setup steps for the distributable launcher. Cover local play and saved community server addresses.
 - [ ] Decide optional model providers, per-character dialogue continuity, and conversation history scope. Keep authored NPC actions and discoveries shared with scripted conversations.
-- [ ] Plan the English, Japanese, and German localization pass and matching recordings for authored dialogue.
+- [x] Add authored text IDs, localized reading windows, launcher language selection, and speech controls. [Authoring guide](local-development.md#authored-dialogue-and-reading)
+- [ ] Revise the first-pass dialogue and write short second-person narrator observations. Localize the approved scripts in English, German, and Japanese and record the matching audio.
 
 [Local workflow](local-development.md)

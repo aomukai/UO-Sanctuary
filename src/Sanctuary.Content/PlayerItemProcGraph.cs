@@ -18,7 +18,7 @@ internal sealed class PlayerItemProcGraph
 {
     private sealed record Carrier(Item Item,PlayerProcItem Source,ItemPropertyCreationContext Graph);
     private sealed record Frame(NpcItemTarget Target,Point3D Path,PreparedMonsterDamagePacket Packet,bool Uninterruptible,DateTime At,
-        Func<NpcItemMissileRequest,NpcItemSpellAllocation> Allocate,List<PlayerItemProcOutcome> Results);
+        Func<NpcItemMissileRequest,NpcItemSpellAllocation> Allocate,List<PlayerItemProcOutcome> Results,int ProcBonus);
     private readonly PlayerMobile Owner;
     private readonly EquipmentStatUnit Unit;
     private readonly EquipmentStatValues Values;
@@ -61,13 +61,13 @@ internal sealed class PlayerItemProcGraph
     {
         var frame=Current??throw new InvalidOperationException("Player event callback has no source frame");
         var outcome=PlayerItemProcDispatch.Run(function,unchecked((uint)guid1),Owner,frame.Target,frame.Path,frame.Packet,Chance,
-            ()=>SourceRandom.Roll(ref Seed),frame.Uninterruptible,frame.At,frame.Allocate);
+            ()=>SourceRandom.Roll(ref Seed),frame.Uninterruptible,frame.At,frame.Allocate,procBonus:frame.ProcBonus);
         frame.Results.Add(outcome);return outcome.CallbackResult;
     }
     internal PlayerItemProcOutcome[] Dispatch(string phase,NpcItemTarget target,Point3D path,PreparedMonsterDamagePacket packet,bool uninterruptible,DateTime at,
-        Func<NpcItemMissileRequest,NpcItemSpellAllocation> allocate)
+        Func<NpcItemMissileRequest,NpcItemSpellAllocation> allocate,int procBonus=0)
     {
-        var results=new List<PlayerItemProcOutcome>();var previous=Current;Current=new(target,path,packet,uninterruptible,at,allocate,results);
+        var results=new List<PlayerItemProcOutcome>();var previous=Current;Current=new(target,path,packet,uninterruptible,at,allocate,results,procBonus);
         try{Events.Trigger(ItemEventDefinitions.Code(phase));return results.ToArray();}
         finally{Current=previous;}
     }

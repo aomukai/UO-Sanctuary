@@ -14,6 +14,7 @@ internal abstract class ItemProcServices
     internal abstract int LevelBits{get;}
     internal abstract int Chance(int stat,int layer);
     internal abstract uint Roll();
+    internal virtual bool ChancePassed(int chance) => Roll() % 100 < (uint)chance;
     internal abstract ItemProcSkill Skill(int id);
     internal abstract (int X,int Y) FirstPathPoint();
     internal abstract void CastTarget(bool targetAsCaster,int skill,int level,int flag);
@@ -43,7 +44,7 @@ internal static class ItemProcCallbacks
         }
         if(function!=20){Decode();}
         if(function==21&&(!s.HasPacket||(s.ResultFlags&4)==0)){return 0;}
-        if(s.Roll()%100>=(uint)chance){return 0;}
+        if(!s.ChancePassed(chance)){return 0;}
         if(function==20){Decode();}
         var info=s.Skill(skill);if(info==null){return 0;}
         if(function==20&&info.ItemTargetDo)

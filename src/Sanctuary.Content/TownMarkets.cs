@@ -121,7 +121,7 @@ public static partial class TownMarkets
         var rows = new List<EquipmentRecipe>();
         foreach (var row in EquipmentCrafting.Recipes)
         {
-            if (row.Tier == GearTier.Elite || row.Tier == GearTier.Exceptional && level < 70
+            if (row.Type == nameof(SanctuaryQuiver) || row.Tier == GearTier.Elite || row.Tier == GearTier.Exceptional && level < 70
                 || EquipmentBalance.Base(row.BaseCode).QualityLevel > level) { continue; }
             bool include = role switch
             {

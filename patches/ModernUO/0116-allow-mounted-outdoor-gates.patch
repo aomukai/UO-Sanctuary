@@ -1,0 +1,32 @@
+--- a/Projects/UOContent/Mobiles/ClassMountHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassMountHooks.cs
+@@ -12,6 +12,7 @@
+ {
+     public static Func<BaseCreature, bool> Managed { get; set; }
+     public static Func<Mobile, bool> BlockTravel { get; set; }
++    public static Func<Mobile, BaseDoor, bool> BlockDoorTravel { get; set; }
+     public static Func<Mobile, BaseMount, bool> CanRide { get; set; }
+     public static Action<BaseMount, Mobile, Mobile> RiderChanged { get; set; }
+     public static Action<BaseMount> BeforeDeath { get; set; }
+--- a/Projects/UOContent/Items/Construction/Doors/BaseDoor.cs
++++ b/Projects/UOContent/Items/Construction/Doors/BaseDoor.cs
+@@ -322,12 +322,17 @@
+ 
+     public virtual bool UseLocks() => true;
+ 
+-    public override bool OnMoveOver(Mobile from) => ClassMountHooks.BlockTravel?.Invoke(from) != true && base.OnMoveOver(from);
++    private bool BlocksMountedTravel(Mobile from) =>
++        ClassMountHooks.BlockDoorTravel?.Invoke(from, this) ?? ClassMountHooks.BlockTravel?.Invoke(from) == true;
++
++    public override bool OnMoveOver(Mobile from) => !BlocksMountedTravel(from) && base.OnMoveOver(from);
+ 
+     public virtual void Use(Mobile from)
+     {
+-        if (ClassMountHooks.BlockTravel?.Invoke(from) == true)
++        if (BlocksMountedTravel(from))
++        {
+             return;
++        }
+ 
+         if (Locked && !_open && UseLocks() && ClassCombatHooks.BypassKey?.Invoke(from, this) != true)
+         {

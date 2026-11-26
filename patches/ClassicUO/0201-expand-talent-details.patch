@@ -1,0 +1,288 @@
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryTalentScreen.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SanctuaryTalentScreen.cs
+@@ -14,8 +14,12 @@
+ 
+ internal sealed class SanctuaryTalentScreen : Control
+ {
+-    internal const int FrameWidth = 612;
+-    internal const int FrameHeight = 440;
++    private const int MinimumWidth = 612;
++    private const int MinimumHeight = 440;
++    private const int MaximumWidth = 960;
++    private const int MaximumHeight = 544;
++    private const int DetailLeft = 439;
++    private const int DetailTop = 100;
+     private const ushort TextHue = 0x0481;
+     private const ushort GoldHue = 0x0035;
+     private const uint Brass = 0xFF345681;
+@@ -30,11 +34,12 @@
+     private readonly SanctuarySheetButton _apply;
+     private readonly SanctuarySheetButton _reset;
+     private readonly Label _detailTitle;
+-    private readonly ScrollArea _detailScroll;
+     private readonly Label _description;
+     private readonly ComparisonRows _metrics;
+     private readonly Label _requirements;
+     private readonly Label _milestones;
++    private readonly Label _synergies;
++    private readonly Label _detailsHint;
+     private int _pending;
+     private int _selected = -1;
+     private uint _requestAt;
+@@ -62,16 +67,18 @@
+         if (data?.Trees is not { Length: 3 } || data.Skills?.Length != data.Trees.Length * ClassGumpProtocol.SkillsPerTree
+             || data.MaxRank is < 1 or > 20
+             || data.Skills.Any(s => s?.Prerequisites == null || !Tiers.Contains(s.Level)
+-                || s.Prerequisites.Any(i => i < 0 || i >= data.Skills.Length)))
++                || s.Prerequisites.Any(i => i < 0 || i >= data.Skills.Length)
++                || s.Dependencies?.Any(i => i < 0 || i >= data.Skills.Length) == true))
+         {
+             return false;
+         }
+ 
++        var viewport = Client.Game.ClientBounds;
+         gump.WantUpdateSize = false;
+-        gump.Width = FrameWidth;
+-        gump.Height = FrameHeight;
+-        gump.X = Math.Clamp(gump.X, 0, Math.Max(0, Client.Game.ClientBounds.Width - FrameWidth));
+-        gump.Y = Math.Clamp(gump.Y, 0, Math.Max(0, Client.Game.ClientBounds.Height - FrameHeight));
++        gump.Width = Math.Clamp(viewport.Width - 20, MinimumWidth, MaximumWidth);
++        gump.Height = Math.Clamp(viewport.Height - 24, MinimumHeight, MaximumHeight);
++        gump.X = Math.Clamp(gump.X, 0, Math.Max(0, viewport.Width - gump.Width));
++        gump.Y = Math.Clamp(gump.Y, 0, Math.Max(0, viewport.Height - gump.Height));
+         gump.Add(new SanctuaryTalentScreen(gump, data));
+         return true;
+     }
+@@ -82,18 +89,20 @@
+         _data = data;
+         _draft = new int[data.Skills.Length];
+         _tiles = new TalentTile[data.Skills.Length];
+-        Width = FrameWidth;
+-        Height = FrameHeight;
++        Width = gump.Width;
++        Height = gump.Height;
+         CanMove = true;
+         WantUpdateSize = false;
+ 
+-        Add(new SanctuaryBackdrop("character-frame", Width, Height));
++        Add(new SanctuaryBackdrop("character-frame", Width, Height, headerHeight: 62));
+         Caption(26, 11, $"{data.Title}  ·  Level {data.Level}", font: 0);
+         Caption(26, 38, data.Level == 99 ? $"{data.Experience:N0} XP" : $"{data.Experience:N0} / {data.NextLevel:N0} XP");
+         _points = Caption(330, 37, "", GoldHue);
+-        Add(new SanctuarySheetButton(528, 22, 58, "Close", () => Reply(0)));
+-
+-        const int gridLeft = 27, treeWidth = 132, firstRow = 106, rowHeight = 44;
++        Add(new SanctuarySheetButton(Width - 84, 22, 58, "Close", () => Reply(0)));
++
++        const int gridLeft = 27, treeWidth = 132, firstRow = 106;
++        int footer = Height - 67;
++        int rowHeight = (footer - firstRow - 3) / Tiers.Length;
+         for (var tier = 0; tier < Tiers.Length; tier++)
+         {
+             Caption(12, firstRow + 12 + tier * rowHeight, Tiers[tier].ToString(), GoldHue);
+@@ -107,7 +116,7 @@
+             Add(new Label(data.Trees[tree], true, GoldHue, maxwidth: treeWidth - 6, font: 1,
+                 align: Assets.TEXT_ALIGN_TYPE.TS_CENTER) { X = left + 3, Y = 66 });
+             if (tree > 0)
+-                Rule(left, 63, 1, 307, Brass);
++                Rule(left, 63, 1, footer - 66, Brass);
+             for (var tier = 0; tier < Tiers.Length; tier++)
+             {
+                 var nodes = Enumerable.Range(tree * ClassGumpProtocol.SkillsPerTree, ClassGumpProtocol.SkillsPerTree)
+@@ -117,7 +126,7 @@
+                 {
+                     int index = nodes[column];
+                     int x = left + (treeWidth - ((nodes.Length - 1) * pitch + 44)) / 2 + column * pitch;
+-                    var tile = Add(new TalentTile(x, firstRow + tier * rowHeight, data.Skills[index],
++                    var tile = Add(new TalentTile(x, firstRow + tier * rowHeight, data.Skills[index], Tooltip(data.Skills[index]),
+                         direction => Change(index, direction)));
+                     tile.MouseEnter += (_, _) => Select(index);
+                     _tiles[index] = tile;
+@@ -125,22 +134,29 @@
+             }
+         }
+ 
+-        Rule(424, 63, 1, 307, Brass);
+-        _detailTitle = Add(new Label("Talent details", true, GoldHue, maxwidth: 162, font: 1) { X = 433, Y = 67 });
+-        _detailScroll = Add(new ScrollArea(433, 103, 162, 268, true));
+-        _description = _detailScroll.Add(new Label("Hover over a talent to see what it does.", true, TextHue, maxwidth: 145, font: 1));
+-        _metrics = _detailScroll.Add(new ComparisonRows());
+-        _requirements = _detailScroll.Add(new Label("", true, TextHue, maxwidth: 145, font: 1));
+-        _milestones = _detailScroll.Add(new Label("", true, GoldHue, maxwidth: 145, font: 1));
+-
+-        Rule(21, 373, 569, 1, Brass);
+-        _message = Caption(26, 378, "");
+-        Add(new SanctuarySheetButton(26, 404, 100, "Mouse Skills", () => Reply(ClassGumpProtocol.MouseSkills)));
+-        Add(new SanctuarySheetButton(134, 404, 64, "Pets", () => Reply(ClassGumpProtocol.Pets)));
+-        _reset = Add(new SanctuarySheetButton(423, 404, 69, "Reset", Reset));
+-        _apply = Add(new SanctuarySheetButton(500, 404, 86, "Apply", Apply, primary: true));
++        Rule(424, 63, 1, footer - 66, Brass);
++        int detailWidth = Width - DetailLeft - 26;
++        _detailTitle = Add(new Label("", true, GoldHue, maxwidth: detailWidth, font: 0) { X = DetailLeft, Y = 66 });
++        _description = DetailLabel(detailWidth);
++        _milestones = DetailLabel(detailWidth, GoldHue);
++        _requirements = DetailLabel(detailWidth);
++        _synergies = DetailLabel(detailWidth);
++        _metrics = Add(new ComparisonRows(detailWidth) { X = DetailLeft });
++        _detailsHint = Add(new Label("Hover for more details", true, GoldHue, maxwidth: detailWidth, font: 1)
++            { X = DetailLeft, AcceptMouseInput = true, CanCloseWithRightClick = false });
++
++        Rule(21, footer, Width - 43, 1, Brass);
++        _message = Caption(26, footer + 5, "");
++        Add(new SanctuarySheetButton(26, footer + 31, 100, "Mouse Skills", () => Reply(ClassGumpProtocol.MouseSkills)));
++        Add(new SanctuarySheetButton(134, footer + 31, 64, "Pets", () => Reply(ClassGumpProtocol.Pets)));
++        _reset = Add(new SanctuarySheetButton(Width - 189, footer + 31, 69, "Reset", Reset));
++        _apply = Add(new SanctuarySheetButton(Width - 112, footer + 31, 86, "Apply", Apply, primary: true));
++        _selected = 0;
+         Refresh();
+     }
++
++    private Label DetailLabel(int width, ushort hue = TextHue) =>
++        Add(new Label("", true, hue, maxwidth: width, font: 1) { X = DetailLeft });
+ 
+     private Label Caption(int x, int y, string text, ushort hue = TextHue, byte font = 1) =>
+         Add(new Label(text, true, hue, font: font) { X = x, Y = y, AcceptMouseInput = false });
+@@ -172,8 +188,6 @@
+             return;
+ 
+         _selected = index;
+-        while (_detailScroll.ScrollValue > 0)
+-            _detailScroll.Scroll(true);
+         RefreshDetails();
+     }
+ 
+@@ -186,6 +200,8 @@
+         _detailTitle.Text = skill.Name;
+         _description.Text = skill.Description;
+         _milestones.Text = skill.Mechanics;
++        _requirements.Text = Dependencies(skill);
++        _synergies.Text = Synergies(skill);
+         _request = 0;
+         _requestAt = Time.Ticks + 125;
+         ShowDetails("");
+@@ -193,17 +209,61 @@
+ 
+     private void ShowDetails(string stats)
+     {
+-        var skill = _data.Skills[_selected];
+         bool compare = Requirement(_selected) == null;
+-        _metrics.Y = _description.Height + 8;
+         _metrics.Show(stats, Rank(_selected), compare, _pending > 0);
+ 
+-        string requirements = $"Character level {skill.Level}";
+-        if (skill.Prerequisites.Length > 0)
+-            requirements += "\nRequires " + string.Join(", ", skill.Prerequisites.Select(p => _data.Skills[p].Name));
+-        _requirements.Text = requirements;
+-        _requirements.Y = _metrics.Y + _metrics.Height + 8;
+-        _milestones.Y = _requirements.Y + _requirements.Height + 8;
++        int bottom = Height - 74;
++        int y = Math.Max(DetailTop, _detailTitle.Y + _detailTitle.Height + 6);
++        _description.Y = y;
++        y += _description.Height + 10;
++
++        bool hasOverflow = _milestones.Height + _requirements.Height + _synergies.Height + _metrics.Height + 30 > bottom - y;
++        int limit = hasOverflow ? bottom - _detailsHint.Height - 4 : bottom;
++        Place(_milestones, _milestones.Text);
++        Place(_requirements, _requirements.Text);
++        Place(_synergies, _synergies.Text);
++        Place(_metrics, $"Hard points: {Rank(_selected)}");
++
++        _detailsHint.IsVisible = hasOverflow;
++        if (hasOverflow)
++        {
++            _detailsHint.Y = Math.Min(y, bottom - _detailsHint.Height);
++            var skill = _data.Skills[_selected];
++            string notes = string.IsNullOrEmpty(skill.Mechanics) ? "" : "\n\n" + skill.Mechanics;
++            string preview = $"Hard points: {Rank(_selected)}";
++            if (!string.IsNullOrWhiteSpace(stats))
++                preview += "\n" + stats.Replace("\t", "  →  ");
++            _detailsHint.SetTooltip(Tooltip(skill) + notes + "\n\n" + preview, 380);
++        }
++
++        void Place(Control control, string text)
++        {
++            control.IsVisible = !string.IsNullOrWhiteSpace(text) && y + control.Height <= limit;
++            if (!control.IsVisible)
++                return;
++            control.Y = y;
++            y += control.Height + 8;
++        }
++    }
++
++    private string Dependencies(TalentMenuSkill skill)
++    {
++        var required = skill.Dependencies ?? skill.Prerequisites;
++        return $"Requires character level {skill.Level}" + (required.Length == 0 ? "" : "\n"
++            + string.Join(", ", required.Select(index => _data.Skills[index].Name)));
++    }
++
++    private static string Synergies(TalentMenuSkill skill)
++    {
++        string receives = skill.Synergies is { Length: > 0 } bonuses ? $"Synergies: {string.Join(", ", bonuses)}" : "";
++        string improves = skill.Improves is { Length: > 0 } affected ? $"Improves: {string.Join(", ", affected)}" : "";
++        return receives.Length == 0 ? improves : improves.Length == 0 ? receives : receives + "\n" + improves;
++    }
++
++    private string Tooltip(TalentMenuSkill skill)
++    {
++        string synergies = Synergies(skill);
++        return $"{skill.Name}\n{Dependencies(skill)}" + (synergies.Length == 0 ? "" : "\n\n" + synergies);
+     }
+ 
+     public override void Update()
+@@ -318,12 +378,14 @@
+ 
+     private sealed class ComparisonRows : Control
+     {
+-        private const int FullWidth = 145;
+-        private const int CurrentColumn = 104;
+-
+-        public ComparisonRows()
+-        {
+-            Width = FullWidth;
++        private readonly int _fullWidth;
++        private readonly int _currentColumn;
++
++        public ComparisonRows(int fullWidth)
++        {
++            _fullWidth = fullWidth;
++            _currentColumn = fullWidth - Math.Max(43, fullWidth / 5);
++            Width = fullWidth;
+             WantUpdateSize = false;
+         }
+ 
+@@ -339,13 +401,13 @@
+                 var preview = Add(new Label(next, true, GoldHue, font: 1));
+                 label.Y = y;
+                 value.Y = preview.Y = y;
+-                value.X = (compare ? CurrentColumn : FullWidth) - value.Width;
+-                preview.X = FullWidth - preview.Width;
++                value.X = (compare ? _currentColumn : _fullWidth) - value.Width;
++                preview.X = _fullWidth - preview.Width;
+ 
+                 if (value.X < label.Width + 4 || compare && preview.X < value.X + value.Width + 4)
+                 {
+                     value.Y = preview.Y = y + label.Height;
+-                    value.X = (compare ? FullWidth / 2 - 4 : FullWidth) - value.Width;
++                    value.X = (compare ? _fullWidth / 2 - 4 : _fullWidth) - value.Width;
+                 }
+                 y = Math.Max(label.Y + label.Height, value.Y + value.Height);
+             }
+@@ -370,7 +432,7 @@
+         private readonly Line _border;
+         private readonly Control _art;
+ 
+-        public TalentTile(int x, int y, TalentMenuSkill skill, Action<int> change)
++        public TalentTile(int x, int y, TalentMenuSkill skill, string tooltip, Action<int> change)
+         {
+             X = x;
+             Y = y;
+@@ -380,7 +442,7 @@
+             CanCloseWithRightClick = false;
+             WantUpdateSize = false;
+             _change = change;
+-            SetTooltip(skill.Name);
++            SetTooltip(tooltip, 380);
+ 
+             _border = Add(new Line(0, 0, Width, Height, Brass) { AcceptMouseInput = false });
+             Add(new Line(1, 1, Width - 2, Height - 2, 0xFF211A1A) { AcceptMouseInput = false });

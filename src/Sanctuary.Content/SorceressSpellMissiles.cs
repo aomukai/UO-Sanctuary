@@ -403,7 +403,7 @@ internal static partial class SorceressSpellMissiles
         if (loss > 0) { SorceressVisuals.Impact(target, flight.Ability); }
         return loss;
     }
-    internal static int ImpactPrepared(PlayerMobile owner,Mobile target,string key,string element,int raw,FirestormModifiers captured,DateTime at,int coldFrames=0,bool freeze=false,int damageRate=0,bool? missileReaction=null)
+    internal static int ImpactPrepared(PlayerMobile owner,Mobile target,string key,string element,int raw,FirestormModifiers captured,DateTime at,int coldFrames=0,bool freeze=false,int damageRate=0,bool? missileReaction=null,int stunFrames=0)
     {
         SorceressEffects.MissileHit(owner,target,key);
         // New separately pinned profiles can supply GetHit/KnockBack context
@@ -416,7 +416,12 @@ internal static partial class SorceressSpellMissiles
         if(freeze){FreezeStates.Apply(owner,target,coldFrames,TimedEffects.TickAt(at));}
         else if(element=="cold"){ColdStates.Apply(owner,target,coldFrames,TimedEffects.TickAt(at));}
         int loss=SkillHealth.TypedDamage(owner,target,NamedElements.To256(parts.Total),DirectDamageParts.From(parts));
-        if(target is BaseCreature creature){CreatureHitRecovery.Apply(creature,owner,loss);}
+        if(target is BaseCreature creature)
+        {
+            CreatureHitRecovery.Apply(creature,owner,loss);
+            if (stunFrames > 0)
+                CombatStuns.ApplyPreparedDuration(creature, stunFrames, at);
+        }
         CombatDamage.Finish(target,owner);return loss;
     }
     internal static int Roll(SorceressSpellFlight flight,out ulong seed)=>Roll(flight.Minimum256,flight.Maximum256,flight.Seed,out seed);

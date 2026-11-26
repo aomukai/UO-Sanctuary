@@ -20,6 +20,7 @@ public static class BalanceCatalog
         ClassItemTypes.Load();
         WeaponHands.Load();
         NecromancerSummons.Load();
+        TalentSynergies.Load();
         SentryNpcSkills.Load();
         DruidNpcSkills.Load();
         PaladinCleansing.Load();

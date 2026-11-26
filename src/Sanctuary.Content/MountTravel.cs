@@ -29,6 +29,7 @@ public static class MountTravel
         Profiles = new();
         ClassMountHooks.Managed = Managed;
         ClassMountHooks.BlockTravel = BlocksTravel;
+        ClassMountHooks.BlockDoorTravel = DoorwayTraversal.BlocksMountedTravel;
         ClassMountHooks.CanRide = CanRide;
         ClassMountHooks.RiderChanged = RiderChanged;
         ClassMountHooks.BeforeDeath = DropCargo;

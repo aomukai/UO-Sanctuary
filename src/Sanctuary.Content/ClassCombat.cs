@@ -566,6 +566,16 @@ public static class ClassCombat
     // Stop/movement/incapacitation can cancel its effect without refunding its cycle.
     public static bool ResolveAction(PlayerMobile from, long now)
     {
+        var session = For(from);
+        var ability = session.Zeal != null ? CombatAbility.Zeal : session.PendingAbility;
+        bool released = ResolveActionCore(from, now);
+        if (released && ability is not (CombatAbility.None or CombatAbility.BasicAttack))
+            WrongBossSite.ObserveAction(from, ability);
+        return released;
+    }
+
+    private static bool ResolveActionCore(PlayerMobile from, long now)
+    {
         if(BarbarianLeap.State(from)!=null || BarbarianWhirlwind.State(from)!=null){return false;}
         if(For(from).Flight!=null){return DragonFlights.Resolve(from,now);}
         if(For(from).Talon!=null){return DragonTalons.Resolve(from,now);}

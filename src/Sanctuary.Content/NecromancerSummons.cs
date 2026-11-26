@@ -29,6 +29,8 @@ public static class NecromancerSummons
             : (field == "minHP" ? "MinHP" : field == "maxHP" ? "MaxHP" : field)
                 + (difficulty == MonsterDifficulty.Nightmare ? "(N)" : "(H)"));
     internal static IReadOnlyDictionary<string,JsonElement> Fields(string key)=>_sources[key];
+    internal static bool TryFields(string key, out Dictionary<string, JsonElement> fields) =>
+        _sources.TryGetValue(key, out fields);
     public static int Formula(string key, string field, SkillValues values)
     {
         if (!_sources[key].TryGetValue(field, out var value)) { return 0; }
@@ -81,10 +83,15 @@ public static class NecromancerSummons
 [SerializationGenerator(0)]
 public partial class NecromancerMinion : SkeletonGuardian
 {
+    private const int BloodDripIntervalMs = 10_000;
+    private const int BloodDripDuration = 60; // Location effects use 50 ms units.
+    private const int BloodSpecks = 0x122E;
+
     [SerializableField(0, setter: "private")] private CombatAbility _kind;
     [SerializableField(1, setter: "private")] private string _ranks = "{}";
     [SerializableField(2, setter: "private")] private int _element;
     [SerializableField(3, setter: "private")] private int _resistance;
+    private long _nextBloodDrip = Core.TickCount + BloodDripIntervalMs;
     private MageWorld _legacyMageWorld;
     internal MageWorld LegacyMageWorld=>_legacyMageWorld??=new(this,()=>NecromancerMageMissiles.LegacyWorld(this),s=>NecromancerMageMissiles.StoreLegacyWorld(this,s));
     internal void InvalidateLegacyMageWorld()=>_legacyMageWorld?.World.Invalidate();
@@ -169,6 +176,30 @@ public partial class NecromancerMinion : SkeletonGuardian
         }
     }
     [Constructible] public NecromancerMinion() { }
+
+    public override void SetLocation(Point3D newLocation, bool isTeleport)
+    {
+        var previous = Location;
+        base.SetLocation(newLocation, isTeleport);
+        if (!isTeleport)
+            DripBlood(previous);
+    }
+
+    internal void DripBlood(Point3D previous)
+    {
+        if (Kind != CombatAbility.BloodGolem || World.Loading || Deleted || !Alive || Hidden
+            || Map is not { } map || map == Map.Internal || previous.X == X && previous.Y == Y
+            || !Utility.InRange(previous, Location, 1))
+            return;
+
+        long now = Core.TickCount;
+        if (now - _nextBloodDrip < 0)
+            return;
+
+        _nextBloodDrip = now + BloodDripIntervalMs;
+        Effects.SendLocationEffect(previous, map, BloodSpecks, BloodDripDuration);
+    }
+
     public override bool Permitted(PlayerMobile owner)
     {
         foreach (var history in ClassCreation.Profiles.Histories(owner.Serial))

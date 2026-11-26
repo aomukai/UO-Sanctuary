@@ -35,7 +35,8 @@ public partial class MausoleumDemon : EncounterCreature
         var profile = Roster[role];
         Assign(profile, 50, MonsterDifficulty.Nightmare, role < 2 ? EncounterGrade.SuperUnique : EncounterGrade.Ordinary,
             ChampionKind.Champion, [], EliteAura.None, profile.Name, Random.Shared);
-        Hue = role switch { 0 => 0x26, 1 => 0x455, _ => LazarusMausoleum.Circles[role - 2].Hue };
+        if (!IsBodyguard)
+            Hue = LazarusMausoleum.Circles[role - 2].Hue;
     }
 
     internal override int HomeLeashRadius => WorldDecorationGraphics.MausoleumSize;

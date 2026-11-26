@@ -17,7 +17,6 @@ public static class EliteBolts
         internal SlowMissilePayload Slow;
         internal int Steps, Step, ChargedDamage;
         internal CombatAbility Ability;
-        internal SkillValues RankedSpell;
         internal FrozenKind? OrbKind;
         internal HashSet<Serial> Hit;
     }
@@ -42,7 +41,7 @@ public static class EliteBolts
             Launch(source, angle + offset, fire ? CombatAbility.FireBolt : CombatAbility.None, hit);
         }
     }
-    internal static void Cast(EncounterCreature source, Mobile target, CombatAbility ability, int rank = 0)
+    internal static void Cast(EncounterCreature source, Mobile target, CombatAbility ability)
     {
         double angle = Math.Atan2(target.Y - source.Y, target.X - source.X);
         source.PlaySound(ability switch
@@ -53,8 +52,7 @@ public static class EliteBolts
             CombatAbility.LightningBolt => SorceressVisuals.CastSound(CombatAbility.ChargedBolt),
             _ => SorceressVisuals.CastSound(ability)
         });
-        var values = rank > 0 ? DeceitEncounter.RankedValues(ability, rank, source.Basis.Level) : null;
-        Launch(source, angle, ability, new HashSet<Serial>(), rankedSpell: values);
+        Launch(source, angle, ability, new HashSet<Serial>());
     }
     internal static void CastFrom(EncounterCreature source, Point3D origin, Mobile target, CombatAbility ability)
     {
@@ -94,7 +92,7 @@ public static class EliteBolts
     private static int ShotGraphic(EncounterCreature source, CombatAbility ability, double dx, double dy, int phase) =>
         source is MausoleumDemon { IsBodyguard: true } guard
             ? guard.BoltGraphic : source is DeceitEncounter { BoltGraphic: { } graphic } ? graphic
-            : ability == CombatAbility.None && source is HythlothEncounter { Role: HythlothRole.RoyalArbalest }
+            : ability == CombatAbility.None && source is HythlothEncounter { Role: HythlothRole.RoyalArbalest } or WrongEncounter { Role: WrongRole.Manhunter }
             ? 0x1BFE : Graphic(ability, dx, dy, phase);
 
     private static string MissileId(CombatAbility ability) => ability switch
@@ -112,7 +110,7 @@ public static class EliteBolts
         _ => "arrow"
     };
     private static void Launch(EncounterCreature source, double angle, CombatAbility ability, HashSet<Serial> hit, int chargedDamage = 0,
-        Point3D? originOverride = null, FrozenKind? orbKind = null, SkillValues rankedSpell = null)
+        Point3D? originOverride = null, FrozenKind? orbKind = null)
     {
         if (_active.Count >= 4096 || (chargedDamage == 0 ? !EliteCombat.CanAct(source) : source.Deleted || !source.Alive)
             || source.Map == null || source.Map == Map.Internal) { return; }
@@ -141,7 +139,7 @@ public static class EliteBolts
         _active.Add(new Bolt { Source = source, Map = source.Map, Origin = origin, Previous = origin,
             Dx = dx, Dy = dy, DistancePerFrame=(orbKind == FrozenKind.Orb ? 0.25 : 1) * velocity/normal, Slow=slow,
             Steps = orbKind == FrozenKind.Orb ? 24 : range, Ability = ability, ChargedDamage = chargedDamage, Hit = hit,
-            OrbKind = orbKind, RankedSpell = rankedSpell });
+            OrbKind = orbKind });
     }
     internal static void Cancel(EncounterCreature source)
     {
@@ -228,10 +226,8 @@ public static class EliteBolts
 
         if (bolt.OrbKind.HasValue)
         {
-            var orbAttack = source.EncounterProfile.Attack1;
-            int cold = Utility.RandomMinMax(orbAttack.MinDamage.Value, orbAttack.MaxDamage.Value);
             Effects.SendLocationEffect(victim.Location, victim.Map, SpellEffectGraphics.FrozenOrbContact, SpellEffectGraphics.ColdFrames);
-            EliteCombat.Damage(source, victim, cold: bolt.Slow.Damage256(cold * 128) / 256.0);
+            EliteCombat.Damage(source, victim, cold: bolt.Slow.Damage256(source.RollSpellDamage256() / 2) / 256.0);
             GearEffects.ApplyChill(victim, Core.TickCount, 2000, source);
             return;
         }
@@ -240,83 +236,65 @@ public static class EliteBolts
             EliteCombat.Damage(source, victim, lightning: bolt.Slow.Damage256(bolt.ChargedDamage * 256) / 256.0);
             return;
         }
-        if (bolt.RankedSpell is { } values)
+        int damage256 = source.RollSpellDamage256();
+        double amount = bolt.Slow.Damage256(damage256) / 256.0;
+        switch (ability)
         {
-            double amount = bolt.Slow.Damage256(Utility.RandomMinMax(values.Damage256(false), values.Damage256(true))) / 256.0;
-            switch (ability)
-            {
-                case CombatAbility.Lightning:
-                    SorceressVisuals.Impact(victim, ability);
-                    EliteCombat.Damage(source, victim, lightning: amount);
-                    break;
-                case CombatAbility.BoneSpear:
-                    victim.FixedEffect(SpellEffectGraphics.BoneSpearContact, 10, 4);
-                    victim.PlaySound(SpellEffectSounds.BoneSpearContact);
-                    EliteCombat.Damage(source, victim, magic: amount);
-                    break;
-                case CombatAbility.MiasmaBolt:
-                    EliteCombat.Damage(source, victim, magic: amount);
-                    MiasmaCloud(source, victim.Location, values, bolt.Slow);
-                    break;
-            }
-            return;
+            case CombatAbility.PoisonJavelin:
+                victim.FixedEffect(SpellEffectGraphics.PoisonAfflicted, 10, SpellEffectGraphics.PoisonFrames);
+                GearEffects.ApplyPoison(source, victim, amount, Core.TickCount, 2400);
+                break;
+            case CombatAbility.Hydra:
+                victim.FixedEffect(SpellEffectGraphics.HydraBoltContact, 10, SpellEffectGraphics.HydraPoseFrames);
+                EliteCombat.Damage(source, victim, fire: bolt.Slow.Damage256(damage256 / 2) / 256.0);
+                break;
+            case CombatAbility.Fireball:
+                FireballImpact(source, victim, amount);
+                break;
+            case CombatAbility.ChainLightning:
+                ChainImpact(source, victim, bolt.Hit, amount);
+                break;
+            case CombatAbility.IceBlast:
+                SorceressVisuals.Impact(victim, ability);
+                EliteCombat.Damage(source, victim, cold: amount);
+                GearEffects.ApplyChill(victim, Core.TickCount, 2000, source);
+                break;
+            case CombatAbility.LightningBolt:
+            case CombatAbility.Lightning:
+                SorceressVisuals.Impact(victim, ability == CombatAbility.LightningBolt ? CombatAbility.ChargedBolt : ability);
+                EliteCombat.Damage(source, victim, lightning: amount);
+                break;
+            case CombatAbility.BoneSpear:
+                victim.FixedEffect(SpellEffectGraphics.BoneSpearContact, 10, 4);
+                victim.PlaySound(SpellEffectSounds.BoneSpearContact);
+                EliteCombat.Damage(source, victim, magic: amount);
+                break;
+            case CombatAbility.MiasmaBolt:
+                EliteCombat.Damage(source, victim, magic: amount);
+                MiasmaCloud(source, victim.Location, bolt.Slow);
+                break;
+            default:
+                int damage = damage256 / 256;
+                if (Utility.Random(100) < source.Basis.CriticalChance)
+                    damage *= 2;
+                EliteCombat.Hit(source, victim, damage, ability == CombatAbility.FireBolt ? ResistanceType.Fire : ResistanceType.Physical,
+                    true, missile: bolt.Slow);
+                break;
         }
-        var attack = source.EncounterProfile.Attack1;
-        int damage = Utility.RandomMinMax(attack.MinDamage.Value, attack.MaxDamage.Value);
-        if (ability == CombatAbility.PoisonJavelin)
-        {
-            victim.FixedEffect(SpellEffectGraphics.PoisonAfflicted, 10, SpellEffectGraphics.PoisonFrames);
-            GearEffects.ApplyPoison(source, victim, bolt.Slow.Damage256(damage * 256) / 256.0, Core.TickCount, 2400);
-            return;
-        }
-        if (ability == CombatAbility.Hydra)
-        {
-            victim.FixedEffect(SpellEffectGraphics.HydraBoltContact, 10, SpellEffectGraphics.HydraPoseFrames);
-            EliteCombat.Damage(source, victim, fire: bolt.Slow.Damage256(damage * 128) / 256.0);
-            return;
-        }
-        if (ability is CombatAbility.Fireball or CombatAbility.LightningBolt or CombatAbility.Lightning
-            or CombatAbility.ChainLightning or CombatAbility.IceBlast)
-        {
-            double scaled = bolt.Slow.Damage256(damage * 256) / 256.0;
-            switch (ability)
-            {
-                case CombatAbility.Fireball:
-                    FireballImpact(source, victim, scaled);
-                    break;
-                case CombatAbility.ChainLightning:
-                    ChainImpact(source, victim, bolt.Hit, scaled);
-                    break;
-                case CombatAbility.IceBlast:
-                    SorceressVisuals.Impact(victim, ability);
-                    EliteCombat.Damage(source, victim, cold: scaled);
-                    GearEffects.ApplyChill(victim, Core.TickCount, 2000, source);
-                    break;
-                default:
-                    SorceressVisuals.Impact(victim, ability == CombatAbility.LightningBolt ? CombatAbility.ChargedBolt : ability);
-                    EliteCombat.Damage(source, victim, lightning: scaled);
-                    break;
-            }
-            return;
-        }
-        if (Utility.Random(100) < source.Basis.CriticalChance)
-            damage *= 2;
-        EliteCombat.Hit(source, victim, damage, ability == CombatAbility.FireBolt ? ResistanceType.Fire : ResistanceType.Physical,
-            true, missile: bolt.Slow);
     }
 
-    private static void MiasmaCloud(EncounterCreature source, Point3D center, SkillValues values, SlowMissilePayload slow)
+    private static void MiasmaCloud(EncounterCreature source, Point3D center, SlowMissilePayload slow)
     {
         var map = source.Map;
-        var packet = MiasmaPackets.Capture(values);
-        int radius = packet.CloudRadius;
+        var shape = WarlockEntropyClouds.Capture(source.SpellEffects(CombatAbility.MiasmaBolt));
+        int radius = shape.Radius;
         int range = (int)Math.Ceiling(SkillGeometry.Tiles(radius));
         int graphic = SpellEffectGraphics.MiasmaBoltCloud + (radius - 2) * SpellEffectGraphics.MiasmaFrames;
         var nextHit = new Dictionary<Serial, long>();
         var delay = TimeSpan.FromMilliseconds(240);
         MiasmaVisuals.Burst(map, center.X, center.Y, center.Z, chain: false);
         TimerExecutionToken pulse = default;
-        Timer.StartTimer(TimeSpan.Zero, delay, (packet.CloudFrames + 5) / 6, () =>
+        Timer.StartTimer(TimeSpan.Zero, delay, (shape.LifetimeFrames + 5) / 6, () =>
         {
             if (source is not { Alive: true, Deleted: false, ReturningHome: false } || source.Map != map || !source.InRange(center, 18))
             {
@@ -332,7 +310,7 @@ public static class EliteBolts
                     || !EliteCombat.Enemy(source, target, 18) || !EncounterProfiles.ClearSight(map, center, target.Location))
                     continue;
                 nextHit[target.Serial] = now + 1000;
-                double damage = slow.Damage256(Utility.RandomMinMax(packet.CloudMinimum256, packet.CloudMaximum256)) / 256.0;
+                double damage = slow.Damage256(source.RollSpellDamage256() / 4) / 256.0;
                 EliteCombat.Damage(source, target, magic: damage, kind: SkillDamageKind.Periodic);
             }
         }, out pulse);

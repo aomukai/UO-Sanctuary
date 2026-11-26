@@ -143,7 +143,13 @@ public static class CombatTiming
         int advance=WeaponSequenceAdvance(owner,ability);
         return (point*256+advance-1)/advance;
     }
-    internal static int WeaponSequenceAdvance(PlayerMobile owner,CombatAbility ability=CombatAbility.BasicAttack)=>FrameAdvance(Weapon(Equipped(owner)),Ias(owner),GearEffects.AttackSlowTotal(owner),CombatTiming.SkillAttackRate(owner),SequenceRateAdjustment(ability));
+    internal static int WeaponSequenceAdvance(PlayerMobile owner,CombatAbility ability=CombatAbility.BasicAttack)
+    {
+        int fend = ability == CombatAbility.Jab
+            ? ClassCreation.Profiles.GetRank(owner.Serial, SkillMechanics.For(CombatAbility.Fend).TalentId) : 0;
+        return FrameAdvance(Weapon(Equipped(owner)), Ias(owner), GearEffects.AttackSlowTotal(owner),
+            SkillAttackRate(owner) + fend, SequenceRateAdjustment(ability));
+    }
     public static ActionTiming Calculate(DiabloClass characterClass, CombatAbility ability, WeaponTiming weapon, int ias = 0, int fcr = 0, int chill = 0, int skillAttackRate = 0)
     {
         if(characterClass==DiabloClass.Warlock&&ability==CombatAbility.BindDemon){return new(25,25);} // Approved fixed one-second attempt,including HUD timing.

@@ -115,7 +115,10 @@ public partial class DespiseLetter : BaseBook
             || !player.InRange(Location, 2) || Math.Abs(player.Z - Z) >= 16 || !player.CanSee(this) || !player.InLOS(this))
             return;
 
-        base.OnDoubleClick(player);
+        const string id = "despise.guild.folded_letter";
+        if (!AuthoredWriting.Show(player, id, AuthoredTextKind.Letter, Title, Author,
+            AuthoredWriting.BookBody(this), id + ".body"))
+            base.OnDoubleClick(player);
         DespiseStory.Discover(player, StoryDiscoveries.DespiseLetter);
     }
 }

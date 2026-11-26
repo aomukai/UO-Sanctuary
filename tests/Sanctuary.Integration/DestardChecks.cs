@@ -64,12 +64,14 @@ public static class DestardChecks
         archdaemon.MoveToWorld(arena.Offset(mid - 11, mid), Map.Trammel);
         hatchling.MoveToWorld(arena.Offset(mid - 11, mid + 1), Map.Trammel);
         spawn.MoveToWorld(arena.Offset(mid - 10, mid + 1), Map.Trammel);
-        Require(EliteAuras.SkillLevel(archdaemon) == 10 && EliteAuras.SkillLevel(hatchling) == 10);
-        Require(EliteAuras.Level(player, EliteAura.Conviction, true) == 10);
+        int archdaemonConviction = EliteAuras.SkillLevel(EliteAura.Conviction, archdaemon.Basis.Level);
+        int hatchlingConviction = EliteAuras.SkillLevel(EliteAura.Conviction, hatchling.Basis.Level);
+        Require(EliteAuras.SkillLevel(archdaemon) == archdaemonConviction && EliteAuras.SkillLevel(hatchling) == hatchlingConviction);
+        Require(archdaemonConviction > hatchlingConviction && EliteAuras.Level(player, EliteAura.Conviction, true) == archdaemonConviction);
         EliteAuras.Refresh(player);
         double auraOnly = NamedElements.Damage(archdaemon, player, 100, "fire");
-        Require(NecromancerCurseCasts.NpcDamageCurse(spawn, player, CombatAbility.LowerResist, 10));
-        Require(NecromancerEffects.Curse(player) is { Rank: 10, NonStackingResistance: true });
+        NecromancerCurseCasts.CastEncounterCurse(spawn, player, CombatAbility.LowerResist);
+        Require(NecromancerEffects.Curse(player) is { NonStackingResistance: true } curse && curse.Rank == spawn.SpellEffectRank);
         Require(Math.Abs(NamedElements.Damage(archdaemon, player, 100, "fire") - auraOnly) < 0.1);
         spawn.Delete();
         hatchling.Delete();

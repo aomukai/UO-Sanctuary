@@ -9,7 +9,7 @@ internal static class PlayerWeaponMissileContact
 {
     internal static PreparedMonsterDamageResult Release(PlayerMobile owner,BaseCreature target,WeaponFlight flight,GearDamage damage,int rate256,int hitClass,uint hitFlags=32)
     {
-        var parts=SkillCombat.MitigatePrepared(owner,target,damage with{Poison=0},out int absorbed);
+        var parts=SkillCombat.MitigatePrepared(owner,target,damage with{Poison=damage.ImpactPoison},out int absorbed);
         bool reset=flight.Damage.LightningJavelinPercent is >0;
         var poison=reset?new PreparedPoison(0,0):PoisonJavelins.PreparePoison(owner,target,rate256,flight.Damage.Elements.PoisonImpactFrames);
         var impact=new PreparedWeaponImpact(damage,parts,absorbed) with{LifeDamage256=checked(NamedElements.To256(parts.Total)+poison.Rate256),AllocatedPoison=poison};
@@ -85,8 +85,7 @@ internal static class PlayerWeaponMissileContact
         if(freeze){(cold,frozen)=DragonTails.ColdLengths(owner,target,0,rawFrames);}
         // A potion's immediate poison component has zero status duration; it
         // belongs in the typed packet but must not replace an existing clock.
-        var impact=new PreparedWeaponImpact(damage,parts,absorbed)with{LifeDamage256=NamedElements.To256(parts.Total),
-            AllocatedPoison=parts.Poison>0?new PreparedPoison(NamedElements.To256(parts.Poison),0):null};
+        var impact=new PreparedWeaponImpact(damage,parts,absorbed)with{LifeDamage256=NamedElements.To256(parts.Total)};
         var packet=new PlayerWeaponContactPrepared(flags,impact,new(0,0),cold,0,WeaponMissiles.ItemEffects,
             HitClass:hitClass,FreezeFrames:frozen,HitFlags:hitFlags,SuppressWear:true,DamageKind:kind);
         PlayerWeaponContact.ReleaseMissile(owner,target,packet,at,true);

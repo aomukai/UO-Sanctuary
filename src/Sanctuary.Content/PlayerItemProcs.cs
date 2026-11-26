@@ -76,7 +76,7 @@ internal static class PlayerItemProcs
     internal static int Chance(PlayerMobile owner,int stat,int layer)
     {var graph=Require(owner);graph.Refresh();return graph.Chance(stat,layer);}
     internal static PlayerItemProcOutcome[] Dispatch(PlayerMobile owner,string phase,NpcItemTarget target,Point3D path,PreparedMonsterDamagePacket packet,
-        bool uninterruptible,DateTime at,Func<NpcItemMissileRequest,NpcItemSpellAllocation> allocate,bool? actions=null)
+        bool uninterruptible,DateTime at,Func<NpcItemMissileRequest,NpcItemSpellAllocation> allocate,bool? actions=null,int procBonus=0)
     {
         ArgumentNullException.ThrowIfNull(allocate);
         if(phase is not("domeleeattack"or"domissileattack"or"domeleedamage"or"domissiledamage"or"damagedinmelee"or"damagedbymissile")||at.Kind!=DateTimeKind.Utc)
@@ -85,7 +85,7 @@ internal static class PlayerItemProcs
         if(World.Loading||owner is not{Alive:true,Deleted:false}||owner.Map==null||owner.Map==Map.Internal||SpellHelper.IsTown(owner.Location,owner)
             ||!(actions??owner.NetState is{Running:true})){return [];}
         if(target!=null){_=target.Point(owner.Map);}
-        return graph.Dispatch(phase,target,path,packet,uninterruptible,at,allocate);
+        return graph.Dispatch(phase,target,path,packet,uninterruptible,at,allocate,procBonus);
     }
     internal static PlayerProcSave Capture()
     {

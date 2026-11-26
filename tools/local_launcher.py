@@ -10,6 +10,7 @@ import re
 import socket
 import subprocess
 import termios
+from tempfile import NamedTemporaryFile
 from threading import Event, Thread
 import time
 
@@ -19,6 +20,39 @@ STATUS_REPLY = "Britain baseline status:"
 SAVE_DONE = "Writing world save snapshot done"
 SAVE_FAILURES = ("Preparing to save world failed", "Saving world failed", "Writing world save snapshot failed")
 ANSI = re.compile(r"\x1b\[[0-?]*[ -/]*[@-~]")
+
+
+LANGUAGES = {"English": "ENU", "Deutsch": "DEU", "日本語": "JPN"}
+
+
+def selected_language(settings_path):
+    try:
+        value = json.loads(settings_path.read_text()).get("lang", "")
+    except (FileNotFoundError, ValueError, AttributeError):
+        return "English"
+    return next((label for label, code in LANGUAGES.items() if code == str(value).upper()), "English")
+
+
+def save_language(settings_path, label):
+    code = LANGUAGES.get(label)
+    if code is None:
+        raise ValueError("Choose English, Deutsch, or 日本語.")
+    settings = json.loads(settings_path.read_text())
+    if not isinstance(settings, dict):
+        raise ValueError("ClassicUO settings must be a JSON object.")
+    if settings.get("lang") == code:
+        return
+    settings["lang"] = code
+    with NamedTemporaryFile("w", dir=settings_path.parent, encoding="utf-8", delete=False) as output:
+        pending = output.name
+        try:
+            json.dump(settings, output, indent=2, ensure_ascii=False)
+            output.write("\n")
+            output.flush()
+            os.replace(pending, settings_path)
+        finally:
+            if os.path.exists(pending):
+                os.unlink(pending)
 
 
 def local_addresses(settings_path):
@@ -281,6 +315,26 @@ def run_launcher(local, prepare_launch, command_environment):
         panel.grid()
         status = tk.StringVar(value="Ready to play.")
         ttk.Label(panel, textvariable=status, width=42, wraplength=310, justify="center").grid(pady=(0, 12))
+        settings_path = local / "client" / "settings.json"
+        language = tk.StringVar(value=selected_language(settings_path))
+        language_row = ttk.Frame(panel)
+        language_row.grid(pady=(0, 12))
+
+        def change_language():
+            try:
+                save_language(settings_path, language.get())
+            except (OSError, ValueError) as error:
+                language.set(selected_language(settings_path))
+                status.set(f"Could not save the game language. {error}")
+
+        ttk.Label(language_row, text="Game language").grid(row=0, columnspan=len(LANGUAGES), pady=(0, 4))
+        language_choices = []
+        for column, label in enumerate(LANGUAGES):
+            choice = ttk.Radiobutton(language_row, text=label, value=label,
+                                     variable=language, command=change_language)
+            choice.grid(row=1, column=column, padx=5)
+            language_choices.append(choice)
+
         game = LocalGame(local, prepare_launch, command_environment)
         messages = SimpleQueue()
         busy = False
@@ -290,6 +344,8 @@ def run_launcher(local, prepare_launch, command_environment):
             nonlocal busy
             busy = True
             button.state(["disabled"])
+            for choice in language_choices:
+                choice.state(["disabled"])
             status.set(text)
 
             def worker():
@@ -304,7 +360,13 @@ def run_launcher(local, prepare_launch, command_environment):
 
         def play_or_stop():
             if game.server is None:
-                run_task(lambda progress: game.play(progress, closing), "Starting ModernUO…")
+                choice = language.get()
+
+                def start(progress):
+                    save_language(settings_path, choice)
+                    return game.play(progress, closing)
+
+                run_task(start, "Starting ModernUO…")
             else:
                 run_task(game.stop, "Saving and shutting down…")
 
@@ -329,6 +391,8 @@ def run_launcher(local, prepare_launch, command_environment):
                 busy = False
                 button.configure(text="Play" if game.server is None else "Save & Shut Down")
                 button.state(["!disabled"])
+                for choice in language_choices:
+                    choice.state(["!disabled" if game.server is None else "disabled"])
                 if kind == "error":
                     closing.clear()
 

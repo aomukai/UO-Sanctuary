@@ -512,6 +512,13 @@ def holy_ring(cell, size, canvas_size, bottom_padding, threshold, brightness=1.0
     return frame(ring, 1, (ring.width // 2, ring.height // 2), canvas_size, bottom_padding, threshold)
 
 
+def conviction_recipient_rings(cells):
+    for cell in cells:
+        tint = ImageOps.colorize(cell.convert("L"), "#511326", "#ffcec2", "#cb3147")
+        tint.putalpha(cell.getchannel("A"))
+        yield holy_ring(Image.blend(cell, tint, 0.62), (62, 28), (72, 38), 14, 227, 1.17)
+
+
 def barbarian_corpse_effects():
     for name, first, layout in (
         ("barbarian-find-potion", 64813, (
@@ -2079,17 +2086,14 @@ if __name__ == "__main__":
                                            (225, 228, 225, 206))
     ))
 
-    conviction, mark, snap = load_grid("paladin-conviction", (1448, 1086), rows=3)
+    conviction, _, snap = load_grid("paladin-conviction", (1448, 1086), rows=3)
     write_group("paladin-conviction", 64477, (
         holy_ring(cell, (66, 30), (72, 38), 14, 227, 1.17) for cell in conviction
     ))
-    write_group("paladin-conviction", 64481, (
-        frame(ImageEnhance.Brightness(cell).enhance(1.19), scale, center, (50, 82), 43, threshold)
-        for row, scale, threshold, pivots in (
-            (mark, 0.141, 225, ((183, 174), (182, 173), (184, 174), (179, 174))),
-            (snap, 0.172, 221, ((177, 178), (177, 177), (181, 176), (180, 178))),
-        )
-        for cell, center in zip(row, pivots)
+    write_group("paladin-conviction", 64481, conviction_recipient_rings(conviction))
+    write_group("paladin-conviction", 64485, (
+        frame(ImageEnhance.Brightness(cell).enhance(1.19), 0.172, center, (50, 82), 43, 221)
+        for cell, center in zip(snap, ((177, 178), (177, 177), (181, 176), (180, 178)))
     ))
 
     write_group("paladin-sacrifice", 64489, grid_effects(

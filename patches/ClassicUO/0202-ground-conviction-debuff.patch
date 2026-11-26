@@ -1,0 +1,20 @@
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/GameEffectView.cs
+@@ -109,7 +109,7 @@
+                 (SpellEffectGraphics.IsCurseMark(Graphic) || SpellEffectGraphics.IsSigilMark(Graphic)
+                     || SpellEffectGraphics.IsWeaponHexMark(Graphic)
+                     || Graphic is SpellEffectGraphics.RancorSigilConfusion or SpellEffectGraphics.CurseFade or SpellEffectGraphics.RavenBlind
+-                    or SpellEffectGraphics.ConvictionMark or SpellEffectGraphics.ConvictionContact
++                    or SpellEffectGraphics.ConvictionContact
+                     or SpellEffectGraphics.ConversionMark or SpellEffectGraphics.ConversionLock or SpellEffectGraphics.ConversionFade
+                     or SpellEffectGraphics.DefilerLinkMark or SpellEffectGraphics.DeathMarkGlyph))
+             {
+@@ -171,7 +171,7 @@
+                         or SpellEffectGraphics.ConcentrationGuard
+                         or SpellEffectGraphics.HolyShieldRaise or SpellEffectGraphics.HolyShieldShell
+                         or SpellEffectGraphics.HolyShieldBlock or SpellEffectGraphics.HolyShieldFade
+-                        or SpellEffectGraphics.ConvictionMark or SpellEffectGraphics.ConvictionContact
++                        or SpellEffectGraphics.ConvictionContact
+                         or SpellEffectGraphics.SacrificeSwing or SpellEffectGraphics.SmiteSwing or SpellEffectGraphics.VengeanceSwing
+                         or SpellEffectGraphics.ZealSwing or SpellEffectGraphics.ChargeLaunch or SpellEffectGraphics.ConversionSwing
+                         or SpellEffectGraphics.ConversionMark or SpellEffectGraphics.ConversionLock or SpellEffectGraphics.ConversionFade

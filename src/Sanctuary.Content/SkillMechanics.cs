@@ -27,6 +27,7 @@ public static class SkillMechanics
     private static readonly Dictionary<string, SkillDefinition> _source = new(StringComparer.OrdinalIgnoreCase);
     public static IReadOnlyCollection<SkillDefinition> All => _abilities.Values;
     public static SkillDefinition For(CombatAbility ability) => _abilities[ability];
+    internal static bool TryFor(CombatAbility ability, out SkillDefinition skill) => _abilities.TryGetValue(ability, out skill);
     public static SkillDefinition Source(string key) => _source[key];
     public static void Load()
     {
@@ -66,6 +67,12 @@ public static class SkillMechanics
         }
         // Launched spells retain their release ranks through gear changes and level-ups.
         return new(For(ability), key => effective.GetValueOrDefault(key), key => learned.GetValueOrDefault(key), ClassStats.Level(owner));
+    }
+
+    internal static SkillValues UnsynergizedValues(CombatAbility ability, int rank, int level = 1)
+    {
+        var row = For(ability);
+        return new(row, key => key == row.SourceKey ? rank : 0, _ => 0, level);
     }
 }
 

@@ -40,7 +40,6 @@ public partial class DestardEncounter : EncounterCreature
     internal static DungeonProfile FindSpecies(string id) => _roles.TryGetValue(id, out var role) ? _roster[role] : null;
     internal DestardRole Role => _roles[Dungeon.Id];
     internal bool DropsHorn => Role is DestardRole.LesserDaemon or DestardRole.Daemon or DestardRole.Archdaemon;
-    internal override int? AuraRankOverride => Role is DestardRole.Archdaemon or DestardRole.CorruptedHatchling ? 10 : null;
     protected override ResistanceType MeleeElement => Dungeon.Id == _roster[DestardRole.Wyvern].Id ? ResistanceType.Poison : ResistanceType.Physical;
     protected override bool BusyWithSpecial => SpellInProgress;
     protected override bool CanCastEncounterBolt => Role != DestardRole.CorruptedHatchling;
@@ -141,7 +140,7 @@ public partial class DestardEncounter : EncounterCreature
                 EliteBolts.CastFrozenOrb(this, target);
                 break;
             case CombatAbility.LowerResist:
-                NecromancerCurseCasts.NpcDamageCurse(this, target, ability, 10);
+                NecromancerCurseCasts.CastEncounterCurse(this, target, ability);
                 break;
             case CombatAbility.FireWall or CombatAbility.Meteor or CombatAbility.Blizzard or CombatAbility.Hydra:
                 int generation = _spellGeneration;

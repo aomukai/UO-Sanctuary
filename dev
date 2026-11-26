@@ -221,7 +221,7 @@ def configure(args):
     }, expansion, {
         "ip": "127.0.0.1", "port": 2593, "ultimaonlinedirectory": str(data),
         "clientversion": args.client_version, "plugins": [], "saveaccount": False,
-        "autologin": False, "reconnect": False,
+        "autologin": False, "reconnect": False, "lang": "ENU",
     }]
     for path, content in zip(files, configs):
         path.parent.mkdir(parents=True, exist_ok=True)

@@ -49,7 +49,14 @@ public static class MobileNameColours
         writer.Write(MobileNameProtocol.SubCommand);
         writer.Write(MobileNameProtocol.Version);
         writer.Write(target.Serial.Value);
-        writer.Write((byte)style);
+        byte flags = (byte)style;
+        if (ClickThroughSummon(target))
+            flags |= MobileNameProtocol.ClickThroughSummon;
+        writer.Write(flags);
         state.Send(writer.Span);
     }
+
+    internal static bool ClickThroughSummon(Mobile target) =>
+        target is BaseCreature creature && creature.GetMaster() is PlayerMobile
+        && (creature.Summoned || PersistentMinions.Behavior(creature) != null);
 }

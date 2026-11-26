@@ -102,7 +102,7 @@ public static class TinkeringSockets
         if (!Ready(player, tool) || !Eligible(player, item)) { return null; }
         var state = ClassGear.Profiles.Preview(item);
         int socket = state.SocketCount + 1;
-        if (socket > 5 || player.Skills.Tinkering.BaseFixedPoint < Required(state.Tier, socket) * 10) { return null; }
+        if (socket > GearDetails.SocketLimit(item) || player.Skills.Tinkering.BaseFixedPoint < Required(state.Tier, socket) * 10) { return null; }
         if (!CraftFacilities.Allows(player, SkillName.Tinkering)) { return null; }
         return new()
         {
@@ -131,7 +131,7 @@ public static class TinkeringSockets
             || player.Skills.Tinkering.BaseFixedPoint != request.Skill || tool.UsesRemaining != request.ToolUses
             || !ReferenceEquals(tool.Parent, request.ToolParent) || !ReferenceEquals(CraftTransactions.Profiles.Find(tool), request.ToolState)
             || !ReferenceEquals(ClassGear.State(item), request.SavedState) || !request.Snapshot.Valid || item.Name != request.Name
-            || request.Socket != request.State.SocketCount + 1 || request.Socket > 5
+            || request.Socket != request.State.SocketCount + 1 || request.Socket > GearDetails.SocketLimit(item)
             || request.RequiredSkill != Required(request.State.Tier, request.Socket)
             || request.Skill < request.RequiredSkill * 10 || request.Chance != Chance(tool, request.Socket)
             || !CraftFacilities.Allows(player, SkillName.Tinkering)) { return false; }

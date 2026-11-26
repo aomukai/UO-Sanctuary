@@ -13,4 +13,5 @@ public static class MobileNameProtocol
     public const ushort SubCommand = 0x0100;
     public const byte Version = 1;
     public const int Length = 11;
+    public const byte ClickThroughSummon = 0x80;
 }

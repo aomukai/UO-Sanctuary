@@ -108,9 +108,12 @@ public static class GearDrops
     public static int MagicFind(PlayerMobile player) => Math.Max(0,
         checked(ClassGear.Bonus(player, "mag%") + ClassGear.Material(player, "magic-find") + MapSurveys.MagicFind(player)));
     internal static DropBase Base(string code) => _bases.GetValueOrDefault(code);
+    private static bool CanGenerate(DropBase basis) =>
+        basis != null && (basis.Variants.Length > 0 || QuiverEquipment.IsDrop(basis.Code));
+
     internal static bool HasEquipment(string leaf) => _pools.TryGetValue(leaf, out var pool)
-        ? Array.Exists(pool.Entries, entry => _bases[entry.Code].Variants.Length > 0)
-        : Base(leaf) is { Variants.Length: > 0 };
+        ? Array.Exists(pool.Entries, entry => CanGenerate(_bases[entry.Code]))
+        : CanGenerate(Base(leaf));
 
     internal static DropBase SelectBase(string leaf, Random random, bool equipmentOnly = false)
     {
@@ -118,18 +121,18 @@ public static class GearDrops
         if (!_pools.TryGetValue(leaf, out var pool))
         {
             var basis = Base(leaf);
-            return !equipmentOnly || basis is { Variants.Length: > 0 } ? basis : null;
+            return !equipmentOnly || CanGenerate(basis) ? basis : null;
         }
         int total = 0;
         foreach (var entry in pool.Entries)
         {
-            if (!equipmentOnly || _bases[entry.Code].Variants.Length > 0) { total += entry.Weight; }
+            if (!equipmentOnly || CanGenerate(_bases[entry.Code])) { total += entry.Weight; }
         }
         if (total == 0) { return null; }
         int choice = random.Next(total);
         foreach (var entry in pool.Entries)
         {
-            if (equipmentOnly && _bases[entry.Code].Variants.Length == 0) { continue; }
+            if (equipmentOnly && !CanGenerate(_bases[entry.Code])) { continue; }
             choice -= entry.Weight;
             if (choice < 0) { return _bases[entry.Code]; }
         }
@@ -175,7 +178,9 @@ public static class GearDrops
     }
     internal static Item Generate(DropBase basis, int level, int find, Random random, int[] factors = null, bool fallbackNamed = false)
     {
-        if (basis == null || basis.Variants.Length == 0) { return null; }
+        if (!CanGenerate(basis)) { return null; }
+        if (QuiverEquipment.IsDrop(basis.Code))
+            return QuiverEquipment.Drop(level, random);
         // Pick the UO appearance before quality so MF cannot select another base.
         var variant = basis.Variants[random.Next(basis.Variants.Length)];
         var quality = Quality(basis, level, find, random, factors);
@@ -187,7 +192,8 @@ public static class GearDrops
     }
 
     internal static Item GenerateMagic(DropBase basis, int level, Random random) =>
-        Generate(basis, basis.Variants[random.Next(basis.Variants.Length)], level, DropQuality.Magic, random);
+        QuiverEquipment.IsDrop(basis.Code) ? QuiverEquipment.Drop(level, random)
+            : Generate(basis, basis.Variants[random.Next(basis.Variants.Length)], level, DropQuality.Magic, random);
 
     private static Item Generate(DropBase basis, DropVariant variant, int level, DropQuality quality, Random random)
     {

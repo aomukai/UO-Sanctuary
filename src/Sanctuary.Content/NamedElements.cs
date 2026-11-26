@@ -37,6 +37,9 @@ public static class NamedElements
         || Bonus(target, "abs-cold") != 0 || Bonus(target, "abs-cold%") != 0
         || Bonus(target, "abs-ltng") != 0 || Bonus(target, "abs-ltng%") != 0;
     public static int Resistance(Mobile source, Mobile target, string element, int resistance, int? pierceOverride = null,int skillResistanceDelta=0)
+        => (int)ResistanceExact(source, target, element, resistance, pierceOverride, skillResistanceDelta);
+
+    private static double ResistanceExact(Mobile source, Mobile target, string element, int resistance, int? pierceOverride, int skillResistanceDelta)
     {
         ResistanceType type=element switch {"fire"=>ResistanceType.Fire,"cold"=>ResistanceType.Cold,"ltng"=>ResistanceType.Energy,"pois"=>ResistanceType.Poison,_=>ResistanceType.Physical};
         if (element != "mag" && target is ArchbishopLazarus lazarus && lazarus.Warded(type)) return 100;
@@ -82,7 +85,7 @@ public static class NamedElements
         if (target is not BaseCreature || resistance < 100)
         { int pierce=pierceOverride??Bonus(source,"pierce-"+element);resistance-=source is BladeSentinelBody or AssassinSentryBody or HydraBody?pierce:Math.Max(0,pierce); }
         if(element=="physical"){resistance=PaladinSanctuary.PhysicalResistance(source,target,resistance);}
-        return Math.Clamp(resistance, -100, playerResistance?NamedCombat.ResistanceCap((PlayerMobile)target,type):200);
+        return Math.Clamp(resistance, -100, playerResistance?NamedCombat.ResistanceCapExact((PlayerMobile)target,type):200);
     }
     public static double Enhance(Mobile source, double damage, string element)
     {
@@ -107,13 +110,17 @@ public static class NamedElements
         return result.Damage256/256.0;
     }
     internal static int To256(double value)=>(int)Math.Clamp(Math.Floor(value*256),0,int.MaxValue);
-    internal static ElementReduction Reduce256(int damage256,int resistance,int reduction256,int absorbPercent,int absorbFlat256,int absorbCap=40)
+    internal static ElementReduction Reduce256(int damage256,double resistance,int reduction256,int absorbPercent,int absorbFlat256,int absorbCap=40)
     {
         // Preserve Sanctuary's zero clamp; legacy negative MDR overflow remains an explicit modern acceptance question.
         long value=Math.Max(0,(long)damage256-reduction256);
         // Zero resistance bypasses the source percentage helper,retaining all
         // low bits even above its large-value early-division threshold.
-        if(resistance!=0){value=SourcePercentage.Damage(value,Math.Clamp(100-resistance,0,200));}
+        if (resistance != 0)
+        {
+            double retained = Math.Clamp(100 - resistance, 0, 200);
+            value = retained == (int)retained ? SourcePercentage.Damage(value, (int)retained) : value * (int)(2 * retained) / 200;
+        }
         long percent=SourcePercentage.Damage(value,Math.Clamp(absorbPercent,0,absorbCap));
         long flat=Math.Min(value-percent,Math.Max(0,absorbFlat256));
         return new((int)Math.Clamp(value-percent-flat,0,int.MaxValue),(int)Math.Clamp(percent+flat,0,int.MaxValue));
@@ -127,7 +134,7 @@ public static class NamedElements
             "fire" => target.FireResistance, "cold" => target.ColdResistance, "ltng" => target.EnergyResistance,
             "pois" => target.PoisonResistance, "mag" => MagicResistance(target), _ => target.PhysicalResistance
         };
-        resist = Resistance(source, target, element, resist, pierceOverride,skillResistanceDelta);
+        double effectiveResist = ResistanceExact(source, target, element, resist, pierceOverride,skillResistanceDelta);
         int reduction = element == "pois" ? 0 : element == "physical"
             ? GemCombat.PhysicalReduction(target) : GemCombat.Reduction(target);
         int scaledReduction=GemCombat.Reduction256(reduction,damageRate);
@@ -140,15 +147,15 @@ public static class NamedElements
             // and40percent cap as the complete source reducer. Flat absorption
             // follows that percentage; no owner item stats are inherited.
             if(element=="fire"&&target is FireGolemBody)
-            {return Reduce256(damage256,resist,scaledReduction,checked(innate+absorb),flat);}
+            {return Reduce256(damage256,effectiveResist,scaledReduction,checked(innate+absorb),flat);}
             // Keep the existing innate Fire Golem adapter isolated pending its
             // source audit. Ordinary item absorption is capped40,including on
             // non-fire Necromancer minions. Do not invent a mixed innate/item
             // composition for a prepared Fire Golem holding equipment.
             if(innate>0&&(absorb!=0||flat!=0))
             {throw new NotSupportedException("Fire Golem innate/item absorption composition is not verified");}
-            return Reduce256(damage256,resist,scaledReduction,innate>0?innate:absorb,flat,innate>0?100:40);
+            return Reduce256(damage256,effectiveResist,scaledReduction,innate>0?innate:absorb,flat,innate>0?100:40);
         }
-        return Reduce256(damage256,resist,scaledReduction,0,0);
+        return Reduce256(damage256,effectiveResist,scaledReduction,0,0);
     }
 }

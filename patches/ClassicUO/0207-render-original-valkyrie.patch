@@ -1,0 +1,69 @@
+diff --git a/src/ClassicUO.Client/Network/PacketHandlers.cs b/src/ClassicUO.Client/Network/PacketHandlers.cs
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -4182,7 +4182,7 @@
+                 {
+                     uint serial = p.ReadUInt32BE();
+                     var appearance = (Sanctuary.SkeletonAppearance)p.ReadUInt8();
+-                    if (appearance <= Sanctuary.SkeletonAppearance.PlainSkeleton && world.Mobiles.TryGetValue(serial, out var mobile))
++                    if (appearance <= Sanctuary.SkeletonAppearance.Valkyrie && world.Mobiles.TryGetValue(serial, out var mobile))
+                     {
+                         mobile.SkeletonCosmetics = appearance;
+                     }
+diff --git a/src/ClassicUO.Client/Game/GameObjects/MobileAnimation.cs b/src/ClassicUO.Client/Game/GameObjects/MobileAnimation.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/MobileAnimation.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/MobileAnimation.cs
+@@ -54,6 +54,8 @@
+         private ushort DruidFormBody => IsDead ? (ushort)0 : _druidFormBody;
+         private float DruidFormScale => DruidFormBody == 0 || Sanctuary.DruidFormVisualProtocol.IsCustomBody(DruidFormBody) ? 1f : 1.2f;
+         internal Sanctuary.SkeletonAppearance SkeletonCosmetics { get; set; }
++        private bool UsesValkyrieBody => SkeletonCosmetics == Sanctuary.SkeletonAppearance.Valkyrie
++            && GetGraphicForAnimation() == Sanctuary.SummonBodyAppearance.ValkyrieBody;
+ 
+         internal void SetDruidFormAppearance(byte form)
+         {
+@@ -580,9 +582,9 @@
+                 graphic = mobile.GetGraphicForAnimation();
+             }
+ 
+-            if (mobile.DruidFormBody != 0 && graphic == mobile.DruidFormBody)
+-            {
+-                if (Sanctuary.DruidFormVisualProtocol.IsCustomBody(graphic))
++            if (mobile.DruidFormBody != 0 && graphic == mobile.DruidFormBody || graphic == Sanctuary.SummonBodyAppearance.ValkyrieBody)
++            {
++                if (Sanctuary.DruidFormVisualProtocol.IsCustomBody(graphic) || graphic == Sanctuary.SummonBodyAppearance.ValkyrieBody)
+                 {
+                     if (mobile.AnimationFromServer && mobile._animationGroup != 0xFF)
+                     {
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+@@ -180,7 +180,7 @@
+                 );
+             }
+ 
+-            bool isHuman = IsHuman && DruidFormBody == 0;
++            bool isHuman = IsHuman && DruidFormBody == 0 && !UsesValkyrieBody;
+ 
+             bool isGargoyle =
+                 DruidFormBody == 0 && Client.Game.UO.Version >= ClientVersion.CV_7000
+@@ -1297,7 +1297,7 @@
+                 return false;
+             }
+ 
+-            bool isHuman = IsHuman && DruidFormBody == 0;
++            bool isHuman = IsHuman && DruidFormBody == 0 && !UsesValkyrieBody;
+             bool isGargoyle =
+                 DruidFormBody == 0 && Client.Game.UO.Version >= ClientVersion.CV_7000
+                 && (Graphic == 666 || Graphic == 667 || Graphic == 0x02B7 || Graphic == 0x02B6);
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Mobile.cs b/src/ClassicUO.Client/Game/GameObjects/Mobile.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Mobile.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Mobile.cs
+@@ -973,6 +973,7 @@
+ 
+             if (
+                 IsHuman
++                && !UsesValkyrieBody
+                 && !IsMounted
+                 && !IsFlying
+                 && !TestStepNoChangeDirection(this, GetGroupForAnimation(this, isParent: true))

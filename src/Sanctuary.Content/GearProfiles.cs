@@ -211,7 +211,7 @@ public sealed class GearProfiles : GenericPersistence
             ?? throw new InvalidDataException("Unknown saved gear type.");
         if (state == null || state.Roll == null || !Enum.IsDefined(state.Tier) || !Enum.IsDefined(state.Quality)
             || state.NativeSockets < 0 || state.TinkerSockets < 0 || state.NativeSockets > 2
-            || state.NamedSockets < 0 || state.NamedSockets > 5 || state.TinkerSockets > 5 || state.SocketCount > 5
+            || state.NamedSockets < 0 || state.NamedSockets > 5 || state.TinkerSockets > 5 || state.SocketCount > GearDetails.SocketLimit(item)
             || state.NativeSockets != 0 && state.NativeSockets != (int)state.Quality
             || state.SocketCount > 0 && (state.Starter || item.LootType == LootType.Newbied
                 || !GearDetails.Socketable(item) && !(ClassGear.CosmeticClothing(item) && definition.Slot == GearSlot.Head))

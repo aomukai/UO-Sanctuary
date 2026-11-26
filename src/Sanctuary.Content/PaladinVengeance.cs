@@ -99,7 +99,7 @@ public static class PaladinVengeance
                 physicalRoll:n=>n==span?physical:throw new NotSupportedException("Vengeance physical range changed during allocation"),
                 poisonFactory:()=>WeaponPoisonPackets.Melee(WeaponPoisonPackets.AddVenom(BowLaunch.RawPoison(owner,CombatTiming.Equipped(owner)),Venoms.State(owner)),
                     NamedElements.MasteryPercent(owner,"pois"),128,PoisonRoll,overrideFrames:Venoms.State(owner)?.Frames??0));
-            impact=GearEffects.PrepareWeaponImpact(owner,target,itemRoll,Effects,damage,skillElements:bonus.Damage);
+            impact=GearEffects.PrepareWeaponImpact(owner,target,itemRoll,Effects,damage,skillElements:bonus.Damage,leechSkillElements:true);
             var poison=PoisonJavelins.PreparePoison(owner,target,damage.SourcePoison.Rate256,damage.SourcePoison.Frames);
             impact=impact with{LifeDamage256=checked(NamedElements.To256(impact.Parts.Total)+poison.Rate256),AllocatedPoison=poison};
             if(impact.Damage.Cold>0)
@@ -169,7 +169,10 @@ public static class PaladinVengeance
         var bonus=Elements(owner,values);
         var point = target.Location;
         var map = target.Map;
-        GearEffects.Strike(owner,target,PhysicalRoll(),skillElements:bonus.Damage);
+        double roll = PhysicalRoll();
+        var impact = GearEffects.PrepareWeaponImpact(owner,target,roll,Random.Shared,GearEffects.Damage(owner,roll,target),
+            skillElements:bonus.Damage,leechSkillElements:true);
+        GearEffects.Strike(owner,target,roll,preparedImpact:impact);
         PaladinMeleeVisuals.Land(owner, point, map, CombatAbility.Vengeance);
         return true;
     }

@@ -26,12 +26,15 @@ internal static class CovetousPassages
             PlaceExit(new(5389 + lane, 2026, 0), new(2456 + lane, 860, 0));
 
             PlacePassage(map, new(2545 + lane, 850, 0), new(5579 + lane, 1925, 0));
-            PlaceExit(new(5579 + lane, 1926, 0), new(2545 + lane, 849, 0));
+            var oldLanding = new Point3D(2545 + lane, 849, 0);
+            // The open entrance doors swing onto y854.
+            var southLanding = new Point3D(2545 + lane, 855, 0);
+            PlaceExit(new(5579 + lane, 1926, 0), southLanding, oldLanding);
+            PlaceExit(new(5579 + lane, 1927, 0), southLanding, oldLanding, createIfMissing: false);
 
             GuardStockExit(new(5393 + lane, 1959, 0));
             GuardStockExit(new(5615, 1997 + lane, 0));
             GuardStockExit(new(5389 + lane, 2027, 0));
-            GuardStockExit(new(5579 + lane, 1927, 0));
             GuardStockExit(new(5456 + lane, 1864, 0));
 
             // Buccaneer's Den portal. Use the foot of the arch on both sides.
@@ -45,20 +48,31 @@ internal static class CovetousPassages
         PlaceExit(new(5455, 1863, 0), new(2498, 918, 0));
         PlaceExit(new(5456, 1863, 0), new(2499, 918, 0));
 
-        void PlaceExit(Point3D at, Point3D destination)
+        void PlaceExit(Point3D at, Point3D destination, Point3D? previousLanding = null, bool createIfMissing = true)
         {
             using var old = PooledRefList<Teleporter>.Create();
+            CovetousExit savedExit = null;
             foreach (var portal in map.GetItemsAt<Teleporter>(at))
             {
-                if (portal is CovetousExit && portal.Location == at && portal.PointDest == destination)
-                    return;
-                if (portal.GetType() == typeof(Teleporter) && Math.Abs(portal.Z - at.Z) <= 4
-                    && Utility.InRange(portal.PointDest, destination, 4))
+                if (portal.MapDest != null && portal.MapDest != map)
+                    continue;
+                if (portal is CovetousExit exit && portal.Location == at)
+                {
+                    if (savedExit == null)
+                        savedExit = exit;
+                    else
+                        old.Add(exit);
+                }
+                else if (portal.GetType() == typeof(Teleporter) && Math.Abs(portal.Z - at.Z) <= 4
+                    && Utility.InRange(portal.PointDest, previousLanding ?? destination, 4))
                     old.Add(portal);
             }
             foreach (var portal in old)
                 portal.Delete();
-            new CovetousExit(destination, map).MoveToWorld(at, map);
+            if (savedExit != null)
+                savedExit.PointDest = destination;
+            else if (createIfMissing || old.Count != 0)
+                new CovetousExit(destination, map).MoveToWorld(at, map);
         }
 
         void GuardStockExit(Point3D at)

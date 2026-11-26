@@ -16,6 +16,7 @@ internal sealed record PlayerWeaponContactPrepared(int Flags,PreparedWeaponImpac
 {
     internal bool BashTrail { get; init; }
     internal bool TalonTrail { get; init; }
+    internal int ProcBonus { get; init; }
 }
 
 internal static class PlayerWeaponContact
@@ -64,7 +65,7 @@ internal static class PlayerWeaponContact
     // For skills which let AllocCombat fill ordinary weapon lanes. A consumer
     // chooses its allocation phase; Zeal allocates anew at every do13 event.
     internal static PlayerWeaponContactPrepared PrepareOrdinary(PlayerMobile source,BaseCreature target,int attackPercent,int skillPhysicalPercent,
-        Func<bool> inRange,Func<double> hitRoll,Func<double> elementRoll,Func<int,int> physicalRoll,Func<int,int> poisonRoll,Random effects,bool allowNative=false,int physicalToMagicPercent=0,Func<PreparedWeaponImpact> captured=null,int capturedColdFrames=0,PlayerWeaponDrain? capturedDrain=null,int? crushingDivisor=null,bool suppressWear=false,Func<int,int> physicalAfterCritical=null)
+        Func<bool> inRange,Func<double> hitRoll,Func<double> elementRoll,Func<int,int> physicalRoll,Func<int,int> poisonRoll,Random effects,bool allowNative=false,int physicalToMagicPercent=0,Func<PreparedWeaponImpact> captured=null,int capturedColdFrames=0,PlayerWeaponDrain? capturedDrain=null,int? crushingDivisor=null,bool suppressWear=false,Func<int,int> physicalAfterCritical=null,int procBonus=0)
     {
         RequireOrdinary(source,target,allowNative);
         int flags=SourceMeleeResult.Resolve(new OrdinaryResult(source,target,inRange,hitRoll,Metadata(target,allowNative)==null),attackPercent);
@@ -81,7 +82,7 @@ internal static class PlayerWeaponContact
                 ()=>WeaponPoisonPackets.Melee(WeaponPoisonPackets.AddVenom(BowLaunch.RawPoison(source,CombatTiming.Equipped(source)),Venoms.State(source)),
                     NamedElements.MasteryPercent(source,"pois"),128,poisonRoll,overrideFrames:Venoms.State(source)?.Frames??0));
             impact=GearEffects.PrepareWeaponImpact(source,target,roll,effects,damage,physicalToMagicPercent:physicalToMagicPercent,
-                physicalAfterCritical:physicalAfterCritical);
+                physicalAfterCritical:physicalAfterCritical,procBonus:procBonus);
             var poison=PoisonJavelins.PreparePoison(source,target,damage.SourcePoison.Rate256,damage.SourcePoison.Frames);
             impact=impact with{LifeDamage256=checked(NamedElements.To256(impact.Parts.Total)+poison.Rate256),AllocatedPoison=poison};
             if(damage.Cold>0)
@@ -92,7 +93,8 @@ internal static class PlayerWeaponContact
             }
             }
         }
-        return new(flags,impact,capturedDrain??WeaponLeech.Capture(source),frames,CreatureHitRecovery.PlayerHitClass(source),effects,CrushingDivisor:crushingDivisor,SuppressWear:suppressWear);
+        return new(flags,impact,capturedDrain??WeaponLeech.Capture(source),frames,CreatureHitRecovery.PlayerHitClass(source),effects,CrushingDivisor:crushingDivisor,SuppressWear:suppressWear)
+            { ProcBonus = procBonus };
     }
     private sealed class Scope(PlayerWeaponContactPrepared prepared,PreparedMonsterDamagePacket packet)
     {
@@ -127,7 +129,7 @@ internal static class PlayerWeaponContact
         internal override void StoreLastAttacker()=>source.DoHarmful(target,true);
         internal override PreparedMonsterDamagePacket DealtDamage(PreparedMonsterDamagePacket p)
         {
-            NamedCombat.Crushing(source,target,missile,scope.Prepared.Effects,scope.Prepared.CrushingDivisor);scope.ItemProcs?.Dispatch(missile?"domissiledamage":"domeleedamage",p);
+            NamedCombat.Crushing(source,target,missile,scope.Prepared.Effects,scope.Prepared.CrushingDivisor,scope.Prepared.ProcBonus);scope.ItemProcs?.Dispatch(missile?"domissiledamage":"domeleedamage",p);
             // Missile item status callbacks belong to this successful event,
             // including zero-life-damage/fully absorbed and lethal hits.
             if(missile){NamedCombat.AfterStrike(source,target,true,scope.Prepared.Effects,setupApplied:true);}
@@ -139,7 +141,9 @@ internal static class PlayerWeaponContact
         {
             if((p.ResultFlags&32)==0&&(!missile||(p.HitFlags&160)==32)){WeaponLandedEvents.Notify(source,target,missile);}
             scope.Before=SkillHealth.Balance256(target);
-            WeaponLeech.Apply(source,target,p.Physical256,scope.Prepared.Drain,scope.Prepared.PresentLeech);
+            int elemental = (int)Math.Min(scope.Prepared.Impact.ElementalLeech256, (long)p.Fire256 + p.Cold256 + p.Lightning256);
+            int eligibleDamage = (int)Math.Min(p.Total256, (long)p.Physical256 + elemental);
+            WeaponLeech.Apply(source,target,eligibleDamage,scope.Prepared.Drain,scope.Prepared.PresentLeech);
         }
         internal override void BeforeHealthCommit(Mobile attacker,BaseCreature recipient,int after256)
         {PreparedMonsterNativeDamage.Notify(attacker,recipient,after256);scope.After=after256;scope.Loss=Math.Max(0,scope.EntryHits-(after256+255)/256);}
@@ -160,7 +164,7 @@ internal static class PlayerWeaponContact
         {
             // Preserve existing supported conditional item consumers. Their
             // internal registration/RNG order still needs individual acceptance.
-            if(!missile){NamedCombat.AfterStrike(source,target,missile,scope.Prepared.Effects,smite:scope.Prepared.Smite,skipKnockback:scope.Prepared.SkillKnockback,setupApplied:true);}
+            if(!missile){NamedCombat.AfterStrike(source,target,missile,scope.Prepared.Effects,smite:scope.Prepared.Smite,skipKnockback:scope.Prepared.SkillKnockback,setupApplied:true,procBonus:scope.Prepared.ProcBonus);}
         }
         internal override PreparedMonsterDamagePacket Killed(PreparedMonsterDamagePacket p)=>events.Dispatch("killed",p);
         internal override PreparedMonsterDamagePacket Kill(PreparedMonsterDamagePacket p)
@@ -218,7 +222,8 @@ internal static class PlayerWeaponContact
         return new PreparedMonsterDamagePacket(NamedElements.To256(parts.Physical),impact.LifeDamage256??NamedElements.To256(parts.Total),impact.SourceStunFrames,
             prepared.ColdFrames,prepared.Flags,HitClass:(prepared.Flags&1)!=0?prepared.HitClass:0,
             Magic256:NamedElements.To256(parts.Magic),Fire256:NamedElements.To256(parts.Fire),Lightning256:NamedElements.To256(parts.Lightning),
-            Cold256:NamedElements.To256(parts.Cold),Poison256:impact.AllocatedPoison?.Rate256??0,AbsorbedLife256:impact.Absorbed256,HitFlags:prepared.HitFlags,FreezeFrames:prepared.FreezeFrames);
+            Cold256:NamedElements.To256(parts.Cold),Poison256:checked(NamedElements.To256(parts.Poison)+(impact.AllocatedPoison?.Rate256??0)),
+            AbsorbedLife256:impact.Absorbed256,HitFlags:prepared.HitFlags,FreezeFrames:prepared.FreezeFrames);
     }
     internal static PreparedMonsterDamageResult ReleaseMissile(PlayerMobile source,BaseCreature target,PlayerWeaponContactPrepared prepared,DateTime at,bool allowNative=false)
     {
@@ -236,7 +241,7 @@ internal static class PlayerWeaponContact
     {
         Require(source,target,allowNative,!prepared.Smite);var metadata=Metadata(target,allowNative);NativeMonsterReturn.Session(target);
         var packet=Packet(prepared);
-        var scope=new Scope(prepared,packet){Point=target.Location,Map=target.Map,EntryHits=target.Hits,ItemProcs=PlayerItemProcWorld.Capture(source,target,at,prepared.UninterruptibleItemCasts)};
+        var scope=new Scope(prepared,packet){Point=target.Location,Map=target.Map,EntryHits=target.Hits,ItemProcs=PlayerItemProcWorld.Capture(source,target,at,prepared.UninterruptibleItemCasts,prepared.ProcBonus)};
         bool stunRules=CombatStuns.Rules(target,out bool stunBoss,out int stunVelocity);
         bool controlStun=prepared.Smite||prepared.ControlStun;
         var recipient=new PreparedMonsterRecipient(PreparedMonsterStun.IsUnique(target)||prepared.Smite&&target is EncounterCreature{Grade:EncounterGrade.Champion},

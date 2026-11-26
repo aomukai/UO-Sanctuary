@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text.Json;
 using Server;
 using Server.Gumps;
@@ -58,10 +59,10 @@ public sealed class TalentGump : DynamicGump
         var points = profiles.AvailablePoints(_owner);
 
         builder.AddPage();
-        builder.AddBackground(0, 0, 610, 440, 5054);
+        builder.AddBackground(0, 0, 928, 514, 5054);
         builder.AddLabel(18, 12, 0x481, $"{DiabloClasses.DisplayName(_profile.Class, World.FindMobile(_owner)?.Female == true)} — Level {_profile.Level}");
         builder.AddLabel(18, 34, 0x47E, $"Talent points: {points}     Experience: {_profile.Experience}");
-        builder.AddButton(570, 12, 4017, 4019, 0);
+        builder.AddButton(888, 12, 4017, 4019, 0);
 
         for (var tree = 0; tree < 3; tree++)
         {
@@ -96,36 +97,46 @@ public sealed class TalentGump : DynamicGump
             builder.AddLabel(textX, y + 29, 0x47E, $"{rank}/{TalentCatalog.MaxRank} L{talent.RequiredLevel}");
         }
 
-        builder.AddBackground(384, 108, 210, 291, 5120);
-        builder.AddHtml(395, 118, 188, 46, $"<BASEFONT COLOR=#FFD37A>{selected.Name}</BASEFONT>", background: false, scrollbar: false);
+        builder.AddBackground(384, 108, 528, 346, 5120);
+        builder.AddHtml(395, 118, 506, 30, $"<BASEFONT COLOR=#FFD37A>{selected.Name}</BASEFONT>", background: false, scrollbar: false);
         int learned = profiles.GetRank(_owner, selected.Id);
         int effective = World.FindMobile(_owner) is PlayerMobile player ? NamedSkills.Rank(player, selected.Id) : learned;
         if (effective != learned)
-        { builder.AddLabel(395, 165, 0x47E, $"Rank {learned}/{TalentCatalog.MaxRank} (+{effective - learned} gear)"); }
-        else { builder.AddLabel(395, 165, 0x47E, $"Rank {learned}/{TalentCatalog.MaxRank}"); }
-        builder.AddLabel(395, 187, 0x47E, $"Required level: {selected.RequiredLevel}");
-        builder.AddHtml(395, 211, 188, 100, PrerequisiteText(selected), background: false, scrollbar: selected.Prerequisites.Length > 5);
+        { builder.AddLabel(395, 150, 0x47E, $"Rank {learned}/{TalentCatalog.MaxRank} (+{effective - learned} gear)"); }
+        else { builder.AddLabel(395, 150, 0x47E, $"Rank {learned}/{TalentCatalog.MaxRank}"); }
+
+        var skill = SkillMechanics.All.FirstOrDefault(row => row.TalentId == selected.Id);
+        var (synergies, improves) = TalentSynergies.For(selected.Id);
+        var content = new List<string>
+        {
+            Detail(TalentCatalog.Description(selected.Id)),
+            PrerequisiteText(selected)
+        };
+        if (synergies.Length > 0)
+            content.Add(Detail($"Synergies: {string.Join(", ", synergies)}"));
+        if (improves.Length > 0)
+            content.Add(Detail($"Improves: {string.Join(", ", improves)}"));
+        var mechanics = TalentDetails.For(skill);
+        if (mechanics.Length > 0)
+            content.Add(Detail(mechanics));
+        builder.AddHtml(395, 178, 506, 222, string.Join("<BR><BR>", content), size: 2, background: false, scrollbar: false);
 
         var requirement = profiles.TrainingRequirement(_owner, selected.Id);
         if (requirement == null)
         {
-            builder.AddButton(395, 316, 4005, 4007, 1000 + _selected);
-            builder.AddLabel(430, 318, 0x481, "Learn — 1 point");
+            builder.AddButton(395, 417, 4005, 4007, 1000 + _selected);
+            builder.AddLabel(430, 419, 0x481, "Learn — 1 point");
         }
         else
         {
-            builder.AddHtml(395, 313, 188, 46, $"<BASEFONT COLOR=#C4C4C4>{requirement}</BASEFONT>", background: false, scrollbar: false);
+            builder.AddHtml(395, 416, 506, 31, Detail(requirement), background: false, scrollbar: false);
         }
 
-        var skill = SkillMechanics.All.FirstOrDefault(row => row.TalentId == selected.Id);
-        string detail = TalentDetails.For(skill);
-        builder.AddHtml(395, 366, 188, 35, $"<BASEFONT COLOR=#C4C4C4>{detail.Replace("\n", "<BR>")}</BASEFONT>",
-            size: 2, background: false, scrollbar: true);
-        builder.AddButton(22, 408, 4005, 4007, ClassGumpProtocol.MouseSkills);
-        builder.AddLabel(57, 410, 0x481, "Mouse skills");
-        builder.AddButton(205, 408, 4005, 4007, ClassGumpProtocol.Pets);
-        builder.AddLabel(240, 410, 0x481, "Pets");
-        builder.AddLabel(320, 410, 0x47E, $"Next level: {(_profile.Level < 99 ? ExperienceLevels.Threshold(_profile.Level + 1) : _profile.Experience)} XP");
+        builder.AddButton(22, 475, 4005, 4007, ClassGumpProtocol.MouseSkills);
+        builder.AddLabel(57, 477, 0x481, "Mouse skills");
+        builder.AddButton(205, 475, 4005, 4007, ClassGumpProtocol.Pets);
+        builder.AddLabel(240, 477, 0x481, "Pets");
+        builder.AddLabel(320, 477, 0x47E, $"Next level: {(_profile.Level < 99 ? ExperienceLevels.Threshold(_profile.Level + 1) : _profile.Experience)} XP");
         // Older clients get only the original layout. Current clients consume the data before parsing page controls.
         if (World.FindMobile(_owner) is PlayerMobile viewer && StatNetwork.SupportsCurrentProtocol(viewer))
         {
@@ -145,8 +156,10 @@ public sealed class TalentGump : DynamicGump
             var skill = SkillMechanics.All.FirstOrDefault(row => row.TalentId == talent.Id);
             int hard = _openedRanks[index];
             string mechanics = TalentDetails.For(skill);
+            var (synergies, improves) = TalentSynergies.For(talent.Id);
             return new TalentMenuSkill(talent.Name, ClassSkillIcons.ForTalent(talent.Id), talent.RequiredLevel,
-                hard, talent.Prerequisites.Select(id => indices[id]).ToArray(), TalentCatalog.Description(talent.Id), mechanics);
+                hard, talent.Prerequisites.Select(id => indices[id]).ToArray(), TalentCatalog.Description(talent.Id), mechanics,
+                TalentCatalog.Dependencies(talent).Select(dependency => indices[dependency.Id]).ToArray(), synergies, improves);
         }).ToArray();
         return ClassGumpProtocol.MenuPrefix + JsonSerializer.Serialize(new TalentMenuData(
             DiabloClasses.DisplayName(_profile.Class, player.Female), _profile.Level,
@@ -221,22 +234,13 @@ public sealed class TalentGump : DynamicGump
         from.SendMessage($"Talent allocation saved. {profiles.AvailablePoints(_owner)} unspent points.");
     }
 
-    private string PrerequisiteText(TalentDefinition talent)
+    private static string Detail(string text) => $"<BASEFONT COLOR=#C4C4C4>{WebUtility.HtmlEncode(text).Replace("\n", "<BR>")}</BASEFONT>";
+
+    private static string PrerequisiteText(TalentDefinition talent)
     {
-        if (talent.Prerequisites.Length == 0)
-        {
-            return "<BASEFONT COLOR=#FFFFFF>Prerequisites: None</BASEFONT>";
-        }
-
-        var names = new string[talent.Prerequisites.Length];
-        for (var i = 0; i < names.Length; i++)
-        {
-            TalentCatalog.TryGet(_profile.Class, talent.Prerequisites[i], out var required);
-            var learned = ClassCreation.Profiles.GetRank(_owner, required.Id) > 0;
-            names[i] = $"<BASEFONT COLOR={(learned ? "#90D8A0" : "#C4C4C4")}>{required.Name}</BASEFONT>";
-        }
-
-        return "<BASEFONT COLOR=#FFFFFF>Prerequisites:</BASEFONT><BR>" + string.Join("<BR>", names);
+        var dependencies = TalentCatalog.Dependencies(talent);
+        string names = dependencies.Length > 0 ? ", " + string.Join(", ", dependencies.Select(dependency => dependency.Name)) : "";
+        return Detail($"Requires character level {talent.RequiredLevel}{names}.");
     }
 
     public override void OnResponse(NetState sender, in RelayInfo info)

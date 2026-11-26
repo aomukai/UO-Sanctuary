@@ -16,6 +16,7 @@ Life, mana, stamina, defence, resistances, recovery, attack speed, and cast spee
 
 ## Summons and companions
 
+- Barbarian and Ronin story companions use the standard companion equipment rules, which permit heavy armour.
 - Class summons follow the applicable persistence, travel, and targeting policy. Necromancer summons park in safe areas. Druid, Warlock, Valkyrie, and Assassin shadows can accompany their owners in town. Necromancer minions and other pets use shared recovery hooks where applicable. [Safe-area policy](../src/Sanctuary.Content/MinionSafeAreas.cs)
 - **Druid Raven** acts as a flock that attacks one target together, with rank-dependent count. Ground casts choose a nearby eligible hostile. It deals physical spell damage on its cadence without an attack hit roll, keeps working if its target stops or flees, and has no collision. Spirit Wolf, Dire Wolf, and Grizzly use the allied path recovery used for mine geometry. The summon names and visuals use the timber wolf, dire wolf, and grizzly bodies respectively. [Druid Raven](../src/Sanctuary.Content/DruidRavenCasting.cs)
 - The hotbar shows counts for Necromancer skeletons, Druid ravens and wolves, and Warlock pets. The pet stats gump can also be opened with `[Pets`. The [player guide](player-guide.md#companions) covers story companions and the dockable vitals window. [Pet stats](../src/Sanctuary.Content/SkillBindings.cs)
@@ -28,7 +29,7 @@ Iron Golem requires an eligible identified metal original and checks its equipme
 
 ## Talent index
 
-Use **Ctrl+F** for a talent. Rank descriptions and prerequisites are in the client and the [description data](../data/Sanctuary/talent-descriptions.json). For handler coverage, icons, and audiovisual entries, see the [class reports](../tools/reference/README.md#class-reports).
+Use **Ctrl+F** for a talent. Hover over a talent in-game to read its description and see its prerequisite chain, the talents that improve it, and the talents it improves. For handler coverage, icons, and audiovisual entries, see the [class reports](../tools/reference/README.md#class-reports).
 
 ### Amazon
 

@@ -299,11 +299,7 @@ public sealed class CharacterProfiles : GenericPersistence
             return false;
         }
         long experience = Math.Min(ExperienceLevels.Threshold(99), profile.Experience + amount);
-        int level = profile.Level;
-        while (level < 99 && experience >= ExperienceLevels.Threshold(level + 1))
-        {
-            level++;
-        }
+        int level = ExperienceLevels.LevelForExperience(profile.Level, experience);
         Active(mobile.Serial).Profile = profile with { Experience = experience };
         if (level > profile.Level)
         {
@@ -743,10 +739,7 @@ public sealed class CharacterProfiles : GenericPersistence
         byte classId = reader.ReadByte(); int level = reader.ReadInt(); long experience = reader.ReadLong();
         if (!DiabloClasses.TryFromWire(classId, out var characterClass) || level is < 1 or > 99 || experience < 0)
         { throw new InvalidDataException("Invalid Sanctuary character profile."); }
-        // Legacy staff-granted levels can sit above the level earned by XP.
-        if (version < 15)
-            experience = ExperienceLevels.MigrateLegacyExperience(level, experience);
-        var history = new History(new(characterClass, level, experience));
+        var history = new History(new(characterClass, ExperienceLevels.LevelForExperience(level, experience), experience));
         if (version >= 2)
         {
             history.Stats = new(reader.ReadInt(), reader.ReadInt(), reader.ReadInt(), reader.ReadInt());

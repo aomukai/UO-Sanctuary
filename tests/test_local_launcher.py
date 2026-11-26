@@ -1,11 +1,12 @@
 import io
+import json
 from pathlib import Path
 import subprocess
 from tempfile import TemporaryDirectory
 import unittest
 from unittest.mock import Mock, call, patch
 
-from tools.local_launcher import LocalGame
+from tools.local_launcher import LocalGame, save_language, selected_language
 
 
 STATUS = "Britain baseline status: doors=8"
@@ -14,6 +15,28 @@ ON_DISK = "Writing world save snapshot done (0.02 seconds)"
 
 
 class LocalLauncherTests(unittest.TestCase):
+    def test_language_round_trip_preserves_other_settings(self):
+        with TemporaryDirectory() as directory:
+            settings = Path(directory) / "settings.json"
+            settings.write_text('{"port": 2593, "sanctuary_speech_volume": 42}')
+            self.assertEqual(selected_language(settings), "English")
+            save_language(settings, "日本語")
+            self.assertEqual(selected_language(settings), "日本語")
+            self.assertEqual(json.loads(settings.read_text()), {
+                "port": 2593, "sanctuary_speech_volume": 42, "lang": "JPN",
+            })
+            save_language(settings, "Deutsch")
+            self.assertEqual(selected_language(settings), "Deutsch")
+
+    def test_invalid_language_preserves_file(self):
+        with TemporaryDirectory() as directory:
+            settings = Path(directory) / "settings.json"
+            content = '{"lang": "ENU"}'
+            settings.write_text(content)
+            with self.assertRaises(ValueError):
+                save_language(settings, "invalid")
+            self.assertEqual(settings.read_text(), content)
+
     def test_play_uses_the_staging_server_launch(self):
         prepare = Mock(return_value=([], Path(".local/client"), {}))
         game = LocalGame(Path(".local"), prepare, Mock())

@@ -21,7 +21,7 @@ internal static partial class SorceressSpellMissiles
     // chance,actual item admission and the protected temporary target frame.
     // Explicit item rank never gains +skills;owner hard synergies/mastery do apply.
     internal static NpcItemSpellEmission EmitPlayerItemFireBall(PlayerMobile owner,Point3D? target,Point3D path,int rank,int outgoing,DateTime at,
-        Func<NpcItemMissileRequest,NpcItemSpellAllocation> allocate,bool serverDo=false,Action<bool> serverDoChanged=null)
+        Func<NpcItemMissileRequest,NpcItemSpellAllocation> allocate,bool serverDo=false,Action<bool> serverDoChanged=null,int procBonus=0)
     {
         ArgumentNullException.ThrowIfNull(allocate);_=NpcItemSpellDamage.Require(47);
         if(owner is not{Alive:true,Deleted:false}||owner.Map==null||owner.Map==Map.Internal
@@ -45,6 +45,12 @@ internal static partial class SorceressSpellMissiles
             {return null;}
             var allocation=allocate(request);if(!allocation.Allocated){return null;}
             var flight=Prepare(owner,aim,values,at,item:new(profile.Class,origin,allocation.Seed)) with{Id=checked(before.NextId+attempt+1)};
+            if (procBonus > 0)
+                flight = flight with
+                {
+                    Minimum256 = PaladinZeal.ScaleProcDamage(flight.Minimum256, procBonus),
+                    Maximum256 = PaladinZeal.ScaleProcDamage(flight.Maximum256, procBonus)
+                };
             Validate(flight);flights.Add(flight);return flight;
         },(_,_)=>throw new NotSupportedException("Player Fire Ball has no chain budget"),serverDoChanged:serverDoChanged,unitType:0);
         int result=frame.Run(47,rank,outgoing);

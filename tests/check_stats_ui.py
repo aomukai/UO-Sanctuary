@@ -8,6 +8,11 @@ from PIL import ImageGrab
 
 ROOT = Path(__file__).resolve().parents[1]
 
+def talent_frame(width, height):
+    frame_width = max(612, min(width - 20, 960))
+    frame_height = max(440, min(height - 24, 544))
+    return min(10, max(0, width - frame_width)), min(27, max(0, height - frame_height)), frame_width, frame_height
+
 def exercise(window, click, capture):
     log = Path(os.environ.get("SANCTUARY_TEST_LOG", ROOT / ".local/logs/britain-baseline-check.log"))
     console = int(os.environ["SANCTUARY_TEST_CONSOLE_FD"])
@@ -132,9 +137,11 @@ def exercise(window, click, capture):
     command("batch")
     click(x + 122, y + 381)  # Class from the character sheet.
     command("talents")
-    menu_x, menu_y = min(10, window_width - 612), min(27, window_height - 440)
+    menu_x, menu_y, menu_width, menu_height = talent_frame(window_width, window_height)
     skeleton = (menu_x + 67, menu_y + 125)
     mastery = (menu_x + 118, menu_y + 125)
+    apply = (menu_x + menu_width - 69, menu_y + menu_height - 24)
+    close = (menu_x + menu_width - 55, menu_y + 34)
     hover(*skeleton)
     capture_client("talent-milestones.png")
     click(*skeleton)
@@ -143,11 +150,11 @@ def exercise(window, click, capture):
     right_click(*skeleton)  # Keep the draft valid while a drafted talent depends on this rank.
     right_click(*mastery)
     right_click(*skeleton)
-    click(menu_x + 542, menu_y + 415)  # No pending points to apply.
+    click(*apply)  # No pending points to apply.
     command("draft")
 
     click(*skeleton)
-    click(menu_x + 550, menu_y + 34)  # Close discards the draft.
+    click(*close)  # Close discards the draft.
     command("draft")
     click(x + 122, y + 381)
     command("talents")
@@ -160,7 +167,7 @@ def exercise(window, click, capture):
     command("draft")
     time.sleep(0.4)
     capture_client("talent-preview.png")
-    click(menu_x + 542, menu_y + 415)
+    click(*apply)
     time.sleep(0.7)
     command("spent")
     hover(*mastery)

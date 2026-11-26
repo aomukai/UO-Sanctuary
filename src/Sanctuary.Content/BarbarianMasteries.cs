@@ -24,7 +24,7 @@ public static class BarbarianMasteries
             var values=new SkillValues(row,key=>key==row.SourceKey?rank:0,_=>0,profile.Level);
             maximum=Math.Max(maximum,(int)values.Eval("passivecalc"+stat));
         }
-        return maximum; // Original item-type-layer selector takes the strongest eligible value, never a sum.
+        return stat == 1 ? maximum * 3 / 2 : maximum;
     }
     internal static int Throwing(PlayerMobile owner,BaseWeapon weapon,int stat)
     {
@@ -33,6 +33,7 @@ public static class BarbarianMasteries
             || !ClassItemTypes.Is(basis.Type,"thro") || ClassCreation.Profiles?.TryGet(owner.Serial,out var profile)!=true
             || profile.Class!=DiabloClass.Barbarian){return 0;}
         int rank=SkillMechanics.Rank(owner,CombatAbility.ThrowingMastery);if(rank<=0){return 0;}
-        return (int)SkillMechanics.Values(owner,CombatAbility.ThrowingMastery).Eval("passivecalc"+stat);
+        int bonus = (int)SkillMechanics.Values(owner,CombatAbility.ThrowingMastery).Eval("passivecalc"+stat);
+        return stat == 1 ? bonus * 3 / 2 : bonus;
     }
 }

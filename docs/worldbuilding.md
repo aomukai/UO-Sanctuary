@@ -56,17 +56,17 @@ Each Nightmare spawner draws **one creature**, with a 25% chance per row in its 
 | Placement | Creature | Level | Appearance and combat |
 | --- | --- | ---: | --- |
 | `[Add DecLow` | Slave | 35–37 | Human, elf, or gargoyle in worn cloth. Melee. At quarter health, becomes neutral, calls out in confusion, and flees before despawning. |
-| | Demonic Taskmaster | 37–39 | Monster gargoyle. Melee and Might 10. |
-| | Watchful Overseer | 39–41 | Gazer. Decrepify 5 and Bone Spear 10. |
+| | Demonic Taskmaster | 37–39 | Monster gargoyle. Melee and Might. |
+| | Watchful Overseer | 39–41 | Gazer. Decrepify and Bone Spear. |
 | | Devout Follower | 39–41 | Human, elf, or gargoyle in black. Resurrects a fallen Deceit ally within eight tiles, with a 10-second cooldown. Resurrected allies yield no kill rewards and their corpses cannot be raised again. |
 | `[Add DecMed` | Familiar | 41 | Horde Minion with half normal life. Landed melee hits have a 25% chance to stun for three seconds, with no immunity or diminishing returns. |
-| | Necromancer Apprentice | 41–43 | Bald human in a black robe. Bone Spear 15. |
-| | Cultist Enslaver | 43–45 | Human in medium armour. Melee and Vigor 5. |
-| | Demonic Torturer | 45–47 | Horrific Beast. Melee and Sigil: Lethargy 10. |
-| `[Add DecHigh` | Necromancer | 47–49 | Lich. Weaken 10, Life Tap 10, and Bone Armor 10. Summons a level-25 skeleton every 30 seconds in combat, up to five living skeletons. |
-| | Seductress | 49–51 | Custom succubus. Lower Resist 10 and blue cold bolts. |
-| | Infernal Mistress | 51–53 | Custom succubus. Amplify Damage 10 and red fire bolts. |
-| | Bishop | 53–54 | Bald human in a black robe with a black staff. Heals nearby wounded Deceit allies and casts Lightning 20 and Miasma Bolt 20. |
+| | Necromancer Apprentice | 41–43 | Bald human in a black robe. Bone Spear. |
+| | Cultist Enslaver | 43–45 | Human in medium armour. Melee and Vigor. |
+| | Demonic Torturer | 45–47 | Horrific Beast. Melee and Sigil: Lethargy. |
+| `[Add DecHigh` | Necromancer | 47–49 | Lich. Weaken, Life Tap, and Bone Armor. Summons a level-25 skeleton every 30 seconds in combat, up to five living skeletons. |
+| | Seductress | 49–51 | Custom succubus. Lower Resist and blue cold bolts. |
+| | Infernal Mistress | 51–53 | Custom succubus. Amplify Damage and red fire bolts. |
+| | Bishop | 53–54 | Bald human in a black robe with a black staff. Heals nearby wounded Deceit allies and casts Lightning and Miasma Bolt. |
 
 ### Destard spawners
 
@@ -82,9 +82,9 @@ Each spawner draws one creature and checks for a respawn after 75–120 seconds.
 | `[Add DestMed` | Daemon | 59–60 | 50% | Melee and Fire Wall. |
 | | Enslaved Dragon | 60–62 | 50% | Melee, Fireball, and Meteor. 75% fire resistance. |
 | `[Add DestHigh` | Wyrm | 61–63 | 50% | Black wyrm. Melee, Blizzard, and Frozen Orb. 75% cold resistance. |
-| | Archdaemon | 62–64 | 50% | Black daemon. Hydras and rank-10 Conviction. |
-| `[Add DestSpawn` | Corrupted Hatchling | 20 | 50% | Miniature dragon. Melee and rank-10 Conviction. |
-| | Daemon Spawn | 20 | 50% | Horde Minion model. Melee and rank-10 Lower Resist. |
+| | Archdaemon | 62–64 | 50% | Black daemon. Hydras and Conviction. |
+| `[Add DestSpawn` | Corrupted Hatchling | 20 | 50% | Miniature dragon. Melee and Conviction. |
+| | Daemon Spawn | 20 | 50% | Horde Minion model. Melee and Lower Resist. |
 
 Use `[Add DestardEncounter <Role>` to place an individual creature. Write the role without spaces. Enslaved drakes and dragons speak their last words on death. Identical Conviction auras and repeated curses use the shared strongest aura and curse rules. For Destard’s Lower Resist and Conviction, the stronger overlapping resistance penalty applies. [Spawn pools](../src/Sanctuary.Content/DestardSpawners.cs) · [Creature behaviors](../src/Sanctuary.Content/DestardEncounter.cs)
 
@@ -92,9 +92,11 @@ Place **Vaelith, the dragon queen** with `[Add DestardQueen` and **Rhazek, the q
 
 ### Shame
 
-Shame is an optional level 20–40 dungeon on Trammel. The first level has the excavations and the dead miner’s note. The second has pirates and the shipboy’s cargo manifest. Both mage houses on the third level have clues, and the western house has the unstable mineral. On the fourth level, the main pirate ship lies at **5749, 60 (-5)**. Board from the east via the gangplank.
+Shame is an optional level 20–40 dungeon on Trammel. Players 5 scaling applies throughout, including the pirate expedition. The first level has the excavations and the dead miner’s note. The second has pirates and the shipboy’s cargo manifest. Both mage houses on the third level have clues, and the western house has the unstable mineral. On the fourth level, the main pirate ship lies at **5749, 60 (-5)**. Board from the east via the gangplank.
 
-The world installs Shame’s spawn sites at startup. Each of the following GM spawners maintains one of each listed enemy, with a 75–120 second respawn check.
+Double-click the entrance or exit sparkles within two tiles. Step into the black moongates between levels or double-click them within two tiles. On the second level, the pirate ships connect the eastern shore at **5596, 87 (0)** with the isolated western bank at **5553, 80 (0)**. Step onto either ship’s shore-side gangplank or double-click it from up to two tiles away. You arrive on land beside the other ship.
+
+Place Shame’s ordinary enemies manually with the following GM spawners. Each spawner keeps one creature active and rolls uniformly among its roles. Every spawn has an independent 10% chance to be a Paragon within the same level band. Respawn checks run every 75–120 seconds.
 
 | Placement | Level | Roster |
 | --- | ---: | --- |
@@ -102,10 +104,33 @@ The world installs Shame’s spawn sites at startup. Each of the following GM sp
 | `[Add ShameTwo` | 24–29 | Titanium and moissanite elementals, pirate, and tidesinger |
 | `[Add ShameThree` | 28–33 | Stishovite and diamond elementals, stormcaller, and corsair |
 | `[Add ShameFour` | 38–40 | Wind, fire, water, and earth elementals |
+| `[Add ShameMage` | 33, 35 | Crazed researcher (Twister, Tornado) or fanatic experimenter (Hurricane, Firestorm) |
 
 Clear the ship’s crew to open the wheel. It admits the first Avatar and then their original party members for five minutes. The ship has one shared expedition at a time. The route begins with Keelbone, then Brine and his daemon, then Cutwater and Cinders. The castaway captain points out two shields. Order leads to shore. Chaos leads to the level-38 fleet captain and the plunder chest. The normal run lasts 30 minutes from the first crossing. A final victory sets the end ten minutes from the kill. Taking Order sets it to ten minutes once the last admitted player leaves. Death sends the player’s ghost to the Shame entrance and their corpse to the fourth-level shore at **5748, 89 (0)**.
 
+### Wrong
+
+Wrong is a former prison taken over by ogres who raise drakes and hire human manhunters to bring them captives. On Trammel, open the entrance doors and follow the hall to the sparkles. Double-click the sparkles within two tiles to use the entrance, exit, and stair passages.
+
+Place the ordinary encounters manually. Each spawner maintains one creature, draws each role with equal probability, and has an independent 10% chance to spawn it as a Paragon at the same level. The respawn interval is 75–120 seconds.
+
+| Placement | Level | Roster |
+| --- | ---: | --- |
+| `[Add WrongOne` | 50–56 | Ogre thug (50–52), ogre ruffian (51–53), manhunter (53–54), and slave merchant (54–56) |
+| `[Add WrongDrake1` | 52–56 | Drake hatchling (52–54), drake juvenile (53–55), and adult drake (54–56) |
+| `[Add WrongTwo` | 55–58 | Ogre rowdy (55–57) and ogre brute (56–58) |
+| `[Add WrongDrake2` | 56–59 | Battle drake (56–58) and assault drake (57–59) |
+
+Two named encounters install automatically on Trammel and respawn together 5–7 minutes after a group is defeated.
+
+- **Kitchen.** Wonk **5675, 529 (0)**, Uruk **5691, 528 (0)**, and Glokurg **5707, 524 (0)** are level 58 and join the same fight.
+- **Drake court.** Goegork **5703, 639 (0)** is level 60. Xoldred **5700, 639 (0)** and Suldri **5706, 639 (0)** are level 59, with Stone Skin, 75% resistance in every damage channel, and twice their normal life. Goegork watches until both drakes are slain. His dialogue uses the visitor’s race and level. He identifies their class after seeing two distinct learned skills from it.
+
+[Wrong spawners](../src/Sanctuary.Content/WrongSpawners.cs) · [Combat and rosters](../src/Sanctuary.Content/WrongEncounter.cs) · [Boss encounters](../src/Sanctuary.Content/WrongBossSite.cs)
+
 ### Single creatures and encounter packs
+
+Unique and SuperUnique creatures use the model’s own palette or natural skin hues. Use equipment, body models, and animations to distinguish them. The full-body grade tint is reserved for Paragons.
 
 | GM command or spawn entry | Use |
 | --- | --- |
@@ -156,6 +181,8 @@ The Yew passage opens directly for elves and via the mayor’s permission for ot
 ## Dungeons
 
 Dungeon encounters use players 5 for life, experience, and treasure-table NoDrop odds. Sanctuary applies the same scaling to native dungeon creatures through their existing stat and reward profiles.
+
+Give monsters their spells by name. Spell damage comes from the encounter’s level-based damage roll, with per-hit tuning for attacks such as Hydra bolts and Firestorm patches. Monster spell damage has no skill-tree synergy requirements. The monster’s level also supplies effect formulas for properties such as curse radius and duration. Auras use their own level curves. Specify an individual effect only when the encounter calls for an exception.
 
 - **New Haven crypts.** Four saved Hythloth-art layouts, drawn randomly by Jens Won’s shovels. Each has a small empty arrival room and return rope, three differently themed combat rooms, and four-wide corridors. Each combat room draws two Haven ghost encounters, each corridor one. Eligible rooms roll a 50% chest chance, with 50–100 gold. Visits remain cleared until a fresh visit refills a vacant crypt. [Layouts](../data/Sanctuary/HavenCrypts) · [Layout builder](../tools/build_haven_crypts.py)
 - **Static layout trials.** Use the seedable Hythloth layout tool to draft standalone treasure or utility maps. Review the floor plan and the complete props in game before installing the fixed decoration file. [Local workflow](local-development.md#dungeon-layout-trials)

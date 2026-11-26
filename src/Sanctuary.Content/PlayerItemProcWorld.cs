@@ -28,11 +28,11 @@ internal static class PlayerItemProcWorld
         return new Proof(owner);
     }
     private static bool Actions(PlayerMobile owner)=>CandidateOwners.Contains(owner.Serial.Value)||owner.NetState is{Running:true};
-    internal static Ticket Capture(PlayerMobile owner,BaseCreature target,DateTime at,Func<bool> uninterruptible=null)
-        =>CaptureCore(owner,target,at,uninterruptible,false);
+    internal static Ticket Capture(PlayerMobile owner,BaseCreature target,DateTime at,Func<bool> uninterruptible=null,int procBonus=0)
+        =>CaptureCore(owner,target,at,uninterruptible,false,procBonus);
     internal static Ticket CaptureMissile(PlayerMobile owner,BaseCreature target,DateTime at,Func<bool> uninterruptible=null)
-        =>CaptureCore(owner,target,at,uninterruptible,true);
-    private static Ticket CaptureCore(PlayerMobile owner,BaseCreature target,DateTime at,Func<bool> uninterruptible,bool missile)
+        =>CaptureCore(owner,target,at,uninterruptible,true,0);
+    private static Ticket CaptureCore(PlayerMobile owner,BaseCreature target,DateTime at,Func<bool> uninterruptible,bool missile,int procBonus)
     {
         if(!(Approved||CandidateOwners.Contains(owner.Serial.Value))||!PlayerItemProcs.ActiveProvider(owner)) {return null;}
         if(World.Loading||owner is not{Alive:true,Deleted:false}||owner.Map==null||owner.Map==Map.Internal||!Actions(owner)
@@ -40,9 +40,9 @@ internal static class PlayerItemProcWorld
             ||target is not{Alive:true,Deleted:false}||target.Map!=owner.Map||!ClassCombat.IsHostile(owner,target)) {return null;}
         var retained=NpcItemTarget.Capture(target);
         if(!PlayerItemProcs.Initialized(owner)){PlayerItemProcs.InitializeActor(owner,NpcWorldAllocation.UnitSeed());}
-        return new(owner,retained,target.Location,at,uninterruptible,missile);
+        return new(owner,retained,target.Location,at,uninterruptible,missile,procBonus);
     }
-    internal sealed class Ticket(PlayerMobile owner,NpcItemTarget target,Point3D path,DateTime at,Func<bool> uninterruptible=null,bool missile=false)
+    internal sealed class Ticket(PlayerMobile owner,NpcItemTarget target,Point3D path,DateTime at,Func<bool> uninterruptible=null,bool missile=false,int procBonus=0)
     {
         private bool Damage,Attack;
         internal void Dispatch(string phase,PreparedMonsterDamagePacket packet)
@@ -55,7 +55,7 @@ internal static class PlayerItemProcWorld
             // Ordinary contacts retain the approved noninterrupting cast rule.
             // Special controllers supply their actual live source-state guard.
             var outcomes=PlayerItemProcs.Dispatch(owner,phase,target,path,packet,uninterruptible?.Invoke()??false,at,
-                request=>Allocate(owner,request,at),actions:Actions(owner));
+                request=>Allocate(owner,request,at),actions:Actions(owner),procBonus:phase=="domeleedamage"?procBonus:0);
             Observed?.Invoke(new(owner.Serial.Value,phase,packet,outcomes));
         }
     }
