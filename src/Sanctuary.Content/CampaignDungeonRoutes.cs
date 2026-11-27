@@ -59,6 +59,18 @@ internal static class CampaignDungeonRoutes
             var from = TownMarkets.Floor(map, source, [], false);
             // Leave room for the named encounter at the stock court landing.
             var to = TownMarkets.Floor(map, dungeon == "Wrong" && dest == _wrongMage ? _wrongMageApproach : dest, [], false);
+            bool fromDeceitEntrance = IsDeceitSurfaceRoute(source, dest);
+            bool toDeceitEntrance = IsDeceitSurfaceRoute(dest, source);
+            if (fromDeceitEntrance || toDeceitEntrance)
+            {
+                RemoveLegacyDeceitRoute(map, from, to);
+                if (route.Back)
+                    RemoveLegacyDeceitRoute(map, to, from);
+                if (fromDeceitEntrance)
+                    from = new Point3D(source.X, source.Y + 1, source.Z);
+                if (toDeceitEntrance)
+                    to = new Point3D(dest.X, dest.Y + 1, dest.Z);
+            }
             PlaceRoute(from, to, dungeon);
             if (route.Back)
                 PlaceRoute(to, from, dungeon);
@@ -79,6 +91,21 @@ internal static class CampaignDungeonRoutes
 
     private static bool IsStockHythlothSurfaceRoute(Point3D outside, Point3D inside) =>
         outside.Y == 3813 && outside.X is >= 4721 and <= 4723 && inside.Y == 16 && inside.X is >= 5904 and <= 5906;
+
+    private static bool IsDeceitSurfaceRoute(Point3D outside, Point3D inside) =>
+        outside is { X: >= 4110 and <= 4112, Y: 430, Z: 5 }
+        && inside is { X: >= 5186 and <= 5189, Y: 639, Z: 0 };
+
+    private static void RemoveLegacyDeceitRoute(Map map, Point3D from, Point3D to)
+    {
+        using var obsolete = PooledRefList<Teleporter>.Create();
+        foreach (var item in map.GetItemsAt<Teleporter>(from))
+            if ((item is CampaignDungeonStair || item.GetType() == typeof(Teleporter))
+                && item.Location == from && item.PointDest == to && (item.MapDest == map || item.MapDest == null))
+                obsolete.Add(item);
+        foreach (var item in obsolete)
+            item.Delete();
+    }
 
     private static bool NearHythlothSurface(Point3D point) =>
         point.X is >= 4716 and <= 4728 && point.Y is >= 3808 and <= 3818;

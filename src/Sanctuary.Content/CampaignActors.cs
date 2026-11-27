@@ -17,8 +17,7 @@ internal static class CampaignActors
     internal static readonly Point3D HavenInn = new(3503, 2519, 27);
     private static readonly Point3D _britainDock = new(1483, 1754, -2);
     private static readonly Point3D _fireDock = new(4721, 3822, 0);
-    private static readonly Point3D _daggerApproach = new(4110, 439, 0);
-    private static Point3D _daggerDock;
+    private static readonly Point3D _daggerDock = DaggerIsleSettlement.DockLanding;
     internal static readonly Point3D BlackthornPost = new(1324, 1623, 55);
     internal static readonly Point3D ShaminoPost = new(1324, 1626, 55);
 
@@ -40,9 +39,9 @@ internal static class CampaignActors
         Place(new(3485, 2529, 40), () => new CampaignRefugee(RefugeeKind.Nightwind), RefugeeKind.Nightwind);
         Place(new(3511, 2542, 20), () => new CampaignRefugee(RefugeeKind.Shamino), RefugeeKind.Shamino);
 
-        _daggerDock = TownMarkets.Floor(Map.Trammel, _daggerApproach, [], false);
+        DaggerIsleSettlement.Install();
         PlaceSkipper(new(4720, 3822, 0), _fireDock, false);
-        PlaceSkipper(new(_daggerDock.X - 1, _daggerDock.Y, _daggerDock.Z), _daggerDock, true);
+        PlaceSkipper(new(3978, 570, 0), _daggerDock, true);
 
         void Place<T>(Point3D point, Func<T> create, RefugeeKind? kind = null, bool relocate = false) where T : Mobile
         {
@@ -55,11 +54,10 @@ internal static class CampaignActors
         void PlaceSkipper(Point3D post, Point3D arrival, bool dagger)
         {
             var map = Map.Trammel;
-            if (World.Mobiles.Values.OfType<IslandSkipper>().Any(skipper => skipper.Map == map && skipper.Dagger == dagger))
-                return;
-
-            var floor = TownMarkets.Floor(map, post, [(map, arrival)], false);
-            new IslandSkipper(dagger).MoveToWorld(floor, map);
+            var existing = World.Mobiles.Values.OfType<IslandSkipper>()
+                .FirstOrDefault(skipper => !skipper.Deleted && skipper.Map == map && skipper.Dagger == dagger);
+            if (existing == null || dagger && existing.Location != post)
+                (existing ?? new IslandSkipper(dagger)).MoveToWorld(TownMarkets.Floor(map, post, [(map, arrival)], false), map);
         }
     }
 
@@ -274,7 +272,7 @@ public partial class BritainHarbourMaster : ConversationNpc
         if (CampaignActors.FerryUnlocked(player))
             opening.Add(new("Sail to Fire Island", 0, CampaignActors.SailToFire));
         if (CampaignActors.FerryUnlocked(player, dagger: true))
-            opening.Add(new("Sail to Dagger Isle", 0, CampaignActors.SailToDagger));
+            opening.Add(new("Sail to Fjellheim (Dagger Isle)", 0, CampaignActors.SailToDagger));
 
         ScriptedDialogue.Reply[] topics = [new("Ships", 2), new("Trade", 3), new("Other harbours", 4), new("Back", 0)];
         return

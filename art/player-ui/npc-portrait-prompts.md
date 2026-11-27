@@ -17,6 +17,14 @@ sheet by updating `TrainerPortraitSheets` in `PortraitProtocol.cs`.
 
 ## Portrait audit
 
+### Fjellheim Thing guards
+
+Built-in ImageGen painted [Sten](portrait-npc-sten.png) and [Ketil](portrait-npc-ketil.png) individually.
+
+> Paint one square dialogue portrait for Sanctuary, in grounded late-1990s fantasy RPG oil and gouache. One adult Ostman guard at the entrance to a snowy Norse assembly hall. Tight head-and-shoulders crop, both eyes meet the player's gaze, subdued brown timber backdrop, soft amber sidelight, natural features, readable at 100 pixels. Worn ringmail, fur cape and wool. No lettering, frame, helmets or modern details. Sten, an older broad-faced man with cool grey eyes, cropped iron-grey hair and a square grey beard. His expression is steady, watchful, unyielding.
+
+> Paint one square dialogue portrait for Sanctuary, in grounded late-1990s fantasy RPG oil and gouache. One adult Ostman guard at the entrance to a snowy Norse assembly hall. Tight head-and-shoulders crop, both eyes meet the player's gaze, subdued brown timber backdrop, soft amber sidelight, natural features, readable at 100 pixels. Worn ringmail, fur cape and wool. No lettering, frame, helmets or modern details. Ketil, a lean man in his thirties with a long freckled face, green eyes, wavy auburn hair, a close russet beard, and a faded blue wool collar. Attentive, candid expression.
+
 ### Shame’s pirate captains
 
 Built-in ImageGen painted two original square dialogue portraits with direct eye contact, a tight head-and-shoulders crop, a dark cave backdrop, and cool spectral light around the silhouette.

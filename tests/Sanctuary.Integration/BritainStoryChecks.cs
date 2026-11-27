@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using Server;
 using Server.Accounting;
+using Server.Engines.Craft;
 using Server.Engines.Spawners;
 using Server.Gumps;
 using Server.Items;
@@ -396,18 +397,156 @@ public static class BritainStoryChecks
                 .SequenceEqual(["Sail to Fire Island"]), "Elowen did not offer the unlocked Fire Island route");
             BritanniaCampaign.Record(player, CampaignProgress.DaggerIslePassage);
             var travel = harbourMaster.DialogueFor(player)[0].Replies.Where(reply => reply.Select != null).ToArray();
-            Require(travel.Select(reply => reply.Text).SequenceEqual(["Sail to Fire Island", "Sail to Dagger Isle"]),
+            Require(travel.Select(reply => reply.Text).SequenceEqual(["Sail to Fire Island", "Sail to Fjellheim (Dagger Isle)"]),
                 "Elowen's greeting is missing a ferry destination");
             foreach (var skipper in skippers)
             {
                 Require(skipper.Script[0].Replies is [{ Text: "Sail to Britain", Select: not null }],
                     "An island skipper did not offer passage back");
-                var harbour = skipper.Dagger ? TownMarkets.Floor(map, new(4110, 439, 0), [], false) : new Point3D(4721, 3822, 0);
-                Require(BritanniaCampaign.Sail(player, harbour) && player.InRange(skipper, 3) && player.InLOS(skipper),
+                var harbour = skipper.Dagger ? DaggerIsleSettlement.DockLanding : new Point3D(4721, 3822, 0);
+                Require(BritanniaCampaign.Sail(player, harbour) && player.Location == harbour
+                    && player.InRange(skipper, 3) && player.InLOS(skipper),
                     $"Could not reach {skipper.Name} from the landing at {harbour}");
             }
+            CheckDaggerIsleSettlement(player, map);
         }
         finally { player.Delete(); }
+    }
+
+    private static void CheckDaggerIsleSettlement(PlayerMobile player, Map map)
+    {
+        Profiles.Assign(player, DiabloClass.Paladin);
+        Require(!World.Items.Values.OfType<DaggerSettlementBuilding>().Any(item => item.Map == map),
+            "An obsolete stock house remains on the site");
+        var buildings = WorldDecorationGraphics.DaggerBuildings;
+        foreach (var tile in DaggerVillageLayout.Blocks.SelectMany(group => group))
+        {
+            var block = map.Tiles.GetStaticBlock(tile.At.X >> 3,tile.At.Y >> 3);
+            Require(block[tile.At.X & 7][tile.At.Y & 7].Count(t => t.ID == tile.Graphic && t.Z == tile.At.Z) == 1,
+                $"Incorrect map scenery at {tile.At}");
+        }
+        var residents = World.Mobiles.Values.OfType<DaggerThingResident>().Where(npc => npc.Map == map).ToArray();
+        Require(residents.Length == 4 && residents.Single(npc => npc.Role == ThingRole.Sten).Name == "Sten"
+            && residents.Single(npc => npc.Role == ThingRole.Ketil).Name == "Ketil"
+            && residents.Single(npc => npc.Role == ThingRole.Jarl).Name == "Jarl Asbjorn Isisson"
+            && residents.Single(npc => npc.Role == ThingRole.Seer).Name == "Seer Herkja", "The Thing is missing its residents");
+
+        player.MoveToWorld(DaggerIsleSettlement.DockLanding, map);
+        player.Direction = Direction.East;
+        for (int x = player.X + 1; x <= DaggerIsleSettlement.DoorX; x++)
+            Require(player.Move(Direction.East) && player.X == x, $"Road from the dock is obstructed at {x}, 572");
+        player.Direction = Direction.North;
+        while (player.Y > DaggerIsleSettlement.DoorY + 1)
+            Require(player.Move(Direction.North), $"Thing approach blocked at {player.Location}");
+        Require(!player.Move(Direction.North), "Guards did not stop the Avatar");
+        player.AccessLevel = AccessLevel.GameMaster;
+        Require(player.Move(Direction.North) && player.Move(Direction.North) && player.Y == DaggerIsleSettlement.DoorY - 1,
+            "The Thing's southern entrance is physically blocked");
+        // The full span under the carved roof must be clear, including the upper course of logs.
+        for (int x = 4018; x <= 4024; x++)
+        {
+            int y = DaggerIsleSettlement.DoorY;
+            var threshold = map.Tiles.GetStaticBlock(x >> 3, y >> 3)[x & 7][y & 7];
+            bool open = x is >= 4019 and <= 4023;
+            Require(open == !threshold.Any(t => t.ID is 0x0092 or 0x0098),
+                $"The Thing's log wall does not meet its porch at {x}, {y}");
+            if (open)
+            {
+                player.MoveToWorld(new Point3D(x, y + 1, 0), map);
+                player.Direction = Direction.North;
+                Require(player.Move(Direction.North) && player.Location == new Point3D(x, y, 0),
+                    $"The Thing's threshold is obstructed at {x}, {y}");
+            }
+        }
+        player.AccessLevel = AccessLevel.Player;
+        foreach (var building in buildings.Skip(1))
+        {
+            var entry = new Point3D(building.X+building.Width/2, building.Y+building.Depth-1, 0);
+            var door = World.Items.Values.OfType<DaggerSettlementDoor>().Single(item =>
+                item.Map == map && item.ClosedLocation == entry);
+            bool wasOpen = door.Open;
+            try
+            {
+                player.MoveToWorld(new Point3D(entry.X,entry.Y+1,0),map);
+                player.Direction = Direction.North;
+                if (!wasOpen) door.OnDoubleClick(player);
+                Require(player.Move(Direction.North) && player.Move(Direction.North) && player.Y == entry.Y-1,
+                    $"Door at {entry} is physically blocked");
+            }
+            finally { door.Open = wasOpen; }
+        }
+
+        var craftHall = DaggerIsleSettlement.CraftHall;
+        var stations = World.Items.Values.OfType<TownCraftStation>().Where(item => item.Map == map && item.InRange(craftHall, 6)).ToArray();
+        Require(stations.Length == 8 && stations.Select(item => item.Skill).Distinct().Count() == TradeSkills.Crafting.Length - 3,
+            "Crafting hall has missing or duplicate stations");
+        var bench = World.Items.Values.OfType<FjellheimWoodworkersBench>().Single(item => item.Map == map && item.Location == new Point3D(3999, 561, 0));
+        Require(bench.Components.Count == 3 && bench.Components.Select(part => part.Location).Distinct().Count() == 3,
+            "The woodworker's bench is missing a section");
+        Require(stations.All(item => item.ItemID == CraftFacilities.DefaultGraphic(item.Skill) ||
+            item.Skill == SkillName.Blacksmith && item.ItemID == 0xFB1), "Workshop graphic does not match its trade");
+        var loom = World.Items.Values.OfType<LoomEastAddon>().Single(item => item.Map == map && item.Location == new Point3D(4005, 562, 0));
+        var oven = World.Items.Values.OfType<StoneOvenSouthAddon>().Single(item => item.Map == map && item.Location == new Point3D(4004, 556, 0));
+        Require(loom.Components.Count == 2 && oven.Components.Count == 2, "Incomplete loom or hearth");
+        foreach (var craft in TradeSkills.Crafting)
+        {
+            var skill = (SkillName)craft;
+            bool accessible = false;
+            for (int x = craftHall.X - 3; x <= craftHall.X + 3 && !accessible; x++)
+            for (int y = craftHall.Y - 4; y <= craftHall.Y + 3 && !accessible; y++)
+            {
+                var point = new Point3D(x, y, 0);
+                if (!map.CanFit(point, 16))
+                    continue;
+                player.MoveToWorld(point, map);
+                accessible = CraftFacilities.Allows(player, skill, false);
+                if (accessible && skill == SkillName.Cooking)
+                    accessible = CraftItem.Find(player, [0x930, 0x931]);
+                if (accessible && skill == SkillName.Blacksmith)
+                {
+                    DefBlacksmithy.CheckAnvilAndForge(player, 2, out bool anvil, out bool forge);
+                    accessible = anvil && forge;
+                }
+            }
+            Require(accessible, $"No usable station for {skill} in the crafters' hall");
+        }
+        player.MoveToWorld(new Point3D(4004, 563, 0), map);
+        if (player.Backpack == null) player.AddItem(new Backpack());
+        var thread = new SpoolOfThread(2);
+        player.Backpack.DropItem(thread);
+        int originalPhase = loom.Phase;
+        try
+        {
+            loom.Phase = 0;
+            foreach (var part in loom.Components)
+            {
+                thread.OnDoubleClick(player);
+                player.Target.Invoke(player, part);
+            }
+            Require(loom.Phase == 2 && thread.Deleted, "Both loom halves should accept thread on the same warp");
+        }
+        finally { loom.Phase = originalPhase; }
+        foreach (var site in new[] { "dagger-isle-smith", "dagger-isle-tailor", "dagger-isle-provisioner" })
+        {
+            var merchant = TownMarkets.Profiles.At(site);
+            Require(merchant is { Map: var facet } && facet == map && TownMarkets.Role(merchant) != null
+                && map.CanFit(merchant.Location, 16, checkMobiles: false), $"Merchant {site} is missing or obstructed");
+        }
+
+        var passages = World.Items.Values.OfType<CampaignDungeonStair>().Where(item => item.Map == map
+            && item.X is >= 4110 and <= 4112 && item.Y is 430 or 431).ToArray();
+        Require(passages.Length == 3 && passages.All(item => item.Y == 431), "Deceit's outside lanes did not move south");
+        foreach (var passage in passages)
+        {
+            player.MoveToWorld(new Point3D(passage.X, 432, 5), map);
+            passage.OnDoubleClick(player);
+            Require(player.Location == passage.PointDest, $"Could not click Deceit's entrance at {passage.Location}");
+            var exits = map.GetItemsAt<CampaignDungeonStair>(passage.PointDest);
+            bool linked = false;
+            foreach (var exit in exits)
+                linked |= exit.PointDest == passage.Location;
+            Require(linked, $"Deceit's exit did not follow the relocated entrance at {passage.Location}");
+        }
     }
 
     private static void CheckHythlothTravel()

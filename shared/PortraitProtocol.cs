@@ -110,7 +110,9 @@ public enum NpcPortrait : ushort
     ShameGhostCaptain,
     ShameFleetCaptain,
     FireIslandSkipper,
-    DaggerIsleSkipper
+    DaggerIsleSkipper,
+    Sten,
+    Ketil
 }
 
 public static class DespiseClue

@@ -102,29 +102,24 @@ public static partial class TownMarkets
                 if (station is not { Deleted: false })
                 {
                     var point = Floor(map, new(vendor.X + 2, vendor.Y, vendor.Z), used, false, site.FixedPosition);
-                    int graphic = craft == SkillName.Blacksmith ? 0xFAF : craft == SkillName.Imbuing ? 0x974 : 0xB4A;
-                    CraftFacilities.Register(new(craft, map.Name, point.X, point.Y, point.Z, graphic));
-                    foreach (var item in map.GetItemsAt<TownCraftStation>(point))
-                    {
-                        if (item.Skill == craft && item.ItemID == graphic) { station = item; state.Station = item.Serial; break; }
-                    }
+                    station = CraftFacilities.Register(new(craft, map.Name, point.X, point.Y, point.Z, CraftFacilities.DefaultGraphic(craft)));
+                    state.Station = station.Serial;
                 }
+                else
+                    CraftFacilities.Register(new(craft, map.Name, station.X, station.Y, station.Z, station.ItemID));
                 used.Add((map, station.Location));
-                CraftFacilities.Register(new(craft, map.Name, station.X, station.Y, station.Z, station.ItemID));
                 if (craft == SkillName.Blacksmith)
                 {
                     var forge = World.FindItem(state.Forge) as TownCraftStation;
                     if (forge is not { Deleted: false })
                     {
                         var point = Floor(map, new(station.X + 1, station.Y, station.Z), used, false, site.FixedPosition);
-                        CraftFacilities.Register(new(craft, map.Name, point.X, point.Y, point.Z, 0xFB1));
-                        foreach (var item in map.GetItemsAt<TownCraftStation>(point))
-                        {
-                            if (item.Skill == craft && item.ItemID == 0xFB1) { forge = item; state.Forge = item.Serial; break; }
-                        }
+                        forge = CraftFacilities.Register(new(craft, map.Name, point.X, point.Y, point.Z, 0xFB1));
+                        state.Forge = forge.Serial;
                     }
+                    else
+                        CraftFacilities.Register(new(craft, map.Name, forge.X, forge.Y, forge.Z, forge.ItemID));
                     used.Add((map, forge.Location));
-                    CraftFacilities.Register(new(craft, map.Name, forge.X, forge.Y, forge.Z, forge.ItemID));
                 }
             }
         }
