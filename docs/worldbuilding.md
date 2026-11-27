@@ -96,7 +96,7 @@ Shame is an optional level 20–40 dungeon on Trammel. Players 5 scaling applies
 
 Double-click the entrance or exit sparkles within two tiles. Step into the black moongates between levels or double-click them within two tiles. On the second level, the pirate ships connect the eastern shore at **5596, 87 (0)** with the isolated western bank at **5553, 80 (0)**. Step onto either ship’s shore-side gangplank or double-click it from up to two tiles away. You arrive on land beside the other ship.
 
-Place Shame’s ordinary enemies manually with the following GM spawners. Each spawner keeps one creature active and rolls uniformly among its roles. Every spawn has an independent 10% chance to be a Paragon within the same level band. Respawn checks run every 75–120 seconds.
+Place Shame’s ordinary enemies manually with the following GM spawners. Each spawner keeps one creature active and rolls uniformly among its roles. Every spawn has an independent 5% chance to be a Paragon within the same level band. Respawn checks run every 75–120 seconds.
 
 | Placement | Level | Roster |
 | --- | ---: | --- |
@@ -112,7 +112,7 @@ Clear the ship’s crew to open the wheel. It admits the first Avatar and then t
 
 Wrong is a former prison taken over by ogres who raise drakes and hire human manhunters to bring them captives. On Trammel, open the entrance doors and follow the hall to the sparkles. Double-click the sparkles within two tiles to use the entrance, exit, and stair passages.
 
-Place the ordinary encounters manually. Each spawner maintains one creature, draws each role with equal probability, and has an independent 10% chance to spawn it as a Paragon at the same level. The respawn interval is 75–120 seconds.
+Place the ordinary encounters manually. Each spawner maintains one creature, draws each role with equal probability, and has an independent 5% chance to spawn it as a Paragon at the same level. The respawn interval is 75–120 seconds.
 
 | Placement | Level | Roster |
 | --- | ---: | --- |
@@ -129,6 +129,8 @@ Two named encounters install automatically on Trammel and respawn together 5–7
 [Wrong spawners](../src/Sanctuary.Content/WrongSpawners.cs) · [Combat and rosters](../src/Sanctuary.Content/WrongEncounter.cs) · [Boss encounters](../src/Sanctuary.Content/WrongBossSite.cs)
 
 ### Single creatures and encounter packs
+
+Ordinary wild monster spawns across the facets have a 5% chance to be Paragon. Paragons award triple base XP before the usual level and equipment adjustments.
 
 Unique and SuperUnique creatures use the model’s own palette or natural skin hues. Use equipment, body models, and animations to distinguish them. The full-body grade tint is reserved for Paragons.
 

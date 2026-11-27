@@ -252,15 +252,15 @@ public static class FrontierChecks
             && desert.All(m => m.RepelledByRefuge(new(1875, 865, -1)) && m.RepelledByRefuge(new(1857, 877, -1)))
             && World.Items.Values.OfType<AnkhNorth>().Any(ankh => ankh.Map == map && ankh.Location == new Point3D(1857, 877, -1)),
             "The Compassion ankh or safe approach is missing");
-        int elites = desert.Count(m => m.Grade is EncounterGrade.Champion or EncounterGrade.Unique);
-        Require(elites <= 1, "Compassion desert spawned multiple elites");
-        var eliteFixture = elites == 0 ? new FrontierEncounter("compassion-desert-snake", 23, 1) : null;
+        int uniques = desert.Count(m => m.Grade == EncounterGrade.Unique);
+        Require(uniques <= 1, "Compassion desert spawned multiple Uniques");
+        var eliteFixture = uniques == 0 ? new FrontierEncounter("compassion-desert-snake", 23, 1) : null;
         try
         {
             for (int i = 0; i < 100; i++)
             {
                 var respawn = new FrontierEncounter("compassion-desert-harpy", 25);
-                try { Require(respawn.Grade == EncounterGrade.Ordinary, "A desert respawn bypassed the existing elite slot"); }
+                try { Require(respawn.Grade != EncounterGrade.Unique, "A desert respawn bypassed the existing Unique slot"); }
                 finally { respawn.Delete(); }
             }
         }
@@ -287,8 +287,8 @@ public static class FrontierChecks
         var undead = encounters.Where(m => m.Home.X is >= 2742 and <= 2782 && m.Home.Y is >= 840 and <= 894).ToArray();
         Require(undead.Length == 18 && undead.Select(m => m.Home).Distinct().Count() == 18
             && undead.All(m => m.Home.Z == 0 && m.Z == 0 && m.RangePerception == 5 && m.HomeLeashRadius == 7)
-            && undead.Count(m => m.Grade is EncounterGrade.Champion or EncounterGrade.Unique) <= 1,
-            "Vesper graves must have separate ground-level spawns and one shared elite slot");
+            && undead.Count(m => m.Grade == EncounterGrade.Unique) <= 1,
+            "Vesper graves must have separate ground-level spawns and one shared Unique slot");
         Require(undead.Count(m => m.Basis.Level is >= 12 and <= 16) == 14
             && undead.Any(m => m.Home == new Point3D(2764, 851, 0) && m.Dungeon.Id == "vesper-skeletal-knight" && m.Basis.Level == 18)
             && undead.Any(m => m.Home == new Point3D(2779, 844, 0) && m.Dungeon.Id == "vesper-mummy" && m.Basis.Level == 18)
@@ -405,8 +405,8 @@ public static class FrontierChecks
                 or FrontierEncounter.DespiseOgre or FrontierEncounter.DespiseOgreLord)
             .All(encounter => encounter.Spawner is DespiseTroll or DespiseOgre or DespiseOgreLord),
             "Deep Despise still has its preset encounters");
-        Require(Enumerable.Range(0, 100).Count(roll => FrontierEncounter.OgreLordGrade(roll) == EncounterGrade.Champion) == 10,
-            "Exactly 10% of Ogre Lords should be paragons");
+        Require(Enumerable.Range(0, 100).Count(roll => FrontierEncounter.OgreLordGrade(roll) == EncounterGrade.Champion) == 5,
+            "Exactly 5% of Ogre Lords should be paragons");
 
         CheckSpawner("despisetroll", FrontierEncounter.DespiseTroll, FrontierEncounter.DespiseHarpy, 24, 28);
         CheckSpawner("despiseogre", FrontierEncounter.DespiseOgre, FrontierEncounter.DespiseStoneHarpy, 26, 30);
@@ -444,9 +444,10 @@ public static class FrontierChecks
                     string species = i % 2 == 0 ? first : second;
                     Require(monster.Location == point && monster.EncounterPlayers == 5 && monster.Basis.Level == level
                         && monster.Dungeon.Id == species, $"{name} spawned the wrong variant, level, floor, or difficulty");
-                    if (species == FrontierEncounter.DespiseOgreLord && monster.Grade == EncounterGrade.Champion)
-                        Require(monster.Name == "an ogre lord (Paragon)" && EncounterTreasure.Root(monster) == "Act 2 Champ B",
-                            "Paragon Ogre Lords should retain their loot tier and use the Paragon label");
+                    if (monster.Grade == EncounterGrade.Champion)
+                        Require(monster.Name.EndsWith(" (Paragon)", StringComparison.Ordinal)
+                            && EncounterTreasure.Root(monster) == $"Act 2 Champ {(level >= 25 ? "B" : "A")}",
+                            "Paragons should retain their level bracket and use the Paragon label");
                     else
                         Require(monster.Grade == EncounterGrade.Ordinary, $"{name} spawned an unexpected elite");
                 }

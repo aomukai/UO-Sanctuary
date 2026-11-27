@@ -370,7 +370,7 @@ public partial class CollegeIolo : ConversationNpc
             return false;
         }
         profiles.RecordIoloRunebook(player.Serial);
-        CoveGateRune.FileCarriedRune(player, book);
+        DungeonEntranceRunes.RestoreLegacyRunes(player);
         return true;
     }
 

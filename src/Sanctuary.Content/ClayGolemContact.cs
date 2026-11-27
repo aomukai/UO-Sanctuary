@@ -18,8 +18,8 @@ public partial class ClayGolemBody
         string text=(legacy?"legacy: ":"fault: ")+reason;
         if(_lastLegacyContact==text){return;}_lastLegacyContact=text;
         ContactLog.Warning("Clay contact {Actor}/{TargetMode}: {Reason}",Serial.Value,legacy?"existing native rules":"paused",reason);
-        if(ControlMaster is PlayerMobile owner)
-        {owner.SendMessage(0x22,legacy?"Some combat reactions on this creature still use Sanctuary's existing rules.":"This Clay Golem cannot finish that combat reaction yet; another target can still be attacked.");}
+        if(!legacy&&ControlMaster is PlayerMobile owner)
+        {owner.SendMessage(0x22,"This Clay Golem cannot finish that combat reaction yet; another target can still be attacked.");}
     }
     protected override bool PrepareMeleeContact(Mobile target)
     {

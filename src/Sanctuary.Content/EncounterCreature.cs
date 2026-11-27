@@ -41,11 +41,13 @@ public partial class EncounterCreature : GraveyardUndead
     private long _teleportAfter = Core.TickCount;
     public DungeonProfile Dungeon => EncounterProfiles.Profile(_profileId ?? "crypt-sentinel-60");
     public MonsterLevel Basis => MonsterBalance.For(Dungeon.Archetype, EncounterLevel(_baseLevel == 0 ? 60 : _baseLevel));
-    protected virtual int EncounterLevel(int baseLevel) => EncounterProfiles.Level(baseLevel, _grade);
+    protected virtual int EncounterLevel(int baseLevel) => _grade == EncounterGrade.Champion && _champion == ChampionKind.SameLevel
+        ? baseLevel : EncounterProfiles.Level(baseLevel, _grade);
+    internal bool ParagonAlreadyRolled { get; set; }
     internal int BaseExperience => checked(Basis.Experience * (_grade switch
     {
         EncounterGrade.Ordinary => 1,
-        EncounterGrade.Champion when _champion != ChampionKind.Berserker => 3,
+        EncounterGrade.Champion => ParagonBalance.ExperienceMultiplier,
         _ => 5
     }));
     public EliteModifier[] Modifiers => _modifiers ??= string.IsNullOrEmpty(_modifierIds) ? []
@@ -157,6 +159,19 @@ public partial class EncounterCreature : GraveyardUndead
                     Hue = Race.RandomSkinHue();
             }
         }
+    }
+
+    internal void PromoteSpawnToParagon()
+    {
+        _grade = EncounterGrade.Champion;
+        _champion = ChampionKind.SameLevel;
+        _profile = null;
+        Name = ParagonName(Name);
+        ApplyElitePalette();
+        CreatureProfiles.Session(this).Initialized = false;
+        CreatureProfiles.Initialize(this);
+        Hits = HitsMax;
+        this.MarkDirty();
     }
 
     protected virtual int[] AdjustResistances(int[] resistances) => resistances;
@@ -400,7 +415,7 @@ public partial class EncounterCreature : GraveyardUndead
     public override void GetProperties(IPropertyList list)
     {
         base.GetProperties(list);
-        if (_grade == EncounterGrade.Champion && _champion != ChampionKind.Champion)
+        if (_grade == EncounterGrade.Champion && _champion is not (ChampionKind.Champion or ChampionKind.SameLevel))
             list.Add($"{_champion} {EncounterProfiles.ParagonLabel}");
         if (_grade != EncounterGrade.Minion)
         {

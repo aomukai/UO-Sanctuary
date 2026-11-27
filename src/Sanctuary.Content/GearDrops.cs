@@ -108,8 +108,7 @@ public static class GearDrops
     public static int MagicFind(PlayerMobile player) => Math.Max(0,
         checked(ClassGear.Bonus(player, "mag%") + ClassGear.Material(player, "magic-find") + MapSurveys.MagicFind(player)));
     internal static DropBase Base(string code) => _bases.GetValueOrDefault(code);
-    private static bool CanGenerate(DropBase basis) =>
-        basis != null && (basis.Variants.Length > 0 || QuiverEquipment.IsDrop(basis.Code));
+    private static bool CanGenerate(DropBase basis) => basis is { Variants.Length: > 0 };
 
     internal static bool HasEquipment(string leaf) => _pools.TryGetValue(leaf, out var pool)
         ? Array.Exists(pool.Entries, entry => CanGenerate(_bases[entry.Code]))
@@ -176,11 +175,13 @@ public static class GearDrops
         int denominator = Denominator(basis, level, find, quality, factor);
         return denominator <= 0 || random.Next(denominator) < 128;
     }
-    internal static Item Generate(DropBase basis, int level, int find, Random random, int[] factors = null, bool fallbackNamed = false)
+    internal static Item Generate(DropBase basis, int level, int find, Random random, int[] factors = null,
+        bool fallbackNamed = false, bool bowCarrier = false)
     {
+        // Only a bow or crossbow carrier can turn a rolled ammo leaf into a quiver.
+        if (basis != null && QuiverEquipment.IsDrop(basis.Code))
+            return bowCarrier && random.Next(QuiverEquipment.DropRoll) == 0 ? QuiverEquipment.Drop(level, random) : null;
         if (!CanGenerate(basis)) { return null; }
-        if (QuiverEquipment.IsDrop(basis.Code))
-            return QuiverEquipment.Drop(level, random);
         // Pick the UO appearance before quality so MF cannot select another base.
         var variant = basis.Variants[random.Next(basis.Variants.Length)];
         var quality = Quality(basis, level, find, random, factors);
@@ -192,8 +193,7 @@ public static class GearDrops
     }
 
     internal static Item GenerateMagic(DropBase basis, int level, Random random) =>
-        QuiverEquipment.IsDrop(basis.Code) ? QuiverEquipment.Drop(level, random)
-            : Generate(basis, basis.Variants[random.Next(basis.Variants.Length)], level, DropQuality.Magic, random);
+        Generate(basis, basis.Variants[random.Next(basis.Variants.Length)], level, DropQuality.Magic, random);
 
     private static Item Generate(DropBase basis, DropVariant variant, int level, DropQuality quality, Random random)
     {
@@ -218,13 +218,17 @@ public static class GearDrops
     }
     internal static bool FindItem(PlayerMobile owner,Corpse corpse,CorpseTreasure context,Random random)
     {
-        var life=new RewardLife(null,corpse,owner,context.Level,CreatureGold.GoldFind(owner),MagicFind(owner),context.Difficulty);
+        var life=new RewardLife(null,corpse,owner,context.Level,CreatureGold.GoldFind(owner),MagicFind(owner),context.Difficulty)
+        {
+            BowCarrier = context.BowCarrier
+        };
         return AwardSelection(life,CreatureGold.SelectTreasureClass(context.TreasureClass,random,true),random);
     }
     private static bool AwardSelection(RewardLife life,string leaf,Random random)
     {
         if (leaf == "gld") { return CreatureGold.Award(life, random); }
-        var item = AlchemyRestoratives.Drop(leaf) ?? Generate(SelectBase(leaf, random), life.Level, life.MagicFind, random);
+        var item = AlchemyRestoratives.Drop(leaf)
+            ?? Generate(SelectBase(leaf, random), life.Level, life.MagicFind, random, bowCarrier: life.BowCarrier);
         if (item == null) { return false; }
         life.Corpse.DropItem(item);
         return true;

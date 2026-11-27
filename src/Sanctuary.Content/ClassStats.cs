@@ -94,7 +94,7 @@ public static class ClassStats
     {
         if (mobile is BaseCreature creature)
         {
-            int basis=checked(CreatureProfiles.AttackRating(creature)+NpcEquipmentCombat.AttackFlat(creature)),percent=skillPercent+BoundDemonUpgrades.AttackPercent(creature)+IronGolemUpgrades.AttackPercent(creature)+DireWolfUpgrades.AttackPercent(creature)+NpcEquipmentCombat.AttackPercent(creature)+(SorceressEffects.Enchantment(creature)?.AttackPercent??0)+CombatAuras.AttackPercent(creature)+NecromancerEffects.AttackStatPercent(creature)+HexBane.TargetAttackPercent(creature);
+            int basis=checked(CreatureProfiles.AttackRating(creature)+NpcEquipmentCombat.AttackFlat(creature)),percent=skillPercent+BoundDemonUpgrades.AttackPercent(creature)+IronGolemUpgrades.AttackPercent(creature)+DireWolfUpgrades.AttackPercent(creature)+NpcEquipmentCombat.AttackPercent(creature)+(SorceressEffects.Enchantment(creature)?.AttackPercent??0)+CombatAuras.AttackPercent(creature)+NecromancerEffects.AttackStatPercent(creature)+HexBane.TargetAttackPercent(creature)+QuiverEquipment.AttackPercent(creature);
             return basis+(int)((long)basis*percent/100);
         }
         if (mobile is not PlayerMobile player || !ClassCreation.Profiles.TryGet(mobile.Serial, out var profile))

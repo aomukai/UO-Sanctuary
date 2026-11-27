@@ -1,0 +1,132 @@
+--- a/src/ClassicUO.Client/Game/Managers/ObjectPropertiesListManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/ObjectPropertiesListManager.cs
+@@ -2,6 +2,7 @@
+ 
+ using System;
+ using System.Collections.Generic;
++using System.Globalization;
+ using ClassicUO.Network;
+ 
+ namespace ClassicUO.Game.Managers
+@@ -11,7 +12,8 @@
+         private readonly Dictionary<uint, ItemProperty> _itemsProperties = new Dictionary<uint, ItemProperty>();
+ 
+ 
+-        public void Add(uint serial, uint revision, string name, string data, int namecliloc, int[] clilocs = null)
++        public void Add(uint serial, uint revision, string name, string data, int namecliloc, int[] clilocs = null,
++            uint? nameColor = null)
+         {
+             if (!_itemsProperties.TryGetValue(serial, out ItemProperty prop))
+             {
+@@ -26,11 +28,30 @@
+             prop.Serial = serial;
+             prop.Revision = revision;
+             prop.Name = name;
++            prop.NameColor = nameColor;
+             prop.Data = data;
+             prop.NameCliloc = namecliloc;
+             prop.Clilocs = clilocs;
+         }
+ 
++        internal static string ReadNameColor(string name, out uint? color)
++        {
++            const string prefix = "<basefont color=#";
++            const string suffix = "</basefont>";
++            const int digits = 6;
++            int endTag = prefix.Length + digits;
++            color = null;
++            if (name.Length <= endTag + 1 + suffix.Length || name[endTag] != '>'
++                || !name.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)
++                || !name.EndsWith(suffix, StringComparison.OrdinalIgnoreCase)
++                || !uint.TryParse(name.AsSpan(prefix.Length, digits), NumberStyles.AllowHexSpecifier,
++                    CultureInfo.InvariantCulture, out uint rgb))
++                return name;
++
++            color = rgb;
++            return name[(endTag + 1)..^suffix.Length];
++        }
++
+ 
+         public bool Contains(uint serial)
+         {
+@@ -72,17 +93,22 @@
+             return false;
+         }
+ 
+-        public bool TryGetNameAndData(uint serial, out string name, out string data)
++        public bool TryGetNameAndData(uint serial, out string name, out string data) =>
++            TryGetNameAndData(serial, out name, out data, out _);
++
++        public bool TryGetNameAndData(uint serial, out string name, out string data, out uint? nameColor)
+         {
+             if (_itemsProperties.TryGetValue(serial, out ItemProperty p))
+             {
+                 name = p.Name;
+                 data = p.Data;
++                nameColor = p.NameColor;
+ 
+                 return true;
+             }
+ 
+             name = data = null;
++            nameColor = null;
+ 
+             return false;
+         }
+@@ -123,6 +149,7 @@
+         public bool IsEmpty => string.IsNullOrEmpty(Name) && string.IsNullOrEmpty(Data);
+         public string Data;
+         public string Name;
++        public uint? NameColor;
+         public uint Revision;
+         public uint Serial;
+         public int NameCliloc;
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -5144,6 +5144,7 @@
+             string name = string.Empty;
+             string data = string.Empty;
+             int namecliloc = 0;
++            uint? nameColor = null;
+ 
+             if (list.Count != 0)
+             {
+@@ -5156,6 +5157,8 @@
+ 
+                     if (first)
+                     {
++                        if (SerialHelper.IsItem(serial))
++                            str = ObjectPropertiesListManager.ReadNameColor(str, out nameColor);
+                         name = str;
+ 
+                         if (entity != null && !SerialHelper.IsMobile(serial))
+@@ -5194,7 +5197,7 @@
+                 }
+             }
+ 
+-            world.OPL.Add(serial, revision, name, data, namecliloc, clilocs);
++            world.OPL.Add(serial, revision, name, data, namecliloc, clilocs, nameColor);
+ 
+             UIManager.GetGump<SpellbookGump>(serial)?.RequestUpdateContents();
+ 
+--- a/src/ClassicUO.Client/Game/UI/Tooltip.cs
++++ b/src/ClassicUO.Client/Game/UI/Tooltip.cs
+@@ -225,7 +225,8 @@
+             string result = null;
+             htmltext = string.Empty;
+ 
+-            if (SerialHelper.IsValid(serial) && _world.OPL.TryGetNameAndData(serial, out string name, out string data))
++            if (SerialHelper.IsValid(serial)
++                && _world.OPL.TryGetNameAndData(serial, out string name, out string data, out uint? nameColor))
+             {
+                 ValueStringBuilder sbHTML = new ValueStringBuilder();
+                 {
+@@ -235,7 +236,7 @@
+                         {
+                             if (SerialHelper.IsItem(serial))
+                             {
+-                                sbHTML.Append("<basefont color=\"yellow\">");
++                                sbHTML.Append(nameColor is uint rgb ? $"<basefont color=#{rgb:X6}>" : "<basefont color=\"yellow\">");
+                                 hasStartColor = true;
+                             }
+                             else

@@ -37,17 +37,40 @@ public partial class DespiseWitness : ConversationNpc
 {
     [SerializableField(0, getter: "private", setter: "private")] private byte _portraitId;
 
+    private static readonly ScriptedDialogue.Voice _linnet = new("Linnet", (ushort)NpcPortrait.PixieLinnet);
+    private static readonly ScriptedDialogue.Voice _alder = new("Alder", (ushort)NpcPortrait.PixieAlder);
+    private static readonly ScriptedDialogue.Voice _sorrel = new("Sorrel", (ushort)NpcPortrait.PixieSorrel);
+    private static readonly ScriptedDialogue.Reply _home = new("Home", 1, TextId: "despise.pixies.ask_home");
+    private static readonly ScriptedDialogue.Reply _letter = new("Show them the letter", 0, Reveal,
+        TextId: "despise.pixies.show_letter");
+
     private static readonly ScriptedDialogue.Node[] _pixies =
     [
         new("Careful, traveller. These caves were our home. Then the ratmen came and drove our friends away. We stood no chance against them.",
-            [new("Home", 1)]),
-        new("We used to know every sound in these caves. Now we keep close to the ankh. Of the ratmen's reasons, I know nothing.", [])
+            [_home], _linnet, LineId: "despise.pixies.greeting", SpeakerId: "despise.linnet"),
+        new("We used to know every sound in these caves. Now we keep close to the ankh. If thou findest anything that might explain why the ratmen came, bring it to us here.",
+            [], _alder, LineId: "despise.pixies.home", SpeakerId: "despise.alder")
     ];
     private static readonly ScriptedDialogue.Node[] _withLetter =
     [
-        _pixies[0] with { Replies = [new("Home", 1), new("Letter", 0, Reveal)] },
-        _pixies[1] with { Replies = [new("Letter", 0, Reveal)] },
-        new("That letter cannot tell me who took it. The thing it speaks of was a sapling from the Tree of Life in Ilshenar. It vanished, and shortly after that, the ratmen came. I know nothing more of them, or of the one who carried thy letter.", [])
+        new("Thou hast found something? Come closer. Let us see what thou hast brought.",
+            [_letter, _home], _linnet, LineId: "despise.pixies.return_with_letter", SpeakerId: "despise.linnet"),
+        _pixies[1] with { Replies = [_letter] }
+    ];
+    private static readonly ScriptedDialogue.Node _sapling =
+        new("The thing this letter speaks of was a sapling from the Tree of Life in Ilshenar. It vanished, and shortly after that, the ratmen came. I know nothing more of them, or of the one who carried thy letter.",
+            [], _sorrel, LineId: "despise.pixies.sapling", SpeakerId: "despise.sorrel");
+    private static readonly ScriptedDialogue.Reply _takeRune =
+        new("Continue", 0, GiveRune, TextId: "despise.pixies.continue");
+    private static readonly ScriptedDialogue.Node[] _gift =
+    [
+        new("Thank thee for coming back to us. I have marked the mouth of the caves in thy runebook, shouldst thou need to return.",
+            [], _linnet, LineId: "despise.pixies.rune", SpeakerId: "despise.linnet")
+    ];
+    private static readonly ScriptedDialogue.Node[] _needsRunebook =
+    [
+        new("Come back with a runebook and I shall mark the mouth of the caves for thee.",
+            [], _linnet, LineId: "despise.pixies.rune_needs_runebook", SpeakerId: "despise.linnet")
     ];
     private static readonly ScriptedDialogue.Node[] _ratman =
     [
@@ -89,7 +112,16 @@ public partial class DespiseWitness : ConversationNpc
         if ((ClassCreation.Profiles.Discoveries(player.Serial) & StoryDiscoveries.DespiseLetter) == 0)
             return;
         DespiseStory.Discover(player, StoryDiscoveries.StolenSapling);
-        ScriptedDialogue.Show(player, witness, _withLetter, 2);
+        ScriptedDialogue.Show(player, witness, DungeonEntranceRunes.Despise.WasClaimed(player)
+            ? [_sapling] : [_sapling with { Replies = [_takeRune] }]);
+    }
+
+    private static void GiveRune(PlayerMobile player, Mobile witness)
+    {
+        if ((ClassCreation.Profiles.Discoveries(player.Serial) & StoryDiscoveries.StolenSapling) == 0)
+            return;
+        bool awarded = DungeonEntranceRunes.Award(player, DungeonEntranceRunes.Despise);
+        ScriptedDialogue.Show(player, witness, awarded ? _gift : _needsRunebook);
     }
 }
 
@@ -119,6 +151,9 @@ public partial class DespiseLetter : BaseBook
         if (!AuthoredWriting.Show(player, id, AuthoredTextKind.Letter, Title, Author,
             AuthoredWriting.BookBody(this), id + ".body"))
             base.OnDoubleClick(player);
+        bool firstReading = (ClassCreation.Profiles.Discoveries(player.Serial) & StoryDiscoveries.DespiseLetter) == 0;
         DespiseStory.Discover(player, StoryDiscoveries.DespiseLetter);
+        if (firstReading)
+            player.SendMessage("The pixies near the ankh may know what was stolen. Bring the letter back to them.");
     }
 }

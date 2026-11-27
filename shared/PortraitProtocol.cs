@@ -18,7 +18,12 @@ public enum StoryDiscoveries : ulong
     DestardBetrayal = 1UL << 35, DestardDaemons = 1UL << 36, DestardEnslaved = 1UL << 37,
     DestardAftermath = 1UL << 38, CelesteDrake = 1UL << 39, CelesteWaiting = 1UL << 40,
     CelesteAbandoned = 1UL << 41, CelesteRescued = 1UL << 42, CelestePast = 1UL << 43,
-    CelesteTrinsicReport = 1UL << 44
+    CelesteTrinsicReport = 1UL << 44,
+    ShameEntranceRune = 1UL << 45, CovetousEntranceRune = 1UL << 46,
+    DeceitEntranceRune = 1UL << 47, DespiseEntranceRune = 1UL << 48,
+    DestardEntranceRune = 1UL << 49, HythlothEntranceRune = 1UL << 50,
+    WrongEntranceRune = 1UL << 51, DestardQueenAudience = 1UL << 52,
+    LegacyEntranceRunesFiled = 1UL << 53
 }
 
 [Flags]

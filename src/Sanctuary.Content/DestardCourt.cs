@@ -113,6 +113,7 @@ public partial class DestardQueen : ConversationNpc
 
     internal override void BeginConversation(PlayerMobile player)
     {
+        ClassCreation.Profiles.Discover(player.Serial, StoryDiscoveries.DestardQueenAudience);
         if (BritanniaCampaign.Has(player, CampaignProgress.Diablo))
         {
             ScriptedDialogue.Show(player, this, _victory);

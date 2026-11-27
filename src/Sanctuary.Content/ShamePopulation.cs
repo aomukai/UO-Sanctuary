@@ -82,8 +82,6 @@ public static class ShamePopulation
 
     private static readonly Pool _mage = new([ShameRole.CrazedResearcher, ShameRole.FanaticExperimenter], []);
 
-    private const int ParagonChance = 10;
-
     public static void Configure() => EventSink.ServerStarted += Install;
 
     private static Pool PoolFor(Spawner spawner) => spawner switch
@@ -105,7 +103,7 @@ public static class ShamePopulation
         var roles = PoolFor(spawner).Roles;
         foreach (var role in roles)
             spawner.AddEntry(nameof(ShameEncounter), probability: 100 / roles.Length, dotimer: false,
-                parameters: $"{role} {ParagonChance}");
+                parameters: $"{role} {Paragon.SpawnChance}");
     }
 
     internal static bool OnMainDeck(Point3D location, Map map) => map == Map.Trammel
@@ -119,7 +117,7 @@ public static class ShamePopulation
         InstallManifestCrew(map);
 
         Ensure(map, new(5402, 46, 30), () => new ShameClue(ShameClueKind.Miner));
-        Ensure(map, new(5401, 45, 30), () => new ShameMinerRemains());
+        InstallMinerRemains(map);
         Ensure(map, new(5438, 185, 22), () => new ShameClue(ShameClueKind.Almanach));
         InstallStudyShelf(map);
         Ensure(map, new(5436, 185, 28), () => new ShameMineral());
@@ -129,6 +127,21 @@ public static class ShamePopulation
         Ensure(map, new(5751, 60, -2), () => new ShameGangplank());
         ShameExpedition.Install(map, Wheel);
         ShameShipCrossing.Install(map);
+    }
+
+    private static void InstallMinerRemains(Map map)
+    {
+        var destination = new Point3D(5400, 45, 30);
+        var old = new Point3D(5401, 45, 30);
+        foreach (var remains in map.GetItemsAt<ShameMinerRemains>(old))
+        {
+            if (remains.Location != old)
+                continue;
+            remains.MoveToWorld(destination, map);
+            return;
+        }
+
+        Ensure(map, destination, () => new ShameMinerRemains());
     }
 
     private static void InstallStudyShelf(Map map)
@@ -184,7 +197,7 @@ public static class ShamePopulation
             foreach (var entry in spawner.Entries)
             {
                 entry.SpawnedProbability = 100 / pool.Roles.Length;
-                entry.Parameters = $"{entry.Parameters} {ParagonChance}";
+                entry.Parameters = $"{entry.Parameters} {Paragon.SpawnChance}";
             }
             foreach (var excess in spawner.Spawned.Keys.Where(spawn => !spawn.Deleted)
                 .OrderBy(spawn => spawn.Serial.Value).Skip(1).ToArray())
@@ -282,6 +295,12 @@ public partial class ShameMinerRemains : Item
     {
         Name = "the remains of a miner";
         Movable = false;
+    }
+
+    public override void OnDoubleClick(Mobile from)
+    {
+        if (from is PlayerMobile player && DungeonEntranceRunes.CanSearch(player, this))
+            DungeonEntranceRunes.Award(player, DungeonEntranceRunes.Shame);
     }
 }
 

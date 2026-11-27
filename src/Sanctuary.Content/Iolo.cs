@@ -392,15 +392,7 @@ public partial class Iolo : ConversationNpc, IClassCompanion
             }
         }
 
-        var parts = DefensiveArmors.Absorb(target, new GearDamage(physical, 0, 0, cold, 0, Magic: magic), this);
-        parts = parts with
-        {
-            Physical = GemCombat.Component(target, parts.Physical, target.PhysicalResistance, false),
-            Cold = NamedElements.Damage(this, target, parts.Cold, "cold"),
-            Magic = NamedElements.Damage(this, target, parts.Magic, "mag")
-        };
-        var settled = DirectDamageParts.From(parts);
-        SkillHealth.TypedDamage(this, target, checked((int)settled.Total), settled);
+        var parts = CompanionBuild.BowHit(this, target, new(physical, 0, cold, 0, 0, Magic: magic));
         if (skill == CombatAbility.ColdArrow && parts.Cold > 0 && target.Alive)
             GearEffects.ApplyChill(target, Core.TickCount, values.DurationFrames * ActionTiming.FrameMs, this);
     }

@@ -382,7 +382,14 @@ public static class CreatureProfiles
     // Reward policy has its own opt-in: a reviewed level/XP mapping does not
     // activate an unrelated combat proposal.
     public static int Experience(BaseCreature creature, MonsterDifficulty? difficulty = null)
-        => Variant(creature, difficulty).Rewards is { Enabled: true, Experience: { } xp } ? xp : 0;
+    {
+        if (Variant(creature, difficulty).Rewards is not { Enabled: true, Experience: { } xp })
+            return 0;
+
+        // Encounter profiles already account for their authored grade.
+        return creature.IsParagon && creature is not EncounterCreature { Grade: not EncounterGrade.Ordinary }
+            ? checked(xp * ParagonBalance.ExperienceMultiplier) : xp;
+    }
     public static int AttackRating(BaseCreature mob) => (ReviveEquipmentCombat.AttackBasis(mob)??(For(mob) is { ApplyStats: true, Attack1.AttackRating: { } rating }
         ? rating : NativeAttack(mob)))+BoundDemonHosts.Attack(mob);
     public static int Defense(BaseCreature mob) => checked((ReviveEquipmentCombat.DefenseBasis(mob)??(For(mob) is { ApplyStats: true, Defense: { } defense } ? defense : NativeDefense(mob)))+EngorgeEffects.Armor(mob)+BoundDemonHosts.Armor(mob));

@@ -428,7 +428,17 @@ public static class ClassGear
         if (name == null)
             item.AddNameProperty(list);
         else
-            list.Add(name);
+        {
+            string color = roll?.Rarity switch
+            {
+                GearRarity.Magic => "899DFF",
+                GearRarity.Rare => "FFEB62",
+                GearRarity.Unique => "C7A25C",
+                GearRarity.Set => "63D66F",
+                _ => null
+            };
+            list.Add(color == null ? name : $"<basefont color=#{color}>{name}</basefont>");
+        }
 
         if (!IgnoreAppearanceRestrictions(item))
         {

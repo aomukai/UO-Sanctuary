@@ -46,7 +46,7 @@ internal static class CompanionBuild
         ClassStats.Refresh(actor);
     }
 
-    private static bool Worn(Item item) => ClassGear.Converted(item)
+    internal static bool Worn(Item item) => ClassGear.Converted(item)
         && ClassGear.State(item) is not { Identified: false } && !ClassGear.Broken(item);
 
     internal static int Bonus(BaseCreature actor, string code, Item except = null)
@@ -93,7 +93,7 @@ internal static class CompanionBuild
 
     internal static bool AllowedArcherGear(Item item, AttackFamily family) => item switch
     {
-        BeltLantern => true,
+        BeltLantern or BaseQuiver => true,
         BaseWeapon weapon => CombatTiming.Weapon(weapon).Family == family,
         _ => ClassGear.Definition(item) is { Slot: GearSlot.Cosmetic or GearSlot.Belt or GearSlot.Ring or GearSlot.Amulet }
             || ClassGear.Definition(item) is { Weight: GearWeight.Light, Slot: GearSlot.Head or GearSlot.Body or GearSlot.Hands or GearSlot.Feet }
@@ -122,6 +122,24 @@ internal static class CompanionBuild
     {
         var (minimum, maximum, factor) = WeaponDamage(actor, weapon, level, skillPercent);
         return Utility.RandomMinMax(minimum, maximum) * factor / 100.0;
+    }
+
+    internal static GearDamage BowHit(BaseCreature actor, Mobile target, GearDamage damage)
+    {
+        var converted = QuiverEquipment.Convert(damage, QuiverEquipment.Element(actor));
+        var parts = DefensiveArmors.Absorb(target, converted with { Poison = converted.Poison + converted.ImpactPoison }, actor);
+        parts = parts with
+        {
+            Physical = GemCombat.Component(target, parts.Physical, target.PhysicalResistance, false),
+            Fire = NamedElements.Damage(actor, target, parts.Fire, "fire"),
+            Cold = NamedElements.Damage(actor, target, parts.Cold, "cold"),
+            Lightning = NamedElements.Damage(actor, target, parts.Lightning, "ltng"),
+            Poison = NamedElements.Damage(actor, target, parts.Poison, "pois"),
+            Magic = NamedElements.Damage(actor, target, parts.Magic, "mag")
+        };
+        var settled = DirectDamageParts.From(parts);
+        SkillHealth.TypedDamage(actor, target, checked((int)(settled.Total + NamedElements.To256(parts.Poison))), settled);
+        return parts;
     }
 
     internal static int Recovery(BaseCreature actor, DiabloClass characterClass) =>

@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text.Json;
 using Server;
 using Server.Accounting;
+using Server.Engines.Spawners;
 using Server.Items;
 using Server.Logging;
 using Server.Mobiles;
@@ -28,6 +29,7 @@ public static class CreatureExperienceChecks
         Register("creature-xp-check", Setup);
         Register("creature-xp-reload-check", Reload);
         Register("creature-xp-claims-check", Claims);
+        Register("paragon-balance-check", CheckParagons);
     }
     private static void Register(string command, Action action) => ConsoleInputHandler.RegisterCommand(command,
         "Profile XP, pet credit and revival persistence", _ => Core.LoopContext.Post(() => Run(command, action)));
@@ -83,6 +85,68 @@ public static class CreatureExperienceChecks
         }
         return corpse;
     }
+
+    private static void CheckParagons()
+    {
+        Require(Paragon.SpawnChance == 5, "The native Paragon rate must be 5 percent");
+        int ogreParagons = 0, frontierParagons = 0, frontierUniques = 0;
+        for (int roll = 0; roll < 100; roll++)
+        {
+            if (FrontierEncounter.OgreLordGrade(roll) == EncounterGrade.Champion)
+                ogreParagons++;
+            switch (FrontierEncounter.PopulationGrade(roll))
+            {
+                case EncounterGrade.Champion: frontierParagons++; break;
+                case EncounterGrade.Unique: frontierUniques++; break;
+            }
+        }
+        Require(ogreParagons == 5 && frontierParagons == 5 && frontierUniques == 3,
+            "Random Ogre Lords and frontier Paragons must have five tickets, with three frontier Unique tickets");
+
+        Spawner[] pools = [new ShameOne(), new ShameMage(), new WrongOne(), new WrongDrake2()];
+        _items.AddRange(pools);
+        foreach (var pool in pools)
+        {
+            foreach (var entry in pool.Entries)
+                Require(entry.Parameters.EndsWith(" 5", StringComparison.Ordinal), "New pool has the wrong spawn rate");
+            var old = pool.Entries[0];
+            var expected = old.Parameters;
+            old.Parameters = expected[..^2] + " 10";
+            ParagonBalance.UpdateSavedPool(pool);
+            Require(old.Parameters == expected, "A saved 10 percent spawner was not upgraded");
+        }
+
+        _point = CombatPractice.FindFloor(Map.Trammel, 5530, 1150);
+        var regular = At(new Skeleton());
+        var nativeParagon = At(new Skeleton { IsParagon = true });
+        Require(CreatureProfiles.Experience(nativeParagon) == CreatureProfiles.Experience(regular) * 3,
+            "Native Paragon did not receive triple base XP");
+        var ordinaryOwner = Player("Ordinary skeleton XP fixture");
+        var paragonOwner = Player("Paragon skeleton XP fixture");
+        Kill(regular, ordinaryOwner);
+        Kill(nativeParagon, paragonOwner);
+        Require(Xp(ordinaryOwner) == 34 && Xp(paragonOwner) == 102, "Actual native kill XP did not triple");
+
+        var encounter = At(new ShameEncounter(ShameRole.Corundum, paragon: true));
+        int ordinaryBasis = DungeonPlayerScaling.Scale(encounter.Basis.Experience, encounter.EncounterPlayers);
+        Require(CreatureProfiles.Experience(encounter) == ordinaryBasis * 3, "Shame Paragon did not receive triple base XP");
+
+        var haven = At(new HavenEncounter(HavenEncounter.Bogling, 1));
+        int normalXp = CreatureProfiles.Experience(haven);
+        Require(!ParagonBalance.TrySpawn(haven, Map.Trammel, 5)
+            && ParagonBalance.TrySpawn(haven, Map.Trammel, 4)
+            && haven.Grade == EncounterGrade.Champion && haven.Basis.Level == 1
+            && CreatureProfiles.Experience(haven) == normalXp * 3
+            && !ParagonBalance.TrySpawn(haven, Map.Trammel, 0),
+            "Ordinary encounter was not promoted once at its original level");
+        var wildSkeleton = At(new Skeleton());
+        Require(ParagonBalance.TrySpawn(wildSkeleton, Map.Trammel, 4) && wildSkeleton.IsParagon
+            && !ParagonBalance.TrySpawn(At(new Cow()), Map.Trammel, 0),
+            "Global Paragon roll did not distinguish wild monsters from livestock");
+        Cleanup();
+        _logger.Information("paragon-balance-check: passed");
+    }
+
     private static void Setup()
     {
         _point = CombatPractice.FindFloor(Map.Trammel, 5530, 1150);

@@ -1,0 +1,262 @@
+--- a/src/ClassicUO.Client/Game/UI/Controls/ItemGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Controls/ItemGump.cs
+@@ -15,6 +15,7 @@
+ {
+     internal class ItemGump : Control
+     {
++        private const int StackOffset = 5;
+         private ushort _graphic;
+         private readonly bool _is_gump;
+         private readonly Gump _gump;
+@@ -68,6 +69,7 @@
+         public bool IsPartialHue { get; set; }
+         public bool HighlightOnMouseOver { get; set; }
+         public bool CanPickUp { get; set; }
++        public bool UseScale2x { get; set; }
+ 
+         public override void Update()
+         {
+@@ -124,9 +126,7 @@
+ 
+             Vector3 hueVector = ShaderHueTranslator.GetHueVector(hue, partialHue, 1);
+ 
+-            ref readonly var spriteInfo = ref _is_gump
+-                ? ref Client.Game.UO.Gumps.GetGump(Graphic)
+-                : ref Client.Game.UO.Arts.GetArt(Graphic);
++            var spriteInfo = GetDisplaySprite(out _);
+ 
+             var texture = spriteInfo.Texture;
+             if (spriteInfo.Texture != null)
+@@ -152,8 +152,8 @@
+                             && item.ItemData.IsStackable
+                         )
+                         {
+-                            rect.X += 5;
+-                            rect.Y += 5;
++                            rect.X += StackOffset;
++                            rect.Y += StackOffset;
+ 
+                             batcher.Draw(texture, rect, sourceRectangle, hueVector, layerDepth);
+                         }
+@@ -168,11 +168,7 @@
+ 
+         public override bool Contains(int x, int y)
+         {
+-            ref readonly var spriteInfo = ref _is_gump
+-                ? ref Client.Game.UO.Gumps.GetGump(Graphic)
+-                : ref Client.Game.UO.Arts.GetArt(Graphic);
+-
+-            if (spriteInfo.Texture == null)
++            if (GetDisplaySprite(out bool scale2x).Texture == null)
+             {
+                 return false;
+             }
+@@ -181,7 +177,8 @@
+             y -= Offset.Y;
+ 
+             if (
+-                ProfileManager.CurrentProfile != null
++                !scale2x
++                && ProfileManager.CurrentProfile != null
+                 && ProfileManager.CurrentProfile.ScaleItemsInsideContainers
+             )
+             {
+@@ -191,42 +188,43 @@
+                 y = (int)(y / scale);
+             }
+ 
+-            if (_is_gump)
+-            {
+-                if (Client.Game.UO.Gumps.PixelCheck(Graphic, x, y))
+-                {
+-                    return true;
+-                }
+-
+-                Item item = _gump.World.Items.Get(LocalSerial);
+-
+-                if (item != null && !item.IsCoin && item.Amount > 1 && item.ItemData.IsStackable)
+-                {
+-                    if (Client.Game.UO.Gumps.PixelCheck(Graphic, x - 5, y - 5))
+-                    {
+-                        return true;
+-                    }
+-                }
+-            }
+-            else
+-            {
+-                if (Client.Game.UO.Arts.PixelCheck(Graphic, x, y))
+-                {
+-                    return true;
+-                }
+-
+-                Item item = _gump.World.Items.Get(LocalSerial);
+-
+-                if (item != null && !item.IsCoin && item.Amount > 1 && item.ItemData.IsStackable)
+-                {
+-                    if (Client.Game.UO.Arts.PixelCheck(Graphic, x - 5, y - 5))
+-                    {
+-                        return true;
+-                    }
+-                }
+-            }
+-
+-            return false;
++            if (PixelCheck(x, y))
++            {
++                return true;
++            }
++
++            Item item = _gump.World.Items.Get(LocalSerial);
++            return item != null && !item.IsCoin && (!scale2x || !item.IsMulti)
++                && item.Amount > 1 && item.ItemData.IsStackable
++                && PixelCheck(x - StackOffset, y - StackOffset);
++
++            bool PixelCheck(int px, int py)
++            {
++                if (scale2x)
++                {
++                    return Client.Game.UO.Arts.Scale2xPixelCheck(Graphic, px, py);
++                }
++
++                return _is_gump
++                    ? Client.Game.UO.Gumps.PixelCheck(Graphic, px, py)
++                    : Client.Game.UO.Arts.PixelCheck(Graphic, px, py);
++            }
++        }
++
++        private SpriteInfo GetDisplaySprite(out bool scale2x)
++        {
++            if (UseScale2x)
++            {
++                var sprite = Client.Game.UO.Arts.GetScale2xArt(Graphic);
++                if (sprite.Texture != null && sprite.UV.Width == Width && sprite.UV.Height == Height)
++                {
++                    scale2x = true;
++                    return sprite;
++                }
++            }
++
++            scale2x = false;
++            return _is_gump ? Client.Game.UO.Gumps.GetGump(Graphic) : Client.Game.UO.Arts.GetArt(Graphic);
+         }
+ 
+         protected override void CloseWithRightClick()
+--- a/src/ClassicUO.Client/Game/UI/Gumps/ContainerGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/ContainerGump.cs
+@@ -606,6 +606,7 @@
+                 {
+                     itemControl.Width = (int)(itemControl.Width * scale);
+                     itemControl.Height = (int)(itemControl.Height * scale);
++                    itemControl.UseScale2x = scale == 2f;
+                 }
+ 
+                 itemControl.X = (int)((short)item.X * scale);
+--- a/src/ClassicUO.Renderer/Arts/Art.cs
++++ b/src/ClassicUO.Renderer/Arts/Art.cs
+@@ -6,14 +6,18 @@
+ using SDL3;
+ using System;
+ using System.Buffers;
++using System.Collections.Generic;
+ 
+ namespace ClassicUO.Renderer.Arts
+ {
+     public sealed class Art
+     {
++        private const int AtlasSize = 4096;
+         private readonly SpriteInfo[] _spriteInfos;
++        private readonly Dictionary<uint, SpriteInfo> _scale2xSprites = new();
+         private readonly TextureAtlas _atlas;
+         private readonly PixelPicker _picker = new PixelPicker();
++        private readonly PixelPicker _scale2xPicker = new PixelPicker();
+         private readonly Rectangle[] _realArtBounds;
+         private readonly ArtLoader _artLoader;
+         private readonly HuesLoader _huesLoader;
+@@ -22,7 +26,7 @@
+         {
+             _artLoader = artLoader;
+             _huesLoader = huesLoader;
+-            _atlas = new TextureAtlas(device, 4096, 4096, SurfaceFormat.Color);
++            _atlas = new TextureAtlas(device, AtlasSize, AtlasSize, SurfaceFormat.Color);
+             _spriteInfos = new SpriteInfo[_artLoader.File.Entries.Length];
+             _realArtBounds = new Rectangle[_spriteInfos.Length];
+         }
+@@ -33,6 +37,8 @@
+             Array.Clear(_spriteInfos);
+             Array.Clear(_realArtBounds);
+             _picker.Clear();
++            _scale2xSprites.Clear();
++            _scale2xPicker.Clear();
+         }
+ 
+         public ref readonly SpriteInfo GetLand(uint idx)
+@@ -40,6 +46,69 @@
+ 
+         public ref readonly SpriteInfo GetArt(uint idx)
+             => ref Get(idx + 0x4000);
++
++        public SpriteInfo GetScale2xArt(uint idx)
++        {
++            if (idx >= _spriteInfos.Length - 0x4000)
++            {
++                return SpriteInfo.Empty;
++            }
++
++            if (_scale2xSprites.TryGetValue(idx, out var sprite))
++            {
++                return sprite;
++            }
++
++            var art = _artLoader.GetArt(idx + 0x4000);
++            int width = art.Width * 2;
++            int height = art.Height * 2;
++            if (!art.Pixels.IsEmpty && width > 0 && height > 0 && width <= AtlasSize && height <= AtlasSize)
++            {
++                uint[] buffer = ArrayPool<uint>.Shared.Rent(width * height);
++                try
++                {
++                    var pixels = buffer.AsSpan(0, width * height);
++                    Scale2x(art.Pixels, art.Width, art.Height, pixels);
++                    sprite.Texture = _atlas.AddSprite(pixels, width, height, out sprite.UV);
++                    _scale2xPicker.Set(idx, width, height, pixels);
++                }
++                finally
++                {
++                    ArrayPool<uint>.Shared.Return(buffer);
++                }
++            }
++
++            _scale2xSprites.Add(idx, sprite);
++            return sprite;
++        }
++
++        public bool Scale2xPixelCheck(uint idx, int x, int y) => _scale2xPicker.Get(idx, x, y);
++
++        private static void Scale2x(ReadOnlySpan<uint> source, int width, int height, Span<uint> output)
++        {
++            int stride = width * 2;
++            for (int y = 0; y < height; y++)
++            {
++                int row = y * width;
++                int above = Math.Max(0, y - 1) * width;
++                int below = Math.Min(height - 1, y + 1) * width;
++                for (int x = 0; x < width; x++)
++                {
++                    uint center = source[row + x];
++                    uint north = source[above + x];
++                    uint west = source[row + Math.Max(0, x - 1)];
++                    uint east = source[row + Math.Min(width - 1, x + 1)];
++                    uint south = source[below + x];
++                    bool corner = north != south && west != east;
++                    int topLeft = y * 2 * stride + x * 2;
++
++                    output[topLeft] = corner && west == north ? west : center;
++                    output[topLeft + 1] = corner && north == east ? east : center;
++                    output[topLeft + stride] = corner && west == south ? west : center;
++                    output[topLeft + stride + 1] = corner && south == east ? east : center;
++                }
++            }
++        }
+ 
+         private ref readonly SpriteInfo Get(uint idx)
+         {

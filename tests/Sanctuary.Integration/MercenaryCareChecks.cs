@@ -24,10 +24,91 @@ public static class MercenaryCareChecks
         Register("mercenary-inn-check", RecallAfterLevelling);
         Register("mercenary-ghost-login-check", GhostLogin);
         Register("companion-retreat-check", CheckCompanionRetreat);
+        Register("quiver-check", CheckQuivers);
     }
     private static void Register(string name, Action action) => ConsoleInputHandler.RegisterCommand(name, "Disposable mercenary preparation checks", _ => Core.LoopContext.Post(() =>
     { try { action(); _log.Information("{Name}: passed", name); } catch (Exception e) { _log.Error(e, "{Name}: failed", name); } }));
     private static void Require(bool value, string message) { if (!value) { throw new InvalidOperationException(message); } }
+
+    private sealed class DropTicket(int ticket) : Random(51)
+    {
+        public override int Next(int maxValue) => maxValue == QuiverEquipment.DropRoll ? ticket : base.Next(maxValue);
+    }
+
+    private static void CheckQuivers()
+    {
+        foreach (var characterClass in Enum.GetValues<DiabloClass>())
+        {
+            var player = new PlayerMobile { Body = 0x190, Player = true, Name = "Quiver fixture" };
+            var quiver = new SanctuaryQuiver { Element = QuiverElement.Fire };
+            var bow = new Bow();
+            try
+            {
+                ClassCreation.Profiles.Assign(player, characterClass);
+                player.RawStr = player.RawDex = 100;
+                Require(player.EquipItem(quiver) && QuiverEquipment.AttackPercent(player) == 0
+                    && QuiverEquipment.Element(player) == QuiverElement.None, $"Quiver cannot be worn without a bow by {characterClass}");
+                Require(player.EquipItem(bow) && QuiverEquipment.AttackPercent(player) == 5
+                    && QuiverEquipment.Element(player) == QuiverElement.Fire, $"Quiver effects did not activate with a bow for {characterClass}");
+            }
+            finally { bow.Delete(); quiver.Delete(); player.Delete(); }
+        }
+
+        var owner = new PlayerMobile { Body = 0x190, Player = true, Name = "Companion quiver fixture" };
+        var target = new GraveyardSkeleton { NoKillAwards = true };
+        var fireQuiver = new SanctuaryQuiver { Element = QuiverElement.Fire };
+        Merydwen archer = null;
+        try
+        {
+            owner.AddItem(new Backpack());
+            owner.Backpack.DropItem(new Gold(5000));
+            ClassCreation.Profiles.Assign(owner, DiabloClass.Necromancer);
+            FixtureSpace.Corridor(owner, 6200, 24, 2300);
+            archer = Merydwen.Hire(owner, out _);
+            Require(archer != null, "Could not hire Merydwen to test the quiver");
+            archer.AIObject.AITimer.Stop();
+            int attack = ClassStats.AttackRating(archer);
+            owner.Backpack.DropItem(fireQuiver);
+            Require(archer.AllowEquipFrom(owner) && archer.EquipItem(fireQuiver) && fireQuiver.Parent == archer
+                && ClassStats.AttackRating(archer) == attack + attack * 5 / 100, "Merydwen's equipped quiver did not raise her attack rating");
+            target.MoveToWorld(new(owner.X + 2, owner.Y, owner.Z), owner.Map);
+            target.AIObject.AITimer.Stop();
+            target.SetResistance(ResistanceType.Physical, 0);
+            target.SetResistance(ResistanceType.Fire, 0);
+            var parts = CompanionBuild.BowHit(archer, target, new(40, 0, 0, 0, 0));
+            Require(parts.Physical == 36 && parts.Fire == 4, "Merydwen's quiver did not convert 10 percent of the shot to fire");
+        }
+        finally
+        {
+            target.Corpse?.Delete();
+            target.Delete();
+            fireQuiver.Delete();
+            archer?.Delete();
+            owner.Delete();
+        }
+
+        var corsair = new ShameEncounter(ShameRole.Corsair);
+        var elemental = new ShameEncounter(ShameRole.Corundum);
+        try
+        {
+            Require(QuiverEquipment.BowCarrier(corsair, null), "Shame corsair's crossbow did not qualify for quiver loot");
+            Require(!QuiverEquipment.BowCarrier(elemental, null), "An unarmed Shame elemental qualified for quiver loot");
+        }
+        finally { corsair.Delete(); elemental.Delete(); }
+
+        foreach (var leaf in new[] { "aqv", "cqv" })
+        {
+            var basis = GearDrops.Base(leaf);
+            Require(basis != null && !GearDrops.HasEquipment(leaf), "An ammo leaf entered a guaranteed equipment roll");
+            Require(GearDrops.Generate(basis, 25, 0, new DropTicket(0)) == null, "A non-archer's ammo roll produced a quiver");
+            for (int ticket = 0; ticket < QuiverEquipment.DropRoll; ticket++)
+            {
+                var item = GearDrops.Generate(basis, 25, 0, new DropTicket(ticket), bowCarrier: true);
+                try { Require(ticket == 0 ? item is SanctuaryQuiver : item == null, "Unexpected quiver drop ticket"); }
+                finally { item?.Delete(); }
+            }
+        }
+    }
 
     private static void CheckCompanionRetreat()
     {

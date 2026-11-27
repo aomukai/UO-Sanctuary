@@ -12,7 +12,7 @@ using Server.Targeting;
 namespace Sanctuary;
 
 public enum EncounterGrade { Ordinary, Champion, Unique, SuperUnique, Minion }
-public enum ChampionKind { Champion, Ghostly, Fanatic, Berserker, Possessed }
+public enum ChampionKind { Champion, Ghostly, Fanatic, Berserker, Possessed, SameLevel }
 public enum EliteModifier { AuraEnchanted, Cursed, ColdEnchanted, ExtraFast, FireEnchanted, LightningEnchanted,
     MagicResistant, ManaBurn, Multishot, SpectralHit, StoneSkin, ExtraStrong, Teleport }
 public enum EliteAura { None, Might, HolyFire, BlessedAim, HolyFreeze, HolyShock, Conviction, Fanaticism, Vigor }

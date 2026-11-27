@@ -36,9 +36,11 @@ internal static class PreparedMonsterNativeDamage
         // native controlled-pet branch with an identity multiplier. Its RNG
         // branch remains native;this is not permission to skip a real scalar.
         bool boundIdentity=controlledIdentity&&BoundDemonHosts.Active(target)&&target.BonusPetDamageScalar==1.0;
+        // Shame's Damage override only guards pirate expedition participation.
+        bool ordinaryShame=method==typeof(ShameEncounter)&&target is ShameEncounter{IsExpeditionActor:false};
         if(target.GetSkillMod("EvilOmen")!=null||source!=null&&BloodOathSpell.GetBloodOath(source)==target
             ||target.Controlled&&!target.Summoned&&!incoming&&!boundIdentity
-            ||target.SubdueBeforeTame||method!=typeof(BaseCreature)&&!demonGuard)
+            ||target.SubdueBeforeTame||method!=typeof(BaseCreature)&&!demonGuard&&!ordinaryShame)
         {throw new NotSupportedException("This recipient's native incoming damage modifier needs an ordered adapter.");}
         if(target.IsParagon){throw new NotSupportedException("Paragon damage/recovery needs its ordered actor adapter.");}
     }
