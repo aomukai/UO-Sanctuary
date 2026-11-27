@@ -1,0 +1,101 @@
+diff --git a/src/ClassicUO.Client/Client.cs b/src/ClassicUO.Client/Client.cs
+--- a/src/ClassicUO.Client/Client.cs
++++ b/src/ClassicUO.Client/Client.cs
+@@ -91,6 +91,24 @@
+                 lava.Name = "lava";
+             }
+ 
++            for (int id = WorldDecorationGraphics.DaggerMeadow; id < WorldDecorationGraphics.DaggerMeadow + 256 && id < tiles.Length; id++)
++                tiles[id].Flags = TileFlag.Background;
++            for (int id = WorldDecorationGraphics.DaggerHallRoof; id < WorldDecorationGraphics.DaggerGable + 24 && id < tiles.Length; id++)
++                if (WorldDecorationGraphics.IsDaggerRoof((ushort)id))
++                    tiles[id].Flags = TileFlag.Roof;
++
++            for (int graphic = WorldDecorationGraphics.DaggerGroundFirst;
++                graphic <= WorldDecorationGraphics.DaggerMooring && graphic < tiles.Length; graphic++)
++            {
++                ref var tile = ref tiles[graphic];
++                tile.Flags = graphic < WorldDecorationGraphics.DaggerRoofFirst ? TileFlag.Background | TileFlag.Surface
++                    : graphic < WorldDecorationGraphics.DaggerLintel ? TileFlag.Roof
++                    : graphic == WorldDecorationGraphics.DaggerLintel ? 0 : TileFlag.Impassable;
++                tile.Weight = byte.MaxValue;
++                tile.Height = (byte)(tile.Flags == TileFlag.Impassable ? 16 : 0);
++                tile.Name = "Dagger Isle timberwork";
++            }
++
+             const int TEXTURE_WIDTH = 512;
+             const int TEXTURE_HEIGHT = 1024;
+             const int LIGHTS_TEXTURE_WIDTH = 32;
+diff --git a/src/ClassicUO.Client/ClassicUO.Client.csproj b/src/ClassicUO.Client/ClassicUO.Client.csproj
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -63,6 +63,7 @@
+     <Compile Include="../../../../shared/FlareGraphics.cs" Link="Game/Data/FlareGraphics.cs" />
+     <Compile Include="../../../../shared/DespiseLighting.cs" Link="Game/Data/DespiseLighting.cs" />
+     <Compile Include="../../../../shared/CampGraphics.cs" Link="Game/Data/CampGraphics.cs" />
++    <Compile Include="../../../../shared/DaggerVillageLayout.cs" Link="Game/Data/DaggerVillageLayout.cs" />
+     <Compile Include="../../../../shared/WorldDecorationGraphics.cs" Link="Game/Data/WorldDecorationGraphics.cs" />
+     <EmbeddedResource Include="../../../../art/world/leoric-throne/hall.png" LogicalName="Sanctuary.World.ThroneRoom.png" />
+     <EmbeddedResource Include="../../../../art/world/lazarus-mausoleum/pier-*.png" LogicalName="Sanctuary.World.%(Filename).png" />
+diff --git a/src/ClassicUO.Client/Game/Map/Chunk.cs b/src/ClassicUO.Client/Game/Map/Chunk.cs
+--- a/src/ClassicUO.Client/Game/Map/Chunk.cs
++++ b/src/ClassicUO.Client/Game/Map/Chunk.cs
+@@ -105,6 +105,20 @@
+                     land.UpdateScreenPosition();
+ 
+                     AddGameObject(land, x, y);
++                }
++            }
++
++            if (_world.MapIndex == 1)
++            {
++                foreach (var tile in Sanctuary.DaggerVillageLayout.Blocks[(X,Y)])
++                {
++                    int x = tile.At.X & 7, y = tile.At.Y & 7;
++                    var obj = Static.Create(_world, (ushort)tile.Graphic, 0, (y << 3) + x);
++                    obj.X = (ushort)tile.At.X;
++                    obj.Y = (ushort)tile.At.Y;
++                    obj.Z = (sbyte)tile.At.Z;
++                    obj.UpdateScreenPosition();
++                    AddGameObject(obj,x,y);
+                 }
+             }
+ 
+diff --git a/src/ClassicUO.Client/Game/Map/ChunkMesh.cs b/src/ClassicUO.Client/Game/Map/ChunkMesh.cs
+--- a/src/ClassicUO.Client/Game/Map/ChunkMesh.cs
++++ b/src/ClassicUO.Client/Game/Map/ChunkMesh.cs
+@@ -379,7 +379,7 @@
+         /// </summary>
+         private static bool IsStaticExcludedFromMesh(ushort graphic, ref StaticTiles itemData)
+         {
+-            if (itemData.IsInternal)
++            if (itemData.IsInternal || Sanctuary.WorldDecorationGraphics.IsDaggerRoof(graphic))
+                 return true;
+ 
+             if (itemData.IsAnimated)
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/StaticView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/StaticView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/StaticView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/StaticView.cs
+@@ -38,6 +38,11 @@
+             }
+ 
+             ushort graphic = Graphic;
++            if (Sanctuary.WorldDecorationGraphics.IsDaggerRoof(graphic) && World.Player is { } viewer
++                && Sanctuary.WorldDecorationGraphics.SameDaggerBuilding(World.MapIndex, X, Y, viewer.X, viewer.Y))
++                return false;
++            if (graphic is >= Sanctuary.WorldDecorationGraphics.DaggerHallRoof and < Sanctuary.WorldDecorationGraphics.DaggerHallRoof + 12)
++                posY += 144;
+             ushort hue = Hue;
+             bool partial = ItemData.IsPartialHue;
+ 
+@@ -94,6 +99,10 @@
+ 
+         public override bool CheckMouseSelection()
+         {
++            if (Sanctuary.WorldDecorationGraphics.IsDaggerRoof(Graphic) ||
++                Graphic is >= Sanctuary.WorldDecorationGraphics.DaggerMeadow and < Sanctuary.WorldDecorationGraphics.DaggerMeadow + 256
++                or >= Sanctuary.WorldDecorationGraphics.DaggerGroundFirst and < Sanctuary.WorldDecorationGraphics.DaggerLintel)
++                return false;
+             if (
+                 !(
+                     SelectedObject.Object == this

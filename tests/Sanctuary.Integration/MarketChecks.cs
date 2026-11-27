@@ -21,6 +21,7 @@ public static class MarketChecks
     {
         Register("market-check", Check);
         Register("market-reload-check", Reload);
+        Register("public-workstation-art", CheckPublicWorkstations);
     }
     private static void Register(string command, Action action) => ConsoleInputHandler.RegisterCommand(command,
         "Disposable T11 stock, sale, capacity and town-service checks", _ => Core.LoopContext.Post(() =>
@@ -33,6 +34,20 @@ public static class MarketChecks
         if (!value) { throw new InvalidOperationException(message); }
     }
     private static string Json(object value) => JsonSerializer.Serialize(value);
+    private static void CheckPublicWorkstations()
+    {
+        Require(!World.Items.Values.OfType<TownCraftStation>().Any(s => s.ItemID == CraftFacilities.LegacyDesk),
+            "A public crafting station still uses the generic desk");
+        foreach (var site in TownMarkets.Sites)
+        {
+            if (TownMarkets.Skill(site.Role) is not { } skill || !TradeSkills.IsCraft((int)skill)) continue;
+            var vendor = TownMarkets.Profiles.At(site.Id);
+            Require(vendor != null, "Missing trainer at " + site.Id);
+            var station = World.FindItem(TownMarkets.Profiles.Find(vendor.Serial).Station) as TownCraftStation;
+            Require(station is { Movable: false } && station.Skill == skill && station.Map == vendor.Map
+                && station.ItemID == CraftFacilities.DefaultGraphic(skill), "Incorrect workstation at " + site.Id);
+        }
+    }
     private static PlayerMobile Player()
     {
         var player = new PlayerMobile { Body = 0x190, Player = true, Name = "MarketCheck" };

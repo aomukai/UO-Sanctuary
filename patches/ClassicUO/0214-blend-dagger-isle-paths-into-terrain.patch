@@ -1,0 +1,150 @@
+diff --git a/src/ClassicUO.Client/ClassicUO.Client.csproj b/src/ClassicUO.Client/ClassicUO.Client.csproj
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -65,6 +65,7 @@
+     <Compile Include="../../../../shared/CampGraphics.cs" Link="Game/Data/CampGraphics.cs" />
+     <Compile Include="../../../../shared/DaggerVillageLayout.cs" Link="Game/Data/DaggerVillageLayout.cs" />
+     <Compile Include="../../../../shared/WorldDecorationGraphics.cs" Link="Game/Data/WorldDecorationGraphics.cs" />
++    <EmbeddedResource Include="../../../../art/world/dagger-isle/village-ground.png" LogicalName="Sanctuary.World.DaggerVillageGround.png" />
+     <EmbeddedResource Include="../../../../art/world/leoric-throne/hall.png" LogicalName="Sanctuary.World.ThroneRoom.png" />
+     <EmbeddedResource Include="../../../../art/world/lazarus-mausoleum/pier-*.png" LogicalName="Sanctuary.World.%(Filename).png" />
+     <EmbeddedResource Include="../../../../art/world/lazarus-mausoleum/chamber.jpg" LogicalName="Sanctuary.World.Mausoleum.jpg" />
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/LandView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/LandView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/LandView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/LandView.cs
+@@ -11,6 +11,13 @@
+ {
+     internal sealed partial class Land
+     {
++        private const int VillageX = 3976, VillageY = 546, VillageTilePixels = 32;
++        private static Texture2D _villageGround;
++
++        internal bool HasDaggerVillageGround => World.MapIndex == 1
++            && X >= VillageX && X < VillageX + 64 && Y >= VillageY && Y < VillageY + 48
++            && !TileData.IsWet;
++
+         public override bool Draw(UltimaBatcher2D batcher, int posX, int posY, float depth)
+         {
+             if (!AllowedToDraw || IsDestroyed)
+@@ -119,18 +126,47 @@
+                         scale = new Vector2(1.1f + sin * 0.1f, 1.1f + cos * 0.5f * 0.1f);
+                     }
+ 
+-                    batcher.Draw(
+-                        artInfo.Texture,
+-                        pos,
+-                        artInfo.UV,
+-                        hueVec,
+-                        0f,
+-                        Vector2.Zero,
+-                        scale,
+-                        SpriteEffects.None,
+-                        depth + 0.5f
+-                    );
++                    if (HasDaggerVillageGround)
++                    {
++                        // The stock diamond sprite includes an extra edge pixel. Clip the
++                        // base snow to the same quad as the painted layer at tile joins.
++                        UltimaBatcher2D.YOffsets flat = default;
++                        batcher.DrawStretchedLand(artInfo.Texture, pos, artInfo.UV, ref flat,
++                            ref NormalTop, ref NormalRight, ref NormalLeft, ref NormalBottom,
++                            hueVec, depth + 0.5f, diamondArt: true);
++                    }
++                    else
++                    {
++                        batcher.Draw(
++                            artInfo.Texture,
++                            pos,
++                            artInfo.UV,
++                            hueVec,
++                            0f,
++                            Vector2.Zero,
++                            scale,
++                            SpriteEffects.None,
++                            depth + 0.5f
++                        );
++                    }
+                 }
++            }
++
++            if (HasDaggerVillageGround)
++            {
++                if (_villageGround == null || _villageGround.IsDisposed)
++                {
++                    using var stream = typeof(Land).Assembly.GetManifestResourceStream("Sanctuary.World.DaggerVillageGround.png");
++                    _villageGround = Texture2D.FromStream(batcher.GraphicsDevice, stream);
++                }
++
++                // Use the very same four corners as the underlying land. A flat tile's
++                // screen position already includes its elevation, a stretched tile's does not.
++                var offsets = IsStretched ? YOffsets : default;
++                var source = new Rectangle((X - VillageX) * VillageTilePixels, (Y - VillageY) * VillageTilePixels,
++                    VillageTilePixels, VillageTilePixels);
++                batcher.DrawStretchedLand(_villageGround, new Vector2(posX, posY), source,
++                    ref offsets, ref NormalTop, ref NormalRight, ref NormalLeft, ref NormalBottom, hueVec, depth + 0.505f);
+             }
+ 
+             return true;
+diff --git a/src/ClassicUO.Client/Game/Map/ChunkMesh.cs b/src/ClassicUO.Client/Game/Map/ChunkMesh.cs
+--- a/src/ClassicUO.Client/Game/Map/ChunkMesh.cs
++++ b/src/ClassicUO.Client/Game/Map/ChunkMesh.cs
+@@ -223,7 +223,7 @@
+ 
+         private void CountLand(GameObjects.Land land)
+         {
+-            if (!land.AllowedToDraw || land.IsDestroyed)
++            if (!land.AllowedToDraw || land.IsDestroyed || land.HasDaggerVillageGround)
+                 return;
+ 
+             if (_animatedWaterEffect && land.TileData.IsWet)
+@@ -294,7 +294,7 @@
+ 
+         private void TryAddLand(GameObjects.Land land)
+         {
+-            if (!land.AllowedToDraw || land.IsDestroyed)
++            if (!land.AllowedToDraw || land.IsDestroyed || land.HasDaggerVillageGround)
+                 return;
+ 
+             if (_animatedWaterEffect && land.TileData.IsWet)
+diff --git a/src/ClassicUO.Renderer/Batcher2D.cs b/src/ClassicUO.Renderer/Batcher2D.cs
+--- a/src/ClassicUO.Renderer/Batcher2D.cs
++++ b/src/ClassicUO.Renderer/Batcher2D.cs
+@@ -252,6 +252,25 @@
+             float depth
+         )
+         {
++            DrawStretchedLand(texture, position, sourceRect, ref yOffsets, ref normalTop, ref normalRight,
++                ref normalLeft, ref normalBottom, hue, depth, diamondArt: false);
++        }
++
++        public void DrawStretchedLand
++        (
++            Texture2D texture,
++            Vector2 position,
++            Rectangle sourceRect,
++            ref YOffsets yOffsets,
++            ref Vector3 normalTop,
++            ref Vector3 normalRight,
++            ref Vector3 normalLeft,
++            ref Vector3 normalBottom,
++            Vector3 hue,
++            float depth,
++            bool diamondArt
++        )
++        {
+             EnsureSize();
+ 
+             ref PositionNormalTextureColor4 vertex = ref _vertexInfo[_numSprites];
+@@ -268,6 +287,12 @@
+             vertex.TextureCoordinate2.Y = (_cornerOffsetY[2] * sourceH) + sourceY;
+             vertex.TextureCoordinate3.X = (_cornerOffsetX[3] * sourceW) + sourceX;
+             vertex.TextureCoordinate3.Y = (_cornerOffsetY[3] * sourceH) + sourceY;
++            if (diamondArt)
++            {
++                vertex.TextureCoordinate0.X = vertex.TextureCoordinate3.X = sourceX + sourceW * 0.5f;
++                vertex.TextureCoordinate1.Y = vertex.TextureCoordinate2.Y = sourceY + sourceH * 0.5f;
++            }
++
+             vertex.TextureCoordinate0.Z = 0;
+             vertex.TextureCoordinate1.Z = 0;
+             vertex.TextureCoordinate2.Z = 0;

@@ -59,4 +59,24 @@ public static class WorldDecorationGraphics
 
     public static bool IsDragonHoardGround(ushort graphic) =>
         graphic >= DragonHoardGroundFirst && graphic < DragonHoardGroundFirst + DragonHoardGroundCount;
+
+    public const int DaggerThingX = 4013, DaggerThingY = 553, DaggerThingWidth = 21, DaggerThingDepth = 14;
+    public const ushort DaggerGroundFirst = 59000, DaggerRoofFirst = 59048, DaggerLintel = 59080;
+    public const ushort DaggerPalisade = 59081, DaggerStall = 59082, DaggerRack = 59083, DaggerPalisadeCross = 59084, DaggerMooring = 59085;
+    public const ushort DaggerMeadow = 58500, DaggerHallRoof = 59100, DaggerGable = 59120;
+    public static bool IsDaggerRoof(ushort graphic) => graphic is >= DaggerRoofFirst and < DaggerLintel
+        or >= DaggerHallRoof and < DaggerHallRoof + 12 or >= DaggerGable and < DaggerGable + 24;
+    public static bool SameDaggerBuilding(int map, int roofX, int roofY, int x, int y)
+    {
+        if (map != 1) return false;
+        foreach (var (left, top, width, depth) in DaggerBuildings)
+            if (roofX >= left && roofX < left + width && roofY >= top && roofY < top + depth)
+                return x >= left && x < left + width && y >= top && y < top + depth;
+        return false;
+    }
+
+    // Thing, market, workshop and byre. All open onto their southern yard.
+    public static readonly (int X, int Y, int Width, int Depth)[] DaggerBuildings =
+        [(DaggerThingX,DaggerThingY,DaggerThingWidth,DaggerThingDepth), (3985,557,10,10),
+         (3998,555,11,12), (3990,577,8,8)];
 }
