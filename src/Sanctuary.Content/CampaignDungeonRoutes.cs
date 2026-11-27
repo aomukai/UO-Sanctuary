@@ -15,6 +15,7 @@ namespace Sanctuary;
 internal static class CampaignDungeonRoutes
 {
     internal static readonly Point3D ShameSurfaceLanding = new(512, 1564, 0);
+    internal static readonly Point3D HythlothSurfaceLanding = new(4721, 3816, 0);
 
     private static readonly HashSet<Point3D> _shameMoongates =
     [
@@ -39,6 +40,7 @@ internal static class CampaignDungeonRoutes
         var routes = JsonConfig.Deserialize<TeleporterDefinition[]>(path);
         RemoveWrongDecoration(map);
         InstallShameSurfaceRoutes(map);
+        InstallHythlothSurfaceRoutes(map);
         var optionalSources = new HashSet<Point3D>();
         foreach (var route in routes)
         {
@@ -46,7 +48,8 @@ internal static class CampaignDungeonRoutes
                 continue;
             var source = route.Source.Location;
             var dest = route.Destination.Location;
-            if (IsShameSurfaceRoute(source, dest) || IsShameSurfaceRoute(dest, source))
+            if (IsShameSurfaceRoute(source, dest) || IsShameSurfaceRoute(dest, source)
+                || IsStockHythlothSurfaceRoute(source, dest) || IsStockHythlothSurfaceRoute(dest, source))
                 continue;
 
             string dungeon = DungeonAt(source, map) ?? DungeonAt(dest, map);
@@ -74,6 +77,49 @@ internal static class CampaignDungeonRoutes
         inside.X is >= 5394 and <= 5396 && inside.Y == 127
         && (outside.X is >= 512 and <= 514 && outside.Y is 1559 or 1560 || outside == ShameSurfaceLanding);
 
+    private static bool IsStockHythlothSurfaceRoute(Point3D outside, Point3D inside) =>
+        outside.Y == 3813 && outside.X is >= 4721 and <= 4723 && inside.Y == 16 && inside.X is >= 5904 and <= 5906;
+
+    private static bool NearHythlothSurface(Point3D point) =>
+        point.X is >= 4716 and <= 4728 && point.Y is >= 3808 and <= 3818;
+
+    private static bool NearHythlothInterior(Point3D point) =>
+        point.X is >= 5902 and <= 5908 && point.Y is >= 13 and <= 21;
+
+    private static bool GroundHythlothEntrance(Point3D point) =>
+        point.X is >= 4720 and <= 4722 && point.Y == 3814 && point.Z == 0;
+
+    private static Point3D HythlothInteriorLanding(int lane) => new(5904 + lane, 21, 44);
+
+    private static Point3D HythlothInteriorExit(int lane) => new(5904 + lane, 20, 46);
+
+    private static void InstallHythlothSurfaceRoutes(Map map)
+    {
+        using var obsolete = PooledRefList<Teleporter>.Create();
+        foreach (var item in World.Items.Values)
+        {
+            if (item is not Teleporter route || route.Map != map || route.MapDest != map
+                || route is not CampaignDungeonStair && route.GetType() != typeof(Teleporter))
+                continue;
+            var from = route.Location;
+            var to = route.PointDest;
+            if (NearHythlothSurface(from) && NearHythlothInterior(to)
+                && (!GroundHythlothEntrance(from) || to != HythlothInteriorLanding(from.X - 4720))
+                || NearHythlothInterior(from) && NearHythlothSurface(to)
+                && (to != HythlothSurfaceLanding || from.X is < 5904 or > 5906 || from != HythlothInteriorExit(from.X - 5904)))
+                obsolete.Add(route);
+        }
+        foreach (var route in obsolete)
+            route.Delete();
+
+        for (int lane = 0; lane < 3; lane++)
+        {
+            // Leave the first step north of the arrival tiles for the return passage.
+            PlaceSurfaceRoute(map, new(4720 + lane, 3814, 0), HythlothInteriorLanding(lane), "Hythloth");
+            PlaceSurfaceRoute(map, HythlothInteriorExit(lane), HythlothSurfaceLanding, "Hythloth");
+        }
+    }
+
     private static void InstallShameSurfaceRoutes(Map map)
     {
         for (int lane = 0; lane < 3; lane++)
@@ -87,8 +133,8 @@ internal static class CampaignDungeonRoutes
             RemoveLegacyShameRoute(map, oldInside, oldOutside, includeStock: true);
             RemoveLegacyShameRoute(map, oldFloor, inside, includeStock: false);
             RemoveLegacyShameRoute(map, inside, oldFloor, includeStock: false);
-            PlaceShameSurfaceRoute(map, outside, inside);
-            PlaceShameSurfaceRoute(map, inside, ShameSurfaceLanding);
+            PlaceSurfaceRoute(map, outside, inside, "Shame");
+            PlaceSurfaceRoute(map, inside, ShameSurfaceLanding, "Shame");
         }
     }
 
@@ -103,24 +149,24 @@ internal static class CampaignDungeonRoutes
             item.Delete();
     }
 
-    private static void PlaceShameSurfaceRoute(Map map, Point3D from, Point3D to)
+    private static void PlaceSurfaceRoute(Map map, Point3D from, Point3D to, string dungeon)
     {
         foreach (var item in map.GetItemsAt<Teleporter>(from))
         {
             if (item.GetType() != typeof(Teleporter) || item.Location != from || item.PointDest != to || item.MapDest != map)
                 continue;
-            SetShameSurfaceArt(item);
+            SetSurfacePassageArt(item, dungeon);
             return;
         }
 
         var passage = new Teleporter(to, map);
-        SetShameSurfaceArt(passage);
+        SetSurfacePassageArt(passage, dungeon);
         passage.MoveToWorld(from, map);
     }
 
-    private static void SetShameSurfaceArt(Teleporter passage)
+    private static void SetSurfacePassageArt(Teleporter passage, string dungeon)
     {
-        passage.Name = "a passage through Shame";
+        passage.Name = $"a passage through {dungeon}";
         passage.ItemID = 0x375A;
         passage.Visible = true;
     }

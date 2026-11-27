@@ -189,7 +189,10 @@ public sealed class EssenceGump : DynamicGump
             if (quote == null)
             {
                 if (action == EssenceAction.Salvage && selected is Item item)
-                { player.SendMessage($"Salvage needs an accessible {EquipmentSalvage.ToolName(item)} and unprotected dropped, crafted or gambled backpack gear."); }
+                {
+                    player.SendMessage(ClassGear.State(item) is { Gambled: true } ? "Gambled gear cannot be salvaged."
+                        : $"Salvage needs an accessible {EquipmentSalvage.ToolName(item)} and unprotected dropped or crafted backpack gear.");
+                }
                 else { player.SendMessage("Use unprotected dropped or crafted white equipment in your backpack."); }
                 return;
             }

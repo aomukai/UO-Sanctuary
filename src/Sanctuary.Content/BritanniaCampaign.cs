@@ -39,10 +39,19 @@ public static class BritanniaCampaign
         _profiles = new();
         EventSink.ServerStarted += Install;
         EventSink.Disconnected += mobile => _inBritain.Remove(mobile.Serial);
+        EventSink.Connected += mobile =>
+        {
+            if (mobile is PlayerMobile player)
+                Timer.DelayCall(() => CampaignArenas.RestoreExit(player));
+        };
         var previous = ClassCombatHooks.DeathAllowed;
         ClassCombatHooks.DeathAllowed = player => previous?.Invoke(player) != false && CampaignArenas.AllowDeath(player);
         ClassMapHooks.BoatOperationAllowed = BoatAllowed;
-        ClassMapHooks.CreatureSpawning = SpawnInDungeon;
+        ClassMapHooks.CreatureSpawning = (creature, point, map) =>
+        {
+            WindTown.StyleResident(creature, point, map);
+            SpawnInDungeon(creature, point, map);
+        };
         ClassMapHooks.StoryItemVisible = (viewer, item) => item is not CampaignArenaGate gate
             || CampaignArenas.VisibleTo(viewer, gate);
     }
@@ -118,16 +127,19 @@ public static class BritanniaCampaign
     internal static bool TownsEmpty(PlayerMobile player) =>
         Has(player, GhostTownVictories) && !Has(player, CampaignProgress.Diablo);
 
+    private static bool BritishIll(PlayerMobile player) =>
+        Has(player, CampaignProgress.SkeletonKing) && !Has(player, CampaignProgress.Diablo);
+
     internal static Summons NextSummons(PlayerMobile player)
     {
         if (Complete(player))
             return Has(player, CampaignProgress.RoyalProclamation) ? Summons.None : Summons.Victory;
-        if (!Has(player, CampaignProgress.FireIslandPassage))
-            return !Has(player, CampaignProgress.SkeletonKing) && ClassCreation.Profiles.HasReached(player.Serial, 30)
-                ? Summons.British : Summons.None;
         if (Has(player, CampaignProgress.SkeletonKing) && !Has(player, CampaignProgress.Lazarus)
             && !Has(player, CampaignProgress.BlackthornAudience))
             return Summons.Blackthorn;
+        if (!Has(player, CampaignProgress.FireIslandPassage) && !Has(player, CampaignProgress.SkeletonKing)
+            && ClassCreation.Profiles.HasReached(player.Serial, 30))
+            return Summons.British;
         return Summons.None;
     }
 
@@ -150,6 +162,7 @@ public static class BritanniaCampaign
         if (!ClassCombat.Enabled(player))
             return;
         bool wasEmpty = TownsEmpty(player);
+        bool britishWasIll = BritishIll(player);
         if (!Record(player, victory))
             return;
         if (MercenaryCare.ActiveStoryCompanion(player) is Celeste celeste && MercenaryCare.IsCompanion(player, celeste))
@@ -162,12 +175,13 @@ public static class BritanniaCampaign
         });
         CampaignActors.ClearSummons(player);
         player.SendMessage($"You have defeated {boss}.");
-        RefreshVisibility(player, wasEmpty);
+        RefreshVisibility(player, wasEmpty, britishWasIll);
     }
 
-    private static void RefreshVisibility(PlayerMobile player, bool wasEmpty)
+    private static void RefreshVisibility(PlayerMobile player, bool wasEmpty, bool britishWasIll)
     {
-        if (wasEmpty == TownsEmpty(player) || player.NetState is not { Running: true } connection || player.Map != Map.Trammel)
+        if ((wasEmpty == TownsEmpty(player) && britishWasIll == BritishIll(player))
+            || player.NetState is not { Running: true } connection || player.Map != Map.Trammel)
             return;
         foreach (var mobile in player.Map.GetMobilesInRange<Mobile>(player.Location, 24))
             if (mobile is BaseCreature creature && !creature.Controlled && !creature.Summoned)
@@ -177,6 +191,8 @@ public static class BritanniaCampaign
 
     internal static bool MobileVisible(PlayerMobile viewer, Mobile mobile)
     {
+        if (mobile is LordBritish && BritishIll(viewer))
+            return false;
         if (mobile is CampaignMessenger messenger)
             return messenger.Recipient == viewer.Serial;
         if (mobile is ICampaignRefugee)
@@ -184,7 +200,7 @@ public static class BritanniaCampaign
         if (mobile is Iolo { Recruited: false } && mobile.Map == Map.Trammel
             && mobile.InRange(NewHavenInn.IoloSeat, 2) && TownsEmpty(viewer))
             return true;
-        if (!TownsEmpty(viewer) || mobile is Geoffrey || mobile.Map != Map.Trammel
+        if (!TownsEmpty(viewer) || mobile is Geoffrey or BlackthornBridgeGuard || mobile.Map != Map.Trammel
             || mobile is not BaseCreature { Controlled: false, Summoned: false } npc
             || npc is Iolo { Recruited: true } or Merydwen { Recruited: true } or Wolfgang { Recruited: true })
             return true;

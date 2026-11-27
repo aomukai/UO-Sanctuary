@@ -15,7 +15,8 @@ public sealed record CorpseTreasure(string Source,string TreasureClass,int Level
     [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)] bool BowCarrier = false);
 public sealed record CorpseSkillRecord(uint Corpse,string Source,bool Selectable,bool Owned,bool Shattered=false,bool NoSelect=false,CorpseTreasure Treasure=null,CorpseBaseSnapshot BaseLife=null,int? MonsterLevel=null,ReviveCreatureSnapshot ReviveCreature=null,string ReviveSnapshotIssue=null,bool UnitReactivated=false,
     [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] DeceitAllySnapshot DeceitAlly = null,
-    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] bool? WorldLootEligible = null);
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] bool? WorldLootEligible = null,
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] CorpseSkin Skinning = null);
 public sealed class CorpseSkillProfiles : GenericPersistence
 {
     private readonly Dictionary<uint,CorpseSkillRecord> _rows=new();
@@ -56,7 +57,8 @@ public sealed class CorpseSkillProfiles : GenericPersistence
         _rows.Clear();_originals.Clear();foreach(var row in JsonSerializer.Deserialize<CorpseSkillRecord[]>(reader.ReadString()) ?? throw new InvalidDataException("Missing corpse skill metadata"))
         {if(row.Treasure is{} treasure && (string.IsNullOrWhiteSpace(treasure.Source) || string.IsNullOrWhiteSpace(treasure.TreasureClass) || treasure.Level is <1 or >99 || !Enum.IsDefined(treasure.Difficulty))
             || row.BaseLife is{} life && (string.IsNullOrWhiteSpace(row.Source) || life.OriginalMonsterSerial==0 || !((Serial)life.OriginalMonsterSerial).IsMobile || life.Level<1 || life.Base256<0 || !Enum.IsDefined(life.Difficulty))
-            || row.MonsterLevel is <1 || row.UnitReactivated&&!row.NoSelect || _rows.ContainsKey(row.Corpse)){throw new InvalidDataException("Invalid corpse skill metadata");}
+            || row.MonsterLevel is <1 || row.Skinning is { } skin && (skin.Amount < 0 || !Enum.IsDefined(skin.Type))
+            || row.UnitReactivated&&!row.NoSelect || _rows.ContainsKey(row.Corpse)){throw new InvalidDataException("Invalid corpse skill metadata");}
             if(row.ReviveCreature is{} revive){if(row.ReviveSnapshotIssue!=null){throw new InvalidDataException("Corpse has conflicting reconstruction data");}ReviveCreatureSnapshots.Validate(revive,row.Source);}Store(row);}
     }
 }
@@ -111,7 +113,8 @@ public static class CorpseSkillRules
         Profiles.Store(new(corpse.Serial.Value,known?key:null,known && _selectable[key],creature.Controlled || creature.Summoned || creature is BaseVendor,shattered,false,Treasure(creature,corpse),
             known && _selectable[key]?CorpseBaseSnapshots.Capture(creature,key):null,level>0?level:null,
             revive,issue,DeceitAlly: (creature as DeceitEncounter)?.ResurrectionSnapshot(),
-            WorldLootEligible: WorldLootChests.IsEncounterMonster(creature)));
+            WorldLootEligible: WorldLootChests.IsEncounterMonster(creature),
+            Skinning: CorpseSkinning.Capture(creature, (Body)corpse.Amount, level)));
         if (shattered)
         {
             Effects.SendLocationEffect(creature.Location, creature.Map, SpellEffectGraphics.ColdCorpseShatter, 7);
@@ -160,6 +163,8 @@ public static class CorpseSkillRules
     public static bool Shattered(Corpse corpse)=>Profiles.Find(corpse)?.Shattered ?? false;
     public static bool Usable(PlayerMobile owner,Corpse corpse,double radius)
         =>UsableAt(owner,corpse,owner,radius);
+    internal static bool UsableForRevive(PlayerMobile owner,Corpse corpse,double radius)
+        =>UsableAt(owner,corpse,owner,radius,false);
     // Stationary traps remain in their old facet when the owner travels.
     // Keep the same corpse/loot restrictions while using the actor's map,
     // height and visibility instead of the owner's new location.

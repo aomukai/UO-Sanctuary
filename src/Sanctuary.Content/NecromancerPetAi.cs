@@ -11,7 +11,7 @@ internal enum NecromancerPetAiKind
     Percentage,CommonMove,Town,Idle,PetMove,Wander,Attack,Velocity,Approach,Skill,Reposition,RunTarget
 }
 internal readonly record struct NecromancerPetAiRequest(NecromancerPetAiKind Kind,int A=0,int B=0,int C=0,int D=0);
-internal sealed record NecromancerPetAiContext(NecromancerPetAiState State,int Velocity,int Run,int SkillMode,int Skill);
+internal sealed record NecromancerPetAiContext(NecromancerPetAiState State,int Velocity,int Run,int SkillMode,int Skill,int RangeBonus=0,int AggroBonus=0);
 internal sealed record NecromancerPetAiServices(Action<NecromancerPetAiRequest> Request,Func<int> Owner,
     Func<int,int> LookupPlayer,Func<int,int> Distance,Func<int,NecromancerPetAiTarget> OwnerTarget,
     Func<bool,int,NecromancerPetAiTarget> Primary,Func<int,bool> PetIgnore,Func<int,bool> MissileBarrier,
@@ -70,24 +70,29 @@ internal static class NecromancerPetAi
         var state=c.State with{RememberedOwner=owner};
         bool ranged=c.State.Parameter0!=0;
         int ownerDistance=Distance(owner);
-        if(!ranged)
+        bool ReturnToOwner(int rangeBonus)
         {
-            if(ownerDistance>50){s.PetMove(3,false,0,0);return state;}
+            if(ranged){return false;}
+            if(ownerDistance>50+rangeBonus){s.PetMove(3,false,0,0);return true;}
+            if(ownerDistance<=(responsiveMelee?20:28)+rangeBonus){return false;}
             int velocity=c.Velocity<=0?100:Math.Min(checked(100*c.Run)/c.Velocity-100,100);
-            if(ownerDistance>(responsiveMelee?20:28)){s.PetMove(0,false,velocity,0);return state;}
+            s.PetMove(0,false,velocity,0);
+            return true;
         }
+        if(ReturnToOwner(c.RangeBonus)){return state;}
         var potential=Target(s.OwnerTarget(owner));
         int candidate=potential.Id;
         if(candidate!=0&&s.PetIgnore(candidate)){candidate=0;}
         var primary=Target(s.Primary(ranged,ranged?0:24));
         int target=primary.Id;
-        if(target==0||primary.Distance>(ranged?15:responsiveMelee?14:6))
+        if(target==0||primary.Distance>(ranged?15:responsiveMelee?14:6)+c.RangeBonus+c.AggroBonus)
         {
             target=0;
-            if(candidate!=0&&(!ranged||!s.MissileBarrier(candidate))&&Distance(candidate)<(ranged?20:36))
+            if(candidate!=0&&(!ranged||!s.MissileBarrier(candidate))&&Distance(candidate)<(ranged?20:36)+c.RangeBonus)
             {target=candidate;}
         }
         if(!ranged&&!s.ValidTarget(target)){target=0;}
+        if(target==0&&c.RangeBonus!=0&&ReturnToOwner(0)){return state;}
         bool closer=!responsiveMelee&&Roll()<15;
         if(s.CommonMove(target,primary.Combat,closer?1:0,closer?8:7)){return state;}
         if(target==0||s.Town())

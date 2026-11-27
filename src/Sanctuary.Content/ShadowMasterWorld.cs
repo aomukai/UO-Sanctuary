@@ -31,7 +31,7 @@ internal static class ShadowMasterWorld
         {throw new NotSupportedException("Master needs its distinct saved brain and result-bearing world services");}
         int Source(string field)=>NecromancerSummons.Source("shadowmaster",field);
         var primary=q.Primary(false,0);var services=new Services(body,owner,q);
-        var c=new ShadowMasterContext(Source("aip1"),Source("aip1(N)"),Source("aip1(H)"),Source("aip2"),Source("aip2(H)"),Source("aip2(N)"),
+        var c=new ShadowMasterContext(Source("aip1"),Source("aip1(N)"),Source("aip1(H)"),Source("aip2"),Source("aip2(H)")+PetCombatRanges.BonusSourceCells,Source("aip2(N)")+PetCombatRanges.BonusSourceCells,
             Source("aip3"),primary.Combat,primary.Distance,services.Unit(primary.Id));
         body.ChangeMasterMemory(ShadowMasterAi.Think(c,memory,services));
     }
@@ -40,10 +40,11 @@ internal static class ShadowMasterWorld
     internal static IEnumerable<Mobile> Adjacent(AssassinShadowBody body,Point2D cell)
     {
         int cx=cell.X/32,cy=cell.Y/32;var map=body.Map;var result=new List<Mobile>();
+        const int range = 32 + PetCombatRanges.BonusSourceCells;
         // Reuse the generic native room-grid ordering:neighbor Y then X.
         // Preserve each native sector's unit order rather than sorting by ID.
-        for(int y=Math.Max(0,cy-1);y<=Math.Min((map.Height-1)/16,cy+1);y++)
-        for(int x=Math.Max(0,cx-1);x<=Math.Min((map.Width-1)/16,cx+1);x++)
+        for(int y=Math.Max(0,Math.Min(cy-1,(cell.Y-range)/32));y<=Math.Min((map.Height-1)/16,Math.Max(cy+1,(cell.Y+range)/32));y++)
+        for(int x=Math.Max(0,Math.Min(cx-1,(cell.X-range)/32));x<=Math.Min((map.Width-1)/16,Math.Max(cx+1,(cell.X+range)/32));x++)
         foreach(var m in map.GetMobilesInRange<Mobile>(new Point3D(x*16+8,y*16+8,body.Z),8))
         {if(m.X>=x*16&&m.X<x*16+16&&m.Y>=y*16&&m.Y<y*16+16){result.Add(m);}}return result;
     }
@@ -134,7 +135,7 @@ internal static class ShadowMasterWorld
             (id,t)=>Squared(Unit(id),t),u=>Find(u)is BaseCreature m&&(CreatureProfiles.For(m).Traits.Boss==true||(Flags(u)&64)!=0),u=>(Flags(u)&128)!=0,
             (u,mask)=>Find(u)is EncounterCreature e&&(mask&(e.Grade switch{EncounterGrade.Champion=>4,EncounterGrade.Unique=>8,EncounterGrade.SuperUnique=>10,_=>0}))!=0);
         internal override ShadowMasterScan Scan()
-        {var scan=ShadowMasterTargets.Scan((int)body.Serial.Value,(int)owner.Serial.Value,Adjacent(body,q.Cell()).Select(Handle),Queries());ObservedScan?.Invoke(body,scan);return scan;}
+        {var scan=ShadowMasterTargets.Scan((int)body.Serial.Value,(int)owner.Serial.Value,Adjacent(body,q.Cell()).Select(Handle),Queries(),maximumDistanceSquared:PetCombatRanges.ExtendSquared(1024));ObservedScan?.Invoke(body,scan);return scan;}
         internal override bool Special(ShadowMasterUnit target)=>ShadowMasterTargets.Special((int)body.Serial.Value,target,Queries());
         internal override int LifePercent(){int maximum=SkillHealth.Maximum256(body)>>8;return maximum==0?0:checked(100*(SkillHealth.Balance256(body)>>8))/maximum;}
         internal override bool Progressive()=>AssassinCharges.Any(body);

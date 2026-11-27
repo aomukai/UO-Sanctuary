@@ -303,6 +303,9 @@ public partial class EncounterCreature : GraveyardUndead
 
     protected T FindWoundedAlly<T>(int range) where T : EncounterCreature
     {
+        if (!ReviveNativeActivation.SupportAllowed(this))
+            return null;
+
         T wounded = null;
         foreach (var ally in Map.GetMobilesInRange<T>(Location, range))
         {
@@ -317,6 +320,9 @@ public partial class EncounterCreature : GraveyardUndead
 
     protected void HealAlly(Mobile ally, int percent)
     {
+        if (!ReviveNativeActivation.SupportAllowed(this))
+            return;
+
         Direction = GetDirectionTo(ally);
         Animate(EncounterCastAnimation, 5, 1, true, false, 0);
         SkillHealth.Heal(ally, SkillHealth.Maximum256(ally) * percent / 100);

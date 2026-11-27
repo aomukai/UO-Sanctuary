@@ -22,17 +22,29 @@ public sealed record ReviveBeforeDeathState(int Version,DateTime CapturedAtUtc,R
 // changed resources; source Revive HP uses its separate base-life/passive route.
 internal static class ReviveBeforeDeath
 {
-    private static readonly Dictionary<uint,(string Json,string Issue)> Pending=new();
+    private static readonly Dictionary<uint,string> Pending=new();
     internal static void Capture(BaseCreature actor)
     {
-        if(actor is not{Deleted:false,Controlled:false,Summoned:false}||actor is BaseVendor or GraveyardUndead{Raised:true}
-            ||!ReviveOriginals.SupportedDeathPath(actor.GetType())){return;}
+        Pending.Remove(actor.Serial.Value);
+        if(actor is not{Deleted:false,Controlled:false,Summoned:false,IsAnimatedDead:false,Blessed:false,IsInvulnerable:false}
+            ||actor.GetMaster()!=null||!ReviveCasts.RegularMonster(actor)){return;}
         string source=NativeReviveRules.Source(actor);
-        if(!NativeReviveRules.CanCapture(actor,source)){return;}
-        try{CaptureCore(actor,source);}
-        catch(Exception e)when(e is InvalidDataException or NotSupportedException or JsonException or OverflowException or ArgumentException)
-        {Pending[actor.Serial.Value]=(null,"Accepted-death snapshot unavailable: "+e.Message);}
+        if(NativeReviveRules.CanCapture(actor,source))
+        {
+            try{CaptureCore(actor,source);return;}
+            catch(Exception e)when(SnapshotError(e))
+            {
+                // The original can still fight with its native profile.
+            }
+        }
+        try{Store(actor,source??"sanctuary.revive.native",[],[],null,null);}
+        catch(Exception e)when(SnapshotError(e))
+        {
+            // Leave the death and corpse intact if the original cannot be saved.
+        }
     }
+    private static bool SnapshotError(Exception e)
+        =>e is InvalidDataException or NotSupportedException or JsonException or OverflowException or ArgumentException;
     private static void CaptureCore(BaseCreature actor,string source)
     {
         var equipment=actor.Items.Where(i=>i is not Backpack&&i.Layer!=Layer.Bank&&!i.Deleted).Select(FrozenEquipmentEffects.Capture).ToArray();
@@ -46,18 +58,23 @@ internal static class ReviveBeforeDeath
             visiting.Remove(ability);
         }
         var abilities=actor.GetMonsterAbilities()??[];for(int i=0;i<abilities.Length;i++){Visit(abilities[i],i.ToString(System.Globalization.CultureInfo.InvariantCulture));}
+        Store(actor,source,equipment,clocks,ReviveEquipmentResources.Capture(actor,equipment),ReviveEquipmentCombat.Capture(actor,equipment));
+    }
+    private static void Store(BaseCreature actor,string source,FrozenEquipmentSnapshot[] equipment,List<NativeAbilityClock> clocks,
+        ReviveResourceBases resourceBases,ReviveAttackDefenseBases attackDefenseBases)
+    {
         var status=ReviveCasts.NativeStatus(actor,out string eligibilityIssue);
         var state=new ReviveBeforeDeathState(0,DateTime.UtcNow,ReviveCreatureSnapshots.Capture(actor,source),actor.Hits,actor.HitsMax,
             actor.Mana,actor.ManaMax,actor.Stam,actor.StamMax,actor.Str,actor.Dex,actor.Int,actor.Frozen,actor.CantWalk,actor.Hidden,actor.Blessed,
-            JsonSerializer.Serialize(equipment),JsonSerializer.Serialize(clocks),status,eligibilityIssue,ReviveEquipmentResources.Capture(actor,equipment),ReviveEquipmentCombat.Capture(actor,equipment));
-        string json=JsonSerializer.Serialize(state);Validate(json,actor.GetType().FullName);Pending[actor.Serial.Value]=(json,null);
+            JsonSerializer.Serialize(equipment),JsonSerializer.Serialize(clocks),status,eligibilityIssue,resourceBases,attackDefenseBases);
+        string json=JsonSerializer.Serialize(state);Validate(json,actor.GetType().FullName);Pending[actor.Serial.Value]=json;
     }
-    internal static (string Json,string Issue) Take(BaseCreature actor)=>actor!=null&&Pending.Remove(actor.Serial.Value,out var pending)?pending:(null,null);
+    internal static string Take(BaseCreature actor)=>actor!=null&&Pending.Remove(actor.Serial.Value,out var pending)?pending:null;
     internal static bool PreserveLoot(BaseCreature actor,Corpse corpse,Item item)
     {
         if(actor==null||corpse?.Owner!=actor||item is not{Deleted:false,Movable:true,LootType:LootType.Regular}
-            ||item.Parent!=corpse||!Pending.TryGetValue(actor.Serial.Value,out var pending)||pending.Json==null){return false;}
-        return Equipment(Decode(pending.Json)).Any(e=>e.OriginalItem==item.Serial.Value);
+            ||item.Parent!=corpse||!Pending.TryGetValue(actor.Serial.Value,out var pending)){return false;}
+        return Equipment(Decode(pending)).Any(e=>e.OriginalItem==item.Serial.Value);
     }
     // An independently rejected/cancelled native death must not leave a saved
     // reconstruction record. Pending data is transient and never persisted.

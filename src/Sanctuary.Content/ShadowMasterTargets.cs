@@ -26,7 +26,7 @@ internal static class ShadowMasterTargets
         var row=q.Monster(target);if(row==null||row.Npc||!row.Killable){return false;}
         return q.Boss(target)||q.Prime(target)||q.Types(target,2|4|8);
     }
-    internal static ShadowMasterScan Consider(int self,int owner,ShadowMasterScan s,ShadowMasterUnit target,ShadowMasterQueries q)
+    internal static ShadowMasterScan Consider(int self,int owner,ShadowMasterScan s,ShadowMasterUnit target,ShadowMasterQueries q,int maximumDistanceSquared=1024)
     {
         ArgumentNullException.ThrowIfNull(s);ArgumentNullException.ThrowIfNull(q);
         if(target?.Id==self||q.Dead(target)||target==null){return s;}
@@ -43,7 +43,7 @@ internal static class ShadowMasterTargets
             if(distance<s.OwnerSquared){s=s with{NearestOwner=target.Id,OwnerSquared=distance};}
         }
         int own=q.Squared(self,target);
-        if(own<=1024)
+        if(own<=maximumDistanceSquared)
         {
             s=s with{Within32=checked(s.Within32+1)};
             if(own<=100){s=s with{Near=checked(s.Near+1)};}
@@ -52,10 +52,10 @@ internal static class ShadowMasterTargets
         }
         return s;
     }
-    internal static ShadowMasterScan Scan(int self,int owner,IEnumerable<ShadowMasterUnit> candidates,ShadowMasterQueries q,ShadowMasterScan initial=null)
+    internal static ShadowMasterScan Scan(int self,int owner,IEnumerable<ShadowMasterUnit> candidates,ShadowMasterQueries q,ShadowMasterScan initial=null,int maximumDistanceSquared=1024)
     {
         ArgumentNullException.ThrowIfNull(candidates);var s=initial??new();
-        foreach(var target in candidates){s=Consider(self,owner,s,target,q);}return s;
+        foreach(var target in candidates){s=Consider(self,owner,s,target,q,maximumDistanceSquared);}return s;
     }
 }
 

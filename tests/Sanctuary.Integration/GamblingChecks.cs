@@ -86,9 +86,10 @@ public static class GamblingChecks
                         code, basis.Code), "Missing gamble tier identity: " + variant.Type + "/" + code);
                     var item = Generate(new(basis.Code, variant, 99, Gambling.Price(basis.Code, 99)), random);
                     family.Backpack.DropItem(item);
-                    Require(item is { Origin: ItemOrigin.Drop } && ClassGear.State(item) is { Identified: true, Roll.Rarity: GearRarity.Magic }
-                        && TradePrices.CanSell(item) && EquipmentEconomy.Quote(family, item, EssenceAction.Salvage) != null,
-                        "Gambled family/tier is restricted or missing: " + variant.Type + "/" + tier);
+                    Require(item is { Origin: ItemOrigin.Drop }
+                        && ClassGear.State(item) is { Identified: true, Gambled: true, Roll.Rarity: GearRarity.Magic }
+                        && TradePrices.CanSell(item) && EquipmentEconomy.Quote(family, item, EssenceAction.Salvage) == null,
+                        "Gambled family/tier is missing or has incorrect resale or salvage rules: " + variant.Type + "/" + tier);
                     item.Delete();
                 }
             }
@@ -131,11 +132,9 @@ public static class GamblingChecks
         Require(Buy(p, npc, offer, new Roll()) == GambleResult.Purchased, "Cannot buy salvage sample");
         var salvaged = p.Backpack.Items.Single(i => i != bought && i is not Gold);
         var salvageTool = new TinkerTools(); p.Backpack.DropItem(salvageTool);
-        var quote = EquipmentEconomy.Quote(p, salvaged, EssenceAction.Salvage, salvageTool);
-        object[] commit = { p, quote, null, new Random(43) };
-        Require(quote != null && (bool)typeof(EquipmentEconomy).GetMethod("Commit", BindingFlags.Static | BindingFlags.NonPublic)
-                .Invoke(null, commit) && salvaged.Deleted && commit[2] is SalvageResult,
-            "Actual salvage of gambled loot failed");
+        Require(ClassGear.State(salvaged) is { Gambled: true }
+            && EquipmentEconomy.Quote(p, salvaged, EssenceAction.Salvage, salvageTool) == null && !salvaged.Deleted,
+            "Gambled loot was eligible for salvage");
         var purse = InsuranceChecks.Player(); var purseNpc = Npc(purse);
         purse.Backpack.DropItem(new Gold(50000)); Require(Banker.Deposit(purse, 10000), "Cannot fund purse test");
         Require(Buy(purse, purseNpc, offer, new Roll()) == GambleResult.Purchased && Banker.GetBalance(purse) == 10000

@@ -23,7 +23,7 @@ public static class NativeLichReviveChecks
             ConsoleInputHandler.RegisterCommand(label,"Prepared native original Lich Revive world",_=>Core.LoopContext.Post(()=>
             {try{if(reload){Reload();}else{Check();}Log.Information("{Label}: passed",label);}catch(Exception e){Log.Error(e,"{Label}: failed",label);}}));
         }
-        ConsoleInputHandler.RegisterCommand("native-lich-revive-live-check","Actual original Lich firebolt,raise and facet projection",_=>Core.LoopContext.Post(()=>
+        ConsoleInputHandler.RegisterCommand("native-lich-revive-live-check","Original Lich offense, support restrictions and facet projection",_=>Core.LoopContext.Post(()=>
         {FixtureClock.NextLoop("native-lich-revive-live-result",()=>FixtureNetwork.Connected("native-lich-revive-live-result",Live));Log.Information("native-lich-revive-live-check: passed");}));
     }
     private static GraveyardLich Release(PlayerMobile p,Corpse corpse)
@@ -70,6 +70,12 @@ public static class NativeLichReviveChecks
     {
         var p=NativeCorpseChecks.Fresh();var account=FixtureNetwork.Authenticate(network,p,"native-lich-revive-wire-");var corpse=NativeCorpseChecks.Corpse(p);var actor=Release(p,corpse);actor.AIObject.AITimer.Stop();
         var target=NativeCorpseChecks.Target(p);target.MoveToWorld(new(p.X+9,p.Y,p.Z),p.Map);var body=RaiseBody(p);int hp=SkillHealth.Balance256(target),ownerLife=SkillHealth.Balance256(p);
+        Require(ReviveNativeActivation.CanAct(actor),"Revived Lich is not active for support checks");
+        Require(!actor.CanRaise(body)&&!actor.BeginRaise(body),"Revived Lich can raise another monster");
+        Require(!new Server.Spells.First.HealSpell(actor).Cast()&&!new Server.Spells.Eighth.ResurrectionSpell(actor).Cast()
+            &&!new Server.Spells.Eighth.SummonDaemonSpell(actor).Cast(),"Revived Lich can cast a native support spell");
+        var summon=new Skeleton();
+        Require(!BaseCreature.Summon(summon,actor,actor.Location,0,TimeSpan.FromSeconds(10))&&summon.Deleted,"Revived Lich can spawn a helper");
         long deadline=Core.TickCount+15000;bool done=false,bolt=false;
         void Cleanup(){target.Delete();body.Delete();corpse.Delete();NativeCorpseChecks.Clean(p);account.Delete();}
         void Inspect()
@@ -79,10 +85,11 @@ public static class NativeLichReviveChecks
                 if(done){return;}Require(Core.TickCount<deadline,$"Native Lich live timeout:bolt={bolt},actor={actor.Location}/{actor.Map}/{actor.Alive}/{ReviveNativeActivation.CanAct(actor)},body={body.SanctuaryConsumed},rows={RaisedMinions.Snapshot().Length}");
                 actor.AIObject.AITimer.Stop();actor.Combatant=target;actor.OnThink();bolt|=SkillHealth.Balance256(target)<hp;
                 var child=RaisedMinions.Snapshot().Where(row=>row.Caster==actor.Serial.Value).Select(row=>World.FindMobile((Serial)row.Actor)).OfType<GraveyardUndead>().SingleOrDefault();
-                if(bolt&&child!=null)
+                Require(child==null&&!body.SanctuaryConsumed&&body.Items.OfType<Gold>().Single().Amount==17,"Revived Lich created a helper or consumed its corpse");
+                if(bolt)
                 {
-                    Require(child.ControlMaster==p&&body.SanctuaryConsumed&&body.Items.OfType<Gold>().Single().Amount==17&&ClassCombat.Friendly(actor,p)&&!actor.CanBeHarmful(p,false)
-                        &&SkillHealth.Balance256(p)==ownerLife,"Original caster ability lost allegiance,owner life or helper loot");
+                    Require(ClassCombat.Friendly(actor,p)&&!actor.CanBeHarmful(p,false)
+                        &&SkillHealth.Balance256(p)==ownerLife,"Original caster ability lost allegiance or damaged its owner");
                     var facets=SummonDifficulties.Facets();var home=p.Location;var homeMap=p.Map;
                     int floor=Enumerable.Range(0x500,0x100).First(id=>TileData.ItemTable[id].Surface&&!TileData.ItemTable[id].Impassable&&TileData.ItemTable[id].CalcHeight==0);
                     for(int dx=-4;dx<=24;dx++)for(int dy=-4;dy<=4;dy++){new Static(floor).MoveToWorld(new(p.X+dx,p.Y+dy,p.Z),Map.Felucca);}
@@ -94,9 +101,9 @@ public static class NativeLichReviveChecks
                             var nextMap=difficulty==MonsterDifficulty.Nightmare?Map.Felucca:Map.Trammel;
                             SummonDifficulties.SetFacets([new(Map.Felucca.MapID,MonsterDifficulty.Nightmare),new(Map.Trammel.MapID,MonsterDifficulty.Hell)]);
                             p.MoveToWorld(new(p.X+2,p.Y,p.Z),nextMap);
-                            Require(ReviveFacets.Issue(actor)==null&&MonsterVariants.Difficulty(actor)==difficulty&&MonsterVariants.Difficulty(child)==difficulty
-                                &&actor.Map==nextMap&&child.Map==nextMap
-                                &&SkillHealth.Balance256(actor)==SummonDifficulties.Life256(life,maximum,SkillHealth.Maximum256(actor)),$"Native facet:expected={difficulty}/{nextMap},owner={p.Map},actor={actor.Map}/{MonsterVariants.Difficulty(actor)},child={child.Map}/{MonsterVariants.Difficulty(child)},issue={ReviveFacets.Issue(actor)},life={SkillHealth.Balance256(actor)}/{SummonDifficulties.Life256(life,maximum,SkillHealth.Maximum256(actor))},max={SkillHealth.Maximum256(actor)}/{maximum}");
+                            Require(ReviveFacets.Issue(actor)==null&&MonsterVariants.Difficulty(actor)==difficulty
+                                &&actor.Map==nextMap
+                                &&SkillHealth.Balance256(actor)==SummonDifficulties.Life256(life,maximum,SkillHealth.Maximum256(actor)),$"Native facet:expected={difficulty}/{nextMap},owner={p.Map},actor={actor.Map}/{MonsterVariants.Difficulty(actor)},issue={ReviveFacets.Issue(actor)},life={SkillHealth.Balance256(actor)}/{SummonDifficulties.Life256(life,maximum,SkillHealth.Maximum256(actor))},max={SkillHealth.Maximum256(actor)}/{maximum}");
                         }
                     }
                     finally{SummonDifficulties.SetFacets(facets);p.MoveToWorld(home,homeMap);SummonDifficulties.Sync(p);}
@@ -112,9 +119,9 @@ public static class NativeLichReviveChecks
                         ((BaseWeapon)actor.Weapon).OnSwing(actor,target);Require(SkillHealth.Balance256(target)<before,"Native blind punch did not deal damage");
                     }
                     finally{ClassCombatHooks.ClassHitCheck=hit;NecromancerEffects.Profiles.Store(actor,old);}
-                    int wounded=SkillHealth.Maximum256(actor)-257;SkillHealth.SetBalance256(actor,wounded);PersistentMinions.Suspend(p);Require(actor.Map==Map.Internal&&child.Map==Map.Internal&&SkillHealth.Balance256(actor)==wounded,"Original/helper parking healed or left actor active");
-                    PersistentMinions.Resume(p);Require(actor.Map==p.Map&&child.Map==p.Map&&SkillHealth.Balance256(actor)==wounded,"Original/helper resume reset wounds");
-                    actor.Delete();Require(child.Deleted,"Original caster removal left a helper");done=true;Cleanup();Log.Information("native-lich-revive-live-result: passed");return;
+                    int wounded=SkillHealth.Maximum256(actor)-257;SkillHealth.SetBalance256(actor,wounded);PersistentMinions.Suspend(p);Require(actor.Map==Map.Internal&&SkillHealth.Balance256(actor)==wounded,"Parking healed or left actor active");
+                    PersistentMinions.Resume(p);Require(actor.Map==p.Map&&SkillHealth.Balance256(actor)==wounded,"Resuming reset wounds");
+                    actor.Delete();done=true;Cleanup();Log.Information("native-lich-revive-live-result: passed");return;
                 }
                 Timer.StartTimer(TimeSpan.FromMilliseconds(20),()=>Core.LoopContext.Post(Inspect));
             }

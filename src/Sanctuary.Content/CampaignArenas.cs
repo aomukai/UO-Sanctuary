@@ -37,6 +37,7 @@ internal static class CampaignArenas
             _ => "Diablo"
         };
         internal CampaignBoss Boss;
+        internal CampaignArenaExitGate ExitGate;
         internal bool Cleared;
         internal DateTime? EmptySince;
         internal bool IsDiablo => Victory == CampaignProgress.Diablo;
@@ -48,6 +49,8 @@ internal static class CampaignArenas
         internal Point3D Center => IsLazarus ? Offset(44, 44) : IsDiablo ? Offset(DiabloCave.Midpoint, Height / 2) : Offset(15, Height / 2);
         internal Point3D BossPost => IsLazarus ? Offset(WorldDecorationGraphics.PrelateX, WorldDecorationGraphics.PrelateY)
             : IsDiablo ? Center : Offset(15, 7);
+        internal Point3D ExitPoint => IsLazarus ? Offset(42, 48)
+            : IsDiablo ? Offset(DiabloCave.Midpoint - 4, DiabloCave.Midpoint + 3) : Offset(17, 9);
         internal Point3D Offset(int x, int y) => new(Origin.X + x, Origin.Y + y, Origin.Z + (IsLazarus ? LazarusMausoleum.Elevation(x, y) : 0));
     }
 
@@ -204,6 +207,8 @@ internal static class CampaignArenas
                 arena.Boss = null;
                 if (arena.Cleared)
                 {
+                    arena.ExitGate?.Delete();
+                    arena.ExitGate = null;
                     arena.Cleared = false;
                     RefreshGate(arena);
                 }
@@ -228,8 +233,7 @@ internal static class CampaignArenas
     {
         if (At(boss.Map, boss.Location) is not { } arena || arena.Boss != boss)
             return;
-        arena.Cleared = true;
-        RefreshGate(arena);
+        OpenExit(arena);
         var credited = new HashSet<PlayerMobile>();
         if (ClassLoot.Killer(boss) is { } killer)
             credited.Add(killer);
@@ -243,6 +247,33 @@ internal static class CampaignArenas
         foreach (var player in credited)
             if (At(player.Map, player.Location) == arena)
                 BritanniaCampaign.Defeated(player, arena.Victory, arena.Profile.Name);
+    }
+
+    private static void OpenExit(Arena arena)
+    {
+        if (arena.ExitGate is null or { Deleted: true })
+        {
+            arena.ExitGate = new CampaignArenaExitGate();
+            arena.ExitGate.MoveToWorld(arena.ExitPoint, Map.Trammel);
+        }
+
+        if (!arena.Cleared)
+        {
+            arena.Cleared = true;
+            RefreshGate(arena);
+        }
+    }
+
+    internal static void RestoreExit(PlayerMobile player)
+    {
+        // A cleared room can be unloaded while its victor is logged out.
+        if (player.Alive && At(player.Map, player.Location) is { } arena
+            && arena.Boss is not { Alive: true, Deleted: false }
+            && BritanniaCampaign.Has(player, arena.Victory))
+        {
+            arena.EmptySince = null;
+            OpenExit(arena);
+        }
     }
 
     internal static bool AllowDeath(PlayerMobile player)
@@ -274,6 +305,39 @@ public partial class CampaignArenaTile : Static
     public override int GetUpdateRange(Mobile viewer) =>
         WorldDecorationGraphics.IsDiabloCaveTerrain(Map?.MapIndex ?? -1, X, Y, (ushort)ItemID)
             ? WorldDecorationGraphics.DiabloTerrainRange : base.GetUpdateRange(viewer);
+}
+
+[SerializationGenerator(0)]
+public partial class CampaignArenaExitGate : Teleporter
+{
+    internal CampaignArenaExitGate() : base(CampaignDungeonRoutes.HythlothSurfaceLanding, Map.Trammel)
+    {
+        ItemID = 0xDDA;
+        Name = "a red gate to Hythloth";
+        Light = LightType.Circle300;
+        Visible = true;
+    }
+
+    public override bool SkipSerialization => true;
+
+    public override void DoTeleport(Mobile mobile) => TryExit(mobile);
+
+    public override bool OnMoveOver(Mobile mobile) => !TryExit(mobile);
+
+    private bool TryExit(Mobile mobile)
+    {
+        if (Deleted || !Active || mobile is not PlayerMobile { Alive: true } player || player.Map != Map
+            || !player.InRange(this, 2) || Math.Abs(player.Z - Z) >= 16
+            || CampaignArenas.At(Map, Location) is not { Cleared: true } arena
+            || arena.ExitGate != this || !CanTeleport(player))
+            return false;
+
+        if (BritanniaCampaign.Sail(player, PointDest))
+            return true;
+
+        player.SendMessage("The way outside is blocked. Try again in a moment.");
+        return false;
+    }
 }
 
 [SerializationGenerator(0)]

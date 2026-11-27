@@ -52,6 +52,9 @@ public static class BritanniaFrontier
             NewHavenPopulation.PlacePassage(map, new(5166 + offset, 246, 15), new(1361, 888, 0));
         }
 
+        int retiredWindSpawns = WindSpawns.RetirePresets();
+        WindTown.Install();
+        _logger.Information("Wind: retired {Retired} preset monster spawners", retiredWindSpawns);
         int spawners = GraveyardPopulation.InstallSpawners("britannia-frontier-spawns.json", relocate: true, refreshCounts: true);
         spawners += GraveyardPopulation.InstallSpawners("southern-britannia-spawns.json", relocate: true, refreshCounts: true);
         spawners += GraveyardPopulation.InstallSpawners("compassion-frontier-spawns.json");

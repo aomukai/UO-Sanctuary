@@ -10,7 +10,8 @@ using Server.Mobiles;
 using Server.Logging;
 namespace Sanctuary;
 
-public sealed record ReviveOriginalState(uint Corpse,uint Actor,string RuntimeType,bool Frozen,bool CantWalk,bool Hidden,bool Blessed,string BeforeDeathJson=null,string BeforeDeathIssue=null);
+public sealed record ReviveOriginalState(uint Corpse,uint Actor,string RuntimeType,bool Frozen,bool CantWalk,bool Hidden,bool Blessed,string BeforeDeathJson=null,string BeforeDeathIssue=null,
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)] bool NativeOnly=false);
 public sealed class ReviveOriginalProfiles:GenericPersistence
 {
     public ReviveOriginalProfiles():base("SanctuaryReviveOriginals",222){}
@@ -48,13 +49,6 @@ public static class ReviveOriginals
         CorpseRecoveryHooks.Deleted=corpse=>{Remove(corpse.Serial.Value);deleted?.Invoke(corpse);};
         Timer.StartTimer(TimeSpan.FromSeconds(1),TimeSpan.FromSeconds(1),Prune);
     }
-    internal static bool SupportedDeathPath(Type type)
-    {
-        var declaring=type.GetMethod(nameof(BaseCreature.OnDeath),[typeof(Container)])?.DeclaringType;
-        // Encounter's reviewed override settles one-time death effects and
-        // aura cleanup before delegating to GraveyardUndead/BaseCreature.
-        return declaring==typeof(BaseCreature)||declaring==typeof(GraveyardUndead)||declaring==typeof(EncounterCreature);
-    }
     internal static bool IsRetained(BaseCreature actor)=>actor!=null&&_registry.Actors.ContainsKey(actor.Serial.Value);
     internal static ReviveOriginalState State(Corpse corpse)=>corpse==null?null:_registry.Corpses.GetValueOrDefault(corpse.Serial.Value);
     internal static ReviveOriginalState[] Snapshot()=>_registry.Corpses.Values.OrderBy(r=>r.Corpse).ToArray();
@@ -78,10 +72,13 @@ public static class ReviveOriginals
         var actor=World.FindMobile((Serial)row.Actor) as BaseCreature;
         if(actor is not{Deleted:false}||actor.GetType().FullName!=row.RuntimeType){return null;}
         var history=CorpseSkillRules.Profiles.Find(corpse);
-        if(history?.BaseLife?.OriginalMonsterSerial!=row.Actor||history.ReviveCreature?.RuntimeType!=row.RuntimeType||corpse.Owner!=actor)
+        if(corpse.Owner!=actor||history is not{Owned:false}||!row.NativeOnly&&!MatchesSource(history,actor))
         {throw new InvalidDataException("Retained native creature disagrees with its original corpse");}
         return actor;
     }
+    private static bool MatchesSource(CorpseSkillRecord history,BaseCreature actor)
+        =>history is{Selectable:true}&&history.BaseLife?.OriginalMonsterSerial==actor.Serial.Value
+            &&history.ReviveCreature?.RuntimeType==actor.GetType().FullName;
     internal static ReviveOriginalState DetachForActivation(Corpse corpse,BaseCreature expected)
     {
         if(expected==null||Find(corpse)!=expected||expected.Map!=Map.Internal||expected.Alive)
@@ -98,21 +95,21 @@ public static class ReviveOriginals
     }
     internal static bool Capture(BaseCreature actor,Container container)
     {
-        var pending=ReviveBeforeDeath.Take(actor);string before=pending.Json;
-        if(actor is null||actor.Deleted||container is not Corpse{Deleted:false} corpse||actor.Controlled||actor.Summoned
-            ||actor is BaseVendor or GraveyardUndead{Raised:true}||!SupportedDeathPath(actor.GetType())||_registry.Corpses.ContainsKey(corpse.Serial.Value)||IsRetained(actor))
+        string before=ReviveBeforeDeath.Take(actor);
+        if(before==null||actor is not{Deleted:false}||container is not Corpse{Deleted:false} corpse
+            ||_registry.Corpses.ContainsKey(corpse.Serial.Value)||IsRetained(actor))
         {return false;}
         var row=CorpseSkillRules.Profiles.Find(corpse);
-        if(row is not{Owned:false,Shattered:false,NoSelect:false,Selectable:true}||row.BaseLife?.OriginalMonsterSerial!=actor.Serial.Value
-            ||row.ReviveCreature?.RuntimeType!=actor.GetType().FullName||!NativeReviveRules.CanCapture(actor,row.Source))
+        if(row is not{Owned:false,Shattered:false,NoSelect:false}||!CorpseSkillRules.BodyAvailable(corpse))
         {return false;}
         if(ReviveWorldControllers.Issue(actor.Spawner) is{} controllerIssue)
         {Log.Warning("{Issue}",controllerIssue);return false;}
         // Match ordinary death's roster cleanup while retaining the actual
         // actor. The spawner must not count, respawn/delete or own this corpse.
         ReviveWorldControllers.DetachDeath(actor);
-        var original=before==null?null:ReviveBeforeDeath.Decode(before);
-        var saved=new ReviveOriginalState(corpse.Serial.Value,actor.Serial.Value,actor.GetType().FullName,original?.Frozen??actor.Frozen,original?.CantWalk??actor.CantWalk,original?.Hidden??actor.Hidden,original?.Blessed??actor.Blessed,before,pending.Issue);
+        var original=ReviveBeforeDeath.Decode(before);
+        var saved=new ReviveOriginalState(corpse.Serial.Value,actor.Serial.Value,actor.GetType().FullName,original.Frozen,original.CantWalk,original.Hidden,original.Blessed,before,
+            NativeOnly:!MatchesSource(row,actor));
         _registry.Corpses.Add(saved.Corpse,saved);_registry.Actors.Add(saved.Actor,saved.Corpse);
         Park(actor);return true;
     }

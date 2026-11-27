@@ -84,6 +84,13 @@ internal static class ReviveFacets
         foreach(var old in ReviveNativeActivation.Snapshot().Where(x=>x.Owner==owner.Serial.Value))
         {
             if(World.FindMobile((Serial)old.Actor) is not BaseCreature{Alive:true,Deleted:false} actor||actor.ControlMaster!=owner){continue;}
+            if(old.Setup.NativeCombat&&old.Difficulty!=difficulty)
+            {
+                PersistentMinions.Suspend(actor);
+                ReviveNativeActivation.Store(old with{Difficulty=difficulty});
+                Issues.Remove(old.Actor);resume=true;
+                continue;
+            }
             if(old.Difficulty==difficulty)
             {
                 bool unblocked=Issues.Remove(old.Actor);

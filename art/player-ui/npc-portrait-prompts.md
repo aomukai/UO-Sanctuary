@@ -113,6 +113,19 @@ Caelira: a mature elven bowcraft trainer with tawny brown skin, long ash-silver 
 Orren: a middle-aged elven carpentry trainer with walnut-brown skin, narrow face and a prominent nose, dark cropped curls, pointed ears and a warm patient gaze. A muted umber apron and flax linen shirt. The low-detail background is a warmly lit timber workshop.
 ```
 
+## Wind trainer portraits
+
+The thirteen Trammel trainers use portraits 737–749 in `portrait-trainers-13.png`, in order from smith through fisher. Built-in ImageGen painted them as a 4×4 sheet.
+
+> Create a tight head-and-shoulders portrait atlas of adult gargoyle craftsmen and scholars living in a mountain cavern city. Give them angular ears, stone-like copper, terracotta, ochre or slate complexions, and varied horns, faces, ages and expressions. Both eyes meet the player’s gaze. Use practical cloth and leather, warm golden side lighting, shadowed workshops and a textured late-1990s RPG oil and gouache style. Draw sixteen independent square portraits in a precise 4×4 grid without margins, dividers or lettering. Keep horn tips and jawlines within each cell so the faces read at dialogue size.
+
+## Island ferry skippers
+
+Built-in ImageGen painted original square head-and-shoulders portraits with direct eye contact, weathered medieval clothing, and late-1990s RPG oil and gouache texture.
+
+- `portrait-npc-fireislandskipper.png` shows Nessa Vale, a middle-aged skipper with a windblown dark bob and a quiet smile. She wears a worn leather vest over sea-blue linen, with warm lantern light and a volcanic coastline behind her.
+- `portrait-npc-daggerisleskipper.png` shows Halden Rook, an older skipper with wavy grey hair, a salt-and-pepper beard, and a dark wool cap. He wears a heavy grey-green cloak with a shearling collar at a cold northern wharf.
+
 ## portrait-npc-despise.png
 
 Built-in ImageGen used `portrait-npc-watch.png` as its style reference for this sheet.

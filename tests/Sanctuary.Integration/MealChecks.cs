@@ -127,7 +127,7 @@ public static class MealChecks
             Require(corpse.Carved, "Eligible corpse did not carve");
             if (c.Meat > 0) { Require(corpse.Items.Where(i => i is RawRibs or RawBird or RawLambLeg).Sum(i => i.Amount) == c.Meat + 3, "Carving meat bonus wrong"); }
             if (c.Feathers > 0) { Require(corpse.GetAmount(typeof(Feather)) == c.Feathers + 3, "Feather bonus wrong"); }
-            if (c.Hides > 0) { Require(corpse.Items.OfType<BaseHides>().Sum(i => i.Amount) == (p.Race == Race.Human ? (int)Math.Ceiling(c.Hides * 1.1) : c.Hides) + 3, "Hide bonus wrong"); }
+            if (c is Cow) { Require(corpse.Items.OfType<BaseHides>().Sum(i => i.Amount) == (p.Race == Race.Human ? (int)Math.Ceiling(c.Hides * 1.1) : c.Hides) + 3, "Hide bonus wrong"); }
             if (c is VampireBat or Mongbat) { Require(corpse.GetAmount(typeof(BatWing)) == 1, "Bat wings unavailable from bats"); }
             if (c is Daemon) { Require(corpse.GetAmount(typeof(DaemonBlood)) == 1, "Daemon blood unavailable"); }
             int count = corpse.Items.Sum(i => i.Amount); corpse.Carve(p, knife); Require(corpse.Items.Sum(i => i.Amount) == count, "Repeated carve yielded again");

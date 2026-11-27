@@ -49,6 +49,24 @@ public static class NewHavenStoryChecks
 
     public static void Configure()
     {
+        Register("public-facets", () =>
+        {
+            var player = new PlayerMobile();
+            try
+            {
+                BritanniaCampaign.Record(player, CampaignProgress.SkeletonKing | CampaignProgress.Lazarus);
+                Require(ClassMapHooks.PublicGateWorlds(player) is [{ Name: "Britannia" } world] && world.Map == Map.Trammel,
+                    "The public moongate should offer only Britannia before Diablo");
+                BritanniaCampaign.Record(player, CampaignProgress.Diablo);
+                Map[] destinations = [Map.Trammel, Map.Ilshenar, Map.Malas, Map.Tokuno, Map.TerMur];
+                Require(ClassMapHooks.PublicGateWorlds(player).Select(destination => destination.Map).SequenceEqual(destinations),
+                    "The post-Diablo moongate should offer Britannia, Ilshenar, Malas, Tokuno, and Ter Mur");
+            }
+            finally
+            {
+                player.Delete();
+            }
+        });
         Register("scholar-setup", () =>
         {
             var player = Avatar;

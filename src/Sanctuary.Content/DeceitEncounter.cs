@@ -264,7 +264,7 @@ public partial class DeceitEncounter : EncounterCreature
             {
                 if (Role == DeceitRole.DemonicTorturer)
                     BeginFirebolt(Combatant);
-                else if (Role == DeceitRole.Necromancer)
+                else if (Role == DeceitRole.Necromancer && ReviveNativeActivation.SupportAllowed(this))
                     SummonSkeleton(Combatant);
             }
         }

@@ -65,7 +65,7 @@ public static class NewHavenPopulation
         [new(PMList.Trammel.Number, PMList.Trammel.SelNumber, Map.Trammel, PMList.Trammel.Entries, "Britannia")];
     private static PMList[] _unlockedWorlds;
     private static PMList[] UnlockedWorlds => _unlockedWorlds ??=
-        [PublicWorlds[0], PMList.Felucca, PMList.Ilshenar, PMList.Malas, PMList.Tokuno, PMList.TerMur];
+        [PublicWorlds[0], PMList.Ilshenar, PMList.Malas, PMList.Tokuno, PMList.TerMur];
 
     public static void Configure()
     {

@@ -18,16 +18,21 @@ public static class ReviveCastChecks
     public static void Configure(){Register("revive-cast-check",Check);Register("revive-cast-reload-check",Reload);}
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Learned Revive windup/payment and automatic original retention",_=>Core.LoopContext.Post(()=>
     {try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
-    private static Corpse Die(PlayerMobile owner,BaseCreature actor=null)
+    private static Corpse Die(PlayerMobile owner,BaseCreature actor=null,bool retain=true,bool shatter=false)
     {
         actor??=new Skeleton();actor.NoKillAwards=true;actor.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);actor.AIObject.AITimer.Stop();
         actor.Mana=Math.Min(7,actor.ManaMax);actor.Stam=Math.Min(13,actor.StamMax);
+        if(shatter)
+        {
+            ColdCorpseRules.SetRoll(actor,()=>0);
+            Require(ColdStates.Commit(owner,actor,500,true,-50,1,Core.TickCount),"Could not chill the arbalest");
+        }
         Corpse corpse=null;var original=actor;var died=ClassLootHooks.CreatureDied;
         ClassLootHooks.CreatureDied=(who,container)=>{died?.Invoke(who,container);if(who==original){corpse=container as Corpse;corpse?.DropItem(new Gold(1));}};
         try{owner.DoHarmful(actor,true);actor.Damage(actor.Hits+1,owner);CombatDamage.Finish(actor,owner);}
         finally{ClassLootHooks.CreatureDied=died;}
-        Require(corpse is{Deleted:false}&&ReviveOriginals.Find(corpse)==actor,"Ordinary death hooks did not retain the actual monster");
-        Require(ReviveBeforeDeath.Decode(ReviveOriginals.State(corpse).BeforeDeathJson).AiStatus!=null,"Automatic accepted-death eligibility missing");
+        Require(corpse is{Deleted:false}&&(retain?ReviveOriginals.Find(corpse)==actor:ReviveOriginals.Find(corpse)==null),"Unexpected retention on ordinary death hooks");
+        if(retain){Require(ReviveBeforeDeath.Decode(ReviveOriginals.State(corpse).BeforeDeathJson).AiStatus!=null,"Automatic accepted-death eligibility missing");}
         corpse.BeginDecay(TimeSpan.FromHours(1));return corpse;
     }
     private static void Begin(PlayerMobile owner,Corpse corpse)
@@ -82,10 +87,31 @@ public static class ReviveCastChecks
         var originals=ReviveOriginals.Snapshot();var saved=ReviveOriginals.State(pending);var captured=ReviveBeforeDeath.Decode(saved.BeforeDeathJson);
         ReviveOriginals.Restore(originals.Select(r=>r==saved?r with{BeforeDeathJson=JsonSerializer.Serialize(captured with{AiStatus=null})}:r).ToArray());
         Require(!ReviveCasts.Plan(owner,pending,out _,out _,out var legacy)&&legacy.Contains("older corpse"),"Legacy eligibility fabricated");ReviveOriginals.Restore(originals);
-        var dragon=Die(owner,new Dragon());Require(!ReviveCasts.Plan(owner,dragon,out _,out _,out var classification)&&classification.Contains("classification"),"Unclassified monster silently converted");dragon.Delete();
+        var dragon=Die(owner,new Dragon());
+        Require(ReviveCasts.Plan(owner,dragon,out var dragonSetup,out _,out _)&&dragonSetup.NativeCombat,"An ordinary unmapped dragon could not be revived");
+        Cast(owner,dragon).Delete();dragon.Delete();owner.Mana=owner.ManaMax;
+        var soldier=Die(owner,new HythlothEncounter(HythlothRole.RoyalSoldier));
+        Require(ReviveCasts.Plan(owner,soldier,out var courtSetup,out _,out _)&&courtSetup.NativeCombat,"An ordinary Hythloth soldier could not be revived");
+        Cast(owner,soldier).Delete();soldier.Delete();owner.Mana=owner.ManaMax;
+        var arbalest=Die(owner,new HythlothEncounter(HythlothRole.RoyalArbalest));
+        owner.MoveToWorld(new(arbalest.X+SkeletonPets.Range,arbalest.Y+1,arbalest.Z),arbalest.Map);
+        Require(!ReviveCasts.Plan(owner,arbalest,out _,out _,out var rangeIssue)
+            &&rangeIssue.Contains("Move closer"),"Revive did not explain the diagonal range limit");
+        owner.MoveToWorld(origin,arbalest.Map);
+        Cast(owner,arbalest).Delete();arbalest.Delete();owner.Mana=owner.ManaMax;
+        var shattered=Die(owner,new HythlothEncounter(HythlothRole.RoyalArbalest),retain:false,shatter:true);
+        Require(CorpseSkillRules.Shattered(shattered)&&!ReviveCasts.Plan(owner,shattered,out _,out _,out var shatterIssue)
+            &&shatterIssue.Contains("Cold damage shattered"),"Revive did not explain why the shattered arbalest was unavailable");
+        shattered.Delete();
+        foreach(var excluded in new BaseCreature[]{new HythlothEncounter(HythlothRole.Executioner),new Skeleton{IsParagon=true}})
+        {
+            var excludedBody=Die(owner,excluded,retain:false);
+            Require(!ReviveCasts.Plan(owner,excludedBody,out _,out _,out _),"A boss or paragon could be revived");
+            excludedBody.Delete();
+        }
         var equipped=new Skeleton();equipped.AddItem(new GoldRing());var gear=Die(owner,equipped);
-        Require(!ReviveCasts.Plan(owner,gear,out _,out _,out var gearIssue)&&gearIssue.Contains("Historical/inactive")
-            &&gear.Items.Any(i=>i is GoldRing),"Unsupported equipped effects omitted or gear loot lost");gear.Delete();
+        Require(ReviveCasts.Plan(owner,gear,out var gearSetup,out _,out _)&&gearSetup.NativeCombat
+            &&gear.Items.Any(i=>i is GoldRing),"Unsupported gear blocked Revive or disappeared from loot");gear.Delete();
         foreach(bool consumed in new[]{false,true})
         {
             var retired=Die(owner);var original=ReviveOriginals.Find(retired);var row=CorpseSkillRules.Profiles.Find(retired);
@@ -95,6 +121,7 @@ public static class ReviveCastChecks
             Require(original.Deleted&&ReviveOriginals.Find(retired)==null&&!retired.Deleted&&retired.GetAmount(typeof(Gold))==1,
                 "Consumed/legacy projection did not retire its dead original independently of loot");retired.Delete();
         }
+        pending.Delete();pending=Die(owner,new HythlothEncounter(HythlothRole.UndeadCleric));
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,active.Serial.Value,corpse.Serial.Value,pending.Serial.Value,
             ReviveOriginals.Find(pending).Serial.Value,[origin.X,origin.Y,origin.Z],SkillHealth.Balance256(active),active.Mana,active.Stam,(int)active.AI)));
         owner.Internalize();Report();
@@ -111,10 +138,10 @@ public static class ReviveCastChecks
             $"Actual reload:alive={active.Alive},deleted={active.Deleted},owner={active.ControlMaster?.Serial.Value}/{saved.Owner},map={active.Map},ai={(int)active.AI}/{saved.Ai},life={SkillHealth.Balance256(active)}/{saved.Life256},mana={active.Mana}/{saved.Mana},stamina={active.Stam}/{saved.Stamina},loot={corpse.GetAmount(typeof(Gold))}");
         Require(ReviveOriginals.Find(pending)?.Serial.Value==saved.PendingActor&&!CorpseSkillRules.NoSelect(pending),"Actual reload lost pending original");
         owner.MoveToWorld(new(saved.Origin[0],saved.Origin[1],saved.Origin[2]),pending.Map);owner.Mana=owner.ManaMax;
-        Require(ReviveCasts.Plan(owner,pending,out _,out _,out _),"Saved pending original cannot be cast");
+        Require(ReviveCasts.Plan(owner,pending,out var setup,out _,out var issue)&&setup.NativeCombat,"Saved court original cannot be revived: "+issue);
         // Use a fresh ordinary automatic death/cast each boot; keep the saved
         // pending original for both actual reload checks.
         var fresh=Die(owner);var revived=Cast(owner,fresh);revived.Delete();fresh.Delete();owner.Internalize();Report();
     }
-    private static void Report()=>Log.Information("Learned Revive:automatic accepted-death retention,hotkey windup/release,original actor/exact activation resources,once-only mana,duplicate refusal,movement/reservation/lost-mana cancellation,explicit legacy/classification/item refusals,consumed/legacy original retirement with loot intact and active/pending persistence pass;native mana/stamina may regenerate while parked;native repertoire retained,world spell conversion independent");
+    private static void Report()=>Log.Information("Learned Revive: original retention, hotkey release, resource and loot preservation, interruption, ordinary unmapped monsters, boss/paragon exclusion, and saved originals passed");
 }

@@ -19,16 +19,20 @@ internal static class CampaignActors
     private static readonly Point3D _fireDock = new(4721, 3822, 0);
     private static readonly Point3D _daggerApproach = new(4110, 439, 0);
     private static Point3D _daggerDock;
-    private static readonly Point3D _blackthornKeep = new(1523, 1441, 0);
+    internal static readonly Point3D BlackthornPost = new(1324, 1623, 55);
+    internal static readonly Point3D ShaminoPost = new(1324, 1626, 55);
 
     internal static void Install()
     {
         foreach (var messenger in World.Mobiles.Values.OfType<CampaignMessenger>().ToArray())
             messenger.Delete();
+        foreach (var ferry in World.Items.Values.OfType<CampaignFerry>().Where(ferry => ferry.Map == Map.Trammel).ToArray())
+            ferry.Delete();
 
         Place(_britainDock, () => new BritainHarbourMaster());
-        Place(_blackthornKeep, () => new CampaignBlackthorn());
-        Place(new(1524, 1441, 0), () => new CampaignShamino());
+        Place(BlackthornPost, () => new CampaignBlackthorn(), relocate: true);
+        Place(ShaminoPost, () => new CampaignShamino(), relocate: true);
+        BlackthornKeepClosure.Install();
         Place(new(3503, 2518, 27), () => new CampaignRefugee(RefugeeKind.Jaana), RefugeeKind.Jaana);
         Place(new(3503, 2523, 27), () => new CampaignRefugee(RefugeeKind.Dupre), RefugeeKind.Dupre);
         Place(new(3529, 2529, 20), () => new CampaignRefugee(RefugeeKind.Wolfgang), RefugeeKind.Wolfgang);
@@ -37,24 +41,25 @@ internal static class CampaignActors
         Place(new(3511, 2542, 20), () => new CampaignRefugee(RefugeeKind.Shamino), RefugeeKind.Shamino);
 
         _daggerDock = TownMarkets.Floor(Map.Trammel, _daggerApproach, [], false);
-        Ferry(new(1483, 1756, -2), _fireDock, "the passage to Fire Island");
-        Ferry(new(4720, 3822, 0), _britainDock, "the passage back to Britain");
-        Ferry(new(1484, 1756, -2), _daggerDock, "the passage to Dagger Isle", dagger: true);
-        Ferry(_daggerDock, _britainDock, "the passage back to Britain", dagger: true);
+        PlaceSkipper(new(4720, 3822, 0), _fireDock, false);
+        PlaceSkipper(new(_daggerDock.X - 1, _daggerDock.Y, _daggerDock.Z), _daggerDock, true);
 
-        void Place<T>(Point3D point, Func<T> create, RefugeeKind? kind = null) where T : Mobile
+        void Place<T>(Point3D point, Func<T> create, RefugeeKind? kind = null, bool relocate = false) where T : Mobile
         {
-            if (!World.Mobiles.Values.OfType<T>().Any(npc => npc.Map == Map.Trammel
-                && (!kind.HasValue || npc is CampaignRefugee refugee && refugee.Kind == kind)))
-                create().MoveToWorld(TownMarkets.Floor(Map.Trammel, point, [], false), Map.Trammel);
+            var existing = World.Mobiles.Values.OfType<T>().FirstOrDefault(npc => !npc.Deleted && npc.Map == Map.Trammel
+                && (!kind.HasValue || npc is CampaignRefugee refugee && refugee.Kind == kind));
+            if (existing == null || relocate && existing.Location != point)
+                (existing ?? create()).MoveToWorld(TownMarkets.Floor(Map.Trammel, point, [], false), Map.Trammel);
         }
 
-        void Ferry(Point3D origin, Point3D destination, string name, bool dagger = false)
+        void PlaceSkipper(Point3D post, Point3D arrival, bool dagger)
         {
-            foreach (var ferry in Map.Trammel.GetItemsAt<CampaignFerry>(origin))
-                if (ferry.Location == origin && ferry.PointDest == destination)
-                    return;
-            new CampaignFerry(destination, dagger) { Name = name }.MoveToWorld(origin, Map.Trammel);
+            var map = Map.Trammel;
+            if (World.Mobiles.Values.OfType<IslandSkipper>().Any(skipper => skipper.Map == map && skipper.Dagger == dagger))
+                return;
+
+            var floor = TownMarkets.Floor(map, post, [(map, arrival)], false);
+            new IslandSkipper(dagger).MoveToWorld(floor, map);
         }
     }
 
@@ -94,7 +99,7 @@ internal static class CampaignActors
         var (line, portrait) = summons switch
         {
             BritanniaCampaign.Summons.British => ("Avatar! At last. I've been looking for thee everywhere. Lord British has called for thee. He has urgent news and needs thy help. Come to the castle as soon as thou canst.", NpcPortrait.Geoffrey),
-            BritanniaCampaign.Summons.Blackthorn => ("Avatar, a moment. I've worn myself to the bone trying to keep order. Lord British fell ill, and Lord Blackthorn asks for thee. Half the guard no longer reports. Some who do are drunk. I've caught men taking bribes, and there aren't enough honest hands to replace them. Blackthorn is in his keep on the north side of Britain.", NpcPortrait.GeoffreyDishevelled),
+            BritanniaCampaign.Summons.Blackthorn => ("Avatar, a moment. I've worn myself to the bone trying to keep order. Lord British fell ill, and Lord Blackthorn asks for thee. Half the guard no longer reports. Some who do are drunk. I've caught men taking bribes, and there aren't enough honest hands to replace them. Thou wilt find Blackthorn and Shamino in the throne room at Castle Britannia.", NpcPortrait.GeoffreyDishevelled),
             BritanniaCampaign.Summons.Victory => ("Avatar! Everyone has heard what thou didst. I can hardly walk the bridge without someone wanting to shake my hand on thy behalf. Lord British asks for thee at the castle. I think he has something for thee.", NpcPortrait.GeoffreyRelieved),
             _ => (null, NpcPortrait.Geoffrey)
         };
@@ -204,6 +209,12 @@ internal static class CampaignActors
         if (FerryUnlocked(player, dagger: true) && ScriptedDialogue.CanTalk(player, speaker))
             SailParty(player, _daggerDock);
     }
+
+    internal static void SailToBritain(PlayerMobile player, Mobile speaker)
+    {
+        if (speaker is IslandSkipper && ScriptedDialogue.CanTalk(player, speaker))
+            SailParty(player, _britainDock);
+    }
 }
 
 [SerializationGenerator(0)]
@@ -255,27 +266,65 @@ public partial class BritainHarbourMaster : ConversationNpc
     internal override ushort Portrait => (ushort)NpcPortrait.BritainHarbourMaster;
     internal override IReadOnlyList<ScriptedDialogue.Node> Script => [];
 
-    internal override void BeginConversation(PlayerMobile player)
+    internal override void BeginConversation(PlayerMobile player) => ScriptedDialogue.Show(player, this, DialogueFor(player));
+
+    internal IReadOnlyList<ScriptedDialogue.Node> DialogueFor(PlayerMobile player)
     {
-        ScriptedDialogue.Reply[] topics = [new("Ships", 1), new("Trade", 2), new("Other harbours", 3)];
-        bool fire = CampaignActors.FerryUnlocked(player), dagger = CampaignActors.FerryUnlocked(player, dagger: true);
-        if (fire || dagger)
-            topics = [.. topics, new("Passage", 4)];
-        var routes = new List<ScriptedDialogue.Reply>();
-        if (fire)
-            routes.Add(new("Fire Island", 4, CampaignActors.SailToFire));
-        if (dagger)
-            routes.Add(new("Dagger Isle", 4, CampaignActors.SailToDagger));
-        routes.Add(new("Back", 0));
-        ScriptedDialogue.Show(player, this,
+        var opening = new List<ScriptedDialogue.Reply> { new("About the harbour", 1) };
+        if (CampaignActors.FerryUnlocked(player))
+            opening.Add(new("Sail to Fire Island", 0, CampaignActors.SailToFire));
+        if (CampaignActors.FerryUnlocked(player, dagger: true))
+            opening.Add(new("Sail to Dagger Isle", 0, CampaignActors.SailToDagger));
+
+        ScriptedDialogue.Reply[] topics = [new("Ships", 2), new("Trade", 3), new("Other harbours", 4), new("Back", 0)];
+        return
         [
-            new("Elowen Marr. If it takes on cargo, lets down a gangplank, or makes trouble at my docks, I hear about it. What can I do for thee?", topics),
+            new("Elowen Marr. If it takes on cargo, lets down a gangplank, or makes trouble at my docks, I hear about it. What can I do for thee?", opening.ToArray()),
+            new("What wouldst thou know about Britain’s harbour?", topics, LineId: "britain.elowen.harbour", SpeakerId: "britain.elowen"),
             new("A stout keel matters more than a fine figurehead. Ships wear out from the bottom. That's where I look first.", topics),
             new("Britain takes in grain, timber and fish. We send out finished goods. Let one cargo run late and you'll hear from every shop on the quay.", topics),
-            new("Vesper's built around its water. Jhelom's sailors know every little island to the south. If thou art bound for Moonglow, watch for the light from the Lycaeum.", topics),
-            new("Which passage shall I put thee down for?", routes.ToArray())
-        ]);
+            new("Vesper's built around its water. Jhelom's sailors know every little island to the south. If thou art bound for Moonglow, watch for the light from the Lycaeum.", topics)
+        ];
     }
+}
+
+[SerializationGenerator(0)]
+public partial class IslandSkipper : ConversationNpc
+{
+    [SerializableField(0)] private bool _dagger;
+
+    internal IslandSkipper(bool dagger)
+    {
+        Dagger = dagger;
+        Name = dagger ? "Halden Rook" : "Nessa Vale";
+        Title = "the skipper";
+        Female = !dagger;
+        Body = Female ? 0x191 : 0x190;
+        Hue = dagger ? 0x83EA : 0x8405;
+        HairItemID = dagger ? 0x2044 : 0x203B;
+        HairHue = dagger ? 0x0386 : 0x0455;
+        FacialHairItemID = dagger ? 0x204B : 0;
+        FacialHairHue = HairHue;
+        CantWalk = Blessed = true;
+        AddItem(new FancyShirt(dagger ? 0x03E9 : 0x051D));
+        AddItem(new LongPants(0x0455));
+        AddItem(new Boots());
+        if (dagger)
+            AddItem(new Cloak(0x0591));
+        else
+            AddItem(new Surcoat(0x0456));
+    }
+
+    internal override ushort Portrait => (ushort)(Dagger ? NpcPortrait.DaggerIsleSkipper : NpcPortrait.FireIslandSkipper);
+
+    internal override IReadOnlyList<ScriptedDialogue.Node> Script =>
+    [
+        new(Dagger ? "I’m Halden Rook. The wind’s turning, but we can still make Britain before dark."
+                : "Nessa Vale. I’ve a boat ready for Britain if thou hast finished on the island.",
+            [new("Sail to Britain", 0, CampaignActors.SailToBritain)],
+            LineId: Dagger ? "dagger-isle.halden.passage" : "fire-island.nessa.passage",
+            SpeakerId: Dagger ? "dagger-isle.halden" : "fire-island.nessa")
+    ];
 }
 
 [SerializationGenerator(0)]

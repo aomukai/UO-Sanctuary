@@ -172,7 +172,7 @@ public partial class DruidRavenBody:SkeletonGuardian
         {RestorePrepared(s with{Mode=1,NextThink=checked(s.Frame+1),ActionAt=0,EndAt=0,Target=0,Motion=Stop(s.Motion)});}
     }
     private bool InEngagementRange(PlayerMobile owner,Mobile target)=>target is{Alive:true,Deleted:false}
-        && target.Map==Map && owner.Map==Map && owner.InRange(target.Location,CombatProtocol.SightRange);
+        && target.Map==Map && owner.Map==Map && owner.InRange(target.Location,CombatProtocol.SightRange+PetCombatRanges.BonusTiles);
     internal bool Eligible(PlayerMobile owner,Mobile target)=>InEngagementRange(owner,target)
         && target.CanBeDamaged() && CanBeHarmful(target,false,true);
     internal Mobile CurrentFocus(PlayerMobile owner)
@@ -190,7 +190,7 @@ public partial class DruidRavenBody:SkeletonGuardian
         var ownerTarget=World.FindMobile(ClassCombat.For(owner).Target);
         if(Eligible(owner,ownerTarget)){return ownerTarget;}
         Mobile chosen=null;double best=double.MaxValue;
-        foreach(var candidate in Map.GetMobilesInRange<BaseCreature>(Location,CombatProtocol.SightRange))
+        foreach(var candidate in Map.GetMobilesInRange<BaseCreature>(Location,CombatProtocol.SightRange+PetCombatRanges.BonusTiles))
         {
             if(!Eligible(owner,candidate)||!owner.InLOS(candidate)){continue;}
             double distance=this.GetDistanceToSqrt(candidate);

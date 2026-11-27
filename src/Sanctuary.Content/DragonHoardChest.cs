@@ -16,6 +16,7 @@ public partial class DragonHoardChest : WoodenChest
     public DragonHoardChest() => Movable = false;
 
     public override string DefaultName => "a hoard chest";
+    public override bool IsDecoContainer => false;
 
     public override void OnMapChange()
     {

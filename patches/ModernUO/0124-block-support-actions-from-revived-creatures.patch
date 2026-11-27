@@ -1,0 +1,208 @@
+diff --git a/Projects/UOContent/Mobiles/AI/MageAI.cs b/Projects/UOContent/Mobiles/AI/MageAI.cs
+--- a/Projects/UOContent/Mobiles/AI/MageAI.cs
++++ b/Projects/UOContent/Mobiles/AI/MageAI.cs
+@@ -125,7 +125,8 @@
+         }
+ 
+         // Summoned creatures never heal themselves.
+-        if (Mobile.Summoned || Mobile.Controlled && Core.TickCount - _nextHealTime < 0)
++        if (Mobile.Summoned || ClassCombatHooks.CreatureSupportAllowed?.Invoke(Mobile) == false
++            || Mobile.Controlled && Core.TickCount - _nextHealTime < 0)
+         {
+             return null;
+         }
+diff --git a/Projects/UOContent/Mobiles/Abilities/MonsterAbility.cs b/Projects/UOContent/Mobiles/Abilities/MonsterAbility.cs
+--- a/Projects/UOContent/Mobiles/Abilities/MonsterAbility.cs
++++ b/Projects/UOContent/Mobiles/Abilities/MonsterAbility.cs
+@@ -29,7 +29,8 @@
+     /// <returns>Boolean indicating the ability can trigger.</returns>
+     public virtual bool CanTrigger(BaseCreature source, MonsterAbilityTrigger trigger)
+     {
+-        if ((AbilityTrigger & trigger) == 0 || source is not { Alive: true, Deleted: false })
++        if ((AbilityTrigger & trigger) == 0 || source is not { Alive: true, Deleted: false }
++            || AbilityType == MonsterAbilityType.SummonCounter && ClassCombatHooks.CreatureSupportAllowed?.Invoke(source) == false)
+         {
+             return false;
+         }
+diff --git a/Projects/UOContent/Mobiles/BaseCreature.cs b/Projects/UOContent/Mobiles/BaseCreature.cs
+--- a/Projects/UOContent/Mobiles/BaseCreature.cs
++++ b/Projects/UOContent/Mobiles/BaseCreature.cs
+@@ -3938,6 +3938,12 @@
+             TimeSpan duration, Action onUnsummon
+         )
+         {
++            if (caster is BaseCreature summoner && ClassCombatHooks.CreatureSupportAllowed?.Invoke(summoner) == false)
++            {
++                creature.Delete();
++                return false;
++            }
++
+             if (caster.Followers + creature.ControlSlots > caster.FollowersMax)
+             {
+                 caster.SendLocalizedMessage(1049645); // You have too many followers to summon that creature.
+@@ -4015,7 +4021,8 @@
+             // Fire breath, etc.
+             TriggerAbility(MonsterAbilityTrigger.Think, Combatant);
+ 
+-            if ((CanHeal || CanHealOwner) && Alive && !IsHealing && !BardPacified)
++            if ((CanHeal || CanHealOwner) && Alive && !IsHealing && !BardPacified
++                && ClassCombatHooks.CreatureSupportAllowed?.Invoke(this) != false)
+             {
+                 var owner = ControlMaster;
+ 
+@@ -5888,7 +5895,8 @@
+ 
+         public virtual void Heal(Mobile patient)
+         {
+-            if (!Alive || Map == Map.Internal || !CanBeBeneficial(patient, true, true) || patient.Map != Map ||
++            if (ClassCombatHooks.CreatureSupportAllowed?.Invoke(this) == false
++                || !Alive || Map == Map.Internal || !CanBeBeneficial(patient, true, true) || patient.Map != Map ||
+                 !InRange(patient, HealEndRange))
+             {
+                 StopHeal();
+diff --git a/Projects/UOContent/Mobiles/ClassCombatHooks.cs b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+--- a/Projects/UOContent/Mobiles/ClassCombatHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -50,6 +50,7 @@
+     public static Action<PlayerMobile> ResumeMinions { get; set; }
+     public static Action<Mobile> OccupancyChanged { get; set; }
+     public static Func<Mobile, bool> ActionAllowed { get; set; }
++    public static Func<BaseCreature, bool> CreatureSupportAllowed { get; set; }
+     public static Func<Mobile, Mobile, bool> PassThrough { get; set; }
+     public static Action<BaseCreature, IPoint3D, int> MovementGoal { get; set; }
+     public static Func<BaseCreature, IPoint3D, Point3D?> FreeDestination { get; set; }
+diff --git a/Projects/UOContent/Mobiles/Monsters/Humanoid/Magic/SavageShaman.cs b/Projects/UOContent/Mobiles/Monsters/Humanoid/Magic/SavageShaman.cs
+--- a/Projects/UOContent/Mobiles/Monsters/Humanoid/Magic/SavageShaman.cs
++++ b/Projects/UOContent/Mobiles/Monsters/Humanoid/Magic/SavageShaman.cs
+@@ -264,7 +264,7 @@
+                 var isFriendly = m is Savage or SavageRider or SavageShaman or SavageRidgeback;
+                 var shouldApply = rnd switch
+                 {
+-                    0 => CanDoGreaterHeal(m, isFriendly),
++                    0 => ClassCombatHooks.CreatureSupportAllowed?.Invoke(this) != false && CanDoGreaterHeal(m, isFriendly),
+                     1 => CanDoLightning(m, isFriendly),
+                     2 => CanDoPoison(m, isFriendly),
+                 };
+diff --git a/Projects/UOContent/Mobiles/Monsters/Humanoid/Melee/OrcBrute.cs b/Projects/UOContent/Mobiles/Monsters/Humanoid/Melee/OrcBrute.cs
+--- a/Projects/UOContent/Mobiles/Monsters/Humanoid/Melee/OrcBrute.cs
++++ b/Projects/UOContent/Mobiles/Monsters/Humanoid/Melee/OrcBrute.cs
+@@ -103,7 +103,7 @@
+         {
+             var map = target.Map;
+ 
+-            if (map == null || map == Map.Internal)
++            if (map == null || map == Map.Internal || ClassCombatHooks.CreatureSupportAllowed?.Invoke(this) == false)
+             {
+                 return;
+             }
+diff --git a/Projects/UOContent/Mobiles/Monsters/LBR/Meers/MeerCaptain.cs b/Projects/UOContent/Mobiles/Monsters/LBR/Meers/MeerCaptain.cs
+--- a/Projects/UOContent/Mobiles/Monsters/LBR/Meers/MeerCaptain.cs
++++ b/Projects/UOContent/Mobiles/Monsters/LBR/Meers/MeerCaptain.cs
+@@ -114,7 +114,7 @@
+                 PlaySound(0x1E9);
+             }
+ 
+-            if (Core.Now >= m_NextAbilityTime)
++            if (Core.Now >= m_NextAbilityTime && ClassCombatHooks.CreatureSupportAllowed?.Invoke(this) != false)
+             {
+                 m_NextAbilityTime = Core.Now + TimeSpan.FromSeconds(Utility.RandomMinMax(10, 15));
+ 
+diff --git a/Projects/UOContent/Mobiles/Monsters/LBR/Meers/MeerMage.cs b/Projects/UOContent/Mobiles/Monsters/LBR/Meers/MeerMage.cs
+--- a/Projects/UOContent/Mobiles/Monsters/LBR/Meers/MeerMage.cs
++++ b/Projects/UOContent/Mobiles/Monsters/LBR/Meers/MeerMage.cs
+@@ -98,7 +98,7 @@
+                         }
+                     }
+ 
+-                    if (Utility.RandomDouble() < .1)
++                    if (Utility.RandomDouble() < .1 && ClassCombatHooks.CreatureSupportAllowed?.Invoke(this) != false)
+                     {
+                         int[][] coord =
+                         {
+diff --git a/Projects/UOContent/Mobiles/Monsters/Misc/Melee/PlagueBeast.cs b/Projects/UOContent/Mobiles/Monsters/Misc/Melee/PlagueBeast.cs
+--- a/Projects/UOContent/Mobiles/Monsters/Misc/Melee/PlagueBeast.cs
++++ b/Projects/UOContent/Mobiles/Monsters/Misc/Melee/PlagueBeast.cs
+@@ -126,7 +126,8 @@
+ 
+         public override void OnDamagedBySpell(Mobile caster, int damage)
+         {
+-            if (Map != null && caster != this && Utility.RandomDouble() < 0.25)
++            if (Map != null && caster != this && Utility.RandomDouble() < 0.25
++                && ClassCombatHooks.CreatureSupportAllowed?.Invoke(this) != false)
+             {
+                 var spawn = new PlagueSpawn(this)
+                 {
+@@ -144,7 +145,8 @@
+ 
+         public override void OnGotMeleeAttack(Mobile attacker, int damage)
+         {
+-            if (Map != null && attacker != this && Utility.RandomDouble() < 0.25)
++            if (Map != null && attacker != this && Utility.RandomDouble() < 0.25
++                && ClassCombatHooks.CreatureSupportAllowed?.Invoke(this) != false)
+             {
+                 var spawn = new PlagueSpawn(this)
+                 {
+diff --git a/Projects/UOContent/Mobiles/Monsters/Plant/Melee/BogThing.cs b/Projects/UOContent/Mobiles/Monsters/Plant/Melee/BogThing.cs
+--- a/Projects/UOContent/Mobiles/Monsters/Plant/Melee/BogThing.cs
++++ b/Projects/UOContent/Mobiles/Monsters/Plant/Melee/BogThing.cs
+@@ -69,7 +69,7 @@
+         {
+             var map = Map;
+ 
+-            if (map == null)
++            if (map == null || ClassCombatHooks.CreatureSupportAllowed?.Invoke(this) == false)
+             {
+                 return;
+             }
+diff --git a/Projects/UOContent/Skills/SpiritSpeak.cs b/Projects/UOContent/Skills/SpiritSpeak.cs
+--- a/Projects/UOContent/Skills/SpiritSpeak.cs
++++ b/Projects/UOContent/Skills/SpiritSpeak.cs
+@@ -13,6 +13,11 @@
+ 
+         public static TimeSpan OnUse(Mobile m)
+         {
++            if (m is Server.Mobiles.BaseCreature creature && Server.Mobiles.ClassCombatHooks.CreatureSupportAllowed?.Invoke(creature) == false)
++            {
++                return TimeSpan.Zero;
++            }
++
+             if (Core.AOS)
+             {
+                 Spell spell = new SpiritSpeakSpell(m);
+diff --git a/Projects/UOContent/Spells/Base/Spell.cs b/Projects/UOContent/Spells/Base/Spell.cs
+--- a/Projects/UOContent/Spells/Base/Spell.cs
++++ b/Projects/UOContent/Spells/Base/Spell.cs
+@@ -460,8 +460,23 @@
+             }
+         }
+ 
++        private bool SupportAllowed() =>
++            Caster is not BaseCreature creature || ClassCombatHooks.CreatureSupportAllowed?.Invoke(creature) != false
++            || this is not (First.HealSpell or Fourth.GreaterHealSpell or Eighth.ResurrectionSpell
++                or Chivalry.CloseWoundsSpell or Chivalry.NobleSacrificeSpell or Confidence
++                or Mysticism.CleansingWindsSpell or GiftOfRenewalSpell or GiftOfLifeSpell
++                or AnimateDeadSpell or SummonFamiliarSpell or VengefulSpiritSpell or Mysticism.AnimatedWeaponSpell
++                or Fifth.BladeSpiritsSpell or Fifth.SummonCreatureSpell or Eighth.EnergyVortexSpell or Eighth.SummonDaemonSpell
++                or Eighth.AirElementalSpell or Eighth.EarthElementalSpell or Eighth.FireElementalSpell or Eighth.WaterElementalSpell
++                or NatureFurySpell or SummonFeySpell or SummonFiendSpell);
++
+         public bool Cast()
+         {
++            if (!SupportAllowed())
++            {
++                return false;
++            }
++
+             StartCastTime = Core.TickCount;
+ 
+             if (Core.AOS && Caster.Spell is Spell spell && spell.State == SpellState.Sequencing)
+@@ -737,7 +752,8 @@
+         {
+             var mana = ScaleMana(GetMana());
+ 
+-            if (ClassCombatHooks.ActionAllowed?.Invoke(Caster) == false || Caster.Deleted || !Caster.Alive || Caster.Spell != this || State != SpellState.Sequencing)
++            if (!SupportAllowed() || ClassCombatHooks.ActionAllowed?.Invoke(Caster) == false || Caster.Deleted
++                || !Caster.Alive || Caster.Spell != this || State != SpellState.Sequencing)
+             {
+                 DoFizzle();
+             }

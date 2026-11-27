@@ -78,7 +78,9 @@ public partial class MayorJaana : ConversationNpc
         AddItem(new Sandals(0x045C));
     }
 
-    private static readonly ScriptedDialogue.Reply _payment = new("Turn In Orc Ears", 0, (player, speaker) => ((MayorJaana)speaker).PayBounty(player));
+    private static readonly ScriptedDialogue.Reply _bounty = new("Orc Bounty", 0, (player, speaker) => ((MayorJaana)speaker).ShowExchange(player));
+    private static readonly ScriptedDialogue.Reply _payment = new("Exchange for Gold", 0, (player, speaker) => ((MayorJaana)speaker).PayBounty(player));
+    private static readonly ScriptedDialogue.Reply _back = new("Back", 0, (player, speaker) => ((MayorJaana)speaker).BeginConversation(player));
     private static readonly ScriptedDialogue.Reply _letter = new("The Messenger's Letter", 0, (player, speaker) => ((MayorJaana)speaker).ReadLetter(player));
     private static readonly ScriptedDialogue.Reply _ferry = new("The Ferry", 2);
     private static readonly ScriptedDialogue.Reply _orcs = new("The Orcs", 1);
@@ -108,7 +110,7 @@ public partial class MayorJaana : ConversationNpc
 
     private void Show(PlayerMobile player, string line)
     {
-        var replies = new List<ScriptedDialogue.Reply> { _orcs, _payment };
+        var replies = new List<ScriptedDialogue.Reply> { _orcs, _bounty };
         if (CoveFerry.Unlocked(player))
             replies.Add(_ferry);
         else if (FindLetter(player) != null)
@@ -179,6 +181,15 @@ public partial class MayorJaana : ConversationNpc
         return "\n\nCove owes thee, my friend. Take this belt. It holds eight potions, and down there thou wilt need them.";
     }
 
+    private void ShowExchange(PlayerMobile player, string line = null)
+    {
+        var shop = RegionalGambling.Cove;
+        line ??= shop.Unlocked(player)
+            ? "Cove still pays fifty gold per ear. I can also offer thee some of the gear we've set aside for those who defend the town."
+            : $"Cove pays fifty gold per ear. {RegionalGambling.LockedMessage(player, shop)}";
+        ScriptedDialogue.Show(player, this, [new(line, [_payment, RegionalGambling.ExchangeItems, _back])]);
+    }
+
     private void PayBounty(PlayerMobile player)
     {
         if (!ScriptedDialogue.CanTalk(player, this) || player.Backpack is not { } pack)
@@ -187,15 +198,21 @@ public partial class MayorJaana : ConversationNpc
         int count = pack.GetAmount(typeof(OrcEar));
         if (count == 0 || !pack.ConsumeTotal(typeof(OrcEar), count))
         {
-            Show(player, "I see no ears from the raiders in thy pack. Come back when thou hast some. Every one makes the guard's next watch a little easier.");
+            ShowExchange(player, "I see no ears from the raiders in thy pack. Come back when thou hast some. Every one makes the guard's next watch a little easier.");
             return;
         }
 
-        long reward = 50L * count;
+        long reward = (long)RegionalGambling.CoveGoldPerEar * count;
         for (long left = reward; left > 0; left -= 60_000)
             pack.DropItem(new Gold((int)Math.Min(left, 60_000)));
 
-        Show(player, $"The town owes thee {reward:N0} gold. Here it is, and my thanks. It will do the guards good to know they have someone to share the work.");
+        bool wasUnlocked = RegionalGambling.Cove.Unlocked(player);
+        long total = Gambling.Profiles.RecordCoveTurnIn(player, count);
+        string thanks = !wasUnlocked && total >= RegionalGambling.UnlockCount
+            ? "You've done our town a great service. I can offer thee gear in exchange from now on."
+            : "It will do the guards good to know they have someone to share the work.";
+        string ears = total == 1 ? "ear" : "ears";
+        ShowExchange(player, $"The town owes thee {reward:N0} gold. Thou hast brought {total:N0} {ears} in all. {thanks}");
     }
 
     private static CoveDispatch FindLetter(PlayerMobile player)

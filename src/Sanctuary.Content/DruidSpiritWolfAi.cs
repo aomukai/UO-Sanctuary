@@ -6,7 +6,7 @@ internal readonly record struct SpiritWolfAiRequest(int Kind,int A=0,int B=0,int
 internal sealed record SpiritWolfAiContext(bool HasOwner,int RememberedOwner,bool LookupOwner,int OwnerId,int OwnerX,int OwnerY,
     bool Town,int Primary,int Potential,bool PrimaryVisible,bool PotentialVisible,int PotentialDistance,int OwnerDistance,
     int OwnerMode,bool Teleport,bool Combat,MonsterDifficulty Difficulty=MonsterDifficulty.Normal,
-    int OwnerTargetDistance=0,int Velocity=5,int Run=10);
+    int OwnerTargetDistance=0,int Velocity=5,int Run=10,int RangeBonus=0);
 internal sealed record SpiritWolfAiServices(Action<SpiritWolfAiRequest> Request,Func<int,bool,int,int,bool> CommonMove,
     Func<int,bool,int,int,bool> PetMove,Func<int> Percentage);
 
@@ -43,13 +43,14 @@ internal static class DruidSpiritWolfAi
             return c.OwnerId;
         }
         int target=c.Primary!=0 && c.PrimaryVisible?c.Primary
-            :c.Potential!=0 && c.PotentialDistance<P(4) && !c.PotentialVisible?c.Potential:0;
+            :c.Potential!=0 && c.PotentialDistance<P(4)+c.RangeBonus && !c.PotentialVisible?c.Potential:0;
         // Preserve the literal negated potential-visibility branch. Modern
         // fallback equivalence is uncertain; it is not silently inverted here.
-        if(c.Teleport && c.OwnerDistance>50)
+        int leashBonus=target!=0?c.RangeBonus:0;
+        if(c.Teleport && c.OwnerDistance>50+leashBonus)
         {A(2,8,292,c.OwnerX,c.OwnerY);A(3,4);A(4,10);return c.OwnerId;}
-        if(c.OwnerDistance>P(5) && s.PetMove(0,true,100,0)){return c.OwnerId;}
-        if(c.OwnerDistance>P(3))
+        if(c.OwnerDistance>P(5)+leashBonus && s.PetMove(0,true,100,0)){return c.OwnerId;}
+        if(c.OwnerDistance>P(3)+leashBonus)
         {
             if(c.OwnerMode is 2 or 6 && s.PetMove(0,false,0,0)){return c.OwnerId;}
             if(c.OwnerMode==3 && s.PetMove(0,true,100,0)){return c.OwnerId;}
@@ -63,7 +64,7 @@ internal static class DruidSpiritWolfAi
             if(target!=0)
             {
                 if(!corrected || c.Combat){A(6,4,target);A(4,P(1));}
-                else if(c.OwnerTargetDistance>=P(4))
+                else if(c.OwnerTargetDistance>=P(4)+c.RangeBonus)
                 {if(c.OwnerDistance<=10){A(0,15);}else{A(7,8,6);}}
                 else
                 {int velocity=c.Velocity<=0?100:Math.Min(checked(100*c.Run)/c.Velocity-100,100);A(8,0,velocity,0);A(9,target);}

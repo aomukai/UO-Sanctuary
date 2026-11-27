@@ -88,11 +88,20 @@ public static class BritainBaseline
 
     private static void EnsureTrashBarrel()
     {
-        var map = Map.Felucca;
+        var map = Map.Trammel;
         foreach (var barrel in map.GetItemsAt<TrashBarrel>(_trashBarrelLocation))
         {
             if (barrel.Z == _trashBarrelLocation.Z)
             {
+                return;
+            }
+        }
+
+        foreach (var barrel in Map.Felucca.GetItemsAt<TrashBarrel>(_trashBarrelLocation))
+        {
+            if (barrel.Z == _trashBarrelLocation.Z)
+            {
+                barrel.MoveToWorld(_trashBarrelLocation, map);
                 return;
             }
         }

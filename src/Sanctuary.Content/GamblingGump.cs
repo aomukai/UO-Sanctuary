@@ -22,6 +22,9 @@ public sealed class GamblingGump : DynamicGump
     private bool _used;
     public override bool Singleton => true;
     public static void Forget(Serial owner) => _sessions.Remove(owner);
+    internal static long Start(Serial owner) => _sessions[owner] = ++_sequence;
+    internal static bool Take(Serial owner, long session) =>
+        _sessions.TryGetValue(owner, out var active) && active == session && _sessions.Remove(owner);
     public static void Configure()
     {
         EventSink.Disconnected += from => _sessions.Remove(from.Serial);
@@ -29,12 +32,13 @@ public sealed class GamblingGump : DynamicGump
     private GamblingGump(PlayerMobile player, TavernGambler npc, GambleOffer[] stock, int level, int page = 0) : base(30, 30)
     {
         _player = player; _npc = npc; _stock = stock; _level = level; _page = page; _connection = player.NetState;
-        _session = ++_sequence; _sessions[player.Serial] = _session;
+        _session = Start(player.Serial);
     }
     public static void DisplayTo(PlayerMobile player, TavernGambler npc)
     {
         if (player.NetState == null || !Gambling.CanUse(player, npc))
         { player.SendMessage("Approach the gambler while alive and permitted to trade."); return; }
+        player.CloseGump<RegionalGamblingGump>();
         int level = Gambling.Level(player);
         player.SendGump(new GamblingGump(player, npc, Gambling.Stock(level, Random.Shared), level));
     }
@@ -66,8 +70,8 @@ public sealed class GamblingGump : DynamicGump
     public override void OnResponse(NetState sender, in RelayInfo info)
     {
         if (_used || !ReferenceEquals(sender, _connection) || sender.Mobile != _player || _player.NetState != _connection
-            || !_sessions.TryGetValue(_player.Serial, out var current) || current != _session) { return; }
-        _used = true; _sessions.Remove(_player.Serial);
+            || !Take(_player.Serial, _session)) { return; }
+        _used = true;
         if (info.ButtonID == 0) { return; }
         if (!Gambling.CanUse(_player, _npc) || Gambling.Level(_player) != _level)
         { _player.SendMessage("Your gambling quote has changed. Reopen the shop. Nothing was charged."); return; }

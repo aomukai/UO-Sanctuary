@@ -11,10 +11,10 @@ namespace Sanctuary;
 internal static class NpcRangedTargets
 {
     internal static SentryChoice Select(BaseCreature body,Point2D origin,Func<Mobile,bool> eligible,
-        Func<Mobile,bool> primaryPath,Func<BaseCreature,int> size=null)
+        Func<Mobile,bool> primaryPath,Func<BaseCreature,int> size=null,int bonusTiles=0)
     {
         var candidates=new List<SentryCandidate>();
-        foreach(var target in body.Map.GetMobilesInRange<BaseCreature>(body.Location,26))
+        foreach(var target in body.Map.GetMobilesInRange<BaseCreature>(body.Location,26+bonusTiles))
         {
             if(Math.Abs(target.Z-body.Z)>=16||SpellHelper.IsTown(target.Location,target)||!eligible(target)){continue;}
             var profile=CreatureProfiles.For(target);
@@ -24,6 +24,6 @@ internal static class NpcRangedTargets
         }
         return AssassinSentryTargets.Select(origin,candidates,_=>true,
             candidate=>!body.InLOS(World.FindMobile((Serial)candidate.Serial)),
-            candidate=>primaryPath(World.FindMobile((Serial)candidate.Serial)));
+            candidate=>primaryPath(World.FindMobile((Serial)candidate.Serial)),maximumDistance:48+bonusTiles*2);
     }
 }

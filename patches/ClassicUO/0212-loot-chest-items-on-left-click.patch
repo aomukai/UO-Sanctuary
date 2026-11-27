@@ -1,0 +1,65 @@
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/ContainerGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/ContainerGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/ContainerGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/ContainerGump.cs
+@@ -254,14 +254,12 @@
+             }
+             else
+             {
+-                Entity thisCont = World.Items.Get(dropcontainer);
+-
+-                if (thisCont == null)
++                if (World.Items.Get(dropcontainer) is not Item container)
+                 {
+                     return;
+                 }
+ 
+-                thisCont = World.Get(((Item)thisCont).RootContainer);
++                Entity thisCont = World.Get(container.RootContainer);
+ 
+                 if (thisCont == null)
+                 {
+@@ -445,7 +443,7 @@
+                 }
+                 else if (!Client.Game.UO.GameCursor.ItemHold.Enabled && SerialHelper.IsValid(serial))
+                 {
+-                    if (it is Item && ClassLootClient.TryTakeChestGold(World, LocalSerial, serial))
++                    if (it is Item item && TryLootChest(container, item))
+                     {
+                         Mouse.CancelDoubleClick = true;
+                         return;
+@@ -465,6 +463,35 @@
+             }
+         }
+ 
++        private bool TryLootChest(Item chest, Item item)
++        {
++            Point offset = Mouse.LDragOffset;
++            if (Keyboard.Ctrl || item.IsDestroyed || item.Container != chest.Serial
++                || UIManager.MouseOverControl is not ItemGump control || control.LocalSerial != item.Serial
++                || UIManager.LastControlMouseDown(MouseButtonType.Left) != control
++                || Math.Abs(offset.X) >= Constants.MIN_PICKUP_DRAG_DISTANCE_PIXELS
++                || Math.Abs(offset.Y) >= Constants.MIN_PICKUP_DRAG_DISTANCE_PIXELS)
++            {
++                return false;
++            }
++
++            if (ClassLootClient.TryTakeChestGold(World, chest.Serial, item.Serial))
++            {
++                return true;
++            }
++
++            // The rarewood chest uses the default container gump, so identify it by its item art.
++            bool isChest = Graphic is 0x0042 or 0x0049 or 0x004A or >= 0x0109 and <= 0x010D
++                || chest.Graphic is 0x2DF1 or 0x2DF2;
++            if (!isChest || chest.Layer == Layer.Bank || World.Player.FindItemByLayer(Layer.Backpack) is not Item backpack)
++            {
++                return false;
++            }
++
++            GameActions.GrabItem(World, item.Serial, item.Amount, backpack.Serial);
++            return true;
++        }
++
+         public override void Update()
+         {
+             base.Update();

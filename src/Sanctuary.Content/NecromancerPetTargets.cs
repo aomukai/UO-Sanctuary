@@ -13,9 +13,9 @@ internal static class NecromancerPetTargets
     internal static Mobile Primary(BaseCreature body,uint previous,Func<Mobile,bool> eligible,Func<Mobile,int> distance)
     {
         var prior=World.FindMobile((Serial)previous);
-        if(eligible(prior)&&distance(prior)<=24){return prior;}
-        Mobile found=null;int nearest=25;
-        foreach(var candidate in body.Map.GetMobilesInRange<BaseCreature>(body.Location,14))
+        if(eligible(prior)&&distance(prior)<=24+PetCombatRanges.BonusSourceCells){return prior;}
+        Mobile found=null;int nearest=25+PetCombatRanges.BonusSourceCells;
+        foreach(var candidate in body.Map.GetMobilesInRange<BaseCreature>(body.Location,14+PetCombatRanges.BonusTiles))
         {
             if(!eligible(candidate)){continue;}int value=distance(candidate);
             if(value<nearest||value==nearest&&found!=null&&candidate.Serial.Value<found.Serial.Value){found=candidate;nearest=value;}

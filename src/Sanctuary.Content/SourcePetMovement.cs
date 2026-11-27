@@ -30,13 +30,13 @@ internal static class SourcePetMovement
             || s.Percentage==null || s.FindSkeletonTeleport==null || s.TeleportRoom==null)
         {throw new ArgumentException("Unsupported common pet movement context/services");}
     }
-    internal static bool Common(PetMoveContext c,PetMoveServices s,bool hasTarget,bool town,bool combat,int flag,int leash)
+    internal static bool Common(PetMoveContext c,PetMoveServices s,bool hasTarget,bool town,bool combat,int flag,int leash,int combatRangeBonus=0)
     {
         Validate(c,s);
         int limit=Math.Min(checked((c.TotalPets>>1)+leash),36);
         if(c.Distance>1 || c.OwnerMode!=1 || combat)
         {
-            if(hasTarget && !town){return c.Distance>80 && Move(c,s,3,false,0,limit);}
+            if(hasTarget && !town){return c.Distance>80+combatRangeBonus && Move(c,s,3,false,0,limit);}
             int ownerRoom=s.RoomAt(c.Owner),unitRoom=s.RoomAt(c.Unit),mode=2;
             if(c.OwnerMode is 2 or 6 or 3){mode=0;}
             // Literal AND, not an inferred "owner path is moving" OR.

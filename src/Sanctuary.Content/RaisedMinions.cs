@@ -50,6 +50,7 @@ public static class RaisedMinions
         &&caster.ControlMaster?.Serial.Value==row.Owner&&PersistentMinions.Behavior(caster) is{} behavior&&behavior.SummonClass==row.Class?caster:null;
     internal static bool CanRaise(GraveyardUndead caster)
     {
+        if(!ReviveNativeActivation.SupportAllowed(caster)){return false;}
         if(!caster.Controlled&&!caster.Summoned){return true;}
         return State(caster)==null&&caster.ControlMaster is PlayerMobile{Alive:true,Deleted:false,NetState:not null} owner
             &&PersistentMinions.Behavior(caster) is{} behavior&&PersistentMinions.Active(owner,caster)

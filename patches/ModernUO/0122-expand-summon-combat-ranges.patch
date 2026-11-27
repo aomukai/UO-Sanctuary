@@ -1,0 +1,354 @@
+diff --git a/Projects/UOContent/Mobiles/AI/AnimalAI.cs b/Projects/UOContent/Mobiles/AI/AnimalAI.cs
+--- a/Projects/UOContent/Mobiles/AI/AnimalAI.cs
++++ b/Projects/UOContent/Mobiles/AI/AnimalAI.cs
+@@ -12,7 +12,7 @@
+ 
+     public override bool DoActionWander()
+     {
+-        if (AcquireFocusMob(Mobile.RangePerception, Mobile.FightMode, false, false, true))
++        if (AcquireFocusMob(Mobile.CombatPerception, Mobile.FightMode, false, false, true))
+         {
+             this.DebugSayFormatted($"I have detected {Mobile.FocusMob.Name}, attacking");
+             Mobile.Combatant = Mobile.FocusMob;
+@@ -40,7 +40,7 @@
+ 
+         if (!WalkMobileRange(combatant, 1, Mobile.RangeFight, Mobile.RangeFight))
+         {
+-            if (Mobile.GetDistanceToSqrt(combatant) > Mobile.RangePerception + 1)
++            if (Mobile.GetDistanceToSqrt(combatant) > Mobile.CombatPerception + 1)
+             {
+                 this.DebugSayFormatted($"I cannot find {combatant.Name}");
+ 
+@@ -63,7 +63,7 @@
+ 
+     public override bool DoActionFlee()
+     {
+-        AcquireFocusMob(Mobile.RangePerception * 2, Mobile.FightMode, true, false, true);
++        AcquireFocusMob(Mobile.ChaseLeashRange, Mobile.FightMode, true, false, true);
+ 
+         Mobile.FocusMob ??= Mobile.Combatant;
+ 
+diff --git a/Projects/UOContent/Mobiles/AI/ArcherAI.cs b/Projects/UOContent/Mobiles/AI/ArcherAI.cs
+--- a/Projects/UOContent/Mobiles/AI/ArcherAI.cs
++++ b/Projects/UOContent/Mobiles/AI/ArcherAI.cs
+@@ -15,7 +15,7 @@
+     {
+         DebugSay("I have no combatant");
+ 
+-        if (AcquireFocusMob(Mobile.RangePerception, Mobile.FightMode, false, false, true))
++        if (AcquireFocusMob(Mobile.CombatPerception, Mobile.FightMode, false, false, true))
+         {
+             this.DebugSayFormatted($"I have detected {Mobile.FocusMob.Name}, attacking");
+ 
+@@ -82,7 +82,7 @@
+ 
+     public override bool DoActionGuard()
+     {
+-        if (AcquireFocusMob(Mobile.RangePerception, Mobile.FightMode, false, false, true))
++        if (AcquireFocusMob(Mobile.CombatPerception, Mobile.FightMode, false, false, true))
+         {
+             this.DebugSayFormatted($"I have detected {Mobile.FocusMob.Name}, attacking");
+ 
+diff --git a/Projects/UOContent/Mobiles/AI/BaseAI/BaseAI.cs b/Projects/UOContent/Mobiles/AI/BaseAI/BaseAI.cs
+--- a/Projects/UOContent/Mobiles/AI/BaseAI/BaseAI.cs
++++ b/Projects/UOContent/Mobiles/AI/BaseAI/BaseAI.cs
+@@ -519,7 +519,7 @@
+         && (focusMob is not BaseCreature bc || !bc.IsDeadPet)
+         && focusMob.AccessLevel == AccessLevel.Player
+         && Mobile.CanSee(focusMob)
+-        && Mobile.InRange(focusMob, Mobile.RangePerception);
++        && Mobile.InRange(focusMob, Mobile.CombatPerception);
+ 
+     public virtual bool DoActionGuard()
+     {
+@@ -819,7 +819,7 @@
+             return false;
+         }
+ 
+-        if (AcquireFocusMob(Mobile.RangePerception, Mobile.FightMode, false, false, true))
++        if (AcquireFocusMob(Mobile.CombatPerception, Mobile.FightMode, false, false, true))
+         {
+             return Utility.RandomDouble() < BackoffChance;
+         }
+@@ -953,7 +953,7 @@
+             Mobile.ControlTarget?.Hidden != true &&
+             Mobile.ControlTarget?.Alive == true &&
+             Mobile.ControlTarget?.IsDeadBondedPet != true &&
+-            Mobile.InRange(Mobile.ControlTarget, Mobile.RangePerception * 2))
++            Mobile.InRange(Mobile.ControlTarget, Mobile.ChaseLeashRange))
+         {
+             Mobile.FocusMob = Mobile.ControlTarget;
+             return true;
+diff --git a/Projects/UOContent/Mobiles/AI/BaseAI/PetOrders.cs b/Projects/UOContent/Mobiles/AI/BaseAI/PetOrders.cs
+--- a/Projects/UOContent/Mobiles/AI/BaseAI/PetOrders.cs
++++ b/Projects/UOContent/Mobiles/AI/BaseAI/PetOrders.cs
+@@ -800,7 +800,7 @@
+             && ClassCombatHooks.GuardTarget?.Invoke(Mobile, current) != false ? current : null;
+         var bestDist = best?.GetDistanceToSqrt(anchor) ?? double.MaxValue;
+ 
+-        foreach (var aggr in Mobile.GetMobilesInRange(Mobile.RangePerception))
++        foreach (var aggr in Mobile.GetMobilesInRange(Mobile.CombatPerception))
+         {
+             // null retains ordinary pet behavior; true additionally permits
+             // proactive class-minion acquisition; false excludes all routes.
+@@ -831,7 +831,7 @@
+ 
+                 if (aggressor == best || aggressor?.Deleted != false || IsGuardAlly(aggressor) || !aggressor.Alive ||
+                     ClassCombatHooks.GuardTarget?.Invoke(Mobile, aggressor) == false ||
+-                    aggressor.IsDeadBondedPet || !Mobile.InRange(aggressor, Mobile.RangePerception))
++                    aggressor.IsDeadBondedPet || !Mobile.InRange(aggressor, Mobile.CombatPerception))
+                 {
+                     continue;
+                 }
+diff --git a/Projects/UOContent/Mobiles/AI/BerserkAI.cs b/Projects/UOContent/Mobiles/AI/BerserkAI.cs
+--- a/Projects/UOContent/Mobiles/AI/BerserkAI.cs
++++ b/Projects/UOContent/Mobiles/AI/BerserkAI.cs
+@@ -10,7 +10,7 @@
+     {
+         DebugSay("I have no combatant");
+ 
+-        if (AcquireFocusMob(Mobile.RangePerception, FightMode.Closest, false, true, true))
++        if (AcquireFocusMob(Mobile.CombatPerception, FightMode.Closest, false, true, true))
+         {
+             this.DebugSayFormatted($"I have detected {Mobile.FocusMob.Name}, attacking");
+ 
+@@ -42,7 +42,7 @@
+         {
+             this.DebugSayFormatted($"I am still not in range of {combatant.Name}");
+ 
+-            if ((int)Mobile.GetDistanceToSqrt(combatant) > Mobile.RangePerception + 1)
++            if ((int)Mobile.GetDistanceToSqrt(combatant) > Mobile.CombatPerception + 1)
+             {
+                 this.DebugSayFormatted($"I have lost {combatant.Name}");
+ 
+@@ -65,7 +65,7 @@
+ 
+     public override bool DoActionGuard()
+     {
+-        if (AcquireFocusMob(Mobile.RangePerception, Mobile.FightMode, false, true, true))
++        if (AcquireFocusMob(Mobile.CombatPerception, Mobile.FightMode, false, true, true))
+         {
+             this.DebugSayFormatted($"I have detected {Mobile.FocusMob.Name}, attacking");
+ 
+diff --git a/Projects/UOContent/Mobiles/AI/FamiliarAI.cs b/Projects/UOContent/Mobiles/AI/FamiliarAI.cs
+--- a/Projects/UOContent/Mobiles/AI/FamiliarAI.cs
++++ b/Projects/UOContent/Mobiles/AI/FamiliarAI.cs
+@@ -30,7 +30,7 @@
+     private BaseFamiliar Familiar => (BaseFamiliar)Mobile;
+ 
+     // Assist targets, and the familiar itself, stay within this of the caster.
+-    public int LeashRange => Mobile.RangePerception;
++    public int LeashRange => Mobile.CombatPerception;
+ 
+     public override bool CanDetectHidden => false;
+ 
+diff --git a/Projects/UOContent/Mobiles/AI/MageAI.cs b/Projects/UOContent/Mobiles/AI/MageAI.cs
+--- a/Projects/UOContent/Mobiles/AI/MageAI.cs
++++ b/Projects/UOContent/Mobiles/AI/MageAI.cs
+@@ -83,7 +83,7 @@
+ 
+     public override bool DoActionWander()
+     {
+-        if (AcquireFocusMob(Mobile.RangePerception, Mobile.FightMode, false, false, true))
++        if (AcquireFocusMob(Mobile.CombatPerception, Mobile.FightMode, false, false, true))
+         {
+             this.DebugSayFormatted($"I am going to attack {Mobile.FocusMob.Name}");
+ 
+@@ -220,7 +220,7 @@
+ 
+             DebugSay("I am stuck, I'm going to try teleporting away");
+         }
+-        else if (AcquireFocusMob(Mobile.RangePerception, Mobile.FightMode, false, false, true))
++        else if (AcquireFocusMob(Mobile.CombatPerception, Mobile.FightMode, false, false, true))
+         {
+             this.DebugSayFormatted($"My move is blocked, so I am going to attack {Mobile.FocusMob.Name}");
+ 
+@@ -633,7 +633,7 @@
+             // Our combatant is deleted, dead, hidden, or we cannot hurt them
+             // Try to find another combatant
+ 
+-            if (AcquireFocusMob(Mobile.RangePerception, Mobile.FightMode, false, false, true))
++            if (AcquireFocusMob(Mobile.CombatPerception, Mobile.FightMode, false, false, true))
+             {
+                 Mobile.Combatant = c = Mobile.FocusMob!;
+ 
+@@ -654,7 +654,7 @@
+         {
+             DebugSay("I can't see my target");
+ 
+-            if (AcquireFocusMob(Mobile.RangePerception, Mobile.FightMode, false, false, true))
++            if (AcquireFocusMob(Mobile.CombatPerception, Mobile.FightMode, false, false, true))
+             {
+                 Mobile.Combatant = c = Mobile.FocusMob!;
+ 
+@@ -670,11 +670,11 @@
+             Fists.StunRequest(Mobile);
+         }
+ 
+-        if (!Mobile.InRange(c, Mobile.RangePerception))
++        if (!Mobile.InRange(c, Mobile.CombatPerception))
+         {
+             // They are somewhat far away, can we find something else?
+ 
+-            if (AcquireFocusMob(Mobile.RangePerception, Mobile.FightMode, false, false, true))
++            if (AcquireFocusMob(Mobile.CombatPerception, Mobile.FightMode, false, false, true))
+             {
+                 Mobile.Combatant = Mobile.FocusMob;
+                 Mobile.FocusMob = null;
+@@ -824,7 +824,7 @@
+             }
+         }
+ 
+-        if (AcquireFocusMob(Mobile.RangePerception, Mobile.FightMode, false, false, true))
++        if (AcquireFocusMob(Mobile.CombatPerception, Mobile.FightMode, false, false, true))
+         {
+             this.DebugSayFormatted($"I am going to attack {Mobile.FocusMob.Name}");
+ 
+diff --git a/Projects/UOContent/Mobiles/AI/MeleeAI.cs b/Projects/UOContent/Mobiles/AI/MeleeAI.cs
+--- a/Projects/UOContent/Mobiles/AI/MeleeAI.cs
++++ b/Projects/UOContent/Mobiles/AI/MeleeAI.cs
+@@ -13,7 +13,7 @@
+ 
+     public override bool DoActionWander()
+     {
+-        if (AcquireFocusMob(Mobile.RangePerception, Mobile.FightMode, false, false, true))
++        if (AcquireFocusMob(Mobile.CombatPerception, Mobile.FightMode, false, false, true))
+         {
+             this.DebugSayFormatted($"I have detected {Mobile.FocusMob.Name}, attacking");
+ 
+@@ -41,7 +41,7 @@
+             return true;
+         }
+ 
+-        if (!Mobile.InRange(combatant, Mobile.RangePerception))
++        if (!Mobile.InRange(combatant, Mobile.CombatPerception))
+         {
+             if (!HandleOutOfRangeCombatant(combatant))
+             {
+@@ -74,7 +74,7 @@
+ 
+     private bool HandleOutOfRangeCombatant(Mobile combatant)
+     {
+-        if (AcquireFocusMob(Mobile.RangePerception, Mobile.FightMode, false, false, true))
++        if (AcquireFocusMob(Mobile.CombatPerception, Mobile.FightMode, false, false, true))
+         {
+             Mobile.Combatant = Mobile.FocusMob;
+             Mobile.FocusMob = null;
+@@ -103,7 +103,7 @@
+             return true;
+         }
+ 
+-        if (AcquireFocusMob(Mobile.RangePerception, Mobile.FightMode, false, false, true))
++        if (AcquireFocusMob(Mobile.CombatPerception, Mobile.FightMode, false, false, true))
+         {
+             this.DebugSayFormatted($"My move is blocked, so I am going to attack {Mobile.FocusMob.Name}.");
+             Mobile.Combatant = Mobile.FocusMob;
+@@ -111,7 +111,7 @@
+             return true;
+         }
+ 
+-        if (Mobile.GetDistanceToSqrt(combatant) > Mobile.RangePerception + 1)
++        if (Mobile.GetDistanceToSqrt(combatant) > Mobile.CombatPerception + 1)
+         {
+             this.DebugSayFormatted($"I cannot find {combatant.Name}, so my guard is up.");
+             Action = ActionType.Guard;
+@@ -124,7 +124,7 @@
+ 
+     public override bool DoActionGuard()
+     {
+-        if (AcquireFocusMob(Mobile.RangePerception, Mobile.FightMode, false, false, true))
++        if (AcquireFocusMob(Mobile.CombatPerception, Mobile.FightMode, false, false, true))
+         {
+             this.DebugSayFormatted($"I have detected {Mobile.FocusMob.Name}, attacking");
+ 
+diff --git a/Projects/UOContent/Mobiles/AI/PredatorAI.cs b/Projects/UOContent/Mobiles/AI/PredatorAI.cs
+--- a/Projects/UOContent/Mobiles/AI/PredatorAI.cs
++++ b/Projects/UOContent/Mobiles/AI/PredatorAI.cs
+@@ -14,7 +14,7 @@
+ 
+             Action = ActionType.Combat;
+         }
+-        else if (AcquireFocusMob(Mobile.RangePerception, Mobile.FightMode, true, false, true))
++        else if (AcquireFocusMob(Mobile.CombatPerception, Mobile.FightMode, true, false, true))
+         {
+             DebugSay("There is something near, I go away");
+ 
+@@ -43,7 +43,7 @@
+ 
+         if (!WalkMobileRange(combatant, 1, Mobile.RangeFight, Mobile.RangeFight))
+         {
+-            if (Mobile.GetDistanceToSqrt(combatant) > Mobile.RangePerception + 1)
++            if (Mobile.GetDistanceToSqrt(combatant) > Mobile.CombatPerception + 1)
+             {
+                 this.DebugSayFormatted($"I cannot find {combatant.Name}");
+ 
+@@ -68,9 +68,9 @@
+         {
+             Action = ActionType.Combat;
+         }
+-        else if (AcquireFocusMob(Mobile.RangePerception * 2, FightMode.Closest, true, false, true))
++        else if (AcquireFocusMob(Mobile.ChaseLeashRange, FightMode.Closest, true, false, true))
+         {
+-            if (WalkMobileRange(Mobile.FocusMob, 1, Mobile.RangePerception, Mobile.RangePerception * 2))
++            if (WalkMobileRange(Mobile.FocusMob, 1, Mobile.CombatPerception, Mobile.ChaseLeashRange))
+             {
+                 DebugSay("Well, here I am safe");
+ 
+diff --git a/Projects/UOContent/Mobiles/BaseCreature.cs b/Projects/UOContent/Mobiles/BaseCreature.cs
+--- a/Projects/UOContent/Mobiles/BaseCreature.cs
++++ b/Projects/UOContent/Mobiles/BaseCreature.cs
+@@ -1109,12 +1109,16 @@
+         [CommandProperty(AccessLevel.GameMaster)]
+         public Mobile FocusMob { get; set; }
+ 
++        private int PetCombatRangeBonus => Controlled ? ClassCombatHooks.PetCombatRangeBonus?.Invoke(this) ?? 0 : 0;
++
++        internal int CombatPerception => RangePerception + PetCombatRangeBonus;
++
+         /// <summary>
+         /// How far a chase may stretch before the creature gives up its combatant. Between
+         /// RangePerception and this leash it keeps chasing but may switch to closer targets.
+         /// </summary>
+         [CommandProperty(AccessLevel.GameMaster)]
+-        public virtual int ChaseLeashRange => RangePerception * 2;
++        public virtual int ChaseLeashRange => RangePerception * 2 + PetCombatRangeBonus;
+ 
+         // Herded creatures walk at a fixed standard pace regardless of their own speed
+         // (RunUO's forced 0.3, without its TransformMoveDelay inflation to 0.6).
+diff --git a/Projects/UOContent/Mobiles/ClassCombatHooks.cs b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+--- a/Projects/UOContent/Mobiles/ClassCombatHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -61,6 +61,7 @@
+     public static Func<Mobile, Mobile, TimeSpan?> CreatureSwing { get; set; }
+     public static Func<Mobile, Mobile, BaseRanged, TimeSpan?> CompanionRangedSwing { get; set; }
+     public static Func<BaseCreature, Mobile, bool?> GuardTarget { get; set; }
++    public static Func<BaseCreature, int> PetCombatRangeBonus { get; set; }
+     public static Func<BaseCreature, bool> SourceWeaponDamage { get; set; }
+     public static Func<PlayerMobile, int, int?> ResourceMaximum { get; set; }
+     public static Func<BaseCreature, int, int, int?> CreatureResourceMaximum { get; set; }
+@@ -77,6 +78,7 @@
+     public static Func<BaseCreature, int> CreatureRecoveryRemaining { get; set; }
+     public static Action<BaseCreature, Mobile, int, bool> CreatureDamaged { get; set; }
+     public static Action<PlayerMobile, Direction> Moved { get; set; }
++    public static Action<PlayerMobile, Map, Point3D> Walked { get; set; }
+     public static Func<PlayerMobile, bool> DefenseSuppressed { get; set; }
+     public static Func<PlayerMobile, bool> Enabled { get; set; }
+     public static Func<PlayerMobile, SkillName, bool> SkillGainAllowed { get; set; }
+diff --git a/Projects/UOContent/Mobiles/PlayerMobile.cs b/Projects/UOContent/Mobiles/PlayerMobile.cs
+--- a/Projects/UOContent/Mobiles/PlayerMobile.cs
++++ b/Projects/UOContent/Mobiles/PlayerMobile.cs
+@@ -1818,12 +1818,14 @@
+                 MovementImpl.IgnoreMovableImpassables = true;
+             }
+ 
++            var previousMap = Map;
+             var previousLocation = Location;
+             var res = base.Move(d);
+             MovementImpl.IgnoreMovableImpassables = false;
+             if (res && Location != previousLocation)
+             {
+                 ClassCombatHooks.Moved?.Invoke(this, d);
++                ClassCombatHooks.Walked?.Invoke(this, previousMap, previousLocation);
+             }
+             return res;
+         }

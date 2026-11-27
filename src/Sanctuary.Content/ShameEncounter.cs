@@ -286,7 +286,7 @@ public partial class ShameEncounter : EncounterCreature
             if (!Caster && CastingRole)
                 BeginFirebolt(target);
             if (IsExpeditionActor && Role is ShameRole.BoneCaptain or ShameRole.DaemonCaptain
-                && Core.Now >= _summonAfter && EliteCombat.CanAct(this))
+                && Core.Now >= _summonAfter && EliteCombat.CanAct(this) && ReviveNativeActivation.SupportAllowed(this))
             {
                 SummonAfter = Core.Now.AddSeconds(10);
                 ShameExpedition.Summon(this);

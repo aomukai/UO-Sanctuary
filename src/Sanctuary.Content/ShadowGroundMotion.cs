@@ -79,7 +79,7 @@ internal static class ShadowGroundMotion
         if(body.Prepared.Capture.Ability==CombatAbility.ShadowMaster){ShadowMasterWorld.Think(body,owner,at,q);return;}
         var primary=q.Primary(false,0);var state=body.Prepared.GroundMotion;
         var c=new ShadowWarriorContext(frame,primary.Id,primary.Distance,primary.Combat,q.Distance((int)owner.Serial.Value),body.Prepared.Capture.Rank,
-            Source(body,"aip1"),Source(body,"aip2"),Source(body,"aip3"),Source(body,"aip4"),Source(body,"aip8(N)"),Source(body,"aip8(H)"));
+            Source(body,"aip1")+PetCombatRanges.BonusSourceCells,Source(body,"aip2")+PetCombatRanges.BonusSourceCells,Source(body,"aip3"),Source(body,"aip4"),Source(body,"aip8(N)"),Source(body,"aip8(H)"));
         int? Selected(bool right)
         {
             var binding=SkillBindings.Instance.Get(owner);var ability=right?binding.Right:binding.Left;

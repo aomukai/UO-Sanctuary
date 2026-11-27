@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Server;
 using Server.Commands;
@@ -6,6 +7,7 @@ using Server.Engines.Spawners;
 using Server.Items;
 using Server.Logging;
 using Server.Mobiles;
+using Server.Movement;
 
 namespace Sanctuary.Integration;
 
@@ -19,8 +21,46 @@ public static class FrontierChecks
             {
                 "deep-despise" => CheckDeepDespise,
                 "hedge-sight" => CheckHedgeMazeSight,
+                "hoard" => CheckDragonHoard,
+                "wind" => CheckWind,
                 _ => CheckWorld
             })));
+
+    private static void CheckDragonHoard()
+    {
+        var map = Map.Trammel;
+        var spot = new Point3D(1446, 900, 0);
+        var chest = World.Items.Values.OfType<DragonHoardChest>().Single(item => item.Map == map && item.Location == spot);
+        var player = new PlayerMobile { Body = 0x190, Player = true };
+        var pack = new Backpack();
+        player.AddItem(pack);
+        player.InitStats(100, 75, 25);
+        try
+        {
+            player.MoveToWorld(new(1446, 901, 0), map);
+            var loot = chest.Items.FirstOrDefault();
+            if (loot == null)
+            {
+                loot = new Gold(100);
+                chest.DropItem(loot);
+            }
+
+            Require(!chest.VerifyMove(player) && !chest.CheckHold(player, pack, false, true),
+                "The hoard chest should stay fixed and reject player storage");
+            chest.OnDoubleClick(player);
+            bool canUse = loot.CheckItemUse(player, loot);
+            player.Lift(loot, loot.Amount, out bool rejected, out var reason);
+            Require(!rejected && player.Holding == loot, $"The hoard rejected a player's lift: {reason}");
+            Require(canUse, "A player cannot use the hoard chest's contents");
+            Require(player.Drop(pack, new(20, 20, 0)) && loot.IsChildOf(pack), "The hoard loot could not be put in a backpack");
+        }
+        finally
+        {
+            player.Delete();
+        }
+
+        _logger.Information("frontier-check hoard: passed");
+    }
 
     private static void CheckHedgeMazeSight()
     {
@@ -90,11 +130,6 @@ public static class FrontierChecks
         var ettins = encounters.Where(m => m.Dungeon.Id == "frontier-ettin").ToArray();
         Require(ettins.GroupBy(m => m.Home).Count(group => group.Count() == 4
             && group.Min(m => m.Basis.Level) == 15 && group.Max(m => m.Basis.Level) == 20) == 3, "Ettin camp population");
-        var reptiles = encounters.Where(m => m.Dungeon.Id is "frontier-drake" or "frontier-wyvern").ToArray();
-        Require(reptiles.Length == 19 && reptiles.Count(m => m.Leader && m.Modifiers.Length == 1) == 2
-            && reptiles.All(m => m.Basis.Level is >= 16 and <= 22), "Maze population and unique grades");
-        Require(reptiles.GroupBy(m => m.Home).All(group => group.Count() == 1)
-            && reptiles.All(m => m.HomeLeashRadius == 10 && m.RangePerception == 7), "Maze defenses clumped at one spawn");
         var forest = ettins.Where(m => m.Home.X is >= 1517 and <= 1539 && m.Home.Y is >= 1014 and <= 1087).ToArray();
         Require(forest.Length == 6 && forest.GroupBy(m => m.Home).All(group => group.Count() == 1)
             && forest.All(m => m.Basis.Level is >= 15 and <= 20), "Forest ettins should spawn individually");
@@ -113,13 +148,7 @@ public static class FrontierChecks
         Require(mushrooms.Length == 25 && mushrooms.Select(item => item.Location).Distinct().Count() == 25
             && mushrooms.Select(item => item.Hue).Distinct().Count() == 4, "Despise mushroom placement or palette");
         CheckDeepDespiseSpawns(map, encounters);
-        var dragon = encounters.Single(m => m.Dungeon.Id == "frontier-dragon");
-        Require(dragon.Basis.Level == 30 && dragon.Modifiers.Length == 2 && dragon.FireResistance == 70,
-            "Cindermaw's level, modifiers or fire resistance");
-        var wyvern = reptiles.First(m => m.Dungeon.Id == "frontier-wyvern" && !m.Leader);
-        Require(wyvern.PoisonResistance == 70 && wyvern.EncounterProfile.Attack1.Poison == 100
-            && wyvern.HitsMax >= wyvern.Basis.Life.Min * 3 && wyvern.HitsMax <= wyvern.Basis.Life.Max * 3
-            && CreatureProfiles.Experience(wyvern) == wyvern.Basis.Experience * 3, "Players-5 life or experience scaling");
+        CheckWind();
         Require(World.Mobiles.Values.OfType<FrontierSentry>().Count(guard => guard.Map == map
             && guard.InRange(new Point3D(1255, 870, 16), 3) && guard.Script.Count > 0) == 2, "Mountain watch guards");
         CheckSouthernFrontier(map, encounters, ratmen.First(m => m.Basis.Level == 15));
@@ -408,55 +437,169 @@ public static class FrontierChecks
         Require(Enumerable.Range(0, 100).Count(roll => FrontierEncounter.OgreLordGrade(roll) == EncounterGrade.Champion) == 5,
             "Exactly 5% of Ogre Lords should be paragons");
 
-        CheckSpawner("despisetroll", FrontierEncounter.DespiseTroll, FrontierEncounter.DespiseHarpy, 24, 28);
-        CheckSpawner("despiseogre", FrontierEncounter.DespiseOgre, FrontierEncounter.DespiseStoneHarpy, 26, 30);
-        CheckSpawner("despiseogrelord", FrontierEncounter.DespiseOgreLord, FrontierEncounter.DespiseOgreMage, 28, 30, 80, 20);
+        var point = new Point3D(5407, 859, 45);
+        CheckSpawner(map, point, "despisetroll", FrontierEncounter.DespiseTroll, FrontierEncounter.DespiseHarpy, 24, 28);
+        CheckSpawner(map, point, "despiseogre", FrontierEncounter.DespiseOgre, FrontierEncounter.DespiseStoneHarpy, 26, 30);
+        CheckSpawner(map, point, "despiseogrelord", FrontierEncounter.DespiseOgreLord, FrontierEncounter.DespiseOgreMage, 28, 30, 80, 20);
+    }
 
-        void CheckSpawner(string name, string first, string second, int minimumLevel, int maximumLevel,
-            int firstWeight = 100, int secondWeight = 100)
+    private static void CheckWind()
+    {
+        var map = Map.Trammel;
+        var encounters = World.Mobiles.Values.OfType<FrontierEncounter>().Where(m => m.Map == map && !m.Raised).ToArray();
+        Require(encounters.Where(m => m.Dungeon.Id is FrontierEncounter.Drake or FrontierEncounter.Wyvern)
+            .All(m => m.Spawner is WindOutside or WindInside), "Wind still has preset drakes or wyverns");
+        var dragon = encounters.Single(m => m.Dungeon.Id == "frontier-dragon");
+        Require(dragon.Home == new Point3D(1442, 903, 0) && dragon.Basis.Level == 30
+            && dragon.Modifiers.Length == 2 && dragon.FireResistance == 70, "Cindermaw's lair, level, modifiers or fire resistance");
+
+        CheckSpawner(map, new(1361, 888, 0), "windoutside", FrontierEncounter.Drake, FrontierEncounter.Wyvern, 16, 20);
+        CheckSpawner(map, new(5166, 244, 15), "windinside", FrontierEncounter.Drake, FrontierEncounter.Wyvern, 22, 28);
+        var wyvern = new FrontierEncounter(FrontierEncounter.Wyvern, 22, 0);
+        try
         {
-            var gm = new PlayerMobile { Name = "Despise fixture", AccessLevel = AccessLevel.GameMaster };
-            Spawner spawner = null;
-            try
+            Require(wyvern.PoisonResistance == 70 && wyvern.EncounterProfile.Attack1.Poison == 100
+                && wyvern.HitsMax >= wyvern.Basis.Life.Min * 3 && wyvern.HitsMax <= wyvern.Basis.Life.Max * 3
+                && CreatureProfiles.Experience(wyvern) == wyvern.Basis.Experience * 3, "Wind wyvern poison or players-5 scaling");
+        }
+        finally
+        {
+            wyvern.Delete();
+        }
+
+        var residents = World.Mobiles.Values.OfType<BaseVendor>().Where(vendor => WindTown.Contains(vendor.Home, vendor.Map)).ToArray();
+        Require(residents.Any(vendor => vendor is Banker) && residents.Any(vendor => vendor is InnKeeper)
+            && residents.Any(vendor => vendor is Healer) && residents.Any(vendor => vendor is ProfessionInstructor),
+            "Missing town services in Trammel Wind");
+        Require(residents.All(vendor => vendor.Race == Race.Gargoyle && vendor.Body == Race.Gargoyle.AliveBody(vendor.Female)
+            && vendor.Items.Any(item => item is GargishClothChestType1)), "Non-gargoyle resident in Trammel Wind");
+        CheckWindMarkets(map);
+
+        Require(TownMarkets.Profiles.All.All(market => market.Site?.StartsWith("Felucca/Wind/", StringComparison.Ordinal) != true)
+            && !World.Items.Values.OfType<BaseSpawner>().Any(spawner => spawner.Map == Map.Felucca
+                && spawner.Name == "Britannia town resident" && Region.Find(spawner.Location, Map.Felucca).IsPartOf("Wind")),
+            "Retired Felucca Wind market NPCs or resident spawners are still installed");
+
+        var banker = new Banker();
+        try
+        {
+            banker.OnBeforeSpawn(new(5347, 76, 25), Map.Felucca);
+            Require(banker.Race == Race.Human, "The Trammel Wind appearance was applied on Felucca");
+            banker.OnBeforeSpawn(new(5347, 76, 25), map);
+            Require(banker.Race == Race.Gargoyle, "A respawning Wind banker should be a gargoyle");
+        }
+        finally
+        {
+            banker.Delete();
+        }
+
+        _logger.Information("frontier-check wind: passed");
+    }
+
+    private static void CheckWindMarkets(Map map)
+    {
+        var avatar = new PlayerMobile { Body = 0x190, Player = true };
+        var entrance = new Point3D(5166, 244, 15);
+        var visited = new HashSet<Point3D> { entrance };
+        var queue = new Queue<Point3D>();
+        queue.Enqueue(entrance);
+        (int X, int Y)[] offsets = [(0, -1), (1, -1), (1, 0), (1, 1), (0, 1), (-1, 1), (-1, 0), (-1, -1)];
+        try
+        {
+            while (queue.TryDequeue(out var from))
             {
-                var point = new Point3D(5407, 859, 45);
-                gm.MoveToWorld(point, map);
-                CommandSystem.Handle(gm, $"[Add {name}");
-                Require(gm.Target != null, $"[Add {name} did not request a target");
-                gm.Target.Invoke(gm, gm);
-                foreach (var placed in map.GetItemsAt<Spawner>(point))
-                    if (placed.Location == point && string.Equals(placed.Name, name, StringComparison.OrdinalIgnoreCase))
-                        spawner = placed;
-                Require(spawner != null, $"[Add {name} did not place a spawner");
-                spawner.Respawn();
-                spawner.Spawn();
-                Require(spawner.Spawned.Count == 1, $"{name} should keep one active monster");
-                Require(spawner.Entries.Count == 2 * (maximumLevel - minimumLevel + 1),
-                    $"{name} should offer two variants at each level from {minimumLevel} to {maximumLevel}");
-                for (int i = 0; i < spawner.Entries.Count; i++)
+                for (int dir = 0; dir < offsets.Length; dir++)
                 {
-                    Require(spawner.Entries[i].SpawnedProbability == (i % 2 == 0 ? firstWeight : secondWeight),
-                        $"{name} has the wrong weight for entry {i}");
-                    spawner.RemoveSpawns();
-                    Require(spawner.Spawn(i, out _), $"{name} could not spawn entry {i}");
-                    var monster = (FrontierEncounter)spawner.Spawned.Keys.Single();
-                    int level = minimumLevel + i / 2;
-                    string species = i % 2 == 0 ? first : second;
-                    Require(monster.Location == point && monster.EncounterPlayers == 5 && monster.Basis.Level == level
-                        && monster.Dungeon.Id == species, $"{name} spawned the wrong variant, level, floor, or difficulty");
-                    if (monster.Grade == EncounterGrade.Champion)
-                        Require(monster.Name.EndsWith(" (Paragon)", StringComparison.Ordinal)
-                            && EncounterTreasure.Root(monster) == $"Act 2 Champ {(level >= 25 ? "B" : "A")}",
-                            "Paragons should retain their level bracket and use the Paragon label");
-                    else
-                        Require(monster.Grade == EncounterGrade.Ordinary, $"{name} spawned an unexpected elite");
+                    int x = from.X + offsets[dir].X, y = from.Y + offsets[dir].Y;
+                    if (x is < 5120 or >= 5376 || y is < 0 or >= 256
+                        || !Movement.CheckMovement(avatar, map, from, (Direction)dir, out int z))
+                        continue;
+
+                    var step = new Point3D(x, y, z);
+                    if (visited.Add(step))
+                        queue.Enqueue(step);
                 }
             }
-            finally
+        }
+        finally
+        {
+            avatar.Delete();
+        }
+
+        var sites = TownMarkets.Sites.Where(site => site.Town == "Wind" && site.Map == map.Name).ToArray();
+        Require(sites.Length == 14 && sites.Select(site => (site.X, site.Y)).Distinct().Count() == sites.Length,
+            "Trammel Wind should have 14 separate market posts");
+        foreach (var site in sites)
+        {
+            var post = new Point3D(site.X, site.Y, site.Z);
+            var vendor = TownMarkets.Profiles.At(site.Id);
+            Require(vendor != null && vendor.Map == map && vendor.Location == post && vendor.Home == post
+                && visited.Contains(post), $"{site.Id} failed to use its walkable post at {post}");
+            if (TownMarkets.Skill(site.Role) is not { } skill || !TradeSkills.IsCraft((int)skill))
+                continue;
+
+            var market = TownMarkets.Profiles.Find(vendor.Serial);
+            CheckStation(market.Station);
+            if (skill == SkillName.Blacksmith)
+                CheckStation(market.Forge);
+
+            void CheckStation(Serial serial)
             {
-                spawner?.Delete();
-                gm.Delete();
+                var station = World.FindItem(serial) as TownCraftStation;
+                Require(station != null && station.Map == map && station.Z == post.Z && station.InRange(post, 3)
+                    && offsets.Any(offset =>
+                    {
+                        var adjacent = new Point3D(station.X + offset.X, station.Y + offset.Y, station.Z);
+                        return visited.Contains(adjacent)
+                            && map.LineOfSight(new Point3D(adjacent.X, adjacent.Y, adjacent.Z + 14), map.GetPoint(station, false));
+                    }), $"{site.Id} has a workshop outside reach of its market floor at {station?.Location}");
             }
+        }
+    }
+
+    private static void CheckSpawner(Map map, Point3D point, string name, string first, string second, int minimumLevel, int maximumLevel,
+        int firstWeight = 100, int secondWeight = 100)
+    {
+        var gm = new PlayerMobile { Name = $"{name} fixture", AccessLevel = AccessLevel.GameMaster };
+        Spawner spawner = null;
+        try
+        {
+            gm.MoveToWorld(point, map);
+            CommandSystem.Handle(gm, $"[Add {name}");
+            Require(gm.Target != null, $"[Add {name} did not request a target");
+            gm.Target.Invoke(gm, gm);
+            foreach (var placed in map.GetItemsAt<Spawner>(point))
+                if (placed.Location == point && string.Equals(placed.Name, name, StringComparison.OrdinalIgnoreCase))
+                    spawner = placed;
+            Require(spawner != null, $"[Add {name} did not place a spawner");
+            spawner.Respawn();
+            spawner.Spawn();
+            Require(spawner.Spawned.Count == 1, $"{name} should keep one active monster");
+            Require(spawner.Entries.Count == 2 * (maximumLevel - minimumLevel + 1),
+                $"{name} should offer two variants at each level from {minimumLevel} to {maximumLevel}");
+            for (int i = 0; i < spawner.Entries.Count; i++)
+            {
+                Require(spawner.Entries[i].SpawnedProbability == (i % 2 == 0 ? firstWeight : secondWeight),
+                    $"{name} has the wrong weight for entry {i}");
+                spawner.RemoveSpawns();
+                Require(spawner.Spawn(i, out _), $"{name} could not spawn entry {i}");
+                var monster = (FrontierEncounter)spawner.Spawned.Keys.Single();
+                int level = minimumLevel + i / 2;
+                string species = i % 2 == 0 ? first : second;
+                Require(monster.Location == point && monster.EncounterPlayers == 5 && monster.Basis.Level == level
+                    && monster.Dungeon.Id == species, $"{name} spawned the wrong variant, level, floor, or difficulty");
+                if (monster.Grade == EncounterGrade.Champion)
+                    Require(monster.Name.EndsWith(" (Paragon)", StringComparison.Ordinal)
+                        && EncounterTreasure.Root(monster) == $"Act 2 Champ {(level >= 25 ? "B" : "A")}",
+                        "Paragons should retain their level bracket and use the Paragon label");
+                else
+                    Require(monster.Grade == EncounterGrade.Ordinary, $"{name} spawned an unexpected elite");
+            }
+        }
+        finally
+        {
+            spawner?.Delete();
+            gm.Delete();
         }
     }
 

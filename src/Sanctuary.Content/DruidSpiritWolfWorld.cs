@@ -84,9 +84,9 @@ internal static class DruidSpiritWolfWorld
     private static Mobile Primary(DruidSpiritWolfBody body,PlayerMobile owner,SpiritWolfWorldState s)
     {
         var prior=World.FindMobile((Serial)s.Target);
-        if(Eligible(body,owner,prior) && DruidWolfGeometry.Full(Cell(s),PetOwnerRoutes.Cell(prior))<=20){return prior;}
-        Mobile chosen=null;int best=21;
-        foreach(var candidate in body.Map.GetMobilesInRange<BaseCreature>(body.Location,12))
+        if(Eligible(body,owner,prior) && DruidWolfGeometry.Full(Cell(s),PetOwnerRoutes.Cell(prior))<=20+PetCombatRanges.BonusSourceCells){return prior;}
+        Mobile chosen=null;int best=21+PetCombatRanges.BonusSourceCells;
+        foreach(var candidate in body.Map.GetMobilesInRange<BaseCreature>(body.Location,12+PetCombatRanges.BonusTiles))
         {
             if(!Eligible(body,owner,candidate)){continue;}
             int distance=DruidWolfGeometry.Full(Cell(s),PetOwnerRoutes.Cell(candidate));
@@ -178,7 +178,7 @@ internal static class DruidSpiritWolfWorld
         uint Random()=>Draw(ref s);int Percent()=>(int)(Draw(ref s)%100);
         var services=new PetMoveServices(Action,p=>Room(body,p),p=>DruidWolfGeometry.NoSize(Cell(s),p),DruidWolfGeometry.Offset,Random,Percent,
             ()=>Point(body,ownerCell,out _)?ownerCell:null,p=>Room(body,p)!=0);
-        bool Common(int target,bool combat,int flag,int leash)=>SourcePetMovement.Common(Context(),services,target!=0,SpellHelper.IsTown(body.Location,owner),combat,flag,leash);
+        bool Common(int target,bool combat,int flag,int leash)=>SourcePetMovement.Common(Context(),services,target!=0,SpellHelper.IsTown(body.Location,owner),combat,flag,leash,PetCombatRanges.BonusSourceCells);
         bool Move(int kind,bool run,int speed,int leash)=>SourcePetMovement.Move(Context(),services,kind,run,speed,leash);
         void Request(SpiritWolfAiRequest request)
         {
@@ -212,7 +212,7 @@ internal static class DruidSpiritWolfWorld
             primary==null?0:(int)primary.Serial.Value,potential==null?0:(int)potential.Serial.Value,primary!=null&&Visible(body,primary),potential!=null&&Visible(body,potential),
             potential==null?0:DruidWolfGeometry.Full(Cell(s),PetOwnerRoutes.Cell(potential)),DruidWolfGeometry.UnitDistance(ownerCell,Cell(s),2,2),mode,true,
             primary!=null&&Melee(body,s,primary),body.SummonDifficulty,primary==null?0:DruidWolfGeometry.UnitDistance(ownerCell,PetOwnerRoutes.Cell(primary),2,CreatureProfiles.For((BaseCreature)primary).Traits.Size.Value),
-            NecromancerSummons.Source("spiritwolf","Velocity"),NecromancerSummons.Source("spiritwolf","Run"));
+            NecromancerSummons.Source("spiritwolf","Velocity"),NecromancerSummons.Source("spiritwolf","Run"),PetCombatRanges.BonusSourceCells);
         try{DruidSpiritWolfAi.CorrectedThink(context,new(Request,Common,Move,Percent));}
         catch(Exception e){Store(body,Park(s) with{Fault=e.Message});throw;}
         if(s.NextThink==0 && s.Mode is not(2 or 15 or 4 or 8)){s=s with{NextThink=s.Frame+15};}

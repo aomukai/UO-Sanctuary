@@ -16,7 +16,8 @@ public partial class FrontierEncounter : EncounterCreature
     private const string VesperUndead = "vesper-undead", Spectre = "vesper-spectre", Wraith = "vesper-wraith",
         Ghoul = "vesper-ghoul", SkeletalKnight = "vesper-skeletal-knight", Mummy = "vesper-mummy";
     private static readonly string[] _vesperGraveyardUndead = [Skeleton, Zombie, Spectre, Wraith, Ghoul];
-    private const string Ettin = "frontier-ettin", Drake = "frontier-drake", Wyvern = "frontier-wyvern", Dragon = "frontier-dragon";
+    private const string Ettin = "frontier-ettin", Dragon = "frontier-dragon";
+    internal const string Drake = "frontier-drake", Wyvern = "frontier-wyvern";
     internal const string BoulderEttinId = "boulder-ettin";
     private const string BridgeTroll = "bridge-troll";
     private const string VesperSeaSerpent = "vesper-sea-serpent", VesperKraken = "vesper-kraken";
@@ -70,8 +71,8 @@ public partial class FrontierEncounter : EncounterCreature
         // Paragons at level 28 still need a base profile at level 26.
         [DespiseOgreLord] = Species(DespiseOgreLord, "an ogre lord", MonsterArchetype.Tank, 26, 32, 83, 427, new(Physical: 20)),
         [DespiseOgreMage] = Species(DespiseOgreMage, "an ogre mage", MonsterArchetype.Caster, 28, 32, 83, 427, new(Physical: 15)),
-        [Drake] = Species(Drake, "a drake", MonsterArchetype.Caster, 16, 22, 61, 362, new(Fire: 20)),
-        [Wyvern] = Species(Wyvern, "a wyvern", MonsterArchetype.Melee, 16, 22, 62, 362, new(Poison: 70)),
+        [Drake] = Species(Drake, "a drake", MonsterArchetype.Caster, 16, 28, 61, 362, new(Fire: 20)),
+        [Wyvern] = Species(Wyvern, "a wyvern", MonsterArchetype.Melee, 16, 28, 62, 362, new(Poison: 70)),
         [Lizardman] = Species(Lizardman, "a lizardman", MonsterArchetype.Melee, 15, 25, 35, 417, new(Poison: 20)),
         [Alligator] = Species(Alligator, "an alligator", MonsterArchetype.Tank, 15, 19, 0xCA, 660, new(Physical: 10)),
         [Slime] = Species(Slime, "a slime", MonsterArchetype.Melee, 15, 19, 51, 456, new(Poison: 45)),

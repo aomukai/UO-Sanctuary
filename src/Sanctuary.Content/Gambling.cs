@@ -19,7 +19,6 @@ public static partial class Gambling
     [CallPriority(350)]
     public static void Initialize()
     {
-        if (!ClassProfessions.Enabled) { return; }
         foreach (string code in _bases.Keys.ToArray())
         {
             var basis = _bases[code];
@@ -32,6 +31,7 @@ public static partial class Gambling
             }
             _bases[code] = basis with { Variants = variants.ToArray() };
         }
+        if (!ClassProfessions.Enabled) { return; }
         foreach (var site in Sites)
         {
             if (World.FindMobile(Profiles.At(site.Id)) is TavernGambler { Deleted: false }) { continue; }
@@ -55,24 +55,31 @@ public static partial class Gambling
             || offer.ItemLevel < Math.Clamp(quotedLevel - 5, 5, 99) || offer.ItemLevel > Math.Clamp(quotedLevel + 4, 5, 99)
             || EquipmentBalance.Base(offer.Code).QualityLevel > offer.ItemLevel)
         { return GambleResult.Invalid; }
-        int remaining = offer.Price;
+        return Purchase(p, offer, typeof(Gold), offer.Price, random);
+    }
+
+    private static GambleResult Purchase(PlayerMobile p, GambleOffer offer, Type currency, int price, Random random,
+        int? regionalLevelCap = null)
+    {
+        int remaining = price;
         var consumes = new List<(Item Item, int Amount)>();
-        foreach (var gold in p.Backpack.FindItemsByType(typeof(Gold), true))
+        foreach (var stack in p.Backpack.FindItemsByType(currency, true))
         {
-            int take = Math.Min(remaining, gold.Amount);
-            if (take > 0) { consumes.Add((gold, take)); remaining -= take; }
+            int take = Math.Min(remaining, stack.Amount);
+            if (take > 0) { consumes.Add((stack, take)); remaining -= take; }
+            if (remaining == 0) { break; }
         }
         bool bank = remaining > 0;
-        if (bank && Banker.GetBalance(p) < offer.Price) { return GambleResult.NoFunds; }
+        if (bank && (currency != typeof(Gold) || Banker.GetBalance(p) < price)) { return GambleResult.NoFunds; }
         if (bank) { consumes.Clear(); }
-        var item = Generate(offer, random);
+        var item = GenerateOffer(offer, random, regionalLevelCap);
         if (item == null) { return GambleResult.Refunded; }
         bool committed = false;
         try
         {
             var delivery = MarketDelivery.Create(p, consumes, new() { item });
             if (delivery == null) { return GambleResult.NoCapacity; }
-            if (bank && !Banker.Withdraw(p, offer.Price)) { return GambleResult.NoFunds; }
+            if (bank && !Banker.Withdraw(p, price)) { return GambleResult.NoFunds; }
             delivery.Commit(); committed = true;
             p.PlaySound(0x32);
             return GambleResult.Purchased;
@@ -84,17 +91,28 @@ public static partial class Gambling
 public sealed class GamblingProfiles : GenericPersistence
 {
     private Dictionary<string, Serial> _sites = new(StringComparer.Ordinal);
+    private readonly Dictionary<Serial, long> _coveTurnIns = new();
     public GamblingProfiles() : base("SanctuaryGambling", 136) { }
     public Serial At(string id) => _sites.GetValueOrDefault(id);
     public void Put(string id, Serial npc) => _sites[id] = npc;
+    internal long CoveTurnIns(PlayerMobile player) => _coveTurnIns.GetValueOrDefault(player.Serial);
+    internal long RecordCoveTurnIn(PlayerMobile player, int count)
+    {
+        long total = CoveTurnIns(player);
+        return _coveTurnIns[player.Serial] = Math.Min(total, long.MaxValue - count) + count;
+    }
+
     public override void Serialize(IGenericWriter writer)
     {
-        writer.Write(0); writer.Write(_sites.Count);
+        writer.Write(1); writer.Write(_sites.Count);
         foreach (var (id, npc) in _sites) { writer.Write(id); writer.Write(npc.Value); }
+        writer.Write(_coveTurnIns.Count);
+        foreach (var (serial, total) in _coveTurnIns) { writer.Write(serial.Value); writer.Write(total); }
     }
     public override void Deserialize(IGenericReader reader)
     {
-        if (reader.ReadInt() != 0) { throw new InvalidDataException("Unknown gambling persistence version."); }
+        int version = reader.ReadInt();
+        if (version is < 0 or > 1) { throw new InvalidDataException("Unknown gambling persistence version."); }
         int count = reader.ReadInt();
         if (count is < 0 or > 1000) { throw new InvalidDataException("Invalid gambler count."); }
         var decoded = new Dictionary<string, Serial>(StringComparer.Ordinal);
@@ -105,6 +123,26 @@ public sealed class GamblingProfiles : GenericPersistence
             { throw new InvalidDataException("Invalid gambler identity."); }
         }
         _sites = decoded;
+        _coveTurnIns.Clear();
+        if (version == 1)
+        {
+            int players = reader.ReadInt();
+            if (players is < 0 or > 1000000) { throw new InvalidDataException("Invalid Cove bounty count."); }
+            for (int i = 0; i < players; i++)
+            {
+                var serial = (Serial)reader.ReadUInt();
+                long total = reader.ReadLong();
+                if (!serial.IsMobile || total <= 0 || !_coveTurnIns.TryAdd(serial, total))
+                    throw new InvalidDataException("Invalid Cove bounty entry.");
+            }
+        }
+    }
+
+    public override void PostDeserialize()
+    {
+        foreach (var serial in _coveTurnIns.Keys.ToArray())
+            if (World.FindMobile(serial) is not PlayerMobile { Deleted: false })
+                _coveTurnIns.Remove(serial);
     }
 }
 
