@@ -88,7 +88,7 @@ public partial class WrongEncounter : EncounterCreature
     public WrongEncounter(string role) : this(Parse(role), 0, null) { }
 
     [Constructible]
-    public WrongEncounter(string role, int paragonChance) : this(Parse(role), paragonChance, null) { }
+    public WrongEncounter(string role, int paragonChance) : this(Parse(role), paragonChance, null) => ParagonAlreadyRolled = true;
 
     private static WrongRole Parse(string role) =>
         Enum.TryParse<WrongRole>(role, true, out var parsed) && _roster.ContainsKey(parsed) ? parsed
@@ -101,7 +101,7 @@ public partial class WrongEncounter : EncounterCreature
         Site = site;
         var species = _roster[role];
         var grade = role >= WrongRole.Wonk ? EncounterGrade.Unique
-            : Utility.Random(100) < paragonChance ? EncounterGrade.Champion : EncounterGrade.Ordinary;
+            : Utility.Random(100) < ParagonBalance.SpawnChance(paragonChance) ? EncounterGrade.Champion : EncounterGrade.Ordinary;
         EliteModifier[] modifiers = role is WrongRole.Xoldred or WrongRole.Suldri ? [EliteModifier.StoneSkin] : [];
         Assign(species, Utility.RandomMinMax(species.MinimumLevel, species.MaximumLevel), MonsterDifficulty.Normal,
             grade, ChampionKind.Champion, modifiers, EliteAura.None, species.Name, Random.Shared);

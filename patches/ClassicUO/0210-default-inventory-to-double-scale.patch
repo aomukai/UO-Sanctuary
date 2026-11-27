@@ -1,0 +1,52 @@
+--- a/src/ClassicUO.Client/Configuration/Profile.cs
++++ b/src/ClassicUO.Client/Configuration/Profile.cs
+@@ -282,9 +282,13 @@
+ 
+         public bool JournalDarkMode { get; set; }
+ 
+-        public byte ContainersScale { get; set; } = 100;
++        internal const byte DefaultContainerScale = 200;
+ 
+-        public bool ScaleItemsInsideContainers { get; set; }
++        public byte ContainersScale { get; set; } = DefaultContainerScale;
++
++        public bool ScaleItemsInsideContainers { get; set; } = true;
++
++        public bool ContainerScaleDefaultsUpdated { get; set; }
+ 
+         public bool DoubleClickToLootInsideContainers { get; set; }
+ 
+--- a/src/ClassicUO.Client/Configuration/ProfileManager.cs
++++ b/src/ClassicUO.Client/Configuration/ProfileManager.cs
+@@ -92,6 +92,18 @@
+             {
+                 profile.WindowClientBounds = new Point(profile.WindowClientBounds.X, 480);
+             }
++
++            if (!profile.ContainerScaleDefaultsUpdated)
++            {
++                // Upgrade the previous default once and preserve custom sizes.
++                if (profile.ContainersScale == 100 && !profile.ScaleItemsInsideContainers)
++                {
++                    profile.ContainersScale = Profile.DefaultContainerScale;
++                    profile.ScaleItemsInsideContainers = true;
++                }
++
++                profile.ContainerScaleDefaultsUpdated = true;
++            }
+         }
+ 
+         public static void UnLoadProfile()
+--- a/src/ClassicUO.Client/Game/UI/Gumps/OptionsGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/OptionsGump.cs
+@@ -3662,8 +3662,8 @@
+                     break;
+ 
+                 case 11: // containers
+-                    _containersScale.Value = 100;
+-                    _containerScaleItems.IsChecked = false;
++                    _containersScale.Value = Profile.DefaultContainerScale;
++                    _containerScaleItems.IsChecked = true;
+                     _useLargeContianersGumps.IsChecked = false;
+                     _containerDoubleClickToLoot.IsChecked = false;
+                     _relativeDragAnDropItems.IsChecked = false;

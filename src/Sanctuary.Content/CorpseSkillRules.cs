@@ -11,7 +11,8 @@ using Server.Mobiles;
 namespace Sanctuary;
 
 public sealed record CorpseSourceRule(string Source,bool Selectable,bool NoAura,bool Soft=false);
-public sealed record CorpseTreasure(string Source,string TreasureClass,int Level,MonsterDifficulty Difficulty);
+public sealed record CorpseTreasure(string Source,string TreasureClass,int Level,MonsterDifficulty Difficulty,
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)] bool BowCarrier = false);
 public sealed record CorpseSkillRecord(uint Corpse,string Source,bool Selectable,bool Owned,bool Shattered=false,bool NoSelect=false,CorpseTreasure Treasure=null,CorpseBaseSnapshot BaseLife=null,int? MonsterLevel=null,ReviveCreatureSnapshot ReviveCreature=null,string ReviveSnapshotIssue=null,bool UnitReactivated=false,
     [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] DeceitAllySnapshot DeceitAlly = null,
     [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] bool? WorldLootEligible = null);
@@ -107,7 +108,7 @@ public static class CorpseSkillRules
         string issue=native is{ReviveAiSource:null}?native.ReviveIssue:null;
         var revive=known&&_selectable[key]&&issue==null?ReviveCreatureSnapshots.TryCapture(creature,key,out issue):null;
         bool shattered = ColdCorpseRules.Resolve(creature, PaladinHolyFreeze.Shattered(creature) || FreezeStates.Shattered(creature));
-        Profiles.Store(new(corpse.Serial.Value,known?key:null,known && _selectable[key],creature.Controlled || creature.Summoned || creature is BaseVendor,shattered,false,Treasure(creature),
+        Profiles.Store(new(corpse.Serial.Value,known?key:null,known && _selectable[key],creature.Controlled || creature.Summoned || creature is BaseVendor,shattered,false,Treasure(creature,corpse),
             known && _selectable[key]?CorpseBaseSnapshots.Capture(creature,key):null,level>0?level:null,
             revive,issue,DeceitAlly: (creature as DeceitEncounter)?.ResurrectionSnapshot(),
             WorldLootEligible: WorldLootChests.IsEncounterMonster(creature)));
@@ -117,7 +118,7 @@ public static class CorpseSkillRules
             Effects.PlaySound(creature.Location, creature.Map, SpellEffectSounds.ColdCorpseShatter);
         }
     }
-    private static CorpseTreasure Treasure(BaseCreature creature)
+    private static CorpseTreasure Treasure(BaseCreature creature,Corpse corpse)
     {
         var profile=CreatureProfiles.For(creature);var difficulty=MonsterVariants.Difficulty(creature);
         var policy=CreatureGold.Policy(creature.GetType(),difficulty);int level=CreatureProfiles.Level(creature);
@@ -128,7 +129,7 @@ public static class CorpseSkillRules
             || difficulty!=MonsterDifficulty.Normal && profile.Rewards.Level!=level){return null;}
         // The approved ordinary world catalogue already resolved difficulty/TC
         // group upgrades for this configured level. No quest/elite TC is inferred.
-        return new(source,policy.TreasureClass,level,difficulty);
+        return new(source,policy.TreasureClass,level,difficulty,QuiverEquipment.BowCarrier(creature,corpse));
     }
     internal static bool TryMonsterLevel(Corpse corpse,out int level)
     {

@@ -235,6 +235,35 @@ public static class GearDropChecks
             }
             finally { item.Delete(); }
         }
+
+        foreach (var (quality, color) in new[] { (DropQuality.Magic, "899DFF"), (DropQuality.Rare, "FFEB62") })
+        {
+            var item = GearDrops.Generate(GearDrops.Base("buc"), 25, 0, new QualityRoll(quality));
+            try
+            {
+                var title = ClassGear.AppearanceTitle(item, ClassGear.State(item));
+                Require(item.PropertyList.HeaderArgs == $"<basefont color=#{color}>{title}</basefont>",
+                    $"{quality} item name had the wrong tooltip colour");
+            }
+            finally { item.Delete(); }
+        }
+
+        foreach (var (rarity, color) in new[] { ("Unique", "C7A25C"), ("Set", "63D66F") })
+        {
+            var definition = NamedGear.Catalog.Items.First(row => row.Rarity == rarity && NamedGear.Available(row.Id));
+            var item = NamedGear.Create(definition.Id, 99, new Random(317), identified: false);
+            try
+            {
+                var saved = ClassGear.State(item);
+                var appearance = ClassGear.AppearanceTitle(item, saved);
+                Require(item.PropertyList.HeaderArgs == $"<basefont color=#{color}>{appearance}</basefont>",
+                    $"{rarity} tooltip did not colour the unidentified appearance");
+                ClassGear.Profiles.Store(item, saved with { Identified = true });
+                Require(item.Name != appearance && item.PropertyList.HeaderArgs == $"<basefont color=#{color}>{item.Name}</basefont>",
+                    $"{rarity} tooltip did not colour the identified name");
+            }
+            finally { item.Delete(); }
+        }
     }
     internal static Item[] FindEquipment(PlayerMobile p)
     {

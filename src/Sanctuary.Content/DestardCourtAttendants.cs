@@ -84,7 +84,25 @@ public partial class DestardRoyalServant : ConversationNpc
     internal IReadOnlyList<ScriptedDialogue.Node> DialogueFor(PlayerMobile player) =>
         BritanniaCampaign.Has(player, CampaignProgress.Diablo) ? _aftermath : Script;
 
-    internal override void BeginConversation(PlayerMobile player) => ScriptedDialogue.Show(player, this, DialogueFor(player));
+    internal override void BeginConversation(PlayerMobile player)
+    {
+        var script = DialogueFor(player);
+        bool metQueen = (ClassCreation.Profiles.Discoveries(player.Serial) & StoryDiscoveries.DestardQueenAudience) != 0
+            || DestardBounty.For(player) != null;
+        if (!metQueen || DungeonEntranceRunes.Destard.WasClaimed(player))
+        {
+            ScriptedDialogue.Show(player, this, script);
+            return;
+        }
+
+        bool awarded = DungeonEntranceRunes.Award(player, DungeonEntranceRunes.Destard);
+        var greeting = awarded
+            ? new ScriptedDialogue.Node("I am only a servant and cannot take up arms. But I can do this much. I have marked the entrance to Destard in thy runebook.",
+                script[0].Replies, Learns: script[0].Learns, LineId: "destard.servant.rune", SpeakerId: "destard.servant")
+            : new ScriptedDialogue.Node("Bring me a runebook and I shall mark the entrance to Destard for thee. It would mean much if I could do my part.",
+                script[0].Replies, Learns: script[0].Learns, LineId: "destard.servant.rune_needs_runebook", SpeakerId: "destard.servant");
+        ScriptedDialogue.Show(player, this, [greeting, .. script.Skip(1)]);
+    }
 
     private static ScriptedDialogue.Node[] BuildStory(bool defeated) =>
     [

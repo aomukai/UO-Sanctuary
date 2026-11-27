@@ -15,7 +15,12 @@ public static class SkeletonContactChecks
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(SkeletonContactChecks));
     private sealed record Saved(uint Owner,uint Actor,ulong Seed,int Generation);
     private static string Manifest=>Path.Join(Core.BaseDirectory,"skeleton-contact-fixtures.json");
-    public static void Configure(){Register("skeleton-contact-check",Check);Register("skeleton-contact-reload-check",Reload);}
+    public static void Configure()
+    {
+        Register("skeleton-contact-check", Check);
+        Register("skeleton-contact-reload-check", Reload);
+        Register("shame-summon-contact-check", ShameContact);
+    }
     private static void Register(string name,Action run)=>ConsoleInputHandler.RegisterCommand(name,"Skeleton prepared start/contact/block/health/return",_=>Core.LoopContext.Post(()=>
     {try{run();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     private static void Require(bool yes,string why){if(!yes){throw new InvalidOperationException(why);}}
@@ -44,6 +49,44 @@ public static class SkeletonContactChecks
     private static IronGolemContact.Prepared Prepare(PlayerMobile p,RaisedSkeleton pet,BaseCreature target)
     {
         NpcEquipmentRandom.Set(pet,SourceRandom.InitLow(0));return UnarmedSummonContact.Prepare(pet,p,target,UnarmedSummonContact.Require(pet,p,target));
+    }
+    private static void ShameContact()
+    {
+        var owner = Owner();
+        var pet = Pet(owner);
+        var elemental = new ShameEncounter(ShameRole.Corundum) { NoKillAwards = true };
+        var expedition = new ShameExpedition();
+        var deckhand = new ShameEncounter(ShameRole.Deckhand, expedition);
+        var block = SourceBlocking.BlockRoll;
+        try
+        {
+            elemental.MoveToWorld(new(owner.X + 2, owner.Y, owner.Z), owner.Map);
+            elemental.AIObject.AITimer.Stop();
+            elemental.SetResistance(ResistanceType.Physical, 0);
+            SourceBlocking.BlockRoll = _ => 99;
+            var prepared = Prepare(owner, pet, elemental);
+            var before = SkillHealth.Balance256(elemental);
+            var at = TimedEffects.Now;
+            var result = UnarmedSummonContact.Release(pet, owner, elemental, prepared, at);
+            Require(result.Exit == MonsterContactExit.Finished && SkillHealth.Balance256(elemental) < before,
+                "An ordinary Shame elemental did not take prepared summon damage");
+            Require(TimedEffects.SlowAttack(pet, at) == 35, "Corundum's reactive attack slow was skipped");
+
+            bool guarded = false;
+            try { PreparedMonsterNativeDamage.RequireBaseModifiers(pet, deckhand); }
+            catch (NotSupportedException) { guarded = true; }
+            Require(guarded, "Prepared summon damage bypassed the expedition's participation guard");
+        }
+        finally
+        {
+            SourceBlocking.BlockRoll = block;
+            deckhand.Delete();
+            expedition.Delete();
+            elemental.Corpse?.Delete();
+            elemental.Delete();
+            pet.Delete();
+            owner.Delete();
+        }
     }
     private static void Check()
     {

@@ -53,6 +53,7 @@ public static class BritanniaCampaign
     {
         CampaignArenas.Install();
         CampaignDungeonRoutes.Install();
+        DungeonEntranceRunes.Install();
         CampaignActors.Install();
         DestardCourt.Install();
     }

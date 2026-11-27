@@ -101,7 +101,7 @@ public partial class ShameEncounter : EncounterCreature
 
     [Constructible]
     public ShameEncounter(string role, int paragonChance)
-        : this(ParseRole(role), paragon: RollParagon(paragonChance)) { }
+        : this(ParseRole(role), paragon: RollParagon(paragonChance)) => ParagonAlreadyRolled = true;
 
     private static ShameRole ParseRole(string role) =>
         Enum.TryParse<ShameRole>(role, true, out var parsed) && parsed != ShameRole.Unassigned && Enum.IsDefined(parsed)
@@ -111,7 +111,7 @@ public partial class ShameEncounter : EncounterCreature
     {
         ArgumentOutOfRangeException.ThrowIfNegative(chance);
         ArgumentOutOfRangeException.ThrowIfGreaterThan(chance, 100);
-        return Utility.Random(100) < chance;
+        return Utility.Random(100) < ParagonBalance.SpawnChance(chance);
     }
 
     private static bool LabMage(ShameRole role) => role is ShameRole.Researcher or ShameRole.CrazedResearcher

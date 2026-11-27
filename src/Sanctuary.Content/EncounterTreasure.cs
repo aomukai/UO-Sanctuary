@@ -98,6 +98,13 @@ public static class EncounterTreasure
             string kind = destard.Dungeon.Archetype == MonsterArchetype.Caster ? "Cast" : "H2H";
             return $"Act 1 (H) {kind} A";
         }
+        if (creature is WrongEncounter)
+        {
+            string kind = creature.Leader ? "Unique" : creature.Grade == EncounterGrade.Champion ? "Champ"
+                : creature.Dungeon.Archetype == MonsterArchetype.Caster ? "Cast"
+                : creature.Dungeon.Archetype == MonsterArchetype.Ranged ? "Miss" : "H2H";
+            return $"Act 5 {kind} C";
+        }
         if (creature is FrontierEncounter or CovetousEncounter or CoveEncounter or HedgeEncounter or YewEncounter
             or YewVampire or OrcFortEncounter or BrigandEncounter or HythlothEncounter or ShameEncounter)
         {
@@ -224,8 +231,8 @@ public static class EncounterTreasure
                 continue;
             }
             var item = AlchemyRestoratives.Drop(drop.Leaf) ?? GearDrops.Generate(
-                GearDrops.SelectBase(drop.Leaf, random, equipmentOnly: dedicated),
-                life.Level, life.MagicFind, random, drop.Factors, fallbackNamed: dedicated);
+                GearDrops.SelectBase(drop.Leaf, random, equipmentOnly: dedicated), life.Level, life.MagicFind, random, drop.Factors,
+                fallbackNamed: dedicated, bowCarrier: life.BowCarrier);
             if (item != null) { life.Corpse.DropItem(item); }
         }
         if (creature is CoveEncounter { Orc: true } && random.Next(10) == 0)

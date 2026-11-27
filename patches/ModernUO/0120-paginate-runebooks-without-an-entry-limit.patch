@@ -1,0 +1,282 @@
+--- a/Projects/UOContent/Gumps/RunebookGump.cs
++++ b/Projects/UOContent/Gumps/RunebookGump.cs
+@@ -13,35 +13,57 @@
+ 
+ public class RunebookGump : DynamicGump
+ {
++    private const int EntriesPerIndex = 16;
++    private const int LastEntryButton = 1 + EntriesPerIndex * 6;
++    private const int PreviousIndexButton = LastEntryButton + 1;
++    private const int NextIndexButton = LastEntryButton + 2;
++
+     private readonly Runebook _book;
+-    private readonly RunebookEntry[] _travelEntries;
++    private readonly RunebookEntry[] _entries;
++    private readonly bool _chargeFree;
++    private readonly int _index;
++    private readonly int _indexCount;
+     public Runebook Book => _book;
+ 
+     public override bool Singleton => true;
+ 
+-    public RunebookGump(Runebook book) : base(150, 200)
++    public RunebookGump(Runebook book) : this(book, 0)
++    {
++    }
++
++    internal RunebookGump(Runebook book, int index) : base(150, 200)
+     {
+         _book = book;
+-        if (ClassMapHooks.RunebookTravel != null)
+-        {
+-            _travelEntries = [..book.Entries];
+-        }
+-    }
++        _chargeFree = ClassMapHooks.RunebookTravel != null;
++        _indexCount = IndexCount(book);
++        _index = Math.Clamp(index, 0, _indexCount - 1);
++
++        // Send one index and its detail pages so large books stay within the gump packet limit.
++        int first = _index * EntriesPerIndex;
++        _entries = new RunebookEntry[Math.Min(EntriesPerIndex, book.Entries.Count - first)];
++        book.Entries.CopyTo(first, _entries, 0, _entries.Length);
++    }
++
++    private static int IndexCount(Runebook book) => (book.Entries.Count - 1) / EntriesPerIndex + 1;
+ 
+     protected override void BuildLayout(ref DynamicGumpBuilder builder)
+     {
+         AddBackground(ref builder);
+         AddIndex(ref builder);
+ 
+-        for (var page = 0; page < 8; ++page)
++        for (var page = 0; page < EntriesPerIndex / 2; ++page)
+         {
+             builder.AddPage(2 + page);
+ 
+             builder.AddButton(125, 14, 2205, 2205, 0, GumpButtonType.Page, 1 + page);
+ 
+-            if (page < 7)
++            if (page < EntriesPerIndex / 2 - 1)
+             {
+                 builder.AddButton(393, 14, 2206, 2206, 0, GumpButtonType.Page, 3 + page);
++            }
++            else if (_index + 1 < _indexCount)
++            {
++                builder.AddButton(393, 14, 2206, 2206, NextIndexButton);
+             }
+ 
+             for (var half = 0; half < 2; ++half)
+@@ -119,7 +141,7 @@
+             builder.AddButton(xOffset, 187, gumpID, gumpID, 0, GumpButtonType.Page, 6 + i);
+         }
+ 
+-        if (_travelEntries != null)
++        if (_chargeFree)
+         {
+             return;
+         }
+@@ -139,35 +161,42 @@
+         builder.AddPage(1);
+ 
+         // Rename button
+-        builder.AddButton(125, 15, 2472, 2473, 1);
+-        builder.AddHtmlLocalized(158, 22, 100, 18, 1011299); // Rename book
++        int renameX = _index == 0 ? 125 : 148;
++        builder.AddButton(renameX, 15, 2472, 2473, 1);
++        builder.AddHtmlLocalized(renameX + 33, 22, 100, 18, 1011299); // Rename book
++        if (_indexCount > 1)
++        {
++            builder.AddLabel(300, 22, 0, $"Index {_index + 1}/{_indexCount}");
++        }
++        if (_index > 0)
++        {
++            builder.AddButton(125, 14, 2205, 2205, PreviousIndexButton);
++        }
+ 
+         // List of entries
+-        var entries = _book.Entries;
+-
+-        for (var i = 0; i < 16; ++i)
++        for (var i = 0; i < EntriesPerIndex; ++i)
+         {
+             int column = i / 8 * 160;
+             int row = i % 8 * 15;
+-            if (_travelEntries == null || i < entries.Count)
++            if (!_chargeFree || i < _entries.Length)
+             {
+                 builder.AddButton(130 + column, 65 + row, 2103, 2104, 2 + i * 6);
+             }
+ 
+             // Description label
+-            if (i < entries.Count)
+-            {
+-                var entry = entries[i];
+-
+-                if (_travelEntries != null)
++            if (i < _entries.Length)
++            {
++                var entry = _entries[i];
++
++                if (_chargeFree)
+                 {
+                     builder.AddLabel(145 + column, 60 + row, 0, "Travel");
+                 }
+ 
+                 builder.AddLabelCropped(
+-                    (_travelEntries != null ? 188 : 145) + column,
++                    (_chargeFree ? 188 : 145) + column,
+                     60 + row,
+-                    _travelEntries != null ? 100 : 115,
++                    _chargeFree ? 100 : 115,
+                     17,
+                     GetMapHue(entry.Map),
+                     GetName(entry.Description)
+@@ -179,20 +208,26 @@
+             }
+         }
+ 
+-        // Turn page button
+-        builder.AddButton(393, 14, 2206, 2206, 0, GumpButtonType.Page, 2);
++        if (_index + 1 < _indexCount)
++        {
++            builder.AddButton(393, 14, 2206, 2206, NextIndexButton);
++        }
++        else
++        {
++            builder.AddButton(393, 14, 2206, 2206, 0, GumpButtonType.Page, 2);
++        }
+     }
+ 
+     private void AddDetails(ref DynamicGumpBuilder builder, int index, int half)
+     {
+-        if (_travelEntries == null)
++        if (!_chargeFree)
+         {
+             builder.AddButton(130 + half * 160, 65, 2103, 2104, 2 + index * 6);
+         }
+ 
+-        if (index < _book.Entries.Count)
+-        {
+-            var e = _book.Entries[index];
++        if (index < _entries.Length)
++        {
++            var e = _entries[index];
+ 
+             // Location labels
+             var xLong = 0;
+@@ -212,7 +247,7 @@
+             builder.AddButton(135 + half * 160, 115, 2437, 2438, 2 + index * 6 + 1);
+             builder.AddHtmlLocalized(150 + half * 160, 115, 100, 18, 1011298); // Drop rune
+ 
+-            if (_travelEntries != null)
++            if (_chargeFree)
+             {
+                 builder.AddButton(135 + half * 160, 140, 2103, 2104, 2 + index * 6);
+                 builder.AddLabel(150 + half * 160, 136, 0, "Travel");
+@@ -269,7 +304,7 @@
+             return;
+         }
+ 
+-        if (_travelEntries != null && (from.Map != _book.Map || !_book.CheckAccess(from) || !from.CanSee(_book)))
++        if (_chargeFree && (from.Map != _book.Map || !_book.CheckAccess(from) || !from.CanSee(_book)))
+         {
+             return;
+         }
+@@ -291,23 +326,31 @@
+             return;
+         }
+ 
+-        buttonID -= 2;
+-
+-        var index = Math.DivRem(buttonID, 6, out var type);
+-
+-        if (index < 0 || index >= _book.Entries.Count)
+-        {
+-            return;
+-        }
+-
+-        var e = _book.Entries[index];
+-        if (_travelEntries != null)
+-        {
+-            if (index >= _travelEntries.Length || _travelEntries[index] != e)
+-            {
+-                return;
+-            }
+-
++        if (buttonID == PreviousIndexButton && _index > 0)
++        {
++            _book.SendGumpTo(from, _index - 1);
++            return;
++        }
++        if (buttonID == NextIndexButton && _index + 1 < IndexCount(_book))
++        {
++            _book.SendGumpTo(from, _index + 1);
++            return;
++        }
++        if (buttonID is < 2 or > LastEntryButton)
++        {
++            return;
++        }
++
++        int slot = Math.DivRem(buttonID - 2, 6, out var type);
++        int index = _index * EntriesPerIndex + slot;
++        if (slot >= _entries.Length || index >= _book.Entries.Count || _entries[slot] != _book.Entries[index])
++        {
++            return;
++        }
++
++        var e = _entries[slot];
++        if (_chargeFree)
++        {
+             if (type == 0)
+             {
+                 ClassMapHooks.RunebookTravel?.Invoke(from, e);
+@@ -345,7 +388,7 @@
+ 
+                         if (!Core.ML)
+                         {
+-                            _book.SendGumpTo(from);
++                            _book.SendGumpTo(from, _index);
+                         }
+                     }
+                     else
+@@ -363,7 +406,7 @@
+                         _book.Default = e;
+ 
+                         // Resend the runebook gump
+-                        _book.SendGumpTo(from);
++                        _book.SendGumpTo(from, _index);
+ 
+                         from.SendLocalizedMessage(502417); // New default location set.
+                     }
+--- a/Projects/UOContent/Items/Skill Items/Magical/Runebook.cs	
++++ b/Projects/UOContent/Items/Skill Items/Magical/Runebook.cs	
+@@ -254,9 +254,11 @@
+         }
+     }
+ 
+-    public void SendGumpTo(Mobile from)
+-    {
+-        from.SendGump(new RunebookGump(this), true);
++    public void SendGumpTo(Mobile from) => SendGumpTo(from, 0);
++
++    internal void SendGumpTo(Mobile from, int index)
++    {
++        from.SendGump(new RunebookGump(this, index), true);
+         Openers.Add(from);
+     }
+ 
+@@ -311,12 +313,6 @@
+             if (IsOpen(from))
+             {
+                 from.SendLocalizedMessage(1005571); // You cannot place objects in the book while viewing the contents.
+-                return false;
+-            }
+-
+-            if (Entries.Count >= 16)
+-            {
+-                from.SendLocalizedMessage(502401); // This runebook is full.
+                 return false;
+             }
+ 

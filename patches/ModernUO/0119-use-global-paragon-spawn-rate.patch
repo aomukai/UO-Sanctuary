@@ -1,0 +1,55 @@
+diff --git a/Projects/UOContent/Mobiles/Special/Paragon.cs b/Projects/UOContent/Mobiles/Special/Paragon.cs
+index cbd0a30..36d1400 100644
+--- a/Projects/UOContent/Mobiles/Special/Paragon.cs
++++ b/Projects/UOContent/Mobiles/Special/Paragon.cs
+@@ -5,6 +5,7 @@ namespace Server.Mobiles;
+ 
+ public static class Paragon
+ {
++    public const int SpawnChance = 5;                    // Percent of eligible spawns
+     public const double ChestChance = 0.10;               // Chance that a paragon will carry a paragon chest
+     public const double ChocolateIngredientChance = 0.20; // Chance that a paragon will drop a chocolatiering ingredient
+ 
+@@ -181,16 +182,7 @@ public static bool CheckConvert(BaseCreature bc, Point3D location, Map m)
+             return false;
+         }
+ 
+-        var fame = bc.Fame;
+-
+-        if (fame > 32000)
+-        {
+-            fame = 32000;
+-        }
+-
+-        var chance = 1 / Math.Round(20.0 - fame / 3200.0);
+-
+-        return chance > Utility.RandomDouble();
++        return Utility.Random(100) < SpawnChance;
+     }
+ 
+     public static bool CheckArtifactChance(Mobile m, BaseCreature bc)
+--- a/Projects/UOContent/Mobiles/BaseCreature.cs
++++ b/Projects/UOContent/Mobiles/BaseCreature.cs
+@@ -1954,7 +1954,11 @@
+ 
+         public override void OnBeforeSpawn(Point3D location, Map m)
+         {
+-            if (Paragon.CheckConvert(this, location, m))
++            if (ClassMapHooks.ParagonSpawning is { } rollParagon)
++            {
++                rollParagon(this, m);
++            }
++            else if (Paragon.CheckConvert(this, location, m))
+             {
+                 IsParagon = true;
+             }
+--- a/Projects/UOContent/Mobiles/ClassMapHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassMapHooks.cs
+@@ -11,6 +11,7 @@
+     public static Func<Mobile, TreasureMap, bool> TreasureUsed { get; set; }
+     public static Func<Mobile, int, Map, Item> TreasureFished { get; set; }
+     public static Action<Mobile> LocationChanged { get; set; }
++    public static Action<BaseCreature, Map> ParagonSpawning { get; set; }
+     public static Action<BaseCreature, Point3D, Map> CreatureSpawning { get; set; }
+     public static Func<Mobile, bool> BoatOperationAllowed { get; set; }
+     public static Action<PlayerMobile, Point3D, Map> TeleportFollowers { get; set; }

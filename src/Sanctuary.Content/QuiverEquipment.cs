@@ -40,6 +40,7 @@ internal static class QuiverEquipment
     private const string TypeCode = "sqvr";
     internal const string NormalCode = "qvr";
     internal const int SocketLimit = 2;
+    internal const int DropRoll = 20;
 
     internal static void Register(Dictionary<string, GearItemType> types, Dictionary<string, NormalBase> bases,
         Dictionary<string, GearDefinition> gear)
@@ -66,6 +67,18 @@ internal static class QuiverEquipment
 
     internal static bool IsDrop(string leaf) => leaf is "aqv" or "cqv";
 
+    internal static bool BowCarrier(BaseCreature creature, Corpse corpse)
+    {
+        static bool IsBow(Item item) => item is BaseRanged { Deleted: false } and not BaseThrown;
+
+        // Movable gear may already be on the corpse when rewards are rolled.
+        foreach (var item in creature.Items)
+            if (IsBow(item))
+                return true;
+        return creature.Backpack?.FindItemByType<BaseRanged>(predicate: IsBow) != null
+            || corpse?.FindItemByType<BaseRanged>(predicate: IsBow) != null;
+    }
+
     internal static SanctuaryQuiver Drop(int level, Random random)
     {
         var tier = level >= 80 ? GearTier.Elite : level >= 60 ? GearTier.Exceptional : GearTier.Normal;
@@ -81,13 +94,22 @@ internal static class QuiverEquipment
         catch { item.Delete(); throw; }
     }
 
-    private static SanctuaryQuiver Equipped(PlayerMobile owner) =>
-        !DruidFormAttacks.Active(owner) && CombatTiming.Weapon(CombatTiming.Equipped(owner)).Family is AttackFamily.Bow or AttackFamily.Crossbow
-        && owner.FindItemOnLayer(Layer.Cloak) is SanctuaryQuiver item && ClassGear.Active(owner, item) ? item : null;
+    private static bool UsesQuiver(BaseWeapon weapon) =>
+        CombatTiming.Weapon(weapon).Family is AttackFamily.Bow or AttackFamily.Crossbow;
+
+    private static SanctuaryQuiver Equipped(Mobile owner) => owner switch
+    {
+        PlayerMobile player when !DruidFormAttacks.Active(player) && UsesQuiver(CombatTiming.Equipped(player))
+            && player.FindItemOnLayer(Layer.Cloak) is SanctuaryQuiver item && ClassGear.Active(player, item) => item,
+        BaseCreature companion when companion is IClassCompanion && MercenaryCare.CompanionLevel(companion).HasValue
+            && companion.Weapon is BaseRanged weapon && UsesQuiver(weapon)
+            && companion.FindItemOnLayer(Layer.Cloak) is SanctuaryQuiver item && CompanionBuild.Worn(item) => item,
+        _ => null
+    };
 
     internal static int AttackBonus(SanctuaryQuiver item) => 5 * (1 + (int)(ClassGear.State(item)?.Tier ?? GearTier.Normal));
-    internal static int AttackPercent(PlayerMobile owner) => Equipped(owner) is { } item ? AttackBonus(item) : 0;
-    internal static QuiverElement Element(PlayerMobile owner) => Equipped(owner)?.Element ?? QuiverElement.None;
+    internal static int AttackPercent(Mobile owner) => Equipped(owner) is { } item ? AttackBonus(item) : 0;
+    internal static QuiverElement Element(Mobile owner) => Equipped(owner)?.Element ?? QuiverElement.None;
 
     internal static GearDamage Convert(GearDamage damage, QuiverElement element)
     {

@@ -11,6 +11,8 @@ namespace Sanctuary;
 // Consumers share this death-time entitlement; XP success is never an eligibility test.
 public sealed record RewardLife(BaseCreature Creature, Corpse Corpse, PlayerMobile Player, int Level, int GoldFind, int MagicFind, MonsterDifficulty Difficulty = MonsterDifficulty.Normal)
 {
+    internal bool BowCarrier { get; init; }
+
     internal static bool KillRecoveryEligible(BaseCreature creature,PlayerMobile player)=>creature is{Deleted:false}
         &&creature is not BaseVendor&&!creature.Controlled&&!creature.Summoned&&!creature.IsAnimatedDead&&!creature.NoKillAwards
         &&creature is not GraveyardUndead{Raised:true}&&player is{Deleted:false}&&ClassCombat.Enabled(player);
@@ -24,6 +26,7 @@ public sealed record RewardLife(BaseCreature Creature, Corpse Corpse, PlayerMobi
         }
         // Claim before cleanup or consumers. This saved flag also follows revivals.
         corpse.SanctuaryNoRewards = true;
+        bool bowCarrier = QuiverEquipment.BowCarrier(creature, corpse);
         if (ClassLootHooks.SuppressDrops(creature))
         {
             using var items = Server.Collections.PooledRefList<Item>.Create();
@@ -52,10 +55,15 @@ public sealed record RewardLife(BaseCreature Creature, Corpse Corpse, PlayerMobi
             Iolo.RecordKrulgDefeat(player, corpse);
         if (creature is CoveEncounter { OrcChief: true })
             CoveGateRune.Award(player);
+        if (creature is WrongEncounter { Role: WrongRole.Glokurg } && corpse.Map == Map.Trammel)
+            DungeonEntranceRunes.Award(player, DungeonEntranceRunes.Wrong, announceRepeat: false, announceMissingBook: false);
         if (creature is YewVampire)
             YewVampire.LeaveKeepsakes(player, corpse);
 
-        var life = new RewardLife(creature, corpse, player, CreatureProfiles.Level(creature), CreatureGold.GoldFind(player), GearDrops.MagicFind(player), MonsterVariants.Difficulty(creature));
+        var life = new RewardLife(creature, corpse, player, CreatureProfiles.Level(creature), CreatureGold.GoldFind(player), GearDrops.MagicFind(player), MonsterVariants.Difficulty(creature))
+        {
+            BowCarrier = bowCarrier
+        };
         if(CombatItemEvents.KillRecoveryAllowed(player,creature)){NamedCombat.Killed(player, creature);}
         corpse.SanctuaryRestInPeace |= CombatItemEvents.Allowed(player,creature) && creature.LastKiller == player && ClassGear.Bonus(player, "rip") > 0;
         if (creature is not EncounterCreature && CreatureGold.Policy(creature.GetType(), life.Difficulty) is not { Eligible: true })

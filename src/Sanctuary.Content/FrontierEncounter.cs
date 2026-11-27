@@ -87,7 +87,7 @@ public partial class FrontierEncounter : EncounterCreature
     private long _infernoAfter;
 
     internal static DungeonProfile FindSpecies(string id) => id == null ? null : _species.GetValueOrDefault(id);
-    internal static EncounterGrade OgreLordGrade(int roll) => roll < 10 ? EncounterGrade.Champion : EncounterGrade.Ordinary;
+    internal static EncounterGrade OgreLordGrade(int roll) => roll < Paragon.SpawnChance ? EncounterGrade.Champion : EncounterGrade.Ordinary;
     private static DungeonProfile Species(string id, string name, MonsterArchetype archetype, int min, int max, int body, int sound,
         CreatureResistances resistances) => new(id, id, name, archetype, "Britannia frontier", min, max, body, sound,
         new(resistances.Physical ?? 0, 0, resistances.Fire ?? 0, 0, resistances.Cold ?? 0, resistances.Poison ?? 0));
@@ -97,7 +97,7 @@ public partial class FrontierEncounter : EncounterCreature
     {
     }
 
-    // These spawners roll a new grade for each vacancy and share one elite slot per area.
+    // These spawners roll a new grade for each vacancy and share one Unique slot per area.
     [Constructible]
     public FrontierEncounter(string id, int level) : this(
         id == VesperUndead ? _vesperGraveyardUndead[Utility.Random(_vesperGraveyardUndead.Length)] : id,
@@ -112,6 +112,7 @@ public partial class FrontierEncounter : EncounterCreature
             throw new ArgumentOutOfRangeException(nameof(modifierCount));
 
         const MonsterDifficulty difficulty = MonsterDifficulty.Normal;
+        ParagonAlreadyRolled = rolledGrade.HasValue || id == DespiseOgreLord;
         var grade = rolledGrade ?? (id == Dragon ? EncounterGrade.SuperUnique : id == DespiseOgreLord ? OgreLordGrade(Utility.Random(100))
             : modifierCount > 0 ? EncounterGrade.Unique : EncounterGrade.Ordinary);
         int baseLevel = level - EncounterProfiles.Level(0, grade);
@@ -158,13 +159,24 @@ public partial class FrontierEncounter : EncounterCreature
 
     private static EncounterGrade RollPopulationGrade(string species)
     {
-        int roll = Utility.Random(100);
+        var grade = PopulationGrade(Utility.Random(100));
+        if (grade != EncounterGrade.Unique)
+            return grade;
+
         bool desert = IsDesert(species);
-        if (roll >= 10 || World.Mobiles.Values.OfType<FrontierEncounter>().Any(mob =>
-            !mob.Deleted && mob.Alive && mob.Grade is (EncounterGrade.Champion or EncounterGrade.Unique)
+        if (World.Mobiles.Values.OfType<FrontierEncounter>().Any(mob =>
+            !mob.Deleted && mob.Alive && mob.Grade == EncounterGrade.Unique
             && (desert ? IsDesert(mob.Dungeon.Id) : mob.VesperGraveyardDead)))
             return EncounterGrade.Ordinary;
-        return roll < 3 ? EncounterGrade.Unique : EncounterGrade.Champion;
+        return grade;
+    }
+
+    internal static EncounterGrade PopulationGrade(int roll)
+    {
+        const int uniqueChance = 3;
+        if (roll < uniqueChance)
+            return EncounterGrade.Unique;
+        return roll < uniqueChance + Paragon.SpawnChance ? EncounterGrade.Champion : EncounterGrade.Ordinary;
     }
 
     private static bool IsDesert(string id) => id?.StartsWith(Desert, StringComparison.Ordinal) == true;

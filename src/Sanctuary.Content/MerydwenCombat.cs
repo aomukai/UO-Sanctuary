@@ -188,10 +188,7 @@ public partial class Merydwen
         double physical = CompanionBuild.BowPhysicalDamage(this, bow, level, skillPercent);
         if (skill == CombatAbility.MultipleShot)
             physical *= 0.75;
-        var parts = DefensiveArmors.Absorb(target, new GearDamage(physical, 0, 0, 0, 0), this);
-        parts = parts with { Physical = GemCombat.Component(target, parts.Physical, target.PhysicalResistance, false) };
-        var settled = DirectDamageParts.From(parts);
-        SkillHealth.TypedDamage(this, target, checked((int)settled.Total), settled);
+        CompanionBuild.BowHit(this, target, new(physical, 0, 0, 0, 0));
         AmazonBowEffects.Contact(this, target, skill);
     }
 

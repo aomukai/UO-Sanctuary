@@ -16,6 +16,7 @@ public static class BritainBaseline
 {
     private const string MarkerName = "Sanctuary: Britain baseline v1";
     private static readonly Point3D _markerLocation = new(1438, 1696, 0);
+    private static readonly Point3D _trashBarrelLocation = new(1424, 1687, 0);
     private static readonly Rectangle2D _bounds = new(1400, 1620, 91, 101);
     private static readonly ILogger _logger = LogFactory.GetLogger(typeof(BritainBaseline));
     private static SpawnerDto[] _vendors;
@@ -57,6 +58,8 @@ public static class BritainBaseline
             _logger.Information("Britain baseline: installed {Count} decorations", decorations);
         }
 
+        EnsureTrashBarrel();
+
         var created = 0;
         foreach (var dto in _vendors)
         {
@@ -81,6 +84,20 @@ public static class BritainBaseline
 
         _logger.Information("Britain baseline: created {Count} vendor spawners", created);
         Report();
+    }
+
+    private static void EnsureTrashBarrel()
+    {
+        var map = Map.Felucca;
+        foreach (var barrel in map.GetItemsAt<TrashBarrel>(_trashBarrelLocation))
+        {
+            if (barrel.Z == _trashBarrelLocation.Z)
+            {
+                return;
+            }
+        }
+
+        new TrashBarrel().MoveToWorld(_trashBarrelLocation, map);
     }
 
     private static BaseSpawner FindSpawner(SpawnerDto dto)

@@ -3,6 +3,7 @@ using System;
 using ModernUO.Serialization;
 using Server;
 using Server.Engines.Spawners;
+using Server.Mobiles;
 
 namespace Sanctuary;
 
@@ -47,6 +48,6 @@ internal static class WrongSpawns
         spawner.WalkingRange = 4;
         spawner.SpawnLocationIsHome = true;
         foreach (var role in pool)
-            spawner.AddEntry(nameof(WrongEncounter), probability: 100, dotimer: false, parameters: $"{role} 10");
+            spawner.AddEntry(nameof(WrongEncounter), probability: 100, dotimer: false, parameters: $"{role} {Paragon.SpawnChance}");
     }
 }
