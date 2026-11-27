@@ -107,21 +107,49 @@ public static partial class Gambling
         }
         return output;
     }
-    internal static Item Generate(GambleOffer offer, Random random)
+    internal static Item Generate(GambleOffer offer, Random random) => GenerateOffer(offer, random, null);
+
+    private static Item GenerateOffer(GambleOffer offer, Random random, int? regionalLevelCap)
     {
         string code = Upgrade(offer.Code, offer.ItemLevel, random);
-        var quality = Quality(random);
-        if (quality is GambleQuality.Set or GambleQuality.Unique)
-        { return NamedGear.Generate(code, quality == GambleQuality.Unique ? GearRarity.Unique : GearRarity.Set, offer.ItemLevel, random, true, offer.Variant.Type); }
         var basis = EquipmentBalance.Base(code);
         var tier = Enum.Parse<GearTier>(basis.Tier);
+        if (regionalLevelCap is { } maximum && !FitsRegionalCap(basis, maximum))
+        {
+            code = offer.Code;
+            basis = EquipmentBalance.Base(code);
+            tier = Enum.Parse<GearTier>(basis.Tier);
+        }
+
+        var quality = Quality(random);
+        if (quality is GambleQuality.Set or GambleQuality.Unique)
+        {
+            var definition = NamedGear.Select(code, quality == GambleQuality.Unique ? GearRarity.Unique : GearRarity.Set,
+                offer.ItemLevel, random);
+            if (definition == null || regionalLevelCap is { } cap && NamedGear.Catalog.SourceRequiredLevel(definition.Id) > cap)
+                return null;
+
+            var named = NamedGear.Create(definition.Id, offer.ItemLevel, random, true, offer.Variant.Type);
+            try
+            {
+                ClassGear.Profiles.Store(named, ClassGear.State(named) with { Gambled = true });
+                return named;
+            }
+            catch { named.Delete(); throw; }
+        }
+
         var item = ItemOrigins.Create(ItemOrigin.Drop, () => EquipmentCrafting.Resolve(offer.Variant.Type).CreateInstance<Item>());
         try
         {
             item.LootType = LootType.Regular;
             var state = ClassGear.Profiles.FromMonster(item, offer.ItemLevel,
                 quality == GambleQuality.Rare ? GearRarity.Rare : GearRarity.Magic, code, tier, random);
-            ClassGear.Profiles.Store(item, state with { Identified = true });
+            if (regionalLevelCap is { } cap && state.Roll.RequiredLevel > cap)
+            {
+                item.Delete();
+                return null;
+            }
+            ClassGear.Profiles.Store(item, state with { Identified = true, Gambled = true });
             item.Name = ClassGear.AppearanceTitle(item, state);
             return item;
         }

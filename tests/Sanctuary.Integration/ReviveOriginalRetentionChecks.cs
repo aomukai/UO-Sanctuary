@@ -15,7 +15,7 @@ public static class ReviveOriginalRetentionChecks
     private sealed record Native(uint Corpse,uint Actor,string Type,int Strength,int Dexterity,int Intelligence,int MinDamage,int MaxDamage,int Loyalty,int Slots,int Physical,int Fire,int Cold,string[] Abilities,uint[] Loot);
     private sealed class OtherDeath:BaseCreature
     {
-        public OtherDeath():base(AIType.AI_Melee,FightMode.Closest,10,1){}
+        public OtherDeath():base(AIType.AI_Melee,FightMode.Closest,10,1){Body=50;SetHits(25);}
         public OtherDeath(Serial serial):base(serial){}
         public override void Serialize(IGenericWriter writer){base.Serialize(writer);writer.Write(0);}
         public override void Deserialize(IGenericReader reader){base.Deserialize(reader);if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown unused fixture version");}}
@@ -70,7 +70,10 @@ public static class ReviveOriginalRetentionChecks
         var control=new Skeleton();var oldCorpse=Kill(owner,control);
         Require(!control.Deleted&&!control.Alive&&control.Map==Map.Internal&&ReviveOriginals.Find(oldCorpse)==control,"Enabled learned route lost its original monster");
         oldCorpse.Delete();Require(control.Deleted,"Automatic retention leaked an original after corpse deletion");
-        Require(!ReviveOriginals.SupportedDeathPath(typeof(OtherDeath)),"Unknown derived death side effects were silently accepted");
+        var derived=new OtherDeath();var derivedCorpse=Kill(owner,derived);
+        Require(ReviveOriginals.Find(derivedCorpse)==derived&&ReviveOriginals.State(derivedCorpse).NativeOnly,
+            "A custom death override that delegates to BaseCreature did not retain its original");
+        derivedCorpse.Delete();
         var capture=ClassLootHooks.RetainOriginal;ClassLootHooks.RetainOriginal=ReviveOriginals.Capture;
         var rows=new System.Collections.Generic.List<Native>();var breathTarget=new PlayerMobile{Name="RetentionBreathTarget",Player=true,Body=0x190};breathTarget.RawStr=10000;breathTarget.Hits=breathTarget.HitsMax;breathTarget.MoveToWorld(new(owner.X+2,owner.Y,owner.Z),owner.Map);
         try

@@ -44,7 +44,7 @@ The development installation uses **ClassicUO**, **ModernUO** and separately ins
 ./dev launcher
 ```
 
-Click **Play** to install the latest built content and data, start the server, and open the client. **Save & Shut Down** closes the game and waits for the server to write the world save. Closing ClassicUO or the launcher window also saves and stops the local server. The Linux launcher uses X11 or XWayland, Tkinter, and Python Xlib (`python3-tk` and `python3-xlib` on Ubuntu). Logs go to `.local/logs/launcher-server.log` and `.local/logs/launcher-client.log`.
+Click **Play** to open ClassicUO. If the server is stopped, the launcher first installs the latest built content and data and starts it. Closing ClassicUO or the launcher leaves the server running. Click **Save & Shut Down** to save the world and stop the local server, including after reopening the launcher. The Linux launcher uses X11 or XWayland, Tkinter, and Python Xlib (`python3-tk` and `python3-xlib` on Ubuntu). Logs go to `.local/logs/launcher-server.log` and `.local/logs/launcher-client.log`.
 
 To run the server from a terminal, including for first-time owner account setup, use:
 

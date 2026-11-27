@@ -108,7 +108,9 @@ public enum NpcPortrait : ushort
     Celeste,
     CelesteArmored,
     ShameGhostCaptain,
-    ShameFleetCaptain
+    ShameFleetCaptain,
+    FireIslandSkipper,
+    DaggerIsleSkipper
 }
 
 public static class DespiseClue
@@ -176,7 +178,7 @@ public static class PortraitProtocol
     public const ushort FirstStandaloneNpcPortrait = (ushort)NpcPortrait.Garran;
     public const ushort FirstTrainerPortrait = 256;
     public const int TrainerPortraitGrid = 6, TrainerPortraitsPerSheet = TrainerPortraitGrid * TrainerPortraitGrid;
-    public const int TrainerPortraitSheets = 13;
+    public const int TrainerPortraitSheets = 14;
     public const int ReplyPacketLength = 11;
     public const int InteractPacketLength = 10;
     public const int ShopTabPacketLength = 12;

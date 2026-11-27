@@ -41,7 +41,7 @@ internal sealed class MageWorld(NecromancerMinion body,Func<string> read,Action<
     }
     internal NecromancerPetAiTarget Primary(PlayerMobile owner,IronGolemWorldState state)
     {
-        var choice=NpcRangedTargets.Select(body,IronGolemWorld.Cell(state),target=>IronGolemWorld.Eligible(body,owner,target),target=>PrimaryPath(state,target),Footprint);
+        var choice=NpcRangedTargets.Select(body,IronGolemWorld.Cell(state),target=>IronGolemWorld.Eligible(body,owner,target),target=>PrimaryPath(state,target),Footprint,PetCombatRanges.BonusTiles);
         if(choice==null){return new(0,0,false);}var target=WorldFind((uint)choice.Candidate.Serial);
         return new((int)choice.Candidate.Serial,choice.Distance,IronGolemWorld.Melee(body,state,target,0));
     }

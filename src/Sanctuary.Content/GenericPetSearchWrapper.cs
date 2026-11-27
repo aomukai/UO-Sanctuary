@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Sanctuary;
 
 internal sealed record GenericPetSearchWrapperUnit(GenericPetSearchUnit Unit,int PathTarget,uint Flags128);
-internal sealed record GenericPetSearchWrapperContext(byte GameSelector,int Pet,int Owner,GenericPetParameters Parameters,IReadOnlyList<GenericPetSearchSwarm> Swarm);
+internal sealed record GenericPetSearchWrapperContext(byte GameSelector,int Pet,int Owner,GenericPetParameters Parameters,IReadOnlyList<GenericPetSearchSwarm> Swarm,int MaximumDistanceSquared=1024);
 internal sealed record GenericPetSearchWrapperServices(Func<int,GenericPetSearchWrapperUnit> Unit,
     Action<int> Refresh371b10,GenericPetSearchStateServices Metadata,GenericPetSearchServices Callback,
     Action<int,GenericPetSearchContext,byte,Func<int,int>> Traverse40d9f0);
@@ -69,7 +69,7 @@ internal static class GenericPetSearchWrapper
                 bias=input.Owner;
             }
         }
-        var c=new GenericPetSearchContext{GameSelector=input.GameSelector,Mask=mask,Owner=input.Owner,Bias=bias,Parameters=input.Parameters,Grid=GenericPetSearchGrid.Create(),Swarm=input.Swarm??[]};
+        var c=new GenericPetSearchContext{GameSelector=input.GameSelector,Mask=mask,Owner=input.Owner,Bias=bias,Parameters=input.Parameters,MaximumDistanceSquared=input.MaximumDistanceSquared,Grid=GenericPetSearchGrid.Create(),Swarm=input.Swarm??[]};
         if((mask&32)!=0)
         {
             var prepared=new GenericPetSearchStates();prepared.Prepare(input.GameSelector,rows,s.Metadata);

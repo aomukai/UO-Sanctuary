@@ -11,7 +11,8 @@ using Server.Network;
 namespace Sanctuary;
 
 public enum MarketRole { Smith, Tailor, Bowyer, Carpenter, Alchemist, Cook, Cartographer, Scribe, Tinker, Imbuer, Miner, Lumberjack, Fisher, Jeweller, Provisioner, Scholar }
-public sealed record MarketSite(string Id, string Town, string Map, MarketRole Role, int X, int Y, int Z, string Source, bool SharedWorkshop, bool Relocate = false);
+public sealed record MarketSite(string Id, string Town, string Map, MarketRole Role, int X, int Y, int Z, string Source,
+    bool SharedWorkshop, bool Relocate = false, bool FixedPosition = false);
 public sealed record MarketSettings(int OrdinaryItemLevel, int BritainItemLevel, int WhiteOffers, int MagicOffers,
     int RefreshMinutes, int WhitePriceMultiplier, int MagicPriceMultiplier, int VendorResalePercent,
     int NormalMin, int NormalMax, int ExceptionalMin, int ExceptionalMax, int EliteMin, int EliteMax);

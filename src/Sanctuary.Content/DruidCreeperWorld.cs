@@ -80,9 +80,9 @@ internal static class DruidCreeperWorld
     private static Mobile Target(DruidCreeperBody body,PlayerMobile owner,CreeperWorldState s)
     {
         var prior=World.FindMobile((Serial)s.Target);
-        if(Eligible(body,owner,prior) && body.InLOS(prior) && DruidWolfGeometry.NoSize(Cell(s),PetOwnerRoutes.Cell(prior))<20){return prior;}
-        Mobile result=null;int best=20;
-        foreach(var candidate in body.Map.GetMobilesInRange<BaseCreature>(body.Location,12))
+        if(Eligible(body,owner,prior) && body.InLOS(prior) && DruidWolfGeometry.NoSize(Cell(s),PetOwnerRoutes.Cell(prior))<20+PetCombatRanges.BonusSourceCells){return prior;}
+        Mobile result=null;int best=20+PetCombatRanges.BonusSourceCells;
+        foreach(var candidate in body.Map.GetMobilesInRange<BaseCreature>(body.Location,12+PetCombatRanges.BonusTiles))
         {
             if(!Eligible(body,owner,candidate) || !body.InLOS(candidate)){continue;}
             int distance=DruidWolfGeometry.NoSize(Cell(s),PetOwnerRoutes.Cell(candidate));
@@ -150,7 +150,7 @@ internal static class DruidCreeperWorld
         }
         var services=new PetMoveServices(Action,p=>PetGroundWorld.Room(body,p),p=>DruidWolfGeometry.NoSize(Cell(s),p),DruidWolfGeometry.Offset,
             ()=>Draw(ref s),()=>(int)(Draw(ref s)%100),()=>Point(body,ownerCell,out _)?ownerCell:null,p=>PetGroundWorld.Room(body,p)!=0);
-        bool Common(int target,bool combat,int flag,int leash)=>SourcePetMovement.Common(Context(),services,target!=0,SpellHelper.IsTown(body.Location,owner),combat,flag,leash);
+        bool Common(int target,bool combat,int flag,int leash)=>SourcePetMovement.Common(Context(),services,target!=0,SpellHelper.IsTown(body.Location,owner),combat,flag,leash,PetCombatRanges.BonusSourceCells);
         bool Move(int kind,bool run,int speed,int leash)=>SourcePetMovement.Move(Context(),services,kind,run,speed,leash);
         CreeperAiTarget Find()
         {
@@ -177,7 +177,7 @@ internal static class DruidCreeperWorld
         try
         {
             var ai=DruidCreeperAi.Think(new(true,DruidWolfGeometry.UnitDistance(Cell(s),ownerCell,0,2),SpellHelper.IsTown(body.Location,owner),
-                checked(s.GameBase+s.Frame),294,8,body.SummonDifficulty),s.Ai,
+                checked(s.GameBase+s.Frame),294,8,body.SummonDifficulty,PetCombatRanges.BonusSourceCells),s.Ai,
                 new(Request,Common,Move,Find,id=>PoisonStates.Active(World.FindMobile((Serial)(uint)id),at),id=>World.FindMobile((Serial)(uint)id)?.PoisonResistance??0,Skill));
             s=s with{Ai=ai};
         }

@@ -87,11 +87,14 @@ public static class DestardBounty
 [SerializationGenerator(0)]
 public partial class DestardQueen : ConversationNpc
 {
-    private static readonly ScriptedDialogue.Reply _payment =
-        new("Turn In Daemon Horns", 0, (player, speaker) => ((DestardQueen)speaker).Pay(player));
+    private static readonly ScriptedDialogue.Reply[] _exchange =
+    [
+        new("Exchange for Gold", 0, (player, speaker) => ((DestardQueen)speaker).Pay(player)),
+        RegionalGambling.ExchangeItems
+    ];
     private static readonly ScriptedDialogue.Node[] _victory =
     [
-        new("Thou hast freed our home. My brood can return to its halls, and for that thou hast my thanks. Daemons still linger here. I will pay one hundred gold for each horn thou bringest me.", [_payment])
+        new("Thou hast freed our home. My brood can return to its halls, and for that thou hast my thanks. Daemons still linger here. I will pay one hundred gold for each horn thou bringest me.", _exchange)
     ];
 
     [Constructible]
@@ -108,7 +111,7 @@ public partial class DestardQueen : ConversationNpc
     internal override ushort Portrait => (ushort)NpcPortrait.DestardQueen;
     internal override IReadOnlyList<ScriptedDialogue.Node> Script =>
     [
-        new("My brood hears a voice from below, and its servants crawl over our stones. Bring me their horns. I will give thee one hundred gold for each.", [_payment])
+        new("My brood hears a voice from below, and its servants crawl over our stones. Bring me their horns. I will give thee one hundred gold for each.", _exchange)
     ];
 
     internal override void BeginConversation(PlayerMobile player)
@@ -144,7 +147,7 @@ public partial class DestardQueen : ConversationNpc
         int count = pack.GetAmount(typeof(DaemonHorn));
         if (count <= 0 || !pack.ConsumeTotal(typeof(DaemonHorn), count))
         {
-            ScriptedDialogue.Show(player, this, [new("Thou hast brought no horns. I pay for those of the lesser daemons, daemons, and archdaemons.", [_payment])]);
+            ScriptedDialogue.Show(player, this, [new("Thou hast brought no horns. I pay for those of the lesser daemons, daemons, and archdaemons.", _exchange)]);
             return;
         }
 
@@ -152,13 +155,16 @@ public partial class DestardQueen : ConversationNpc
         for (long remaining = reward; remaining > 0; remaining -= 60000)
             pack.DropItem(new Gold((int)Math.Min(remaining, 60000)));
 
+        bool wasUnlocked = RegionalGambling.Destard.Unlocked(player);
         var favor = DestardBounty.Record(player, count);
         string horns = favor.Horns == 1 ? "horn" : "horns";
-        string thanks = BritanniaCampaign.Has(player, CampaignProgress.Diablo)
-            ? "The voice is gone, yet its servants remain. I still honour our bargain."
-            : "Thou hast my thanks.";
+        string thanks = !wasUnlocked && favor.Horns >= RegionalGambling.UnlockCount
+            ? "Thou hast done a great service for my brood. From now on, thou mayest exchange thy horns for gear from our stores."
+            : BritanniaCampaign.Has(player, CampaignProgress.Diablo)
+                ? "The voice is gone, yet its servants remain. I still honour our bargain."
+                : "Thou hast my thanks.";
         ScriptedDialogue.Show(player, this,
-            [new($"Here is thy {reward:N0} gold. Thou hast brought me {favor.Horns:N0} {horns} in all. {thanks}", [_payment])]);
+            [new($"Here is thy {reward:N0} gold. Thou hast brought me {favor.Horns:N0} {horns} in all. {thanks}", _exchange)]);
     }
 }
 

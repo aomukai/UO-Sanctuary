@@ -4,21 +4,25 @@ import fcntl
 import ipaddress
 import json
 import os
+from pathlib import Path
 import pty
 from queue import Empty, SimpleQueue
 import re
+import select
 import socket
 import subprocess
 import termios
 from tempfile import NamedTemporaryFile
 from threading import Event, Thread
 import time
+from uuid import uuid4
 
 
 STATUS_COMMAND = "sanctuary-status"
 STATUS_REPLY = "Britain baseline status:"
 SAVE_DONE = "Writing world save snapshot done"
 SAVE_FAILURES = ("Preparing to save world failed", "Saving world failed", "Writing world save snapshot failed")
+SERVER_RESTART_EXIT_CODE = 75
 ANSI = re.compile(r"\x1b\[[0-?]*[ -/]*[@-~]")
 
 
@@ -109,13 +113,14 @@ def request_client_quit(pid):
 class LocalGame:
     def __init__(self, local, prepare_launch, command_environment):
         self.logs = local / "logs"
+        self.server_folder = (local / "server").resolve()
+        self.control = self.server_folder / ".launcher-control"
         self.prepare_launch = prepare_launch
         self.command_environment = command_environment
         self.server = None
         self.client = None
         self.console = None
         self.output = None
-        self.ready = False
         self.snapshot_in_progress = False
         self.shutdown_requested = False
 
@@ -133,18 +138,55 @@ class LocalGame:
     def log_path(self, name):
         return self.logs / f"launcher-{name}.log"
 
+    def control_status(self):
+        try:
+            status = json.loads((self.control / "status.json").read_text())
+            if isinstance(status, dict) and type(status.get("pid")) is int and status["pid"] > 0 \
+                    and isinstance(status.get("instance"), str) and re.fullmatch("[0-9a-f]{32}", status["instance"]):
+                return status
+        except (OSError, ValueError):
+            pass
+        return None
+
+    def running_server(self):
+        status = self.control_status()
+        if status is not None:
+            process = Path("/proc") / str(status["pid"])
+            try:
+                arguments = (process / "cmdline").read_bytes().split(b"\0")
+                if (process / "cwd").resolve(strict=True) == self.server_folder and any(
+                    os.path.basename(arg) in (b"ModernUO", b"ModernUO.dll") for arg in arguments[:3]
+                ):
+                    return status
+            except OSError:
+                pass
+        return None
+
+    def server_running(self):
+        return (self.server is not None and self.server.poll() is None) or self.running_server() is not None
+
     def play(self, progress, closing):
-        server = self.prepare_launch("server")
+        server_spec = None if self.server_running() else self.prepare_launch("server")
         client_argv, client_folder, client_env = self.prepare_launch("client")
+        client = client_argv, client_folder, {**client_env, "SDL_VIDEODRIVER": "x11"}
         addresses = local_addresses(client_folder / "settings.json")
+        if server_spec is None:
+            if not any(map(socket_open, addresses)):
+                raise RuntimeError("The local server is still starting or shutting down.")
+            if not closing.is_set():
+                progress("Opening ClassicUO…")
+                self.client = self.spawn(client, "client", subprocess.DEVNULL)
+            return
         if any(map(socket_open, addresses)):
             raise ValueError("The local game port is already in use. Close the other server and try again.")
 
+        server_argv, server_folder, server_env = server_spec
         self.console, terminal = pty.openpty()
         try:
             flags = termios.tcgetattr(terminal)
             flags[3] &= ~(termios.ECHO | termios.ECHONL)
             termios.tcsetattr(terminal, termios.TCSANOW, flags)
+            server = server_argv, server_folder, {**server_env, "MODERNUO_RESTART_EXIT_CODE": str(SERVER_RESTART_EXIT_CODE)}
             self.server = self.spawn(server, "server", terminal)
         except (OSError, termios.error):
             self.release_server()
@@ -164,17 +206,10 @@ class LocalGame:
             self.stop_startup()
             raise
 
-        self.ready = True
-        if closing.is_set():
-            return self.stop(progress)
-        progress("Opening ClassicUO…")
-        try:
+        if not closing.is_set():
+            progress("Opening ClassicUO…")
             # Tk and the client use the same X11 display, including on XWayland.
-            client = client_argv, client_folder, {**client_env, "SDL_VIDEODRIVER": "x11"}
             self.client = self.spawn(client, "client", subprocess.DEVNULL)
-        except OSError:
-            self.stop(progress)
-            raise
 
     def stop_startup(self):
         # A startup failure can leave the server blocked on an interactive setup prompt.
@@ -189,9 +224,6 @@ class LocalGame:
     def stop(self, progress):
         if self.shutdown_requested:
             return self.finish_shutdown(progress)
-        if not self.ready:
-            self.stop_startup()
-            return "Startup stopped."
 
         client_status = None
         if self.client is not None:
@@ -209,9 +241,15 @@ class LocalGame:
             client_status = self.client.returncode
             self.client = None
 
-        if self.server is None or self.server.poll() is not None:
+        server_status = self.server.poll() if self.server is not None else None
+        if server_status is not None:
             self.release_server()
-            raise RuntimeError("ModernUO exited before the launcher could save the world.")
+        if self.server is None:
+            if self.running_server() is not None:
+                return self.stop_running_server(progress)
+            if server_status == SERVER_RESTART_EXIT_CODE:
+                return "ModernUO stopped. Select Play to load the last completed world save."
+            raise RuntimeError("There is no running local server to shut down.")
 
         progress("Saving the world…")
         self.sync_console()
@@ -228,6 +266,49 @@ class LocalGame:
         if client_status:
             return f"{result} ClassicUO exited with code {client_status}."
         return result
+
+    def stop_running_server(self, progress):
+        server = self.running_server()
+        if server is None:
+            raise RuntimeError("There is no running local server to shut down.")
+
+        request = uuid4().hex
+        pid = os.pidfd_open(server["pid"])
+        try:
+            exit_poll = select.poll()
+            exit_poll.register(pid, select.POLLIN)
+            if exit_poll.poll(0):
+                raise RuntimeError("ModernUO has already stopped.")
+
+            progress("Saving the world…")
+            with NamedTemporaryFile("w", dir=self.control, encoding="utf-8", delete=False) as output:
+                pending = output.name
+                output.write(f"{server['instance']}\n{request}\n")
+            try:
+                os.replace(pending, self.control / "shutdown.request")
+            finally:
+                if os.path.exists(pending):
+                    os.unlink(pending)
+
+            saved = False
+            deadline = time.monotonic() + 120
+            while time.monotonic() < deadline:
+                stopped = bool(exit_poll.poll(100))
+                status = self.control_status()
+                if status is not None and status["instance"] == server["instance"] and status.get("request") == request:
+                    if status.get("state") == "failed":
+                        raise RuntimeError("The world save failed. ModernUO is still running.")
+                    if status.get("state") == "saved" and not saved:
+                        saved = True
+                        progress("Shutting down ModernUO…")
+                if stopped:
+                    if saved:
+                        return "World saved."
+                    raise RuntimeError("ModernUO exited before acknowledging the save.")
+            raise RuntimeError("The world was saved. ModernUO is still shutting down." if saved
+                               else "Timed out waiting for the local server to save the world.")
+        finally:
+            os.close(pid)
 
     def finish_shutdown(self, progress):
         progress("Shutting down ModernUO…")
@@ -246,7 +327,6 @@ class LocalGame:
         if self.output is not None:
             self.output.close()
         self.console = self.output = self.server = None
-        self.ready = False
         self.snapshot_in_progress = False
         self.shutdown_requested = False
 
@@ -343,7 +423,8 @@ def run_launcher(local, prepare_launch, command_environment):
         def run_task(action, text):
             nonlocal busy
             busy = True
-            button.state(["disabled"])
+            play_button.state(["disabled"])
+            stop_button.state(["disabled"])
             for choice in language_choices:
                 choice.state(["disabled"])
             status.set(text)
@@ -358,25 +439,23 @@ def run_launcher(local, prepare_launch, command_environment):
 
             Thread(target=worker, daemon=True).start()
 
-        def play_or_stop():
-            if game.server is None:
-                choice = language.get()
+        def play():
+            choice = language.get()
 
-                def start(progress):
-                    save_language(settings_path, choice)
-                    return game.play(progress, closing)
+            def start(progress):
+                save_language(settings_path, choice)
+                return game.play(progress, closing)
 
-                run_task(start, "Starting ModernUO…")
-            else:
-                run_task(game.stop, "Saving and shutting down…")
+            run_task(start, "Opening the local game…")
+
+        def stop():
+            run_task(game.stop, "Saving and shutting down…")
 
         def close_window():
             closing.set()
             if not busy:
-                if game.server is None:
-                    window.destroy()
-                else:
-                    play_or_stop()
+                game.release_server()
+                window.destroy()
 
         def poll():
             nonlocal busy
@@ -389,26 +468,33 @@ def run_launcher(local, prepare_launch, command_environment):
                 if kind == "progress":
                     continue
                 busy = False
-                button.configure(text="Play" if game.server is None else "Save & Shut Down")
-                button.state(["!disabled"])
-                for choice in language_choices:
-                    choice.state(["!disabled" if game.server is None else "disabled"])
-                if kind == "error":
-                    closing.clear()
 
             if not busy:
-                if closing.is_set() and game.server is None:
-                    window.destroy()
+                if closing.is_set():
+                    close_window()
                     return
-                client_exited = game.client is not None and game.client.poll() is not None
-                server_exited = game.server is not None and game.server.poll() is not None
-                if closing.is_set() or client_exited or server_exited:
-                    play_or_stop()
-            window.after(100, poll)
+                server_exited = game.server.poll() if game.server is not None else None
+                if server_exited is not None:
+                    game.release_server()
+                    status.set("ModernUO stopped. Select Play to load the last completed world save.")
+                if game.client is not None and game.client.poll() is not None:
+                    game.client = None
+                    if game.server_running():
+                        status.set("ClassicUO closed. The local server is still running.")
+                play_button.state(["!disabled" if game.client is None else "disabled"])
+                stop_button.state(["!disabled" if game.server_running() else "disabled"])
+                for choice in language_choices:
+                    choice.state(["!disabled" if game.client is None else "disabled"])
+            window.after(200, poll)
 
-        button = ttk.Button(panel, text="Play", command=play_or_stop, width=22)
-        button.grid()
-        button.focus_set()
+        play_button = ttk.Button(panel, text="Play", command=play, width=22)
+        play_button.grid(pady=(0, 5))
+        stop_button = ttk.Button(panel, text="Save & Shut Down", command=stop, width=22)
+        stop_button.grid()
+        stop_button.state(["!disabled" if game.server_running() else "disabled"])
+        if game.server_running():
+            status.set("Local server is running.")
+        play_button.focus_set()
         window.protocol("WM_DELETE_WINDOW", close_window)
         window.after(100, poll)
         window.mainloop()

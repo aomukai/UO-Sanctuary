@@ -35,9 +35,12 @@ public static class PersistentMinions
     {
         Profiles = new();
         ClassCombatHooks.PersistentMinion = pet => Behavior(pet)!=null;
+        ClassCombatHooks.PetCombatRangeBonus = pet => pet.ControlMaster is PlayerMobile && Behavior(pet) != null
+            ? PetCombatRanges.BonusTiles : 0;
         ClassCombatHooks.GuardTarget = (pet,target) => Behavior(pet)==null?MercenaryCare.GuardTarget(pet,target):
-            pet is{Alive:true,Deleted:false,Blessed:false}&&Behavior(pet).CanActivate&&pet.ControlMaster is PlayerMobile{Alive:true,Deleted:false,NetState:not null} owner
+            pet is{Alive:true,Deleted:false,Blessed:false}&&Behavior(pet).CanActivate&&pet.ControlMaster is PlayerMobile{Alive:true,Deleted:false,NetState:not null,Map:not null} owner
             &&owner.Map==pet.Map&&pet.Map!=Map.Internal&&Active(owner,pet)&&Permitted(owner,pet,Behavior(pet).SummonClass)
+            &&target?.Map==owner.Map&&owner.InRange(pet,pet.ChaseLeashRange)&&owner.InRange(target,pet.ChaseLeashRange)
             &&!MinionSafeAreas.ShouldPark(owner,pet)&&ClassCombat.IsHostile(owner,target)&&ClassCombatHooks.TargetAllowed?.Invoke(pet,target)!=false;
         ClassCombatHooks.SuspendMinions = Suspend;
         ClassCombatHooks.ResumeMinions = owner =>
@@ -46,6 +49,7 @@ public static class PersistentMinions
             Resume(owner);
         };
         ClassMapHooks.TeleportFollowers = TeleportFollowers;
+        ClassCombatHooks.Walked = PetStairTravel.Walked;
         EventSink.Disconnected += OnDisconnected;
     }
 
@@ -238,14 +242,19 @@ public static class PersistentMinions
                 snapshot.Add(pet);
 
         foreach (var pet in snapshot)
-        {
-            Behavior(pet)?.SuspendActions();
-            pet.Combatant = null;
-            pet.FocusMob = null;
-            pet.Warmode = false;
-            pet.AIObject?.ResetApproachState();
-            pet.MoveToWorld(FindPosition(map, landing, Visible, out var spot) ? spot : landing, map);
-        }
+            MoveFollower(pet, landing, map, Visible);
+    }
+
+    internal static void MoveFollower(BaseCreature pet, Point3D destination, Map map, Func<Point3D, bool> placement = null)
+    {
+        Behavior(pet)?.SuspendActions();
+        pet.Combatant = null;
+        pet.FocusMob = null;
+        pet.Warmode = false;
+        pet.AIObject?.ResetApproachState();
+        if (placement != null && FindPosition(map, destination, placement, out var spot))
+            destination = spot;
+        pet.MoveToWorld(destination, map);
     }
 
     internal static bool FindPosition(PlayerMobile owner, out Point3D point) =>

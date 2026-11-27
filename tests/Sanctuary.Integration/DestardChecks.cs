@@ -134,8 +134,6 @@ public static class DestardChecks
         var corpse = (Corpse)creature.Corpse;
         var reward = new RewardLife(creature, corpse, player, creature.Basis.Level, 0, 0, MonsterDifficulty.Hell);
         EncounterTreasure.Award(reward, creature, new HornRoll(9));
-        Require(corpse.GetAmount(typeof(DaemonHorn)) == 0);
-        EncounterTreasure.Award(reward, creature, new HornRoll(8));
         Require(corpse.GetAmount(typeof(DaemonHorn)) == (expected ? 1 : 0));
         corpse.Delete();
     }

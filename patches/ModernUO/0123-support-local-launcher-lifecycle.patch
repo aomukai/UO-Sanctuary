@@ -1,0 +1,33 @@
+diff --git a/Projects/Server/Main.cs b/Projects/Server/Main.cs
+--- a/Projects/Server/Main.cs
++++ b/Projects/Server/Main.cs
+@@ -636,7 +636,8 @@
+         _lateWakePercent = Math.Clamp(lateWakePercent, 0, 100);
+ 
+         // Unix truncates exit codes to a byte, so anything outside 1-255 cannot be told apart reliably.
+-        var restartExitCode = ServerConfiguration.GetSetting("server.restartExitCode", 0);
++        var restartExitCode = int.TryParse(Environment.GetEnvironmentVariable("MODERNUO_RESTART_EXIT_CODE"), out var exitCode)
++            ? exitCode : ServerConfiguration.GetSetting("server.restartExitCode", 0);
+         if (restartExitCode is < 0 or > 255)
+         {
+             logger.Warning(
+diff --git a/Projects/Server/World/World.cs b/Projects/Server/World/World.cs
+--- a/Projects/Server/World/World.cs
++++ b/Projects/Server/World/World.cs
+@@ -110,6 +110,8 @@
+     public static TimeSpan LoadTimeShift { get; internal set; }
+     public static bool Running => WorldState is not WorldState.Loading and not WorldState.Initial;
+     public static bool Loading => WorldState == WorldState.Loading;
++    private static long _completedSaves;
++    public static long CompletedSaves => Interlocked.Read(ref _completedSaves);
+ 
+     public static void Configure()
+     {
+@@ -398,6 +400,7 @@
+ 
+             Persistence.WriteSnapshotAll(snapshotPath);
+             PublishSnapshot(snapshotPath);
++            Interlocked.Increment(ref _completedSaves);
+ 
+             watch.Stop();
+             logger.Information("Writing world save snapshot {Status} ({Duration:F2} seconds)", "done", watch.Elapsed.TotalSeconds);

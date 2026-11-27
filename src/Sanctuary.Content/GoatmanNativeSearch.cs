@@ -37,12 +37,13 @@ internal sealed class GoatmanNativeSearch
         _=DemonPathWorld.Size(body);
         Body=body;Owner=owner;Map=body.Map;Identity=new(DeathMarkWorld.Header(body).Capture().Game);
         _=ReviveMeleeGeometry.Unit(body);var cell=Position(Id(body));var(px,py)=cell.Coordinates();
+        const int range = 32 + PetCombatRanges.BonusSourceCells;
         int gx=px/32,gy=py/32;var adjacent=new List<int>();
-        for(int y=gy-1;y<=gy+1;y++)for(int x=gx-1;x<=gx+1;x++)
+        for(int y=Math.Min(gy-1,(py-range)/32);y<=Math.Max(gy+1,(py+range)/32);y++)
+        for(int x=Math.Min(gx-1,(px-range)/32);x<=Math.Max(gx+1,(px+range)/32);x++)
         {if(x>=0&&y>=0&&x*32<Map.Width*2&&y*32<Map.Height*2){int room=GenericPetNativePlacement.RoomHandle(Map,x*32,y*32);Members.Add(room,[]);adjacent.Add(room);}}
         Adjacent=adjacent.ToArray();
-        // This encloses every cell of the three-by-three room projection,
-        // including source/native rounding at the edge of the actor's room.
+        // Include the adjacent rooms and the extended scan at their boundaries.
         var mobiles=SkillCombat.NearbySnapshot<Mobile>(Map,body.Location,33).Where(m=>m is PlayerMobile or BaseCreature)
             .Append(owner).Append(body).DistinctBy(m=>m.Serial).Where(m=>!m.Deleted&&m.Map==Map).OrderBy(m=>m.Serial.Value).ToArray();
         foreach(var group in mobiles.GroupBy(m=>Room(Id(m))))

@@ -13,6 +13,7 @@ internal sealed class GenericPetSearchContext
 {
     internal byte GameSelector;
     internal int Mask,Owner,Bias;
+    internal int MaximumDistanceSquared=1024;
     internal GenericPetParameters Parameters;
     internal int Target20,Target28,Target30,Target38,Target40;
     internal GenericPetSearchCell[] Grid;
@@ -53,7 +54,7 @@ internal static class GenericPetSearch
         unchecked
         {
             int distance=D(pet,target),ownerDistance=c.Owner!=0?D(c.Owner,target):0;
-            bool far=distance>1024;if(far&&c.Owner!=0&&ownerDistance>1024){return 0;}
+            bool far=distance>c.MaximumDistanceSquared;if(far&&c.Owner!=0&&ownerDistance>c.MaximumDistanceSquared){return 0;}
             bool dead=Dead(u),flag4=(u.Flags124&4)!=0,canRanged=false,canMelee=false;
             if(!far&&c.Mask!=0)
             {

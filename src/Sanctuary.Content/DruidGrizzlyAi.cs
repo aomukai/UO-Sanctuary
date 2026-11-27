@@ -31,16 +31,17 @@ internal static class DruidGrizzlyAi
             else{A(0,10);}
             return c.RememberedOwner;
         }
-        if(c.OwnerDistance>50){s.PetMove(3,false,0,0);return c.OwnerId;}
+        int target=c.Primary!=0&&c.PrimaryVisible?c.Primary
+            :c.Potential!=0&&c.PotentialDistance<28+c.RangeBonus&&c.PotentialVisible?c.Potential:0;
+        int leashBonus=target!=0?c.RangeBonus:0;
+        if(c.OwnerDistance>50+leashBonus){s.PetMove(3,false,0,0);return c.OwnerId;}
         int velocity=c.Velocity<=0?100:Math.Min(checked(100*c.Run)/c.Velocity-100,100);
-        if(c.OwnerDistance>28){s.PetMove(0,false,100,0);return c.OwnerId;}
-        if(c.OwnerDistance>18)
+        if(c.OwnerDistance>28+leashBonus){s.PetMove(0,false,100,0);return c.OwnerId;}
+        if(c.OwnerDistance>18+leashBonus)
         {
             if(c.OwnerMode is 2 or 6&&s.PetMove(0,false,0,0)){return c.OwnerId;}
             if(c.OwnerMode==3&&s.PetMove(0,false,100,0)){return c.OwnerId;}
         }
-        int target=c.Primary!=0&&c.PrimaryVisible?c.Primary
-            :c.Potential!=0&&c.PotentialDistance<28&&c.PotentialVisible?c.Potential:0;
         if(c.Combat&&target!=0)
         {
             if(Chance(3)){A(15,326,target);}

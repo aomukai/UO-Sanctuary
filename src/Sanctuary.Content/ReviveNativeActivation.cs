@@ -17,7 +17,8 @@ public sealed record ReviveNativeSetup(int Rank,int MaximumLife,int Life,int Man
     [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string EquipmentEventProfile=null,
     [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string EquipmentIncomingProfile=null,
     [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string EquipmentGraphProfile=null,
-    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string EquipmentSwingProfile=null);
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string EquipmentSwingProfile=null,
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)] bool NativeCombat=false);
 public sealed record ReviveNativeState(uint Actor,uint Owner,ReviveOriginalState Original,ReviveNativeSetup Setup,long Order,MonsterDifficulty Difficulty,int? SavedLife256=null,ReviveFacetPlan FacetPlan=null);
 public sealed class ReviveNativeProfiles:GenericPersistence
 {
@@ -40,10 +41,13 @@ public static class ReviveNativeActivation
     public static void Configure()
     {
         Profiles=new();PersistentMinions.RegisterBehavior(Behavior);
+        var support=ClassCombatHooks.CreatureSupportAllowed;
+        ClassCombatHooks.CreatureSupportAllowed=actor=>SupportAllowed(actor)&&support?.Invoke(actor)!=false;
         var mana=ClassGearHooks.CanRegenerateMana;var stamina=ClassGearHooks.CanRegenerateStamina;
         ClassGearHooks.CanRegenerateMana=actor=>NativeRecovery(actor)&&mana?.Invoke(actor)!=false;
         ClassGearHooks.CanRegenerateStamina=actor=>NativeRecovery(actor)&&stamina?.Invoke(actor)!=false;
     }
+    internal static bool SupportAllowed(BaseCreature actor)=>State(actor)==null;
     private static bool NativeRecovery(Mobile actor)=>actor is not BaseCreature creature||State(creature)==null||CanAct(creature);
     public static void Initialize()
     {
@@ -59,6 +63,7 @@ public static class ReviveNativeActivation
         ?row with{SavedLife256=SkillHealth.Balance256(actor)}:row).ToArray();
     private static bool ValidSetup(ReviveNativeSetup setup)
         =>setup is{Rank:>0 and <=255,MaximumLife:>0,Life:>0,Mana:>=0,Stamina:>=0}&&setup.Life<=setup.MaximumLife
+            &&(!setup.NativeCombat||setup.LifePlan==null)
             &&(setup.LifePlan!=null?setup.MaximumLife==(setup.LifePlan.Maximum256+255L)/256&&setup.Life==setup.MaximumLife:setup.MaximumLife<=65000);
     private static void Validate(ReviveNativeState row)
     {
@@ -110,9 +115,9 @@ public static class ReviveNativeActivation
             ||!ClassCreation.Profiles.TryGet(owner.Serial,out var profile)||profile.Class!=DiabloClass.Necromancer
             ||!ValidSetup(setup)
             ||setup.Rank!=SkillMechanics.Rank(owner,CombatAbility.Revive)||owner.Followers>owner.FollowersMax
-            ||!CorpseSkillRules.Usable(owner,corpse,SkeletonPets.Range)){return false;}
+            ||!CorpseSkillRules.UsableForRevive(owner,corpse,SkeletonPets.Range)){return false;}
         var original=ReviveOriginals.Find(corpse);
-        var saved=ReviveOriginals.Snapshot().SingleOrDefault(r=>r.Corpse==corpse.Serial.Value);
+        var saved=ReviveOriginals.State(corpse);
         if(setup.LifePlan is{} plan)
         {
             ReviveLife.Validate(plan);var sourceHistory=CorpseSkillRules.Profiles.Find(corpse);
@@ -125,7 +130,8 @@ public static class ReviveNativeActivation
         {issue="Source combat context changed before native activation.";return false;}
         if(original==null||saved?.BeforeDeathJson==null||saved.BeforeDeathIssue!=null||original.Spawner!=null||original.Guild!=null)
         {issue="Original state or native spawn/guild transfer is unsupported.";return false;}
-        if(!SourceCorpseIdentity.For(corpse).AllowsRevivedAi(status)){issue="The source revived-AI gate refuses this corpse.";return false;}
+        if(!ReviveCasts.RegularMonster(original)||!setup.NativeCombat&&!SourceCorpseIdentity.For(corpse).AllowsRevivedAi(status))
+        {issue="This monster is not eligible for Revive.";return false;}
         if(destination.X<0||destination.Y<0||destination.X>=owner.Map.Width||destination.Y>=owner.Map.Height
             ||!owner.Map.CanSpawnMobile(destination)||!owner.InLOS(destination)||Math.Abs(destination.Z-corpse.Z)>=16)
         {issue="Native destination is blocked; source placement/failure composition remains separate.";return false;}
@@ -142,7 +148,7 @@ public static class ReviveNativeActivation
             States.Add(row.Actor,row);original.ControlSlots=0;
             if(!original.SetControlMaster(owner)){States.Remove(row.Actor);ReviveEquipmentLife.Forget(row.Actor);NpcEquipmentRandom.Forget(row.Actor);original.ControlSlots=slots;issue="Native owner binding failed.";return false;}
             ReviveEquipmentDefenses.Sync(original);
-            original.NoKillAwards=true;original.Tamable=false;original.HitsMaxSeed=setup.MaximumLife;
+            original.NoKillAwards=true;original.Tamable=false;original.HitsMaxSeed=setup.MaximumLife;original.StopHeal();
             ReviveOriginals.DetachForActivation(corpse,original);detached=true;
             original.Blessed=original.Hidden=original.Frozen=original.CantWalk=false;
             original.Hits=setup.Life;original.Mana=setup.Mana;original.Stam=setup.Stamina;

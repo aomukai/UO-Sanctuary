@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.Json.Serialization;
 using Server;
 using Server.Items;
 using Server.Mobiles;
@@ -25,6 +26,8 @@ public sealed record GearState(string BaseCode, int Defense, bool StarterTeeth, 
     public bool Identified { get; init; } = true;
     public int? IdentifiedSaleOffer { get; init; }
     public int? VendorPurchasePrice { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public bool Gambled { get; init; }
     public InstalledRune[] Runes { get; init; } = [];
     public InstalledGem[] Gems { get; init; } = [];
     public string NamedItemId { get; init; }
@@ -300,7 +303,7 @@ public sealed class GearProfiles : GenericPersistence
     private static bool ValidOffer(int offer) => offer is >= 1 and <= 60000;
     public override void Serialize(IGenericWriter writer)
     {
-        writer.Write(8);
+        writer.Write(9);
         writer.Write(_starterMigrations.Count);
         foreach (var serial in _starterMigrations)
         {
@@ -349,12 +352,13 @@ public sealed class GearProfiles : GenericPersistence
                 if(property.ColdDurationFrames is{} frames){writer.Write(frames);}
             }
             writer.Write(state.StarterClass is { } starter ? (byte)starter : (byte)0);
+            writer.Write(state.Gambled);
         }
     }
     public override void Deserialize(IGenericReader reader)
     {
         int version = reader.ReadInt();
-        if (version is < 0 or > 8)
+        if (version is < 0 or > 9)
         {
             throw new InvalidDataException("Unsupported equipment persistence version.");
         }
@@ -447,6 +451,8 @@ public sealed class GearProfiles : GenericPersistence
                 if (starterClass != 0)
                     state = state with { StarterClass = (DiabloClass)starterClass };
             }
+            if (version >= 9 && reader.ReadBool())
+                state = state with { Gambled = true };
             _items.Add(serial, state);
         }
     }

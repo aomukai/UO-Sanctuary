@@ -1232,160 +1232,6 @@
     "sharedWorkshop": false
   },
   {
-    "id": "Felucca/Wind/Smith",
-    "town": "Wind",
-    "map": "Felucca",
-    "role": "Smith",
-    "x": 5215,
-    "y": 117,
-    "z": 1,
-    "source": "Spawns/shared/felucca/Vendors.json#00c709c3-bd1f-464f-9851-6222d10bf35b",
-    "sharedWorkshop": true
-  },
-  {
-    "id": "Felucca/Wind/Tailor",
-    "town": "Wind",
-    "map": "Felucca",
-    "role": "Tailor",
-    "x": 5203,
-    "y": 86,
-    "z": 5,
-    "source": "Spawns/shared/felucca/Vendors.json#a4163176-dab9-4a56-83ea-e97cd802579e",
-    "sharedWorkshop": false
-  },
-  {
-    "id": "Felucca/Wind/Bowyer",
-    "town": "Wind",
-    "map": "Felucca",
-    "role": "Bowyer",
-    "x": 5215,
-    "y": 117,
-    "z": 1,
-    "source": "Spawns/shared/felucca/Vendors.json#00c709c3-bd1f-464f-9851-6222d10bf35b",
-    "sharedWorkshop": true
-  },
-  {
-    "id": "Felucca/Wind/Carpenter",
-    "town": "Wind",
-    "map": "Felucca",
-    "role": "Carpenter",
-    "x": 5215,
-    "y": 117,
-    "z": 1,
-    "source": "Spawns/shared/felucca/Vendors.json#00c709c3-bd1f-464f-9851-6222d10bf35b",
-    "sharedWorkshop": true
-  },
-  {
-    "id": "Felucca/Wind/Alchemist",
-    "town": "Wind",
-    "map": "Felucca",
-    "role": "Alchemist",
-    "x": 5215,
-    "y": 117,
-    "z": 1,
-    "source": "Spawns/shared/felucca/Vendors.json#00c709c3-bd1f-464f-9851-6222d10bf35b",
-    "sharedWorkshop": false
-  },
-  {
-    "id": "Felucca/Wind/Cook",
-    "town": "Wind",
-    "map": "Felucca",
-    "role": "Cook",
-    "x": 5351,
-    "y": 56,
-    "z": 15,
-    "source": "Spawns/shared/felucca/Vendors.json#0caf1231-8fd1-4873-b525-29c1b9a4751c",
-    "sharedWorkshop": false
-  },
-  {
-    "id": "Felucca/Wind/Cartographer",
-    "town": "Wind",
-    "map": "Felucca",
-    "role": "Cartographer",
-    "x": 5215,
-    "y": 117,
-    "z": 1,
-    "source": "Spawns/shared/felucca/Vendors.json#00c709c3-bd1f-464f-9851-6222d10bf35b",
-    "sharedWorkshop": true
-  },
-  {
-    "id": "Felucca/Wind/Scribe",
-    "town": "Wind",
-    "map": "Felucca",
-    "role": "Scribe",
-    "x": 5242,
-    "y": 180,
-    "z": 15,
-    "source": "Spawns/shared/felucca/Vendors.json#5382e8d9-4883-46b4-9f57-f7eedea8f0b3",
-    "sharedWorkshop": false
-  },
-  {
-    "id": "Felucca/Wind/Tinker",
-    "town": "Wind",
-    "map": "Felucca",
-    "role": "Tinker",
-    "x": 5215,
-    "y": 117,
-    "z": 1,
-    "source": "Spawns/shared/felucca/Vendors.json#00c709c3-bd1f-464f-9851-6222d10bf35b",
-    "sharedWorkshop": true
-  },
-  {
-    "id": "Felucca/Wind/Imbuer",
-    "town": "Wind",
-    "map": "Felucca",
-    "role": "Imbuer",
-    "x": 5215,
-    "y": 117,
-    "z": 1,
-    "source": "Spawns/shared/felucca/Vendors.json#00c709c3-bd1f-464f-9851-6222d10bf35b",
-    "sharedWorkshop": false
-  },
-  {
-    "id": "Felucca/Wind/Miner",
-    "town": "Wind",
-    "map": "Felucca",
-    "role": "Miner",
-    "x": 5215,
-    "y": 117,
-    "z": 1,
-    "source": "Spawns/shared/felucca/Vendors.json#00c709c3-bd1f-464f-9851-6222d10bf35b",
-    "sharedWorkshop": true
-  },
-  {
-    "id": "Felucca/Wind/Lumberjack",
-    "town": "Wind",
-    "map": "Felucca",
-    "role": "Lumberjack",
-    "x": 5215,
-    "y": 117,
-    "z": 1,
-    "source": "Spawns/shared/felucca/Vendors.json#00c709c3-bd1f-464f-9851-6222d10bf35b",
-    "sharedWorkshop": true
-  },
-  {
-    "id": "Felucca/Wind/Fisher",
-    "town": "Wind",
-    "map": "Felucca",
-    "role": "Fisher",
-    "x": 5215,
-    "y": 117,
-    "z": 1,
-    "source": "Spawns/shared/felucca/Vendors.json#00c709c3-bd1f-464f-9851-6222d10bf35b",
-    "sharedWorkshop": true
-  },
-  {
-    "id": "Felucca/Wind/Jeweller",
-    "town": "Wind",
-    "map": "Felucca",
-    "role": "Jeweller",
-    "x": 5154,
-    "y": 97,
-    "z": 5,
-    "source": "Spawns/shared/felucca/Vendors.json#bea16b73-7772-41e1-868e-7a6de8007a93",
-    "sharedWorkshop": false
-  },
-  {
     "id": "Felucca/Serpent's Hold/Smith",
     "town": "Serpent's Hold",
     "map": "Felucca",
@@ -3724,11 +3570,12 @@
     "town": "Wind",
     "map": "Trammel",
     "role": "Smith",
-    "x": 5203,
-    "y": 86,
+    "x": 5223,
+    "y": 190,
     "z": 5,
-    "source": "Spawns/shared/trammel/Vendors.json#1ee02077-d7f2-439e-95b9-f9e82932f319",
-    "sharedWorkshop": true
+    "source": "Wind market posts",
+    "sharedWorkshop": false,
+    "fixedPosition": true
   },
   {
     "id": "Trammel/Wind/Tailor",
@@ -3736,43 +3583,47 @@
     "map": "Trammel",
     "role": "Tailor",
     "x": 5203,
-    "y": 86,
+    "y": 88,
     "z": 5,
-    "source": "Spawns/shared/trammel/Vendors.json#1ee02077-d7f2-439e-95b9-f9e82932f319",
-    "sharedWorkshop": false
+    "source": "Wind market posts",
+    "sharedWorkshop": false,
+    "fixedPosition": true
   },
   {
     "id": "Trammel/Wind/Bowyer",
     "town": "Wind",
     "map": "Trammel",
     "role": "Bowyer",
-    "x": 5203,
-    "y": 86,
+    "x": 5216,
+    "y": 174,
     "z": 5,
-    "source": "Spawns/shared/trammel/Vendors.json#1ee02077-d7f2-439e-95b9-f9e82932f319",
-    "sharedWorkshop": true
+    "source": "Wind market posts",
+    "sharedWorkshop": false,
+    "fixedPosition": true
   },
   {
     "id": "Trammel/Wind/Carpenter",
     "town": "Wind",
     "map": "Trammel",
     "role": "Carpenter",
-    "x": 5203,
-    "y": 86,
-    "z": 5,
-    "source": "Spawns/shared/trammel/Vendors.json#1ee02077-d7f2-439e-95b9-f9e82932f319",
-    "sharedWorkshop": true
+    "x": 5334,
+    "y": 88,
+    "z": 15,
+    "source": "Wind market posts",
+    "sharedWorkshop": false,
+    "fixedPosition": true
   },
   {
     "id": "Trammel/Wind/Alchemist",
     "town": "Wind",
     "map": "Trammel",
     "role": "Alchemist",
-    "x": 5215,
-    "y": 117,
+    "x": 5212,
+    "y": 118,
     "z": 1,
-    "source": "Spawns/shared/trammel/Vendors.json#4b65546f-275c-45fd-9d0f-46e6639237bc",
-    "sharedWorkshop": false
+    "source": "Wind market posts",
+    "sharedWorkshop": false,
+    "fixedPosition": true
   },
   {
     "id": "Trammel/Wind/Cook",
@@ -3780,21 +3631,23 @@
     "map": "Trammel",
     "role": "Cook",
     "x": 5351,
-    "y": 56,
+    "y": 55,
     "z": 15,
-    "source": "Spawns/shared/trammel/Vendors.json#450a0f16-a428-4b13-9bea-7c1f0398f4dd",
-    "sharedWorkshop": false
+    "source": "Wind market posts",
+    "sharedWorkshop": false,
+    "fixedPosition": true
   },
   {
     "id": "Trammel/Wind/Cartographer",
     "town": "Wind",
     "map": "Trammel",
     "role": "Cartographer",
-    "x": 5203,
-    "y": 86,
-    "z": 5,
-    "source": "Spawns/shared/trammel/Vendors.json#1ee02077-d7f2-439e-95b9-f9e82932f319",
-    "sharedWorkshop": true
+    "x": 5237,
+    "y": 143,
+    "z": 15,
+    "source": "Wind market posts",
+    "sharedWorkshop": false,
+    "fixedPosition": true
   },
   {
     "id": "Trammel/Wind/Scribe",
@@ -3802,76 +3655,83 @@
     "map": "Trammel",
     "role": "Scribe",
     "x": 5242,
-    "y": 180,
+    "y": 181,
     "z": 15,
-    "source": "Spawns/shared/trammel/Vendors.json#73b991d6-dce0-42b7-90dd-dd8cc7671bed",
-    "sharedWorkshop": false
+    "source": "Wind market posts",
+    "sharedWorkshop": false,
+    "fixedPosition": true
   },
   {
     "id": "Trammel/Wind/Tinker",
     "town": "Wind",
     "map": "Trammel",
     "role": "Tinker",
-    "x": 5203,
-    "y": 86,
+    "x": 5154,
+    "y": 98,
     "z": 5,
-    "source": "Spawns/shared/trammel/Vendors.json#1ee02077-d7f2-439e-95b9-f9e82932f319",
-    "sharedWorkshop": true
+    "source": "Wind market posts",
+    "sharedWorkshop": false,
+    "fixedPosition": true
   },
   {
     "id": "Trammel/Wind/Imbuer",
     "town": "Wind",
     "map": "Trammel",
     "role": "Imbuer",
-    "x": 5215,
-    "y": 117,
-    "z": 1,
-    "source": "Spawns/shared/trammel/Vendors.json#4b65546f-275c-45fd-9d0f-46e6639237bc",
-    "sharedWorkshop": false
+    "x": 5301,
+    "y": 91,
+    "z": 15,
+    "source": "Wind market posts",
+    "sharedWorkshop": false,
+    "fixedPosition": true
   },
   {
     "id": "Trammel/Wind/Miner",
     "town": "Wind",
     "map": "Trammel",
     "role": "Miner",
-    "x": 5203,
-    "y": 86,
+    "x": 5224,
+    "y": 194,
     "z": 5,
-    "source": "Spawns/shared/trammel/Vendors.json#1ee02077-d7f2-439e-95b9-f9e82932f319",
-    "sharedWorkshop": true
+    "source": "Wind market posts",
+    "sharedWorkshop": false,
+    "fixedPosition": true
   },
   {
     "id": "Trammel/Wind/Lumberjack",
     "town": "Wind",
     "map": "Trammel",
     "role": "Lumberjack",
-    "x": 5203,
-    "y": 86,
+    "x": 5189,
+    "y": 112,
     "z": 5,
-    "source": "Spawns/shared/trammel/Vendors.json#1ee02077-d7f2-439e-95b9-f9e82932f319",
-    "sharedWorkshop": true
+    "source": "Wind market posts",
+    "sharedWorkshop": false,
+    "fixedPosition": true
   },
   {
     "id": "Trammel/Wind/Fisher",
     "town": "Wind",
     "map": "Trammel",
     "role": "Fisher",
-    "x": 5203,
-    "y": 86,
-    "z": 5,
-    "source": "Spawns/shared/trammel/Vendors.json#1ee02077-d7f2-439e-95b9-f9e82932f319",
-    "sharedWorkshop": true
+    "x": 5161,
+    "y": 34,
+    "z": 17,
+    "source": "Wind market posts",
+    "sharedWorkshop": false,
+    "fixedPosition": true
   },
   {
     "id": "Trammel/Wind/Jeweller",
     "town": "Wind",
     "map": "Trammel",
     "role": "Jeweller",
-    "x": 5154,
-    "y": 97,
-    "z": 5,
-    "source": "Spawns/shared/trammel/Vendors.json#e00042e4-6be0-4f04-8fc8-56c739a585d6",
-    "sharedWorkshop": false
+    "x": 5347,
+    "y": 77,
+    "z": 25,
+    "source": "Wind market posts",
+    "sharedWorkshop": false,
+    "fixedPosition": true
   },
   {
     "id": "Trammel/Serpent's Hold/Smith",

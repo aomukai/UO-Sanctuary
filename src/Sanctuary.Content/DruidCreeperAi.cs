@@ -7,7 +7,7 @@ internal readonly record struct CreeperAiRequest(CreeperAiKind Kind,int A=0,int 
 internal sealed record CreeperAiState(int Parameter0,int LastSkillFrame);
 internal readonly record struct CreeperAiTarget(int Id,int Distance,bool Combat);
 internal sealed record CreeperAiContext(bool HasOwner,int OwnerDistance,bool Town,int Frame,int SkillId,int SkillMode,
-    MonsterDifficulty Difficulty=MonsterDifficulty.Normal);
+    MonsterDifficulty Difficulty=MonsterDifficulty.Normal,int RangeBonus=0);
 internal sealed record CreeperAiServices(Action<CreeperAiRequest> Request,Func<int,bool,int,int,bool> CommonMove,
     Func<int,bool,int,int,bool> PetMove,Func<CreeperAiTarget> FindTarget,Func<int,bool> Poisoned,
     Func<int,int> PoisonResistance,Func<CreeperAiRequest,bool> UseSkill);
@@ -31,13 +31,13 @@ internal static class DruidCreeperAi
         int P(int index)=>NecromancerSummons.Source("plaguepoppy","aip"+index,c.Difficulty);
         void Idle(int frames)=>s.Request(new(CreeperAiKind.Idle,frames));
         if(!c.HasOwner){Idle(25);return state;}
-        if(c.OwnerDistance>=P(5) && s.PetMove(3,false,0,6)){return state;}
+        if(c.OwnerDistance>=P(5)+c.RangeBonus && s.PetMove(3,false,0,6)){return state;}
         if(c.Town)
         {if(!s.CommonMove(0,false,0,6)){Idle(P(3));}return state;}
         var target=s.FindTarget();
         if(target.Id<0 || target.Distance<0){throw new ArgumentException("Unsupported Creeper target scan");}
         // The source clears the far target pointer without clearing bCombat.
-        int id=target.Distance>=P(2)?0:target.Id;
+        int id=target.Distance>=P(2)+c.RangeBonus?0:target.Id;
         if(s.CommonMove(id,target.Combat,0,6)){return state;}
         if(id!=0)
         {

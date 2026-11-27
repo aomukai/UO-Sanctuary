@@ -303,9 +303,9 @@ public static class EliteBolts
             }
             Effects.SendLocationEffect(center, map, graphic, 6);
             long now = Core.TickCount;
-            foreach (var target in map.GetMobilesInRange<Mobile>(center, range))
+            foreach (var target in SkillCombat.NearbySnapshot<Mobile>(map, center, range))
             {
-                if (nextHit.GetValueOrDefault(target.Serial) > now || Math.Abs(target.Z - center.Z) >= 16
+                if (target.Map != map || nextHit.GetValueOrDefault(target.Serial) > now || Math.Abs(target.Z - center.Z) >= 16
                     || !AmazonInnerSight.InRadius(target.X - center.X, target.Y - center.Y, radius)
                     || !EliteCombat.Enemy(source, target, 18) || !EncounterProfiles.ClearSight(map, center, target.Location))
                     continue;
@@ -322,9 +322,10 @@ public static class EliteBolts
         var map = victim.Map;
         Effects.SendLocationEffect(center, map, 0x36BD, 8, 10, 0x489);
         EliteCombat.Damage(source, victim, fire: damage);
-        foreach (var target in map.GetMobilesInRange<Mobile>(center, 2))
+        // A lethal splash hit can remove a mobile from the sector being scanned.
+        foreach (var target in SkillCombat.NearbySnapshot<Mobile>(map, center, 2))
         {
-            if (target != victim && EliteCombat.Enemy(source, target, 20)
+            if (target != victim && target.Map == map && target.InRange(center, 2) && EliteCombat.Enemy(source, target, 20)
                 && EncounterProfiles.ClearSight(map, center, target.Location))
                 EliteCombat.Damage(source, target, fire: damage);
         }

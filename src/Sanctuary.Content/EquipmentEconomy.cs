@@ -69,7 +69,8 @@ public static class EquipmentEconomy
             {
                 return true;
             }
-            from.SendMessage("Use Salvage gear on the matching crafting tool. Vendor and protected equipment cannot be salvaged.");
+            from.SendMessage(ClassGear.State(item) is { Gambled: true } ? "Gambled gear cannot be salvaged."
+                : "Use Salvage gear on the matching crafting tool. Vendor and protected equipment cannot be salvaged.");
             return false;
         };
     }
@@ -172,6 +173,7 @@ public static class EquipmentEconomy
         BaseTool sourceTool = null;
         if (action == EssenceAction.Salvage)
         {
+            if (ClassGear.State(item) is { Gambled: true }) { return null; }
             sourceTool = salvageTool ?? EquipmentSalvage.FindTool(player, item);
             if (!EquipmentSalvage.Matches(player, item, sourceTool)) { return null; }
         }

@@ -26,6 +26,22 @@ HEARTWOOD_MARKETS = {
     'Carpenter': (7048, 382, 'Heartwood workshop'),
     'Provisioner': (7090, 387, 'Heartwood market'),
 }
+WIND_MARKETS = {
+    'Smith': (5223, 190, 5),
+    'Tailor': (5203, 88, 5),
+    'Bowyer': (5216, 174, 5),
+    'Carpenter': (5334, 88, 15),
+    'Alchemist': (5212, 118, 1),
+    'Cook': (5351, 55, 15),
+    'Cartographer': (5237, 143, 15),
+    'Scribe': (5242, 181, 15),
+    'Tinker': (5154, 98, 5),
+    'Imbuer': (5301, 91, 15),
+    'Miner': (5224, 194, 5),
+    'Lumberjack': (5189, 112, 5),
+    'Fisher': (5161, 34, 17),
+    'Jeweller': (5347, 77, 25),
+}
 
 
 def build():
@@ -35,7 +51,7 @@ def build():
         sources = [DATA / f'Spawns/{era}/{facet.lower()}/Vendors.json' for era in ['shared','uoml','post-uoml']]
         spawns = [(r, str(p.relative_to(DATA))) for p in sources if p.exists() for r in json.loads(p.read_text())]
         for name in TOWNS:
-            if facet == 'Trammel' and name == 'Ocllo' or facet == 'Felucca' and name == 'New Haven':
+            if facet == 'Trammel' and name == 'Ocllo' or facet == 'Felucca' and name in {'New Haven', 'Wind'}:
                 continue
             region = next(r for r in regions if r.get('Map') == facet and r.get('Name') == name)
             inside = lambda p: any(a['x1'] <= p[0] < a['x2'] and a['y1'] <= p[1] < a['y2'] for a in region['Area'])
@@ -47,6 +63,12 @@ def build():
             elif facet == 'Trammel' and name == 'New Haven':
                 roles.insert(roles.index('Scribe') + 1, 'Scholar')
             for role in roles:
+                if name == 'Wind':
+                    x, y, z = WIND_MARKETS[role]
+                    assert inside((x, y, z)), (facet, role)
+                    result.append(dict(id=f'{facet}/{name}/{role}', town=name, map=facet, role=role, x=x, y=y, z=z,
+                                       source='Wind market posts', sharedWorkshop=False, fixedPosition=True))
+                    continue
                 if facet == 'Trammel' and name == 'New Haven' and role in MAGE_TOWER:
                     x, y, relocate = MAGE_TOWER[role]
                     site = dict(id=f'{facet}/{name}/{role}', town=name, map=facet, role=role, x=x, y=y, z=52,

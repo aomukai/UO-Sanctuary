@@ -10,6 +10,7 @@ using Server.Gumps;
 using Server.Items;
 using Server.Logging;
 using Server.Mobiles;
+using Server.Spells;
 
 namespace Sanctuary.Integration;
 
@@ -28,8 +29,22 @@ public static class BritainStoryChecks
 
     public static void Configure()
     {
+        Register("british-visibility", CheckBritishVisibility);
+        Register("blackthorn-relocation", CheckBlackthornRelocation);
         Register("mounted-runebook", CheckMountedRunebook);
         Register("cove-rune", CheckCoveRune);
+        Register("island-travel", CheckIslandTravel);
+        Register("hythloth-travel", CheckHythlothTravel);
+        Register("hythloth-pet-stairs", CheckHythlothPetStairs);
+        Register("pet-combat-range", CheckPetCombatRange);
+        Register("trash-barrel", () =>
+        {
+            var post = new Point3D(1424, 1687, 0);
+            var barrels = World.Items.Values.OfType<TrashBarrel>().Where(item => item.Location == post
+                && (item.Map == Map.Trammel || item.Map == Map.Felucca)).ToArray();
+            Require(barrels is [{ Map: var map }] && map == Map.Trammel,
+                "Britain's bank should have one trash barrel at its Trammel post");
+        });
         Register("bridge", () =>
         {
             var player = Player;
@@ -273,6 +288,82 @@ public static class BritainStoryChecks
         });
     }
 
+    private static void CheckBritishVisibility()
+    {
+        var avatar = new PlayerMobile { Body = 0x190, Player = true };
+        var other = new PlayerMobile { Body = 0x190, Player = true };
+        try
+        {
+            var king = World.Mobiles.Values.OfType<LordBritish>().Single();
+            var audience = new Point3D(1326, 1625, 55);
+            avatar.MoveToWorld(audience, king.Map);
+            other.MoveToWorld(audience, king.Map);
+            Profiles.Assign(avatar, DiabloClass.Paladin);
+
+            Require(avatar.CanSee(king), "Lord British was missing before Leoric");
+            BritanniaCampaign.Defeated(avatar, CampaignProgress.SkeletonKing, "King Leoric");
+            Require(!avatar.CanSee(king) && other.CanSee(king)
+                && BritanniaCampaign.NextSummons(avatar) == BritanniaCampaign.Summons.Blackthorn,
+                "Leoric did not hide Lord British for the victor and leave Blackthorn as the next audience");
+            BritanniaCampaign.Defeated(avatar, CampaignProgress.Lazarus, "Lazarus");
+            Require(!avatar.CanSee(king) && other.CanSee(king), "Lazarus changed Lord British's visibility");
+            BritanniaCampaign.Defeated(avatar, CampaignProgress.Diablo, "Diablo");
+            Require(avatar.CanSee(king) && other.CanSee(king)
+                && BritanniaCampaign.NextSummons(avatar) == BritanniaCampaign.Summons.Victory,
+                "Diablo did not restore Lord British and his victory audience");
+        }
+        finally
+        {
+            avatar.Delete();
+            other.Delete();
+        }
+    }
+
+    private static void CheckBlackthornRelocation()
+    {
+        var map = Map.Trammel;
+        var player = new PlayerMobile { Body = 0x190, Player = true };
+        try
+        {
+            var blackthorn = World.Mobiles.Values.OfType<CampaignBlackthorn>().Single(npc => npc.Map == map);
+            var shamino = World.Mobiles.Values.OfType<CampaignShamino>().Single(npc => npc.Map == map);
+            Require(blackthorn.Location == CampaignActors.BlackthornPost && shamino.Location == CampaignActors.ShaminoPost,
+                "Blackthorn and Shamino were not moved into Castle Britannia");
+            Reachable(player, new(1363, 1625, 50), new(1319, 1608, 50, 40), blackthorn.Location);
+            player.MoveToWorld(new Point3D(1326, 1625, 55), map);
+            Require(player.CanSee(blackthorn) && player.CanSee(shamino) && player.InLOS(blackthorn) && player.InLOS(shamino),
+                "Blackthorn and Shamino cannot be seen from the audience area");
+
+            var doors = World.Items.Values.OfType<MetalDoor>().Where(door => door.Map == map
+                && door.Location is { X: 1523 or 1524, Y: 1439, Z: 15 }).ToArray();
+            Require(doors.Length == 2 && doors.All(door => door.Locked && !door.Open), "The old keep gate was not sealed");
+
+            var guards = World.Mobiles.Values.OfType<BlackthornBridgeGuard>().Where(guard => guard.Map == map).ToArray();
+            Require(guards.Length == 2 && guards.Any(guard => guard.Location == new Point3D(1520, 1506, 5)),
+                "Bridge guards were missing");
+            foreach (int x in new[] { 1521, 1523, 1525 })
+            {
+                var approach = new Point3D(x, 1506, 5);
+                player.MoveToWorld(approach, map);
+                player.Direction = Direction.North;
+                Require(player.CheckMovement(Direction.North, out _) && !player.Move(Direction.North) && player.Location == approach,
+                    $"A visitor could cross at {approach}");
+            }
+            Require(!SpellHelper.CheckTravel(player, map, new Point3D(1523, 1441, 0), TravelCheckType.RecallTo, out _),
+                "A visitor could recall directly into the closed keep");
+
+            player.MoveToWorld(BlackthornKeepClosure.BridgeApproach, map);
+            player.AccessLevel = AccessLevel.GameMaster;
+            Require(player.Move(Direction.North) && player.Move(Direction.North) && player.Y == 1504,
+                "Staff could not walk past the checkpoint");
+            player.AccessLevel = AccessLevel.Player;
+            player.Direction = Direction.South;
+            Require(player.Move(Direction.South) && player.Move(Direction.South) && player.Y == 1506,
+                "A visitor leaving the old keep was blocked at the bridge");
+        }
+        finally { player.Delete(); }
+    }
+
     private static void CheckWorld()
     {
         var map = Map.Trammel;
@@ -284,6 +375,214 @@ public static class BritainStoryChecks
             && World.Mobiles.Values.OfType<Banker>().Any(banker => banker.Map == map && banker.Region.IsPartOf("Britain"))
             && World.Mobiles.Values.OfType<BaseVendor>().Any(vendor => vendor.Map == map && vendor.Region.IsPartOf("Trinsic"))
             && stock.Any(item => item is BaseSpawner && item.Name == "Britannia Wildlife"), "Britannia scenery or town life was incomplete");
+    }
+
+    private static void CheckIslandTravel()
+    {
+        var map = Map.Trammel;
+        var harbourMaster = World.Mobiles.Values.OfType<BritainHarbourMaster>().Single(npc => npc.Map == map);
+        var skippers = World.Mobiles.Values.OfType<IslandSkipper>().Where(npc => npc.Map == map).ToArray();
+        Require(skippers.Length == 2 && skippers.Count(npc => npc.Dagger) == 1 && skippers[0].Portrait != skippers[1].Portrait,
+            "Expected a distinct return skipper on each island");
+        Require(!World.Items.Values.OfType<CampaignFerry>().Any(ferry => ferry.Map == map), "An obsolete ferry board is still on Trammel");
+
+        var player = new PlayerMobile { Body = 0x190, Player = true };
+        try
+        {
+            Require(harbourMaster.DialogueFor(player)[0].Replies.All(reply => reply.Select == null),
+                "Elowen offered a passage before it was unlocked");
+            BritanniaCampaign.Record(player, CampaignProgress.FireIslandPassage);
+            Require(harbourMaster.DialogueFor(player)[0].Replies.Where(reply => reply.Select != null).Select(reply => reply.Text)
+                .SequenceEqual(["Sail to Fire Island"]), "Elowen did not offer the unlocked Fire Island route");
+            BritanniaCampaign.Record(player, CampaignProgress.DaggerIslePassage);
+            var travel = harbourMaster.DialogueFor(player)[0].Replies.Where(reply => reply.Select != null).ToArray();
+            Require(travel.Select(reply => reply.Text).SequenceEqual(["Sail to Fire Island", "Sail to Dagger Isle"]),
+                "Elowen's greeting is missing a ferry destination");
+            foreach (var skipper in skippers)
+            {
+                Require(skipper.Script[0].Replies is [{ Text: "Sail to Britain", Select: not null }],
+                    "An island skipper did not offer passage back");
+                var harbour = skipper.Dagger ? TownMarkets.Floor(map, new(4110, 439, 0), [], false) : new Point3D(4721, 3822, 0);
+                Require(BritanniaCampaign.Sail(player, harbour) && player.InRange(skipper, 3) && player.InLOS(skipper),
+                    $"Could not reach {skipper.Name} from the landing at {harbour}");
+            }
+        }
+        finally { player.Delete(); }
+    }
+
+    private static void CheckHythlothTravel()
+    {
+        var map = Map.Trammel;
+        var passages = World.Items.Values.OfType<Teleporter>().Where(item => item.Map == map
+            && item.Name == "a passage through Hythloth").ToArray();
+        Require(passages.Count(item => item.X is >= 4720 and <= 4722 && item.Y == 3814) == 3
+            && passages.Count(item => item.PointDest == CampaignDungeonRoutes.HythlothSurfaceLanding) == 3,
+            "Obsolete Hythloth entrance or exit lanes were left in the world");
+
+        var player = new PlayerMobile { Body = 0x190, Player = true };
+        BaseCreature[] followers = [new Dog(), new SkeletonGuardian(), new SkeletonGuardian()];
+        try
+        {
+            foreach (var pet in followers)
+                Require(pet.SetControlMaster(player), "Could not set up a Hythloth follower");
+            for (int lane = 0; lane < 3; lane++)
+            {
+                var ground = new Point3D(4720 + lane, 3814, 0);
+                var foot = new Point3D(5904 + lane, 21, 44);
+                var exitTile = new Point3D(foot.X, 20, 46);
+                var entry = passages.Single(item => item.Location == ground);
+                Require(entry.PointDest == foot && map.CanFit(ground, 16, checkMobiles: false)
+                    && map.CanFit(foot, 16, checkMobiles: false) && map.CanFit(exitTile, 16, checkMobiles: false),
+                    $"Hythloth lane {ground} has a blocked tile");
+                player.MoveToWorld(new Point3D(ground.X, 3815, 0), map);
+                foreach (var pet in followers)
+                    pet.MoveToWorld(new Point3D(ground.X, 3816, 0), map);
+                player.Direction = Direction.North;
+                player.Move(Direction.North);
+                Require(player.Location == foot, $"Walking onto {ground} did not land at the foot of Hythloth's stairs");
+
+                var hall = new Point3D(5905, 24, 44);
+                foreach (var pet in followers)
+                    Require(pet.Map == map && pet.InRange(foot, 4) && pet.Z <= 46
+                        && (pet.InRange(hall, 1) || new MovementPath(pet, hall).Success),
+                        $"{pet.Name} could not reach Hythloth's hall from {pet.Location}");
+
+                var exit = passages.Single(item => item.Location == exitTile && item.PointDest == CampaignDungeonRoutes.HythlothSurfaceLanding);
+                if (lane == 1)
+                    player.Move(Direction.North);
+                else
+                    exit.OnDoubleClick(player);
+                Require(player.Location == CampaignDungeonRoutes.HythlothSurfaceLanding, "The Hythloth exit did not reach the ground");
+            }
+        }
+        finally
+        {
+            foreach (var pet in followers)
+                pet.Delete();
+            player.Delete();
+        }
+    }
+
+    private static void CheckHythlothPetStairs()
+    {
+        Point3D[] stairs = [new(5960, 42, 0), new(5960, 43, 4), new(5960, 44, 9),
+            new(5960, 45, 14), new(5960, 46, 19), new(5960, 47, 22)];
+        CheckPetStairRoute([.. stairs, new(5960, 49, 22), new(5960, 52, 22)]);
+        Array.Reverse(stairs);
+        CheckPetStairRoute([.. stairs, new(5960, 40, 0), new(5960, 38, 0)]);
+    }
+
+    private static void CheckPetStairRoute(Point3D[] route)
+    {
+        var map = Map.Trammel;
+        var owner = new PlayerMobile { Body = 0x190, Player = true };
+        var dog = new Dog();
+        var grizzly = new DruidGrizzlyBody();
+        SkeletonWorldBody skeleton = null;
+        try
+        {
+            Profiles.Assign(owner, DiabloClass.Necromancer);
+            Profiles.AdvanceLevel(owner, 5);
+            ClassSkillChecks.Train(owner, "necromancer.raiseskeleton");
+            var at = TimedEffects.Now.AddSeconds(1);
+            owner.MoveToWorld(route[^1], map);
+            Require(dog.SetControlMaster(owner), "Could not set up the tamed stair fixture");
+            dog.MoveToWorld(route[0], map);
+            var path = new MovementPath(dog, route[^1]);
+            Require(path.Success, $"Tamed pet could not path from {route[0]} to {route[^1]}");
+            for (int i = 1; i <= 5; i++)
+            {
+                var direction = dog.GetDirectionTo(route[i]);
+                dog.Direction = direction;
+                Require(dog.Move(direction) && dog.Location == route[i], $"Tamed pet could not walk to {route[i]}");
+            }
+            dog.MoveToWorld(route[0], map);
+            dog.IssueOrder(OrderType.Stay, null);
+            PetStairTravel.CatchUp(owner, map, route[4], route[5]);
+            Require(dog.Location == route[0], "Stair recovery moved a pet ordered to stay");
+            dog.IssueOrder(OrderType.Follow, null, owner);
+            PetStairTravel.CatchUp(owner, map, route[4], route[5]);
+            Require(dog.Z == route[^1].Z && dog.InRange(owner, 4), "Stair recovery left a tamed pet on the other floor");
+            dog.Internalize();
+
+            skeleton = SkeletonWorldBody.CreatePrepared(owner, 1, 0, route[0], at, SourceRandom.InitLow(17), 1);
+            Require(skeleton != null, "Could not raise the Hythloth stair fixture");
+
+            for (int i = 0; i < route.Length - 3; i++)
+            {
+                var from = route[i];
+                var step = route[i + 1];
+                skeleton.MoveToWorld(from, map);
+                Require(PetGroundWorld.Point(skeleton, new Point2D(step.X * 2, step.Y * 2), out var projected)
+                    && projected == step, $"Pet movement could not resolve the stair tread from {from} to {step}");
+                Require(PetGroundWorld.Point(skeleton, new Point2D(step.X * 2, step.Y * 2), out projected, zeroFootprint: true)
+                    && projected == step, $"Pet movement without unit collision could not resolve the stair tread at {step}");
+                grizzly.MoveToWorld(from, map);
+                Require(PetGroundWorld.Point(grizzly, new Point2D(step.X * 2, step.Y * 2), out projected)
+                    && projected == step, $"Druid pet movement could not resolve the stair tread at {step}");
+            }
+
+            grizzly.Internalize();
+            skeleton.MoveToWorld(route[0], map);
+            for (int i = 0; i < route.Length; i++)
+            {
+                owner.MoveToWorld(route[i], map);
+                PetOwnerRoutes.Moved(owner, at.AddMilliseconds(200 * (i + 1)));
+            }
+            IronGolemWorld.Advance(skeleton, at.AddSeconds(8), actions: true);
+            PetStairTravel.CatchUp(owner, map, route[4], route[5]);
+            Require(skeleton.Map == map && skeleton.Z == route[^1].Z && skeleton.InRange(route[^1], 4)
+                && skeleton.WorldState.Controller.Fault == null,
+                $"The skeleton did not follow the owner from {route[0]} to {route[^1]}. It stopped at {skeleton.Location}");
+        }
+        finally
+        {
+            grizzly.Delete();
+            dog.Delete();
+            skeleton?.Delete();
+            owner.Delete();
+        }
+    }
+
+    private static void CheckPetCombatRange()
+    {
+        var owner = new PlayerMobile { Body = 0x190, Player = true };
+        var summon = new SkeletonGuardian();
+        var dog = new Dog();
+        try
+        {
+            Require(summon.SetControlMaster(owner) && dog.SetControlMaster(owner), "Could not set up combat range fixtures");
+            Require(summon.ChaseLeashRange == summon.RangePerception * 2 + 4
+                && dog.ChaseLeashRange == dog.RangePerception * 2
+                && ClassCombatHooks.PetCombatRangeBonus(dog) == 0,
+                "The native combat range bonus was not exclusive to summons");
+        }
+        finally
+        {
+            dog.Delete();
+            summon.Delete();
+            owner.Delete();
+        }
+
+        (bool Chases, bool Follows) ThinkAt(int ownerDistance, int targetDistance, int aggroBonus = 0)
+        {
+            bool chases = false, follows = false;
+            var services = new NecromancerPetAiServices(
+                request => chases |= request.Kind == NecromancerPetAiKind.Approach,
+                () => 1, id => id, id => id == 1 ? ownerDistance : targetDistance,
+                _ => default, (_, _) => new(2, targetDistance, false), _ => false, _ => false, id => id == 2,
+                () => 0, (_, _, _, _) => false, () => false,
+                (mode, _, _, _) => follows = mode == 0);
+            NecromancerPetAi.Think(new(new(0, 0, 0), 5, 10, 0, 0, PetCombatRanges.BonusSourceCells, aggroBonus),
+                services, responsiveMelee: true);
+            return (chases, follows);
+        }
+
+        Require(ThinkAt(28, 22) == (true, false) && ThinkAt(20, 23) == (false, false)
+            && ThinkAt(29, 22) == (false, true), "The summon acquisition and owner leash did not both gain four tiles");
+        Require(ThinkAt(20, 28, PetCombatRanges.GolemAggroBonusSourceCells) == (true, false)
+            && ThinkAt(20, 29, PetCombatRanges.GolemAggroBonusSourceCells) == (false, false),
+            "Golems did not proactively engage enemies three tiles beyond other melee summons");
     }
 
     private static HavenEncounter MakeFoe(PlayerMobile player, int x, int y)
@@ -350,9 +649,10 @@ public static class BritainStoryChecks
                 chief.MoveToWorld(player.Location, player.Map);
                 chief.Damage(100_000, killer);
                 Require(chief.Corpse is Corpse { SanctuaryNoRewards: true } corpse
+                    && corpse.GetAmount(typeof(OrcEar)) == 1
                     && corpse.FindItemByType<CoveGateRune>() == null
                     && player.Backpack.FindItemByType<CoveGateRune>() == null,
-                    "The chief death did not finish processing or produced a loose rune");
+                    "The chief death did not grant one ear or produced a loose rune");
             }
             finally
             {

@@ -19,6 +19,7 @@ public static class HythlothChecks
         {
             "reload" => CheckReload,
             "cleric" => CheckCleric,
+            "fireball" => CheckLethalFireballSplash,
             _ => CheckNewCourt
         }, pending: args.Trim() == "cleric")));
 
@@ -142,6 +143,40 @@ public static class HythlothChecks
                 cleric.Delete();
             }));
         }, pending: true));
+    }
+
+    private static void CheckLethalFireballSplash()
+    {
+        var player = GearDropChecks.Player();
+        FixtureSpace.Corridor(player, 6907, 5, 3300);
+        var impact = player.Location;
+        player.Hits = player.HitsMax;
+        var cleric = new HythlothEncounter(HythlothRole.UndeadCleric) { CantWalk = true };
+        cleric.MoveToWorld(new Point3D(impact.X - 4, impact.Y, impact.Z), player.Map);
+        var first = AlliedOverlapChecks.Pet(player, new Point3D(impact.X, impact.Y + 1, impact.Z));
+        var second = AlliedOverlapChecks.Pet(player, new Point3D(impact.X, impact.Y - 1, impact.Z));
+        try
+        {
+            SkillHealth.SetBalance256(first, 256);
+            int directBefore = player.Hits, splashBefore = second.Hits;
+            Require(EliteCombat.Enemy(cleric, player, 18), "The fixture's caster cannot hit the player");
+            Require(EliteCombat.Enemy(cleric, first, 18) && EliteCombat.Enemy(cleric, second, 18),
+                "The fixture's caster cannot hit both pets");
+            EliteBolts.Cast(cleric, player, CombatAbility.Fireball);
+            for (int i = 0; i < 6; i++)
+                EliteBolts.Tick();
+
+            Require(player.Hits < directBefore && first.Deleted && second.Hits < splashBefore);
+        }
+        finally
+        {
+            first.Corpse?.Delete();
+            first.Delete();
+            second.Corpse?.Delete();
+            second.Delete();
+            cleric.Delete();
+            player.Delete();
+        }
     }
 
     private static HythlothEncounter Place(HythlothRole role, int x, int y)

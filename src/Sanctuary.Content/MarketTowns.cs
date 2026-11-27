@@ -60,7 +60,7 @@ public static partial class TownMarkets
             var anchor = new Point3D(site.X, site.Y, site.Z);
             if (vendor is not { Deleted: false })
             {
-                var point = Floor(map, anchor, used, true);
+                var point = site.FixedPosition ? anchor : Floor(map, anchor, used, true);
                 vendor = site.Role == MarketRole.Scholar
                     ? new Scholar()
                     : new ProfessionInstructor { Title = $"the {site.Role} merchant", CantWalk = true };
@@ -76,17 +76,22 @@ public static partial class TownMarkets
                 vendor.Home = point; vendor.RangeHome = 0;
                 vendor.MoveToWorld(point, map); created++;
             }
-            else if (site.Relocate && (vendor.Map != map || !Utility.InRange(vendor.Location, anchor, 3)
-                || Math.Abs(vendor.Z - anchor.Z) >= 16))
+            else if (site.FixedPosition
+                ? vendor.Map != map || vendor.Location != anchor || vendor.Home != anchor
+                : site.Relocate && (vendor.Map != map || !Utility.InRange(vendor.Location, anchor, 3)
+                    || Math.Abs(vendor.Z - anchor.Z) >= 16))
             {
-                var point = Floor(map, anchor, used, true);
+                var point = site.FixedPosition ? anchor : Floor(map, anchor, used, true);
                 vendor.Home = point;
                 vendor.RangeHome = 0;
                 vendor.MoveToWorld(point, map);
                 var market = Profiles.Find(vendor.Serial);
                 if (World.FindItem(market.Station) is TownCraftStation station)
                     station.Delete();
+                if (World.FindItem(market.Forge) is TownCraftStation forge)
+                    forge.Delete();
                 market.Station = Serial.Zero;
+                market.Forge = Serial.Zero;
             }
             MatchTrainerPortrait(vendor, site);
             used.Add((map, vendor.Location));
@@ -96,7 +101,7 @@ public static partial class TownMarkets
                 var station = World.FindItem(state.Station) as TownCraftStation;
                 if (station is not { Deleted: false })
                 {
-                    var point = Floor(map, new(vendor.X + 2, vendor.Y, vendor.Z), used, false);
+                    var point = Floor(map, new(vendor.X + 2, vendor.Y, vendor.Z), used, false, site.FixedPosition);
                     int graphic = craft == SkillName.Blacksmith ? 0xFAF : craft == SkillName.Imbuing ? 0x974 : 0xB4A;
                     CraftFacilities.Register(new(craft, map.Name, point.X, point.Y, point.Z, graphic));
                     foreach (var item in map.GetItemsAt<TownCraftStation>(point))
@@ -111,7 +116,7 @@ public static partial class TownMarkets
                     var forge = World.FindItem(state.Forge) as TownCraftStation;
                     if (forge is not { Deleted: false })
                     {
-                        var point = Floor(map, new(station.X + 1, station.Y, station.Z), used, false);
+                        var point = Floor(map, new(station.X + 1, station.Y, station.Z), used, false, site.FixedPosition);
                         CraftFacilities.Register(new(craft, map.Name, point.X, point.Y, point.Z, 0xFB1));
                         foreach (var item in map.GetItemsAt<TownCraftStation>(point))
                         {
@@ -125,7 +130,7 @@ public static partial class TownMarkets
         }
         _logger.Information("Town markets: {Sites} service sites; {Created} merchants created", Sites.Length, created);
     }
-    internal static Point3D Floor(Map map, Point3D anchor, HashSet<(Map, Point3D)> used, bool mobile)
+    internal static Point3D Floor(Map map, Point3D anchor, HashSet<(Map, Point3D)> used, bool mobile, bool sameLevel = false)
     {
         for (int radius = 0; radius <= 32; radius++)
         {
@@ -135,11 +140,13 @@ public static partial class TownMarkets
                 {
                     if (Math.Max(Math.Abs(dx), Math.Abs(dy)) != radius) { continue; }
                     int x = anchor.X + dx, y = anchor.Y + dy;
-                    foreach (int z in new[] { anchor.Z, map.GetAverageZ(x, y) })
-                    {
-                        var point = new Point3D(x, y, z);
-                        if (!used.Contains((map, point)) && map.CanFit(point, 16, false, mobile, true)) { return point; }
-                    }
+                    var atLevel = new Point3D(x, y, anchor.Z);
+                    if (!used.Contains((map, atLevel)) && map.CanFit(atLevel, 16, false, mobile, true)) { return atLevel; }
+                    if (sameLevel) { continue; }
+
+                    var atAverage = new Point3D(x, y, map.GetAverageZ(x, y));
+                    if (atAverage.Z != anchor.Z && !used.Contains((map, atAverage))
+                        && map.CanFit(atAverage, 16, false, mobile, true)) { return atAverage; }
                     if (map.CanSpawnMobile(x, y, Math.Max(-128, anchor.Z - 20), Math.Min(127, anchor.Z + 60), false, false, out int floorZ))
                     {
                         var point = new Point3D(x, y, floorZ);

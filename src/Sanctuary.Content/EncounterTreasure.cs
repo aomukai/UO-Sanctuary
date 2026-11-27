@@ -235,9 +235,9 @@ public static class EncounterTreasure
                 fallbackNamed: dedicated, bowCarrier: life.BowCarrier);
             if (item != null) { life.Corpse.DropItem(item); }
         }
-        if (creature is CoveEncounter { Orc: true } && random.Next(10) == 0)
+        if (creature is CoveEncounter { Orc: true })
             life.Corpse.DropItem(new OrcEar());
-        if (creature is DestardEncounter { DropsHorn: true } && !creature.Controlled && !creature.Summoned && random.Next(10) < 9)
+        if (creature is DestardEncounter { DropsHorn: true, Controlled: false, Summoned: false })
             life.Corpse.DropItem(new DaemonHorn());
         if (creature is HavenEncounter { Dungeon.Id: HavenEncounter.EarthElemental } && random.Next(10) == 0)
             life.Corpse.DropItem(new IronOre(1));

@@ -28,9 +28,10 @@ class TownMarketTests(unittest.TestCase):
             towns[key].add(row['role'])
             self.assertTrue(row['source'].startswith('Spawns/') or
                             (key == ('New Haven', 'Trammel') and row['source'] == 'New Haven mage tower') or
+                            (row['town'] == 'Wind' and row['source'] == 'Wind market posts') or
                             (key == ('Heartwood', 'Trammel') and row['source'] in {'Heartwood workshop', 'Heartwood market'}))
         self.assertEqual(roadside, {'Fisher': (2733, 1061, 0), 'Cook': (2745, 1066, 0)})
-        self.assertEqual(len(towns), 35)
+        self.assertEqual(len(towns), 34)
         roles = {'Smith','Tailor','Bowyer','Carpenter','Alchemist','Cook','Cartographer','Scribe',
                  'Tinker','Imbuer','Miner','Lumberjack','Fisher','Jeweller'}
         overrides = {('Cove', 'Trammel'): {'Jeweller'}, ('New Haven', 'Trammel'): roles | {'Scholar'},
@@ -40,6 +41,8 @@ class TownMarketTests(unittest.TestCase):
         self.assertIn(('Ocllo','Felucca'), towns)
         self.assertIn(('New Haven','Trammel'), towns)
         self.assertIn(('Heartwood', 'Trammel'), towns)
+        self.assertIn(('Wind', 'Trammel'), towns)
+        self.assertNotIn(('Wind', 'Felucca'), towns)
 
     def test_each_trainer_site_has_its_own_portrait(self):
         sites = json.loads((BALANCE / 'town-markets.json').read_text())

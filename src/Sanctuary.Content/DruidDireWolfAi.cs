@@ -42,14 +42,15 @@ internal static class DruidDireWolfAi
         if(c.Town)
         {if(!s.CommonMove(0,false,0,6)){A(0,33);}return Memory();}
         int target=c.Primary!=0 && c.PrimaryVisible?c.Primary
-            :c.Potential!=0 && c.PotentialDistance<P(4) && c.PotentialVisible?c.Potential:0;
-        if(target!=0 && c.OwnerDistance>P(4) && c.OwnerTargetDistance>P(4)){target=0;}
+            :c.Potential!=0 && c.PotentialDistance<P(4)+c.RangeBonus && c.PotentialVisible?c.Potential:0;
+        if(target!=0 && c.OwnerDistance>P(4)+c.RangeBonus && c.OwnerTargetDistance>P(4)+c.RangeBonus){target=0;}
         int velocity=c.Velocity<=0?100:Math.Min(checked(100*c.Run)/c.Velocity-100,100);
-        if(c.Teleport && c.OwnerDistance>50)
+        int leashBonus=target!=0?c.RangeBonus:0;
+        if(c.Teleport && c.OwnerDistance>50+leashBonus)
         {A(2,8,292,c.OwnerX,c.OwnerY);A(3,2);A(4,10);return Memory();}
-        if(c.OwnerDistance>P(5))
+        if(c.OwnerDistance>P(5)+leashBonus)
         {s.PetMove(0,true,100,0);return Memory();}
-        if(c.OwnerDistance>P(4))
+        if(c.OwnerDistance>P(4)+leashBonus)
         {
             if(c.OwnerMode==3){s.PetMove(0,true,100,0);return Memory();}
             if(c.OwnerMode is 2 or 6){s.PetMove(0,false,0,0);return Memory();}

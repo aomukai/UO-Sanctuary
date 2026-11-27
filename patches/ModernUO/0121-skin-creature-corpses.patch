@@ -1,0 +1,235 @@
+diff --git a/Projects/UOContent/Engines/Harvest/Lumberjacking.cs b/Projects/UOContent/Engines/Harvest/Lumberjacking.cs
+--- a/Projects/UOContent/Engines/Harvest/Lumberjacking.cs
++++ b/Projects/UOContent/Engines/Harvest/Lumberjacking.cs
+@@ -1,5 +1,6 @@
+ using System;
+ using Server.Items;
++using Server.Targets;
+ using Server.Targeting;
+ 
+ namespace Server.Engines.Harvest
+@@ -122,6 +123,21 @@
+ 
+         public static Lumberjacking System => m_System ??= new Lumberjacking();
+ 
++        public override bool BeginHarvesting(Mobile from, Item tool)
++        {
++            // A blade in the backpack can carve. Chopping trees still requires equipping the tool.
++            if (tool is BaseAxe or BasePoleArm && tool.IsChildOf(from.Backpack))
++            {
++                if (!CheckTool(from, tool))
++                    return false;
++
++                from.Target = new BladedItemTarget(tool);
++                return true;
++            }
++
++            return base.BeginHarvesting(from, tool);
++        }
++
+         public override bool CheckHarvest(Mobile from, Item tool)
+         {
+             if (!base.CheckHarvest(from, tool))
+diff --git a/Projects/UOContent/Items/Misc/Corpses/Corpse.cs b/Projects/UOContent/Items/Misc/Corpses/Corpse.cs
+--- a/Projects/UOContent/Items/Misc/Corpses/Corpse.cs
++++ b/Projects/UOContent/Items/Misc/Corpses/Corpse.cs
+@@ -454,6 +454,11 @@
+ 
+     public void Carve(Mobile from, Item item)
+     {
++        if (from.Map != Map || !from.InRange(GetWorldLocation(), 2))
++        {
++            from.SendLocalizedMessage(500446); // That is too far away.
++            return;
++        }
+         if (CorpseRecoveryHooks.Available?.Invoke(this) == false)
+         {
+             return;
+@@ -479,11 +484,11 @@
+ 
+         var dead = Owner;
+ 
+-        if (GetFlag(CorpseFlag.Carved) || dead == null)
++        if (GetFlag(CorpseFlag.Carved))
+         {
+             from.SendLocalizedMessage(500485); // You see nothing useful to carve from the corpse.
+         }
+-        else if (ShowsWornGear)
++        else if (ShowsWornGear && dead != null)
+         {
+             new Blood(0x122D).MoveToWorld(Location, Map);
+ 
+@@ -527,6 +532,13 @@
+                 ClassLootHooks.Carved?.Invoke(from, this);
+             }
+         }
++        else if (dead == null && ClassFoodHooks.Skinning?.Invoke(from, null, this) is { Amount: > 0 } skinning)
++        {
++            var bonus = ClassFoodHooks.CarveBonus?.Invoke(from, this) ?? 0;
++            BaseCreature.DropCarvedHides(from, this, skinning.Amount, skinning.Type, bonus);
++            Carved = true;
++            ClassLootHooks.Carved?.Invoke(from, this);
++        }
+         else
+         {
+             from.SendLocalizedMessage(500485); // You see nothing useful to carve from the corpse.
+diff --git a/Projects/UOContent/Mobiles/BaseCreature.cs b/Projects/UOContent/Mobiles/BaseCreature.cs
+--- a/Projects/UOContent/Mobiles/BaseCreature.cs
++++ b/Projects/UOContent/Mobiles/BaseCreature.cs
+@@ -2066,7 +2066,8 @@
+             var feathers = Feathers;
+             var wool = Wool;
+             var meat = Meat;
+-            var hides = Hides;
++            var skinning = ClassFoodHooks.Skinning?.Invoke(from, this, corpse);
++            var (hides, hideType) = skinning ?? (Hides, HideType);
+             var scales = Scales;
+ 
+             if (feathers == 0 && wool == 0 && meat == 0 && hides == 0 && scales == 0
+@@ -2084,16 +2085,10 @@
+             }
+             else
+             {
+-                if (Core.ML && from.Race == Race.Human)
+-                {
+-                    hides = (int)Math.Ceiling(hides * 1.1); // 10% bonus only applies to hides, ore & logs
+-                }
+-
+                 if (corpse.Map == Map.Felucca)
+                 {
+                     feathers *= 2;
+                     wool *= 2;
+-                    hides *= 2;
+ 
+                     if (Core.ML)
+                     {
+@@ -2104,7 +2099,6 @@
+ 
+                 var foodBonus = ClassFoodHooks.CarveBonus?.Invoke(from, corpse) ?? 0;
+                 if (meat > 0) { meat += foodBonus; }
+-                if (hides > 0) { hides += foodBonus; }
+                 if (feathers > 0) { feathers += foodBonus; }
+                 ClassFoodHooks.ExtraCarved?.Invoke(from, this, corpse);
+ 
+@@ -2140,57 +2134,10 @@
+                     from.SendLocalizedMessage(500467); // You carve some meat, which remains on the corpse.
+                 }
+ 
+-                if (hides != 0)
++                if (hides > 0)
+                 {
+-                    var holding = from.Weapon as Item;
+-
+-                    if (Core.AOS && holding is SkinningKnife)
+-                    {
+-                        var leather = HideType switch
+-                        {
+-                            HideType.Regular => (Item)new Leather(hides),
+-                            HideType.Spined  => new SpinedLeather(hides),
+-                            HideType.Horned  => new HornedLeather(hides),
+-                            HideType.Barbed  => new BarbedLeather(hides),
+-                            _                => null
+-                        };
+-
+-                        if (leather != null)
+-                        {
+-                            if (!from.PlaceInBackpack(leather))
+-                            {
+-                                corpse.DropItem(leather);
+-                                from.SendLocalizedMessage(500471); // You skin it, and the hides are now in the corpse.
+-                            }
+-                            else
+-                            {
+-                                from.SendLocalizedMessage(
+-                                    1073555
+-                                ); // You skin it and place the cut-up hides in your backpack.
+-                            }
+-                        }
+-                    }
+-                    else
+-                    {
+-                        if (HideType == HideType.Regular)
+-                        {
+-                            corpse.DropItem(new Hides(hides));
+-                        }
+-                        else if (HideType == HideType.Spined)
+-                        {
+-                            corpse.DropItem(new SpinedHides(hides));
+-                        }
+-                        else if (HideType == HideType.Horned)
+-                        {
+-                            corpse.DropItem(new HornedHides(hides));
+-                        }
+-                        else if (HideType == HideType.Barbed)
+-                        {
+-                            corpse.DropItem(new BarbedHides(hides));
+-                        }
+-
+-                        from.SendLocalizedMessage(500471); // You skin it, and the hides are now in the corpse.
+-                    }
++                    DropCarvedHides(from, corpse, hides, hideType, foodBonus,
++                        !skinning.HasValue && Core.AOS && from.Weapon is SkinningKnife);
+                 }
+ 
+                 if (scales != 0)
+@@ -2253,6 +2200,49 @@
+             }
+         }
+ 
++        internal static void DropCarvedHides(Mobile from, Corpse corpse, int amount, HideType hideType, int foodBonus,
++            bool cutLeather = false)
++        {
++            if (Core.ML && from.Race == Race.Human)
++            {
++                amount = (int)Math.Ceiling(amount * 1.1);
++            }
++
++            if (corpse.Map == Map.Felucca)
++            {
++                amount *= 2;
++            }
++
++            amount += foodBonus;
++            Item hides = (hideType, cutLeather) switch
++            {
++                (HideType.Regular, true) => new Leather(amount),
++                (HideType.Spined, true) => new SpinedLeather(amount),
++                (HideType.Horned, true) => new HornedLeather(amount),
++                (HideType.Barbed, true) => new BarbedLeather(amount),
++                (HideType.Regular, false) => new Hides(amount),
++                (HideType.Spined, false) => new SpinedHides(amount),
++                (HideType.Horned, false) => new HornedHides(amount),
++                (HideType.Barbed, false) => new BarbedHides(amount),
++                _ => null
++            };
++
++            if (hides == null)
++            {
++                return;
++            }
++
++            if (cutLeather && from.PlaceInBackpack(hides))
++            {
++                from.SendLocalizedMessage(1073555); // You skin it and place the cut-up hides in your backpack.
++            }
++            else
++            {
++                corpse.DropItem(hides);
++                from.SendLocalizedMessage(500471); // You skin it, and the hides are now in the corpse.
++            }
++        }
++
+         // Absent fields resolve through the same default-value methods the live reader uses.
+         private void MigrateFrom(V23Content content)
+         {
+diff --git a/Projects/UOContent/Mobiles/ClassFoodHooks.cs b/Projects/UOContent/Mobiles/ClassFoodHooks.cs
+--- a/Projects/UOContent/Mobiles/ClassFoodHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassFoodHooks.cs
+@@ -13,6 +13,7 @@
+     public static Action<Mobile, HarvestDefinition, Item> Harvested { get; set; }
+     public static Func<BaseCreature, bool> ExtraCarvable { get; set; }
+     public static Func<Mobile, Corpse, int> CarveBonus { get; set; }
++    public static Func<Mobile, BaseCreature, Corpse, (int Amount, HideType Type)?> Skinning { get; set; }
+     public static Action<Mobile, BaseCreature, Corpse> ExtraCarved { get; set; }
+     public static Func<BaseCreature, Mobile, bool> CanAcquire { get; set; }
+     public static Func<BaseCreature, long, long> AcquireDeadline { get; set; }

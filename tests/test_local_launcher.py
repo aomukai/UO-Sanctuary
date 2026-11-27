@@ -3,10 +3,11 @@ import json
 from pathlib import Path
 import subprocess
 from tempfile import TemporaryDirectory
+from threading import Event
 import unittest
 from unittest.mock import Mock, call, patch
 
-from tools.local_launcher import LocalGame, save_language, selected_language
+from tools.local_launcher import LocalGame, SERVER_RESTART_EXIT_CODE, save_language, selected_language
 
 
 STATUS = "Britain baseline status: doors=8"
@@ -61,9 +62,47 @@ class LocalLauncherTests(unittest.TestCase):
             self.assertEqual(log.read_bytes(), b"next launch\n")
             self.assertEqual(log.with_suffix(".previous.log").read_bytes(), b"previous crash details\n")
 
+    def test_desktop_server_defers_restart_to_launcher(self):
+        with TemporaryDirectory() as directory:
+            folder = Path(directory)
+            server = ["dotnet", "ModernUO.dll"], folder, {"DOTNET_ROOT": "/sdk"}
+            client = ["dotnet", "cuo.dll"], folder, {}
+            game = LocalGame(folder, Mock(side_effect=[server, client]), Mock())
+            game.logs.mkdir()
+            game.log_path("server").touch()
+            game.spawn = Mock()
+            game.wait_for = Mock()
+            game.sync_console = Mock()
+
+            with patch("tools.local_launcher.local_addresses", return_value=[("127.0.0.1", 2593)]), \
+                    patch("tools.local_launcher.socket_open", side_effect=[False, True]):
+                try:
+                    game.play(Mock(), Event())
+                    server_spec, name, _ = game.spawn.call_args_list[0].args
+                    self.assertEqual(name, "server")
+                    self.assertEqual(server_spec[2], {
+                        "DOTNET_ROOT": "/sdk", "MODERNUO_RESTART_EXIT_CODE": str(SERVER_RESTART_EXIT_CODE),
+                    })
+                    self.assertNotIn("MODERNUO_RESTART_EXIT_CODE", game.spawn.call_args_list[1].args[0][2])
+                finally:
+                    game.release_server()
+
+    def test_play_can_reopen_client_on_running_server(self):
+        client = ["dotnet", "cuo.dll"], Path(".local/client"), {}
+        prepare = Mock(return_value=client)
+        game = LocalGame(Path(".local"), prepare, Mock())
+        game.running_server = Mock(return_value={"pid": 100})
+        game.spawn = Mock()
+
+        with patch("tools.local_launcher.local_addresses", return_value=[("127.0.0.1", 2593)]), \
+                patch("tools.local_launcher.socket_open", return_value=True):
+            game.play(Mock(), Event())
+
+        prepare.assert_called_once_with("client")
+        game.spawn.assert_called_once_with((client[0], client[1], {"SDL_VIDEODRIVER": "x11"}), "client", subprocess.DEVNULL)
+
     def game_at_console(self, messages):
         game = LocalGame(Path(".local"), Mock(), Mock())
-        game.ready = True
         game.server = Mock()
         game.server.poll.return_value = None
         game.server.wait.return_value = 0
@@ -98,6 +137,13 @@ class LocalLauncherTests(unittest.TestCase):
             self.assertIs(game.server, server)
         finally:
             game.release_server()
+
+    def test_server_restart_exit_returns_to_play(self):
+        game, _ = self.game_at_console([])
+        game.server.poll.return_value = SERVER_RESTART_EXIT_CODE
+        self.assertIn("Select Play", game.stop(Mock()))
+        game.send.assert_not_called()
+        self.assertIsNone(game.server)
 
     def test_waiting_for_slow_shutdown_does_not_request_another_save(self):
         game, _ = self.game_at_console([STATUS, SAVE, ON_DISK])

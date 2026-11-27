@@ -22,7 +22,7 @@ internal static class AssassinSentryTargets
     }
     internal static SentryChoice Select(Point2D origin,IEnumerable<SentryCandidate> candidates,
         Func<SentryCandidate,bool> eligible,Func<SentryCandidate,bool> barrier,
-        Func<SentryCandidate,bool> primaryPath,SentryChoice remembered=null)
+        Func<SentryCandidate,bool> primaryPath,SentryChoice remembered=null,int maximumDistance=48)
     {
         ArgumentNullException.ThrowIfNull(candidates);ArgumentNullException.ThrowIfNull(eligible);ArgumentNullException.ThrowIfNull(barrier);ArgumentNullException.ThrowIfNull(primaryPath);
         if(remembered!=null){return remembered;}
@@ -30,7 +30,7 @@ internal static class AssassinSentryTargets
         foreach(var candidate in candidates)
         {
             if(!eligible(candidate)){continue;}
-            int distance=Distance(origin,candidate);if(distance>48){continue;}
+            int distance=Distance(origin,candidate);if(distance>maximumDistance){continue;}
             bool primary=candidate.Player || candidate.Threat.GetValueOrDefault()>1;
             var old=primary?scan.Primary:scan.Alternative;
             if(distance>=(old?.Distance??int.MaxValue) || barrier(candidate)){continue;}
@@ -44,7 +44,7 @@ internal static class AssassinSentryTargets
         foreach(var candidate in candidates)
         {
             if(candidate.Serial==scan.Primary.Candidate.Serial || !eligible(candidate)){continue;}
-            int distance=Distance(origin,candidate);if(distance>48){continue;}
+            int distance=Distance(origin,candidate);if(distance>maximumDistance){continue;}
             if(!candidate.Player && candidate.Threat==null){throw new NotSupportedException("Source callback7 has no missing-monster-row fallback");}
             if(!(candidate.Player || candidate.Threat.GetValueOrDefault()>1)
                 || distance>=(fallback?.Distance??int.MaxValue) || barrier(candidate)){continue;}

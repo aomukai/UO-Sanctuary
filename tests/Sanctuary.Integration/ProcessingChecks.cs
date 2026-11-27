@@ -27,6 +27,48 @@ public static class ProcessingChecks
         Register("processing-check", Setup); Register("processing-reload-check", Reload);
         Register("processing-comparison-check", Comparison);
         Register("processing-pending-check", Pending);
+        Register("skinning-check", () =>
+        {
+            var player = Player("SkinningFixture");
+            try { Skinning(player); }
+            finally { player.Delete(); }
+        });
+        Register("skinning-save-check", () =>
+        {
+            var player = Player("SkinningReloadFixture");
+            var dragon = new Dragon();
+            MonsterVariants.Assign(dragon, MonsterDifficulty.Hell);
+            var corpse = GearDropChecks.Body(dragon, player, player.Location);
+            CorpseSkillRules.Capture(dragon, corpse);
+            dragon.Delete();
+            File.WriteAllText(Path.Join(Core.BaseDirectory, "skinning-checks.json"),
+                JsonSerializer.Serialize(new[] { player.Serial.Value, corpse.Serial.Value }));
+        });
+        Register("skinning-reload-check", () =>
+        {
+            var serials = JsonSerializer.Deserialize<uint[]>(File.ReadAllText(Path.Join(Core.BaseDirectory, "skinning-checks.json")));
+            var player = (PlayerMobile)World.FindMobile((Serial)serials[0]);
+            var corpse = (Corpse)World.FindItem((Serial)serials[1]);
+            Require(player != null && corpse != null, $"Missing saved skinning fixture: player={player != null}, corpse={corpse != null}");
+            player.MoveToWorld(corpse.Location, corpse.Map);
+            var knife = Put(player, new ButcherKnife());
+            try
+            {
+                Require(corpse.Owner == null && CorpseSkillRules.Profiles.Find(corpse)?.Skinning is { Type: HideType.Barbed },
+                    "The saved hide tier requires a creature owner");
+                player.NextActionTime = Core.TickCount;
+                player.Use(knife);
+                Require(player.Target != null, "The reloaded player's blade did not offer a target");
+                player.Target.Invoke(player, corpse);
+                Require(corpse.Carved && corpse.Items.OfType<BarbedHides>().Count() == 1,
+                    "The ownerless corpse could not be skinned after reload");
+            }
+            finally
+            {
+                corpse.Delete();
+                player.Delete();
+            }
+        });
         ConsoleInputHandler.RegisterCommand("processing-spin-check", "Native delayed wheel completion", _ => Core.LoopContext.Post(Spinning));
     }
     private static void Register(string command, Action action) => ConsoleInputHandler.RegisterCommand(command,
@@ -278,17 +320,94 @@ public static class ProcessingChecks
             "Native mining thresholds/yields changed");
         Require(ClassProfessions.Active(player, SkillName.Mining) && ClassProfessions.Active(player, SkillName.Lumberjacking)
             && ClassProfessions.Active(player, SkillName.Fishing), "Gathering required craft selection");
-        foreach (var creature in new BaseCreature[] { new Cow(), new Lizardman(), new Dragon() })
+        Skinning(player);
+    }
+    private static void Skinning(PlayerMobile player)
+    {
+        var dragon = new Dragon();
+        try
         {
-            var corpse = new Corpse(creature, new List<Item>()); corpse.MoveToWorld(player.Location, player.Map);
-            var knife = new ButcherKnife(); double before = player.Skills.Total;
-            creature.OnCarve(player, corpse, knife);
-            var hides = corpse.Items.OfType<BaseHides>().Single();
-            Require(hides.Amount == (Core.ML && player.Race == Race.Human ? (int)Math.Ceiling(creature.Hides * 1.1) : creature.Hides) && hides.Resource == creature.HideType switch
-            { HideType.Spined => CraftResource.SpinedLeather, HideType.Horned => CraftResource.HornedLeather,
-                HideType.Barbed => CraftResource.BarbedLeather, _ => CraftResource.RegularLeather }
-                && player.Skills.Total == before, "Skinning changed native species/yield or gained skill: " + creature.GetType().Name + " " + hides.Amount + " " + hides.Resource);
-            corpse.Delete(); creature.Delete(); knife.Delete();
+            foreach (var (level, tier) in new[] { (1, 0), (24, 0), (25, 1), (49, 1), (50, 2), (74, 2), (75, 3), (99, 3) })
+            {
+                var skin = CorpseSkinning.Capture(dragon, dragon.Body, level);
+                Require(skin.Type == (HideType)tier && skin.Amount >= 4 + 2 * tier && skin.Amount <= 6 + 2 * tier,
+                    $"Wrong hide or quantity at monster level {level}");
+            }
+        }
+        finally { dragon.Delete(); }
+
+        var scissors = Put(player, new Scissors());
+        var sword = Put(player, new Longsword());
+        var axe = Put(player, new Hatchet());
+        try
+        {
+            Check(new Cow(), MonsterDifficulty.Normal, sword, CraftResource.RegularLeather);
+            Check(new Daemon(), MonsterDifficulty.Normal, sword, CraftResource.RegularLeather);
+            Check(new Dragon(), MonsterDifficulty.Normal, sword, CraftResource.SpinedLeather);
+            Check(new Dragon(), MonsterDifficulty.Nightmare, axe, CraftResource.HornedLeather);
+            Check(new Dragon(), MonsterDifficulty.Hell, sword, CraftResource.BarbedLeather);
+            Check(new Ogre(), MonsterDifficulty.Normal, sword, CraftResource.RegularLeather);
+            Check(new Lizardman(), MonsterDifficulty.Normal, sword, null);
+            Check(new Orc(), MonsterDifficulty.Normal, sword, null);
+            Check(new SkeletalDragon(), MonsterDifficulty.Normal, sword, null);
+            Check(new FireElemental(), MonsterDifficulty.Normal, sword, null);
+            var knife = new SkinningKnife();
+            player.AddItem(knife);
+            try { Check(new Cow(), MonsterDifficulty.Normal, knife, CraftResource.RegularLeather); }
+            finally { knife.Delete(); }
+        }
+        finally
+        {
+            scissors.Delete();
+            sword.Delete();
+            axe.Delete();
+        }
+
+        void Check(BaseCreature creature, MonsterDifficulty difficulty, Item blade, CraftResource? expected)
+        {
+            if (difficulty != MonsterDifficulty.Normal)
+                MonsterVariants.Assign(creature, difficulty);
+            var corpse = GearDropChecks.Body(creature, player, player.Location);
+            try
+            {
+                CorpseSkillRules.Capture(creature, corpse);
+                var skin = CorpseSkillRules.Profiles.Find(corpse).Skinning;
+                double before = player.Skills.Total;
+                player.NextActionTime = Core.TickCount;
+                player.Use(blade);
+                Require(player.Target != null, $"{blade.GetType().Name} did not offer a carving target");
+                player.Target.Invoke(player, corpse);
+
+                var hides = corpse.Items.OfType<BaseHides>().ToArray();
+                if (expected.HasValue)
+                {
+                    int amount = Core.ML && player.Race == Race.Human ? (int)Math.Ceiling(skin.Amount * 1.1) : skin.Amount;
+                    Require(hides is [var stack] && stack.Amount == amount && stack.Resource == expected && corpse.Carved,
+                        $"Wrong hide yield from {creature.GetType().Name} on {difficulty}");
+                    corpse.Carve(player, blade);
+                    Require(corpse.Items.OfType<BaseHides>().Count() == 1 && hides[0].Amount == amount,
+                        "The same corpse yielded a second hide stack");
+                    Require(hides[0].PileWeight == 2 * amount, "Harvested hides should weigh two stones each");
+                    Put(player, hides[0]);
+                    int beforeCutting = player.Backpack.Items.OfType<BaseLeather>().Where(leather => leather.Resource == expected)
+                        .Sum(leather => leather.Amount);
+                    player.NextActionTime = Core.TickCount;
+                    player.Use(scissors);
+                    Require(player.Target != null, "Scissors did not offer a target");
+                    player.Target.Invoke(player, hides[0]);
+                    var cut = player.Backpack.Items.OfType<BaseLeather>().Where(leather => leather.Resource == expected).ToArray();
+                    Require(hides[0].Deleted && cut.Sum(leather => leather.Amount) == beforeCutting + amount
+                        && cut.All(leather => leather.PileWeight == leather.Amount), "Cutting changed the yield, tier, or leather weight");
+                }
+                else
+                    Require(hides.Length == 0, $"An ineligible {creature.GetType().Name} yielded hides");
+                Require(player.Skills.Total == before, "Skinning should not award crafting skill");
+            }
+            finally
+            {
+                corpse.Delete();
+                creature.Delete();
+            }
         }
     }
     private static void Spinning()

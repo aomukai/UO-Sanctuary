@@ -134,7 +134,7 @@ internal static class GoatmanNativeDecision
         GenericPetCombatServices Combat(GenericPetDecisionFrame frame)
         {
             var context=new GenericPetCombatContext(1,position(actor));
-            var wrapper=GenericPetOwnerSurvey.Bind(new GenericPetSearchWrapperContext(1,actor,master,frame.Parameters,[]),current.Survey);
+            var wrapper=GenericPetOwnerSurvey.Bind(new GenericPetSearchWrapperContext(1,actor,master,frame.Parameters,[],PetCombatRanges.ExtendSquared(1024)),current.Survey);
             GenericPetCombatCandidate Rate(GenericPetCombatCandidate row,GenericPetCombatSelection selection)
                 =>GenericPetRatingRouting.Rate(1,frame.Parameters,current.PetLifePercent,selection,row,
                     new((selector,id)=>metadata.SkillInfo(selector,id)?.Flags39,
@@ -153,7 +153,11 @@ internal static class GoatmanNativeDecision
         }
         var root=new GenericPetRootServices(()=>position(master),_=>
         {
-            current=DeathMarkWorld.InitializePrepared(body,master,identity,owned);return current.Decision;
+            current=DeathMarkWorld.InitializePrepared(body,master,identity,owned);
+            var frame=current.Decision;
+            var parameters=frame.Parameters with{LeashSquared=PetCombatRanges.ExtendSquared(frame.Parameters.LeashSquared),
+                WarpSquared=PetCombatRanges.ExtendSquared(frame.Parameters.WarpSquared)};
+            return frame with{Parameters=parameters};
         },_=>throw new NotSupportedException("Bind the real timed-event store before root execution"),GenericPetSearch.Squared,
             level,
             (unit,frame)=>

@@ -236,7 +236,7 @@ internal static class IronGolemWorld
         bool Common(int target,bool combat,int flag,int leash)
         {
             if(MageWorld.For(body) is{} mage){mage.ObserveCombatTarget(target!=0);}
-            return SourcePetMovement.Common(Context(),movement,target!=0,SpellHelper.IsTown(body.Location,owner),combat,flag,leash);
+            return SourcePetMovement.Common(Context(),movement,target!=0,SpellHelper.IsTown(body.Location,owner),combat,flag,leash,PetCombatRanges.BonusSourceCells);
         }
         int OriginalAction(NecromancerPetAiRequest r)
         {
@@ -272,7 +272,8 @@ internal static class IronGolemWorld
         if(body is INecromancerGroundBrain own){own.GroundThink(owner,s.Frame,at,queries);}
         else
         {
-            var memory=NecromancerPetAi.Think(new(s.Ai,NecromancerSummons.Source(body.SourceMonsterId,"Velocity"),NecromancerSummons.Source(body.SourceMonsterId,"Run"),MageWorld.For(body)!=null?4:0,MageWorld.For(body)!=null?338:0),queries,
+            int aggroBonus = NecromancerGolems.Member(body) ? PetCombatRanges.GolemAggroBonusSourceCells : 0;
+            var memory=NecromancerPetAi.Think(new(s.Ai,NecromancerSummons.Source(body.SourceMonsterId,"Velocity"),NecromancerSummons.Source(body.SourceMonsterId,"Run"),MageWorld.For(body)!=null?4:0,MageWorld.For(body)!=null?338:0,PetCombatRanges.BonusSourceCells,aggroBonus),queries,
                 responsiveMelee: ResponsiveMelee(body));
             s=s with{Ai=memory};
         }
